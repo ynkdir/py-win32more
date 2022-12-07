@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Direct3D
 import win32more.Graphics.Direct3D.Fxc
@@ -9,226 +10,147 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-D3DCOMPILER_DLL_W = 'd3dcompiler_47.dll'
-D3DCOMPILER_DLL_A = 'd3dcompiler_47.dll'
-D3D_COMPILER_VERSION = 47
-D3DCOMPILE_DEBUG = 1
-D3DCOMPILE_SKIP_VALIDATION = 2
-D3DCOMPILE_SKIP_OPTIMIZATION = 4
-D3DCOMPILE_PACK_MATRIX_ROW_MAJOR = 8
-D3DCOMPILE_PACK_MATRIX_COLUMN_MAJOR = 16
-D3DCOMPILE_PARTIAL_PRECISION = 32
-D3DCOMPILE_FORCE_VS_SOFTWARE_NO_OPT = 64
-D3DCOMPILE_FORCE_PS_SOFTWARE_NO_OPT = 128
-D3DCOMPILE_NO_PRESHADER = 256
-D3DCOMPILE_AVOID_FLOW_CONTROL = 512
-D3DCOMPILE_PREFER_FLOW_CONTROL = 1024
-D3DCOMPILE_ENABLE_STRICTNESS = 2048
-D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY = 4096
-D3DCOMPILE_IEEE_STRICTNESS = 8192
-D3DCOMPILE_OPTIMIZATION_LEVEL0 = 16384
-D3DCOMPILE_OPTIMIZATION_LEVEL1 = 0
-D3DCOMPILE_OPTIMIZATION_LEVEL3 = 32768
-D3DCOMPILE_RESERVED16 = 65536
-D3DCOMPILE_RESERVED17 = 131072
-D3DCOMPILE_WARNINGS_ARE_ERRORS = 262144
-D3DCOMPILE_RESOURCES_MAY_ALIAS = 524288
-D3DCOMPILE_ENABLE_UNBOUNDED_DESCRIPTOR_TABLES = 1048576
-D3DCOMPILE_ALL_RESOURCES_BOUND = 2097152
-D3DCOMPILE_DEBUG_NAME_FOR_SOURCE = 4194304
-D3DCOMPILE_DEBUG_NAME_FOR_BINARY = 8388608
-D3DCOMPILE_EFFECT_CHILD_EFFECT = 1
-D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS = 2
-D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_LATEST = 0
-D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_1_0 = 16
-D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_1_1 = 32
-D3DCOMPILE_SECDATA_MERGE_UAV_SLOTS = 1
-D3DCOMPILE_SECDATA_PRESERVE_TEMPLATE_SLOTS = 2
-D3DCOMPILE_SECDATA_REQUIRE_TEMPLATE_MATCH = 4
-D3D_DISASM_ENABLE_COLOR_CODE = 1
-D3D_DISASM_ENABLE_DEFAULT_VALUE_PRINTS = 2
-D3D_DISASM_ENABLE_INSTRUCTION_NUMBERING = 4
-D3D_DISASM_ENABLE_INSTRUCTION_CYCLE = 8
-D3D_DISASM_DISABLE_DEBUG_INFO = 16
-D3D_DISASM_ENABLE_INSTRUCTION_OFFSET = 32
-D3D_DISASM_INSTRUCTION_ONLY = 64
-D3D_DISASM_PRINT_HEX_LITERALS = 128
-D3D_GET_INST_OFFSETS_INCLUDE_NON_EXECUTABLE = 1
-D3D_COMPRESS_SHADER_KEEP_ALL_PARTS = 1
-def _define_D3DReadFileToBlob():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DReadFileToBlob', windll['D3DCOMPILER_47.dll']), ((1, 'pFileName'),(1, 'ppContents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DWriteBlobToFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.ID3DBlob_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('D3DWriteBlobToFile', windll['D3DCOMPILER_47.dll']), ((1, 'pBlob'),(1, 'pFileName'),(1, 'bOverwrite'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCompile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DCompile', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'pSourceName'),(1, 'pDefines'),(1, 'pInclude'),(1, 'pEntrypoint'),(1, 'pTarget'),(1, 'Flags1'),(1, 'Flags2'),(1, 'ppCode'),(1, 'ppErrorMsgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCompile2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DCompile2', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'pSourceName'),(1, 'pDefines'),(1, 'pInclude'),(1, 'pEntrypoint'),(1, 'pTarget'),(1, 'Flags1'),(1, 'Flags2'),(1, 'SecondaryDataFlags'),(1, 'pSecondaryData'),(1, 'SecondaryDataSize'),(1, 'ppCode'),(1, 'ppErrorMsgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCompileFromFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DCompileFromFile', windll['D3DCOMPILER_47.dll']), ((1, 'pFileName'),(1, 'pDefines'),(1, 'pInclude'),(1, 'pEntrypoint'),(1, 'pTarget'),(1, 'Flags1'),(1, 'Flags2'),(1, 'ppCode'),(1, 'ppErrorMsgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DPreprocess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DPreprocess', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'pSourceName'),(1, 'pDefines'),(1, 'pInclude'),(1, 'ppCodeText'),(1, 'ppErrorMsgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetDebugInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DGetDebugInfo', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'ppDebugInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DReflect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(('D3DReflect', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'pInterface'),(1, 'ppReflector'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DReflectLibrary():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(Guid),POINTER(c_void_p))(('D3DReflectLibrary', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'riid'),(1, 'ppReflector'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DDisassemble():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DDisassemble', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'Flags'),(1, 'szComments'),(1, 'ppDisassembly'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DDisassembleRegion():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,win32more.Foundation.PSTR,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DDisassembleRegion', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'Flags'),(1, 'szComments'),(1, 'StartByteOffset'),(1, 'NumInsts'),(1, 'pFinishByteOffset'),(1, 'ppDisassembly'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCreateLinker():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D11.ID3D11Linker_head))(('D3DCreateLinker', windll['D3DCOMPILER_47.dll']), ((1, 'ppLinker'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DLoadModule():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D11.ID3D11Module_head))(('D3DLoadModule', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'cbSrcDataSize'),(1, 'ppModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCreateFunctionLinkingGraph():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11FunctionLinkingGraph_head))(('D3DCreateFunctionLinkingGraph', windll['D3DCOMPILER_47.dll']), ((1, 'uFlags'),(1, 'ppFunctionLinkingGraph'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetTraceInstructionOffsets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr))(('D3DGetTraceInstructionOffsets', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'Flags'),(1, 'StartInstIndex'),(1, 'NumInsts'),(1, 'pOffsets'),(1, 'pTotalInsts'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetInputSignatureBlob():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DGetInputSignatureBlob', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'ppSignatureBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetOutputSignatureBlob():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DGetOutputSignatureBlob', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'ppSignatureBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetInputAndOutputSignatureBlob():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DGetInputAndOutputSignatureBlob', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'ppSignatureBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DStripShader():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DStripShader', windll['D3DCOMPILER_47.dll']), ((1, 'pShaderBytecode'),(1, 'BytecodeLength'),(1, 'uStripFlags'),(1, 'ppStrippedBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DGetBlobPart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Graphics.Direct3D.Fxc.D3D_BLOB_PART,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DGetBlobPart', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'Part'),(1, 'Flags'),(1, 'ppPart'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DSetBlobPart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Graphics.Direct3D.Fxc.D3D_BLOB_PART,UInt32,c_void_p,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DSetBlobPart', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'Part'),(1, 'Flags'),(1, 'pPart'),(1, 'PartSize'),(1, 'ppNewShader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCreateBlob():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DCreateBlob', windll['D3DCOMPILER_47.dll']), ((1, 'Size'),(1, 'ppBlob'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DCompressShaders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D.Fxc.D3D_SHADER_DATA_head),UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DCompressShaders', windll['D3DCOMPILER_47.dll']), ((1, 'uNumShaders'),(1, 'pShaderData'),(1, 'uFlags'),(1, 'ppCompressedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DDecompressShaders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(UInt32))(('D3DDecompressShaders', windll['D3DCOMPILER_47.dll']), ((1, 'pSrcData'),(1, 'SrcDataSize'),(1, 'uNumShaders'),(1, 'uStartIndex'),(1, 'pIndices'),(1, 'uFlags'),(1, 'ppShaders'),(1, 'pTotalShaders'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D3DDisassemble10Effect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D10.ID3D10Effect_head,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))(('D3DDisassemble10Effect', windll['D3DCOMPILER_47.dll']), ((1, 'pEffect'),(1, 'Flags'),(1, 'ppDisassembly'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+D3DCOMPILER_DLL_W: String = 'd3dcompiler_47.dll'
+D3DCOMPILER_DLL_A: String = 'd3dcompiler_47.dll'
+D3D_COMPILER_VERSION: UInt32 = 47
+D3DCOMPILE_DEBUG: UInt32 = 1
+D3DCOMPILE_SKIP_VALIDATION: UInt32 = 2
+D3DCOMPILE_SKIP_OPTIMIZATION: UInt32 = 4
+D3DCOMPILE_PACK_MATRIX_ROW_MAJOR: UInt32 = 8
+D3DCOMPILE_PACK_MATRIX_COLUMN_MAJOR: UInt32 = 16
+D3DCOMPILE_PARTIAL_PRECISION: UInt32 = 32
+D3DCOMPILE_FORCE_VS_SOFTWARE_NO_OPT: UInt32 = 64
+D3DCOMPILE_FORCE_PS_SOFTWARE_NO_OPT: UInt32 = 128
+D3DCOMPILE_NO_PRESHADER: UInt32 = 256
+D3DCOMPILE_AVOID_FLOW_CONTROL: UInt32 = 512
+D3DCOMPILE_PREFER_FLOW_CONTROL: UInt32 = 1024
+D3DCOMPILE_ENABLE_STRICTNESS: UInt32 = 2048
+D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY: UInt32 = 4096
+D3DCOMPILE_IEEE_STRICTNESS: UInt32 = 8192
+D3DCOMPILE_OPTIMIZATION_LEVEL0: UInt32 = 16384
+D3DCOMPILE_OPTIMIZATION_LEVEL1: UInt32 = 0
+D3DCOMPILE_OPTIMIZATION_LEVEL3: UInt32 = 32768
+D3DCOMPILE_RESERVED16: UInt32 = 65536
+D3DCOMPILE_RESERVED17: UInt32 = 131072
+D3DCOMPILE_WARNINGS_ARE_ERRORS: UInt32 = 262144
+D3DCOMPILE_RESOURCES_MAY_ALIAS: UInt32 = 524288
+D3DCOMPILE_ENABLE_UNBOUNDED_DESCRIPTOR_TABLES: UInt32 = 1048576
+D3DCOMPILE_ALL_RESOURCES_BOUND: UInt32 = 2097152
+D3DCOMPILE_DEBUG_NAME_FOR_SOURCE: UInt32 = 4194304
+D3DCOMPILE_DEBUG_NAME_FOR_BINARY: UInt32 = 8388608
+D3DCOMPILE_EFFECT_CHILD_EFFECT: UInt32 = 1
+D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS: UInt32 = 2
+D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_LATEST: UInt32 = 0
+D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_1_0: UInt32 = 16
+D3DCOMPILE_FLAGS2_FORCE_ROOT_SIGNATURE_1_1: UInt32 = 32
+D3DCOMPILE_SECDATA_MERGE_UAV_SLOTS: UInt32 = 1
+D3DCOMPILE_SECDATA_PRESERVE_TEMPLATE_SLOTS: UInt32 = 2
+D3DCOMPILE_SECDATA_REQUIRE_TEMPLATE_MATCH: UInt32 = 4
+D3D_DISASM_ENABLE_COLOR_CODE: UInt32 = 1
+D3D_DISASM_ENABLE_DEFAULT_VALUE_PRINTS: UInt32 = 2
+D3D_DISASM_ENABLE_INSTRUCTION_NUMBERING: UInt32 = 4
+D3D_DISASM_ENABLE_INSTRUCTION_CYCLE: UInt32 = 8
+D3D_DISASM_DISABLE_DEBUG_INFO: UInt32 = 16
+D3D_DISASM_ENABLE_INSTRUCTION_OFFSET: UInt32 = 32
+D3D_DISASM_INSTRUCTION_ONLY: UInt32 = 64
+D3D_DISASM_PRINT_HEX_LITERALS: UInt32 = 128
+D3D_GET_INST_OFFSETS_INCLUDE_NON_EXECUTABLE: UInt32 = 1
+D3D_COMPRESS_SHADER_KEEP_ALL_PARTS: UInt32 = 1
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DReadFileToBlob(pFileName: win32more.Foundation.PWSTR, ppContents: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DWriteBlobToFile(pBlob: win32more.Graphics.Direct3D.ID3DBlob_head, pFileName: win32more.Foundation.PWSTR, bOverwrite: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCompile(pSrcData: c_void_p, SrcDataSize: UIntPtr, pSourceName: win32more.Foundation.PSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, pEntrypoint: win32more.Foundation.PSTR, pTarget: win32more.Foundation.PSTR, Flags1: UInt32, Flags2: UInt32, ppCode: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCompile2(pSrcData: c_void_p, SrcDataSize: UIntPtr, pSourceName: win32more.Foundation.PSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, pEntrypoint: win32more.Foundation.PSTR, pTarget: win32more.Foundation.PSTR, Flags1: UInt32, Flags2: UInt32, SecondaryDataFlags: UInt32, pSecondaryData: c_void_p, SecondaryDataSize: UIntPtr, ppCode: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCompileFromFile(pFileName: win32more.Foundation.PWSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, pEntrypoint: win32more.Foundation.PSTR, pTarget: win32more.Foundation.PSTR, Flags1: UInt32, Flags2: UInt32, ppCode: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DPreprocess(pSrcData: c_void_p, SrcDataSize: UIntPtr, pSourceName: win32more.Foundation.PSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, ppCodeText: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetDebugInfo(pSrcData: c_void_p, SrcDataSize: UIntPtr, ppDebugInfo: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DReflect(pSrcData: c_void_p, SrcDataSize: UIntPtr, pInterface: POINTER(Guid), ppReflector: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DReflectLibrary(pSrcData: c_void_p, SrcDataSize: UIntPtr, riid: POINTER(Guid), ppReflector: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DDisassemble(pSrcData: c_void_p, SrcDataSize: UIntPtr, Flags: UInt32, szComments: win32more.Foundation.PSTR, ppDisassembly: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DDisassembleRegion(pSrcData: c_void_p, SrcDataSize: UIntPtr, Flags: UInt32, szComments: win32more.Foundation.PSTR, StartByteOffset: UIntPtr, NumInsts: UIntPtr, pFinishByteOffset: POINTER(UIntPtr), ppDisassembly: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCreateLinker(ppLinker: POINTER(win32more.Graphics.Direct3D11.ID3D11Linker_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DLoadModule(pSrcData: c_void_p, cbSrcDataSize: UIntPtr, ppModule: POINTER(win32more.Graphics.Direct3D11.ID3D11Module_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCreateFunctionLinkingGraph(uFlags: UInt32, ppFunctionLinkingGraph: POINTER(win32more.Graphics.Direct3D11.ID3D11FunctionLinkingGraph_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetTraceInstructionOffsets(pSrcData: c_void_p, SrcDataSize: UIntPtr, Flags: UInt32, StartInstIndex: UIntPtr, NumInsts: UIntPtr, pOffsets: POINTER(UIntPtr), pTotalInsts: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetInputSignatureBlob(pSrcData: c_void_p, SrcDataSize: UIntPtr, ppSignatureBlob: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetOutputSignatureBlob(pSrcData: c_void_p, SrcDataSize: UIntPtr, ppSignatureBlob: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetInputAndOutputSignatureBlob(pSrcData: c_void_p, SrcDataSize: UIntPtr, ppSignatureBlob: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DStripShader(pShaderBytecode: c_void_p, BytecodeLength: UIntPtr, uStripFlags: UInt32, ppStrippedBlob: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DGetBlobPart(pSrcData: c_void_p, SrcDataSize: UIntPtr, Part: win32more.Graphics.Direct3D.Fxc.D3D_BLOB_PART, Flags: UInt32, ppPart: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DSetBlobPart(pSrcData: c_void_p, SrcDataSize: UIntPtr, Part: win32more.Graphics.Direct3D.Fxc.D3D_BLOB_PART, Flags: UInt32, pPart: c_void_p, PartSize: UIntPtr, ppNewShader: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCreateBlob(Size: UIntPtr, ppBlob: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DCompressShaders(uNumShaders: UInt32, pShaderData: POINTER(win32more.Graphics.Direct3D.Fxc.D3D_SHADER_DATA_head), uFlags: UInt32, ppCompressedData: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DDecompressShaders(pSrcData: c_void_p, SrcDataSize: UIntPtr, uNumShaders: UInt32, uStartIndex: UInt32, pIndices: POINTER(UInt32), uFlags: UInt32, ppShaders: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), pTotalShaders: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('D3DCOMPILER_47.dll')
+def D3DDisassemble10Effect(pEffect: win32more.Graphics.Direct3D10.ID3D10Effect_head, Flags: UInt32, ppDisassembly: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
 D3D_BLOB_PART = Int32
-D3D_BLOB_INPUT_SIGNATURE_BLOB = 0
-D3D_BLOB_OUTPUT_SIGNATURE_BLOB = 1
-D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB = 2
-D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB = 3
-D3D_BLOB_ALL_SIGNATURE_BLOB = 4
-D3D_BLOB_DEBUG_INFO = 5
-D3D_BLOB_LEGACY_SHADER = 6
-D3D_BLOB_XNA_PREPASS_SHADER = 7
-D3D_BLOB_XNA_SHADER = 8
-D3D_BLOB_PDB = 9
-D3D_BLOB_PRIVATE_DATA = 10
-D3D_BLOB_ROOT_SIGNATURE = 11
-D3D_BLOB_DEBUG_NAME = 12
-D3D_BLOB_TEST_ALTERNATE_SHADER = 32768
-D3D_BLOB_TEST_COMPILE_DETAILS = 32769
-D3D_BLOB_TEST_COMPILE_PERF = 32770
-D3D_BLOB_TEST_COMPILE_REPORT = 32771
-def _define_D3D_SHADER_DATA_head():
-    class D3D_SHADER_DATA(Structure):
-        pass
-    return D3D_SHADER_DATA
-def _define_D3D_SHADER_DATA():
-    D3D_SHADER_DATA = win32more.Graphics.Direct3D.Fxc.D3D_SHADER_DATA_head
-    D3D_SHADER_DATA._fields_ = [
-        ('pBytecode', c_void_p),
-        ('BytecodeLength', UIntPtr),
-    ]
-    return D3D_SHADER_DATA
+D3D_BLOB_INPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 0
+D3D_BLOB_OUTPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 1
+D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 2
+D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB: D3D_BLOB_PART = 3
+D3D_BLOB_ALL_SIGNATURE_BLOB: D3D_BLOB_PART = 4
+D3D_BLOB_DEBUG_INFO: D3D_BLOB_PART = 5
+D3D_BLOB_LEGACY_SHADER: D3D_BLOB_PART = 6
+D3D_BLOB_XNA_PREPASS_SHADER: D3D_BLOB_PART = 7
+D3D_BLOB_XNA_SHADER: D3D_BLOB_PART = 8
+D3D_BLOB_PDB: D3D_BLOB_PART = 9
+D3D_BLOB_PRIVATE_DATA: D3D_BLOB_PART = 10
+D3D_BLOB_ROOT_SIGNATURE: D3D_BLOB_PART = 11
+D3D_BLOB_DEBUG_NAME: D3D_BLOB_PART = 12
+D3D_BLOB_TEST_ALTERNATE_SHADER: D3D_BLOB_PART = 32768
+D3D_BLOB_TEST_COMPILE_DETAILS: D3D_BLOB_PART = 32769
+D3D_BLOB_TEST_COMPILE_PERF: D3D_BLOB_PART = 32770
+D3D_BLOB_TEST_COMPILE_REPORT: D3D_BLOB_PART = 32771
+class D3D_SHADER_DATA(Structure):
+    pBytecode: c_void_p
+    BytecodeLength: UIntPtr
 D3DCOMPILER_STRIP_FLAGS = Int32
-D3DCOMPILER_STRIP_REFLECTION_DATA = 1
-D3DCOMPILER_STRIP_DEBUG_INFO = 2
-D3DCOMPILER_STRIP_TEST_BLOBS = 4
-D3DCOMPILER_STRIP_PRIVATE_DATA = 8
-D3DCOMPILER_STRIP_ROOT_SIGNATURE = 16
-D3DCOMPILER_STRIP_FORCE_DWORD = 2147483647
-def _define_pD3DCompile():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))
-def _define_pD3DDisassemble():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))
-def _define_pD3DPreprocess():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head),win32more.Graphics.Direct3D.ID3DInclude_head,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head))
+D3DCOMPILER_STRIP_REFLECTION_DATA: D3DCOMPILER_STRIP_FLAGS = 1
+D3DCOMPILER_STRIP_DEBUG_INFO: D3DCOMPILER_STRIP_FLAGS = 2
+D3DCOMPILER_STRIP_TEST_BLOBS: D3DCOMPILER_STRIP_FLAGS = 4
+D3DCOMPILER_STRIP_PRIVATE_DATA: D3DCOMPILER_STRIP_FLAGS = 8
+D3DCOMPILER_STRIP_ROOT_SIGNATURE: D3DCOMPILER_STRIP_FLAGS = 16
+D3DCOMPILER_STRIP_FORCE_DWORD: D3DCOMPILER_STRIP_FLAGS = 2147483647
+@winfunctype_pointer
+def pD3DCompile(pSrcData: c_void_p, SrcDataSize: UIntPtr, pFileName: win32more.Foundation.PSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, pEntrypoint: win32more.Foundation.PSTR, pTarget: win32more.Foundation.PSTR, Flags1: UInt32, Flags2: UInt32, ppCode: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def pD3DDisassemble(pSrcData: c_void_p, SrcDataSize: UIntPtr, Flags: UInt32, szComments: win32more.Foundation.PSTR, ppDisassembly: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def pD3DPreprocess(pSrcData: c_void_p, SrcDataSize: UIntPtr, pFileName: win32more.Foundation.PSTR, pDefines: POINTER(win32more.Graphics.Direct3D.D3D_SHADER_MACRO_head), pInclude: win32more.Graphics.Direct3D.ID3DInclude_head, ppCodeText: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), ppErrorMsgs: POINTER(win32more.Graphics.Direct3D.ID3DBlob_head)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'D3D_SHADER_DATA')
+make_head(_module, 'pD3DCompile')
+make_head(_module, 'pD3DDisassemble')
+make_head(_module, 'pD3DPreprocess')
 __all__ = [
     "D3DCOMPILER_DLL_A",
     "D3DCOMPILER_DLL_W",

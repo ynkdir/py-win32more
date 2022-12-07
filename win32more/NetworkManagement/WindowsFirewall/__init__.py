@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.WindowsFirewall
 import win32more.Security
@@ -8,973 +9,972 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-NETCON_MAX_NAME_LEN = 256
-S_OBJECT_NO_LONGER_VALID = 2
-NETISO_GEID_FOR_WDAG = 1
-NETISO_GEID_FOR_NEUTRAL_AWARE = 2
-def _define_NetworkIsolationSetupAppContainerBinaries():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSID,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),UInt32)(('NetworkIsolationSetupAppContainerBinaries', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'applicationContainerSid'),(1, 'packageFullName'),(1, 'packageFolder'),(1, 'displayName'),(1, 'bBinariesFullyComputed'),(1, 'binaries'),(1, 'binariesCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationRegisterForAppContainerChanges():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.NetworkManagement.WindowsFirewall.PAC_CHANGES_CALLBACK_FN,c_void_p,POINTER(win32more.Foundation.HANDLE))(('NetworkIsolationRegisterForAppContainerChanges', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'flags'),(1, 'callback'),(1, 'context'),(1, 'registrationObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationUnregisterForAppContainerChanges():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('NetworkIsolationUnregisterForAppContainerChanges', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'registrationObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationFreeAppContainers():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head))(('NetworkIsolationFreeAppContainers', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'pPublicAppCs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationEnumAppContainers():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head)))(('NetworkIsolationEnumAppContainers', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'Flags'),(1, 'pdwNumPublicAppCs'),(1, 'ppPublicAppCs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationGetAppContainerConfig():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)))(('NetworkIsolationGetAppContainerConfig', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'pdwNumPublicAppCs'),(1, 'appContainerSids'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationSetAppContainerConfig():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Security.SID_AND_ATTRIBUTES_head))(('NetworkIsolationSetAppContainerConfig', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'dwNumPublicAppCs'),(1, 'appContainerSids'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetworkIsolationDiagnoseConnectFailureAndGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.NETISO_ERROR_TYPE))(('NetworkIsolationDiagnoseConnectFailureAndGetInfo', windll['api-ms-win-net-isolation-l1-1-0.dll']), ((1, 'wszServerName'),(1, 'netIsoError'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head():
-    class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0(Structure):
-        pass
-    return FW_DYNAMIC_KEYWORD_ADDRESS_DATA0
-def _define_FW_DYNAMIC_KEYWORD_ADDRESS_DATA0():
-    FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 = win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head
-    FW_DYNAMIC_KEYWORD_ADDRESS_DATA0._fields_ = [
-        ('dynamicKeywordAddress', win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0),
-        ('next', POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head)),
-        ('schemaVersion', UInt16),
-        ('originType', win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ORIGIN_TYPE),
-    ]
-    return FW_DYNAMIC_KEYWORD_ADDRESS_DATA0
+NETCON_MAX_NAME_LEN: UInt32 = 256
+S_OBJECT_NO_LONGER_VALID: win32more.Foundation.HRESULT = 2
+NETISO_GEID_FOR_WDAG: UInt32 = 1
+NETISO_GEID_FOR_NEUTRAL_AWARE: UInt32 = 2
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationSetupAppContainerBinaries(applicationContainerSid: win32more.Foundation.PSID, packageFullName: win32more.Foundation.PWSTR, packageFolder: win32more.Foundation.PWSTR, displayName: win32more.Foundation.PWSTR, bBinariesFullyComputed: win32more.Foundation.BOOL, binaries: POINTER(win32more.Foundation.PWSTR), binariesCount: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationRegisterForAppContainerChanges(flags: UInt32, callback: win32more.NetworkManagement.WindowsFirewall.PAC_CHANGES_CALLBACK_FN, context: c_void_p, registrationObject: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationUnregisterForAppContainerChanges(registrationObject: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationFreeAppContainers(pPublicAppCs: POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head)) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationEnumAppContainers(Flags: UInt32, pdwNumPublicAppCs: POINTER(UInt32), ppPublicAppCs: POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head))) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs: POINTER(UInt32), appContainerSids: POINTER(POINTER(win32more.Security.SID_AND_ATTRIBUTES_head))) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationSetAppContainerConfig(dwNumPublicAppCs: UInt32, appContainerSids: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)) -> UInt32: ...
+@winfunctype('api-ms-win-net-isolation-l1-1-0.dll')
+def NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName: win32more.Foundation.PWSTR, netIsoError: POINTER(win32more.NetworkManagement.WindowsFirewall.NETISO_ERROR_TYPE)) -> UInt32: ...
+class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0(Structure):
+    dynamicKeywordAddress: win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0
+    next: POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head)
+    schemaVersion: UInt16
+    originType: win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ORIGIN_TYPE
 FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS = UInt32
-FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_AUTO_RESOLVE = 1
-FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_NON_AUTO_RESOLVE = 2
-FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_ALL = 3
+FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_AUTO_RESOLVE: FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS = 1
+FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_NON_AUTO_RESOLVE: FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS = 2
+FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_ALL: FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS = 3
 FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS = UInt32
-FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE = 1
-def _define_FW_DYNAMIC_KEYWORD_ADDRESS0_head():
-    class FW_DYNAMIC_KEYWORD_ADDRESS0(Structure):
-        pass
-    return FW_DYNAMIC_KEYWORD_ADDRESS0
-def _define_FW_DYNAMIC_KEYWORD_ADDRESS0():
-    FW_DYNAMIC_KEYWORD_ADDRESS0 = win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0_head
-    FW_DYNAMIC_KEYWORD_ADDRESS0._fields_ = [
-        ('id', Guid),
-        ('keyword', win32more.Foundation.PWSTR),
-        ('flags', UInt32),
-        ('addresses', win32more.Foundation.PWSTR),
-    ]
-    return FW_DYNAMIC_KEYWORD_ADDRESS0
+FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE: FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS = 1
+class FW_DYNAMIC_KEYWORD_ADDRESS0(Structure):
+    id: Guid
+    keyword: win32more.Foundation.PWSTR
+    flags: UInt32
+    addresses: win32more.Foundation.PWSTR
 FW_DYNAMIC_KEYWORD_ORIGIN_TYPE = Int32
-FW_DYNAMIC_KEYWORD_ORIGIN_INVALID = 0
-FW_DYNAMIC_KEYWORD_ORIGIN_LOCAL = 1
-FW_DYNAMIC_KEYWORD_ORIGIN_MDM = 2
+FW_DYNAMIC_KEYWORD_ORIGIN_INVALID: FW_DYNAMIC_KEYWORD_ORIGIN_TYPE = 0
+FW_DYNAMIC_KEYWORD_ORIGIN_LOCAL: FW_DYNAMIC_KEYWORD_ORIGIN_TYPE = 1
+FW_DYNAMIC_KEYWORD_ORIGIN_MDM: FW_DYNAMIC_KEYWORD_ORIGIN_TYPE = 2
 ICS_TARGETTYPE = Int32
-ICSTT_NAME = 0
-ICSTT_IPADDRESS = 1
-def _define_IDynamicPortMapping_head():
-    class IDynamicPortMapping(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4fc80282-23b6-4378-9a-27-cd-8f-17-c9-40-0c')
-    return IDynamicPortMapping
-def _define_IDynamicPortMapping():
-    IDynamicPortMapping = win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head
-    IDynamicPortMapping.get_ExternalIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ExternalIPAddress', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_RemoteHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_RemoteHost', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_ExternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_ExternalPort', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Protocol', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_InternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_InternalPort', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_InternalClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_InternalClient', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'get_Enabled', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Description', ((1, 'pVal'),)))
-    IDynamicPortMapping.get_LeaseDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_LeaseDuration', ((1, 'pVal'),)))
-    IDynamicPortMapping.RenewLease = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32))(16, 'RenewLease', ((1, 'lLeaseDurationDesired'),(1, 'pLeaseDurationReturned'),)))
-    IDynamicPortMapping.EditInternalClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'EditInternalClient', ((1, 'bstrInternalClient'),)))
-    IDynamicPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(18, 'Enable', ((1, 'vb'),)))
-    IDynamicPortMapping.EditDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'EditDescription', ((1, 'bstrDescription'),)))
-    IDynamicPortMapping.EditInternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(20, 'EditInternalPort', ((1, 'lInternalPort'),)))
-    win32more.System.Com.IDispatch
-    return IDynamicPortMapping
-def _define_IDynamicPortMappingCollection_head():
-    class IDynamicPortMappingCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b60de00f-156e-4e8d-9e-c1-3a-23-42-c1-08-99')
-    return IDynamicPortMappingCollection
-def _define_IDynamicPortMappingCollection():
-    IDynamicPortMappingCollection = win32more.NetworkManagement.WindowsFirewall.IDynamicPortMappingCollection_head
-    IDynamicPortMappingCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    IDynamicPortMappingCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head))(8, 'get_Item', ((1, 'bstrRemoteHost'),(1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'ppDPM'),)))
-    IDynamicPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Count', ((1, 'pVal'),)))
-    IDynamicPortMappingCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR)(10, 'Remove', ((1, 'bstrRemoteHost'),(1, 'lExternalPort'),(1, 'bstrProtocol'),)))
-    IDynamicPortMappingCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,Int32,POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head))(11, 'Add', ((1, 'bstrRemoteHost'),(1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'lInternalPort'),(1, 'bstrInternalClient'),(1, 'bEnabled'),(1, 'bstrDescription'),(1, 'lLeaseDuration'),(1, 'ppDPM'),)))
-    win32more.System.Com.IDispatch
-    return IDynamicPortMappingCollection
-def _define_IEnumNetConnection_head():
-    class IEnumNetConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956a0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return IEnumNetConnection
-def _define_IEnumNetConnection():
-    IEnumNetConnection = win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head
-    IEnumNetConnection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnection_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumNetConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumNetConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumNetConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumNetConnection
-def _define_IEnumNetSharingEveryConnection_head():
-    class IEnumNetSharingEveryConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956b8-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return IEnumNetSharingEveryConnection
-def _define_IEnumNetSharingEveryConnection():
-    IEnumNetSharingEveryConnection = win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingEveryConnection_head
-    IEnumNetSharingEveryConnection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgVar'),(1, 'pceltFetched'),)))
-    IEnumNetSharingEveryConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumNetSharingEveryConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumNetSharingEveryConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingEveryConnection_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumNetSharingEveryConnection
-def _define_IEnumNetSharingPortMapping_head():
-    class IEnumNetSharingPortMapping(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956b0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return IEnumNetSharingPortMapping
-def _define_IEnumNetSharingPortMapping():
-    IEnumNetSharingPortMapping = win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPortMapping_head
-    IEnumNetSharingPortMapping.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgVar'),(1, 'pceltFetched'),)))
-    IEnumNetSharingPortMapping.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumNetSharingPortMapping.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumNetSharingPortMapping.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPortMapping_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumNetSharingPortMapping
-def _define_IEnumNetSharingPrivateConnection_head():
-    class IEnumNetSharingPrivateConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956b5-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return IEnumNetSharingPrivateConnection
-def _define_IEnumNetSharingPrivateConnection():
-    IEnumNetSharingPrivateConnection = win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPrivateConnection_head
-    IEnumNetSharingPrivateConnection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgVar'),(1, 'pCeltFetched'),)))
-    IEnumNetSharingPrivateConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumNetSharingPrivateConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumNetSharingPrivateConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPrivateConnection_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumNetSharingPrivateConnection
-def _define_IEnumNetSharingPublicConnection_head():
-    class IEnumNetSharingPublicConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956b4-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return IEnumNetSharingPublicConnection
-def _define_IEnumNetSharingPublicConnection():
-    IEnumNetSharingPublicConnection = win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPublicConnection_head
-    IEnumNetSharingPublicConnection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgVar'),(1, 'pceltFetched'),)))
-    IEnumNetSharingPublicConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumNetSharingPublicConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumNetSharingPublicConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPublicConnection_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumNetSharingPublicConnection
-def _define_INATEventManager_head():
-    class INATEventManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('624bd588-9060-4109-b0-b0-1a-db-bc-ac-32-df')
-    return INATEventManager
-def _define_INATEventManager():
-    INATEventManager = win32more.NetworkManagement.WindowsFirewall.INATEventManager_head
-    INATEventManager.put_ExternalIPAddressCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(7, 'put_ExternalIPAddressCallback', ((1, 'pUnk'),)))
-    INATEventManager.put_NumberOfEntriesCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(8, 'put_NumberOfEntriesCallback', ((1, 'pUnk'),)))
-    win32more.System.Com.IDispatch
-    return INATEventManager
-def _define_INATExternalIPAddressCallback_head():
-    class INATExternalIPAddressCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9c416740-a34e-446f-ba-06-ab-d0-4c-31-49-ae')
-    return INATExternalIPAddressCallback
-def _define_INATExternalIPAddressCallback():
-    INATExternalIPAddressCallback = win32more.NetworkManagement.WindowsFirewall.INATExternalIPAddressCallback_head
-    INATExternalIPAddressCallback.NewExternalIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'NewExternalIPAddress', ((1, 'bstrNewExternalIPAddress'),)))
-    win32more.System.Com.IUnknown
-    return INATExternalIPAddressCallback
-def _define_INATNumberOfEntriesCallback_head():
-    class INATNumberOfEntriesCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c83a0a74-91ee-41b6-b6-7a-67-e0-f0-0b-bd-78')
-    return INATNumberOfEntriesCallback
-def _define_INATNumberOfEntriesCallback():
-    INATNumberOfEntriesCallback = win32more.NetworkManagement.WindowsFirewall.INATNumberOfEntriesCallback_head
-    INATNumberOfEntriesCallback.NewNumberOfEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'NewNumberOfEntries', ((1, 'lNewNumberOfEntries'),)))
-    win32more.System.Com.IUnknown
-    return INATNumberOfEntriesCallback
-def _define_INET_FIREWALL_AC_BINARIES_head():
-    class INET_FIREWALL_AC_BINARIES(Structure):
-        pass
-    return INET_FIREWALL_AC_BINARIES
-def _define_INET_FIREWALL_AC_BINARIES():
-    INET_FIREWALL_AC_BINARIES = win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES_head
-    INET_FIREWALL_AC_BINARIES._fields_ = [
-        ('count', UInt32),
-        ('binaries', POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return INET_FIREWALL_AC_BINARIES
-def _define_INET_FIREWALL_AC_CAPABILITIES_head():
-    class INET_FIREWALL_AC_CAPABILITIES(Structure):
-        pass
-    return INET_FIREWALL_AC_CAPABILITIES
-def _define_INET_FIREWALL_AC_CAPABILITIES():
-    INET_FIREWALL_AC_CAPABILITIES = win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES_head
-    INET_FIREWALL_AC_CAPABILITIES._fields_ = [
-        ('count', UInt32),
-        ('capabilities', POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)),
-    ]
-    return INET_FIREWALL_AC_CAPABILITIES
-def _define_INET_FIREWALL_AC_CHANGE_head():
-    class INET_FIREWALL_AC_CHANGE(Structure):
-        pass
-    return INET_FIREWALL_AC_CHANGE
-def _define_INET_FIREWALL_AC_CHANGE():
-    INET_FIREWALL_AC_CHANGE = win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_head
-    class INET_FIREWALL_AC_CHANGE__Anonymous_e__Union(Union):
-        pass
-    INET_FIREWALL_AC_CHANGE__Anonymous_e__Union._fields_ = [
-        ('capabilities', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES),
-        ('binaries', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES),
-    ]
-    INET_FIREWALL_AC_CHANGE._anonymous_ = [
-        'Anonymous',
-    ]
-    INET_FIREWALL_AC_CHANGE._fields_ = [
-        ('changeType', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_TYPE),
-        ('createType', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE),
-        ('appContainerSid', POINTER(win32more.Security.SID_head)),
-        ('userSid', POINTER(win32more.Security.SID_head)),
-        ('displayName', win32more.Foundation.PWSTR),
-        ('Anonymous', INET_FIREWALL_AC_CHANGE__Anonymous_e__Union),
-    ]
-    return INET_FIREWALL_AC_CHANGE
+ICSTT_NAME: ICS_TARGETTYPE = 0
+ICSTT_IPADDRESS: ICS_TARGETTYPE = 1
+class IDynamicPortMapping(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('4fc80282-23b6-4378-9a-27-cd-8f-17-c9-40-0c')
+    @commethod(7)
+    def get_ExternalIPAddress(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_RemoteHost(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ExternalPort(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Protocol(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_InternalPort(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_InternalClient(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Enabled(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Description(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_LeaseDuration(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def RenewLease(lLeaseDurationDesired: Int32, pLeaseDurationReturned: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def EditInternalClient(bstrInternalClient: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def Enable(vb: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def EditDescription(bstrDescription: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def EditInternalPort(lInternalPort: Int32) -> win32more.Foundation.HRESULT: ...
+class IDynamicPortMappingCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b60de00f-156e-4e8d-9e-c1-3a-23-42-c1-08-99')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(bstrRemoteHost: win32more.Foundation.BSTR, lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR, ppDPM: POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Remove(bstrRemoteHost: win32more.Foundation.BSTR, lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Add(bstrRemoteHost: win32more.Foundation.BSTR, lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR, lInternalPort: Int32, bstrInternalClient: win32more.Foundation.BSTR, bEnabled: win32more.Foundation.VARIANT_BOOL, bstrDescription: win32more.Foundation.BSTR, lLeaseDuration: Int32, ppDPM: POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956a0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnection_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetSharingEveryConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956b8-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Next(celt: UInt32, rgVar: POINTER(win32more.System.Com.VARIANT_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingEveryConnection_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetSharingPortMapping(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956b0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Next(celt: UInt32, rgVar: POINTER(win32more.System.Com.VARIANT_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetSharingPrivateConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956b5-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Next(celt: UInt32, rgVar: POINTER(win32more.System.Com.VARIANT_head), pCeltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPrivateConnection_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetSharingPublicConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956b4-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Next(celt: UInt32, rgVar: POINTER(win32more.System.Com.VARIANT_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPublicConnection_head)) -> win32more.Foundation.HRESULT: ...
+class INATEventManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('624bd588-9060-4109-b0-b0-1a-db-bc-ac-32-df')
+    @commethod(7)
+    def put_ExternalIPAddressCallback(pUnk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_NumberOfEntriesCallback(pUnk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+class INATExternalIPAddressCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9c416740-a34e-446f-ba-06-ab-d0-4c-31-49-ae')
+    @commethod(3)
+    def NewExternalIPAddress(bstrNewExternalIPAddress: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class INATNumberOfEntriesCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c83a0a74-91ee-41b6-b6-7a-67-e0-f0-0b-bd-78')
+    @commethod(3)
+    def NewNumberOfEntries(lNewNumberOfEntries: Int32) -> win32more.Foundation.HRESULT: ...
+class INET_FIREWALL_AC_BINARIES(Structure):
+    count: UInt32
+    binaries: POINTER(win32more.Foundation.PWSTR)
+class INET_FIREWALL_AC_CAPABILITIES(Structure):
+    count: UInt32
+    capabilities: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)
+class INET_FIREWALL_AC_CHANGE(Structure):
+    changeType: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_TYPE
+    createType: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE
+    appContainerSid: POINTER(win32more.Security.SID_head)
+    userSid: POINTER(win32more.Security.SID_head)
+    displayName: win32more.Foundation.PWSTR
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        capabilities: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES
+        binaries: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES
 INET_FIREWALL_AC_CHANGE_TYPE = Int32
-INET_FIREWALL_AC_CHANGE_INVALID = 0
-INET_FIREWALL_AC_CHANGE_CREATE = 1
-INET_FIREWALL_AC_CHANGE_DELETE = 2
-INET_FIREWALL_AC_CHANGE_MAX = 3
+INET_FIREWALL_AC_CHANGE_INVALID: INET_FIREWALL_AC_CHANGE_TYPE = 0
+INET_FIREWALL_AC_CHANGE_CREATE: INET_FIREWALL_AC_CHANGE_TYPE = 1
+INET_FIREWALL_AC_CHANGE_DELETE: INET_FIREWALL_AC_CHANGE_TYPE = 2
+INET_FIREWALL_AC_CHANGE_MAX: INET_FIREWALL_AC_CHANGE_TYPE = 3
 INET_FIREWALL_AC_CREATION_TYPE = Int32
-INET_FIREWALL_AC_NONE = 0
-INET_FIREWALL_AC_PACKAGE_ID_ONLY = 1
-INET_FIREWALL_AC_BINARY = 2
-INET_FIREWALL_AC_MAX = 4
-def _define_INET_FIREWALL_APP_CONTAINER_head():
-    class INET_FIREWALL_APP_CONTAINER(Structure):
-        pass
-    return INET_FIREWALL_APP_CONTAINER
-def _define_INET_FIREWALL_APP_CONTAINER():
-    INET_FIREWALL_APP_CONTAINER = win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_APP_CONTAINER_head
-    INET_FIREWALL_APP_CONTAINER._fields_ = [
-        ('appContainerSid', POINTER(win32more.Security.SID_head)),
-        ('userSid', POINTER(win32more.Security.SID_head)),
-        ('appContainerName', win32more.Foundation.PWSTR),
-        ('displayName', win32more.Foundation.PWSTR),
-        ('description', win32more.Foundation.PWSTR),
-        ('capabilities', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES),
-        ('binaries', win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES),
-        ('workingDirectory', win32more.Foundation.PWSTR),
-        ('packageFullName', win32more.Foundation.PWSTR),
-    ]
-    return INET_FIREWALL_APP_CONTAINER
-def _define_INetConnection_head():
-    class INetConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956a1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetConnection
-def _define_INetConnection():
-    INetConnection = win32more.NetworkManagement.WindowsFirewall.INetConnection_head
-    INetConnection.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Connect', ()))
-    INetConnection.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Disconnect', ()))
-    INetConnection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Delete', ()))
-    INetConnection.Duplicate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnection_head))(6, 'Duplicate', ((1, 'pszwDuplicateName'),(1, 'ppCon'),)))
-    INetConnection.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_PROPERTIES_head)))(7, 'GetProperties', ((1, 'ppProps'),)))
-    INetConnection.GetUiObjectClassId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'GetUiObjectClassId', ((1, 'pclsid'),)))
-    INetConnection.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'Rename', ((1, 'pszwNewName'),)))
-    win32more.System.Com.IUnknown
-    return INetConnection
-def _define_INetConnectionConnectUi_head():
-    class INetConnectionConnectUi(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956a3-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetConnectionConnectUi
-def _define_INetConnectionConnectUi():
-    INetConnectionConnectUi = win32more.NetworkManagement.WindowsFirewall.INetConnectionConnectUi_head
-    INetConnectionConnectUi.SetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head)(3, 'SetConnection', ((1, 'pCon'),)))
-    INetConnectionConnectUi.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(4, 'Connect', ((1, 'hwndParent'),(1, 'dwFlags'),)))
-    INetConnectionConnectUi.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(5, 'Disconnect', ((1, 'hwndParent'),(1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return INetConnectionConnectUi
-def _define_INetConnectionManager_head():
-    class INetConnectionManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c08956a2-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetConnectionManager
-def _define_INetConnectionManager():
-    INetConnectionManager = win32more.NetworkManagement.WindowsFirewall.INetConnectionManager_head
-    INetConnectionManager.EnumConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NETCONMGR_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head))(3, 'EnumConnections', ((1, 'Flags'),(1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return INetConnectionManager
-def _define_INetConnectionProps_head():
-    class INetConnectionProps(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f4277c95-ce5b-463d-81-67-56-62-d9-bc-aa-72')
-    return INetConnectionProps
-def _define_INetConnectionProps():
-    INetConnectionProps = win32more.NetworkManagement.WindowsFirewall.INetConnectionProps_head
-    INetConnectionProps.get_Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Guid', ((1, 'pbstrGuid'),)))
-    INetConnectionProps.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Name', ((1, 'pbstrName'),)))
-    INetConnectionProps.get_DeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_DeviceName', ((1, 'pbstrDeviceName'),)))
-    INetConnectionProps.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_STATUS))(10, 'get_Status', ((1, 'pStatus'),)))
-    INetConnectionProps.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE))(11, 'get_MediaType', ((1, 'pMediaType'),)))
-    INetConnectionProps.get_Characteristics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'get_Characteristics', ((1, 'pdwFlags'),)))
-    win32more.System.Com.IDispatch
-    return INetConnectionProps
-def _define_INetFwAuthorizedApplication_head():
-    class INetFwAuthorizedApplication(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b5e64ffa-c2c5-444e-a3-01-fb-5e-00-01-80-50')
-    return INetFwAuthorizedApplication
-def _define_INetFwAuthorizedApplication():
-    INetFwAuthorizedApplication = win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head
-    INetFwAuthorizedApplication.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    INetFwAuthorizedApplication.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_Name', ((1, 'name'),)))
-    INetFwAuthorizedApplication.get_ProcessImageFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_ProcessImageFileName', ((1, 'imageFileName'),)))
-    INetFwAuthorizedApplication.put_ProcessImageFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_ProcessImageFileName', ((1, 'imageFileName'),)))
-    INetFwAuthorizedApplication.get_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION))(11, 'get_IpVersion', ((1, 'ipVersion'),)))
-    INetFwAuthorizedApplication.put_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)(12, 'put_IpVersion', ((1, 'ipVersion'),)))
-    INetFwAuthorizedApplication.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE))(13, 'get_Scope', ((1, 'scope'),)))
-    INetFwAuthorizedApplication.put_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)(14, 'put_Scope', ((1, 'scope'),)))
-    INetFwAuthorizedApplication.get_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwAuthorizedApplication.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(16, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwAuthorizedApplication.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(17, 'get_Enabled', ((1, 'enabled'),)))
-    INetFwAuthorizedApplication.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(18, 'put_Enabled', ((1, 'enabled'),)))
-    win32more.System.Com.IDispatch
-    return INetFwAuthorizedApplication
-def _define_INetFwAuthorizedApplications_head():
-    class INetFwAuthorizedApplications(win32more.System.Com.IDispatch_head):
-        Guid = Guid('644efd52-ccf9-486c-97-a2-39-f3-52-57-0b-30')
-    return INetFwAuthorizedApplications
-def _define_INetFwAuthorizedApplications():
-    INetFwAuthorizedApplications = win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplications_head
-    INetFwAuthorizedApplications.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
-    INetFwAuthorizedApplications.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head)(8, 'Add', ((1, 'app'),)))
-    INetFwAuthorizedApplications.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'Remove', ((1, 'imageFileName'),)))
-    INetFwAuthorizedApplications.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head))(10, 'Item', ((1, 'imageFileName'),(1, 'app'),)))
-    INetFwAuthorizedApplications.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(11, 'get__NewEnum', ((1, 'newEnum'),)))
-    win32more.System.Com.IDispatch
-    return INetFwAuthorizedApplications
-def _define_INetFwIcmpSettings_head():
-    class INetFwIcmpSettings(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a6207b2e-7cdd-426a-95-1e-5e-1c-bc-5a-fe-ad')
-    return INetFwIcmpSettings
-def _define_INetFwIcmpSettings():
-    INetFwIcmpSettings = win32more.NetworkManagement.WindowsFirewall.INetFwIcmpSettings_head
-    INetFwIcmpSettings.get_AllowOutboundDestinationUnreachable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_AllowOutboundDestinationUnreachable', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowOutboundDestinationUnreachable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(8, 'put_AllowOutboundDestinationUnreachable', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowRedirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_AllowRedirect', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowRedirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(10, 'put_AllowRedirect', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowInboundEchoRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(11, 'get_AllowInboundEchoRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowInboundEchoRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(12, 'put_AllowInboundEchoRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowOutboundTimeExceeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'get_AllowOutboundTimeExceeded', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowOutboundTimeExceeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(14, 'put_AllowOutboundTimeExceeded', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowOutboundParameterProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(15, 'get_AllowOutboundParameterProblem', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowOutboundParameterProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(16, 'put_AllowOutboundParameterProblem', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowOutboundSourceQuench = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(17, 'get_AllowOutboundSourceQuench', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowOutboundSourceQuench = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(18, 'put_AllowOutboundSourceQuench', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowInboundRouterRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(19, 'get_AllowInboundRouterRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowInboundRouterRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(20, 'put_AllowInboundRouterRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowInboundTimestampRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'get_AllowInboundTimestampRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowInboundTimestampRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(22, 'put_AllowInboundTimestampRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowInboundMaskRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(23, 'get_AllowInboundMaskRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowInboundMaskRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(24, 'put_AllowInboundMaskRequest', ((1, 'allow'),)))
-    INetFwIcmpSettings.get_AllowOutboundPacketTooBig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(25, 'get_AllowOutboundPacketTooBig', ((1, 'allow'),)))
-    INetFwIcmpSettings.put_AllowOutboundPacketTooBig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(26, 'put_AllowOutboundPacketTooBig', ((1, 'allow'),)))
-    win32more.System.Com.IDispatch
-    return INetFwIcmpSettings
-def _define_INetFwMgr_head():
-    class INetFwMgr(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f7898af5-cac4-4632-a2-ec-da-06-e5-11-1a-f2')
-    return INetFwMgr
-def _define_INetFwMgr():
-    INetFwMgr = win32more.NetworkManagement.WindowsFirewall.INetFwMgr_head
-    INetFwMgr.get_LocalPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwPolicy_head))(7, 'get_LocalPolicy', ((1, 'localPolicy'),)))
-    INetFwMgr.get_CurrentProfileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE))(8, 'get_CurrentProfileType', ((1, 'profileType'),)))
-    INetFwMgr.RestoreDefaults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'RestoreDefaults', ()))
-    INetFwMgr.IsPortAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION,Int32,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(10, 'IsPortAllowed', ((1, 'imageFileName'),(1, 'ipVersion'),(1, 'portNumber'),(1, 'localAddress'),(1, 'ipProtocol'),(1, 'allowed'),(1, 'restricted'),)))
-    INetFwMgr.IsIcmpTypeAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION,win32more.Foundation.BSTR,Byte,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(11, 'IsIcmpTypeAllowed', ((1, 'ipVersion'),(1, 'localAddress'),(1, 'type'),(1, 'allowed'),(1, 'restricted'),)))
-    win32more.System.Com.IDispatch
-    return INetFwMgr
-def _define_INetFwOpenPort_head():
-    class INetFwOpenPort(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e0483ba0-47ff-4d9c-a6-d6-77-41-d0-b1-95-f7')
-    return INetFwOpenPort
-def _define_INetFwOpenPort():
-    INetFwOpenPort = win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head
-    INetFwOpenPort.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    INetFwOpenPort.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_Name', ((1, 'name'),)))
-    INetFwOpenPort.get_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION))(9, 'get_IpVersion', ((1, 'ipVersion'),)))
-    INetFwOpenPort.put_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)(10, 'put_IpVersion', ((1, 'ipVersion'),)))
-    INetFwOpenPort.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL))(11, 'get_Protocol', ((1, 'ipProtocol'),)))
-    INetFwOpenPort.put_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL)(12, 'put_Protocol', ((1, 'ipProtocol'),)))
-    INetFwOpenPort.get_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_Port', ((1, 'portNumber'),)))
-    INetFwOpenPort.put_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(14, 'put_Port', ((1, 'portNumber'),)))
-    INetFwOpenPort.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE))(15, 'get_Scope', ((1, 'scope'),)))
-    INetFwOpenPort.put_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)(16, 'put_Scope', ((1, 'scope'),)))
-    INetFwOpenPort.get_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwOpenPort.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(18, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwOpenPort.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(19, 'get_Enabled', ((1, 'enabled'),)))
-    INetFwOpenPort.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(20, 'put_Enabled', ((1, 'enabled'),)))
-    INetFwOpenPort.get_BuiltIn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'get_BuiltIn', ((1, 'builtIn'),)))
-    win32more.System.Com.IDispatch
-    return INetFwOpenPort
-def _define_INetFwOpenPorts_head():
-    class INetFwOpenPorts(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c0e9d7fa-e07e-430a-b1-9a-09-0c-e8-2d-92-e2')
-    return INetFwOpenPorts
-def _define_INetFwOpenPorts():
-    INetFwOpenPorts = win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head
-    INetFwOpenPorts.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
-    INetFwOpenPorts.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head)(8, 'Add', ((1, 'port'),)))
-    INetFwOpenPorts.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL)(9, 'Remove', ((1, 'portNumber'),(1, 'ipProtocol'),)))
-    INetFwOpenPorts.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head))(10, 'Item', ((1, 'portNumber'),(1, 'ipProtocol'),(1, 'openPort'),)))
-    INetFwOpenPorts.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(11, 'get__NewEnum', ((1, 'newEnum'),)))
-    win32more.System.Com.IDispatch
-    return INetFwOpenPorts
-def _define_INetFwPolicy_head():
-    class INetFwPolicy(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d46d2478-9ac9-4008-9d-c7-55-63-ce-55-36-cc')
-    return INetFwPolicy
-def _define_INetFwPolicy():
-    INetFwPolicy = win32more.NetworkManagement.WindowsFirewall.INetFwPolicy_head
-    INetFwPolicy.get_CurrentProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head))(7, 'get_CurrentProfile', ((1, 'profile'),)))
-    INetFwPolicy.GetProfileByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head))(8, 'GetProfileByType', ((1, 'profileType'),(1, 'profile'),)))
-    win32more.System.Com.IDispatch
-    return INetFwPolicy
-def _define_INetFwPolicy2_head():
-    class INetFwPolicy2(win32more.System.Com.IDispatch_head):
-        Guid = Guid('98325047-c671-4174-8d-81-de-fc-d3-f0-31-86')
-    return INetFwPolicy2
-def _define_INetFwPolicy2():
-    INetFwPolicy2 = win32more.NetworkManagement.WindowsFirewall.INetFwPolicy2_head
-    INetFwPolicy2.get_CurrentProfileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_CurrentProfileTypes', ((1, 'profileTypesBitmask'),)))
-    INetFwPolicy2.get_FirewallEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_FirewallEnabled', ((1, 'profileType'),(1, 'enabled'),)))
-    INetFwPolicy2.put_FirewallEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.Foundation.VARIANT_BOOL)(9, 'put_FirewallEnabled', ((1, 'profileType'),(1, 'enabled'),)))
-    INetFwPolicy2.get_ExcludedInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.System.Com.VARIANT_head))(10, 'get_ExcludedInterfaces', ((1, 'profileType'),(1, 'interfaces'),)))
-    INetFwPolicy2.put_ExcludedInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.System.Com.VARIANT)(11, 'put_ExcludedInterfaces', ((1, 'profileType'),(1, 'interfaces'),)))
-    INetFwPolicy2.get_BlockAllInboundTraffic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'get_BlockAllInboundTraffic', ((1, 'profileType'),(1, 'Block'),)))
-    INetFwPolicy2.put_BlockAllInboundTraffic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.Foundation.VARIANT_BOOL)(13, 'put_BlockAllInboundTraffic', ((1, 'profileType'),(1, 'Block'),)))
-    INetFwPolicy2.get_NotificationsDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.Foundation.VARIANT_BOOL))(14, 'get_NotificationsDisabled', ((1, 'profileType'),(1, 'disabled'),)))
-    INetFwPolicy2.put_NotificationsDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.Foundation.VARIANT_BOOL)(15, 'put_NotificationsDisabled', ((1, 'profileType'),(1, 'disabled'),)))
-    INetFwPolicy2.get_UnicastResponsesToMulticastBroadcastDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_UnicastResponsesToMulticastBroadcastDisabled', ((1, 'profileType'),(1, 'disabled'),)))
-    INetFwPolicy2.put_UnicastResponsesToMulticastBroadcastDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.Foundation.VARIANT_BOOL)(17, 'put_UnicastResponsesToMulticastBroadcastDisabled', ((1, 'profileType'),(1, 'disabled'),)))
-    INetFwPolicy2.get_Rules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRules_head))(18, 'get_Rules', ((1, 'rules'),)))
-    INetFwPolicy2.get_ServiceRestriction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwServiceRestriction_head))(19, 'get_ServiceRestriction', ((1, 'ServiceRestriction'),)))
-    INetFwPolicy2.EnableRuleGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL)(20, 'EnableRuleGroup', ((1, 'profileTypesBitmask'),(1, 'group'),(1, 'enable'),)))
-    INetFwPolicy2.IsRuleGroupEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'IsRuleGroupEnabled', ((1, 'profileTypesBitmask'),(1, 'group'),(1, 'enabled'),)))
-    INetFwPolicy2.RestoreLocalFirewallDefaults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(22, 'RestoreLocalFirewallDefaults', ()))
-    INetFwPolicy2.get_DefaultInboundAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION))(23, 'get_DefaultInboundAction', ((1, 'profileType'),(1, 'action'),)))
-    INetFwPolicy2.put_DefaultInboundAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)(24, 'put_DefaultInboundAction', ((1, 'profileType'),(1, 'action'),)))
-    INetFwPolicy2.get_DefaultOutboundAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION))(25, 'get_DefaultOutboundAction', ((1, 'profileType'),(1, 'action'),)))
-    INetFwPolicy2.put_DefaultOutboundAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)(26, 'put_DefaultOutboundAction', ((1, 'profileType'),(1, 'action'),)))
-    INetFwPolicy2.get_IsRuleGroupCurrentlyEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(27, 'get_IsRuleGroupCurrentlyEnabled', ((1, 'group'),(1, 'enabled'),)))
-    INetFwPolicy2.get_LocalPolicyModifyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_MODIFY_STATE))(28, 'get_LocalPolicyModifyState', ((1, 'modifyState'),)))
-    win32more.System.Com.IDispatch
-    return INetFwPolicy2
-def _define_INetFwProduct_head():
-    class INetFwProduct(win32more.System.Com.IDispatch_head):
-        Guid = Guid('71881699-18f4-458b-b8-92-3f-fc-e5-e0-7f-75')
-    return INetFwProduct
-def _define_INetFwProduct():
-    INetFwProduct = win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head
-    INetFwProduct.get_RuleCategories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'get_RuleCategories', ((1, 'ruleCategories'),)))
-    INetFwProduct.put_RuleCategories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(8, 'put_RuleCategories', ((1, 'ruleCategories'),)))
-    INetFwProduct.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_DisplayName', ((1, 'displayName'),)))
-    INetFwProduct.put_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_DisplayName', ((1, 'displayName'),)))
-    INetFwProduct.get_PathToSignedProductExe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_PathToSignedProductExe', ((1, 'path'),)))
-    win32more.System.Com.IDispatch
-    return INetFwProduct
-def _define_INetFwProducts_head():
-    class INetFwProducts(win32more.System.Com.IDispatch_head):
-        Guid = Guid('39eb36e0-2097-40bd-8a-f2-63-a1-3b-52-53-62')
-    return INetFwProducts
-def _define_INetFwProducts():
-    INetFwProducts = win32more.NetworkManagement.WindowsFirewall.INetFwProducts_head
-    INetFwProducts.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
-    INetFwProducts.Register = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head,POINTER(win32more.System.Com.IUnknown_head))(8, 'Register', ((1, 'product'),(1, 'registration'),)))
-    INetFwProducts.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head))(9, 'Item', ((1, 'index'),(1, 'product'),)))
-    INetFwProducts.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(10, 'get__NewEnum', ((1, 'newEnum'),)))
-    win32more.System.Com.IDispatch
-    return INetFwProducts
-def _define_INetFwProfile_head():
-    class INetFwProfile(win32more.System.Com.IDispatch_head):
-        Guid = Guid('174a0dda-e9f9-449d-99-3b-21-ab-66-7c-a4-56')
-    return INetFwProfile
-def _define_INetFwProfile():
-    INetFwProfile = win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head
-    INetFwProfile.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE))(7, 'get_Type', ((1, 'type'),)))
-    INetFwProfile.get_FirewallEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_FirewallEnabled', ((1, 'enabled'),)))
-    INetFwProfile.put_FirewallEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(9, 'put_FirewallEnabled', ((1, 'enabled'),)))
-    INetFwProfile.get_ExceptionsNotAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'get_ExceptionsNotAllowed', ((1, 'notAllowed'),)))
-    INetFwProfile.put_ExceptionsNotAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(11, 'put_ExceptionsNotAllowed', ((1, 'notAllowed'),)))
-    INetFwProfile.get_NotificationsDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'get_NotificationsDisabled', ((1, 'disabled'),)))
-    INetFwProfile.put_NotificationsDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(13, 'put_NotificationsDisabled', ((1, 'disabled'),)))
-    INetFwProfile.get_UnicastResponsesToMulticastBroadcastDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(14, 'get_UnicastResponsesToMulticastBroadcastDisabled', ((1, 'disabled'),)))
-    INetFwProfile.put_UnicastResponsesToMulticastBroadcastDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(15, 'put_UnicastResponsesToMulticastBroadcastDisabled', ((1, 'disabled'),)))
-    INetFwProfile.get_RemoteAdminSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRemoteAdminSettings_head))(16, 'get_RemoteAdminSettings', ((1, 'remoteAdminSettings'),)))
-    INetFwProfile.get_IcmpSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwIcmpSettings_head))(17, 'get_IcmpSettings', ((1, 'icmpSettings'),)))
-    INetFwProfile.get_GloballyOpenPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head))(18, 'get_GloballyOpenPorts', ((1, 'openPorts'),)))
-    INetFwProfile.get_Services = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwServices_head))(19, 'get_Services', ((1, 'services'),)))
-    INetFwProfile.get_AuthorizedApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplications_head))(20, 'get_AuthorizedApplications', ((1, 'apps'),)))
-    win32more.System.Com.IDispatch
-    return INetFwProfile
-def _define_INetFwRemoteAdminSettings_head():
-    class INetFwRemoteAdminSettings(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d4becddf-6f73-4a83-b8-32-9c-66-87-4c-d2-0e')
-    return INetFwRemoteAdminSettings
-def _define_INetFwRemoteAdminSettings():
-    INetFwRemoteAdminSettings = win32more.NetworkManagement.WindowsFirewall.INetFwRemoteAdminSettings_head
-    INetFwRemoteAdminSettings.get_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION))(7, 'get_IpVersion', ((1, 'ipVersion'),)))
-    INetFwRemoteAdminSettings.put_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)(8, 'put_IpVersion', ((1, 'ipVersion'),)))
-    INetFwRemoteAdminSettings.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE))(9, 'get_Scope', ((1, 'scope'),)))
-    INetFwRemoteAdminSettings.put_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)(10, 'put_Scope', ((1, 'scope'),)))
-    INetFwRemoteAdminSettings.get_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwRemoteAdminSettings.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwRemoteAdminSettings.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'get_Enabled', ((1, 'enabled'),)))
-    INetFwRemoteAdminSettings.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(14, 'put_Enabled', ((1, 'enabled'),)))
-    win32more.System.Com.IDispatch
-    return INetFwRemoteAdminSettings
-def _define_INetFwRule_head():
-    class INetFwRule(win32more.System.Com.IDispatch_head):
-        Guid = Guid('af230d27-baba-4e42-ac-ed-f5-24-f2-2c-fc-e2')
-    return INetFwRule
-def _define_INetFwRule():
-    INetFwRule = win32more.NetworkManagement.WindowsFirewall.INetFwRule_head
-    INetFwRule.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    INetFwRule.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_Name', ((1, 'name'),)))
-    INetFwRule.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Description', ((1, 'desc'),)))
-    INetFwRule.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_Description', ((1, 'desc'),)))
-    INetFwRule.get_ApplicationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_ApplicationName', ((1, 'imageFileName'),)))
-    INetFwRule.put_ApplicationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_ApplicationName', ((1, 'imageFileName'),)))
-    INetFwRule.get_ServiceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_ServiceName', ((1, 'serviceName'),)))
-    INetFwRule.put_ServiceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'put_ServiceName', ((1, 'serviceName'),)))
-    INetFwRule.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_Protocol', ((1, 'protocol'),)))
-    INetFwRule.put_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(16, 'put_Protocol', ((1, 'protocol'),)))
-    INetFwRule.get_LocalPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_LocalPorts', ((1, 'portNumbers'),)))
-    INetFwRule.put_LocalPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(18, 'put_LocalPorts', ((1, 'portNumbers'),)))
-    INetFwRule.get_RemotePorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_RemotePorts', ((1, 'portNumbers'),)))
-    INetFwRule.put_RemotePorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(20, 'put_RemotePorts', ((1, 'portNumbers'),)))
-    INetFwRule.get_LocalAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(21, 'get_LocalAddresses', ((1, 'localAddrs'),)))
-    INetFwRule.put_LocalAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(22, 'put_LocalAddresses', ((1, 'localAddrs'),)))
-    INetFwRule.get_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwRule.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(24, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwRule.get_IcmpTypesAndCodes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(25, 'get_IcmpTypesAndCodes', ((1, 'icmpTypesAndCodes'),)))
-    INetFwRule.put_IcmpTypesAndCodes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(26, 'put_IcmpTypesAndCodes', ((1, 'icmpTypesAndCodes'),)))
-    INetFwRule.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_RULE_DIRECTION))(27, 'get_Direction', ((1, 'dir'),)))
-    INetFwRule.put_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_RULE_DIRECTION)(28, 'put_Direction', ((1, 'dir'),)))
-    INetFwRule.get_Interfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(29, 'get_Interfaces', ((1, 'interfaces'),)))
-    INetFwRule.put_Interfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(30, 'put_Interfaces', ((1, 'interfaces'),)))
-    INetFwRule.get_InterfaceTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(31, 'get_InterfaceTypes', ((1, 'interfaceTypes'),)))
-    INetFwRule.put_InterfaceTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(32, 'put_InterfaceTypes', ((1, 'interfaceTypes'),)))
-    INetFwRule.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(33, 'get_Enabled', ((1, 'enabled'),)))
-    INetFwRule.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(34, 'put_Enabled', ((1, 'enabled'),)))
-    INetFwRule.get_Grouping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(35, 'get_Grouping', ((1, 'context'),)))
-    INetFwRule.put_Grouping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(36, 'put_Grouping', ((1, 'context'),)))
-    INetFwRule.get_Profiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(37, 'get_Profiles', ((1, 'profileTypesBitmask'),)))
-    INetFwRule.put_Profiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(38, 'put_Profiles', ((1, 'profileTypesBitmask'),)))
-    INetFwRule.get_EdgeTraversal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(39, 'get_EdgeTraversal', ((1, 'enabled'),)))
-    INetFwRule.put_EdgeTraversal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(40, 'put_EdgeTraversal', ((1, 'enabled'),)))
-    INetFwRule.get_Action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION))(41, 'get_Action', ((1, 'action'),)))
-    INetFwRule.put_Action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)(42, 'put_Action', ((1, 'action'),)))
-    win32more.System.Com.IDispatch
-    return INetFwRule
-def _define_INetFwRule2_head():
-    class INetFwRule2(win32more.NetworkManagement.WindowsFirewall.INetFwRule_head):
-        Guid = Guid('9c27c8da-189b-4dde-89-f7-8b-39-a3-16-78-2c')
-    return INetFwRule2
-def _define_INetFwRule2():
-    INetFwRule2 = win32more.NetworkManagement.WindowsFirewall.INetFwRule2_head
-    INetFwRule2.get_EdgeTraversalOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(43, 'get_EdgeTraversalOptions', ((1, 'lOptions'),)))
-    INetFwRule2.put_EdgeTraversalOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(44, 'put_EdgeTraversalOptions', ((1, 'lOptions'),)))
-    win32more.NetworkManagement.WindowsFirewall.INetFwRule
-    return INetFwRule2
-def _define_INetFwRule3_head():
-    class INetFwRule3(win32more.NetworkManagement.WindowsFirewall.INetFwRule2_head):
-        Guid = Guid('b21563ff-d696-4222-ab-46-4e-89-b7-3a-b3-4a')
-    return INetFwRule3
-def _define_INetFwRule3():
-    INetFwRule3 = win32more.NetworkManagement.WindowsFirewall.INetFwRule3_head
-    INetFwRule3.get_LocalAppPackageId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(45, 'get_LocalAppPackageId', ((1, 'wszPackageId'),)))
-    INetFwRule3.put_LocalAppPackageId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(46, 'put_LocalAppPackageId', ((1, 'wszPackageId'),)))
-    INetFwRule3.get_LocalUserOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(47, 'get_LocalUserOwner', ((1, 'wszUserOwner'),)))
-    INetFwRule3.put_LocalUserOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(48, 'put_LocalUserOwner', ((1, 'wszUserOwner'),)))
-    INetFwRule3.get_LocalUserAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(49, 'get_LocalUserAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.put_LocalUserAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(50, 'put_LocalUserAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.get_RemoteUserAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(51, 'get_RemoteUserAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.put_RemoteUserAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(52, 'put_RemoteUserAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.get_RemoteMachineAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(53, 'get_RemoteMachineAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.put_RemoteMachineAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(54, 'put_RemoteMachineAuthorizedList', ((1, 'wszUserAuthList'),)))
-    INetFwRule3.get_SecureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(55, 'get_SecureFlags', ((1, 'lOptions'),)))
-    INetFwRule3.put_SecureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(56, 'put_SecureFlags', ((1, 'lOptions'),)))
-    win32more.NetworkManagement.WindowsFirewall.INetFwRule2
-    return INetFwRule3
-def _define_INetFwRules_head():
-    class INetFwRules(win32more.System.Com.IDispatch_head):
-        Guid = Guid('9c4c6277-5027-441e-af-ae-ca-1f-54-2d-a0-09')
-    return INetFwRules
-def _define_INetFwRules():
-    INetFwRules = win32more.NetworkManagement.WindowsFirewall.INetFwRules_head
-    INetFwRules.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
-    INetFwRules.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetFwRule_head)(8, 'Add', ((1, 'rule'),)))
-    INetFwRules.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'Remove', ((1, 'name'),)))
-    INetFwRules.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRule_head))(10, 'Item', ((1, 'name'),(1, 'rule'),)))
-    INetFwRules.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(11, 'get__NewEnum', ((1, 'newEnum'),)))
-    win32more.System.Com.IDispatch
-    return INetFwRules
-def _define_INetFwService_head():
-    class INetFwService(win32more.System.Com.IDispatch_head):
-        Guid = Guid('79fd57c8-908e-4a36-98-88-d5-b3-f0-a4-44-cf')
-    return INetFwService
-def _define_INetFwService():
-    INetFwService = win32more.NetworkManagement.WindowsFirewall.INetFwService_head
-    INetFwService.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    INetFwService.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SERVICE_TYPE))(8, 'get_Type', ((1, 'type'),)))
-    INetFwService.get_Customized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_Customized', ((1, 'customized'),)))
-    INetFwService.get_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION))(10, 'get_IpVersion', ((1, 'ipVersion'),)))
-    INetFwService.put_IpVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)(11, 'put_IpVersion', ((1, 'ipVersion'),)))
-    INetFwService.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE))(12, 'get_Scope', ((1, 'scope'),)))
-    INetFwService.put_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)(13, 'put_Scope', ((1, 'scope'),)))
-    INetFwService.get_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwService.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
-    INetFwService.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_Enabled', ((1, 'enabled'),)))
-    INetFwService.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_Enabled', ((1, 'enabled'),)))
-    INetFwService.get_GloballyOpenPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head))(18, 'get_GloballyOpenPorts', ((1, 'openPorts'),)))
-    win32more.System.Com.IDispatch
-    return INetFwService
-def _define_INetFwServiceRestriction_head():
-    class INetFwServiceRestriction(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8267bbe3-f890-491c-b7-b6-2d-b1-ef-0e-5d-2b')
-    return INetFwServiceRestriction
-def _define_INetFwServiceRestriction():
-    INetFwServiceRestriction = win32more.NetworkManagement.WindowsFirewall.INetFwServiceRestriction_head
-    INetFwServiceRestriction.RestrictService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL)(7, 'RestrictService', ((1, 'serviceName'),(1, 'appName'),(1, 'restrictService'),(1, 'serviceSidRestricted'),)))
-    INetFwServiceRestriction.ServiceRestricted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'ServiceRestricted', ((1, 'serviceName'),(1, 'appName'),(1, 'serviceRestricted'),)))
-    INetFwServiceRestriction.get_Rules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRules_head))(9, 'get_Rules', ((1, 'rules'),)))
-    win32more.System.Com.IDispatch
-    return INetFwServiceRestriction
-def _define_INetFwServices_head():
-    class INetFwServices(win32more.System.Com.IDispatch_head):
-        Guid = Guid('79649bb4-903e-421b-94-c9-79-84-8e-79-f6-ee')
-    return INetFwServices
-def _define_INetFwServices():
-    INetFwServices = win32more.NetworkManagement.WindowsFirewall.INetFwServices_head
-    INetFwServices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'count'),)))
-    INetFwServices.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SERVICE_TYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwService_head))(8, 'Item', ((1, 'svcType'),(1, 'service'),)))
-    INetFwServices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(9, 'get__NewEnum', ((1, 'newEnum'),)))
-    win32more.System.Com.IDispatch
-    return INetFwServices
-def _define_INetSharingConfiguration_head():
-    class INetSharingConfiguration(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c08956b6-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetSharingConfiguration
-def _define_INetSharingConfiguration():
-    INetSharingConfiguration = win32more.NetworkManagement.WindowsFirewall.INetSharingConfiguration_head
-    INetSharingConfiguration.get_SharingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_SharingEnabled', ((1, 'pbEnabled'),)))
-    INetSharingConfiguration.get_SharingConnectionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTIONTYPE))(8, 'get_SharingConnectionType', ((1, 'pType'),)))
-    INetSharingConfiguration.DisableSharing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'DisableSharing', ()))
-    INetSharingConfiguration.EnableSharing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTIONTYPE)(10, 'EnableSharing', ((1, 'Type'),)))
-    INetSharingConfiguration.get_InternetFirewallEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(11, 'get_InternetFirewallEnabled', ((1, 'pbEnabled'),)))
-    INetSharingConfiguration.DisableInternetFirewall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'DisableInternetFirewall', ()))
-    INetSharingConfiguration.EnableInternetFirewall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'EnableInternetFirewall', ()))
-    INetSharingConfiguration.get_EnumPortMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingCollection_head))(14, 'get_EnumPortMappings', ((1, 'Flags'),(1, 'ppColl'),)))
-    INetSharingConfiguration.AddPortMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Byte,UInt16,UInt16,UInt32,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.ICS_TARGETTYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head))(15, 'AddPortMapping', ((1, 'bstrName'),(1, 'ucIPProtocol'),(1, 'usExternalPort'),(1, 'usInternalPort'),(1, 'dwOptions'),(1, 'bstrTargetNameOrIPAddress'),(1, 'eTargetType'),(1, 'ppMapping'),)))
-    INetSharingConfiguration.RemovePortMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head)(16, 'RemovePortMapping', ((1, 'pMapping'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingConfiguration
-def _define_INetSharingEveryConnectionCollection_head():
-    class INetSharingEveryConnectionCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('33c4643c-7811-46fa-a8-9a-76-85-97-bd-72-23')
-    return INetSharingEveryConnectionCollection
-def _define_INetSharingEveryConnectionCollection():
-    INetSharingEveryConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingEveryConnectionCollection_head
-    INetSharingEveryConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    INetSharingEveryConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingEveryConnectionCollection
-def _define_INetSharingManager_head():
-    class INetSharingManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c08956b7-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetSharingManager
-def _define_INetSharingManager():
-    INetSharingManager = win32more.NetworkManagement.WindowsFirewall.INetSharingManager_head
-    INetSharingManager.get_SharingInstalled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_SharingInstalled', ((1, 'pbInstalled'),)))
-    INetSharingManager.get_EnumPublicConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPublicConnectionCollection_head))(8, 'get_EnumPublicConnections', ((1, 'Flags'),(1, 'ppColl'),)))
-    INetSharingManager.get_EnumPrivateConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPrivateConnectionCollection_head))(9, 'get_EnumPrivateConnections', ((1, 'Flags'),(1, 'ppColl'),)))
-    INetSharingManager.get_INetSharingConfigurationForINetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingConfiguration_head))(10, 'get_INetSharingConfigurationForINetConnection', ((1, 'pNetConnection'),(1, 'ppNetSharingConfiguration'),)))
-    INetSharingManager.get_EnumEveryConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingEveryConnectionCollection_head))(11, 'get_EnumEveryConnection', ((1, 'ppColl'),)))
-    INetSharingManager.get_NetConnectionProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head,POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnectionProps_head))(12, 'get_NetConnectionProps', ((1, 'pNetConnection'),(1, 'ppProps'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingManager
-def _define_INetSharingPortMapping_head():
-    class INetSharingPortMapping(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c08956b1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
-    return INetSharingPortMapping
-def _define_INetSharingPortMapping():
-    INetSharingPortMapping = win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head
-    INetSharingPortMapping.Disable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Disable', ()))
-    INetSharingPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Enable', ()))
-    INetSharingPortMapping.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingProps_head))(9, 'get_Properties', ((1, 'ppNSPMP'),)))
-    INetSharingPortMapping.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return INetSharingPortMapping
-def _define_INetSharingPortMappingCollection_head():
-    class INetSharingPortMappingCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('02e4a2de-da20-4e34-89-c8-ac-22-27-5a-01-0b')
-    return INetSharingPortMappingCollection
-def _define_INetSharingPortMappingCollection():
-    INetSharingPortMappingCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingCollection_head
-    INetSharingPortMappingCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    INetSharingPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingPortMappingCollection
-def _define_INetSharingPortMappingProps_head():
-    class INetSharingPortMappingProps(win32more.System.Com.IDispatch_head):
-        Guid = Guid('24b7e9b5-e38f-4685-85-1b-00-89-2c-f5-f9-40')
-    return INetSharingPortMappingProps
-def _define_INetSharingPortMappingProps():
-    INetSharingPortMappingProps = win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingProps_head
-    INetSharingPortMappingProps.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'pbstrName'),)))
-    INetSharingPortMappingProps.get_IPProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no)(8, 'get_IPProtocol', ((1, 'pucIPProt'),)))
-    INetSharingPortMappingProps.get_ExternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_ExternalPort', ((1, 'pusPort'),)))
-    INetSharingPortMappingProps.get_InternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_InternalPort', ((1, 'pusPort'),)))
-    INetSharingPortMappingProps.get_Options = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_Options', ((1, 'pdwOptions'),)))
-    INetSharingPortMappingProps.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_TargetName', ((1, 'pbstrTargetName'),)))
-    INetSharingPortMappingProps.get_TargetIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_TargetIPAddress', ((1, 'pbstrTargetIPAddress'),)))
-    INetSharingPortMappingProps.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(14, 'get_Enabled', ((1, 'pbool'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingPortMappingProps
-def _define_INetSharingPrivateConnectionCollection_head():
-    class INetSharingPrivateConnectionCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('38ae69e0-4409-402a-a2-cb-e9-65-c7-27-f8-40')
-    return INetSharingPrivateConnectionCollection
-def _define_INetSharingPrivateConnectionCollection():
-    INetSharingPrivateConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPrivateConnectionCollection_head
-    INetSharingPrivateConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    INetSharingPrivateConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingPrivateConnectionCollection
-def _define_INetSharingPublicConnectionCollection_head():
-    class INetSharingPublicConnectionCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('7d7a6355-f372-4971-a1-49-bf-c9-27-be-76-2a')
-    return INetSharingPublicConnectionCollection
-def _define_INetSharingPublicConnectionCollection():
-    INetSharingPublicConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPublicConnectionCollection_head
-    INetSharingPublicConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    INetSharingPublicConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_Count', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return INetSharingPublicConnectionCollection
-def _define_IStaticPortMapping_head():
-    class IStaticPortMapping(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6f10711f-729b-41e5-93-b8-f2-1d-0f-81-8d-f1')
-    return IStaticPortMapping
-def _define_IStaticPortMapping():
-    IStaticPortMapping = win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head
-    IStaticPortMapping.get_ExternalIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ExternalIPAddress', ((1, 'pVal'),)))
-    IStaticPortMapping.get_ExternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_ExternalPort', ((1, 'pVal'),)))
-    IStaticPortMapping.get_InternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_InternalPort', ((1, 'pVal'),)))
-    IStaticPortMapping.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Protocol', ((1, 'pVal'),)))
-    IStaticPortMapping.get_InternalClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_InternalClient', ((1, 'pVal'),)))
-    IStaticPortMapping.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'get_Enabled', ((1, 'pVal'),)))
-    IStaticPortMapping.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_Description', ((1, 'pVal'),)))
-    IStaticPortMapping.EditInternalClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(14, 'EditInternalClient', ((1, 'bstrInternalClient'),)))
-    IStaticPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(15, 'Enable', ((1, 'vb'),)))
-    IStaticPortMapping.EditDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(16, 'EditDescription', ((1, 'bstrDescription'),)))
-    IStaticPortMapping.EditInternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(17, 'EditInternalPort', ((1, 'lInternalPort'),)))
-    win32more.System.Com.IDispatch
-    return IStaticPortMapping
-def _define_IStaticPortMappingCollection_head():
-    class IStaticPortMappingCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('cd1f3e77-66d6-4664-82-c7-36-db-b6-41-d0-f1')
-    return IStaticPortMappingCollection
-def _define_IStaticPortMappingCollection():
-    IStaticPortMappingCollection = win32more.NetworkManagement.WindowsFirewall.IStaticPortMappingCollection_head
-    IStaticPortMappingCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'pVal'),)))
-    IStaticPortMappingCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head))(8, 'get_Item', ((1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'ppSPM'),)))
-    IStaticPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Count', ((1, 'pVal'),)))
-    IStaticPortMappingCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR)(10, 'Remove', ((1, 'lExternalPort'),(1, 'bstrProtocol'),)))
-    IStaticPortMappingCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head))(11, 'Add', ((1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'lInternalPort'),(1, 'bstrInternalClient'),(1, 'bEnabled'),(1, 'bstrDescription'),(1, 'ppSPM'),)))
-    win32more.System.Com.IDispatch
-    return IStaticPortMappingCollection
-def _define_IUPnPNAT_head():
-    class IUPnPNAT(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b171c812-cc76-485a-94-d8-b6-b3-a2-79-4e-99')
-    return IUPnPNAT
-def _define_IUPnPNAT():
-    IUPnPNAT = win32more.NetworkManagement.WindowsFirewall.IUPnPNAT_head
-    IUPnPNAT.get_StaticPortMappingCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMappingCollection_head))(7, 'get_StaticPortMappingCollection', ((1, 'ppSPMs'),)))
-    IUPnPNAT.get_DynamicPortMappingCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMappingCollection_head))(8, 'get_DynamicPortMappingCollection', ((1, 'ppDPMs'),)))
-    IUPnPNAT.get_NATEventManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INATEventManager_head))(9, 'get_NATEventManager', ((1, 'ppNEM'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPNAT
+INET_FIREWALL_AC_NONE: INET_FIREWALL_AC_CREATION_TYPE = 0
+INET_FIREWALL_AC_PACKAGE_ID_ONLY: INET_FIREWALL_AC_CREATION_TYPE = 1
+INET_FIREWALL_AC_BINARY: INET_FIREWALL_AC_CREATION_TYPE = 2
+INET_FIREWALL_AC_MAX: INET_FIREWALL_AC_CREATION_TYPE = 4
+class INET_FIREWALL_APP_CONTAINER(Structure):
+    appContainerSid: POINTER(win32more.Security.SID_head)
+    userSid: POINTER(win32more.Security.SID_head)
+    appContainerName: win32more.Foundation.PWSTR
+    displayName: win32more.Foundation.PWSTR
+    description: win32more.Foundation.PWSTR
+    capabilities: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES
+    binaries: win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES
+    workingDirectory: win32more.Foundation.PWSTR
+    packageFullName: win32more.Foundation.PWSTR
+class INetConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956a1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def Connect() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Disconnect() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Duplicate(pszwDuplicateName: win32more.Foundation.PWSTR, ppCon: POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetProperties(ppProps: POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_PROPERTIES_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetUiObjectClassId(pclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Rename(pszwNewName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class INetConnectionConnectUi(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956a3-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def SetConnection(pCon: win32more.NetworkManagement.WindowsFirewall.INetConnection_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Connect(hwndParent: win32more.Foundation.HWND, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Disconnect(hwndParent: win32more.Foundation.HWND, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class INetConnectionManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c08956a2-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(3)
+    def EnumConnections(Flags: win32more.NetworkManagement.WindowsFirewall.NETCONMGR_ENUM_FLAGS, ppEnum: POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head)) -> win32more.Foundation.HRESULT: ...
+class INetConnectionProps(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f4277c95-ce5b-463d-81-67-56-62-d9-bc-aa-72')
+    @commethod(7)
+    def get_Guid(pbstrGuid: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_DeviceName(pbstrDeviceName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Status(pStatus: POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_MediaType(pMediaType: POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Characteristics(pdwFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class INetFwAuthorizedApplication(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b5e64ffa-c2c5-444e-a3-01-fb-5e-00-01-80-50')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ProcessImageFileName(imageFileName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_ProcessImageFileName(imageFileName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_IpVersion(ipVersion: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_IpVersion(ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Scope(scope: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_Scope(scope: win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_RemoteAddresses(remoteAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_RemoteAddresses(remoteAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class INetFwAuthorizedApplications(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('644efd52-ccf9-486c-97-a2-39-f3-52-57-0b-30')
+    @commethod(7)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Add(app: win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Remove(imageFileName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Item(imageFileName: win32more.Foundation.BSTR, app: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get__NewEnum(newEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwIcmpSettings(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('a6207b2e-7cdd-426a-95-1e-5e-1c-bc-5a-fe-ad')
+    @commethod(7)
+    def get_AllowOutboundDestinationUnreachable(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_AllowOutboundDestinationUnreachable(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_AllowRedirect(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_AllowRedirect(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_AllowInboundEchoRequest(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_AllowInboundEchoRequest(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_AllowOutboundTimeExceeded(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_AllowOutboundTimeExceeded(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_AllowOutboundParameterProblem(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_AllowOutboundParameterProblem(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_AllowOutboundSourceQuench(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_AllowOutboundSourceQuench(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_AllowInboundRouterRequest(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_AllowInboundRouterRequest(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_AllowInboundTimestampRequest(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_AllowInboundTimestampRequest(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_AllowInboundMaskRequest(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_AllowInboundMaskRequest(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_AllowOutboundPacketTooBig(allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_AllowOutboundPacketTooBig(allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class INetFwMgr(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f7898af5-cac4-4632-a2-ec-da-06-e5-11-1a-f2')
+    @commethod(7)
+    def get_LocalPolicy(localPolicy: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwPolicy_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentProfileType(profileType: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def RestoreDefaults() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def IsPortAllowed(imageFileName: win32more.Foundation.BSTR, ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION, portNumber: Int32, localAddress: win32more.Foundation.BSTR, ipProtocol: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL, allowed: POINTER(win32more.System.Com.VARIANT_head), restricted: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def IsIcmpTypeAllowed(ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION, localAddress: win32more.Foundation.BSTR, type: Byte, allowed: POINTER(win32more.System.Com.VARIANT_head), restricted: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwOpenPort(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('e0483ba0-47ff-4d9c-a6-d6-77-41-d0-b1-95-f7')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_IpVersion(ipVersion: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_IpVersion(ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Protocol(ipProtocol: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_Protocol(ipProtocol: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Port(portNumber: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_Port(portNumber: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Scope(scope: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_Scope(scope: win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_RemoteAddresses(remoteAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_RemoteAddresses(remoteAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_BuiltIn(builtIn: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class INetFwOpenPorts(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c0e9d7fa-e07e-430a-b1-9a-09-0c-e8-2d-92-e2')
+    @commethod(7)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Add(port: win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Remove(portNumber: Int32, ipProtocol: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Item(portNumber: Int32, ipProtocol: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL, openPort: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get__NewEnum(newEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwPolicy(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d46d2478-9ac9-4008-9d-c7-55-63-ce-55-36-cc')
+    @commethod(7)
+    def get_CurrentProfile(profile: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetProfileByType(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE, profile: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwPolicy2(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('98325047-c671-4174-8d-81-de-fc-d3-f0-31-86')
+    @commethod(7)
+    def get_CurrentProfileTypes(profileTypesBitmask: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_FirewallEnabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_FirewallEnabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_ExcludedInterfaces(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, interfaces: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_ExcludedInterfaces(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, interfaces: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_BlockAllInboundTraffic(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, Block: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_BlockAllInboundTraffic(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, Block: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_NotificationsDisabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, disabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_NotificationsDisabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, disabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_UnicastResponsesToMulticastBroadcastDisabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, disabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_UnicastResponsesToMulticastBroadcastDisabled(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, disabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_Rules(rules: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRules_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_ServiceRestriction(ServiceRestriction: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwServiceRestriction_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def EnableRuleGroup(profileTypesBitmask: Int32, group: win32more.Foundation.BSTR, enable: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def IsRuleGroupEnabled(profileTypesBitmask: Int32, group: win32more.Foundation.BSTR, enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def RestoreLocalFirewallDefaults() -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_DefaultInboundAction(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, action: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_DefaultInboundAction(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, action: win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_DefaultOutboundAction(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, action: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_DefaultOutboundAction(profileType: win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2, action: win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_IsRuleGroupCurrentlyEnabled(group: win32more.Foundation.BSTR, enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_LocalPolicyModifyState(modifyState: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_MODIFY_STATE)) -> win32more.Foundation.HRESULT: ...
+class INetFwProduct(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('71881699-18f4-458b-b8-92-3f-fc-e5-e0-7f-75')
+    @commethod(7)
+    def get_RuleCategories(ruleCategories: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_RuleCategories(ruleCategories: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_DisplayName(displayName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_DisplayName(displayName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_PathToSignedProductExe(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class INetFwProducts(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('39eb36e0-2097-40bd-8a-f2-63-a1-3b-52-53-62')
+    @commethod(7)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Register(product: win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head, registration: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Item(index: Int32, product: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get__NewEnum(newEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwProfile(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('174a0dda-e9f9-449d-99-3b-21-ab-66-7c-a4-56')
+    @commethod(7)
+    def get_Type(type: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_FirewallEnabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_FirewallEnabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_ExceptionsNotAllowed(notAllowed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_ExceptionsNotAllowed(notAllowed: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_NotificationsDisabled(disabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_NotificationsDisabled(disabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_UnicastResponsesToMulticastBroadcastDisabled(disabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_UnicastResponsesToMulticastBroadcastDisabled(disabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_RemoteAdminSettings(remoteAdminSettings: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRemoteAdminSettings_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_IcmpSettings(icmpSettings: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwIcmpSettings_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_GloballyOpenPorts(openPorts: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_Services(services: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwServices_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_AuthorizedApplications(apps: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplications_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwRemoteAdminSettings(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d4becddf-6f73-4a83-b8-32-9c-66-87-4c-d2-0e')
+    @commethod(7)
+    def get_IpVersion(ipVersion: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_IpVersion(ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Scope(scope: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Scope(scope: win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_RemoteAddresses(remoteAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_RemoteAddresses(remoteAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class INetFwRule(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('af230d27-baba-4e42-ac-ed-f5-24-f2-2c-fc-e2')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Description(desc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Description(desc: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_ApplicationName(imageFileName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_ApplicationName(imageFileName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ServiceName(serviceName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_ServiceName(serviceName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Protocol(protocol: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_Protocol(protocol: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_LocalPorts(portNumbers: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_LocalPorts(portNumbers: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_RemotePorts(portNumbers: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_RemotePorts(portNumbers: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_LocalAddresses(localAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_LocalAddresses(localAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_RemoteAddresses(remoteAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_RemoteAddresses(remoteAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_IcmpTypesAndCodes(icmpTypesAndCodes: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_IcmpTypesAndCodes(icmpTypesAndCodes: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_Direction(dir: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_RULE_DIRECTION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def put_Direction(dir: win32more.NetworkManagement.WindowsFirewall.NET_FW_RULE_DIRECTION) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_Interfaces(interfaces: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def put_Interfaces(interfaces: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def get_InterfaceTypes(interfaceTypes: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def put_InterfaceTypes(interfaceTypes: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_Grouping(context: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def put_Grouping(context: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def get_Profiles(profileTypesBitmask: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def put_Profiles(profileTypesBitmask: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def get_EdgeTraversal(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def put_EdgeTraversal(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def get_Action(action: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def put_Action(action: win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION) -> win32more.Foundation.HRESULT: ...
+class INetFwRule2(c_void_p):
+    extends: win32more.NetworkManagement.WindowsFirewall.INetFwRule
+    Guid = Guid('9c27c8da-189b-4dde-89-f7-8b-39-a3-16-78-2c')
+    @commethod(43)
+    def get_EdgeTraversalOptions(lOptions: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def put_EdgeTraversalOptions(lOptions: Int32) -> win32more.Foundation.HRESULT: ...
+class INetFwRule3(c_void_p):
+    extends: win32more.NetworkManagement.WindowsFirewall.INetFwRule2
+    Guid = Guid('b21563ff-d696-4222-ab-46-4e-89-b7-3a-b3-4a')
+    @commethod(45)
+    def get_LocalAppPackageId(wszPackageId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def put_LocalAppPackageId(wszPackageId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def get_LocalUserOwner(wszUserOwner: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def put_LocalUserOwner(wszUserOwner: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def get_LocalUserAuthorizedList(wszUserAuthList: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def put_LocalUserAuthorizedList(wszUserAuthList: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def get_RemoteUserAuthorizedList(wszUserAuthList: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def put_RemoteUserAuthorizedList(wszUserAuthList: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def get_RemoteMachineAuthorizedList(wszUserAuthList: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def put_RemoteMachineAuthorizedList(wszUserAuthList: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def get_SecureFlags(lOptions: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def put_SecureFlags(lOptions: Int32) -> win32more.Foundation.HRESULT: ...
+class INetFwRules(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('9c4c6277-5027-441e-af-ae-ca-1f-54-2d-a0-09')
+    @commethod(7)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Add(rule: win32more.NetworkManagement.WindowsFirewall.INetFwRule_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Remove(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Item(name: win32more.Foundation.BSTR, rule: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get__NewEnum(newEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwService(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('79fd57c8-908e-4a36-98-88-d5-b3-f0-a4-44-cf')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Type(type: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SERVICE_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Customized(customized: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_IpVersion(ipVersion: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_IpVersion(ipVersion: win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Scope(scope: POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Scope(scope: win32more.NetworkManagement.WindowsFirewall.NET_FW_SCOPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_RemoteAddresses(remoteAddrs: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_RemoteAddresses(remoteAddrs: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_GloballyOpenPorts(openPorts: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwServiceRestriction(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('8267bbe3-f890-491c-b7-b6-2d-b1-ef-0e-5d-2b')
+    @commethod(7)
+    def RestrictService(serviceName: win32more.Foundation.BSTR, appName: win32more.Foundation.BSTR, restrictService: win32more.Foundation.VARIANT_BOOL, serviceSidRestricted: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ServiceRestricted(serviceName: win32more.Foundation.BSTR, appName: win32more.Foundation.BSTR, serviceRestricted: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Rules(rules: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRules_head)) -> win32more.Foundation.HRESULT: ...
+class INetFwServices(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('79649bb4-903e-421b-94-c9-79-84-8e-79-f6-ee')
+    @commethod(7)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Item(svcType: win32more.NetworkManagement.WindowsFirewall.NET_FW_SERVICE_TYPE, service: POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwService_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(newEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INetSharingConfiguration(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c08956b6-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(7)
+    def get_SharingEnabled(pbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_SharingConnectionType(pType: POINTER(win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTIONTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def DisableSharing() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def EnableSharing(Type: win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTIONTYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_InternetFirewallEnabled(pbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DisableInternetFirewall() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def EnableInternetFirewall() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_EnumPortMappings(Flags: win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS, ppColl: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def AddPortMapping(bstrName: win32more.Foundation.BSTR, ucIPProtocol: Byte, usExternalPort: UInt16, usInternalPort: UInt16, dwOptions: UInt32, bstrTargetNameOrIPAddress: win32more.Foundation.BSTR, eTargetType: win32more.NetworkManagement.WindowsFirewall.ICS_TARGETTYPE, ppMapping: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def RemovePortMapping(pMapping: win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head) -> win32more.Foundation.HRESULT: ...
+class INetSharingEveryConnectionCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('33c4643c-7811-46fa-a8-9a-76-85-97-bd-72-23')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class INetSharingManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c08956b7-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(7)
+    def get_SharingInstalled(pbInstalled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_EnumPublicConnections(Flags: win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS, ppColl: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPublicConnectionCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_EnumPrivateConnections(Flags: win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS, ppColl: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPrivateConnectionCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_INetSharingConfigurationForINetConnection(pNetConnection: win32more.NetworkManagement.WindowsFirewall.INetConnection_head, ppNetSharingConfiguration: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingConfiguration_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_EnumEveryConnection(ppColl: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingEveryConnectionCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_NetConnectionProps(pNetConnection: win32more.NetworkManagement.WindowsFirewall.INetConnection_head, ppProps: POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnectionProps_head)) -> win32more.Foundation.HRESULT: ...
+class INetSharingPortMapping(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c08956b1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    @commethod(7)
+    def Disable() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Enable() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Properties(ppNSPMP: POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingProps_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class INetSharingPortMappingCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('02e4a2de-da20-4e34-89-c8-ac-22-27-5a-01-0b')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class INetSharingPortMappingProps(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('24b7e9b5-e38f-4685-85-1b-00-89-2c-f5-f9-40')
+    @commethod(7)
+    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_IPProtocol(pucIPProt: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ExternalPort(pusPort: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_InternalPort(pusPort: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Options(pdwOptions: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_TargetName(pbstrTargetName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_TargetIPAddress(pbstrTargetIPAddress: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Enabled(pbool: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class INetSharingPrivateConnectionCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('38ae69e0-4409-402a-a2-cb-e9-65-c7-27-f8-40')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class INetSharingPublicConnectionCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('7d7a6355-f372-4971-a1-49-bf-c9-27-be-76-2a')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IStaticPortMapping(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6f10711f-729b-41e5-93-b8-f2-1d-0f-81-8d-f1')
+    @commethod(7)
+    def get_ExternalIPAddress(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ExternalPort(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_InternalPort(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Protocol(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_InternalClient(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Enabled(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Description(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def EditInternalClient(bstrInternalClient: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Enable(vb: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def EditDescription(bstrDescription: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def EditInternalPort(lInternalPort: Int32) -> win32more.Foundation.HRESULT: ...
+class IStaticPortMappingCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('cd1f3e77-66d6-4664-82-c7-36-db-b6-41-d0-f1')
+    @commethod(7)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR, ppSPM: POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Remove(lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Add(lExternalPort: Int32, bstrProtocol: win32more.Foundation.BSTR, lInternalPort: Int32, bstrInternalClient: win32more.Foundation.BSTR, bEnabled: win32more.Foundation.VARIANT_BOOL, bstrDescription: win32more.Foundation.BSTR, ppSPM: POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPNAT(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b171c812-cc76-485a-94-d8-b6-b3-a2-79-4e-99')
+    @commethod(7)
+    def get_StaticPortMappingCollection(ppSPMs: POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMappingCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_DynamicPortMappingCollection(ppDPMs: POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMappingCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_NATEventManager(ppNEM: POINTER(win32more.NetworkManagement.WindowsFirewall.INATEventManager_head)) -> win32more.Foundation.HRESULT: ...
 NET_FW_ACTION = Int32
-NET_FW_ACTION_BLOCK = 0
-NET_FW_ACTION_ALLOW = 1
-NET_FW_ACTION_MAX = 2
+NET_FW_ACTION_BLOCK: NET_FW_ACTION = 0
+NET_FW_ACTION_ALLOW: NET_FW_ACTION = 1
+NET_FW_ACTION_MAX: NET_FW_ACTION = 2
 NET_FW_AUTHENTICATE_TYPE = Int32
-NET_FW_AUTHENTICATE_NONE = 0
-NET_FW_AUTHENTICATE_NO_ENCAPSULATION = 1
-NET_FW_AUTHENTICATE_WITH_INTEGRITY = 2
-NET_FW_AUTHENTICATE_AND_NEGOTIATE_ENCRYPTION = 3
-NET_FW_AUTHENTICATE_AND_ENCRYPT = 4
+NET_FW_AUTHENTICATE_NONE: NET_FW_AUTHENTICATE_TYPE = 0
+NET_FW_AUTHENTICATE_NO_ENCAPSULATION: NET_FW_AUTHENTICATE_TYPE = 1
+NET_FW_AUTHENTICATE_WITH_INTEGRITY: NET_FW_AUTHENTICATE_TYPE = 2
+NET_FW_AUTHENTICATE_AND_NEGOTIATE_ENCRYPTION: NET_FW_AUTHENTICATE_TYPE = 3
+NET_FW_AUTHENTICATE_AND_ENCRYPT: NET_FW_AUTHENTICATE_TYPE = 4
 NET_FW_EDGE_TRAVERSAL_TYPE = Int32
-NET_FW_EDGE_TRAVERSAL_TYPE_DENY = 0
-NET_FW_EDGE_TRAVERSAL_TYPE_ALLOW = 1
-NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_APP = 2
-NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER = 3
+NET_FW_EDGE_TRAVERSAL_TYPE_DENY: NET_FW_EDGE_TRAVERSAL_TYPE = 0
+NET_FW_EDGE_TRAVERSAL_TYPE_ALLOW: NET_FW_EDGE_TRAVERSAL_TYPE = 1
+NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_APP: NET_FW_EDGE_TRAVERSAL_TYPE = 2
+NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER: NET_FW_EDGE_TRAVERSAL_TYPE = 3
 NET_FW_IP_PROTOCOL = Int32
-NET_FW_IP_PROTOCOL_TCP = 6
-NET_FW_IP_PROTOCOL_UDP = 17
-NET_FW_IP_PROTOCOL_ANY = 256
+NET_FW_IP_PROTOCOL_TCP: NET_FW_IP_PROTOCOL = 6
+NET_FW_IP_PROTOCOL_UDP: NET_FW_IP_PROTOCOL = 17
+NET_FW_IP_PROTOCOL_ANY: NET_FW_IP_PROTOCOL = 256
 NET_FW_IP_VERSION = Int32
-NET_FW_IP_VERSION_V4 = 0
-NET_FW_IP_VERSION_V6 = 1
-NET_FW_IP_VERSION_ANY = 2
-NET_FW_IP_VERSION_MAX = 3
+NET_FW_IP_VERSION_V4: NET_FW_IP_VERSION = 0
+NET_FW_IP_VERSION_V6: NET_FW_IP_VERSION = 1
+NET_FW_IP_VERSION_ANY: NET_FW_IP_VERSION = 2
+NET_FW_IP_VERSION_MAX: NET_FW_IP_VERSION = 3
 NET_FW_MODIFY_STATE = Int32
-NET_FW_MODIFY_STATE_OK = 0
-NET_FW_MODIFY_STATE_GP_OVERRIDE = 1
-NET_FW_MODIFY_STATE_INBOUND_BLOCKED = 2
+NET_FW_MODIFY_STATE_OK: NET_FW_MODIFY_STATE = 0
+NET_FW_MODIFY_STATE_GP_OVERRIDE: NET_FW_MODIFY_STATE = 1
+NET_FW_MODIFY_STATE_INBOUND_BLOCKED: NET_FW_MODIFY_STATE = 2
 NET_FW_POLICY_TYPE = Int32
-NET_FW_POLICY_GROUP = 0
-NET_FW_POLICY_LOCAL = 1
-NET_FW_POLICY_EFFECTIVE = 2
-NET_FW_POLICY_TYPE_MAX = 3
+NET_FW_POLICY_GROUP: NET_FW_POLICY_TYPE = 0
+NET_FW_POLICY_LOCAL: NET_FW_POLICY_TYPE = 1
+NET_FW_POLICY_EFFECTIVE: NET_FW_POLICY_TYPE = 2
+NET_FW_POLICY_TYPE_MAX: NET_FW_POLICY_TYPE = 3
 NET_FW_PROFILE_TYPE = Int32
-NET_FW_PROFILE_DOMAIN = 0
-NET_FW_PROFILE_STANDARD = 1
-NET_FW_PROFILE_CURRENT = 2
-NET_FW_PROFILE_TYPE_MAX = 3
+NET_FW_PROFILE_DOMAIN: NET_FW_PROFILE_TYPE = 0
+NET_FW_PROFILE_STANDARD: NET_FW_PROFILE_TYPE = 1
+NET_FW_PROFILE_CURRENT: NET_FW_PROFILE_TYPE = 2
+NET_FW_PROFILE_TYPE_MAX: NET_FW_PROFILE_TYPE = 3
 NET_FW_PROFILE_TYPE2 = Int32
-NET_FW_PROFILE2_DOMAIN = 1
-NET_FW_PROFILE2_PRIVATE = 2
-NET_FW_PROFILE2_PUBLIC = 4
-NET_FW_PROFILE2_ALL = 2147483647
+NET_FW_PROFILE2_DOMAIN: NET_FW_PROFILE_TYPE2 = 1
+NET_FW_PROFILE2_PRIVATE: NET_FW_PROFILE_TYPE2 = 2
+NET_FW_PROFILE2_PUBLIC: NET_FW_PROFILE_TYPE2 = 4
+NET_FW_PROFILE2_ALL: NET_FW_PROFILE_TYPE2 = 2147483647
 NET_FW_RULE_CATEGORY = Int32
-NET_FW_RULE_CATEGORY_BOOT = 0
-NET_FW_RULE_CATEGORY_STEALTH = 1
-NET_FW_RULE_CATEGORY_FIREWALL = 2
-NET_FW_RULE_CATEGORY_CONSEC = 3
-NET_FW_RULE_CATEGORY_MAX = 4
+NET_FW_RULE_CATEGORY_BOOT: NET_FW_RULE_CATEGORY = 0
+NET_FW_RULE_CATEGORY_STEALTH: NET_FW_RULE_CATEGORY = 1
+NET_FW_RULE_CATEGORY_FIREWALL: NET_FW_RULE_CATEGORY = 2
+NET_FW_RULE_CATEGORY_CONSEC: NET_FW_RULE_CATEGORY = 3
+NET_FW_RULE_CATEGORY_MAX: NET_FW_RULE_CATEGORY = 4
 NET_FW_RULE_DIRECTION = Int32
-NET_FW_RULE_DIR_IN = 1
-NET_FW_RULE_DIR_OUT = 2
-NET_FW_RULE_DIR_MAX = 3
+NET_FW_RULE_DIR_IN: NET_FW_RULE_DIRECTION = 1
+NET_FW_RULE_DIR_OUT: NET_FW_RULE_DIRECTION = 2
+NET_FW_RULE_DIR_MAX: NET_FW_RULE_DIRECTION = 3
 NET_FW_SCOPE = Int32
-NET_FW_SCOPE_ALL = 0
-NET_FW_SCOPE_LOCAL_SUBNET = 1
-NET_FW_SCOPE_CUSTOM = 2
-NET_FW_SCOPE_MAX = 3
+NET_FW_SCOPE_ALL: NET_FW_SCOPE = 0
+NET_FW_SCOPE_LOCAL_SUBNET: NET_FW_SCOPE = 1
+NET_FW_SCOPE_CUSTOM: NET_FW_SCOPE = 2
+NET_FW_SCOPE_MAX: NET_FW_SCOPE = 3
 NET_FW_SERVICE_TYPE = Int32
-NET_FW_SERVICE_FILE_AND_PRINT = 0
-NET_FW_SERVICE_UPNP = 1
-NET_FW_SERVICE_REMOTE_DESKTOP = 2
-NET_FW_SERVICE_NONE = 3
-NET_FW_SERVICE_TYPE_MAX = 4
+NET_FW_SERVICE_FILE_AND_PRINT: NET_FW_SERVICE_TYPE = 0
+NET_FW_SERVICE_UPNP: NET_FW_SERVICE_TYPE = 1
+NET_FW_SERVICE_REMOTE_DESKTOP: NET_FW_SERVICE_TYPE = 2
+NET_FW_SERVICE_NONE: NET_FW_SERVICE_TYPE = 3
+NET_FW_SERVICE_TYPE_MAX: NET_FW_SERVICE_TYPE = 4
 NETCON_CHARACTERISTIC_FLAGS = Int32
-NCCF_NONE = 0
-NCCF_ALL_USERS = 1
-NCCF_ALLOW_DUPLICATION = 2
-NCCF_ALLOW_REMOVAL = 4
-NCCF_ALLOW_RENAME = 8
-NCCF_INCOMING_ONLY = 32
-NCCF_OUTGOING_ONLY = 64
-NCCF_BRANDED = 128
-NCCF_SHARED = 256
-NCCF_BRIDGED = 512
-NCCF_FIREWALLED = 1024
-NCCF_DEFAULT = 2048
-NCCF_HOMENET_CAPABLE = 4096
-NCCF_SHARED_PRIVATE = 8192
-NCCF_QUARANTINED = 16384
-NCCF_RESERVED = 32768
-NCCF_HOSTED_NETWORK = 65536
-NCCF_VIRTUAL_STATION = 131072
-NCCF_WIFI_DIRECT = 262144
-NCCF_BLUETOOTH_MASK = 983040
-NCCF_LAN_MASK = 15728640
+NCCF_NONE: NETCON_CHARACTERISTIC_FLAGS = 0
+NCCF_ALL_USERS: NETCON_CHARACTERISTIC_FLAGS = 1
+NCCF_ALLOW_DUPLICATION: NETCON_CHARACTERISTIC_FLAGS = 2
+NCCF_ALLOW_REMOVAL: NETCON_CHARACTERISTIC_FLAGS = 4
+NCCF_ALLOW_RENAME: NETCON_CHARACTERISTIC_FLAGS = 8
+NCCF_INCOMING_ONLY: NETCON_CHARACTERISTIC_FLAGS = 32
+NCCF_OUTGOING_ONLY: NETCON_CHARACTERISTIC_FLAGS = 64
+NCCF_BRANDED: NETCON_CHARACTERISTIC_FLAGS = 128
+NCCF_SHARED: NETCON_CHARACTERISTIC_FLAGS = 256
+NCCF_BRIDGED: NETCON_CHARACTERISTIC_FLAGS = 512
+NCCF_FIREWALLED: NETCON_CHARACTERISTIC_FLAGS = 1024
+NCCF_DEFAULT: NETCON_CHARACTERISTIC_FLAGS = 2048
+NCCF_HOMENET_CAPABLE: NETCON_CHARACTERISTIC_FLAGS = 4096
+NCCF_SHARED_PRIVATE: NETCON_CHARACTERISTIC_FLAGS = 8192
+NCCF_QUARANTINED: NETCON_CHARACTERISTIC_FLAGS = 16384
+NCCF_RESERVED: NETCON_CHARACTERISTIC_FLAGS = 32768
+NCCF_HOSTED_NETWORK: NETCON_CHARACTERISTIC_FLAGS = 65536
+NCCF_VIRTUAL_STATION: NETCON_CHARACTERISTIC_FLAGS = 131072
+NCCF_WIFI_DIRECT: NETCON_CHARACTERISTIC_FLAGS = 262144
+NCCF_BLUETOOTH_MASK: NETCON_CHARACTERISTIC_FLAGS = 983040
+NCCF_LAN_MASK: NETCON_CHARACTERISTIC_FLAGS = 15728640
 NETCON_MEDIATYPE = Int32
-NCM_NONE = 0
-NCM_DIRECT = 1
-NCM_ISDN = 2
-NCM_LAN = 3
-NCM_PHONE = 4
-NCM_TUNNEL = 5
-NCM_PPPOE = 6
-NCM_BRIDGE = 7
-NCM_SHAREDACCESSHOST_LAN = 8
-NCM_SHAREDACCESSHOST_RAS = 9
-def _define_NETCON_PROPERTIES_head():
-    class NETCON_PROPERTIES(Structure):
-        pass
-    return NETCON_PROPERTIES
-def _define_NETCON_PROPERTIES():
-    NETCON_PROPERTIES = win32more.NetworkManagement.WindowsFirewall.NETCON_PROPERTIES_head
-    NETCON_PROPERTIES._fields_ = [
-        ('guidId', Guid),
-        ('pszwName', win32more.Foundation.PWSTR),
-        ('pszwDeviceName', win32more.Foundation.PWSTR),
-        ('Status', win32more.NetworkManagement.WindowsFirewall.NETCON_STATUS),
-        ('MediaType', win32more.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE),
-        ('dwCharacter', UInt32),
-        ('clsidThisObject', Guid),
-        ('clsidUiObject', Guid),
-    ]
-    return NETCON_PROPERTIES
+NCM_NONE: NETCON_MEDIATYPE = 0
+NCM_DIRECT: NETCON_MEDIATYPE = 1
+NCM_ISDN: NETCON_MEDIATYPE = 2
+NCM_LAN: NETCON_MEDIATYPE = 3
+NCM_PHONE: NETCON_MEDIATYPE = 4
+NCM_TUNNEL: NETCON_MEDIATYPE = 5
+NCM_PPPOE: NETCON_MEDIATYPE = 6
+NCM_BRIDGE: NETCON_MEDIATYPE = 7
+NCM_SHAREDACCESSHOST_LAN: NETCON_MEDIATYPE = 8
+NCM_SHAREDACCESSHOST_RAS: NETCON_MEDIATYPE = 9
+class NETCON_PROPERTIES(Structure):
+    guidId: Guid
+    pszwName: win32more.Foundation.PWSTR
+    pszwDeviceName: win32more.Foundation.PWSTR
+    Status: win32more.NetworkManagement.WindowsFirewall.NETCON_STATUS
+    MediaType: win32more.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE
+    dwCharacter: UInt32
+    clsidThisObject: Guid
+    clsidUiObject: Guid
 NETCON_STATUS = Int32
-NCS_DISCONNECTED = 0
-NCS_CONNECTING = 1
-NCS_CONNECTED = 2
-NCS_DISCONNECTING = 3
-NCS_HARDWARE_NOT_PRESENT = 4
-NCS_HARDWARE_DISABLED = 5
-NCS_HARDWARE_MALFUNCTION = 6
-NCS_MEDIA_DISCONNECTED = 7
-NCS_AUTHENTICATING = 8
-NCS_AUTHENTICATION_SUCCEEDED = 9
-NCS_AUTHENTICATION_FAILED = 10
-NCS_INVALID_ADDRESS = 11
-NCS_CREDENTIALS_REQUIRED = 12
-NCS_ACTION_REQUIRED = 13
-NCS_ACTION_REQUIRED_RETRY = 14
-NCS_CONNECT_FAILED = 15
+NCS_DISCONNECTED: NETCON_STATUS = 0
+NCS_CONNECTING: NETCON_STATUS = 1
+NCS_CONNECTED: NETCON_STATUS = 2
+NCS_DISCONNECTING: NETCON_STATUS = 3
+NCS_HARDWARE_NOT_PRESENT: NETCON_STATUS = 4
+NCS_HARDWARE_DISABLED: NETCON_STATUS = 5
+NCS_HARDWARE_MALFUNCTION: NETCON_STATUS = 6
+NCS_MEDIA_DISCONNECTED: NETCON_STATUS = 7
+NCS_AUTHENTICATING: NETCON_STATUS = 8
+NCS_AUTHENTICATION_SUCCEEDED: NETCON_STATUS = 9
+NCS_AUTHENTICATION_FAILED: NETCON_STATUS = 10
+NCS_INVALID_ADDRESS: NETCON_STATUS = 11
+NCS_CREDENTIALS_REQUIRED: NETCON_STATUS = 12
+NCS_ACTION_REQUIRED: NETCON_STATUS = 13
+NCS_ACTION_REQUIRED_RETRY: NETCON_STATUS = 14
+NCS_CONNECT_FAILED: NETCON_STATUS = 15
 NETCON_TYPE = Int32
-NCT_DIRECT_CONNECT = 0
-NCT_INBOUND = 1
-NCT_INTERNET = 2
-NCT_LAN = 3
-NCT_PHONE = 4
-NCT_TUNNEL = 5
-NCT_BRIDGE = 6
+NCT_DIRECT_CONNECT: NETCON_TYPE = 0
+NCT_INBOUND: NETCON_TYPE = 1
+NCT_INTERNET: NETCON_TYPE = 2
+NCT_LAN: NETCON_TYPE = 3
+NCT_PHONE: NETCON_TYPE = 4
+NCT_TUNNEL: NETCON_TYPE = 5
+NCT_BRIDGE: NETCON_TYPE = 6
 NETCONMGR_ENUM_FLAGS = Int32
-NCME_DEFAULT = 0
-NCME_HIDDEN = 1
+NCME_DEFAULT: NETCONMGR_ENUM_FLAGS = 0
+NCME_HIDDEN: NETCONMGR_ENUM_FLAGS = 1
 NETCONUI_CONNECT_FLAGS = Int32
-NCUC_DEFAULT = 0
-NCUC_NO_UI = 1
-NCUC_ENABLE_DISABLE = 2
+NCUC_DEFAULT: NETCONUI_CONNECT_FLAGS = 0
+NCUC_NO_UI: NETCONUI_CONNECT_FLAGS = 1
+NCUC_ENABLE_DISABLE: NETCONUI_CONNECT_FLAGS = 2
 NetFwAuthorizedApplication = Guid('ec9846b3-2762-4a6b-a2-14-6a-cb-60-34-62-d2')
 NetFwMgr = Guid('304ce942-6e39-40d8-94-3a-b9-13-c4-0c-9c-d4')
 NetFwOpenPort = Guid('0ca545c6-37ad-4a6c-bf-92-9f-76-10-06-7e-f5')
@@ -983,38 +983,97 @@ NetFwProduct = Guid('9d745ed8-c514-4d1d-bf-42-75-1f-ed-2d-5a-c7')
 NetFwProducts = Guid('cc19079b-8272-4d73-bb-70-cd-b5-33-52-7b-61')
 NetFwRule = Guid('2c5bc43e-3369-4c33-ab-0c-be-94-69-67-7a-f4')
 NETISO_ERROR_TYPE = Int32
-NETISO_ERROR_TYPE_NONE = 0
-NETISO_ERROR_TYPE_PRIVATE_NETWORK = 1
-NETISO_ERROR_TYPE_INTERNET_CLIENT = 2
-NETISO_ERROR_TYPE_INTERNET_CLIENT_SERVER = 3
-NETISO_ERROR_TYPE_MAX = 4
+NETISO_ERROR_TYPE_NONE: NETISO_ERROR_TYPE = 0
+NETISO_ERROR_TYPE_PRIVATE_NETWORK: NETISO_ERROR_TYPE = 1
+NETISO_ERROR_TYPE_INTERNET_CLIENT: NETISO_ERROR_TYPE = 2
+NETISO_ERROR_TYPE_INTERNET_CLIENT_SERVER: NETISO_ERROR_TYPE = 3
+NETISO_ERROR_TYPE_MAX: NETISO_ERROR_TYPE = 4
 NETISO_FLAG = Int32
-NETISO_FLAG_FORCE_COMPUTE_BINARIES = 1
-NETISO_FLAG_MAX = 2
+NETISO_FLAG_FORCE_COMPUTE_BINARIES: NETISO_FLAG = 1
+NETISO_FLAG_MAX: NETISO_FLAG = 2
 NetSharingManager = Guid('5c63c1ad-3956-4ff8-84-86-40-03-47-58-31-5b')
-def _define_PAC_CHANGES_CALLBACK_FN():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_head))
-def _define_PFN_FWADDDYNAMICKEYWORDADDRESS0():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0_head))
-def _define_PFN_FWDELETEDYNAMICKEYWORDADDRESS0():
-    return WINFUNCTYPE(UInt32,Guid)
-def _define_PFN_FWENUMDYNAMICKEYWORDADDRESSBYID0():
-    return WINFUNCTYPE(UInt32,Guid,POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head)))
-def _define_PFN_FWENUMDYNAMICKEYWORDADDRESSESBYTYPE0():
-    return WINFUNCTYPE(UInt32,UInt32,POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head)))
-def _define_PFN_FWFREEDYNAMICKEYWORDADDRESSDATA0():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head))
-def _define_PFN_FWUPDATEDYNAMICKEYWORDADDRESS0():
-    return WINFUNCTYPE(UInt32,Guid,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)
-def _define_PNETISO_EDP_ID_CALLBACK_FN():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.PWSTR,UInt32)
+@winfunctype_pointer
+def PAC_CHANGES_CALLBACK_FN(context: c_void_p, pChange: POINTER(win32more.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_head)) -> Void: ...
+@winfunctype_pointer
+def PFN_FWADDDYNAMICKEYWORDADDRESS0(dynamicKeywordAddress: POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0_head)) -> UInt32: ...
+@winfunctype_pointer
+def PFN_FWDELETEDYNAMICKEYWORDADDRESS0(dynamicKeywordAddressId: Guid) -> UInt32: ...
+@winfunctype_pointer
+def PFN_FWENUMDYNAMICKEYWORDADDRESSBYID0(dynamicKeywordAddressId: Guid, dynamicKeywordAddressData: POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head))) -> UInt32: ...
+@winfunctype_pointer
+def PFN_FWENUMDYNAMICKEYWORDADDRESSESBYTYPE0(flags: UInt32, dynamicKeywordAddressData: POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head))) -> UInt32: ...
+@winfunctype_pointer
+def PFN_FWFREEDYNAMICKEYWORDADDRESSDATA0(dynamicKeywordAddressData: POINTER(win32more.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0_head)) -> UInt32: ...
+@winfunctype_pointer
+def PFN_FWUPDATEDYNAMICKEYWORDADDRESS0(dynamicKeywordAddressId: Guid, updatedAddresses: win32more.Foundation.PWSTR, append: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def PNETISO_EDP_ID_CALLBACK_FN(context: c_void_p, wszEnterpriseId: win32more.Foundation.PWSTR, dwErr: UInt32) -> Void: ...
 SHARINGCONNECTION_ENUM_FLAGS = Int32
-ICSSC_DEFAULT = 0
-ICSSC_ENABLED = 1
+ICSSC_DEFAULT: SHARINGCONNECTION_ENUM_FLAGS = 0
+ICSSC_ENABLED: SHARINGCONNECTION_ENUM_FLAGS = 1
 SHARINGCONNECTIONTYPE = Int32
-ICSSHARINGTYPE_PUBLIC = 0
-ICSSHARINGTYPE_PRIVATE = 1
+ICSSHARINGTYPE_PUBLIC: SHARINGCONNECTIONTYPE = 0
+ICSSHARINGTYPE_PRIVATE: SHARINGCONNECTIONTYPE = 1
 UPnPNAT = Guid('ae1e00aa-3fd5-403c-8a-27-2b-bd-c3-0c-d0-e1')
+make_head(_module, 'FW_DYNAMIC_KEYWORD_ADDRESS_DATA0')
+make_head(_module, 'FW_DYNAMIC_KEYWORD_ADDRESS0')
+make_head(_module, 'IDynamicPortMapping')
+make_head(_module, 'IDynamicPortMappingCollection')
+make_head(_module, 'IEnumNetConnection')
+make_head(_module, 'IEnumNetSharingEveryConnection')
+make_head(_module, 'IEnumNetSharingPortMapping')
+make_head(_module, 'IEnumNetSharingPrivateConnection')
+make_head(_module, 'IEnumNetSharingPublicConnection')
+make_head(_module, 'INATEventManager')
+make_head(_module, 'INATExternalIPAddressCallback')
+make_head(_module, 'INATNumberOfEntriesCallback')
+make_head(_module, 'INET_FIREWALL_AC_BINARIES')
+make_head(_module, 'INET_FIREWALL_AC_CAPABILITIES')
+make_head(_module, 'INET_FIREWALL_AC_CHANGE')
+make_head(_module, 'INET_FIREWALL_APP_CONTAINER')
+make_head(_module, 'INetConnection')
+make_head(_module, 'INetConnectionConnectUi')
+make_head(_module, 'INetConnectionManager')
+make_head(_module, 'INetConnectionProps')
+make_head(_module, 'INetFwAuthorizedApplication')
+make_head(_module, 'INetFwAuthorizedApplications')
+make_head(_module, 'INetFwIcmpSettings')
+make_head(_module, 'INetFwMgr')
+make_head(_module, 'INetFwOpenPort')
+make_head(_module, 'INetFwOpenPorts')
+make_head(_module, 'INetFwPolicy')
+make_head(_module, 'INetFwPolicy2')
+make_head(_module, 'INetFwProduct')
+make_head(_module, 'INetFwProducts')
+make_head(_module, 'INetFwProfile')
+make_head(_module, 'INetFwRemoteAdminSettings')
+make_head(_module, 'INetFwRule')
+make_head(_module, 'INetFwRule2')
+make_head(_module, 'INetFwRule3')
+make_head(_module, 'INetFwRules')
+make_head(_module, 'INetFwService')
+make_head(_module, 'INetFwServiceRestriction')
+make_head(_module, 'INetFwServices')
+make_head(_module, 'INetSharingConfiguration')
+make_head(_module, 'INetSharingEveryConnectionCollection')
+make_head(_module, 'INetSharingManager')
+make_head(_module, 'INetSharingPortMapping')
+make_head(_module, 'INetSharingPortMappingCollection')
+make_head(_module, 'INetSharingPortMappingProps')
+make_head(_module, 'INetSharingPrivateConnectionCollection')
+make_head(_module, 'INetSharingPublicConnectionCollection')
+make_head(_module, 'IStaticPortMapping')
+make_head(_module, 'IStaticPortMappingCollection')
+make_head(_module, 'IUPnPNAT')
+make_head(_module, 'NETCON_PROPERTIES')
+make_head(_module, 'PAC_CHANGES_CALLBACK_FN')
+make_head(_module, 'PFN_FWADDDYNAMICKEYWORDADDRESS0')
+make_head(_module, 'PFN_FWDELETEDYNAMICKEYWORDADDRESS0')
+make_head(_module, 'PFN_FWENUMDYNAMICKEYWORDADDRESSBYID0')
+make_head(_module, 'PFN_FWENUMDYNAMICKEYWORDADDRESSESBYTYPE0')
+make_head(_module, 'PFN_FWFREEDYNAMICKEYWORDADDRESSDATA0')
+make_head(_module, 'PFN_FWUPDATEDYNAMICKEYWORDADDRESS0')
+make_head(_module, 'PNETISO_EDP_ID_CALLBACK_FN')
 __all__ = [
     "FW_DYNAMIC_KEYWORD_ADDRESS0",
     "FW_DYNAMIC_KEYWORD_ADDRESS_DATA0",

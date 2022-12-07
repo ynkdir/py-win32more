@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.P2P
 import win32more.Networking.WinSock
@@ -10,2284 +11,1190 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-NS_PNRPNAME = 38
-NS_PNRPCLOUD = 39
-PNRPINFO_HINT = 1
-def _define_NS_PROVIDER_PNRPNAME():
-    return Guid('03fe89cd-766d-4976-b9-c1-bb-9b-c4-2c-7b-4d')
-def _define_NS_PROVIDER_PNRPCLOUD():
-    return Guid('03fe89ce-766d-4976-b9-c1-bb-9b-c4-2c-7b-4d')
-def _define_SVCID_PNRPCLOUD():
-    return Guid('c2239ce6-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
-def _define_SVCID_PNRPNAME_V1():
-    return Guid('c2239ce5-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
-def _define_SVCID_PNRPNAME_V2():
-    return Guid('c2239ce7-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
-PNRP_MAX_ENDPOINT_ADDRESSES = 10
-WSZ_SCOPE_GLOBAL = 'GLOBAL'
-WSZ_SCOPE_SITELOCAL = 'SITELOCAL'
-WSZ_SCOPE_LINKLOCAL = 'LINKLOCAL'
-PNRP_MAX_EXTENDED_PAYLOAD_BYTES = 4096
-PEER_PNRP_ALL_LINK_CLOUDS = 'PEER_PNRP_ALL_LINKS'
-WSA_PNRP_ERROR_BASE = 11500
-WSA_PNRP_CLOUD_NOT_FOUND = 11501
-WSA_PNRP_CLOUD_DISABLED = 11502
-WSA_PNRP_INVALID_IDENTITY = 11503
-WSA_PNRP_TOO_MUCH_LOAD = 11504
-WSA_PNRP_CLOUD_IS_SEARCH_ONLY = 11505
-WSA_PNRP_CLIENT_INVALID_COMPARTMENT_ID = 11506
-WSA_PNRP_DUPLICATE_PEER_NAME = 11508
-WSA_PNRP_CLOUD_IS_DEAD = 11509
-PEER_E_CLOUD_NOT_FOUND = -2147013395
-PEER_E_CLOUD_DISABLED = -2147013394
-PEER_E_INVALID_IDENTITY = -2147013393
-PEER_E_TOO_MUCH_LOAD = -2147013392
-PEER_E_CLOUD_IS_SEARCH_ONLY = -2147013391
-PEER_E_CLIENT_INVALID_COMPARTMENT_ID = -2147013390
-PEER_E_DUPLICATE_PEER_NAME = -2147013388
-PEER_E_CLOUD_IS_DEAD = -2147013387
-PEER_E_NOT_FOUND = -2147023728
-PEER_E_DISK_FULL = -2147024784
-PEER_E_ALREADY_EXISTS = -2147024713
-def _define_PEER_GROUP_ROLE_ADMIN():
-    return Guid('04387127-aa56-450a-8c-e5-4f-56-5c-67-90-f4')
-def _define_PEER_GROUP_ROLE_MEMBER():
-    return Guid('f12dc4c7-0857-4ca0-93-fc-b1-bb-19-a3-d8-c2')
-def _define_PEER_GROUP_ROLE_INVITING_MEMBER():
-    return Guid('4370fd89-dc18-4cfb-8d-bf-98-53-a8-a9-f9-05')
-def _define_PEER_COLLAB_OBJECTID_USER_PICTURE():
-    return Guid('dd15f41f-fc4e-4922-b0-35-4c-06-a7-54-d0-1d')
-FACILITY_DRT = 98
-DRT_E_TIMEOUT = -2141057023
-DRT_E_INVALID_KEY_SIZE = -2141057022
-DRT_E_INVALID_CERT_CHAIN = -2141057020
-DRT_E_INVALID_MESSAGE = -2141057019
-DRT_E_NO_MORE = -2141057018
-DRT_E_INVALID_MAX_ADDRESSES = -2141057017
-DRT_E_SEARCH_IN_PROGRESS = -2141057016
-DRT_E_INVALID_KEY = -2141057015
-DRT_S_RETRY = 6426640
-DRT_E_INVALID_MAX_ENDPOINTS = -2141057007
-DRT_E_INVALID_SEARCH_RANGE = -2141057006
-DRT_E_INVALID_PORT = -2141052928
-DRT_E_INVALID_TRANSPORT_PROVIDER = -2141052927
-DRT_E_INVALID_SECURITY_PROVIDER = -2141052926
-DRT_E_STILL_IN_USE = -2141052925
-DRT_E_INVALID_BOOTSTRAP_PROVIDER = -2141052924
-DRT_E_INVALID_ADDRESS = -2141052923
-DRT_E_INVALID_SCOPE = -2141052922
-DRT_E_TRANSPORT_SHUTTING_DOWN = -2141052921
-DRT_E_NO_ADDRESSES_AVAILABLE = -2141052920
-DRT_E_DUPLICATE_KEY = -2141052919
-DRT_E_TRANSPORTPROVIDER_IN_USE = -2141052918
-DRT_E_TRANSPORTPROVIDER_NOT_ATTACHED = -2141052917
-DRT_E_SECURITYPROVIDER_IN_USE = -2141052916
-DRT_E_SECURITYPROVIDER_NOT_ATTACHED = -2141052915
-DRT_E_BOOTSTRAPPROVIDER_IN_USE = -2141052914
-DRT_E_BOOTSTRAPPROVIDER_NOT_ATTACHED = -2141052913
-DRT_E_TRANSPORT_ALREADY_BOUND = -2141052671
-DRT_E_TRANSPORT_NOT_BOUND = -2141052670
-DRT_E_TRANSPORT_UNEXPECTED = -2141052669
-DRT_E_TRANSPORT_INVALID_ARGUMENT = -2141052668
-DRT_E_TRANSPORT_NO_DEST_ADDRESSES = -2141052667
-DRT_E_TRANSPORT_EXECUTING_CALLBACK = -2141052666
-DRT_E_TRANSPORT_ALREADY_EXISTS_FOR_SCOPE = -2141052665
-DRT_E_INVALID_SETTINGS = -2141052664
-DRT_E_INVALID_SEARCH_INFO = -2141052663
-DRT_E_FAULTED = -2141052662
-DRT_E_TRANSPORT_STILL_BOUND = -2141052661
-DRT_E_INSUFFICIENT_BUFFER = -2141052660
-DRT_E_INVALID_INSTANCE_PREFIX = -2141052659
-DRT_E_INVALID_SECURITY_MODE = -2141052658
-DRT_E_CAPABILITY_MISMATCH = -2141052657
-DRT_PAYLOAD_REVOKED = 1
-DRT_MIN_ROUTING_ADDRESSES = 1
-DRT_MAX_ROUTING_ADDRESSES = 20
-DRT_MAX_PAYLOAD_SIZE = 5120
-DRT_MAX_INSTANCE_PREFIX_LEN = 128
-DRT_LINK_LOCAL_ISATAP_SCOPEID = 4294967295
-PEERDIST_PUBLICATION_OPTIONS_VERSION_1 = 1
-PEERDIST_PUBLICATION_OPTIONS_VERSION = 2
-PEERDIST_PUBLICATION_OPTIONS_VERSION_2 = 2
-PEERDIST_READ_TIMEOUT_LOCAL_CACHE_ONLY = 0
-PEERDIST_READ_TIMEOUT_DEFAULT = 4294967294
-def _define_PeerGraphStartup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.NetworkManagement.P2P.PEER_VERSION_DATA_head))(('PeerGraphStartup', windll['P2PGRAPH.dll']), ((1, 'wVersionRequested'),(1, 'pVersionData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('PeerGraphShutdown', windll['P2PGRAPH.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphFreeData():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('PeerGraphFreeData', windll['P2PGRAPH.dll']), ((1, 'pvData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetItemCount():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('PeerGraphGetItemCount', windll['P2PGRAPH.dll']), ((1, 'hPeerEnum'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetNextItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32),POINTER(POINTER(c_void_p)))(('PeerGraphGetNextItem', windll['P2PGRAPH.dll']), ((1, 'hPeerEnum'),(1, 'pCount'),(1, 'pppvItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphEndEnumeration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGraphEndEnumeration', windll['P2PGRAPH.dll']), ((1, 'hPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head),win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_SECURITY_INTERFACE_head),POINTER(c_void_p))(('PeerGraphCreate', windll['P2PGRAPH.dll']), ((1, 'pGraphProperties'),(1, 'pwzDatabaseName'),(1, 'pSecurityInterface'),(1, 'phGraph'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphOpen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_SECURITY_INTERFACE_head),UInt32,POINTER(Guid),POINTER(c_void_p))(('PeerGraphOpen', windll['P2PGRAPH.dll']), ((1, 'pwzGraphId'),(1, 'pwzPeerId'),(1, 'pwzDatabaseName'),(1, 'pSecurityInterface'),(1, 'cRecordTypeSyncPrecedence'),(1, 'pRecordTypeSyncPrecedence'),(1, 'phGraph'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphListen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32,UInt16)(('PeerGraphListen', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'dwScope'),(1, 'dwScopeId'),(1, 'wPort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphConnect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head),POINTER(UInt64))(('PeerGraphConnect', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzPeerId'),(1, 'pAddress'),(1, 'pullConnectionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGraphClose', windll['P2PGRAPH.dll']), ((1, 'hGraph'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphDelete():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('PeerGraphDelete', windll['P2PGRAPH.dll']), ((1, 'pwzGraphId'),(1, 'pwzPeerId'),(1, 'pwzDatabaseName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('PeerGraphGetStatus', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pdwStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head)))(('PeerGraphGetProperties', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'ppGraphProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphSetProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head))(('PeerGraphSetProperties', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pGraphProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphRegisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_REGISTRATION_head),POINTER(c_void_p))(('PeerGraphRegisterEvent', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'hEvent'),(1, 'cEventRegistrations'),(1, 'pEventRegistrations'),(1, 'phPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphUnregisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGraphUnregisterEvent', windll['P2PGRAPH.dll']), ((1, 'hPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetEventData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_DATA_head)))(('PeerGraphGetEventData', windll['P2PGRAPH.dll']), ((1, 'hPeerEvent'),(1, 'ppEventData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head)))(('PeerGraphGetRecord', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pRecordId'),(1, 'ppRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphAddRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head),POINTER(Guid))(('PeerGraphAddRecord', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pRecord'),(1, 'pRecordId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphUpdateRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head))(('PeerGraphUpdateRecord', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphDeleteRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),win32more.Foundation.BOOL)(('PeerGraphDeleteRecord', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pRecordId'),(1, 'fLocal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphEnumRecords():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGraphEnumRecords', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pRecordType'),(1, 'pwzPeerId'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphSearchRecords():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGraphSearchRecords', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzCriteria'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphExportDatabase():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)(('PeerGraphExportDatabase', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphImportDatabase():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)(('PeerGraphImportDatabase', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphValidateDeferredRecords():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(Guid))(('PeerGraphValidateDeferredRecords', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'cRecordIds'),(1, 'pRecordIds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphOpenDirectConnection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head),POINTER(UInt64))(('PeerGraphOpenDirectConnection', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzPeerId'),(1, 'pAddress'),(1, 'pullConnectionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphSendData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt64,POINTER(Guid),UInt32,c_void_p)(('PeerGraphSendData', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'ullConnectionId'),(1, 'pType'),(1, 'cbData'),(1, 'pvData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphCloseDirectConnection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt64)(('PeerGraphCloseDirectConnection', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'ullConnectionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphEnumConnections():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(c_void_p))(('PeerGraphEnumConnections', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'dwFlags'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphEnumNodes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGraphEnumNodes', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzPeerId'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphSetPresence():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.BOOL)(('PeerGraphSetPresence', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'fPresent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphGetNodeInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt64,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_NODE_INFO_head)))(('PeerGraphGetNodeInfo', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'ullNodeId'),(1, 'ppNodeInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphSetNodeAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)(('PeerGraphSetNodeAttributes', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pwzAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphPeerTimeToUniversalTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('PeerGraphPeerTimeToUniversalTime', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pftPeerTime'),(1, 'pftUniversalTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGraphUniversalTimeToPeerTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('PeerGraphUniversalTimeToPeerTime', windll['P2PGRAPH.dll']), ((1, 'hGraph'),(1, 'pftUniversalTime'),(1, 'pftPeerTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerFreeData():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('PeerFreeData', windll['P2P.dll']), ((1, 'pvData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGetItemCount():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('PeerGetItemCount', windll['P2P.dll']), ((1, 'hPeerEnum'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGetNextItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32),POINTER(POINTER(c_void_p)))(('PeerGetNextItem', windll['P2P.dll']), ((1, 'hPeerEnum'),(1, 'pCount'),(1, 'pppvItems'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerEndEnumeration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerEndEnumeration', windll['P2P.dll']), ((1, 'hPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupStartup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.NetworkManagement.P2P.PEER_VERSION_DATA_head))(('PeerGroupStartup', windll['P2P.dll']), ((1, 'wVersionRequested'),(1, 'pVersionData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('PeerGroupShutdown', windll['P2P.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head),POINTER(c_void_p))(('PeerGroupCreate', windll['P2P.dll']), ((1, 'pProperties'),(1, 'phGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupOpen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGroupOpen', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzGroupPeerName'),(1, 'pwzCloud'),(1, 'phGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupJoin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGroupJoin', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzInvitation'),(1, 'pwzCloud'),(1, 'phGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupPasswordJoin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGroupPasswordJoin', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzInvitation'),(1, 'pwzPassword'),(1, 'pwzCloud'),(1, 'phGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupConnect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGroupConnect', windll['P2P.dll']), ((1, 'hGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupConnectByAddress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head))(('PeerGroupConnectByAddress', windll['P2P.dll']), ((1, 'hGroup'),(1, 'cAddresses'),(1, 'pAddresses'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGroupClose', windll['P2P.dll']), ((1, 'hGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupDelete():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('PeerGroupDelete', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzGroupPeerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupCreateInvitation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(Guid),POINTER(win32more.Foundation.PWSTR))(('PeerGroupCreateInvitation', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzIdentityInfo'),(1, 'pftExpiration'),(1, 'cRoles'),(1, 'pRoles'),(1, 'ppwzInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupCreatePasswordInvitation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.PWSTR))(('PeerGroupCreatePasswordInvitation', windll['P2P.dll']), ((1, 'hGroup'),(1, 'ppwzInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupParseInvitation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_INFO_head)))(('PeerGroupParseInvitation', windll['P2P.dll']), ((1, 'pwzInvitation'),(1, 'ppInvitationInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupGetStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('PeerGroupGetStatus', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pdwStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupGetProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head)))(('PeerGroupGetProperties', windll['P2P.dll']), ((1, 'hGroup'),(1, 'ppProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupSetProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head))(('PeerGroupSetProperties', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupEnumMembers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGroupEnumMembers', windll['P2P.dll']), ((1, 'hGroup'),(1, 'dwFlags'),(1, 'pwzIdentity'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupOpenDirectConnection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head),POINTER(UInt64))(('PeerGroupOpenDirectConnection', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzIdentity'),(1, 'pAddress'),(1, 'pullConnectionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupCloseDirectConnection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt64)(('PeerGroupCloseDirectConnection', windll['P2P.dll']), ((1, 'hGroup'),(1, 'ullConnectionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupEnumConnections():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(c_void_p))(('PeerGroupEnumConnections', windll['P2P.dll']), ((1, 'hGroup'),(1, 'dwFlags'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupSendData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt64,POINTER(Guid),UInt32,c_void_p)(('PeerGroupSendData', windll['P2P.dll']), ((1, 'hGroup'),(1, 'ullConnectionId'),(1, 'pType'),(1, 'cbData'),(1, 'pvData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupRegisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_REGISTRATION_head),POINTER(c_void_p))(('PeerGroupRegisterEvent', windll['P2P.dll']), ((1, 'hGroup'),(1, 'hEvent'),(1, 'cEventRegistration'),(1, 'pEventRegistrations'),(1, 'phPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupUnregisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerGroupUnregisterEvent', windll['P2P.dll']), ((1, 'hPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupGetEventData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_DATA_head)))(('PeerGroupGetEventData', windll['P2P.dll']), ((1, 'hPeerEvent'),(1, 'ppEventData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupGetRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head)))(('PeerGroupGetRecord', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pRecordId'),(1, 'ppRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupAddRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head),POINTER(Guid))(('PeerGroupAddRecord', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pRecord'),(1, 'pRecordId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupUpdateRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head))(('PeerGroupUpdateRecord', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pRecord'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupDeleteRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid))(('PeerGroupDeleteRecord', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pRecordId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupEnumRecords():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(c_void_p))(('PeerGroupEnumRecords', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pRecordType'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupSearchRecords():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerGroupSearchRecords', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzCriteria'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupExportDatabase():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)(('PeerGroupExportDatabase', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupImportDatabase():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)(('PeerGroupImportDatabase', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzFilePath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupIssueCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_CREDENTIAL_INFO_head),UInt32,POINTER(win32more.Foundation.PWSTR))(('PeerGroupIssueCredentials', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzSubjectIdentity'),(1, 'pCredentialInfo'),(1, 'dwFlags'),(1, 'ppwzInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupExportConfig():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerGroupExportConfig', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pwzPassword'),(1, 'ppwzXML'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupImportConfig():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(('PeerGroupImportConfig', windll['P2P.dll']), ((1, 'pwzXML'),(1, 'pwzPassword'),(1, 'fOverwrite'),(1, 'ppwzIdentity'),(1, 'ppwzGroup'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupPeerTimeToUniversalTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('PeerGroupPeerTimeToUniversalTime', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pftPeerTime'),(1, 'pftUniversalTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupUniversalTimeToPeerTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('PeerGroupUniversalTimeToPeerTime', windll['P2P.dll']), ((1, 'hGroup'),(1, 'pftUniversalTime'),(1, 'pftPeerTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerGroupResumePasswordAuthentication():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p)(('PeerGroupResumePasswordAuthentication', windll['P2P.dll']), ((1, 'hGroup'),(1, 'hPeerEventHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UIntPtr,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityCreate', windll['P2P.dll']), ((1, 'pwzClassifier'),(1, 'pwzFriendlyName'),(1, 'hCryptProv'),(1, 'ppwzIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityGetFriendlyName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityGetFriendlyName', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'ppwzFriendlyName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentitySetFriendlyName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('PeerIdentitySetFriendlyName', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzFriendlyName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityGetCryptKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UIntPtr))(('PeerIdentityGetCryptKey', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'phCryptProv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityDelete():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('PeerIdentityDelete', windll['P2P.dll']), ((1, 'pwzIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerEnumIdentities():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))(('PeerEnumIdentities', windll['P2P.dll']), ((1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerEnumGroups():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(c_void_p))(('PeerEnumGroups', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCreatePeerName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerCreatePeerName', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzClassifier'),(1, 'ppwzPeerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityGetXML():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityGetXML', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'ppwzIdentityXML'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityExport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityExport', windll['P2P.dll']), ((1, 'pwzIdentity'),(1, 'pwzPassword'),(1, 'ppwzExportXML'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityImport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityImport', windll['P2P.dll']), ((1, 'pwzImportXML'),(1, 'pwzPassword'),(1, 'ppwzIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerIdentityGetDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(('PeerIdentityGetDefault', windll['P2P.dll']), ((1, 'ppwzPeerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabStartup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16)(('PeerCollabStartup', windll['P2P.dll']), ((1, 'wVersionRequested'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('PeerCollabShutdown', windll['P2P.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSignin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(('PeerCollabSignin', windll['P2P.dll']), ((1, 'hwndParent'),(1, 'dwSigninOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSignout():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('PeerCollabSignout', windll['P2P.dll']), ((1, 'dwSigninOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetSigninOptions():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(('PeerCollabGetSigninOptions', windll['P2P.dll']), ((1, 'pdwSigninOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabAsyncInviteContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head),POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head),win32more.Foundation.HANDLE,POINTER(win32more.Foundation.HANDLE))(('PeerCollabAsyncInviteContact', windll['P2P.dll']), ((1, 'pcContact'),(1, 'pcEndpoint'),(1, 'pcInvitation'),(1, 'hEvent'),(1, 'phInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetInvitationResponse():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head)))(('PeerCollabGetInvitationResponse', windll['P2P.dll']), ((1, 'hInvitation'),(1, 'ppInvitationResponse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabCancelInvitation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(('PeerCollabCancelInvitation', windll['P2P.dll']), ((1, 'hInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabCloseHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(('PeerCollabCloseHandle', windll['P2P.dll']), ((1, 'hInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabInviteContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head),POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head)))(('PeerCollabInviteContact', windll['P2P.dll']), ((1, 'pcContact'),(1, 'pcEndpoint'),(1, 'pcInvitation'),(1, 'ppResponse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabAsyncInviteEndpoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head),win32more.Foundation.HANDLE,POINTER(win32more.Foundation.HANDLE))(('PeerCollabAsyncInviteEndpoint', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'pcInvitation'),(1, 'hEvent'),(1, 'phInvitation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabInviteEndpoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head)))(('PeerCollabInviteEndpoint', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'pcInvitation'),(1, 'ppResponse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetAppLaunchInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_APP_LAUNCH_INFO_head)))(('PeerCollabGetAppLaunchInfo', windll['P2P.dll']), ((1, 'ppLaunchInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabRegisterApplication():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_INFO_head),win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE)(('PeerCollabRegisterApplication', windll['P2P.dll']), ((1, 'pcApplication'),(1, 'registrationType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabUnregisterApplication():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE)(('PeerCollabUnregisterApplication', windll['P2P.dll']), ((1, 'pApplicationId'),(1, 'registrationType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetApplicationRegistrationInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_INFO_head)))(('PeerCollabGetApplicationRegistrationInfo', windll['P2P.dll']), ((1, 'pApplicationId'),(1, 'registrationType'),(1, 'ppApplication'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumApplicationRegistrationInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE,POINTER(c_void_p))(('PeerCollabEnumApplicationRegistrationInfo', windll['P2P.dll']), ((1, 'registrationType'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetPresenceInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head)))(('PeerCollabGetPresenceInfo', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'ppPresenceInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumApplications():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(Guid),POINTER(c_void_p))(('PeerCollabEnumApplications', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'pApplicationId'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumObjects():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(Guid),POINTER(c_void_p))(('PeerCollabEnumObjects', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'pObjectId'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumEndpoints():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head),POINTER(c_void_p))(('PeerCollabEnumEndpoints', windll['P2P.dll']), ((1, 'pcContact'),(1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabRefreshEndpointData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head))(('PeerCollabRefreshEndpointData', windll['P2P.dll']), ((1, 'pcEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabDeleteEndpointData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head))(('PeerCollabDeleteEndpointData', windll['P2P.dll']), ((1, 'pcEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabQueryContactData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head),POINTER(win32more.Foundation.PWSTR))(('PeerCollabQueryContactData', windll['P2P.dll']), ((1, 'pcEndpoint'),(1, 'ppwzContactData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSubscribeEndpointData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head))(('PeerCollabSubscribeEndpointData', windll['P2P.dll']), ((1, 'pcEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabUnsubscribeEndpointData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head))(('PeerCollabUnsubscribeEndpointData', windll['P2P.dll']), ((1, 'pcEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSetPresenceInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head))(('PeerCollabSetPresenceInfo', windll['P2P.dll']), ((1, 'pcPresenceInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetEndpointName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(('PeerCollabGetEndpointName', windll['P2P.dll']), ((1, 'ppwzEndpointName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSetEndpointName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('PeerCollabSetEndpointName', windll['P2P.dll']), ((1, 'pwzEndpointName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabSetObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_OBJECT_head))(('PeerCollabSetObject', windll['P2P.dll']), ((1, 'pcObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabDeleteObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(('PeerCollabDeleteObject', windll['P2P.dll']), ((1, 'pObjectId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabRegisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_REGISTRATION_head),POINTER(c_void_p))(('PeerCollabRegisterEvent', windll['P2P.dll']), ((1, 'hEvent'),(1, 'cEventRegistration'),(1, 'pEventRegistrations'),(1, 'phPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetEventData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_DATA_head)))(('PeerCollabGetEventData', windll['P2P.dll']), ((1, 'hPeerEvent'),(1, 'ppEventData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabUnregisterEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerCollabUnregisterEvent', windll['P2P.dll']), ((1, 'hPeerEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumPeopleNearMe():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))(('PeerCollabEnumPeopleNearMe', windll['P2P.dll']), ((1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabAddContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)))(('PeerCollabAddContact', windll['P2P.dll']), ((1, 'pwzContactData'),(1, 'ppContact'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabDeleteContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('PeerCollabDeleteContact', windll['P2P.dll']), ((1, 'pwzPeerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabGetContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)))(('PeerCollabGetContact', windll['P2P.dll']), ((1, 'pwzPeerName'),(1, 'ppContact'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabUpdateContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head))(('PeerCollabUpdateContact', windll['P2P.dll']), ((1, 'pContact'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabEnumContacts():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))(('PeerCollabEnumContacts', windll['P2P.dll']), ((1, 'phPeerEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabExportContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerCollabExportContact', windll['P2P.dll']), ((1, 'pwzPeerName'),(1, 'ppwzContactData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerCollabParseContact():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)))(('PeerCollabParseContact', windll['P2P.dll']), ((1, 'pwzContactData'),(1, 'ppContact'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerNameToPeerHostName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerNameToPeerHostName', windll['P2P.dll']), ((1, 'pwzPeerName'),(1, 'ppwzHostName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerHostNameToPeerName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PeerHostNameToPeerName', windll['P2P.dll']), ((1, 'pwzHostName'),(1, 'ppwzPeerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpStartup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16)(('PeerPnrpStartup', windll['P2P.dll']), ((1, 'wVersionRequested'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpShutdown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('PeerPnrpShutdown', windll['P2P.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpRegister():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_REGISTRATION_INFO_head),POINTER(c_void_p))(('PeerPnrpRegister', windll['P2P.dll']), ((1, 'pcwzPeerName'),(1, 'pRegistrationInfo'),(1, 'phRegistration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpUpdateRegistration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_REGISTRATION_INFO_head))(('PeerPnrpUpdateRegistration', windll['P2P.dll']), ((1, 'hRegistration'),(1, 'pRegistrationInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpUnregister():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerPnrpUnregister', windll['P2P.dll']), ((1, 'hRegistration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpResolve():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_ENDPOINT_INFO_head)))(('PeerPnrpResolve', windll['P2P.dll']), ((1, 'pcwzPeerName'),(1, 'pcwzCloudName'),(1, 'pcEndpoints'),(1, 'ppEndpoints'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpStartResolve():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.HANDLE,POINTER(c_void_p))(('PeerPnrpStartResolve', windll['P2P.dll']), ((1, 'pcwzPeerName'),(1, 'pcwzCloudName'),(1, 'cMaxEndpoints'),(1, 'hEvent'),(1, 'phResolve'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpGetCloudInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_CLOUD_INFO_head)))(('PeerPnrpGetCloudInfo', windll['P2P.dll']), ((1, 'pcNumClouds'),(1, 'ppCloudInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpGetEndpoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_ENDPOINT_INFO_head)))(('PeerPnrpGetEndpoint', windll['P2P.dll']), ((1, 'hResolve'),(1, 'ppEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerPnrpEndResolve():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PeerPnrpEndResolve', windll['P2P.dll']), ((1, 'hResolve'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreatePnrpBootstrapResolver():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)))(('DrtCreatePnrpBootstrapResolver', windll['drtprov.dll']), ((1, 'fPublish'),(1, 'pwzPeerName'),(1, 'pwzCloudName'),(1, 'pwzPublishingIdentity'),(1, 'ppResolver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtDeletePnrpBootstrapResolver():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head))(('DrtDeletePnrpBootstrapResolver', windll['drtprov.dll']), ((1, 'pResolver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreateDnsBootstrapResolver():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)))(('DrtCreateDnsBootstrapResolver', windll['drtprov.dll']), ((1, 'port'),(1, 'pwszAddress'),(1, 'ppModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtDeleteDnsBootstrapResolver():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head))(('DrtDeleteDnsBootstrapResolver', windll['drtprov.dll']), ((1, 'pResolver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreateIpv6UdpTransport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.P2P.DRT_SCOPE,UInt32,UInt32,POINTER(UInt16),POINTER(c_void_p))(('DrtCreateIpv6UdpTransport', windll['drttransport.dll']), ((1, 'scope'),(1, 'dwScopeId'),(1, 'dwLocalityThreshold'),(1, 'pwPort'),(1, 'phTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtDeleteIpv6UdpTransport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('DrtDeleteIpv6UdpTransport', windll['drttransport.dll']), ((1, 'hTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreateDerivedKeySecurityProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)))(('DrtCreateDerivedKeySecurityProvider', windll['drtprov.dll']), ((1, 'pRootCert'),(1, 'pLocalCert'),(1, 'ppSecurityProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreateDerivedKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head))(('DrtCreateDerivedKey', windll['drtprov.dll']), ((1, 'pLocalCert'),(1, 'pKey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtDeleteDerivedKeySecurityProvider():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head))(('DrtDeleteDerivedKeySecurityProvider', windll['drtprov.dll']), ((1, 'pSecurityProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtCreateNullSecurityProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)))(('DrtCreateNullSecurityProvider', windll['drtprov.dll']), ((1, 'ppSecurityProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtDeleteNullSecurityProvider():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head))(('DrtDeleteNullSecurityProvider', windll['drtprov.dll']), ((1, 'pSecurityProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtOpen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.P2P.DRT_SETTINGS_head),win32more.Foundation.HANDLE,c_void_p,POINTER(c_void_p))(('DrtOpen', windll['drt.dll']), ((1, 'pSettings'),(1, 'hEvent'),(1, 'pvContext'),(1, 'phDrt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtClose():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('DrtClose', windll['drt.dll']), ((1, 'hDrt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetEventDataSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('DrtGetEventDataSize', windll['drt.dll']), ((1, 'hDrt'),(1, 'pulEventDataLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetEventData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.NetworkManagement.P2P.DRT_EVENT_DATA_head))(('DrtGetEventData', windll['drt.dll']), ((1, 'hDrt'),(1, 'ulEventDataLen'),(1, 'pEventData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtRegisterKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.DRT_REGISTRATION_head),c_void_p,POINTER(c_void_p))(('DrtRegisterKey', windll['drt.dll']), ((1, 'hDrt'),(1, 'pRegistration'),(1, 'pvKeyContext'),(1, 'phKeyRegistration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtUpdateKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head))(('DrtUpdateKey', windll['drt.dll']), ((1, 'hKeyRegistration'),(1, 'pAppData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtUnregisterKey():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('DrtUnregisterKey', windll['drt.dll']), ((1, 'hKeyRegistration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtStartSearch():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head),POINTER(win32more.NetworkManagement.P2P.DRT_SEARCH_INFO_head),UInt32,win32more.Foundation.HANDLE,c_void_p,POINTER(c_void_p))(('DrtStartSearch', windll['drt.dll']), ((1, 'hDrt'),(1, 'pKey'),(1, 'pInfo'),(1, 'timeout'),(1, 'hEvent'),(1, 'pvContext'),(1, 'hSearchContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtContinueSearch():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('DrtContinueSearch', windll['drt.dll']), ((1, 'hSearchContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetSearchResultSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('DrtGetSearchResultSize', windll['drt.dll']), ((1, 'hSearchContext'),(1, 'pulSearchResultSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetSearchResult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.NetworkManagement.P2P.DRT_SEARCH_RESULT_head))(('DrtGetSearchResult', windll['drt.dll']), ((1, 'hSearchContext'),(1, 'ulSearchResultSize'),(1, 'pSearchResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetSearchPathSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('DrtGetSearchPathSize', windll['drt.dll']), ((1, 'hSearchContext'),(1, 'pulSearchPathSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetSearchPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.NetworkManagement.P2P.DRT_ADDRESS_LIST_head))(('DrtGetSearchPath', windll['drt.dll']), ((1, 'hSearchContext'),(1, 'ulSearchPathSize'),(1, 'pSearchPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtEndSearch():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('DrtEndSearch', windll['drt.dll']), ((1, 'hSearchContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetInstanceName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,win32more.Foundation.PWSTR)(('DrtGetInstanceName', windll['drt.dll']), ((1, 'hDrt'),(1, 'ulcbInstanceNameSize'),(1, 'pwzDrtInstanceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrtGetInstanceNameSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(('DrtGetInstanceNameSize', windll['drt.dll']), ((1, 'hDrt'),(1, 'pulcbInstanceNameSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistStartup():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(IntPtr),POINTER(UInt32))(('PeerDistStartup', windll['PeerDist.dll']), ((1, 'dwVersionRequested'),(1, 'phPeerDist'),(1, 'pdwSupportedVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistShutdown():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('PeerDistShutdown', windll['PeerDist.dll']), ((1, 'hPeerDist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistGetStatus():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS))(('PeerDistGetStatus', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'pPeerDistStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistRegisterForStatusChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UIntPtr,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS))(('PeerDistRegisterForStatusChangeNotification', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'lpOverlapped'),(1, 'pPeerDistStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistUnregisterForStatusChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('PeerDistUnregisterForStatusChangeNotification', windll['PeerDist.dll']), ((1, 'hPeerDist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerPublishStream():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,UInt64,POINTER(win32more.NetworkManagement.P2P.PEERDIST_PUBLICATION_OPTIONS_head),win32more.Foundation.HANDLE,UIntPtr,POINTER(IntPtr))(('PeerDistServerPublishStream', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'cbContentIdentifier'),(1, 'pContentIdentifier'),(1, 'cbContentLength'),(1, 'pPublishOptions'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'phStream'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerPublishAddToStream():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistServerPublishAddToStream', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hStream'),(1, 'cbNumberOfBytes'),(1, 'pBuffer'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerPublishCompleteStream():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistServerPublishCompleteStream', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hStream'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerCloseStreamHandle():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('PeerDistServerCloseStreamHandle', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hStream'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerUnpublish():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no)(('PeerDistServerUnpublish', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'cbContentIdentifier'),(1, 'pContentIdentifier'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerOpenContentInformation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,UInt64,UInt64,win32more.Foundation.HANDLE,UIntPtr,POINTER(IntPtr))(('PeerDistServerOpenContentInformation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'cbContentIdentifier'),(1, 'pContentIdentifier'),(1, 'ullContentOffset'),(1, 'cbContentLength'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'phContentInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerRetrieveContentInformation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistServerRetrieveContentInformation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentInfo'),(1, 'cbMaxNumberOfBytes'),(1, 'pBuffer'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerCloseContentInformation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('PeerDistServerCloseContentInformation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerCancelAsyncOperation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistServerCancelAsyncOperation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'cbContentIdentifier'),(1, 'pContentIdentifier'),(1, 'pOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientOpenContent():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.P2P.PEERDIST_CONTENT_TAG_head),win32more.Foundation.HANDLE,UIntPtr,POINTER(IntPtr))(('PeerDistClientOpenContent', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'pContentTag'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'phContentHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientCloseContent():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('PeerDistClientCloseContent', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientAddContentInformation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientAddContentInformation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'cbNumberOfBytes'),(1, 'pBuffer'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientCompleteContentInformation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientCompleteContentInformation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientAddData():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientAddData', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'cbNumberOfBytes'),(1, 'pBuffer'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientBlockRead():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientBlockRead', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'cbMaxNumberOfBytes'),(1, 'pBuffer'),(1, 'dwTimeoutInMilliseconds'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientStreamRead():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,c_char_p_no,UInt32,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientStreamRead', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'cbMaxNumberOfBytes'),(1, 'pBuffer'),(1, 'dwTimeoutInMilliseconds'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientFlushContent():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.P2P.PEERDIST_CONTENT_TAG_head),win32more.Foundation.HANDLE,UIntPtr,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientFlushContent', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'pContentTag'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'lpOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientCancelAsyncOperation():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.System.IO.OVERLAPPED_head))(('PeerDistClientCancelAsyncOperation', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'pOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistGetStatusEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS_INFO_head))(('PeerDistGetStatusEx', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'pPeerDistStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistRegisterForStatusChangeNotificationEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UIntPtr,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS_INFO_head))(('PeerDistRegisterForStatusChangeNotificationEx', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'lpOverlapped'),(1, 'pPeerDistStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistGetOverlappedResult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL)(('PeerDistGetOverlappedResult', windll['PeerDist.dll']), ((1, 'lpOverlapped'),(1, 'lpNumberOfBytesTransferred'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistServerOpenContentInformationEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,UInt64,UInt64,POINTER(win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_head),win32more.Foundation.HANDLE,UIntPtr,POINTER(IntPtr))(('PeerDistServerOpenContentInformationEx', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'cbContentIdentifier'),(1, 'pContentIdentifier'),(1, 'ullContentOffset'),(1, 'cbContentLength'),(1, 'pRetrievalOptions'),(1, 'hCompletionPort'),(1, 'ulCompletionKey'),(1, 'phContentInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PeerDistClientGetInformationByHandle():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,win32more.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS,UInt32,c_void_p)(('PeerDistClientGetInformationByHandle', windll['PeerDist.dll']), ((1, 'hPeerDist'),(1, 'hContentHandle'),(1, 'PeerDistClientInfoClass'),(1, 'dwBufferSize'),(1, 'lpInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DRT_ADDRESS_head():
-    class DRT_ADDRESS(Structure):
-        pass
-    return DRT_ADDRESS
-def _define_DRT_ADDRESS():
-    DRT_ADDRESS = win32more.NetworkManagement.P2P.DRT_ADDRESS_head
-    DRT_ADDRESS._fields_ = [
-        ('socketAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ('flags', UInt32),
-        ('nearness', Int32),
-        ('latency', UInt32),
-    ]
-    return DRT_ADDRESS
+NS_PNRPNAME: UInt32 = 38
+NS_PNRPCLOUD: UInt32 = 39
+PNRPINFO_HINT: UInt32 = 1
+NS_PROVIDER_PNRPNAME: Guid = Guid('03fe89cd-766d-4976-b9-c1-bb-9b-c4-2c-7b-4d')
+NS_PROVIDER_PNRPCLOUD: Guid = Guid('03fe89ce-766d-4976-b9-c1-bb-9b-c4-2c-7b-4d')
+SVCID_PNRPCLOUD: Guid = Guid('c2239ce6-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
+SVCID_PNRPNAME_V1: Guid = Guid('c2239ce5-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
+SVCID_PNRPNAME_V2: Guid = Guid('c2239ce7-00c0-4fbf-ba-d6-18-13-93-85-a4-9a')
+PNRP_MAX_ENDPOINT_ADDRESSES: UInt32 = 10
+WSZ_SCOPE_GLOBAL: String = 'GLOBAL'
+WSZ_SCOPE_SITELOCAL: String = 'SITELOCAL'
+WSZ_SCOPE_LINKLOCAL: String = 'LINKLOCAL'
+PNRP_MAX_EXTENDED_PAYLOAD_BYTES: UInt32 = 4096
+PEER_PNRP_ALL_LINK_CLOUDS: String = 'PEER_PNRP_ALL_LINKS'
+WSA_PNRP_ERROR_BASE: UInt32 = 11500
+WSA_PNRP_CLOUD_NOT_FOUND: UInt32 = 11501
+WSA_PNRP_CLOUD_DISABLED: UInt32 = 11502
+WSA_PNRP_INVALID_IDENTITY: UInt32 = 11503
+WSA_PNRP_TOO_MUCH_LOAD: UInt32 = 11504
+WSA_PNRP_CLOUD_IS_SEARCH_ONLY: UInt32 = 11505
+WSA_PNRP_CLIENT_INVALID_COMPARTMENT_ID: UInt32 = 11506
+WSA_PNRP_DUPLICATE_PEER_NAME: UInt32 = 11508
+WSA_PNRP_CLOUD_IS_DEAD: UInt32 = 11509
+PEER_E_CLOUD_NOT_FOUND: win32more.Foundation.HRESULT = -2147013395
+PEER_E_CLOUD_DISABLED: win32more.Foundation.HRESULT = -2147013394
+PEER_E_INVALID_IDENTITY: win32more.Foundation.HRESULT = -2147013393
+PEER_E_TOO_MUCH_LOAD: win32more.Foundation.HRESULT = -2147013392
+PEER_E_CLOUD_IS_SEARCH_ONLY: win32more.Foundation.HRESULT = -2147013391
+PEER_E_CLIENT_INVALID_COMPARTMENT_ID: win32more.Foundation.HRESULT = -2147013390
+PEER_E_DUPLICATE_PEER_NAME: win32more.Foundation.HRESULT = -2147013388
+PEER_E_CLOUD_IS_DEAD: win32more.Foundation.HRESULT = -2147013387
+PEER_E_NOT_FOUND: win32more.Foundation.HRESULT = -2147023728
+PEER_E_DISK_FULL: win32more.Foundation.HRESULT = -2147024784
+PEER_E_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2147024713
+PEER_GROUP_ROLE_ADMIN: Guid = Guid('04387127-aa56-450a-8c-e5-4f-56-5c-67-90-f4')
+PEER_GROUP_ROLE_MEMBER: Guid = Guid('f12dc4c7-0857-4ca0-93-fc-b1-bb-19-a3-d8-c2')
+PEER_GROUP_ROLE_INVITING_MEMBER: Guid = Guid('4370fd89-dc18-4cfb-8d-bf-98-53-a8-a9-f9-05')
+PEER_COLLAB_OBJECTID_USER_PICTURE: Guid = Guid('dd15f41f-fc4e-4922-b0-35-4c-06-a7-54-d0-1d')
+FACILITY_DRT: UInt32 = 98
+DRT_E_TIMEOUT: win32more.Foundation.HRESULT = -2141057023
+DRT_E_INVALID_KEY_SIZE: win32more.Foundation.HRESULT = -2141057022
+DRT_E_INVALID_CERT_CHAIN: win32more.Foundation.HRESULT = -2141057020
+DRT_E_INVALID_MESSAGE: win32more.Foundation.HRESULT = -2141057019
+DRT_E_NO_MORE: win32more.Foundation.HRESULT = -2141057018
+DRT_E_INVALID_MAX_ADDRESSES: win32more.Foundation.HRESULT = -2141057017
+DRT_E_SEARCH_IN_PROGRESS: win32more.Foundation.HRESULT = -2141057016
+DRT_E_INVALID_KEY: win32more.Foundation.HRESULT = -2141057015
+DRT_S_RETRY: win32more.Foundation.HRESULT = 6426640
+DRT_E_INVALID_MAX_ENDPOINTS: win32more.Foundation.HRESULT = -2141057007
+DRT_E_INVALID_SEARCH_RANGE: win32more.Foundation.HRESULT = -2141057006
+DRT_E_INVALID_PORT: win32more.Foundation.HRESULT = -2141052928
+DRT_E_INVALID_TRANSPORT_PROVIDER: win32more.Foundation.HRESULT = -2141052927
+DRT_E_INVALID_SECURITY_PROVIDER: win32more.Foundation.HRESULT = -2141052926
+DRT_E_STILL_IN_USE: win32more.Foundation.HRESULT = -2141052925
+DRT_E_INVALID_BOOTSTRAP_PROVIDER: win32more.Foundation.HRESULT = -2141052924
+DRT_E_INVALID_ADDRESS: win32more.Foundation.HRESULT = -2141052923
+DRT_E_INVALID_SCOPE: win32more.Foundation.HRESULT = -2141052922
+DRT_E_TRANSPORT_SHUTTING_DOWN: win32more.Foundation.HRESULT = -2141052921
+DRT_E_NO_ADDRESSES_AVAILABLE: win32more.Foundation.HRESULT = -2141052920
+DRT_E_DUPLICATE_KEY: win32more.Foundation.HRESULT = -2141052919
+DRT_E_TRANSPORTPROVIDER_IN_USE: win32more.Foundation.HRESULT = -2141052918
+DRT_E_TRANSPORTPROVIDER_NOT_ATTACHED: win32more.Foundation.HRESULT = -2141052917
+DRT_E_SECURITYPROVIDER_IN_USE: win32more.Foundation.HRESULT = -2141052916
+DRT_E_SECURITYPROVIDER_NOT_ATTACHED: win32more.Foundation.HRESULT = -2141052915
+DRT_E_BOOTSTRAPPROVIDER_IN_USE: win32more.Foundation.HRESULT = -2141052914
+DRT_E_BOOTSTRAPPROVIDER_NOT_ATTACHED: win32more.Foundation.HRESULT = -2141052913
+DRT_E_TRANSPORT_ALREADY_BOUND: win32more.Foundation.HRESULT = -2141052671
+DRT_E_TRANSPORT_NOT_BOUND: win32more.Foundation.HRESULT = -2141052670
+DRT_E_TRANSPORT_UNEXPECTED: win32more.Foundation.HRESULT = -2141052669
+DRT_E_TRANSPORT_INVALID_ARGUMENT: win32more.Foundation.HRESULT = -2141052668
+DRT_E_TRANSPORT_NO_DEST_ADDRESSES: win32more.Foundation.HRESULT = -2141052667
+DRT_E_TRANSPORT_EXECUTING_CALLBACK: win32more.Foundation.HRESULT = -2141052666
+DRT_E_TRANSPORT_ALREADY_EXISTS_FOR_SCOPE: win32more.Foundation.HRESULT = -2141052665
+DRT_E_INVALID_SETTINGS: win32more.Foundation.HRESULT = -2141052664
+DRT_E_INVALID_SEARCH_INFO: win32more.Foundation.HRESULT = -2141052663
+DRT_E_FAULTED: win32more.Foundation.HRESULT = -2141052662
+DRT_E_TRANSPORT_STILL_BOUND: win32more.Foundation.HRESULT = -2141052661
+DRT_E_INSUFFICIENT_BUFFER: win32more.Foundation.HRESULT = -2141052660
+DRT_E_INVALID_INSTANCE_PREFIX: win32more.Foundation.HRESULT = -2141052659
+DRT_E_INVALID_SECURITY_MODE: win32more.Foundation.HRESULT = -2141052658
+DRT_E_CAPABILITY_MISMATCH: win32more.Foundation.HRESULT = -2141052657
+DRT_PAYLOAD_REVOKED: UInt32 = 1
+DRT_MIN_ROUTING_ADDRESSES: UInt32 = 1
+DRT_MAX_ROUTING_ADDRESSES: UInt32 = 20
+DRT_MAX_PAYLOAD_SIZE: UInt32 = 5120
+DRT_MAX_INSTANCE_PREFIX_LEN: UInt32 = 128
+DRT_LINK_LOCAL_ISATAP_SCOPEID: UInt32 = 4294967295
+PEERDIST_PUBLICATION_OPTIONS_VERSION_1: Int32 = 1
+PEERDIST_PUBLICATION_OPTIONS_VERSION: Int32 = 2
+PEERDIST_PUBLICATION_OPTIONS_VERSION_2: Int32 = 2
+PEERDIST_READ_TIMEOUT_LOCAL_CACHE_ONLY: UInt32 = 0
+PEERDIST_READ_TIMEOUT_DEFAULT: UInt32 = 4294967294
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphStartup(wVersionRequested: UInt16, pVersionData: POINTER(win32more.NetworkManagement.P2P.PEER_VERSION_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphShutdown() -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphFreeData(pvData: c_void_p) -> Void: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetItemCount(hPeerEnum: c_void_p, pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetNextItem(hPeerEnum: c_void_p, pCount: POINTER(UInt32), pppvItems: POINTER(POINTER(c_void_p))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphEndEnumeration(hPeerEnum: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphCreate(pGraphProperties: POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head), pwzDatabaseName: win32more.Foundation.PWSTR, pSecurityInterface: POINTER(win32more.NetworkManagement.P2P.PEER_SECURITY_INTERFACE_head), phGraph: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphOpen(pwzGraphId: win32more.Foundation.PWSTR, pwzPeerId: win32more.Foundation.PWSTR, pwzDatabaseName: win32more.Foundation.PWSTR, pSecurityInterface: POINTER(win32more.NetworkManagement.P2P.PEER_SECURITY_INTERFACE_head), cRecordTypeSyncPrecedence: UInt32, pRecordTypeSyncPrecedence: POINTER(Guid), phGraph: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphListen(hGraph: c_void_p, dwScope: UInt32, dwScopeId: UInt32, wPort: UInt16) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphConnect(hGraph: c_void_p, pwzPeerId: win32more.Foundation.PWSTR, pAddress: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head), pullConnectionId: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphClose(hGraph: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphDelete(pwzGraphId: win32more.Foundation.PWSTR, pwzPeerId: win32more.Foundation.PWSTR, pwzDatabaseName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetStatus(hGraph: c_void_p, pdwStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetProperties(hGraph: c_void_p, ppGraphProperties: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphSetProperties(hGraph: c_void_p, pGraphProperties: POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphRegisterEvent(hGraph: c_void_p, hEvent: win32more.Foundation.HANDLE, cEventRegistrations: UInt32, pEventRegistrations: POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_REGISTRATION_head), phPeerEvent: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphUnregisterEvent(hPeerEvent: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetEventData(hPeerEvent: c_void_p, ppEventData: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_DATA_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetRecord(hGraph: c_void_p, pRecordId: POINTER(Guid), ppRecord: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphAddRecord(hGraph: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), pRecordId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphUpdateRecord(hGraph: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphDeleteRecord(hGraph: c_void_p, pRecordId: POINTER(Guid), fLocal: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphEnumRecords(hGraph: c_void_p, pRecordType: POINTER(Guid), pwzPeerId: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphSearchRecords(hGraph: c_void_p, pwzCriteria: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphExportDatabase(hGraph: c_void_p, pwzFilePath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphImportDatabase(hGraph: c_void_p, pwzFilePath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphValidateDeferredRecords(hGraph: c_void_p, cRecordIds: UInt32, pRecordIds: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphOpenDirectConnection(hGraph: c_void_p, pwzPeerId: win32more.Foundation.PWSTR, pAddress: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head), pullConnectionId: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphSendData(hGraph: c_void_p, ullConnectionId: UInt64, pType: POINTER(Guid), cbData: UInt32, pvData: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphCloseDirectConnection(hGraph: c_void_p, ullConnectionId: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphEnumConnections(hGraph: c_void_p, dwFlags: UInt32, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphEnumNodes(hGraph: c_void_p, pwzPeerId: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphSetPresence(hGraph: c_void_p, fPresent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphGetNodeInfo(hGraph: c_void_p, ullNodeId: UInt64, ppNodeInfo: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_NODE_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphSetNodeAttributes(hGraph: c_void_p, pwzAttributes: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphPeerTimeToUniversalTime(hGraph: c_void_p, pftPeerTime: POINTER(win32more.Foundation.FILETIME_head), pftUniversalTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2PGRAPH.dll')
+def PeerGraphUniversalTimeToPeerTime(hGraph: c_void_p, pftUniversalTime: POINTER(win32more.Foundation.FILETIME_head), pftPeerTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerFreeData(pvData: c_void_p) -> Void: ...
+@winfunctype('P2P.dll')
+def PeerGetItemCount(hPeerEnum: c_void_p, pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGetNextItem(hPeerEnum: c_void_p, pCount: POINTER(UInt32), pppvItems: POINTER(POINTER(c_void_p))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerEndEnumeration(hPeerEnum: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupStartup(wVersionRequested: UInt16, pVersionData: POINTER(win32more.NetworkManagement.P2P.PEER_VERSION_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupShutdown() -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupCreate(pProperties: POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head), phGroup: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupOpen(pwzIdentity: win32more.Foundation.PWSTR, pwzGroupPeerName: win32more.Foundation.PWSTR, pwzCloud: win32more.Foundation.PWSTR, phGroup: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupJoin(pwzIdentity: win32more.Foundation.PWSTR, pwzInvitation: win32more.Foundation.PWSTR, pwzCloud: win32more.Foundation.PWSTR, phGroup: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupPasswordJoin(pwzIdentity: win32more.Foundation.PWSTR, pwzInvitation: win32more.Foundation.PWSTR, pwzPassword: win32more.Foundation.PWSTR, pwzCloud: win32more.Foundation.PWSTR, phGroup: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupConnect(hGroup: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupConnectByAddress(hGroup: c_void_p, cAddresses: UInt32, pAddresses: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupClose(hGroup: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupDelete(pwzIdentity: win32more.Foundation.PWSTR, pwzGroupPeerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupCreateInvitation(hGroup: c_void_p, pwzIdentityInfo: win32more.Foundation.PWSTR, pftExpiration: POINTER(win32more.Foundation.FILETIME_head), cRoles: UInt32, pRoles: POINTER(Guid), ppwzInvitation: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupCreatePasswordInvitation(hGroup: c_void_p, ppwzInvitation: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupParseInvitation(pwzInvitation: win32more.Foundation.PWSTR, ppInvitationInfo: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupGetStatus(hGroup: c_void_p, pdwStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupGetProperties(hGroup: c_void_p, ppProperties: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupSetProperties(hGroup: c_void_p, pProperties: POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupEnumMembers(hGroup: c_void_p, dwFlags: UInt32, pwzIdentity: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupOpenDirectConnection(hGroup: c_void_p, pwzIdentity: win32more.Foundation.PWSTR, pAddress: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head), pullConnectionId: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupCloseDirectConnection(hGroup: c_void_p, ullConnectionId: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupEnumConnections(hGroup: c_void_p, dwFlags: UInt32, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupSendData(hGroup: c_void_p, ullConnectionId: UInt64, pType: POINTER(Guid), cbData: UInt32, pvData: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupRegisterEvent(hGroup: c_void_p, hEvent: win32more.Foundation.HANDLE, cEventRegistration: UInt32, pEventRegistrations: POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_REGISTRATION_head), phPeerEvent: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupUnregisterEvent(hPeerEvent: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupGetEventData(hPeerEvent: c_void_p, ppEventData: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_DATA_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupGetRecord(hGroup: c_void_p, pRecordId: POINTER(Guid), ppRecord: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupAddRecord(hGroup: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), pRecordId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupUpdateRecord(hGroup: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupDeleteRecord(hGroup: c_void_p, pRecordId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupEnumRecords(hGroup: c_void_p, pRecordType: POINTER(Guid), phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupSearchRecords(hGroup: c_void_p, pwzCriteria: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupExportDatabase(hGroup: c_void_p, pwzFilePath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupImportDatabase(hGroup: c_void_p, pwzFilePath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupIssueCredentials(hGroup: c_void_p, pwzSubjectIdentity: win32more.Foundation.PWSTR, pCredentialInfo: POINTER(win32more.NetworkManagement.P2P.PEER_CREDENTIAL_INFO_head), dwFlags: UInt32, ppwzInvitation: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupExportConfig(hGroup: c_void_p, pwzPassword: win32more.Foundation.PWSTR, ppwzXML: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupImportConfig(pwzXML: win32more.Foundation.PWSTR, pwzPassword: win32more.Foundation.PWSTR, fOverwrite: win32more.Foundation.BOOL, ppwzIdentity: POINTER(win32more.Foundation.PWSTR), ppwzGroup: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupPeerTimeToUniversalTime(hGroup: c_void_p, pftPeerTime: POINTER(win32more.Foundation.FILETIME_head), pftUniversalTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupUniversalTimeToPeerTime(hGroup: c_void_p, pftUniversalTime: POINTER(win32more.Foundation.FILETIME_head), pftPeerTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerGroupResumePasswordAuthentication(hGroup: c_void_p, hPeerEventHandle: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityCreate(pwzClassifier: win32more.Foundation.PWSTR, pwzFriendlyName: win32more.Foundation.PWSTR, hCryptProv: UIntPtr, ppwzIdentity: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityGetFriendlyName(pwzIdentity: win32more.Foundation.PWSTR, ppwzFriendlyName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentitySetFriendlyName(pwzIdentity: win32more.Foundation.PWSTR, pwzFriendlyName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityGetCryptKey(pwzIdentity: win32more.Foundation.PWSTR, phCryptProv: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityDelete(pwzIdentity: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerEnumIdentities(phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerEnumGroups(pwzIdentity: win32more.Foundation.PWSTR, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCreatePeerName(pwzIdentity: win32more.Foundation.PWSTR, pwzClassifier: win32more.Foundation.PWSTR, ppwzPeerName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityGetXML(pwzIdentity: win32more.Foundation.PWSTR, ppwzIdentityXML: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityExport(pwzIdentity: win32more.Foundation.PWSTR, pwzPassword: win32more.Foundation.PWSTR, ppwzExportXML: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityImport(pwzImportXML: win32more.Foundation.PWSTR, pwzPassword: win32more.Foundation.PWSTR, ppwzIdentity: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerIdentityGetDefault(ppwzPeerName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabStartup(wVersionRequested: UInt16) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabShutdown() -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSignin(hwndParent: win32more.Foundation.HWND, dwSigninOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSignout(dwSigninOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetSigninOptions(pdwSigninOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabAsyncInviteContact(pcContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head), pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pcInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head), hEvent: win32more.Foundation.HANDLE, phInvitation: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetInvitationResponse(hInvitation: win32more.Foundation.HANDLE, ppInvitationResponse: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabCancelInvitation(hInvitation: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabCloseHandle(hInvitation: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabInviteContact(pcContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head), pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pcInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head), ppResponse: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabAsyncInviteEndpoint(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pcInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head), hEvent: win32more.Foundation.HANDLE, phInvitation: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabInviteEndpoint(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pcInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head), ppResponse: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetAppLaunchInfo(ppLaunchInfo: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_APP_LAUNCH_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabRegisterApplication(pcApplication: POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_INFO_head), registrationType: win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabUnregisterApplication(pApplicationId: POINTER(Guid), registrationType: win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetApplicationRegistrationInfo(pApplicationId: POINTER(Guid), registrationType: win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE, ppApplication: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumApplicationRegistrationInfo(registrationType: win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE, phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetPresenceInfo(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), ppPresenceInfo: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumApplications(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pApplicationId: POINTER(Guid), phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumObjects(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), pObjectId: POINTER(Guid), phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumEndpoints(pcContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head), phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabRefreshEndpointData(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabDeleteEndpointData(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabQueryContactData(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head), ppwzContactData: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSubscribeEndpointData(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabUnsubscribeEndpointData(pcEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSetPresenceInfo(pcPresenceInfo: POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetEndpointName(ppwzEndpointName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSetEndpointName(pwzEndpointName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabSetObject(pcObject: POINTER(win32more.NetworkManagement.P2P.PEER_OBJECT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabDeleteObject(pObjectId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabRegisterEvent(hEvent: win32more.Foundation.HANDLE, cEventRegistration: UInt32, pEventRegistrations: POINTER(win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_REGISTRATION_head), phPeerEvent: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetEventData(hPeerEvent: c_void_p, ppEventData: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_DATA_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabUnregisterEvent(hPeerEvent: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumPeopleNearMe(phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabAddContact(pwzContactData: win32more.Foundation.PWSTR, ppContact: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabDeleteContact(pwzPeerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabGetContact(pwzPeerName: win32more.Foundation.PWSTR, ppContact: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabUpdateContact(pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabEnumContacts(phPeerEnum: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabExportContact(pwzPeerName: win32more.Foundation.PWSTR, ppwzContactData: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerCollabParseContact(pwzContactData: win32more.Foundation.PWSTR, ppContact: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerNameToPeerHostName(pwzPeerName: win32more.Foundation.PWSTR, ppwzHostName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerHostNameToPeerName(pwzHostName: win32more.Foundation.PWSTR, ppwzPeerName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpStartup(wVersionRequested: UInt16) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpShutdown() -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpRegister(pcwzPeerName: win32more.Foundation.PWSTR, pRegistrationInfo: POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_REGISTRATION_INFO_head), phRegistration: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpUpdateRegistration(hRegistration: c_void_p, pRegistrationInfo: POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_REGISTRATION_INFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpUnregister(hRegistration: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpResolve(pcwzPeerName: win32more.Foundation.PWSTR, pcwzCloudName: win32more.Foundation.PWSTR, pcEndpoints: POINTER(UInt32), ppEndpoints: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_ENDPOINT_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpStartResolve(pcwzPeerName: win32more.Foundation.PWSTR, pcwzCloudName: win32more.Foundation.PWSTR, cMaxEndpoints: UInt32, hEvent: win32more.Foundation.HANDLE, phResolve: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpGetCloudInfo(pcNumClouds: POINTER(UInt32), ppCloudInfo: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_CLOUD_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpGetEndpoint(hResolve: c_void_p, ppEndpoint: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_PNRP_ENDPOINT_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('P2P.dll')
+def PeerPnrpEndResolve(hResolve: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtCreatePnrpBootstrapResolver(fPublish: win32more.Foundation.BOOL, pwzPeerName: win32more.Foundation.PWSTR, pwzCloudName: win32more.Foundation.PWSTR, pwzPublishingIdentity: win32more.Foundation.PWSTR, ppResolver: POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtDeletePnrpBootstrapResolver(pResolver: POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)) -> Void: ...
+@winfunctype('drtprov.dll')
+def DrtCreateDnsBootstrapResolver(port: UInt16, pwszAddress: win32more.Foundation.PWSTR, ppModule: POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtDeleteDnsBootstrapResolver(pResolver: POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)) -> Void: ...
+@winfunctype('drttransport.dll')
+def DrtCreateIpv6UdpTransport(scope: win32more.NetworkManagement.P2P.DRT_SCOPE, dwScopeId: UInt32, dwLocalityThreshold: UInt32, pwPort: POINTER(UInt16), phTransport: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drttransport.dll')
+def DrtDeleteIpv6UdpTransport(hTransport: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtCreateDerivedKeySecurityProvider(pRootCert: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), pLocalCert: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), ppSecurityProvider: POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtCreateDerivedKey(pLocalCert: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), pKey: POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtDeleteDerivedKeySecurityProvider(pSecurityProvider: POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)) -> Void: ...
+@winfunctype('drtprov.dll')
+def DrtCreateNullSecurityProvider(ppSecurityProvider: POINTER(POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drtprov.dll')
+def DrtDeleteNullSecurityProvider(pSecurityProvider: POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)) -> Void: ...
+@winfunctype('drt.dll')
+def DrtOpen(pSettings: POINTER(win32more.NetworkManagement.P2P.DRT_SETTINGS_head), hEvent: win32more.Foundation.HANDLE, pvContext: c_void_p, phDrt: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtClose(hDrt: c_void_p) -> Void: ...
+@winfunctype('drt.dll')
+def DrtGetEventDataSize(hDrt: c_void_p, pulEventDataLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetEventData(hDrt: c_void_p, ulEventDataLen: UInt32, pEventData: POINTER(win32more.NetworkManagement.P2P.DRT_EVENT_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtRegisterKey(hDrt: c_void_p, pRegistration: POINTER(win32more.NetworkManagement.P2P.DRT_REGISTRATION_head), pvKeyContext: c_void_p, phKeyRegistration: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtUpdateKey(hKeyRegistration: c_void_p, pAppData: POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtUnregisterKey(hKeyRegistration: c_void_p) -> Void: ...
+@winfunctype('drt.dll')
+def DrtStartSearch(hDrt: c_void_p, pKey: POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head), pInfo: POINTER(win32more.NetworkManagement.P2P.DRT_SEARCH_INFO_head), timeout: UInt32, hEvent: win32more.Foundation.HANDLE, pvContext: c_void_p, hSearchContext: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtContinueSearch(hSearchContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetSearchResultSize(hSearchContext: c_void_p, pulSearchResultSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetSearchResult(hSearchContext: c_void_p, ulSearchResultSize: UInt32, pSearchResult: POINTER(win32more.NetworkManagement.P2P.DRT_SEARCH_RESULT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetSearchPathSize(hSearchContext: c_void_p, pulSearchPathSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetSearchPath(hSearchContext: c_void_p, ulSearchPathSize: UInt32, pSearchPath: POINTER(win32more.NetworkManagement.P2P.DRT_ADDRESS_LIST_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtEndSearch(hSearchContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetInstanceName(hDrt: c_void_p, ulcbInstanceNameSize: UInt32, pwzDrtInstanceName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('drt.dll')
+def DrtGetInstanceNameSize(hDrt: c_void_p, pulcbInstanceNameSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PeerDist.dll')
+def PeerDistStartup(dwVersionRequested: UInt32, phPeerDist: POINTER(IntPtr), pdwSupportedVersion: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistShutdown(hPeerDist: IntPtr) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistGetStatus(hPeerDist: IntPtr, pPeerDistStatus: POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistRegisterForStatusChangeNotification(hPeerDist: IntPtr, hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head), pPeerDistStatus: POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistUnregisterForStatusChangeNotification(hPeerDist: IntPtr) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerPublishStream(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: c_char_p_no, cbContentLength: UInt64, pPublishOptions: POINTER(win32more.NetworkManagement.P2P.PEERDIST_PUBLICATION_OPTIONS_head), hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, phStream: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerPublishAddToStream(hPeerDist: IntPtr, hStream: IntPtr, cbNumberOfBytes: UInt32, pBuffer: c_char_p_no, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerPublishCompleteStream(hPeerDist: IntPtr, hStream: IntPtr, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerCloseStreamHandle(hPeerDist: IntPtr, hStream: IntPtr) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerUnpublish(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: c_char_p_no) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerOpenContentInformation(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: c_char_p_no, ullContentOffset: UInt64, cbContentLength: UInt64, hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, phContentInfo: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerRetrieveContentInformation(hPeerDist: IntPtr, hContentInfo: IntPtr, cbMaxNumberOfBytes: UInt32, pBuffer: c_char_p_no, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerCloseContentInformation(hPeerDist: IntPtr, hContentInfo: IntPtr) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerCancelAsyncOperation(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: c_char_p_no, pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientOpenContent(hPeerDist: IntPtr, pContentTag: POINTER(win32more.NetworkManagement.P2P.PEERDIST_CONTENT_TAG_head), hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, phContentHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientCloseContent(hPeerDist: IntPtr, hContentHandle: IntPtr) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientAddContentInformation(hPeerDist: IntPtr, hContentHandle: IntPtr, cbNumberOfBytes: UInt32, pBuffer: c_char_p_no, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientCompleteContentInformation(hPeerDist: IntPtr, hContentHandle: IntPtr, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientAddData(hPeerDist: IntPtr, hContentHandle: IntPtr, cbNumberOfBytes: UInt32, pBuffer: c_char_p_no, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientBlockRead(hPeerDist: IntPtr, hContentHandle: IntPtr, cbMaxNumberOfBytes: UInt32, pBuffer: c_char_p_no, dwTimeoutInMilliseconds: UInt32, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientStreamRead(hPeerDist: IntPtr, hContentHandle: IntPtr, cbMaxNumberOfBytes: UInt32, pBuffer: c_char_p_no, dwTimeoutInMilliseconds: UInt32, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientFlushContent(hPeerDist: IntPtr, pContentTag: POINTER(win32more.NetworkManagement.P2P.PEERDIST_CONTENT_TAG_head), hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientCancelAsyncOperation(hPeerDist: IntPtr, hContentHandle: IntPtr, pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistGetStatusEx(hPeerDist: IntPtr, pPeerDistStatus: POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS_INFO_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistRegisterForStatusChangeNotificationEx(hPeerDist: IntPtr, hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head), pPeerDistStatus: POINTER(win32more.NetworkManagement.P2P.PEERDIST_STATUS_INFO_head)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistGetOverlappedResult(lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('PeerDist.dll')
+def PeerDistServerOpenContentInformationEx(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: c_char_p_no, ullContentOffset: UInt64, cbContentLength: UInt64, pRetrievalOptions: POINTER(win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_head), hCompletionPort: win32more.Foundation.HANDLE, ulCompletionKey: UIntPtr, phContentInfo: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('PeerDist.dll')
+def PeerDistClientGetInformationByHandle(hPeerDist: IntPtr, hContentHandle: IntPtr, PeerDistClientInfoClass: win32more.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS, dwBufferSize: UInt32, lpInformation: c_void_p) -> UInt32: ...
+class DRT_ADDRESS(Structure):
+    socketAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+    flags: UInt32
+    nearness: Int32
+    latency: UInt32
 DRT_ADDRESS_FLAGS = Int32
-DRT_ADDRESS_FLAG_ACCEPTED = 1
-DRT_ADDRESS_FLAG_REJECTED = 2
-DRT_ADDRESS_FLAG_UNREACHABLE = 4
-DRT_ADDRESS_FLAG_LOOP = 8
-DRT_ADDRESS_FLAG_TOO_BUSY = 16
-DRT_ADDRESS_FLAG_BAD_VALIDATE_ID = 32
-DRT_ADDRESS_FLAG_SUSPECT_UNREGISTERED_ID = 64
-DRT_ADDRESS_FLAG_INQUIRE = 128
-def _define_DRT_ADDRESS_LIST_head():
-    class DRT_ADDRESS_LIST(Structure):
-        pass
-    return DRT_ADDRESS_LIST
-def _define_DRT_ADDRESS_LIST():
-    DRT_ADDRESS_LIST = win32more.NetworkManagement.P2P.DRT_ADDRESS_LIST_head
-    DRT_ADDRESS_LIST._fields_ = [
-        ('AddressCount', UInt32),
-        ('AddressList', win32more.NetworkManagement.P2P.DRT_ADDRESS * 1),
-    ]
-    return DRT_ADDRESS_LIST
-def _define_DRT_BOOTSTRAP_PROVIDER_head():
-    class DRT_BOOTSTRAP_PROVIDER(Structure):
-        pass
-    return DRT_BOOTSTRAP_PROVIDER
-def _define_DRT_BOOTSTRAP_PROVIDER():
-    DRT_BOOTSTRAP_PROVIDER = win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head
-    DRT_BOOTSTRAP_PROVIDER._fields_ = [
-        ('pvContext', c_void_p),
-        ('Attach', IntPtr),
-        ('Detach', IntPtr),
-        ('InitResolve', IntPtr),
-        ('IssueResolve', IntPtr),
-        ('EndResolve', IntPtr),
-        ('Register', IntPtr),
-        ('Unregister', IntPtr),
-    ]
-    return DRT_BOOTSTRAP_PROVIDER
-def _define_DRT_BOOTSTRAP_RESOLVE_CALLBACK():
-    return WINFUNCTYPE(Void,win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head),win32more.Foundation.BOOL)
-def _define_DRT_DATA_head():
-    class DRT_DATA(Structure):
-        pass
-    return DRT_DATA
-def _define_DRT_DATA():
-    DRT_DATA = win32more.NetworkManagement.P2P.DRT_DATA_head
-    DRT_DATA._fields_ = [
-        ('cb', UInt32),
-        ('pb', c_char_p_no),
-    ]
-    return DRT_DATA
-def _define_DRT_EVENT_DATA_head():
-    class DRT_EVENT_DATA(Structure):
-        pass
-    return DRT_EVENT_DATA
-def _define_DRT_EVENT_DATA():
-    DRT_EVENT_DATA = win32more.NetworkManagement.P2P.DRT_EVENT_DATA_head
-    class DRT_EVENT_DATA__Anonymous_e__Union(Union):
-        pass
-    class DRT_EVENT_DATA__Anonymous_e__Union__leafsetKeyChange_e__Struct(Structure):
-        pass
-    DRT_EVENT_DATA__Anonymous_e__Union__leafsetKeyChange_e__Struct._fields_ = [
-        ('change', win32more.NetworkManagement.P2P.DRT_LEAFSET_KEY_CHANGE_TYPE),
-        ('localKey', win32more.NetworkManagement.P2P.DRT_DATA),
-        ('remoteKey', win32more.NetworkManagement.P2P.DRT_DATA),
-    ]
-    class DRT_EVENT_DATA__Anonymous_e__Union__registrationStateChange_e__Struct(Structure):
-        pass
-    DRT_EVENT_DATA__Anonymous_e__Union__registrationStateChange_e__Struct._fields_ = [
-        ('state', win32more.NetworkManagement.P2P.DRT_REGISTRATION_STATE),
-        ('localKey', win32more.NetworkManagement.P2P.DRT_DATA),
-    ]
-    class DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct(Structure):
-        pass
-    class DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct__bootstrapAddresses_e__Struct(Structure):
-        pass
-    DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct__bootstrapAddresses_e__Struct._fields_ = [
-        ('cntAddress', UInt32),
-        ('pAddresses', POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)),
-    ]
-    DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct._fields_ = [
-        ('status', win32more.NetworkManagement.P2P.DRT_STATUS),
-        ('bootstrapAddresses', DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct__bootstrapAddresses_e__Struct),
-    ]
-    DRT_EVENT_DATA__Anonymous_e__Union._fields_ = [
-        ('leafsetKeyChange', DRT_EVENT_DATA__Anonymous_e__Union__leafsetKeyChange_e__Struct),
-        ('registrationStateChange', DRT_EVENT_DATA__Anonymous_e__Union__registrationStateChange_e__Struct),
-        ('statusChange', DRT_EVENT_DATA__Anonymous_e__Union__statusChange_e__Struct),
-    ]
-    DRT_EVENT_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    DRT_EVENT_DATA._fields_ = [
-        ('type', win32more.NetworkManagement.P2P.DRT_EVENT_TYPE),
-        ('hr', win32more.Foundation.HRESULT),
-        ('pvContext', c_void_p),
-        ('Anonymous', DRT_EVENT_DATA__Anonymous_e__Union),
-    ]
-    return DRT_EVENT_DATA
+DRT_ADDRESS_FLAG_ACCEPTED: DRT_ADDRESS_FLAGS = 1
+DRT_ADDRESS_FLAG_REJECTED: DRT_ADDRESS_FLAGS = 2
+DRT_ADDRESS_FLAG_UNREACHABLE: DRT_ADDRESS_FLAGS = 4
+DRT_ADDRESS_FLAG_LOOP: DRT_ADDRESS_FLAGS = 8
+DRT_ADDRESS_FLAG_TOO_BUSY: DRT_ADDRESS_FLAGS = 16
+DRT_ADDRESS_FLAG_BAD_VALIDATE_ID: DRT_ADDRESS_FLAGS = 32
+DRT_ADDRESS_FLAG_SUSPECT_UNREGISTERED_ID: DRT_ADDRESS_FLAGS = 64
+DRT_ADDRESS_FLAG_INQUIRE: DRT_ADDRESS_FLAGS = 128
+class DRT_ADDRESS_LIST(Structure):
+    AddressCount: UInt32
+    AddressList: win32more.NetworkManagement.P2P.DRT_ADDRESS * 1
+class DRT_BOOTSTRAP_PROVIDER(Structure):
+    pvContext: c_void_p
+    Attach: IntPtr
+    Detach: IntPtr
+    InitResolve: IntPtr
+    IssueResolve: IntPtr
+    EndResolve: IntPtr
+    Register: IntPtr
+    Unregister: IntPtr
+@winfunctype_pointer
+def DRT_BOOTSTRAP_RESOLVE_CALLBACK(hr: win32more.Foundation.HRESULT, pvContext: c_void_p, pAddresses: POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head), fFatalError: win32more.Foundation.BOOL) -> Void: ...
+class DRT_DATA(Structure):
+    cb: UInt32
+    pb: c_char_p_no
+class DRT_EVENT_DATA(Structure):
+    type: win32more.NetworkManagement.P2P.DRT_EVENT_TYPE
+    hr: win32more.Foundation.HRESULT
+    pvContext: c_void_p
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        leafsetKeyChange: _leafsetKeyChange_e__Struct
+        registrationStateChange: _registrationStateChange_e__Struct
+        statusChange: _statusChange_e__Struct
+        class _leafsetKeyChange_e__Struct(Structure):
+            change: win32more.NetworkManagement.P2P.DRT_LEAFSET_KEY_CHANGE_TYPE
+            localKey: win32more.NetworkManagement.P2P.DRT_DATA
+            remoteKey: win32more.NetworkManagement.P2P.DRT_DATA
+        class _registrationStateChange_e__Struct(Structure):
+            state: win32more.NetworkManagement.P2P.DRT_REGISTRATION_STATE
+            localKey: win32more.NetworkManagement.P2P.DRT_DATA
+        class _statusChange_e__Struct(Structure):
+            status: win32more.NetworkManagement.P2P.DRT_STATUS
+            bootstrapAddresses: _bootstrapAddresses_e__Struct
+            class _bootstrapAddresses_e__Struct(Structure):
+                cntAddress: UInt32
+                pAddresses: POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)
 DRT_EVENT_TYPE = Int32
-DRT_EVENT_STATUS_CHANGED = 0
-DRT_EVENT_LEAFSET_KEY_CHANGED = 1
-DRT_EVENT_REGISTRATION_STATE_CHANGED = 2
+DRT_EVENT_STATUS_CHANGED: DRT_EVENT_TYPE = 0
+DRT_EVENT_LEAFSET_KEY_CHANGED: DRT_EVENT_TYPE = 1
+DRT_EVENT_REGISTRATION_STATE_CHANGED: DRT_EVENT_TYPE = 2
 DRT_LEAFSET_KEY_CHANGE_TYPE = Int32
-DRT_LEAFSET_KEY_ADDED = 0
-DRT_LEAFSET_KEY_DELETED = 1
+DRT_LEAFSET_KEY_ADDED: DRT_LEAFSET_KEY_CHANGE_TYPE = 0
+DRT_LEAFSET_KEY_DELETED: DRT_LEAFSET_KEY_CHANGE_TYPE = 1
 DRT_MATCH_TYPE = Int32
-DRT_MATCH_EXACT = 0
-DRT_MATCH_NEAR = 1
-DRT_MATCH_INTERMEDIATE = 2
-def _define_DRT_REGISTRATION_head():
-    class DRT_REGISTRATION(Structure):
-        pass
-    return DRT_REGISTRATION
-def _define_DRT_REGISTRATION():
-    DRT_REGISTRATION = win32more.NetworkManagement.P2P.DRT_REGISTRATION_head
-    DRT_REGISTRATION._fields_ = [
-        ('key', win32more.NetworkManagement.P2P.DRT_DATA),
-        ('appData', win32more.NetworkManagement.P2P.DRT_DATA),
-    ]
-    return DRT_REGISTRATION
+DRT_MATCH_EXACT: DRT_MATCH_TYPE = 0
+DRT_MATCH_NEAR: DRT_MATCH_TYPE = 1
+DRT_MATCH_INTERMEDIATE: DRT_MATCH_TYPE = 2
+class DRT_REGISTRATION(Structure):
+    key: win32more.NetworkManagement.P2P.DRT_DATA
+    appData: win32more.NetworkManagement.P2P.DRT_DATA
 DRT_REGISTRATION_STATE = Int32
-DRT_REGISTRATION_STATE_UNRESOLVEABLE = 1
+DRT_REGISTRATION_STATE_UNRESOLVEABLE: DRT_REGISTRATION_STATE = 1
 DRT_SCOPE = Int32
-DRT_GLOBAL_SCOPE = 1
-DRT_SITE_LOCAL_SCOPE = 2
-DRT_LINK_LOCAL_SCOPE = 3
-def _define_DRT_SEARCH_INFO_head():
-    class DRT_SEARCH_INFO(Structure):
-        pass
-    return DRT_SEARCH_INFO
-def _define_DRT_SEARCH_INFO():
-    DRT_SEARCH_INFO = win32more.NetworkManagement.P2P.DRT_SEARCH_INFO_head
-    DRT_SEARCH_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('fIterative', win32more.Foundation.BOOL),
-        ('fAllowCurrentInstanceMatch', win32more.Foundation.BOOL),
-        ('fAnyMatchInRange', win32more.Foundation.BOOL),
-        ('cMaxEndpoints', UInt32),
-        ('pMaximumKey', POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)),
-        ('pMinimumKey', POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)),
-    ]
-    return DRT_SEARCH_INFO
-def _define_DRT_SEARCH_RESULT_head():
-    class DRT_SEARCH_RESULT(Structure):
-        pass
-    return DRT_SEARCH_RESULT
-def _define_DRT_SEARCH_RESULT():
-    DRT_SEARCH_RESULT = win32more.NetworkManagement.P2P.DRT_SEARCH_RESULT_head
-    DRT_SEARCH_RESULT._fields_ = [
-        ('dwSize', UInt32),
-        ('type', win32more.NetworkManagement.P2P.DRT_MATCH_TYPE),
-        ('pvContext', c_void_p),
-        ('registration', win32more.NetworkManagement.P2P.DRT_REGISTRATION),
-    ]
-    return DRT_SEARCH_RESULT
+DRT_GLOBAL_SCOPE: DRT_SCOPE = 1
+DRT_SITE_LOCAL_SCOPE: DRT_SCOPE = 2
+DRT_LINK_LOCAL_SCOPE: DRT_SCOPE = 3
+class DRT_SEARCH_INFO(Structure):
+    dwSize: UInt32
+    fIterative: win32more.Foundation.BOOL
+    fAllowCurrentInstanceMatch: win32more.Foundation.BOOL
+    fAnyMatchInRange: win32more.Foundation.BOOL
+    cMaxEndpoints: UInt32
+    pMaximumKey: POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)
+    pMinimumKey: POINTER(win32more.NetworkManagement.P2P.DRT_DATA_head)
+class DRT_SEARCH_RESULT(Structure):
+    dwSize: UInt32
+    type: win32more.NetworkManagement.P2P.DRT_MATCH_TYPE
+    pvContext: c_void_p
+    registration: win32more.NetworkManagement.P2P.DRT_REGISTRATION
 DRT_SECURITY_MODE = Int32
-DRT_SECURE_RESOLVE = 0
-DRT_SECURE_MEMBERSHIP = 1
-DRT_SECURE_CONFIDENTIALPAYLOAD = 2
-def _define_DRT_SECURITY_PROVIDER_head():
-    class DRT_SECURITY_PROVIDER(Structure):
-        pass
-    return DRT_SECURITY_PROVIDER
-def _define_DRT_SECURITY_PROVIDER():
-    DRT_SECURITY_PROVIDER = win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head
-    DRT_SECURITY_PROVIDER._fields_ = [
-        ('pvContext', c_void_p),
-        ('Attach', IntPtr),
-        ('Detach', IntPtr),
-        ('RegisterKey', IntPtr),
-        ('UnregisterKey', IntPtr),
-        ('ValidateAndUnpackPayload', IntPtr),
-        ('SecureAndPackPayload', IntPtr),
-        ('FreeData', IntPtr),
-        ('EncryptData', IntPtr),
-        ('DecryptData', IntPtr),
-        ('GetSerializedCredential', IntPtr),
-        ('ValidateRemoteCredential', IntPtr),
-        ('SignData', IntPtr),
-        ('VerifyData', IntPtr),
-    ]
-    return DRT_SECURITY_PROVIDER
-def _define_DRT_SETTINGS_head():
-    class DRT_SETTINGS(Structure):
-        pass
-    return DRT_SETTINGS
-def _define_DRT_SETTINGS():
-    DRT_SETTINGS = win32more.NetworkManagement.P2P.DRT_SETTINGS_head
-    DRT_SETTINGS._fields_ = [
-        ('dwSize', UInt32),
-        ('cbKey', UInt32),
-        ('bProtocolMajorVersion', Byte),
-        ('bProtocolMinorVersion', Byte),
-        ('ulMaxRoutingAddresses', UInt32),
-        ('pwzDrtInstancePrefix', win32more.Foundation.PWSTR),
-        ('hTransport', c_void_p),
-        ('pSecurityProvider', POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)),
-        ('pBootstrapProvider', POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)),
-        ('eSecurityMode', win32more.NetworkManagement.P2P.DRT_SECURITY_MODE),
-    ]
-    return DRT_SETTINGS
+DRT_SECURE_RESOLVE: DRT_SECURITY_MODE = 0
+DRT_SECURE_MEMBERSHIP: DRT_SECURITY_MODE = 1
+DRT_SECURE_CONFIDENTIALPAYLOAD: DRT_SECURITY_MODE = 2
+class DRT_SECURITY_PROVIDER(Structure):
+    pvContext: c_void_p
+    Attach: IntPtr
+    Detach: IntPtr
+    RegisterKey: IntPtr
+    UnregisterKey: IntPtr
+    ValidateAndUnpackPayload: IntPtr
+    SecureAndPackPayload: IntPtr
+    FreeData: IntPtr
+    EncryptData: IntPtr
+    DecryptData: IntPtr
+    GetSerializedCredential: IntPtr
+    ValidateRemoteCredential: IntPtr
+    SignData: IntPtr
+    VerifyData: IntPtr
+class DRT_SETTINGS(Structure):
+    dwSize: UInt32
+    cbKey: UInt32
+    bProtocolMajorVersion: Byte
+    bProtocolMinorVersion: Byte
+    ulMaxRoutingAddresses: UInt32
+    pwzDrtInstancePrefix: win32more.Foundation.PWSTR
+    hTransport: c_void_p
+    pSecurityProvider: POINTER(win32more.NetworkManagement.P2P.DRT_SECURITY_PROVIDER_head)
+    pBootstrapProvider: POINTER(win32more.NetworkManagement.P2P.DRT_BOOTSTRAP_PROVIDER_head)
+    eSecurityMode: win32more.NetworkManagement.P2P.DRT_SECURITY_MODE
 DRT_STATUS = Int32
-DRT_ACTIVE = 0
-DRT_ALONE = 1
-DRT_NO_NETWORK = 10
-DRT_FAULTED = 20
-def _define_PEER_ADDRESS_head():
-    class PEER_ADDRESS(Structure):
-        pass
-    return PEER_ADDRESS
-def _define_PEER_ADDRESS():
-    PEER_ADDRESS = win32more.NetworkManagement.P2P.PEER_ADDRESS_head
-    PEER_ADDRESS._fields_ = [
-        ('dwSize', UInt32),
-        ('sin6', win32more.Networking.WinSock.SOCKADDR_IN6),
-    ]
-    return PEER_ADDRESS
-def _define_PEER_APP_LAUNCH_INFO_head():
-    class PEER_APP_LAUNCH_INFO(Structure):
-        pass
-    return PEER_APP_LAUNCH_INFO
-def _define_PEER_APP_LAUNCH_INFO():
-    PEER_APP_LAUNCH_INFO = win32more.NetworkManagement.P2P.PEER_APP_LAUNCH_INFO_head
-    PEER_APP_LAUNCH_INFO._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-        ('pInvitation', POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head)),
-    ]
-    return PEER_APP_LAUNCH_INFO
-def _define_PEER_APPLICATION_head():
-    class PEER_APPLICATION(Structure):
-        pass
-    return PEER_APPLICATION
-def _define_PEER_APPLICATION():
-    PEER_APPLICATION = win32more.NetworkManagement.P2P.PEER_APPLICATION_head
-    PEER_APPLICATION._fields_ = [
-        ('id', Guid),
-        ('data', win32more.NetworkManagement.P2P.PEER_DATA),
-        ('pwzDescription', win32more.Foundation.PWSTR),
-    ]
-    return PEER_APPLICATION
-def _define_PEER_APPLICATION_REGISTRATION_INFO_head():
-    class PEER_APPLICATION_REGISTRATION_INFO(Structure):
-        pass
-    return PEER_APPLICATION_REGISTRATION_INFO
-def _define_PEER_APPLICATION_REGISTRATION_INFO():
-    PEER_APPLICATION_REGISTRATION_INFO = win32more.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_INFO_head
-    PEER_APPLICATION_REGISTRATION_INFO._fields_ = [
-        ('application', win32more.NetworkManagement.P2P.PEER_APPLICATION),
-        ('pwzApplicationToLaunch', win32more.Foundation.PWSTR),
-        ('pwzApplicationArguments', win32more.Foundation.PWSTR),
-        ('dwPublicationScope', UInt32),
-    ]
-    return PEER_APPLICATION_REGISTRATION_INFO
+DRT_ACTIVE: DRT_STATUS = 0
+DRT_ALONE: DRT_STATUS = 1
+DRT_NO_NETWORK: DRT_STATUS = 10
+DRT_FAULTED: DRT_STATUS = 20
+class PEER_ADDRESS(Structure):
+    dwSize: UInt32
+    sin6: win32more.Networking.WinSock.SOCKADDR_IN6
+class PEER_APP_LAUNCH_INFO(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    pInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head)
+class PEER_APPLICATION(Structure):
+    id: Guid
+    data: win32more.NetworkManagement.P2P.PEER_DATA
+    pwzDescription: win32more.Foundation.PWSTR
+class PEER_APPLICATION_REGISTRATION_INFO(Structure):
+    application: win32more.NetworkManagement.P2P.PEER_APPLICATION
+    pwzApplicationToLaunch: win32more.Foundation.PWSTR
+    pwzApplicationArguments: win32more.Foundation.PWSTR
+    dwPublicationScope: UInt32
 PEER_APPLICATION_REGISTRATION_TYPE = Int32
-PEER_APPLICATION_CURRENT_USER = 0
-PEER_APPLICATION_ALL_USERS = 1
+PEER_APPLICATION_CURRENT_USER: PEER_APPLICATION_REGISTRATION_TYPE = 0
+PEER_APPLICATION_ALL_USERS: PEER_APPLICATION_REGISTRATION_TYPE = 1
 PEER_CHANGE_TYPE = Int32
-PEER_CHANGE_ADDED = 0
-PEER_CHANGE_DELETED = 1
-PEER_CHANGE_UPDATED = 2
-def _define_PEER_COLLAB_EVENT_DATA_head():
-    class PEER_COLLAB_EVENT_DATA(Structure):
-        pass
-    return PEER_COLLAB_EVENT_DATA
-def _define_PEER_COLLAB_EVENT_DATA():
-    PEER_COLLAB_EVENT_DATA = win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_DATA_head
-    class PEER_COLLAB_EVENT_DATA__Anonymous_e__Union(Union):
-        pass
-    PEER_COLLAB_EVENT_DATA__Anonymous_e__Union._fields_ = [
-        ('watchListChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_WATCHLIST_CHANGED_DATA),
-        ('presenceChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_PRESENCE_CHANGED_DATA),
-        ('applicationChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_APPLICATION_CHANGED_DATA),
-        ('objectChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_OBJECT_CHANGED_DATA),
-        ('endpointChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_ENDPOINT_CHANGED_DATA),
-        ('peopleNearMeChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA),
-        ('requestStatusChangedData', win32more.NetworkManagement.P2P.PEER_EVENT_REQUEST_STATUS_CHANGED_DATA),
-    ]
-    PEER_COLLAB_EVENT_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    PEER_COLLAB_EVENT_DATA._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE),
-        ('Anonymous', PEER_COLLAB_EVENT_DATA__Anonymous_e__Union),
-    ]
-    return PEER_COLLAB_EVENT_DATA
-def _define_PEER_COLLAB_EVENT_REGISTRATION_head():
-    class PEER_COLLAB_EVENT_REGISTRATION(Structure):
-        pass
-    return PEER_COLLAB_EVENT_REGISTRATION
-def _define_PEER_COLLAB_EVENT_REGISTRATION():
-    PEER_COLLAB_EVENT_REGISTRATION = win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_REGISTRATION_head
-    PEER_COLLAB_EVENT_REGISTRATION._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE),
-        ('pInstance', POINTER(Guid)),
-    ]
-    return PEER_COLLAB_EVENT_REGISTRATION
+PEER_CHANGE_ADDED: PEER_CHANGE_TYPE = 0
+PEER_CHANGE_DELETED: PEER_CHANGE_TYPE = 1
+PEER_CHANGE_UPDATED: PEER_CHANGE_TYPE = 2
+class PEER_COLLAB_EVENT_DATA(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        watchListChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_WATCHLIST_CHANGED_DATA
+        presenceChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_PRESENCE_CHANGED_DATA
+        applicationChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_APPLICATION_CHANGED_DATA
+        objectChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_OBJECT_CHANGED_DATA
+        endpointChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_ENDPOINT_CHANGED_DATA
+        peopleNearMeChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA
+        requestStatusChangedData: win32more.NetworkManagement.P2P.PEER_EVENT_REQUEST_STATUS_CHANGED_DATA
+class PEER_COLLAB_EVENT_REGISTRATION(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE
+    pInstance: POINTER(Guid)
 PEER_COLLAB_EVENT_TYPE = Int32
-PEER_EVENT_WATCHLIST_CHANGED = 1
-PEER_EVENT_ENDPOINT_CHANGED = 2
-PEER_EVENT_ENDPOINT_PRESENCE_CHANGED = 3
-PEER_EVENT_ENDPOINT_APPLICATION_CHANGED = 4
-PEER_EVENT_ENDPOINT_OBJECT_CHANGED = 5
-PEER_EVENT_MY_ENDPOINT_CHANGED = 6
-PEER_EVENT_MY_PRESENCE_CHANGED = 7
-PEER_EVENT_MY_APPLICATION_CHANGED = 8
-PEER_EVENT_MY_OBJECT_CHANGED = 9
-PEER_EVENT_PEOPLE_NEAR_ME_CHANGED = 10
-PEER_EVENT_REQUEST_STATUS_CHANGED = 11
+PEER_EVENT_WATCHLIST_CHANGED: PEER_COLLAB_EVENT_TYPE = 1
+PEER_EVENT_ENDPOINT_CHANGED: PEER_COLLAB_EVENT_TYPE = 2
+PEER_EVENT_ENDPOINT_PRESENCE_CHANGED: PEER_COLLAB_EVENT_TYPE = 3
+PEER_EVENT_ENDPOINT_APPLICATION_CHANGED: PEER_COLLAB_EVENT_TYPE = 4
+PEER_EVENT_ENDPOINT_OBJECT_CHANGED: PEER_COLLAB_EVENT_TYPE = 5
+PEER_EVENT_MY_ENDPOINT_CHANGED: PEER_COLLAB_EVENT_TYPE = 6
+PEER_EVENT_MY_PRESENCE_CHANGED: PEER_COLLAB_EVENT_TYPE = 7
+PEER_EVENT_MY_APPLICATION_CHANGED: PEER_COLLAB_EVENT_TYPE = 8
+PEER_EVENT_MY_OBJECT_CHANGED: PEER_COLLAB_EVENT_TYPE = 9
+PEER_EVENT_PEOPLE_NEAR_ME_CHANGED: PEER_COLLAB_EVENT_TYPE = 10
+PEER_EVENT_REQUEST_STATUS_CHANGED: PEER_COLLAB_EVENT_TYPE = 11
 PEER_CONNECTION_FLAGS = Int32
-PEER_CONNECTION_NEIGHBOR = 1
-PEER_CONNECTION_DIRECT = 2
-def _define_PEER_CONNECTION_INFO_head():
-    class PEER_CONNECTION_INFO(Structure):
-        pass
-    return PEER_CONNECTION_INFO
-def _define_PEER_CONNECTION_INFO():
-    PEER_CONNECTION_INFO = win32more.NetworkManagement.P2P.PEER_CONNECTION_INFO_head
-    PEER_CONNECTION_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('ullConnectionId', UInt64),
-        ('ullNodeId', UInt64),
-        ('pwzPeerId', win32more.Foundation.PWSTR),
-        ('address', win32more.NetworkManagement.P2P.PEER_ADDRESS),
-    ]
-    return PEER_CONNECTION_INFO
+PEER_CONNECTION_NEIGHBOR: PEER_CONNECTION_FLAGS = 1
+PEER_CONNECTION_DIRECT: PEER_CONNECTION_FLAGS = 2
+class PEER_CONNECTION_INFO(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    ullConnectionId: UInt64
+    ullNodeId: UInt64
+    pwzPeerId: win32more.Foundation.PWSTR
+    address: win32more.NetworkManagement.P2P.PEER_ADDRESS
 PEER_CONNECTION_STATUS = Int32
-PEER_CONNECTED = 1
-PEER_DISCONNECTED = 2
-PEER_CONNECTION_FAILED = 3
-def _define_PEER_CONTACT_head():
-    class PEER_CONTACT(Structure):
-        pass
-    return PEER_CONTACT
-def _define_PEER_CONTACT():
-    PEER_CONTACT = win32more.NetworkManagement.P2P.PEER_CONTACT_head
-    PEER_CONTACT._fields_ = [
-        ('pwzPeerName', win32more.Foundation.PWSTR),
-        ('pwzNickName', win32more.Foundation.PWSTR),
-        ('pwzDisplayName', win32more.Foundation.PWSTR),
-        ('pwzEmailAddress', win32more.Foundation.PWSTR),
-        ('fWatch', win32more.Foundation.BOOL),
-        ('WatcherPermissions', win32more.NetworkManagement.P2P.PEER_WATCH_PERMISSION),
-        ('credentials', win32more.NetworkManagement.P2P.PEER_DATA),
-    ]
-    return PEER_CONTACT
-def _define_PEER_CREDENTIAL_INFO_head():
-    class PEER_CREDENTIAL_INFO(Structure):
-        pass
-    return PEER_CREDENTIAL_INFO
-def _define_PEER_CREDENTIAL_INFO():
-    PEER_CREDENTIAL_INFO = win32more.NetworkManagement.P2P.PEER_CREDENTIAL_INFO_head
-    PEER_CREDENTIAL_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('pwzFriendlyName', win32more.Foundation.PWSTR),
-        ('pPublicKey', POINTER(win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)),
-        ('pwzIssuerPeerName', win32more.Foundation.PWSTR),
-        ('pwzIssuerFriendlyName', win32more.Foundation.PWSTR),
-        ('ftValidityStart', win32more.Foundation.FILETIME),
-        ('ftValidityEnd', win32more.Foundation.FILETIME),
-        ('cRoles', UInt32),
-        ('pRoles', POINTER(Guid)),
-    ]
-    return PEER_CREDENTIAL_INFO
-def _define_PEER_DATA_head():
-    class PEER_DATA(Structure):
-        pass
-    return PEER_DATA
-def _define_PEER_DATA():
-    PEER_DATA = win32more.NetworkManagement.P2P.PEER_DATA_head
-    PEER_DATA._fields_ = [
-        ('cbData', UInt32),
-        ('pbData', c_char_p_no),
-    ]
-    return PEER_DATA
-def _define_PEER_ENDPOINT_head():
-    class PEER_ENDPOINT(Structure):
-        pass
-    return PEER_ENDPOINT
-def _define_PEER_ENDPOINT():
-    PEER_ENDPOINT = win32more.NetworkManagement.P2P.PEER_ENDPOINT_head
-    PEER_ENDPOINT._fields_ = [
-        ('address', win32more.NetworkManagement.P2P.PEER_ADDRESS),
-        ('pwzEndpointName', win32more.Foundation.PWSTR),
-    ]
-    return PEER_ENDPOINT
-def _define_PEER_EVENT_APPLICATION_CHANGED_DATA_head():
-    class PEER_EVENT_APPLICATION_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_APPLICATION_CHANGED_DATA
-def _define_PEER_EVENT_APPLICATION_CHANGED_DATA():
-    PEER_EVENT_APPLICATION_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_APPLICATION_CHANGED_DATA_head
-    PEER_EVENT_APPLICATION_CHANGED_DATA._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE),
-        ('pApplication', POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_head)),
-    ]
-    return PEER_EVENT_APPLICATION_CHANGED_DATA
-def _define_PEER_EVENT_CONNECTION_CHANGE_DATA_head():
-    class PEER_EVENT_CONNECTION_CHANGE_DATA(Structure):
-        pass
-    return PEER_EVENT_CONNECTION_CHANGE_DATA
-def _define_PEER_EVENT_CONNECTION_CHANGE_DATA():
-    PEER_EVENT_CONNECTION_CHANGE_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA_head
-    PEER_EVENT_CONNECTION_CHANGE_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('status', win32more.NetworkManagement.P2P.PEER_CONNECTION_STATUS),
-        ('ullConnectionId', UInt64),
-        ('ullNodeId', UInt64),
-        ('ullNextConnectionId', UInt64),
-        ('hrConnectionFailedReason', win32more.Foundation.HRESULT),
-    ]
-    return PEER_EVENT_CONNECTION_CHANGE_DATA
-def _define_PEER_EVENT_ENDPOINT_CHANGED_DATA_head():
-    class PEER_EVENT_ENDPOINT_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_ENDPOINT_CHANGED_DATA
-def _define_PEER_EVENT_ENDPOINT_CHANGED_DATA():
-    PEER_EVENT_ENDPOINT_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_ENDPOINT_CHANGED_DATA_head
-    PEER_EVENT_ENDPOINT_CHANGED_DATA._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-    ]
-    return PEER_EVENT_ENDPOINT_CHANGED_DATA
-def _define_PEER_EVENT_INCOMING_DATA_head():
-    class PEER_EVENT_INCOMING_DATA(Structure):
-        pass
-    return PEER_EVENT_INCOMING_DATA
-def _define_PEER_EVENT_INCOMING_DATA():
-    PEER_EVENT_INCOMING_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA_head
-    PEER_EVENT_INCOMING_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('ullConnectionId', UInt64),
-        ('type', Guid),
-        ('data', win32more.NetworkManagement.P2P.PEER_DATA),
-    ]
-    return PEER_EVENT_INCOMING_DATA
-def _define_PEER_EVENT_MEMBER_CHANGE_DATA_head():
-    class PEER_EVENT_MEMBER_CHANGE_DATA(Structure):
-        pass
-    return PEER_EVENT_MEMBER_CHANGE_DATA
-def _define_PEER_EVENT_MEMBER_CHANGE_DATA():
-    PEER_EVENT_MEMBER_CHANGE_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_MEMBER_CHANGE_DATA_head
-    PEER_EVENT_MEMBER_CHANGE_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_MEMBER_CHANGE_TYPE),
-        ('pwzIdentity', win32more.Foundation.PWSTR),
-    ]
-    return PEER_EVENT_MEMBER_CHANGE_DATA
-def _define_PEER_EVENT_NODE_CHANGE_DATA_head():
-    class PEER_EVENT_NODE_CHANGE_DATA(Structure):
-        pass
-    return PEER_EVENT_NODE_CHANGE_DATA
-def _define_PEER_EVENT_NODE_CHANGE_DATA():
-    PEER_EVENT_NODE_CHANGE_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_NODE_CHANGE_DATA_head
-    PEER_EVENT_NODE_CHANGE_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE),
-        ('ullNodeId', UInt64),
-        ('pwzPeerId', win32more.Foundation.PWSTR),
-    ]
-    return PEER_EVENT_NODE_CHANGE_DATA
-def _define_PEER_EVENT_OBJECT_CHANGED_DATA_head():
-    class PEER_EVENT_OBJECT_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_OBJECT_CHANGED_DATA
-def _define_PEER_EVENT_OBJECT_CHANGED_DATA():
-    PEER_EVENT_OBJECT_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_OBJECT_CHANGED_DATA_head
-    PEER_EVENT_OBJECT_CHANGED_DATA._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE),
-        ('pObject', POINTER(win32more.NetworkManagement.P2P.PEER_OBJECT_head)),
-    ]
-    return PEER_EVENT_OBJECT_CHANGED_DATA
-def _define_PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA_head():
-    class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA
-def _define_PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA():
-    PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA_head
-    PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA._fields_ = [
-        ('changeType', win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE),
-        ('pPeopleNearMe', POINTER(win32more.NetworkManagement.P2P.PEER_PEOPLE_NEAR_ME_head)),
-    ]
-    return PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA
-def _define_PEER_EVENT_PRESENCE_CHANGED_DATA_head():
-    class PEER_EVENT_PRESENCE_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_PRESENCE_CHANGED_DATA
-def _define_PEER_EVENT_PRESENCE_CHANGED_DATA():
-    PEER_EVENT_PRESENCE_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_PRESENCE_CHANGED_DATA_head
-    PEER_EVENT_PRESENCE_CHANGED_DATA._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE),
-        ('pPresenceInfo', POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head)),
-    ]
-    return PEER_EVENT_PRESENCE_CHANGED_DATA
-def _define_PEER_EVENT_RECORD_CHANGE_DATA_head():
-    class PEER_EVENT_RECORD_CHANGE_DATA(Structure):
-        pass
-    return PEER_EVENT_RECORD_CHANGE_DATA
-def _define_PEER_EVENT_RECORD_CHANGE_DATA():
-    PEER_EVENT_RECORD_CHANGE_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA_head
-    PEER_EVENT_RECORD_CHANGE_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE),
-        ('recordId', Guid),
-        ('recordType', Guid),
-    ]
-    return PEER_EVENT_RECORD_CHANGE_DATA
-def _define_PEER_EVENT_REQUEST_STATUS_CHANGED_DATA_head():
-    class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_REQUEST_STATUS_CHANGED_DATA
-def _define_PEER_EVENT_REQUEST_STATUS_CHANGED_DATA():
-    PEER_EVENT_REQUEST_STATUS_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_REQUEST_STATUS_CHANGED_DATA_head
-    PEER_EVENT_REQUEST_STATUS_CHANGED_DATA._fields_ = [
-        ('pEndpoint', POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)),
-        ('hrChange', win32more.Foundation.HRESULT),
-    ]
-    return PEER_EVENT_REQUEST_STATUS_CHANGED_DATA
-def _define_PEER_EVENT_SYNCHRONIZED_DATA_head():
-    class PEER_EVENT_SYNCHRONIZED_DATA(Structure):
-        pass
-    return PEER_EVENT_SYNCHRONIZED_DATA
-def _define_PEER_EVENT_SYNCHRONIZED_DATA():
-    PEER_EVENT_SYNCHRONIZED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_SYNCHRONIZED_DATA_head
-    PEER_EVENT_SYNCHRONIZED_DATA._fields_ = [
-        ('dwSize', UInt32),
-        ('recordType', Guid),
-    ]
-    return PEER_EVENT_SYNCHRONIZED_DATA
-def _define_PEER_EVENT_WATCHLIST_CHANGED_DATA_head():
-    class PEER_EVENT_WATCHLIST_CHANGED_DATA(Structure):
-        pass
-    return PEER_EVENT_WATCHLIST_CHANGED_DATA
-def _define_PEER_EVENT_WATCHLIST_CHANGED_DATA():
-    PEER_EVENT_WATCHLIST_CHANGED_DATA = win32more.NetworkManagement.P2P.PEER_EVENT_WATCHLIST_CHANGED_DATA_head
-    PEER_EVENT_WATCHLIST_CHANGED_DATA._fields_ = [
-        ('pContact', POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)),
-        ('changeType', win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE),
-    ]
-    return PEER_EVENT_WATCHLIST_CHANGED_DATA
-def _define_PEER_GRAPH_EVENT_DATA_head():
-    class PEER_GRAPH_EVENT_DATA(Structure):
-        pass
-    return PEER_GRAPH_EVENT_DATA
-def _define_PEER_GRAPH_EVENT_DATA():
-    PEER_GRAPH_EVENT_DATA = win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_DATA_head
-    class PEER_GRAPH_EVENT_DATA__Anonymous_e__Union(Union):
-        pass
-    PEER_GRAPH_EVENT_DATA__Anonymous_e__Union._fields_ = [
-        ('dwStatus', win32more.NetworkManagement.P2P.PEER_GRAPH_STATUS_FLAGS),
-        ('incomingData', win32more.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA),
-        ('recordChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA),
-        ('connectionChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA),
-        ('nodeChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_NODE_CHANGE_DATA),
-        ('synchronizedData', win32more.NetworkManagement.P2P.PEER_EVENT_SYNCHRONIZED_DATA),
-    ]
-    PEER_GRAPH_EVENT_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    PEER_GRAPH_EVENT_DATA._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE),
-        ('Anonymous', PEER_GRAPH_EVENT_DATA__Anonymous_e__Union),
-    ]
-    return PEER_GRAPH_EVENT_DATA
-def _define_PEER_GRAPH_EVENT_REGISTRATION_head():
-    class PEER_GRAPH_EVENT_REGISTRATION(Structure):
-        pass
-    return PEER_GRAPH_EVENT_REGISTRATION
-def _define_PEER_GRAPH_EVENT_REGISTRATION():
-    PEER_GRAPH_EVENT_REGISTRATION = win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_REGISTRATION_head
-    PEER_GRAPH_EVENT_REGISTRATION._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE),
-        ('pType', POINTER(Guid)),
-    ]
-    return PEER_GRAPH_EVENT_REGISTRATION
+PEER_CONNECTED: PEER_CONNECTION_STATUS = 1
+PEER_DISCONNECTED: PEER_CONNECTION_STATUS = 2
+PEER_CONNECTION_FAILED: PEER_CONNECTION_STATUS = 3
+class PEER_CONTACT(Structure):
+    pwzPeerName: win32more.Foundation.PWSTR
+    pwzNickName: win32more.Foundation.PWSTR
+    pwzDisplayName: win32more.Foundation.PWSTR
+    pwzEmailAddress: win32more.Foundation.PWSTR
+    fWatch: win32more.Foundation.BOOL
+    WatcherPermissions: win32more.NetworkManagement.P2P.PEER_WATCH_PERMISSION
+    credentials: win32more.NetworkManagement.P2P.PEER_DATA
+class PEER_CREDENTIAL_INFO(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    pwzFriendlyName: win32more.Foundation.PWSTR
+    pPublicKey: POINTER(win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)
+    pwzIssuerPeerName: win32more.Foundation.PWSTR
+    pwzIssuerFriendlyName: win32more.Foundation.PWSTR
+    ftValidityStart: win32more.Foundation.FILETIME
+    ftValidityEnd: win32more.Foundation.FILETIME
+    cRoles: UInt32
+    pRoles: POINTER(Guid)
+class PEER_DATA(Structure):
+    cbData: UInt32
+    pbData: c_char_p_no
+class PEER_ENDPOINT(Structure):
+    address: win32more.NetworkManagement.P2P.PEER_ADDRESS
+    pwzEndpointName: win32more.Foundation.PWSTR
+class PEER_EVENT_APPLICATION_CHANGED_DATA(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    changeType: win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE
+    pApplication: POINTER(win32more.NetworkManagement.P2P.PEER_APPLICATION_head)
+class PEER_EVENT_CONNECTION_CHANGE_DATA(Structure):
+    dwSize: UInt32
+    status: win32more.NetworkManagement.P2P.PEER_CONNECTION_STATUS
+    ullConnectionId: UInt64
+    ullNodeId: UInt64
+    ullNextConnectionId: UInt64
+    hrConnectionFailedReason: win32more.Foundation.HRESULT
+class PEER_EVENT_ENDPOINT_CHANGED_DATA(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+class PEER_EVENT_INCOMING_DATA(Structure):
+    dwSize: UInt32
+    ullConnectionId: UInt64
+    type: Guid
+    data: win32more.NetworkManagement.P2P.PEER_DATA
+class PEER_EVENT_MEMBER_CHANGE_DATA(Structure):
+    dwSize: UInt32
+    changeType: win32more.NetworkManagement.P2P.PEER_MEMBER_CHANGE_TYPE
+    pwzIdentity: win32more.Foundation.PWSTR
+class PEER_EVENT_NODE_CHANGE_DATA(Structure):
+    dwSize: UInt32
+    changeType: win32more.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE
+    ullNodeId: UInt64
+    pwzPeerId: win32more.Foundation.PWSTR
+class PEER_EVENT_OBJECT_CHANGED_DATA(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    changeType: win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE
+    pObject: POINTER(win32more.NetworkManagement.P2P.PEER_OBJECT_head)
+class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(Structure):
+    changeType: win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE
+    pPeopleNearMe: POINTER(win32more.NetworkManagement.P2P.PEER_PEOPLE_NEAR_ME_head)
+class PEER_EVENT_PRESENCE_CHANGED_DATA(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    changeType: win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE
+    pPresenceInfo: POINTER(win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head)
+class PEER_EVENT_RECORD_CHANGE_DATA(Structure):
+    dwSize: UInt32
+    changeType: win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE
+    recordId: Guid
+    recordType: Guid
+class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(Structure):
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    hrChange: win32more.Foundation.HRESULT
+class PEER_EVENT_SYNCHRONIZED_DATA(Structure):
+    dwSize: UInt32
+    recordType: Guid
+class PEER_EVENT_WATCHLIST_CHANGED_DATA(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    changeType: win32more.NetworkManagement.P2P.PEER_CHANGE_TYPE
+class PEER_GRAPH_EVENT_DATA(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        dwStatus: win32more.NetworkManagement.P2P.PEER_GRAPH_STATUS_FLAGS
+        incomingData: win32more.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA
+        recordChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA
+        connectionChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA
+        nodeChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_NODE_CHANGE_DATA
+        synchronizedData: win32more.NetworkManagement.P2P.PEER_EVENT_SYNCHRONIZED_DATA
+class PEER_GRAPH_EVENT_REGISTRATION(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE
+    pType: POINTER(Guid)
 PEER_GRAPH_EVENT_TYPE = Int32
-PEER_GRAPH_EVENT_STATUS_CHANGED = 1
-PEER_GRAPH_EVENT_PROPERTY_CHANGED = 2
-PEER_GRAPH_EVENT_RECORD_CHANGED = 3
-PEER_GRAPH_EVENT_DIRECT_CONNECTION = 4
-PEER_GRAPH_EVENT_NEIGHBOR_CONNECTION = 5
-PEER_GRAPH_EVENT_INCOMING_DATA = 6
-PEER_GRAPH_EVENT_CONNECTION_REQUIRED = 7
-PEER_GRAPH_EVENT_NODE_CHANGED = 8
-PEER_GRAPH_EVENT_SYNCHRONIZED = 9
-def _define_PEER_GRAPH_PROPERTIES_head():
-    class PEER_GRAPH_PROPERTIES(Structure):
-        pass
-    return PEER_GRAPH_PROPERTIES
-def _define_PEER_GRAPH_PROPERTIES():
-    PEER_GRAPH_PROPERTIES = win32more.NetworkManagement.P2P.PEER_GRAPH_PROPERTIES_head
-    PEER_GRAPH_PROPERTIES._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwScope', UInt32),
-        ('dwMaxRecordSize', UInt32),
-        ('pwzGraphId', win32more.Foundation.PWSTR),
-        ('pwzCreatorId', win32more.Foundation.PWSTR),
-        ('pwzFriendlyName', win32more.Foundation.PWSTR),
-        ('pwzComment', win32more.Foundation.PWSTR),
-        ('ulPresenceLifetime', UInt32),
-        ('cPresenceMax', UInt32),
-    ]
-    return PEER_GRAPH_PROPERTIES
+PEER_GRAPH_EVENT_STATUS_CHANGED: PEER_GRAPH_EVENT_TYPE = 1
+PEER_GRAPH_EVENT_PROPERTY_CHANGED: PEER_GRAPH_EVENT_TYPE = 2
+PEER_GRAPH_EVENT_RECORD_CHANGED: PEER_GRAPH_EVENT_TYPE = 3
+PEER_GRAPH_EVENT_DIRECT_CONNECTION: PEER_GRAPH_EVENT_TYPE = 4
+PEER_GRAPH_EVENT_NEIGHBOR_CONNECTION: PEER_GRAPH_EVENT_TYPE = 5
+PEER_GRAPH_EVENT_INCOMING_DATA: PEER_GRAPH_EVENT_TYPE = 6
+PEER_GRAPH_EVENT_CONNECTION_REQUIRED: PEER_GRAPH_EVENT_TYPE = 7
+PEER_GRAPH_EVENT_NODE_CHANGED: PEER_GRAPH_EVENT_TYPE = 8
+PEER_GRAPH_EVENT_SYNCHRONIZED: PEER_GRAPH_EVENT_TYPE = 9
+class PEER_GRAPH_PROPERTIES(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwScope: UInt32
+    dwMaxRecordSize: UInt32
+    pwzGraphId: win32more.Foundation.PWSTR
+    pwzCreatorId: win32more.Foundation.PWSTR
+    pwzFriendlyName: win32more.Foundation.PWSTR
+    pwzComment: win32more.Foundation.PWSTR
+    ulPresenceLifetime: UInt32
+    cPresenceMax: UInt32
 PEER_GRAPH_PROPERTY_FLAGS = Int32
-PEER_GRAPH_PROPERTY_HEARTBEATS = 1
-PEER_GRAPH_PROPERTY_DEFER_EXPIRATION = 2
+PEER_GRAPH_PROPERTY_HEARTBEATS: PEER_GRAPH_PROPERTY_FLAGS = 1
+PEER_GRAPH_PROPERTY_DEFER_EXPIRATION: PEER_GRAPH_PROPERTY_FLAGS = 2
 PEER_GRAPH_SCOPE = Int32
-PEER_GRAPH_SCOPE_ANY = 0
-PEER_GRAPH_SCOPE_GLOBAL = 1
-PEER_GRAPH_SCOPE_SITELOCAL = 2
-PEER_GRAPH_SCOPE_LINKLOCAL = 3
-PEER_GRAPH_SCOPE_LOOPBACK = 4
+PEER_GRAPH_SCOPE_ANY: PEER_GRAPH_SCOPE = 0
+PEER_GRAPH_SCOPE_GLOBAL: PEER_GRAPH_SCOPE = 1
+PEER_GRAPH_SCOPE_SITELOCAL: PEER_GRAPH_SCOPE = 2
+PEER_GRAPH_SCOPE_LINKLOCAL: PEER_GRAPH_SCOPE = 3
+PEER_GRAPH_SCOPE_LOOPBACK: PEER_GRAPH_SCOPE = 4
 PEER_GRAPH_STATUS_FLAGS = Int32
-PEER_GRAPH_STATUS_LISTENING = 1
-PEER_GRAPH_STATUS_HAS_CONNECTIONS = 2
-PEER_GRAPH_STATUS_SYNCHRONIZED = 4
+PEER_GRAPH_STATUS_LISTENING: PEER_GRAPH_STATUS_FLAGS = 1
+PEER_GRAPH_STATUS_HAS_CONNECTIONS: PEER_GRAPH_STATUS_FLAGS = 2
+PEER_GRAPH_STATUS_SYNCHRONIZED: PEER_GRAPH_STATUS_FLAGS = 4
 PEER_GROUP_AUTHENTICATION_SCHEME = Int32
-PEER_GROUP_GMC_AUTHENTICATION = 1
-PEER_GROUP_PASSWORD_AUTHENTICATION = 2
-def _define_PEER_GROUP_EVENT_DATA_head():
-    class PEER_GROUP_EVENT_DATA(Structure):
-        pass
-    return PEER_GROUP_EVENT_DATA
-def _define_PEER_GROUP_EVENT_DATA():
-    PEER_GROUP_EVENT_DATA = win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_DATA_head
-    class PEER_GROUP_EVENT_DATA__Anonymous_e__Union(Union):
-        pass
-    PEER_GROUP_EVENT_DATA__Anonymous_e__Union._fields_ = [
-        ('dwStatus', win32more.NetworkManagement.P2P.PEER_GROUP_STATUS),
-        ('incomingData', win32more.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA),
-        ('recordChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA),
-        ('connectionChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA),
-        ('memberChangeData', win32more.NetworkManagement.P2P.PEER_EVENT_MEMBER_CHANGE_DATA),
-        ('hrConnectionFailedReason', win32more.Foundation.HRESULT),
-    ]
-    PEER_GROUP_EVENT_DATA._anonymous_ = [
-        'Anonymous',
-    ]
-    PEER_GROUP_EVENT_DATA._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE),
-        ('Anonymous', PEER_GROUP_EVENT_DATA__Anonymous_e__Union),
-    ]
-    return PEER_GROUP_EVENT_DATA
-def _define_PEER_GROUP_EVENT_REGISTRATION_head():
-    class PEER_GROUP_EVENT_REGISTRATION(Structure):
-        pass
-    return PEER_GROUP_EVENT_REGISTRATION
-def _define_PEER_GROUP_EVENT_REGISTRATION():
-    PEER_GROUP_EVENT_REGISTRATION = win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_REGISTRATION_head
-    PEER_GROUP_EVENT_REGISTRATION._fields_ = [
-        ('eventType', win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE),
-        ('pType', POINTER(Guid)),
-    ]
-    return PEER_GROUP_EVENT_REGISTRATION
+PEER_GROUP_GMC_AUTHENTICATION: PEER_GROUP_AUTHENTICATION_SCHEME = 1
+PEER_GROUP_PASSWORD_AUTHENTICATION: PEER_GROUP_AUTHENTICATION_SCHEME = 2
+class PEER_GROUP_EVENT_DATA(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        dwStatus: win32more.NetworkManagement.P2P.PEER_GROUP_STATUS
+        incomingData: win32more.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA
+        recordChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA
+        connectionChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA
+        memberChangeData: win32more.NetworkManagement.P2P.PEER_EVENT_MEMBER_CHANGE_DATA
+        hrConnectionFailedReason: win32more.Foundation.HRESULT
+class PEER_GROUP_EVENT_REGISTRATION(Structure):
+    eventType: win32more.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE
+    pType: POINTER(Guid)
 PEER_GROUP_EVENT_TYPE = Int32
-PEER_GROUP_EVENT_STATUS_CHANGED = 1
-PEER_GROUP_EVENT_PROPERTY_CHANGED = 2
-PEER_GROUP_EVENT_RECORD_CHANGED = 3
-PEER_GROUP_EVENT_DIRECT_CONNECTION = 4
-PEER_GROUP_EVENT_NEIGHBOR_CONNECTION = 5
-PEER_GROUP_EVENT_INCOMING_DATA = 6
-PEER_GROUP_EVENT_MEMBER_CHANGED = 8
-PEER_GROUP_EVENT_CONNECTION_FAILED = 10
-PEER_GROUP_EVENT_AUTHENTICATION_FAILED = 11
+PEER_GROUP_EVENT_STATUS_CHANGED: PEER_GROUP_EVENT_TYPE = 1
+PEER_GROUP_EVENT_PROPERTY_CHANGED: PEER_GROUP_EVENT_TYPE = 2
+PEER_GROUP_EVENT_RECORD_CHANGED: PEER_GROUP_EVENT_TYPE = 3
+PEER_GROUP_EVENT_DIRECT_CONNECTION: PEER_GROUP_EVENT_TYPE = 4
+PEER_GROUP_EVENT_NEIGHBOR_CONNECTION: PEER_GROUP_EVENT_TYPE = 5
+PEER_GROUP_EVENT_INCOMING_DATA: PEER_GROUP_EVENT_TYPE = 6
+PEER_GROUP_EVENT_MEMBER_CHANGED: PEER_GROUP_EVENT_TYPE = 8
+PEER_GROUP_EVENT_CONNECTION_FAILED: PEER_GROUP_EVENT_TYPE = 10
+PEER_GROUP_EVENT_AUTHENTICATION_FAILED: PEER_GROUP_EVENT_TYPE = 11
 PEER_GROUP_ISSUE_CREDENTIAL_FLAGS = Int32
-PEER_GROUP_STORE_CREDENTIALS = 1
-def _define_PEER_GROUP_PROPERTIES_head():
-    class PEER_GROUP_PROPERTIES(Structure):
-        pass
-    return PEER_GROUP_PROPERTIES
-def _define_PEER_GROUP_PROPERTIES():
-    PEER_GROUP_PROPERTIES = win32more.NetworkManagement.P2P.PEER_GROUP_PROPERTIES_head
-    PEER_GROUP_PROPERTIES._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('pwzCloud', win32more.Foundation.PWSTR),
-        ('pwzClassifier', win32more.Foundation.PWSTR),
-        ('pwzGroupPeerName', win32more.Foundation.PWSTR),
-        ('pwzCreatorPeerName', win32more.Foundation.PWSTR),
-        ('pwzFriendlyName', win32more.Foundation.PWSTR),
-        ('pwzComment', win32more.Foundation.PWSTR),
-        ('ulMemberDataLifetime', UInt32),
-        ('ulPresenceLifetime', UInt32),
-        ('dwAuthenticationSchemes', UInt32),
-        ('pwzGroupPassword', win32more.Foundation.PWSTR),
-        ('groupPasswordRole', Guid),
-    ]
-    return PEER_GROUP_PROPERTIES
+PEER_GROUP_STORE_CREDENTIALS: PEER_GROUP_ISSUE_CREDENTIAL_FLAGS = 1
+class PEER_GROUP_PROPERTIES(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    pwzCloud: win32more.Foundation.PWSTR
+    pwzClassifier: win32more.Foundation.PWSTR
+    pwzGroupPeerName: win32more.Foundation.PWSTR
+    pwzCreatorPeerName: win32more.Foundation.PWSTR
+    pwzFriendlyName: win32more.Foundation.PWSTR
+    pwzComment: win32more.Foundation.PWSTR
+    ulMemberDataLifetime: UInt32
+    ulPresenceLifetime: UInt32
+    dwAuthenticationSchemes: UInt32
+    pwzGroupPassword: win32more.Foundation.PWSTR
+    groupPasswordRole: Guid
 PEER_GROUP_PROPERTY_FLAGS = Int32
-PEER_MEMBER_DATA_OPTIONAL = 1
-PEER_DISABLE_PRESENCE = 2
-PEER_DEFER_EXPIRATION = 4
+PEER_MEMBER_DATA_OPTIONAL: PEER_GROUP_PROPERTY_FLAGS = 1
+PEER_DISABLE_PRESENCE: PEER_GROUP_PROPERTY_FLAGS = 2
+PEER_DEFER_EXPIRATION: PEER_GROUP_PROPERTY_FLAGS = 4
 PEER_GROUP_STATUS = Int32
-PEER_GROUP_STATUS_LISTENING = 1
-PEER_GROUP_STATUS_HAS_CONNECTIONS = 2
-def _define_PEER_INVITATION_head():
-    class PEER_INVITATION(Structure):
-        pass
-    return PEER_INVITATION
-def _define_PEER_INVITATION():
-    PEER_INVITATION = win32more.NetworkManagement.P2P.PEER_INVITATION_head
-    PEER_INVITATION._fields_ = [
-        ('applicationId', Guid),
-        ('applicationData', win32more.NetworkManagement.P2P.PEER_DATA),
-        ('pwzMessage', win32more.Foundation.PWSTR),
-    ]
-    return PEER_INVITATION
-def _define_PEER_INVITATION_INFO_head():
-    class PEER_INVITATION_INFO(Structure):
-        pass
-    return PEER_INVITATION_INFO
-def _define_PEER_INVITATION_INFO():
-    PEER_INVITATION_INFO = win32more.NetworkManagement.P2P.PEER_INVITATION_INFO_head
-    PEER_INVITATION_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('pwzCloudName', win32more.Foundation.PWSTR),
-        ('dwScope', UInt32),
-        ('dwCloudFlags', UInt32),
-        ('pwzGroupPeerName', win32more.Foundation.PWSTR),
-        ('pwzIssuerPeerName', win32more.Foundation.PWSTR),
-        ('pwzSubjectPeerName', win32more.Foundation.PWSTR),
-        ('pwzGroupFriendlyName', win32more.Foundation.PWSTR),
-        ('pwzIssuerFriendlyName', win32more.Foundation.PWSTR),
-        ('pwzSubjectFriendlyName', win32more.Foundation.PWSTR),
-        ('ftValidityStart', win32more.Foundation.FILETIME),
-        ('ftValidityEnd', win32more.Foundation.FILETIME),
-        ('cRoles', UInt32),
-        ('pRoles', POINTER(Guid)),
-        ('cClassifiers', UInt32),
-        ('ppwzClassifiers', POINTER(win32more.Foundation.PWSTR)),
-        ('pSubjectPublicKey', POINTER(win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)),
-        ('authScheme', win32more.NetworkManagement.P2P.PEER_GROUP_AUTHENTICATION_SCHEME),
-    ]
-    return PEER_INVITATION_INFO
-def _define_PEER_INVITATION_RESPONSE_head():
-    class PEER_INVITATION_RESPONSE(Structure):
-        pass
-    return PEER_INVITATION_RESPONSE
-def _define_PEER_INVITATION_RESPONSE():
-    PEER_INVITATION_RESPONSE = win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_head
-    PEER_INVITATION_RESPONSE._fields_ = [
-        ('action', win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE),
-        ('pwzMessage', win32more.Foundation.PWSTR),
-        ('hrExtendedInfo', win32more.Foundation.HRESULT),
-    ]
-    return PEER_INVITATION_RESPONSE
+PEER_GROUP_STATUS_LISTENING: PEER_GROUP_STATUS = 1
+PEER_GROUP_STATUS_HAS_CONNECTIONS: PEER_GROUP_STATUS = 2
+class PEER_INVITATION(Structure):
+    applicationId: Guid
+    applicationData: win32more.NetworkManagement.P2P.PEER_DATA
+    pwzMessage: win32more.Foundation.PWSTR
+class PEER_INVITATION_INFO(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    pwzCloudName: win32more.Foundation.PWSTR
+    dwScope: UInt32
+    dwCloudFlags: UInt32
+    pwzGroupPeerName: win32more.Foundation.PWSTR
+    pwzIssuerPeerName: win32more.Foundation.PWSTR
+    pwzSubjectPeerName: win32more.Foundation.PWSTR
+    pwzGroupFriendlyName: win32more.Foundation.PWSTR
+    pwzIssuerFriendlyName: win32more.Foundation.PWSTR
+    pwzSubjectFriendlyName: win32more.Foundation.PWSTR
+    ftValidityStart: win32more.Foundation.FILETIME
+    ftValidityEnd: win32more.Foundation.FILETIME
+    cRoles: UInt32
+    pRoles: POINTER(Guid)
+    cClassifiers: UInt32
+    ppwzClassifiers: POINTER(win32more.Foundation.PWSTR)
+    pSubjectPublicKey: POINTER(win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO_head)
+    authScheme: win32more.NetworkManagement.P2P.PEER_GROUP_AUTHENTICATION_SCHEME
+class PEER_INVITATION_RESPONSE(Structure):
+    action: win32more.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE
+    pwzMessage: win32more.Foundation.PWSTR
+    hrExtendedInfo: win32more.Foundation.HRESULT
 PEER_INVITATION_RESPONSE_TYPE = Int32
-PEER_INVITATION_RESPONSE_DECLINED = 0
-PEER_INVITATION_RESPONSE_ACCEPTED = 1
-PEER_INVITATION_RESPONSE_EXPIRED = 2
-PEER_INVITATION_RESPONSE_ERROR = 3
-def _define_PEER_MEMBER_head():
-    class PEER_MEMBER(Structure):
-        pass
-    return PEER_MEMBER
-def _define_PEER_MEMBER():
-    PEER_MEMBER = win32more.NetworkManagement.P2P.PEER_MEMBER_head
-    PEER_MEMBER._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('pwzIdentity', win32more.Foundation.PWSTR),
-        ('pwzAttributes', win32more.Foundation.PWSTR),
-        ('ullNodeId', UInt64),
-        ('cAddresses', UInt32),
-        ('pAddresses', POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head)),
-        ('pCredentialInfo', POINTER(win32more.NetworkManagement.P2P.PEER_CREDENTIAL_INFO_head)),
-    ]
-    return PEER_MEMBER
+PEER_INVITATION_RESPONSE_DECLINED: PEER_INVITATION_RESPONSE_TYPE = 0
+PEER_INVITATION_RESPONSE_ACCEPTED: PEER_INVITATION_RESPONSE_TYPE = 1
+PEER_INVITATION_RESPONSE_EXPIRED: PEER_INVITATION_RESPONSE_TYPE = 2
+PEER_INVITATION_RESPONSE_ERROR: PEER_INVITATION_RESPONSE_TYPE = 3
+class PEER_MEMBER(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    pwzIdentity: win32more.Foundation.PWSTR
+    pwzAttributes: win32more.Foundation.PWSTR
+    ullNodeId: UInt64
+    cAddresses: UInt32
+    pAddresses: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head)
+    pCredentialInfo: POINTER(win32more.NetworkManagement.P2P.PEER_CREDENTIAL_INFO_head)
 PEER_MEMBER_CHANGE_TYPE = Int32
-PEER_MEMBER_CONNECTED = 1
-PEER_MEMBER_DISCONNECTED = 2
-PEER_MEMBER_UPDATED = 3
-PEER_MEMBER_JOINED = 4
-PEER_MEMBER_LEFT = 5
+PEER_MEMBER_CONNECTED: PEER_MEMBER_CHANGE_TYPE = 1
+PEER_MEMBER_DISCONNECTED: PEER_MEMBER_CHANGE_TYPE = 2
+PEER_MEMBER_UPDATED: PEER_MEMBER_CHANGE_TYPE = 3
+PEER_MEMBER_JOINED: PEER_MEMBER_CHANGE_TYPE = 4
+PEER_MEMBER_LEFT: PEER_MEMBER_CHANGE_TYPE = 5
 PEER_MEMBER_FLAGS = Int32
-PEER_MEMBER_PRESENT = 1
-def _define_PEER_NAME_PAIR_head():
-    class PEER_NAME_PAIR(Structure):
-        pass
-    return PEER_NAME_PAIR
-def _define_PEER_NAME_PAIR():
-    PEER_NAME_PAIR = win32more.NetworkManagement.P2P.PEER_NAME_PAIR_head
-    PEER_NAME_PAIR._fields_ = [
-        ('dwSize', UInt32),
-        ('pwzPeerName', win32more.Foundation.PWSTR),
-        ('pwzFriendlyName', win32more.Foundation.PWSTR),
-    ]
-    return PEER_NAME_PAIR
+PEER_MEMBER_PRESENT: PEER_MEMBER_FLAGS = 1
+class PEER_NAME_PAIR(Structure):
+    dwSize: UInt32
+    pwzPeerName: win32more.Foundation.PWSTR
+    pwzFriendlyName: win32more.Foundation.PWSTR
 PEER_NODE_CHANGE_TYPE = Int32
-PEER_NODE_CHANGE_CONNECTED = 1
-PEER_NODE_CHANGE_DISCONNECTED = 2
-PEER_NODE_CHANGE_UPDATED = 3
-def _define_PEER_NODE_INFO_head():
-    class PEER_NODE_INFO(Structure):
-        pass
-    return PEER_NODE_INFO
-def _define_PEER_NODE_INFO():
-    PEER_NODE_INFO = win32more.NetworkManagement.P2P.PEER_NODE_INFO_head
-    PEER_NODE_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('ullNodeId', UInt64),
-        ('pwzPeerId', win32more.Foundation.PWSTR),
-        ('cAddresses', UInt32),
-        ('pAddresses', POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head)),
-        ('pwzAttributes', win32more.Foundation.PWSTR),
-    ]
-    return PEER_NODE_INFO
-def _define_PEER_OBJECT_head():
-    class PEER_OBJECT(Structure):
-        pass
-    return PEER_OBJECT
-def _define_PEER_OBJECT():
-    PEER_OBJECT = win32more.NetworkManagement.P2P.PEER_OBJECT_head
-    PEER_OBJECT._fields_ = [
-        ('id', Guid),
-        ('data', win32more.NetworkManagement.P2P.PEER_DATA),
-        ('dwPublicationScope', UInt32),
-    ]
-    return PEER_OBJECT
-def _define_PEER_PEOPLE_NEAR_ME_head():
-    class PEER_PEOPLE_NEAR_ME(Structure):
-        pass
-    return PEER_PEOPLE_NEAR_ME
-def _define_PEER_PEOPLE_NEAR_ME():
-    PEER_PEOPLE_NEAR_ME = win32more.NetworkManagement.P2P.PEER_PEOPLE_NEAR_ME_head
-    PEER_PEOPLE_NEAR_ME._fields_ = [
-        ('pwzNickName', win32more.Foundation.PWSTR),
-        ('endpoint', win32more.NetworkManagement.P2P.PEER_ENDPOINT),
-        ('id', Guid),
-    ]
-    return PEER_PEOPLE_NEAR_ME
-def _define_PEER_PNRP_CLOUD_INFO_head():
-    class PEER_PNRP_CLOUD_INFO(Structure):
-        pass
-    return PEER_PNRP_CLOUD_INFO
-def _define_PEER_PNRP_CLOUD_INFO():
-    PEER_PNRP_CLOUD_INFO = win32more.NetworkManagement.P2P.PEER_PNRP_CLOUD_INFO_head
-    PEER_PNRP_CLOUD_INFO._fields_ = [
-        ('pwzCloudName', win32more.Foundation.PWSTR),
-        ('dwScope', win32more.NetworkManagement.P2P.PNRP_SCOPE),
-        ('dwScopeId', UInt32),
-    ]
-    return PEER_PNRP_CLOUD_INFO
-def _define_PEER_PNRP_ENDPOINT_INFO_head():
-    class PEER_PNRP_ENDPOINT_INFO(Structure):
-        pass
-    return PEER_PNRP_ENDPOINT_INFO
-def _define_PEER_PNRP_ENDPOINT_INFO():
-    PEER_PNRP_ENDPOINT_INFO = win32more.NetworkManagement.P2P.PEER_PNRP_ENDPOINT_INFO_head
-    PEER_PNRP_ENDPOINT_INFO._fields_ = [
-        ('pwzPeerName', win32more.Foundation.PWSTR),
-        ('cAddresses', UInt32),
-        ('ppAddresses', POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head))),
-        ('pwzComment', win32more.Foundation.PWSTR),
-        ('payload', win32more.NetworkManagement.P2P.PEER_DATA),
-    ]
-    return PEER_PNRP_ENDPOINT_INFO
-def _define_PEER_PNRP_REGISTRATION_INFO_head():
-    class PEER_PNRP_REGISTRATION_INFO(Structure):
-        pass
-    return PEER_PNRP_REGISTRATION_INFO
-def _define_PEER_PNRP_REGISTRATION_INFO():
-    PEER_PNRP_REGISTRATION_INFO = win32more.NetworkManagement.P2P.PEER_PNRP_REGISTRATION_INFO_head
-    PEER_PNRP_REGISTRATION_INFO._fields_ = [
-        ('pwzCloudName', win32more.Foundation.PWSTR),
-        ('pwzPublishingIdentity', win32more.Foundation.PWSTR),
-        ('cAddresses', UInt32),
-        ('ppAddresses', POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head))),
-        ('wPort', UInt16),
-        ('pwzComment', win32more.Foundation.PWSTR),
-        ('payload', win32more.NetworkManagement.P2P.PEER_DATA),
-    ]
-    return PEER_PNRP_REGISTRATION_INFO
-def _define_PEER_PRESENCE_INFO_head():
-    class PEER_PRESENCE_INFO(Structure):
-        pass
-    return PEER_PRESENCE_INFO
-def _define_PEER_PRESENCE_INFO():
-    PEER_PRESENCE_INFO = win32more.NetworkManagement.P2P.PEER_PRESENCE_INFO_head
-    PEER_PRESENCE_INFO._fields_ = [
-        ('status', win32more.NetworkManagement.P2P.PEER_PRESENCE_STATUS),
-        ('pwzDescriptiveText', win32more.Foundation.PWSTR),
-    ]
-    return PEER_PRESENCE_INFO
+PEER_NODE_CHANGE_CONNECTED: PEER_NODE_CHANGE_TYPE = 1
+PEER_NODE_CHANGE_DISCONNECTED: PEER_NODE_CHANGE_TYPE = 2
+PEER_NODE_CHANGE_UPDATED: PEER_NODE_CHANGE_TYPE = 3
+class PEER_NODE_INFO(Structure):
+    dwSize: UInt32
+    ullNodeId: UInt64
+    pwzPeerId: win32more.Foundation.PWSTR
+    cAddresses: UInt32
+    pAddresses: POINTER(win32more.NetworkManagement.P2P.PEER_ADDRESS_head)
+    pwzAttributes: win32more.Foundation.PWSTR
+class PEER_OBJECT(Structure):
+    id: Guid
+    data: win32more.NetworkManagement.P2P.PEER_DATA
+    dwPublicationScope: UInt32
+class PEER_PEOPLE_NEAR_ME(Structure):
+    pwzNickName: win32more.Foundation.PWSTR
+    endpoint: win32more.NetworkManagement.P2P.PEER_ENDPOINT
+    id: Guid
+class PEER_PNRP_CLOUD_INFO(Structure):
+    pwzCloudName: win32more.Foundation.PWSTR
+    dwScope: win32more.NetworkManagement.P2P.PNRP_SCOPE
+    dwScopeId: UInt32
+class PEER_PNRP_ENDPOINT_INFO(Structure):
+    pwzPeerName: win32more.Foundation.PWSTR
+    cAddresses: UInt32
+    ppAddresses: POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head))
+    pwzComment: win32more.Foundation.PWSTR
+    payload: win32more.NetworkManagement.P2P.PEER_DATA
+class PEER_PNRP_REGISTRATION_INFO(Structure):
+    pwzCloudName: win32more.Foundation.PWSTR
+    pwzPublishingIdentity: win32more.Foundation.PWSTR
+    cAddresses: UInt32
+    ppAddresses: POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_head))
+    wPort: UInt16
+    pwzComment: win32more.Foundation.PWSTR
+    payload: win32more.NetworkManagement.P2P.PEER_DATA
+class PEER_PRESENCE_INFO(Structure):
+    status: win32more.NetworkManagement.P2P.PEER_PRESENCE_STATUS
+    pwzDescriptiveText: win32more.Foundation.PWSTR
 PEER_PRESENCE_STATUS = Int32
-PEER_PRESENCE_OFFLINE = 0
-PEER_PRESENCE_OUT_TO_LUNCH = 1
-PEER_PRESENCE_AWAY = 2
-PEER_PRESENCE_BE_RIGHT_BACK = 3
-PEER_PRESENCE_IDLE = 4
-PEER_PRESENCE_BUSY = 5
-PEER_PRESENCE_ON_THE_PHONE = 6
-PEER_PRESENCE_ONLINE = 7
+PEER_PRESENCE_OFFLINE: PEER_PRESENCE_STATUS = 0
+PEER_PRESENCE_OUT_TO_LUNCH: PEER_PRESENCE_STATUS = 1
+PEER_PRESENCE_AWAY: PEER_PRESENCE_STATUS = 2
+PEER_PRESENCE_BE_RIGHT_BACK: PEER_PRESENCE_STATUS = 3
+PEER_PRESENCE_IDLE: PEER_PRESENCE_STATUS = 4
+PEER_PRESENCE_BUSY: PEER_PRESENCE_STATUS = 5
+PEER_PRESENCE_ON_THE_PHONE: PEER_PRESENCE_STATUS = 6
+PEER_PRESENCE_ONLINE: PEER_PRESENCE_STATUS = 7
 PEER_PUBLICATION_SCOPE = Int32
-PEER_PUBLICATION_SCOPE_NONE = 0
-PEER_PUBLICATION_SCOPE_NEAR_ME = 1
-PEER_PUBLICATION_SCOPE_INTERNET = 2
-PEER_PUBLICATION_SCOPE_ALL = 3
-def _define_PEER_RECORD_head():
-    class PEER_RECORD(Structure):
-        pass
-    return PEER_RECORD
-def _define_PEER_RECORD():
-    PEER_RECORD = win32more.NetworkManagement.P2P.PEER_RECORD_head
-    PEER_RECORD._fields_ = [
-        ('dwSize', UInt32),
-        ('type', Guid),
-        ('id', Guid),
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-        ('pwzCreatorId', win32more.Foundation.PWSTR),
-        ('pwzModifiedById', win32more.Foundation.PWSTR),
-        ('pwzAttributes', win32more.Foundation.PWSTR),
-        ('ftCreation', win32more.Foundation.FILETIME),
-        ('ftExpiration', win32more.Foundation.FILETIME),
-        ('ftLastModified', win32more.Foundation.FILETIME),
-        ('securityData', win32more.NetworkManagement.P2P.PEER_DATA),
-        ('data', win32more.NetworkManagement.P2P.PEER_DATA),
-    ]
-    return PEER_RECORD
+PEER_PUBLICATION_SCOPE_NONE: PEER_PUBLICATION_SCOPE = 0
+PEER_PUBLICATION_SCOPE_NEAR_ME: PEER_PUBLICATION_SCOPE = 1
+PEER_PUBLICATION_SCOPE_INTERNET: PEER_PUBLICATION_SCOPE = 2
+PEER_PUBLICATION_SCOPE_ALL: PEER_PUBLICATION_SCOPE = 3
+class PEER_RECORD(Structure):
+    dwSize: UInt32
+    type: Guid
+    id: Guid
+    dwVersion: UInt32
+    dwFlags: UInt32
+    pwzCreatorId: win32more.Foundation.PWSTR
+    pwzModifiedById: win32more.Foundation.PWSTR
+    pwzAttributes: win32more.Foundation.PWSTR
+    ftCreation: win32more.Foundation.FILETIME
+    ftExpiration: win32more.Foundation.FILETIME
+    ftLastModified: win32more.Foundation.FILETIME
+    securityData: win32more.NetworkManagement.P2P.PEER_DATA
+    data: win32more.NetworkManagement.P2P.PEER_DATA
 PEER_RECORD_CHANGE_TYPE = Int32
-PEER_RECORD_ADDED = 1
-PEER_RECORD_UPDATED = 2
-PEER_RECORD_DELETED = 3
-PEER_RECORD_EXPIRED = 4
+PEER_RECORD_ADDED: PEER_RECORD_CHANGE_TYPE = 1
+PEER_RECORD_UPDATED: PEER_RECORD_CHANGE_TYPE = 2
+PEER_RECORD_DELETED: PEER_RECORD_CHANGE_TYPE = 3
+PEER_RECORD_EXPIRED: PEER_RECORD_CHANGE_TYPE = 4
 PEER_RECORD_FLAGS = Int32
-PEER_RECORD_FLAG_AUTOREFRESH = 1
-PEER_RECORD_FLAG_DELETED = 2
-def _define_PEER_SECURITY_INTERFACE_head():
-    class PEER_SECURITY_INTERFACE(Structure):
-        pass
-    return PEER_SECURITY_INTERFACE
-def _define_PEER_SECURITY_INTERFACE():
-    PEER_SECURITY_INTERFACE = win32more.NetworkManagement.P2P.PEER_SECURITY_INTERFACE_head
-    PEER_SECURITY_INTERFACE._fields_ = [
-        ('dwSize', UInt32),
-        ('pwzSspFilename', win32more.Foundation.PWSTR),
-        ('pwzPackageName', win32more.Foundation.PWSTR),
-        ('cbSecurityInfo', UInt32),
-        ('pbSecurityInfo', c_char_p_no),
-        ('pvContext', c_void_p),
-        ('pfnValidateRecord', win32more.NetworkManagement.P2P.PFNPEER_VALIDATE_RECORD),
-        ('pfnSecureRecord', win32more.NetworkManagement.P2P.PFNPEER_SECURE_RECORD),
-        ('pfnFreeSecurityData', win32more.NetworkManagement.P2P.PFNPEER_FREE_SECURITY_DATA),
-        ('pfnAuthFailed', win32more.NetworkManagement.P2P.PFNPEER_ON_PASSWORD_AUTH_FAILED),
-    ]
-    return PEER_SECURITY_INTERFACE
+PEER_RECORD_FLAG_AUTOREFRESH: PEER_RECORD_FLAGS = 1
+PEER_RECORD_FLAG_DELETED: PEER_RECORD_FLAGS = 2
+class PEER_SECURITY_INTERFACE(Structure):
+    dwSize: UInt32
+    pwzSspFilename: win32more.Foundation.PWSTR
+    pwzPackageName: win32more.Foundation.PWSTR
+    cbSecurityInfo: UInt32
+    pbSecurityInfo: c_char_p_no
+    pvContext: c_void_p
+    pfnValidateRecord: win32more.NetworkManagement.P2P.PFNPEER_VALIDATE_RECORD
+    pfnSecureRecord: win32more.NetworkManagement.P2P.PFNPEER_SECURE_RECORD
+    pfnFreeSecurityData: win32more.NetworkManagement.P2P.PFNPEER_FREE_SECURITY_DATA
+    pfnAuthFailed: win32more.NetworkManagement.P2P.PFNPEER_ON_PASSWORD_AUTH_FAILED
 PEER_SIGNIN_FLAGS = Int32
-PEER_SIGNIN_NONE = 0
-PEER_SIGNIN_NEAR_ME = 1
-PEER_SIGNIN_INTERNET = 2
-PEER_SIGNIN_ALL = 3
-def _define_PEER_VERSION_DATA_head():
-    class PEER_VERSION_DATA(Structure):
-        pass
-    return PEER_VERSION_DATA
-def _define_PEER_VERSION_DATA():
-    PEER_VERSION_DATA = win32more.NetworkManagement.P2P.PEER_VERSION_DATA_head
-    PEER_VERSION_DATA._fields_ = [
-        ('wVersion', UInt16),
-        ('wHighestVersion', UInt16),
-    ]
-    return PEER_VERSION_DATA
+PEER_SIGNIN_NONE: PEER_SIGNIN_FLAGS = 0
+PEER_SIGNIN_NEAR_ME: PEER_SIGNIN_FLAGS = 1
+PEER_SIGNIN_INTERNET: PEER_SIGNIN_FLAGS = 2
+PEER_SIGNIN_ALL: PEER_SIGNIN_FLAGS = 3
+class PEER_VERSION_DATA(Structure):
+    wVersion: UInt16
+    wHighestVersion: UInt16
 PEER_WATCH_PERMISSION = Int32
-PEER_WATCH_BLOCKED = 0
-PEER_WATCH_ALLOWED = 1
-def _define_PEERDIST_CLIENT_BASIC_INFO_head():
-    class PEERDIST_CLIENT_BASIC_INFO(Structure):
-        pass
-    return PEERDIST_CLIENT_BASIC_INFO
-def _define_PEERDIST_CLIENT_BASIC_INFO():
-    PEERDIST_CLIENT_BASIC_INFO = win32more.NetworkManagement.P2P.PEERDIST_CLIENT_BASIC_INFO_head
-    PEERDIST_CLIENT_BASIC_INFO._fields_ = [
-        ('fFlashCrowd', win32more.Foundation.BOOL),
-    ]
-    return PEERDIST_CLIENT_BASIC_INFO
+PEER_WATCH_BLOCKED: PEER_WATCH_PERMISSION = 0
+PEER_WATCH_ALLOWED: PEER_WATCH_PERMISSION = 1
+class PEERDIST_CLIENT_BASIC_INFO(Structure):
+    fFlashCrowd: win32more.Foundation.BOOL
 PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = Int32
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_PeerDistClientBasicInfo = 0
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_MaximumPeerDistClientInfoByHandlesClass = 1
-def _define_PEERDIST_CONTENT_TAG_head():
-    class PEERDIST_CONTENT_TAG(Structure):
-        pass
-    return PEERDIST_CONTENT_TAG
-def _define_PEERDIST_CONTENT_TAG():
-    PEERDIST_CONTENT_TAG = win32more.NetworkManagement.P2P.PEERDIST_CONTENT_TAG_head
-    PEERDIST_CONTENT_TAG._fields_ = [
-        ('Data', Byte * 16),
-    ]
-    return PEERDIST_CONTENT_TAG
-def _define_PEERDIST_PUBLICATION_OPTIONS_head():
-    class PEERDIST_PUBLICATION_OPTIONS(Structure):
-        pass
-    return PEERDIST_PUBLICATION_OPTIONS
-def _define_PEERDIST_PUBLICATION_OPTIONS():
-    PEERDIST_PUBLICATION_OPTIONS = win32more.NetworkManagement.P2P.PEERDIST_PUBLICATION_OPTIONS_head
-    PEERDIST_PUBLICATION_OPTIONS._fields_ = [
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-    ]
-    return PEERDIST_PUBLICATION_OPTIONS
-def _define_PEERDIST_RETRIEVAL_OPTIONS_head():
-    class PEERDIST_RETRIEVAL_OPTIONS(Structure):
-        pass
-    return PEERDIST_RETRIEVAL_OPTIONS
-def _define_PEERDIST_RETRIEVAL_OPTIONS():
-    PEERDIST_RETRIEVAL_OPTIONS = win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_head
-    PEERDIST_RETRIEVAL_OPTIONS._fields_ = [
-        ('cbSize', UInt32),
-        ('dwContentInfoMinVersion', UInt32),
-        ('dwContentInfoMaxVersion', UInt32),
-        ('dwReserved', UInt32),
-    ]
-    return PEERDIST_RETRIEVAL_OPTIONS
+PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_PeerDistClientBasicInfo: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
+PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_MaximumPeerDistClientInfoByHandlesClass: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
+class PEERDIST_CONTENT_TAG(Structure):
+    Data: Byte * 16
+class PEERDIST_PUBLICATION_OPTIONS(Structure):
+    dwVersion: UInt32
+    dwFlags: UInt32
+class PEERDIST_RETRIEVAL_OPTIONS(Structure):
+    cbSize: UInt32
+    dwContentInfoMinVersion: UInt32
+    dwContentInfoMaxVersion: UInt32
+    dwReserved: UInt32
 PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = UInt32
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1 = 1
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2 = 2
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION = 2
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 1
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
 PEERDIST_STATUS = Int32
-PEERDIST_STATUS_DISABLED = 0
-PEERDIST_STATUS_UNAVAILABLE = 1
-PEERDIST_STATUS_AVAILABLE = 2
-def _define_PEERDIST_STATUS_INFO_head():
-    class PEERDIST_STATUS_INFO(Structure):
-        pass
-    return PEERDIST_STATUS_INFO
-def _define_PEERDIST_STATUS_INFO():
-    PEERDIST_STATUS_INFO = win32more.NetworkManagement.P2P.PEERDIST_STATUS_INFO_head
-    PEERDIST_STATUS_INFO._fields_ = [
-        ('cbSize', UInt32),
-        ('status', win32more.NetworkManagement.P2P.PEERDIST_STATUS),
-        ('dwMinVer', win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE),
-        ('dwMaxVer', win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE),
-    ]
-    return PEERDIST_STATUS_INFO
-def _define_PFNPEER_FREE_SECURITY_DATA():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head))
-def _define_PFNPEER_ON_PASSWORD_AUTH_FAILED():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p)
-def _define_PFNPEER_SECURE_RECORD():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head),win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE,POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head)))
-def _define_PFNPEER_VALIDATE_RECORD():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p,POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head),win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE)
+PEERDIST_STATUS_DISABLED: PEERDIST_STATUS = 0
+PEERDIST_STATUS_UNAVAILABLE: PEERDIST_STATUS = 1
+PEERDIST_STATUS_AVAILABLE: PEERDIST_STATUS = 2
+class PEERDIST_STATUS_INFO(Structure):
+    cbSize: UInt32
+    status: win32more.NetworkManagement.P2P.PEERDIST_STATUS
+    dwMinVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
+    dwMaxVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
+@winfunctype_pointer
+def PFNPEER_FREE_SECURITY_DATA(hGraph: c_void_p, pvContext: c_void_p, pSecurityData: POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFNPEER_ON_PASSWORD_AUTH_FAILED(hGraph: c_void_p, pvContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFNPEER_SECURE_RECORD(hGraph: c_void_p, pvContext: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), changeType: win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE, ppSecurityData: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFNPEER_VALIDATE_RECORD(hGraph: c_void_p, pvContext: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), changeType: win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE) -> win32more.Foundation.HRESULT: ...
 PNRP_CLOUD_FLAGS = Int32
-PNRP_CLOUD_NO_FLAGS = 0
-PNRP_CLOUD_NAME_LOCAL = 1
-PNRP_CLOUD_RESOLVE_ONLY = 2
-PNRP_CLOUD_FULL_PARTICIPANT = 4
-def _define_PNRP_CLOUD_ID_head():
-    class PNRP_CLOUD_ID(Structure):
-        pass
-    return PNRP_CLOUD_ID
-def _define_PNRP_CLOUD_ID():
-    PNRP_CLOUD_ID = win32more.NetworkManagement.P2P.PNRP_CLOUD_ID_head
-    PNRP_CLOUD_ID._fields_ = [
-        ('AddressFamily', Int32),
-        ('Scope', win32more.NetworkManagement.P2P.PNRP_SCOPE),
-        ('ScopeId', UInt32),
-    ]
-    return PNRP_CLOUD_ID
+PNRP_CLOUD_NO_FLAGS: PNRP_CLOUD_FLAGS = 0
+PNRP_CLOUD_NAME_LOCAL: PNRP_CLOUD_FLAGS = 1
+PNRP_CLOUD_RESOLVE_ONLY: PNRP_CLOUD_FLAGS = 2
+PNRP_CLOUD_FULL_PARTICIPANT: PNRP_CLOUD_FLAGS = 4
+class PNRP_CLOUD_ID(Structure):
+    AddressFamily: Int32
+    Scope: win32more.NetworkManagement.P2P.PNRP_SCOPE
+    ScopeId: UInt32
 PNRP_CLOUD_STATE = Int32
-PNRP_CLOUD_STATE_VIRTUAL = 0
-PNRP_CLOUD_STATE_SYNCHRONISING = 1
-PNRP_CLOUD_STATE_ACTIVE = 2
-PNRP_CLOUD_STATE_DEAD = 3
-PNRP_CLOUD_STATE_DISABLED = 4
-PNRP_CLOUD_STATE_NO_NET = 5
-PNRP_CLOUD_STATE_ALONE = 6
+PNRP_CLOUD_STATE_VIRTUAL: PNRP_CLOUD_STATE = 0
+PNRP_CLOUD_STATE_SYNCHRONISING: PNRP_CLOUD_STATE = 1
+PNRP_CLOUD_STATE_ACTIVE: PNRP_CLOUD_STATE = 2
+PNRP_CLOUD_STATE_DEAD: PNRP_CLOUD_STATE = 3
+PNRP_CLOUD_STATE_DISABLED: PNRP_CLOUD_STATE = 4
+PNRP_CLOUD_STATE_NO_NET: PNRP_CLOUD_STATE = 5
+PNRP_CLOUD_STATE_ALONE: PNRP_CLOUD_STATE = 6
 PNRP_EXTENDED_PAYLOAD_TYPE = Int32
-PNRP_EXTENDED_PAYLOAD_TYPE_NONE = 0
-PNRP_EXTENDED_PAYLOAD_TYPE_BINARY = 1
-PNRP_EXTENDED_PAYLOAD_TYPE_STRING = 2
+PNRP_EXTENDED_PAYLOAD_TYPE_NONE: PNRP_EXTENDED_PAYLOAD_TYPE = 0
+PNRP_EXTENDED_PAYLOAD_TYPE_BINARY: PNRP_EXTENDED_PAYLOAD_TYPE = 1
+PNRP_EXTENDED_PAYLOAD_TYPE_STRING: PNRP_EXTENDED_PAYLOAD_TYPE = 2
 PNRP_REGISTERED_ID_STATE = Int32
-PNRP_REGISTERED_ID_STATE_OK = 1
-PNRP_REGISTERED_ID_STATE_PROBLEM = 2
+PNRP_REGISTERED_ID_STATE_OK: PNRP_REGISTERED_ID_STATE = 1
+PNRP_REGISTERED_ID_STATE_PROBLEM: PNRP_REGISTERED_ID_STATE = 2
 PNRP_RESOLVE_CRITERIA = Int32
-PNRP_RESOLVE_CRITERIA_DEFAULT = 0
-PNRP_RESOLVE_CRITERIA_REMOTE_PEER_NAME = 1
-PNRP_RESOLVE_CRITERIA_NEAREST_REMOTE_PEER_NAME = 2
-PNRP_RESOLVE_CRITERIA_NON_CURRENT_PROCESS_PEER_NAME = 3
-PNRP_RESOLVE_CRITERIA_NEAREST_NON_CURRENT_PROCESS_PEER_NAME = 4
-PNRP_RESOLVE_CRITERIA_ANY_PEER_NAME = 5
-PNRP_RESOLVE_CRITERIA_NEAREST_PEER_NAME = 6
+PNRP_RESOLVE_CRITERIA_DEFAULT: PNRP_RESOLVE_CRITERIA = 0
+PNRP_RESOLVE_CRITERIA_REMOTE_PEER_NAME: PNRP_RESOLVE_CRITERIA = 1
+PNRP_RESOLVE_CRITERIA_NEAREST_REMOTE_PEER_NAME: PNRP_RESOLVE_CRITERIA = 2
+PNRP_RESOLVE_CRITERIA_NON_CURRENT_PROCESS_PEER_NAME: PNRP_RESOLVE_CRITERIA = 3
+PNRP_RESOLVE_CRITERIA_NEAREST_NON_CURRENT_PROCESS_PEER_NAME: PNRP_RESOLVE_CRITERIA = 4
+PNRP_RESOLVE_CRITERIA_ANY_PEER_NAME: PNRP_RESOLVE_CRITERIA = 5
+PNRP_RESOLVE_CRITERIA_NEAREST_PEER_NAME: PNRP_RESOLVE_CRITERIA = 6
 PNRP_SCOPE = Int32
-PNRP_SCOPE_ANY = 0
-PNRP_GLOBAL_SCOPE = 1
-PNRP_SITE_LOCAL_SCOPE = 2
-PNRP_LINK_LOCAL_SCOPE = 3
-def _define_PNRPCLOUDINFO_head():
-    class PNRPCLOUDINFO(Structure):
-        pass
-    return PNRPCLOUDINFO
-def _define_PNRPCLOUDINFO():
-    PNRPCLOUDINFO = win32more.NetworkManagement.P2P.PNRPCLOUDINFO_head
-    PNRPCLOUDINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('Cloud', win32more.NetworkManagement.P2P.PNRP_CLOUD_ID),
-        ('enCloudState', win32more.NetworkManagement.P2P.PNRP_CLOUD_STATE),
-        ('enCloudFlags', win32more.NetworkManagement.P2P.PNRP_CLOUD_FLAGS),
-    ]
-    return PNRPCLOUDINFO
-def _define_PNRPINFO_V1_head():
-    class PNRPINFO_V1(Structure):
-        pass
-    return PNRPINFO_V1
-def _define_PNRPINFO_V1():
-    PNRPINFO_V1 = win32more.NetworkManagement.P2P.PNRPINFO_V1_head
-    PNRPINFO_V1._fields_ = [
-        ('dwSize', UInt32),
-        ('lpwszIdentity', win32more.Foundation.PWSTR),
-        ('nMaxResolve', UInt32),
-        ('dwTimeout', UInt32),
-        ('dwLifetime', UInt32),
-        ('enResolveCriteria', win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA),
-        ('dwFlags', UInt32),
-        ('saHint', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('enNameState', win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE),
-    ]
-    return PNRPINFO_V1
-def _define_PNRPINFO_V2_head():
-    class PNRPINFO_V2(Structure):
-        pass
-    return PNRPINFO_V2
-def _define_PNRPINFO_V2():
-    PNRPINFO_V2 = win32more.NetworkManagement.P2P.PNRPINFO_V2_head
-    class PNRPINFO_V2__Anonymous_e__Union(Union):
-        pass
-    PNRPINFO_V2__Anonymous_e__Union._fields_ = [
-        ('blobPayload', win32more.System.Com.BLOB),
-        ('pwszPayload', win32more.Foundation.PWSTR),
-    ]
-    PNRPINFO_V2._anonymous_ = [
-        'Anonymous',
-    ]
-    PNRPINFO_V2._fields_ = [
-        ('dwSize', UInt32),
-        ('lpwszIdentity', win32more.Foundation.PWSTR),
-        ('nMaxResolve', UInt32),
-        ('dwTimeout', UInt32),
-        ('dwLifetime', UInt32),
-        ('enResolveCriteria', win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA),
-        ('dwFlags', UInt32),
-        ('saHint', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('enNameState', win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE),
-        ('enExtendedPayloadType', win32more.NetworkManagement.P2P.PNRP_EXTENDED_PAYLOAD_TYPE),
-        ('Anonymous', PNRPINFO_V2__Anonymous_e__Union),
-    ]
-    return PNRPINFO_V2
+PNRP_SCOPE_ANY: PNRP_SCOPE = 0
+PNRP_GLOBAL_SCOPE: PNRP_SCOPE = 1
+PNRP_SITE_LOCAL_SCOPE: PNRP_SCOPE = 2
+PNRP_LINK_LOCAL_SCOPE: PNRP_SCOPE = 3
+class PNRPCLOUDINFO(Structure):
+    dwSize: UInt32
+    Cloud: win32more.NetworkManagement.P2P.PNRP_CLOUD_ID
+    enCloudState: win32more.NetworkManagement.P2P.PNRP_CLOUD_STATE
+    enCloudFlags: win32more.NetworkManagement.P2P.PNRP_CLOUD_FLAGS
+class PNRPINFO_V1(Structure):
+    dwSize: UInt32
+    lpwszIdentity: win32more.Foundation.PWSTR
+    nMaxResolve: UInt32
+    dwTimeout: UInt32
+    dwLifetime: UInt32
+    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
+    dwFlags: UInt32
+    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
+    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
+class PNRPINFO_V2(Structure):
+    dwSize: UInt32
+    lpwszIdentity: win32more.Foundation.PWSTR
+    nMaxResolve: UInt32
+    dwTimeout: UInt32
+    dwLifetime: UInt32
+    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
+    dwFlags: UInt32
+    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
+    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
+    enExtendedPayloadType: win32more.NetworkManagement.P2P.PNRP_EXTENDED_PAYLOAD_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        blobPayload: win32more.System.Com.BLOB
+        pwszPayload: win32more.Foundation.PWSTR
+make_head(_module, 'DRT_ADDRESS')
+make_head(_module, 'DRT_ADDRESS_LIST')
+make_head(_module, 'DRT_BOOTSTRAP_PROVIDER')
+make_head(_module, 'DRT_BOOTSTRAP_RESOLVE_CALLBACK')
+make_head(_module, 'DRT_DATA')
+make_head(_module, 'DRT_EVENT_DATA')
+make_head(_module, 'DRT_REGISTRATION')
+make_head(_module, 'DRT_SEARCH_INFO')
+make_head(_module, 'DRT_SEARCH_RESULT')
+make_head(_module, 'DRT_SECURITY_PROVIDER')
+make_head(_module, 'DRT_SETTINGS')
+make_head(_module, 'PEER_ADDRESS')
+make_head(_module, 'PEER_APP_LAUNCH_INFO')
+make_head(_module, 'PEER_APPLICATION')
+make_head(_module, 'PEER_APPLICATION_REGISTRATION_INFO')
+make_head(_module, 'PEER_COLLAB_EVENT_DATA')
+make_head(_module, 'PEER_COLLAB_EVENT_REGISTRATION')
+make_head(_module, 'PEER_CONNECTION_INFO')
+make_head(_module, 'PEER_CONTACT')
+make_head(_module, 'PEER_CREDENTIAL_INFO')
+make_head(_module, 'PEER_DATA')
+make_head(_module, 'PEER_ENDPOINT')
+make_head(_module, 'PEER_EVENT_APPLICATION_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_CONNECTION_CHANGE_DATA')
+make_head(_module, 'PEER_EVENT_ENDPOINT_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_INCOMING_DATA')
+make_head(_module, 'PEER_EVENT_MEMBER_CHANGE_DATA')
+make_head(_module, 'PEER_EVENT_NODE_CHANGE_DATA')
+make_head(_module, 'PEER_EVENT_OBJECT_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_PRESENCE_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_RECORD_CHANGE_DATA')
+make_head(_module, 'PEER_EVENT_REQUEST_STATUS_CHANGED_DATA')
+make_head(_module, 'PEER_EVENT_SYNCHRONIZED_DATA')
+make_head(_module, 'PEER_EVENT_WATCHLIST_CHANGED_DATA')
+make_head(_module, 'PEER_GRAPH_EVENT_DATA')
+make_head(_module, 'PEER_GRAPH_EVENT_REGISTRATION')
+make_head(_module, 'PEER_GRAPH_PROPERTIES')
+make_head(_module, 'PEER_GROUP_EVENT_DATA')
+make_head(_module, 'PEER_GROUP_EVENT_REGISTRATION')
+make_head(_module, 'PEER_GROUP_PROPERTIES')
+make_head(_module, 'PEER_INVITATION')
+make_head(_module, 'PEER_INVITATION_INFO')
+make_head(_module, 'PEER_INVITATION_RESPONSE')
+make_head(_module, 'PEER_MEMBER')
+make_head(_module, 'PEER_NAME_PAIR')
+make_head(_module, 'PEER_NODE_INFO')
+make_head(_module, 'PEER_OBJECT')
+make_head(_module, 'PEER_PEOPLE_NEAR_ME')
+make_head(_module, 'PEER_PNRP_CLOUD_INFO')
+make_head(_module, 'PEER_PNRP_ENDPOINT_INFO')
+make_head(_module, 'PEER_PNRP_REGISTRATION_INFO')
+make_head(_module, 'PEER_PRESENCE_INFO')
+make_head(_module, 'PEER_RECORD')
+make_head(_module, 'PEER_SECURITY_INTERFACE')
+make_head(_module, 'PEER_VERSION_DATA')
+make_head(_module, 'PEERDIST_CLIENT_BASIC_INFO')
+make_head(_module, 'PEERDIST_CONTENT_TAG')
+make_head(_module, 'PEERDIST_PUBLICATION_OPTIONS')
+make_head(_module, 'PEERDIST_RETRIEVAL_OPTIONS')
+make_head(_module, 'PEERDIST_STATUS_INFO')
+make_head(_module, 'PFNPEER_FREE_SECURITY_DATA')
+make_head(_module, 'PFNPEER_ON_PASSWORD_AUTH_FAILED')
+make_head(_module, 'PFNPEER_SECURE_RECORD')
+make_head(_module, 'PFNPEER_VALIDATE_RECORD')
+make_head(_module, 'PNRP_CLOUD_ID')
+make_head(_module, 'PNRPCLOUDINFO')
+make_head(_module, 'PNRPINFO_V1')
+make_head(_module, 'PNRPINFO_V2')
 __all__ = [
     "DRT_ACTIVE",
     "DRT_ADDRESS",

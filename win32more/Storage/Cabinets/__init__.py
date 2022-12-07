@@ -1,314 +1,250 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.Cabinets
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-INCLUDED_FCI = 1
-_A_NAME_IS_UTF = 128
-_A_EXEC = 64
-statusFile = 0
-statusFolder = 1
-statusCabinet = 2
-INCLUDED_TYPES_FCI_FDI = 1
-CB_MAX_DISK = 2147483647
-CB_MAX_FILENAME = 256
-CB_MAX_CABINET_NAME = 256
-CB_MAX_CAB_PATH = 256
-CB_MAX_DISK_NAME = 256
-tcompMASK_TYPE = 15
-tcompTYPE_NONE = 0
-tcompTYPE_MSZIP = 1
-tcompTYPE_QUANTUM = 2
-tcompTYPE_LZX = 3
-tcompBAD = 15
-tcompMASK_LZX_WINDOW = 7936
-tcompLZX_WINDOW_LO = 3840
-tcompLZX_WINDOW_HI = 5376
-tcompSHIFT_LZX_WINDOW = 8
-tcompMASK_QUANTUM_LEVEL = 240
-tcompQUANTUM_LEVEL_LO = 16
-tcompQUANTUM_LEVEL_HI = 112
-tcompSHIFT_QUANTUM_LEVEL = 4
-tcompMASK_QUANTUM_MEM = 7936
-tcompQUANTUM_MEM_LO = 2560
-tcompQUANTUM_MEM_HI = 5376
-tcompSHIFT_QUANTUM_MEM = 8
-tcompMASK_RESERVED = 57344
-INCLUDED_FDI = 1
-def _define_FCICreate():
-    try:
-        return CFUNCTYPE(c_void_p,POINTER(win32more.Storage.Cabinets.ERF_head),win32more.Storage.Cabinets.PFNFCIFILEPLACED,win32more.Storage.Cabinets.PFNFCIALLOC,win32more.Storage.Cabinets.PFNFCIFREE,win32more.Storage.Cabinets.PFNFCIOPEN,win32more.Storage.Cabinets.PFNFCIREAD,win32more.Storage.Cabinets.PFNFCIWRITE,win32more.Storage.Cabinets.PFNFCICLOSE,win32more.Storage.Cabinets.PFNFCISEEK,win32more.Storage.Cabinets.PFNFCIDELETE,win32more.Storage.Cabinets.PFNFCIGETTEMPFILE,POINTER(win32more.Storage.Cabinets.CCAB_head),c_void_p)(('FCICreate', cdll['Cabinet.dll']), ((1, 'perf'),(1, 'pfnfcifp'),(1, 'pfna'),(1, 'pfnf'),(1, 'pfnopen'),(1, 'pfnread'),(1, 'pfnwrite'),(1, 'pfnclose'),(1, 'pfnseek'),(1, 'pfndelete'),(1, 'pfnfcigtf'),(1, 'pccab'),(1, 'pv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FCIAddFile():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL,win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET,win32more.Storage.Cabinets.PFNFCISTATUS,win32more.Storage.Cabinets.PFNFCIGETOPENINFO,UInt16)(('FCIAddFile', cdll['Cabinet.dll']), ((1, 'hfci'),(1, 'pszSourceFile'),(1, 'pszFileName'),(1, 'fExecute'),(1, 'pfnfcignc'),(1, 'pfnfcis'),(1, 'pfnfcigoi'),(1, 'typeCompress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FCIFlushCabinet():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.BOOL,win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET,win32more.Storage.Cabinets.PFNFCISTATUS)(('FCIFlushCabinet', cdll['Cabinet.dll']), ((1, 'hfci'),(1, 'fGetNextCab'),(1, 'pfnfcignc'),(1, 'pfnfcis'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FCIFlushFolder():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET,win32more.Storage.Cabinets.PFNFCISTATUS)(('FCIFlushFolder', cdll['Cabinet.dll']), ((1, 'hfci'),(1, 'pfnfcignc'),(1, 'pfnfcis'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FCIDestroy():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('FCIDestroy', cdll['Cabinet.dll']), ((1, 'hfci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FDICreate():
-    try:
-        return CFUNCTYPE(c_void_p,win32more.Storage.Cabinets.PFNALLOC,win32more.Storage.Cabinets.PFNFREE,win32more.Storage.Cabinets.PFNOPEN,win32more.Storage.Cabinets.PFNREAD,win32more.Storage.Cabinets.PFNWRITE,win32more.Storage.Cabinets.PFNCLOSE,win32more.Storage.Cabinets.PFNSEEK,win32more.Storage.Cabinets.FDICREATE_CPU_TYPE,POINTER(win32more.Storage.Cabinets.ERF_head))(('FDICreate', cdll['Cabinet.dll']), ((1, 'pfnalloc'),(1, 'pfnfree'),(1, 'pfnopen'),(1, 'pfnread'),(1, 'pfnwrite'),(1, 'pfnclose'),(1, 'pfnseek'),(1, 'cpuType'),(1, 'perf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FDIIsCabinet():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,IntPtr,POINTER(win32more.Storage.Cabinets.FDICABINETINFO_head))(('FDIIsCabinet', cdll['Cabinet.dll']), ((1, 'hfdi'),(1, 'hf'),(1, 'pfdici'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FDICopy():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32,win32more.Storage.Cabinets.PFNFDINOTIFY,win32more.Storage.Cabinets.PFNFDIDECRYPT,c_void_p)(('FDICopy', cdll['Cabinet.dll']), ((1, 'hfdi'),(1, 'pszCabinet'),(1, 'pszCabPath'),(1, 'flags'),(1, 'pfnfdin'),(1, 'pfnfdid'),(1, 'pvUser'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FDIDestroy():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('FDIDestroy', cdll['Cabinet.dll']), ((1, 'hfdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FDITruncateCabinet():
-    try:
-        return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PSTR,UInt16)(('FDITruncateCabinet', cdll['Cabinet.dll']), ((1, 'hfdi'),(1, 'pszCabinetName'),(1, 'iFolderToDelete'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CCAB_head():
-    class CCAB(Structure):
-        pass
-    return CCAB
-def _define_CCAB():
-    CCAB = win32more.Storage.Cabinets.CCAB_head
-    CCAB._fields_ = [
-        ('cb', UInt32),
-        ('cbFolderThresh', UInt32),
-        ('cbReserveCFHeader', UInt32),
-        ('cbReserveCFFolder', UInt32),
-        ('cbReserveCFData', UInt32),
-        ('iCab', Int32),
-        ('iDisk', Int32),
-        ('fFailOnIncompressible', Int32),
-        ('setID', UInt16),
-        ('szDisk', win32more.Foundation.CHAR * 256),
-        ('szCab', win32more.Foundation.CHAR * 256),
-        ('szCabPath', win32more.Foundation.CHAR * 256),
-    ]
-    return CCAB
-def _define_ERF_head():
-    class ERF(Structure):
-        pass
-    return ERF
-def _define_ERF():
-    ERF = win32more.Storage.Cabinets.ERF_head
-    ERF._fields_ = [
-        ('erfOper', Int32),
-        ('erfType', Int32),
-        ('fError', win32more.Foundation.BOOL),
-    ]
-    return ERF
+INCLUDED_FCI: UInt32 = 1
+_A_NAME_IS_UTF: UInt32 = 128
+_A_EXEC: UInt32 = 64
+statusFile: UInt32 = 0
+statusFolder: UInt32 = 1
+statusCabinet: UInt32 = 2
+INCLUDED_TYPES_FCI_FDI: UInt32 = 1
+CB_MAX_DISK: Int32 = 2147483647
+CB_MAX_FILENAME: UInt32 = 256
+CB_MAX_CABINET_NAME: UInt32 = 256
+CB_MAX_CAB_PATH: UInt32 = 256
+CB_MAX_DISK_NAME: UInt32 = 256
+tcompMASK_TYPE: UInt32 = 15
+tcompTYPE_NONE: UInt32 = 0
+tcompTYPE_MSZIP: UInt32 = 1
+tcompTYPE_QUANTUM: UInt32 = 2
+tcompTYPE_LZX: UInt32 = 3
+tcompBAD: UInt32 = 15
+tcompMASK_LZX_WINDOW: UInt32 = 7936
+tcompLZX_WINDOW_LO: UInt32 = 3840
+tcompLZX_WINDOW_HI: UInt32 = 5376
+tcompSHIFT_LZX_WINDOW: UInt32 = 8
+tcompMASK_QUANTUM_LEVEL: UInt32 = 240
+tcompQUANTUM_LEVEL_LO: UInt32 = 16
+tcompQUANTUM_LEVEL_HI: UInt32 = 112
+tcompSHIFT_QUANTUM_LEVEL: UInt32 = 4
+tcompMASK_QUANTUM_MEM: UInt32 = 7936
+tcompQUANTUM_MEM_LO: UInt32 = 2560
+tcompQUANTUM_MEM_HI: UInt32 = 5376
+tcompSHIFT_QUANTUM_MEM: UInt32 = 8
+tcompMASK_RESERVED: UInt32 = 57344
+INCLUDED_FDI: UInt32 = 1
+@cfunctype('Cabinet.dll')
+def FCICreate(perf: POINTER(win32more.Storage.Cabinets.ERF_head), pfnfcifp: win32more.Storage.Cabinets.PFNFCIFILEPLACED, pfna: win32more.Storage.Cabinets.PFNFCIALLOC, pfnf: win32more.Storage.Cabinets.PFNFCIFREE, pfnopen: win32more.Storage.Cabinets.PFNFCIOPEN, pfnread: win32more.Storage.Cabinets.PFNFCIREAD, pfnwrite: win32more.Storage.Cabinets.PFNFCIWRITE, pfnclose: win32more.Storage.Cabinets.PFNFCICLOSE, pfnseek: win32more.Storage.Cabinets.PFNFCISEEK, pfndelete: win32more.Storage.Cabinets.PFNFCIDELETE, pfnfcigtf: win32more.Storage.Cabinets.PFNFCIGETTEMPFILE, pccab: POINTER(win32more.Storage.Cabinets.CCAB_head), pv: c_void_p) -> c_void_p: ...
+@cfunctype('Cabinet.dll')
+def FCIAddFile(hfci: c_void_p, pszSourceFile: win32more.Foundation.PSTR, pszFileName: win32more.Foundation.PSTR, fExecute: win32more.Foundation.BOOL, pfnfcignc: win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET, pfnfcis: win32more.Storage.Cabinets.PFNFCISTATUS, pfnfcigoi: win32more.Storage.Cabinets.PFNFCIGETOPENINFO, typeCompress: UInt16) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FCIFlushCabinet(hfci: c_void_p, fGetNextCab: win32more.Foundation.BOOL, pfnfcignc: win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET, pfnfcis: win32more.Storage.Cabinets.PFNFCISTATUS) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FCIFlushFolder(hfci: c_void_p, pfnfcignc: win32more.Storage.Cabinets.PFNFCIGETNEXTCABINET, pfnfcis: win32more.Storage.Cabinets.PFNFCISTATUS) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FCIDestroy(hfci: c_void_p) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FDICreate(pfnalloc: win32more.Storage.Cabinets.PFNALLOC, pfnfree: win32more.Storage.Cabinets.PFNFREE, pfnopen: win32more.Storage.Cabinets.PFNOPEN, pfnread: win32more.Storage.Cabinets.PFNREAD, pfnwrite: win32more.Storage.Cabinets.PFNWRITE, pfnclose: win32more.Storage.Cabinets.PFNCLOSE, pfnseek: win32more.Storage.Cabinets.PFNSEEK, cpuType: win32more.Storage.Cabinets.FDICREATE_CPU_TYPE, perf: POINTER(win32more.Storage.Cabinets.ERF_head)) -> c_void_p: ...
+@cfunctype('Cabinet.dll')
+def FDIIsCabinet(hfdi: c_void_p, hf: IntPtr, pfdici: POINTER(win32more.Storage.Cabinets.FDICABINETINFO_head)) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FDICopy(hfdi: c_void_p, pszCabinet: win32more.Foundation.PSTR, pszCabPath: win32more.Foundation.PSTR, flags: Int32, pfnfdin: win32more.Storage.Cabinets.PFNFDINOTIFY, pfnfdid: win32more.Storage.Cabinets.PFNFDIDECRYPT, pvUser: c_void_p) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FDIDestroy(hfdi: c_void_p) -> win32more.Foundation.BOOL: ...
+@cfunctype('Cabinet.dll')
+def FDITruncateCabinet(hfdi: c_void_p, pszCabinetName: win32more.Foundation.PSTR, iFolderToDelete: UInt16) -> win32more.Foundation.BOOL: ...
+class CCAB(Structure):
+    cb: UInt32
+    cbFolderThresh: UInt32
+    cbReserveCFHeader: UInt32
+    cbReserveCFFolder: UInt32
+    cbReserveCFData: UInt32
+    iCab: Int32
+    iDisk: Int32
+    fFailOnIncompressible: Int32
+    setID: UInt16
+    szDisk: win32more.Foundation.CHAR * 256
+    szCab: win32more.Foundation.CHAR * 256
+    szCabPath: win32more.Foundation.CHAR * 256
+class ERF(Structure):
+    erfOper: Int32
+    erfType: Int32
+    fError: win32more.Foundation.BOOL
 FCIERROR = Int32
-FCIERR_NONE = 0
-FCIERR_OPEN_SRC = 1
-FCIERR_READ_SRC = 2
-FCIERR_ALLOC_FAIL = 3
-FCIERR_TEMP_FILE = 4
-FCIERR_BAD_COMPR_TYPE = 5
-FCIERR_CAB_FILE = 6
-FCIERR_USER_ABORT = 7
-FCIERR_MCI_FAIL = 8
-FCIERR_CAB_FORMAT_LIMIT = 9
-def _define_FDICABINETINFO_head():
-    class FDICABINETINFO(Structure):
-        pass
-    return FDICABINETINFO
-def _define_FDICABINETINFO():
-    FDICABINETINFO = win32more.Storage.Cabinets.FDICABINETINFO_head
-    FDICABINETINFO._fields_ = [
-        ('cbCabinet', Int32),
-        ('cFolders', UInt16),
-        ('cFiles', UInt16),
-        ('setID', UInt16),
-        ('iCabinet', UInt16),
-        ('fReserve', win32more.Foundation.BOOL),
-        ('hasprev', win32more.Foundation.BOOL),
-        ('hasnext', win32more.Foundation.BOOL),
-    ]
-    return FDICABINETINFO
+FCIERR_NONE: FCIERROR = 0
+FCIERR_OPEN_SRC: FCIERROR = 1
+FCIERR_READ_SRC: FCIERROR = 2
+FCIERR_ALLOC_FAIL: FCIERROR = 3
+FCIERR_TEMP_FILE: FCIERROR = 4
+FCIERR_BAD_COMPR_TYPE: FCIERROR = 5
+FCIERR_CAB_FILE: FCIERROR = 6
+FCIERR_USER_ABORT: FCIERROR = 7
+FCIERR_MCI_FAIL: FCIERROR = 8
+FCIERR_CAB_FORMAT_LIMIT: FCIERROR = 9
+class FDICABINETINFO(Structure):
+    cbCabinet: Int32
+    cFolders: UInt16
+    cFiles: UInt16
+    setID: UInt16
+    iCabinet: UInt16
+    fReserve: win32more.Foundation.BOOL
+    hasprev: win32more.Foundation.BOOL
+    hasnext: win32more.Foundation.BOOL
 FDICREATE_CPU_TYPE = Int32
-FDICREATE_CPU_TYPE_cpuUNKNOWN = -1
-FDICREATE_CPU_TYPE_cpu80286 = 0
-FDICREATE_CPU_TYPE_cpu80386 = 1
-def _define_FDIDECRYPT_head():
-    class FDIDECRYPT(Structure):
-        pass
-    return FDIDECRYPT
-def _define_FDIDECRYPT():
-    FDIDECRYPT = win32more.Storage.Cabinets.FDIDECRYPT_head
-    class FDIDECRYPT__Anonymous_e__Union(Union):
-        pass
-    class FDIDECRYPT__Anonymous_e__Union__cabinet_e__Struct(Structure):
-        pass
-    FDIDECRYPT__Anonymous_e__Union__cabinet_e__Struct._fields_ = [
-        ('pHeaderReserve', c_void_p),
-        ('cbHeaderReserve', UInt16),
-        ('setID', UInt16),
-        ('iCabinet', Int32),
-    ]
-    class FDIDECRYPT__Anonymous_e__Union__folder_e__Struct(Structure):
-        pass
-    FDIDECRYPT__Anonymous_e__Union__folder_e__Struct._fields_ = [
-        ('pFolderReserve', c_void_p),
-        ('cbFolderReserve', UInt16),
-        ('iFolder', UInt16),
-    ]
-    class FDIDECRYPT__Anonymous_e__Union__decrypt_e__Struct(Structure):
-        pass
-    FDIDECRYPT__Anonymous_e__Union__decrypt_e__Struct._fields_ = [
-        ('pDataReserve', c_void_p),
-        ('cbDataReserve', UInt16),
-        ('pbData', c_void_p),
-        ('cbData', UInt16),
-        ('fSplit', win32more.Foundation.BOOL),
-        ('cbPartial', UInt16),
-    ]
-    FDIDECRYPT__Anonymous_e__Union._fields_ = [
-        ('cabinet', FDIDECRYPT__Anonymous_e__Union__cabinet_e__Struct),
-        ('folder', FDIDECRYPT__Anonymous_e__Union__folder_e__Struct),
-        ('decrypt', FDIDECRYPT__Anonymous_e__Union__decrypt_e__Struct),
-    ]
-    FDIDECRYPT._anonymous_ = [
-        'Anonymous',
-    ]
-    FDIDECRYPT._fields_ = [
-        ('fdidt', win32more.Storage.Cabinets.FDIDECRYPTTYPE),
-        ('pvUser', c_void_p),
-        ('Anonymous', FDIDECRYPT__Anonymous_e__Union),
-    ]
-    return FDIDECRYPT
+FDICREATE_CPU_TYPE_cpuUNKNOWN: FDICREATE_CPU_TYPE = -1
+FDICREATE_CPU_TYPE_cpu80286: FDICREATE_CPU_TYPE = 0
+FDICREATE_CPU_TYPE_cpu80386: FDICREATE_CPU_TYPE = 1
+class FDIDECRYPT(Structure):
+    fdidt: win32more.Storage.Cabinets.FDIDECRYPTTYPE
+    pvUser: c_void_p
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        cabinet: _cabinet_e__Struct
+        folder: _folder_e__Struct
+        decrypt: _decrypt_e__Struct
+        class _cabinet_e__Struct(Structure):
+            pHeaderReserve: c_void_p
+            cbHeaderReserve: UInt16
+            setID: UInt16
+            iCabinet: Int32
+        class _folder_e__Struct(Structure):
+            pFolderReserve: c_void_p
+            cbFolderReserve: UInt16
+            iFolder: UInt16
+        class _decrypt_e__Struct(Structure):
+            pDataReserve: c_void_p
+            cbDataReserve: UInt16
+            pbData: c_void_p
+            cbData: UInt16
+            fSplit: win32more.Foundation.BOOL
+            cbPartial: UInt16
 FDIDECRYPTTYPE = Int32
-FDIDECRYPTTYPE_fdidtNEW_CABINET = 0
-FDIDECRYPTTYPE_fdidtNEW_FOLDER = 1
-FDIDECRYPTTYPE_fdidtDECRYPT = 2
+FDIDECRYPTTYPE_fdidtNEW_CABINET: FDIDECRYPTTYPE = 0
+FDIDECRYPTTYPE_fdidtNEW_FOLDER: FDIDECRYPTTYPE = 1
+FDIDECRYPTTYPE_fdidtDECRYPT: FDIDECRYPTTYPE = 2
 FDIERROR = Int32
-FDIERROR_NONE = 0
-FDIERROR_CABINET_NOT_FOUND = 1
-FDIERROR_NOT_A_CABINET = 2
-FDIERROR_UNKNOWN_CABINET_VERSION = 3
-FDIERROR_CORRUPT_CABINET = 4
-FDIERROR_ALLOC_FAIL = 5
-FDIERROR_BAD_COMPR_TYPE = 6
-FDIERROR_MDI_FAIL = 7
-FDIERROR_TARGET_FILE = 8
-FDIERROR_RESERVE_MISMATCH = 9
-FDIERROR_WRONG_CABINET = 10
-FDIERROR_USER_ABORT = 11
-FDIERROR_EOF = 12
-def _define_FDINOTIFICATION_head():
-    class FDINOTIFICATION(Structure):
-        pass
-    return FDINOTIFICATION
-def _define_FDINOTIFICATION():
-    FDINOTIFICATION = win32more.Storage.Cabinets.FDINOTIFICATION_head
-    FDINOTIFICATION._fields_ = [
-        ('cb', Int32),
-        ('psz1', win32more.Foundation.PSTR),
-        ('psz2', win32more.Foundation.PSTR),
-        ('psz3', win32more.Foundation.PSTR),
-        ('pv', c_void_p),
-        ('hf', IntPtr),
-        ('date', UInt16),
-        ('time', UInt16),
-        ('attribs', UInt16),
-        ('setID', UInt16),
-        ('iCabinet', UInt16),
-        ('iFolder', UInt16),
-        ('fdie', win32more.Storage.Cabinets.FDIERROR),
-    ]
-    return FDINOTIFICATION
+FDIERROR_NONE: FDIERROR = 0
+FDIERROR_CABINET_NOT_FOUND: FDIERROR = 1
+FDIERROR_NOT_A_CABINET: FDIERROR = 2
+FDIERROR_UNKNOWN_CABINET_VERSION: FDIERROR = 3
+FDIERROR_CORRUPT_CABINET: FDIERROR = 4
+FDIERROR_ALLOC_FAIL: FDIERROR = 5
+FDIERROR_BAD_COMPR_TYPE: FDIERROR = 6
+FDIERROR_MDI_FAIL: FDIERROR = 7
+FDIERROR_TARGET_FILE: FDIERROR = 8
+FDIERROR_RESERVE_MISMATCH: FDIERROR = 9
+FDIERROR_WRONG_CABINET: FDIERROR = 10
+FDIERROR_USER_ABORT: FDIERROR = 11
+FDIERROR_EOF: FDIERROR = 12
+class FDINOTIFICATION(Structure):
+    cb: Int32
+    psz1: win32more.Foundation.PSTR
+    psz2: win32more.Foundation.PSTR
+    psz3: win32more.Foundation.PSTR
+    pv: c_void_p
+    hf: IntPtr
+    date: UInt16
+    time: UInt16
+    attribs: UInt16
+    setID: UInt16
+    iCabinet: UInt16
+    iFolder: UInt16
+    fdie: win32more.Storage.Cabinets.FDIERROR
 FDINOTIFICATIONTYPE = Int32
-FDINOTIFICATIONTYPE_fdintCABINET_INFO = 0
-FDINOTIFICATIONTYPE_fdintPARTIAL_FILE = 1
-FDINOTIFICATIONTYPE_fdintCOPY_FILE = 2
-FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO = 3
-FDINOTIFICATIONTYPE_fdintNEXT_CABINET = 4
-FDINOTIFICATIONTYPE_fdintENUMERATE = 5
-def _define_FDISPILLFILE_head():
-    class FDISPILLFILE(Structure):
-        pass
-    return FDISPILLFILE
-def _define_FDISPILLFILE():
-    FDISPILLFILE = win32more.Storage.Cabinets.FDISPILLFILE_head
-    FDISPILLFILE._fields_ = [
-        ('ach', win32more.Foundation.CHAR * 2),
-        ('cbFile', Int32),
-    ]
-    return FDISPILLFILE
-def _define_PFNALLOC():
-    return CFUNCTYPE(c_void_p,UInt32)
-def _define_PFNCLOSE():
-    return CFUNCTYPE(Int32,IntPtr)
-def _define_PFNFCIALLOC():
-    return CFUNCTYPE(c_void_p,UInt32)
-def _define_PFNFCICLOSE():
-    return CFUNCTYPE(Int32,IntPtr,POINTER(Int32),c_void_p)
-def _define_PFNFCIDELETE():
-    return CFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(Int32),c_void_p)
-def _define_PFNFCIFILEPLACED():
-    return CFUNCTYPE(Int32,POINTER(win32more.Storage.Cabinets.CCAB_head),win32more.Foundation.PSTR,Int32,win32more.Foundation.BOOL,c_void_p)
-def _define_PFNFCIFREE():
-    return CFUNCTYPE(Void,c_void_p)
-def _define_PFNFCIGETNEXTCABINET():
-    return CFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Storage.Cabinets.CCAB_head),UInt32,c_void_p)
-def _define_PFNFCIGETOPENINFO():
-    return CFUNCTYPE(IntPtr,win32more.Foundation.PSTR,POINTER(UInt16),POINTER(UInt16),POINTER(UInt16),POINTER(Int32),c_void_p)
-def _define_PFNFCIGETTEMPFILE():
-    return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,Int32,c_void_p)
-def _define_PFNFCIOPEN():
-    return CFUNCTYPE(IntPtr,win32more.Foundation.PSTR,Int32,Int32,POINTER(Int32),c_void_p)
-def _define_PFNFCIREAD():
-    return CFUNCTYPE(UInt32,IntPtr,c_void_p,UInt32,POINTER(Int32),c_void_p)
-def _define_PFNFCISEEK():
-    return CFUNCTYPE(Int32,IntPtr,Int32,Int32,POINTER(Int32),c_void_p)
-def _define_PFNFCISTATUS():
-    return CFUNCTYPE(Int32,UInt32,UInt32,UInt32,c_void_p)
-def _define_PFNFCIWRITE():
-    return CFUNCTYPE(UInt32,IntPtr,c_void_p,UInt32,POINTER(Int32),c_void_p)
-def _define_PFNFDIDECRYPT():
-    return CFUNCTYPE(Int32,POINTER(win32more.Storage.Cabinets.FDIDECRYPT_head))
-def _define_PFNFDINOTIFY():
-    return CFUNCTYPE(IntPtr,win32more.Storage.Cabinets.FDINOTIFICATIONTYPE,POINTER(win32more.Storage.Cabinets.FDINOTIFICATION_head))
-def _define_PFNFREE():
-    return CFUNCTYPE(Void,c_void_p)
-def _define_PFNOPEN():
-    return CFUNCTYPE(IntPtr,win32more.Foundation.PSTR,Int32,Int32)
-def _define_PFNREAD():
-    return CFUNCTYPE(UInt32,IntPtr,c_void_p,UInt32)
-def _define_PFNSEEK():
-    return CFUNCTYPE(Int32,IntPtr,Int32,Int32)
-def _define_PFNWRITE():
-    return CFUNCTYPE(UInt32,IntPtr,c_void_p,UInt32)
+FDINOTIFICATIONTYPE_fdintCABINET_INFO: FDINOTIFICATIONTYPE = 0
+FDINOTIFICATIONTYPE_fdintPARTIAL_FILE: FDINOTIFICATIONTYPE = 1
+FDINOTIFICATIONTYPE_fdintCOPY_FILE: FDINOTIFICATIONTYPE = 2
+FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO: FDINOTIFICATIONTYPE = 3
+FDINOTIFICATIONTYPE_fdintNEXT_CABINET: FDINOTIFICATIONTYPE = 4
+FDINOTIFICATIONTYPE_fdintENUMERATE: FDINOTIFICATIONTYPE = 5
+class FDISPILLFILE(Structure):
+    ach: win32more.Foundation.CHAR * 2
+    cbFile: Int32
+@cfunctype_pointer
+def PFNALLOC(cb: UInt32) -> c_void_p: ...
+@cfunctype_pointer
+def PFNCLOSE(hf: IntPtr) -> Int32: ...
+@cfunctype_pointer
+def PFNFCIALLOC(cb: UInt32) -> c_void_p: ...
+@cfunctype_pointer
+def PFNFCICLOSE(hf: IntPtr, err: POINTER(Int32), pv: c_void_p) -> Int32: ...
+@cfunctype_pointer
+def PFNFCIDELETE(pszFile: win32more.Foundation.PSTR, err: POINTER(Int32), pv: c_void_p) -> Int32: ...
+@cfunctype_pointer
+def PFNFCIFILEPLACED(pccab: POINTER(win32more.Storage.Cabinets.CCAB_head), pszFile: win32more.Foundation.PSTR, cbFile: Int32, fContinuation: win32more.Foundation.BOOL, pv: c_void_p) -> Int32: ...
+@cfunctype_pointer
+def PFNFCIFREE(memory: c_void_p) -> Void: ...
+@cfunctype_pointer
+def PFNFCIGETNEXTCABINET(pccab: POINTER(win32more.Storage.Cabinets.CCAB_head), cbPrevCab: UInt32, pv: c_void_p) -> win32more.Foundation.BOOL: ...
+@cfunctype_pointer
+def PFNFCIGETOPENINFO(pszName: win32more.Foundation.PSTR, pdate: POINTER(UInt16), ptime: POINTER(UInt16), pattribs: POINTER(UInt16), err: POINTER(Int32), pv: c_void_p) -> IntPtr: ...
+@cfunctype_pointer
+def PFNFCIGETTEMPFILE(pszTempName: win32more.Foundation.PSTR, cbTempName: Int32, pv: c_void_p) -> win32more.Foundation.BOOL: ...
+@cfunctype_pointer
+def PFNFCIOPEN(pszFile: win32more.Foundation.PSTR, oflag: Int32, pmode: Int32, err: POINTER(Int32), pv: c_void_p) -> IntPtr: ...
+@cfunctype_pointer
+def PFNFCIREAD(hf: IntPtr, memory: c_void_p, cb: UInt32, err: POINTER(Int32), pv: c_void_p) -> UInt32: ...
+@cfunctype_pointer
+def PFNFCISEEK(hf: IntPtr, dist: Int32, seektype: Int32, err: POINTER(Int32), pv: c_void_p) -> Int32: ...
+@cfunctype_pointer
+def PFNFCISTATUS(typeStatus: UInt32, cb1: UInt32, cb2: UInt32, pv: c_void_p) -> Int32: ...
+@cfunctype_pointer
+def PFNFCIWRITE(hf: IntPtr, memory: c_void_p, cb: UInt32, err: POINTER(Int32), pv: c_void_p) -> UInt32: ...
+@cfunctype_pointer
+def PFNFDIDECRYPT(pfdid: POINTER(win32more.Storage.Cabinets.FDIDECRYPT_head)) -> Int32: ...
+@cfunctype_pointer
+def PFNFDINOTIFY(fdint: win32more.Storage.Cabinets.FDINOTIFICATIONTYPE, pfdin: POINTER(win32more.Storage.Cabinets.FDINOTIFICATION_head)) -> IntPtr: ...
+@cfunctype_pointer
+def PFNFREE(pv: c_void_p) -> Void: ...
+@cfunctype_pointer
+def PFNOPEN(pszFile: win32more.Foundation.PSTR, oflag: Int32, pmode: Int32) -> IntPtr: ...
+@cfunctype_pointer
+def PFNREAD(hf: IntPtr, pv: c_void_p, cb: UInt32) -> UInt32: ...
+@cfunctype_pointer
+def PFNSEEK(hf: IntPtr, dist: Int32, seektype: Int32) -> Int32: ...
+@cfunctype_pointer
+def PFNWRITE(hf: IntPtr, pv: c_void_p, cb: UInt32) -> UInt32: ...
+make_head(_module, 'CCAB')
+make_head(_module, 'ERF')
+make_head(_module, 'FDICABINETINFO')
+make_head(_module, 'FDIDECRYPT')
+make_head(_module, 'FDINOTIFICATION')
+make_head(_module, 'FDISPILLFILE')
+make_head(_module, 'PFNALLOC')
+make_head(_module, 'PFNCLOSE')
+make_head(_module, 'PFNFCIALLOC')
+make_head(_module, 'PFNFCICLOSE')
+make_head(_module, 'PFNFCIDELETE')
+make_head(_module, 'PFNFCIFILEPLACED')
+make_head(_module, 'PFNFCIFREE')
+make_head(_module, 'PFNFCIGETNEXTCABINET')
+make_head(_module, 'PFNFCIGETOPENINFO')
+make_head(_module, 'PFNFCIGETTEMPFILE')
+make_head(_module, 'PFNFCIOPEN')
+make_head(_module, 'PFNFCIREAD')
+make_head(_module, 'PFNFCISEEK')
+make_head(_module, 'PFNFCISTATUS')
+make_head(_module, 'PFNFCIWRITE')
+make_head(_module, 'PFNFDIDECRYPT')
+make_head(_module, 'PFNFDINOTIFY')
+make_head(_module, 'PFNFREE')
+make_head(_module, 'PFNOPEN')
+make_head(_module, 'PFNREAD')
+make_head(_module, 'PFNSEEK')
+make_head(_module, 'PFNWRITE')
 __all__ = [
     "CB_MAX_CABINET_NAME",
     "CB_MAX_CAB_PATH",

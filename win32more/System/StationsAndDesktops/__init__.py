@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Security
@@ -9,243 +10,140 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_CreateDesktopA():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head))(('CreateDesktopA', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'lpszDevice'),(1, 'pDevmode'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDesktopW():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Gdi.DEVMODEW_head),win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head))(('CreateDesktopW', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'lpszDevice'),(1, 'pDevmode'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDesktopExA():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,c_void_p)(('CreateDesktopExA', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'lpszDevice'),(1, 'pDevmode'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),(1, 'ulHeapSize'),(1, 'pvoid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDesktopExW():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Gdi.DEVMODEW_head),win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,c_void_p)(('CreateDesktopExW', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'lpszDevice'),(1, 'pDevmode'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),(1, 'ulHeapSize'),(1, 'pvoid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenDesktopA():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PSTR,win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,win32more.Foundation.BOOL,UInt32)(('OpenDesktopA', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'dwFlags'),(1, 'fInherit'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenDesktopW():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.Foundation.PWSTR,win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,win32more.Foundation.BOOL,UInt32)(('OpenDesktopW', windll['USER32.dll']), ((1, 'lpszDesktop'),(1, 'dwFlags'),(1, 'fInherit'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenInputDesktop():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS,win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS)(('OpenInputDesktop', windll['USER32.dll']), ((1, 'dwFlags'),(1, 'fInherit'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDesktopsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HWINSTA,win32more.System.StationsAndDesktops.DESKTOPENUMPROCA,win32more.Foundation.LPARAM)(('EnumDesktopsA', windll['USER32.dll']), ((1, 'hwinsta'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDesktopsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HWINSTA,win32more.System.StationsAndDesktops.DESKTOPENUMPROCW,win32more.Foundation.LPARAM)(('EnumDesktopsW', windll['USER32.dll']), ((1, 'hwinsta'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDesktopWindows():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HDESK,win32more.UI.WindowsAndMessaging.WNDENUMPROC,win32more.Foundation.LPARAM)(('EnumDesktopWindows', windll['USER32.dll']), ((1, 'hDesktop'),(1, 'lpfn'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwitchDesktop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HDESK)(('SwitchDesktop', windll['USER32.dll']), ((1, 'hDesktop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadDesktop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HDESK)(('SetThreadDesktop', windll['USER32.dll']), ((1, 'hDesktop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseDesktop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HDESK)(('CloseDesktop', windll['USER32.dll']), ((1, 'hDesktop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadDesktop():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HDESK,UInt32)(('GetThreadDesktop', windll['USER32.dll']), ((1, 'dwThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWindowStationA():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HWINSTA,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head))(('CreateWindowStationA', windll['USER32.dll']), ((1, 'lpwinsta'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWindowStationW():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HWINSTA,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head))(('CreateWindowStationW', windll['USER32.dll']), ((1, 'lpwinsta'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),(1, 'lpsa'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenWindowStationA():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HWINSTA,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32)(('OpenWindowStationA', windll['USER32.dll']), ((1, 'lpszWinSta'),(1, 'fInherit'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenWindowStationW():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HWINSTA,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32)(('OpenWindowStationW', windll['USER32.dll']), ((1, 'lpszWinSta'),(1, 'fInherit'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumWindowStationsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.WINSTAENUMPROCA,win32more.Foundation.LPARAM)(('EnumWindowStationsA', windll['USER32.dll']), ((1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumWindowStationsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.WINSTAENUMPROCW,win32more.Foundation.LPARAM)(('EnumWindowStationsW', windll['USER32.dll']), ((1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseWindowStation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HWINSTA)(('CloseWindowStation', windll['USER32.dll']), ((1, 'hWinSta'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessWindowStation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.StationsAndDesktops.HWINSTA)(('SetProcessWindowStation', windll['USER32.dll']), ((1, 'hWinSta'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessWindowStation():
-    try:
-        return WINFUNCTYPE(win32more.System.StationsAndDesktops.HWINSTA,)(('GetProcessWindowStation', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUserObjectInformationA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX,c_void_p,UInt32,POINTER(UInt32))(('GetUserObjectInformationA', windll['USER32.dll']), ((1, 'hObj'),(1, 'nIndex'),(1, 'pvInfo'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUserObjectInformationW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX,c_void_p,UInt32,POINTER(UInt32))(('GetUserObjectInformationW', windll['USER32.dll']), ((1, 'hObj'),(1, 'nIndex'),(1, 'pvInfo'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUserObjectInformationA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,Int32,c_void_p,UInt32)(('SetUserObjectInformationA', windll['USER32.dll']), ((1, 'hObj'),(1, 'nIndex'),(1, 'pvInfo'),(1, 'nLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUserObjectInformationW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,Int32,c_void_p,UInt32)(('SetUserObjectInformationW', windll['USER32.dll']), ((1, 'hObj'),(1, 'nIndex'),(1, 'pvInfo'),(1, 'nLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BroadcastSystemMessageExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS,POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO),UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.System.StationsAndDesktops.BSMINFO_head))(('BroadcastSystemMessageExA', windll['USER32.dll']), ((1, 'flags'),(1, 'lpInfo'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'pbsmInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BroadcastSystemMessageExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS,POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO),UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.System.StationsAndDesktops.BSMINFO_head))(('BroadcastSystemMessageExW', windll['USER32.dll']), ((1, 'flags'),(1, 'lpInfo'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'pbsmInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BroadcastSystemMessageA():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(UInt32),UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('BroadcastSystemMessageA', windll['USER32.dll']), ((1, 'flags'),(1, 'lpInfo'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BroadcastSystemMessageW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS,POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO),UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('BroadcastSystemMessageW', windll['USER32.dll']), ((1, 'flags'),(1, 'lpInfo'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+@winfunctype('USER32.dll')
+def CreateDesktopA(lpszDesktop: win32more.Foundation.PSTR, lpszDevice: win32more.Foundation.PSTR, pDevmode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def CreateDesktopW(lpszDesktop: win32more.Foundation.PWSTR, lpszDevice: win32more.Foundation.PWSTR, pDevmode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def CreateDesktopExA(lpszDesktop: win32more.Foundation.PSTR, lpszDevice: win32more.Foundation.PSTR, pDevmode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), ulHeapSize: UInt32, pvoid: c_void_p) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def CreateDesktopExW(lpszDesktop: win32more.Foundation.PWSTR, lpszDevice: win32more.Foundation.PWSTR, pDevmode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), ulHeapSize: UInt32, pvoid: c_void_p) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def OpenDesktopA(lpszDesktop: win32more.Foundation.PSTR, dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, fInherit: win32more.Foundation.BOOL, dwDesiredAccess: UInt32) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def OpenDesktopW(lpszDesktop: win32more.Foundation.PWSTR, dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, fInherit: win32more.Foundation.BOOL, dwDesiredAccess: UInt32) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def OpenInputDesktop(dwFlags: win32more.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS, fInherit: win32more.Foundation.BOOL, dwDesiredAccess: win32more.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def EnumDesktopsA(hwinsta: win32more.System.StationsAndDesktops.HWINSTA, lpEnumFunc: win32more.System.StationsAndDesktops.DESKTOPENUMPROCA, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDesktopsW(hwinsta: win32more.System.StationsAndDesktops.HWINSTA, lpEnumFunc: win32more.System.StationsAndDesktops.DESKTOPENUMPROCW, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDesktopWindows(hDesktop: win32more.System.StationsAndDesktops.HDESK, lpfn: win32more.UI.WindowsAndMessaging.WNDENUMPROC, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SwitchDesktop(hDesktop: win32more.System.StationsAndDesktops.HDESK) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetThreadDesktop(hDesktop: win32more.System.StationsAndDesktops.HDESK) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def CloseDesktop(hDesktop: win32more.System.StationsAndDesktops.HDESK) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetThreadDesktop(dwThreadId: UInt32) -> win32more.System.StationsAndDesktops.HDESK: ...
+@winfunctype('USER32.dll')
+def CreateWindowStationA(lpwinsta: win32more.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)) -> win32more.System.StationsAndDesktops.HWINSTA: ...
+@winfunctype('USER32.dll')
+def CreateWindowStationW(lpwinsta: win32more.Foundation.PWSTR, dwFlags: UInt32, dwDesiredAccess: UInt32, lpsa: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)) -> win32more.System.StationsAndDesktops.HWINSTA: ...
+@winfunctype('USER32.dll')
+def OpenWindowStationA(lpszWinSta: win32more.Foundation.PSTR, fInherit: win32more.Foundation.BOOL, dwDesiredAccess: UInt32) -> win32more.System.StationsAndDesktops.HWINSTA: ...
+@winfunctype('USER32.dll')
+def OpenWindowStationW(lpszWinSta: win32more.Foundation.PWSTR, fInherit: win32more.Foundation.BOOL, dwDesiredAccess: UInt32) -> win32more.System.StationsAndDesktops.HWINSTA: ...
+@winfunctype('USER32.dll')
+def EnumWindowStationsA(lpEnumFunc: win32more.System.StationsAndDesktops.WINSTAENUMPROCA, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumWindowStationsW(lpEnumFunc: win32more.System.StationsAndDesktops.WINSTAENUMPROCW, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def CloseWindowStation(hWinSta: win32more.System.StationsAndDesktops.HWINSTA) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetProcessWindowStation(hWinSta: win32more.System.StationsAndDesktops.HWINSTA) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetProcessWindowStation() -> win32more.System.StationsAndDesktops.HWINSTA: ...
+@winfunctype('USER32.dll')
+def GetUserObjectInformationA(hObj: win32more.Foundation.HANDLE, nIndex: win32more.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX, pvInfo: c_void_p, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetUserObjectInformationW(hObj: win32more.Foundation.HANDLE, nIndex: win32more.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX, pvInfo: c_void_p, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetUserObjectInformationA(hObj: win32more.Foundation.HANDLE, nIndex: Int32, pvInfo: c_void_p, nLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetUserObjectInformationW(hObj: win32more.Foundation.HANDLE, nIndex: Int32, pvInfo: c_void_p, nLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def BroadcastSystemMessageExA(flags: win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS, lpInfo: POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO), Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, pbsmInfo: POINTER(win32more.System.StationsAndDesktops.BSMINFO_head)) -> Int32: ...
+@winfunctype('USER32.dll')
+def BroadcastSystemMessageExW(flags: win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS, lpInfo: POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO), Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, pbsmInfo: POINTER(win32more.System.StationsAndDesktops.BSMINFO_head)) -> Int32: ...
+@winfunctype('USER32.dll')
+def BroadcastSystemMessageA(flags: UInt32, lpInfo: POINTER(UInt32), Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('USER32.dll')
+def BroadcastSystemMessageW(flags: win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS, lpInfo: POINTER(win32more.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO), Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> Int32: ...
 BROADCAST_SYSTEM_MESSAGE_FLAGS = UInt32
-BSF_ALLOWSFW = 128
-BSF_FLUSHDISK = 4
-BSF_FORCEIFHUNG = 32
-BSF_IGNORECURRENTTASK = 2
-BSF_NOHANG = 8
-BSF_NOTIMEOUTIFNOTHUNG = 64
-BSF_POSTMESSAGE = 16
-BSF_QUERY = 1
-BSF_SENDNOTIFYMESSAGE = 256
-BSF_LUID = 1024
-BSF_RETURNHDESK = 512
+BSF_ALLOWSFW: BROADCAST_SYSTEM_MESSAGE_FLAGS = 128
+BSF_FLUSHDISK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 4
+BSF_FORCEIFHUNG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 32
+BSF_IGNORECURRENTTASK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 2
+BSF_NOHANG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 8
+BSF_NOTIMEOUTIFNOTHUNG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 64
+BSF_POSTMESSAGE: BROADCAST_SYSTEM_MESSAGE_FLAGS = 16
+BSF_QUERY: BROADCAST_SYSTEM_MESSAGE_FLAGS = 1
+BSF_SENDNOTIFYMESSAGE: BROADCAST_SYSTEM_MESSAGE_FLAGS = 256
+BSF_LUID: BROADCAST_SYSTEM_MESSAGE_FLAGS = 1024
+BSF_RETURNHDESK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 512
 BROADCAST_SYSTEM_MESSAGE_INFO = UInt32
-BSM_ALLCOMPONENTS = 0
-BSM_ALLDESKTOPS = 16
-BSM_APPLICATIONS = 8
-def _define_BSMINFO_head():
-    class BSMINFO(Structure):
-        pass
-    return BSMINFO
-def _define_BSMINFO():
-    BSMINFO = win32more.System.StationsAndDesktops.BSMINFO_head
-    BSMINFO._fields_ = [
-        ('cbSize', UInt32),
-        ('hdesk', win32more.System.StationsAndDesktops.HDESK),
-        ('hwnd', win32more.Foundation.HWND),
-        ('luid', win32more.Foundation.LUID),
-    ]
-    return BSMINFO
+BSM_ALLCOMPONENTS: BROADCAST_SYSTEM_MESSAGE_INFO = 0
+BSM_ALLDESKTOPS: BROADCAST_SYSTEM_MESSAGE_INFO = 16
+BSM_APPLICATIONS: BROADCAST_SYSTEM_MESSAGE_INFO = 8
+class BSMINFO(Structure):
+    cbSize: UInt32
+    hdesk: win32more.System.StationsAndDesktops.HDESK
+    hwnd: win32more.Foundation.HWND
+    luid: win32more.Foundation.LUID
 DESKTOP_ACCESS_FLAGS = UInt32
-DESKTOP_DELETE = 65536
-DESKTOP_READ_CONTROL = 131072
-DESKTOP_WRITE_DAC = 262144
-DESKTOP_WRITE_OWNER = 524288
-DESKTOP_SYNCHRONIZE = 1048576
-DESKTOP_READOBJECTS = 1
-DESKTOP_CREATEWINDOW = 2
-DESKTOP_CREATEMENU = 4
-DESKTOP_HOOKCONTROL = 8
-DESKTOP_JOURNALRECORD = 16
-DESKTOP_JOURNALPLAYBACK = 32
-DESKTOP_ENUMERATE = 64
-DESKTOP_WRITEOBJECTS = 128
-DESKTOP_SWITCHDESKTOP = 256
+DESKTOP_DELETE: DESKTOP_ACCESS_FLAGS = 65536
+DESKTOP_READ_CONTROL: DESKTOP_ACCESS_FLAGS = 131072
+DESKTOP_WRITE_DAC: DESKTOP_ACCESS_FLAGS = 262144
+DESKTOP_WRITE_OWNER: DESKTOP_ACCESS_FLAGS = 524288
+DESKTOP_SYNCHRONIZE: DESKTOP_ACCESS_FLAGS = 1048576
+DESKTOP_READOBJECTS: DESKTOP_ACCESS_FLAGS = 1
+DESKTOP_CREATEWINDOW: DESKTOP_ACCESS_FLAGS = 2
+DESKTOP_CREATEMENU: DESKTOP_ACCESS_FLAGS = 4
+DESKTOP_HOOKCONTROL: DESKTOP_ACCESS_FLAGS = 8
+DESKTOP_JOURNALRECORD: DESKTOP_ACCESS_FLAGS = 16
+DESKTOP_JOURNALPLAYBACK: DESKTOP_ACCESS_FLAGS = 32
+DESKTOP_ENUMERATE: DESKTOP_ACCESS_FLAGS = 64
+DESKTOP_WRITEOBJECTS: DESKTOP_ACCESS_FLAGS = 128
+DESKTOP_SWITCHDESKTOP: DESKTOP_ACCESS_FLAGS = 256
 DESKTOP_CONTROL_FLAGS = UInt32
-DF_ALLOWOTHERACCOUNTHOOK = 1
-def _define_DESKTOPENUMPROCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.LPARAM)
-def _define_DESKTOPENUMPROCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM)
+DF_ALLOWOTHERACCOUNTHOOK: DESKTOP_CONTROL_FLAGS = 1
+@winfunctype_pointer
+def DESKTOPENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def DESKTOPENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 HDESK = IntPtr
 HWINSTA = IntPtr
 USER_OBJECT_INFORMATION_INDEX = UInt32
-UOI_FLAGS = 1
-UOI_HEAPSIZE = 5
-UOI_IO = 6
-UOI_NAME = 2
-UOI_TYPE = 3
-UOI_USER_SID = 4
-def _define_USEROBJECTFLAGS_head():
-    class USEROBJECTFLAGS(Structure):
-        pass
-    return USEROBJECTFLAGS
-def _define_USEROBJECTFLAGS():
-    USEROBJECTFLAGS = win32more.System.StationsAndDesktops.USEROBJECTFLAGS_head
-    USEROBJECTFLAGS._fields_ = [
-        ('fInherit', win32more.Foundation.BOOL),
-        ('fReserved', win32more.Foundation.BOOL),
-        ('dwFlags', UInt32),
-    ]
-    return USEROBJECTFLAGS
-def _define_WINSTAENUMPROCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.LPARAM)
-def _define_WINSTAENUMPROCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM)
+UOI_FLAGS: USER_OBJECT_INFORMATION_INDEX = 1
+UOI_HEAPSIZE: USER_OBJECT_INFORMATION_INDEX = 5
+UOI_IO: USER_OBJECT_INFORMATION_INDEX = 6
+UOI_NAME: USER_OBJECT_INFORMATION_INDEX = 2
+UOI_TYPE: USER_OBJECT_INFORMATION_INDEX = 3
+UOI_USER_SID: USER_OBJECT_INFORMATION_INDEX = 4
+class USEROBJECTFLAGS(Structure):
+    fInherit: win32more.Foundation.BOOL
+    fReserved: win32more.Foundation.BOOL
+    dwFlags: UInt32
+@winfunctype_pointer
+def WINSTAENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def WINSTAENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+make_head(_module, 'BSMINFO')
+make_head(_module, 'DESKTOPENUMPROCA')
+make_head(_module, 'DESKTOPENUMPROCW')
+make_head(_module, 'USEROBJECTFLAGS')
+make_head(_module, 'WINSTAENUMPROCA')
+make_head(_module, 'WINSTAENUMPROCW')
 __all__ = [
     "BROADCAST_SYSTEM_MESSAGE_FLAGS",
     "BROADCAST_SYSTEM_MESSAGE_INFO",

@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.System.Com
@@ -13,291 +14,184 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-GPM_USE_PDC = 0
-GPM_USE_ANYDC = 1
-GPM_DONOTUSE_W2KDC = 2
-GPM_DONOT_VALIDATEDC = 1
-GPM_MIGRATIONTABLE_ONLY = 1
-GPM_PROCESS_SECURITY = 2
-RSOP_NO_COMPUTER = 65536
-RSOP_NO_USER = 131072
-RSOP_PLANNING_ASSUME_SLOW_LINK = 1
-RSOP_PLANNING_ASSUME_LOOPBACK_MERGE = 2
-RSOP_PLANNING_ASSUME_LOOPBACK_REPLACE = 4
-RSOP_PLANNING_ASSUME_USER_WQLFILTER_TRUE = 8
-RSOP_PLANNING_ASSUME_COMP_WQLFILTER_TRUE = 16
-PI_NOUI = 1
-PI_APPLYPOLICY = 2
-PT_TEMPORARY = 1
-PT_ROAMING = 2
-PT_MANDATORY = 4
-PT_ROAMING_PREEXISTING = 8
-RP_FORCE = 1
-RP_SYNC = 2
-GPC_BLOCK_POLICY = 1
-GPO_FLAG_DISABLE = 1
-GPO_FLAG_FORCE = 2
-GPO_LIST_FLAG_MACHINE = 1
-GPO_LIST_FLAG_SITEONLY = 2
-GPO_LIST_FLAG_NO_WMIFILTERS = 4
-GPO_LIST_FLAG_NO_SECURITYFILTERS = 8
-GP_DLLNAME = 'DllName'
-GP_ENABLEASYNCHRONOUSPROCESSING = 'EnableAsynchronousProcessing'
-GP_MAXNOGPOLISTCHANGESINTERVAL = 'MaxNoGPOListChangesInterval'
-GP_NOBACKGROUNDPOLICY = 'NoBackgroundPolicy'
-GP_NOGPOLISTCHANGES = 'NoGPOListChanges'
-GP_NOMACHINEPOLICY = 'NoMachinePolicy'
-GP_NOSLOWLINK = 'NoSlowLink'
-GP_NOTIFYLINKTRANSITION = 'NotifyLinkTransition'
-GP_NOUSERPOLICY = 'NoUserPolicy'
-GP_PERUSERLOCALSETTINGS = 'PerUserLocalSettings'
-GP_PROCESSGROUPPOLICY = 'ProcessGroupPolicy'
-GP_REQUIRESSUCCESSFULREGISTRY = 'RequiresSuccessfulRegistry'
-GPO_INFO_FLAG_MACHINE = 1
-GPO_INFO_FLAG_BACKGROUND = 16
-GPO_INFO_FLAG_SLOWLINK = 32
-GPO_INFO_FLAG_VERBOSE = 64
-GPO_INFO_FLAG_NOCHANGES = 128
-GPO_INFO_FLAG_LINKTRANSITION = 256
-GPO_INFO_FLAG_LOGRSOP_TRANSITION = 512
-GPO_INFO_FLAG_FORCED_REFRESH = 1024
-GPO_INFO_FLAG_SAFEMODE_BOOT = 2048
-GPO_INFO_FLAG_ASYNC_FOREGROUND = 4096
-FLAG_NO_GPO_FILTER = 2147483648
-FLAG_NO_CSE_INVOKE = 1073741824
-FLAG_ASSUME_SLOW_LINK = 536870912
-FLAG_LOOPBACK_MERGE = 268435456
-FLAG_LOOPBACK_REPLACE = 134217728
-FLAG_ASSUME_USER_WQLFILTER_TRUE = 67108864
-FLAG_ASSUME_COMP_WQLFILTER_TRUE = 33554432
-FLAG_PLANNING_MODE = 16777216
-FLAG_NO_USER = 1
-FLAG_NO_COMPUTER = 2
-FLAG_FORCE_CREATENAMESPACE = 4
-RSOP_USER_ACCESS_DENIED = 1
-RSOP_COMPUTER_ACCESS_DENIED = 2
-RSOP_TEMPNAMESPACE_EXISTS = 4
-LOCALSTATE_ASSIGNED = 1
-LOCALSTATE_PUBLISHED = 2
-LOCALSTATE_UNINSTALL_UNMANAGED = 4
-LOCALSTATE_POLICYREMOVE_ORPHAN = 8
-LOCALSTATE_POLICYREMOVE_UNINSTALL = 16
-LOCALSTATE_ORPHANED = 32
-LOCALSTATE_UNINSTALLED = 64
-MANAGED_APPS_USERAPPLICATIONS = 1
-MANAGED_APPS_FROMCATEGORY = 2
-MANAGED_APPS_INFOLEVEL_DEFAULT = 65536
-MANAGED_APPTYPE_WINDOWSINSTALLER = 1
-MANAGED_APPTYPE_SETUPEXE = 2
-MANAGED_APPTYPE_UNSUPPORTED = 3
-def _define_CLSID_GPESnapIn():
-    return Guid('8fc0b734-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_NODEID_Machine():
-    return Guid('8fc0b737-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_NODEID_MachineSWSettings():
-    return Guid('8fc0b73a-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_NODEID_User():
-    return Guid('8fc0b738-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_NODEID_UserSWSettings():
-    return Guid('8fc0b73c-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_CLSID_GroupPolicyObject():
-    return Guid('ea502722-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
-def _define_CLSID_RSOPSnapIn():
-    return Guid('6dc3804b-7212-458d-ad-b0-9a-07-e2-ae-1f-a2')
-def _define_NODEID_RSOPMachine():
-    return Guid('bd4c1a2e-0b7a-4a62-a6-b0-c0-57-75-39-c9-7e')
-def _define_NODEID_RSOPMachineSWSettings():
-    return Guid('6a76273e-eb8e-45db-94-c5-25-66-3a-5f-2c-1a')
-def _define_NODEID_RSOPUser():
-    return Guid('ab87364f-0cec-4cd8-9b-f8-89-8f-34-62-8f-b8')
-def _define_NODEID_RSOPUserSWSettings():
-    return Guid('e52c5ce3-fd27-4402-84-de-d9-a5-f2-85-89-10')
-GPO_SECTION_ROOT = 0
-GPO_SECTION_USER = 1
-GPO_SECTION_MACHINE = 2
-GPO_OPEN_LOAD_REGISTRY = 1
-GPO_OPEN_READ_ONLY = 2
-GPO_OPTION_DISABLE_USER = 1
-GPO_OPTION_DISABLE_MACHINE = 2
-RSOP_INFO_FLAG_DIAGNOSTIC_MODE = 1
-GPO_BROWSE_DISABLENEW = 1
-GPO_BROWSE_NOCOMPUTERS = 2
-GPO_BROWSE_NODSGPOS = 4
-GPO_BROWSE_OPENBUTTON = 8
-GPO_BROWSE_INITTOALL = 16
-GPO_BROWSE_NOUSERGPOS = 32
-GPO_BROWSE_SENDAPPLYONEDIT = 64
-def _define_RefreshPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('RefreshPolicy', windll['USERENV.dll']), ((1, 'bMachine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RefreshPolicyEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL,UInt32)(('RefreshPolicyEx', windll['USERENV.dll']), ((1, 'bMachine'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnterCriticalPolicySection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('EnterCriticalPolicySection', windll['USERENV.dll']), ((1, 'bMachine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LeaveCriticalPolicySection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('LeaveCriticalPolicySection', windll['USERENV.dll']), ((1, 'hSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterGPNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('RegisterGPNotification', windll['USERENV.dll']), ((1, 'hEvent'),(1, 'bMachine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterGPNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('UnregisterGPNotification', windll['USERENV.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGPOListA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)))(('GetGPOListA', windll['USERENV.dll']), ((1, 'hToken'),(1, 'lpName'),(1, 'lpHostName'),(1, 'lpComputerName'),(1, 'dwFlags'),(1, 'pGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGPOListW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)))(('GetGPOListW', windll['USERENV.dll']), ((1, 'hToken'),(1, 'lpName'),(1, 'lpHostName'),(1, 'lpComputerName'),(1, 'dwFlags'),(1, 'pGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeGPOListA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head))(('FreeGPOListA', windll['USERENV.dll']), ((1, 'pGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeGPOListW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head))(('FreeGPOListW', windll['USERENV.dll']), ((1, 'pGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAppliedGPOListA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSID,POINTER(Guid),POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)))(('GetAppliedGPOListA', windll['USERENV.dll']), ((1, 'dwFlags'),(1, 'pMachineName'),(1, 'pSidUser'),(1, 'pGuidExtension'),(1, 'ppGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAppliedGPOListW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PSID,POINTER(Guid),POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)))(('GetAppliedGPOListW', windll['USERENV.dll']), ((1, 'dwFlags'),(1, 'pMachineName'),(1, 'pSidUser'),(1, 'pGuidExtension'),(1, 'ppGPOList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ProcessGroupPolicyCompleted():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Guid),UIntPtr,UInt32)(('ProcessGroupPolicyCompleted', windll['USERENV.dll']), ((1, 'extensionId'),(1, 'pAsyncHandle'),(1, 'dwStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ProcessGroupPolicyCompletedEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Guid),UIntPtr,UInt32,win32more.Foundation.HRESULT)(('ProcessGroupPolicyCompletedEx', windll['USERENV.dll']), ((1, 'extensionId'),(1, 'pAsyncHandle'),(1, 'dwStatus'),(1, 'RsopStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RsopAccessCheckByType():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,c_void_p,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),POINTER(win32more.Security.PRIVILEGE_SET_head),POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('RsopAccessCheckByType', windll['USERENV.dll']), ((1, 'pSecurityDescriptor'),(1, 'pPrincipalSelfSid'),(1, 'pRsopToken'),(1, 'dwDesiredAccessMask'),(1, 'pObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'pGenericMapping'),(1, 'pPrivilegeSet'),(1, 'pdwPrivilegeSetLength'),(1, 'pdwGrantedAccessMask'),(1, 'pbAccessStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RsopFileAccessCheck():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(UInt32),POINTER(Int32))(('RsopFileAccessCheck', windll['USERENV.dll']), ((1, 'pszFileName'),(1, 'pRsopToken'),(1, 'dwDesiredAccessMask'),(1, 'pdwGrantedAccessMask'),(1, 'pbAccessStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RsopSetPolicySettingStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Wmi.IWbemServices_head,win32more.System.Wmi.IWbemClassObject_head,UInt32,POINTER(win32more.System.GroupPolicy.POLICYSETTINGSTATUSINFO_head))(('RsopSetPolicySettingStatus', windll['USERENV.dll']), ((1, 'dwFlags'),(1, 'pServices'),(1, 'pSettingInstance'),(1, 'nInfo'),(1, 'pStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RsopResetPolicySettingStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Wmi.IWbemServices_head,win32more.System.Wmi.IWbemClassObject_head)(('RsopResetPolicySettingStatus', windll['USERENV.dll']), ((1, 'dwFlags'),(1, 'pServices'),(1, 'pSettingInstance'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GenerateGPNotification():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('GenerateGPNotification', windll['USERENV.dll']), ((1, 'bMachine'),(1, 'lpwszMgmtProduct'),(1, 'dwMgmtProductOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InstallApplication():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.GroupPolicy.INSTALLDATA_head))(('InstallApplication', windll['ADVAPI32.dll']), ((1, 'pInstallInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UninstallApplication():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('UninstallApplication', windll['ADVAPI32.dll']), ((1, 'ProductCode'),(1, 'dwStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CommandLineFromMsiDescriptor():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('CommandLineFromMsiDescriptor', windll['ADVAPI32.dll']), ((1, 'Descriptor'),(1, 'CommandLine'),(1, 'CommandLineLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetManagedApplications():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(Guid),UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.System.GroupPolicy.MANAGEDAPPLICATION_head)))(('GetManagedApplications', windll['ADVAPI32.dll']), ((1, 'pCategory'),(1, 'dwQueryFlags'),(1, 'dwInfoLevel'),(1, 'pdwApps'),(1, 'prgManagedApps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLocalManagedApplications():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(POINTER(win32more.System.GroupPolicy.LOCALMANAGEDAPPLICATION_head)))(('GetLocalManagedApplications', windll['ADVAPI32.dll']), ((1, 'bUserApps'),(1, 'pdwApps'),(1, 'prgLocalApps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLocalManagedApplicationData():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(('GetLocalManagedApplicationData', windll['ADVAPI32.dll']), ((1, 'ProductCode'),(1, 'DisplayName'),(1, 'SupportUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetManagedApplicationCategories():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.UI.Shell.APPCATEGORYINFOLIST_head))(('GetManagedApplicationCategories', windll['ADVAPI32.dll']), ((1, 'dwReserved'),(1, 'pAppCategory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateGPOLink():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('CreateGPOLink', windll['GPEDIT.dll']), ((1, 'lpGPO'),(1, 'lpContainer'),(1, 'fHighPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteGPOLink():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DeleteGPOLink', windll['GPEDIT.dll']), ((1, 'lpGPO'),(1, 'lpContainer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteAllGPOLinks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('DeleteAllGPOLinks', windll['GPEDIT.dll']), ((1, 'lpContainer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BrowseForGPO():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPOBROWSEINFO_head))(('BrowseForGPO', windll['GPEDIT.dll']), ((1, 'lpBrowseInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImportRSoPData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('ImportRSoPData', windll['GPEDIT.dll']), ((1, 'lpNameSpace'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExportRSoPData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('ExportRSoPData', windll['GPEDIT.dll']), ((1, 'lpNameSpace'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+GPM_USE_PDC: UInt32 = 0
+GPM_USE_ANYDC: UInt32 = 1
+GPM_DONOTUSE_W2KDC: UInt32 = 2
+GPM_DONOT_VALIDATEDC: UInt32 = 1
+GPM_MIGRATIONTABLE_ONLY: UInt32 = 1
+GPM_PROCESS_SECURITY: UInt32 = 2
+RSOP_NO_COMPUTER: UInt32 = 65536
+RSOP_NO_USER: UInt32 = 131072
+RSOP_PLANNING_ASSUME_SLOW_LINK: UInt32 = 1
+RSOP_PLANNING_ASSUME_LOOPBACK_MERGE: UInt32 = 2
+RSOP_PLANNING_ASSUME_LOOPBACK_REPLACE: UInt32 = 4
+RSOP_PLANNING_ASSUME_USER_WQLFILTER_TRUE: UInt32 = 8
+RSOP_PLANNING_ASSUME_COMP_WQLFILTER_TRUE: UInt32 = 16
+PI_NOUI: UInt32 = 1
+PI_APPLYPOLICY: UInt32 = 2
+PT_TEMPORARY: UInt32 = 1
+PT_ROAMING: UInt32 = 2
+PT_MANDATORY: UInt32 = 4
+PT_ROAMING_PREEXISTING: UInt32 = 8
+RP_FORCE: UInt32 = 1
+RP_SYNC: UInt32 = 2
+GPC_BLOCK_POLICY: UInt32 = 1
+GPO_FLAG_DISABLE: UInt32 = 1
+GPO_FLAG_FORCE: UInt32 = 2
+GPO_LIST_FLAG_MACHINE: UInt32 = 1
+GPO_LIST_FLAG_SITEONLY: UInt32 = 2
+GPO_LIST_FLAG_NO_WMIFILTERS: UInt32 = 4
+GPO_LIST_FLAG_NO_SECURITYFILTERS: UInt32 = 8
+GP_DLLNAME: String = 'DllName'
+GP_ENABLEASYNCHRONOUSPROCESSING: String = 'EnableAsynchronousProcessing'
+GP_MAXNOGPOLISTCHANGESINTERVAL: String = 'MaxNoGPOListChangesInterval'
+GP_NOBACKGROUNDPOLICY: String = 'NoBackgroundPolicy'
+GP_NOGPOLISTCHANGES: String = 'NoGPOListChanges'
+GP_NOMACHINEPOLICY: String = 'NoMachinePolicy'
+GP_NOSLOWLINK: String = 'NoSlowLink'
+GP_NOTIFYLINKTRANSITION: String = 'NotifyLinkTransition'
+GP_NOUSERPOLICY: String = 'NoUserPolicy'
+GP_PERUSERLOCALSETTINGS: String = 'PerUserLocalSettings'
+GP_PROCESSGROUPPOLICY: String = 'ProcessGroupPolicy'
+GP_REQUIRESSUCCESSFULREGISTRY: String = 'RequiresSuccessfulRegistry'
+GPO_INFO_FLAG_MACHINE: UInt32 = 1
+GPO_INFO_FLAG_BACKGROUND: UInt32 = 16
+GPO_INFO_FLAG_SLOWLINK: UInt32 = 32
+GPO_INFO_FLAG_VERBOSE: UInt32 = 64
+GPO_INFO_FLAG_NOCHANGES: UInt32 = 128
+GPO_INFO_FLAG_LINKTRANSITION: UInt32 = 256
+GPO_INFO_FLAG_LOGRSOP_TRANSITION: UInt32 = 512
+GPO_INFO_FLAG_FORCED_REFRESH: UInt32 = 1024
+GPO_INFO_FLAG_SAFEMODE_BOOT: UInt32 = 2048
+GPO_INFO_FLAG_ASYNC_FOREGROUND: UInt32 = 4096
+FLAG_NO_GPO_FILTER: UInt32 = 2147483648
+FLAG_NO_CSE_INVOKE: UInt32 = 1073741824
+FLAG_ASSUME_SLOW_LINK: UInt32 = 536870912
+FLAG_LOOPBACK_MERGE: UInt32 = 268435456
+FLAG_LOOPBACK_REPLACE: UInt32 = 134217728
+FLAG_ASSUME_USER_WQLFILTER_TRUE: UInt32 = 67108864
+FLAG_ASSUME_COMP_WQLFILTER_TRUE: UInt32 = 33554432
+FLAG_PLANNING_MODE: UInt32 = 16777216
+FLAG_NO_USER: UInt32 = 1
+FLAG_NO_COMPUTER: UInt32 = 2
+FLAG_FORCE_CREATENAMESPACE: UInt32 = 4
+RSOP_USER_ACCESS_DENIED: UInt32 = 1
+RSOP_COMPUTER_ACCESS_DENIED: UInt32 = 2
+RSOP_TEMPNAMESPACE_EXISTS: UInt32 = 4
+LOCALSTATE_ASSIGNED: UInt32 = 1
+LOCALSTATE_PUBLISHED: UInt32 = 2
+LOCALSTATE_UNINSTALL_UNMANAGED: UInt32 = 4
+LOCALSTATE_POLICYREMOVE_ORPHAN: UInt32 = 8
+LOCALSTATE_POLICYREMOVE_UNINSTALL: UInt32 = 16
+LOCALSTATE_ORPHANED: UInt32 = 32
+LOCALSTATE_UNINSTALLED: UInt32 = 64
+MANAGED_APPS_USERAPPLICATIONS: UInt32 = 1
+MANAGED_APPS_FROMCATEGORY: UInt32 = 2
+MANAGED_APPS_INFOLEVEL_DEFAULT: UInt32 = 65536
+MANAGED_APPTYPE_WINDOWSINSTALLER: UInt32 = 1
+MANAGED_APPTYPE_SETUPEXE: UInt32 = 2
+MANAGED_APPTYPE_UNSUPPORTED: UInt32 = 3
+CLSID_GPESnapIn: Guid = Guid('8fc0b734-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+NODEID_Machine: Guid = Guid('8fc0b737-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+NODEID_MachineSWSettings: Guid = Guid('8fc0b73a-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+NODEID_User: Guid = Guid('8fc0b738-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+NODEID_UserSWSettings: Guid = Guid('8fc0b73c-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+CLSID_GroupPolicyObject: Guid = Guid('ea502722-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
+CLSID_RSOPSnapIn: Guid = Guid('6dc3804b-7212-458d-ad-b0-9a-07-e2-ae-1f-a2')
+NODEID_RSOPMachine: Guid = Guid('bd4c1a2e-0b7a-4a62-a6-b0-c0-57-75-39-c9-7e')
+NODEID_RSOPMachineSWSettings: Guid = Guid('6a76273e-eb8e-45db-94-c5-25-66-3a-5f-2c-1a')
+NODEID_RSOPUser: Guid = Guid('ab87364f-0cec-4cd8-9b-f8-89-8f-34-62-8f-b8')
+NODEID_RSOPUserSWSettings: Guid = Guid('e52c5ce3-fd27-4402-84-de-d9-a5-f2-85-89-10')
+GPO_SECTION_ROOT: UInt32 = 0
+GPO_SECTION_USER: UInt32 = 1
+GPO_SECTION_MACHINE: UInt32 = 2
+GPO_OPEN_LOAD_REGISTRY: UInt32 = 1
+GPO_OPEN_READ_ONLY: UInt32 = 2
+GPO_OPTION_DISABLE_USER: UInt32 = 1
+GPO_OPTION_DISABLE_MACHINE: UInt32 = 2
+RSOP_INFO_FLAG_DIAGNOSTIC_MODE: UInt32 = 1
+GPO_BROWSE_DISABLENEW: UInt32 = 1
+GPO_BROWSE_NOCOMPUTERS: UInt32 = 2
+GPO_BROWSE_NODSGPOS: UInt32 = 4
+GPO_BROWSE_OPENBUTTON: UInt32 = 8
+GPO_BROWSE_INITTOALL: UInt32 = 16
+GPO_BROWSE_NOUSERGPOS: UInt32 = 32
+GPO_BROWSE_SENDAPPLYONEDIT: UInt32 = 64
+@winfunctype('USERENV.dll')
+def RefreshPolicy(bMachine: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def RefreshPolicyEx(bMachine: win32more.Foundation.BOOL, dwOptions: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def EnterCriticalPolicySection(bMachine: win32more.Foundation.BOOL) -> win32more.Foundation.HANDLE: ...
+@winfunctype('USERENV.dll')
+def LeaveCriticalPolicySection(hSection: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def RegisterGPNotification(hEvent: win32more.Foundation.HANDLE, bMachine: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def UnregisterGPNotification(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def GetGPOListA(hToken: win32more.Foundation.HANDLE, lpName: win32more.Foundation.PSTR, lpHostName: win32more.Foundation.PSTR, lpComputerName: win32more.Foundation.PSTR, dwFlags: UInt32, pGPOList: POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head))) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def GetGPOListW(hToken: win32more.Foundation.HANDLE, lpName: win32more.Foundation.PWSTR, lpHostName: win32more.Foundation.PWSTR, lpComputerName: win32more.Foundation.PWSTR, dwFlags: UInt32, pGPOList: POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head))) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def FreeGPOListA(pGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def FreeGPOListW(pGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USERENV.dll')
+def GetAppliedGPOListA(dwFlags: UInt32, pMachineName: win32more.Foundation.PSTR, pSidUser: win32more.Foundation.PSID, pGuidExtension: POINTER(Guid), ppGPOList: POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head))) -> UInt32: ...
+@winfunctype('USERENV.dll')
+def GetAppliedGPOListW(dwFlags: UInt32, pMachineName: win32more.Foundation.PWSTR, pSidUser: win32more.Foundation.PSID, pGuidExtension: POINTER(Guid), ppGPOList: POINTER(POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head))) -> UInt32: ...
+@winfunctype('USERENV.dll')
+def ProcessGroupPolicyCompleted(extensionId: POINTER(Guid), pAsyncHandle: UIntPtr, dwStatus: UInt32) -> UInt32: ...
+@winfunctype('USERENV.dll')
+def ProcessGroupPolicyCompletedEx(extensionId: POINTER(Guid), pAsyncHandle: UIntPtr, dwStatus: UInt32, RsopStatus: win32more.Foundation.HRESULT) -> UInt32: ...
+@winfunctype('USERENV.dll')
+def RsopAccessCheckByType(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pPrincipalSelfSid: win32more.Foundation.PSID, pRsopToken: c_void_p, dwDesiredAccessMask: UInt32, pObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, pGenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), pPrivilegeSet: POINTER(win32more.Security.PRIVILEGE_SET_head), pdwPrivilegeSetLength: POINTER(UInt32), pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('USERENV.dll')
+def RsopFileAccessCheck(pszFileName: win32more.Foundation.PWSTR, pRsopToken: c_void_p, dwDesiredAccessMask: UInt32, pdwGrantedAccessMask: POINTER(UInt32), pbAccessStatus: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('USERENV.dll')
+def RsopSetPolicySettingStatus(dwFlags: UInt32, pServices: win32more.System.Wmi.IWbemServices_head, pSettingInstance: win32more.System.Wmi.IWbemClassObject_head, nInfo: UInt32, pStatus: POINTER(win32more.System.GroupPolicy.POLICYSETTINGSTATUSINFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('USERENV.dll')
+def RsopResetPolicySettingStatus(dwFlags: UInt32, pServices: win32more.System.Wmi.IWbemServices_head, pSettingInstance: win32more.System.Wmi.IWbemClassObject_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('USERENV.dll')
+def GenerateGPNotification(bMachine: win32more.Foundation.BOOL, lpwszMgmtProduct: win32more.Foundation.PWSTR, dwMgmtProductOptions: UInt32) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def InstallApplication(pInstallInfo: POINTER(win32more.System.GroupPolicy.INSTALLDATA_head)) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def UninstallApplication(ProductCode: win32more.Foundation.PWSTR, dwStatus: UInt32) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def CommandLineFromMsiDescriptor(Descriptor: win32more.Foundation.PWSTR, CommandLine: win32more.Foundation.PWSTR, CommandLineLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetManagedApplications(pCategory: POINTER(Guid), dwQueryFlags: UInt32, dwInfoLevel: UInt32, pdwApps: POINTER(UInt32), prgManagedApps: POINTER(POINTER(win32more.System.GroupPolicy.MANAGEDAPPLICATION_head))) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetLocalManagedApplications(bUserApps: win32more.Foundation.BOOL, pdwApps: POINTER(UInt32), prgLocalApps: POINTER(POINTER(win32more.System.GroupPolicy.LOCALMANAGEDAPPLICATION_head))) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetLocalManagedApplicationData(ProductCode: win32more.Foundation.PWSTR, DisplayName: POINTER(win32more.Foundation.PWSTR), SupportUrl: POINTER(win32more.Foundation.PWSTR)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def GetManagedApplicationCategories(dwReserved: UInt32, pAppCategory: POINTER(win32more.UI.Shell.APPCATEGORYINFOLIST_head)) -> UInt32: ...
+@winfunctype('GPEDIT.dll')
+def CreateGPOLink(lpGPO: win32more.Foundation.PWSTR, lpContainer: win32more.Foundation.PWSTR, fHighPriority: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('GPEDIT.dll')
+def DeleteGPOLink(lpGPO: win32more.Foundation.PWSTR, lpContainer: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('GPEDIT.dll')
+def DeleteAllGPOLinks(lpContainer: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('GPEDIT.dll')
+def BrowseForGPO(lpBrowseInfo: POINTER(win32more.System.GroupPolicy.GPOBROWSEINFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('GPEDIT.dll')
+def ImportRSoPData(lpNameSpace: win32more.Foundation.PWSTR, lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('GPEDIT.dll')
+def ExportRSoPData(lpNameSpace: win32more.Foundation.PWSTR, lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
 APPSTATE = Int32
-ABSENT = 0
-ASSIGNED = 1
-PUBLISHED = 2
+ABSENT: APPSTATE = 0
+ASSIGNED: APPSTATE = 1
+PUBLISHED: APPSTATE = 2
 CriticalPolicySectionHandle = IntPtr
 GPM = Guid('f5694708-88fe-4b35-ba-bf-e5-61-62-d5-fb-c8')
 GPMAsyncCancel = Guid('372796a9-76ec-479d-ad-6c-55-63-18-ed-5f-9d')
@@ -306,25 +200,25 @@ GPMBackupCollection = Guid('eb8f035b-70db-4a9f-96-76-37-c2-59-94-e9-dc')
 GPMBackupDir = Guid('fce4a59d-0f21-4afa-b8-59-e6-d0-c6-2c-d1-0c')
 GPMBackupDirEx = Guid('e8c0988a-cf03-4c5b-8b-e2-2a-a9-ad-32-aa-da')
 GPMBackupType = Int32
-GPMBackupType_typeGPO = 0
-GPMBackupType_typeStarterGPO = 1
+GPMBackupType_typeGPO: GPMBackupType = 0
+GPMBackupType_typeStarterGPO: GPMBackupType = 1
 GPMClientSideExtension = Guid('c1a2e70e-659c-4b1a-94-0b-f8-8b-0a-f9-c8-a4')
 GPMConstants = Guid('3855e880-cd9e-4d0c-9e-af-15-79-28-3a-18-88')
 GPMCSECollection = Guid('cf92b828-2d44-4b61-b1-0a-b3-27-af-d4-2d-a8')
 GPMDestinationOption = Int32
-GPMDestinationOption_opDestinationSameAsSource = 0
-GPMDestinationOption_opDestinationNone = 1
-GPMDestinationOption_opDestinationByRelativeName = 2
-GPMDestinationOption_opDestinationSet = 3
+GPMDestinationOption_opDestinationSameAsSource: GPMDestinationOption = 0
+GPMDestinationOption_opDestinationNone: GPMDestinationOption = 1
+GPMDestinationOption_opDestinationByRelativeName: GPMDestinationOption = 2
+GPMDestinationOption_opDestinationSet: GPMDestinationOption = 3
 GPMDomain = Guid('710901be-1050-4cb1-83-8a-c5-cf-f2-59-e1-83')
 GPMEntryType = Int32
-GPMEntryType_typeUser = 0
-GPMEntryType_typeComputer = 1
-GPMEntryType_typeLocalGroup = 2
-GPMEntryType_typeGlobalGroup = 3
-GPMEntryType_typeUniversalGroup = 4
-GPMEntryType_typeUNCPath = 5
-GPMEntryType_typeUnknown = 6
+GPMEntryType_typeUser: GPMEntryType = 0
+GPMEntryType_typeComputer: GPMEntryType = 1
+GPMEntryType_typeLocalGroup: GPMEntryType = 2
+GPMEntryType_typeGlobalGroup: GPMEntryType = 3
+GPMEntryType_typeUniversalGroup: GPMEntryType = 4
+GPMEntryType_typeUNCPath: GPMEntryType = 5
+GPMEntryType_typeUnknown: GPMEntryType = 6
 GPMGPO = Guid('d2ce2994-59b5-4064-b5-81-4d-68-48-6a-16-c4')
 GPMGPOCollection = Guid('7a057325-832d-4de3-a4-1f-c7-80-43-6a-4e-09')
 GPMGPOLink = Guid('c1df9880-5303-42c6-8a-3c-04-88-e1-bf-73-64')
@@ -334,77 +228,77 @@ GPMMapEntryCollection = Guid('0cf75d5b-a3a1-4c55-b4-fe-9e-14-9c-41-f6-6d')
 GPMMigrationTable = Guid('55af4043-2a06-4f72-ab-ef-63-1b-44-07-9c-76')
 GPMPermission = Guid('5871a40a-e9c0-46ec-91-3e-94-4e-f9-22-5a-94')
 GPMPermissionType = Int32
-GPMPermissionType_permGPOApply = 65536
-GPMPermissionType_permGPORead = 65792
-GPMPermissionType_permGPOEdit = 65793
-GPMPermissionType_permGPOEditSecurityAndDelete = 65794
-GPMPermissionType_permGPOCustom = 65795
-GPMPermissionType_permWMIFilterEdit = 131072
-GPMPermissionType_permWMIFilterFullControl = 131073
-GPMPermissionType_permWMIFilterCustom = 131074
-GPMPermissionType_permSOMLink = 1835008
-GPMPermissionType_permSOMLogging = 1573120
-GPMPermissionType_permSOMPlanning = 1573376
-GPMPermissionType_permSOMWMICreate = 1049344
-GPMPermissionType_permSOMWMIFullControl = 1049345
-GPMPermissionType_permSOMGPOCreate = 1049600
-GPMPermissionType_permStarterGPORead = 197888
-GPMPermissionType_permStarterGPOEdit = 197889
-GPMPermissionType_permStarterGPOFullControl = 197890
-GPMPermissionType_permStarterGPOCustom = 197891
-GPMPermissionType_permSOMStarterGPOCreate = 1049856
+GPMPermissionType_permGPOApply: GPMPermissionType = 65536
+GPMPermissionType_permGPORead: GPMPermissionType = 65792
+GPMPermissionType_permGPOEdit: GPMPermissionType = 65793
+GPMPermissionType_permGPOEditSecurityAndDelete: GPMPermissionType = 65794
+GPMPermissionType_permGPOCustom: GPMPermissionType = 65795
+GPMPermissionType_permWMIFilterEdit: GPMPermissionType = 131072
+GPMPermissionType_permWMIFilterFullControl: GPMPermissionType = 131073
+GPMPermissionType_permWMIFilterCustom: GPMPermissionType = 131074
+GPMPermissionType_permSOMLink: GPMPermissionType = 1835008
+GPMPermissionType_permSOMLogging: GPMPermissionType = 1573120
+GPMPermissionType_permSOMPlanning: GPMPermissionType = 1573376
+GPMPermissionType_permSOMWMICreate: GPMPermissionType = 1049344
+GPMPermissionType_permSOMWMIFullControl: GPMPermissionType = 1049345
+GPMPermissionType_permSOMGPOCreate: GPMPermissionType = 1049600
+GPMPermissionType_permStarterGPORead: GPMPermissionType = 197888
+GPMPermissionType_permStarterGPOEdit: GPMPermissionType = 197889
+GPMPermissionType_permStarterGPOFullControl: GPMPermissionType = 197890
+GPMPermissionType_permStarterGPOCustom: GPMPermissionType = 197891
+GPMPermissionType_permSOMStarterGPOCreate: GPMPermissionType = 1049856
 GPMReportingOptions = Int32
-GPMReportingOptions_opReportLegacy = 0
-GPMReportingOptions_opReportComments = 1
+GPMReportingOptions_opReportLegacy: GPMReportingOptions = 0
+GPMReportingOptions_opReportComments: GPMReportingOptions = 1
 GPMReportType = Int32
-GPMReportType_repXML = 0
-GPMReportType_repHTML = 1
-GPMReportType_repInfraXML = 2
-GPMReportType_repInfraRefreshXML = 3
-GPMReportType_repClientHealthXML = 4
-GPMReportType_repClientHealthRefreshXML = 5
+GPMReportType_repXML: GPMReportType = 0
+GPMReportType_repHTML: GPMReportType = 1
+GPMReportType_repInfraXML: GPMReportType = 2
+GPMReportType_repInfraRefreshXML: GPMReportType = 3
+GPMReportType_repClientHealthXML: GPMReportType = 4
+GPMReportType_repClientHealthRefreshXML: GPMReportType = 5
 GPMResult = Guid('92101ac0-9287-4206-a3-b2-4b-db-73-d2-25-f6')
 GPMRSOP = Guid('489b0caf-9ec2-4eb7-91-f5-b6-f7-1d-43-da-8c')
 GPMRSOPMode = Int32
-GPMRSOPMode_rsopUnknown = 0
-GPMRSOPMode_rsopPlanning = 1
-GPMRSOPMode_rsopLogging = 2
+GPMRSOPMode_rsopUnknown: GPMRSOPMode = 0
+GPMRSOPMode_rsopPlanning: GPMRSOPMode = 1
+GPMRSOPMode_rsopLogging: GPMRSOPMode = 2
 GPMSearchCriteria = Guid('17aaca26-5ce0-44fa-8c-c0-52-59-e6-48-35-66')
 GPMSearchOperation = Int32
-GPMSearchOperation_opEquals = 0
-GPMSearchOperation_opContains = 1
-GPMSearchOperation_opNotContains = 2
-GPMSearchOperation_opNotEquals = 3
+GPMSearchOperation_opEquals: GPMSearchOperation = 0
+GPMSearchOperation_opContains: GPMSearchOperation = 1
+GPMSearchOperation_opNotContains: GPMSearchOperation = 2
+GPMSearchOperation_opNotEquals: GPMSearchOperation = 3
 GPMSearchProperty = Int32
-GPMSearchProperty_gpoPermissions = 0
-GPMSearchProperty_gpoEffectivePermissions = 1
-GPMSearchProperty_gpoDisplayName = 2
-GPMSearchProperty_gpoWMIFilter = 3
-GPMSearchProperty_gpoID = 4
-GPMSearchProperty_gpoComputerExtensions = 5
-GPMSearchProperty_gpoUserExtensions = 6
-GPMSearchProperty_somLinks = 7
-GPMSearchProperty_gpoDomain = 8
-GPMSearchProperty_backupMostRecent = 9
-GPMSearchProperty_starterGPOPermissions = 10
-GPMSearchProperty_starterGPOEffectivePermissions = 11
-GPMSearchProperty_starterGPODisplayName = 12
-GPMSearchProperty_starterGPOID = 13
-GPMSearchProperty_starterGPODomain = 14
+GPMSearchProperty_gpoPermissions: GPMSearchProperty = 0
+GPMSearchProperty_gpoEffectivePermissions: GPMSearchProperty = 1
+GPMSearchProperty_gpoDisplayName: GPMSearchProperty = 2
+GPMSearchProperty_gpoWMIFilter: GPMSearchProperty = 3
+GPMSearchProperty_gpoID: GPMSearchProperty = 4
+GPMSearchProperty_gpoComputerExtensions: GPMSearchProperty = 5
+GPMSearchProperty_gpoUserExtensions: GPMSearchProperty = 6
+GPMSearchProperty_somLinks: GPMSearchProperty = 7
+GPMSearchProperty_gpoDomain: GPMSearchProperty = 8
+GPMSearchProperty_backupMostRecent: GPMSearchProperty = 9
+GPMSearchProperty_starterGPOPermissions: GPMSearchProperty = 10
+GPMSearchProperty_starterGPOEffectivePermissions: GPMSearchProperty = 11
+GPMSearchProperty_starterGPODisplayName: GPMSearchProperty = 12
+GPMSearchProperty_starterGPOID: GPMSearchProperty = 13
+GPMSearchProperty_starterGPODomain: GPMSearchProperty = 14
 GPMSecurityInfo = Guid('547a5e8f-9162-4516-a4-df-9d-db-96-86-d8-46')
 GPMSitesContainer = Guid('229f5c42-852c-4b30-94-5f-c5-22-be-9b-d3-86')
 GPMSOM = Guid('32d93fac-450e-44cf-82-9c-8b-22-ff-6b-da-e1')
 GPMSOMCollection = Guid('24c1f147-3720-4f5b-a9-c3-06-b4-e4-f9-31-d2')
 GPMSOMType = Int32
-GPMSOMType_somSite = 0
-GPMSOMType_somDomain = 1
-GPMSOMType_somOU = 2
+GPMSOMType_somSite: GPMSOMType = 0
+GPMSOMType_somDomain: GPMSOMType = 1
+GPMSOMType_somOU: GPMSOMType = 2
 GPMStarterGPOBackup = Guid('389e400a-d8ef-455b-a8-61-5f-9c-a3-4a-6a-02')
 GPMStarterGPOBackupCollection = Guid('e75ea59d-1aeb-4cb5-a7-8a-28-1d-aa-58-24-06')
 GPMStarterGPOCollection = Guid('82f8aa8b-49ba-43b2-95-6e-33-97-f9-b9-4c-3a')
 GPMStarterGPOType = Int32
-GPMStarterGPOType_typeSystem = 0
-GPMStarterGPOType_typeCustom = 1
+GPMStarterGPOType_typeSystem: GPMStarterGPOType = 0
+GPMStarterGPOType_typeCustom: GPMStarterGPOType = 1
 GPMStatusMessage = Guid('4b77cc94-d255-409b-bc-62-37-08-81-71-5a-19')
 GPMStatusMsgCollection = Guid('2824e4be-4bcc-4cac-9e-60-0e-3e-d7-f1-24-96')
 GPMTemplate = Guid('ecf1d454-71da-4e2f-a8-c0-81-85-46-59-11-d9')
@@ -412,926 +306,1048 @@ GPMTrustee = Guid('c54a700d-19b6-4211-bc-b0-e8-e2-47-5e-47-1e')
 GPMWMIFilter = Guid('626745d8-0dea-4062-bf-60-cf-c5-b1-ca-12-86')
 GPMWMIFilterCollection = Guid('74dc6d28-e820-47d6-a0-b8-f0-8d-93-d7-fa-33')
 GPO_LINK = Int32
-GPO_LINK_GPLinkUnknown = 0
-GPO_LINK_GPLinkMachine = 1
-GPO_LINK_GPLinkSite = 2
-GPO_LINK_GPLinkDomain = 3
-GPO_LINK_GPLinkOrganizationalUnit = 4
-def _define_GPOBROWSEINFO_head():
-    class GPOBROWSEINFO(Structure):
-        pass
-    return GPOBROWSEINFO
-def _define_GPOBROWSEINFO():
-    GPOBROWSEINFO = win32more.System.GroupPolicy.GPOBROWSEINFO_head
-    GPOBROWSEINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('lpTitle', win32more.Foundation.PWSTR),
-        ('lpInitialOU', win32more.Foundation.PWSTR),
-        ('lpDSPath', win32more.Foundation.PWSTR),
-        ('dwDSPathSize', UInt32),
-        ('lpName', win32more.Foundation.PWSTR),
-        ('dwNameSize', UInt32),
-        ('gpoType', win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE),
-        ('gpoHint', win32more.System.GroupPolicy.GROUP_POLICY_HINT_TYPE),
-    ]
-    return GPOBROWSEINFO
+GPO_LINK_GPLinkUnknown: GPO_LINK = 0
+GPO_LINK_GPLinkMachine: GPO_LINK = 1
+GPO_LINK_GPLinkSite: GPO_LINK = 2
+GPO_LINK_GPLinkDomain: GPO_LINK = 3
+GPO_LINK_GPLinkOrganizationalUnit: GPO_LINK = 4
+class GPOBROWSEINFO(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    lpTitle: win32more.Foundation.PWSTR
+    lpInitialOU: win32more.Foundation.PWSTR
+    lpDSPath: win32more.Foundation.PWSTR
+    dwDSPathSize: UInt32
+    lpName: win32more.Foundation.PWSTR
+    dwNameSize: UInt32
+    gpoType: win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE
+    gpoHint: win32more.System.GroupPolicy.GROUP_POLICY_HINT_TYPE
 GROUP_POLICY_HINT_TYPE = Int32
-GROUP_POLICY_HINT_TYPE_GPHintUnknown = 0
-GROUP_POLICY_HINT_TYPE_GPHintMachine = 1
-GROUP_POLICY_HINT_TYPE_GPHintSite = 2
-GROUP_POLICY_HINT_TYPE_GPHintDomain = 3
-GROUP_POLICY_HINT_TYPE_GPHintOrganizationalUnit = 4
+GROUP_POLICY_HINT_TYPE_GPHintUnknown: GROUP_POLICY_HINT_TYPE = 0
+GROUP_POLICY_HINT_TYPE_GPHintMachine: GROUP_POLICY_HINT_TYPE = 1
+GROUP_POLICY_HINT_TYPE_GPHintSite: GROUP_POLICY_HINT_TYPE = 2
+GROUP_POLICY_HINT_TYPE_GPHintDomain: GROUP_POLICY_HINT_TYPE = 3
+GROUP_POLICY_HINT_TYPE_GPHintOrganizationalUnit: GROUP_POLICY_HINT_TYPE = 4
 GROUP_POLICY_OBJECT_TYPE = Int32
-GROUP_POLICY_OBJECT_TYPE_GPOTypeLocal = 0
-GROUP_POLICY_OBJECT_TYPE_GPOTypeRemote = 1
-GROUP_POLICY_OBJECT_TYPE_GPOTypeDS = 2
-GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalUser = 3
-GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalGroup = 4
-def _define_GROUP_POLICY_OBJECTA_head():
-    class GROUP_POLICY_OBJECTA(Structure):
-        pass
-    return GROUP_POLICY_OBJECTA
-def _define_GROUP_POLICY_OBJECTA():
-    GROUP_POLICY_OBJECTA = win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head
-    GROUP_POLICY_OBJECTA._fields_ = [
-        ('dwOptions', UInt32),
-        ('dwVersion', UInt32),
-        ('lpDSPath', win32more.Foundation.PSTR),
-        ('lpFileSysPath', win32more.Foundation.PSTR),
-        ('lpDisplayName', win32more.Foundation.PSTR),
-        ('szGPOName', win32more.Foundation.CHAR * 50),
-        ('GPOLink', win32more.System.GroupPolicy.GPO_LINK),
-        ('lParam', win32more.Foundation.LPARAM),
-        ('pNext', POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)),
-        ('pPrev', POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)),
-        ('lpExtensions', win32more.Foundation.PSTR),
-        ('lParam2', win32more.Foundation.LPARAM),
-        ('lpLink', win32more.Foundation.PSTR),
-    ]
-    return GROUP_POLICY_OBJECTA
-def _define_GROUP_POLICY_OBJECTW_head():
-    class GROUP_POLICY_OBJECTW(Structure):
-        pass
-    return GROUP_POLICY_OBJECTW
-def _define_GROUP_POLICY_OBJECTW():
-    GROUP_POLICY_OBJECTW = win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head
-    GROUP_POLICY_OBJECTW._fields_ = [
-        ('dwOptions', UInt32),
-        ('dwVersion', UInt32),
-        ('lpDSPath', win32more.Foundation.PWSTR),
-        ('lpFileSysPath', win32more.Foundation.PWSTR),
-        ('lpDisplayName', win32more.Foundation.PWSTR),
-        ('szGPOName', Char * 50),
-        ('GPOLink', win32more.System.GroupPolicy.GPO_LINK),
-        ('lParam', win32more.Foundation.LPARAM),
-        ('pNext', POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)),
-        ('pPrev', POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)),
-        ('lpExtensions', win32more.Foundation.PWSTR),
-        ('lParam2', win32more.Foundation.LPARAM),
-        ('lpLink', win32more.Foundation.PWSTR),
-    ]
-    return GROUP_POLICY_OBJECTW
-def _define_IGPEInformation_head():
-    class IGPEInformation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8fc0b735-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
-    return IGPEInformation
-def _define_IGPEInformation():
-    IGPEInformation = win32more.System.GroupPolicy.IGPEInformation_head
-    IGPEInformation.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(3, 'GetName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
-    IGPEInformation.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(4, 'GetDisplayName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
-    IGPEInformation.GetRegistryKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Registry.HKEY))(5, 'GetRegistryKey', ((1, 'dwSection'),(1, 'hKey'),)))
-    IGPEInformation.GetDSPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,Int32)(6, 'GetDSPath', ((1, 'dwSection'),(1, 'pszPath'),(1, 'cchMaxPath'),)))
-    IGPEInformation.GetFileSysPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,Int32)(7, 'GetFileSysPath', ((1, 'dwSection'),(1, 'pszPath'),(1, 'cchMaxPath'),)))
-    IGPEInformation.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'GetOptions', ((1, 'dwOptions'),)))
-    IGPEInformation.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE))(9, 'GetType', ((1, 'gpoType'),)))
-    IGPEInformation.GetHint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_HINT_TYPE))(10, 'GetHint', ((1, 'gpHint'),)))
-    IGPEInformation.PolicyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Guid))(11, 'PolicyChanged', ((1, 'bMachine'),(1, 'bAdd'),(1, 'pGuidExtension'),(1, 'pGuidSnapin'),)))
-    win32more.System.Com.IUnknown
-    return IGPEInformation
-def _define_IGPM_head():
-    class IGPM(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f5fae809-3bd6-4da9-a6-5e-17-66-5b-41-d7-63')
-    return IGPM
-def _define_IGPM():
-    IGPM = win32more.System.GroupPolicy.IGPM_head
-    IGPM.GetDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.GroupPolicy.IGPMDomain_head))(7, 'GetDomain', ((1, 'bstrDomain'),(1, 'bstrDomainController'),(1, 'lDCFlags'),(1, 'pIGPMDomain'),)))
-    IGPM.GetBackupDir = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMBackupDir_head))(8, 'GetBackupDir', ((1, 'bstrBackupDir'),(1, 'pIGPMBackupDir'),)))
-    IGPM.GetSitesContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.GroupPolicy.IGPMSitesContainer_head))(9, 'GetSitesContainer', ((1, 'bstrForest'),(1, 'bstrDomain'),(1, 'bstrDomainController'),(1, 'lDCFlags'),(1, 'ppIGPMSitesContainer'),)))
-    IGPM.GetRSOP = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMRSOPMode,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.GroupPolicy.IGPMRSOP_head))(10, 'GetRSOP', ((1, 'gpmRSoPMode'),(1, 'bstrNamespace'),(1, 'lFlags'),(1, 'ppIGPMRSOP'),)))
-    IGPM.CreatePermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.GroupPolicy.GPMPermissionType,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.System.GroupPolicy.IGPMPermission_head))(11, 'CreatePermission', ((1, 'bstrTrustee'),(1, 'perm'),(1, 'bInheritable'),(1, 'ppPerm'),)))
-    IGPM.CreateSearchCriteria = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSearchCriteria_head))(12, 'CreateSearchCriteria', ((1, 'ppIGPMSearchCriteria'),)))
-    IGPM.CreateTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMTrustee_head))(13, 'CreateTrustee', ((1, 'bstrTrustee'),(1, 'ppIGPMTrustee'),)))
-    IGPM.GetClientSideExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMCSECollection_head))(14, 'GetClientSideExtensions', ((1, 'ppIGPMCSECollection'),)))
-    IGPM.GetConstants = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMConstants_head))(15, 'GetConstants', ((1, 'ppIGPMConstants'),)))
-    IGPM.GetMigrationTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head))(16, 'GetMigrationTable', ((1, 'bstrMigrationTablePath'),(1, 'ppMigrationTable'),)))
-    IGPM.CreateMigrationTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head))(17, 'CreateMigrationTable', ((1, 'ppMigrationTable'),)))
-    IGPM.InitializeReporting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(18, 'InitializeReporting', ((1, 'bstrAdmPath'),)))
-    win32more.System.Com.IDispatch
-    return IGPM
-def _define_IGPM2_head():
-    class IGPM2(win32more.System.GroupPolicy.IGPM_head):
-        Guid = Guid('00238f8a-3d86-41ac-8f-5e-06-a6-63-8a-63-4a')
-    return IGPM2
-def _define_IGPM2():
-    IGPM2 = win32more.System.GroupPolicy.IGPM2_head
-    IGPM2.GetBackupDirEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.GroupPolicy.GPMBackupType,POINTER(win32more.System.GroupPolicy.IGPMBackupDirEx_head))(19, 'GetBackupDirEx', ((1, 'bstrBackupDir'),(1, 'backupDirType'),(1, 'ppIGPMBackupDirEx'),)))
-    IGPM2.InitializeReportingEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32)(20, 'InitializeReportingEx', ((1, 'bstrAdmPath'),(1, 'reportingOptions'),)))
-    win32more.System.GroupPolicy.IGPM
-    return IGPM2
-def _define_IGPMAsyncCancel_head():
-    class IGPMAsyncCancel(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ddc67754-be67-4541-81-66-f4-81-66-86-8c-9c')
-    return IGPMAsyncCancel
-def _define_IGPMAsyncCancel():
-    IGPMAsyncCancel = win32more.System.GroupPolicy.IGPMAsyncCancel_head
-    IGPMAsyncCancel.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Cancel', ()))
-    win32more.System.Com.IDispatch
-    return IGPMAsyncCancel
-def _define_IGPMAsyncProgress_head():
-    class IGPMAsyncProgress(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6aac29f8-5948-4324-bf-70-42-38-18-94-2d-bc')
-    return IGPMAsyncProgress
-def _define_IGPMAsyncProgress():
-    IGPMAsyncProgress = win32more.System.GroupPolicy.IGPMAsyncProgress_head
-    IGPMAsyncProgress.Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.System.GroupPolicy.IGPMStatusMsgCollection_head)(7, 'Status', ((1, 'lProgressNumerator'),(1, 'lProgressDenominator'),(1, 'hrStatus'),(1, 'pResult'),(1, 'ppIGPMStatusMsgCollection'),)))
-    win32more.System.Com.IDispatch
-    return IGPMAsyncProgress
-def _define_IGPMBackup_head():
-    class IGPMBackup(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d8a16a35-3b0d-416b-8d-02-4d-f6-f9-5a-71-19')
-    return IGPMBackup
-def _define_IGPMBackup():
-    IGPMBackup = win32more.System.GroupPolicy.IGPMBackup_head
-    IGPMBackup.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ID', ((1, 'pVal'),)))
-    IGPMBackup.get_GPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_GPOID', ((1, 'pVal'),)))
-    IGPMBackup.get_GPODomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_GPODomain', ((1, 'pVal'),)))
-    IGPMBackup.get_GPODisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_GPODisplayName', ((1, 'pVal'),)))
-    IGPMBackup.get_Timestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(11, 'get_Timestamp', ((1, 'pVal'),)))
-    IGPMBackup.get_Comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Comment', ((1, 'pVal'),)))
-    IGPMBackup.get_BackupDir = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_BackupDir', ((1, 'pVal'),)))
-    IGPMBackup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Delete', ()))
-    IGPMBackup.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(15, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMBackup.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(16, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
-    win32more.System.Com.IDispatch
-    return IGPMBackup
-def _define_IGPMBackupCollection_head():
-    class IGPMBackupCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c786fc0f-26d8-4bab-a7-45-39-ca-7e-80-0c-ac')
-    return IGPMBackupCollection
-def _define_IGPMBackupCollection():
-    IGPMBackupCollection = win32more.System.GroupPolicy.IGPMBackupCollection_head
-    IGPMBackupCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMBackupCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMBackupCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMBackup'),)))
-    win32more.System.Com.IDispatch
-    return IGPMBackupCollection
-def _define_IGPMBackupDir_head():
-    class IGPMBackupDir(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b1568bed-0a93-4acc-81-0f-af-e7-08-10-19-b9')
-    return IGPMBackupDir
-def _define_IGPMBackupDir():
-    IGPMBackupDir = win32more.System.GroupPolicy.IGPMBackupDir_head
-    IGPMBackupDir.get_BackupDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_BackupDirectory', ((1, 'pVal'),)))
-    IGPMBackupDir.GetBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMBackup_head))(8, 'GetBackup', ((1, 'bstrID'),(1, 'ppBackup'),)))
-    IGPMBackupDir.SearchBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMBackupCollection_head))(9, 'SearchBackups', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMBackupCollection'),)))
-    win32more.System.Com.IDispatch
-    return IGPMBackupDir
-def _define_IGPMBackupDirEx_head():
-    class IGPMBackupDirEx(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f8dc55ed-3ba0-4864-aa-d4-d3-65-18-9e-e1-d5')
-    return IGPMBackupDirEx
-def _define_IGPMBackupDirEx():
-    IGPMBackupDirEx = win32more.System.GroupPolicy.IGPMBackupDirEx_head
-    IGPMBackupDirEx.get_BackupDir = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_BackupDir', ((1, 'pbstrBackupDir'),)))
-    IGPMBackupDirEx.get_BackupType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMBackupType))(8, 'get_BackupType', ((1, 'pgpmBackupType'),)))
-    IGPMBackupDirEx.GetBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetBackup', ((1, 'bstrID'),(1, 'pvarBackup'),)))
-    IGPMBackupDirEx.SearchBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.Com.VARIANT_head))(10, 'SearchBackups', ((1, 'pIGPMSearchCriteria'),(1, 'pvarBackupCollection'),)))
-    win32more.System.Com.IDispatch
-    return IGPMBackupDirEx
-def _define_IGPMClientSideExtension_head():
-    class IGPMClientSideExtension(win32more.System.Com.IDispatch_head):
-        Guid = Guid('69da7488-b8db-415e-92-66-90-1b-e4-d4-99-28')
-    return IGPMClientSideExtension
-def _define_IGPMClientSideExtension():
-    IGPMClientSideExtension = win32more.System.GroupPolicy.IGPMClientSideExtension_head
-    IGPMClientSideExtension.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ID', ((1, 'pVal'),)))
-    IGPMClientSideExtension.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_DisplayName', ((1, 'pVal'),)))
-    IGPMClientSideExtension.IsUserEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'IsUserEnabled', ((1, 'pvbEnabled'),)))
-    IGPMClientSideExtension.IsComputerEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'IsComputerEnabled', ((1, 'pvbEnabled'),)))
-    win32more.System.Com.IDispatch
-    return IGPMClientSideExtension
-def _define_IGPMConstants_head():
-    class IGPMConstants(win32more.System.Com.IDispatch_head):
-        Guid = Guid('50ef73e6-d35c-4c8d-be-63-7e-a5-d2-aa-c5-c4')
-    return IGPMConstants
-def _define_IGPMConstants():
-    IGPMConstants = win32more.System.GroupPolicy.IGPMConstants_head
-    IGPMConstants.get_PermGPOApply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(7, 'get_PermGPOApply', ((1, 'pVal'),)))
-    IGPMConstants.get_PermGPORead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(8, 'get_PermGPORead', ((1, 'pVal'),)))
-    IGPMConstants.get_PermGPOEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(9, 'get_PermGPOEdit', ((1, 'pVal'),)))
-    IGPMConstants.get_PermGPOEditSecurityAndDelete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(10, 'get_PermGPOEditSecurityAndDelete', ((1, 'pVal'),)))
-    IGPMConstants.get_PermGPOCustom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(11, 'get_PermGPOCustom', ((1, 'pVal'),)))
-    IGPMConstants.get_PermWMIFilterEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(12, 'get_PermWMIFilterEdit', ((1, 'pVal'),)))
-    IGPMConstants.get_PermWMIFilterFullControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(13, 'get_PermWMIFilterFullControl', ((1, 'pVal'),)))
-    IGPMConstants.get_PermWMIFilterCustom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(14, 'get_PermWMIFilterCustom', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(15, 'get_PermSOMLink', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMLogging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(16, 'get_PermSOMLogging', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMPlanning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(17, 'get_PermSOMPlanning', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMGPOCreate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(18, 'get_PermSOMGPOCreate', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMWMICreate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(19, 'get_PermSOMWMICreate', ((1, 'pVal'),)))
-    IGPMConstants.get_PermSOMWMIFullControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(20, 'get_PermSOMWMIFullControl', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(21, 'get_SearchPropertyGPOPermissions', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOEffectivePermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(22, 'get_SearchPropertyGPOEffectivePermissions', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPODisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(23, 'get_SearchPropertyGPODisplayName', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOWMIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(24, 'get_SearchPropertyGPOWMIFilter', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(25, 'get_SearchPropertyGPOID', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOComputerExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(26, 'get_SearchPropertyGPOComputerExtensions', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPOUserExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(27, 'get_SearchPropertyGPOUserExtensions', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertySOMLinks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(28, 'get_SearchPropertySOMLinks', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyGPODomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(29, 'get_SearchPropertyGPODomain', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchPropertyBackupMostRecent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(30, 'get_SearchPropertyBackupMostRecent', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchOpEquals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchOperation))(31, 'get_SearchOpEquals', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchOpContains = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchOperation))(32, 'get_SearchOpContains', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchOpNotContains = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchOperation))(33, 'get_SearchOpNotContains', ((1, 'pVal'),)))
-    IGPMConstants.get_SearchOpNotEquals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchOperation))(34, 'get_SearchOpNotEquals', ((1, 'pVal'),)))
-    IGPMConstants.get_UsePDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(35, 'get_UsePDC', ((1, 'pVal'),)))
-    IGPMConstants.get_UseAnyDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(36, 'get_UseAnyDC', ((1, 'pVal'),)))
-    IGPMConstants.get_DoNotUseW2KDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(37, 'get_DoNotUseW2KDC', ((1, 'pVal'),)))
-    IGPMConstants.get_SOMSite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSOMType))(38, 'get_SOMSite', ((1, 'pVal'),)))
-    IGPMConstants.get_SOMDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSOMType))(39, 'get_SOMDomain', ((1, 'pVal'),)))
-    IGPMConstants.get_SOMOU = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSOMType))(40, 'get_SOMOU', ((1, 'pVal'),)))
-    IGPMConstants.get_SecurityFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL,POINTER(Int32))(41, 'get_SecurityFlags', ((1, 'vbOwner'),(1, 'vbGroup'),(1, 'vbDACL'),(1, 'vbSACL'),(1, 'pVal'),)))
-    IGPMConstants.get_DoNotValidateDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(42, 'get_DoNotValidateDC', ((1, 'pVal'),)))
-    IGPMConstants.get_ReportHTML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportType))(43, 'get_ReportHTML', ((1, 'pVal'),)))
-    IGPMConstants.get_ReportXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportType))(44, 'get_ReportXML', ((1, 'pVal'),)))
-    IGPMConstants.get_RSOPModeUnknown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMRSOPMode))(45, 'get_RSOPModeUnknown', ((1, 'pVal'),)))
-    IGPMConstants.get_RSOPModePlanning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMRSOPMode))(46, 'get_RSOPModePlanning', ((1, 'pVal'),)))
-    IGPMConstants.get_RSOPModeLogging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMRSOPMode))(47, 'get_RSOPModeLogging', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(48, 'get_EntryTypeUser', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(49, 'get_EntryTypeComputer', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeLocalGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(50, 'get_EntryTypeLocalGroup', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeGlobalGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(51, 'get_EntryTypeGlobalGroup', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeUniversalGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(52, 'get_EntryTypeUniversalGroup', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeUNCPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(53, 'get_EntryTypeUNCPath', ((1, 'pVal'),)))
-    IGPMConstants.get_EntryTypeUnknown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(54, 'get_EntryTypeUnknown', ((1, 'pVal'),)))
-    IGPMConstants.get_DestinationOptionSameAsSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption))(55, 'get_DestinationOptionSameAsSource', ((1, 'pVal'),)))
-    IGPMConstants.get_DestinationOptionNone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption))(56, 'get_DestinationOptionNone', ((1, 'pVal'),)))
-    IGPMConstants.get_DestinationOptionByRelativeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption))(57, 'get_DestinationOptionByRelativeName', ((1, 'pVal'),)))
-    IGPMConstants.get_DestinationOptionSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption))(58, 'get_DestinationOptionSet', ((1, 'pVal'),)))
-    IGPMConstants.get_MigrationTableOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(59, 'get_MigrationTableOnly', ((1, 'pVal'),)))
-    IGPMConstants.get_ProcessSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(60, 'get_ProcessSecurity', ((1, 'pVal'),)))
-    IGPMConstants.get_RsopLoggingNoComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(61, 'get_RsopLoggingNoComputer', ((1, 'pVal'),)))
-    IGPMConstants.get_RsopLoggingNoUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(62, 'get_RsopLoggingNoUser', ((1, 'pVal'),)))
-    IGPMConstants.get_RsopPlanningAssumeSlowLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(63, 'get_RsopPlanningAssumeSlowLink', ((1, 'pVal'),)))
-    IGPMConstants.get_RsopPlanningLoopbackOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,POINTER(Int32))(64, 'get_RsopPlanningLoopbackOption', ((1, 'vbMerge'),(1, 'pVal'),)))
-    IGPMConstants.get_RsopPlanningAssumeUserWQLFilterTrue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(65, 'get_RsopPlanningAssumeUserWQLFilterTrue', ((1, 'pVal'),)))
-    IGPMConstants.get_RsopPlanningAssumeCompWQLFilterTrue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(66, 'get_RsopPlanningAssumeCompWQLFilterTrue', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMConstants
-def _define_IGPMConstants2_head():
-    class IGPMConstants2(win32more.System.GroupPolicy.IGPMConstants_head):
-        Guid = Guid('05ae21b0-ac09-4032-a2-6f-9e-7d-a7-86-dc-19')
-    return IGPMConstants2
-def _define_IGPMConstants2():
-    IGPMConstants2 = win32more.System.GroupPolicy.IGPMConstants2_head
-    IGPMConstants2.get_BackupTypeGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMBackupType))(67, 'get_BackupTypeGPO', ((1, 'pVal'),)))
-    IGPMConstants2.get_BackupTypeStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMBackupType))(68, 'get_BackupTypeStarterGPO', ((1, 'pVal'),)))
-    IGPMConstants2.get_StarterGPOTypeSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMStarterGPOType))(69, 'get_StarterGPOTypeSystem', ((1, 'pVal'),)))
-    IGPMConstants2.get_StarterGPOTypeCustom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMStarterGPOType))(70, 'get_StarterGPOTypeCustom', ((1, 'pVal'),)))
-    IGPMConstants2.get_SearchPropertyStarterGPOPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(71, 'get_SearchPropertyStarterGPOPermissions', ((1, 'pVal'),)))
-    IGPMConstants2.get_SearchPropertyStarterGPOEffectivePermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(72, 'get_SearchPropertyStarterGPOEffectivePermissions', ((1, 'pVal'),)))
-    IGPMConstants2.get_SearchPropertyStarterGPODisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(73, 'get_SearchPropertyStarterGPODisplayName', ((1, 'pVal'),)))
-    IGPMConstants2.get_SearchPropertyStarterGPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(74, 'get_SearchPropertyStarterGPOID', ((1, 'pVal'),)))
-    IGPMConstants2.get_SearchPropertyStarterGPODomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSearchProperty))(75, 'get_SearchPropertyStarterGPODomain', ((1, 'pVal'),)))
-    IGPMConstants2.get_PermStarterGPORead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(76, 'get_PermStarterGPORead', ((1, 'pVal'),)))
-    IGPMConstants2.get_PermStarterGPOEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(77, 'get_PermStarterGPOEdit', ((1, 'pVal'),)))
-    IGPMConstants2.get_PermStarterGPOFullControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(78, 'get_PermStarterGPOFullControl', ((1, 'pVal'),)))
-    IGPMConstants2.get_PermStarterGPOCustom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(79, 'get_PermStarterGPOCustom', ((1, 'pVal'),)))
-    IGPMConstants2.get_ReportLegacy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportingOptions))(80, 'get_ReportLegacy', ((1, 'pVal'),)))
-    IGPMConstants2.get_ReportComments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportingOptions))(81, 'get_ReportComments', ((1, 'pVal'),)))
-    win32more.System.GroupPolicy.IGPMConstants
-    return IGPMConstants2
-def _define_IGPMCSECollection_head():
-    class IGPMCSECollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('2e52a97d-0a4a-4a6f-85-db-20-16-22-45-5d-a0')
-    return IGPMCSECollection
-def _define_IGPMCSECollection():
-    IGPMCSECollection = win32more.System.GroupPolicy.IGPMCSECollection_head
-    IGPMCSECollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMCSECollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMCSECollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMCSEs'),)))
-    win32more.System.Com.IDispatch
-    return IGPMCSECollection
-def _define_IGPMDomain_head():
-    class IGPMDomain(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6b21cc14-5a00-4f44-a7-38-fe-ec-8a-94-c7-e3')
-    return IGPMDomain
-def _define_IGPMDomain():
-    IGPMDomain = win32more.System.GroupPolicy.IGPMDomain_head
-    IGPMDomain.get_DomainController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_DomainController', ((1, 'pVal'),)))
-    IGPMDomain.get_Domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Domain', ((1, 'pVal'),)))
-    IGPMDomain.CreateGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMGPO_head))(9, 'CreateGPO', ((1, 'ppNewGPO'),)))
-    IGPMDomain.GetGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMGPO_head))(10, 'GetGPO', ((1, 'bstrGuid'),(1, 'ppGPO'),)))
-    IGPMDomain.SearchGPOs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMGPOCollection_head))(11, 'SearchGPOs', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMGPOCollection'),)))
-    IGPMDomain.RestoreGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMBackup_head,Int32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(12, 'RestoreGPO', ((1, 'pIGPMBackup'),(1, 'lDCFlags'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMDomain.GetSOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMSOM_head))(13, 'GetSOM', ((1, 'bstrPath'),(1, 'ppSOM'),)))
-    IGPMDomain.SearchSOMs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head))(14, 'SearchSOMs', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMSOMCollection'),)))
-    IGPMDomain.GetWMIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMWMIFilter_head))(15, 'GetWMIFilter', ((1, 'bstrPath'),(1, 'ppWMIFilter'),)))
-    IGPMDomain.SearchWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMWMIFilterCollection_head))(16, 'SearchWMIFilters', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMWMIFilterCollection'),)))
-    win32more.System.Com.IDispatch
-    return IGPMDomain
-def _define_IGPMDomain2_head():
-    class IGPMDomain2(win32more.System.GroupPolicy.IGPMDomain_head):
-        Guid = Guid('7ca6bb8b-f1eb-490a-93-8d-3c-4e-51-c7-68-e6')
-    return IGPMDomain2
-def _define_IGPMDomain2():
-    IGPMDomain2 = win32more.System.GroupPolicy.IGPMDomain2_head
-    IGPMDomain2.CreateStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMStarterGPO_head))(17, 'CreateStarterGPO', ((1, 'ppnewTemplate'),)))
-    IGPMDomain2.CreateGPOFromStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMStarterGPO_head,POINTER(win32more.System.GroupPolicy.IGPMGPO_head))(18, 'CreateGPOFromStarterGPO', ((1, 'pGPOTemplate'),(1, 'ppnewGPO'),)))
-    IGPMDomain2.GetStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMStarterGPO_head))(19, 'GetStarterGPO', ((1, 'bstrGuid'),(1, 'ppTemplate'),)))
-    IGPMDomain2.SearchStarterGPOs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMStarterGPOCollection_head))(20, 'SearchStarterGPOs', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMTemplateCollection'),)))
-    IGPMDomain2.LoadStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(21, 'LoadStarterGPO', ((1, 'bstrLoadFile'),(1, 'bOverwrite'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMDomain2.RestoreStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMStarterGPOBackup_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(22, 'RestoreStarterGPO', ((1, 'pIGPMTmplBackup'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    win32more.System.GroupPolicy.IGPMDomain
-    return IGPMDomain2
-def _define_IGPMDomain3_head():
-    class IGPMDomain3(win32more.System.GroupPolicy.IGPMDomain2_head):
-        Guid = Guid('0077fdfe-88c7-4acf-a1-1d-d1-0a-7c-31-0a-03')
-    return IGPMDomain3
-def _define_IGPMDomain3():
-    IGPMDomain3 = win32more.System.GroupPolicy.IGPMDomain3_head
-    IGPMDomain3.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(23, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMDomain3.get_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_InfrastructureDC', ((1, 'pVal'),)))
-    IGPMDomain3.put_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(25, 'put_InfrastructureDC', ((1, 'newVal'),)))
-    IGPMDomain3.put_InfrastructureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(26, 'put_InfrastructureFlags', ((1, 'dwFlags'),)))
-    win32more.System.GroupPolicy.IGPMDomain2
-    return IGPMDomain3
-def _define_IGPMGPO_head():
-    class IGPMGPO(win32more.System.Com.IDispatch_head):
-        Guid = Guid('58cc4352-1ca3-48e5-98-64-1d-a4-d6-e0-d6-0f')
-    return IGPMGPO
-def _define_IGPMGPO():
-    IGPMGPO = win32more.System.GroupPolicy.IGPMGPO_head
-    IGPMGPO.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_DisplayName', ((1, 'pVal'),)))
-    IGPMGPO.put_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_DisplayName', ((1, 'newVal'),)))
-    IGPMGPO.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Path', ((1, 'pVal'),)))
-    IGPMGPO.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_ID', ((1, 'pVal'),)))
-    IGPMGPO.get_DomainName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_DomainName', ((1, 'pVal'),)))
-    IGPMGPO.get_CreationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_CreationTime', ((1, 'pDate'),)))
-    IGPMGPO.get_ModificationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_ModificationTime', ((1, 'pDate'),)))
-    IGPMGPO.get_UserDSVersionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_UserDSVersionNumber', ((1, 'pVal'),)))
-    IGPMGPO.get_ComputerDSVersionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_ComputerDSVersionNumber', ((1, 'pVal'),)))
-    IGPMGPO.get_UserSysvolVersionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_UserSysvolVersionNumber', ((1, 'pVal'),)))
-    IGPMGPO.get_ComputerSysvolVersionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_ComputerSysvolVersionNumber', ((1, 'pVal'),)))
-    IGPMGPO.GetWMIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMWMIFilter_head))(18, 'GetWMIFilter', ((1, 'ppIGPMWMIFilter'),)))
-    IGPMGPO.SetWMIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMWMIFilter_head)(19, 'SetWMIFilter', ((1, 'pIGPMWMIFilter'),)))
-    IGPMGPO.SetUserEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(20, 'SetUserEnabled', ((1, 'vbEnabled'),)))
-    IGPMGPO.SetComputerEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(21, 'SetComputerEnabled', ((1, 'vbEnabled'),)))
-    IGPMGPO.IsUserEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(22, 'IsUserEnabled', ((1, 'pvbEnabled'),)))
-    IGPMGPO.IsComputerEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(23, 'IsComputerEnabled', ((1, 'pvbEnabled'),)))
-    IGPMGPO.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head))(24, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
-    IGPMGPO.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head)(25, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
-    IGPMGPO.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(26, 'Delete', ()))
-    IGPMGPO.Backup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(27, 'Backup', ((1, 'bstrBackupDir'),(1, 'bstrComment'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMGPO.Import = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.GroupPolicy.IGPMBackup_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(28, 'Import', ((1, 'lFlags'),(1, 'pIGPMBackup'),(1, 'pvarMigrationTable'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMGPO.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(29, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMGPO.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(30, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
-    IGPMGPO.CopyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.GroupPolicy.IGPMDomain_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(31, 'CopyTo', ((1, 'lFlags'),(1, 'pIGPMDomain'),(1, 'pvarNewDisplayName'),(1, 'pvarMigrationTable'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMGPO.SetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.IDispatch_head)(32, 'SetSecurityDescriptor', ((1, 'lFlags'),(1, 'pSD'),)))
-    IGPMGPO.GetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head))(33, 'GetSecurityDescriptor', ((1, 'lFlags'),(1, 'ppSD'),)))
-    IGPMGPO.IsACLConsistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(34, 'IsACLConsistent', ((1, 'pvbConsistent'),)))
-    IGPMGPO.MakeACLConsistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(35, 'MakeACLConsistent', ()))
-    win32more.System.Com.IDispatch
-    return IGPMGPO
-def _define_IGPMGPO2_head():
-    class IGPMGPO2(win32more.System.GroupPolicy.IGPMGPO_head):
-        Guid = Guid('8a66a210-b78b-4d99-88-e2-c3-06-a8-17-c9-25')
-    return IGPMGPO2
-def _define_IGPMGPO2():
-    IGPMGPO2 = win32more.System.GroupPolicy.IGPMGPO2_head
-    IGPMGPO2.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(36, 'get_Description', ((1, 'pVal'),)))
-    IGPMGPO2.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(37, 'put_Description', ((1, 'newVal'),)))
-    win32more.System.GroupPolicy.IGPMGPO
-    return IGPMGPO2
-def _define_IGPMGPO3_head():
-    class IGPMGPO3(win32more.System.GroupPolicy.IGPMGPO2_head):
-        Guid = Guid('7cf123a1-f94a-4112-bf-ae-6a-a1-db-9c-b2-48')
-    return IGPMGPO3
-def _define_IGPMGPO3():
-    IGPMGPO3 = win32more.System.GroupPolicy.IGPMGPO3_head
-    IGPMGPO3.get_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(38, 'get_InfrastructureDC', ((1, 'pVal'),)))
-    IGPMGPO3.put_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(39, 'put_InfrastructureDC', ((1, 'newVal'),)))
-    IGPMGPO3.put_InfrastructureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(40, 'put_InfrastructureFlags', ((1, 'dwFlags'),)))
-    win32more.System.GroupPolicy.IGPMGPO2
-    return IGPMGPO3
-def _define_IGPMGPOCollection_head():
-    class IGPMGPOCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f0f0d5cf-70ca-4c39-9e-29-b6-42-f8-72-6c-01')
-    return IGPMGPOCollection
-def _define_IGPMGPOCollection():
-    IGPMGPOCollection = win32more.System.GroupPolicy.IGPMGPOCollection_head
-    IGPMGPOCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMGPOCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMGPOCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMGPOs'),)))
-    win32more.System.Com.IDispatch
-    return IGPMGPOCollection
-def _define_IGPMGPOLink_head():
-    class IGPMGPOLink(win32more.System.Com.IDispatch_head):
-        Guid = Guid('434b99bd-5de7-478a-80-9c-c2-51-72-1d-f7-0c')
-    return IGPMGPOLink
-def _define_IGPMGPOLink():
-    IGPMGPOLink = win32more.System.GroupPolicy.IGPMGPOLink_head
-    IGPMGPOLink.get_GPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_GPOID', ((1, 'pVal'),)))
-    IGPMGPOLink.get_GPODomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_GPODomain', ((1, 'pVal'),)))
-    IGPMGPOLink.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_Enabled', ((1, 'pVal'),)))
-    IGPMGPOLink.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(10, 'put_Enabled', ((1, 'newVal'),)))
-    IGPMGPOLink.get_Enforced = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(11, 'get_Enforced', ((1, 'pVal'),)))
-    IGPMGPOLink.put_Enforced = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(12, 'put_Enforced', ((1, 'newVal'),)))
-    IGPMGPOLink.get_SOMLinkOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_SOMLinkOrder', ((1, 'lVal'),)))
-    IGPMGPOLink.get_SOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSOM_head))(14, 'get_SOM', ((1, 'ppIGPMSOM'),)))
-    IGPMGPOLink.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return IGPMGPOLink
-def _define_IGPMGPOLinksCollection_head():
-    class IGPMGPOLinksCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('189d7b68-16bd-4d0d-a2-ec-2e-6a-a2-28-8c-7f')
-    return IGPMGPOLinksCollection
-def _define_IGPMGPOLinksCollection():
-    IGPMGPOLinksCollection = win32more.System.GroupPolicy.IGPMGPOLinksCollection_head
-    IGPMGPOLinksCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMGPOLinksCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMGPOLinksCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMLinks'),)))
-    win32more.System.Com.IDispatch
-    return IGPMGPOLinksCollection
-def _define_IGPMMapEntry_head():
-    class IGPMMapEntry(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8e79ad06-2381-4444-be-4c-ff-69-3e-6e-6f-2b')
-    return IGPMMapEntry
-def _define_IGPMMapEntry():
-    IGPMMapEntry = win32more.System.GroupPolicy.IGPMMapEntry_head
-    IGPMMapEntry.get_Source = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Source', ((1, 'pbstrSource'),)))
-    IGPMMapEntry.get_Destination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Destination', ((1, 'pbstrDestination'),)))
-    IGPMMapEntry.get_DestinationOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption))(9, 'get_DestinationOption', ((1, 'pgpmDestOption'),)))
-    IGPMMapEntry.get_EntryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType))(10, 'get_EntryType', ((1, 'pgpmEntryType'),)))
-    win32more.System.Com.IDispatch
-    return IGPMMapEntry
-def _define_IGPMMapEntryCollection_head():
-    class IGPMMapEntryCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('bb0bf49b-e53f-443f-b8-07-8b-e2-2b-fb-6d-42')
-    return IGPMMapEntryCollection
-def _define_IGPMMapEntryCollection():
-    IGPMMapEntryCollection = win32more.System.GroupPolicy.IGPMMapEntryCollection_head
-    IGPMMapEntryCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMMapEntryCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMMapEntryCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMMapEntryCollection
-def _define_IGPMMigrationTable_head():
-    class IGPMMigrationTable(win32more.System.Com.IDispatch_head):
-        Guid = Guid('48f823b1-efaf-470b-b6-ed-40-d1-4e-e1-a4-ec')
-    return IGPMMigrationTable
-def _define_IGPMMigrationTable():
-    IGPMMigrationTable = win32more.System.GroupPolicy.IGPMMigrationTable_head
-    IGPMMigrationTable.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'Save', ((1, 'bstrMigrationTablePath'),)))
-    IGPMMigrationTable.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT)(8, 'Add', ((1, 'lFlags'),(1, 'var'),)))
-    IGPMMigrationTable.AddEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.GroupPolicy.GPMEntryType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head))(9, 'AddEntry', ((1, 'bstrSource'),(1, 'gpmEntryType'),(1, 'pvarDestination'),(1, 'ppEntry'),)))
-    IGPMMigrationTable.GetEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head))(10, 'GetEntry', ((1, 'bstrSource'),(1, 'ppEntry'),)))
-    IGPMMigrationTable.DeleteEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'DeleteEntry', ((1, 'bstrSource'),)))
-    IGPMMigrationTable.UpdateDestination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head))(12, 'UpdateDestination', ((1, 'bstrSource'),(1, 'pvarDestination'),(1, 'ppEntry'),)))
-    IGPMMigrationTable.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(13, 'Validate', ((1, 'ppResult'),)))
-    IGPMMigrationTable.GetEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMMapEntryCollection_head))(14, 'GetEntries', ((1, 'ppEntries'),)))
-    win32more.System.Com.IDispatch
-    return IGPMMigrationTable
-def _define_IGPMPermission_head():
-    class IGPMPermission(win32more.System.Com.IDispatch_head):
-        Guid = Guid('35ebca40-e1a1-4a02-89-05-d7-94-16-fb-46-4a')
-    return IGPMPermission
-def _define_IGPMPermission():
-    IGPMPermission = win32more.System.GroupPolicy.IGPMPermission_head
-    IGPMPermission.get_Inherited = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_Inherited', ((1, 'pVal'),)))
-    IGPMPermission.get_Inheritable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_Inheritable', ((1, 'pVal'),)))
-    IGPMPermission.get_Denied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_Denied', ((1, 'pVal'),)))
-    IGPMPermission.get_Permission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType))(10, 'get_Permission', ((1, 'pVal'),)))
-    IGPMPermission.get_Trustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMTrustee_head))(11, 'get_Trustee', ((1, 'ppIGPMTrustee'),)))
-    win32more.System.Com.IDispatch
-    return IGPMPermission
-def _define_IGPMResult_head():
-    class IGPMResult(win32more.System.Com.IDispatch_head):
-        Guid = Guid('86dff7e9-f76f-42ab-95-70-ce-bc-6b-e8-a5-2d')
-    return IGPMResult
-def _define_IGPMResult():
-    IGPMResult = win32more.System.GroupPolicy.IGPMResult_head
-    IGPMResult.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMStatusMsgCollection_head))(7, 'get_Status', ((1, 'ppIGPMStatusMsgCollection'),)))
-    IGPMResult.get_Result = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Result', ((1, 'pvarResult'),)))
-    IGPMResult.OverallStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'OverallStatus', ()))
-    win32more.System.Com.IDispatch
-    return IGPMResult
-def _define_IGPMRSOP_head():
-    class IGPMRSOP(win32more.System.Com.IDispatch_head):
-        Guid = Guid('49ed785a-3237-4ff2-b1-f0-fd-f5-a8-d5-a1-ee')
-    return IGPMRSOP
-def _define_IGPMRSOP():
-    IGPMRSOP = win32more.System.GroupPolicy.IGPMRSOP_head
-    IGPMRSOP.get_Mode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMRSOPMode))(7, 'get_Mode', ((1, 'pVal'),)))
-    IGPMRSOP.get_Namespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Namespace', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_LoggingComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_LoggingComputer', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_LoggingComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_LoggingComputer', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_LoggingUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'put_LoggingUser', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_LoggingUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_LoggingUser', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_LoggingFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(13, 'put_LoggingFlags', ((1, 'lVal'),)))
-    IGPMRSOP.get_LoggingFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_LoggingFlags', ((1, 'lVal'),)))
-    IGPMRSOP.put_PlanningFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(15, 'put_PlanningFlags', ((1, 'lVal'),)))
-    IGPMRSOP.get_PlanningFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_PlanningFlags', ((1, 'lVal'),)))
-    IGPMRSOP.put_PlanningDomainController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'put_PlanningDomainController', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningDomainController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_PlanningDomainController', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningSiteName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_PlanningSiteName', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningSiteName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(20, 'get_PlanningSiteName', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(21, 'put_PlanningUser', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_PlanningUser', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningUserSOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(23, 'put_PlanningUserSOM', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningUserSOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_PlanningUserSOM', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningUserWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(25, 'put_PlanningUserWMIFilters', ((1, 'varVal'),)))
-    IGPMRSOP.get_PlanningUserWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(26, 'get_PlanningUserWMIFilters', ((1, 'varVal'),)))
-    IGPMRSOP.put_PlanningUserSecurityGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(27, 'put_PlanningUserSecurityGroups', ((1, 'varVal'),)))
-    IGPMRSOP.get_PlanningUserSecurityGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(28, 'get_PlanningUserSecurityGroups', ((1, 'varVal'),)))
-    IGPMRSOP.put_PlanningComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(29, 'put_PlanningComputer', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(30, 'get_PlanningComputer', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningComputerSOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(31, 'put_PlanningComputerSOM', ((1, 'bstrVal'),)))
-    IGPMRSOP.get_PlanningComputerSOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(32, 'get_PlanningComputerSOM', ((1, 'bstrVal'),)))
-    IGPMRSOP.put_PlanningComputerWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(33, 'put_PlanningComputerWMIFilters', ((1, 'varVal'),)))
-    IGPMRSOP.get_PlanningComputerWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(34, 'get_PlanningComputerWMIFilters', ((1, 'varVal'),)))
-    IGPMRSOP.put_PlanningComputerSecurityGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(35, 'put_PlanningComputerSecurityGroups', ((1, 'varVal'),)))
-    IGPMRSOP.get_PlanningComputerSecurityGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(36, 'get_PlanningComputerSecurityGroups', ((1, 'varVal'),)))
-    IGPMRSOP.LoggingEnumerateUsers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(37, 'LoggingEnumerateUsers', ((1, 'varVal'),)))
-    IGPMRSOP.CreateQueryResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(38, 'CreateQueryResults', ()))
-    IGPMRSOP.ReleaseQueryResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(39, 'ReleaseQueryResults', ()))
-    IGPMRSOP.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(40, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMRSOP.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(41, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
-    win32more.System.Com.IDispatch
-    return IGPMRSOP
-def _define_IGPMSearchCriteria_head():
-    class IGPMSearchCriteria(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d6f11c42-829b-48d4-83-f5-36-15-b6-7d-fc-22')
-    return IGPMSearchCriteria
-def _define_IGPMSearchCriteria():
-    IGPMSearchCriteria = win32more.System.GroupPolicy.IGPMSearchCriteria_head
-    IGPMSearchCriteria.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMSearchProperty,win32more.System.GroupPolicy.GPMSearchOperation,win32more.System.Com.VARIANT)(7, 'Add', ((1, 'searchProperty'),(1, 'searchOperation'),(1, 'varValue'),)))
-    win32more.System.Com.IDispatch
-    return IGPMSearchCriteria
-def _define_IGPMSecurityInfo_head():
-    class IGPMSecurityInfo(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b6c31ed4-1c93-4d3e-ae-84-eb-6d-61-16-1b-60')
-    return IGPMSecurityInfo
-def _define_IGPMSecurityInfo():
-    IGPMSecurityInfo = win32more.System.GroupPolicy.IGPMSecurityInfo_head
-    IGPMSecurityInfo.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMSecurityInfo.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMSecurityInfo.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppEnum'),)))
-    IGPMSecurityInfo.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMPermission_head)(10, 'Add', ((1, 'pPerm'),)))
-    IGPMSecurityInfo.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMPermission_head)(11, 'Remove', ((1, 'pPerm'),)))
-    IGPMSecurityInfo.RemoveTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'RemoveTrustee', ((1, 'bstrTrustee'),)))
-    win32more.System.Com.IDispatch
-    return IGPMSecurityInfo
-def _define_IGPMSitesContainer_head():
-    class IGPMSitesContainer(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4725a899-2782-4d27-a6-bb-d4-99-24-6f-fd-72')
-    return IGPMSitesContainer
-def _define_IGPMSitesContainer():
-    IGPMSitesContainer = win32more.System.GroupPolicy.IGPMSitesContainer_head
-    IGPMSitesContainer.get_DomainController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_DomainController', ((1, 'pVal'),)))
-    IGPMSitesContainer.get_Domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Domain', ((1, 'pVal'),)))
-    IGPMSitesContainer.get_Forest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Forest', ((1, 'pVal'),)))
-    IGPMSitesContainer.GetSite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMSOM_head))(10, 'GetSite', ((1, 'bstrSiteName'),(1, 'ppSOM'),)))
-    IGPMSitesContainer.SearchSites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head))(11, 'SearchSites', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMSOMCollection'),)))
-    win32more.System.Com.IDispatch
-    return IGPMSitesContainer
-def _define_IGPMSOM_head():
-    class IGPMSOM(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c0a7f09e-05a1-4f0c-81-58-9e-5c-33-68-4f-6b')
-    return IGPMSOM
-def _define_IGPMSOM():
-    IGPMSOM = win32more.System.GroupPolicy.IGPMSOM_head
-    IGPMSOM.get_GPOInheritanceBlocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_GPOInheritanceBlocked', ((1, 'pVal'),)))
-    IGPMSOM.put_GPOInheritanceBlocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(8, 'put_GPOInheritanceBlocked', ((1, 'newVal'),)))
-    IGPMSOM.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Name', ((1, 'pVal'),)))
-    IGPMSOM.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Path', ((1, 'pVal'),)))
-    IGPMSOM.CreateGPOLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.GroupPolicy.IGPMGPO_head,POINTER(win32more.System.GroupPolicy.IGPMGPOLink_head))(11, 'CreateGPOLink', ((1, 'lLinkPos'),(1, 'pGPO'),(1, 'ppNewGPOLink'),)))
-    IGPMSOM.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMSOMType))(12, 'get_Type', ((1, 'pVal'),)))
-    IGPMSOM.GetGPOLinks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMGPOLinksCollection_head))(13, 'GetGPOLinks', ((1, 'ppGPOLinks'),)))
-    IGPMSOM.GetInheritedGPOLinks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMGPOLinksCollection_head))(14, 'GetInheritedGPOLinks', ((1, 'ppGPOLinks'),)))
-    IGPMSOM.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head))(15, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
-    IGPMSOM.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head)(16, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
-    win32more.System.Com.IDispatch
-    return IGPMSOM
-def _define_IGPMSOMCollection_head():
-    class IGPMSOMCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('adc1688e-00e4-4495-ab-ba-be-d2-00-df-0c-ab')
-    return IGPMSOMCollection
-def _define_IGPMSOMCollection():
-    IGPMSOMCollection = win32more.System.GroupPolicy.IGPMSOMCollection_head
-    IGPMSOMCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMSOMCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMSOMCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMSOM'),)))
-    win32more.System.Com.IDispatch
-    return IGPMSOMCollection
-def _define_IGPMStarterGPO_head():
-    class IGPMStarterGPO(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dfc3f61b-8880-4490-93-37-d2-9c-7b-a8-c2-f0')
-    return IGPMStarterGPO
-def _define_IGPMStarterGPO():
-    IGPMStarterGPO = win32more.System.GroupPolicy.IGPMStarterGPO_head
-    IGPMStarterGPO.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_DisplayName', ((1, 'pVal'),)))
-    IGPMStarterGPO.put_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_DisplayName', ((1, 'newVal'),)))
-    IGPMStarterGPO.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Description', ((1, 'pVal'),)))
-    IGPMStarterGPO.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_Description', ((1, 'newVal'),)))
-    IGPMStarterGPO.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_Author', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_Product = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Product', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_CreationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_CreationTime', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_ID', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_ModifiedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(15, 'get_ModifiedTime', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMStarterGPOType))(16, 'get_Type', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_ComputerVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(17, 'get_ComputerVersion', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_UserVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(18, 'get_UserVersion', ((1, 'pVal'),)))
-    IGPMStarterGPO.get_StarterGPOVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_StarterGPOVersion', ((1, 'pVal'),)))
-    IGPMStarterGPO.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'Delete', ()))
-    IGPMStarterGPO.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(21, 'Save', ((1, 'bstrSaveFile'),(1, 'bOverwrite'),(1, 'bSaveAsSystem'),(1, 'bstrLanguage'),(1, 'bstrAuthor'),(1, 'bstrProduct'),(1, 'bstrUniqueID'),(1, 'bstrVersion'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPO.Backup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(22, 'Backup', ((1, 'bstrBackupDir'),(1, 'bstrComment'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPO.CopyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(23, 'CopyTo', ((1, 'pvarNewDisplayName'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPO.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(24, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPO.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(25, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPO.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head))(26, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
-    IGPMStarterGPO.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head)(27, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStarterGPO
-def _define_IGPMStarterGPOBackup_head():
-    class IGPMStarterGPOBackup(win32more.System.Com.IDispatch_head):
-        Guid = Guid('51d98eda-a87e-43dd-b8-0a-0b-66-ef-19-38-d6')
-    return IGPMStarterGPOBackup
-def _define_IGPMStarterGPOBackup():
-    IGPMStarterGPOBackup = win32more.System.GroupPolicy.IGPMStarterGPOBackup_head
-    IGPMStarterGPOBackup.get_BackupDir = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_BackupDir', ((1, 'pbstrBackupDir'),)))
-    IGPMStarterGPOBackup.get_Comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Comment', ((1, 'pbstrComment'),)))
-    IGPMStarterGPOBackup.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_DisplayName', ((1, 'pbstrDisplayName'),)))
-    IGPMStarterGPOBackup.get_Domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Domain', ((1, 'pbstrTemplateDomain'),)))
-    IGPMStarterGPOBackup.get_StarterGPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_StarterGPOID', ((1, 'pbstrTemplateID'),)))
-    IGPMStarterGPOBackup.get_ID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_ID', ((1, 'pbstrID'),)))
-    IGPMStarterGPOBackup.get_Timestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_Timestamp', ((1, 'pTimestamp'),)))
-    IGPMStarterGPOBackup.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMStarterGPOType))(14, 'get_Type', ((1, 'pType'),)))
-    IGPMStarterGPOBackup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Delete', ()))
-    IGPMStarterGPOBackup.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head))(16, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
-    IGPMStarterGPOBackup.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head))(17, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStarterGPOBackup
-def _define_IGPMStarterGPOBackupCollection_head():
-    class IGPMStarterGPOBackupCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c998031d-add0-4bb5-8d-ea-29-85-05-d8-42-3b')
-    return IGPMStarterGPOBackupCollection
-def _define_IGPMStarterGPOBackupCollection():
-    IGPMStarterGPOBackupCollection = win32more.System.GroupPolicy.IGPMStarterGPOBackupCollection_head
-    IGPMStarterGPOBackupCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMStarterGPOBackupCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMStarterGPOBackupCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMTmplBackup'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStarterGPOBackupCollection
-def _define_IGPMStarterGPOCollection_head():
-    class IGPMStarterGPOCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('2e522729-2219-44ad-93-3a-64-df-d6-50-c4-23')
-    return IGPMStarterGPOCollection
-def _define_IGPMStarterGPOCollection():
-    IGPMStarterGPOCollection = win32more.System.GroupPolicy.IGPMStarterGPOCollection_head
-    IGPMStarterGPOCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMStarterGPOCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMStarterGPOCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'ppIGPMTemplates'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStarterGPOCollection
-def _define_IGPMStatusMessage_head():
-    class IGPMStatusMessage(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8496c22f-f3de-4a1f-8f-58-60-3c-aa-a9-3d-7b')
-    return IGPMStatusMessage
-def _define_IGPMStatusMessage():
-    IGPMStatusMessage = win32more.System.GroupPolicy.IGPMStatusMessage_head
-    IGPMStatusMessage.get_ObjectPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_ObjectPath', ((1, 'pVal'),)))
-    IGPMStatusMessage.ErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'ErrorCode', ()))
-    IGPMStatusMessage.get_ExtensionName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_ExtensionName', ((1, 'pVal'),)))
-    IGPMStatusMessage.get_SettingsName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_SettingsName', ((1, 'pVal'),)))
-    IGPMStatusMessage.OperationCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'OperationCode', ()))
-    IGPMStatusMessage.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Message', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStatusMessage
-def _define_IGPMStatusMsgCollection_head():
-    class IGPMStatusMsgCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('9b6e1af0-1a92-40f3-a5-9d-f3-6a-c1-f7-28-b7')
-    return IGPMStatusMsgCollection
-def _define_IGPMStatusMsgCollection():
-    IGPMStatusMsgCollection = win32more.System.GroupPolicy.IGPMStatusMsgCollection_head
-    IGPMStatusMsgCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMStatusMsgCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMStatusMsgCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMStatusMsgCollection
-def _define_IGPMTrustee_head():
-    class IGPMTrustee(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3b466da8-c1a4-4b2a-99-9a-be-fc-dd-56-ce-fb')
-    return IGPMTrustee
-def _define_IGPMTrustee():
-    IGPMTrustee = win32more.System.GroupPolicy.IGPMTrustee_head
-    IGPMTrustee.get_TrusteeSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_TrusteeSid', ((1, 'bstrVal'),)))
-    IGPMTrustee.get_TrusteeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_TrusteeName', ((1, 'bstrVal'),)))
-    IGPMTrustee.get_TrusteeDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_TrusteeDomain', ((1, 'bstrVal'),)))
-    IGPMTrustee.get_TrusteeDSPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_TrusteeDSPath', ((1, 'pVal'),)))
-    IGPMTrustee.get_TrusteeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_TrusteeType', ((1, 'lVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMTrustee
-def _define_IGPMWMIFilter_head():
-    class IGPMWMIFilter(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ef2ff9b4-3c27-459a-b9-79-03-83-05-ce-c7-5d')
-    return IGPMWMIFilter
-def _define_IGPMWMIFilter():
-    IGPMWMIFilter = win32more.System.GroupPolicy.IGPMWMIFilter_head
-    IGPMWMIFilter.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Path', ((1, 'pVal'),)))
-    IGPMWMIFilter.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_Name', ((1, 'newVal'),)))
-    IGPMWMIFilter.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Name', ((1, 'pVal'),)))
-    IGPMWMIFilter.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_Description', ((1, 'newVal'),)))
-    IGPMWMIFilter.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_Description', ((1, 'pVal'),)))
-    IGPMWMIFilter.GetQueryList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'GetQueryList', ((1, 'pQryList'),)))
-    IGPMWMIFilter.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head))(13, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
-    IGPMWMIFilter.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head)(14, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
-    win32more.System.Com.IDispatch
-    return IGPMWMIFilter
-def _define_IGPMWMIFilterCollection_head():
-    class IGPMWMIFilterCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('5782d582-1a36-4661-8a-94-c3-c3-25-51-94-5b')
-    return IGPMWMIFilterCollection
-def _define_IGPMWMIFilterCollection():
-    IGPMWMIFilterCollection = win32more.System.GroupPolicy.IGPMWMIFilterCollection_head
-    IGPMWMIFilterCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'pVal'),)))
-    IGPMWMIFilterCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
-    IGPMWMIFilterCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(9, 'get__NewEnum', ((1, 'pVal'),)))
-    win32more.System.Com.IDispatch
-    return IGPMWMIFilterCollection
-def _define_IGroupPolicyObject_head():
-    class IGroupPolicyObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ea502723-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
-    return IGroupPolicyObject
-def _define_IGroupPolicyObject():
-    IGroupPolicyObject = win32more.System.GroupPolicy.IGroupPolicyObject_head
-    IGroupPolicyObject.New = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(3, 'New', ((1, 'pszDomainName'),(1, 'pszDisplayName'),(1, 'dwFlags'),)))
-    IGroupPolicyObject.OpenDSGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(4, 'OpenDSGPO', ((1, 'pszPath'),(1, 'dwFlags'),)))
-    IGroupPolicyObject.OpenLocalMachineGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'OpenLocalMachineGPO', ((1, 'dwFlags'),)))
-    IGroupPolicyObject.OpenRemoteMachineGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(6, 'OpenRemoteMachineGPO', ((1, 'pszComputerName'),(1, 'dwFlags'),)))
-    IGroupPolicyObject.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Guid))(7, 'Save', ((1, 'bMachine'),(1, 'bAdd'),(1, 'pGuidExtension'),(1, 'pGuid'),)))
-    IGroupPolicyObject.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Delete', ()))
-    IGroupPolicyObject.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(9, 'GetName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
-    IGroupPolicyObject.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(10, 'GetDisplayName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
-    IGroupPolicyObject.SetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(11, 'SetDisplayName', ((1, 'pszName'),)))
-    IGroupPolicyObject.GetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(12, 'GetPath', ((1, 'pszPath'),(1, 'cchMaxLength'),)))
-    IGroupPolicyObject.GetDSPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,Int32)(13, 'GetDSPath', ((1, 'dwSection'),(1, 'pszPath'),(1, 'cchMaxPath'),)))
-    IGroupPolicyObject.GetFileSysPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,Int32)(14, 'GetFileSysPath', ((1, 'dwSection'),(1, 'pszPath'),(1, 'cchMaxPath'),)))
-    IGroupPolicyObject.GetRegistryKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Registry.HKEY))(15, 'GetRegistryKey', ((1, 'dwSection'),(1, 'hKey'),)))
-    IGroupPolicyObject.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(16, 'GetOptions', ((1, 'dwOptions'),)))
-    IGroupPolicyObject.SetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(17, 'SetOptions', ((1, 'dwOptions'),(1, 'dwMask'),)))
-    IGroupPolicyObject.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE))(18, 'GetType', ((1, 'gpoType'),)))
-    IGroupPolicyObject.GetMachineName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32)(19, 'GetMachineName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
-    IGroupPolicyObject.GetPropertySheetPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Controls.HPROPSHEETPAGE)),POINTER(UInt32))(20, 'GetPropertySheetPages', ((1, 'hPages'),(1, 'uPageCount'),)))
-    win32more.System.Com.IUnknown
-    return IGroupPolicyObject
-def _define_INSTALLDATA_head():
-    class INSTALLDATA(Structure):
-        pass
-    return INSTALLDATA
-def _define_INSTALLDATA():
-    INSTALLDATA = win32more.System.GroupPolicy.INSTALLDATA_head
-    INSTALLDATA._fields_ = [
-        ('Type', win32more.System.GroupPolicy.INSTALLSPECTYPE),
-        ('Spec', win32more.System.GroupPolicy.INSTALLSPEC),
-    ]
-    return INSTALLDATA
-def _define_INSTALLSPEC_head():
-    class INSTALLSPEC(Union):
-        pass
-    return INSTALLSPEC
-def _define_INSTALLSPEC():
-    INSTALLSPEC = win32more.System.GroupPolicy.INSTALLSPEC_head
-    class INSTALLSPEC__AppName_e__Struct(Structure):
-        pass
-    INSTALLSPEC__AppName_e__Struct._fields_ = [
-        ('Name', win32more.Foundation.PWSTR),
-        ('GPOId', Guid),
-    ]
-    class INSTALLSPEC__COMClass_e__Struct(Structure):
-        pass
-    INSTALLSPEC__COMClass_e__Struct._fields_ = [
-        ('Clsid', Guid),
-        ('ClsCtx', UInt32),
-    ]
-    INSTALLSPEC._fields_ = [
-        ('AppName', INSTALLSPEC__AppName_e__Struct),
-        ('FileExt', win32more.Foundation.PWSTR),
-        ('ProgId', win32more.Foundation.PWSTR),
-        ('COMClass', INSTALLSPEC__COMClass_e__Struct),
-    ]
-    return INSTALLSPEC
+GROUP_POLICY_OBJECT_TYPE_GPOTypeLocal: GROUP_POLICY_OBJECT_TYPE = 0
+GROUP_POLICY_OBJECT_TYPE_GPOTypeRemote: GROUP_POLICY_OBJECT_TYPE = 1
+GROUP_POLICY_OBJECT_TYPE_GPOTypeDS: GROUP_POLICY_OBJECT_TYPE = 2
+GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalUser: GROUP_POLICY_OBJECT_TYPE = 3
+GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalGroup: GROUP_POLICY_OBJECT_TYPE = 4
+class GROUP_POLICY_OBJECTA(Structure):
+    dwOptions: UInt32
+    dwVersion: UInt32
+    lpDSPath: win32more.Foundation.PSTR
+    lpFileSysPath: win32more.Foundation.PSTR
+    lpDisplayName: win32more.Foundation.PSTR
+    szGPOName: win32more.Foundation.CHAR * 50
+    GPOLink: win32more.System.GroupPolicy.GPO_LINK
+    lParam: win32more.Foundation.LPARAM
+    pNext: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)
+    pPrev: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)
+    lpExtensions: win32more.Foundation.PSTR
+    lParam2: win32more.Foundation.LPARAM
+    lpLink: win32more.Foundation.PSTR
+class GROUP_POLICY_OBJECTW(Structure):
+    dwOptions: UInt32
+    dwVersion: UInt32
+    lpDSPath: win32more.Foundation.PWSTR
+    lpFileSysPath: win32more.Foundation.PWSTR
+    lpDisplayName: win32more.Foundation.PWSTR
+    szGPOName: Char * 50
+    GPOLink: win32more.System.GroupPolicy.GPO_LINK
+    lParam: win32more.Foundation.LPARAM
+    pNext: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)
+    pPrev: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTW_head)
+    lpExtensions: win32more.Foundation.PWSTR
+    lParam2: win32more.Foundation.LPARAM
+    lpLink: win32more.Foundation.PWSTR
+class IGPEInformation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8fc0b735-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+    @commethod(3)
+    def GetName(pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDisplayName(pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRegistryKey(dwSection: UInt32, hKey: POINTER(win32more.System.Registry.HKEY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDSPath(dwSection: UInt32, pszPath: win32more.Foundation.PWSTR, cchMaxPath: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetFileSysPath(dwSection: UInt32, pszPath: win32more.Foundation.PWSTR, cchMaxPath: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetOptions(dwOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetType(gpoType: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetHint(gpHint: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_HINT_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def PolicyChanged(bMachine: win32more.Foundation.BOOL, bAdd: win32more.Foundation.BOOL, pGuidExtension: POINTER(Guid), pGuidSnapin: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IGPM(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f5fae809-3bd6-4da9-a6-5e-17-66-5b-41-d7-63')
+    @commethod(7)
+    def GetDomain(bstrDomain: win32more.Foundation.BSTR, bstrDomainController: win32more.Foundation.BSTR, lDCFlags: Int32, pIGPMDomain: POINTER(win32more.System.GroupPolicy.IGPMDomain_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetBackupDir(bstrBackupDir: win32more.Foundation.BSTR, pIGPMBackupDir: POINTER(win32more.System.GroupPolicy.IGPMBackupDir_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSitesContainer(bstrForest: win32more.Foundation.BSTR, bstrDomain: win32more.Foundation.BSTR, bstrDomainController: win32more.Foundation.BSTR, lDCFlags: Int32, ppIGPMSitesContainer: POINTER(win32more.System.GroupPolicy.IGPMSitesContainer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetRSOP(gpmRSoPMode: win32more.System.GroupPolicy.GPMRSOPMode, bstrNamespace: win32more.Foundation.BSTR, lFlags: Int32, ppIGPMRSOP: POINTER(win32more.System.GroupPolicy.IGPMRSOP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreatePermission(bstrTrustee: win32more.Foundation.BSTR, perm: win32more.System.GroupPolicy.GPMPermissionType, bInheritable: win32more.Foundation.VARIANT_BOOL, ppPerm: POINTER(win32more.System.GroupPolicy.IGPMPermission_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateSearchCriteria(ppIGPMSearchCriteria: POINTER(win32more.System.GroupPolicy.IGPMSearchCriteria_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateTrustee(bstrTrustee: win32more.Foundation.BSTR, ppIGPMTrustee: POINTER(win32more.System.GroupPolicy.IGPMTrustee_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetClientSideExtensions(ppIGPMCSECollection: POINTER(win32more.System.GroupPolicy.IGPMCSECollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetConstants(ppIGPMConstants: POINTER(win32more.System.GroupPolicy.IGPMConstants_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetMigrationTable(bstrMigrationTablePath: win32more.Foundation.BSTR, ppMigrationTable: POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def CreateMigrationTable(ppMigrationTable: POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def InitializeReporting(bstrAdmPath: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IGPM2(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPM
+    Guid = Guid('00238f8a-3d86-41ac-8f-5e-06-a6-63-8a-63-4a')
+    @commethod(19)
+    def GetBackupDirEx(bstrBackupDir: win32more.Foundation.BSTR, backupDirType: win32more.System.GroupPolicy.GPMBackupType, ppIGPMBackupDirEx: POINTER(win32more.System.GroupPolicy.IGPMBackupDirEx_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def InitializeReportingEx(bstrAdmPath: win32more.Foundation.BSTR, reportingOptions: Int32) -> win32more.Foundation.HRESULT: ...
+class IGPMAsyncCancel(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ddc67754-be67-4541-81-66-f4-81-66-86-8c-9c')
+    @commethod(7)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+class IGPMAsyncProgress(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6aac29f8-5948-4324-bf-70-42-38-18-94-2d-bc')
+    @commethod(7)
+    def Status(lProgressNumerator: Int32, lProgressDenominator: Int32, hrStatus: win32more.Foundation.HRESULT, pResult: POINTER(win32more.System.Com.VARIANT_head), ppIGPMStatusMsgCollection: win32more.System.GroupPolicy.IGPMStatusMsgCollection_head) -> win32more.Foundation.HRESULT: ...
+class IGPMBackup(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d8a16a35-3b0d-416b-8d-02-4d-f6-f9-5a-71-19')
+    @commethod(7)
+    def get_ID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_GPOID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_GPODomain(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_GPODisplayName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Timestamp(pVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Comment(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_BackupDir(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GenerateReportToFile(gpmReportType: win32more.System.GroupPolicy.GPMReportType, bstrTargetFilePath: win32more.Foundation.BSTR, ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMBackupCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c786fc0f-26d8-4bab-a7-45-39-ca-7e-80-0c-ac')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMBackup: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMBackupDir(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b1568bed-0a93-4acc-81-0f-af-e7-08-10-19-b9')
+    @commethod(7)
+    def get_BackupDirectory(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetBackup(bstrID: win32more.Foundation.BSTR, ppBackup: POINTER(win32more.System.GroupPolicy.IGPMBackup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SearchBackups(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMBackupCollection: POINTER(win32more.System.GroupPolicy.IGPMBackupCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMBackupDirEx(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f8dc55ed-3ba0-4864-aa-d4-d3-65-18-9e-e1-d5')
+    @commethod(7)
+    def get_BackupDir(pbstrBackupDir: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_BackupType(pgpmBackupType: POINTER(win32more.System.GroupPolicy.GPMBackupType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetBackup(bstrID: win32more.Foundation.BSTR, pvarBackup: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SearchBackups(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, pvarBackupCollection: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMClientSideExtension(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('69da7488-b8db-415e-92-66-90-1b-e4-d4-99-28')
+    @commethod(7)
+    def get_ID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_DisplayName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def IsUserEnabled(pvbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def IsComputerEnabled(pvbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class IGPMConstants(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('50ef73e6-d35c-4c8d-be-63-7e-a5-d2-aa-c5-c4')
+    @commethod(7)
+    def get_PermGPOApply(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_PermGPORead(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_PermGPOEdit(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_PermGPOEditSecurityAndDelete(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_PermGPOCustom(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_PermWMIFilterEdit(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_PermWMIFilterFullControl(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_PermWMIFilterCustom(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_PermSOMLink(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_PermSOMLogging(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_PermSOMPlanning(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_PermSOMGPOCreate(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_PermSOMWMICreate(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_PermSOMWMIFullControl(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_SearchPropertyGPOPermissions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_SearchPropertyGPOEffectivePermissions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_SearchPropertyGPODisplayName(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_SearchPropertyGPOWMIFilter(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_SearchPropertyGPOID(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_SearchPropertyGPOComputerExtensions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_SearchPropertyGPOUserExtensions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_SearchPropertySOMLinks(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_SearchPropertyGPODomain(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def get_SearchPropertyBackupMostRecent(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def get_SearchOpEquals(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchOperation)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def get_SearchOpContains(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchOperation)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_SearchOpNotContains(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchOperation)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def get_SearchOpNotEquals(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchOperation)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_UsePDC(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def get_UseAnyDC(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def get_DoNotUseW2KDC(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def get_SOMSite(pVal: POINTER(win32more.System.GroupPolicy.GPMSOMType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def get_SOMDomain(pVal: POINTER(win32more.System.GroupPolicy.GPMSOMType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def get_SOMOU(pVal: POINTER(win32more.System.GroupPolicy.GPMSOMType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def get_SecurityFlags(vbOwner: win32more.Foundation.VARIANT_BOOL, vbGroup: win32more.Foundation.VARIANT_BOOL, vbDACL: win32more.Foundation.VARIANT_BOOL, vbSACL: win32more.Foundation.VARIANT_BOOL, pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def get_DoNotValidateDC(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def get_ReportHTML(pVal: POINTER(win32more.System.GroupPolicy.GPMReportType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def get_ReportXML(pVal: POINTER(win32more.System.GroupPolicy.GPMReportType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def get_RSOPModeUnknown(pVal: POINTER(win32more.System.GroupPolicy.GPMRSOPMode)) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def get_RSOPModePlanning(pVal: POINTER(win32more.System.GroupPolicy.GPMRSOPMode)) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def get_RSOPModeLogging(pVal: POINTER(win32more.System.GroupPolicy.GPMRSOPMode)) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def get_EntryTypeUser(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def get_EntryTypeComputer(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def get_EntryTypeLocalGroup(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def get_EntryTypeGlobalGroup(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def get_EntryTypeUniversalGroup(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def get_EntryTypeUNCPath(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def get_EntryTypeUnknown(pVal: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def get_DestinationOptionSameAsSource(pVal: POINTER(win32more.System.GroupPolicy.GPMDestinationOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def get_DestinationOptionNone(pVal: POINTER(win32more.System.GroupPolicy.GPMDestinationOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def get_DestinationOptionByRelativeName(pVal: POINTER(win32more.System.GroupPolicy.GPMDestinationOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def get_DestinationOptionSet(pVal: POINTER(win32more.System.GroupPolicy.GPMDestinationOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def get_MigrationTableOnly(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def get_ProcessSecurity(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def get_RsopLoggingNoComputer(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def get_RsopLoggingNoUser(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def get_RsopPlanningAssumeSlowLink(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(64)
+    def get_RsopPlanningLoopbackOption(vbMerge: win32more.Foundation.VARIANT_BOOL, pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def get_RsopPlanningAssumeUserWQLFilterTrue(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(66)
+    def get_RsopPlanningAssumeCompWQLFilterTrue(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IGPMConstants2(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPMConstants
+    Guid = Guid('05ae21b0-ac09-4032-a2-6f-9e-7d-a7-86-dc-19')
+    @commethod(67)
+    def get_BackupTypeGPO(pVal: POINTER(win32more.System.GroupPolicy.GPMBackupType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(68)
+    def get_BackupTypeStarterGPO(pVal: POINTER(win32more.System.GroupPolicy.GPMBackupType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(69)
+    def get_StarterGPOTypeSystem(pVal: POINTER(win32more.System.GroupPolicy.GPMStarterGPOType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(70)
+    def get_StarterGPOTypeCustom(pVal: POINTER(win32more.System.GroupPolicy.GPMStarterGPOType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(71)
+    def get_SearchPropertyStarterGPOPermissions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(72)
+    def get_SearchPropertyStarterGPOEffectivePermissions(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(73)
+    def get_SearchPropertyStarterGPODisplayName(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(74)
+    def get_SearchPropertyStarterGPOID(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(75)
+    def get_SearchPropertyStarterGPODomain(pVal: POINTER(win32more.System.GroupPolicy.GPMSearchProperty)) -> win32more.Foundation.HRESULT: ...
+    @commethod(76)
+    def get_PermStarterGPORead(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(77)
+    def get_PermStarterGPOEdit(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(78)
+    def get_PermStarterGPOFullControl(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(79)
+    def get_PermStarterGPOCustom(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(80)
+    def get_ReportLegacy(pVal: POINTER(win32more.System.GroupPolicy.GPMReportingOptions)) -> win32more.Foundation.HRESULT: ...
+    @commethod(81)
+    def get_ReportComments(pVal: POINTER(win32more.System.GroupPolicy.GPMReportingOptions)) -> win32more.Foundation.HRESULT: ...
+class IGPMCSECollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2e52a97d-0a4a-4a6f-85-db-20-16-22-45-5d-a0')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMCSEs: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMDomain(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6b21cc14-5a00-4f44-a7-38-fe-ec-8a-94-c7-e3')
+    @commethod(7)
+    def get_DomainController(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Domain(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateGPO(ppNewGPO: POINTER(win32more.System.GroupPolicy.IGPMGPO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetGPO(bstrGuid: win32more.Foundation.BSTR, ppGPO: POINTER(win32more.System.GroupPolicy.IGPMGPO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SearchGPOs(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMGPOCollection: POINTER(win32more.System.GroupPolicy.IGPMGPOCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def RestoreGPO(pIGPMBackup: win32more.System.GroupPolicy.IGPMBackup_head, lDCFlags: Int32, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetSOM(bstrPath: win32more.Foundation.BSTR, ppSOM: POINTER(win32more.System.GroupPolicy.IGPMSOM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SearchSOMs(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMSOMCollection: POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetWMIFilter(bstrPath: win32more.Foundation.BSTR, ppWMIFilter: POINTER(win32more.System.GroupPolicy.IGPMWMIFilter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SearchWMIFilters(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMWMIFilterCollection: POINTER(win32more.System.GroupPolicy.IGPMWMIFilterCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMDomain2(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPMDomain
+    Guid = Guid('7ca6bb8b-f1eb-490a-93-8d-3c-4e-51-c7-68-e6')
+    @commethod(17)
+    def CreateStarterGPO(ppnewTemplate: POINTER(win32more.System.GroupPolicy.IGPMStarterGPO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateGPOFromStarterGPO(pGPOTemplate: win32more.System.GroupPolicy.IGPMStarterGPO_head, ppnewGPO: POINTER(win32more.System.GroupPolicy.IGPMGPO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetStarterGPO(bstrGuid: win32more.Foundation.BSTR, ppTemplate: POINTER(win32more.System.GroupPolicy.IGPMStarterGPO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SearchStarterGPOs(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMTemplateCollection: POINTER(win32more.System.GroupPolicy.IGPMStarterGPOCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def LoadStarterGPO(bstrLoadFile: win32more.Foundation.BSTR, bOverwrite: win32more.Foundation.VARIANT_BOOL, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def RestoreStarterGPO(pIGPMTmplBackup: win32more.System.GroupPolicy.IGPMStarterGPOBackup_head, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMDomain3(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPMDomain2
+    Guid = Guid('0077fdfe-88c7-4acf-a1-1d-d1-0a-7c-31-0a-03')
+    @commethod(23)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_InfrastructureDC(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_InfrastructureDC(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_InfrastructureFlags(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IGPMGPO(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('58cc4352-1ca3-48e5-98-64-1d-a4-d6-e0-d6-0f')
+    @commethod(7)
+    def get_DisplayName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_DisplayName(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Path(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_ID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_DomainName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CreationTime(pDate: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ModificationTime(pDate: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_UserDSVersionNumber(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ComputerDSVersionNumber(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_UserSysvolVersionNumber(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ComputerSysvolVersionNumber(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetWMIFilter(ppIGPMWMIFilter: POINTER(win32more.System.GroupPolicy.IGPMWMIFilter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetWMIFilter(pIGPMWMIFilter: win32more.System.GroupPolicy.IGPMWMIFilter_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SetUserEnabled(vbEnabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SetComputerEnabled(vbEnabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def IsUserEnabled(pvbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def IsComputerEnabled(pvbEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetSecurityInfo(ppSecurityInfo: POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def SetSecurityInfo(pSecurityInfo: win32more.System.GroupPolicy.IGPMSecurityInfo_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def Backup(bstrBackupDir: win32more.Foundation.BSTR, bstrComment: win32more.Foundation.BSTR, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def Import(lFlags: Int32, pIGPMBackup: win32more.System.GroupPolicy.IGPMBackup_head, pvarMigrationTable: POINTER(win32more.System.Com.VARIANT_head), pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GenerateReportToFile(gpmReportType: win32more.System.GroupPolicy.GPMReportType, bstrTargetFilePath: win32more.Foundation.BSTR, ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def CopyTo(lFlags: Int32, pIGPMDomain: win32more.System.GroupPolicy.IGPMDomain_head, pvarNewDisplayName: POINTER(win32more.System.Com.VARIANT_head), pvarMigrationTable: POINTER(win32more.System.Com.VARIANT_head), pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def SetSecurityDescriptor(lFlags: Int32, pSD: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def GetSecurityDescriptor(lFlags: Int32, ppSD: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def IsACLConsistent(pvbConsistent: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def MakeACLConsistent() -> win32more.Foundation.HRESULT: ...
+class IGPMGPO2(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPMGPO
+    Guid = Guid('8a66a210-b78b-4d99-88-e2-c3-06-a8-17-c9-25')
+    @commethod(36)
+    def get_Description(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def put_Description(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IGPMGPO3(c_void_p):
+    extends: win32more.System.GroupPolicy.IGPMGPO2
+    Guid = Guid('7cf123a1-f94a-4112-bf-ae-6a-a1-db-9c-b2-48')
+    @commethod(38)
+    def get_InfrastructureDC(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def put_InfrastructureDC(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def put_InfrastructureFlags(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IGPMGPOCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f0f0d5cf-70ca-4c39-9e-29-b6-42-f8-72-6c-01')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMGPOs: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMGPOLink(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('434b99bd-5de7-478a-80-9c-c2-51-72-1d-f7-0c')
+    @commethod(7)
+    def get_GPOID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_GPODomain(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Enabled(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Enabled(newVal: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Enforced(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_Enforced(newVal: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_SOMLinkOrder(lVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_SOM(ppIGPMSOM: POINTER(win32more.System.GroupPolicy.IGPMSOM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class IGPMGPOLinksCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('189d7b68-16bd-4d0d-a2-ec-2e-6a-a2-28-8c-7f')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMLinks: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMMapEntry(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('8e79ad06-2381-4444-be-4c-ff-69-3e-6e-6f-2b')
+    @commethod(7)
+    def get_Source(pbstrSource: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Destination(pbstrDestination: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_DestinationOption(pgpmDestOption: POINTER(win32more.System.GroupPolicy.GPMDestinationOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_EntryType(pgpmEntryType: POINTER(win32more.System.GroupPolicy.GPMEntryType)) -> win32more.Foundation.HRESULT: ...
+class IGPMMapEntryCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('bb0bf49b-e53f-443f-b8-07-8b-e2-2b-fb-6d-42')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMMigrationTable(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('48f823b1-efaf-470b-b6-ed-40-d1-4e-e1-a4-ec')
+    @commethod(7)
+    def Save(bstrMigrationTablePath: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Add(lFlags: Int32, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def AddEntry(bstrSource: win32more.Foundation.BSTR, gpmEntryType: win32more.System.GroupPolicy.GPMEntryType, pvarDestination: POINTER(win32more.System.Com.VARIANT_head), ppEntry: POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetEntry(bstrSource: win32more.Foundation.BSTR, ppEntry: POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def DeleteEntry(bstrSource: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def UpdateDestination(bstrSource: win32more.Foundation.BSTR, pvarDestination: POINTER(win32more.System.Com.VARIANT_head), ppEntry: POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Validate(ppResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetEntries(ppEntries: POINTER(win32more.System.GroupPolicy.IGPMMapEntryCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMPermission(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('35ebca40-e1a1-4a02-89-05-d7-94-16-fb-46-4a')
+    @commethod(7)
+    def get_Inherited(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Inheritable(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Denied(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Permission(pVal: POINTER(win32more.System.GroupPolicy.GPMPermissionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Trustee(ppIGPMTrustee: POINTER(win32more.System.GroupPolicy.IGPMTrustee_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMResult(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('86dff7e9-f76f-42ab-95-70-ce-bc-6b-e8-a5-2d')
+    @commethod(7)
+    def get_Status(ppIGPMStatusMsgCollection: POINTER(win32more.System.GroupPolicy.IGPMStatusMsgCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Result(pvarResult: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def OverallStatus() -> win32more.Foundation.HRESULT: ...
+class IGPMRSOP(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('49ed785a-3237-4ff2-b1-f0-fd-f5-a8-d5-a1-ee')
+    @commethod(7)
+    def get_Mode(pVal: POINTER(win32more.System.GroupPolicy.GPMRSOPMode)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Namespace(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_LoggingComputer(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_LoggingComputer(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_LoggingUser(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_LoggingUser(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_LoggingFlags(lVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_LoggingFlags(lVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_PlanningFlags(lVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_PlanningFlags(lVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_PlanningDomainController(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_PlanningDomainController(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_PlanningSiteName(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_PlanningSiteName(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_PlanningUser(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_PlanningUser(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_PlanningUserSOM(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_PlanningUserSOM(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_PlanningUserWMIFilters(varVal: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_PlanningUserWMIFilters(varVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_PlanningUserSecurityGroups(varVal: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_PlanningUserSecurityGroups(varVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def put_PlanningComputer(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def get_PlanningComputer(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def put_PlanningComputerSOM(bstrVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def get_PlanningComputerSOM(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def put_PlanningComputerWMIFilters(varVal: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def get_PlanningComputerWMIFilters(varVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def put_PlanningComputerSecurityGroups(varVal: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def get_PlanningComputerSecurityGroups(varVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def LoggingEnumerateUsers(varVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def CreateQueryResults() -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def ReleaseQueryResults() -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def GenerateReportToFile(gpmReportType: win32more.System.GroupPolicy.GPMReportType, bstrTargetFilePath: win32more.Foundation.BSTR, ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMSearchCriteria(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d6f11c42-829b-48d4-83-f5-36-15-b6-7d-fc-22')
+    @commethod(7)
+    def Add(searchProperty: win32more.System.GroupPolicy.GPMSearchProperty, searchOperation: win32more.System.GroupPolicy.GPMSearchOperation, varValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IGPMSecurityInfo(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b6c31ed4-1c93-4d3e-ae-84-eb-6d-61-16-1b-60')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppEnum: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Add(pPerm: win32more.System.GroupPolicy.IGPMPermission_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Remove(pPerm: win32more.System.GroupPolicy.IGPMPermission_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def RemoveTrustee(bstrTrustee: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IGPMSitesContainer(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('4725a899-2782-4d27-a6-bb-d4-99-24-6f-fd-72')
+    @commethod(7)
+    def get_DomainController(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Domain(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Forest(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetSite(bstrSiteName: win32more.Foundation.BSTR, ppSOM: POINTER(win32more.System.GroupPolicy.IGPMSOM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SearchSites(pIGPMSearchCriteria: win32more.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMSOMCollection: POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMSOM(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c0a7f09e-05a1-4f0c-81-58-9e-5c-33-68-4f-6b')
+    @commethod(7)
+    def get_GPOInheritanceBlocked(pVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_GPOInheritanceBlocked(newVal: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Name(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Path(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateGPOLink(lLinkPos: Int32, pGPO: win32more.System.GroupPolicy.IGPMGPO_head, ppNewGPOLink: POINTER(win32more.System.GroupPolicy.IGPMGPOLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Type(pVal: POINTER(win32more.System.GroupPolicy.GPMSOMType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetGPOLinks(ppGPOLinks: POINTER(win32more.System.GroupPolicy.IGPMGPOLinksCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetInheritedGPOLinks(ppGPOLinks: POINTER(win32more.System.GroupPolicy.IGPMGPOLinksCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetSecurityInfo(ppSecurityInfo: POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetSecurityInfo(pSecurityInfo: win32more.System.GroupPolicy.IGPMSecurityInfo_head) -> win32more.Foundation.HRESULT: ...
+class IGPMSOMCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('adc1688e-00e4-4495-ab-ba-be-d2-00-df-0c-ab')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMSOM: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMStarterGPO(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dfc3f61b-8880-4490-93-37-d2-9c-7b-a8-c2-f0')
+    @commethod(7)
+    def get_DisplayName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_DisplayName(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Description(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Description(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Author(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Product(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CreationTime(pVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_ID(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ModifiedTime(pVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Type(pVal: POINTER(win32more.System.GroupPolicy.GPMStarterGPOType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ComputerVersion(pVal: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_UserVersion(pVal: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_StarterGPOVersion(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def Save(bstrSaveFile: win32more.Foundation.BSTR, bOverwrite: win32more.Foundation.VARIANT_BOOL, bSaveAsSystem: win32more.Foundation.VARIANT_BOOL, bstrLanguage: POINTER(win32more.System.Com.VARIANT_head), bstrAuthor: POINTER(win32more.System.Com.VARIANT_head), bstrProduct: POINTER(win32more.System.Com.VARIANT_head), bstrUniqueID: POINTER(win32more.System.Com.VARIANT_head), bstrVersion: POINTER(win32more.System.Com.VARIANT_head), pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def Backup(bstrBackupDir: win32more.Foundation.BSTR, bstrComment: win32more.Foundation.BSTR, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def CopyTo(pvarNewDisplayName: POINTER(win32more.System.Com.VARIANT_head), pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GenerateReportToFile(gpmReportType: win32more.System.GroupPolicy.GPMReportType, bstrTargetFilePath: win32more.Foundation.BSTR, ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetSecurityInfo(ppSecurityInfo: POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SetSecurityInfo(pSecurityInfo: win32more.System.GroupPolicy.IGPMSecurityInfo_head) -> win32more.Foundation.HRESULT: ...
+class IGPMStarterGPOBackup(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('51d98eda-a87e-43dd-b8-0a-0b-66-ef-19-38-d6')
+    @commethod(7)
+    def get_BackupDir(pbstrBackupDir: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Comment(pbstrComment: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_DisplayName(pbstrDisplayName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Domain(pbstrTemplateDomain: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_StarterGPOID(pbstrTemplateID: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_ID(pbstrID: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Timestamp(pTimestamp: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Type(pType: POINTER(win32more.System.GroupPolicy.GPMStarterGPOType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GenerateReport(gpmReportType: win32more.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(win32more.System.Com.VARIANT_head), pvarGPMCancel: POINTER(win32more.System.Com.VARIANT_head), ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GenerateReportToFile(gpmReportType: win32more.System.GroupPolicy.GPMReportType, bstrTargetFilePath: win32more.Foundation.BSTR, ppIGPMResult: POINTER(win32more.System.GroupPolicy.IGPMResult_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMStarterGPOBackupCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c998031d-add0-4bb5-8d-ea-29-85-05-d8-42-3b')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMTmplBackup: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMStarterGPOCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2e522729-2219-44ad-93-3a-64-df-d6-50-c4-23')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppIGPMTemplates: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMStatusMessage(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('8496c22f-f3de-4a1f-8f-58-60-3c-aa-a9-3d-7b')
+    @commethod(7)
+    def get_ObjectPath(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ErrorCode() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ExtensionName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_SettingsName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def OperationCode() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Message(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IGPMStatusMsgCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('9b6e1af0-1a92-40f3-a5-9d-f3-6a-c1-f7-28-b7')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGPMTrustee(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3b466da8-c1a4-4b2a-99-9a-be-fc-dd-56-ce-fb')
+    @commethod(7)
+    def get_TrusteeSid(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_TrusteeName(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_TrusteeDomain(bstrVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_TrusteeDSPath(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_TrusteeType(lVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IGPMWMIFilter(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ef2ff9b4-3c27-459a-b9-79-03-83-05-ce-c7-5d')
+    @commethod(7)
+    def get_Path(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_Name(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Name(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Description(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Description(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetQueryList(pQryList: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetSecurityInfo(ppSecurityInfo: POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetSecurityInfo(pSecurityInfo: win32more.System.GroupPolicy.IGPMSecurityInfo_head) -> win32more.Foundation.HRESULT: ...
+class IGPMWMIFilterCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('5782d582-1a36-4661-8a-94-c3-c3-25-51-94-5b')
+    @commethod(7)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(lIndex: Int32, pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IGroupPolicyObject(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ea502723-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
+    @commethod(3)
+    def New(pszDomainName: win32more.Foundation.PWSTR, pszDisplayName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OpenDSGPO(pszPath: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OpenLocalMachineGPO(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OpenRemoteMachineGPO(pszComputerName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Save(bMachine: win32more.Foundation.BOOL, bAdd: win32more.Foundation.BOOL, pGuidExtension: POINTER(Guid), pGuid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetName(pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDisplayName(pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetDisplayName(pszName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetPath(pszPath: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetDSPath(dwSection: UInt32, pszPath: win32more.Foundation.PWSTR, cchMaxPath: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetFileSysPath(dwSection: UInt32, pszPath: win32more.Foundation.PWSTR, cchMaxPath: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetRegistryKey(dwSection: UInt32, hKey: POINTER(win32more.System.Registry.HKEY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetOptions(dwOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetOptions(dwOptions: UInt32, dwMask: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetType(gpoType: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetMachineName(pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetPropertySheetPages(hPages: POINTER(POINTER(win32more.UI.Controls.HPROPSHEETPAGE)), uPageCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class INSTALLDATA(Structure):
+    Type: win32more.System.GroupPolicy.INSTALLSPECTYPE
+    Spec: win32more.System.GroupPolicy.INSTALLSPEC
+class INSTALLSPEC(Union):
+    AppName: _AppName_e__Struct
+    FileExt: win32more.Foundation.PWSTR
+    ProgId: win32more.Foundation.PWSTR
+    COMClass: _COMClass_e__Struct
+    class _AppName_e__Struct(Structure):
+        Name: win32more.Foundation.PWSTR
+        GPOId: Guid
+    class _COMClass_e__Struct(Structure):
+        Clsid: Guid
+        ClsCtx: UInt32
 INSTALLSPECTYPE = Int32
-APPNAME = 1
-FILEEXT = 2
-PROGID = 3
-COMCLASS = 4
-def _define_IRSOPInformation_head():
-    class IRSOPInformation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9a5a81b5-d9c7-49ef-9d-11-dd-f5-09-68-c4-8d')
-    return IRSOPInformation
-def _define_IRSOPInformation():
-    IRSOPInformation = win32more.System.GroupPolicy.IRSOPInformation_head
-    IRSOPInformation.GetNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,Int32)(3, 'GetNamespace', ((1, 'dwSection'),(1, 'pszName'),(1, 'cchMaxLength'),)))
-    IRSOPInformation.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetFlags', ((1, 'pdwFlags'),)))
-    IRSOPInformation.GetEventLogEntryText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR))(5, 'GetEventLogEntryText', ((1, 'pszEventSource'),(1, 'pszEventLogName'),(1, 'pszEventTime'),(1, 'dwEventID'),(1, 'ppszText'),)))
-    win32more.System.Com.IUnknown
-    return IRSOPInformation
-def _define_LOCALMANAGEDAPPLICATION_head():
-    class LOCALMANAGEDAPPLICATION(Structure):
-        pass
-    return LOCALMANAGEDAPPLICATION
-def _define_LOCALMANAGEDAPPLICATION():
-    LOCALMANAGEDAPPLICATION = win32more.System.GroupPolicy.LOCALMANAGEDAPPLICATION_head
-    LOCALMANAGEDAPPLICATION._fields_ = [
-        ('pszDeploymentName', win32more.Foundation.PWSTR),
-        ('pszPolicyName', win32more.Foundation.PWSTR),
-        ('pszProductId', win32more.Foundation.PWSTR),
-        ('dwState', UInt32),
-    ]
-    return LOCALMANAGEDAPPLICATION
-def _define_MANAGEDAPPLICATION_head():
-    class MANAGEDAPPLICATION(Structure):
-        pass
-    return MANAGEDAPPLICATION
-def _define_MANAGEDAPPLICATION():
-    MANAGEDAPPLICATION = win32more.System.GroupPolicy.MANAGEDAPPLICATION_head
-    MANAGEDAPPLICATION._fields_ = [
-        ('pszPackageName', win32more.Foundation.PWSTR),
-        ('pszPublisher', win32more.Foundation.PWSTR),
-        ('dwVersionHi', UInt32),
-        ('dwVersionLo', UInt32),
-        ('dwRevision', UInt32),
-        ('GpoId', Guid),
-        ('pszPolicyName', win32more.Foundation.PWSTR),
-        ('ProductId', Guid),
-        ('Language', UInt16),
-        ('pszOwner', win32more.Foundation.PWSTR),
-        ('pszCompany', win32more.Foundation.PWSTR),
-        ('pszComments', win32more.Foundation.PWSTR),
-        ('pszContact', win32more.Foundation.PWSTR),
-        ('pszSupportUrl', win32more.Foundation.PWSTR),
-        ('dwPathType', UInt32),
-        ('bInstalled', win32more.Foundation.BOOL),
-    ]
-    return MANAGEDAPPLICATION
-def _define_PFNGENERATEGROUPPOLICY():
-    return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.BOOL),win32more.Foundation.PWSTR,POINTER(win32more.System.GroupPolicy.RSOP_TARGET_head),POINTER(win32more.System.GroupPolicy.RSOP_TARGET_head))
-def _define_PFNPROCESSGROUPPOLICY():
-    return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.HANDLE,win32more.System.Registry.HKEY,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head),POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head),UIntPtr,POINTER(win32more.Foundation.BOOL),win32more.System.GroupPolicy.PFNSTATUSMESSAGECALLBACK)
-def _define_PFNPROCESSGROUPPOLICYEX():
-    return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.HANDLE,win32more.System.Registry.HKEY,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head),POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head),UIntPtr,POINTER(win32more.Foundation.BOOL),win32more.System.GroupPolicy.PFNSTATUSMESSAGECALLBACK,win32more.System.Wmi.IWbemServices_head,POINTER(win32more.Foundation.HRESULT))
-def _define_PFNSTATUSMESSAGECALLBACK():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)
-def _define_POLICYSETTINGSTATUSINFO_head():
-    class POLICYSETTINGSTATUSINFO(Structure):
-        pass
-    return POLICYSETTINGSTATUSINFO
-def _define_POLICYSETTINGSTATUSINFO():
-    POLICYSETTINGSTATUSINFO = win32more.System.GroupPolicy.POLICYSETTINGSTATUSINFO_head
-    POLICYSETTINGSTATUSINFO._fields_ = [
-        ('szKey', win32more.Foundation.PWSTR),
-        ('szEventSource', win32more.Foundation.PWSTR),
-        ('szEventLogName', win32more.Foundation.PWSTR),
-        ('dwEventID', UInt32),
-        ('dwErrorCode', UInt32),
-        ('status', win32more.System.GroupPolicy.SETTINGSTATUS),
-        ('timeLogged', win32more.Foundation.SYSTEMTIME),
-    ]
-    return POLICYSETTINGSTATUSINFO
-def _define_RSOP_TARGET_head():
-    class RSOP_TARGET(Structure):
-        pass
-    return RSOP_TARGET
-def _define_RSOP_TARGET():
-    RSOP_TARGET = win32more.System.GroupPolicy.RSOP_TARGET_head
-    RSOP_TARGET._fields_ = [
-        ('pwszAccountName', win32more.Foundation.PWSTR),
-        ('pwszNewSOM', win32more.Foundation.PWSTR),
-        ('psaSecurityGroups', POINTER(win32more.System.Com.SAFEARRAY_head)),
-        ('pRsopToken', c_void_p),
-        ('pGPOList', POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)),
-        ('pWbemServices', win32more.System.Wmi.IWbemServices_head),
-    ]
-    return RSOP_TARGET
+APPNAME: INSTALLSPECTYPE = 1
+FILEEXT: INSTALLSPECTYPE = 2
+PROGID: INSTALLSPECTYPE = 3
+COMCLASS: INSTALLSPECTYPE = 4
+class IRSOPInformation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9a5a81b5-d9c7-49ef-9d-11-dd-f5-09-68-c4-8d')
+    @commethod(3)
+    def GetNamespace(dwSection: UInt32, pszName: win32more.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFlags(pdwFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetEventLogEntryText(pszEventSource: win32more.Foundation.PWSTR, pszEventLogName: win32more.Foundation.PWSTR, pszEventTime: win32more.Foundation.PWSTR, dwEventID: UInt32, ppszText: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class LOCALMANAGEDAPPLICATION(Structure):
+    pszDeploymentName: win32more.Foundation.PWSTR
+    pszPolicyName: win32more.Foundation.PWSTR
+    pszProductId: win32more.Foundation.PWSTR
+    dwState: UInt32
+class MANAGEDAPPLICATION(Structure):
+    pszPackageName: win32more.Foundation.PWSTR
+    pszPublisher: win32more.Foundation.PWSTR
+    dwVersionHi: UInt32
+    dwVersionLo: UInt32
+    dwRevision: UInt32
+    GpoId: Guid
+    pszPolicyName: win32more.Foundation.PWSTR
+    ProductId: Guid
+    Language: UInt16
+    pszOwner: win32more.Foundation.PWSTR
+    pszCompany: win32more.Foundation.PWSTR
+    pszComments: win32more.Foundation.PWSTR
+    pszContact: win32more.Foundation.PWSTR
+    pszSupportUrl: win32more.Foundation.PWSTR
+    dwPathType: UInt32
+    bInstalled: win32more.Foundation.BOOL
+@winfunctype_pointer
+def PFNGENERATEGROUPPOLICY(dwFlags: UInt32, pbAbort: POINTER(win32more.Foundation.BOOL), pwszSite: win32more.Foundation.PWSTR, pComputerTarget: POINTER(win32more.System.GroupPolicy.RSOP_TARGET_head), pUserTarget: POINTER(win32more.System.GroupPolicy.RSOP_TARGET_head)) -> UInt32: ...
+@winfunctype_pointer
+def PFNPROCESSGROUPPOLICY(dwFlags: UInt32, hToken: win32more.Foundation.HANDLE, hKeyRoot: win32more.System.Registry.HKEY, pDeletedGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head), pChangedGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head), pHandle: UIntPtr, pbAbort: POINTER(win32more.Foundation.BOOL), pStatusCallback: win32more.System.GroupPolicy.PFNSTATUSMESSAGECALLBACK) -> UInt32: ...
+@winfunctype_pointer
+def PFNPROCESSGROUPPOLICYEX(dwFlags: UInt32, hToken: win32more.Foundation.HANDLE, hKeyRoot: win32more.System.Registry.HKEY, pDeletedGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head), pChangedGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head), pHandle: UIntPtr, pbAbort: POINTER(win32more.Foundation.BOOL), pStatusCallback: win32more.System.GroupPolicy.PFNSTATUSMESSAGECALLBACK, pWbemServices: win32more.System.Wmi.IWbemServices_head, pRsopStatus: POINTER(win32more.Foundation.HRESULT)) -> UInt32: ...
+@winfunctype_pointer
+def PFNSTATUSMESSAGECALLBACK(bVerbose: win32more.Foundation.BOOL, lpMessage: win32more.Foundation.PWSTR) -> UInt32: ...
+class POLICYSETTINGSTATUSINFO(Structure):
+    szKey: win32more.Foundation.PWSTR
+    szEventSource: win32more.Foundation.PWSTR
+    szEventLogName: win32more.Foundation.PWSTR
+    dwEventID: UInt32
+    dwErrorCode: UInt32
+    status: win32more.System.GroupPolicy.SETTINGSTATUS
+    timeLogged: win32more.Foundation.SYSTEMTIME
+class RSOP_TARGET(Structure):
+    pwszAccountName: win32more.Foundation.PWSTR
+    pwszNewSOM: win32more.Foundation.PWSTR
+    psaSecurityGroups: POINTER(win32more.System.Com.SAFEARRAY_head)
+    pRsopToken: c_void_p
+    pGPOList: POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECTA_head)
+    pWbemServices: win32more.System.Wmi.IWbemServices_head
 SETTINGSTATUS = Int32
-SETTINGSTATUS_RSOPUnspecified = 0
-SETTINGSTATUS_RSOPApplied = 1
-SETTINGSTATUS_RSOPIgnored = 2
-SETTINGSTATUS_RSOPFailed = 3
-SETTINGSTATUS_RSOPSubsettingFailed = 4
+SETTINGSTATUS_RSOPUnspecified: SETTINGSTATUS = 0
+SETTINGSTATUS_RSOPApplied: SETTINGSTATUS = 1
+SETTINGSTATUS_RSOPIgnored: SETTINGSTATUS = 2
+SETTINGSTATUS_RSOPFailed: SETTINGSTATUS = 3
+SETTINGSTATUS_RSOPSubsettingFailed: SETTINGSTATUS = 4
+make_head(_module, 'GPOBROWSEINFO')
+make_head(_module, 'GROUP_POLICY_OBJECTA')
+make_head(_module, 'GROUP_POLICY_OBJECTW')
+make_head(_module, 'IGPEInformation')
+make_head(_module, 'IGPM')
+make_head(_module, 'IGPM2')
+make_head(_module, 'IGPMAsyncCancel')
+make_head(_module, 'IGPMAsyncProgress')
+make_head(_module, 'IGPMBackup')
+make_head(_module, 'IGPMBackupCollection')
+make_head(_module, 'IGPMBackupDir')
+make_head(_module, 'IGPMBackupDirEx')
+make_head(_module, 'IGPMClientSideExtension')
+make_head(_module, 'IGPMConstants')
+make_head(_module, 'IGPMConstants2')
+make_head(_module, 'IGPMCSECollection')
+make_head(_module, 'IGPMDomain')
+make_head(_module, 'IGPMDomain2')
+make_head(_module, 'IGPMDomain3')
+make_head(_module, 'IGPMGPO')
+make_head(_module, 'IGPMGPO2')
+make_head(_module, 'IGPMGPO3')
+make_head(_module, 'IGPMGPOCollection')
+make_head(_module, 'IGPMGPOLink')
+make_head(_module, 'IGPMGPOLinksCollection')
+make_head(_module, 'IGPMMapEntry')
+make_head(_module, 'IGPMMapEntryCollection')
+make_head(_module, 'IGPMMigrationTable')
+make_head(_module, 'IGPMPermission')
+make_head(_module, 'IGPMResult')
+make_head(_module, 'IGPMRSOP')
+make_head(_module, 'IGPMSearchCriteria')
+make_head(_module, 'IGPMSecurityInfo')
+make_head(_module, 'IGPMSitesContainer')
+make_head(_module, 'IGPMSOM')
+make_head(_module, 'IGPMSOMCollection')
+make_head(_module, 'IGPMStarterGPO')
+make_head(_module, 'IGPMStarterGPOBackup')
+make_head(_module, 'IGPMStarterGPOBackupCollection')
+make_head(_module, 'IGPMStarterGPOCollection')
+make_head(_module, 'IGPMStatusMessage')
+make_head(_module, 'IGPMStatusMsgCollection')
+make_head(_module, 'IGPMTrustee')
+make_head(_module, 'IGPMWMIFilter')
+make_head(_module, 'IGPMWMIFilterCollection')
+make_head(_module, 'IGroupPolicyObject')
+make_head(_module, 'INSTALLDATA')
+make_head(_module, 'INSTALLSPEC')
+make_head(_module, 'IRSOPInformation')
+make_head(_module, 'LOCALMANAGEDAPPLICATION')
+make_head(_module, 'MANAGEDAPPLICATION')
+make_head(_module, 'PFNGENERATEGROUPPOLICY')
+make_head(_module, 'PFNPROCESSGROUPPOLICY')
+make_head(_module, 'PFNPROCESSGROUPPOLICYEX')
+make_head(_module, 'PFNSTATUSMESSAGECALLBACK')
+make_head(_module, 'POLICYSETTINGSTATUSINFO')
+make_head(_module, 'RSOP_TARGET')
 __all__ = [
     "ABSENT",
     "APPNAME",

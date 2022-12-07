@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.IpHelper
 import win32more.NetworkManagement.Rras
@@ -9,4931 +10,3084 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-RASNAP_ProbationTime = 1
-RASTUNNELENDPOINT_UNKNOWN = 0
-RASTUNNELENDPOINT_IPv4 = 1
-RASTUNNELENDPOINT_IPv6 = 2
-RAS_MaxDeviceType = 16
-RAS_MaxPhoneNumber = 128
-RAS_MaxIpAddress = 15
-RAS_MaxIpxAddress = 21
-RAS_MaxEntryName = 256
-RAS_MaxDeviceName = 128
-RAS_MaxCallbackNumber = 128
-RAS_MaxAreaCode = 10
-RAS_MaxPadType = 32
-RAS_MaxX25Address = 200
-RAS_MaxFacilities = 200
-RAS_MaxUserData = 200
-RAS_MaxReplyMessage = 1024
-RAS_MaxDnsSuffix = 256
-RASCF_AllUsers = 1
-RASCF_GlobalCreds = 2
-RASCF_OwnerKnown = 4
-RASCF_OwnerMatch = 8
-RAS_MaxIDSize = 256
-RASCS_PAUSED = 4096
-RASCS_DONE = 8192
-RASCSS_DONE = 8192
-RDEOPT_UsePrefixSuffix = 1
-RDEOPT_PausedStates = 2
-RDEOPT_IgnoreModemSpeaker = 4
-RDEOPT_SetModemSpeaker = 8
-RDEOPT_IgnoreSoftwareCompression = 16
-RDEOPT_SetSoftwareCompression = 32
-RDEOPT_DisableConnectedUI = 64
-RDEOPT_DisableReconnectUI = 128
-RDEOPT_DisableReconnect = 256
-RDEOPT_NoUser = 512
-RDEOPT_PauseOnScript = 1024
-RDEOPT_Router = 2048
-RDEOPT_CustomDial = 4096
-RDEOPT_UseCustomScripting = 8192
-RDEOPT_InvokeAutoTriggerCredentialUI = 16384
-RDEOPT_EapInfoCryptInCapable = 32768
-REN_User = 0
-REN_AllUsers = 1
-RASIPO_VJ = 1
-RASLCPO_PFC = 1
-RASLCPO_ACFC = 2
-RASLCPO_SSHF = 4
-RASLCPO_DES_56 = 8
-RASLCPO_3_DES = 16
-RASLCPO_AES_128 = 32
-RASLCPO_AES_256 = 64
-RASLCPO_AES_192 = 128
-RASLCPO_GCM_AES_128 = 256
-RASLCPO_GCM_AES_192 = 512
-RASLCPO_GCM_AES_256 = 1024
-RASCCPCA_MPPC = 6
-RASCCPCA_STAC = 5
-RASCCPO_Compression = 1
-RASCCPO_HistoryLess = 2
-RASCCPO_Encryption56bit = 16
-RASCCPO_Encryption40bit = 32
-RASCCPO_Encryption128bit = 64
-RASIKEv2_AUTH_MACHINECERTIFICATES = 1
-RASIKEv2_AUTH_EAP = 2
-RASIKEv2_AUTH_PSK = 3
-RASDIALEVENT = 'RasDialEvent'
-WM_RASDIALEVENT = 52429
-ET_None = 0
-ET_Require = 1
-ET_RequireMax = 2
-ET_Optional = 3
-VS_Default = 0
-VS_PptpOnly = 1
-VS_PptpFirst = 2
-VS_L2tpOnly = 3
-VS_L2tpFirst = 4
-VS_SstpOnly = 5
-VS_SstpFirst = 6
-VS_Ikev2Only = 7
-VS_Ikev2First = 8
-VS_GREOnly = 9
-VS_PptpSstp = 12
-VS_L2tpSstp = 13
-VS_Ikev2Sstp = 14
-VS_ProtocolList = 15
-RASEO_UseCountryAndAreaCodes = 1
-RASEO_SpecificIpAddr = 2
-RASEO_SpecificNameServers = 4
-RASEO_IpHeaderCompression = 8
-RASEO_RemoteDefaultGateway = 16
-RASEO_DisableLcpExtensions = 32
-RASEO_TerminalBeforeDial = 64
-RASEO_TerminalAfterDial = 128
-RASEO_ModemLights = 256
-RASEO_SwCompression = 512
-RASEO_RequireEncryptedPw = 1024
-RASEO_RequireMsEncryptedPw = 2048
-RASEO_RequireDataEncryption = 4096
-RASEO_NetworkLogon = 8192
-RASEO_UseLogonCredentials = 16384
-RASEO_PromoteAlternates = 32768
-RASEO_SecureLocalFiles = 65536
-RASEO_RequireEAP = 131072
-RASEO_RequirePAP = 262144
-RASEO_RequireSPAP = 524288
-RASEO_Custom = 1048576
-RASEO_PreviewPhoneNumber = 2097152
-RASEO_SharedPhoneNumbers = 8388608
-RASEO_PreviewUserPw = 16777216
-RASEO_PreviewDomain = 33554432
-RASEO_ShowDialingProgress = 67108864
-RASEO_RequireCHAP = 134217728
-RASEO_RequireMsCHAP = 268435456
-RASEO_RequireMsCHAP2 = 536870912
-RASEO_RequireW95MSCHAP = 1073741824
-RASEO_CustomScript = 2147483648
-RASEO2_SecureFileAndPrint = 1
-RASEO2_SecureClientForMSNet = 2
-RASEO2_DontNegotiateMultilink = 4
-RASEO2_DontUseRasCredentials = 8
-RASEO2_UsePreSharedKey = 16
-RASEO2_Internet = 32
-RASEO2_DisableNbtOverIP = 64
-RASEO2_UseGlobalDeviceSettings = 128
-RASEO2_ReconnectIfDropped = 256
-RASEO2_SharePhoneNumbers = 512
-RASEO2_SecureRoutingCompartment = 1024
-RASEO2_UseTypicalSettings = 2048
-RASEO2_IPv6SpecificNameServers = 4096
-RASEO2_IPv6RemoteDefaultGateway = 8192
-RASEO2_RegisterIpWithDNS = 16384
-RASEO2_UseDNSSuffixForRegistration = 32768
-RASEO2_IPv4ExplicitMetric = 65536
-RASEO2_IPv6ExplicitMetric = 131072
-RASEO2_DisableIKENameEkuCheck = 262144
-RASEO2_DisableClassBasedStaticRoute = 524288
-RASEO2_SpecificIPv6Addr = 1048576
-RASEO2_DisableMobility = 2097152
-RASEO2_RequireMachineCertificates = 4194304
-RASEO2_UsePreSharedKeyForIkev2Initiator = 8388608
-RASEO2_UsePreSharedKeyForIkev2Responder = 16777216
-RASEO2_CacheCredentials = 33554432
-RASEO2_AutoTriggerCapable = 67108864
-RASEO2_IsThirdPartyProfile = 134217728
-RASEO2_AuthTypeIsOtp = 268435456
-RASEO2_IsAlwaysOn = 536870912
-RASEO2_IsPrivateNetwork = 1073741824
-RASEO2_PlumbIKEv2TSAsRoutes = 2147483648
-RASNP_NetBEUI = 1
-RASNP_Ipx = 2
-RASNP_Ip = 4
-RASNP_Ipv6 = 8
-RASFP_Ppp = 1
-RASFP_Slip = 2
-RASFP_Ras = 4
-RASDT_Modem = 'modem'
-RASDT_Isdn = 'isdn'
-RASDT_X25 = 'x25'
-RASDT_Vpn = 'vpn'
-RASDT_Pad = 'pad'
-RASDT_Generic = 'GENERIC'
-RASDT_Serial = 'SERIAL'
-RASDT_FrameRelay = 'FRAMERELAY'
-RASDT_Atm = 'ATM'
-RASDT_Sonet = 'SONET'
-RASDT_SW56 = 'SW56'
-RASDT_Irda = 'IRDA'
-RASDT_Parallel = 'PARALLEL'
-RASDT_PPPoE = 'PPPoE'
-RASET_Phone = 1
-RASET_Vpn = 2
-RASET_Direct = 3
-RASET_Internet = 4
-RASET_Broadband = 5
-RASCN_Connection = 1
-RASCN_Disconnection = 2
-RASCN_BandwidthAdded = 4
-RASCN_BandwidthRemoved = 8
-RASCN_Dormant = 16
-RASCN_ReConnection = 32
-RASCN_EPDGPacketArrival = 64
-RASIDS_Disabled = 4294967295
-RASIDS_UseGlobalValue = 0
-RASADFLG_PositionDlg = 1
-RASCM_UserName = 1
-RASCM_Password = 2
-RASCM_Domain = 4
-RASCM_DefaultCreds = 8
-RASCM_PreSharedKey = 16
-RASCM_ServerPreSharedKey = 32
-RASCM_DDMPreSharedKey = 64
-RASADP_DisableConnectionQuery = 0
-RASADP_LoginSessionDisable = 1
-RASADP_SavedAddressesLimit = 2
-RASADP_FailedConnectionTimeout = 3
-RASADP_ConnectionQueryTimeout = 4
-RASEAPF_NonInteractive = 2
-RASEAPF_Logon = 4
-RASEAPF_Preview = 8
-RCD_SingleUser = 0
-RCD_AllUsers = 1
-RCD_Eap = 2
-RCD_Logon = 4
-RASPBDEVENT_AddEntry = 1
-RASPBDEVENT_EditEntry = 2
-RASPBDEVENT_RemoveEntry = 3
-RASPBDEVENT_DialEntry = 4
-RASPBDEVENT_EditGlobals = 5
-RASPBDEVENT_NoUser = 6
-RASPBDEVENT_NoUserEdit = 7
-RASNOUSER_SmartCard = 1
-RASPBDFLAG_PositionDlg = 1
-RASPBDFLAG_ForceCloseOnDial = 2
-RASPBDFLAG_NoUser = 16
-RASPBDFLAG_UpdateDefaults = 2147483648
-RASEDFLAG_PositionDlg = 1
-RASEDFLAG_NewEntry = 2
-RASEDFLAG_CloneEntry = 4
-RASEDFLAG_NoRename = 8
-RASEDFLAG_ShellOwned = 1073741824
-RASEDFLAG_NewPhoneEntry = 16
-RASEDFLAG_NewTunnelEntry = 32
-RASEDFLAG_NewDirectEntry = 64
-RASEDFLAG_NewBroadbandEntry = 128
-RASEDFLAG_InternetEntry = 256
-RASEDFLAG_NAT = 512
-RASEDFLAG_IncomingConnection = 1024
-RASDDFLAG_PositionDlg = 1
-RASDDFLAG_NoPrompt = 2
-RASDDFLAG_AoacRedial = 4
-RASDDFLAG_LinkFailure = 2147483648
-RRAS_SERVICE_NAME = 'RemoteAccess'
-PID_IPX = 43
-PID_IP = 33
-PID_IPV6 = 87
-PID_NBF = 63
-PID_ATALK = 41
-MPR_INTERFACE_OUT_OF_RESOURCES = 1
-MPR_INTERFACE_ADMIN_DISABLED = 2
-MPR_INTERFACE_CONNECTION_FAILURE = 4
-MPR_INTERFACE_SERVICE_PAUSED = 8
-MPR_INTERFACE_DIALOUT_HOURS_RESTRICTION = 16
-MPR_INTERFACE_NO_MEDIA_SENSE = 32
-MPR_INTERFACE_NO_DEVICE = 64
-MPR_MaxDeviceType = 16
-MPR_MaxPhoneNumber = 128
-MPR_MaxIpAddress = 15
-MPR_MaxIpxAddress = 21
-MPR_MaxEntryName = 256
-MPR_MaxDeviceName = 128
-MPR_MaxCallbackNumber = 128
-MPR_MaxAreaCode = 10
-MPR_MaxPadType = 32
-MPR_MaxX25Address = 200
-MPR_MaxFacilities = 200
-MPR_MaxUserData = 200
-MPRIO_SpecificIpAddr = 2
-MPRIO_SpecificNameServers = 4
-MPRIO_IpHeaderCompression = 8
-MPRIO_RemoteDefaultGateway = 16
-MPRIO_DisableLcpExtensions = 32
-MPRIO_SwCompression = 512
-MPRIO_RequireEncryptedPw = 1024
-MPRIO_RequireMsEncryptedPw = 2048
-MPRIO_RequireDataEncryption = 4096
-MPRIO_NetworkLogon = 8192
-MPRIO_PromoteAlternates = 32768
-MPRIO_SecureLocalFiles = 65536
-MPRIO_RequireEAP = 131072
-MPRIO_RequirePAP = 262144
-MPRIO_RequireSPAP = 524288
-MPRIO_SharedPhoneNumbers = 8388608
-MPRIO_RequireCHAP = 134217728
-MPRIO_RequireMsCHAP = 268435456
-MPRIO_RequireMsCHAP2 = 536870912
-MPRIO_IpSecPreSharedKey = 2147483648
-MPRIO_RequireMachineCertificates = 16777216
-MPRIO_UsePreSharedKeyForIkev2Initiator = 33554432
-MPRIO_UsePreSharedKeyForIkev2Responder = 67108864
-MPRNP_Ipx = 2
-MPRNP_Ip = 4
-MPRNP_Ipv6 = 8
-MPRDT_Modem = 'modem'
-MPRDT_Isdn = 'isdn'
-MPRDT_X25 = 'x25'
-MPRDT_Vpn = 'vpn'
-MPRDT_Pad = 'pad'
-MPRDT_Generic = 'GENERIC'
-MPRDT_Serial = 'SERIAL'
-MPRDT_FrameRelay = 'FRAMERELAY'
-MPRDT_Atm = 'ATM'
-MPRDT_Sonet = 'SONET'
-MPRDT_SW56 = 'SW56'
-MPRDT_Irda = 'IRDA'
-MPRDT_Parallel = 'PARALLEL'
-MPRET_Phone = 1
-MPRET_Vpn = 2
-MPRET_Direct = 3
-MPRIDS_Disabled = 4294967295
-MPRIDS_UseGlobalValue = 0
-MPR_VS_Ikev2Only = 7
-MPR_VS_Ikev2First = 8
-MPR_ENABLE_RAS_ON_DEVICE = 1
-MPR_ENABLE_ROUTING_ON_DEVICE = 2
-IPADDRESSLEN = 15
-IPXADDRESSLEN = 22
-ATADDRESSLEN = 32
-MAXIPADRESSLEN = 64
-PPP_IPCP_VJ = 1
-PPP_CCP_COMPRESSION = 1
-PPP_CCP_ENCRYPTION40BITOLD = 16
-PPP_CCP_ENCRYPTION40BIT = 32
-PPP_CCP_ENCRYPTION128BIT = 64
-PPP_CCP_ENCRYPTION56BIT = 128
-PPP_CCP_HISTORYLESS = 16777216
-PPP_LCP_MULTILINK_FRAMING = 1
-PPP_LCP_PFC = 2
-PPP_LCP_ACFC = 4
-PPP_LCP_SSHF = 8
-PPP_LCP_DES_56 = 16
-PPP_LCP_3_DES = 32
-PPP_LCP_AES_128 = 64
-PPP_LCP_AES_256 = 128
-PPP_LCP_AES_192 = 256
-PPP_LCP_GCM_AES_128 = 512
-PPP_LCP_GCM_AES_192 = 1024
-PPP_LCP_GCM_AES_256 = 2048
-RAS_FLAGS_RAS_CONNECTION = 4
-RASPRIV_NoCallback = 1
-RASPRIV_AdminSetCallback = 2
-RASPRIV_CallerSetCallback = 4
-RASPRIV_DialinPrivilege = 8
-RASPRIV2_DialinPolicy = 1
-MPRAPI_IKEV2_AUTH_USING_CERT = 1
-MPRAPI_IKEV2_AUTH_USING_EAP = 2
-MPRAPI_PPP_PROJECTION_INFO_TYPE = 1
-MPRAPI_IKEV2_PROJECTION_INFO_TYPE = 2
-MPRAPI_RAS_CONNECTION_OBJECT_REVISION_1 = 1
-MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_1 = 1
-MPRAPI_IF_CUSTOM_CONFIG_FOR_IKEV2 = 1
-MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_3 = 3
-MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_2 = 2
-MPRAPI_IKEV2_SET_TUNNEL_CONFIG_PARAMS = 1
-MPRAPI_L2TP_SET_TUNNEL_CONFIG_PARAMS = 1
-MAX_SSTP_HASH_SIZE = 32
-MPRAPI_MPR_SERVER_OBJECT_REVISION_1 = 1
-MPRAPI_MPR_SERVER_OBJECT_REVISION_2 = 2
-MPRAPI_MPR_SERVER_OBJECT_REVISION_3 = 3
-MPRAPI_MPR_SERVER_OBJECT_REVISION_4 = 4
-MPRAPI_MPR_SERVER_OBJECT_REVISION_5 = 5
-MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_1 = 1
-MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_2 = 2
-MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_3 = 3
-MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_4 = 4
-MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_5 = 5
-MPRAPI_SET_CONFIG_PROTOCOL_FOR_PPTP = 1
-MPRAPI_SET_CONFIG_PROTOCOL_FOR_L2TP = 2
-MPRAPI_SET_CONFIG_PROTOCOL_FOR_SSTP = 4
-MPRAPI_SET_CONFIG_PROTOCOL_FOR_IKEV2 = 8
-MPRAPI_SET_CONFIG_PROTOCOL_FOR_GRE = 16
-ALLOW_NO_AUTH = 1
-DO_NOT_ALLOW_NO_AUTH = 0
-MPRAPI_RAS_UPDATE_CONNECTION_OBJECT_REVISION_1 = 1
-MPRAPI_ADMIN_DLL_VERSION_1 = 1
-MPRAPI_ADMIN_DLL_VERSION_2 = 2
-MGM_JOIN_STATE_FLAG = 1
-MGM_FORWARD_STATE_FLAG = 2
-MGM_MFE_STATS_0 = 1
-MGM_MFE_STATS_1 = 2
-RTM_MAX_ADDRESS_SIZE = 16
-RTM_MAX_VIEWS = 32
-RTM_VIEW_ID_UCAST = 0
-RTM_VIEW_ID_MCAST = 1
-RTM_VIEW_MASK_SIZE = 32
-RTM_VIEW_MASK_NONE = 0
-RTM_VIEW_MASK_ANY = 0
-RTM_VIEW_MASK_UCAST = 1
-RTM_VIEW_MASK_MCAST = 2
-RTM_VIEW_MASK_ALL = 4294967295
-IPV6_ADDRESS_LEN_IN_BYTES = 16
-RTM_DEST_FLAG_NATURAL_NET = 1
-RTM_DEST_FLAG_FWD_ENGIN_ADD = 2
-RTM_DEST_FLAG_DONT_FORWARD = 4
-RTM_ROUTE_STATE_CREATED = 0
-RTM_ROUTE_STATE_DELETING = 1
-RTM_ROUTE_STATE_DELETED = 2
-RTM_ROUTE_FLAGS_MARTIAN = 1
-RTM_ROUTE_FLAGS_BLACKHOLE = 2
-RTM_ROUTE_FLAGS_DISCARD = 4
-RTM_ROUTE_FLAGS_INACTIVE = 8
-RTM_ROUTE_FLAGS_LOCAL = 16
-RTM_ROUTE_FLAGS_REMOTE = 32
-RTM_ROUTE_FLAGS_MYSELF = 64
-RTM_ROUTE_FLAGS_LOOPBACK = 128
-RTM_ROUTE_FLAGS_MCAST = 256
-RTM_ROUTE_FLAGS_LOCAL_MCAST = 512
-RTM_ROUTE_FLAGS_LIMITED_BC = 1024
-RTM_ROUTE_FLAGS_ZEROS_NETBC = 4096
-RTM_ROUTE_FLAGS_ZEROS_SUBNETBC = 8192
-RTM_ROUTE_FLAGS_ONES_NETBC = 16384
-RTM_ROUTE_FLAGS_ONES_SUBNETBC = 32768
-RTM_NEXTHOP_STATE_CREATED = 0
-RTM_NEXTHOP_STATE_DELETED = 1
-RTM_NEXTHOP_FLAGS_REMOTE = 1
-RTM_NEXTHOP_FLAGS_DOWN = 2
-METHOD_TYPE_ALL_METHODS = 4294967295
-METHOD_RIP2_NEIGHBOUR_ADDR = 1
-METHOD_RIP2_OUTBOUND_INTF = 2
-METHOD_RIP2_ROUTE_TAG = 4
-METHOD_RIP2_ROUTE_TIMESTAMP = 8
-METHOD_BGP4_AS_PATH = 1
-METHOD_BGP4_PEER_ID = 2
-METHOD_BGP4_PA_ORIGIN = 4
-METHOD_BGP4_NEXTHOP_ATTR = 8
-RTM_RESUME_METHODS = 0
-RTM_BLOCK_METHODS = 1
-RTM_ROUTE_CHANGE_FIRST = 1
-RTM_ROUTE_CHANGE_NEW = 2
-RTM_ROUTE_CHANGE_BEST = 65536
-RTM_NEXTHOP_CHANGE_NEW = 1
-RTM_MATCH_NONE = 0
-RTM_MATCH_OWNER = 1
-RTM_MATCH_NEIGHBOUR = 2
-RTM_MATCH_PREF = 4
-RTM_MATCH_NEXTHOP = 8
-RTM_MATCH_INTERFACE = 16
-RTM_MATCH_FULL = 65535
-RTM_ENUM_START = 0
-RTM_ENUM_NEXT = 1
-RTM_ENUM_RANGE = 2
-RTM_ENUM_ALL_DESTS = 0
-RTM_ENUM_OWN_DESTS = 16777216
-RTM_ENUM_ALL_ROUTES = 0
-RTM_ENUM_OWN_ROUTES = 65536
-RTM_NUM_CHANGE_TYPES = 3
-RTM_CHANGE_TYPE_ALL = 1
-RTM_CHANGE_TYPE_BEST = 2
-RTM_CHANGE_TYPE_FORWARDING = 4
-RTM_NOTIFY_ONLY_MARKED_DESTS = 65536
-RASBASE = 600
-PENDING = 600
-ERROR_INVALID_PORT_HANDLE = 601
-ERROR_PORT_ALREADY_OPEN = 602
-ERROR_BUFFER_TOO_SMALL = 603
-ERROR_WRONG_INFO_SPECIFIED = 604
-ERROR_CANNOT_SET_PORT_INFO = 605
-ERROR_PORT_NOT_CONNECTED = 606
-ERROR_EVENT_INVALID = 607
-ERROR_DEVICE_DOES_NOT_EXIST = 608
-ERROR_DEVICETYPE_DOES_NOT_EXIST = 609
-ERROR_BUFFER_INVALID = 610
-ERROR_ROUTE_NOT_AVAILABLE = 611
-ERROR_ROUTE_NOT_ALLOCATED = 612
-ERROR_INVALID_COMPRESSION_SPECIFIED = 613
-ERROR_OUT_OF_BUFFERS = 614
-ERROR_PORT_NOT_FOUND = 615
-ERROR_ASYNC_REQUEST_PENDING = 616
-ERROR_ALREADY_DISCONNECTING = 617
-ERROR_PORT_NOT_OPEN = 618
-ERROR_PORT_DISCONNECTED = 619
-ERROR_NO_ENDPOINTS = 620
-ERROR_CANNOT_OPEN_PHONEBOOK = 621
-ERROR_CANNOT_LOAD_PHONEBOOK = 622
-ERROR_CANNOT_FIND_PHONEBOOK_ENTRY = 623
-ERROR_CANNOT_WRITE_PHONEBOOK = 624
-ERROR_CORRUPT_PHONEBOOK = 625
-ERROR_CANNOT_LOAD_STRING = 626
-ERROR_KEY_NOT_FOUND = 627
-ERROR_DISCONNECTION = 628
-ERROR_REMOTE_DISCONNECTION = 629
-ERROR_HARDWARE_FAILURE = 630
-ERROR_USER_DISCONNECTION = 631
-ERROR_INVALID_SIZE = 632
-ERROR_PORT_NOT_AVAILABLE = 633
-ERROR_CANNOT_PROJECT_CLIENT = 634
-ERROR_UNKNOWN = 635
-ERROR_WRONG_DEVICE_ATTACHED = 636
-ERROR_BAD_STRING = 637
-ERROR_REQUEST_TIMEOUT = 638
-ERROR_CANNOT_GET_LANA = 639
-ERROR_NETBIOS_ERROR = 640
-ERROR_SERVER_OUT_OF_RESOURCES = 641
-ERROR_NAME_EXISTS_ON_NET = 642
-ERROR_SERVER_GENERAL_NET_FAILURE = 643
-WARNING_MSG_ALIAS_NOT_ADDED = 644
-ERROR_AUTH_INTERNAL = 645
-ERROR_RESTRICTED_LOGON_HOURS = 646
-ERROR_ACCT_DISABLED = 647
-ERROR_PASSWD_EXPIRED = 648
-ERROR_NO_DIALIN_PERMISSION = 649
-ERROR_SERVER_NOT_RESPONDING = 650
-ERROR_FROM_DEVICE = 651
-ERROR_UNRECOGNIZED_RESPONSE = 652
-ERROR_MACRO_NOT_FOUND = 653
-ERROR_MACRO_NOT_DEFINED = 654
-ERROR_MESSAGE_MACRO_NOT_FOUND = 655
-ERROR_DEFAULTOFF_MACRO_NOT_FOUND = 656
-ERROR_FILE_COULD_NOT_BE_OPENED = 657
-ERROR_DEVICENAME_TOO_LONG = 658
-ERROR_DEVICENAME_NOT_FOUND = 659
-ERROR_NO_RESPONSES = 660
-ERROR_NO_COMMAND_FOUND = 661
-ERROR_WRONG_KEY_SPECIFIED = 662
-ERROR_UNKNOWN_DEVICE_TYPE = 663
-ERROR_ALLOCATING_MEMORY = 664
-ERROR_PORT_NOT_CONFIGURED = 665
-ERROR_DEVICE_NOT_READY = 666
-ERROR_READING_INI_FILE = 667
-ERROR_NO_CONNECTION = 668
-ERROR_BAD_USAGE_IN_INI_FILE = 669
-ERROR_READING_SECTIONNAME = 670
-ERROR_READING_DEVICETYPE = 671
-ERROR_READING_DEVICENAME = 672
-ERROR_READING_USAGE = 673
-ERROR_READING_MAXCONNECTBPS = 674
-ERROR_READING_MAXCARRIERBPS = 675
-ERROR_LINE_BUSY = 676
-ERROR_VOICE_ANSWER = 677
-ERROR_NO_ANSWER = 678
-ERROR_NO_CARRIER = 679
-ERROR_NO_DIALTONE = 680
-ERROR_IN_COMMAND = 681
-ERROR_WRITING_SECTIONNAME = 682
-ERROR_WRITING_DEVICETYPE = 683
-ERROR_WRITING_DEVICENAME = 684
-ERROR_WRITING_MAXCONNECTBPS = 685
-ERROR_WRITING_MAXCARRIERBPS = 686
-ERROR_WRITING_USAGE = 687
-ERROR_WRITING_DEFAULTOFF = 688
-ERROR_READING_DEFAULTOFF = 689
-ERROR_EMPTY_INI_FILE = 690
-ERROR_AUTHENTICATION_FAILURE = 691
-ERROR_PORT_OR_DEVICE = 692
-ERROR_NOT_BINARY_MACRO = 693
-ERROR_DCB_NOT_FOUND = 694
-ERROR_STATE_MACHINES_NOT_STARTED = 695
-ERROR_STATE_MACHINES_ALREADY_STARTED = 696
-ERROR_PARTIAL_RESPONSE_LOOPING = 697
-ERROR_UNKNOWN_RESPONSE_KEY = 698
-ERROR_RECV_BUF_FULL = 699
-ERROR_CMD_TOO_LONG = 700
-ERROR_UNSUPPORTED_BPS = 701
-ERROR_UNEXPECTED_RESPONSE = 702
-ERROR_INTERACTIVE_MODE = 703
-ERROR_BAD_CALLBACK_NUMBER = 704
-ERROR_INVALID_AUTH_STATE = 705
-ERROR_WRITING_INITBPS = 706
-ERROR_X25_DIAGNOSTIC = 707
-ERROR_ACCT_EXPIRED = 708
-ERROR_CHANGING_PASSWORD = 709
-ERROR_OVERRUN = 710
-ERROR_RASMAN_CANNOT_INITIALIZE = 711
-ERROR_BIPLEX_PORT_NOT_AVAILABLE = 712
-ERROR_NO_ACTIVE_ISDN_LINES = 713
-ERROR_NO_ISDN_CHANNELS_AVAILABLE = 714
-ERROR_TOO_MANY_LINE_ERRORS = 715
-ERROR_IP_CONFIGURATION = 716
-ERROR_NO_IP_ADDRESSES = 717
-ERROR_PPP_TIMEOUT = 718
-ERROR_PPP_REMOTE_TERMINATED = 719
-ERROR_PPP_NO_PROTOCOLS_CONFIGURED = 720
-ERROR_PPP_NO_RESPONSE = 721
-ERROR_PPP_INVALID_PACKET = 722
-ERROR_PHONE_NUMBER_TOO_LONG = 723
-ERROR_IPXCP_NO_DIALOUT_CONFIGURED = 724
-ERROR_IPXCP_NO_DIALIN_CONFIGURED = 725
-ERROR_IPXCP_DIALOUT_ALREADY_ACTIVE = 726
-ERROR_ACCESSING_TCPCFGDLL = 727
-ERROR_NO_IP_RAS_ADAPTER = 728
-ERROR_SLIP_REQUIRES_IP = 729
-ERROR_PROJECTION_NOT_COMPLETE = 730
-ERROR_PROTOCOL_NOT_CONFIGURED = 731
-ERROR_PPP_NOT_CONVERGING = 732
-ERROR_PPP_CP_REJECTED = 733
-ERROR_PPP_LCP_TERMINATED = 734
-ERROR_PPP_REQUIRED_ADDRESS_REJECTED = 735
-ERROR_PPP_NCP_TERMINATED = 736
-ERROR_PPP_LOOPBACK_DETECTED = 737
-ERROR_PPP_NO_ADDRESS_ASSIGNED = 738
-ERROR_CANNOT_USE_LOGON_CREDENTIALS = 739
-ERROR_TAPI_CONFIGURATION = 740
-ERROR_NO_LOCAL_ENCRYPTION = 741
-ERROR_NO_REMOTE_ENCRYPTION = 742
-ERROR_REMOTE_REQUIRES_ENCRYPTION = 743
-ERROR_IPXCP_NET_NUMBER_CONFLICT = 744
-ERROR_INVALID_SMM = 745
-ERROR_SMM_UNINITIALIZED = 746
-ERROR_NO_MAC_FOR_PORT = 747
-ERROR_SMM_TIMEOUT = 748
-ERROR_BAD_PHONE_NUMBER = 749
-ERROR_WRONG_MODULE = 750
-ERROR_INVALID_CALLBACK_NUMBER = 751
-ERROR_SCRIPT_SYNTAX = 752
-ERROR_HANGUP_FAILED = 753
-ERROR_BUNDLE_NOT_FOUND = 754
-ERROR_CANNOT_DO_CUSTOMDIAL = 755
-ERROR_DIAL_ALREADY_IN_PROGRESS = 756
-ERROR_RASAUTO_CANNOT_INITIALIZE = 757
-ERROR_CONNECTION_ALREADY_SHARED = 758
-ERROR_SHARING_CHANGE_FAILED = 759
-ERROR_SHARING_ROUTER_INSTALL = 760
-ERROR_SHARE_CONNECTION_FAILED = 761
-ERROR_SHARING_PRIVATE_INSTALL = 762
-ERROR_CANNOT_SHARE_CONNECTION = 763
-ERROR_NO_SMART_CARD_READER = 764
-ERROR_SHARING_ADDRESS_EXISTS = 765
-ERROR_NO_CERTIFICATE = 766
-ERROR_SHARING_MULTIPLE_ADDRESSES = 767
-ERROR_FAILED_TO_ENCRYPT = 768
-ERROR_BAD_ADDRESS_SPECIFIED = 769
-ERROR_CONNECTION_REJECT = 770
-ERROR_CONGESTION = 771
-ERROR_INCOMPATIBLE = 772
-ERROR_NUMBERCHANGED = 773
-ERROR_TEMPFAILURE = 774
-ERROR_BLOCKED = 775
-ERROR_DONOTDISTURB = 776
-ERROR_OUTOFORDER = 777
-ERROR_UNABLE_TO_AUTHENTICATE_SERVER = 778
-ERROR_SMART_CARD_REQUIRED = 779
-ERROR_INVALID_FUNCTION_FOR_ENTRY = 780
-ERROR_CERT_FOR_ENCRYPTION_NOT_FOUND = 781
-ERROR_SHARING_RRAS_CONFLICT = 782
-ERROR_SHARING_NO_PRIVATE_LAN = 783
-ERROR_NO_DIFF_USER_AT_LOGON = 784
-ERROR_NO_REG_CERT_AT_LOGON = 785
-ERROR_OAKLEY_NO_CERT = 786
-ERROR_OAKLEY_AUTH_FAIL = 787
-ERROR_OAKLEY_ATTRIB_FAIL = 788
-ERROR_OAKLEY_GENERAL_PROCESSING = 789
-ERROR_OAKLEY_NO_PEER_CERT = 790
-ERROR_OAKLEY_NO_POLICY = 791
-ERROR_OAKLEY_TIMED_OUT = 792
-ERROR_OAKLEY_ERROR = 793
-ERROR_UNKNOWN_FRAMED_PROTOCOL = 794
-ERROR_WRONG_TUNNEL_TYPE = 795
-ERROR_UNKNOWN_SERVICE_TYPE = 796
-ERROR_CONNECTING_DEVICE_NOT_FOUND = 797
-ERROR_NO_EAPTLS_CERTIFICATE = 798
-ERROR_SHARING_HOST_ADDRESS_CONFLICT = 799
-ERROR_AUTOMATIC_VPN_FAILED = 800
-ERROR_VALIDATING_SERVER_CERT = 801
-ERROR_READING_SCARD = 802
-ERROR_INVALID_PEAP_COOKIE_CONFIG = 803
-ERROR_INVALID_PEAP_COOKIE_USER = 804
-ERROR_INVALID_MSCHAPV2_CONFIG = 805
-ERROR_VPN_GRE_BLOCKED = 806
-ERROR_VPN_DISCONNECT = 807
-ERROR_VPN_REFUSED = 808
-ERROR_VPN_TIMEOUT = 809
-ERROR_VPN_BAD_CERT = 810
-ERROR_VPN_BAD_PSK = 811
-ERROR_SERVER_POLICY = 812
-ERROR_BROADBAND_ACTIVE = 813
-ERROR_BROADBAND_NO_NIC = 814
-ERROR_BROADBAND_TIMEOUT = 815
-ERROR_FEATURE_DEPRECATED = 816
-ERROR_CANNOT_DELETE = 817
-ERROR_RASQEC_RESOURCE_CREATION_FAILED = 818
-ERROR_RASQEC_NAPAGENT_NOT_ENABLED = 819
-ERROR_RASQEC_NAPAGENT_NOT_CONNECTED = 820
-ERROR_RASQEC_CONN_DOESNOTEXIST = 821
-ERROR_RASQEC_TIMEOUT = 822
-ERROR_PEAP_CRYPTOBINDING_INVALID = 823
-ERROR_PEAP_CRYPTOBINDING_NOTRECEIVED = 824
-ERROR_INVALID_VPNSTRATEGY = 825
-ERROR_EAPTLS_CACHE_CREDENTIALS_INVALID = 826
-ERROR_IPSEC_SERVICE_STOPPED = 827
-ERROR_IDLE_TIMEOUT = 828
-ERROR_LINK_FAILURE = 829
-ERROR_USER_LOGOFF = 830
-ERROR_FAST_USER_SWITCH = 831
-ERROR_HIBERNATION = 832
-ERROR_SYSTEM_SUSPENDED = 833
-ERROR_RASMAN_SERVICE_STOPPED = 834
-ERROR_INVALID_SERVER_CERT = 835
-ERROR_NOT_NAP_CAPABLE = 836
-ERROR_INVALID_TUNNELID = 837
-ERROR_UPDATECONNECTION_REQUEST_IN_PROCESS = 838
-ERROR_PROTOCOL_ENGINE_DISABLED = 839
-ERROR_INTERNAL_ADDRESS_FAILURE = 840
-ERROR_FAILED_CP_REQUIRED = 841
-ERROR_TS_UNACCEPTABLE = 842
-ERROR_MOBIKE_DISABLED = 843
-ERROR_CANNOT_INITIATE_MOBIKE_UPDATE = 844
-ERROR_PEAP_SERVER_REJECTED_CLIENT_TLV = 845
-ERROR_INVALID_PREFERENCES = 846
-ERROR_EAPTLS_SCARD_CACHE_CREDENTIALS_INVALID = 847
-ERROR_SSTP_COOKIE_SET_FAILURE = 848
-ERROR_INVALID_PEAP_COOKIE_ATTRIBUTES = 849
-ERROR_EAP_METHOD_NOT_INSTALLED = 850
-ERROR_EAP_METHOD_DOES_NOT_SUPPORT_SSO = 851
-ERROR_EAP_METHOD_OPERATION_NOT_SUPPORTED = 852
-ERROR_EAP_USER_CERT_INVALID = 853
-ERROR_EAP_USER_CERT_EXPIRED = 854
-ERROR_EAP_USER_CERT_REVOKED = 855
-ERROR_EAP_USER_CERT_OTHER_ERROR = 856
-ERROR_EAP_SERVER_CERT_INVALID = 857
-ERROR_EAP_SERVER_CERT_EXPIRED = 858
-ERROR_EAP_SERVER_CERT_REVOKED = 859
-ERROR_EAP_SERVER_CERT_OTHER_ERROR = 860
-ERROR_EAP_USER_ROOT_CERT_NOT_FOUND = 861
-ERROR_EAP_USER_ROOT_CERT_INVALID = 862
-ERROR_EAP_USER_ROOT_CERT_EXPIRED = 863
-ERROR_EAP_SERVER_ROOT_CERT_NOT_FOUND = 864
-ERROR_EAP_SERVER_ROOT_CERT_INVALID = 865
-ERROR_EAP_SERVER_ROOT_CERT_NAME_REQUIRED = 866
-ERROR_PEAP_IDENTITY_MISMATCH = 867
-ERROR_DNSNAME_NOT_RESOLVABLE = 868
-ERROR_EAPTLS_PASSWD_INVALID = 869
-ERROR_IKEV2_PSK_INTERFACE_ALREADY_EXISTS = 870
-ERROR_INVALID_DESTINATION_IP = 871
-ERROR_INVALID_INTERFACE_CONFIG = 872
-ERROR_VPN_PLUGIN_GENERIC = 873
-ERROR_SSO_CERT_MISSING = 874
-ERROR_DEVICE_COMPLIANCE = 875
-ERROR_PLUGIN_NOT_INSTALLED = 876
-ERROR_ACTION_REQUIRED = 877
-RASBASEEND = 877
-def _define_RasDialA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head),win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head),UInt32,c_void_p,POINTER(win32more.NetworkManagement.Rras.HRASCONN))(('RasDialA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDialW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head),win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head),UInt32,c_void_p,POINTER(win32more.NetworkManagement.Rras.HRASCONN))(('RasDialW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumConnectionsA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASCONNA_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumConnectionsA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumConnectionsW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASCONNW_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumConnectionsW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumEntriesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYNAMEA_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumEntriesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumEntriesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYNAMEW_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumEntriesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetConnectStatusA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,POINTER(win32more.NetworkManagement.Rras.RASCONNSTATUSA_head))(('RasGetConnectStatusA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetConnectStatusW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,POINTER(win32more.NetworkManagement.Rras.RASCONNSTATUSW_head))(('RasGetConnectStatusW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetErrorStringA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('RasGetErrorStringA', windll['RASAPI32.dll']), ((1, 'ResourceId'),(1, 'lpszString'),(1, 'InBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetErrorStringW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('RasGetErrorStringW', windll['RASAPI32.dll']), ((1, 'ResourceId'),(1, 'lpszString'),(1, 'InBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasHangUpA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN)(('RasHangUpA', windll['RASAPI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasHangUpW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN)(('RasHangUpW', windll['RASAPI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetProjectionInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,win32more.NetworkManagement.Rras.RASPROJECTION,c_void_p,POINTER(UInt32))(('RasGetProjectionInfoA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetProjectionInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,win32more.NetworkManagement.Rras.RASPROJECTION,c_void_p,POINTER(UInt32))(('RasGetProjectionInfoW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasCreatePhonebookEntryA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR)(('RasCreatePhonebookEntryA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasCreatePhonebookEntryW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('RasCreatePhonebookEntryW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEditPhonebookEntryA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('RasEditPhonebookEntryA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEditPhonebookEntryW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('RasEditPhonebookEntryW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEntryDialParamsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head),win32more.Foundation.BOOL)(('RasSetEntryDialParamsA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEntryDialParamsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head),win32more.Foundation.BOOL)(('RasSetEntryDialParamsW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEntryDialParamsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head),POINTER(Int32))(('RasGetEntryDialParamsA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEntryDialParamsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head),POINTER(Int32))(('RasGetEntryDialParamsW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumDevicesA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASDEVINFOA_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumDevicesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumDevicesW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASDEVINFOW_head),POINTER(UInt32),POINTER(UInt32))(('RasEnumDevicesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCountryInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASCTRYINFO_head),POINTER(UInt32))(('RasGetCountryInfoA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCountryInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RASCTRYINFO_head),POINTER(UInt32))(('RasGetCountryInfoW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEntryPropertiesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYA_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('RasGetEntryPropertiesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEntryPropertiesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYW_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('RasGetEntryPropertiesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEntryPropertiesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYA_head),UInt32,c_char_p_no,UInt32)(('RasSetEntryPropertiesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEntryPropertiesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYW_head),UInt32,c_char_p_no,UInt32)(('RasSetEntryPropertiesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasRenameEntryA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('RasRenameEntryA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasRenameEntryW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('RasRenameEntryW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDeleteEntryA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('RasDeleteEntryA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDeleteEntryW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('RasDeleteEntryW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasValidateEntryNameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('RasValidateEntryNameA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasValidateEntryNameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('RasValidateEntryNameW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasConnectionNotificationA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,win32more.Foundation.HANDLE,UInt32)(('RasConnectionNotificationA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasConnectionNotificationW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,win32more.Foundation.HANDLE,UInt32)(('RasConnectionNotificationW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetSubEntryHandleA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32,POINTER(win32more.NetworkManagement.Rras.HRASCONN))(('RasGetSubEntryHandleA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetSubEntryHandleW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32,POINTER(win32more.NetworkManagement.Rras.HRASCONN))(('RasGetSubEntryHandleW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCredentialsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSA_head))(('RasGetCredentialsA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCredentialsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSW_head))(('RasGetCredentialsW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetCredentialsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSA_head),win32more.Foundation.BOOL)(('RasSetCredentialsA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetCredentialsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSW_head),win32more.Foundation.BOOL)(('RasSetCredentialsW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetSubEntryPropertiesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYA_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('RasGetSubEntryPropertiesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetSubEntryPropertiesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYW_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('RasGetSubEntryPropertiesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetSubEntryPropertiesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYA_head),UInt32,c_char_p_no,UInt32)(('RasSetSubEntryPropertiesA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetSubEntryPropertiesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYW_head),UInt32,c_char_p_no,UInt32)(('RasSetSubEntryPropertiesW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialAddressA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYA_head),POINTER(UInt32),POINTER(UInt32))(('RasGetAutodialAddressA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialAddressW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYW_head),POINTER(UInt32),POINTER(UInt32))(('RasGetAutodialAddressW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialAddressA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYA_head),UInt32,UInt32)(('RasSetAutodialAddressA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialAddressW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYW_head),UInt32,UInt32)(('RasSetAutodialAddressW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumAutodialAddressesA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.PSTR),POINTER(UInt32),POINTER(UInt32))(('RasEnumAutodialAddressesA', windll['RASAPI32.dll']), ((1, 'lppRasAutodialAddresses'),(1, 'lpdwcbRasAutodialAddresses'),(1, 'lpdwcRasAutodialAddresses'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEnumAutodialAddressesW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32))(('RasEnumAutodialAddressesW', windll['RASAPI32.dll']), ((1, 'lppRasAutodialAddresses'),(1, 'lpdwcbRasAutodialAddresses'),(1, 'lpdwcRasAutodialAddresses'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialEnableA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(Int32))(('RasGetAutodialEnableA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialEnableW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(Int32))(('RasGetAutodialEnableW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialEnableA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.BOOL)(('RasSetAutodialEnableA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialEnableW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.BOOL)(('RasSetAutodialEnableW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialParamA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(UInt32))(('RasGetAutodialParamA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetAutodialParamW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(UInt32))(('RasGetAutodialParamW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialParamA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,UInt32)(('RasSetAutodialParamA', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetAutodialParamW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,UInt32)(('RasSetAutodialParamW', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetPCscf():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('RasGetPCscf', windll['RASAPI32.dll']), ((1, 'lpszPCscf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasInvokeEapUI():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32,POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head),win32more.Foundation.HWND)(('RasInvokeEapUI', windll['RASAPI32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetLinkStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32,POINTER(win32more.NetworkManagement.Rras.RAS_STATS_head))(('RasGetLinkStatistics', windll['RASAPI32.dll']), ((1, 'hRasConn'),(1, 'dwSubEntry'),(1, 'lpStatistics'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetConnectionStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,POINTER(win32more.NetworkManagement.Rras.RAS_STATS_head))(('RasGetConnectionStatistics', windll['RASAPI32.dll']), ((1, 'hRasConn'),(1, 'lpStatistics'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasClearLinkStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32)(('RasClearLinkStatistics', windll['RASAPI32.dll']), ((1, 'hRasConn'),(1, 'dwSubEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasClearConnectionStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN)(('RasClearConnectionStatistics', windll['RASAPI32.dll']), ((1, 'hRasConn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEapUserDataA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_char_p_no,POINTER(UInt32))(('RasGetEapUserDataA', windll['RASAPI32.dll']), ((1, 'hToken'),(1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbEapData'),(1, 'pdwSizeofEapData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEapUserDataW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,POINTER(UInt32))(('RasGetEapUserDataW', windll['RASAPI32.dll']), ((1, 'hToken'),(1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbEapData'),(1, 'pdwSizeofEapData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEapUserDataA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_char_p_no,UInt32)(('RasSetEapUserDataA', windll['RASAPI32.dll']), ((1, 'hToken'),(1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbEapData'),(1, 'dwSizeofEapData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetEapUserDataW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32)(('RasSetEapUserDataW', windll['RASAPI32.dll']), ((1, 'hToken'),(1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbEapData'),(1, 'dwSizeofEapData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCustomAuthDataA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_char_p_no,POINTER(UInt32))(('RasGetCustomAuthDataA', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbCustomAuthData'),(1, 'pdwSizeofCustomAuthData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetCustomAuthDataW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,POINTER(UInt32))(('RasGetCustomAuthDataW', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbCustomAuthData'),(1, 'pdwSizeofCustomAuthData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetCustomAuthDataA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_char_p_no,UInt32)(('RasSetCustomAuthDataA', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbCustomAuthData'),(1, 'dwSizeofCustomAuthData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasSetCustomAuthDataW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32)(('RasSetCustomAuthDataW', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'pbCustomAuthData'),(1, 'dwSizeofCustomAuthData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEapUserIdentityW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.HWND,POINTER(POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYW_head)))(('RasGetEapUserIdentityW', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'dwFlags'),(1, 'hwnd'),(1, 'ppRasEapUserIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetEapUserIdentityA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.HWND,POINTER(POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYA_head)))(('RasGetEapUserIdentityA', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'dwFlags'),(1, 'hwnd'),(1, 'ppRasEapUserIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasFreeEapUserIdentityW():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYW_head))(('RasFreeEapUserIdentityW', windll['RASAPI32.dll']), ((1, 'pRasEapUserIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasFreeEapUserIdentityA():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYA_head))(('RasFreeEapUserIdentityA', windll['RASAPI32.dll']), ((1, 'pRasEapUserIdentity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDeleteSubEntryA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('RasDeleteSubEntryA', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'dwSubentryId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDeleteSubEntryW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('RasDeleteSubEntryW', windll['RASAPI32.dll']), ((1, 'pszPhonebook'),(1, 'pszEntry'),(1, 'dwSubEntryId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasUpdateConnection():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,POINTER(win32more.NetworkManagement.Rras.RASUPDATECONN_head))(('RasUpdateConnection', windll['RASAPI32.dll']), ((1, 'hrasconn'),(1, 'lprasupdateconn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasGetProjectionInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN,POINTER(win32more.NetworkManagement.Rras.RAS_PROJECTION_INFO_head),POINTER(UInt32))(('RasGetProjectionInfoEx', windll['RASAPI32.dll']), ((1, 'hrasconn'),(1, 'pRasProjection'),(1, 'lpdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasPhonebookDlgA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASPBDLGA_head))(('RasPhonebookDlgA', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasPhonebookDlgW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASPBDLGW_head))(('RasPhonebookDlgW', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEntryDlgA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGA_head))(('RasEntryDlgA', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasEntryDlgW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGW_head))(('RasEntryDlgW', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDialDlgA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head))(('RasDialDlgA', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpszPhoneNumber'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RasDialDlgW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head))(('RasDialDlgW', windll['RASDLG.dll']), ((1, 'lpszPhonebook'),(1, 'lpszEntry'),(1, 'lpszPhoneNumber'),(1, 'lpInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionEnumEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER_head),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)),POINTER(UInt32))(('MprAdminConnectionEnumEx', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'pObjectHeader'),(1, 'dwPreferedMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'ppRasConn'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionGetInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head))(('MprAdminConnectionGetInfoEx', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hRasConnection'),(1, 'pRasConnection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerGetInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_EX1_head))(('MprAdminServerGetInfoEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'pServerInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerSetInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX1_head))(('MprAdminServerSetInfoEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'pServerInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerGetInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_EX1_head))(('MprConfigServerGetInfoEx', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'pServerInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerSetInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX1_head))(('MprConfigServerSetInfoEx', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'pSetServerConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminUpdateConnection():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.RAS_UPDATE_CONNECTION_head))(('MprAdminUpdateConnection', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hRasConnection'),(1, 'pRasUpdateConnection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminIsServiceInitialized():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(('MprAdminIsServiceInitialized', windll['MPRAPI.dll']), ((1, 'lpwsServerName'),(1, 'fIsServiceInitialized'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceSetCustomInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head))(('MprAdminInterfaceSetCustomInfoEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'pCustomInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceGetCustomInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head))(('MprAdminInterfaceGetCustomInfoEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'pCustomInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceGetCustomInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head))(('MprConfigInterfaceGetCustomInfoEx', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'pCustomInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceSetCustomInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head))(('MprConfigInterfaceSetCustomInfoEx', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'pCustomInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprAdminConnectionEnum', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'dwLevel'),(1, 'lplpbBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminPortEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprAdminPortEnum', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'dwLevel'),(1, 'hRasConnection'),(1, 'lplpbBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no))(('MprAdminConnectionGetInfo', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'dwLevel'),(1, 'hRasConnection'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminPortGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,win32more.Foundation.HANDLE,POINTER(c_char_p_no))(('MprAdminPortGetInfo', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'dwLevel'),(1, 'hPort'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionClearStats():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminConnectionClearStats', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hRasConnection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminPortClearStats():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminPortClearStats', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hPort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminPortReset():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminPortReset', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hPort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminPortDisconnect():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminPortDisconnect', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hPort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminConnectionRemoveQuarantine():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('MprAdminConnectionRemoveQuarantine', windll['MPRAPI.dll']), ((1, 'hRasServer'),(1, 'hRasConnection'),(1, 'fIsIpAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminUserGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_char_p_no)(('MprAdminUserGetInfo', windll['MPRAPI.dll']), ((1, 'lpszServer'),(1, 'lpszUser'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminUserSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_char_p_no)(('MprAdminUserSetInfo', windll['MPRAPI.dll']), ((1, 'lpszServer'),(1, 'lpszUser'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminSendUserMessage():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('MprAdminSendUserMessage', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hConnection'),(1, 'lpwszMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminGetPDCServer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MprAdminGetPDCServer', windll['MPRAPI.dll']), ((1, 'lpszDomain'),(1, 'lpszServer'),(1, 'lpszPDCServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminIsServiceRunning():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('MprAdminIsServiceRunning', windll['MPRAPI.dll']), ((1, 'lpwsServerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerConnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr))(('MprAdminServerConnect', windll['MPRAPI.dll']), ((1, 'lpwsServerName'),(1, 'phMprServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerDisconnect():
-    try:
-        return WINFUNCTYPE(Void,IntPtr)(('MprAdminServerDisconnect', windll['MPRAPI.dll']), ((1, 'hMprServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerGetCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no))(('MprAdminServerGetCredentials', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerSetCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no)(('MprAdminServerSetCredentials', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminBufferFree():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('MprAdminBufferFree', windll['MPRAPI.dll']), ((1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminGetErrorString():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Foundation.PWSTR))(('MprAdminGetErrorString', windll['MPRAPI.dll']), ((1, 'dwError'),(1, 'lplpwsErrorString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no))(('MprAdminServerGetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminServerSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no)(('MprAdminServerSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminEstablishDomainRasServer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('MprAdminEstablishDomainRasServer', windll['MPRAPI.dll']), ((1, 'pszDomain'),(1, 'pszMachine'),(1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminIsDomainRasServer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(('MprAdminIsDomainRasServer', windll['MPRAPI.dll']), ((1, 'pszDomain'),(1, 'pszMachine'),(1, 'pbIsRasServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminTransportCreate():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(('MprAdminTransportCreate', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwTransportId'),(1, 'lpwsTransportName'),(1, 'pGlobalInfo'),(1, 'dwGlobalInfoSize'),(1, 'pClientInterfaceInfo'),(1, 'dwClientInterfaceInfoSize'),(1, 'lpwsDLLPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminTransportSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32)(('MprAdminTransportSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwTransportId'),(1, 'pGlobalInfo'),(1, 'dwGlobalInfoSize'),(1, 'pClientInterfaceInfo'),(1, 'dwClientInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminTransportGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32))(('MprAdminTransportGetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwTransportId'),(1, 'ppGlobalInfo'),(1, 'lpdwGlobalInfoSize'),(1, 'ppClientInterfaceInfo'),(1, 'lpdwClientInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminDeviceEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(('MprAdminDeviceEnum', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lplpbBuffer'),(1, 'lpdwTotalEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceGetHandle():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL)(('MprAdminInterfaceGetHandle', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'lpwsInterfaceName'),(1, 'phInterface'),(1, 'fIncludeClientInterfaces'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceCreate():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no,POINTER(win32more.Foundation.HANDLE))(('MprAdminInterfaceCreate', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lpbBuffer'),(1, 'phInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no))(('MprAdminInterfaceGetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwLevel'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,c_char_p_no)(('MprAdminInterfaceSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceDelete():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminInterfaceDelete', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceDeviceGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(c_char_p_no))(('MprAdminInterfaceDeviceGetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwIndex'),(1, 'dwLevel'),(1, 'lplpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceDeviceSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,UInt32,c_char_p_no)(('MprAdminInterfaceDeviceSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwIndex'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceTransportRemove():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32)(('MprAdminInterfaceTransportRemove', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwTransportId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceTransportAdd():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,c_char_p_no,UInt32)(('MprAdminInterfaceTransportAdd', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwTransportId'),(1, 'pInterfaceInfo'),(1, 'dwInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceTransportGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(('MprAdminInterfaceTransportGetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwTransportId'),(1, 'ppInterfaceInfo'),(1, 'lpdwInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceTransportSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,c_char_p_no,UInt32)(('MprAdminInterfaceTransportSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwTransportId'),(1, 'pInterfaceInfo'),(1, 'dwInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprAdminInterfaceEnum', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lplpbBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceSetCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MprAdminInterfaceSetCredentials', windll['MPRAPI.dll']), ((1, 'lpwsServer'),(1, 'lpwsInterfaceName'),(1, 'lpwsUserName'),(1, 'lpwsDomainName'),(1, 'lpwsPassword'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceGetCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('MprAdminInterfaceGetCredentials', windll['MPRAPI.dll']), ((1, 'lpwsServer'),(1, 'lpwsInterfaceName'),(1, 'lpwsUserName'),(1, 'lpwsPassword'),(1, 'lpwsDomainName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceSetCredentialsEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,c_char_p_no)(('MprAdminInterfaceSetCredentialsEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceGetCredentialsEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no))(('MprAdminInterfaceGetCredentialsEx', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwLevel'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceConnect():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('MprAdminInterfaceConnect', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'hEvent'),(1, 'fSynchronous'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceDisconnect():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminInterfaceDisconnect', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceUpdateRoutes():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.HANDLE)(('MprAdminInterfaceUpdateRoutes', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwProtocolId'),(1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceQueryUpdateResult():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32))(('MprAdminInterfaceQueryUpdateResult', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),(1, 'dwProtocolId'),(1, 'lpdwUpdateResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminInterfaceUpdatePhonebookInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminInterfaceUpdatePhonebookInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminRegisterConnectionNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminRegisterConnectionNotification', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hEventNotification'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminDeregisterConnectionNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE)(('MprAdminDeregisterConnectionNotification', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'hEventNotification'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBServerConnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(IntPtr))(('MprAdminMIBServerConnect', windll['MPRAPI.dll']), ((1, 'lpwsServerName'),(1, 'phMibServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBServerDisconnect():
-    try:
-        return WINFUNCTYPE(Void,IntPtr)(('MprAdminMIBServerDisconnect', windll['MPRAPI.dll']), ((1, 'hMibServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntryCreate():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32)(('MprAdminMIBEntryCreate', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwPid'),(1, 'dwRoutingPid'),(1, 'lpEntry'),(1, 'dwEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntryDelete():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32)(('MprAdminMIBEntryDelete', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwProtocolId'),(1, 'dwRoutingPid'),(1, 'lpEntry'),(1, 'dwEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntrySet():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32)(('MprAdminMIBEntrySet', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwProtocolId'),(1, 'dwRoutingPid'),(1, 'lpEntry'),(1, 'dwEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntryGet():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32,POINTER(c_void_p),POINTER(UInt32))(('MprAdminMIBEntryGet', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwProtocolId'),(1, 'dwRoutingPid'),(1, 'lpInEntry'),(1, 'dwInEntrySize'),(1, 'lplpOutEntry'),(1, 'lpOutEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntryGetFirst():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32,POINTER(c_void_p),POINTER(UInt32))(('MprAdminMIBEntryGetFirst', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwProtocolId'),(1, 'dwRoutingPid'),(1, 'lpInEntry'),(1, 'dwInEntrySize'),(1, 'lplpOutEntry'),(1, 'lpOutEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBEntryGetNext():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,UInt32,POINTER(c_void_p),POINTER(UInt32))(('MprAdminMIBEntryGetNext', windll['MPRAPI.dll']), ((1, 'hMibServer'),(1, 'dwProtocolId'),(1, 'dwRoutingPid'),(1, 'lpInEntry'),(1, 'dwInEntrySize'),(1, 'lplpOutEntry'),(1, 'lpOutEntrySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprAdminMIBBufferFree():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('MprAdminMIBBufferFree', windll['MPRAPI.dll']), ((1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerInstall():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p)(('MprConfigServerInstall', windll['MPRAPI.dll']), ((1, 'dwLevel'),(1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerConnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE))(('MprConfigServerConnect', windll['MPRAPI.dll']), ((1, 'lpwsServerName'),(1, 'phMprConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerDisconnect():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)(('MprConfigServerDisconnect', windll['MPRAPI.dll']), ((1, 'hMprConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerRefresh():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('MprConfigServerRefresh', windll['MPRAPI.dll']), ((1, 'hMprConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigBufferFree():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('MprConfigBufferFree', windll['MPRAPI.dll']), ((1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no))(('MprConfigServerGetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'lplpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,c_char_p_no)(('MprConfigServerSetInfo', windll['MPRAPI.dll']), ((1, 'hMprServer'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerBackup():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('MprConfigServerBackup', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'lpwsPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigServerRestore():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('MprConfigServerRestore', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'lpwsPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportCreate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE))(('MprConfigTransportCreate', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwTransportId'),(1, 'lpwsTransportName'),(1, 'pGlobalInfo'),(1, 'dwGlobalInfoSize'),(1, 'pClientInterfaceInfo'),(1, 'dwClientInterfaceInfoSize'),(1, 'lpwsDLLPath'),(1, 'phRouterTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportDelete():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('MprConfigTransportDelete', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportGetHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Foundation.HANDLE))(('MprConfigTransportGetHandle', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwTransportId'),(1, 'phRouterTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(('MprConfigTransportSetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterTransport'),(1, 'pGlobalInfo'),(1, 'dwGlobalInfoSize'),(1, 'pClientInterfaceInfo'),(1, 'dwClientInterfaceInfoSize'),(1, 'lpwsDLLPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(c_char_p_no),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(('MprConfigTransportGetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterTransport'),(1, 'ppGlobalInfo'),(1, 'lpdwGlobalInfoSize'),(1, 'ppClientInterfaceInfo'),(1, 'lpdwClientInterfaceInfoSize'),(1, 'lplpwsDLLPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigTransportEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprConfigTransportEnum', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'lplpBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceCreate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,c_char_p_no,POINTER(win32more.Foundation.HANDLE))(('MprConfigInterfaceCreate', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'lpbBuffer'),(1, 'phRouterInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceDelete():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('MprConfigInterfaceDelete', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceGetHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE))(('MprConfigInterfaceGetHandle', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'lpwsInterfaceName'),(1, 'phRouterInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(('MprConfigInterfaceGetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'dwLevel'),(1, 'lplpBuffer'),(1, 'lpdwBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,c_char_p_no)(('MprConfigInterfaceSetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'dwLevel'),(1, 'lpbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprConfigInterfaceEnum', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'lplpBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportAdd():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.Foundation.HANDLE))(('MprConfigInterfaceTransportAdd', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'dwTransportId'),(1, 'lpwsTransportName'),(1, 'pInterfaceInfo'),(1, 'dwInterfaceInfoSize'),(1, 'phRouterIfTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportRemove():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('MprConfigInterfaceTransportRemove', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'hRouterIfTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportGetHandle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Foundation.HANDLE))(('MprConfigInterfaceTransportGetHandle', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'dwTransportId'),(1, 'phRouterIfTransport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(c_char_p_no),POINTER(UInt32))(('MprConfigInterfaceTransportGetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'hRouterIfTransport'),(1, 'ppInterfaceInfo'),(1, 'lpdwInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,c_char_p_no,UInt32)(('MprConfigInterfaceTransportSetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'hRouterIfTransport'),(1, 'pInterfaceInfo'),(1, 'dwInterfaceInfoSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigInterfaceTransportEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,POINTER(c_char_p_no),UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('MprConfigInterfaceTransportEnum', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'hRouterInterface'),(1, 'dwLevel'),(1, 'lplpBuffer'),(1, 'dwPrefMaxLen'),(1, 'lpdwEntriesRead'),(1, 'lpdwTotalEntries'),(1, 'lpdwResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigGetFriendlyName():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('MprConfigGetFriendlyName', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'pszGuidName'),(1, 'pszBuffer'),(1, 'dwBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigGetGuidName():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('MprConfigGetGuidName', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'pszFriendlyName'),(1, 'pszBuffer'),(1, 'dwBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigFilterGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32,c_char_p_no)(('MprConfigFilterGetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'dwTransportId'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprConfigFilterSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32,c_char_p_no)(('MprConfigFilterSetInfo', windll['MPRAPI.dll']), ((1, 'hMprConfig'),(1, 'dwLevel'),(1, 'dwTransportId'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoCreate():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(c_void_p))(('MprInfoCreate', windll['MPRAPI.dll']), ((1, 'dwVersion'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoDelete():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('MprInfoDelete', windll['MPRAPI.dll']), ((1, 'lpHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoRemoveAll():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p))(('MprInfoRemoveAll', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoDuplicate():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p))(('MprInfoDuplicate', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoBlockAdd():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,UInt32,UInt32,c_char_p_no,POINTER(c_void_p))(('MprInfoBlockAdd', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'dwInfoType'),(1, 'dwItemSize'),(1, 'dwItemCount'),(1, 'lpItemData'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoBlockRemove():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(c_void_p))(('MprInfoBlockRemove', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'dwInfoType'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoBlockSet():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,UInt32,UInt32,c_char_p_no,POINTER(c_void_p))(('MprInfoBlockSet', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'dwInfoType'),(1, 'dwItemSize'),(1, 'dwItemCount'),(1, 'lpItemData'),(1, 'lplpNewHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoBlockFind():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(c_char_p_no))(('MprInfoBlockFind', windll['MPRAPI.dll']), ((1, 'lpHeader'),(1, 'dwInfoType'),(1, 'lpdwItemSize'),(1, 'lpdwItemCount'),(1, 'lplpItemData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MprInfoBlockQuerySize():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('MprInfoBlockQuerySize', windll['MPRAPI.dll']), ((1, 'lpHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmRegisterMProtocol():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.ROUTING_PROTOCOL_CONFIG_head),UInt32,UInt32,POINTER(win32more.Foundation.HANDLE))(('MgmRegisterMProtocol', windll['rtm.dll']), ((1, 'prpiInfo'),(1, 'dwProtocolId'),(1, 'dwComponentId'),(1, 'phProtocol'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmDeRegisterMProtocol():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('MgmDeRegisterMProtocol', windll['rtm.dll']), ((1, 'hProtocol'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmTakeInterfaceOwnership():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32)(('MgmTakeInterfaceOwnership', windll['rtm.dll']), ((1, 'hProtocol'),(1, 'dwIfIndex'),(1, 'dwIfNextHopAddr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmReleaseInterfaceOwnership():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32)(('MgmReleaseInterfaceOwnership', windll['rtm.dll']), ((1, 'hProtocol'),(1, 'dwIfIndex'),(1, 'dwIfNextHopAddr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetProtocolOnInterface():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32))(('MgmGetProtocolOnInterface', windll['rtm.dll']), ((1, 'dwIfIndex'),(1, 'dwIfNextHopAddr'),(1, 'pdwIfProtocolId'),(1, 'pdwIfComponentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmAddGroupMembershipEntry():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)(('MgmAddGroupMembershipEntry', windll['rtm.dll']), ((1, 'hProtocol'),(1, 'dwSourceAddr'),(1, 'dwSourceMask'),(1, 'dwGroupAddr'),(1, 'dwGroupMask'),(1, 'dwIfIndex'),(1, 'dwIfNextHopIPAddr'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmDeleteGroupMembershipEntry():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)(('MgmDeleteGroupMembershipEntry', windll['rtm.dll']), ((1, 'hProtocol'),(1, 'dwSourceAddr'),(1, 'dwSourceMask'),(1, 'dwGroupAddr'),(1, 'dwGroupMask'),(1, 'dwIfIndex'),(1, 'dwIfNextHopIPAddr'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetMfe():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head),POINTER(UInt32),c_char_p_no)(('MgmGetMfe', windll['rtm.dll']), ((1, 'pimm'),(1, 'pdwBufferSize'),(1, 'pbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetFirstMfe():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('MgmGetFirstMfe', windll['rtm.dll']), ((1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'pdwNumEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetNextMfe():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('MgmGetNextMfe', windll['rtm.dll']), ((1, 'pimmStart'),(1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'pdwNumEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetMfeStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head),POINTER(UInt32),c_char_p_no,UInt32)(('MgmGetMfeStats', windll['rtm.dll']), ((1, 'pimm'),(1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetFirstMfeStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),c_char_p_no,POINTER(UInt32),UInt32)(('MgmGetFirstMfeStats', windll['rtm.dll']), ((1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'pdwNumEntries'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGetNextMfeStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head),POINTER(UInt32),c_char_p_no,POINTER(UInt32),UInt32)(('MgmGetNextMfeStats', windll['rtm.dll']), ((1, 'pimmStart'),(1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'pdwNumEntries'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGroupEnumerationStart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.NetworkManagement.Rras.MGM_ENUM_TYPES,POINTER(win32more.Foundation.HANDLE))(('MgmGroupEnumerationStart', windll['rtm.dll']), ((1, 'hProtocol'),(1, 'metEnumType'),(1, 'phEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGroupEnumerationGetNext():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('MgmGroupEnumerationGetNext', windll['rtm.dll']), ((1, 'hEnum'),(1, 'pdwBufferSize'),(1, 'pbBuffer'),(1, 'pdwNumEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MgmGroupEnumerationEnd():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('MgmGroupEnumerationEnd', windll['rtm.dll']), ((1, 'hEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmConvertNetAddressToIpv6AddressAndLength():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(UInt32),UInt32)(('RtmConvertNetAddressToIpv6AddressAndLength', windll['rtm.dll']), ((1, 'pNetAddress'),(1, 'pAddress'),(1, 'pLength'),(1, 'dwAddressSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmConvertIpv6AddressAndLengthToNetAddress():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),win32more.Networking.WinSock.IN6_ADDR,UInt32,UInt32)(('RtmConvertIpv6AddressAndLengthToNetAddress', windll['rtm.dll']), ((1, 'pNetAddress'),(1, 'Address'),(1, 'dwLength'),(1, 'dwAddressSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmRegisterEntity():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head),POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHODS_head),win32more.NetworkManagement.Rras.RTM_EVENT_CALLBACK,win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RTM_REGN_PROFILE_head),POINTER(IntPtr))(('RtmRegisterEntity', windll['rtm.dll']), ((1, 'RtmEntityInfo'),(1, 'ExportMethods'),(1, 'EventCallback'),(1, 'ReserveOpaquePointer'),(1, 'RtmRegProfile'),(1, 'RtmRegHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeregisterEntity():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('RtmDeregisterEntity', windll['rtm.dll']), ((1, 'RtmRegHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetRegisteredEntities():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(UInt32),POINTER(IntPtr),POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head))(('RtmGetRegisteredEntities', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumEntities'),(1, 'EntityHandles'),(1, 'EntityInfos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseEntities():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(IntPtr))(('RtmReleaseEntities', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumEntities'),(1, 'EntityHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmLockDestination():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('RtmLockDestination', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'Exclusive'),(1, 'LockDest'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetOpaqueInformationPointer():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(c_void_p))(('RtmGetOpaqueInformationPointer', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'OpaqueInfoPointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetEntityMethods():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD))(('RtmGetEntityMethods', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EntityHandle'),(1, 'NumMethods'),(1, 'ExptMethods'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmInvokeMethod():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT_head),POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT_head))(('RtmInvokeMethod', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EntityHandle'),(1, 'Input'),(1, 'OutputSize'),(1, 'Output'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmBlockMethods():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HANDLE,Byte,UInt32)(('RtmBlockMethods', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'TargetHandle'),(1, 'TargetType'),(1, 'BlockingFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetEntityInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head))(('RtmGetEntityInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EntityHandle'),(1, 'EntityInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetDestInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetDestInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'ProtocolId'),(1, 'TargetViews'),(1, 'DestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetRouteInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head),POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head))(('RtmGetRouteInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'RouteInfo'),(1, 'DestAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetNextHopInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))(('RtmGetNextHopInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopHandle'),(1, 'NextHopInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseEntityInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head))(('RtmReleaseEntityInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EntityInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseDestInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmReleaseDestInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseRouteInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head))(('RtmReleaseRouteInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseNextHopInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))(('RtmReleaseNextHopInfo', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmAddRouteToDest():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(IntPtr),POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head),UInt32,IntPtr,UInt32,IntPtr,POINTER(UInt32))(('RtmAddRouteToDest', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'DestAddress'),(1, 'RouteInfo'),(1, 'TimeToLive'),(1, 'RouteListHandle'),(1, 'NotifyType'),(1, 'NotifyHandle'),(1, 'ChangeFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeleteRouteToDest():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32))(('RtmDeleteRouteToDest', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'ChangeFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmHoldDestination():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,UInt32)(('RtmHoldDestination', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'TargetViews'),(1, 'HoldTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetRoutePointer():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head)))(('RtmGetRoutePointer', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'RoutePointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmLockRoute():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head)))(('RtmLockRoute', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'Exclusive'),(1, 'LockRoute'),(1, 'RoutePointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmUpdateAndUnlockRoute():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,IntPtr,UInt32,IntPtr,POINTER(UInt32))(('RtmUpdateAndUnlockRoute', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'TimeToLive'),(1, 'RouteListHandle'),(1, 'NotifyType'),(1, 'NotifyHandle'),(1, 'ChangeFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetExactMatchDestination():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetExactMatchDestination', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestAddress'),(1, 'ProtocolId'),(1, 'TargetViews'),(1, 'DestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetMostSpecificDestination():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetMostSpecificDestination', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestAddress'),(1, 'ProtocolId'),(1, 'TargetViews'),(1, 'DestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetLessSpecificDestination():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetLessSpecificDestination', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'ProtocolId'),(1, 'TargetViews'),(1, 'DestInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetExactMatchRoute():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head),UInt32,UInt32,POINTER(IntPtr))(('RtmGetExactMatchRoute', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestAddress'),(1, 'MatchingFlags'),(1, 'RouteInfo'),(1, 'InterfaceIndex'),(1, 'TargetViews'),(1, 'RouteHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmIsBestRoute():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32))(('RtmIsBestRoute', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteHandle'),(1, 'BestInViews'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmAddNextHop():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head),POINTER(IntPtr),POINTER(UInt32))(('RtmAddNextHop', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopInfo'),(1, 'NextHopHandle'),(1, 'ChangeFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmFindNextHop():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head),POINTER(IntPtr),POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)))(('RtmFindNextHop', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopInfo'),(1, 'NextHopHandle'),(1, 'NextHopPointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeleteNextHop():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))(('RtmDeleteNextHop', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopHandle'),(1, 'NextHopInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetNextHopPointer():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)))(('RtmGetNextHopPointer', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopHandle'),(1, 'NextHopPointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmLockNextHop():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)))(('RtmLockNextHop', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NextHopHandle'),(1, 'Exclusive'),(1, 'LockNextHop'),(1, 'NextHopPointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmCreateDestEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),UInt32,POINTER(IntPtr))(('RtmCreateDestEnum', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'TargetViews'),(1, 'EnumFlags'),(1, 'NetAddress'),(1, 'ProtocolId'),(1, 'RtmEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetEnumDests():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetEnumDests', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumHandle'),(1, 'NumDests'),(1, 'DestInfos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseDests():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmReleaseDests', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumDests'),(1, 'DestInfos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmCreateRouteEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head),UInt32,POINTER(IntPtr))(('RtmCreateRouteEnum', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'DestHandle'),(1, 'TargetViews'),(1, 'EnumFlags'),(1, 'StartDest'),(1, 'MatchingFlags'),(1, 'CriteriaRoute'),(1, 'CriteriaInterface'),(1, 'RtmEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetEnumRoutes():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(IntPtr))(('RtmGetEnumRoutes', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumHandle'),(1, 'NumRoutes'),(1, 'RouteHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseRoutes():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(IntPtr))(('RtmReleaseRoutes', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumRoutes'),(1, 'RouteHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmCreateNextHopEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head),POINTER(IntPtr))(('RtmCreateNextHopEnum', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumFlags'),(1, 'NetAddress'),(1, 'RtmEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetEnumNextHops():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(IntPtr))(('RtmGetEnumNextHops', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumHandle'),(1, 'NumNextHops'),(1, 'NextHopHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseNextHops():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(IntPtr))(('RtmReleaseNextHops', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumNextHops'),(1, 'NextHopHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeleteEnumHandle():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('RtmDeleteEnumHandle', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmRegisterForChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32,c_void_p,POINTER(IntPtr))(('RtmRegisterForChangeNotification', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'TargetViews'),(1, 'NotifyFlags'),(1, 'NotifyContext'),(1, 'NotifyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetChangedDests():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmGetChangedDests', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'NumDests'),(1, 'ChangedDests'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReleaseChangedDests():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head))(('RtmReleaseChangedDests', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'NumDests'),(1, 'ChangedDests'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmIgnoreChangedDests():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,POINTER(IntPtr))(('RtmIgnoreChangedDests', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'NumDests'),(1, 'ChangedDests'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetChangeStatus():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,POINTER(win32more.Foundation.BOOL))(('RtmGetChangeStatus', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'DestHandle'),(1, 'ChangeStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmMarkDestForChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,win32more.Foundation.BOOL)(('RtmMarkDestForChangeNotification', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'DestHandle'),(1, 'MarkDest'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmIsMarkedForChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,POINTER(win32more.Foundation.BOOL))(('RtmIsMarkedForChangeNotification', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),(1, 'DestHandle'),(1, 'DestMarked'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeregisterFromChangeNotification():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('RtmDeregisterFromChangeNotification', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NotifyHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmCreateRouteList():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(IntPtr))(('RtmCreateRouteList', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteListHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmInsertInRouteList():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,UInt32,POINTER(IntPtr))(('RtmInsertInRouteList', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteListHandle'),(1, 'NumRoutes'),(1, 'RouteHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmCreateRouteListEnum():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(IntPtr))(('RtmCreateRouteListEnum', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteListHandle'),(1, 'RtmEnumHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmGetListEnumRoutes():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,POINTER(UInt32),POINTER(IntPtr))(('RtmGetListEnumRoutes', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'EnumHandle'),(1, 'NumRoutes'),(1, 'RouteHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmDeleteRouteList():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr)(('RtmDeleteRouteList', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'RouteListHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtmReferenceHandles():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(win32more.Foundation.HANDLE))(('RtmReferenceHandles', windll['rtm.dll']), ((1, 'RtmRegHandle'),(1, 'NumHandles'),(1, 'RtmHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AUTH_VALIDATION_EX_head():
-    class AUTH_VALIDATION_EX(Structure):
-        pass
-    return AUTH_VALIDATION_EX
-def _define_AUTH_VALIDATION_EX():
-    AUTH_VALIDATION_EX = win32more.NetworkManagement.Rras.AUTH_VALIDATION_EX_head
-    AUTH_VALIDATION_EX._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('hRasConnection', win32more.Foundation.HANDLE),
-        ('wszUserName', Char * 257),
-        ('wszLogonDomain', Char * 16),
-        ('AuthInfoSize', UInt32),
-        ('AuthInfo', Byte * 1),
-    ]
-    return AUTH_VALIDATION_EX
-def _define_GRE_CONFIG_PARAMS0_head():
-    class GRE_CONFIG_PARAMS0(Structure):
-        pass
-    return GRE_CONFIG_PARAMS0
-def _define_GRE_CONFIG_PARAMS0():
-    GRE_CONFIG_PARAMS0 = win32more.NetworkManagement.Rras.GRE_CONFIG_PARAMS0_head
-    GRE_CONFIG_PARAMS0._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-    ]
-    return GRE_CONFIG_PARAMS0
+RASNAP_ProbationTime: UInt32 = 1
+RASTUNNELENDPOINT_UNKNOWN: UInt32 = 0
+RASTUNNELENDPOINT_IPv4: UInt32 = 1
+RASTUNNELENDPOINT_IPv6: UInt32 = 2
+RAS_MaxDeviceType: UInt32 = 16
+RAS_MaxPhoneNumber: UInt32 = 128
+RAS_MaxIpAddress: UInt32 = 15
+RAS_MaxIpxAddress: UInt32 = 21
+RAS_MaxEntryName: UInt32 = 256
+RAS_MaxDeviceName: UInt32 = 128
+RAS_MaxCallbackNumber: UInt32 = 128
+RAS_MaxAreaCode: UInt32 = 10
+RAS_MaxPadType: UInt32 = 32
+RAS_MaxX25Address: UInt32 = 200
+RAS_MaxFacilities: UInt32 = 200
+RAS_MaxUserData: UInt32 = 200
+RAS_MaxReplyMessage: UInt32 = 1024
+RAS_MaxDnsSuffix: UInt32 = 256
+RASCF_AllUsers: UInt32 = 1
+RASCF_GlobalCreds: UInt32 = 2
+RASCF_OwnerKnown: UInt32 = 4
+RASCF_OwnerMatch: UInt32 = 8
+RAS_MaxIDSize: UInt32 = 256
+RASCS_PAUSED: UInt32 = 4096
+RASCS_DONE: UInt32 = 8192
+RASCSS_DONE: UInt32 = 8192
+RDEOPT_UsePrefixSuffix: UInt32 = 1
+RDEOPT_PausedStates: UInt32 = 2
+RDEOPT_IgnoreModemSpeaker: UInt32 = 4
+RDEOPT_SetModemSpeaker: UInt32 = 8
+RDEOPT_IgnoreSoftwareCompression: UInt32 = 16
+RDEOPT_SetSoftwareCompression: UInt32 = 32
+RDEOPT_DisableConnectedUI: UInt32 = 64
+RDEOPT_DisableReconnectUI: UInt32 = 128
+RDEOPT_DisableReconnect: UInt32 = 256
+RDEOPT_NoUser: UInt32 = 512
+RDEOPT_PauseOnScript: UInt32 = 1024
+RDEOPT_Router: UInt32 = 2048
+RDEOPT_CustomDial: UInt32 = 4096
+RDEOPT_UseCustomScripting: UInt32 = 8192
+RDEOPT_InvokeAutoTriggerCredentialUI: UInt32 = 16384
+RDEOPT_EapInfoCryptInCapable: UInt32 = 32768
+REN_User: UInt32 = 0
+REN_AllUsers: UInt32 = 1
+RASIPO_VJ: UInt32 = 1
+RASLCPO_PFC: UInt32 = 1
+RASLCPO_ACFC: UInt32 = 2
+RASLCPO_SSHF: UInt32 = 4
+RASLCPO_DES_56: UInt32 = 8
+RASLCPO_3_DES: UInt32 = 16
+RASLCPO_AES_128: UInt32 = 32
+RASLCPO_AES_256: UInt32 = 64
+RASLCPO_AES_192: UInt32 = 128
+RASLCPO_GCM_AES_128: UInt32 = 256
+RASLCPO_GCM_AES_192: UInt32 = 512
+RASLCPO_GCM_AES_256: UInt32 = 1024
+RASCCPCA_MPPC: UInt32 = 6
+RASCCPCA_STAC: UInt32 = 5
+RASCCPO_Compression: UInt32 = 1
+RASCCPO_HistoryLess: UInt32 = 2
+RASCCPO_Encryption56bit: UInt32 = 16
+RASCCPO_Encryption40bit: UInt32 = 32
+RASCCPO_Encryption128bit: UInt32 = 64
+RASIKEv2_AUTH_MACHINECERTIFICATES: UInt32 = 1
+RASIKEv2_AUTH_EAP: UInt32 = 2
+RASIKEv2_AUTH_PSK: UInt32 = 3
+RASDIALEVENT: String = 'RasDialEvent'
+WM_RASDIALEVENT: UInt32 = 52429
+ET_None: UInt32 = 0
+ET_Require: UInt32 = 1
+ET_RequireMax: UInt32 = 2
+ET_Optional: UInt32 = 3
+VS_Default: UInt32 = 0
+VS_PptpOnly: UInt32 = 1
+VS_PptpFirst: UInt32 = 2
+VS_L2tpOnly: UInt32 = 3
+VS_L2tpFirst: UInt32 = 4
+VS_SstpOnly: UInt32 = 5
+VS_SstpFirst: UInt32 = 6
+VS_Ikev2Only: UInt32 = 7
+VS_Ikev2First: UInt32 = 8
+VS_GREOnly: UInt32 = 9
+VS_PptpSstp: UInt32 = 12
+VS_L2tpSstp: UInt32 = 13
+VS_Ikev2Sstp: UInt32 = 14
+VS_ProtocolList: UInt32 = 15
+RASEO_UseCountryAndAreaCodes: UInt32 = 1
+RASEO_SpecificIpAddr: UInt32 = 2
+RASEO_SpecificNameServers: UInt32 = 4
+RASEO_IpHeaderCompression: UInt32 = 8
+RASEO_RemoteDefaultGateway: UInt32 = 16
+RASEO_DisableLcpExtensions: UInt32 = 32
+RASEO_TerminalBeforeDial: UInt32 = 64
+RASEO_TerminalAfterDial: UInt32 = 128
+RASEO_ModemLights: UInt32 = 256
+RASEO_SwCompression: UInt32 = 512
+RASEO_RequireEncryptedPw: UInt32 = 1024
+RASEO_RequireMsEncryptedPw: UInt32 = 2048
+RASEO_RequireDataEncryption: UInt32 = 4096
+RASEO_NetworkLogon: UInt32 = 8192
+RASEO_UseLogonCredentials: UInt32 = 16384
+RASEO_PromoteAlternates: UInt32 = 32768
+RASEO_SecureLocalFiles: UInt32 = 65536
+RASEO_RequireEAP: UInt32 = 131072
+RASEO_RequirePAP: UInt32 = 262144
+RASEO_RequireSPAP: UInt32 = 524288
+RASEO_Custom: UInt32 = 1048576
+RASEO_PreviewPhoneNumber: UInt32 = 2097152
+RASEO_SharedPhoneNumbers: UInt32 = 8388608
+RASEO_PreviewUserPw: UInt32 = 16777216
+RASEO_PreviewDomain: UInt32 = 33554432
+RASEO_ShowDialingProgress: UInt32 = 67108864
+RASEO_RequireCHAP: UInt32 = 134217728
+RASEO_RequireMsCHAP: UInt32 = 268435456
+RASEO_RequireMsCHAP2: UInt32 = 536870912
+RASEO_RequireW95MSCHAP: UInt32 = 1073741824
+RASEO_CustomScript: UInt32 = 2147483648
+RASEO2_SecureFileAndPrint: UInt32 = 1
+RASEO2_SecureClientForMSNet: UInt32 = 2
+RASEO2_DontNegotiateMultilink: UInt32 = 4
+RASEO2_DontUseRasCredentials: UInt32 = 8
+RASEO2_UsePreSharedKey: UInt32 = 16
+RASEO2_Internet: UInt32 = 32
+RASEO2_DisableNbtOverIP: UInt32 = 64
+RASEO2_UseGlobalDeviceSettings: UInt32 = 128
+RASEO2_ReconnectIfDropped: UInt32 = 256
+RASEO2_SharePhoneNumbers: UInt32 = 512
+RASEO2_SecureRoutingCompartment: UInt32 = 1024
+RASEO2_UseTypicalSettings: UInt32 = 2048
+RASEO2_IPv6SpecificNameServers: UInt32 = 4096
+RASEO2_IPv6RemoteDefaultGateway: UInt32 = 8192
+RASEO2_RegisterIpWithDNS: UInt32 = 16384
+RASEO2_UseDNSSuffixForRegistration: UInt32 = 32768
+RASEO2_IPv4ExplicitMetric: UInt32 = 65536
+RASEO2_IPv6ExplicitMetric: UInt32 = 131072
+RASEO2_DisableIKENameEkuCheck: UInt32 = 262144
+RASEO2_DisableClassBasedStaticRoute: UInt32 = 524288
+RASEO2_SpecificIPv6Addr: UInt32 = 1048576
+RASEO2_DisableMobility: UInt32 = 2097152
+RASEO2_RequireMachineCertificates: UInt32 = 4194304
+RASEO2_UsePreSharedKeyForIkev2Initiator: UInt32 = 8388608
+RASEO2_UsePreSharedKeyForIkev2Responder: UInt32 = 16777216
+RASEO2_CacheCredentials: UInt32 = 33554432
+RASEO2_AutoTriggerCapable: UInt32 = 67108864
+RASEO2_IsThirdPartyProfile: UInt32 = 134217728
+RASEO2_AuthTypeIsOtp: UInt32 = 268435456
+RASEO2_IsAlwaysOn: UInt32 = 536870912
+RASEO2_IsPrivateNetwork: UInt32 = 1073741824
+RASEO2_PlumbIKEv2TSAsRoutes: UInt32 = 2147483648
+RASNP_NetBEUI: UInt32 = 1
+RASNP_Ipx: UInt32 = 2
+RASNP_Ip: UInt32 = 4
+RASNP_Ipv6: UInt32 = 8
+RASFP_Ppp: UInt32 = 1
+RASFP_Slip: UInt32 = 2
+RASFP_Ras: UInt32 = 4
+RASDT_Modem: String = 'modem'
+RASDT_Isdn: String = 'isdn'
+RASDT_X25: String = 'x25'
+RASDT_Vpn: String = 'vpn'
+RASDT_Pad: String = 'pad'
+RASDT_Generic: String = 'GENERIC'
+RASDT_Serial: String = 'SERIAL'
+RASDT_FrameRelay: String = 'FRAMERELAY'
+RASDT_Atm: String = 'ATM'
+RASDT_Sonet: String = 'SONET'
+RASDT_SW56: String = 'SW56'
+RASDT_Irda: String = 'IRDA'
+RASDT_Parallel: String = 'PARALLEL'
+RASDT_PPPoE: String = 'PPPoE'
+RASET_Phone: UInt32 = 1
+RASET_Vpn: UInt32 = 2
+RASET_Direct: UInt32 = 3
+RASET_Internet: UInt32 = 4
+RASET_Broadband: UInt32 = 5
+RASCN_Connection: UInt32 = 1
+RASCN_Disconnection: UInt32 = 2
+RASCN_BandwidthAdded: UInt32 = 4
+RASCN_BandwidthRemoved: UInt32 = 8
+RASCN_Dormant: UInt32 = 16
+RASCN_ReConnection: UInt32 = 32
+RASCN_EPDGPacketArrival: UInt32 = 64
+RASIDS_Disabled: UInt32 = 4294967295
+RASIDS_UseGlobalValue: UInt32 = 0
+RASADFLG_PositionDlg: UInt32 = 1
+RASCM_UserName: UInt32 = 1
+RASCM_Password: UInt32 = 2
+RASCM_Domain: UInt32 = 4
+RASCM_DefaultCreds: UInt32 = 8
+RASCM_PreSharedKey: UInt32 = 16
+RASCM_ServerPreSharedKey: UInt32 = 32
+RASCM_DDMPreSharedKey: UInt32 = 64
+RASADP_DisableConnectionQuery: UInt32 = 0
+RASADP_LoginSessionDisable: UInt32 = 1
+RASADP_SavedAddressesLimit: UInt32 = 2
+RASADP_FailedConnectionTimeout: UInt32 = 3
+RASADP_ConnectionQueryTimeout: UInt32 = 4
+RASEAPF_NonInteractive: UInt32 = 2
+RASEAPF_Logon: UInt32 = 4
+RASEAPF_Preview: UInt32 = 8
+RCD_SingleUser: UInt32 = 0
+RCD_AllUsers: UInt32 = 1
+RCD_Eap: UInt32 = 2
+RCD_Logon: UInt32 = 4
+RASPBDEVENT_AddEntry: UInt32 = 1
+RASPBDEVENT_EditEntry: UInt32 = 2
+RASPBDEVENT_RemoveEntry: UInt32 = 3
+RASPBDEVENT_DialEntry: UInt32 = 4
+RASPBDEVENT_EditGlobals: UInt32 = 5
+RASPBDEVENT_NoUser: UInt32 = 6
+RASPBDEVENT_NoUserEdit: UInt32 = 7
+RASNOUSER_SmartCard: UInt32 = 1
+RASPBDFLAG_PositionDlg: UInt32 = 1
+RASPBDFLAG_ForceCloseOnDial: UInt32 = 2
+RASPBDFLAG_NoUser: UInt32 = 16
+RASPBDFLAG_UpdateDefaults: UInt32 = 2147483648
+RASEDFLAG_PositionDlg: UInt32 = 1
+RASEDFLAG_NewEntry: UInt32 = 2
+RASEDFLAG_CloneEntry: UInt32 = 4
+RASEDFLAG_NoRename: UInt32 = 8
+RASEDFLAG_ShellOwned: UInt32 = 1073741824
+RASEDFLAG_NewPhoneEntry: UInt32 = 16
+RASEDFLAG_NewTunnelEntry: UInt32 = 32
+RASEDFLAG_NewDirectEntry: UInt32 = 64
+RASEDFLAG_NewBroadbandEntry: UInt32 = 128
+RASEDFLAG_InternetEntry: UInt32 = 256
+RASEDFLAG_NAT: UInt32 = 512
+RASEDFLAG_IncomingConnection: UInt32 = 1024
+RASDDFLAG_PositionDlg: UInt32 = 1
+RASDDFLAG_NoPrompt: UInt32 = 2
+RASDDFLAG_AoacRedial: UInt32 = 4
+RASDDFLAG_LinkFailure: UInt32 = 2147483648
+RRAS_SERVICE_NAME: String = 'RemoteAccess'
+PID_IPX: UInt32 = 43
+PID_IP: UInt32 = 33
+PID_IPV6: UInt32 = 87
+PID_NBF: UInt32 = 63
+PID_ATALK: UInt32 = 41
+MPR_INTERFACE_OUT_OF_RESOURCES: UInt32 = 1
+MPR_INTERFACE_ADMIN_DISABLED: UInt32 = 2
+MPR_INTERFACE_CONNECTION_FAILURE: UInt32 = 4
+MPR_INTERFACE_SERVICE_PAUSED: UInt32 = 8
+MPR_INTERFACE_DIALOUT_HOURS_RESTRICTION: UInt32 = 16
+MPR_INTERFACE_NO_MEDIA_SENSE: UInt32 = 32
+MPR_INTERFACE_NO_DEVICE: UInt32 = 64
+MPR_MaxDeviceType: UInt32 = 16
+MPR_MaxPhoneNumber: UInt32 = 128
+MPR_MaxIpAddress: UInt32 = 15
+MPR_MaxIpxAddress: UInt32 = 21
+MPR_MaxEntryName: UInt32 = 256
+MPR_MaxDeviceName: UInt32 = 128
+MPR_MaxCallbackNumber: UInt32 = 128
+MPR_MaxAreaCode: UInt32 = 10
+MPR_MaxPadType: UInt32 = 32
+MPR_MaxX25Address: UInt32 = 200
+MPR_MaxFacilities: UInt32 = 200
+MPR_MaxUserData: UInt32 = 200
+MPRIO_SpecificIpAddr: UInt32 = 2
+MPRIO_SpecificNameServers: UInt32 = 4
+MPRIO_IpHeaderCompression: UInt32 = 8
+MPRIO_RemoteDefaultGateway: UInt32 = 16
+MPRIO_DisableLcpExtensions: UInt32 = 32
+MPRIO_SwCompression: UInt32 = 512
+MPRIO_RequireEncryptedPw: UInt32 = 1024
+MPRIO_RequireMsEncryptedPw: UInt32 = 2048
+MPRIO_RequireDataEncryption: UInt32 = 4096
+MPRIO_NetworkLogon: UInt32 = 8192
+MPRIO_PromoteAlternates: UInt32 = 32768
+MPRIO_SecureLocalFiles: UInt32 = 65536
+MPRIO_RequireEAP: UInt32 = 131072
+MPRIO_RequirePAP: UInt32 = 262144
+MPRIO_RequireSPAP: UInt32 = 524288
+MPRIO_SharedPhoneNumbers: UInt32 = 8388608
+MPRIO_RequireCHAP: UInt32 = 134217728
+MPRIO_RequireMsCHAP: UInt32 = 268435456
+MPRIO_RequireMsCHAP2: UInt32 = 536870912
+MPRIO_IpSecPreSharedKey: UInt32 = 2147483648
+MPRIO_RequireMachineCertificates: UInt32 = 16777216
+MPRIO_UsePreSharedKeyForIkev2Initiator: UInt32 = 33554432
+MPRIO_UsePreSharedKeyForIkev2Responder: UInt32 = 67108864
+MPRNP_Ipx: UInt32 = 2
+MPRNP_Ip: UInt32 = 4
+MPRNP_Ipv6: UInt32 = 8
+MPRDT_Modem: String = 'modem'
+MPRDT_Isdn: String = 'isdn'
+MPRDT_X25: String = 'x25'
+MPRDT_Vpn: String = 'vpn'
+MPRDT_Pad: String = 'pad'
+MPRDT_Generic: String = 'GENERIC'
+MPRDT_Serial: String = 'SERIAL'
+MPRDT_FrameRelay: String = 'FRAMERELAY'
+MPRDT_Atm: String = 'ATM'
+MPRDT_Sonet: String = 'SONET'
+MPRDT_SW56: String = 'SW56'
+MPRDT_Irda: String = 'IRDA'
+MPRDT_Parallel: String = 'PARALLEL'
+MPRET_Phone: UInt32 = 1
+MPRET_Vpn: UInt32 = 2
+MPRET_Direct: UInt32 = 3
+MPRIDS_Disabled: UInt32 = 4294967295
+MPRIDS_UseGlobalValue: UInt32 = 0
+MPR_VS_Ikev2Only: UInt32 = 7
+MPR_VS_Ikev2First: UInt32 = 8
+MPR_ENABLE_RAS_ON_DEVICE: UInt32 = 1
+MPR_ENABLE_ROUTING_ON_DEVICE: UInt32 = 2
+IPADDRESSLEN: UInt32 = 15
+IPXADDRESSLEN: UInt32 = 22
+ATADDRESSLEN: UInt32 = 32
+MAXIPADRESSLEN: UInt32 = 64
+PPP_IPCP_VJ: UInt32 = 1
+PPP_CCP_COMPRESSION: UInt32 = 1
+PPP_CCP_ENCRYPTION40BITOLD: UInt32 = 16
+PPP_CCP_ENCRYPTION40BIT: UInt32 = 32
+PPP_CCP_ENCRYPTION128BIT: UInt32 = 64
+PPP_CCP_ENCRYPTION56BIT: UInt32 = 128
+PPP_CCP_HISTORYLESS: UInt32 = 16777216
+PPP_LCP_MULTILINK_FRAMING: UInt32 = 1
+PPP_LCP_PFC: UInt32 = 2
+PPP_LCP_ACFC: UInt32 = 4
+PPP_LCP_SSHF: UInt32 = 8
+PPP_LCP_DES_56: UInt32 = 16
+PPP_LCP_3_DES: UInt32 = 32
+PPP_LCP_AES_128: UInt32 = 64
+PPP_LCP_AES_256: UInt32 = 128
+PPP_LCP_AES_192: UInt32 = 256
+PPP_LCP_GCM_AES_128: UInt32 = 512
+PPP_LCP_GCM_AES_192: UInt32 = 1024
+PPP_LCP_GCM_AES_256: UInt32 = 2048
+RAS_FLAGS_RAS_CONNECTION: UInt32 = 4
+RASPRIV_NoCallback: UInt32 = 1
+RASPRIV_AdminSetCallback: UInt32 = 2
+RASPRIV_CallerSetCallback: UInt32 = 4
+RASPRIV_DialinPrivilege: UInt32 = 8
+RASPRIV2_DialinPolicy: UInt32 = 1
+MPRAPI_IKEV2_AUTH_USING_CERT: UInt32 = 1
+MPRAPI_IKEV2_AUTH_USING_EAP: UInt32 = 2
+MPRAPI_PPP_PROJECTION_INFO_TYPE: UInt32 = 1
+MPRAPI_IKEV2_PROJECTION_INFO_TYPE: UInt32 = 2
+MPRAPI_RAS_CONNECTION_OBJECT_REVISION_1: UInt32 = 1
+MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_1: UInt32 = 1
+MPRAPI_IF_CUSTOM_CONFIG_FOR_IKEV2: UInt32 = 1
+MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_3: UInt32 = 3
+MPRAPI_MPR_IF_CUSTOM_CONFIG_OBJECT_REVISION_2: UInt32 = 2
+MPRAPI_IKEV2_SET_TUNNEL_CONFIG_PARAMS: UInt32 = 1
+MPRAPI_L2TP_SET_TUNNEL_CONFIG_PARAMS: UInt32 = 1
+MAX_SSTP_HASH_SIZE: UInt32 = 32
+MPRAPI_MPR_SERVER_OBJECT_REVISION_1: UInt32 = 1
+MPRAPI_MPR_SERVER_OBJECT_REVISION_2: UInt32 = 2
+MPRAPI_MPR_SERVER_OBJECT_REVISION_3: UInt32 = 3
+MPRAPI_MPR_SERVER_OBJECT_REVISION_4: UInt32 = 4
+MPRAPI_MPR_SERVER_OBJECT_REVISION_5: UInt32 = 5
+MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_1: UInt32 = 1
+MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_2: UInt32 = 2
+MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_3: UInt32 = 3
+MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_4: UInt32 = 4
+MPRAPI_MPR_SERVER_SET_CONFIG_OBJECT_REVISION_5: UInt32 = 5
+MPRAPI_SET_CONFIG_PROTOCOL_FOR_PPTP: UInt32 = 1
+MPRAPI_SET_CONFIG_PROTOCOL_FOR_L2TP: UInt32 = 2
+MPRAPI_SET_CONFIG_PROTOCOL_FOR_SSTP: UInt32 = 4
+MPRAPI_SET_CONFIG_PROTOCOL_FOR_IKEV2: UInt32 = 8
+MPRAPI_SET_CONFIG_PROTOCOL_FOR_GRE: UInt32 = 16
+ALLOW_NO_AUTH: UInt32 = 1
+DO_NOT_ALLOW_NO_AUTH: UInt32 = 0
+MPRAPI_RAS_UPDATE_CONNECTION_OBJECT_REVISION_1: UInt32 = 1
+MPRAPI_ADMIN_DLL_VERSION_1: UInt32 = 1
+MPRAPI_ADMIN_DLL_VERSION_2: UInt32 = 2
+MGM_JOIN_STATE_FLAG: UInt32 = 1
+MGM_FORWARD_STATE_FLAG: UInt32 = 2
+MGM_MFE_STATS_0: UInt32 = 1
+MGM_MFE_STATS_1: UInt32 = 2
+RTM_MAX_ADDRESS_SIZE: UInt32 = 16
+RTM_MAX_VIEWS: UInt32 = 32
+RTM_VIEW_ID_UCAST: UInt32 = 0
+RTM_VIEW_ID_MCAST: UInt32 = 1
+RTM_VIEW_MASK_SIZE: UInt32 = 32
+RTM_VIEW_MASK_NONE: UInt32 = 0
+RTM_VIEW_MASK_ANY: UInt32 = 0
+RTM_VIEW_MASK_UCAST: UInt32 = 1
+RTM_VIEW_MASK_MCAST: UInt32 = 2
+RTM_VIEW_MASK_ALL: UInt32 = 4294967295
+IPV6_ADDRESS_LEN_IN_BYTES: UInt32 = 16
+RTM_DEST_FLAG_NATURAL_NET: UInt32 = 1
+RTM_DEST_FLAG_FWD_ENGIN_ADD: UInt32 = 2
+RTM_DEST_FLAG_DONT_FORWARD: UInt32 = 4
+RTM_ROUTE_STATE_CREATED: UInt32 = 0
+RTM_ROUTE_STATE_DELETING: UInt32 = 1
+RTM_ROUTE_STATE_DELETED: UInt32 = 2
+RTM_ROUTE_FLAGS_MARTIAN: UInt32 = 1
+RTM_ROUTE_FLAGS_BLACKHOLE: UInt32 = 2
+RTM_ROUTE_FLAGS_DISCARD: UInt32 = 4
+RTM_ROUTE_FLAGS_INACTIVE: UInt32 = 8
+RTM_ROUTE_FLAGS_LOCAL: UInt32 = 16
+RTM_ROUTE_FLAGS_REMOTE: UInt32 = 32
+RTM_ROUTE_FLAGS_MYSELF: UInt32 = 64
+RTM_ROUTE_FLAGS_LOOPBACK: UInt32 = 128
+RTM_ROUTE_FLAGS_MCAST: UInt32 = 256
+RTM_ROUTE_FLAGS_LOCAL_MCAST: UInt32 = 512
+RTM_ROUTE_FLAGS_LIMITED_BC: UInt32 = 1024
+RTM_ROUTE_FLAGS_ZEROS_NETBC: UInt32 = 4096
+RTM_ROUTE_FLAGS_ZEROS_SUBNETBC: UInt32 = 8192
+RTM_ROUTE_FLAGS_ONES_NETBC: UInt32 = 16384
+RTM_ROUTE_FLAGS_ONES_SUBNETBC: UInt32 = 32768
+RTM_NEXTHOP_STATE_CREATED: UInt32 = 0
+RTM_NEXTHOP_STATE_DELETED: UInt32 = 1
+RTM_NEXTHOP_FLAGS_REMOTE: UInt32 = 1
+RTM_NEXTHOP_FLAGS_DOWN: UInt32 = 2
+METHOD_TYPE_ALL_METHODS: UInt32 = 4294967295
+METHOD_RIP2_NEIGHBOUR_ADDR: UInt32 = 1
+METHOD_RIP2_OUTBOUND_INTF: UInt32 = 2
+METHOD_RIP2_ROUTE_TAG: UInt32 = 4
+METHOD_RIP2_ROUTE_TIMESTAMP: UInt32 = 8
+METHOD_BGP4_AS_PATH: UInt32 = 1
+METHOD_BGP4_PEER_ID: UInt32 = 2
+METHOD_BGP4_PA_ORIGIN: UInt32 = 4
+METHOD_BGP4_NEXTHOP_ATTR: UInt32 = 8
+RTM_RESUME_METHODS: UInt32 = 0
+RTM_BLOCK_METHODS: UInt32 = 1
+RTM_ROUTE_CHANGE_FIRST: UInt32 = 1
+RTM_ROUTE_CHANGE_NEW: UInt32 = 2
+RTM_ROUTE_CHANGE_BEST: UInt32 = 65536
+RTM_NEXTHOP_CHANGE_NEW: UInt32 = 1
+RTM_MATCH_NONE: UInt32 = 0
+RTM_MATCH_OWNER: UInt32 = 1
+RTM_MATCH_NEIGHBOUR: UInt32 = 2
+RTM_MATCH_PREF: UInt32 = 4
+RTM_MATCH_NEXTHOP: UInt32 = 8
+RTM_MATCH_INTERFACE: UInt32 = 16
+RTM_MATCH_FULL: UInt32 = 65535
+RTM_ENUM_START: UInt32 = 0
+RTM_ENUM_NEXT: UInt32 = 1
+RTM_ENUM_RANGE: UInt32 = 2
+RTM_ENUM_ALL_DESTS: UInt32 = 0
+RTM_ENUM_OWN_DESTS: UInt32 = 16777216
+RTM_ENUM_ALL_ROUTES: UInt32 = 0
+RTM_ENUM_OWN_ROUTES: UInt32 = 65536
+RTM_NUM_CHANGE_TYPES: UInt32 = 3
+RTM_CHANGE_TYPE_ALL: UInt32 = 1
+RTM_CHANGE_TYPE_BEST: UInt32 = 2
+RTM_CHANGE_TYPE_FORWARDING: UInt32 = 4
+RTM_NOTIFY_ONLY_MARKED_DESTS: UInt32 = 65536
+RASBASE: UInt32 = 600
+PENDING: UInt32 = 600
+ERROR_INVALID_PORT_HANDLE: UInt32 = 601
+ERROR_PORT_ALREADY_OPEN: UInt32 = 602
+ERROR_BUFFER_TOO_SMALL: UInt32 = 603
+ERROR_WRONG_INFO_SPECIFIED: UInt32 = 604
+ERROR_CANNOT_SET_PORT_INFO: UInt32 = 605
+ERROR_PORT_NOT_CONNECTED: UInt32 = 606
+ERROR_EVENT_INVALID: UInt32 = 607
+ERROR_DEVICE_DOES_NOT_EXIST: UInt32 = 608
+ERROR_DEVICETYPE_DOES_NOT_EXIST: UInt32 = 609
+ERROR_BUFFER_INVALID: UInt32 = 610
+ERROR_ROUTE_NOT_AVAILABLE: UInt32 = 611
+ERROR_ROUTE_NOT_ALLOCATED: UInt32 = 612
+ERROR_INVALID_COMPRESSION_SPECIFIED: UInt32 = 613
+ERROR_OUT_OF_BUFFERS: UInt32 = 614
+ERROR_PORT_NOT_FOUND: UInt32 = 615
+ERROR_ASYNC_REQUEST_PENDING: UInt32 = 616
+ERROR_ALREADY_DISCONNECTING: UInt32 = 617
+ERROR_PORT_NOT_OPEN: UInt32 = 618
+ERROR_PORT_DISCONNECTED: UInt32 = 619
+ERROR_NO_ENDPOINTS: UInt32 = 620
+ERROR_CANNOT_OPEN_PHONEBOOK: UInt32 = 621
+ERROR_CANNOT_LOAD_PHONEBOOK: UInt32 = 622
+ERROR_CANNOT_FIND_PHONEBOOK_ENTRY: UInt32 = 623
+ERROR_CANNOT_WRITE_PHONEBOOK: UInt32 = 624
+ERROR_CORRUPT_PHONEBOOK: UInt32 = 625
+ERROR_CANNOT_LOAD_STRING: UInt32 = 626
+ERROR_KEY_NOT_FOUND: UInt32 = 627
+ERROR_DISCONNECTION: UInt32 = 628
+ERROR_REMOTE_DISCONNECTION: UInt32 = 629
+ERROR_HARDWARE_FAILURE: UInt32 = 630
+ERROR_USER_DISCONNECTION: UInt32 = 631
+ERROR_INVALID_SIZE: UInt32 = 632
+ERROR_PORT_NOT_AVAILABLE: UInt32 = 633
+ERROR_CANNOT_PROJECT_CLIENT: UInt32 = 634
+ERROR_UNKNOWN: UInt32 = 635
+ERROR_WRONG_DEVICE_ATTACHED: UInt32 = 636
+ERROR_BAD_STRING: UInt32 = 637
+ERROR_REQUEST_TIMEOUT: UInt32 = 638
+ERROR_CANNOT_GET_LANA: UInt32 = 639
+ERROR_NETBIOS_ERROR: UInt32 = 640
+ERROR_SERVER_OUT_OF_RESOURCES: UInt32 = 641
+ERROR_NAME_EXISTS_ON_NET: UInt32 = 642
+ERROR_SERVER_GENERAL_NET_FAILURE: UInt32 = 643
+WARNING_MSG_ALIAS_NOT_ADDED: UInt32 = 644
+ERROR_AUTH_INTERNAL: UInt32 = 645
+ERROR_RESTRICTED_LOGON_HOURS: UInt32 = 646
+ERROR_ACCT_DISABLED: UInt32 = 647
+ERROR_PASSWD_EXPIRED: UInt32 = 648
+ERROR_NO_DIALIN_PERMISSION: UInt32 = 649
+ERROR_SERVER_NOT_RESPONDING: UInt32 = 650
+ERROR_FROM_DEVICE: UInt32 = 651
+ERROR_UNRECOGNIZED_RESPONSE: UInt32 = 652
+ERROR_MACRO_NOT_FOUND: UInt32 = 653
+ERROR_MACRO_NOT_DEFINED: UInt32 = 654
+ERROR_MESSAGE_MACRO_NOT_FOUND: UInt32 = 655
+ERROR_DEFAULTOFF_MACRO_NOT_FOUND: UInt32 = 656
+ERROR_FILE_COULD_NOT_BE_OPENED: UInt32 = 657
+ERROR_DEVICENAME_TOO_LONG: UInt32 = 658
+ERROR_DEVICENAME_NOT_FOUND: UInt32 = 659
+ERROR_NO_RESPONSES: UInt32 = 660
+ERROR_NO_COMMAND_FOUND: UInt32 = 661
+ERROR_WRONG_KEY_SPECIFIED: UInt32 = 662
+ERROR_UNKNOWN_DEVICE_TYPE: UInt32 = 663
+ERROR_ALLOCATING_MEMORY: UInt32 = 664
+ERROR_PORT_NOT_CONFIGURED: UInt32 = 665
+ERROR_DEVICE_NOT_READY: UInt32 = 666
+ERROR_READING_INI_FILE: UInt32 = 667
+ERROR_NO_CONNECTION: UInt32 = 668
+ERROR_BAD_USAGE_IN_INI_FILE: UInt32 = 669
+ERROR_READING_SECTIONNAME: UInt32 = 670
+ERROR_READING_DEVICETYPE: UInt32 = 671
+ERROR_READING_DEVICENAME: UInt32 = 672
+ERROR_READING_USAGE: UInt32 = 673
+ERROR_READING_MAXCONNECTBPS: UInt32 = 674
+ERROR_READING_MAXCARRIERBPS: UInt32 = 675
+ERROR_LINE_BUSY: UInt32 = 676
+ERROR_VOICE_ANSWER: UInt32 = 677
+ERROR_NO_ANSWER: UInt32 = 678
+ERROR_NO_CARRIER: UInt32 = 679
+ERROR_NO_DIALTONE: UInt32 = 680
+ERROR_IN_COMMAND: UInt32 = 681
+ERROR_WRITING_SECTIONNAME: UInt32 = 682
+ERROR_WRITING_DEVICETYPE: UInt32 = 683
+ERROR_WRITING_DEVICENAME: UInt32 = 684
+ERROR_WRITING_MAXCONNECTBPS: UInt32 = 685
+ERROR_WRITING_MAXCARRIERBPS: UInt32 = 686
+ERROR_WRITING_USAGE: UInt32 = 687
+ERROR_WRITING_DEFAULTOFF: UInt32 = 688
+ERROR_READING_DEFAULTOFF: UInt32 = 689
+ERROR_EMPTY_INI_FILE: UInt32 = 690
+ERROR_AUTHENTICATION_FAILURE: UInt32 = 691
+ERROR_PORT_OR_DEVICE: UInt32 = 692
+ERROR_NOT_BINARY_MACRO: UInt32 = 693
+ERROR_DCB_NOT_FOUND: UInt32 = 694
+ERROR_STATE_MACHINES_NOT_STARTED: UInt32 = 695
+ERROR_STATE_MACHINES_ALREADY_STARTED: UInt32 = 696
+ERROR_PARTIAL_RESPONSE_LOOPING: UInt32 = 697
+ERROR_UNKNOWN_RESPONSE_KEY: UInt32 = 698
+ERROR_RECV_BUF_FULL: UInt32 = 699
+ERROR_CMD_TOO_LONG: UInt32 = 700
+ERROR_UNSUPPORTED_BPS: UInt32 = 701
+ERROR_UNEXPECTED_RESPONSE: UInt32 = 702
+ERROR_INTERACTIVE_MODE: UInt32 = 703
+ERROR_BAD_CALLBACK_NUMBER: UInt32 = 704
+ERROR_INVALID_AUTH_STATE: UInt32 = 705
+ERROR_WRITING_INITBPS: UInt32 = 706
+ERROR_X25_DIAGNOSTIC: UInt32 = 707
+ERROR_ACCT_EXPIRED: UInt32 = 708
+ERROR_CHANGING_PASSWORD: UInt32 = 709
+ERROR_OVERRUN: UInt32 = 710
+ERROR_RASMAN_CANNOT_INITIALIZE: UInt32 = 711
+ERROR_BIPLEX_PORT_NOT_AVAILABLE: UInt32 = 712
+ERROR_NO_ACTIVE_ISDN_LINES: UInt32 = 713
+ERROR_NO_ISDN_CHANNELS_AVAILABLE: UInt32 = 714
+ERROR_TOO_MANY_LINE_ERRORS: UInt32 = 715
+ERROR_IP_CONFIGURATION: UInt32 = 716
+ERROR_NO_IP_ADDRESSES: UInt32 = 717
+ERROR_PPP_TIMEOUT: UInt32 = 718
+ERROR_PPP_REMOTE_TERMINATED: UInt32 = 719
+ERROR_PPP_NO_PROTOCOLS_CONFIGURED: UInt32 = 720
+ERROR_PPP_NO_RESPONSE: UInt32 = 721
+ERROR_PPP_INVALID_PACKET: UInt32 = 722
+ERROR_PHONE_NUMBER_TOO_LONG: UInt32 = 723
+ERROR_IPXCP_NO_DIALOUT_CONFIGURED: UInt32 = 724
+ERROR_IPXCP_NO_DIALIN_CONFIGURED: UInt32 = 725
+ERROR_IPXCP_DIALOUT_ALREADY_ACTIVE: UInt32 = 726
+ERROR_ACCESSING_TCPCFGDLL: UInt32 = 727
+ERROR_NO_IP_RAS_ADAPTER: UInt32 = 728
+ERROR_SLIP_REQUIRES_IP: UInt32 = 729
+ERROR_PROJECTION_NOT_COMPLETE: UInt32 = 730
+ERROR_PROTOCOL_NOT_CONFIGURED: UInt32 = 731
+ERROR_PPP_NOT_CONVERGING: UInt32 = 732
+ERROR_PPP_CP_REJECTED: UInt32 = 733
+ERROR_PPP_LCP_TERMINATED: UInt32 = 734
+ERROR_PPP_REQUIRED_ADDRESS_REJECTED: UInt32 = 735
+ERROR_PPP_NCP_TERMINATED: UInt32 = 736
+ERROR_PPP_LOOPBACK_DETECTED: UInt32 = 737
+ERROR_PPP_NO_ADDRESS_ASSIGNED: UInt32 = 738
+ERROR_CANNOT_USE_LOGON_CREDENTIALS: UInt32 = 739
+ERROR_TAPI_CONFIGURATION: UInt32 = 740
+ERROR_NO_LOCAL_ENCRYPTION: UInt32 = 741
+ERROR_NO_REMOTE_ENCRYPTION: UInt32 = 742
+ERROR_REMOTE_REQUIRES_ENCRYPTION: UInt32 = 743
+ERROR_IPXCP_NET_NUMBER_CONFLICT: UInt32 = 744
+ERROR_INVALID_SMM: UInt32 = 745
+ERROR_SMM_UNINITIALIZED: UInt32 = 746
+ERROR_NO_MAC_FOR_PORT: UInt32 = 747
+ERROR_SMM_TIMEOUT: UInt32 = 748
+ERROR_BAD_PHONE_NUMBER: UInt32 = 749
+ERROR_WRONG_MODULE: UInt32 = 750
+ERROR_INVALID_CALLBACK_NUMBER: UInt32 = 751
+ERROR_SCRIPT_SYNTAX: UInt32 = 752
+ERROR_HANGUP_FAILED: UInt32 = 753
+ERROR_BUNDLE_NOT_FOUND: UInt32 = 754
+ERROR_CANNOT_DO_CUSTOMDIAL: UInt32 = 755
+ERROR_DIAL_ALREADY_IN_PROGRESS: UInt32 = 756
+ERROR_RASAUTO_CANNOT_INITIALIZE: UInt32 = 757
+ERROR_CONNECTION_ALREADY_SHARED: UInt32 = 758
+ERROR_SHARING_CHANGE_FAILED: UInt32 = 759
+ERROR_SHARING_ROUTER_INSTALL: UInt32 = 760
+ERROR_SHARE_CONNECTION_FAILED: UInt32 = 761
+ERROR_SHARING_PRIVATE_INSTALL: UInt32 = 762
+ERROR_CANNOT_SHARE_CONNECTION: UInt32 = 763
+ERROR_NO_SMART_CARD_READER: UInt32 = 764
+ERROR_SHARING_ADDRESS_EXISTS: UInt32 = 765
+ERROR_NO_CERTIFICATE: UInt32 = 766
+ERROR_SHARING_MULTIPLE_ADDRESSES: UInt32 = 767
+ERROR_FAILED_TO_ENCRYPT: UInt32 = 768
+ERROR_BAD_ADDRESS_SPECIFIED: UInt32 = 769
+ERROR_CONNECTION_REJECT: UInt32 = 770
+ERROR_CONGESTION: UInt32 = 771
+ERROR_INCOMPATIBLE: UInt32 = 772
+ERROR_NUMBERCHANGED: UInt32 = 773
+ERROR_TEMPFAILURE: UInt32 = 774
+ERROR_BLOCKED: UInt32 = 775
+ERROR_DONOTDISTURB: UInt32 = 776
+ERROR_OUTOFORDER: UInt32 = 777
+ERROR_UNABLE_TO_AUTHENTICATE_SERVER: UInt32 = 778
+ERROR_SMART_CARD_REQUIRED: UInt32 = 779
+ERROR_INVALID_FUNCTION_FOR_ENTRY: UInt32 = 780
+ERROR_CERT_FOR_ENCRYPTION_NOT_FOUND: UInt32 = 781
+ERROR_SHARING_RRAS_CONFLICT: UInt32 = 782
+ERROR_SHARING_NO_PRIVATE_LAN: UInt32 = 783
+ERROR_NO_DIFF_USER_AT_LOGON: UInt32 = 784
+ERROR_NO_REG_CERT_AT_LOGON: UInt32 = 785
+ERROR_OAKLEY_NO_CERT: UInt32 = 786
+ERROR_OAKLEY_AUTH_FAIL: UInt32 = 787
+ERROR_OAKLEY_ATTRIB_FAIL: UInt32 = 788
+ERROR_OAKLEY_GENERAL_PROCESSING: UInt32 = 789
+ERROR_OAKLEY_NO_PEER_CERT: UInt32 = 790
+ERROR_OAKLEY_NO_POLICY: UInt32 = 791
+ERROR_OAKLEY_TIMED_OUT: UInt32 = 792
+ERROR_OAKLEY_ERROR: UInt32 = 793
+ERROR_UNKNOWN_FRAMED_PROTOCOL: UInt32 = 794
+ERROR_WRONG_TUNNEL_TYPE: UInt32 = 795
+ERROR_UNKNOWN_SERVICE_TYPE: UInt32 = 796
+ERROR_CONNECTING_DEVICE_NOT_FOUND: UInt32 = 797
+ERROR_NO_EAPTLS_CERTIFICATE: UInt32 = 798
+ERROR_SHARING_HOST_ADDRESS_CONFLICT: UInt32 = 799
+ERROR_AUTOMATIC_VPN_FAILED: UInt32 = 800
+ERROR_VALIDATING_SERVER_CERT: UInt32 = 801
+ERROR_READING_SCARD: UInt32 = 802
+ERROR_INVALID_PEAP_COOKIE_CONFIG: UInt32 = 803
+ERROR_INVALID_PEAP_COOKIE_USER: UInt32 = 804
+ERROR_INVALID_MSCHAPV2_CONFIG: UInt32 = 805
+ERROR_VPN_GRE_BLOCKED: UInt32 = 806
+ERROR_VPN_DISCONNECT: UInt32 = 807
+ERROR_VPN_REFUSED: UInt32 = 808
+ERROR_VPN_TIMEOUT: UInt32 = 809
+ERROR_VPN_BAD_CERT: UInt32 = 810
+ERROR_VPN_BAD_PSK: UInt32 = 811
+ERROR_SERVER_POLICY: UInt32 = 812
+ERROR_BROADBAND_ACTIVE: UInt32 = 813
+ERROR_BROADBAND_NO_NIC: UInt32 = 814
+ERROR_BROADBAND_TIMEOUT: UInt32 = 815
+ERROR_FEATURE_DEPRECATED: UInt32 = 816
+ERROR_CANNOT_DELETE: UInt32 = 817
+ERROR_RASQEC_RESOURCE_CREATION_FAILED: UInt32 = 818
+ERROR_RASQEC_NAPAGENT_NOT_ENABLED: UInt32 = 819
+ERROR_RASQEC_NAPAGENT_NOT_CONNECTED: UInt32 = 820
+ERROR_RASQEC_CONN_DOESNOTEXIST: UInt32 = 821
+ERROR_RASQEC_TIMEOUT: UInt32 = 822
+ERROR_PEAP_CRYPTOBINDING_INVALID: UInt32 = 823
+ERROR_PEAP_CRYPTOBINDING_NOTRECEIVED: UInt32 = 824
+ERROR_INVALID_VPNSTRATEGY: UInt32 = 825
+ERROR_EAPTLS_CACHE_CREDENTIALS_INVALID: UInt32 = 826
+ERROR_IPSEC_SERVICE_STOPPED: UInt32 = 827
+ERROR_IDLE_TIMEOUT: UInt32 = 828
+ERROR_LINK_FAILURE: UInt32 = 829
+ERROR_USER_LOGOFF: UInt32 = 830
+ERROR_FAST_USER_SWITCH: UInt32 = 831
+ERROR_HIBERNATION: UInt32 = 832
+ERROR_SYSTEM_SUSPENDED: UInt32 = 833
+ERROR_RASMAN_SERVICE_STOPPED: UInt32 = 834
+ERROR_INVALID_SERVER_CERT: UInt32 = 835
+ERROR_NOT_NAP_CAPABLE: UInt32 = 836
+ERROR_INVALID_TUNNELID: UInt32 = 837
+ERROR_UPDATECONNECTION_REQUEST_IN_PROCESS: UInt32 = 838
+ERROR_PROTOCOL_ENGINE_DISABLED: UInt32 = 839
+ERROR_INTERNAL_ADDRESS_FAILURE: UInt32 = 840
+ERROR_FAILED_CP_REQUIRED: UInt32 = 841
+ERROR_TS_UNACCEPTABLE: UInt32 = 842
+ERROR_MOBIKE_DISABLED: UInt32 = 843
+ERROR_CANNOT_INITIATE_MOBIKE_UPDATE: UInt32 = 844
+ERROR_PEAP_SERVER_REJECTED_CLIENT_TLV: UInt32 = 845
+ERROR_INVALID_PREFERENCES: UInt32 = 846
+ERROR_EAPTLS_SCARD_CACHE_CREDENTIALS_INVALID: UInt32 = 847
+ERROR_SSTP_COOKIE_SET_FAILURE: UInt32 = 848
+ERROR_INVALID_PEAP_COOKIE_ATTRIBUTES: UInt32 = 849
+ERROR_EAP_METHOD_NOT_INSTALLED: UInt32 = 850
+ERROR_EAP_METHOD_DOES_NOT_SUPPORT_SSO: UInt32 = 851
+ERROR_EAP_METHOD_OPERATION_NOT_SUPPORTED: UInt32 = 852
+ERROR_EAP_USER_CERT_INVALID: UInt32 = 853
+ERROR_EAP_USER_CERT_EXPIRED: UInt32 = 854
+ERROR_EAP_USER_CERT_REVOKED: UInt32 = 855
+ERROR_EAP_USER_CERT_OTHER_ERROR: UInt32 = 856
+ERROR_EAP_SERVER_CERT_INVALID: UInt32 = 857
+ERROR_EAP_SERVER_CERT_EXPIRED: UInt32 = 858
+ERROR_EAP_SERVER_CERT_REVOKED: UInt32 = 859
+ERROR_EAP_SERVER_CERT_OTHER_ERROR: UInt32 = 860
+ERROR_EAP_USER_ROOT_CERT_NOT_FOUND: UInt32 = 861
+ERROR_EAP_USER_ROOT_CERT_INVALID: UInt32 = 862
+ERROR_EAP_USER_ROOT_CERT_EXPIRED: UInt32 = 863
+ERROR_EAP_SERVER_ROOT_CERT_NOT_FOUND: UInt32 = 864
+ERROR_EAP_SERVER_ROOT_CERT_INVALID: UInt32 = 865
+ERROR_EAP_SERVER_ROOT_CERT_NAME_REQUIRED: UInt32 = 866
+ERROR_PEAP_IDENTITY_MISMATCH: UInt32 = 867
+ERROR_DNSNAME_NOT_RESOLVABLE: UInt32 = 868
+ERROR_EAPTLS_PASSWD_INVALID: UInt32 = 869
+ERROR_IKEV2_PSK_INTERFACE_ALREADY_EXISTS: UInt32 = 870
+ERROR_INVALID_DESTINATION_IP: UInt32 = 871
+ERROR_INVALID_INTERFACE_CONFIG: UInt32 = 872
+ERROR_VPN_PLUGIN_GENERIC: UInt32 = 873
+ERROR_SSO_CERT_MISSING: UInt32 = 874
+ERROR_DEVICE_COMPLIANCE: UInt32 = 875
+ERROR_PLUGIN_NOT_INSTALLED: UInt32 = 876
+ERROR_ACTION_REQUIRED: UInt32 = 877
+RASBASEEND: UInt32 = 877
+@winfunctype('RASAPI32.dll')
+def RasDialA(param0: POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head), param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head), param3: UInt32, param4: c_void_p, param5: POINTER(win32more.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasDialW(param0: POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head), param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head), param3: UInt32, param4: c_void_p, param5: POINTER(win32more.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumConnectionsA(param0: POINTER(win32more.NetworkManagement.Rras.RASCONNA_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumConnectionsW(param0: POINTER(win32more.NetworkManagement.Rras.RASCONNW_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumEntriesA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYNAMEA_head), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumEntriesW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYNAMEW_head), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetConnectStatusA(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: POINTER(win32more.NetworkManagement.Rras.RASCONNSTATUSA_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetConnectStatusW(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: POINTER(win32more.NetworkManagement.Rras.RASCONNSTATUSW_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetErrorStringA(ResourceId: UInt32, lpszString: win32more.Foundation.PSTR, InBufSize: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetErrorStringW(ResourceId: UInt32, lpszString: win32more.Foundation.PWSTR, InBufSize: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasHangUpA(param0: win32more.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasHangUpW(param0: win32more.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetProjectionInfoA(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: win32more.NetworkManagement.Rras.RASPROJECTION, param2: c_void_p, param3: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetProjectionInfoW(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: win32more.NetworkManagement.Rras.RASPROJECTION, param2: c_void_p, param3: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasCreatePhonebookEntryA(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasCreatePhonebookEntryW(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEditPhonebookEntryA(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEditPhonebookEntryW(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEntryDialParamsA(param0: win32more.Foundation.PSTR, param1: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head), param2: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEntryDialParamsW(param0: win32more.Foundation.PWSTR, param1: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head), param2: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEntryDialParamsA(param0: win32more.Foundation.PSTR, param1: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head), param2: POINTER(Int32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEntryDialParamsW(param0: win32more.Foundation.PWSTR, param1: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSW_head), param2: POINTER(Int32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumDevicesA(param0: POINTER(win32more.NetworkManagement.Rras.RASDEVINFOA_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumDevicesW(param0: POINTER(win32more.NetworkManagement.Rras.RASDEVINFOW_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCountryInfoA(param0: POINTER(win32more.NetworkManagement.Rras.RASCTRYINFO_head), param1: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCountryInfoW(param0: POINTER(win32more.NetworkManagement.Rras.RASCTRYINFO_head), param1: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEntryPropertiesA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYA_head), param3: POINTER(UInt32), param4: c_char_p_no, param5: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEntryPropertiesW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYW_head), param3: POINTER(UInt32), param4: c_char_p_no, param5: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEntryPropertiesA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYA_head), param3: UInt32, param4: c_char_p_no, param5: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEntryPropertiesW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASENTRYW_head), param3: UInt32, param4: c_char_p_no, param5: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasRenameEntryA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasRenameEntryW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasDeleteEntryA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasDeleteEntryW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasValidateEntryNameA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasValidateEntryNameW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasConnectionNotificationA(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: win32more.Foundation.HANDLE, param2: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasConnectionNotificationW(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: win32more.Foundation.HANDLE, param2: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetSubEntryHandleA(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: POINTER(win32more.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetSubEntryHandleW(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: POINTER(win32more.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCredentialsA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSA_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCredentialsW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSW_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetCredentialsA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSA_head), param3: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetCredentialsW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASCREDENTIALSW_head), param3: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetSubEntryPropertiesA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: UInt32, param3: POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYA_head), param4: POINTER(UInt32), param5: c_char_p_no, param6: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetSubEntryPropertiesW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: UInt32, param3: POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYW_head), param4: POINTER(UInt32), param5: c_char_p_no, param6: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetSubEntryPropertiesA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: UInt32, param3: POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYA_head), param4: UInt32, param5: c_char_p_no, param6: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetSubEntryPropertiesW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: UInt32, param3: POINTER(win32more.NetworkManagement.Rras.RASSUBENTRYW_head), param4: UInt32, param5: c_char_p_no, param6: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialAddressA(param0: win32more.Foundation.PSTR, param1: POINTER(UInt32), param2: POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYA_head), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialAddressW(param0: win32more.Foundation.PWSTR, param1: POINTER(UInt32), param2: POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYW_head), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialAddressA(param0: win32more.Foundation.PSTR, param1: UInt32, param2: POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYA_head), param3: UInt32, param4: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialAddressW(param0: win32more.Foundation.PWSTR, param1: UInt32, param2: POINTER(win32more.NetworkManagement.Rras.RASAUTODIALENTRYW_head), param3: UInt32, param4: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumAutodialAddressesA(lppRasAutodialAddresses: POINTER(win32more.Foundation.PSTR), lpdwcbRasAutodialAddresses: POINTER(UInt32), lpdwcRasAutodialAddresses: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasEnumAutodialAddressesW(lppRasAutodialAddresses: POINTER(win32more.Foundation.PWSTR), lpdwcbRasAutodialAddresses: POINTER(UInt32), lpdwcRasAutodialAddresses: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialEnableA(param0: UInt32, param1: POINTER(Int32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialEnableW(param0: UInt32, param1: POINTER(Int32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialEnableA(param0: UInt32, param1: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialEnableW(param0: UInt32, param1: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialParamA(param0: UInt32, param1: c_void_p, param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetAutodialParamW(param0: UInt32, param1: c_void_p, param2: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialParamA(param0: UInt32, param1: c_void_p, param2: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetAutodialParamW(param0: UInt32, param1: c_void_p, param2: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetPCscf(lpszPCscf: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasInvokeEapUI(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head), param3: win32more.Foundation.HWND) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetLinkStatistics(hRasConn: win32more.NetworkManagement.Rras.HRASCONN, dwSubEntry: UInt32, lpStatistics: POINTER(win32more.NetworkManagement.Rras.RAS_STATS_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetConnectionStatistics(hRasConn: win32more.NetworkManagement.Rras.HRASCONN, lpStatistics: POINTER(win32more.NetworkManagement.Rras.RAS_STATS_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasClearLinkStatistics(hRasConn: win32more.NetworkManagement.Rras.HRASCONN, dwSubEntry: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasClearConnectionStatistics(hRasConn: win32more.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEapUserDataA(hToken: win32more.Foundation.HANDLE, pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, pbEapData: c_char_p_no, pdwSizeofEapData: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEapUserDataW(hToken: win32more.Foundation.HANDLE, pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, pbEapData: c_char_p_no, pdwSizeofEapData: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEapUserDataA(hToken: win32more.Foundation.HANDLE, pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, pbEapData: c_char_p_no, dwSizeofEapData: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetEapUserDataW(hToken: win32more.Foundation.HANDLE, pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, pbEapData: c_char_p_no, dwSizeofEapData: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCustomAuthDataA(pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, pbCustomAuthData: c_char_p_no, pdwSizeofCustomAuthData: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetCustomAuthDataW(pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, pbCustomAuthData: c_char_p_no, pdwSizeofCustomAuthData: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetCustomAuthDataA(pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, pbCustomAuthData: c_char_p_no, dwSizeofCustomAuthData: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasSetCustomAuthDataW(pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, pbCustomAuthData: c_char_p_no, dwSizeofCustomAuthData: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEapUserIdentityW(pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, dwFlags: UInt32, hwnd: win32more.Foundation.HWND, ppRasEapUserIdentity: POINTER(POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYW_head))) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetEapUserIdentityA(pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, dwFlags: UInt32, hwnd: win32more.Foundation.HWND, ppRasEapUserIdentity: POINTER(POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYA_head))) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasFreeEapUserIdentityW(pRasEapUserIdentity: POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYW_head)) -> Void: ...
+@winfunctype('RASAPI32.dll')
+def RasFreeEapUserIdentityA(pRasEapUserIdentity: POINTER(win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYA_head)) -> Void: ...
+@winfunctype('RASAPI32.dll')
+def RasDeleteSubEntryA(pszPhonebook: win32more.Foundation.PSTR, pszEntry: win32more.Foundation.PSTR, dwSubentryId: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasDeleteSubEntryW(pszPhonebook: win32more.Foundation.PWSTR, pszEntry: win32more.Foundation.PWSTR, dwSubEntryId: UInt32) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasUpdateConnection(hrasconn: win32more.NetworkManagement.Rras.HRASCONN, lprasupdateconn: POINTER(win32more.NetworkManagement.Rras.RASUPDATECONN_head)) -> UInt32: ...
+@winfunctype('RASAPI32.dll')
+def RasGetProjectionInfoEx(hrasconn: win32more.NetworkManagement.Rras.HRASCONN, pRasProjection: POINTER(win32more.NetworkManagement.Rras.RAS_PROJECTION_INFO_head), lpdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('RASDLG.dll')
+def RasPhonebookDlgA(lpszPhonebook: win32more.Foundation.PSTR, lpszEntry: win32more.Foundation.PSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASPBDLGA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('RASDLG.dll')
+def RasPhonebookDlgW(lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASPBDLGW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('RASDLG.dll')
+def RasEntryDlgA(lpszPhonebook: win32more.Foundation.PSTR, lpszEntry: win32more.Foundation.PSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('RASDLG.dll')
+def RasEntryDlgW(lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('RASDLG.dll')
+def RasDialDlgA(lpszPhonebook: win32more.Foundation.PSTR, lpszEntry: win32more.Foundation.PSTR, lpszPhoneNumber: win32more.Foundation.PSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('RASDLG.dll')
+def RasDialDlgW(lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, lpszPhoneNumber: win32more.Foundation.PWSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionEnumEx(hRasServer: IntPtr, pObjectHeader: POINTER(win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER_head), dwPreferedMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), ppRasConn: POINTER(POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionGetInfoEx(hRasServer: IntPtr, hRasConnection: win32more.Foundation.HANDLE, pRasConnection: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerGetInfoEx(hMprServer: IntPtr, pServerInfo: POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_EX1_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerSetInfoEx(hMprServer: IntPtr, pServerInfo: POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX1_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerGetInfoEx(hMprConfig: win32more.Foundation.HANDLE, pServerInfo: POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_EX1_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerSetInfoEx(hMprConfig: win32more.Foundation.HANDLE, pSetServerConfig: POINTER(win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX1_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminUpdateConnection(hRasServer: IntPtr, hRasConnection: win32more.Foundation.HANDLE, pRasUpdateConnection: POINTER(win32more.NetworkManagement.Rras.RAS_UPDATE_CONNECTION_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminIsServiceInitialized(lpwsServerName: win32more.Foundation.PWSTR, fIsServiceInitialized: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceSetCustomInfoEx(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, pCustomInfo: POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceGetCustomInfoEx(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, pCustomInfo: POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceGetCustomInfoEx(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, pCustomInfo: POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceSetCustomInfoEx(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, pCustomInfo: POINTER(win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionEnum(hRasServer: IntPtr, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminPortEnum(hRasServer: IntPtr, dwLevel: UInt32, hRasConnection: win32more.Foundation.HANDLE, lplpbBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionGetInfo(hRasServer: IntPtr, dwLevel: UInt32, hRasConnection: win32more.Foundation.HANDLE, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminPortGetInfo(hRasServer: IntPtr, dwLevel: UInt32, hPort: win32more.Foundation.HANDLE, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionClearStats(hRasServer: IntPtr, hRasConnection: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminPortClearStats(hRasServer: IntPtr, hPort: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminPortReset(hRasServer: IntPtr, hPort: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminPortDisconnect(hRasServer: IntPtr, hPort: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminConnectionRemoveQuarantine(hRasServer: win32more.Foundation.HANDLE, hRasConnection: win32more.Foundation.HANDLE, fIsIpAddress: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminUserGetInfo(lpszServer: win32more.Foundation.PWSTR, lpszUser: win32more.Foundation.PWSTR, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminUserSetInfo(lpszServer: win32more.Foundation.PWSTR, lpszUser: win32more.Foundation.PWSTR, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminSendUserMessage(hMprServer: IntPtr, hConnection: win32more.Foundation.HANDLE, lpwszMessage: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminGetPDCServer(lpszDomain: win32more.Foundation.PWSTR, lpszServer: win32more.Foundation.PWSTR, lpszPDCServer: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminIsServiceRunning(lpwsServerName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerConnect(lpwsServerName: win32more.Foundation.PWSTR, phMprServer: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerDisconnect(hMprServer: IntPtr) -> Void: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerGetCredentials(hMprServer: IntPtr, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerSetCredentials(hMprServer: IntPtr, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminBufferFree(pBuffer: c_void_p) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminGetErrorString(dwError: UInt32, lplpwsErrorString: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerGetInfo(hMprServer: IntPtr, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminServerSetInfo(hMprServer: IntPtr, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminEstablishDomainRasServer(pszDomain: win32more.Foundation.PWSTR, pszMachine: win32more.Foundation.PWSTR, bEnable: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminIsDomainRasServer(pszDomain: win32more.Foundation.PWSTR, pszMachine: win32more.Foundation.PWSTR, pbIsRasServer: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminTransportCreate(hMprServer: IntPtr, dwTransportId: UInt32, lpwsTransportName: win32more.Foundation.PWSTR, pGlobalInfo: c_char_p_no, dwGlobalInfoSize: UInt32, pClientInterfaceInfo: c_char_p_no, dwClientInterfaceInfoSize: UInt32, lpwsDLLPath: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminTransportSetInfo(hMprServer: IntPtr, dwTransportId: UInt32, pGlobalInfo: c_char_p_no, dwGlobalInfoSize: UInt32, pClientInterfaceInfo: c_char_p_no, dwClientInterfaceInfoSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminTransportGetInfo(hMprServer: IntPtr, dwTransportId: UInt32, ppGlobalInfo: POINTER(c_char_p_no), lpdwGlobalInfoSize: POINTER(UInt32), ppClientInterfaceInfo: POINTER(c_char_p_no), lpdwClientInterfaceInfoSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminDeviceEnum(hMprServer: IntPtr, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no), lpdwTotalEntries: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceGetHandle(hMprServer: IntPtr, lpwsInterfaceName: win32more.Foundation.PWSTR, phInterface: POINTER(win32more.Foundation.HANDLE), fIncludeClientInterfaces: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceCreate(hMprServer: IntPtr, dwLevel: UInt32, lpbBuffer: c_char_p_no, phInterface: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceGetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceSetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceDelete(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceDeviceGetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwIndex: UInt32, dwLevel: UInt32, lplpBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceDeviceSetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwIndex: UInt32, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceTransportRemove(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceTransportAdd(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32, pInterfaceInfo: c_char_p_no, dwInterfaceInfoSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceTransportGetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32, ppInterfaceInfo: POINTER(c_char_p_no), lpdwInterfaceInfoSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceTransportSetInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32, pInterfaceInfo: c_char_p_no, dwInterfaceInfoSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceEnum(hMprServer: IntPtr, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceSetCredentials(lpwsServer: win32more.Foundation.PWSTR, lpwsInterfaceName: win32more.Foundation.PWSTR, lpwsUserName: win32more.Foundation.PWSTR, lpwsDomainName: win32more.Foundation.PWSTR, lpwsPassword: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceGetCredentials(lpwsServer: win32more.Foundation.PWSTR, lpwsInterfaceName: win32more.Foundation.PWSTR, lpwsUserName: win32more.Foundation.PWSTR, lpwsPassword: win32more.Foundation.PWSTR, lpwsDomainName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceSetCredentialsEx(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceGetCredentialsEx(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceConnect(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, hEvent: win32more.Foundation.HANDLE, fSynchronous: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceDisconnect(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceUpdateRoutes(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwProtocolId: UInt32, hEvent: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceQueryUpdateResult(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE, dwProtocolId: UInt32, lpdwUpdateResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminInterfaceUpdatePhonebookInfo(hMprServer: IntPtr, hInterface: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminRegisterConnectionNotification(hMprServer: IntPtr, hEventNotification: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminDeregisterConnectionNotification(hMprServer: IntPtr, hEventNotification: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBServerConnect(lpwsServerName: win32more.Foundation.PWSTR, phMibServer: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBServerDisconnect(hMibServer: IntPtr) -> Void: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntryCreate(hMibServer: IntPtr, dwPid: UInt32, dwRoutingPid: UInt32, lpEntry: c_void_p, dwEntrySize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntryDelete(hMibServer: IntPtr, dwProtocolId: UInt32, dwRoutingPid: UInt32, lpEntry: c_void_p, dwEntrySize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntrySet(hMibServer: IntPtr, dwProtocolId: UInt32, dwRoutingPid: UInt32, lpEntry: c_void_p, dwEntrySize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntryGet(hMibServer: IntPtr, dwProtocolId: UInt32, dwRoutingPid: UInt32, lpInEntry: c_void_p, dwInEntrySize: UInt32, lplpOutEntry: POINTER(c_void_p), lpOutEntrySize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntryGetFirst(hMibServer: IntPtr, dwProtocolId: UInt32, dwRoutingPid: UInt32, lpInEntry: c_void_p, dwInEntrySize: UInt32, lplpOutEntry: POINTER(c_void_p), lpOutEntrySize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBEntryGetNext(hMibServer: IntPtr, dwProtocolId: UInt32, dwRoutingPid: UInt32, lpInEntry: c_void_p, dwInEntrySize: UInt32, lplpOutEntry: POINTER(c_void_p), lpOutEntrySize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprAdminMIBBufferFree(pBuffer: c_void_p) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerInstall(dwLevel: UInt32, pBuffer: c_void_p) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerConnect(lpwsServerName: win32more.Foundation.PWSTR, phMprConfig: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerDisconnect(hMprConfig: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerRefresh(hMprConfig: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigBufferFree(pBuffer: c_void_p) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerGetInfo(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpbBuffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerSetInfo(hMprServer: IntPtr, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerBackup(hMprConfig: win32more.Foundation.HANDLE, lpwsPath: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigServerRestore(hMprConfig: win32more.Foundation.HANDLE, lpwsPath: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportCreate(hMprConfig: win32more.Foundation.HANDLE, dwTransportId: UInt32, lpwsTransportName: win32more.Foundation.PWSTR, pGlobalInfo: c_char_p_no, dwGlobalInfoSize: UInt32, pClientInterfaceInfo: c_char_p_no, dwClientInterfaceInfoSize: UInt32, lpwsDLLPath: win32more.Foundation.PWSTR, phRouterTransport: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportDelete(hMprConfig: win32more.Foundation.HANDLE, hRouterTransport: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportGetHandle(hMprConfig: win32more.Foundation.HANDLE, dwTransportId: UInt32, phRouterTransport: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportSetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterTransport: win32more.Foundation.HANDLE, pGlobalInfo: c_char_p_no, dwGlobalInfoSize: UInt32, pClientInterfaceInfo: c_char_p_no, dwClientInterfaceInfoSize: UInt32, lpwsDLLPath: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportGetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterTransport: win32more.Foundation.HANDLE, ppGlobalInfo: POINTER(c_char_p_no), lpdwGlobalInfoSize: POINTER(UInt32), ppClientInterfaceInfo: POINTER(c_char_p_no), lpdwClientInterfaceInfoSize: POINTER(UInt32), lplpwsDLLPath: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigTransportEnum(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceCreate(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, lpbBuffer: c_char_p_no, phRouterInterface: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceDelete(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceGetHandle(hMprConfig: win32more.Foundation.HANDLE, lpwsInterfaceName: win32more.Foundation.PWSTR, phRouterInterface: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceGetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpBuffer: POINTER(c_char_p_no), lpdwBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceSetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lpbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceEnum(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportAdd(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32, lpwsTransportName: win32more.Foundation.PWSTR, pInterfaceInfo: c_char_p_no, dwInterfaceInfoSize: UInt32, phRouterIfTransport: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportRemove(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, hRouterIfTransport: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportGetHandle(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, dwTransportId: UInt32, phRouterIfTransport: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportGetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, hRouterIfTransport: win32more.Foundation.HANDLE, ppInterfaceInfo: POINTER(c_char_p_no), lpdwInterfaceInfoSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportSetInfo(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, hRouterIfTransport: win32more.Foundation.HANDLE, pInterfaceInfo: c_char_p_no, dwInterfaceInfoSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigInterfaceTransportEnum(hMprConfig: win32more.Foundation.HANDLE, hRouterInterface: win32more.Foundation.HANDLE, dwLevel: UInt32, lplpBuffer: POINTER(c_char_p_no), dwPrefMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigGetFriendlyName(hMprConfig: win32more.Foundation.HANDLE, pszGuidName: win32more.Foundation.PWSTR, pszBuffer: win32more.Foundation.PWSTR, dwBufferSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigGetGuidName(hMprConfig: win32more.Foundation.HANDLE, pszFriendlyName: win32more.Foundation.PWSTR, pszBuffer: win32more.Foundation.PWSTR, dwBufferSize: UInt32) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigFilterGetInfo(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, dwTransportId: UInt32, lpBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprConfigFilterSetInfo(hMprConfig: win32more.Foundation.HANDLE, dwLevel: UInt32, dwTransportId: UInt32, lpBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoCreate(dwVersion: UInt32, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoDelete(lpHeader: c_void_p) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoRemoveAll(lpHeader: c_void_p, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoDuplicate(lpHeader: c_void_p, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoBlockAdd(lpHeader: c_void_p, dwInfoType: UInt32, dwItemSize: UInt32, dwItemCount: UInt32, lpItemData: c_char_p_no, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoBlockRemove(lpHeader: c_void_p, dwInfoType: UInt32, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoBlockSet(lpHeader: c_void_p, dwInfoType: UInt32, dwItemSize: UInt32, dwItemCount: UInt32, lpItemData: c_char_p_no, lplpNewHeader: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoBlockFind(lpHeader: c_void_p, dwInfoType: UInt32, lpdwItemSize: POINTER(UInt32), lpdwItemCount: POINTER(UInt32), lplpItemData: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('MPRAPI.dll')
+def MprInfoBlockQuerySize(lpHeader: c_void_p) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmRegisterMProtocol(prpiInfo: POINTER(win32more.NetworkManagement.Rras.ROUTING_PROTOCOL_CONFIG_head), dwProtocolId: UInt32, dwComponentId: UInt32, phProtocol: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmDeRegisterMProtocol(hProtocol: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmTakeInterfaceOwnership(hProtocol: win32more.Foundation.HANDLE, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmReleaseInterfaceOwnership(hProtocol: win32more.Foundation.HANDLE, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetProtocolOnInterface(dwIfIndex: UInt32, dwIfNextHopAddr: UInt32, pdwIfProtocolId: POINTER(UInt32), pdwIfComponentId: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmAddGroupMembershipEntry(hProtocol: win32more.Foundation.HANDLE, dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwIfIndex: UInt32, dwIfNextHopIPAddr: UInt32, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmDeleteGroupMembershipEntry(hProtocol: win32more.Foundation.HANDLE, dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwIfIndex: UInt32, dwIfNextHopIPAddr: UInt32, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetMfe(pimm: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head), pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetFirstMfe(pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, pdwNumEntries: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetNextMfe(pimmStart: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head), pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, pdwNumEntries: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetMfeStats(pimm: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head), pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetFirstMfeStats(pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, pdwNumEntries: POINTER(UInt32), dwFlags: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGetNextMfeStats(pimmStart: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head), pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, pdwNumEntries: POINTER(UInt32), dwFlags: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGroupEnumerationStart(hProtocol: win32more.Foundation.HANDLE, metEnumType: win32more.NetworkManagement.Rras.MGM_ENUM_TYPES, phEnumHandle: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGroupEnumerationGetNext(hEnum: win32more.Foundation.HANDLE, pdwBufferSize: POINTER(UInt32), pbBuffer: c_char_p_no, pdwNumEntries: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def MgmGroupEnumerationEnd(hEnum: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmConvertNetAddressToIpv6AddressAndLength(pNetAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), pAddress: POINTER(win32more.Networking.WinSock.IN6_ADDR_head), pLength: POINTER(UInt32), dwAddressSize: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), Address: win32more.Networking.WinSock.IN6_ADDR, dwLength: UInt32, dwAddressSize: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmRegisterEntity(RtmEntityInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head), ExportMethods: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHODS_head), EventCallback: win32more.NetworkManagement.Rras.RTM_EVENT_CALLBACK, ReserveOpaquePointer: win32more.Foundation.BOOL, RtmRegProfile: POINTER(win32more.NetworkManagement.Rras.RTM_REGN_PROFILE_head), RtmRegHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeregisterEntity(RtmRegHandle: IntPtr) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetRegisteredEntities(RtmRegHandle: IntPtr, NumEntities: POINTER(UInt32), EntityHandles: POINTER(IntPtr), EntityInfos: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseEntities(RtmRegHandle: IntPtr, NumEntities: UInt32, EntityHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmLockDestination(RtmRegHandle: IntPtr, DestHandle: IntPtr, Exclusive: win32more.Foundation.BOOL, LockDest: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetOpaqueInformationPointer(RtmRegHandle: IntPtr, DestHandle: IntPtr, OpaqueInfoPointer: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetEntityMethods(RtmRegHandle: IntPtr, EntityHandle: IntPtr, NumMethods: POINTER(UInt32), ExptMethods: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmInvokeMethod(RtmRegHandle: IntPtr, EntityHandle: IntPtr, Input: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT_head), OutputSize: POINTER(UInt32), Output: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmBlockMethods(RtmRegHandle: IntPtr, TargetHandle: win32more.Foundation.HANDLE, TargetType: Byte, BlockingFlag: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetEntityInfo(RtmRegHandle: IntPtr, EntityHandle: IntPtr, EntityInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetDestInfo(RtmRegHandle: IntPtr, DestHandle: IntPtr, ProtocolId: UInt32, TargetViews: UInt32, DestInfo: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetRouteInfo(RtmRegHandle: IntPtr, RouteHandle: IntPtr, RouteInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head), DestAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetNextHopInfo(RtmRegHandle: IntPtr, NextHopHandle: IntPtr, NextHopInfo: POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseEntityInfo(RtmRegHandle: IntPtr, EntityInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseDestInfo(RtmRegHandle: IntPtr, DestInfo: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseRouteInfo(RtmRegHandle: IntPtr, RouteInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseNextHopInfo(RtmRegHandle: IntPtr, NextHopInfo: POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmAddRouteToDest(RtmRegHandle: IntPtr, RouteHandle: POINTER(IntPtr), DestAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), RouteInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head), TimeToLive: UInt32, RouteListHandle: IntPtr, NotifyType: UInt32, NotifyHandle: IntPtr, ChangeFlags: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeleteRouteToDest(RtmRegHandle: IntPtr, RouteHandle: IntPtr, ChangeFlags: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmHoldDestination(RtmRegHandle: IntPtr, DestHandle: IntPtr, TargetViews: UInt32, HoldTime: UInt32) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetRoutePointer(RtmRegHandle: IntPtr, RouteHandle: IntPtr, RoutePointer: POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head))) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmLockRoute(RtmRegHandle: IntPtr, RouteHandle: IntPtr, Exclusive: win32more.Foundation.BOOL, LockRoute: win32more.Foundation.BOOL, RoutePointer: POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head))) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmUpdateAndUnlockRoute(RtmRegHandle: IntPtr, RouteHandle: IntPtr, TimeToLive: UInt32, RouteListHandle: IntPtr, NotifyType: UInt32, NotifyHandle: IntPtr, ChangeFlags: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetExactMatchDestination(RtmRegHandle: IntPtr, DestAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), ProtocolId: UInt32, TargetViews: UInt32, DestInfo: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetMostSpecificDestination(RtmRegHandle: IntPtr, DestAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), ProtocolId: UInt32, TargetViews: UInt32, DestInfo: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetLessSpecificDestination(RtmRegHandle: IntPtr, DestHandle: IntPtr, ProtocolId: UInt32, TargetViews: UInt32, DestInfo: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetExactMatchRoute(RtmRegHandle: IntPtr, DestAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), MatchingFlags: UInt32, RouteInfo: POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head), InterfaceIndex: UInt32, TargetViews: UInt32, RouteHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmIsBestRoute(RtmRegHandle: IntPtr, RouteHandle: IntPtr, BestInViews: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmAddNextHop(RtmRegHandle: IntPtr, NextHopInfo: POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head), NextHopHandle: POINTER(IntPtr), ChangeFlags: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmFindNextHop(RtmRegHandle: IntPtr, NextHopInfo: POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head), NextHopHandle: POINTER(IntPtr), NextHopPointer: POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeleteNextHop(RtmRegHandle: IntPtr, NextHopHandle: IntPtr, NextHopInfo: POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetNextHopPointer(RtmRegHandle: IntPtr, NextHopHandle: IntPtr, NextHopPointer: POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmLockNextHop(RtmRegHandle: IntPtr, NextHopHandle: IntPtr, Exclusive: win32more.Foundation.BOOL, LockNextHop: win32more.Foundation.BOOL, NextHopPointer: POINTER(POINTER(win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head))) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmCreateDestEnum(RtmRegHandle: IntPtr, TargetViews: UInt32, EnumFlags: UInt32, NetAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), ProtocolId: UInt32, RtmEnumHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetEnumDests(RtmRegHandle: IntPtr, EnumHandle: IntPtr, NumDests: POINTER(UInt32), DestInfos: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseDests(RtmRegHandle: IntPtr, NumDests: UInt32, DestInfos: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmCreateRouteEnum(RtmRegHandle: IntPtr, DestHandle: IntPtr, TargetViews: UInt32, EnumFlags: UInt32, StartDest: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), MatchingFlags: UInt32, CriteriaRoute: POINTER(win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head), CriteriaInterface: UInt32, RtmEnumHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetEnumRoutes(RtmRegHandle: IntPtr, EnumHandle: IntPtr, NumRoutes: POINTER(UInt32), RouteHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseRoutes(RtmRegHandle: IntPtr, NumRoutes: UInt32, RouteHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmCreateNextHopEnum(RtmRegHandle: IntPtr, EnumFlags: UInt32, NetAddress: POINTER(win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head), RtmEnumHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetEnumNextHops(RtmRegHandle: IntPtr, EnumHandle: IntPtr, NumNextHops: POINTER(UInt32), NextHopHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseNextHops(RtmRegHandle: IntPtr, NumNextHops: UInt32, NextHopHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeleteEnumHandle(RtmRegHandle: IntPtr, EnumHandle: IntPtr) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmRegisterForChangeNotification(RtmRegHandle: IntPtr, TargetViews: UInt32, NotifyFlags: UInt32, NotifyContext: c_void_p, NotifyHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetChangedDests(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, NumDests: POINTER(UInt32), ChangedDests: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReleaseChangedDests(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, NumDests: UInt32, ChangedDests: POINTER(win32more.NetworkManagement.Rras.RTM_DEST_INFO_head)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmIgnoreChangedDests(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, NumDests: UInt32, ChangedDests: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetChangeStatus(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, DestHandle: IntPtr, ChangeStatus: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmMarkDestForChangeNotification(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, DestHandle: IntPtr, MarkDest: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmIsMarkedForChangeNotification(RtmRegHandle: IntPtr, NotifyHandle: IntPtr, DestHandle: IntPtr, DestMarked: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeregisterFromChangeNotification(RtmRegHandle: IntPtr, NotifyHandle: IntPtr) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmCreateRouteList(RtmRegHandle: IntPtr, RouteListHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmInsertInRouteList(RtmRegHandle: IntPtr, RouteListHandle: IntPtr, NumRoutes: UInt32, RouteHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmCreateRouteListEnum(RtmRegHandle: IntPtr, RouteListHandle: IntPtr, RtmEnumHandle: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmGetListEnumRoutes(RtmRegHandle: IntPtr, EnumHandle: IntPtr, NumRoutes: POINTER(UInt32), RouteHandles: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmDeleteRouteList(RtmRegHandle: IntPtr, RouteListHandle: IntPtr) -> UInt32: ...
+@winfunctype('rtm.dll')
+def RtmReferenceHandles(RtmRegHandle: IntPtr, NumHandles: UInt32, RtmHandles: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+class AUTH_VALIDATION_EX(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    hRasConnection: win32more.Foundation.HANDLE
+    wszUserName: Char * 257
+    wszLogonDomain: Char * 16
+    AuthInfoSize: UInt32
+    AuthInfo: Byte * 1
+class GRE_CONFIG_PARAMS0(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
 HRASCONN = IntPtr
-def _define_IKEV2_CONFIG_PARAMS_head():
-    class IKEV2_CONFIG_PARAMS(Structure):
-        pass
-    return IKEV2_CONFIG_PARAMS
-def _define_IKEV2_CONFIG_PARAMS():
-    IKEV2_CONFIG_PARAMS = win32more.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS_head
-    IKEV2_CONFIG_PARAMS._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-        ('dwTunnelConfigParamFlags', UInt32),
-        ('TunnelConfigParams', win32more.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS4),
-    ]
-    return IKEV2_CONFIG_PARAMS
+class IKEV2_CONFIG_PARAMS(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
+    dwTunnelConfigParamFlags: UInt32
+    TunnelConfigParams: win32more.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS4
 IKEV2_ID_PAYLOAD_TYPE = Int32
-IKEV2_ID_PAYLOAD_TYPE_INVALID = 0
-IKEV2_ID_PAYLOAD_TYPE_IPV4_ADDR = 1
-IKEV2_ID_PAYLOAD_TYPE_FQDN = 2
-IKEV2_ID_PAYLOAD_TYPE_RFC822_ADDR = 3
-IKEV2_ID_PAYLOAD_TYPE_RESERVED1 = 4
-IKEV2_ID_PAYLOAD_TYPE_ID_IPV6_ADDR = 5
-IKEV2_ID_PAYLOAD_TYPE_RESERVED2 = 6
-IKEV2_ID_PAYLOAD_TYPE_RESERVED3 = 7
-IKEV2_ID_PAYLOAD_TYPE_RESERVED4 = 8
-IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_DN = 9
-IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_GN = 10
-IKEV2_ID_PAYLOAD_TYPE_KEY_ID = 11
-IKEV2_ID_PAYLOAD_TYPE_MAX = 12
-def _define_IKEV2_PROJECTION_INFO_head():
-    class IKEV2_PROJECTION_INFO(Structure):
-        pass
-    return IKEV2_PROJECTION_INFO
-def _define_IKEV2_PROJECTION_INFO():
-    IKEV2_PROJECTION_INFO = win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO_head
-    IKEV2_PROJECTION_INFO._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-        ('IPv4SubInterfaceIndex', UInt64),
-        ('dwIPv6NegotiationError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bRemoteInterfaceIdentifier', Byte * 8),
-        ('bPrefix', Byte * 8),
-        ('dwPrefixLength', UInt32),
-        ('IPv6SubInterfaceIndex', UInt64),
-        ('dwOptions', UInt32),
-        ('dwAuthenticationProtocol', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwEncryptionMethod', UInt32),
-    ]
-    return IKEV2_PROJECTION_INFO
-def _define_IKEV2_PROJECTION_INFO2_head():
-    class IKEV2_PROJECTION_INFO2(Structure):
-        pass
-    return IKEV2_PROJECTION_INFO2
-def _define_IKEV2_PROJECTION_INFO2():
-    IKEV2_PROJECTION_INFO2 = win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO2_head
-    IKEV2_PROJECTION_INFO2._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-        ('IPv4SubInterfaceIndex', UInt64),
-        ('dwIPv6NegotiationError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bRemoteInterfaceIdentifier', Byte * 8),
-        ('bPrefix', Byte * 8),
-        ('dwPrefixLength', UInt32),
-        ('IPv6SubInterfaceIndex', UInt64),
-        ('dwOptions', UInt32),
-        ('dwAuthenticationProtocol', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwEmbeddedEAPTypeId', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwEncryptionMethod', UInt32),
-    ]
-    return IKEV2_PROJECTION_INFO2
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS2_head():
-    class IKEV2_TUNNEL_CONFIG_PARAMS2(Structure):
-        pass
-    return IKEV2_TUNNEL_CONFIG_PARAMS2
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS2():
-    IKEV2_TUNNEL_CONFIG_PARAMS2 = win32more.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS2_head
-    IKEV2_TUNNEL_CONFIG_PARAMS2._fields_ = [
-        ('dwIdleTimeout', UInt32),
-        ('dwNetworkBlackoutTime', UInt32),
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSizeForRenegotiation', UInt32),
-        ('dwConfigOptions', UInt32),
-        ('dwTotalCertificates', UInt32),
-        ('certificateNames', POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)),
-        ('machineCertificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('dwEncryptionType', UInt32),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-    ]
-    return IKEV2_TUNNEL_CONFIG_PARAMS2
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS3_head():
-    class IKEV2_TUNNEL_CONFIG_PARAMS3(Structure):
-        pass
-    return IKEV2_TUNNEL_CONFIG_PARAMS3
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS3():
-    IKEV2_TUNNEL_CONFIG_PARAMS3 = win32more.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS3_head
-    IKEV2_TUNNEL_CONFIG_PARAMS3._fields_ = [
-        ('dwIdleTimeout', UInt32),
-        ('dwNetworkBlackoutTime', UInt32),
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSizeForRenegotiation', UInt32),
-        ('dwConfigOptions', UInt32),
-        ('dwTotalCertificates', UInt32),
-        ('certificateNames', POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)),
-        ('machineCertificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('dwEncryptionType', UInt32),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-        ('dwTotalEkus', UInt32),
-        ('certificateEKUs', POINTER(win32more.NetworkManagement.Rras.MPR_CERT_EKU_head)),
-        ('machineCertificateHash', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-    ]
-    return IKEV2_TUNNEL_CONFIG_PARAMS3
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS4_head():
-    class IKEV2_TUNNEL_CONFIG_PARAMS4(Structure):
-        pass
-    return IKEV2_TUNNEL_CONFIG_PARAMS4
-def _define_IKEV2_TUNNEL_CONFIG_PARAMS4():
-    IKEV2_TUNNEL_CONFIG_PARAMS4 = win32more.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS4_head
-    IKEV2_TUNNEL_CONFIG_PARAMS4._fields_ = [
-        ('dwIdleTimeout', UInt32),
-        ('dwNetworkBlackoutTime', UInt32),
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSizeForRenegotiation', UInt32),
-        ('dwConfigOptions', UInt32),
-        ('dwTotalCertificates', UInt32),
-        ('certificateNames', POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)),
-        ('machineCertificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('dwEncryptionType', UInt32),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-        ('dwTotalEkus', UInt32),
-        ('certificateEKUs', POINTER(win32more.NetworkManagement.Rras.MPR_CERT_EKU_head)),
-        ('machineCertificateHash', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('dwMmSaLifeTime', UInt32),
-    ]
-    return IKEV2_TUNNEL_CONFIG_PARAMS4
-def _define_L2TP_CONFIG_PARAMS0_head():
-    class L2TP_CONFIG_PARAMS0(Structure):
-        pass
-    return L2TP_CONFIG_PARAMS0
-def _define_L2TP_CONFIG_PARAMS0():
-    L2TP_CONFIG_PARAMS0 = win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS0_head
-    L2TP_CONFIG_PARAMS0._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-    ]
-    return L2TP_CONFIG_PARAMS0
-def _define_L2TP_CONFIG_PARAMS1_head():
-    class L2TP_CONFIG_PARAMS1(Structure):
-        pass
-    return L2TP_CONFIG_PARAMS1
-def _define_L2TP_CONFIG_PARAMS1():
-    L2TP_CONFIG_PARAMS1 = win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS1_head
-    L2TP_CONFIG_PARAMS1._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-        ('dwTunnelConfigParamFlags', UInt32),
-        ('TunnelConfigParams', win32more.NetworkManagement.Rras.L2TP_TUNNEL_CONFIG_PARAMS2),
-    ]
-    return L2TP_CONFIG_PARAMS1
-def _define_L2TP_TUNNEL_CONFIG_PARAMS1_head():
-    class L2TP_TUNNEL_CONFIG_PARAMS1(Structure):
-        pass
-    return L2TP_TUNNEL_CONFIG_PARAMS1
-def _define_L2TP_TUNNEL_CONFIG_PARAMS1():
-    L2TP_TUNNEL_CONFIG_PARAMS1 = win32more.NetworkManagement.Rras.L2TP_TUNNEL_CONFIG_PARAMS1_head
-    L2TP_TUNNEL_CONFIG_PARAMS1._fields_ = [
-        ('dwIdleTimeout', UInt32),
-        ('dwEncryptionType', UInt32),
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSizeForRenegotiation', UInt32),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-    ]
-    return L2TP_TUNNEL_CONFIG_PARAMS1
-def _define_L2TP_TUNNEL_CONFIG_PARAMS2_head():
-    class L2TP_TUNNEL_CONFIG_PARAMS2(Structure):
-        pass
-    return L2TP_TUNNEL_CONFIG_PARAMS2
-def _define_L2TP_TUNNEL_CONFIG_PARAMS2():
-    L2TP_TUNNEL_CONFIG_PARAMS2 = win32more.NetworkManagement.Rras.L2TP_TUNNEL_CONFIG_PARAMS2_head
-    L2TP_TUNNEL_CONFIG_PARAMS2._fields_ = [
-        ('dwIdleTimeout', UInt32),
-        ('dwEncryptionType', UInt32),
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSizeForRenegotiation', UInt32),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-        ('dwMmSaLifeTime', UInt32),
-    ]
-    return L2TP_TUNNEL_CONFIG_PARAMS2
+IKEV2_ID_PAYLOAD_TYPE_INVALID: IKEV2_ID_PAYLOAD_TYPE = 0
+IKEV2_ID_PAYLOAD_TYPE_IPV4_ADDR: IKEV2_ID_PAYLOAD_TYPE = 1
+IKEV2_ID_PAYLOAD_TYPE_FQDN: IKEV2_ID_PAYLOAD_TYPE = 2
+IKEV2_ID_PAYLOAD_TYPE_RFC822_ADDR: IKEV2_ID_PAYLOAD_TYPE = 3
+IKEV2_ID_PAYLOAD_TYPE_RESERVED1: IKEV2_ID_PAYLOAD_TYPE = 4
+IKEV2_ID_PAYLOAD_TYPE_ID_IPV6_ADDR: IKEV2_ID_PAYLOAD_TYPE = 5
+IKEV2_ID_PAYLOAD_TYPE_RESERVED2: IKEV2_ID_PAYLOAD_TYPE = 6
+IKEV2_ID_PAYLOAD_TYPE_RESERVED3: IKEV2_ID_PAYLOAD_TYPE = 7
+IKEV2_ID_PAYLOAD_TYPE_RESERVED4: IKEV2_ID_PAYLOAD_TYPE = 8
+IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_DN: IKEV2_ID_PAYLOAD_TYPE = 9
+IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_GN: IKEV2_ID_PAYLOAD_TYPE = 10
+IKEV2_ID_PAYLOAD_TYPE_KEY_ID: IKEV2_ID_PAYLOAD_TYPE = 11
+IKEV2_ID_PAYLOAD_TYPE_MAX: IKEV2_ID_PAYLOAD_TYPE = 12
+class IKEV2_PROJECTION_INFO(Structure):
+    dwIPv4NegotiationError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+    IPv4SubInterfaceIndex: UInt64
+    dwIPv6NegotiationError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bRemoteInterfaceIdentifier: Byte * 8
+    bPrefix: Byte * 8
+    dwPrefixLength: UInt32
+    IPv6SubInterfaceIndex: UInt64
+    dwOptions: UInt32
+    dwAuthenticationProtocol: UInt32
+    dwEapTypeId: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwEncryptionMethod: UInt32
+class IKEV2_PROJECTION_INFO2(Structure):
+    dwIPv4NegotiationError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+    IPv4SubInterfaceIndex: UInt64
+    dwIPv6NegotiationError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bRemoteInterfaceIdentifier: Byte * 8
+    bPrefix: Byte * 8
+    dwPrefixLength: UInt32
+    IPv6SubInterfaceIndex: UInt64
+    dwOptions: UInt32
+    dwAuthenticationProtocol: UInt32
+    dwEapTypeId: UInt32
+    dwEmbeddedEAPTypeId: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwEncryptionMethod: UInt32
+class IKEV2_TUNNEL_CONFIG_PARAMS2(Structure):
+    dwIdleTimeout: UInt32
+    dwNetworkBlackoutTime: UInt32
+    dwSaLifeTime: UInt32
+    dwSaDataSizeForRenegotiation: UInt32
+    dwConfigOptions: UInt32
+    dwTotalCertificates: UInt32
+    certificateNames: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    machineCertificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    dwEncryptionType: UInt32
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+class IKEV2_TUNNEL_CONFIG_PARAMS3(Structure):
+    dwIdleTimeout: UInt32
+    dwNetworkBlackoutTime: UInt32
+    dwSaLifeTime: UInt32
+    dwSaDataSizeForRenegotiation: UInt32
+    dwConfigOptions: UInt32
+    dwTotalCertificates: UInt32
+    certificateNames: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    machineCertificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    dwEncryptionType: UInt32
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+    dwTotalEkus: UInt32
+    certificateEKUs: POINTER(win32more.NetworkManagement.Rras.MPR_CERT_EKU_head)
+    machineCertificateHash: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class IKEV2_TUNNEL_CONFIG_PARAMS4(Structure):
+    dwIdleTimeout: UInt32
+    dwNetworkBlackoutTime: UInt32
+    dwSaLifeTime: UInt32
+    dwSaDataSizeForRenegotiation: UInt32
+    dwConfigOptions: UInt32
+    dwTotalCertificates: UInt32
+    certificateNames: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    machineCertificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    dwEncryptionType: UInt32
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+    dwTotalEkus: UInt32
+    certificateEKUs: POINTER(win32more.NetworkManagement.Rras.MPR_CERT_EKU_head)
+    machineCertificateHash: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    dwMmSaLifeTime: UInt32
+class L2TP_CONFIG_PARAMS0(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
+class L2TP_CONFIG_PARAMS1(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
+    dwTunnelConfigParamFlags: UInt32
+    TunnelConfigParams: win32more.NetworkManagement.Rras.L2TP_TUNNEL_CONFIG_PARAMS2
+class L2TP_TUNNEL_CONFIG_PARAMS1(Structure):
+    dwIdleTimeout: UInt32
+    dwEncryptionType: UInt32
+    dwSaLifeTime: UInt32
+    dwSaDataSizeForRenegotiation: UInt32
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+class L2TP_TUNNEL_CONFIG_PARAMS2(Structure):
+    dwIdleTimeout: UInt32
+    dwEncryptionType: UInt32
+    dwSaLifeTime: UInt32
+    dwSaDataSizeForRenegotiation: UInt32
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+    dwMmSaLifeTime: UInt32
 MGM_ENUM_TYPES = Int32
-ANY_SOURCE = 0
-ALL_SOURCES = 1
-def _define_MGM_IF_ENTRY_head():
-    class MGM_IF_ENTRY(Structure):
-        pass
-    return MGM_IF_ENTRY
-def _define_MGM_IF_ENTRY():
-    MGM_IF_ENTRY = win32more.NetworkManagement.Rras.MGM_IF_ENTRY_head
-    MGM_IF_ENTRY._fields_ = [
-        ('dwIfIndex', UInt32),
-        ('dwIfNextHopAddr', UInt32),
-        ('bIGMP', win32more.Foundation.BOOL),
-        ('bIsEnabled', win32more.Foundation.BOOL),
-    ]
-    return MGM_IF_ENTRY
-def _define_MPR_CERT_EKU_head():
-    class MPR_CERT_EKU(Structure):
-        pass
-    return MPR_CERT_EKU
-def _define_MPR_CERT_EKU():
-    MPR_CERT_EKU = win32more.NetworkManagement.Rras.MPR_CERT_EKU_head
-    MPR_CERT_EKU._fields_ = [
-        ('dwSize', UInt32),
-        ('IsEKUOID', win32more.Foundation.BOOL),
-        ('pwszEKU', win32more.Foundation.PWSTR),
-    ]
-    return MPR_CERT_EKU
-def _define_MPR_CREDENTIALSEX_0_head():
-    class MPR_CREDENTIALSEX_0(Structure):
-        pass
-    return MPR_CREDENTIALSEX_0
-def _define_MPR_CREDENTIALSEX_0():
-    MPR_CREDENTIALSEX_0 = win32more.NetworkManagement.Rras.MPR_CREDENTIALSEX_0_head
-    MPR_CREDENTIALSEX_0._fields_ = [
-        ('dwSize', UInt32),
-        ('lpbCredentialsInfo', c_char_p_no),
-    ]
-    return MPR_CREDENTIALSEX_0
-def _define_MPR_CREDENTIALSEX_1_head():
-    class MPR_CREDENTIALSEX_1(Structure):
-        pass
-    return MPR_CREDENTIALSEX_1
-def _define_MPR_CREDENTIALSEX_1():
-    MPR_CREDENTIALSEX_1 = win32more.NetworkManagement.Rras.MPR_CREDENTIALSEX_1_head
-    MPR_CREDENTIALSEX_1._fields_ = [
-        ('dwSize', UInt32),
-        ('lpbCredentialsInfo', c_char_p_no),
-    ]
-    return MPR_CREDENTIALSEX_1
-def _define_MPR_DEVICE_0_head():
-    class MPR_DEVICE_0(Structure):
-        pass
-    return MPR_DEVICE_0
-def _define_MPR_DEVICE_0():
-    MPR_DEVICE_0 = win32more.NetworkManagement.Rras.MPR_DEVICE_0_head
-    MPR_DEVICE_0._fields_ = [
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-    ]
-    return MPR_DEVICE_0
-def _define_MPR_DEVICE_1_head():
-    class MPR_DEVICE_1(Structure):
-        pass
-    return MPR_DEVICE_1
-def _define_MPR_DEVICE_1():
-    MPR_DEVICE_1 = win32more.NetworkManagement.Rras.MPR_DEVICE_1_head
-    MPR_DEVICE_1._fields_ = [
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szLocalPhoneNumber', Char * 129),
-        ('szAlternates', win32more.Foundation.PWSTR),
-    ]
-    return MPR_DEVICE_1
+ANY_SOURCE: MGM_ENUM_TYPES = 0
+ALL_SOURCES: MGM_ENUM_TYPES = 1
+class MGM_IF_ENTRY(Structure):
+    dwIfIndex: UInt32
+    dwIfNextHopAddr: UInt32
+    bIGMP: win32more.Foundation.BOOL
+    bIsEnabled: win32more.Foundation.BOOL
+class MPR_CERT_EKU(Structure):
+    dwSize: UInt32
+    IsEKUOID: win32more.Foundation.BOOL
+    pwszEKU: win32more.Foundation.PWSTR
+class MPR_CREDENTIALSEX_0(Structure):
+    dwSize: UInt32
+    lpbCredentialsInfo: c_char_p_no
+class MPR_CREDENTIALSEX_1(Structure):
+    dwSize: UInt32
+    lpbCredentialsInfo: c_char_p_no
+class MPR_DEVICE_0(Structure):
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+class MPR_DEVICE_1(Structure):
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szLocalPhoneNumber: Char * 129
+    szAlternates: win32more.Foundation.PWSTR
 MPR_ET = UInt32
-MPR_ET_None = 0
-MPR_ET_Require = 1
-MPR_ET_RequireMax = 2
-MPR_ET_Optional = 3
-def _define_MPR_FILTER_0_head():
-    class MPR_FILTER_0(Structure):
-        pass
-    return MPR_FILTER_0
-def _define_MPR_FILTER_0():
-    MPR_FILTER_0 = win32more.NetworkManagement.Rras.MPR_FILTER_0_head
-    MPR_FILTER_0._fields_ = [
-        ('fEnable', win32more.Foundation.BOOL),
-    ]
-    return MPR_FILTER_0
-def _define_MPR_IF_CUSTOMINFOEX0_head():
-    class MPR_IF_CUSTOMINFOEX0(Structure):
-        pass
-    return MPR_IF_CUSTOMINFOEX0
-def _define_MPR_IF_CUSTOMINFOEX0():
-    MPR_IF_CUSTOMINFOEX0 = win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX0_head
-    MPR_IF_CUSTOMINFOEX0._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('dwFlags', UInt32),
-        ('customIkev2Config', win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG0),
-    ]
-    return MPR_IF_CUSTOMINFOEX0
-def _define_MPR_IF_CUSTOMINFOEX1_head():
-    class MPR_IF_CUSTOMINFOEX1(Structure):
-        pass
-    return MPR_IF_CUSTOMINFOEX1
-def _define_MPR_IF_CUSTOMINFOEX1():
-    MPR_IF_CUSTOMINFOEX1 = win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX1_head
-    MPR_IF_CUSTOMINFOEX1._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('dwFlags', UInt32),
-        ('customIkev2Config', win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG1),
-    ]
-    return MPR_IF_CUSTOMINFOEX1
-def _define_MPR_IF_CUSTOMINFOEX2_head():
-    class MPR_IF_CUSTOMINFOEX2(Structure):
-        pass
-    return MPR_IF_CUSTOMINFOEX2
-def _define_MPR_IF_CUSTOMINFOEX2():
-    MPR_IF_CUSTOMINFOEX2 = win32more.NetworkManagement.Rras.MPR_IF_CUSTOMINFOEX2_head
-    MPR_IF_CUSTOMINFOEX2._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('dwFlags', UInt32),
-        ('customIkev2Config', win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG2),
-    ]
-    return MPR_IF_CUSTOMINFOEX2
-def _define_MPR_IFTRANSPORT_0_head():
-    class MPR_IFTRANSPORT_0(Structure):
-        pass
-    return MPR_IFTRANSPORT_0
-def _define_MPR_IFTRANSPORT_0():
-    MPR_IFTRANSPORT_0 = win32more.NetworkManagement.Rras.MPR_IFTRANSPORT_0_head
-    MPR_IFTRANSPORT_0._fields_ = [
-        ('dwTransportId', UInt32),
-        ('hIfTransport', win32more.Foundation.HANDLE),
-        ('wszIfTransportName', Char * 41),
-    ]
-    return MPR_IFTRANSPORT_0
-def _define_MPR_INTERFACE_0_head():
-    class MPR_INTERFACE_0(Structure):
-        pass
-    return MPR_INTERFACE_0
-def _define_MPR_INTERFACE_0():
-    MPR_INTERFACE_0 = win32more.NetworkManagement.Rras.MPR_INTERFACE_0_head
-    MPR_INTERFACE_0._fields_ = [
-        ('wszInterfaceName', Char * 257),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('fEnabled', win32more.Foundation.BOOL),
-        ('dwIfType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionState', win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE),
-        ('fUnReachabilityReasons', UInt32),
-        ('dwLastError', UInt32),
-    ]
-    return MPR_INTERFACE_0
-def _define_MPR_INTERFACE_1_head():
-    class MPR_INTERFACE_1(Structure):
-        pass
-    return MPR_INTERFACE_1
-def _define_MPR_INTERFACE_1():
-    MPR_INTERFACE_1 = win32more.NetworkManagement.Rras.MPR_INTERFACE_1_head
-    MPR_INTERFACE_1._fields_ = [
-        ('wszInterfaceName', Char * 257),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('fEnabled', win32more.Foundation.BOOL),
-        ('dwIfType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionState', win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE),
-        ('fUnReachabilityReasons', UInt32),
-        ('dwLastError', UInt32),
-        ('lpwsDialoutHoursRestriction', win32more.Foundation.PWSTR),
-    ]
-    return MPR_INTERFACE_1
-def _define_MPR_INTERFACE_2_head():
-    class MPR_INTERFACE_2(Structure):
-        pass
-    return MPR_INTERFACE_2
-def _define_MPR_INTERFACE_2():
-    MPR_INTERFACE_2 = win32more.NetworkManagement.Rras.MPR_INTERFACE_2_head
-    MPR_INTERFACE_2._fields_ = [
-        ('wszInterfaceName', Char * 257),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('fEnabled', win32more.Foundation.BOOL),
-        ('dwIfType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionState', win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE),
-        ('fUnReachabilityReasons', UInt32),
-        ('dwLastError', UInt32),
-        ('dwfOptions', UInt32),
-        ('szLocalPhoneNumber', Char * 129),
-        ('szAlternates', win32more.Foundation.PWSTR),
-        ('ipaddr', UInt32),
-        ('ipaddrDns', UInt32),
-        ('ipaddrDnsAlt', UInt32),
-        ('ipaddrWins', UInt32),
-        ('ipaddrWinsAlt', UInt32),
-        ('dwfNetProtocols', UInt32),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szX25PadType', Char * 33),
-        ('szX25Address', Char * 201),
-        ('szX25Facilities', Char * 201),
-        ('szX25UserData', Char * 201),
-        ('dwChannels', UInt32),
-        ('dwSubEntries', UInt32),
-        ('dwDialMode', win32more.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE),
-        ('dwDialExtraPercent', UInt32),
-        ('dwDialExtraSampleSeconds', UInt32),
-        ('dwHangUpExtraPercent', UInt32),
-        ('dwHangUpExtraSampleSeconds', UInt32),
-        ('dwIdleDisconnectSeconds', UInt32),
-        ('dwType', UInt32),
-        ('dwEncryptionType', win32more.NetworkManagement.Rras.MPR_ET),
-        ('dwCustomAuthKey', UInt32),
-        ('dwCustomAuthDataSize', UInt32),
-        ('lpbCustomAuthData', c_char_p_no),
-        ('guidId', Guid),
-        ('dwVpnStrategy', win32more.NetworkManagement.Rras.MPR_VS),
-    ]
-    return MPR_INTERFACE_2
-def _define_MPR_INTERFACE_3_head():
-    class MPR_INTERFACE_3(Structure):
-        pass
-    return MPR_INTERFACE_3
-def _define_MPR_INTERFACE_3():
-    MPR_INTERFACE_3 = win32more.NetworkManagement.Rras.MPR_INTERFACE_3_head
-    MPR_INTERFACE_3._fields_ = [
-        ('wszInterfaceName', Char * 257),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('fEnabled', win32more.Foundation.BOOL),
-        ('dwIfType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionState', win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE),
-        ('fUnReachabilityReasons', UInt32),
-        ('dwLastError', UInt32),
-        ('dwfOptions', UInt32),
-        ('szLocalPhoneNumber', Char * 129),
-        ('szAlternates', win32more.Foundation.PWSTR),
-        ('ipaddr', UInt32),
-        ('ipaddrDns', UInt32),
-        ('ipaddrDnsAlt', UInt32),
-        ('ipaddrWins', UInt32),
-        ('ipaddrWinsAlt', UInt32),
-        ('dwfNetProtocols', UInt32),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szX25PadType', Char * 33),
-        ('szX25Address', Char * 201),
-        ('szX25Facilities', Char * 201),
-        ('szX25UserData', Char * 201),
-        ('dwChannels', UInt32),
-        ('dwSubEntries', UInt32),
-        ('dwDialMode', win32more.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE),
-        ('dwDialExtraPercent', UInt32),
-        ('dwDialExtraSampleSeconds', UInt32),
-        ('dwHangUpExtraPercent', UInt32),
-        ('dwHangUpExtraSampleSeconds', UInt32),
-        ('dwIdleDisconnectSeconds', UInt32),
-        ('dwType', UInt32),
-        ('dwEncryptionType', win32more.NetworkManagement.Rras.MPR_ET),
-        ('dwCustomAuthKey', UInt32),
-        ('dwCustomAuthDataSize', UInt32),
-        ('lpbCustomAuthData', c_char_p_no),
-        ('guidId', Guid),
-        ('dwVpnStrategy', win32more.NetworkManagement.Rras.MPR_VS),
-        ('AddressCount', UInt32),
-        ('ipv6addrDns', win32more.Networking.WinSock.IN6_ADDR),
-        ('ipv6addrDnsAlt', win32more.Networking.WinSock.IN6_ADDR),
-        ('ipv6addr', POINTER(win32more.Networking.WinSock.IN6_ADDR_head)),
-    ]
-    return MPR_INTERFACE_3
+MPR_ET_None: MPR_ET = 0
+MPR_ET_Require: MPR_ET = 1
+MPR_ET_RequireMax: MPR_ET = 2
+MPR_ET_Optional: MPR_ET = 3
+class MPR_FILTER_0(Structure):
+    fEnable: win32more.Foundation.BOOL
+class MPR_IF_CUSTOMINFOEX0(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    dwFlags: UInt32
+    customIkev2Config: win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG0
+class MPR_IF_CUSTOMINFOEX1(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    dwFlags: UInt32
+    customIkev2Config: win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG1
+class MPR_IF_CUSTOMINFOEX2(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    dwFlags: UInt32
+    customIkev2Config: win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG2
+class MPR_IFTRANSPORT_0(Structure):
+    dwTransportId: UInt32
+    hIfTransport: win32more.Foundation.HANDLE
+    wszIfTransportName: Char * 41
+class MPR_INTERFACE_0(Structure):
+    wszInterfaceName: Char * 257
+    hInterface: win32more.Foundation.HANDLE
+    fEnabled: win32more.Foundation.BOOL
+    dwIfType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionState: win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE
+    fUnReachabilityReasons: UInt32
+    dwLastError: UInt32
+class MPR_INTERFACE_1(Structure):
+    wszInterfaceName: Char * 257
+    hInterface: win32more.Foundation.HANDLE
+    fEnabled: win32more.Foundation.BOOL
+    dwIfType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionState: win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE
+    fUnReachabilityReasons: UInt32
+    dwLastError: UInt32
+    lpwsDialoutHoursRestriction: win32more.Foundation.PWSTR
+class MPR_INTERFACE_2(Structure):
+    wszInterfaceName: Char * 257
+    hInterface: win32more.Foundation.HANDLE
+    fEnabled: win32more.Foundation.BOOL
+    dwIfType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionState: win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE
+    fUnReachabilityReasons: UInt32
+    dwLastError: UInt32
+    dwfOptions: UInt32
+    szLocalPhoneNumber: Char * 129
+    szAlternates: win32more.Foundation.PWSTR
+    ipaddr: UInt32
+    ipaddrDns: UInt32
+    ipaddrDnsAlt: UInt32
+    ipaddrWins: UInt32
+    ipaddrWinsAlt: UInt32
+    dwfNetProtocols: UInt32
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szX25PadType: Char * 33
+    szX25Address: Char * 201
+    szX25Facilities: Char * 201
+    szX25UserData: Char * 201
+    dwChannels: UInt32
+    dwSubEntries: UInt32
+    dwDialMode: win32more.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE
+    dwDialExtraPercent: UInt32
+    dwDialExtraSampleSeconds: UInt32
+    dwHangUpExtraPercent: UInt32
+    dwHangUpExtraSampleSeconds: UInt32
+    dwIdleDisconnectSeconds: UInt32
+    dwType: UInt32
+    dwEncryptionType: win32more.NetworkManagement.Rras.MPR_ET
+    dwCustomAuthKey: UInt32
+    dwCustomAuthDataSize: UInt32
+    lpbCustomAuthData: c_char_p_no
+    guidId: Guid
+    dwVpnStrategy: win32more.NetworkManagement.Rras.MPR_VS
+class MPR_INTERFACE_3(Structure):
+    wszInterfaceName: Char * 257
+    hInterface: win32more.Foundation.HANDLE
+    fEnabled: win32more.Foundation.BOOL
+    dwIfType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionState: win32more.NetworkManagement.Rras.ROUTER_CONNECTION_STATE
+    fUnReachabilityReasons: UInt32
+    dwLastError: UInt32
+    dwfOptions: UInt32
+    szLocalPhoneNumber: Char * 129
+    szAlternates: win32more.Foundation.PWSTR
+    ipaddr: UInt32
+    ipaddrDns: UInt32
+    ipaddrDnsAlt: UInt32
+    ipaddrWins: UInt32
+    ipaddrWinsAlt: UInt32
+    dwfNetProtocols: UInt32
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szX25PadType: Char * 33
+    szX25Address: Char * 201
+    szX25Facilities: Char * 201
+    szX25UserData: Char * 201
+    dwChannels: UInt32
+    dwSubEntries: UInt32
+    dwDialMode: win32more.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE
+    dwDialExtraPercent: UInt32
+    dwDialExtraSampleSeconds: UInt32
+    dwHangUpExtraPercent: UInt32
+    dwHangUpExtraSampleSeconds: UInt32
+    dwIdleDisconnectSeconds: UInt32
+    dwType: UInt32
+    dwEncryptionType: win32more.NetworkManagement.Rras.MPR_ET
+    dwCustomAuthKey: UInt32
+    dwCustomAuthDataSize: UInt32
+    lpbCustomAuthData: c_char_p_no
+    guidId: Guid
+    dwVpnStrategy: win32more.NetworkManagement.Rras.MPR_VS
+    AddressCount: UInt32
+    ipv6addrDns: win32more.Networking.WinSock.IN6_ADDR
+    ipv6addrDnsAlt: win32more.Networking.WinSock.IN6_ADDR
+    ipv6addr: POINTER(win32more.Networking.WinSock.IN6_ADDR_head)
 MPR_INTERFACE_DIAL_MODE = UInt32
-MPRDM_DialFirst = 0
-MPRDM_DialAll = 1
-MPRDM_DialAsNeeded = 2
-def _define_MPR_IPINIP_INTERFACE_0_head():
-    class MPR_IPINIP_INTERFACE_0(Structure):
-        pass
-    return MPR_IPINIP_INTERFACE_0
-def _define_MPR_IPINIP_INTERFACE_0():
-    MPR_IPINIP_INTERFACE_0 = win32more.NetworkManagement.Rras.MPR_IPINIP_INTERFACE_0_head
-    MPR_IPINIP_INTERFACE_0._fields_ = [
-        ('wszFriendlyName', Char * 257),
-        ('Guid', Guid),
-    ]
-    return MPR_IPINIP_INTERFACE_0
-def _define_MPR_SERVER_0_head():
-    class MPR_SERVER_0(Structure):
-        pass
-    return MPR_SERVER_0
-def _define_MPR_SERVER_0():
-    MPR_SERVER_0 = win32more.NetworkManagement.Rras.MPR_SERVER_0_head
-    MPR_SERVER_0._fields_ = [
-        ('fLanOnlyMode', win32more.Foundation.BOOL),
-        ('dwUpTime', UInt32),
-        ('dwTotalPorts', UInt32),
-        ('dwPortsInUse', UInt32),
-    ]
-    return MPR_SERVER_0
-def _define_MPR_SERVER_1_head():
-    class MPR_SERVER_1(Structure):
-        pass
-    return MPR_SERVER_1
-def _define_MPR_SERVER_1():
-    MPR_SERVER_1 = win32more.NetworkManagement.Rras.MPR_SERVER_1_head
-    MPR_SERVER_1._fields_ = [
-        ('dwNumPptpPorts', UInt32),
-        ('dwPptpPortFlags', UInt32),
-        ('dwNumL2tpPorts', UInt32),
-        ('dwL2tpPortFlags', UInt32),
-    ]
-    return MPR_SERVER_1
-def _define_MPR_SERVER_2_head():
-    class MPR_SERVER_2(Structure):
-        pass
-    return MPR_SERVER_2
-def _define_MPR_SERVER_2():
-    MPR_SERVER_2 = win32more.NetworkManagement.Rras.MPR_SERVER_2_head
-    MPR_SERVER_2._fields_ = [
-        ('dwNumPptpPorts', UInt32),
-        ('dwPptpPortFlags', UInt32),
-        ('dwNumL2tpPorts', UInt32),
-        ('dwL2tpPortFlags', UInt32),
-        ('dwNumSstpPorts', UInt32),
-        ('dwSstpPortFlags', UInt32),
-    ]
-    return MPR_SERVER_2
-def _define_MPR_SERVER_EX0_head():
-    class MPR_SERVER_EX0(Structure):
-        pass
-    return MPR_SERVER_EX0
-def _define_MPR_SERVER_EX0():
-    MPR_SERVER_EX0 = win32more.NetworkManagement.Rras.MPR_SERVER_EX0_head
-    MPR_SERVER_EX0._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('fLanOnlyMode', UInt32),
-        ('dwUpTime', UInt32),
-        ('dwTotalPorts', UInt32),
-        ('dwPortsInUse', UInt32),
-        ('Reserved', UInt32),
-        ('ConfigParams', win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS0),
-    ]
-    return MPR_SERVER_EX0
-def _define_MPR_SERVER_EX1_head():
-    class MPR_SERVER_EX1(Structure):
-        pass
-    return MPR_SERVER_EX1
-def _define_MPR_SERVER_EX1():
-    MPR_SERVER_EX1 = win32more.NetworkManagement.Rras.MPR_SERVER_EX1_head
-    MPR_SERVER_EX1._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('fLanOnlyMode', UInt32),
-        ('dwUpTime', UInt32),
-        ('dwTotalPorts', UInt32),
-        ('dwPortsInUse', UInt32),
-        ('Reserved', UInt32),
-        ('ConfigParams', win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS1),
-    ]
-    return MPR_SERVER_EX1
-def _define_MPR_SERVER_SET_CONFIG_EX0_head():
-    class MPR_SERVER_SET_CONFIG_EX0(Structure):
-        pass
-    return MPR_SERVER_SET_CONFIG_EX0
-def _define_MPR_SERVER_SET_CONFIG_EX0():
-    MPR_SERVER_SET_CONFIG_EX0 = win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX0_head
-    MPR_SERVER_SET_CONFIG_EX0._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('setConfigForProtocols', UInt32),
-        ('ConfigParams', win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS0),
-    ]
-    return MPR_SERVER_SET_CONFIG_EX0
-def _define_MPR_SERVER_SET_CONFIG_EX1_head():
-    class MPR_SERVER_SET_CONFIG_EX1(Structure):
-        pass
-    return MPR_SERVER_SET_CONFIG_EX1
-def _define_MPR_SERVER_SET_CONFIG_EX1():
-    MPR_SERVER_SET_CONFIG_EX1 = win32more.NetworkManagement.Rras.MPR_SERVER_SET_CONFIG_EX1_head
-    MPR_SERVER_SET_CONFIG_EX1._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('setConfigForProtocols', UInt32),
-        ('ConfigParams', win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS1),
-    ]
-    return MPR_SERVER_SET_CONFIG_EX1
-def _define_MPR_TRANSPORT_0_head():
-    class MPR_TRANSPORT_0(Structure):
-        pass
-    return MPR_TRANSPORT_0
-def _define_MPR_TRANSPORT_0():
-    MPR_TRANSPORT_0 = win32more.NetworkManagement.Rras.MPR_TRANSPORT_0_head
-    MPR_TRANSPORT_0._fields_ = [
-        ('dwTransportId', UInt32),
-        ('hTransport', win32more.Foundation.HANDLE),
-        ('wszTransportName', Char * 41),
-    ]
-    return MPR_TRANSPORT_0
-def _define_MPR_VPN_TRAFFIC_SELECTOR_head():
-    class MPR_VPN_TRAFFIC_SELECTOR(Structure):
-        pass
-    return MPR_VPN_TRAFFIC_SELECTOR
-def _define_MPR_VPN_TRAFFIC_SELECTOR():
-    MPR_VPN_TRAFFIC_SELECTOR = win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR_head
-    MPR_VPN_TRAFFIC_SELECTOR._fields_ = [
-        ('type', win32more.NetworkManagement.Rras.MPR_VPN_TS_TYPE),
-        ('protocolId', Byte),
-        ('portStart', UInt16),
-        ('portEnd', UInt16),
-        ('tsPayloadId', UInt16),
-        ('addrStart', win32more.NetworkManagement.Rras.VPN_TS_IP_ADDRESS),
-        ('addrEnd', win32more.NetworkManagement.Rras.VPN_TS_IP_ADDRESS),
-    ]
-    return MPR_VPN_TRAFFIC_SELECTOR
-def _define_MPR_VPN_TRAFFIC_SELECTORS_head():
-    class MPR_VPN_TRAFFIC_SELECTORS(Structure):
-        pass
-    return MPR_VPN_TRAFFIC_SELECTORS
-def _define_MPR_VPN_TRAFFIC_SELECTORS():
-    MPR_VPN_TRAFFIC_SELECTORS = win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTORS_head
-    MPR_VPN_TRAFFIC_SELECTORS._fields_ = [
-        ('numTsi', UInt32),
-        ('numTsr', UInt32),
-        ('tsI', POINTER(win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR_head)),
-        ('tsR', POINTER(win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR_head)),
-    ]
-    return MPR_VPN_TRAFFIC_SELECTORS
+MPRDM_DialFirst: MPR_INTERFACE_DIAL_MODE = 0
+MPRDM_DialAll: MPR_INTERFACE_DIAL_MODE = 1
+MPRDM_DialAsNeeded: MPR_INTERFACE_DIAL_MODE = 2
+class MPR_IPINIP_INTERFACE_0(Structure):
+    wszFriendlyName: Char * 257
+    Guid: Guid
+class MPR_SERVER_0(Structure):
+    fLanOnlyMode: win32more.Foundation.BOOL
+    dwUpTime: UInt32
+    dwTotalPorts: UInt32
+    dwPortsInUse: UInt32
+class MPR_SERVER_1(Structure):
+    dwNumPptpPorts: UInt32
+    dwPptpPortFlags: UInt32
+    dwNumL2tpPorts: UInt32
+    dwL2tpPortFlags: UInt32
+class MPR_SERVER_2(Structure):
+    dwNumPptpPorts: UInt32
+    dwPptpPortFlags: UInt32
+    dwNumL2tpPorts: UInt32
+    dwL2tpPortFlags: UInt32
+    dwNumSstpPorts: UInt32
+    dwSstpPortFlags: UInt32
+class MPR_SERVER_EX0(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    fLanOnlyMode: UInt32
+    dwUpTime: UInt32
+    dwTotalPorts: UInt32
+    dwPortsInUse: UInt32
+    Reserved: UInt32
+    ConfigParams: win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS0
+class MPR_SERVER_EX1(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    fLanOnlyMode: UInt32
+    dwUpTime: UInt32
+    dwTotalPorts: UInt32
+    dwPortsInUse: UInt32
+    Reserved: UInt32
+    ConfigParams: win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS1
+class MPR_SERVER_SET_CONFIG_EX0(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    setConfigForProtocols: UInt32
+    ConfigParams: win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS0
+class MPR_SERVER_SET_CONFIG_EX1(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    setConfigForProtocols: UInt32
+    ConfigParams: win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS1
+class MPR_TRANSPORT_0(Structure):
+    dwTransportId: UInt32
+    hTransport: win32more.Foundation.HANDLE
+    wszTransportName: Char * 41
+class MPR_VPN_TRAFFIC_SELECTOR(Structure):
+    type: win32more.NetworkManagement.Rras.MPR_VPN_TS_TYPE
+    protocolId: Byte
+    portStart: UInt16
+    portEnd: UInt16
+    tsPayloadId: UInt16
+    addrStart: win32more.NetworkManagement.Rras.VPN_TS_IP_ADDRESS
+    addrEnd: win32more.NetworkManagement.Rras.VPN_TS_IP_ADDRESS
+class MPR_VPN_TRAFFIC_SELECTORS(Structure):
+    numTsi: UInt32
+    numTsr: UInt32
+    tsI: POINTER(win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR_head)
+    tsR: POINTER(win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR_head)
 MPR_VPN_TS_TYPE = Int32
-MPR_VPN_TS_IPv4_ADDR_RANGE = 7
-MPR_VPN_TS_IPv6_ADDR_RANGE = 8
+MPR_VPN_TS_IPv4_ADDR_RANGE: MPR_VPN_TS_TYPE = 7
+MPR_VPN_TS_IPv6_ADDR_RANGE: MPR_VPN_TS_TYPE = 8
 MPR_VS = UInt32
-MPR_VS_Default = 0
-MPR_VS_PptpOnly = 1
-MPR_VS_PptpFirst = 2
-MPR_VS_L2tpOnly = 3
-MPR_VS_L2tpFirst = 4
-def _define_MPRAPI_ADMIN_DLL_CALLBACKS_head():
-    class MPRAPI_ADMIN_DLL_CALLBACKS(Structure):
-        pass
-    return MPRAPI_ADMIN_DLL_CALLBACKS
-def _define_MPRAPI_ADMIN_DLL_CALLBACKS():
-    MPRAPI_ADMIN_DLL_CALLBACKS = win32more.NetworkManagement.Rras.MPRAPI_ADMIN_DLL_CALLBACKS_head
-    MPRAPI_ADMIN_DLL_CALLBACKS._fields_ = [
-        ('revision', Byte),
-        ('lpfnMprAdminGetIpAddressForUser', win32more.NetworkManagement.Rras.PMPRADMINGETIPADDRESSFORUSER),
-        ('lpfnMprAdminReleaseIpAddress', win32more.NetworkManagement.Rras.PMPRADMINRELEASEIPADRESS),
-        ('lpfnMprAdminGetIpv6AddressForUser', win32more.NetworkManagement.Rras.PMPRADMINGETIPV6ADDRESSFORUSER),
-        ('lpfnMprAdminReleaseIpV6AddressForUser', win32more.NetworkManagement.Rras.PMPRADMINRELEASEIPV6ADDRESSFORUSER),
-        ('lpfnRasAdminAcceptNewLink', win32more.NetworkManagement.Rras.PMPRADMINACCEPTNEWLINK),
-        ('lpfnRasAdminLinkHangupNotification', win32more.NetworkManagement.Rras.PMPRADMINLINKHANGUPNOTIFICATION),
-        ('lpfnRasAdminTerminateDll', win32more.NetworkManagement.Rras.PMPRADMINTERMINATEDLL),
-        ('lpfnRasAdminAcceptNewConnectionEx', win32more.NetworkManagement.Rras.PMPRADMINACCEPTNEWCONNECTIONEX),
-        ('lpfnRasAdminAcceptEndpointChangeEx', win32more.NetworkManagement.Rras.PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX),
-        ('lpfnRasAdminAcceptReauthenticationEx', win32more.NetworkManagement.Rras.PMPRADMINACCEPTREAUTHENTICATIONEX),
-        ('lpfnRasAdminConnectionHangupNotificationEx', win32more.NetworkManagement.Rras.PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX),
-        ('lpfnRASValidatePreAuthenticatedConnectionEx', win32more.NetworkManagement.Rras.PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX),
-    ]
-    return MPRAPI_ADMIN_DLL_CALLBACKS
-def _define_MPRAPI_OBJECT_HEADER_head():
-    class MPRAPI_OBJECT_HEADER(Structure):
-        pass
-    return MPRAPI_OBJECT_HEADER
-def _define_MPRAPI_OBJECT_HEADER():
-    MPRAPI_OBJECT_HEADER = win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER_head
-    MPRAPI_OBJECT_HEADER._fields_ = [
-        ('revision', Byte),
-        ('type', Byte),
-        ('size', UInt16),
-    ]
-    return MPRAPI_OBJECT_HEADER
+MPR_VS_Default: MPR_VS = 0
+MPR_VS_PptpOnly: MPR_VS = 1
+MPR_VS_PptpFirst: MPR_VS = 2
+MPR_VS_L2tpOnly: MPR_VS = 3
+MPR_VS_L2tpFirst: MPR_VS = 4
+class MPRAPI_ADMIN_DLL_CALLBACKS(Structure):
+    revision: Byte
+    lpfnMprAdminGetIpAddressForUser: win32more.NetworkManagement.Rras.PMPRADMINGETIPADDRESSFORUSER
+    lpfnMprAdminReleaseIpAddress: win32more.NetworkManagement.Rras.PMPRADMINRELEASEIPADRESS
+    lpfnMprAdminGetIpv6AddressForUser: win32more.NetworkManagement.Rras.PMPRADMINGETIPV6ADDRESSFORUSER
+    lpfnMprAdminReleaseIpV6AddressForUser: win32more.NetworkManagement.Rras.PMPRADMINRELEASEIPV6ADDRESSFORUSER
+    lpfnRasAdminAcceptNewLink: win32more.NetworkManagement.Rras.PMPRADMINACCEPTNEWLINK
+    lpfnRasAdminLinkHangupNotification: win32more.NetworkManagement.Rras.PMPRADMINLINKHANGUPNOTIFICATION
+    lpfnRasAdminTerminateDll: win32more.NetworkManagement.Rras.PMPRADMINTERMINATEDLL
+    lpfnRasAdminAcceptNewConnectionEx: win32more.NetworkManagement.Rras.PMPRADMINACCEPTNEWCONNECTIONEX
+    lpfnRasAdminAcceptEndpointChangeEx: win32more.NetworkManagement.Rras.PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX
+    lpfnRasAdminAcceptReauthenticationEx: win32more.NetworkManagement.Rras.PMPRADMINACCEPTREAUTHENTICATIONEX
+    lpfnRasAdminConnectionHangupNotificationEx: win32more.NetworkManagement.Rras.PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX
+    lpfnRASValidatePreAuthenticatedConnectionEx: win32more.NetworkManagement.Rras.PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX
+class MPRAPI_OBJECT_HEADER(Structure):
+    revision: Byte
+    type: Byte
+    size: UInt16
 MPRAPI_OBJECT_TYPE = Int32
-MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT = 1
-MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT = 2
-MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT = 3
-MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT = 4
-MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT = 5
-MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT = 6
-def _define_MPRAPI_TUNNEL_CONFIG_PARAMS0_head():
-    class MPRAPI_TUNNEL_CONFIG_PARAMS0(Structure):
-        pass
-    return MPRAPI_TUNNEL_CONFIG_PARAMS0
-def _define_MPRAPI_TUNNEL_CONFIG_PARAMS0():
-    MPRAPI_TUNNEL_CONFIG_PARAMS0 = win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS0_head
-    MPRAPI_TUNNEL_CONFIG_PARAMS0._fields_ = [
-        ('IkeConfigParams', win32more.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS),
-        ('PptpConfigParams', win32more.NetworkManagement.Rras.PPTP_CONFIG_PARAMS),
-        ('L2tpConfigParams', win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS1),
-        ('SstpConfigParams', win32more.NetworkManagement.Rras.SSTP_CONFIG_PARAMS),
-    ]
-    return MPRAPI_TUNNEL_CONFIG_PARAMS0
-def _define_MPRAPI_TUNNEL_CONFIG_PARAMS1_head():
-    class MPRAPI_TUNNEL_CONFIG_PARAMS1(Structure):
-        pass
-    return MPRAPI_TUNNEL_CONFIG_PARAMS1
-def _define_MPRAPI_TUNNEL_CONFIG_PARAMS1():
-    MPRAPI_TUNNEL_CONFIG_PARAMS1 = win32more.NetworkManagement.Rras.MPRAPI_TUNNEL_CONFIG_PARAMS1_head
-    MPRAPI_TUNNEL_CONFIG_PARAMS1._fields_ = [
-        ('IkeConfigParams', win32more.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS),
-        ('PptpConfigParams', win32more.NetworkManagement.Rras.PPTP_CONFIG_PARAMS),
-        ('L2tpConfigParams', win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS1),
-        ('SstpConfigParams', win32more.NetworkManagement.Rras.SSTP_CONFIG_PARAMS),
-        ('GREConfigParams', win32more.NetworkManagement.Rras.GRE_CONFIG_PARAMS0),
-    ]
-    return MPRAPI_TUNNEL_CONFIG_PARAMS1
-def _define_ORASADFUNC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PSTR,UInt32,POINTER(UInt32))
-def _define_PFNRASFREEBUFFER():
-    return WINFUNCTYPE(UInt32,c_char_p_no)
-def _define_PFNRASGETBUFFER():
-    return WINFUNCTYPE(UInt32,POINTER(c_char_p_no),POINTER(UInt32))
-def _define_PFNRASRECEIVEBUFFER():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_char_p_no,POINTER(UInt32),UInt32,win32more.Foundation.HANDLE)
-def _define_PFNRASRETRIEVEBUFFER():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_char_p_no,POINTER(UInt32))
-def _define_PFNRASSENDBUFFER():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,c_char_p_no,UInt32)
-def _define_PFNRASSETCOMMSETTINGS():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.Rras.RASCOMMSETTINGS_head),c_void_p)
-def _define_PMGM_CREATION_ALERT_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.NetworkManagement.Rras.MGM_IF_ENTRY_head))
-def _define_PMGM_DISABLE_IGMP_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32)
-def _define_PMGM_ENABLE_IGMP_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32)
-def _define_PMGM_JOIN_ALERT_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,win32more.Foundation.BOOL)
-def _define_PMGM_LOCAL_JOIN_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)
-def _define_PMGM_LOCAL_LEAVE_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32)
-def _define_PMGM_PRUNE_ALERT_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,win32more.Foundation.BOOL,POINTER(UInt32))
-def _define_PMGM_RPF_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),UInt32,c_char_p_no,c_char_p_no)
-def _define_PMGM_WRONG_IF_CALLBACK():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,c_char_p_no)
-def _define_PMPRADMINACCEPTNEWCONNECTION():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head))
-def _define_PMPRADMINACCEPTNEWCONNECTION2():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head))
-def _define_PMPRADMINACCEPTNEWCONNECTION3():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_3_head))
-def _define_PMPRADMINACCEPTNEWCONNECTIONEX():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head))
-def _define_PMPRADMINACCEPTNEWLINK():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_PORT_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_PORT_1_head))
-def _define_PMPRADMINACCEPTREAUTHENTICATION():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_3_head))
-def _define_PMPRADMINACCEPTREAUTHENTICATIONEX():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head))
-def _define_PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head))
-def _define_PMPRADMINCONNECTIONHANGUPNOTIFICATION():
-    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head))
-def _define_PMPRADMINCONNECTIONHANGUPNOTIFICATION2():
-    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head))
-def _define_PMPRADMINCONNECTIONHANGUPNOTIFICATION3():
-    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head),POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head),win32more.NetworkManagement.Rras.RAS_CONNECTION_3)
-def _define_PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX():
-    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head))
-def _define_PMPRADMINGETIPADDRESSFORUSER():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))
-def _define_PMPRADMINGETIPV6ADDRESSFORUSER():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head),POINTER(win32more.Foundation.BOOL))
-def _define_PMPRADMINLINKHANGUPNOTIFICATION():
-    return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Rras.RAS_PORT_0_head),POINTER(win32more.NetworkManagement.Rras.RAS_PORT_1_head))
-def _define_PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Rras.AUTH_VALIDATION_EX_head))
-def _define_PMPRADMINRELEASEIPADRESS():
-    return WINFUNCTYPE(Void,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))
-def _define_PMPRADMINRELEASEIPV6ADDRESSFORUSER():
-    return WINFUNCTYPE(Void,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.IN6_ADDR_head))
-def _define_PMPRADMINTERMINATEDLL():
-    return WINFUNCTYPE(UInt32,)
-def _define_PPP_ATCP_INFO_head():
-    class PPP_ATCP_INFO(Structure):
-        pass
-    return PPP_ATCP_INFO
-def _define_PPP_ATCP_INFO():
-    PPP_ATCP_INFO = win32more.NetworkManagement.Rras.PPP_ATCP_INFO_head
-    PPP_ATCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('wszAddress', Char * 33),
-    ]
-    return PPP_ATCP_INFO
-def _define_PPP_CCP_INFO_head():
-    class PPP_CCP_INFO(Structure):
-        pass
-    return PPP_CCP_INFO
-def _define_PPP_CCP_INFO():
-    PPP_CCP_INFO = win32more.NetworkManagement.Rras.PPP_CCP_INFO_head
-    PPP_CCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwOptions', UInt32),
-        ('dwRemoteCompressionAlgorithm', UInt32),
-        ('dwRemoteOptions', UInt32),
-    ]
-    return PPP_CCP_INFO
-def _define_PPP_INFO_head():
-    class PPP_INFO(Structure):
-        pass
-    return PPP_INFO
-def _define_PPP_INFO():
-    PPP_INFO = win32more.NetworkManagement.Rras.PPP_INFO_head
-    PPP_INFO._fields_ = [
-        ('nbf', win32more.NetworkManagement.Rras.PPP_NBFCP_INFO),
-        ('ip', win32more.NetworkManagement.Rras.PPP_IPCP_INFO),
-        ('ipx', win32more.NetworkManagement.Rras.PPP_IPXCP_INFO),
-        ('at', win32more.NetworkManagement.Rras.PPP_ATCP_INFO),
-    ]
-    return PPP_INFO
-def _define_PPP_INFO_2_head():
-    class PPP_INFO_2(Structure):
-        pass
-    return PPP_INFO_2
-def _define_PPP_INFO_2():
-    PPP_INFO_2 = win32more.NetworkManagement.Rras.PPP_INFO_2_head
-    PPP_INFO_2._fields_ = [
-        ('nbf', win32more.NetworkManagement.Rras.PPP_NBFCP_INFO),
-        ('ip', win32more.NetworkManagement.Rras.PPP_IPCP_INFO2),
-        ('ipx', win32more.NetworkManagement.Rras.PPP_IPXCP_INFO),
-        ('at', win32more.NetworkManagement.Rras.PPP_ATCP_INFO),
-        ('ccp', win32more.NetworkManagement.Rras.PPP_CCP_INFO),
-        ('lcp', win32more.NetworkManagement.Rras.PPP_LCP_INFO),
-    ]
-    return PPP_INFO_2
-def _define_PPP_INFO_3_head():
-    class PPP_INFO_3(Structure):
-        pass
-    return PPP_INFO_3
-def _define_PPP_INFO_3():
-    PPP_INFO_3 = win32more.NetworkManagement.Rras.PPP_INFO_3_head
-    PPP_INFO_3._fields_ = [
-        ('nbf', win32more.NetworkManagement.Rras.PPP_NBFCP_INFO),
-        ('ip', win32more.NetworkManagement.Rras.PPP_IPCP_INFO2),
-        ('ipv6', win32more.NetworkManagement.Rras.PPP_IPV6_CP_INFO),
-        ('ccp', win32more.NetworkManagement.Rras.PPP_CCP_INFO),
-        ('lcp', win32more.NetworkManagement.Rras.PPP_LCP_INFO),
-    ]
-    return PPP_INFO_3
-def _define_PPP_IPCP_INFO_head():
-    class PPP_IPCP_INFO(Structure):
-        pass
-    return PPP_IPCP_INFO
-def _define_PPP_IPCP_INFO():
-    PPP_IPCP_INFO = win32more.NetworkManagement.Rras.PPP_IPCP_INFO_head
-    PPP_IPCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-    ]
-    return PPP_IPCP_INFO
-def _define_PPP_IPCP_INFO2_head():
-    class PPP_IPCP_INFO2(Structure):
-        pass
-    return PPP_IPCP_INFO2
-def _define_PPP_IPCP_INFO2():
-    PPP_IPCP_INFO2 = win32more.NetworkManagement.Rras.PPP_IPCP_INFO2_head
-    PPP_IPCP_INFO2._fields_ = [
-        ('dwError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-        ('dwOptions', UInt32),
-        ('dwRemoteOptions', UInt32),
-    ]
-    return PPP_IPCP_INFO2
-def _define_PPP_IPV6_CP_INFO_head():
-    class PPP_IPV6_CP_INFO(Structure):
-        pass
-    return PPP_IPV6_CP_INFO
-def _define_PPP_IPV6_CP_INFO():
-    PPP_IPV6_CP_INFO = win32more.NetworkManagement.Rras.PPP_IPV6_CP_INFO_head
-    PPP_IPV6_CP_INFO._fields_ = [
-        ('dwVersion', UInt32),
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bRemoteInterfaceIdentifier', Byte * 8),
-        ('dwOptions', UInt32),
-        ('dwRemoteOptions', UInt32),
-        ('bPrefix', Byte * 8),
-        ('dwPrefixLength', UInt32),
-    ]
-    return PPP_IPV6_CP_INFO
-def _define_PPP_IPXCP_INFO_head():
-    class PPP_IPXCP_INFO(Structure):
-        pass
-    return PPP_IPXCP_INFO
-def _define_PPP_IPXCP_INFO():
-    PPP_IPXCP_INFO = win32more.NetworkManagement.Rras.PPP_IPXCP_INFO_head
-    PPP_IPXCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('wszAddress', Char * 23),
-    ]
-    return PPP_IPXCP_INFO
+MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT: MPRAPI_OBJECT_TYPE = 1
+MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT: MPRAPI_OBJECT_TYPE = 2
+MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT: MPRAPI_OBJECT_TYPE = 3
+MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT: MPRAPI_OBJECT_TYPE = 4
+MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT: MPRAPI_OBJECT_TYPE = 5
+MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT: MPRAPI_OBJECT_TYPE = 6
+class MPRAPI_TUNNEL_CONFIG_PARAMS0(Structure):
+    IkeConfigParams: win32more.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS
+    PptpConfigParams: win32more.NetworkManagement.Rras.PPTP_CONFIG_PARAMS
+    L2tpConfigParams: win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS1
+    SstpConfigParams: win32more.NetworkManagement.Rras.SSTP_CONFIG_PARAMS
+class MPRAPI_TUNNEL_CONFIG_PARAMS1(Structure):
+    IkeConfigParams: win32more.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS
+    PptpConfigParams: win32more.NetworkManagement.Rras.PPTP_CONFIG_PARAMS
+    L2tpConfigParams: win32more.NetworkManagement.Rras.L2TP_CONFIG_PARAMS1
+    SstpConfigParams: win32more.NetworkManagement.Rras.SSTP_CONFIG_PARAMS
+    GREConfigParams: win32more.NetworkManagement.Rras.GRE_CONFIG_PARAMS0
+@winfunctype_pointer
+def ORASADFUNC(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PSTR, param2: UInt32, param3: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNRASFREEBUFFER(pBufer: c_char_p_no) -> UInt32: ...
+@winfunctype_pointer
+def PFNRASGETBUFFER(ppBuffer: POINTER(c_char_p_no), pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PFNRASRECEIVEBUFFER(hPort: win32more.Foundation.HANDLE, pBuffer: c_char_p_no, pdwSize: POINTER(UInt32), dwTimeOut: UInt32, hEvent: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def PFNRASRETRIEVEBUFFER(hPort: win32more.Foundation.HANDLE, pBuffer: c_char_p_no, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PFNRASSENDBUFFER(hPort: win32more.Foundation.HANDLE, pBuffer: c_char_p_no, dwSize: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PFNRASSETCOMMSETTINGS(hPort: win32more.Foundation.HANDLE, pRasCommSettings: POINTER(win32more.NetworkManagement.Rras.RASCOMMSETTINGS_head), pvReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_CREATION_ALERT_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwInIfIndex: UInt32, dwInIfNextHopAddr: UInt32, dwIfCount: UInt32, pmieOutIfList: POINTER(win32more.NetworkManagement.Rras.MGM_IF_ENTRY_head)) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_DISABLE_IGMP_CALLBACK(dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_ENABLE_IGMP_CALLBACK(dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_JOIN_ALERT_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, bMemberUpdate: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_LOCAL_JOIN_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_LOCAL_LEAVE_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_PRUNE_ALERT_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32, bMemberDelete: win32more.Foundation.BOOL, pdwTimeout: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_RPF_CALLBACK(dwSourceAddr: UInt32, dwSourceMask: UInt32, dwGroupAddr: UInt32, dwGroupMask: UInt32, pdwInIfIndex: POINTER(UInt32), pdwInIfNextHopAddr: POINTER(UInt32), pdwUpStreamNbr: POINTER(UInt32), dwHdrSize: UInt32, pbPacketHdr: c_char_p_no, pbRoute: c_char_p_no) -> UInt32: ...
+@winfunctype_pointer
+def PMGM_WRONG_IF_CALLBACK(dwSourceAddr: UInt32, dwGroupAddr: UInt32, dwIfIndex: UInt32, dwIfNextHopAddr: UInt32, dwHdrSize: UInt32, pbPacketHdr: c_char_p_no) -> UInt32: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTNEWCONNECTION(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTNEWCONNECTION2(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head), param2: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTNEWCONNECTION3(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head), param2: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head), param3: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_3_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTNEWCONNECTIONEX(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTNEWLINK(param0: POINTER(win32more.NetworkManagement.Rras.RAS_PORT_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_PORT_1_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTREAUTHENTICATION(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head), param2: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head), param3: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_3_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTREAUTHENTICATIONEX(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PMPRADMINCONNECTIONHANGUPNOTIFICATION(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINCONNECTIONHANGUPNOTIFICATION2(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head), param2: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINCONNECTIONHANGUPNOTIFICATION3(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head), param2: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head), param3: win32more.NetworkManagement.Rras.RAS_CONNECTION_3) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX(param0: POINTER(win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINGETIPADDRESSFORUSER(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(UInt32), param3: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype_pointer
+def PMPRADMINGETIPV6ADDRESSFORUSER(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.Networking.WinSock.IN6_ADDR_head), param3: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype_pointer
+def PMPRADMINLINKHANGUPNOTIFICATION(param0: POINTER(win32more.NetworkManagement.Rras.RAS_PORT_0_head), param1: POINTER(win32more.NetworkManagement.Rras.RAS_PORT_1_head)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX(param0: POINTER(win32more.NetworkManagement.Rras.AUTH_VALIDATION_EX_head)) -> UInt32: ...
+@winfunctype_pointer
+def PMPRADMINRELEASEIPADRESS(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(UInt32)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINRELEASEIPV6ADDRESSFORUSER(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.Networking.WinSock.IN6_ADDR_head)) -> Void: ...
+@winfunctype_pointer
+def PMPRADMINTERMINATEDLL() -> UInt32: ...
+class PPP_ATCP_INFO(Structure):
+    dwError: UInt32
+    wszAddress: Char * 33
+class PPP_CCP_INFO(Structure):
+    dwError: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwOptions: UInt32
+    dwRemoteCompressionAlgorithm: UInt32
+    dwRemoteOptions: UInt32
+class PPP_INFO(Structure):
+    nbf: win32more.NetworkManagement.Rras.PPP_NBFCP_INFO
+    ip: win32more.NetworkManagement.Rras.PPP_IPCP_INFO
+    ipx: win32more.NetworkManagement.Rras.PPP_IPXCP_INFO
+    at: win32more.NetworkManagement.Rras.PPP_ATCP_INFO
+class PPP_INFO_2(Structure):
+    nbf: win32more.NetworkManagement.Rras.PPP_NBFCP_INFO
+    ip: win32more.NetworkManagement.Rras.PPP_IPCP_INFO2
+    ipx: win32more.NetworkManagement.Rras.PPP_IPXCP_INFO
+    at: win32more.NetworkManagement.Rras.PPP_ATCP_INFO
+    ccp: win32more.NetworkManagement.Rras.PPP_CCP_INFO
+    lcp: win32more.NetworkManagement.Rras.PPP_LCP_INFO
+class PPP_INFO_3(Structure):
+    nbf: win32more.NetworkManagement.Rras.PPP_NBFCP_INFO
+    ip: win32more.NetworkManagement.Rras.PPP_IPCP_INFO2
+    ipv6: win32more.NetworkManagement.Rras.PPP_IPV6_CP_INFO
+    ccp: win32more.NetworkManagement.Rras.PPP_CCP_INFO
+    lcp: win32more.NetworkManagement.Rras.PPP_LCP_INFO
+class PPP_IPCP_INFO(Structure):
+    dwError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+class PPP_IPCP_INFO2(Structure):
+    dwError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+    dwOptions: UInt32
+    dwRemoteOptions: UInt32
+class PPP_IPV6_CP_INFO(Structure):
+    dwVersion: UInt32
+    dwSize: UInt32
+    dwError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bRemoteInterfaceIdentifier: Byte * 8
+    dwOptions: UInt32
+    dwRemoteOptions: UInt32
+    bPrefix: Byte * 8
+    dwPrefixLength: UInt32
+class PPP_IPXCP_INFO(Structure):
+    dwError: UInt32
+    wszAddress: Char * 23
 PPP_LCP = UInt32
-PPP_LCP_PAP = 49187
-PPP_LCP_CHAP = 49699
-PPP_LCP_EAP = 49703
-PPP_LCP_SPAP = 49191
-def _define_PPP_LCP_INFO_head():
-    class PPP_LCP_INFO(Structure):
-        pass
-    return PPP_LCP_INFO
-def _define_PPP_LCP_INFO():
-    PPP_LCP_INFO = win32more.NetworkManagement.Rras.PPP_LCP_INFO_head
-    PPP_LCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('dwAuthenticationProtocol', win32more.NetworkManagement.Rras.PPP_LCP),
-        ('dwAuthenticationData', win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA),
-        ('dwRemoteAuthenticationProtocol', UInt32),
-        ('dwRemoteAuthenticationData', UInt32),
-        ('dwTerminateReason', UInt32),
-        ('dwRemoteTerminateReason', UInt32),
-        ('dwOptions', UInt32),
-        ('dwRemoteOptions', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwRemoteEapTypeId', UInt32),
-    ]
-    return PPP_LCP_INFO
+PPP_LCP_PAP: PPP_LCP = 49187
+PPP_LCP_CHAP: PPP_LCP = 49699
+PPP_LCP_EAP: PPP_LCP = 49703
+PPP_LCP_SPAP: PPP_LCP = 49191
+class PPP_LCP_INFO(Structure):
+    dwError: UInt32
+    dwAuthenticationProtocol: win32more.NetworkManagement.Rras.PPP_LCP
+    dwAuthenticationData: win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA
+    dwRemoteAuthenticationProtocol: UInt32
+    dwRemoteAuthenticationData: UInt32
+    dwTerminateReason: UInt32
+    dwRemoteTerminateReason: UInt32
+    dwOptions: UInt32
+    dwRemoteOptions: UInt32
+    dwEapTypeId: UInt32
+    dwRemoteEapTypeId: UInt32
 PPP_LCP_INFO_AUTH_DATA = UInt32
-PPP_LCP_CHAP_MD5 = 5
-PPP_LCP_CHAP_MS = 128
-PPP_LCP_CHAP_MSV2 = 129
-def _define_PPP_NBFCP_INFO_head():
-    class PPP_NBFCP_INFO(Structure):
-        pass
-    return PPP_NBFCP_INFO
-def _define_PPP_NBFCP_INFO():
-    PPP_NBFCP_INFO = win32more.NetworkManagement.Rras.PPP_NBFCP_INFO_head
-    PPP_NBFCP_INFO._fields_ = [
-        ('dwError', UInt32),
-        ('wszWksta', Char * 17),
-    ]
-    return PPP_NBFCP_INFO
-def _define_PPP_PROJECTION_INFO_head():
-    class PPP_PROJECTION_INFO(Structure):
-        pass
-    return PPP_PROJECTION_INFO
-def _define_PPP_PROJECTION_INFO():
-    PPP_PROJECTION_INFO = win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO_head
-    PPP_PROJECTION_INFO._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-        ('dwIPv4Options', UInt32),
-        ('dwIPv4RemoteOptions', UInt32),
-        ('IPv4SubInterfaceIndex', UInt64),
-        ('dwIPv6NegotiationError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bRemoteInterfaceIdentifier', Byte * 8),
-        ('bPrefix', Byte * 8),
-        ('dwPrefixLength', UInt32),
-        ('IPv6SubInterfaceIndex', UInt64),
-        ('dwLcpError', UInt32),
-        ('dwAuthenticationProtocol', win32more.NetworkManagement.Rras.PPP_LCP),
-        ('dwAuthenticationData', win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA),
-        ('dwRemoteAuthenticationProtocol', win32more.NetworkManagement.Rras.PPP_LCP),
-        ('dwRemoteAuthenticationData', win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA),
-        ('dwLcpTerminateReason', UInt32),
-        ('dwLcpRemoteTerminateReason', UInt32),
-        ('dwLcpOptions', UInt32),
-        ('dwLcpRemoteOptions', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwRemoteEapTypeId', UInt32),
-        ('dwCcpError', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwCcpOptions', UInt32),
-        ('dwRemoteCompressionAlgorithm', UInt32),
-        ('dwCcpRemoteOptions', UInt32),
-    ]
-    return PPP_PROJECTION_INFO
-def _define_PPP_PROJECTION_INFO2_head():
-    class PPP_PROJECTION_INFO2(Structure):
-        pass
-    return PPP_PROJECTION_INFO2
-def _define_PPP_PROJECTION_INFO2():
-    PPP_PROJECTION_INFO2 = win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO2_head
-    PPP_PROJECTION_INFO2._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('wszAddress', Char * 16),
-        ('wszRemoteAddress', Char * 16),
-        ('dwIPv4Options', UInt32),
-        ('dwIPv4RemoteOptions', UInt32),
-        ('IPv4SubInterfaceIndex', UInt64),
-        ('dwIPv6NegotiationError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bRemoteInterfaceIdentifier', Byte * 8),
-        ('bPrefix', Byte * 8),
-        ('dwPrefixLength', UInt32),
-        ('IPv6SubInterfaceIndex', UInt64),
-        ('dwLcpError', UInt32),
-        ('dwAuthenticationProtocol', win32more.NetworkManagement.Rras.PPP_LCP),
-        ('dwAuthenticationData', win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA),
-        ('dwRemoteAuthenticationProtocol', win32more.NetworkManagement.Rras.PPP_LCP),
-        ('dwRemoteAuthenticationData', win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA),
-        ('dwLcpTerminateReason', UInt32),
-        ('dwLcpRemoteTerminateReason', UInt32),
-        ('dwLcpOptions', UInt32),
-        ('dwLcpRemoteOptions', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwEmbeddedEAPTypeId', UInt32),
-        ('dwRemoteEapTypeId', UInt32),
-        ('dwCcpError', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwCcpOptions', UInt32),
-        ('dwRemoteCompressionAlgorithm', UInt32),
-        ('dwCcpRemoteOptions', UInt32),
-    ]
-    return PPP_PROJECTION_INFO2
-def _define_PPTP_CONFIG_PARAMS_head():
-    class PPTP_CONFIG_PARAMS(Structure):
-        pass
-    return PPTP_CONFIG_PARAMS
-def _define_PPTP_CONFIG_PARAMS():
-    PPTP_CONFIG_PARAMS = win32more.NetworkManagement.Rras.PPTP_CONFIG_PARAMS_head
-    PPTP_CONFIG_PARAMS._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-    ]
-    return PPTP_CONFIG_PARAMS
-def _define_PROJECTION_INFO_head():
-    class PROJECTION_INFO(Structure):
-        pass
-    return PROJECTION_INFO
-def _define_PROJECTION_INFO():
-    PROJECTION_INFO = win32more.NetworkManagement.Rras.PROJECTION_INFO_head
-    class PROJECTION_INFO__Anonymous_e__Union(Union):
-        pass
-    PROJECTION_INFO__Anonymous_e__Union._fields_ = [
-        ('PppProjectionInfo', win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO),
-        ('Ikev2ProjectionInfo', win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO),
-    ]
-    PROJECTION_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    PROJECTION_INFO._fields_ = [
-        ('projectionInfoType', Byte),
-        ('Anonymous', PROJECTION_INFO__Anonymous_e__Union),
-    ]
-    return PROJECTION_INFO
-def _define_PROJECTION_INFO2_head():
-    class PROJECTION_INFO2(Structure):
-        pass
-    return PROJECTION_INFO2
-def _define_PROJECTION_INFO2():
-    PROJECTION_INFO2 = win32more.NetworkManagement.Rras.PROJECTION_INFO2_head
-    class PROJECTION_INFO2__Anonymous_e__Union(Union):
-        pass
-    PROJECTION_INFO2__Anonymous_e__Union._fields_ = [
-        ('PppProjectionInfo', win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO2),
-        ('Ikev2ProjectionInfo', win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO2),
-    ]
-    PROJECTION_INFO2._anonymous_ = [
-        'Anonymous',
-    ]
-    PROJECTION_INFO2._fields_ = [
-        ('projectionInfoType', Byte),
-        ('Anonymous', PROJECTION_INFO2__Anonymous_e__Union),
-    ]
-    return PROJECTION_INFO2
-def _define_RAS_CONNECTION_0_head():
-    class RAS_CONNECTION_0(Structure):
-        pass
-    return RAS_CONNECTION_0
-def _define_RAS_CONNECTION_0():
-    RAS_CONNECTION_0 = win32more.NetworkManagement.Rras.RAS_CONNECTION_0_head
-    RAS_CONNECTION_0._fields_ = [
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('dwConnectDuration', UInt32),
-        ('dwInterfaceType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionFlags', win32more.NetworkManagement.Rras.RAS_FLAGS),
-        ('wszInterfaceName', Char * 257),
-        ('wszUserName', Char * 257),
-        ('wszLogonDomain', Char * 16),
-        ('wszRemoteComputer', Char * 17),
-    ]
-    return RAS_CONNECTION_0
-def _define_RAS_CONNECTION_1_head():
-    class RAS_CONNECTION_1(Structure):
-        pass
-    return RAS_CONNECTION_1
-def _define_RAS_CONNECTION_1():
-    RAS_CONNECTION_1 = win32more.NetworkManagement.Rras.RAS_CONNECTION_1_head
-    RAS_CONNECTION_1._fields_ = [
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('PppInfo', win32more.NetworkManagement.Rras.PPP_INFO),
-        ('dwBytesXmited', UInt32),
-        ('dwBytesRcved', UInt32),
-        ('dwFramesXmited', UInt32),
-        ('dwFramesRcved', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-    ]
-    return RAS_CONNECTION_1
-def _define_RAS_CONNECTION_2_head():
-    class RAS_CONNECTION_2(Structure):
-        pass
-    return RAS_CONNECTION_2
-def _define_RAS_CONNECTION_2():
-    RAS_CONNECTION_2 = win32more.NetworkManagement.Rras.RAS_CONNECTION_2_head
-    RAS_CONNECTION_2._fields_ = [
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('wszUserName', Char * 257),
-        ('dwInterfaceType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('guid', Guid),
-        ('PppInfo2', win32more.NetworkManagement.Rras.PPP_INFO_2),
-    ]
-    return RAS_CONNECTION_2
-def _define_RAS_CONNECTION_3_head():
-    class RAS_CONNECTION_3(Structure):
-        pass
-    return RAS_CONNECTION_3
-def _define_RAS_CONNECTION_3():
-    RAS_CONNECTION_3 = win32more.NetworkManagement.Rras.RAS_CONNECTION_3_head
-    RAS_CONNECTION_3._fields_ = [
-        ('dwVersion', UInt32),
-        ('dwSize', UInt32),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('wszUserName', Char * 257),
-        ('dwInterfaceType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('guid', Guid),
-        ('PppInfo3', win32more.NetworkManagement.Rras.PPP_INFO_3),
-        ('rasQuarState', win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE),
-        ('timer', win32more.Foundation.FILETIME),
-    ]
-    return RAS_CONNECTION_3
-def _define_RAS_CONNECTION_4_head():
-    class RAS_CONNECTION_4(Structure):
-        pass
-    return RAS_CONNECTION_4
-def _define_RAS_CONNECTION_4():
-    RAS_CONNECTION_4 = win32more.NetworkManagement.Rras.RAS_CONNECTION_4_head
-    RAS_CONNECTION_4._fields_ = [
-        ('dwConnectDuration', UInt32),
-        ('dwInterfaceType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionFlags', win32more.NetworkManagement.Rras.RAS_FLAGS),
-        ('wszInterfaceName', Char * 257),
-        ('wszUserName', Char * 257),
-        ('wszLogonDomain', Char * 16),
-        ('wszRemoteComputer', Char * 17),
-        ('guid', Guid),
-        ('rasQuarState', win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE),
-        ('probationTime', win32more.Foundation.FILETIME),
-        ('connectionStartTime', win32more.Foundation.FILETIME),
-        ('ullBytesXmited', UInt64),
-        ('ullBytesRcved', UInt64),
-        ('dwFramesXmited', UInt32),
-        ('dwFramesRcved', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-        ('dwNumSwitchOvers', UInt32),
-        ('wszRemoteEndpointAddress', Char * 65),
-        ('wszLocalEndpointAddress', Char * 65),
-        ('ProjectionInfo', win32more.NetworkManagement.Rras.PROJECTION_INFO2),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('hInterface', win32more.Foundation.HANDLE),
-        ('dwDeviceType', UInt32),
-    ]
-    return RAS_CONNECTION_4
-def _define_RAS_CONNECTION_EX_head():
-    class RAS_CONNECTION_EX(Structure):
-        pass
-    return RAS_CONNECTION_EX
-def _define_RAS_CONNECTION_EX():
-    RAS_CONNECTION_EX = win32more.NetworkManagement.Rras.RAS_CONNECTION_EX_head
-    RAS_CONNECTION_EX._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('dwConnectDuration', UInt32),
-        ('dwInterfaceType', win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE),
-        ('dwConnectionFlags', win32more.NetworkManagement.Rras.RAS_FLAGS),
-        ('wszInterfaceName', Char * 257),
-        ('wszUserName', Char * 257),
-        ('wszLogonDomain', Char * 16),
-        ('wszRemoteComputer', Char * 17),
-        ('guid', Guid),
-        ('rasQuarState', win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE),
-        ('probationTime', win32more.Foundation.FILETIME),
-        ('dwBytesXmited', UInt32),
-        ('dwBytesRcved', UInt32),
-        ('dwFramesXmited', UInt32),
-        ('dwFramesRcved', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-        ('dwNumSwitchOvers', UInt32),
-        ('wszRemoteEndpointAddress', Char * 65),
-        ('wszLocalEndpointAddress', Char * 65),
-        ('ProjectionInfo', win32more.NetworkManagement.Rras.PROJECTION_INFO),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('hInterface', win32more.Foundation.HANDLE),
-    ]
-    return RAS_CONNECTION_EX
+PPP_LCP_CHAP_MD5: PPP_LCP_INFO_AUTH_DATA = 5
+PPP_LCP_CHAP_MS: PPP_LCP_INFO_AUTH_DATA = 128
+PPP_LCP_CHAP_MSV2: PPP_LCP_INFO_AUTH_DATA = 129
+class PPP_NBFCP_INFO(Structure):
+    dwError: UInt32
+    wszWksta: Char * 17
+class PPP_PROJECTION_INFO(Structure):
+    dwIPv4NegotiationError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+    dwIPv4Options: UInt32
+    dwIPv4RemoteOptions: UInt32
+    IPv4SubInterfaceIndex: UInt64
+    dwIPv6NegotiationError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bRemoteInterfaceIdentifier: Byte * 8
+    bPrefix: Byte * 8
+    dwPrefixLength: UInt32
+    IPv6SubInterfaceIndex: UInt64
+    dwLcpError: UInt32
+    dwAuthenticationProtocol: win32more.NetworkManagement.Rras.PPP_LCP
+    dwAuthenticationData: win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA
+    dwRemoteAuthenticationProtocol: win32more.NetworkManagement.Rras.PPP_LCP
+    dwRemoteAuthenticationData: win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA
+    dwLcpTerminateReason: UInt32
+    dwLcpRemoteTerminateReason: UInt32
+    dwLcpOptions: UInt32
+    dwLcpRemoteOptions: UInt32
+    dwEapTypeId: UInt32
+    dwRemoteEapTypeId: UInt32
+    dwCcpError: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwCcpOptions: UInt32
+    dwRemoteCompressionAlgorithm: UInt32
+    dwCcpRemoteOptions: UInt32
+class PPP_PROJECTION_INFO2(Structure):
+    dwIPv4NegotiationError: UInt32
+    wszAddress: Char * 16
+    wszRemoteAddress: Char * 16
+    dwIPv4Options: UInt32
+    dwIPv4RemoteOptions: UInt32
+    IPv4SubInterfaceIndex: UInt64
+    dwIPv6NegotiationError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bRemoteInterfaceIdentifier: Byte * 8
+    bPrefix: Byte * 8
+    dwPrefixLength: UInt32
+    IPv6SubInterfaceIndex: UInt64
+    dwLcpError: UInt32
+    dwAuthenticationProtocol: win32more.NetworkManagement.Rras.PPP_LCP
+    dwAuthenticationData: win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA
+    dwRemoteAuthenticationProtocol: win32more.NetworkManagement.Rras.PPP_LCP
+    dwRemoteAuthenticationData: win32more.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA
+    dwLcpTerminateReason: UInt32
+    dwLcpRemoteTerminateReason: UInt32
+    dwLcpOptions: UInt32
+    dwLcpRemoteOptions: UInt32
+    dwEapTypeId: UInt32
+    dwEmbeddedEAPTypeId: UInt32
+    dwRemoteEapTypeId: UInt32
+    dwCcpError: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwCcpOptions: UInt32
+    dwRemoteCompressionAlgorithm: UInt32
+    dwCcpRemoteOptions: UInt32
+class PPTP_CONFIG_PARAMS(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
+class PROJECTION_INFO(Structure):
+    projectionInfoType: Byte
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        PppProjectionInfo: win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO
+        Ikev2ProjectionInfo: win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO
+class PROJECTION_INFO2(Structure):
+    projectionInfoType: Byte
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        PppProjectionInfo: win32more.NetworkManagement.Rras.PPP_PROJECTION_INFO2
+        Ikev2ProjectionInfo: win32more.NetworkManagement.Rras.IKEV2_PROJECTION_INFO2
+class RAS_CONNECTION_0(Structure):
+    hConnection: win32more.Foundation.HANDLE
+    hInterface: win32more.Foundation.HANDLE
+    dwConnectDuration: UInt32
+    dwInterfaceType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionFlags: win32more.NetworkManagement.Rras.RAS_FLAGS
+    wszInterfaceName: Char * 257
+    wszUserName: Char * 257
+    wszLogonDomain: Char * 16
+    wszRemoteComputer: Char * 17
+class RAS_CONNECTION_1(Structure):
+    hConnection: win32more.Foundation.HANDLE
+    hInterface: win32more.Foundation.HANDLE
+    PppInfo: win32more.NetworkManagement.Rras.PPP_INFO
+    dwBytesXmited: UInt32
+    dwBytesRcved: UInt32
+    dwFramesXmited: UInt32
+    dwFramesRcved: UInt32
+    dwCrcErr: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+class RAS_CONNECTION_2(Structure):
+    hConnection: win32more.Foundation.HANDLE
+    wszUserName: Char * 257
+    dwInterfaceType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    guid: Guid
+    PppInfo2: win32more.NetworkManagement.Rras.PPP_INFO_2
+class RAS_CONNECTION_3(Structure):
+    dwVersion: UInt32
+    dwSize: UInt32
+    hConnection: win32more.Foundation.HANDLE
+    wszUserName: Char * 257
+    dwInterfaceType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    guid: Guid
+    PppInfo3: win32more.NetworkManagement.Rras.PPP_INFO_3
+    rasQuarState: win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE
+    timer: win32more.Foundation.FILETIME
+class RAS_CONNECTION_4(Structure):
+    dwConnectDuration: UInt32
+    dwInterfaceType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionFlags: win32more.NetworkManagement.Rras.RAS_FLAGS
+    wszInterfaceName: Char * 257
+    wszUserName: Char * 257
+    wszLogonDomain: Char * 16
+    wszRemoteComputer: Char * 17
+    guid: Guid
+    rasQuarState: win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE
+    probationTime: win32more.Foundation.FILETIME
+    connectionStartTime: win32more.Foundation.FILETIME
+    ullBytesXmited: UInt64
+    ullBytesRcved: UInt64
+    dwFramesXmited: UInt32
+    dwFramesRcved: UInt32
+    dwCrcErr: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+    dwNumSwitchOvers: UInt32
+    wszRemoteEndpointAddress: Char * 65
+    wszLocalEndpointAddress: Char * 65
+    ProjectionInfo: win32more.NetworkManagement.Rras.PROJECTION_INFO2
+    hConnection: win32more.Foundation.HANDLE
+    hInterface: win32more.Foundation.HANDLE
+    dwDeviceType: UInt32
+class RAS_CONNECTION_EX(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    dwConnectDuration: UInt32
+    dwInterfaceType: win32more.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE
+    dwConnectionFlags: win32more.NetworkManagement.Rras.RAS_FLAGS
+    wszInterfaceName: Char * 257
+    wszUserName: Char * 257
+    wszLogonDomain: Char * 16
+    wszRemoteComputer: Char * 17
+    guid: Guid
+    rasQuarState: win32more.NetworkManagement.Rras.RAS_QUARANTINE_STATE
+    probationTime: win32more.Foundation.FILETIME
+    dwBytesXmited: UInt32
+    dwBytesRcved: UInt32
+    dwFramesXmited: UInt32
+    dwFramesRcved: UInt32
+    dwCrcErr: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+    dwNumSwitchOvers: UInt32
+    wszRemoteEndpointAddress: Char * 65
+    wszLocalEndpointAddress: Char * 65
+    ProjectionInfo: win32more.NetworkManagement.Rras.PROJECTION_INFO
+    hConnection: win32more.Foundation.HANDLE
+    hInterface: win32more.Foundation.HANDLE
 RAS_FLAGS = UInt32
-RAS_FLAGS_PPP_CONNECTION = 1
-RAS_FLAGS_MESSENGER_PRESENT = 2
-RAS_FLAGS_QUARANTINE_PRESENT = 8
-RAS_FLAGS_ARAP_CONNECTION = 16
-RAS_FLAGS_IKEV2_CONNECTION = 16
-RAS_FLAGS_DORMANT = 32
+RAS_FLAGS_PPP_CONNECTION: RAS_FLAGS = 1
+RAS_FLAGS_MESSENGER_PRESENT: RAS_FLAGS = 2
+RAS_FLAGS_QUARANTINE_PRESENT: RAS_FLAGS = 8
+RAS_FLAGS_ARAP_CONNECTION: RAS_FLAGS = 16
+RAS_FLAGS_IKEV2_CONNECTION: RAS_FLAGS = 16
+RAS_FLAGS_DORMANT: RAS_FLAGS = 32
 RAS_HARDWARE_CONDITION = Int32
-RAS_HARDWARE_OPERATIONAL = 0
-RAS_HARDWARE_FAILURE = 1
-def _define_RAS_PORT_0_head():
-    class RAS_PORT_0(Structure):
-        pass
-    return RAS_PORT_0
-def _define_RAS_PORT_0():
-    RAS_PORT_0 = win32more.NetworkManagement.Rras.RAS_PORT_0_head
-    RAS_PORT_0._fields_ = [
-        ('hPort', win32more.Foundation.HANDLE),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('dwPortCondition', win32more.NetworkManagement.Rras.RAS_PORT_CONDITION),
-        ('dwTotalNumberOfCalls', UInt32),
-        ('dwConnectDuration', UInt32),
-        ('wszPortName', Char * 17),
-        ('wszMediaName', Char * 17),
-        ('wszDeviceName', Char * 129),
-        ('wszDeviceType', Char * 17),
-    ]
-    return RAS_PORT_0
-def _define_RAS_PORT_1_head():
-    class RAS_PORT_1(Structure):
-        pass
-    return RAS_PORT_1
-def _define_RAS_PORT_1():
-    RAS_PORT_1 = win32more.NetworkManagement.Rras.RAS_PORT_1_head
-    RAS_PORT_1._fields_ = [
-        ('hPort', win32more.Foundation.HANDLE),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('dwHardwareCondition', win32more.NetworkManagement.Rras.RAS_HARDWARE_CONDITION),
-        ('dwLineSpeed', UInt32),
-        ('dwBytesXmited', UInt32),
-        ('dwBytesRcved', UInt32),
-        ('dwFramesXmited', UInt32),
-        ('dwFramesRcved', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-    ]
-    return RAS_PORT_1
-def _define_RAS_PORT_2_head():
-    class RAS_PORT_2(Structure):
-        pass
-    return RAS_PORT_2
-def _define_RAS_PORT_2():
-    RAS_PORT_2 = win32more.NetworkManagement.Rras.RAS_PORT_2_head
-    RAS_PORT_2._fields_ = [
-        ('hPort', win32more.Foundation.HANDLE),
-        ('hConnection', win32more.Foundation.HANDLE),
-        ('dwConn_State', UInt32),
-        ('wszPortName', Char * 17),
-        ('wszMediaName', Char * 17),
-        ('wszDeviceName', Char * 129),
-        ('wszDeviceType', Char * 17),
-        ('dwHardwareCondition', win32more.NetworkManagement.Rras.RAS_HARDWARE_CONDITION),
-        ('dwLineSpeed', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwSerialOverRunErrs', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-        ('dwTotalErrors', UInt32),
-        ('ullBytesXmited', UInt64),
-        ('ullBytesRcved', UInt64),
-        ('ullFramesXmited', UInt64),
-        ('ullFramesRcved', UInt64),
-        ('ullBytesTxUncompressed', UInt64),
-        ('ullBytesTxCompressed', UInt64),
-        ('ullBytesRcvUncompressed', UInt64),
-        ('ullBytesRcvCompressed', UInt64),
-    ]
-    return RAS_PORT_2
+RAS_HARDWARE_OPERATIONAL: RAS_HARDWARE_CONDITION = 0
+RAS_HARDWARE_FAILURE: RAS_HARDWARE_CONDITION = 1
+class RAS_PORT_0(Structure):
+    hPort: win32more.Foundation.HANDLE
+    hConnection: win32more.Foundation.HANDLE
+    dwPortCondition: win32more.NetworkManagement.Rras.RAS_PORT_CONDITION
+    dwTotalNumberOfCalls: UInt32
+    dwConnectDuration: UInt32
+    wszPortName: Char * 17
+    wszMediaName: Char * 17
+    wszDeviceName: Char * 129
+    wszDeviceType: Char * 17
+class RAS_PORT_1(Structure):
+    hPort: win32more.Foundation.HANDLE
+    hConnection: win32more.Foundation.HANDLE
+    dwHardwareCondition: win32more.NetworkManagement.Rras.RAS_HARDWARE_CONDITION
+    dwLineSpeed: UInt32
+    dwBytesXmited: UInt32
+    dwBytesRcved: UInt32
+    dwFramesXmited: UInt32
+    dwFramesRcved: UInt32
+    dwCrcErr: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+class RAS_PORT_2(Structure):
+    hPort: win32more.Foundation.HANDLE
+    hConnection: win32more.Foundation.HANDLE
+    dwConn_State: UInt32
+    wszPortName: Char * 17
+    wszMediaName: Char * 17
+    wszDeviceName: Char * 129
+    wszDeviceType: Char * 17
+    dwHardwareCondition: win32more.NetworkManagement.Rras.RAS_HARDWARE_CONDITION
+    dwLineSpeed: UInt32
+    dwCrcErr: UInt32
+    dwSerialOverRunErrs: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+    dwTotalErrors: UInt32
+    ullBytesXmited: UInt64
+    ullBytesRcved: UInt64
+    ullFramesXmited: UInt64
+    ullFramesRcved: UInt64
+    ullBytesTxUncompressed: UInt64
+    ullBytesTxCompressed: UInt64
+    ullBytesRcvUncompressed: UInt64
+    ullBytesRcvCompressed: UInt64
 RAS_PORT_CONDITION = Int32
-RAS_PORT_NON_OPERATIONAL = 0
-RAS_PORT_DISCONNECTED = 1
-RAS_PORT_CALLING_BACK = 2
-RAS_PORT_LISTENING = 3
-RAS_PORT_AUTHENTICATING = 4
-RAS_PORT_AUTHENTICATED = 5
-RAS_PORT_INITIALIZING = 6
-def _define_RAS_PROJECTION_INFO_head():
-    class RAS_PROJECTION_INFO(Structure):
-        pass
-    return RAS_PROJECTION_INFO
-def _define_RAS_PROJECTION_INFO():
-    RAS_PROJECTION_INFO = win32more.NetworkManagement.Rras.RAS_PROJECTION_INFO_head
-    class RAS_PROJECTION_INFO__Anonymous_e__Union(Union):
-        pass
-    RAS_PROJECTION_INFO__Anonymous_e__Union._fields_ = [
-        ('ppp', win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO),
-        ('ikev2', win32more.NetworkManagement.Rras.RASIKEV2_PROJECTION_INFO),
-    ]
-    RAS_PROJECTION_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    RAS_PROJECTION_INFO._fields_ = [
-        ('version', win32more.NetworkManagement.Rras.RASAPIVERSION),
-        ('type', win32more.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE),
-        ('Anonymous', RAS_PROJECTION_INFO__Anonymous_e__Union),
-    ]
-    return RAS_PROJECTION_INFO
+RAS_PORT_NON_OPERATIONAL: RAS_PORT_CONDITION = 0
+RAS_PORT_DISCONNECTED: RAS_PORT_CONDITION = 1
+RAS_PORT_CALLING_BACK: RAS_PORT_CONDITION = 2
+RAS_PORT_LISTENING: RAS_PORT_CONDITION = 3
+RAS_PORT_AUTHENTICATING: RAS_PORT_CONDITION = 4
+RAS_PORT_AUTHENTICATED: RAS_PORT_CONDITION = 5
+RAS_PORT_INITIALIZING: RAS_PORT_CONDITION = 6
+class RAS_PROJECTION_INFO(Structure):
+    version: win32more.NetworkManagement.Rras.RASAPIVERSION
+    type: win32more.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ppp: win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO
+        ikev2: win32more.NetworkManagement.Rras.RASIKEV2_PROJECTION_INFO
 RAS_QUARANTINE_STATE = Int32
-RAS_QUAR_STATE_NORMAL = 0
-RAS_QUAR_STATE_QUARANTINE = 1
-RAS_QUAR_STATE_PROBATION = 2
-RAS_QUAR_STATE_NOT_CAPABLE = 3
-def _define_RAS_SECURITY_INFO_head():
-    class RAS_SECURITY_INFO(Structure):
-        pass
-    return RAS_SECURITY_INFO
-def _define_RAS_SECURITY_INFO():
-    RAS_SECURITY_INFO = win32more.NetworkManagement.Rras.RAS_SECURITY_INFO_head
-    RAS_SECURITY_INFO._fields_ = [
-        ('LastError', UInt32),
-        ('BytesReceived', UInt32),
-        ('DeviceName', win32more.Foundation.CHAR * 129),
-    ]
-    return RAS_SECURITY_INFO
-def _define_RAS_STATS_head():
-    class RAS_STATS(Structure):
-        pass
-    return RAS_STATS
-def _define_RAS_STATS():
-    RAS_STATS = win32more.NetworkManagement.Rras.RAS_STATS_head
-    RAS_STATS._fields_ = [
-        ('dwSize', UInt32),
-        ('dwBytesXmited', UInt32),
-        ('dwBytesRcved', UInt32),
-        ('dwFramesXmited', UInt32),
-        ('dwFramesRcved', UInt32),
-        ('dwCrcErr', UInt32),
-        ('dwTimeoutErr', UInt32),
-        ('dwAlignmentErr', UInt32),
-        ('dwHardwareOverrunErr', UInt32),
-        ('dwFramingErr', UInt32),
-        ('dwBufferOverrunErr', UInt32),
-        ('dwCompressionRatioIn', UInt32),
-        ('dwCompressionRatioOut', UInt32),
-        ('dwBps', UInt32),
-        ('dwConnectDuration', UInt32),
-    ]
-    return RAS_STATS
-def _define_RAS_UPDATE_CONNECTION_head():
-    class RAS_UPDATE_CONNECTION(Structure):
-        pass
-    return RAS_UPDATE_CONNECTION
-def _define_RAS_UPDATE_CONNECTION():
-    RAS_UPDATE_CONNECTION = win32more.NetworkManagement.Rras.RAS_UPDATE_CONNECTION_head
-    RAS_UPDATE_CONNECTION._fields_ = [
-        ('Header', win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER),
-        ('dwIfIndex', UInt32),
-        ('wszLocalEndpointAddress', Char * 65),
-        ('wszRemoteEndpointAddress', Char * 65),
-    ]
-    return RAS_UPDATE_CONNECTION
-def _define_RAS_USER_0_head():
-    class RAS_USER_0(Structure):
-        pass
-    return RAS_USER_0
-def _define_RAS_USER_0():
-    RAS_USER_0 = win32more.NetworkManagement.Rras.RAS_USER_0_head
-    RAS_USER_0._fields_ = [
-        ('bfPrivilege', Byte),
-        ('wszPhoneNumber', Char * 129),
-    ]
-    return RAS_USER_0
-def _define_RAS_USER_1_head():
-    class RAS_USER_1(Structure):
-        pass
-    return RAS_USER_1
-def _define_RAS_USER_1():
-    RAS_USER_1 = win32more.NetworkManagement.Rras.RAS_USER_1_head
-    RAS_USER_1._fields_ = [
-        ('bfPrivilege', Byte),
-        ('wszPhoneNumber', Char * 129),
-        ('bfPrivilege2', Byte),
-    ]
-    return RAS_USER_1
-def _define_RASADFUNCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Rras.RASADPARAMS_head),POINTER(UInt32))
-def _define_RASADFUNCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASADPARAMS_head),POINTER(UInt32))
-def _define_RASADPARAMS_head():
-    class RASADPARAMS(Structure):
-        pass
-    return RASADPARAMS
-def _define_RASADPARAMS():
-    RASADPARAMS = win32more.NetworkManagement.Rras.RASADPARAMS_head
-    RASADPARAMS._pack_ = 4
-    RASADPARAMS._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-    ]
-    return RASADPARAMS
-def _define_RASAMBA_head():
-    class RASAMBA(Structure):
-        pass
-    return RASAMBA
-def _define_RASAMBA():
-    RASAMBA = win32more.NetworkManagement.Rras.RASAMBA_head
-    RASAMBA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szNetBiosError', win32more.Foundation.CHAR * 17),
-        ('bLana', Byte),
-    ]
-    return RASAMBA
-def _define_RASAMBW_head():
-    class RASAMBW(Structure):
-        pass
-    return RASAMBW
-def _define_RASAMBW():
-    RASAMBW = win32more.NetworkManagement.Rras.RASAMBW_head
-    RASAMBW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szNetBiosError', Char * 17),
-        ('bLana', Byte),
-    ]
-    return RASAMBW
+RAS_QUAR_STATE_NORMAL: RAS_QUARANTINE_STATE = 0
+RAS_QUAR_STATE_QUARANTINE: RAS_QUARANTINE_STATE = 1
+RAS_QUAR_STATE_PROBATION: RAS_QUARANTINE_STATE = 2
+RAS_QUAR_STATE_NOT_CAPABLE: RAS_QUARANTINE_STATE = 3
+class RAS_SECURITY_INFO(Structure):
+    LastError: UInt32
+    BytesReceived: UInt32
+    DeviceName: win32more.Foundation.CHAR * 129
+class RAS_STATS(Structure):
+    dwSize: UInt32
+    dwBytesXmited: UInt32
+    dwBytesRcved: UInt32
+    dwFramesXmited: UInt32
+    dwFramesRcved: UInt32
+    dwCrcErr: UInt32
+    dwTimeoutErr: UInt32
+    dwAlignmentErr: UInt32
+    dwHardwareOverrunErr: UInt32
+    dwFramingErr: UInt32
+    dwBufferOverrunErr: UInt32
+    dwCompressionRatioIn: UInt32
+    dwCompressionRatioOut: UInt32
+    dwBps: UInt32
+    dwConnectDuration: UInt32
+class RAS_UPDATE_CONNECTION(Structure):
+    Header: win32more.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER
+    dwIfIndex: UInt32
+    wszLocalEndpointAddress: Char * 65
+    wszRemoteEndpointAddress: Char * 65
+class RAS_USER_0(Structure):
+    bfPrivilege: Byte
+    wszPhoneNumber: Char * 129
+class RAS_USER_1(Structure):
+    bfPrivilege: Byte
+    wszPhoneNumber: Char * 129
+    bfPrivilege2: Byte
+@winfunctype_pointer
+def RASADFUNCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASADPARAMS_head), param3: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def RASADFUNCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.NetworkManagement.Rras.RASADPARAMS_head), param3: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+class RASADPARAMS(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    _pack_ = 4
+class RASAMBA(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szNetBiosError: win32more.Foundation.CHAR * 17
+    bLana: Byte
+class RASAMBW(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szNetBiosError: Char * 17
+    bLana: Byte
 RASAPIVERSION = Int32
-RASAPIVERSION_500 = 1
-RASAPIVERSION_501 = 2
-RASAPIVERSION_600 = 3
-RASAPIVERSION_601 = 4
-def _define_RASAUTODIALENTRYA_head():
-    class RASAUTODIALENTRYA(Structure):
-        pass
-    return RASAUTODIALENTRYA
-def _define_RASAUTODIALENTRYA():
-    RASAUTODIALENTRYA = win32more.NetworkManagement.Rras.RASAUTODIALENTRYA_head
-    RASAUTODIALENTRYA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwDialingLocation', UInt32),
-        ('szEntry', win32more.Foundation.CHAR * 257),
-    ]
-    return RASAUTODIALENTRYA
-def _define_RASAUTODIALENTRYW_head():
-    class RASAUTODIALENTRYW(Structure):
-        pass
-    return RASAUTODIALENTRYW
-def _define_RASAUTODIALENTRYW():
-    RASAUTODIALENTRYW = win32more.NetworkManagement.Rras.RASAUTODIALENTRYW_head
-    RASAUTODIALENTRYW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwDialingLocation', UInt32),
-        ('szEntry', Char * 257),
-    ]
-    return RASAUTODIALENTRYW
-def _define_RASCOMMSETTINGS_head():
-    class RASCOMMSETTINGS(Structure):
-        pass
-    return RASCOMMSETTINGS
-def _define_RASCOMMSETTINGS():
-    RASCOMMSETTINGS = win32more.NetworkManagement.Rras.RASCOMMSETTINGS_head
-    RASCOMMSETTINGS._fields_ = [
-        ('dwSize', UInt32),
-        ('bParity', Byte),
-        ('bStop', Byte),
-        ('bByteSize', Byte),
-        ('bAlign', Byte),
-    ]
-    return RASCOMMSETTINGS
-def _define_RASCONNA_head():
-    class RASCONNA(Structure):
-        pass
-    return RASCONNA
-def _define_RASCONNA():
-    RASCONNA = win32more.NetworkManagement.Rras.RASCONNA_head
-    RASCONNA._pack_ = 4
-    RASCONNA._fields_ = [
-        ('dwSize', UInt32),
-        ('hrasconn', win32more.NetworkManagement.Rras.HRASCONN),
-        ('szEntryName', win32more.Foundation.CHAR * 257),
-        ('szDeviceType', win32more.Foundation.CHAR * 17),
-        ('szDeviceName', win32more.Foundation.CHAR * 129),
-        ('szPhonebook', win32more.Foundation.CHAR * 260),
-        ('dwSubEntry', UInt32),
-        ('guidEntry', Guid),
-        ('dwFlags', UInt32),
-        ('luid', win32more.Foundation.LUID),
-        ('guidCorrelationId', Guid),
-    ]
-    return RASCONNA
+RASAPIVERSION_500: RASAPIVERSION = 1
+RASAPIVERSION_501: RASAPIVERSION = 2
+RASAPIVERSION_600: RASAPIVERSION = 3
+RASAPIVERSION_601: RASAPIVERSION = 4
+class RASAUTODIALENTRYA(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwDialingLocation: UInt32
+    szEntry: win32more.Foundation.CHAR * 257
+class RASAUTODIALENTRYW(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwDialingLocation: UInt32
+    szEntry: Char * 257
+class RASCOMMSETTINGS(Structure):
+    dwSize: UInt32
+    bParity: Byte
+    bStop: Byte
+    bByteSize: Byte
+    bAlign: Byte
+class RASCONNA(Structure):
+    dwSize: UInt32
+    hrasconn: win32more.NetworkManagement.Rras.HRASCONN
+    szEntryName: win32more.Foundation.CHAR * 257
+    szDeviceType: win32more.Foundation.CHAR * 17
+    szDeviceName: win32more.Foundation.CHAR * 129
+    szPhonebook: win32more.Foundation.CHAR * 260
+    dwSubEntry: UInt32
+    guidEntry: Guid
+    dwFlags: UInt32
+    luid: win32more.Foundation.LUID
+    guidCorrelationId: Guid
+    _pack_ = 4
 RASCONNSTATE = Int32
-RASCS_OpenPort = 0
-RASCS_PortOpened = 1
-RASCS_ConnectDevice = 2
-RASCS_DeviceConnected = 3
-RASCS_AllDevicesConnected = 4
-RASCS_Authenticate = 5
-RASCS_AuthNotify = 6
-RASCS_AuthRetry = 7
-RASCS_AuthCallback = 8
-RASCS_AuthChangePassword = 9
-RASCS_AuthProject = 10
-RASCS_AuthLinkSpeed = 11
-RASCS_AuthAck = 12
-RASCS_ReAuthenticate = 13
-RASCS_Authenticated = 14
-RASCS_PrepareForCallback = 15
-RASCS_WaitForModemReset = 16
-RASCS_WaitForCallback = 17
-RASCS_Projected = 18
-RASCS_StartAuthentication = 19
-RASCS_CallbackComplete = 20
-RASCS_LogonNetwork = 21
-RASCS_SubEntryConnected = 22
-RASCS_SubEntryDisconnected = 23
-RASCS_ApplySettings = 24
-RASCS_Interactive = 4096
-RASCS_RetryAuthentication = 4097
-RASCS_CallbackSetByCaller = 4098
-RASCS_PasswordExpired = 4099
-RASCS_InvokeEapUI = 4100
-RASCS_Connected = 8192
-RASCS_Disconnected = 8193
-def _define_RASCONNSTATUSA_head():
-    class RASCONNSTATUSA(Structure):
-        pass
-    return RASCONNSTATUSA
-def _define_RASCONNSTATUSA():
-    RASCONNSTATUSA = win32more.NetworkManagement.Rras.RASCONNSTATUSA_head
-    RASCONNSTATUSA._fields_ = [
-        ('dwSize', UInt32),
-        ('rasconnstate', win32more.NetworkManagement.Rras.RASCONNSTATE),
-        ('dwError', UInt32),
-        ('szDeviceType', win32more.Foundation.CHAR * 17),
-        ('szDeviceName', win32more.Foundation.CHAR * 129),
-        ('szPhoneNumber', win32more.Foundation.CHAR * 129),
-        ('localEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-        ('remoteEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-        ('rasconnsubstate', win32more.NetworkManagement.Rras.RASCONNSUBSTATE),
-    ]
-    return RASCONNSTATUSA
-def _define_RASCONNSTATUSW_head():
-    class RASCONNSTATUSW(Structure):
-        pass
-    return RASCONNSTATUSW
-def _define_RASCONNSTATUSW():
-    RASCONNSTATUSW = win32more.NetworkManagement.Rras.RASCONNSTATUSW_head
-    RASCONNSTATUSW._fields_ = [
-        ('dwSize', UInt32),
-        ('rasconnstate', win32more.NetworkManagement.Rras.RASCONNSTATE),
-        ('dwError', UInt32),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szPhoneNumber', Char * 129),
-        ('localEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-        ('remoteEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-        ('rasconnsubstate', win32more.NetworkManagement.Rras.RASCONNSUBSTATE),
-    ]
-    return RASCONNSTATUSW
+RASCS_OpenPort: RASCONNSTATE = 0
+RASCS_PortOpened: RASCONNSTATE = 1
+RASCS_ConnectDevice: RASCONNSTATE = 2
+RASCS_DeviceConnected: RASCONNSTATE = 3
+RASCS_AllDevicesConnected: RASCONNSTATE = 4
+RASCS_Authenticate: RASCONNSTATE = 5
+RASCS_AuthNotify: RASCONNSTATE = 6
+RASCS_AuthRetry: RASCONNSTATE = 7
+RASCS_AuthCallback: RASCONNSTATE = 8
+RASCS_AuthChangePassword: RASCONNSTATE = 9
+RASCS_AuthProject: RASCONNSTATE = 10
+RASCS_AuthLinkSpeed: RASCONNSTATE = 11
+RASCS_AuthAck: RASCONNSTATE = 12
+RASCS_ReAuthenticate: RASCONNSTATE = 13
+RASCS_Authenticated: RASCONNSTATE = 14
+RASCS_PrepareForCallback: RASCONNSTATE = 15
+RASCS_WaitForModemReset: RASCONNSTATE = 16
+RASCS_WaitForCallback: RASCONNSTATE = 17
+RASCS_Projected: RASCONNSTATE = 18
+RASCS_StartAuthentication: RASCONNSTATE = 19
+RASCS_CallbackComplete: RASCONNSTATE = 20
+RASCS_LogonNetwork: RASCONNSTATE = 21
+RASCS_SubEntryConnected: RASCONNSTATE = 22
+RASCS_SubEntryDisconnected: RASCONNSTATE = 23
+RASCS_ApplySettings: RASCONNSTATE = 24
+RASCS_Interactive: RASCONNSTATE = 4096
+RASCS_RetryAuthentication: RASCONNSTATE = 4097
+RASCS_CallbackSetByCaller: RASCONNSTATE = 4098
+RASCS_PasswordExpired: RASCONNSTATE = 4099
+RASCS_InvokeEapUI: RASCONNSTATE = 4100
+RASCS_Connected: RASCONNSTATE = 8192
+RASCS_Disconnected: RASCONNSTATE = 8193
+class RASCONNSTATUSA(Structure):
+    dwSize: UInt32
+    rasconnstate: win32more.NetworkManagement.Rras.RASCONNSTATE
+    dwError: UInt32
+    szDeviceType: win32more.Foundation.CHAR * 17
+    szDeviceName: win32more.Foundation.CHAR * 129
+    szPhoneNumber: win32more.Foundation.CHAR * 129
+    localEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
+    remoteEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
+    rasconnsubstate: win32more.NetworkManagement.Rras.RASCONNSUBSTATE
+class RASCONNSTATUSW(Structure):
+    dwSize: UInt32
+    rasconnstate: win32more.NetworkManagement.Rras.RASCONNSTATE
+    dwError: UInt32
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szPhoneNumber: Char * 129
+    localEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
+    remoteEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
+    rasconnsubstate: win32more.NetworkManagement.Rras.RASCONNSUBSTATE
 RASCONNSUBSTATE = Int32
-RASCSS_None = 0
-RASCSS_Dormant = 1
-RASCSS_Reconnecting = 2
-RASCSS_Reconnected = 8192
-def _define_RASCONNW_head():
-    class RASCONNW(Structure):
-        pass
-    return RASCONNW
-def _define_RASCONNW():
-    RASCONNW = win32more.NetworkManagement.Rras.RASCONNW_head
-    RASCONNW._pack_ = 4
-    RASCONNW._fields_ = [
-        ('dwSize', UInt32),
-        ('hrasconn', win32more.NetworkManagement.Rras.HRASCONN),
-        ('szEntryName', Char * 257),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szPhonebook', Char * 260),
-        ('dwSubEntry', UInt32),
-        ('guidEntry', Guid),
-        ('dwFlags', UInt32),
-        ('luid', win32more.Foundation.LUID),
-        ('guidCorrelationId', Guid),
-    ]
-    return RASCONNW
-def _define_RASCREDENTIALSA_head():
-    class RASCREDENTIALSA(Structure):
-        pass
-    return RASCREDENTIALSA
-def _define_RASCREDENTIALSA():
-    RASCREDENTIALSA = win32more.NetworkManagement.Rras.RASCREDENTIALSA_head
-    RASCREDENTIALSA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwMask', UInt32),
-        ('szUserName', win32more.Foundation.CHAR * 257),
-        ('szPassword', win32more.Foundation.CHAR * 257),
-        ('szDomain', win32more.Foundation.CHAR * 16),
-    ]
-    return RASCREDENTIALSA
-def _define_RASCREDENTIALSW_head():
-    class RASCREDENTIALSW(Structure):
-        pass
-    return RASCREDENTIALSW
-def _define_RASCREDENTIALSW():
-    RASCREDENTIALSW = win32more.NetworkManagement.Rras.RASCREDENTIALSW_head
-    RASCREDENTIALSW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwMask', UInt32),
-        ('szUserName', Char * 257),
-        ('szPassword', Char * 257),
-        ('szDomain', Char * 16),
-    ]
-    return RASCREDENTIALSW
-def _define_RASCTRYINFO_head():
-    class RASCTRYINFO(Structure):
-        pass
-    return RASCTRYINFO
-def _define_RASCTRYINFO():
-    RASCTRYINFO = win32more.NetworkManagement.Rras.RASCTRYINFO_head
-    RASCTRYINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwCountryID', UInt32),
-        ('dwNextCountryID', UInt32),
-        ('dwCountryCode', UInt32),
-        ('dwCountryNameOffset', UInt32),
-    ]
-    return RASCTRYINFO
-def _define_RasCustomDeleteEntryNotifyFn():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)
-def _define_RasCustomDialDlgFn():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head),c_void_p)
-def _define_RasCustomDialFn():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HINSTANCE,POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head),win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head),UInt32,c_void_p,POINTER(win32more.NetworkManagement.Rras.HRASCONN),UInt32)
-def _define_RasCustomEntryDlgFn():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGA_head),UInt32)
-def _define_RasCustomHangUpFn():
-    return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Rras.HRASCONN)
-def _define_RasCustomScriptExecuteFn():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.NetworkManagement.Rras.PFNRASGETBUFFER,win32more.NetworkManagement.Rras.PFNRASFREEBUFFER,win32more.NetworkManagement.Rras.PFNRASSENDBUFFER,win32more.NetworkManagement.Rras.PFNRASRECEIVEBUFFER,win32more.NetworkManagement.Rras.PFNRASRETRIEVEBUFFER,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head),c_void_p)
-def _define_RASCUSTOMSCRIPTEXTENSIONS_head():
-    class RASCUSTOMSCRIPTEXTENSIONS(Structure):
-        pass
-    return RASCUSTOMSCRIPTEXTENSIONS
-def _define_RASCUSTOMSCRIPTEXTENSIONS():
-    RASCUSTOMSCRIPTEXTENSIONS = win32more.NetworkManagement.Rras.RASCUSTOMSCRIPTEXTENSIONS_head
-    RASCUSTOMSCRIPTEXTENSIONS._pack_ = 4
-    RASCUSTOMSCRIPTEXTENSIONS._fields_ = [
-        ('dwSize', UInt32),
-        ('pfnRasSetCommSettings', win32more.NetworkManagement.Rras.PFNRASSETCOMMSETTINGS),
-    ]
-    return RASCUSTOMSCRIPTEXTENSIONS
-def _define_RASDEVINFOA_head():
-    class RASDEVINFOA(Structure):
-        pass
-    return RASDEVINFOA
-def _define_RASDEVINFOA():
-    RASDEVINFOA = win32more.NetworkManagement.Rras.RASDEVINFOA_head
-    RASDEVINFOA._fields_ = [
-        ('dwSize', UInt32),
-        ('szDeviceType', win32more.Foundation.CHAR * 17),
-        ('szDeviceName', win32more.Foundation.CHAR * 129),
-    ]
-    return RASDEVINFOA
-def _define_RASDEVINFOW_head():
-    class RASDEVINFOW(Structure):
-        pass
-    return RASDEVINFOW
-def _define_RASDEVINFOW():
-    RASDEVINFOW = win32more.NetworkManagement.Rras.RASDEVINFOW_head
-    RASDEVINFOW._fields_ = [
-        ('dwSize', UInt32),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-    ]
-    return RASDEVINFOW
-def _define_RASDEVSPECIFICINFO_head():
-    class RASDEVSPECIFICINFO(Structure):
-        pass
-    return RASDEVSPECIFICINFO
-def _define_RASDEVSPECIFICINFO():
-    RASDEVSPECIFICINFO = win32more.NetworkManagement.Rras.RASDEVSPECIFICINFO_head
-    RASDEVSPECIFICINFO._pack_ = 4
-    RASDEVSPECIFICINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('pbDevSpecificInfo', c_char_p_no),
-    ]
-    return RASDEVSPECIFICINFO
-def _define_RASDIALDLG_head():
-    class RASDIALDLG(Structure):
-        pass
-    return RASDIALDLG
-def _define_RASDIALDLG():
-    RASDIALDLG = win32more.NetworkManagement.Rras.RASDIALDLG_head
-    RASDIALDLG._pack_ = 4
-    RASDIALDLG._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-        ('dwSubEntry', UInt32),
-        ('dwError', UInt32),
-        ('reserved', UIntPtr),
-        ('reserved2', UIntPtr),
-    ]
-    return RASDIALDLG
-def _define_RASDIALEXTENSIONS_head():
-    class RASDIALEXTENSIONS(Structure):
-        pass
-    return RASDIALEXTENSIONS
-def _define_RASDIALEXTENSIONS():
-    RASDIALEXTENSIONS = win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head
-    RASDIALEXTENSIONS._pack_ = 4
-    RASDIALEXTENSIONS._fields_ = [
-        ('dwSize', UInt32),
-        ('dwfOptions', UInt32),
-        ('hwndParent', win32more.Foundation.HWND),
-        ('reserved', UIntPtr),
-        ('reserved1', UIntPtr),
-        ('RasEapInfo', win32more.NetworkManagement.Rras.RASEAPINFO),
-        ('fSkipPppAuth', win32more.Foundation.BOOL),
-        ('RasDevSpecificInfo', win32more.NetworkManagement.Rras.RASDEVSPECIFICINFO),
-    ]
-    return RASDIALEXTENSIONS
-def _define_RASDIALFUNC():
-    return WINFUNCTYPE(Void,UInt32,win32more.NetworkManagement.Rras.RASCONNSTATE,UInt32)
-def _define_RASDIALFUNC1():
-    return WINFUNCTYPE(Void,win32more.NetworkManagement.Rras.HRASCONN,UInt32,win32more.NetworkManagement.Rras.RASCONNSTATE,UInt32,UInt32)
-def _define_RASDIALFUNC2():
-    return WINFUNCTYPE(UInt32,UIntPtr,UInt32,win32more.NetworkManagement.Rras.HRASCONN,UInt32,win32more.NetworkManagement.Rras.RASCONNSTATE,UInt32,UInt32)
-def _define_RASDIALPARAMSA_head():
-    class RASDIALPARAMSA(Structure):
-        pass
-    return RASDIALPARAMSA
-def _define_RASDIALPARAMSA():
-    RASDIALPARAMSA = win32more.NetworkManagement.Rras.RASDIALPARAMSA_head
-    RASDIALPARAMSA._pack_ = 4
-    RASDIALPARAMSA._fields_ = [
-        ('dwSize', UInt32),
-        ('szEntryName', win32more.Foundation.CHAR * 257),
-        ('szPhoneNumber', win32more.Foundation.CHAR * 129),
-        ('szCallbackNumber', win32more.Foundation.CHAR * 129),
-        ('szUserName', win32more.Foundation.CHAR * 257),
-        ('szPassword', win32more.Foundation.CHAR * 257),
-        ('szDomain', win32more.Foundation.CHAR * 16),
-        ('dwSubEntry', UInt32),
-        ('dwCallbackId', UIntPtr),
-        ('dwIfIndex', UInt32),
-        ('szEncPassword', win32more.Foundation.PSTR),
-    ]
-    return RASDIALPARAMSA
-def _define_RASDIALPARAMSW_head():
-    class RASDIALPARAMSW(Structure):
-        pass
-    return RASDIALPARAMSW
-def _define_RASDIALPARAMSW():
-    RASDIALPARAMSW = win32more.NetworkManagement.Rras.RASDIALPARAMSW_head
-    RASDIALPARAMSW._pack_ = 4
-    RASDIALPARAMSW._fields_ = [
-        ('dwSize', UInt32),
-        ('szEntryName', Char * 257),
-        ('szPhoneNumber', Char * 129),
-        ('szCallbackNumber', Char * 129),
-        ('szUserName', Char * 257),
-        ('szPassword', Char * 257),
-        ('szDomain', Char * 16),
-        ('dwSubEntry', UInt32),
-        ('dwCallbackId', UIntPtr),
-        ('dwIfIndex', UInt32),
-        ('szEncPassword', win32more.Foundation.PWSTR),
-    ]
-    return RASDIALPARAMSW
-def _define_RASEAPINFO_head():
-    class RASEAPINFO(Structure):
-        pass
-    return RASEAPINFO
-def _define_RASEAPINFO():
-    RASEAPINFO = win32more.NetworkManagement.Rras.RASEAPINFO_head
-    RASEAPINFO._pack_ = 4
-    RASEAPINFO._fields_ = [
-        ('dwSizeofEapInfo', UInt32),
-        ('pbEapInfo', c_char_p_no),
-    ]
-    return RASEAPINFO
-def _define_RASEAPUSERIDENTITYA_head():
-    class RASEAPUSERIDENTITYA(Structure):
-        pass
-    return RASEAPUSERIDENTITYA
-def _define_RASEAPUSERIDENTITYA():
-    RASEAPUSERIDENTITYA = win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYA_head
-    RASEAPUSERIDENTITYA._fields_ = [
-        ('szUserName', win32more.Foundation.CHAR * 257),
-        ('dwSizeofEapInfo', UInt32),
-        ('pbEapInfo', Byte * 1),
-    ]
-    return RASEAPUSERIDENTITYA
-def _define_RASEAPUSERIDENTITYW_head():
-    class RASEAPUSERIDENTITYW(Structure):
-        pass
-    return RASEAPUSERIDENTITYW
-def _define_RASEAPUSERIDENTITYW():
-    RASEAPUSERIDENTITYW = win32more.NetworkManagement.Rras.RASEAPUSERIDENTITYW_head
-    RASEAPUSERIDENTITYW._fields_ = [
-        ('szUserName', Char * 257),
-        ('dwSizeofEapInfo', UInt32),
-        ('pbEapInfo', Byte * 1),
-    ]
-    return RASEAPUSERIDENTITYW
+RASCSS_None: RASCONNSUBSTATE = 0
+RASCSS_Dormant: RASCONNSUBSTATE = 1
+RASCSS_Reconnecting: RASCONNSUBSTATE = 2
+RASCSS_Reconnected: RASCONNSUBSTATE = 8192
+class RASCONNW(Structure):
+    dwSize: UInt32
+    hrasconn: win32more.NetworkManagement.Rras.HRASCONN
+    szEntryName: Char * 257
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szPhonebook: Char * 260
+    dwSubEntry: UInt32
+    guidEntry: Guid
+    dwFlags: UInt32
+    luid: win32more.Foundation.LUID
+    guidCorrelationId: Guid
+    _pack_ = 4
+class RASCREDENTIALSA(Structure):
+    dwSize: UInt32
+    dwMask: UInt32
+    szUserName: win32more.Foundation.CHAR * 257
+    szPassword: win32more.Foundation.CHAR * 257
+    szDomain: win32more.Foundation.CHAR * 16
+class RASCREDENTIALSW(Structure):
+    dwSize: UInt32
+    dwMask: UInt32
+    szUserName: Char * 257
+    szPassword: Char * 257
+    szDomain: Char * 16
+class RASCTRYINFO(Structure):
+    dwSize: UInt32
+    dwCountryID: UInt32
+    dwNextCountryID: UInt32
+    dwCountryCode: UInt32
+    dwCountryNameOffset: UInt32
+@winfunctype_pointer
+def RasCustomDeleteEntryNotifyFn(lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def RasCustomDialDlgFn(hInstDll: win32more.Foundation.HINSTANCE, dwFlags: UInt32, lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, lpszPhoneNumber: win32more.Foundation.PWSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASDIALDLG_head), pvInfo: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def RasCustomDialFn(hInstDll: win32more.Foundation.HINSTANCE, lpRasDialExtensions: POINTER(win32more.NetworkManagement.Rras.RASDIALEXTENSIONS_head), lpszPhonebook: win32more.Foundation.PWSTR, lpRasDialParams: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head), dwNotifierType: UInt32, lpvNotifier: c_void_p, lphRasConn: POINTER(win32more.NetworkManagement.Rras.HRASCONN), dwFlags: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def RasCustomEntryDlgFn(hInstDll: win32more.Foundation.HINSTANCE, lpszPhonebook: win32more.Foundation.PWSTR, lpszEntry: win32more.Foundation.PWSTR, lpInfo: POINTER(win32more.NetworkManagement.Rras.RASENTRYDLGA_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def RasCustomHangUpFn(hRasConn: win32more.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
+@winfunctype_pointer
+def RasCustomScriptExecuteFn(hPort: win32more.Foundation.HANDLE, lpszPhonebook: win32more.Foundation.PWSTR, lpszEntryName: win32more.Foundation.PWSTR, pfnRasGetBuffer: win32more.NetworkManagement.Rras.PFNRASGETBUFFER, pfnRasFreeBuffer: win32more.NetworkManagement.Rras.PFNRASFREEBUFFER, pfnRasSendBuffer: win32more.NetworkManagement.Rras.PFNRASSENDBUFFER, pfnRasReceiveBuffer: win32more.NetworkManagement.Rras.PFNRASRECEIVEBUFFER, pfnRasRetrieveBuffer: win32more.NetworkManagement.Rras.PFNRASRETRIEVEBUFFER, hWnd: win32more.Foundation.HWND, pRasDialParams: POINTER(win32more.NetworkManagement.Rras.RASDIALPARAMSA_head), pvReserved: c_void_p) -> UInt32: ...
+class RASCUSTOMSCRIPTEXTENSIONS(Structure):
+    dwSize: UInt32
+    pfnRasSetCommSettings: win32more.NetworkManagement.Rras.PFNRASSETCOMMSETTINGS
+    _pack_ = 4
+class RASDEVINFOA(Structure):
+    dwSize: UInt32
+    szDeviceType: win32more.Foundation.CHAR * 17
+    szDeviceName: win32more.Foundation.CHAR * 129
+class RASDEVINFOW(Structure):
+    dwSize: UInt32
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+class RASDEVSPECIFICINFO(Structure):
+    dwSize: UInt32
+    pbDevSpecificInfo: c_char_p_no
+    _pack_ = 4
+class RASDIALDLG(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    dwSubEntry: UInt32
+    dwError: UInt32
+    reserved: UIntPtr
+    reserved2: UIntPtr
+    _pack_ = 4
+class RASDIALEXTENSIONS(Structure):
+    dwSize: UInt32
+    dwfOptions: UInt32
+    hwndParent: win32more.Foundation.HWND
+    reserved: UIntPtr
+    reserved1: UIntPtr
+    RasEapInfo: win32more.NetworkManagement.Rras.RASEAPINFO
+    fSkipPppAuth: win32more.Foundation.BOOL
+    RasDevSpecificInfo: win32more.NetworkManagement.Rras.RASDEVSPECIFICINFO
+    _pack_ = 4
+@winfunctype_pointer
+def RASDIALFUNC(param0: UInt32, param1: win32more.NetworkManagement.Rras.RASCONNSTATE, param2: UInt32) -> Void: ...
+@winfunctype_pointer
+def RASDIALFUNC1(param0: win32more.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: win32more.NetworkManagement.Rras.RASCONNSTATE, param3: UInt32, param4: UInt32) -> Void: ...
+@winfunctype_pointer
+def RASDIALFUNC2(param0: UIntPtr, param1: UInt32, param2: win32more.NetworkManagement.Rras.HRASCONN, param3: UInt32, param4: win32more.NetworkManagement.Rras.RASCONNSTATE, param5: UInt32, param6: UInt32) -> UInt32: ...
+class RASDIALPARAMSA(Structure):
+    dwSize: UInt32
+    szEntryName: win32more.Foundation.CHAR * 257
+    szPhoneNumber: win32more.Foundation.CHAR * 129
+    szCallbackNumber: win32more.Foundation.CHAR * 129
+    szUserName: win32more.Foundation.CHAR * 257
+    szPassword: win32more.Foundation.CHAR * 257
+    szDomain: win32more.Foundation.CHAR * 16
+    dwSubEntry: UInt32
+    dwCallbackId: UIntPtr
+    dwIfIndex: UInt32
+    szEncPassword: win32more.Foundation.PSTR
+    _pack_ = 4
+class RASDIALPARAMSW(Structure):
+    dwSize: UInt32
+    szEntryName: Char * 257
+    szPhoneNumber: Char * 129
+    szCallbackNumber: Char * 129
+    szUserName: Char * 257
+    szPassword: Char * 257
+    szDomain: Char * 16
+    dwSubEntry: UInt32
+    dwCallbackId: UIntPtr
+    dwIfIndex: UInt32
+    szEncPassword: win32more.Foundation.PWSTR
+    _pack_ = 4
+class RASEAPINFO(Structure):
+    dwSizeofEapInfo: UInt32
+    pbEapInfo: c_char_p_no
+    _pack_ = 4
+class RASEAPUSERIDENTITYA(Structure):
+    szUserName: win32more.Foundation.CHAR * 257
+    dwSizeofEapInfo: UInt32
+    pbEapInfo: Byte * 1
+class RASEAPUSERIDENTITYW(Structure):
+    szUserName: Char * 257
+    dwSizeofEapInfo: UInt32
+    pbEapInfo: Byte * 1
 RASENTRY_DIAL_MODE = UInt32
-RASEDM_DialAll = 1
-RASEDM_DialAsNeeded = 2
-def _define_RASENTRYA_head():
-    class RASENTRYA(Structure):
-        pass
-    return RASENTRYA
-def _define_RASENTRYA():
-    RASENTRYA = win32more.NetworkManagement.Rras.RASENTRYA_head
-    RASENTRYA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwfOptions', UInt32),
-        ('dwCountryID', UInt32),
-        ('dwCountryCode', UInt32),
-        ('szAreaCode', win32more.Foundation.CHAR * 11),
-        ('szLocalPhoneNumber', win32more.Foundation.CHAR * 129),
-        ('dwAlternateOffset', UInt32),
-        ('ipaddr', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrDns', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrDnsAlt', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrWins', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrWinsAlt', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('dwFrameSize', UInt32),
-        ('dwfNetProtocols', UInt32),
-        ('dwFramingProtocol', UInt32),
-        ('szScript', win32more.Foundation.CHAR * 260),
-        ('szAutodialDll', win32more.Foundation.CHAR * 260),
-        ('szAutodialFunc', win32more.Foundation.CHAR * 260),
-        ('szDeviceType', win32more.Foundation.CHAR * 17),
-        ('szDeviceName', win32more.Foundation.CHAR * 129),
-        ('szX25PadType', win32more.Foundation.CHAR * 33),
-        ('szX25Address', win32more.Foundation.CHAR * 201),
-        ('szX25Facilities', win32more.Foundation.CHAR * 201),
-        ('szX25UserData', win32more.Foundation.CHAR * 201),
-        ('dwChannels', UInt32),
-        ('dwReserved1', UInt32),
-        ('dwReserved2', UInt32),
-        ('dwSubEntries', UInt32),
-        ('dwDialMode', win32more.NetworkManagement.Rras.RASENTRY_DIAL_MODE),
-        ('dwDialExtraPercent', UInt32),
-        ('dwDialExtraSampleSeconds', UInt32),
-        ('dwHangUpExtraPercent', UInt32),
-        ('dwHangUpExtraSampleSeconds', UInt32),
-        ('dwIdleDisconnectSeconds', UInt32),
-        ('dwType', UInt32),
-        ('dwEncryptionType', UInt32),
-        ('dwCustomAuthKey', UInt32),
-        ('guidId', Guid),
-        ('szCustomDialDll', win32more.Foundation.CHAR * 260),
-        ('dwVpnStrategy', UInt32),
-        ('dwfOptions2', UInt32),
-        ('dwfOptions3', UInt32),
-        ('szDnsSuffix', win32more.Foundation.CHAR * 256),
-        ('dwTcpWindowSize', UInt32),
-        ('szPrerequisitePbk', win32more.Foundation.CHAR * 260),
-        ('szPrerequisiteEntry', win32more.Foundation.CHAR * 257),
-        ('dwRedialCount', UInt32),
-        ('dwRedialPause', UInt32),
-        ('ipv6addrDns', win32more.Networking.WinSock.IN6_ADDR),
-        ('ipv6addrDnsAlt', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwIPv4InterfaceMetric', UInt32),
-        ('dwIPv6InterfaceMetric', UInt32),
-        ('ipv6addr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwIPv6PrefixLength', UInt32),
-        ('dwNetworkOutageTime', UInt32),
-        ('szIDi', win32more.Foundation.CHAR * 257),
-        ('szIDr', win32more.Foundation.CHAR * 257),
-        ('fIsImsConfig', win32more.Foundation.BOOL),
-        ('IdiType', win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE),
-        ('IdrType', win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE),
-        ('fDisableIKEv2Fragmentation', win32more.Foundation.BOOL),
-    ]
-    return RASENTRYA
-def _define_RASENTRYDLGA_head():
-    class RASENTRYDLGA(Structure):
-        pass
-    return RASENTRYDLGA
-def _define_RASENTRYDLGA():
-    RASENTRYDLGA = win32more.NetworkManagement.Rras.RASENTRYDLGA_head
-    RASENTRYDLGA._pack_ = 4
-    RASENTRYDLGA._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-        ('szEntry', win32more.Foundation.CHAR * 257),
-        ('dwError', UInt32),
-        ('reserved', UIntPtr),
-        ('reserved2', UIntPtr),
-    ]
-    return RASENTRYDLGA
-def _define_RASENTRYDLGW_head():
-    class RASENTRYDLGW(Structure):
-        pass
-    return RASENTRYDLGW
-def _define_RASENTRYDLGW():
-    RASENTRYDLGW = win32more.NetworkManagement.Rras.RASENTRYDLGW_head
-    RASENTRYDLGW._pack_ = 4
-    RASENTRYDLGW._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-        ('szEntry', Char * 257),
-        ('dwError', UInt32),
-        ('reserved', UIntPtr),
-        ('reserved2', UIntPtr),
-    ]
-    return RASENTRYDLGW
-def _define_RASENTRYNAMEA_head():
-    class RASENTRYNAMEA(Structure):
-        pass
-    return RASENTRYNAMEA
-def _define_RASENTRYNAMEA():
-    RASENTRYNAMEA = win32more.NetworkManagement.Rras.RASENTRYNAMEA_head
-    RASENTRYNAMEA._fields_ = [
-        ('dwSize', UInt32),
-        ('szEntryName', win32more.Foundation.CHAR * 257),
-        ('dwFlags', UInt32),
-        ('szPhonebookPath', win32more.Foundation.CHAR * 261),
-    ]
-    return RASENTRYNAMEA
-def _define_RASENTRYNAMEW_head():
-    class RASENTRYNAMEW(Structure):
-        pass
-    return RASENTRYNAMEW
-def _define_RASENTRYNAMEW():
-    RASENTRYNAMEW = win32more.NetworkManagement.Rras.RASENTRYNAMEW_head
-    RASENTRYNAMEW._fields_ = [
-        ('dwSize', UInt32),
-        ('szEntryName', Char * 257),
-        ('dwFlags', UInt32),
-        ('szPhonebookPath', Char * 261),
-    ]
-    return RASENTRYNAMEW
-def _define_RASENTRYW_head():
-    class RASENTRYW(Structure):
-        pass
-    return RASENTRYW
-def _define_RASENTRYW():
-    RASENTRYW = win32more.NetworkManagement.Rras.RASENTRYW_head
-    RASENTRYW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwfOptions', UInt32),
-        ('dwCountryID', UInt32),
-        ('dwCountryCode', UInt32),
-        ('szAreaCode', Char * 11),
-        ('szLocalPhoneNumber', Char * 129),
-        ('dwAlternateOffset', UInt32),
-        ('ipaddr', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrDns', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrDnsAlt', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrWins', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('ipaddrWinsAlt', win32more.NetworkManagement.Rras.RASIPADDR),
-        ('dwFrameSize', UInt32),
-        ('dwfNetProtocols', UInt32),
-        ('dwFramingProtocol', UInt32),
-        ('szScript', Char * 260),
-        ('szAutodialDll', Char * 260),
-        ('szAutodialFunc', Char * 260),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szX25PadType', Char * 33),
-        ('szX25Address', Char * 201),
-        ('szX25Facilities', Char * 201),
-        ('szX25UserData', Char * 201),
-        ('dwChannels', UInt32),
-        ('dwReserved1', UInt32),
-        ('dwReserved2', UInt32),
-        ('dwSubEntries', UInt32),
-        ('dwDialMode', win32more.NetworkManagement.Rras.RASENTRY_DIAL_MODE),
-        ('dwDialExtraPercent', UInt32),
-        ('dwDialExtraSampleSeconds', UInt32),
-        ('dwHangUpExtraPercent', UInt32),
-        ('dwHangUpExtraSampleSeconds', UInt32),
-        ('dwIdleDisconnectSeconds', UInt32),
-        ('dwType', UInt32),
-        ('dwEncryptionType', UInt32),
-        ('dwCustomAuthKey', UInt32),
-        ('guidId', Guid),
-        ('szCustomDialDll', Char * 260),
-        ('dwVpnStrategy', UInt32),
-        ('dwfOptions2', UInt32),
-        ('dwfOptions3', UInt32),
-        ('szDnsSuffix', Char * 256),
-        ('dwTcpWindowSize', UInt32),
-        ('szPrerequisitePbk', Char * 260),
-        ('szPrerequisiteEntry', Char * 257),
-        ('dwRedialCount', UInt32),
-        ('dwRedialPause', UInt32),
-        ('ipv6addrDns', win32more.Networking.WinSock.IN6_ADDR),
-        ('ipv6addrDnsAlt', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwIPv4InterfaceMetric', UInt32),
-        ('dwIPv6InterfaceMetric', UInt32),
-        ('ipv6addr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwIPv6PrefixLength', UInt32),
-        ('dwNetworkOutageTime', UInt32),
-        ('szIDi', Char * 257),
-        ('szIDr', Char * 257),
-        ('fIsImsConfig', win32more.Foundation.BOOL),
-        ('IdiType', win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE),
-        ('IdrType', win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE),
-        ('fDisableIKEv2Fragmentation', win32more.Foundation.BOOL),
-    ]
-    return RASENTRYW
+RASEDM_DialAll: RASENTRY_DIAL_MODE = 1
+RASEDM_DialAsNeeded: RASENTRY_DIAL_MODE = 2
+class RASENTRYA(Structure):
+    dwSize: UInt32
+    dwfOptions: UInt32
+    dwCountryID: UInt32
+    dwCountryCode: UInt32
+    szAreaCode: win32more.Foundation.CHAR * 11
+    szLocalPhoneNumber: win32more.Foundation.CHAR * 129
+    dwAlternateOffset: UInt32
+    ipaddr: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrDns: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrDnsAlt: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrWins: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrWinsAlt: win32more.NetworkManagement.Rras.RASIPADDR
+    dwFrameSize: UInt32
+    dwfNetProtocols: UInt32
+    dwFramingProtocol: UInt32
+    szScript: win32more.Foundation.CHAR * 260
+    szAutodialDll: win32more.Foundation.CHAR * 260
+    szAutodialFunc: win32more.Foundation.CHAR * 260
+    szDeviceType: win32more.Foundation.CHAR * 17
+    szDeviceName: win32more.Foundation.CHAR * 129
+    szX25PadType: win32more.Foundation.CHAR * 33
+    szX25Address: win32more.Foundation.CHAR * 201
+    szX25Facilities: win32more.Foundation.CHAR * 201
+    szX25UserData: win32more.Foundation.CHAR * 201
+    dwChannels: UInt32
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+    dwSubEntries: UInt32
+    dwDialMode: win32more.NetworkManagement.Rras.RASENTRY_DIAL_MODE
+    dwDialExtraPercent: UInt32
+    dwDialExtraSampleSeconds: UInt32
+    dwHangUpExtraPercent: UInt32
+    dwHangUpExtraSampleSeconds: UInt32
+    dwIdleDisconnectSeconds: UInt32
+    dwType: UInt32
+    dwEncryptionType: UInt32
+    dwCustomAuthKey: UInt32
+    guidId: Guid
+    szCustomDialDll: win32more.Foundation.CHAR * 260
+    dwVpnStrategy: UInt32
+    dwfOptions2: UInt32
+    dwfOptions3: UInt32
+    szDnsSuffix: win32more.Foundation.CHAR * 256
+    dwTcpWindowSize: UInt32
+    szPrerequisitePbk: win32more.Foundation.CHAR * 260
+    szPrerequisiteEntry: win32more.Foundation.CHAR * 257
+    dwRedialCount: UInt32
+    dwRedialPause: UInt32
+    ipv6addrDns: win32more.Networking.WinSock.IN6_ADDR
+    ipv6addrDnsAlt: win32more.Networking.WinSock.IN6_ADDR
+    dwIPv4InterfaceMetric: UInt32
+    dwIPv6InterfaceMetric: UInt32
+    ipv6addr: win32more.Networking.WinSock.IN6_ADDR
+    dwIPv6PrefixLength: UInt32
+    dwNetworkOutageTime: UInt32
+    szIDi: win32more.Foundation.CHAR * 257
+    szIDr: win32more.Foundation.CHAR * 257
+    fIsImsConfig: win32more.Foundation.BOOL
+    IdiType: win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
+    IdrType: win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
+    fDisableIKEv2Fragmentation: win32more.Foundation.BOOL
+class RASENTRYDLGA(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    szEntry: win32more.Foundation.CHAR * 257
+    dwError: UInt32
+    reserved: UIntPtr
+    reserved2: UIntPtr
+    _pack_ = 4
+class RASENTRYDLGW(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    szEntry: Char * 257
+    dwError: UInt32
+    reserved: UIntPtr
+    reserved2: UIntPtr
+    _pack_ = 4
+class RASENTRYNAMEA(Structure):
+    dwSize: UInt32
+    szEntryName: win32more.Foundation.CHAR * 257
+    dwFlags: UInt32
+    szPhonebookPath: win32more.Foundation.CHAR * 261
+class RASENTRYNAMEW(Structure):
+    dwSize: UInt32
+    szEntryName: Char * 257
+    dwFlags: UInt32
+    szPhonebookPath: Char * 261
+class RASENTRYW(Structure):
+    dwSize: UInt32
+    dwfOptions: UInt32
+    dwCountryID: UInt32
+    dwCountryCode: UInt32
+    szAreaCode: Char * 11
+    szLocalPhoneNumber: Char * 129
+    dwAlternateOffset: UInt32
+    ipaddr: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrDns: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrDnsAlt: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrWins: win32more.NetworkManagement.Rras.RASIPADDR
+    ipaddrWinsAlt: win32more.NetworkManagement.Rras.RASIPADDR
+    dwFrameSize: UInt32
+    dwfNetProtocols: UInt32
+    dwFramingProtocol: UInt32
+    szScript: Char * 260
+    szAutodialDll: Char * 260
+    szAutodialFunc: Char * 260
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szX25PadType: Char * 33
+    szX25Address: Char * 201
+    szX25Facilities: Char * 201
+    szX25UserData: Char * 201
+    dwChannels: UInt32
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+    dwSubEntries: UInt32
+    dwDialMode: win32more.NetworkManagement.Rras.RASENTRY_DIAL_MODE
+    dwDialExtraPercent: UInt32
+    dwDialExtraSampleSeconds: UInt32
+    dwHangUpExtraPercent: UInt32
+    dwHangUpExtraSampleSeconds: UInt32
+    dwIdleDisconnectSeconds: UInt32
+    dwType: UInt32
+    dwEncryptionType: UInt32
+    dwCustomAuthKey: UInt32
+    guidId: Guid
+    szCustomDialDll: Char * 260
+    dwVpnStrategy: UInt32
+    dwfOptions2: UInt32
+    dwfOptions3: UInt32
+    szDnsSuffix: Char * 256
+    dwTcpWindowSize: UInt32
+    szPrerequisitePbk: Char * 260
+    szPrerequisiteEntry: Char * 257
+    dwRedialCount: UInt32
+    dwRedialPause: UInt32
+    ipv6addrDns: win32more.Networking.WinSock.IN6_ADDR
+    ipv6addrDnsAlt: win32more.Networking.WinSock.IN6_ADDR
+    dwIPv4InterfaceMetric: UInt32
+    dwIPv6InterfaceMetric: UInt32
+    ipv6addr: win32more.Networking.WinSock.IN6_ADDR
+    dwIPv6PrefixLength: UInt32
+    dwNetworkOutageTime: UInt32
+    szIDi: Char * 257
+    szIDr: Char * 257
+    fIsImsConfig: win32more.Foundation.BOOL
+    IdiType: win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
+    IdrType: win32more.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
+    fDisableIKEv2Fragmentation: win32more.Foundation.BOOL
 RASIKEV_PROJECTION_INFO_FLAGS = UInt32
-RASIKEv2_FLAGS_MOBIKESUPPORTED = 1
-RASIKEv2_FLAGS_BEHIND_NAT = 2
-RASIKEv2_FLAGS_SERVERBEHIND_NAT = 4
-def _define_RASIKEV2_PROJECTION_INFO_head():
-    class RASIKEV2_PROJECTION_INFO(Structure):
-        pass
-    return RASIKEV2_PROJECTION_INFO
-def _define_RASIKEV2_PROJECTION_INFO():
-    RASIKEV2_PROJECTION_INFO = win32more.NetworkManagement.Rras.RASIKEV2_PROJECTION_INFO_head
-    RASIKEV2_PROJECTION_INFO._pack_ = 4
-    RASIKEV2_PROJECTION_INFO._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('ipv4Address', win32more.Networking.WinSock.IN_ADDR),
-        ('ipv4ServerAddress', win32more.Networking.WinSock.IN_ADDR),
-        ('dwIPv6NegotiationError', UInt32),
-        ('ipv6Address', win32more.Networking.WinSock.IN6_ADDR),
-        ('ipv6ServerAddress', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwPrefixLength', UInt32),
-        ('dwAuthenticationProtocol', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwFlags', win32more.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS),
-        ('dwEncryptionMethod', UInt32),
-        ('numIPv4ServerAddresses', UInt32),
-        ('ipv4ServerAddresses', POINTER(win32more.Networking.WinSock.IN_ADDR_head)),
-        ('numIPv6ServerAddresses', UInt32),
-        ('ipv6ServerAddresses', POINTER(win32more.Networking.WinSock.IN6_ADDR_head)),
-    ]
-    return RASIKEV2_PROJECTION_INFO
-def _define_RASIPADDR_head():
-    class RASIPADDR(Structure):
-        pass
-    return RASIPADDR
-def _define_RASIPADDR():
-    RASIPADDR = win32more.NetworkManagement.Rras.RASIPADDR_head
-    RASIPADDR._fields_ = [
-        ('a', Byte),
-        ('b', Byte),
-        ('c', Byte),
-        ('d', Byte),
-    ]
-    return RASIPADDR
-def _define_RASIPXW_head():
-    class RASIPXW(Structure):
-        pass
-    return RASIPXW
-def _define_RASIPXW():
-    RASIPXW = win32more.NetworkManagement.Rras.RASIPXW_head
-    RASIPXW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szIpxAddress', Char * 22),
-    ]
-    return RASIPXW
-def _define_RASNOUSERA_head():
-    class RASNOUSERA(Structure):
-        pass
-    return RASNOUSERA
-def _define_RASNOUSERA():
-    RASNOUSERA = win32more.NetworkManagement.Rras.RASNOUSERA_head
-    RASNOUSERA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwTimeoutMs', UInt32),
-        ('szUserName', win32more.Foundation.CHAR * 257),
-        ('szPassword', win32more.Foundation.CHAR * 257),
-        ('szDomain', win32more.Foundation.CHAR * 16),
-    ]
-    return RASNOUSERA
-def _define_RASNOUSERW_head():
-    class RASNOUSERW(Structure):
-        pass
-    return RASNOUSERW
-def _define_RASNOUSERW():
-    RASNOUSERW = win32more.NetworkManagement.Rras.RASNOUSERW_head
-    RASNOUSERW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwTimeoutMs', UInt32),
-        ('szUserName', Char * 257),
-        ('szPassword', Char * 257),
-        ('szDomain', Char * 16),
-    ]
-    return RASNOUSERW
-def _define_RASPBDLGA_head():
-    class RASPBDLGA(Structure):
-        pass
-    return RASPBDLGA
-def _define_RASPBDLGA():
-    RASPBDLGA = win32more.NetworkManagement.Rras.RASPBDLGA_head
-    RASPBDLGA._pack_ = 4
-    RASPBDLGA._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-        ('dwCallbackId', UIntPtr),
-        ('pCallback', win32more.NetworkManagement.Rras.RASPBDLGFUNCA),
-        ('dwError', UInt32),
-        ('reserved', UIntPtr),
-        ('reserved2', UIntPtr),
-    ]
-    return RASPBDLGA
-def _define_RASPBDLGFUNCA():
-    return WINFUNCTYPE(Void,UIntPtr,UInt32,win32more.Foundation.PSTR,c_void_p)
-def _define_RASPBDLGFUNCW():
-    return WINFUNCTYPE(Void,UIntPtr,UInt32,win32more.Foundation.PWSTR,c_void_p)
-def _define_RASPBDLGW_head():
-    class RASPBDLGW(Structure):
-        pass
-    return RASPBDLGW
-def _define_RASPBDLGW():
-    RASPBDLGW = win32more.NetworkManagement.Rras.RASPBDLGW_head
-    RASPBDLGW._pack_ = 4
-    RASPBDLGW._fields_ = [
-        ('dwSize', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('dwFlags', UInt32),
-        ('xDlg', Int32),
-        ('yDlg', Int32),
-        ('dwCallbackId', UIntPtr),
-        ('pCallback', win32more.NetworkManagement.Rras.RASPBDLGFUNCW),
-        ('dwError', UInt32),
-        ('reserved', UIntPtr),
-        ('reserved2', UIntPtr),
-    ]
-    return RASPBDLGW
-def _define_RASPPP_PROJECTION_INFO_head():
-    class RASPPP_PROJECTION_INFO(Structure):
-        pass
-    return RASPPP_PROJECTION_INFO
-def _define_RASPPP_PROJECTION_INFO():
-    RASPPP_PROJECTION_INFO = win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_head
-    RASPPP_PROJECTION_INFO._fields_ = [
-        ('dwIPv4NegotiationError', UInt32),
-        ('ipv4Address', win32more.Networking.WinSock.IN_ADDR),
-        ('ipv4ServerAddress', win32more.Networking.WinSock.IN_ADDR),
-        ('dwIPv4Options', UInt32),
-        ('dwIPv4ServerOptions', UInt32),
-        ('dwIPv6NegotiationError', UInt32),
-        ('bInterfaceIdentifier', Byte * 8),
-        ('bServerInterfaceIdentifier', Byte * 8),
-        ('fBundled', win32more.Foundation.BOOL),
-        ('fMultilink', win32more.Foundation.BOOL),
-        ('dwAuthenticationProtocol', win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL),
-        ('dwAuthenticationData', win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA),
-        ('dwServerAuthenticationProtocol', win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL),
-        ('dwServerAuthenticationData', win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA),
-        ('dwEapTypeId', UInt32),
-        ('dwServerEapTypeId', UInt32),
-        ('dwLcpOptions', UInt32),
-        ('dwLcpServerOptions', UInt32),
-        ('dwCcpError', UInt32),
-        ('dwCcpCompressionAlgorithm', UInt32),
-        ('dwCcpServerCompressionAlgorithm', UInt32),
-        ('dwCcpOptions', UInt32),
-        ('dwCcpServerOptions', UInt32),
-    ]
-    return RASPPP_PROJECTION_INFO
+RASIKEv2_FLAGS_MOBIKESUPPORTED: RASIKEV_PROJECTION_INFO_FLAGS = 1
+RASIKEv2_FLAGS_BEHIND_NAT: RASIKEV_PROJECTION_INFO_FLAGS = 2
+RASIKEv2_FLAGS_SERVERBEHIND_NAT: RASIKEV_PROJECTION_INFO_FLAGS = 4
+class RASIKEV2_PROJECTION_INFO(Structure):
+    dwIPv4NegotiationError: UInt32
+    ipv4Address: win32more.Networking.WinSock.IN_ADDR
+    ipv4ServerAddress: win32more.Networking.WinSock.IN_ADDR
+    dwIPv6NegotiationError: UInt32
+    ipv6Address: win32more.Networking.WinSock.IN6_ADDR
+    ipv6ServerAddress: win32more.Networking.WinSock.IN6_ADDR
+    dwPrefixLength: UInt32
+    dwAuthenticationProtocol: UInt32
+    dwEapTypeId: UInt32
+    dwFlags: win32more.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS
+    dwEncryptionMethod: UInt32
+    numIPv4ServerAddresses: UInt32
+    ipv4ServerAddresses: POINTER(win32more.Networking.WinSock.IN_ADDR_head)
+    numIPv6ServerAddresses: UInt32
+    ipv6ServerAddresses: POINTER(win32more.Networking.WinSock.IN6_ADDR_head)
+    _pack_ = 4
+class RASIPADDR(Structure):
+    a: Byte
+    b: Byte
+    c: Byte
+    d: Byte
+class RASIPXW(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szIpxAddress: Char * 22
+class RASNOUSERA(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwTimeoutMs: UInt32
+    szUserName: win32more.Foundation.CHAR * 257
+    szPassword: win32more.Foundation.CHAR * 257
+    szDomain: win32more.Foundation.CHAR * 16
+class RASNOUSERW(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwTimeoutMs: UInt32
+    szUserName: Char * 257
+    szPassword: Char * 257
+    szDomain: Char * 16
+class RASPBDLGA(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    dwCallbackId: UIntPtr
+    pCallback: win32more.NetworkManagement.Rras.RASPBDLGFUNCA
+    dwError: UInt32
+    reserved: UIntPtr
+    reserved2: UIntPtr
+    _pack_ = 4
+@winfunctype_pointer
+def RASPBDLGFUNCA(param0: UIntPtr, param1: UInt32, param2: win32more.Foundation.PSTR, param3: c_void_p) -> Void: ...
+@winfunctype_pointer
+def RASPBDLGFUNCW(param0: UIntPtr, param1: UInt32, param2: win32more.Foundation.PWSTR, param3: c_void_p) -> Void: ...
+class RASPBDLGW(Structure):
+    dwSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    xDlg: Int32
+    yDlg: Int32
+    dwCallbackId: UIntPtr
+    pCallback: win32more.NetworkManagement.Rras.RASPBDLGFUNCW
+    dwError: UInt32
+    reserved: UIntPtr
+    reserved2: UIntPtr
+    _pack_ = 4
+class RASPPP_PROJECTION_INFO(Structure):
+    dwIPv4NegotiationError: UInt32
+    ipv4Address: win32more.Networking.WinSock.IN_ADDR
+    ipv4ServerAddress: win32more.Networking.WinSock.IN_ADDR
+    dwIPv4Options: UInt32
+    dwIPv4ServerOptions: UInt32
+    dwIPv6NegotiationError: UInt32
+    bInterfaceIdentifier: Byte * 8
+    bServerInterfaceIdentifier: Byte * 8
+    fBundled: win32more.Foundation.BOOL
+    fMultilink: win32more.Foundation.BOOL
+    dwAuthenticationProtocol: win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL
+    dwAuthenticationData: win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA
+    dwServerAuthenticationProtocol: win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL
+    dwServerAuthenticationData: win32more.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA
+    dwEapTypeId: UInt32
+    dwServerEapTypeId: UInt32
+    dwLcpOptions: UInt32
+    dwLcpServerOptions: UInt32
+    dwCcpError: UInt32
+    dwCcpCompressionAlgorithm: UInt32
+    dwCcpServerCompressionAlgorithm: UInt32
+    dwCcpOptions: UInt32
+    dwCcpServerOptions: UInt32
 RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = UInt32
-RASLCPAD_CHAP_MD5 = 5
-RASLCPAD_CHAP_MS = 128
-RASLCPAD_CHAP_MSV2 = 129
+RASLCPAD_CHAP_MD5: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 5
+RASLCPAD_CHAP_MS: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 128
+RASLCPAD_CHAP_MSV2: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 129
 RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = UInt32
-RASLCPAP_PAP = 49187
-RASLCPAP_SPAP = 49191
-RASLCPAP_CHAP = 49699
-RASLCPAP_EAP = 49703
-def _define_RASPPPCCP_head():
-    class RASPPPCCP(Structure):
-        pass
-    return RASPPPCCP
-def _define_RASPPPCCP():
-    RASPPPCCP = win32more.NetworkManagement.Rras.RASPPPCCP_head
-    RASPPPCCP._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('dwCompressionAlgorithm', UInt32),
-        ('dwOptions', UInt32),
-        ('dwServerCompressionAlgorithm', UInt32),
-        ('dwServerOptions', UInt32),
-    ]
-    return RASPPPCCP
-def _define_RASPPPIPA_head():
-    class RASPPPIPA(Structure):
-        pass
-    return RASPPPIPA
-def _define_RASPPPIPA():
-    RASPPPIPA = win32more.NetworkManagement.Rras.RASPPPIPA_head
-    RASPPPIPA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szIpAddress', win32more.Foundation.CHAR * 16),
-        ('szServerIpAddress', win32more.Foundation.CHAR * 16),
-        ('dwOptions', UInt32),
-        ('dwServerOptions', UInt32),
-    ]
-    return RASPPPIPA
-def _define_RASPPPIPV6_head():
-    class RASPPPIPV6(Structure):
-        pass
-    return RASPPPIPV6
-def _define_RASPPPIPV6():
-    RASPPPIPV6 = win32more.NetworkManagement.Rras.RASPPPIPV6_head
-    RASPPPIPV6._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('bLocalInterfaceIdentifier', Byte * 8),
-        ('bPeerInterfaceIdentifier', Byte * 8),
-        ('bLocalCompressionProtocol', Byte * 2),
-        ('bPeerCompressionProtocol', Byte * 2),
-    ]
-    return RASPPPIPV6
-def _define_RASPPPIPW_head():
-    class RASPPPIPW(Structure):
-        pass
-    return RASPPPIPW
-def _define_RASPPPIPW():
-    RASPPPIPW = win32more.NetworkManagement.Rras.RASPPPIPW_head
-    RASPPPIPW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szIpAddress', Char * 16),
-        ('szServerIpAddress', Char * 16),
-        ('dwOptions', UInt32),
-        ('dwServerOptions', UInt32),
-    ]
-    return RASPPPIPW
-def _define_RASPPPIPXA_head():
-    class RASPPPIPXA(Structure):
-        pass
-    return RASPPPIPXA
-def _define_RASPPPIPXA():
-    RASPPPIPXA = win32more.NetworkManagement.Rras.RASPPPIPXA_head
-    RASPPPIPXA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('szIpxAddress', win32more.Foundation.CHAR * 22),
-    ]
-    return RASPPPIPXA
-def _define_RASPPPLCPA_head():
-    class RASPPPLCPA(Structure):
-        pass
-    return RASPPPLCPA
-def _define_RASPPPLCPA():
-    RASPPPLCPA = win32more.NetworkManagement.Rras.RASPPPLCPA_head
-    RASPPPLCPA._fields_ = [
-        ('dwSize', UInt32),
-        ('fBundled', win32more.Foundation.BOOL),
-        ('dwError', UInt32),
-        ('dwAuthenticationProtocol', UInt32),
-        ('dwAuthenticationData', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwServerAuthenticationProtocol', UInt32),
-        ('dwServerAuthenticationData', UInt32),
-        ('dwServerEapTypeId', UInt32),
-        ('fMultilink', win32more.Foundation.BOOL),
-        ('dwTerminateReason', UInt32),
-        ('dwServerTerminateReason', UInt32),
-        ('szReplyMessage', win32more.Foundation.CHAR * 1024),
-        ('dwOptions', UInt32),
-        ('dwServerOptions', UInt32),
-    ]
-    return RASPPPLCPA
-def _define_RASPPPLCPW_head():
-    class RASPPPLCPW(Structure):
-        pass
-    return RASPPPLCPW
-def _define_RASPPPLCPW():
-    RASPPPLCPW = win32more.NetworkManagement.Rras.RASPPPLCPW_head
-    RASPPPLCPW._fields_ = [
-        ('dwSize', UInt32),
-        ('fBundled', win32more.Foundation.BOOL),
-        ('dwError', UInt32),
-        ('dwAuthenticationProtocol', UInt32),
-        ('dwAuthenticationData', UInt32),
-        ('dwEapTypeId', UInt32),
-        ('dwServerAuthenticationProtocol', UInt32),
-        ('dwServerAuthenticationData', UInt32),
-        ('dwServerEapTypeId', UInt32),
-        ('fMultilink', win32more.Foundation.BOOL),
-        ('dwTerminateReason', UInt32),
-        ('dwServerTerminateReason', UInt32),
-        ('szReplyMessage', Char * 1024),
-        ('dwOptions', UInt32),
-        ('dwServerOptions', UInt32),
-    ]
-    return RASPPPLCPW
-def _define_RASPPPNBFA_head():
-    class RASPPPNBFA(Structure):
-        pass
-    return RASPPPNBFA
-def _define_RASPPPNBFA():
-    RASPPPNBFA = win32more.NetworkManagement.Rras.RASPPPNBFA_head
-    RASPPPNBFA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('dwNetBiosError', UInt32),
-        ('szNetBiosError', win32more.Foundation.CHAR * 17),
-        ('szWorkstationName', win32more.Foundation.CHAR * 17),
-        ('bLana', Byte),
-    ]
-    return RASPPPNBFA
-def _define_RASPPPNBFW_head():
-    class RASPPPNBFW(Structure):
-        pass
-    return RASPPPNBFW
-def _define_RASPPPNBFW():
-    RASPPPNBFW = win32more.NetworkManagement.Rras.RASPPPNBFW_head
-    RASPPPNBFW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwError', UInt32),
-        ('dwNetBiosError', UInt32),
-        ('szNetBiosError', Char * 17),
-        ('szWorkstationName', Char * 17),
-        ('bLana', Byte),
-    ]
-    return RASPPPNBFW
+RASLCPAP_PAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49187
+RASLCPAP_SPAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49191
+RASLCPAP_CHAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49699
+RASLCPAP_EAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49703
+class RASPPPCCP(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    dwCompressionAlgorithm: UInt32
+    dwOptions: UInt32
+    dwServerCompressionAlgorithm: UInt32
+    dwServerOptions: UInt32
+class RASPPPIPA(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szIpAddress: win32more.Foundation.CHAR * 16
+    szServerIpAddress: win32more.Foundation.CHAR * 16
+    dwOptions: UInt32
+    dwServerOptions: UInt32
+class RASPPPIPV6(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    bLocalInterfaceIdentifier: Byte * 8
+    bPeerInterfaceIdentifier: Byte * 8
+    bLocalCompressionProtocol: Byte * 2
+    bPeerCompressionProtocol: Byte * 2
+class RASPPPIPW(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szIpAddress: Char * 16
+    szServerIpAddress: Char * 16
+    dwOptions: UInt32
+    dwServerOptions: UInt32
+class RASPPPIPXA(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    szIpxAddress: win32more.Foundation.CHAR * 22
+class RASPPPLCPA(Structure):
+    dwSize: UInt32
+    fBundled: win32more.Foundation.BOOL
+    dwError: UInt32
+    dwAuthenticationProtocol: UInt32
+    dwAuthenticationData: UInt32
+    dwEapTypeId: UInt32
+    dwServerAuthenticationProtocol: UInt32
+    dwServerAuthenticationData: UInt32
+    dwServerEapTypeId: UInt32
+    fMultilink: win32more.Foundation.BOOL
+    dwTerminateReason: UInt32
+    dwServerTerminateReason: UInt32
+    szReplyMessage: win32more.Foundation.CHAR * 1024
+    dwOptions: UInt32
+    dwServerOptions: UInt32
+class RASPPPLCPW(Structure):
+    dwSize: UInt32
+    fBundled: win32more.Foundation.BOOL
+    dwError: UInt32
+    dwAuthenticationProtocol: UInt32
+    dwAuthenticationData: UInt32
+    dwEapTypeId: UInt32
+    dwServerAuthenticationProtocol: UInt32
+    dwServerAuthenticationData: UInt32
+    dwServerEapTypeId: UInt32
+    fMultilink: win32more.Foundation.BOOL
+    dwTerminateReason: UInt32
+    dwServerTerminateReason: UInt32
+    szReplyMessage: Char * 1024
+    dwOptions: UInt32
+    dwServerOptions: UInt32
+class RASPPPNBFA(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    dwNetBiosError: UInt32
+    szNetBiosError: win32more.Foundation.CHAR * 17
+    szWorkstationName: win32more.Foundation.CHAR * 17
+    bLana: Byte
+class RASPPPNBFW(Structure):
+    dwSize: UInt32
+    dwError: UInt32
+    dwNetBiosError: UInt32
+    szNetBiosError: Char * 17
+    szWorkstationName: Char * 17
+    bLana: Byte
 RASPROJECTION = Int32
-RASP_Amb = 65536
-RASP_PppNbf = 32831
-RASP_PppIpx = 32811
-RASP_PppIp = 32801
-RASP_PppCcp = 33021
-RASP_PppLcp = 49185
-RASP_PppIpv6 = 32855
+RASP_Amb: RASPROJECTION = 65536
+RASP_PppNbf: RASPROJECTION = 32831
+RASP_PppIpx: RASPROJECTION = 32811
+RASP_PppIp: RASPROJECTION = 32801
+RASP_PppCcp: RASPROJECTION = 33021
+RASP_PppLcp: RASPROJECTION = 49185
+RASP_PppIpv6: RASPROJECTION = 32855
 RASPROJECTION_INFO_TYPE = Int32
-PROJECTION_INFO_TYPE_PPP = 1
-PROJECTION_INFO_TYPE_IKEv2 = 2
-def _define_RASSECURITYPROC():
-    return WINFUNCTYPE(UInt32,)
-def _define_RASSUBENTRYA_head():
-    class RASSUBENTRYA(Structure):
-        pass
-    return RASSUBENTRYA
-def _define_RASSUBENTRYA():
-    RASSUBENTRYA = win32more.NetworkManagement.Rras.RASSUBENTRYA_head
-    RASSUBENTRYA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwfFlags', UInt32),
-        ('szDeviceType', win32more.Foundation.CHAR * 17),
-        ('szDeviceName', win32more.Foundation.CHAR * 129),
-        ('szLocalPhoneNumber', win32more.Foundation.CHAR * 129),
-        ('dwAlternateOffset', UInt32),
-    ]
-    return RASSUBENTRYA
-def _define_RASSUBENTRYW_head():
-    class RASSUBENTRYW(Structure):
-        pass
-    return RASSUBENTRYW
-def _define_RASSUBENTRYW():
-    RASSUBENTRYW = win32more.NetworkManagement.Rras.RASSUBENTRYW_head
-    RASSUBENTRYW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwfFlags', UInt32),
-        ('szDeviceType', Char * 17),
-        ('szDeviceName', Char * 129),
-        ('szLocalPhoneNumber', Char * 129),
-        ('dwAlternateOffset', UInt32),
-    ]
-    return RASSUBENTRYW
-def _define_RASTUNNELENDPOINT_head():
-    class RASTUNNELENDPOINT(Structure):
-        pass
-    return RASTUNNELENDPOINT
-def _define_RASTUNNELENDPOINT():
-    RASTUNNELENDPOINT = win32more.NetworkManagement.Rras.RASTUNNELENDPOINT_head
-    class RASTUNNELENDPOINT__Anonymous_e__Union(Union):
-        pass
-    RASTUNNELENDPOINT__Anonymous_e__Union._fields_ = [
-        ('ipv4', win32more.Networking.WinSock.IN_ADDR),
-        ('ipv6', win32more.Networking.WinSock.IN6_ADDR),
-    ]
-    RASTUNNELENDPOINT._anonymous_ = [
-        'Anonymous',
-    ]
-    RASTUNNELENDPOINT._fields_ = [
-        ('dwType', UInt32),
-        ('Anonymous', RASTUNNELENDPOINT__Anonymous_e__Union),
-    ]
-    return RASTUNNELENDPOINT
-def _define_RASUPDATECONN_head():
-    class RASUPDATECONN(Structure):
-        pass
-    return RASUPDATECONN
-def _define_RASUPDATECONN():
-    RASUPDATECONN = win32more.NetworkManagement.Rras.RASUPDATECONN_head
-    RASUPDATECONN._fields_ = [
-        ('version', win32more.NetworkManagement.Rras.RASAPIVERSION),
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwIfIndex', UInt32),
-        ('localEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-        ('remoteEndPoint', win32more.NetworkManagement.Rras.RASTUNNELENDPOINT),
-    ]
-    return RASUPDATECONN
+PROJECTION_INFO_TYPE_PPP: RASPROJECTION_INFO_TYPE = 1
+PROJECTION_INFO_TYPE_IKEv2: RASPROJECTION_INFO_TYPE = 2
+@winfunctype_pointer
+def RASSECURITYPROC() -> UInt32: ...
+class RASSUBENTRYA(Structure):
+    dwSize: UInt32
+    dwfFlags: UInt32
+    szDeviceType: win32more.Foundation.CHAR * 17
+    szDeviceName: win32more.Foundation.CHAR * 129
+    szLocalPhoneNumber: win32more.Foundation.CHAR * 129
+    dwAlternateOffset: UInt32
+class RASSUBENTRYW(Structure):
+    dwSize: UInt32
+    dwfFlags: UInt32
+    szDeviceType: Char * 17
+    szDeviceName: Char * 129
+    szLocalPhoneNumber: Char * 129
+    dwAlternateOffset: UInt32
+class RASTUNNELENDPOINT(Structure):
+    dwType: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ipv4: win32more.Networking.WinSock.IN_ADDR
+        ipv6: win32more.Networking.WinSock.IN6_ADDR
+class RASUPDATECONN(Structure):
+    version: win32more.NetworkManagement.Rras.RASAPIVERSION
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwIfIndex: UInt32
+    localEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
+    remoteEndPoint: win32more.NetworkManagement.Rras.RASTUNNELENDPOINT
 ROUTER_CONNECTION_STATE = Int32
-ROUTER_IF_STATE_UNREACHABLE = 0
-ROUTER_IF_STATE_DISCONNECTED = 1
-ROUTER_IF_STATE_CONNECTING = 2
-ROUTER_IF_STATE_CONNECTED = 3
-def _define_ROUTER_CUSTOM_IKEv2_POLICY0_head():
-    class ROUTER_CUSTOM_IKEv2_POLICY0(Structure):
-        pass
-    return ROUTER_CUSTOM_IKEv2_POLICY0
-def _define_ROUTER_CUSTOM_IKEv2_POLICY0():
-    ROUTER_CUSTOM_IKEv2_POLICY0 = win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head
-    ROUTER_CUSTOM_IKEv2_POLICY0._fields_ = [
-        ('dwIntegrityMethod', UInt32),
-        ('dwEncryptionMethod', UInt32),
-        ('dwCipherTransformConstant', UInt32),
-        ('dwAuthTransformConstant', UInt32),
-        ('dwPfsGroup', UInt32),
-        ('dwDhGroup', UInt32),
-    ]
-    return ROUTER_CUSTOM_IKEv2_POLICY0
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG0_head():
-    class ROUTER_IKEv2_IF_CUSTOM_CONFIG0(Structure):
-        pass
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG0
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG0():
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG0 = win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG0_head
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG0._fields_ = [
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSize', UInt32),
-        ('certificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-    ]
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG0
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG1_head():
-    class ROUTER_IKEv2_IF_CUSTOM_CONFIG1(Structure):
-        pass
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG1
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG1():
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG1 = win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG1_head
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG1._fields_ = [
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSize', UInt32),
-        ('certificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-        ('certificateHash', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-    ]
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG1
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG2_head():
-    class ROUTER_IKEv2_IF_CUSTOM_CONFIG2(Structure):
-        pass
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG2
-def _define_ROUTER_IKEv2_IF_CUSTOM_CONFIG2():
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG2 = win32more.NetworkManagement.Rras.ROUTER_IKEv2_IF_CUSTOM_CONFIG2_head
-    ROUTER_IKEv2_IF_CUSTOM_CONFIG2._fields_ = [
-        ('dwSaLifeTime', UInt32),
-        ('dwSaDataSize', UInt32),
-        ('certificateName', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('customPolicy', POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)),
-        ('certificateHash', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-        ('dwMmSaLifeTime', UInt32),
-        ('vpnTrafficSelectors', win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTORS),
-    ]
-    return ROUTER_IKEv2_IF_CUSTOM_CONFIG2
+ROUTER_IF_STATE_UNREACHABLE: ROUTER_CONNECTION_STATE = 0
+ROUTER_IF_STATE_DISCONNECTED: ROUTER_CONNECTION_STATE = 1
+ROUTER_IF_STATE_CONNECTING: ROUTER_CONNECTION_STATE = 2
+ROUTER_IF_STATE_CONNECTED: ROUTER_CONNECTION_STATE = 3
+class ROUTER_CUSTOM_IKEv2_POLICY0(Structure):
+    dwIntegrityMethod: UInt32
+    dwEncryptionMethod: UInt32
+    dwCipherTransformConstant: UInt32
+    dwAuthTransformConstant: UInt32
+    dwPfsGroup: UInt32
+    dwDhGroup: UInt32
+class ROUTER_IKEv2_IF_CUSTOM_CONFIG0(Structure):
+    dwSaLifeTime: UInt32
+    dwSaDataSize: UInt32
+    certificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+class ROUTER_IKEv2_IF_CUSTOM_CONFIG1(Structure):
+    dwSaLifeTime: UInt32
+    dwSaDataSize: UInt32
+    certificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+    certificateHash: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class ROUTER_IKEv2_IF_CUSTOM_CONFIG2(Structure):
+    dwSaLifeTime: UInt32
+    dwSaDataSize: UInt32
+    certificateName: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    customPolicy: POINTER(win32more.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0_head)
+    certificateHash: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    dwMmSaLifeTime: UInt32
+    vpnTrafficSelectors: win32more.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTORS
 ROUTER_INTERFACE_TYPE = Int32
-ROUTER_IF_TYPE_CLIENT = 0
-ROUTER_IF_TYPE_HOME_ROUTER = 1
-ROUTER_IF_TYPE_FULL_ROUTER = 2
-ROUTER_IF_TYPE_DEDICATED = 3
-ROUTER_IF_TYPE_INTERNAL = 4
-ROUTER_IF_TYPE_LOOPBACK = 5
-ROUTER_IF_TYPE_TUNNEL1 = 6
-ROUTER_IF_TYPE_DIALOUT = 7
-ROUTER_IF_TYPE_MAX = 8
-def _define_ROUTING_PROTOCOL_CONFIG_head():
-    class ROUTING_PROTOCOL_CONFIG(Structure):
-        pass
-    return ROUTING_PROTOCOL_CONFIG
-def _define_ROUTING_PROTOCOL_CONFIG():
-    ROUTING_PROTOCOL_CONFIG = win32more.NetworkManagement.Rras.ROUTING_PROTOCOL_CONFIG_head
-    ROUTING_PROTOCOL_CONFIG._fields_ = [
-        ('dwCallbackFlags', UInt32),
-        ('pfnRpfCallback', win32more.NetworkManagement.Rras.PMGM_RPF_CALLBACK),
-        ('pfnCreationAlertCallback', win32more.NetworkManagement.Rras.PMGM_CREATION_ALERT_CALLBACK),
-        ('pfnPruneAlertCallback', win32more.NetworkManagement.Rras.PMGM_PRUNE_ALERT_CALLBACK),
-        ('pfnJoinAlertCallback', win32more.NetworkManagement.Rras.PMGM_JOIN_ALERT_CALLBACK),
-        ('pfnWrongIfCallback', win32more.NetworkManagement.Rras.PMGM_WRONG_IF_CALLBACK),
-        ('pfnLocalJoinCallback', win32more.NetworkManagement.Rras.PMGM_LOCAL_JOIN_CALLBACK),
-        ('pfnLocalLeaveCallback', win32more.NetworkManagement.Rras.PMGM_LOCAL_LEAVE_CALLBACK),
-        ('pfnDisableIgmpCallback', win32more.NetworkManagement.Rras.PMGM_DISABLE_IGMP_CALLBACK),
-        ('pfnEnableIgmpCallback', win32more.NetworkManagement.Rras.PMGM_ENABLE_IGMP_CALLBACK),
-    ]
-    return ROUTING_PROTOCOL_CONFIG
-def _define_RTM_DEST_INFO_head():
-    class RTM_DEST_INFO(Structure):
-        pass
-    return RTM_DEST_INFO
-def _define_RTM_DEST_INFO():
-    RTM_DEST_INFO = win32more.NetworkManagement.Rras.RTM_DEST_INFO_head
-    class RTM_DEST_INFO__Anonymous_e__Struct(Structure):
-        pass
-    RTM_DEST_INFO__Anonymous_e__Struct._fields_ = [
-        ('ViewId', Int32),
-        ('NumRoutes', UInt32),
-        ('Route', IntPtr),
-        ('Owner', IntPtr),
-        ('DestFlags', UInt32),
-        ('HoldRoute', IntPtr),
-    ]
-    RTM_DEST_INFO._fields_ = [
-        ('DestHandle', IntPtr),
-        ('DestAddress', win32more.NetworkManagement.Rras.RTM_NET_ADDRESS),
-        ('LastChanged', win32more.Foundation.FILETIME),
-        ('BelongsToViews', UInt32),
-        ('NumberOfViews', UInt32),
-        ('ViewInfo', RTM_DEST_INFO__Anonymous_e__Struct * 1),
-    ]
-    return RTM_DEST_INFO
-def _define_RTM_ENTITY_EXPORT_METHOD():
-    return WINFUNCTYPE(Void,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT_head),POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT_head))
-def _define_RTM_ENTITY_EXPORT_METHODS_head():
-    class RTM_ENTITY_EXPORT_METHODS(Structure):
-        pass
-    return RTM_ENTITY_EXPORT_METHODS
-def _define_RTM_ENTITY_EXPORT_METHODS():
-    RTM_ENTITY_EXPORT_METHODS = win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHODS_head
-    RTM_ENTITY_EXPORT_METHODS._fields_ = [
-        ('NumMethods', UInt32),
-        ('Methods', win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD * 1),
-    ]
-    return RTM_ENTITY_EXPORT_METHODS
-def _define_RTM_ENTITY_ID_head():
-    class RTM_ENTITY_ID(Structure):
-        pass
-    return RTM_ENTITY_ID
-def _define_RTM_ENTITY_ID():
-    RTM_ENTITY_ID = win32more.NetworkManagement.Rras.RTM_ENTITY_ID_head
-    class RTM_ENTITY_ID__Anonymous_e__Union(Union):
-        pass
-    class RTM_ENTITY_ID__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    RTM_ENTITY_ID__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('EntityProtocolId', UInt32),
-        ('EntityInstanceId', UInt32),
-    ]
-    RTM_ENTITY_ID__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    RTM_ENTITY_ID__Anonymous_e__Union._fields_ = [
-        ('Anonymous', RTM_ENTITY_ID__Anonymous_e__Union__Anonymous_e__Struct),
-        ('EntityId', UInt64),
-    ]
-    RTM_ENTITY_ID._anonymous_ = [
-        'Anonymous',
-    ]
-    RTM_ENTITY_ID._fields_ = [
-        ('Anonymous', RTM_ENTITY_ID__Anonymous_e__Union),
-    ]
-    return RTM_ENTITY_ID
-def _define_RTM_ENTITY_INFO_head():
-    class RTM_ENTITY_INFO(Structure):
-        pass
-    return RTM_ENTITY_INFO
-def _define_RTM_ENTITY_INFO():
-    RTM_ENTITY_INFO = win32more.NetworkManagement.Rras.RTM_ENTITY_INFO_head
-    RTM_ENTITY_INFO._fields_ = [
-        ('RtmInstanceId', UInt16),
-        ('AddressFamily', UInt16),
-        ('EntityId', win32more.NetworkManagement.Rras.RTM_ENTITY_ID),
-    ]
-    return RTM_ENTITY_INFO
-def _define_RTM_ENTITY_METHOD_INPUT_head():
-    class RTM_ENTITY_METHOD_INPUT(Structure):
-        pass
-    return RTM_ENTITY_METHOD_INPUT
-def _define_RTM_ENTITY_METHOD_INPUT():
-    RTM_ENTITY_METHOD_INPUT = win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT_head
-    RTM_ENTITY_METHOD_INPUT._fields_ = [
-        ('MethodType', UInt32),
-        ('InputSize', UInt32),
-        ('InputData', Byte * 1),
-    ]
-    return RTM_ENTITY_METHOD_INPUT
-def _define_RTM_ENTITY_METHOD_OUTPUT_head():
-    class RTM_ENTITY_METHOD_OUTPUT(Structure):
-        pass
-    return RTM_ENTITY_METHOD_OUTPUT
-def _define_RTM_ENTITY_METHOD_OUTPUT():
-    RTM_ENTITY_METHOD_OUTPUT = win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT_head
-    RTM_ENTITY_METHOD_OUTPUT._fields_ = [
-        ('MethodType', UInt32),
-        ('MethodStatus', UInt32),
-        ('OutputSize', UInt32),
-        ('OutputData', Byte * 1),
-    ]
-    return RTM_ENTITY_METHOD_OUTPUT
-def _define_RTM_EVENT_CALLBACK():
-    return WINFUNCTYPE(UInt32,IntPtr,win32more.NetworkManagement.Rras.RTM_EVENT_TYPE,c_void_p,c_void_p)
+ROUTER_IF_TYPE_CLIENT: ROUTER_INTERFACE_TYPE = 0
+ROUTER_IF_TYPE_HOME_ROUTER: ROUTER_INTERFACE_TYPE = 1
+ROUTER_IF_TYPE_FULL_ROUTER: ROUTER_INTERFACE_TYPE = 2
+ROUTER_IF_TYPE_DEDICATED: ROUTER_INTERFACE_TYPE = 3
+ROUTER_IF_TYPE_INTERNAL: ROUTER_INTERFACE_TYPE = 4
+ROUTER_IF_TYPE_LOOPBACK: ROUTER_INTERFACE_TYPE = 5
+ROUTER_IF_TYPE_TUNNEL1: ROUTER_INTERFACE_TYPE = 6
+ROUTER_IF_TYPE_DIALOUT: ROUTER_INTERFACE_TYPE = 7
+ROUTER_IF_TYPE_MAX: ROUTER_INTERFACE_TYPE = 8
+class ROUTING_PROTOCOL_CONFIG(Structure):
+    dwCallbackFlags: UInt32
+    pfnRpfCallback: win32more.NetworkManagement.Rras.PMGM_RPF_CALLBACK
+    pfnCreationAlertCallback: win32more.NetworkManagement.Rras.PMGM_CREATION_ALERT_CALLBACK
+    pfnPruneAlertCallback: win32more.NetworkManagement.Rras.PMGM_PRUNE_ALERT_CALLBACK
+    pfnJoinAlertCallback: win32more.NetworkManagement.Rras.PMGM_JOIN_ALERT_CALLBACK
+    pfnWrongIfCallback: win32more.NetworkManagement.Rras.PMGM_WRONG_IF_CALLBACK
+    pfnLocalJoinCallback: win32more.NetworkManagement.Rras.PMGM_LOCAL_JOIN_CALLBACK
+    pfnLocalLeaveCallback: win32more.NetworkManagement.Rras.PMGM_LOCAL_LEAVE_CALLBACK
+    pfnDisableIgmpCallback: win32more.NetworkManagement.Rras.PMGM_DISABLE_IGMP_CALLBACK
+    pfnEnableIgmpCallback: win32more.NetworkManagement.Rras.PMGM_ENABLE_IGMP_CALLBACK
+class RTM_DEST_INFO(Structure):
+    DestHandle: IntPtr
+    DestAddress: win32more.NetworkManagement.Rras.RTM_NET_ADDRESS
+    LastChanged: win32more.Foundation.FILETIME
+    BelongsToViews: UInt32
+    NumberOfViews: UInt32
+    ViewInfo: _Anonymous_e__Struct * 1
+    class _Anonymous_e__Struct(Structure):
+        ViewId: Int32
+        NumRoutes: UInt32
+        Route: IntPtr
+        Owner: IntPtr
+        DestFlags: UInt32
+        HoldRoute: IntPtr
+@winfunctype_pointer
+def RTM_ENTITY_EXPORT_METHOD(CallerHandle: IntPtr, CalleeHandle: IntPtr, Input: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT_head), Output: POINTER(win32more.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT_head)) -> Void: ...
+class RTM_ENTITY_EXPORT_METHODS(Structure):
+    NumMethods: UInt32
+    Methods: win32more.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD * 1
+class RTM_ENTITY_ID(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        EntityId: UInt64
+        class _Anonymous_e__Struct(Structure):
+            EntityProtocolId: UInt32
+            EntityInstanceId: UInt32
+class RTM_ENTITY_INFO(Structure):
+    RtmInstanceId: UInt16
+    AddressFamily: UInt16
+    EntityId: win32more.NetworkManagement.Rras.RTM_ENTITY_ID
+class RTM_ENTITY_METHOD_INPUT(Structure):
+    MethodType: UInt32
+    InputSize: UInt32
+    InputData: Byte * 1
+class RTM_ENTITY_METHOD_OUTPUT(Structure):
+    MethodType: UInt32
+    MethodStatus: UInt32
+    OutputSize: UInt32
+    OutputData: Byte * 1
+@winfunctype_pointer
+def RTM_EVENT_CALLBACK(RtmRegHandle: IntPtr, EventType: win32more.NetworkManagement.Rras.RTM_EVENT_TYPE, Context1: c_void_p, Context2: c_void_p) -> UInt32: ...
 RTM_EVENT_TYPE = Int32
-RTM_ENTITY_REGISTERED = 0
-RTM_ENTITY_DEREGISTERED = 1
-RTM_ROUTE_EXPIRED = 2
-RTM_CHANGE_NOTIFICATION = 3
-def _define_RTM_NET_ADDRESS_head():
-    class RTM_NET_ADDRESS(Structure):
-        pass
-    return RTM_NET_ADDRESS
-def _define_RTM_NET_ADDRESS():
-    RTM_NET_ADDRESS = win32more.NetworkManagement.Rras.RTM_NET_ADDRESS_head
-    RTM_NET_ADDRESS._fields_ = [
-        ('AddressFamily', UInt16),
-        ('NumBits', UInt16),
-        ('AddrBits', Byte * 16),
-    ]
-    return RTM_NET_ADDRESS
-def _define_RTM_NEXTHOP_INFO_head():
-    class RTM_NEXTHOP_INFO(Structure):
-        pass
-    return RTM_NEXTHOP_INFO
-def _define_RTM_NEXTHOP_INFO():
-    RTM_NEXTHOP_INFO = win32more.NetworkManagement.Rras.RTM_NEXTHOP_INFO_head
-    RTM_NEXTHOP_INFO._fields_ = [
-        ('NextHopAddress', win32more.NetworkManagement.Rras.RTM_NET_ADDRESS),
-        ('NextHopOwner', IntPtr),
-        ('InterfaceIndex', UInt32),
-        ('State', UInt16),
-        ('Flags', UInt16),
-        ('EntitySpecificInfo', c_void_p),
-        ('RemoteNextHop', IntPtr),
-    ]
-    return RTM_NEXTHOP_INFO
-def _define_RTM_NEXTHOP_LIST_head():
-    class RTM_NEXTHOP_LIST(Structure):
-        pass
-    return RTM_NEXTHOP_LIST
-def _define_RTM_NEXTHOP_LIST():
-    RTM_NEXTHOP_LIST = win32more.NetworkManagement.Rras.RTM_NEXTHOP_LIST_head
-    RTM_NEXTHOP_LIST._fields_ = [
-        ('NumNextHops', UInt16),
-        ('NextHops', IntPtr * 1),
-    ]
-    return RTM_NEXTHOP_LIST
-def _define_RTM_PREF_INFO_head():
-    class RTM_PREF_INFO(Structure):
-        pass
-    return RTM_PREF_INFO
-def _define_RTM_PREF_INFO():
-    RTM_PREF_INFO = win32more.NetworkManagement.Rras.RTM_PREF_INFO_head
-    RTM_PREF_INFO._fields_ = [
-        ('Metric', UInt32),
-        ('Preference', UInt32),
-    ]
-    return RTM_PREF_INFO
-def _define_RTM_REGN_PROFILE_head():
-    class RTM_REGN_PROFILE(Structure):
-        pass
-    return RTM_REGN_PROFILE
-def _define_RTM_REGN_PROFILE():
-    RTM_REGN_PROFILE = win32more.NetworkManagement.Rras.RTM_REGN_PROFILE_head
-    RTM_REGN_PROFILE._fields_ = [
-        ('MaxNextHopsInRoute', UInt32),
-        ('MaxHandlesInEnum', UInt32),
-        ('ViewsSupported', UInt32),
-        ('NumberOfViews', UInt32),
-    ]
-    return RTM_REGN_PROFILE
-def _define_RTM_ROUTE_INFO_head():
-    class RTM_ROUTE_INFO(Structure):
-        pass
-    return RTM_ROUTE_INFO
-def _define_RTM_ROUTE_INFO():
-    RTM_ROUTE_INFO = win32more.NetworkManagement.Rras.RTM_ROUTE_INFO_head
-    RTM_ROUTE_INFO._fields_ = [
-        ('DestHandle', IntPtr),
-        ('RouteOwner', IntPtr),
-        ('Neighbour', IntPtr),
-        ('State', Byte),
-        ('Flags1', Byte),
-        ('Flags', UInt16),
-        ('PrefInfo', win32more.NetworkManagement.Rras.RTM_PREF_INFO),
-        ('BelongsToViews', UInt32),
-        ('EntitySpecificInfo', c_void_p),
-        ('NextHopsList', win32more.NetworkManagement.Rras.RTM_NEXTHOP_LIST),
-    ]
-    return RTM_ROUTE_INFO
-def _define_SECURITY_MESSAGE_head():
-    class SECURITY_MESSAGE(Structure):
-        pass
-    return SECURITY_MESSAGE
-def _define_SECURITY_MESSAGE():
-    SECURITY_MESSAGE = win32more.NetworkManagement.Rras.SECURITY_MESSAGE_head
-    SECURITY_MESSAGE._fields_ = [
-        ('dwMsgId', win32more.NetworkManagement.Rras.SECURITY_MESSAGE_MSG_ID),
-        ('hPort', IntPtr),
-        ('dwError', UInt32),
-        ('UserName', win32more.Foundation.CHAR * 257),
-        ('Domain', win32more.Foundation.CHAR * 16),
-    ]
-    return SECURITY_MESSAGE
+RTM_ENTITY_REGISTERED: RTM_EVENT_TYPE = 0
+RTM_ENTITY_DEREGISTERED: RTM_EVENT_TYPE = 1
+RTM_ROUTE_EXPIRED: RTM_EVENT_TYPE = 2
+RTM_CHANGE_NOTIFICATION: RTM_EVENT_TYPE = 3
+class RTM_NET_ADDRESS(Structure):
+    AddressFamily: UInt16
+    NumBits: UInt16
+    AddrBits: Byte * 16
+class RTM_NEXTHOP_INFO(Structure):
+    NextHopAddress: win32more.NetworkManagement.Rras.RTM_NET_ADDRESS
+    NextHopOwner: IntPtr
+    InterfaceIndex: UInt32
+    State: UInt16
+    Flags: UInt16
+    EntitySpecificInfo: c_void_p
+    RemoteNextHop: IntPtr
+class RTM_NEXTHOP_LIST(Structure):
+    NumNextHops: UInt16
+    NextHops: IntPtr * 1
+class RTM_PREF_INFO(Structure):
+    Metric: UInt32
+    Preference: UInt32
+class RTM_REGN_PROFILE(Structure):
+    MaxNextHopsInRoute: UInt32
+    MaxHandlesInEnum: UInt32
+    ViewsSupported: UInt32
+    NumberOfViews: UInt32
+class RTM_ROUTE_INFO(Structure):
+    DestHandle: IntPtr
+    RouteOwner: IntPtr
+    Neighbour: IntPtr
+    State: Byte
+    Flags1: Byte
+    Flags: UInt16
+    PrefInfo: win32more.NetworkManagement.Rras.RTM_PREF_INFO
+    BelongsToViews: UInt32
+    EntitySpecificInfo: c_void_p
+    NextHopsList: win32more.NetworkManagement.Rras.RTM_NEXTHOP_LIST
+class SECURITY_MESSAGE(Structure):
+    dwMsgId: win32more.NetworkManagement.Rras.SECURITY_MESSAGE_MSG_ID
+    hPort: IntPtr
+    dwError: UInt32
+    UserName: win32more.Foundation.CHAR * 257
+    Domain: win32more.Foundation.CHAR * 16
 SECURITY_MESSAGE_MSG_ID = UInt32
-SECURITYMSG_SUCCESS = 1
-SECURITYMSG_FAILURE = 2
-SECURITYMSG_ERROR = 3
-def _define_SOURCE_GROUP_ENTRY_head():
-    class SOURCE_GROUP_ENTRY(Structure):
-        pass
-    return SOURCE_GROUP_ENTRY
-def _define_SOURCE_GROUP_ENTRY():
-    SOURCE_GROUP_ENTRY = win32more.NetworkManagement.Rras.SOURCE_GROUP_ENTRY_head
-    SOURCE_GROUP_ENTRY._fields_ = [
-        ('dwSourceAddr', UInt32),
-        ('dwSourceMask', UInt32),
-        ('dwGroupAddr', UInt32),
-        ('dwGroupMask', UInt32),
-    ]
-    return SOURCE_GROUP_ENTRY
-def _define_SSTP_CERT_INFO_head():
-    class SSTP_CERT_INFO(Structure):
-        pass
-    return SSTP_CERT_INFO
-def _define_SSTP_CERT_INFO():
-    SSTP_CERT_INFO = win32more.NetworkManagement.Rras.SSTP_CERT_INFO_head
-    SSTP_CERT_INFO._fields_ = [
-        ('isDefault', win32more.Foundation.BOOL),
-        ('certBlob', win32more.Security.Cryptography.CRYPT_INTEGER_BLOB),
-    ]
-    return SSTP_CERT_INFO
-def _define_SSTP_CONFIG_PARAMS_head():
-    class SSTP_CONFIG_PARAMS(Structure):
-        pass
-    return SSTP_CONFIG_PARAMS
-def _define_SSTP_CONFIG_PARAMS():
-    SSTP_CONFIG_PARAMS = win32more.NetworkManagement.Rras.SSTP_CONFIG_PARAMS_head
-    SSTP_CONFIG_PARAMS._fields_ = [
-        ('dwNumPorts', UInt32),
-        ('dwPortFlags', UInt32),
-        ('isUseHttps', win32more.Foundation.BOOL),
-        ('certAlgorithm', UInt32),
-        ('sstpCertDetails', win32more.NetworkManagement.Rras.SSTP_CERT_INFO),
-    ]
-    return SSTP_CONFIG_PARAMS
-def _define_VPN_TS_IP_ADDRESS_head():
-    class VPN_TS_IP_ADDRESS(Structure):
-        pass
-    return VPN_TS_IP_ADDRESS
-def _define_VPN_TS_IP_ADDRESS():
-    VPN_TS_IP_ADDRESS = win32more.NetworkManagement.Rras.VPN_TS_IP_ADDRESS_head
-    class VPN_TS_IP_ADDRESS__Anonymous_e__Union(Union):
-        pass
-    VPN_TS_IP_ADDRESS__Anonymous_e__Union._fields_ = [
-        ('v4', win32more.Networking.WinSock.IN_ADDR),
-        ('v6', win32more.Networking.WinSock.IN6_ADDR),
-    ]
-    VPN_TS_IP_ADDRESS._anonymous_ = [
-        'Anonymous',
-    ]
-    VPN_TS_IP_ADDRESS._fields_ = [
-        ('Type', UInt16),
-        ('Anonymous', VPN_TS_IP_ADDRESS__Anonymous_e__Union),
-    ]
-    return VPN_TS_IP_ADDRESS
+SECURITYMSG_SUCCESS: SECURITY_MESSAGE_MSG_ID = 1
+SECURITYMSG_FAILURE: SECURITY_MESSAGE_MSG_ID = 2
+SECURITYMSG_ERROR: SECURITY_MESSAGE_MSG_ID = 3
+class SOURCE_GROUP_ENTRY(Structure):
+    dwSourceAddr: UInt32
+    dwSourceMask: UInt32
+    dwGroupAddr: UInt32
+    dwGroupMask: UInt32
+class SSTP_CERT_INFO(Structure):
+    isDefault: win32more.Foundation.BOOL
+    certBlob: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class SSTP_CONFIG_PARAMS(Structure):
+    dwNumPorts: UInt32
+    dwPortFlags: UInt32
+    isUseHttps: win32more.Foundation.BOOL
+    certAlgorithm: UInt32
+    sstpCertDetails: win32more.NetworkManagement.Rras.SSTP_CERT_INFO
+class VPN_TS_IP_ADDRESS(Structure):
+    Type: UInt16
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        v4: win32more.Networking.WinSock.IN_ADDR
+        v6: win32more.Networking.WinSock.IN6_ADDR
+make_head(_module, 'AUTH_VALIDATION_EX')
+make_head(_module, 'GRE_CONFIG_PARAMS0')
+make_head(_module, 'IKEV2_CONFIG_PARAMS')
+make_head(_module, 'IKEV2_PROJECTION_INFO')
+make_head(_module, 'IKEV2_PROJECTION_INFO2')
+make_head(_module, 'IKEV2_TUNNEL_CONFIG_PARAMS2')
+make_head(_module, 'IKEV2_TUNNEL_CONFIG_PARAMS3')
+make_head(_module, 'IKEV2_TUNNEL_CONFIG_PARAMS4')
+make_head(_module, 'L2TP_CONFIG_PARAMS0')
+make_head(_module, 'L2TP_CONFIG_PARAMS1')
+make_head(_module, 'L2TP_TUNNEL_CONFIG_PARAMS1')
+make_head(_module, 'L2TP_TUNNEL_CONFIG_PARAMS2')
+make_head(_module, 'MGM_IF_ENTRY')
+make_head(_module, 'MPR_CERT_EKU')
+make_head(_module, 'MPR_CREDENTIALSEX_0')
+make_head(_module, 'MPR_CREDENTIALSEX_1')
+make_head(_module, 'MPR_DEVICE_0')
+make_head(_module, 'MPR_DEVICE_1')
+make_head(_module, 'MPR_FILTER_0')
+make_head(_module, 'MPR_IF_CUSTOMINFOEX0')
+make_head(_module, 'MPR_IF_CUSTOMINFOEX1')
+make_head(_module, 'MPR_IF_CUSTOMINFOEX2')
+make_head(_module, 'MPR_IFTRANSPORT_0')
+make_head(_module, 'MPR_INTERFACE_0')
+make_head(_module, 'MPR_INTERFACE_1')
+make_head(_module, 'MPR_INTERFACE_2')
+make_head(_module, 'MPR_INTERFACE_3')
+make_head(_module, 'MPR_IPINIP_INTERFACE_0')
+make_head(_module, 'MPR_SERVER_0')
+make_head(_module, 'MPR_SERVER_1')
+make_head(_module, 'MPR_SERVER_2')
+make_head(_module, 'MPR_SERVER_EX0')
+make_head(_module, 'MPR_SERVER_EX1')
+make_head(_module, 'MPR_SERVER_SET_CONFIG_EX0')
+make_head(_module, 'MPR_SERVER_SET_CONFIG_EX1')
+make_head(_module, 'MPR_TRANSPORT_0')
+make_head(_module, 'MPR_VPN_TRAFFIC_SELECTOR')
+make_head(_module, 'MPR_VPN_TRAFFIC_SELECTORS')
+make_head(_module, 'MPRAPI_ADMIN_DLL_CALLBACKS')
+make_head(_module, 'MPRAPI_OBJECT_HEADER')
+make_head(_module, 'MPRAPI_TUNNEL_CONFIG_PARAMS0')
+make_head(_module, 'MPRAPI_TUNNEL_CONFIG_PARAMS1')
+make_head(_module, 'ORASADFUNC')
+make_head(_module, 'PFNRASFREEBUFFER')
+make_head(_module, 'PFNRASGETBUFFER')
+make_head(_module, 'PFNRASRECEIVEBUFFER')
+make_head(_module, 'PFNRASRETRIEVEBUFFER')
+make_head(_module, 'PFNRASSENDBUFFER')
+make_head(_module, 'PFNRASSETCOMMSETTINGS')
+make_head(_module, 'PMGM_CREATION_ALERT_CALLBACK')
+make_head(_module, 'PMGM_DISABLE_IGMP_CALLBACK')
+make_head(_module, 'PMGM_ENABLE_IGMP_CALLBACK')
+make_head(_module, 'PMGM_JOIN_ALERT_CALLBACK')
+make_head(_module, 'PMGM_LOCAL_JOIN_CALLBACK')
+make_head(_module, 'PMGM_LOCAL_LEAVE_CALLBACK')
+make_head(_module, 'PMGM_PRUNE_ALERT_CALLBACK')
+make_head(_module, 'PMGM_RPF_CALLBACK')
+make_head(_module, 'PMGM_WRONG_IF_CALLBACK')
+make_head(_module, 'PMPRADMINACCEPTNEWCONNECTION')
+make_head(_module, 'PMPRADMINACCEPTNEWCONNECTION2')
+make_head(_module, 'PMPRADMINACCEPTNEWCONNECTION3')
+make_head(_module, 'PMPRADMINACCEPTNEWCONNECTIONEX')
+make_head(_module, 'PMPRADMINACCEPTNEWLINK')
+make_head(_module, 'PMPRADMINACCEPTREAUTHENTICATION')
+make_head(_module, 'PMPRADMINACCEPTREAUTHENTICATIONEX')
+make_head(_module, 'PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX')
+make_head(_module, 'PMPRADMINCONNECTIONHANGUPNOTIFICATION')
+make_head(_module, 'PMPRADMINCONNECTIONHANGUPNOTIFICATION2')
+make_head(_module, 'PMPRADMINCONNECTIONHANGUPNOTIFICATION3')
+make_head(_module, 'PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX')
+make_head(_module, 'PMPRADMINGETIPADDRESSFORUSER')
+make_head(_module, 'PMPRADMINGETIPV6ADDRESSFORUSER')
+make_head(_module, 'PMPRADMINLINKHANGUPNOTIFICATION')
+make_head(_module, 'PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX')
+make_head(_module, 'PMPRADMINRELEASEIPADRESS')
+make_head(_module, 'PMPRADMINRELEASEIPV6ADDRESSFORUSER')
+make_head(_module, 'PMPRADMINTERMINATEDLL')
+make_head(_module, 'PPP_ATCP_INFO')
+make_head(_module, 'PPP_CCP_INFO')
+make_head(_module, 'PPP_INFO')
+make_head(_module, 'PPP_INFO_2')
+make_head(_module, 'PPP_INFO_3')
+make_head(_module, 'PPP_IPCP_INFO')
+make_head(_module, 'PPP_IPCP_INFO2')
+make_head(_module, 'PPP_IPV6_CP_INFO')
+make_head(_module, 'PPP_IPXCP_INFO')
+make_head(_module, 'PPP_LCP_INFO')
+make_head(_module, 'PPP_NBFCP_INFO')
+make_head(_module, 'PPP_PROJECTION_INFO')
+make_head(_module, 'PPP_PROJECTION_INFO2')
+make_head(_module, 'PPTP_CONFIG_PARAMS')
+make_head(_module, 'PROJECTION_INFO')
+make_head(_module, 'PROJECTION_INFO2')
+make_head(_module, 'RAS_CONNECTION_0')
+make_head(_module, 'RAS_CONNECTION_1')
+make_head(_module, 'RAS_CONNECTION_2')
+make_head(_module, 'RAS_CONNECTION_3')
+make_head(_module, 'RAS_CONNECTION_4')
+make_head(_module, 'RAS_CONNECTION_EX')
+make_head(_module, 'RAS_PORT_0')
+make_head(_module, 'RAS_PORT_1')
+make_head(_module, 'RAS_PORT_2')
+make_head(_module, 'RAS_PROJECTION_INFO')
+make_head(_module, 'RAS_SECURITY_INFO')
+make_head(_module, 'RAS_STATS')
+make_head(_module, 'RAS_UPDATE_CONNECTION')
+make_head(_module, 'RAS_USER_0')
+make_head(_module, 'RAS_USER_1')
+make_head(_module, 'RASADFUNCA')
+make_head(_module, 'RASADFUNCW')
+make_head(_module, 'RASADPARAMS')
+make_head(_module, 'RASAMBA')
+make_head(_module, 'RASAMBW')
+make_head(_module, 'RASAUTODIALENTRYA')
+make_head(_module, 'RASAUTODIALENTRYW')
+make_head(_module, 'RASCOMMSETTINGS')
+make_head(_module, 'RASCONNA')
+make_head(_module, 'RASCONNSTATUSA')
+make_head(_module, 'RASCONNSTATUSW')
+make_head(_module, 'RASCONNW')
+make_head(_module, 'RASCREDENTIALSA')
+make_head(_module, 'RASCREDENTIALSW')
+make_head(_module, 'RASCTRYINFO')
+make_head(_module, 'RasCustomDeleteEntryNotifyFn')
+make_head(_module, 'RasCustomDialDlgFn')
+make_head(_module, 'RasCustomDialFn')
+make_head(_module, 'RasCustomEntryDlgFn')
+make_head(_module, 'RasCustomHangUpFn')
+make_head(_module, 'RasCustomScriptExecuteFn')
+make_head(_module, 'RASCUSTOMSCRIPTEXTENSIONS')
+make_head(_module, 'RASDEVINFOA')
+make_head(_module, 'RASDEVINFOW')
+make_head(_module, 'RASDEVSPECIFICINFO')
+make_head(_module, 'RASDIALDLG')
+make_head(_module, 'RASDIALEXTENSIONS')
+make_head(_module, 'RASDIALFUNC')
+make_head(_module, 'RASDIALFUNC1')
+make_head(_module, 'RASDIALFUNC2')
+make_head(_module, 'RASDIALPARAMSA')
+make_head(_module, 'RASDIALPARAMSW')
+make_head(_module, 'RASEAPINFO')
+make_head(_module, 'RASEAPUSERIDENTITYA')
+make_head(_module, 'RASEAPUSERIDENTITYW')
+make_head(_module, 'RASENTRYA')
+make_head(_module, 'RASENTRYDLGA')
+make_head(_module, 'RASENTRYDLGW')
+make_head(_module, 'RASENTRYNAMEA')
+make_head(_module, 'RASENTRYNAMEW')
+make_head(_module, 'RASENTRYW')
+make_head(_module, 'RASIKEV2_PROJECTION_INFO')
+make_head(_module, 'RASIPADDR')
+make_head(_module, 'RASIPXW')
+make_head(_module, 'RASNOUSERA')
+make_head(_module, 'RASNOUSERW')
+make_head(_module, 'RASPBDLGA')
+make_head(_module, 'RASPBDLGFUNCA')
+make_head(_module, 'RASPBDLGFUNCW')
+make_head(_module, 'RASPBDLGW')
+make_head(_module, 'RASPPP_PROJECTION_INFO')
+make_head(_module, 'RASPPPCCP')
+make_head(_module, 'RASPPPIPA')
+make_head(_module, 'RASPPPIPV6')
+make_head(_module, 'RASPPPIPW')
+make_head(_module, 'RASPPPIPXA')
+make_head(_module, 'RASPPPLCPA')
+make_head(_module, 'RASPPPLCPW')
+make_head(_module, 'RASPPPNBFA')
+make_head(_module, 'RASPPPNBFW')
+make_head(_module, 'RASSECURITYPROC')
+make_head(_module, 'RASSUBENTRYA')
+make_head(_module, 'RASSUBENTRYW')
+make_head(_module, 'RASTUNNELENDPOINT')
+make_head(_module, 'RASUPDATECONN')
+make_head(_module, 'ROUTER_CUSTOM_IKEv2_POLICY0')
+make_head(_module, 'ROUTER_IKEv2_IF_CUSTOM_CONFIG0')
+make_head(_module, 'ROUTER_IKEv2_IF_CUSTOM_CONFIG1')
+make_head(_module, 'ROUTER_IKEv2_IF_CUSTOM_CONFIG2')
+make_head(_module, 'ROUTING_PROTOCOL_CONFIG')
+make_head(_module, 'RTM_DEST_INFO')
+make_head(_module, 'RTM_ENTITY_EXPORT_METHOD')
+make_head(_module, 'RTM_ENTITY_EXPORT_METHODS')
+make_head(_module, 'RTM_ENTITY_ID')
+make_head(_module, 'RTM_ENTITY_INFO')
+make_head(_module, 'RTM_ENTITY_METHOD_INPUT')
+make_head(_module, 'RTM_ENTITY_METHOD_OUTPUT')
+make_head(_module, 'RTM_EVENT_CALLBACK')
+make_head(_module, 'RTM_NET_ADDRESS')
+make_head(_module, 'RTM_NEXTHOP_INFO')
+make_head(_module, 'RTM_NEXTHOP_LIST')
+make_head(_module, 'RTM_PREF_INFO')
+make_head(_module, 'RTM_REGN_PROFILE')
+make_head(_module, 'RTM_ROUTE_INFO')
+make_head(_module, 'SECURITY_MESSAGE')
+make_head(_module, 'SOURCE_GROUP_ENTRY')
+make_head(_module, 'SSTP_CERT_INFO')
+make_head(_module, 'SSTP_CONFIG_PARAMS')
+make_head(_module, 'VPN_TS_IP_ADDRESS')
 __all__ = [
     "ALLOW_NO_AUTH",
     "ALL_SOURCES",

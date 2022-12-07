@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.VirtualDiskService
 import win32more.System.Com
@@ -7,2237 +8,1818 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-VDS_NF_VOLUME_ARRIVE = 4
-VDS_NF_VOLUME_DEPART = 5
-VDS_NF_VOLUME_MODIFY = 6
-VDS_NF_VOLUME_REBUILDING_PROGRESS = 7
-VDS_NF_PARTITION_ARRIVE = 11
-VDS_NF_PARTITION_DEPART = 12
-VDS_NF_PARTITION_MODIFY = 13
-VDS_NF_SUB_SYSTEM_ARRIVE = 101
-VDS_NF_SUB_SYSTEM_DEPART = 102
-VDS_NF_PORTAL_ARRIVE = 123
-VDS_NF_PORTAL_DEPART = 124
-VDS_NF_PORTAL_MODIFY = 125
-VDS_NF_TARGET_ARRIVE = 126
-VDS_NF_TARGET_DEPART = 127
-VDS_NF_TARGET_MODIFY = 128
-VDS_NF_PORTAL_GROUP_ARRIVE = 129
-VDS_NF_PORTAL_GROUP_DEPART = 130
-VDS_NF_PORTAL_GROUP_MODIFY = 131
-VDS_NF_SUB_SYSTEM_MODIFY = 151
-VDS_NF_DRIVE_LETTER_FREE = 201
-VDS_NF_DRIVE_LETTER_ASSIGN = 202
-VDS_NF_MOUNT_POINTS_CHANGE = 205
-VDS_NF_FILE_SYSTEM_SHRINKING_PROGRESS = 206
-VDS_NF_SERVICE_OUT_OF_SYNC = 301
-GPT_PARTITION_NAME_LENGTH = 36
-VDS_HINT_FASTCRASHRECOVERYREQUIRED = 1
-VDS_HINT_MOSTLYREADS = 2
-VDS_HINT_OPTIMIZEFORSEQUENTIALREADS = 4
-VDS_HINT_OPTIMIZEFORSEQUENTIALWRITES = 8
-VDS_HINT_READBACKVERIFYENABLED = 16
-VDS_HINT_REMAPENABLED = 32
-VDS_HINT_WRITETHROUGHCACHINGENABLED = 64
-VDS_HINT_HARDWARECHECKSUMENABLED = 128
-VDS_HINT_ISYANKABLE = 256
-VDS_HINT_ALLOCATEHOTSPARE = 512
-VDS_HINT_BUSTYPE = 1024
-VDS_HINT_USEMIRROREDCACHE = 2048
-VDS_HINT_READCACHINGENABLED = 4096
-VDS_HINT_WRITECACHINGENABLED = 8192
-VDS_HINT_MEDIASCANENABLED = 16384
-VDS_HINT_CONSISTENCYCHECKENABLED = 32768
-VDS_REBUILD_PRIORITY_MIN = 0
-VDS_REBUILD_PRIORITY_MAX = 16
-VDS_POOL_ATTRIB_RAIDTYPE = 1
-VDS_POOL_ATTRIB_BUSTYPE = 2
-VDS_POOL_ATTRIB_ALLOW_SPINDOWN = 4
-VDS_POOL_ATTRIB_THIN_PROVISION = 8
-VDS_POOL_ATTRIB_NO_SINGLE_POF = 16
-VDS_POOL_ATTRIB_DATA_RDNCY_MAX = 32
-VDS_POOL_ATTRIB_DATA_RDNCY_MIN = 64
-VDS_POOL_ATTRIB_DATA_RDNCY_DEF = 128
-VDS_POOL_ATTRIB_PKG_RDNCY_MAX = 256
-VDS_POOL_ATTRIB_PKG_RDNCY_MIN = 512
-VDS_POOL_ATTRIB_PKG_RDNCY_DEF = 1024
-VDS_POOL_ATTRIB_STRIPE_SIZE = 2048
-VDS_POOL_ATTRIB_STRIPE_SIZE_MAX = 4096
-VDS_POOL_ATTRIB_STRIPE_SIZE_MIN = 8192
-VDS_POOL_ATTRIB_STRIPE_SIZE_DEF = 16384
-VDS_POOL_ATTRIB_NUM_CLMNS = 32768
-VDS_POOL_ATTRIB_NUM_CLMNS_MAX = 65536
-VDS_POOL_ATTRIB_NUM_CLMNS_MIN = 131072
-VDS_POOL_ATTRIB_NUM_CLMNS_DEF = 262144
-VDS_POOL_ATTRIB_DATA_AVL_HINT = 524288
-VDS_POOL_ATTRIB_ACCS_RNDM_HINT = 1048576
-VDS_POOL_ATTRIB_ACCS_DIR_HINT = 2097152
-VDS_POOL_ATTRIB_ACCS_SIZE_HINT = 4194304
-VDS_POOL_ATTRIB_ACCS_LTNCY_HINT = 8388608
-VDS_POOL_ATTRIB_ACCS_BDW_WT_HINT = 16777216
-VDS_POOL_ATTRIB_STOR_COST_HINT = 33554432
-VDS_POOL_ATTRIB_STOR_EFFCY_HINT = 67108864
-VDS_POOL_ATTRIB_CUSTOM_ATTRIB = 134217728
-VDS_ATTACH_VIRTUAL_DISK_FLAG_USE_FILE_ACL = 1
-def _define_CLSID_VdsLoader():
-    return Guid('9c38ed61-d565-4728-ae-ee-c8-09-52-f0-ec-de')
-def _define_CLSID_VdsService():
-    return Guid('7d1933cb-86f6-4a98-86-28-01-be-94-c9-a5-75')
-MAX_FS_NAME_SIZE = 8
-MAX_FS_FORMAT_SUPPORT_NAME_SIZE = 32
-MAX_FS_ALLOWED_CLUSTER_SIZES_SIZE = 32
-VER_VDS_LUN_INFORMATION = 1
-VDS_E_NOT_SUPPORTED = -2147212288
-VDS_E_INITIALIZED_FAILED = -2147212287
-VDS_E_INITIALIZE_NOT_CALLED = -2147212286
-VDS_E_ALREADY_REGISTERED = -2147212285
-VDS_E_ANOTHER_CALL_IN_PROGRESS = -2147212284
-VDS_E_OBJECT_NOT_FOUND = -2147212283
-VDS_E_INVALID_SPACE = -2147212282
-VDS_E_PARTITION_LIMIT_REACHED = -2147212281
-VDS_E_PARTITION_NOT_EMPTY = -2147212280
-VDS_E_OPERATION_PENDING = -2147212279
-VDS_E_OPERATION_DENIED = -2147212278
-VDS_E_OBJECT_DELETED = -2147212277
-VDS_E_CANCEL_TOO_LATE = -2147212276
-VDS_E_OPERATION_CANCELED = -2147212275
-VDS_E_CANNOT_EXTEND = -2147212274
-VDS_E_NOT_ENOUGH_SPACE = -2147212273
-VDS_E_NOT_ENOUGH_DRIVE = -2147212272
-VDS_E_BAD_COOKIE = -2147212271
-VDS_E_NO_MEDIA = -2147212270
-VDS_E_DEVICE_IN_USE = -2147212269
-VDS_E_DISK_NOT_EMPTY = -2147212268
-VDS_E_INVALID_OPERATION = -2147212267
-VDS_E_PATH_NOT_FOUND = -2147212266
-VDS_E_DISK_NOT_INITIALIZED = -2147212265
-VDS_E_NOT_AN_UNALLOCATED_DISK = -2147212264
-VDS_E_UNRECOVERABLE_ERROR = -2147212263
-VDS_S_DISK_PARTIALLY_CLEANED = 271386
-VDS_E_DMADMIN_SERVICE_CONNECTION_FAILED = -2147212261
-VDS_E_PROVIDER_INITIALIZATION_FAILED = -2147212260
-VDS_E_OBJECT_EXISTS = -2147212259
-VDS_E_NO_DISKS_FOUND = -2147212258
-VDS_E_PROVIDER_CACHE_CORRUPT = -2147212257
-VDS_E_DMADMIN_METHOD_CALL_FAILED = -2147212256
-VDS_S_PROVIDER_ERROR_LOADING_CACHE = 271393
-VDS_E_PROVIDER_VOL_DEVICE_NAME_NOT_FOUND = -2147212254
-VDS_E_PROVIDER_VOL_OPEN = -2147212253
-VDS_E_DMADMIN_CORRUPT_NOTIFICATION = -2147212252
-VDS_E_INCOMPATIBLE_FILE_SYSTEM = -2147212251
-VDS_E_INCOMPATIBLE_MEDIA = -2147212250
-VDS_E_ACCESS_DENIED = -2147212249
-VDS_E_MEDIA_WRITE_PROTECTED = -2147212248
-VDS_E_BAD_LABEL = -2147212247
-VDS_E_CANT_QUICK_FORMAT = -2147212246
-VDS_E_IO_ERROR = -2147212245
-VDS_E_VOLUME_TOO_SMALL = -2147212244
-VDS_E_VOLUME_TOO_BIG = -2147212243
-VDS_E_CLUSTER_SIZE_TOO_SMALL = -2147212242
-VDS_E_CLUSTER_SIZE_TOO_BIG = -2147212241
-VDS_E_CLUSTER_COUNT_BEYOND_32BITS = -2147212240
-VDS_E_OBJECT_STATUS_FAILED = -2147212239
-VDS_E_VOLUME_INCOMPLETE = -2147212238
-VDS_E_EXTENT_SIZE_LESS_THAN_MIN = -2147212237
-VDS_S_UPDATE_BOOTFILE_FAILED = 271412
-VDS_S_BOOT_PARTITION_NUMBER_CHANGE = 271414
-VDS_E_BOOT_PARTITION_NUMBER_CHANGE = -2147212234
-VDS_E_NO_FREE_SPACE = -2147212233
-VDS_E_ACTIVE_PARTITION = -2147212232
-VDS_E_PARTITION_OF_UNKNOWN_TYPE = -2147212231
-VDS_E_LEGACY_VOLUME_FORMAT = -2147212230
-VDS_E_NON_CONTIGUOUS_DATA_PARTITIONS = -2147212229
-VDS_E_MIGRATE_OPEN_VOLUME = -2147212228
-VDS_E_VOLUME_NOT_ONLINE = -2147212227
-VDS_E_VOLUME_NOT_HEALTHY = -2147212226
-VDS_E_VOLUME_SPANS_DISKS = -2147212225
-VDS_E_REQUIRES_CONTIGUOUS_DISK_SPACE = -2147212224
-VDS_E_BAD_PROVIDER_DATA = -2147212223
-VDS_E_PROVIDER_FAILURE = -2147212222
-VDS_S_VOLUME_COMPRESS_FAILED = 271427
-VDS_E_PACK_OFFLINE = -2147212220
-VDS_E_VOLUME_NOT_A_MIRROR = -2147212219
-VDS_E_NO_EXTENTS_FOR_VOLUME = -2147212218
-VDS_E_DISK_NOT_LOADED_TO_CACHE = -2147212217
-VDS_E_INTERNAL_ERROR = -2147212216
-VDS_S_ACCESS_PATH_NOT_DELETED = 279108
-VDS_E_PROVIDER_TYPE_NOT_SUPPORTED = -2147212214
-VDS_E_DISK_NOT_ONLINE = -2147212213
-VDS_E_DISK_IN_USE_BY_VOLUME = -2147212212
-VDS_S_IN_PROGRESS = 271437
-VDS_E_ASYNC_OBJECT_FAILURE = -2147212210
-VDS_E_VOLUME_NOT_MOUNTED = -2147212209
-VDS_E_PACK_NOT_FOUND = -2147212208
-VDS_E_IMPORT_SET_INCOMPLETE = -2147212207
-VDS_E_DISK_NOT_IMPORTED = -2147212206
-VDS_E_OBJECT_OUT_OF_SYNC = -2147212205
-VDS_E_MISSING_DISK = -2147212204
-VDS_E_DISK_PNP_REG_CORRUPT = -2147212203
-VDS_E_LBN_REMAP_ENABLED_FLAG = -2147212202
-VDS_E_NO_DRIVELETTER_FLAG = -2147212201
-VDS_E_REVERT_ON_CLOSE = -2147212200
-VDS_E_REVERT_ON_CLOSE_SET = -2147212199
-VDS_E_IA64_BOOT_MIRRORED_TO_MBR = -2147212198
-VDS_S_IA64_BOOT_MIRRORED_TO_MBR = 271450
-VDS_S_UNABLE_TO_GET_GPT_ATTRIBUTES = 271451
-VDS_E_VOLUME_TEMPORARILY_DISMOUNTED = -2147212196
-VDS_E_VOLUME_PERMANENTLY_DISMOUNTED = -2147212195
-VDS_E_VOLUME_HAS_PATH = -2147212194
-VDS_E_TIMEOUT = -2147212193
-VDS_E_REPAIR_VOLUMESTATE = -2147212192
-VDS_E_LDM_TIMEOUT = -2147212191
-VDS_E_REVERT_ON_CLOSE_MISMATCH = -2147212190
-VDS_E_RETRY = -2147212189
-VDS_E_ONLINE_PACK_EXISTS = -2147212188
-VDS_S_EXTEND_FILE_SYSTEM_FAILED = 271461
-VDS_E_EXTEND_FILE_SYSTEM_FAILED = -2147212186
-VDS_S_MBR_BOOT_MIRRORED_TO_GPT = 271463
-VDS_E_MAX_USABLE_MBR = -2147212184
-VDS_S_GPT_BOOT_MIRRORED_TO_MBR = -2147212183
-VDS_E_NO_SOFTWARE_PROVIDERS_LOADED = -2147212032
-VDS_E_DISK_NOT_MISSING = -2147212031
-VDS_E_NO_VOLUME_LAYOUT = -2147212030
-VDS_E_CORRUPT_VOLUME_INFO = -2147212029
-VDS_E_INVALID_ENUMERATOR = -2147212028
-VDS_E_DRIVER_INTERNAL_ERROR = -2147212027
-VDS_E_VOLUME_INVALID_NAME = -2147212025
-VDS_S_DISK_IS_MISSING = 271624
-VDS_E_CORRUPT_PARTITION_INFO = -2147212023
-VDS_S_NONCONFORMANT_PARTITION_INFO = 271626
-VDS_E_CORRUPT_EXTENT_INFO = -2147212021
-VDS_E_DUP_EMPTY_PACK_GUID = -2147212020
-VDS_E_DRIVER_NO_PACK_NAME = -2147212019
-VDS_S_SYSTEM_PARTITION = 271630
-VDS_E_BAD_PNP_MESSAGE = -2147212017
-VDS_E_NO_PNP_DISK_ARRIVE = -2147212016
-VDS_E_NO_PNP_VOLUME_ARRIVE = -2147212015
-VDS_E_NO_PNP_DISK_REMOVE = -2147212014
-VDS_E_NO_PNP_VOLUME_REMOVE = -2147212013
-VDS_E_PROVIDER_EXITING = -2147212012
-VDS_E_EXTENT_EXCEEDS_DISK_FREE_SPACE = -2147212011
-VDS_E_MEMBER_SIZE_INVALID = -2147212010
-VDS_S_NO_NOTIFICATION = 271639
-VDS_S_DEFAULT_PLEX_MEMBER_IDS = 271640
-VDS_E_INVALID_DISK = -2147212007
-VDS_E_INVALID_PACK = -2147212006
-VDS_E_VOLUME_ON_DISK = -2147212005
-VDS_E_DRIVER_INVALID_PARAM = -2147212004
-VDS_E_TARGET_PACK_NOT_EMPTY = -2147212003
-VDS_E_CANNOT_SHRINK = -2147212002
-VDS_E_MULTIPLE_PACKS = -2147212001
-VDS_E_PACK_ONLINE = -2147212000
-VDS_E_INVALID_PLEX_COUNT = -2147211999
-VDS_E_INVALID_MEMBER_COUNT = -2147211998
-VDS_E_INVALID_PLEX_ORDER = -2147211997
-VDS_E_INVALID_MEMBER_ORDER = -2147211996
-VDS_E_INVALID_STRIPE_SIZE = -2147211995
-VDS_E_INVALID_DISK_COUNT = -2147211994
-VDS_E_INVALID_EXTENT_COUNT = -2147211993
-VDS_E_SOURCE_IS_TARGET_PACK = -2147211992
-VDS_E_VOLUME_DISK_COUNT_MAX_EXCEEDED = -2147211991
-VDS_E_CORRUPT_NOTIFICATION_INFO = -2147211990
-VDS_E_INVALID_PLEX_GUID = -2147211988
-VDS_E_DISK_NOT_FOUND_IN_PACK = -2147211987
-VDS_E_DUPLICATE_DISK = -2147211986
-VDS_E_LAST_VALID_DISK = -2147211985
-VDS_E_INVALID_SECTOR_SIZE = -2147211984
-VDS_E_ONE_EXTENT_PER_DISK = -2147211983
-VDS_E_INVALID_BLOCK_SIZE = -2147211982
-VDS_E_PLEX_SIZE_INVALID = -2147211981
-VDS_E_NO_EXTENTS_FOR_PLEX = -2147211980
-VDS_E_INVALID_PLEX_TYPE = -2147211979
-VDS_E_INVALID_PLEX_BLOCK_SIZE = -2147211978
-VDS_E_NO_HEALTHY_DISKS = -2147211977
-VDS_E_CONFIG_LIMIT = -2147211976
-VDS_E_DISK_CONFIGURATION_CORRUPTED = -2147211975
-VDS_E_DISK_CONFIGURATION_NOT_IN_SYNC = -2147211974
-VDS_E_DISK_CONFIGURATION_UPDATE_FAILED = -2147211973
-VDS_E_DISK_DYNAMIC = -2147211972
-VDS_E_DRIVER_OBJECT_NOT_FOUND = -2147211971
-VDS_E_PARTITION_NOT_CYLINDER_ALIGNED = -2147211970
-VDS_E_DISK_LAYOUT_PARTITIONS_TOO_SMALL = -2147211969
-VDS_E_DISK_IO_FAILING = -2147211968
-VDS_E_DYNAMIC_DISKS_NOT_SUPPORTED = -2147211967
-VDS_E_FAULT_TOLERANT_DISKS_NOT_SUPPORTED = -2147211966
-VDS_E_GPT_ATTRIBUTES_INVALID = -2147211965
-VDS_E_MEMBER_IS_HEALTHY = -2147211964
-VDS_E_MEMBER_REGENERATING = -2147211963
-VDS_E_PACK_NAME_INVALID = -2147211962
-VDS_E_PLEX_IS_HEALTHY = -2147211961
-VDS_E_PLEX_LAST_ACTIVE = -2147211960
-VDS_E_PLEX_MISSING = -2147211959
-VDS_E_MEMBER_MISSING = -2147211958
-VDS_E_PLEX_REGENERATING = -2147211957
-VDS_E_UNEXPECTED_DISK_LAYOUT_CHANGE = -2147211955
-VDS_E_INVALID_VOLUME_LENGTH = -2147211954
-VDS_E_VOLUME_LENGTH_NOT_SECTOR_SIZE_MULTIPLE = -2147211953
-VDS_E_VOLUME_NOT_RETAINED = -2147211952
-VDS_E_VOLUME_RETAINED = -2147211951
-VDS_E_ALIGN_BEYOND_FIRST_CYLINDER = -2147211949
-VDS_E_ALIGN_NOT_SECTOR_SIZE_MULTIPLE = -2147211948
-VDS_E_ALIGN_NOT_ZERO = -2147211947
-VDS_E_CACHE_CORRUPT = -2147211946
-VDS_E_CANNOT_CLEAR_VOLUME_FLAG = -2147211945
-VDS_E_DISK_BEING_CLEANED = -2147211944
-VDS_E_DISK_NOT_CONVERTIBLE = -2147211943
-VDS_E_DISK_REMOVEABLE = -2147211942
-VDS_E_DISK_REMOVEABLE_NOT_EMPTY = -2147211941
-VDS_E_DRIVE_LETTER_NOT_FREE = -2147211940
-VDS_E_EXTEND_MULTIPLE_DISKS_NOT_SUPPORTED = -2147211939
-VDS_E_INVALID_DRIVE_LETTER = -2147211938
-VDS_E_INVALID_DRIVE_LETTER_COUNT = -2147211937
-VDS_E_INVALID_FS_FLAG = -2147211936
-VDS_E_INVALID_FS_TYPE = -2147211935
-VDS_E_INVALID_OBJECT_TYPE = -2147211934
-VDS_E_INVALID_PARTITION_LAYOUT = -2147211933
-VDS_E_INVALID_PARTITION_STYLE = -2147211932
-VDS_E_INVALID_PARTITION_TYPE = -2147211931
-VDS_E_INVALID_PROVIDER_CLSID = -2147211930
-VDS_E_INVALID_PROVIDER_ID = -2147211929
-VDS_E_INVALID_PROVIDER_NAME = -2147211928
-VDS_E_INVALID_PROVIDER_TYPE = -2147211927
-VDS_E_INVALID_PROVIDER_VERSION_GUID = -2147211926
-VDS_E_INVALID_PROVIDER_VERSION_STRING = -2147211925
-VDS_E_INVALID_QUERY_PROVIDER_FLAG = -2147211924
-VDS_E_INVALID_SERVICE_FLAG = -2147211923
-VDS_E_INVALID_VOLUME_FLAG = -2147211922
-VDS_E_PARTITION_NOT_OEM = -2147211921
-VDS_E_PARTITION_PROTECTED = -2147211920
-VDS_E_PARTITION_STYLE_MISMATCH = -2147211919
-VDS_E_PROVIDER_INTERNAL_ERROR = -2147211918
-VDS_E_SHRINK_SIZE_LESS_THAN_MIN = -2147211917
-VDS_E_SHRINK_SIZE_TOO_BIG = -2147211916
-VDS_E_UNRECOVERABLE_PROVIDER_ERROR = -2147211915
-VDS_E_VOLUME_HIDDEN = -2147211914
-VDS_S_DISMOUNT_FAILED = 271735
-VDS_S_REMOUNT_FAILED = 271736
-VDS_E_FLAG_ALREADY_SET = -2147211911
-VDS_S_RESYNC_NOTIFICATION_TASK_FAILED = 271738
-VDS_E_DISTINCT_VOLUME = -2147211909
-VDS_E_VOLUME_NOT_FOUND_IN_PACK = -2147211908
-VDS_E_PARTITION_NON_DATA = -2147211907
-VDS_E_CRITICAL_PLEX = -2147211906
-VDS_E_VOLUME_SYNCHRONIZING = -2147211905
-VDS_E_VOLUME_REGENERATING = -2147211904
-VDS_S_VSS_FLUSH_AND_HOLD_WRITES = 271745
-VDS_S_VSS_RELEASE_WRITES = 271746
-VDS_S_FS_LOCK = 271747
-VDS_E_READONLY = -2147211900
-VDS_E_INVALID_VOLUME_TYPE = -2147211899
-VDS_E_BAD_BOOT_DISK = -2147211898
-VDS_E_LOG_UPDATE = -2147211897
-VDS_E_VOLUME_MIRRORED = -2147211896
-VDS_E_VOLUME_SIMPLE_SPANNED = -2147211895
-VDS_E_NO_VALID_LOG_COPIES = -2147211894
-VDS_S_PLEX_NOT_LOADED_TO_CACHE = 271755
-VDS_E_PLEX_NOT_LOADED_TO_CACHE = -2147211893
-VDS_E_PARTITION_MSR = -2147211892
-VDS_E_PARTITION_LDM = -2147211891
-VDS_S_WINPE_BOOTENTRY = 271758
-VDS_E_ALIGN_NOT_A_POWER_OF_TWO = -2147211889
-VDS_E_ALIGN_IS_ZERO = -2147211888
-VDS_E_SHRINK_IN_PROGRESS = -2147211887
-VDS_E_CANT_INVALIDATE_FVE = -2147211886
-VDS_E_FS_NOT_DETERMINED = -2147211885
-VDS_E_DISK_NOT_OFFLINE = -2147211883
-VDS_E_FAILED_TO_ONLINE_DISK = -2147211882
-VDS_E_FAILED_TO_OFFLINE_DISK = -2147211881
-VDS_E_BAD_REVISION_NUMBER = -2147211880
-VDS_E_SHRINK_USER_CANCELLED = -2147211879
-VDS_E_SHRINK_DIRTY_VOLUME = -2147211878
-VDS_S_NAME_TRUNCATED = 272128
-VDS_E_NAME_NOT_UNIQUE = -2147211519
-VDS_S_STATUSES_INCOMPLETELY_SET = 272130
-VDS_E_ADDRESSES_INCOMPLETELY_SET = -2147211517
-VDS_E_SECURITY_INCOMPLETELY_SET = -2147211515
-VDS_E_TARGET_SPECIFIC_NOT_SUPPORTED = -2147211514
-VDS_E_INITIATOR_SPECIFIC_NOT_SUPPORTED = -2147211513
-VDS_E_ISCSI_LOGIN_FAILED = -2147211512
-VDS_E_ISCSI_LOGOUT_FAILED = -2147211511
-VDS_E_ISCSI_SESSION_NOT_FOUND = -2147211510
-VDS_E_ASSOCIATED_LUNS_EXIST = -2147211509
-VDS_E_ASSOCIATED_PORTALS_EXIST = -2147211508
-VDS_E_NO_DISCOVERY_DOMAIN = -2147211507
-VDS_E_MULTIPLE_DISCOVERY_DOMAINS = -2147211506
-VDS_E_NO_DISK_PATHNAME = -2147211505
-VDS_E_ISCSI_LOGOUT_INCOMPLETE = -2147211504
-VDS_E_NO_VOLUME_PATHNAME = -2147211503
-VDS_E_PROVIDER_CACHE_OUTOFSYNC = -2147211502
-VDS_E_NO_IMPORT_TARGET = -2147211501
-VDS_S_ALREADY_EXISTS = 272148
-VDS_S_PROPERTIES_INCOMPLETE = 272149
-VDS_S_ISCSI_SESSION_NOT_FOUND_PERSISTENT_LOGIN_REMOVED = 272384
-VDS_S_ISCSI_PERSISTENT_LOGIN_MAY_NOT_BE_REMOVED = 272385
-VDS_S_ISCSI_LOGIN_ALREAD_EXISTS = 272386
-VDS_E_UNABLE_TO_FIND_BOOT_DISK = -2147211261
-VDS_E_INCORRECT_BOOT_VOLUME_EXTENT_INFO = -2147211260
-VDS_E_GET_SAN_POLICY = -2147211259
-VDS_E_SET_SAN_POLICY = -2147211258
-VDS_E_BOOT_DISK = -2147211257
-VDS_S_DISK_MOUNT_FAILED = 272392
-VDS_S_DISK_DISMOUNT_FAILED = 272393
-VDS_E_DISK_IS_OFFLINE = -2147211254
-VDS_E_DISK_IS_READ_ONLY = -2147211253
-VDS_E_PAGEFILE_DISK = -2147211252
-VDS_E_HIBERNATION_FILE_DISK = -2147211251
-VDS_E_CRASHDUMP_DISK = -2147211250
-VDS_E_UNABLE_TO_FIND_SYSTEM_DISK = -2147211249
-VDS_E_INCORRECT_SYSTEM_VOLUME_EXTENT_INFO = -2147211248
-VDS_E_SYSTEM_DISK = -2147211247
-VDS_E_VOLUME_SHRINK_FVE_LOCKED = -2147211246
-VDS_E_VOLUME_SHRINK_FVE_CORRUPT = -2147211245
-VDS_E_VOLUME_SHRINK_FVE_RECOVERY = -2147211244
-VDS_E_VOLUME_SHRINK_FVE = -2147211243
-VDS_E_SHRINK_OVER_DATA = -2147211242
-VDS_E_INVALID_SHRINK_SIZE = -2147211241
-VDS_E_LUN_DISK_MISSING = -2147211240
-VDS_E_LUN_DISK_FAILED = -2147211239
-VDS_E_LUN_DISK_NOT_READY = -2147211238
-VDS_E_LUN_DISK_NO_MEDIA = -2147211237
-VDS_E_LUN_NOT_READY = -2147211236
-VDS_E_LUN_OFFLINE = -2147211235
-VDS_E_LUN_FAILED = -2147211234
-VDS_E_VOLUME_EXTEND_FVE_LOCKED = -2147211233
-VDS_E_VOLUME_EXTEND_FVE_CORRUPT = -2147211232
-VDS_E_VOLUME_EXTEND_FVE_RECOVERY = -2147211231
-VDS_E_VOLUME_EXTEND_FVE = -2147211230
-VDS_E_SECTOR_SIZE_ERROR = -2147211229
-VDS_E_INITIATOR_ADAPTER_NOT_FOUND = -2147211008
-VDS_E_TARGET_PORTAL_NOT_FOUND = -2147211007
-VDS_E_INVALID_PORT_PATH = -2147211006
-VDS_E_INVALID_ISCSI_TARGET_NAME = -2147211005
-VDS_E_SET_TUNNEL_MODE_OUTER_ADDRESS = -2147211004
-VDS_E_ISCSI_GET_IKE_INFO = -2147211003
-VDS_E_ISCSI_SET_IKE_INFO = -2147211002
-VDS_E_SUBSYSTEM_ID_IS_NULL = -2147211001
-VDS_E_ISCSI_INITIATOR_NODE_NAME = -2147211000
-VDS_E_ISCSI_GROUP_PRESHARE_KEY = -2147210999
-VDS_E_ISCSI_CHAP_SECRET = -2147210998
-VDS_E_INVALID_IP_ADDRESS = -2147210997
-VDS_E_REBOOT_REQUIRED = -2147210996
-VDS_E_VOLUME_GUID_PATHNAME_NOT_ALLOWED = -2147210995
-VDS_E_BOOT_PAGEFILE_DRIVE_LETTER = -2147210994
-VDS_E_DELETE_WITH_CRITICAL = -2147210993
-VDS_E_CLEAN_WITH_DATA = -2147210992
-VDS_E_CLEAN_WITH_OEM = -2147210991
-VDS_E_CLEAN_WITH_CRITICAL = -2147210990
-VDS_E_FORMAT_CRITICAL = -2147210989
-VDS_E_NTFS_FORMAT_NOT_SUPPORTED = -2147210988
-VDS_E_FAT32_FORMAT_NOT_SUPPORTED = -2147210987
-VDS_E_FAT_FORMAT_NOT_SUPPORTED = -2147210986
-VDS_E_FORMAT_NOT_SUPPORTED = -2147210985
-VDS_E_COMPRESSION_NOT_SUPPORTED = -2147210984
-VDS_E_VDISK_NOT_OPEN = -2147210983
-VDS_E_VDISK_INVALID_OP_STATE = -2147210982
-VDS_E_INVALID_PATH = -2147210981
-VDS_E_INVALID_ISCSI_PATH = -2147210980
-VDS_E_SHRINK_LUN_NOT_UNMASKED = -2147210979
-VDS_E_LUN_DISK_READ_ONLY = -2147210978
-VDS_E_LUN_UPDATE_DISK = -2147210977
-VDS_E_LUN_DYNAMIC = -2147210976
-VDS_E_LUN_DYNAMIC_OFFLINE = -2147210975
-VDS_E_LUN_SHRINK_GPT_HEADER = -2147210974
-VDS_E_MIRROR_NOT_SUPPORTED = -2147210973
-VDS_E_RAID5_NOT_SUPPORTED = -2147210972
-VDS_E_DISK_NOT_CONVERTIBLE_SIZE = -2147210971
-VDS_E_OFFLINE_NOT_SUPPORTED = -2147210970
-VDS_E_VDISK_PATHNAME_INVALID = -2147210969
-VDS_E_EXTEND_TOO_MANY_CLUSTERS = -2147210968
-VDS_E_EXTEND_UNKNOWN_FILESYSTEM = -2147210967
-VDS_E_SHRINK_UNKNOWN_FILESYSTEM = -2147210966
-VDS_E_VD_DISK_NOT_OPEN = -2147210965
-VDS_E_VD_DISK_IS_EXPANDING = -2147210964
-VDS_E_VD_DISK_IS_COMPACTING = -2147210963
-VDS_E_VD_DISK_IS_MERGING = -2147210962
-VDS_E_VD_IS_ATTACHED = -2147210961
-VDS_E_VD_DISK_ALREADY_OPEN = -2147210960
-VDS_E_VD_DISK_ALREADY_EXPANDING = -2147210959
-VDS_E_VD_ALREADY_COMPACTING = -2147210958
-VDS_E_VD_ALREADY_MERGING = -2147210957
-VDS_E_VD_ALREADY_ATTACHED = -2147210956
-VDS_E_VD_ALREADY_DETACHED = -2147210955
-VDS_E_VD_NOT_ATTACHED_READONLY = -2147210954
-VDS_E_VD_IS_BEING_ATTACHED = -2147210953
-VDS_E_VD_IS_BEING_DETACHED = -2147210952
-VDS_E_NO_POOL = -2147210752
-VDS_E_NO_POOL_CREATED = -2147210751
-VDS_E_NO_MAINTENANCE_MODE = -2147210750
-VDS_E_BLOCK_CLUSTERED = -2147210749
-VDS_E_DISK_HAS_BANDS = -2147210748
-VDS_E_INVALID_STATE = -2147210747
-VDS_E_REFS_FORMAT_NOT_SUPPORTED = -2147210746
-VDS_E_DELETE_WITH_BOOTBACKING = -2147210745
-VDS_E_FORMAT_WITH_BOOTBACKING = -2147210744
-VDS_E_CLEAN_WITH_BOOTBACKING = -2147210743
-VDS_E_SHRINK_EXTEND_UNALIGNED = -2147210496
-def _define_IEnumVdsObject_head():
-    class IEnumVdsObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('118610b7-8d94-4030-b5-b8-50-08-89-78-8e-4e')
-    return IEnumVdsObject
-def _define_IEnumVdsObject():
-    IEnumVdsObject = win32more.Storage.VirtualDiskService.IEnumVdsObject_head
-    IEnumVdsObject.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'ppObjectArray'),(1, 'pcFetched'),)))
-    IEnumVdsObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumVdsObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumVdsObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(6, 'Clone', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumVdsObject
-def _define_IVdsAdmin_head():
-    class IVdsAdmin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d188e97d-85aa-4d33-ab-c6-26-29-9a-10-ff-c1')
-    return IVdsAdmin
-def _define_IVdsAdmin():
-    IVdsAdmin = win32more.Storage.VirtualDiskService.IVdsAdmin_head
-    IVdsAdmin.RegisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid,win32more.Foundation.PWSTR,win32more.Storage.VirtualDiskService.VDS_PROVIDER_TYPE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Guid)(3, 'RegisterProvider', ((1, 'providerId'),(1, 'providerClsid'),(1, 'pwszName'),(1, 'type'),(1, 'pwszMachineName'),(1, 'pwszVersion'),(1, 'guidVersionId'),)))
-    IVdsAdmin.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(4, 'UnregisterProvider', ((1, 'providerId'),)))
-    win32more.System.Com.IUnknown
-    return IVdsAdmin
-def _define_IVdsAdviseSink_head():
-    class IVdsAdviseSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8326cd1d-cf59-4936-b7-86-5e-fc-08-79-8e-25')
-    return IVdsAdviseSink
-def _define_IVdsAdviseSink():
-    IVdsAdviseSink = win32more.Storage.VirtualDiskService.IVdsAdviseSink_head
-    IVdsAdviseSink.OnNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_NOTIFICATION_head))(3, 'OnNotify', ((1, 'lNumberOfNotifications'),(1, 'pNotificationArray'),)))
-    win32more.System.Com.IUnknown
-    return IVdsAdviseSink
-def _define_IVdsAsync_head():
-    class IVdsAsync(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d5d23b6d-5a55-4492-98-89-39-7a-3c-2d-2d-bc')
-    return IVdsAsync
-def _define_IVdsAsync():
-    IVdsAsync = win32more.Storage.VirtualDiskService.IVdsAsync_head
-    IVdsAsync.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Cancel', ()))
-    IVdsAsync.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_head))(4, 'Wait', ((1, 'pHrResult'),(1, 'pAsyncOut'),)))
-    IVdsAsync.QueryStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(UInt32))(5, 'QueryStatus', ((1, 'pHrResult'),(1, 'pulPercentCompleted'),)))
-    win32more.System.Com.IUnknown
-    return IVdsAsync
-def _define_IVdsController_head():
-    class IVdsController(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cb53d96e-dffb-474a-a0-78-79-0d-1e-2b-c0-82')
-    return IVdsController
-def _define_IVdsController():
-    IVdsController = win32more.Storage.VirtualDiskService.IVdsController_head
-    IVdsController.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_CONTROLLER_PROP_head))(3, 'GetProperties', ((1, 'pControllerProp'),)))
-    IVdsController.GetSubSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head))(4, 'GetSubSystem', ((1, 'ppSubSystem'),)))
-    IVdsController.GetPortProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(win32more.Storage.VirtualDiskService.VDS_PORT_PROP_head))(5, 'GetPortProperties', ((1, 'sPortNumber'),(1, 'pPortProp'),)))
-    IVdsController.FlushCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'FlushCache', ()))
-    IVdsController.InvalidateCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'InvalidateCache', ()))
-    IVdsController.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Reset', ()))
-    IVdsController.QueryAssociatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(9, 'QueryAssociatedLuns', ((1, 'ppEnum'),)))
-    IVdsController.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS)(10, 'SetStatus', ((1, 'status'),)))
-    win32more.System.Com.IUnknown
-    return IVdsController
-def _define_IVdsControllerControllerPort_head():
-    class IVdsControllerControllerPort(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ca5d735f-6bae-42c0-b3-0e-f2-66-60-45-ce-71')
-    return IVdsControllerControllerPort
-def _define_IVdsControllerControllerPort():
-    IVdsControllerControllerPort = win32more.Storage.VirtualDiskService.IVdsControllerControllerPort_head
-    IVdsControllerControllerPort.QueryControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(3, 'QueryControllerPorts', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IVdsControllerControllerPort
-def _define_IVdsControllerPort_head():
-    class IVdsControllerPort(win32more.System.Com.IUnknown_head):
-        Guid = Guid('18691d0d-4e7f-43e8-92-e4-cf-44-be-ee-d1-1c')
-    return IVdsControllerPort
-def _define_IVdsControllerPort():
-    IVdsControllerPort = win32more.Storage.VirtualDiskService.IVdsControllerPort_head
-    IVdsControllerPort.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_PORT_PROP_head))(3, 'GetProperties', ((1, 'pPortProp'),)))
-    IVdsControllerPort.GetController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsController_head))(4, 'GetController', ((1, 'ppController'),)))
-    IVdsControllerPort.QueryAssociatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(5, 'QueryAssociatedLuns', ((1, 'ppEnum'),)))
-    IVdsControllerPort.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Reset', ()))
-    IVdsControllerPort.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_PORT_STATUS)(7, 'SetStatus', ((1, 'status'),)))
-    win32more.System.Com.IUnknown
-    return IVdsControllerPort
-def _define_IVdsDrive_head():
-    class IVdsDrive(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ff24efa4-aade-4b6b-89-8b-ea-a6-a2-08-87-c7')
-    return IVdsDrive
-def _define_IVdsDrive():
-    IVdsDrive = win32more.Storage.VirtualDiskService.IVdsDrive_head
-    IVdsDrive.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP_head))(3, 'GetProperties', ((1, 'pDriveProp'),)))
-    IVdsDrive.GetSubSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head))(4, 'GetSubSystem', ((1, 'ppSubSystem'),)))
-    IVdsDrive.QueryExtents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head)),POINTER(Int32))(5, 'QueryExtents', ((1, 'ppExtentArray'),(1, 'plNumberOfExtents'),)))
-    IVdsDrive.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'SetFlags', ((1, 'ulFlags'),)))
-    IVdsDrive.ClearFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(7, 'ClearFlags', ((1, 'ulFlags'),)))
-    IVdsDrive.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS)(8, 'SetStatus', ((1, 'status'),)))
-    win32more.System.Com.IUnknown
-    return IVdsDrive
-def _define_IVdsDrive2_head():
-    class IVdsDrive2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('60b5a730-addf-4436-8c-a7-57-69-e2-d1-ff-a4')
-    return IVdsDrive2
-def _define_IVdsDrive2():
-    IVdsDrive2 = win32more.Storage.VirtualDiskService.IVdsDrive2_head
-    IVdsDrive2.GetProperties2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head))(3, 'GetProperties2', ((1, 'pDriveProp2'),)))
-    win32more.System.Com.IUnknown
-    return IVdsDrive2
-def _define_IVdsHwProvider_head():
-    class IVdsHwProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d99bdaae-b13a-4178-9f-db-e2-7f-16-b4-60-3e')
-    return IVdsHwProvider
-def _define_IVdsHwProvider():
-    IVdsHwProvider = win32more.Storage.VirtualDiskService.IVdsHwProvider_head
-    IVdsHwProvider.QuerySubSystems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(3, 'QuerySubSystems', ((1, 'ppEnum'),)))
-    IVdsHwProvider.Reenumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reenumerate', ()))
-    IVdsHwProvider.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Refresh', ()))
-    win32more.System.Com.IUnknown
-    return IVdsHwProvider
-def _define_IVdsHwProviderPrivate_head():
-    class IVdsHwProviderPrivate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('98f17bf3-9f33-4f12-87-14-8b-40-75-09-2c-2e')
-    return IVdsHwProviderPrivate
-def _define_IVdsHwProviderPrivate():
-    IVdsHwProviderPrivate = win32more.Storage.VirtualDiskService.IVdsHwProviderPrivate_head
-    IVdsHwProviderPrivate.QueryIfCreatedLun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head),POINTER(Guid))(3, 'QueryIfCreatedLun', ((1, 'pwszDevicePath'),(1, 'pVdsLunInformation'),(1, 'pLunId'),)))
-    win32more.System.Com.IUnknown
-    return IVdsHwProviderPrivate
-def _define_IVdsHwProviderPrivateMpio_head():
-    class IVdsHwProviderPrivateMpio(win32more.System.Com.IUnknown_head):
-        Guid = Guid('310a7715-ac2b-4c6f-98-27-3d-74-2f-35-16-76')
-    return IVdsHwProviderPrivateMpio
-def _define_IVdsHwProviderPrivateMpio():
-    IVdsHwProviderPrivateMpio = win32more.Storage.VirtualDiskService.IVdsHwProviderPrivateMpio_head
-    IVdsHwProviderPrivateMpio.SetAllPathStatusesFromHbaPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP,win32more.Storage.VirtualDiskService.VDS_PATH_STATUS)(3, 'SetAllPathStatusesFromHbaPort', ((1, 'hbaPortProp'),(1, 'status'),)))
-    win32more.System.Com.IUnknown
-    return IVdsHwProviderPrivateMpio
-def _define_IVdsHwProviderStoragePools_head():
-    class IVdsHwProviderStoragePools(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d5b5937a-f188-4c79-b8-6c-11-c9-20-ad-11-b8')
-    return IVdsHwProviderStoragePools
-def _define_IVdsHwProviderStoragePools():
-    IVdsHwProviderStoragePools = win32more.Storage.VirtualDiskService.IVdsHwProviderStoragePools_head
-    IVdsHwProviderStoragePools.QueryStoragePools = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head),POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(3, 'QueryStoragePools', ((1, 'ulFlags'),(1, 'ullRemainingFreeSpace'),(1, 'pPoolAttributes'),(1, 'ppEnum'),)))
-    IVdsHwProviderStoragePools.CreateLunInStoragePool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,UInt64,Guid,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(4, 'CreateLunInStoragePool', ((1, 'type'),(1, 'ullSizeInBytes'),(1, 'StoragePoolId'),(1, 'pwszUnmaskingList'),(1, 'pHints2'),(1, 'ppAsync'),)))
-    IVdsHwProviderStoragePools.QueryMaxLunCreateSizeInStoragePool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,Guid,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(UInt64))(5, 'QueryMaxLunCreateSizeInStoragePool', ((1, 'type'),(1, 'StoragePoolId'),(1, 'pHints2'),(1, 'pullMaxLunSize'),)))
-    win32more.System.Com.IUnknown
-    return IVdsHwProviderStoragePools
-def _define_IVdsHwProviderType_head():
-    class IVdsHwProviderType(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3e0f5166-542d-4fc6-94-7a-01-21-74-24-0b-7e')
-    return IVdsHwProviderType
-def _define_IVdsHwProviderType():
-    IVdsHwProviderType = win32more.Storage.VirtualDiskService.IVdsHwProviderType_head
-    IVdsHwProviderType.GetProviderType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE))(3, 'GetProviderType', ((1, 'pType'),)))
-    win32more.System.Com.IUnknown
-    return IVdsHwProviderType
-def _define_IVdsHwProviderType2_head():
-    class IVdsHwProviderType2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8190236f-c4d0-4e81-80-11-d6-95-12-fc-c9-84')
-    return IVdsHwProviderType2
-def _define_IVdsHwProviderType2():
-    IVdsHwProviderType2 = win32more.Storage.VirtualDiskService.IVdsHwProviderType2_head
-    IVdsHwProviderType2.GetProviderType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE))(3, 'GetProviderType2', ((1, 'pType'),)))
-    win32more.System.Com.IUnknown
-    return IVdsHwProviderType2
-def _define_IVdsIscsiPortal_head():
-    class IVdsIscsiPortal(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7fa1499d-ec85-4a8a-a4-7b-ff-69-20-1f-cd-34')
-    return IVdsIscsiPortal
-def _define_IVdsIscsiPortal():
-    IVdsIscsiPortal = win32more.Storage.VirtualDiskService.IVdsIscsiPortal_head
-    IVdsIscsiPortal.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_PROP_head))(3, 'GetProperties', ((1, 'pPortalProp'),)))
-    IVdsIscsiPortal.GetSubSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head))(4, 'GetSubSystem', ((1, 'ppSubSystem'),)))
-    IVdsIscsiPortal.QueryAssociatedPortalGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(5, 'QueryAssociatedPortalGroups', ((1, 'ppEnum'),)))
-    IVdsIscsiPortal.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS)(6, 'SetStatus', ((1, 'status'),)))
-    IVdsIscsiPortal.SetIpsecTunnelAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head))(7, 'SetIpsecTunnelAddress', ((1, 'pTunnelAddress'),(1, 'pDestinationAddress'),)))
-    IVdsIscsiPortal.GetIpsecSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),POINTER(UInt64))(8, 'GetIpsecSecurity', ((1, 'pInitiatorPortalAddress'),(1, 'pullSecurityFlags'),)))
-    IVdsIscsiPortal.SetIpsecSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),UInt64,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head))(9, 'SetIpsecSecurity', ((1, 'pInitiatorPortalAddress'),(1, 'ullSecurityFlags'),(1, 'pIpsecKey'),)))
-    win32more.System.Com.IUnknown
-    return IVdsIscsiPortal
-def _define_IVdsIscsiPortalGroup_head():
-    class IVdsIscsiPortalGroup(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fef5f89d-a3dd-4b36-bf-28-e7-dd-e0-45-c5-93')
-    return IVdsIscsiPortalGroup
-def _define_IVdsIscsiPortalGroup():
-    IVdsIscsiPortalGroup = win32more.Storage.VirtualDiskService.IVdsIscsiPortalGroup_head
-    IVdsIscsiPortalGroup.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTALGROUP_PROP_head))(3, 'GetProperties', ((1, 'pPortalGroupProp'),)))
-    IVdsIscsiPortalGroup.GetTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsIscsiTarget_head))(4, 'GetTarget', ((1, 'ppTarget'),)))
-    IVdsIscsiPortalGroup.QueryAssociatedPortals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(5, 'QueryAssociatedPortals', ((1, 'ppEnum'),)))
-    IVdsIscsiPortalGroup.AddPortal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(6, 'AddPortal', ((1, 'portalId'),(1, 'ppAsync'),)))
-    IVdsIscsiPortalGroup.RemovePortal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(7, 'RemovePortal', ((1, 'portalId'),(1, 'ppAsync'),)))
-    IVdsIscsiPortalGroup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(8, 'Delete', ((1, 'ppAsync'),)))
-    win32more.System.Com.IUnknown
-    return IVdsIscsiPortalGroup
-def _define_IVdsIscsiTarget_head():
-    class IVdsIscsiTarget(win32more.System.Com.IUnknown_head):
-        Guid = Guid('aa8f5055-83e5-4bcc-aa-73-19-85-1a-36-a8-49')
-    return IVdsIscsiTarget
-def _define_IVdsIscsiTarget():
-    IVdsIscsiTarget = win32more.Storage.VirtualDiskService.IVdsIscsiTarget_head
-    IVdsIscsiTarget.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_TARGET_PROP_head))(3, 'GetProperties', ((1, 'pTargetProp'),)))
-    IVdsIscsiTarget.GetSubSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head))(4, 'GetSubSystem', ((1, 'ppSubSystem'),)))
-    IVdsIscsiTarget.QueryPortalGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(5, 'QueryPortalGroups', ((1, 'ppEnum'),)))
-    IVdsIscsiTarget.QueryAssociatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(6, 'QueryAssociatedLuns', ((1, 'ppEnum'),)))
-    IVdsIscsiTarget.CreatePortalGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(7, 'CreatePortalGroup', ((1, 'ppAsync'),)))
-    IVdsIscsiTarget.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(8, 'Delete', ((1, 'ppAsync'),)))
-    IVdsIscsiTarget.SetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'SetFriendlyName', ((1, 'pwszFriendlyName'),)))
-    IVdsIscsiTarget.SetSharedSecret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head),win32more.Foundation.PWSTR)(10, 'SetSharedSecret', ((1, 'pTargetSharedSecret'),(1, 'pwszInitiatorName'),)))
-    IVdsIscsiTarget.RememberInitiatorSharedSecret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head))(11, 'RememberInitiatorSharedSecret', ((1, 'pwszInitiatorName'),(1, 'pInitiatorSharedSecret'),)))
-    IVdsIscsiTarget.GetConnectedInitiators = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(Int32))(12, 'GetConnectedInitiators', ((1, 'pppwszInitiatorList'),(1, 'plNumberOfInitiators'),)))
-    win32more.System.Com.IUnknown
-    return IVdsIscsiTarget
-def _define_IVdsLun_head():
-    class IVdsLun(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3540a9c7-e60f-4111-a8-40-8b-ba-6c-2c-83-d8')
-    return IVdsLun
-def _define_IVdsLun():
-    IVdsLun = win32more.Storage.VirtualDiskService.IVdsLun_head
-    IVdsLun.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_PROP_head))(3, 'GetProperties', ((1, 'pLunProp'),)))
-    IVdsLun.GetSubSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head))(4, 'GetSubSystem', ((1, 'ppSubSystem'),)))
-    IVdsLun.GetIdentificationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head))(5, 'GetIdentificationData', ((1, 'pLunInfo'),)))
-    IVdsLun.QueryActiveControllers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(6, 'QueryActiveControllers', ((1, 'ppEnum'),)))
-    IVdsLun.Extend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(Guid),Int32,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(7, 'Extend', ((1, 'ullNumberOfBytesToAdd'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'ppAsync'),)))
-    IVdsLun.Shrink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(8, 'Shrink', ((1, 'ullNumberOfBytesToRemove'),(1, 'ppAsync'),)))
-    IVdsLun.QueryPlexes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(9, 'QueryPlexes', ((1, 'ppEnum'),)))
-    IVdsLun.AddPlex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(10, 'AddPlex', ((1, 'lunId'),(1, 'ppAsync'),)))
-    IVdsLun.RemovePlex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(11, 'RemovePlex', ((1, 'plexId'),(1, 'ppAsync'),)))
-    IVdsLun.Recover = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(12, 'Recover', ((1, 'ppAsync'),)))
-    IVdsLun.SetMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(13, 'SetMask', ((1, 'pwszUnmaskingList'),)))
-    IVdsLun.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Delete', ()))
-    IVdsLun.AssociateControllers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(Guid),Int32)(15, 'AssociateControllers', ((1, 'pActiveControllerIdArray'),(1, 'lNumberOfActiveControllers'),(1, 'pInactiveControllerIdArray'),(1, 'lNumberOfInactiveControllers'),)))
-    IVdsLun.QueryHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head))(16, 'QueryHints', ((1, 'pHints'),)))
-    IVdsLun.ApplyHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head))(17, 'ApplyHints', ((1, 'pHints'),)))
-    IVdsLun.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_STATUS)(18, 'SetStatus', ((1, 'status'),)))
-    IVdsLun.QueryMaxLunExtendSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(UInt64))(19, 'QueryMaxLunExtendSize', ((1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pullMaxBytesToBeAdded'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLun
-def _define_IVdsLun2_head():
-    class IVdsLun2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e5b3a735-9efb-499a-80-71-43-94-d9-ee-6f-cb')
-    return IVdsLun2
-def _define_IVdsLun2():
-    IVdsLun2 = win32more.Storage.VirtualDiskService.IVdsLun2_head
-    IVdsLun2.QueryHints2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head))(3, 'QueryHints2', ((1, 'pHints2'),)))
-    IVdsLun2.ApplyHints2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head))(4, 'ApplyHints2', ((1, 'pHints2'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLun2
-def _define_IVdsLunControllerPorts_head():
-    class IVdsLunControllerPorts(win32more.System.Com.IUnknown_head):
-        Guid = Guid('451fe266-da6d-406a-bb-60-82-e5-34-f8-5a-eb')
-    return IVdsLunControllerPorts
-def _define_IVdsLunControllerPorts():
-    IVdsLunControllerPorts = win32more.Storage.VirtualDiskService.IVdsLunControllerPorts_head
-    IVdsLunControllerPorts.AssociateControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(Guid),Int32)(3, 'AssociateControllerPorts', ((1, 'pActiveControllerPortIdArray'),(1, 'lNumberOfActiveControllerPorts'),(1, 'pInactiveControllerPortIdArray'),(1, 'lNumberOfInactiveControllerPorts'),)))
-    IVdsLunControllerPorts.QueryActiveControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(4, 'QueryActiveControllerPorts', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunControllerPorts
-def _define_IVdsLunIscsi_head():
-    class IVdsLunIscsi(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0d7c1e64-b59b-45ae-b8-6a-2c-2c-c6-a4-20-67')
-    return IVdsLunIscsi
-def _define_IVdsLunIscsi():
-    IVdsLunIscsi = win32more.Storage.VirtualDiskService.IVdsLunIscsi_head
-    IVdsLunIscsi.AssociateTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32)(3, 'AssociateTargets', ((1, 'pTargetIdArray'),(1, 'lNumberOfTargets'),)))
-    IVdsLunIscsi.QueryAssociatedTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(4, 'QueryAssociatedTargets', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunIscsi
-def _define_IVdsLunMpio_head():
-    class IVdsLunMpio(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7c5fbae3-333a-48a1-a9-82-33-c1-57-88-cd-e3')
-    return IVdsLunMpio
-def _define_IVdsLunMpio():
-    IVdsLunMpio = win32more.Storage.VirtualDiskService.IVdsLunMpio_head
-    IVdsLunMpio.GetPathInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_INFO_head)),POINTER(Int32))(3, 'GetPathInfo', ((1, 'ppPaths'),(1, 'plNumberOfPaths'),)))
-    IVdsLunMpio.GetLoadBalancePolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM),POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head)),POINTER(Int32))(4, 'GetLoadBalancePolicy', ((1, 'pPolicy'),(1, 'ppPaths'),(1, 'plNumberOfPaths'),)))
-    IVdsLunMpio.SetLoadBalancePolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM,POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head),Int32)(5, 'SetLoadBalancePolicy', ((1, 'policy'),(1, 'pPaths'),(1, 'lNumberOfPaths'),)))
-    IVdsLunMpio.GetSupportedLbPolicies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetSupportedLbPolicies', ((1, 'pulLbFlags'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunMpio
-def _define_IVdsLunNaming_head():
-    class IVdsLunNaming(win32more.System.Com.IUnknown_head):
-        Guid = Guid('907504cb-6b4e-4d88-a3-4d-17-ba-66-1f-bb-06')
-    return IVdsLunNaming
-def _define_IVdsLunNaming():
-    IVdsLunNaming = win32more.Storage.VirtualDiskService.IVdsLunNaming_head
-    IVdsLunNaming.SetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'SetFriendlyName', ((1, 'pwszFriendlyName'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunNaming
-def _define_IVdsLunNumber_head():
-    class IVdsLunNumber(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d3f95e46-54b3-41f9-b6-78-0f-18-71-44-3a-08')
-    return IVdsLunNumber
-def _define_IVdsLunNumber():
-    IVdsLunNumber = win32more.Storage.VirtualDiskService.IVdsLunNumber_head
-    IVdsLunNumber.GetLunNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetLunNumber', ((1, 'pulLunNumber'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunNumber
-def _define_IVdsLunPlex_head():
-    class IVdsLunPlex(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0ee1a790-5d2e-4abb-8c-99-c4-81-e8-be-21-38')
-    return IVdsLunPlex
-def _define_IVdsLunPlex():
-    IVdsLunPlex = win32more.Storage.VirtualDiskService.IVdsLunPlex_head
-    IVdsLunPlex.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_PROP_head))(3, 'GetProperties', ((1, 'pPlexProp'),)))
-    IVdsLunPlex.GetLun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsLun_head))(4, 'GetLun', ((1, 'ppLun'),)))
-    IVdsLunPlex.QueryExtents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head)),POINTER(Int32))(5, 'QueryExtents', ((1, 'ppExtentArray'),(1, 'plNumberOfExtents'),)))
-    IVdsLunPlex.QueryHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head))(6, 'QueryHints', ((1, 'pHints'),)))
-    IVdsLunPlex.ApplyHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head))(7, 'ApplyHints', ((1, 'pHints'),)))
-    win32more.System.Com.IUnknown
-    return IVdsLunPlex
-def _define_IVdsMaintenance_head():
-    class IVdsMaintenance(win32more.System.Com.IUnknown_head):
-        Guid = Guid('daebeef3-8523-47ed-a2-b9-05-ce-cc-e2-a1-ae')
-    return IVdsMaintenance
-def _define_IVdsMaintenance():
-    IVdsMaintenance = win32more.Storage.VirtualDiskService.IVdsMaintenance_head
-    IVdsMaintenance.StartMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION)(3, 'StartMaintenance', ((1, 'operation'),)))
-    IVdsMaintenance.StopMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION)(4, 'StopMaintenance', ((1, 'operation'),)))
-    IVdsMaintenance.PulseMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION,UInt32)(5, 'PulseMaintenance', ((1, 'operation'),(1, 'ulCount'),)))
-    win32more.System.Com.IUnknown
-    return IVdsMaintenance
-def _define_IVdsProvider_head():
-    class IVdsProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('10c5e575-7984-4e81-a5-6b-43-1f-5f-92-ae-42')
-    return IVdsProvider
-def _define_IVdsProvider():
-    IVdsProvider = win32more.Storage.VirtualDiskService.IVdsProvider_head
-    IVdsProvider.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_PROVIDER_PROP_head))(3, 'GetProperties', ((1, 'pProviderProp'),)))
-    win32more.System.Com.IUnknown
-    return IVdsProvider
-def _define_IVdsProviderPrivate_head():
-    class IVdsProviderPrivate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('11f3cd41-b7e8-48ff-94-72-9d-ff-01-8a-a2-92')
-    return IVdsProviderPrivate
-def _define_IVdsProviderPrivate():
-    IVdsProviderPrivate = win32more.Storage.VirtualDiskService.IVdsProviderPrivate_head
-    IVdsProviderPrivate.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Storage.VirtualDiskService.VDS_OBJECT_TYPE,POINTER(win32more.System.Com.IUnknown_head))(3, 'GetObject', ((1, 'ObjectId'),(1, 'type'),(1, 'ppObjectUnk'),)))
-    IVdsProviderPrivate.OnLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head)(4, 'OnLoad', ((1, 'pwszMachineName'),(1, 'pCallbackObject'),)))
-    IVdsProviderPrivate.OnUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(5, 'OnUnload', ((1, 'bForceUnload'),)))
-    win32more.System.Com.IUnknown
-    return IVdsProviderPrivate
-def _define_IVdsProviderSupport_head():
-    class IVdsProviderSupport(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1732be13-e8f9-4a03-bf-bc-5f-61-6a-a6-6c-e1')
-    return IVdsProviderSupport
-def _define_IVdsProviderSupport():
-    IVdsProviderSupport = win32more.Storage.VirtualDiskService.IVdsProviderSupport_head
-    IVdsProviderSupport.GetVersionSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetVersionSupport', ((1, 'ulVersionSupport'),)))
-    win32more.System.Com.IUnknown
-    return IVdsProviderSupport
-def _define_IVdsStoragePool_head():
-    class IVdsStoragePool(win32more.System.Com.IUnknown_head):
-        Guid = Guid('932ca8cf-0eb3-4ba8-96-20-22-66-5d-7f-84-50')
-    return IVdsStoragePool
-def _define_IVdsStoragePool():
-    IVdsStoragePool = win32more.Storage.VirtualDiskService.IVdsStoragePool_head
-    IVdsStoragePool.GetProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsProvider_head))(3, 'GetProvider', ((1, 'ppProvider'),)))
-    IVdsStoragePool.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_PROP_head))(4, 'GetProperties', ((1, 'pStoragePoolProp'),)))
-    IVdsStoragePool.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head))(5, 'GetAttributes', ((1, 'pStoragePoolAttributes'),)))
-    IVdsStoragePool.QueryDriveExtents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_DRIVE_EXTENT_head)),POINTER(Int32))(6, 'QueryDriveExtents', ((1, 'ppExtentArray'),(1, 'plNumberOfExtents'),)))
-    IVdsStoragePool.QueryAllocatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(7, 'QueryAllocatedLuns', ((1, 'ppEnum'),)))
-    IVdsStoragePool.QueryAllocatedStoragePools = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(8, 'QueryAllocatedStoragePools', ((1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IVdsStoragePool
-def _define_IVdsSubSystem_head():
-    class IVdsSubSystem(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6fcee2d3-6d90-4f91-80-e2-a5-c7-ca-ac-a9-d8')
-    return IVdsSubSystem
-def _define_IVdsSubSystem():
-    IVdsSubSystem = win32more.Storage.VirtualDiskService.IVdsSubSystem_head
-    IVdsSubSystem.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP_head))(3, 'GetProperties', ((1, 'pSubSystemProp'),)))
-    IVdsSubSystem.GetProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsProvider_head))(4, 'GetProvider', ((1, 'ppProvider'),)))
-    IVdsSubSystem.QueryControllers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(5, 'QueryControllers', ((1, 'ppEnum'),)))
-    IVdsSubSystem.QueryLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(6, 'QueryLuns', ((1, 'ppEnum'),)))
-    IVdsSubSystem.QueryDrives = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(7, 'QueryDrives', ((1, 'ppEnum'),)))
-    IVdsSubSystem.GetDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Int16,POINTER(win32more.Storage.VirtualDiskService.IVdsDrive_head))(8, 'GetDrive', ((1, 'sBusNumber'),(1, 'sSlotNumber'),(1, 'ppDrive'),)))
-    IVdsSubSystem.Reenumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'Reenumerate', ()))
-    IVdsSubSystem.SetControllerStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(Guid),Int32)(10, 'SetControllerStatus', ((1, 'pOnlineControllerIdArray'),(1, 'lNumberOfOnlineControllers'),(1, 'pOfflineControllerIdArray'),(1, 'lNumberOfOfflineControllers'),)))
-    IVdsSubSystem.CreateLun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,UInt64,POINTER(Guid),Int32,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head),POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(11, 'CreateLun', ((1, 'type'),(1, 'ullSizeInBytes'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pwszUnmaskingList'),(1, 'pHints'),(1, 'ppAsync'),)))
-    IVdsSubSystem.ReplaceDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid)(12, 'ReplaceDrive', ((1, 'DriveToBeReplaced'),(1, 'ReplacementDrive'),)))
-    IVdsSubSystem.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS)(13, 'SetStatus', ((1, 'status'),)))
-    IVdsSubSystem.QueryMaxLunCreateSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,POINTER(Guid),Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head),POINTER(UInt64))(14, 'QueryMaxLunCreateSize', ((1, 'type'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pHints'),(1, 'pullMaxLunSize'),)))
-    win32more.System.Com.IUnknown
-    return IVdsSubSystem
-def _define_IVdsSubSystem2_head():
-    class IVdsSubSystem2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('be666735-7800-4a77-9d-9c-40-f8-5b-87-e2-92')
-    return IVdsSubSystem2
-def _define_IVdsSubSystem2():
-    IVdsSubSystem2 = win32more.Storage.VirtualDiskService.IVdsSubSystem2_head
-    IVdsSubSystem2.GetProperties2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP2_head))(3, 'GetProperties2', ((1, 'pSubSystemProp2'),)))
-    IVdsSubSystem2.GetDrive2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Int16,UInt32,POINTER(win32more.Storage.VirtualDiskService.IVdsDrive_head))(4, 'GetDrive2', ((1, 'sBusNumber'),(1, 'sSlotNumber'),(1, 'ulEnclosureNumber'),(1, 'ppDrive'),)))
-    IVdsSubSystem2.CreateLun2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,UInt64,POINTER(Guid),Int32,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(5, 'CreateLun2', ((1, 'type'),(1, 'ullSizeInBytes'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pwszUnmaskingList'),(1, 'pHints2'),(1, 'ppAsync'),)))
-    IVdsSubSystem2.QueryMaxLunCreateSize2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,POINTER(Guid),Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(UInt64))(6, 'QueryMaxLunCreateSize2', ((1, 'type'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pHints2'),(1, 'pullMaxLunSize'),)))
-    win32more.System.Com.IUnknown
-    return IVdsSubSystem2
-def _define_IVdsSubSystemInterconnect_head():
-    class IVdsSubSystemInterconnect(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9e6fa560-c141-477b-83-ba-0b-6c-38-f7-fe-bf')
-    return IVdsSubSystemInterconnect
-def _define_IVdsSubSystemInterconnect():
-    IVdsSubSystemInterconnect = win32more.Storage.VirtualDiskService.IVdsSubSystemInterconnect_head
-    IVdsSubSystemInterconnect.GetSupportedInterconnects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetSupportedInterconnects', ((1, 'pulSupportedInterconnectsFlag'),)))
-    win32more.System.Com.IUnknown
-    return IVdsSubSystemInterconnect
-def _define_IVdsSubSystemIscsi_head():
-    class IVdsSubSystemIscsi(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0027346f-40d0-4b45-8c-ec-59-06-dc-03-80-c8')
-    return IVdsSubSystemIscsi
-def _define_IVdsSubSystemIscsi():
-    IVdsSubSystemIscsi = win32more.Storage.VirtualDiskService.IVdsSubSystemIscsi_head
-    IVdsSubSystemIscsi.QueryTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(3, 'QueryTargets', ((1, 'ppEnum'),)))
-    IVdsSubSystemIscsi.QueryPortals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head))(4, 'QueryPortals', ((1, 'ppEnum'),)))
-    IVdsSubSystemIscsi.CreateTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head))(5, 'CreateTarget', ((1, 'pwszIscsiName'),(1, 'pwszFriendlyName'),(1, 'ppAsync'),)))
-    IVdsSubSystemIscsi.SetIpsecGroupPresharedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head))(6, 'SetIpsecGroupPresharedKey', ((1, 'pIpsecKey'),)))
-    win32more.System.Com.IUnknown
-    return IVdsSubSystemIscsi
-def _define_IVdsSubSystemNaming_head():
-    class IVdsSubSystemNaming(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0d70faa3-9cd4-4900-aa-20-69-81-b6-aa-fc-75')
-    return IVdsSubSystemNaming
-def _define_IVdsSubSystemNaming():
-    IVdsSubSystemNaming = win32more.Storage.VirtualDiskService.IVdsSubSystemNaming_head
-    IVdsSubSystemNaming.SetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'SetFriendlyName', ((1, 'pwszFriendlyName'),)))
-    win32more.System.Com.IUnknown
-    return IVdsSubSystemNaming
-def _define_VDS_ASYNC_OUTPUT_head():
-    class VDS_ASYNC_OUTPUT(Structure):
-        pass
-    return VDS_ASYNC_OUTPUT
-def _define_VDS_ASYNC_OUTPUT():
-    VDS_ASYNC_OUTPUT = win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_head
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union(Union):
-        pass
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__cp(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__cp._fields_ = [
-        ('ullOffset', UInt64),
-        ('volumeId', Guid),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__cv(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__cv._fields_ = [
-        ('pVolumeUnk', win32more.System.Com.IUnknown_head),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__bvp(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__bvp._fields_ = [
-        ('pVolumeUnk', win32more.System.Com.IUnknown_head),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__sv(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__sv._fields_ = [
-        ('ullReclaimedBytes', UInt64),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__cl(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__cl._fields_ = [
-        ('pLunUnk', win32more.System.Com.IUnknown_head),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__ct(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__ct._fields_ = [
-        ('pTargetUnk', win32more.System.Com.IUnknown_head),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__cpg(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__cpg._fields_ = [
-        ('pPortalGroupUnk', win32more.System.Com.IUnknown_head),
-    ]
-    class VDS_ASYNC_OUTPUT__Anonymous_e__Union__cvd(Structure):
-        pass
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union__cvd._fields_ = [
-        ('pVDiskUnk', win32more.System.Com.IUnknown_head),
-    ]
-    VDS_ASYNC_OUTPUT__Anonymous_e__Union._fields_ = [
-        ('cp', VDS_ASYNC_OUTPUT__Anonymous_e__Union__cp),
-        ('cv', VDS_ASYNC_OUTPUT__Anonymous_e__Union__cv),
-        ('bvp', VDS_ASYNC_OUTPUT__Anonymous_e__Union__bvp),
-        ('sv', VDS_ASYNC_OUTPUT__Anonymous_e__Union__sv),
-        ('cl', VDS_ASYNC_OUTPUT__Anonymous_e__Union__cl),
-        ('ct', VDS_ASYNC_OUTPUT__Anonymous_e__Union__ct),
-        ('cpg', VDS_ASYNC_OUTPUT__Anonymous_e__Union__cpg),
-        ('cvd', VDS_ASYNC_OUTPUT__Anonymous_e__Union__cvd),
-    ]
-    VDS_ASYNC_OUTPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    VDS_ASYNC_OUTPUT._fields_ = [
-        ('type', win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE),
-        ('Anonymous', VDS_ASYNC_OUTPUT__Anonymous_e__Union),
-    ]
-    return VDS_ASYNC_OUTPUT
+VDS_NF_VOLUME_ARRIVE: UInt32 = 4
+VDS_NF_VOLUME_DEPART: UInt32 = 5
+VDS_NF_VOLUME_MODIFY: UInt32 = 6
+VDS_NF_VOLUME_REBUILDING_PROGRESS: UInt32 = 7
+VDS_NF_PARTITION_ARRIVE: UInt32 = 11
+VDS_NF_PARTITION_DEPART: UInt32 = 12
+VDS_NF_PARTITION_MODIFY: UInt32 = 13
+VDS_NF_SUB_SYSTEM_ARRIVE: UInt32 = 101
+VDS_NF_SUB_SYSTEM_DEPART: UInt32 = 102
+VDS_NF_PORTAL_ARRIVE: UInt32 = 123
+VDS_NF_PORTAL_DEPART: UInt32 = 124
+VDS_NF_PORTAL_MODIFY: UInt32 = 125
+VDS_NF_TARGET_ARRIVE: UInt32 = 126
+VDS_NF_TARGET_DEPART: UInt32 = 127
+VDS_NF_TARGET_MODIFY: UInt32 = 128
+VDS_NF_PORTAL_GROUP_ARRIVE: UInt32 = 129
+VDS_NF_PORTAL_GROUP_DEPART: UInt32 = 130
+VDS_NF_PORTAL_GROUP_MODIFY: UInt32 = 131
+VDS_NF_SUB_SYSTEM_MODIFY: UInt32 = 151
+VDS_NF_DRIVE_LETTER_FREE: UInt32 = 201
+VDS_NF_DRIVE_LETTER_ASSIGN: UInt32 = 202
+VDS_NF_MOUNT_POINTS_CHANGE: UInt32 = 205
+VDS_NF_FILE_SYSTEM_SHRINKING_PROGRESS: UInt32 = 206
+VDS_NF_SERVICE_OUT_OF_SYNC: UInt32 = 301
+GPT_PARTITION_NAME_LENGTH: UInt32 = 36
+VDS_HINT_FASTCRASHRECOVERYREQUIRED: Int32 = 1
+VDS_HINT_MOSTLYREADS: Int32 = 2
+VDS_HINT_OPTIMIZEFORSEQUENTIALREADS: Int32 = 4
+VDS_HINT_OPTIMIZEFORSEQUENTIALWRITES: Int32 = 8
+VDS_HINT_READBACKVERIFYENABLED: Int32 = 16
+VDS_HINT_REMAPENABLED: Int32 = 32
+VDS_HINT_WRITETHROUGHCACHINGENABLED: Int32 = 64
+VDS_HINT_HARDWARECHECKSUMENABLED: Int32 = 128
+VDS_HINT_ISYANKABLE: Int32 = 256
+VDS_HINT_ALLOCATEHOTSPARE: Int32 = 512
+VDS_HINT_BUSTYPE: Int32 = 1024
+VDS_HINT_USEMIRROREDCACHE: Int32 = 2048
+VDS_HINT_READCACHINGENABLED: Int32 = 4096
+VDS_HINT_WRITECACHINGENABLED: Int32 = 8192
+VDS_HINT_MEDIASCANENABLED: Int32 = 16384
+VDS_HINT_CONSISTENCYCHECKENABLED: Int32 = 32768
+VDS_REBUILD_PRIORITY_MIN: UInt32 = 0
+VDS_REBUILD_PRIORITY_MAX: UInt32 = 16
+VDS_POOL_ATTRIB_RAIDTYPE: Int32 = 1
+VDS_POOL_ATTRIB_BUSTYPE: Int32 = 2
+VDS_POOL_ATTRIB_ALLOW_SPINDOWN: Int32 = 4
+VDS_POOL_ATTRIB_THIN_PROVISION: Int32 = 8
+VDS_POOL_ATTRIB_NO_SINGLE_POF: Int32 = 16
+VDS_POOL_ATTRIB_DATA_RDNCY_MAX: Int32 = 32
+VDS_POOL_ATTRIB_DATA_RDNCY_MIN: Int32 = 64
+VDS_POOL_ATTRIB_DATA_RDNCY_DEF: Int32 = 128
+VDS_POOL_ATTRIB_PKG_RDNCY_MAX: Int32 = 256
+VDS_POOL_ATTRIB_PKG_RDNCY_MIN: Int32 = 512
+VDS_POOL_ATTRIB_PKG_RDNCY_DEF: Int32 = 1024
+VDS_POOL_ATTRIB_STRIPE_SIZE: Int32 = 2048
+VDS_POOL_ATTRIB_STRIPE_SIZE_MAX: Int32 = 4096
+VDS_POOL_ATTRIB_STRIPE_SIZE_MIN: Int32 = 8192
+VDS_POOL_ATTRIB_STRIPE_SIZE_DEF: Int32 = 16384
+VDS_POOL_ATTRIB_NUM_CLMNS: Int32 = 32768
+VDS_POOL_ATTRIB_NUM_CLMNS_MAX: Int32 = 65536
+VDS_POOL_ATTRIB_NUM_CLMNS_MIN: Int32 = 131072
+VDS_POOL_ATTRIB_NUM_CLMNS_DEF: Int32 = 262144
+VDS_POOL_ATTRIB_DATA_AVL_HINT: Int32 = 524288
+VDS_POOL_ATTRIB_ACCS_RNDM_HINT: Int32 = 1048576
+VDS_POOL_ATTRIB_ACCS_DIR_HINT: Int32 = 2097152
+VDS_POOL_ATTRIB_ACCS_SIZE_HINT: Int32 = 4194304
+VDS_POOL_ATTRIB_ACCS_LTNCY_HINT: Int32 = 8388608
+VDS_POOL_ATTRIB_ACCS_BDW_WT_HINT: Int32 = 16777216
+VDS_POOL_ATTRIB_STOR_COST_HINT: Int32 = 33554432
+VDS_POOL_ATTRIB_STOR_EFFCY_HINT: Int32 = 67108864
+VDS_POOL_ATTRIB_CUSTOM_ATTRIB: Int32 = 134217728
+VDS_ATTACH_VIRTUAL_DISK_FLAG_USE_FILE_ACL: UInt32 = 1
+CLSID_VdsLoader: Guid = Guid('9c38ed61-d565-4728-ae-ee-c8-09-52-f0-ec-de')
+CLSID_VdsService: Guid = Guid('7d1933cb-86f6-4a98-86-28-01-be-94-c9-a5-75')
+MAX_FS_NAME_SIZE: UInt32 = 8
+MAX_FS_FORMAT_SUPPORT_NAME_SIZE: UInt32 = 32
+MAX_FS_ALLOWED_CLUSTER_SIZES_SIZE: UInt32 = 32
+VER_VDS_LUN_INFORMATION: UInt32 = 1
+VDS_E_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147212288
+VDS_E_INITIALIZED_FAILED: win32more.Foundation.HRESULT = -2147212287
+VDS_E_INITIALIZE_NOT_CALLED: win32more.Foundation.HRESULT = -2147212286
+VDS_E_ALREADY_REGISTERED: win32more.Foundation.HRESULT = -2147212285
+VDS_E_ANOTHER_CALL_IN_PROGRESS: win32more.Foundation.HRESULT = -2147212284
+VDS_E_OBJECT_NOT_FOUND: win32more.Foundation.HRESULT = -2147212283
+VDS_E_INVALID_SPACE: win32more.Foundation.HRESULT = -2147212282
+VDS_E_PARTITION_LIMIT_REACHED: win32more.Foundation.HRESULT = -2147212281
+VDS_E_PARTITION_NOT_EMPTY: win32more.Foundation.HRESULT = -2147212280
+VDS_E_OPERATION_PENDING: win32more.Foundation.HRESULT = -2147212279
+VDS_E_OPERATION_DENIED: win32more.Foundation.HRESULT = -2147212278
+VDS_E_OBJECT_DELETED: win32more.Foundation.HRESULT = -2147212277
+VDS_E_CANCEL_TOO_LATE: win32more.Foundation.HRESULT = -2147212276
+VDS_E_OPERATION_CANCELED: win32more.Foundation.HRESULT = -2147212275
+VDS_E_CANNOT_EXTEND: win32more.Foundation.HRESULT = -2147212274
+VDS_E_NOT_ENOUGH_SPACE: win32more.Foundation.HRESULT = -2147212273
+VDS_E_NOT_ENOUGH_DRIVE: win32more.Foundation.HRESULT = -2147212272
+VDS_E_BAD_COOKIE: win32more.Foundation.HRESULT = -2147212271
+VDS_E_NO_MEDIA: win32more.Foundation.HRESULT = -2147212270
+VDS_E_DEVICE_IN_USE: win32more.Foundation.HRESULT = -2147212269
+VDS_E_DISK_NOT_EMPTY: win32more.Foundation.HRESULT = -2147212268
+VDS_E_INVALID_OPERATION: win32more.Foundation.HRESULT = -2147212267
+VDS_E_PATH_NOT_FOUND: win32more.Foundation.HRESULT = -2147212266
+VDS_E_DISK_NOT_INITIALIZED: win32more.Foundation.HRESULT = -2147212265
+VDS_E_NOT_AN_UNALLOCATED_DISK: win32more.Foundation.HRESULT = -2147212264
+VDS_E_UNRECOVERABLE_ERROR: win32more.Foundation.HRESULT = -2147212263
+VDS_S_DISK_PARTIALLY_CLEANED: win32more.Foundation.HRESULT = 271386
+VDS_E_DMADMIN_SERVICE_CONNECTION_FAILED: win32more.Foundation.HRESULT = -2147212261
+VDS_E_PROVIDER_INITIALIZATION_FAILED: win32more.Foundation.HRESULT = -2147212260
+VDS_E_OBJECT_EXISTS: win32more.Foundation.HRESULT = -2147212259
+VDS_E_NO_DISKS_FOUND: win32more.Foundation.HRESULT = -2147212258
+VDS_E_PROVIDER_CACHE_CORRUPT: win32more.Foundation.HRESULT = -2147212257
+VDS_E_DMADMIN_METHOD_CALL_FAILED: win32more.Foundation.HRESULT = -2147212256
+VDS_S_PROVIDER_ERROR_LOADING_CACHE: win32more.Foundation.HRESULT = 271393
+VDS_E_PROVIDER_VOL_DEVICE_NAME_NOT_FOUND: win32more.Foundation.HRESULT = -2147212254
+VDS_E_PROVIDER_VOL_OPEN: win32more.Foundation.HRESULT = -2147212253
+VDS_E_DMADMIN_CORRUPT_NOTIFICATION: win32more.Foundation.HRESULT = -2147212252
+VDS_E_INCOMPATIBLE_FILE_SYSTEM: win32more.Foundation.HRESULT = -2147212251
+VDS_E_INCOMPATIBLE_MEDIA: win32more.Foundation.HRESULT = -2147212250
+VDS_E_ACCESS_DENIED: win32more.Foundation.HRESULT = -2147212249
+VDS_E_MEDIA_WRITE_PROTECTED: win32more.Foundation.HRESULT = -2147212248
+VDS_E_BAD_LABEL: win32more.Foundation.HRESULT = -2147212247
+VDS_E_CANT_QUICK_FORMAT: win32more.Foundation.HRESULT = -2147212246
+VDS_E_IO_ERROR: win32more.Foundation.HRESULT = -2147212245
+VDS_E_VOLUME_TOO_SMALL: win32more.Foundation.HRESULT = -2147212244
+VDS_E_VOLUME_TOO_BIG: win32more.Foundation.HRESULT = -2147212243
+VDS_E_CLUSTER_SIZE_TOO_SMALL: win32more.Foundation.HRESULT = -2147212242
+VDS_E_CLUSTER_SIZE_TOO_BIG: win32more.Foundation.HRESULT = -2147212241
+VDS_E_CLUSTER_COUNT_BEYOND_32BITS: win32more.Foundation.HRESULT = -2147212240
+VDS_E_OBJECT_STATUS_FAILED: win32more.Foundation.HRESULT = -2147212239
+VDS_E_VOLUME_INCOMPLETE: win32more.Foundation.HRESULT = -2147212238
+VDS_E_EXTENT_SIZE_LESS_THAN_MIN: win32more.Foundation.HRESULT = -2147212237
+VDS_S_UPDATE_BOOTFILE_FAILED: win32more.Foundation.HRESULT = 271412
+VDS_S_BOOT_PARTITION_NUMBER_CHANGE: win32more.Foundation.HRESULT = 271414
+VDS_E_BOOT_PARTITION_NUMBER_CHANGE: win32more.Foundation.HRESULT = -2147212234
+VDS_E_NO_FREE_SPACE: win32more.Foundation.HRESULT = -2147212233
+VDS_E_ACTIVE_PARTITION: win32more.Foundation.HRESULT = -2147212232
+VDS_E_PARTITION_OF_UNKNOWN_TYPE: win32more.Foundation.HRESULT = -2147212231
+VDS_E_LEGACY_VOLUME_FORMAT: win32more.Foundation.HRESULT = -2147212230
+VDS_E_NON_CONTIGUOUS_DATA_PARTITIONS: win32more.Foundation.HRESULT = -2147212229
+VDS_E_MIGRATE_OPEN_VOLUME: win32more.Foundation.HRESULT = -2147212228
+VDS_E_VOLUME_NOT_ONLINE: win32more.Foundation.HRESULT = -2147212227
+VDS_E_VOLUME_NOT_HEALTHY: win32more.Foundation.HRESULT = -2147212226
+VDS_E_VOLUME_SPANS_DISKS: win32more.Foundation.HRESULT = -2147212225
+VDS_E_REQUIRES_CONTIGUOUS_DISK_SPACE: win32more.Foundation.HRESULT = -2147212224
+VDS_E_BAD_PROVIDER_DATA: win32more.Foundation.HRESULT = -2147212223
+VDS_E_PROVIDER_FAILURE: win32more.Foundation.HRESULT = -2147212222
+VDS_S_VOLUME_COMPRESS_FAILED: win32more.Foundation.HRESULT = 271427
+VDS_E_PACK_OFFLINE: win32more.Foundation.HRESULT = -2147212220
+VDS_E_VOLUME_NOT_A_MIRROR: win32more.Foundation.HRESULT = -2147212219
+VDS_E_NO_EXTENTS_FOR_VOLUME: win32more.Foundation.HRESULT = -2147212218
+VDS_E_DISK_NOT_LOADED_TO_CACHE: win32more.Foundation.HRESULT = -2147212217
+VDS_E_INTERNAL_ERROR: win32more.Foundation.HRESULT = -2147212216
+VDS_S_ACCESS_PATH_NOT_DELETED: win32more.Foundation.HRESULT = 279108
+VDS_E_PROVIDER_TYPE_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147212214
+VDS_E_DISK_NOT_ONLINE: win32more.Foundation.HRESULT = -2147212213
+VDS_E_DISK_IN_USE_BY_VOLUME: win32more.Foundation.HRESULT = -2147212212
+VDS_S_IN_PROGRESS: win32more.Foundation.HRESULT = 271437
+VDS_E_ASYNC_OBJECT_FAILURE: win32more.Foundation.HRESULT = -2147212210
+VDS_E_VOLUME_NOT_MOUNTED: win32more.Foundation.HRESULT = -2147212209
+VDS_E_PACK_NOT_FOUND: win32more.Foundation.HRESULT = -2147212208
+VDS_E_IMPORT_SET_INCOMPLETE: win32more.Foundation.HRESULT = -2147212207
+VDS_E_DISK_NOT_IMPORTED: win32more.Foundation.HRESULT = -2147212206
+VDS_E_OBJECT_OUT_OF_SYNC: win32more.Foundation.HRESULT = -2147212205
+VDS_E_MISSING_DISK: win32more.Foundation.HRESULT = -2147212204
+VDS_E_DISK_PNP_REG_CORRUPT: win32more.Foundation.HRESULT = -2147212203
+VDS_E_LBN_REMAP_ENABLED_FLAG: win32more.Foundation.HRESULT = -2147212202
+VDS_E_NO_DRIVELETTER_FLAG: win32more.Foundation.HRESULT = -2147212201
+VDS_E_REVERT_ON_CLOSE: win32more.Foundation.HRESULT = -2147212200
+VDS_E_REVERT_ON_CLOSE_SET: win32more.Foundation.HRESULT = -2147212199
+VDS_E_IA64_BOOT_MIRRORED_TO_MBR: win32more.Foundation.HRESULT = -2147212198
+VDS_S_IA64_BOOT_MIRRORED_TO_MBR: win32more.Foundation.HRESULT = 271450
+VDS_S_UNABLE_TO_GET_GPT_ATTRIBUTES: win32more.Foundation.HRESULT = 271451
+VDS_E_VOLUME_TEMPORARILY_DISMOUNTED: win32more.Foundation.HRESULT = -2147212196
+VDS_E_VOLUME_PERMANENTLY_DISMOUNTED: win32more.Foundation.HRESULT = -2147212195
+VDS_E_VOLUME_HAS_PATH: win32more.Foundation.HRESULT = -2147212194
+VDS_E_TIMEOUT: win32more.Foundation.HRESULT = -2147212193
+VDS_E_REPAIR_VOLUMESTATE: win32more.Foundation.HRESULT = -2147212192
+VDS_E_LDM_TIMEOUT: win32more.Foundation.HRESULT = -2147212191
+VDS_E_REVERT_ON_CLOSE_MISMATCH: win32more.Foundation.HRESULT = -2147212190
+VDS_E_RETRY: win32more.Foundation.HRESULT = -2147212189
+VDS_E_ONLINE_PACK_EXISTS: win32more.Foundation.HRESULT = -2147212188
+VDS_S_EXTEND_FILE_SYSTEM_FAILED: win32more.Foundation.HRESULT = 271461
+VDS_E_EXTEND_FILE_SYSTEM_FAILED: win32more.Foundation.HRESULT = -2147212186
+VDS_S_MBR_BOOT_MIRRORED_TO_GPT: win32more.Foundation.HRESULT = 271463
+VDS_E_MAX_USABLE_MBR: win32more.Foundation.HRESULT = -2147212184
+VDS_S_GPT_BOOT_MIRRORED_TO_MBR: win32more.Foundation.HRESULT = -2147212183
+VDS_E_NO_SOFTWARE_PROVIDERS_LOADED: win32more.Foundation.HRESULT = -2147212032
+VDS_E_DISK_NOT_MISSING: win32more.Foundation.HRESULT = -2147212031
+VDS_E_NO_VOLUME_LAYOUT: win32more.Foundation.HRESULT = -2147212030
+VDS_E_CORRUPT_VOLUME_INFO: win32more.Foundation.HRESULT = -2147212029
+VDS_E_INVALID_ENUMERATOR: win32more.Foundation.HRESULT = -2147212028
+VDS_E_DRIVER_INTERNAL_ERROR: win32more.Foundation.HRESULT = -2147212027
+VDS_E_VOLUME_INVALID_NAME: win32more.Foundation.HRESULT = -2147212025
+VDS_S_DISK_IS_MISSING: win32more.Foundation.HRESULT = 271624
+VDS_E_CORRUPT_PARTITION_INFO: win32more.Foundation.HRESULT = -2147212023
+VDS_S_NONCONFORMANT_PARTITION_INFO: win32more.Foundation.HRESULT = 271626
+VDS_E_CORRUPT_EXTENT_INFO: win32more.Foundation.HRESULT = -2147212021
+VDS_E_DUP_EMPTY_PACK_GUID: win32more.Foundation.HRESULT = -2147212020
+VDS_E_DRIVER_NO_PACK_NAME: win32more.Foundation.HRESULT = -2147212019
+VDS_S_SYSTEM_PARTITION: win32more.Foundation.HRESULT = 271630
+VDS_E_BAD_PNP_MESSAGE: win32more.Foundation.HRESULT = -2147212017
+VDS_E_NO_PNP_DISK_ARRIVE: win32more.Foundation.HRESULT = -2147212016
+VDS_E_NO_PNP_VOLUME_ARRIVE: win32more.Foundation.HRESULT = -2147212015
+VDS_E_NO_PNP_DISK_REMOVE: win32more.Foundation.HRESULT = -2147212014
+VDS_E_NO_PNP_VOLUME_REMOVE: win32more.Foundation.HRESULT = -2147212013
+VDS_E_PROVIDER_EXITING: win32more.Foundation.HRESULT = -2147212012
+VDS_E_EXTENT_EXCEEDS_DISK_FREE_SPACE: win32more.Foundation.HRESULT = -2147212011
+VDS_E_MEMBER_SIZE_INVALID: win32more.Foundation.HRESULT = -2147212010
+VDS_S_NO_NOTIFICATION: win32more.Foundation.HRESULT = 271639
+VDS_S_DEFAULT_PLEX_MEMBER_IDS: win32more.Foundation.HRESULT = 271640
+VDS_E_INVALID_DISK: win32more.Foundation.HRESULT = -2147212007
+VDS_E_INVALID_PACK: win32more.Foundation.HRESULT = -2147212006
+VDS_E_VOLUME_ON_DISK: win32more.Foundation.HRESULT = -2147212005
+VDS_E_DRIVER_INVALID_PARAM: win32more.Foundation.HRESULT = -2147212004
+VDS_E_TARGET_PACK_NOT_EMPTY: win32more.Foundation.HRESULT = -2147212003
+VDS_E_CANNOT_SHRINK: win32more.Foundation.HRESULT = -2147212002
+VDS_E_MULTIPLE_PACKS: win32more.Foundation.HRESULT = -2147212001
+VDS_E_PACK_ONLINE: win32more.Foundation.HRESULT = -2147212000
+VDS_E_INVALID_PLEX_COUNT: win32more.Foundation.HRESULT = -2147211999
+VDS_E_INVALID_MEMBER_COUNT: win32more.Foundation.HRESULT = -2147211998
+VDS_E_INVALID_PLEX_ORDER: win32more.Foundation.HRESULT = -2147211997
+VDS_E_INVALID_MEMBER_ORDER: win32more.Foundation.HRESULT = -2147211996
+VDS_E_INVALID_STRIPE_SIZE: win32more.Foundation.HRESULT = -2147211995
+VDS_E_INVALID_DISK_COUNT: win32more.Foundation.HRESULT = -2147211994
+VDS_E_INVALID_EXTENT_COUNT: win32more.Foundation.HRESULT = -2147211993
+VDS_E_SOURCE_IS_TARGET_PACK: win32more.Foundation.HRESULT = -2147211992
+VDS_E_VOLUME_DISK_COUNT_MAX_EXCEEDED: win32more.Foundation.HRESULT = -2147211991
+VDS_E_CORRUPT_NOTIFICATION_INFO: win32more.Foundation.HRESULT = -2147211990
+VDS_E_INVALID_PLEX_GUID: win32more.Foundation.HRESULT = -2147211988
+VDS_E_DISK_NOT_FOUND_IN_PACK: win32more.Foundation.HRESULT = -2147211987
+VDS_E_DUPLICATE_DISK: win32more.Foundation.HRESULT = -2147211986
+VDS_E_LAST_VALID_DISK: win32more.Foundation.HRESULT = -2147211985
+VDS_E_INVALID_SECTOR_SIZE: win32more.Foundation.HRESULT = -2147211984
+VDS_E_ONE_EXTENT_PER_DISK: win32more.Foundation.HRESULT = -2147211983
+VDS_E_INVALID_BLOCK_SIZE: win32more.Foundation.HRESULT = -2147211982
+VDS_E_PLEX_SIZE_INVALID: win32more.Foundation.HRESULT = -2147211981
+VDS_E_NO_EXTENTS_FOR_PLEX: win32more.Foundation.HRESULT = -2147211980
+VDS_E_INVALID_PLEX_TYPE: win32more.Foundation.HRESULT = -2147211979
+VDS_E_INVALID_PLEX_BLOCK_SIZE: win32more.Foundation.HRESULT = -2147211978
+VDS_E_NO_HEALTHY_DISKS: win32more.Foundation.HRESULT = -2147211977
+VDS_E_CONFIG_LIMIT: win32more.Foundation.HRESULT = -2147211976
+VDS_E_DISK_CONFIGURATION_CORRUPTED: win32more.Foundation.HRESULT = -2147211975
+VDS_E_DISK_CONFIGURATION_NOT_IN_SYNC: win32more.Foundation.HRESULT = -2147211974
+VDS_E_DISK_CONFIGURATION_UPDATE_FAILED: win32more.Foundation.HRESULT = -2147211973
+VDS_E_DISK_DYNAMIC: win32more.Foundation.HRESULT = -2147211972
+VDS_E_DRIVER_OBJECT_NOT_FOUND: win32more.Foundation.HRESULT = -2147211971
+VDS_E_PARTITION_NOT_CYLINDER_ALIGNED: win32more.Foundation.HRESULT = -2147211970
+VDS_E_DISK_LAYOUT_PARTITIONS_TOO_SMALL: win32more.Foundation.HRESULT = -2147211969
+VDS_E_DISK_IO_FAILING: win32more.Foundation.HRESULT = -2147211968
+VDS_E_DYNAMIC_DISKS_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147211967
+VDS_E_FAULT_TOLERANT_DISKS_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147211966
+VDS_E_GPT_ATTRIBUTES_INVALID: win32more.Foundation.HRESULT = -2147211965
+VDS_E_MEMBER_IS_HEALTHY: win32more.Foundation.HRESULT = -2147211964
+VDS_E_MEMBER_REGENERATING: win32more.Foundation.HRESULT = -2147211963
+VDS_E_PACK_NAME_INVALID: win32more.Foundation.HRESULT = -2147211962
+VDS_E_PLEX_IS_HEALTHY: win32more.Foundation.HRESULT = -2147211961
+VDS_E_PLEX_LAST_ACTIVE: win32more.Foundation.HRESULT = -2147211960
+VDS_E_PLEX_MISSING: win32more.Foundation.HRESULT = -2147211959
+VDS_E_MEMBER_MISSING: win32more.Foundation.HRESULT = -2147211958
+VDS_E_PLEX_REGENERATING: win32more.Foundation.HRESULT = -2147211957
+VDS_E_UNEXPECTED_DISK_LAYOUT_CHANGE: win32more.Foundation.HRESULT = -2147211955
+VDS_E_INVALID_VOLUME_LENGTH: win32more.Foundation.HRESULT = -2147211954
+VDS_E_VOLUME_LENGTH_NOT_SECTOR_SIZE_MULTIPLE: win32more.Foundation.HRESULT = -2147211953
+VDS_E_VOLUME_NOT_RETAINED: win32more.Foundation.HRESULT = -2147211952
+VDS_E_VOLUME_RETAINED: win32more.Foundation.HRESULT = -2147211951
+VDS_E_ALIGN_BEYOND_FIRST_CYLINDER: win32more.Foundation.HRESULT = -2147211949
+VDS_E_ALIGN_NOT_SECTOR_SIZE_MULTIPLE: win32more.Foundation.HRESULT = -2147211948
+VDS_E_ALIGN_NOT_ZERO: win32more.Foundation.HRESULT = -2147211947
+VDS_E_CACHE_CORRUPT: win32more.Foundation.HRESULT = -2147211946
+VDS_E_CANNOT_CLEAR_VOLUME_FLAG: win32more.Foundation.HRESULT = -2147211945
+VDS_E_DISK_BEING_CLEANED: win32more.Foundation.HRESULT = -2147211944
+VDS_E_DISK_NOT_CONVERTIBLE: win32more.Foundation.HRESULT = -2147211943
+VDS_E_DISK_REMOVEABLE: win32more.Foundation.HRESULT = -2147211942
+VDS_E_DISK_REMOVEABLE_NOT_EMPTY: win32more.Foundation.HRESULT = -2147211941
+VDS_E_DRIVE_LETTER_NOT_FREE: win32more.Foundation.HRESULT = -2147211940
+VDS_E_EXTEND_MULTIPLE_DISKS_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147211939
+VDS_E_INVALID_DRIVE_LETTER: win32more.Foundation.HRESULT = -2147211938
+VDS_E_INVALID_DRIVE_LETTER_COUNT: win32more.Foundation.HRESULT = -2147211937
+VDS_E_INVALID_FS_FLAG: win32more.Foundation.HRESULT = -2147211936
+VDS_E_INVALID_FS_TYPE: win32more.Foundation.HRESULT = -2147211935
+VDS_E_INVALID_OBJECT_TYPE: win32more.Foundation.HRESULT = -2147211934
+VDS_E_INVALID_PARTITION_LAYOUT: win32more.Foundation.HRESULT = -2147211933
+VDS_E_INVALID_PARTITION_STYLE: win32more.Foundation.HRESULT = -2147211932
+VDS_E_INVALID_PARTITION_TYPE: win32more.Foundation.HRESULT = -2147211931
+VDS_E_INVALID_PROVIDER_CLSID: win32more.Foundation.HRESULT = -2147211930
+VDS_E_INVALID_PROVIDER_ID: win32more.Foundation.HRESULT = -2147211929
+VDS_E_INVALID_PROVIDER_NAME: win32more.Foundation.HRESULT = -2147211928
+VDS_E_INVALID_PROVIDER_TYPE: win32more.Foundation.HRESULT = -2147211927
+VDS_E_INVALID_PROVIDER_VERSION_GUID: win32more.Foundation.HRESULT = -2147211926
+VDS_E_INVALID_PROVIDER_VERSION_STRING: win32more.Foundation.HRESULT = -2147211925
+VDS_E_INVALID_QUERY_PROVIDER_FLAG: win32more.Foundation.HRESULT = -2147211924
+VDS_E_INVALID_SERVICE_FLAG: win32more.Foundation.HRESULT = -2147211923
+VDS_E_INVALID_VOLUME_FLAG: win32more.Foundation.HRESULT = -2147211922
+VDS_E_PARTITION_NOT_OEM: win32more.Foundation.HRESULT = -2147211921
+VDS_E_PARTITION_PROTECTED: win32more.Foundation.HRESULT = -2147211920
+VDS_E_PARTITION_STYLE_MISMATCH: win32more.Foundation.HRESULT = -2147211919
+VDS_E_PROVIDER_INTERNAL_ERROR: win32more.Foundation.HRESULT = -2147211918
+VDS_E_SHRINK_SIZE_LESS_THAN_MIN: win32more.Foundation.HRESULT = -2147211917
+VDS_E_SHRINK_SIZE_TOO_BIG: win32more.Foundation.HRESULT = -2147211916
+VDS_E_UNRECOVERABLE_PROVIDER_ERROR: win32more.Foundation.HRESULT = -2147211915
+VDS_E_VOLUME_HIDDEN: win32more.Foundation.HRESULT = -2147211914
+VDS_S_DISMOUNT_FAILED: win32more.Foundation.HRESULT = 271735
+VDS_S_REMOUNT_FAILED: win32more.Foundation.HRESULT = 271736
+VDS_E_FLAG_ALREADY_SET: win32more.Foundation.HRESULT = -2147211911
+VDS_S_RESYNC_NOTIFICATION_TASK_FAILED: win32more.Foundation.HRESULT = 271738
+VDS_E_DISTINCT_VOLUME: win32more.Foundation.HRESULT = -2147211909
+VDS_E_VOLUME_NOT_FOUND_IN_PACK: win32more.Foundation.HRESULT = -2147211908
+VDS_E_PARTITION_NON_DATA: win32more.Foundation.HRESULT = -2147211907
+VDS_E_CRITICAL_PLEX: win32more.Foundation.HRESULT = -2147211906
+VDS_E_VOLUME_SYNCHRONIZING: win32more.Foundation.HRESULT = -2147211905
+VDS_E_VOLUME_REGENERATING: win32more.Foundation.HRESULT = -2147211904
+VDS_S_VSS_FLUSH_AND_HOLD_WRITES: win32more.Foundation.HRESULT = 271745
+VDS_S_VSS_RELEASE_WRITES: win32more.Foundation.HRESULT = 271746
+VDS_S_FS_LOCK: win32more.Foundation.HRESULT = 271747
+VDS_E_READONLY: win32more.Foundation.HRESULT = -2147211900
+VDS_E_INVALID_VOLUME_TYPE: win32more.Foundation.HRESULT = -2147211899
+VDS_E_BAD_BOOT_DISK: win32more.Foundation.HRESULT = -2147211898
+VDS_E_LOG_UPDATE: win32more.Foundation.HRESULT = -2147211897
+VDS_E_VOLUME_MIRRORED: win32more.Foundation.HRESULT = -2147211896
+VDS_E_VOLUME_SIMPLE_SPANNED: win32more.Foundation.HRESULT = -2147211895
+VDS_E_NO_VALID_LOG_COPIES: win32more.Foundation.HRESULT = -2147211894
+VDS_S_PLEX_NOT_LOADED_TO_CACHE: win32more.Foundation.HRESULT = 271755
+VDS_E_PLEX_NOT_LOADED_TO_CACHE: win32more.Foundation.HRESULT = -2147211893
+VDS_E_PARTITION_MSR: win32more.Foundation.HRESULT = -2147211892
+VDS_E_PARTITION_LDM: win32more.Foundation.HRESULT = -2147211891
+VDS_S_WINPE_BOOTENTRY: win32more.Foundation.HRESULT = 271758
+VDS_E_ALIGN_NOT_A_POWER_OF_TWO: win32more.Foundation.HRESULT = -2147211889
+VDS_E_ALIGN_IS_ZERO: win32more.Foundation.HRESULT = -2147211888
+VDS_E_SHRINK_IN_PROGRESS: win32more.Foundation.HRESULT = -2147211887
+VDS_E_CANT_INVALIDATE_FVE: win32more.Foundation.HRESULT = -2147211886
+VDS_E_FS_NOT_DETERMINED: win32more.Foundation.HRESULT = -2147211885
+VDS_E_DISK_NOT_OFFLINE: win32more.Foundation.HRESULT = -2147211883
+VDS_E_FAILED_TO_ONLINE_DISK: win32more.Foundation.HRESULT = -2147211882
+VDS_E_FAILED_TO_OFFLINE_DISK: win32more.Foundation.HRESULT = -2147211881
+VDS_E_BAD_REVISION_NUMBER: win32more.Foundation.HRESULT = -2147211880
+VDS_E_SHRINK_USER_CANCELLED: win32more.Foundation.HRESULT = -2147211879
+VDS_E_SHRINK_DIRTY_VOLUME: win32more.Foundation.HRESULT = -2147211878
+VDS_S_NAME_TRUNCATED: win32more.Foundation.HRESULT = 272128
+VDS_E_NAME_NOT_UNIQUE: win32more.Foundation.HRESULT = -2147211519
+VDS_S_STATUSES_INCOMPLETELY_SET: win32more.Foundation.HRESULT = 272130
+VDS_E_ADDRESSES_INCOMPLETELY_SET: win32more.Foundation.HRESULT = -2147211517
+VDS_E_SECURITY_INCOMPLETELY_SET: win32more.Foundation.HRESULT = -2147211515
+VDS_E_TARGET_SPECIFIC_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147211514
+VDS_E_INITIATOR_SPECIFIC_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147211513
+VDS_E_ISCSI_LOGIN_FAILED: win32more.Foundation.HRESULT = -2147211512
+VDS_E_ISCSI_LOGOUT_FAILED: win32more.Foundation.HRESULT = -2147211511
+VDS_E_ISCSI_SESSION_NOT_FOUND: win32more.Foundation.HRESULT = -2147211510
+VDS_E_ASSOCIATED_LUNS_EXIST: win32more.Foundation.HRESULT = -2147211509
+VDS_E_ASSOCIATED_PORTALS_EXIST: win32more.Foundation.HRESULT = -2147211508
+VDS_E_NO_DISCOVERY_DOMAIN: win32more.Foundation.HRESULT = -2147211507
+VDS_E_MULTIPLE_DISCOVERY_DOMAINS: win32more.Foundation.HRESULT = -2147211506
+VDS_E_NO_DISK_PATHNAME: win32more.Foundation.HRESULT = -2147211505
+VDS_E_ISCSI_LOGOUT_INCOMPLETE: win32more.Foundation.HRESULT = -2147211504
+VDS_E_NO_VOLUME_PATHNAME: win32more.Foundation.HRESULT = -2147211503
+VDS_E_PROVIDER_CACHE_OUTOFSYNC: win32more.Foundation.HRESULT = -2147211502
+VDS_E_NO_IMPORT_TARGET: win32more.Foundation.HRESULT = -2147211501
+VDS_S_ALREADY_EXISTS: win32more.Foundation.HRESULT = 272148
+VDS_S_PROPERTIES_INCOMPLETE: win32more.Foundation.HRESULT = 272149
+VDS_S_ISCSI_SESSION_NOT_FOUND_PERSISTENT_LOGIN_REMOVED: win32more.Foundation.HRESULT = 272384
+VDS_S_ISCSI_PERSISTENT_LOGIN_MAY_NOT_BE_REMOVED: win32more.Foundation.HRESULT = 272385
+VDS_S_ISCSI_LOGIN_ALREAD_EXISTS: win32more.Foundation.HRESULT = 272386
+VDS_E_UNABLE_TO_FIND_BOOT_DISK: win32more.Foundation.HRESULT = -2147211261
+VDS_E_INCORRECT_BOOT_VOLUME_EXTENT_INFO: win32more.Foundation.HRESULT = -2147211260
+VDS_E_GET_SAN_POLICY: win32more.Foundation.HRESULT = -2147211259
+VDS_E_SET_SAN_POLICY: win32more.Foundation.HRESULT = -2147211258
+VDS_E_BOOT_DISK: win32more.Foundation.HRESULT = -2147211257
+VDS_S_DISK_MOUNT_FAILED: win32more.Foundation.HRESULT = 272392
+VDS_S_DISK_DISMOUNT_FAILED: win32more.Foundation.HRESULT = 272393
+VDS_E_DISK_IS_OFFLINE: win32more.Foundation.HRESULT = -2147211254
+VDS_E_DISK_IS_READ_ONLY: win32more.Foundation.HRESULT = -2147211253
+VDS_E_PAGEFILE_DISK: win32more.Foundation.HRESULT = -2147211252
+VDS_E_HIBERNATION_FILE_DISK: win32more.Foundation.HRESULT = -2147211251
+VDS_E_CRASHDUMP_DISK: win32more.Foundation.HRESULT = -2147211250
+VDS_E_UNABLE_TO_FIND_SYSTEM_DISK: win32more.Foundation.HRESULT = -2147211249
+VDS_E_INCORRECT_SYSTEM_VOLUME_EXTENT_INFO: win32more.Foundation.HRESULT = -2147211248
+VDS_E_SYSTEM_DISK: win32more.Foundation.HRESULT = -2147211247
+VDS_E_VOLUME_SHRINK_FVE_LOCKED: win32more.Foundation.HRESULT = -2147211246
+VDS_E_VOLUME_SHRINK_FVE_CORRUPT: win32more.Foundation.HRESULT = -2147211245
+VDS_E_VOLUME_SHRINK_FVE_RECOVERY: win32more.Foundation.HRESULT = -2147211244
+VDS_E_VOLUME_SHRINK_FVE: win32more.Foundation.HRESULT = -2147211243
+VDS_E_SHRINK_OVER_DATA: win32more.Foundation.HRESULT = -2147211242
+VDS_E_INVALID_SHRINK_SIZE: win32more.Foundation.HRESULT = -2147211241
+VDS_E_LUN_DISK_MISSING: win32more.Foundation.HRESULT = -2147211240
+VDS_E_LUN_DISK_FAILED: win32more.Foundation.HRESULT = -2147211239
+VDS_E_LUN_DISK_NOT_READY: win32more.Foundation.HRESULT = -2147211238
+VDS_E_LUN_DISK_NO_MEDIA: win32more.Foundation.HRESULT = -2147211237
+VDS_E_LUN_NOT_READY: win32more.Foundation.HRESULT = -2147211236
+VDS_E_LUN_OFFLINE: win32more.Foundation.HRESULT = -2147211235
+VDS_E_LUN_FAILED: win32more.Foundation.HRESULT = -2147211234
+VDS_E_VOLUME_EXTEND_FVE_LOCKED: win32more.Foundation.HRESULT = -2147211233
+VDS_E_VOLUME_EXTEND_FVE_CORRUPT: win32more.Foundation.HRESULT = -2147211232
+VDS_E_VOLUME_EXTEND_FVE_RECOVERY: win32more.Foundation.HRESULT = -2147211231
+VDS_E_VOLUME_EXTEND_FVE: win32more.Foundation.HRESULT = -2147211230
+VDS_E_SECTOR_SIZE_ERROR: win32more.Foundation.HRESULT = -2147211229
+VDS_E_INITIATOR_ADAPTER_NOT_FOUND: win32more.Foundation.HRESULT = -2147211008
+VDS_E_TARGET_PORTAL_NOT_FOUND: win32more.Foundation.HRESULT = -2147211007
+VDS_E_INVALID_PORT_PATH: win32more.Foundation.HRESULT = -2147211006
+VDS_E_INVALID_ISCSI_TARGET_NAME: win32more.Foundation.HRESULT = -2147211005
+VDS_E_SET_TUNNEL_MODE_OUTER_ADDRESS: win32more.Foundation.HRESULT = -2147211004
+VDS_E_ISCSI_GET_IKE_INFO: win32more.Foundation.HRESULT = -2147211003
+VDS_E_ISCSI_SET_IKE_INFO: win32more.Foundation.HRESULT = -2147211002
+VDS_E_SUBSYSTEM_ID_IS_NULL: win32more.Foundation.HRESULT = -2147211001
+VDS_E_ISCSI_INITIATOR_NODE_NAME: win32more.Foundation.HRESULT = -2147211000
+VDS_E_ISCSI_GROUP_PRESHARE_KEY: win32more.Foundation.HRESULT = -2147210999
+VDS_E_ISCSI_CHAP_SECRET: win32more.Foundation.HRESULT = -2147210998
+VDS_E_INVALID_IP_ADDRESS: win32more.Foundation.HRESULT = -2147210997
+VDS_E_REBOOT_REQUIRED: win32more.Foundation.HRESULT = -2147210996
+VDS_E_VOLUME_GUID_PATHNAME_NOT_ALLOWED: win32more.Foundation.HRESULT = -2147210995
+VDS_E_BOOT_PAGEFILE_DRIVE_LETTER: win32more.Foundation.HRESULT = -2147210994
+VDS_E_DELETE_WITH_CRITICAL: win32more.Foundation.HRESULT = -2147210993
+VDS_E_CLEAN_WITH_DATA: win32more.Foundation.HRESULT = -2147210992
+VDS_E_CLEAN_WITH_OEM: win32more.Foundation.HRESULT = -2147210991
+VDS_E_CLEAN_WITH_CRITICAL: win32more.Foundation.HRESULT = -2147210990
+VDS_E_FORMAT_CRITICAL: win32more.Foundation.HRESULT = -2147210989
+VDS_E_NTFS_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210988
+VDS_E_FAT32_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210987
+VDS_E_FAT_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210986
+VDS_E_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210985
+VDS_E_COMPRESSION_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210984
+VDS_E_VDISK_NOT_OPEN: win32more.Foundation.HRESULT = -2147210983
+VDS_E_VDISK_INVALID_OP_STATE: win32more.Foundation.HRESULT = -2147210982
+VDS_E_INVALID_PATH: win32more.Foundation.HRESULT = -2147210981
+VDS_E_INVALID_ISCSI_PATH: win32more.Foundation.HRESULT = -2147210980
+VDS_E_SHRINK_LUN_NOT_UNMASKED: win32more.Foundation.HRESULT = -2147210979
+VDS_E_LUN_DISK_READ_ONLY: win32more.Foundation.HRESULT = -2147210978
+VDS_E_LUN_UPDATE_DISK: win32more.Foundation.HRESULT = -2147210977
+VDS_E_LUN_DYNAMIC: win32more.Foundation.HRESULT = -2147210976
+VDS_E_LUN_DYNAMIC_OFFLINE: win32more.Foundation.HRESULT = -2147210975
+VDS_E_LUN_SHRINK_GPT_HEADER: win32more.Foundation.HRESULT = -2147210974
+VDS_E_MIRROR_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210973
+VDS_E_RAID5_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210972
+VDS_E_DISK_NOT_CONVERTIBLE_SIZE: win32more.Foundation.HRESULT = -2147210971
+VDS_E_OFFLINE_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210970
+VDS_E_VDISK_PATHNAME_INVALID: win32more.Foundation.HRESULT = -2147210969
+VDS_E_EXTEND_TOO_MANY_CLUSTERS: win32more.Foundation.HRESULT = -2147210968
+VDS_E_EXTEND_UNKNOWN_FILESYSTEM: win32more.Foundation.HRESULT = -2147210967
+VDS_E_SHRINK_UNKNOWN_FILESYSTEM: win32more.Foundation.HRESULT = -2147210966
+VDS_E_VD_DISK_NOT_OPEN: win32more.Foundation.HRESULT = -2147210965
+VDS_E_VD_DISK_IS_EXPANDING: win32more.Foundation.HRESULT = -2147210964
+VDS_E_VD_DISK_IS_COMPACTING: win32more.Foundation.HRESULT = -2147210963
+VDS_E_VD_DISK_IS_MERGING: win32more.Foundation.HRESULT = -2147210962
+VDS_E_VD_IS_ATTACHED: win32more.Foundation.HRESULT = -2147210961
+VDS_E_VD_DISK_ALREADY_OPEN: win32more.Foundation.HRESULT = -2147210960
+VDS_E_VD_DISK_ALREADY_EXPANDING: win32more.Foundation.HRESULT = -2147210959
+VDS_E_VD_ALREADY_COMPACTING: win32more.Foundation.HRESULT = -2147210958
+VDS_E_VD_ALREADY_MERGING: win32more.Foundation.HRESULT = -2147210957
+VDS_E_VD_ALREADY_ATTACHED: win32more.Foundation.HRESULT = -2147210956
+VDS_E_VD_ALREADY_DETACHED: win32more.Foundation.HRESULT = -2147210955
+VDS_E_VD_NOT_ATTACHED_READONLY: win32more.Foundation.HRESULT = -2147210954
+VDS_E_VD_IS_BEING_ATTACHED: win32more.Foundation.HRESULT = -2147210953
+VDS_E_VD_IS_BEING_DETACHED: win32more.Foundation.HRESULT = -2147210952
+VDS_E_NO_POOL: win32more.Foundation.HRESULT = -2147210752
+VDS_E_NO_POOL_CREATED: win32more.Foundation.HRESULT = -2147210751
+VDS_E_NO_MAINTENANCE_MODE: win32more.Foundation.HRESULT = -2147210750
+VDS_E_BLOCK_CLUSTERED: win32more.Foundation.HRESULT = -2147210749
+VDS_E_DISK_HAS_BANDS: win32more.Foundation.HRESULT = -2147210748
+VDS_E_INVALID_STATE: win32more.Foundation.HRESULT = -2147210747
+VDS_E_REFS_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147210746
+VDS_E_DELETE_WITH_BOOTBACKING: win32more.Foundation.HRESULT = -2147210745
+VDS_E_FORMAT_WITH_BOOTBACKING: win32more.Foundation.HRESULT = -2147210744
+VDS_E_CLEAN_WITH_BOOTBACKING: win32more.Foundation.HRESULT = -2147210743
+VDS_E_SHRINK_EXTEND_UNALIGNED: win32more.Foundation.HRESULT = -2147210496
+class IEnumVdsObject(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('118610b7-8d94-4030-b5-b8-50-08-89-78-8e-4e')
+    @commethod(3)
+    def Next(celt: UInt32, ppObjectArray: POINTER(win32more.System.Com.IUnknown_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsAdmin(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d188e97d-85aa-4d33-ab-c6-26-29-9a-10-ff-c1')
+    @commethod(3)
+    def RegisterProvider(providerId: Guid, providerClsid: Guid, pwszName: win32more.Foundation.PWSTR, type: win32more.Storage.VirtualDiskService.VDS_PROVIDER_TYPE, pwszMachineName: win32more.Foundation.PWSTR, pwszVersion: win32more.Foundation.PWSTR, guidVersionId: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterProvider(providerId: Guid) -> win32more.Foundation.HRESULT: ...
+class IVdsAdviseSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8326cd1d-cf59-4936-b7-86-5e-fc-08-79-8e-25')
+    @commethod(3)
+    def OnNotify(lNumberOfNotifications: Int32, pNotificationArray: POINTER(win32more.Storage.VirtualDiskService.VDS_NOTIFICATION_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsAsync(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d5d23b6d-5a55-4492-98-89-39-7a-3c-2d-2d-bc')
+    @commethod(3)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Wait(pHrResult: POINTER(win32more.Foundation.HRESULT), pAsyncOut: POINTER(win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryStatus(pHrResult: POINTER(win32more.Foundation.HRESULT), pulPercentCompleted: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IVdsController(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cb53d96e-dffb-474a-a0-78-79-0d-1e-2b-c0-82')
+    @commethod(3)
+    def GetProperties(pControllerProp: POINTER(win32more.Storage.VirtualDiskService.VDS_CONTROLLER_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSubSystem(ppSubSystem: POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPortProperties(sPortNumber: Int16, pPortProp: POINTER(win32more.Storage.VirtualDiskService.VDS_PORT_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def FlushCache() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def InvalidateCache() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def QueryAssociatedLuns(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS) -> win32more.Foundation.HRESULT: ...
+class IVdsControllerControllerPort(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ca5d735f-6bae-42c0-b3-0e-f2-66-60-45-ce-71')
+    @commethod(3)
+    def QueryControllerPorts(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsControllerPort(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('18691d0d-4e7f-43e8-92-e4-cf-44-be-ee-d1-1c')
+    @commethod(3)
+    def GetProperties(pPortProp: POINTER(win32more.Storage.VirtualDiskService.VDS_PORT_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetController(ppController: POINTER(win32more.Storage.VirtualDiskService.IVdsController_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryAssociatedLuns(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_PORT_STATUS) -> win32more.Foundation.HRESULT: ...
+class IVdsDrive(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ff24efa4-aade-4b6b-89-8b-ea-a6-a2-08-87-c7')
+    @commethod(3)
+    def GetProperties(pDriveProp: POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSubSystem(ppSubSystem: POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryExtents(ppExtentArray: POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head)), plNumberOfExtents: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetFlags(ulFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ClearFlags(ulFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS) -> win32more.Foundation.HRESULT: ...
+class IVdsDrive2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('60b5a730-addf-4436-8c-a7-57-69-e2-d1-ff-a4')
+    @commethod(3)
+    def GetProperties2(pDriveProp2: POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsHwProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d99bdaae-b13a-4178-9f-db-e2-7f-16-b4-60-3e')
+    @commethod(3)
+    def QuerySubSystems(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Reenumerate() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+class IVdsHwProviderPrivate(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('98f17bf3-9f33-4f12-87-14-8b-40-75-09-2c-2e')
+    @commethod(3)
+    def QueryIfCreatedLun(pwszDevicePath: win32more.Foundation.PWSTR, pVdsLunInformation: POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pLunId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IVdsHwProviderPrivateMpio(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('310a7715-ac2b-4c6f-98-27-3d-74-2f-35-16-76')
+    @commethod(3)
+    def SetAllPathStatusesFromHbaPort(hbaPortProp: win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP, status: win32more.Storage.VirtualDiskService.VDS_PATH_STATUS) -> win32more.Foundation.HRESULT: ...
+class IVdsHwProviderStoragePools(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d5b5937a-f188-4c79-b8-6c-11-c9-20-ad-11-b8')
+    @commethod(3)
+    def QueryStoragePools(ulFlags: UInt32, ullRemainingFreeSpace: UInt64, pPoolAttributes: POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head), ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateLunInStoragePool(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, ullSizeInBytes: UInt64, StoragePoolId: Guid, pwszUnmaskingList: win32more.Foundation.PWSTR, pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryMaxLunCreateSizeInStoragePool(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, StoragePoolId: Guid, pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), pullMaxLunSize: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class IVdsHwProviderType(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3e0f5166-542d-4fc6-94-7a-01-21-74-24-0b-7e')
+    @commethod(3)
+    def GetProviderType(pType: POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE)) -> win32more.Foundation.HRESULT: ...
+class IVdsHwProviderType2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8190236f-c4d0-4e81-80-11-d6-95-12-fc-c9-84')
+    @commethod(3)
+    def GetProviderType2(pType: POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE)) -> win32more.Foundation.HRESULT: ...
+class IVdsIscsiPortal(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7fa1499d-ec85-4a8a-a4-7b-ff-69-20-1f-cd-34')
+    @commethod(3)
+    def GetProperties(pPortalProp: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSubSystem(ppSubSystem: POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryAssociatedPortalGroups(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetIpsecTunnelAddress(pTunnelAddress: POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head), pDestinationAddress: POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetIpsecSecurity(pInitiatorPortalAddress: POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head), pullSecurityFlags: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetIpsecSecurity(pInitiatorPortalAddress: POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head), ullSecurityFlags: UInt64, pIpsecKey: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsIscsiPortalGroup(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fef5f89d-a3dd-4b36-bf-28-e7-dd-e0-45-c5-93')
+    @commethod(3)
+    def GetProperties(pPortalGroupProp: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTALGROUP_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetTarget(ppTarget: POINTER(win32more.Storage.VirtualDiskService.IVdsIscsiTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryAssociatedPortals(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AddPortal(portalId: Guid, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def RemovePortal(portalId: Guid, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Delete(ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsIscsiTarget(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('aa8f5055-83e5-4bcc-aa-73-19-85-1a-36-a8-49')
+    @commethod(3)
+    def GetProperties(pTargetProp: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_TARGET_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSubSystem(ppSubSystem: POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryPortalGroups(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryAssociatedLuns(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreatePortalGroup(ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Delete(ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetFriendlyName(pwszFriendlyName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetSharedSecret(pTargetSharedSecret: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head), pwszInitiatorName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RememberInitiatorSharedSecret(pwszInitiatorName: win32more.Foundation.PWSTR, pInitiatorSharedSecret: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetConnectedInitiators(pppwszInitiatorList: POINTER(POINTER(win32more.Foundation.PWSTR)), plNumberOfInitiators: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IVdsLun(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3540a9c7-e60f-4111-a8-40-8b-ba-6c-2c-83-d8')
+    @commethod(3)
+    def GetProperties(pLunProp: POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSubSystem(ppSubSystem: POINTER(win32more.Storage.VirtualDiskService.IVdsSubSystem_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetIdentificationData(pLunInfo: POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryActiveControllers(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Extend(ullNumberOfBytesToAdd: UInt64, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Shrink(ullNumberOfBytesToRemove: UInt64, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def QueryPlexes(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def AddPlex(lunId: Guid, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RemovePlex(plexId: Guid, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Recover(ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetMask(pwszUnmaskingList: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def AssociateControllers(pActiveControllerIdArray: POINTER(Guid), lNumberOfActiveControllers: Int32, pInactiveControllerIdArray: POINTER(Guid), lNumberOfInactiveControllers: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def QueryHints(pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def ApplyHints(pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_LUN_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def QueryMaxLunExtendSize(pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pullMaxBytesToBeAdded: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class IVdsLun2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e5b3a735-9efb-499a-80-71-43-94-d9-ee-6f-cb')
+    @commethod(3)
+    def QueryHints2(pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ApplyHints2(pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsLunControllerPorts(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('451fe266-da6d-406a-bb-60-82-e5-34-f8-5a-eb')
+    @commethod(3)
+    def AssociateControllerPorts(pActiveControllerPortIdArray: POINTER(Guid), lNumberOfActiveControllerPorts: Int32, pInactiveControllerPortIdArray: POINTER(Guid), lNumberOfInactiveControllerPorts: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryActiveControllerPorts(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsLunIscsi(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0d7c1e64-b59b-45ae-b8-6a-2c-2c-c6-a4-20-67')
+    @commethod(3)
+    def AssociateTargets(pTargetIdArray: POINTER(Guid), lNumberOfTargets: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryAssociatedTargets(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsLunMpio(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7c5fbae3-333a-48a1-a9-82-33-c1-57-88-cd-e3')
+    @commethod(3)
+    def GetPathInfo(ppPaths: POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_INFO_head)), plNumberOfPaths: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetLoadBalancePolicy(pPolicy: POINTER(win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM), ppPaths: POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head)), plNumberOfPaths: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetLoadBalancePolicy(policy: win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM, pPaths: POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head), lNumberOfPaths: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSupportedLbPolicies(pulLbFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IVdsLunNaming(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('907504cb-6b4e-4d88-a3-4d-17-ba-66-1f-bb-06')
+    @commethod(3)
+    def SetFriendlyName(pwszFriendlyName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IVdsLunNumber(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d3f95e46-54b3-41f9-b6-78-0f-18-71-44-3a-08')
+    @commethod(3)
+    def GetLunNumber(pulLunNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IVdsLunPlex(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0ee1a790-5d2e-4abb-8c-99-c4-81-e8-be-21-38')
+    @commethod(3)
+    def GetProperties(pPlexProp: POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetLun(ppLun: POINTER(win32more.Storage.VirtualDiskService.IVdsLun_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryExtents(ppExtentArray: POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head)), plNumberOfExtents: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryHints(pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ApplyHints(pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsMaintenance(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('daebeef3-8523-47ed-a2-b9-05-ce-cc-e2-a1-ae')
+    @commethod(3)
+    def StartMaintenance(operation: win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def StopMaintenance(operation: win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def PulseMaintenance(operation: win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION, ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IVdsProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('10c5e575-7984-4e81-a5-6b-43-1f-5f-92-ae-42')
+    @commethod(3)
+    def GetProperties(pProviderProp: POINTER(win32more.Storage.VirtualDiskService.VDS_PROVIDER_PROP_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsProviderPrivate(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('11f3cd41-b7e8-48ff-94-72-9d-ff-01-8a-a2-92')
+    @commethod(3)
+    def GetObject(ObjectId: Guid, type: win32more.Storage.VirtualDiskService.VDS_OBJECT_TYPE, ppObjectUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnLoad(pwszMachineName: win32more.Foundation.PWSTR, pCallbackObject: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnUnload(bForceUnload: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IVdsProviderSupport(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1732be13-e8f9-4a03-bf-bc-5f-61-6a-a6-6c-e1')
+    @commethod(3)
+    def GetVersionSupport(ulVersionSupport: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IVdsStoragePool(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('932ca8cf-0eb3-4ba8-96-20-22-66-5d-7f-84-50')
+    @commethod(3)
+    def GetProvider(ppProvider: POINTER(win32more.Storage.VirtualDiskService.IVdsProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetProperties(pStoragePoolProp: POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetAttributes(pStoragePoolAttributes: POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryDriveExtents(ppExtentArray: POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_DRIVE_EXTENT_head)), plNumberOfExtents: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def QueryAllocatedLuns(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def QueryAllocatedStoragePools(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsSubSystem(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6fcee2d3-6d90-4f91-80-e2-a5-c7-ca-ac-a9-d8')
+    @commethod(3)
+    def GetProperties(pSubSystemProp: POINTER(win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetProvider(ppProvider: POINTER(win32more.Storage.VirtualDiskService.IVdsProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryControllers(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryLuns(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def QueryDrives(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetDrive(sBusNumber: Int16, sSlotNumber: Int16, ppDrive: POINTER(win32more.Storage.VirtualDiskService.IVdsDrive_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Reenumerate() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetControllerStatus(pOnlineControllerIdArray: POINTER(Guid), lNumberOfOnlineControllers: Int32, pOfflineControllerIdArray: POINTER(Guid), lNumberOfOfflineControllers: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateLun(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, ullSizeInBytes: UInt64, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pwszUnmaskingList: win32more.Foundation.PWSTR, pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head), ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ReplaceDrive(DriveToBeReplaced: Guid, ReplacementDrive: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetStatus(status: win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def QueryMaxLunCreateSize(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pHints: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head), pullMaxLunSize: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class IVdsSubSystem2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('be666735-7800-4a77-9d-9c-40-f8-5b-87-e2-92')
+    @commethod(3)
+    def GetProperties2(pSubSystemProp2: POINTER(win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDrive2(sBusNumber: Int16, sSlotNumber: Int16, ulEnclosureNumber: UInt32, ppDrive: POINTER(win32more.Storage.VirtualDiskService.IVdsDrive_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateLun2(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, ullSizeInBytes: UInt64, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pwszUnmaskingList: win32more.Foundation.PWSTR, pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryMaxLunCreateSize2(type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pHints2: POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), pullMaxLunSize: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class IVdsSubSystemInterconnect(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9e6fa560-c141-477b-83-ba-0b-6c-38-f7-fe-bf')
+    @commethod(3)
+    def GetSupportedInterconnects(pulSupportedInterconnectsFlag: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IVdsSubSystemIscsi(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0027346f-40d0-4b45-8c-ec-59-06-dc-03-80-c8')
+    @commethod(3)
+    def QueryTargets(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryPortals(ppEnum: POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateTarget(pwszIscsiName: win32more.Foundation.PWSTR, pwszFriendlyName: win32more.Foundation.PWSTR, ppAsync: POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetIpsecGroupPresharedKey(pIpsecKey: POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> win32more.Foundation.HRESULT: ...
+class IVdsSubSystemNaming(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0d70faa3-9cd4-4900-aa-20-69-81-b6-aa-fc-75')
+    @commethod(3)
+    def SetFriendlyName(pwszFriendlyName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class VDS_ASYNC_OUTPUT(Structure):
+    type: win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        cp: _cp
+        cv: _cv
+        bvp: _bvp
+        sv: _sv
+        cl: _cl
+        ct: _ct
+        cpg: _cpg
+        cvd: _cvd
+        class _cp(Structure):
+            ullOffset: UInt64
+            volumeId: Guid
+        class _cv(Structure):
+            pVolumeUnk: win32more.System.Com.IUnknown_head
+        class _bvp(Structure):
+            pVolumeUnk: win32more.System.Com.IUnknown_head
+        class _sv(Structure):
+            ullReclaimedBytes: UInt64
+        class _cl(Structure):
+            pLunUnk: win32more.System.Com.IUnknown_head
+        class _ct(Structure):
+            pTargetUnk: win32more.System.Com.IUnknown_head
+        class _cpg(Structure):
+            pPortalGroupUnk: win32more.System.Com.IUnknown_head
+        class _cvd(Structure):
+            pVDiskUnk: win32more.System.Com.IUnknown_head
 VDS_ASYNC_OUTPUT_TYPE = Int32
-VDS_ASYNCOUT_UNKNOWN = 0
-VDS_ASYNCOUT_CREATEVOLUME = 1
-VDS_ASYNCOUT_EXTENDVOLUME = 2
-VDS_ASYNCOUT_SHRINKVOLUME = 3
-VDS_ASYNCOUT_ADDVOLUMEPLEX = 4
-VDS_ASYNCOUT_BREAKVOLUMEPLEX = 5
-VDS_ASYNCOUT_REMOVEVOLUMEPLEX = 6
-VDS_ASYNCOUT_REPAIRVOLUMEPLEX = 7
-VDS_ASYNCOUT_RECOVERPACK = 8
-VDS_ASYNCOUT_REPLACEDISK = 9
-VDS_ASYNCOUT_CREATEPARTITION = 10
-VDS_ASYNCOUT_CLEAN = 11
-VDS_ASYNCOUT_CREATELUN = 50
-VDS_ASYNCOUT_ADDLUNPLEX = 52
-VDS_ASYNCOUT_REMOVELUNPLEX = 53
-VDS_ASYNCOUT_EXTENDLUN = 54
-VDS_ASYNCOUT_SHRINKLUN = 55
-VDS_ASYNCOUT_RECOVERLUN = 56
-VDS_ASYNCOUT_LOGINTOTARGET = 60
-VDS_ASYNCOUT_LOGOUTFROMTARGET = 61
-VDS_ASYNCOUT_CREATETARGET = 62
-VDS_ASYNCOUT_CREATEPORTALGROUP = 63
-VDS_ASYNCOUT_DELETETARGET = 64
-VDS_ASYNCOUT_ADDPORTAL = 65
-VDS_ASYNCOUT_REMOVEPORTAL = 66
-VDS_ASYNCOUT_DELETEPORTALGROUP = 67
-VDS_ASYNCOUT_FORMAT = 101
-VDS_ASYNCOUT_CREATE_VDISK = 200
-VDS_ASYNCOUT_ATTACH_VDISK = 201
-VDS_ASYNCOUT_COMPACT_VDISK = 202
-VDS_ASYNCOUT_MERGE_VDISK = 203
-VDS_ASYNCOUT_EXPAND_VDISK = 204
-def _define_VDS_CONTROLLER_NOTIFICATION_head():
-    class VDS_CONTROLLER_NOTIFICATION(Structure):
-        pass
-    return VDS_CONTROLLER_NOTIFICATION
-def _define_VDS_CONTROLLER_NOTIFICATION():
-    VDS_CONTROLLER_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_CONTROLLER_NOTIFICATION_head
-    VDS_CONTROLLER_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_CONTROLLER),
-        ('controllerId', Guid),
-    ]
-    return VDS_CONTROLLER_NOTIFICATION
-def _define_VDS_CONTROLLER_PROP_head():
-    class VDS_CONTROLLER_PROP(Structure):
-        pass
-    return VDS_CONTROLLER_PROP
-def _define_VDS_CONTROLLER_PROP():
-    VDS_CONTROLLER_PROP = win32more.Storage.VirtualDiskService.VDS_CONTROLLER_PROP_head
-    VDS_CONTROLLER_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('status', win32more.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('sNumberOfPorts', Int16),
-    ]
-    return VDS_CONTROLLER_PROP
+VDS_ASYNCOUT_UNKNOWN: VDS_ASYNC_OUTPUT_TYPE = 0
+VDS_ASYNCOUT_CREATEVOLUME: VDS_ASYNC_OUTPUT_TYPE = 1
+VDS_ASYNCOUT_EXTENDVOLUME: VDS_ASYNC_OUTPUT_TYPE = 2
+VDS_ASYNCOUT_SHRINKVOLUME: VDS_ASYNC_OUTPUT_TYPE = 3
+VDS_ASYNCOUT_ADDVOLUMEPLEX: VDS_ASYNC_OUTPUT_TYPE = 4
+VDS_ASYNCOUT_BREAKVOLUMEPLEX: VDS_ASYNC_OUTPUT_TYPE = 5
+VDS_ASYNCOUT_REMOVEVOLUMEPLEX: VDS_ASYNC_OUTPUT_TYPE = 6
+VDS_ASYNCOUT_REPAIRVOLUMEPLEX: VDS_ASYNC_OUTPUT_TYPE = 7
+VDS_ASYNCOUT_RECOVERPACK: VDS_ASYNC_OUTPUT_TYPE = 8
+VDS_ASYNCOUT_REPLACEDISK: VDS_ASYNC_OUTPUT_TYPE = 9
+VDS_ASYNCOUT_CREATEPARTITION: VDS_ASYNC_OUTPUT_TYPE = 10
+VDS_ASYNCOUT_CLEAN: VDS_ASYNC_OUTPUT_TYPE = 11
+VDS_ASYNCOUT_CREATELUN: VDS_ASYNC_OUTPUT_TYPE = 50
+VDS_ASYNCOUT_ADDLUNPLEX: VDS_ASYNC_OUTPUT_TYPE = 52
+VDS_ASYNCOUT_REMOVELUNPLEX: VDS_ASYNC_OUTPUT_TYPE = 53
+VDS_ASYNCOUT_EXTENDLUN: VDS_ASYNC_OUTPUT_TYPE = 54
+VDS_ASYNCOUT_SHRINKLUN: VDS_ASYNC_OUTPUT_TYPE = 55
+VDS_ASYNCOUT_RECOVERLUN: VDS_ASYNC_OUTPUT_TYPE = 56
+VDS_ASYNCOUT_LOGINTOTARGET: VDS_ASYNC_OUTPUT_TYPE = 60
+VDS_ASYNCOUT_LOGOUTFROMTARGET: VDS_ASYNC_OUTPUT_TYPE = 61
+VDS_ASYNCOUT_CREATETARGET: VDS_ASYNC_OUTPUT_TYPE = 62
+VDS_ASYNCOUT_CREATEPORTALGROUP: VDS_ASYNC_OUTPUT_TYPE = 63
+VDS_ASYNCOUT_DELETETARGET: VDS_ASYNC_OUTPUT_TYPE = 64
+VDS_ASYNCOUT_ADDPORTAL: VDS_ASYNC_OUTPUT_TYPE = 65
+VDS_ASYNCOUT_REMOVEPORTAL: VDS_ASYNC_OUTPUT_TYPE = 66
+VDS_ASYNCOUT_DELETEPORTALGROUP: VDS_ASYNC_OUTPUT_TYPE = 67
+VDS_ASYNCOUT_FORMAT: VDS_ASYNC_OUTPUT_TYPE = 101
+VDS_ASYNCOUT_CREATE_VDISK: VDS_ASYNC_OUTPUT_TYPE = 200
+VDS_ASYNCOUT_ATTACH_VDISK: VDS_ASYNC_OUTPUT_TYPE = 201
+VDS_ASYNCOUT_COMPACT_VDISK: VDS_ASYNC_OUTPUT_TYPE = 202
+VDS_ASYNCOUT_MERGE_VDISK: VDS_ASYNC_OUTPUT_TYPE = 203
+VDS_ASYNCOUT_EXPAND_VDISK: VDS_ASYNC_OUTPUT_TYPE = 204
+class VDS_CONTROLLER_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_CONTROLLER
+    controllerId: Guid
+class VDS_CONTROLLER_PROP(Structure):
+    id: Guid
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    status: win32more.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    sNumberOfPorts: Int16
 VDS_CONTROLLER_STATUS = Int32
-VDS_CS_UNKNOWN = 0
-VDS_CS_ONLINE = 1
-VDS_CS_NOT_READY = 2
-VDS_CS_OFFLINE = 4
-VDS_CS_FAILED = 5
-VDS_CS_REMOVED = 8
-def _define_VDS_DISK_NOTIFICATION_head():
-    class VDS_DISK_NOTIFICATION(Structure):
-        pass
-    return VDS_DISK_NOTIFICATION
-def _define_VDS_DISK_NOTIFICATION():
-    VDS_DISK_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_DISK_NOTIFICATION_head
-    VDS_DISK_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_DISK),
-        ('diskId', Guid),
-    ]
-    return VDS_DISK_NOTIFICATION
-def _define_VDS_DRIVE_EXTENT_head():
-    class VDS_DRIVE_EXTENT(Structure):
-        pass
-    return VDS_DRIVE_EXTENT
-def _define_VDS_DRIVE_EXTENT():
-    VDS_DRIVE_EXTENT = win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head
-    VDS_DRIVE_EXTENT._fields_ = [
-        ('id', Guid),
-        ('LunId', Guid),
-        ('ullSize', UInt64),
-        ('bUsed', win32more.Foundation.BOOL),
-    ]
-    return VDS_DRIVE_EXTENT
+VDS_CS_UNKNOWN: VDS_CONTROLLER_STATUS = 0
+VDS_CS_ONLINE: VDS_CONTROLLER_STATUS = 1
+VDS_CS_NOT_READY: VDS_CONTROLLER_STATUS = 2
+VDS_CS_OFFLINE: VDS_CONTROLLER_STATUS = 4
+VDS_CS_FAILED: VDS_CONTROLLER_STATUS = 5
+VDS_CS_REMOVED: VDS_CONTROLLER_STATUS = 8
+class VDS_DISK_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_DISK
+    diskId: Guid
+class VDS_DRIVE_EXTENT(Structure):
+    id: Guid
+    LunId: Guid
+    ullSize: UInt64
+    bUsed: win32more.Foundation.BOOL
 VDS_DRIVE_FLAG = Int32
-VDS_DRF_HOTSPARE = 1
-VDS_DRF_ASSIGNED = 2
-VDS_DRF_UNASSIGNED = 4
-VDS_DRF_HOTSPARE_IN_USE = 8
-VDS_DRF_HOTSPARE_STANDBY = 16
-def _define_VDS_DRIVE_LETTER_NOTIFICATION_head():
-    class VDS_DRIVE_LETTER_NOTIFICATION(Structure):
-        pass
-    return VDS_DRIVE_LETTER_NOTIFICATION
-def _define_VDS_DRIVE_LETTER_NOTIFICATION():
-    VDS_DRIVE_LETTER_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_DRIVE_LETTER_NOTIFICATION_head
-    VDS_DRIVE_LETTER_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('wcLetter', Char),
-        ('volumeId', Guid),
-    ]
-    return VDS_DRIVE_LETTER_NOTIFICATION
-def _define_VDS_DRIVE_NOTIFICATION_head():
-    class VDS_DRIVE_NOTIFICATION(Structure):
-        pass
-    return VDS_DRIVE_NOTIFICATION
-def _define_VDS_DRIVE_NOTIFICATION():
-    VDS_DRIVE_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_DRIVE_NOTIFICATION_head
-    VDS_DRIVE_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_DRIVE),
-        ('driveId', Guid),
-    ]
-    return VDS_DRIVE_NOTIFICATION
-def _define_VDS_DRIVE_PROP_head():
-    class VDS_DRIVE_PROP(Structure):
-        pass
-    return VDS_DRIVE_PROP
-def _define_VDS_DRIVE_PROP():
-    VDS_DRIVE_PROP = win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP_head
-    VDS_DRIVE_PROP._fields_ = [
-        ('id', Guid),
-        ('ullSize', UInt64),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('ulFlags', UInt32),
-        ('status', win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('sInternalBusNumber', Int16),
-        ('sSlotNumber', Int16),
-    ]
-    return VDS_DRIVE_PROP
-def _define_VDS_DRIVE_PROP2_head():
-    class VDS_DRIVE_PROP2(Structure):
-        pass
-    return VDS_DRIVE_PROP2
-def _define_VDS_DRIVE_PROP2():
-    VDS_DRIVE_PROP2 = win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head
-    VDS_DRIVE_PROP2._fields_ = [
-        ('id', Guid),
-        ('ullSize', UInt64),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('ulFlags', UInt32),
-        ('status', win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('sInternalBusNumber', Int16),
-        ('sSlotNumber', Int16),
-        ('ulEnclosureNumber', UInt32),
-        ('busType', win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE),
-        ('ulSpindleSpeed', UInt32),
-    ]
-    return VDS_DRIVE_PROP2
+VDS_DRF_HOTSPARE: VDS_DRIVE_FLAG = 1
+VDS_DRF_ASSIGNED: VDS_DRIVE_FLAG = 2
+VDS_DRF_UNASSIGNED: VDS_DRIVE_FLAG = 4
+VDS_DRF_HOTSPARE_IN_USE: VDS_DRIVE_FLAG = 8
+VDS_DRF_HOTSPARE_STANDBY: VDS_DRIVE_FLAG = 16
+class VDS_DRIVE_LETTER_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    wcLetter: Char
+    volumeId: Guid
+class VDS_DRIVE_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_DRIVE
+    driveId: Guid
+class VDS_DRIVE_PROP(Structure):
+    id: Guid
+    ullSize: UInt64
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    status: win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    sInternalBusNumber: Int16
+    sSlotNumber: Int16
+class VDS_DRIVE_PROP2(Structure):
+    id: Guid
+    ullSize: UInt64
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    status: win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    sInternalBusNumber: Int16
+    sSlotNumber: Int16
+    ulEnclosureNumber: UInt32
+    busType: win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    ulSpindleSpeed: UInt32
 VDS_DRIVE_STATUS = Int32
-VDS_DRS_UNKNOWN = 0
-VDS_DRS_ONLINE = 1
-VDS_DRS_NOT_READY = 2
-VDS_DRS_OFFLINE = 4
-VDS_DRS_FAILED = 5
-VDS_DRS_REMOVED = 8
-def _define_VDS_FILE_SYSTEM_NOTIFICATION_head():
-    class VDS_FILE_SYSTEM_NOTIFICATION(Structure):
-        pass
-    return VDS_FILE_SYSTEM_NOTIFICATION
-def _define_VDS_FILE_SYSTEM_NOTIFICATION():
-    VDS_FILE_SYSTEM_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_FILE_SYSTEM_NOTIFICATION_head
-    VDS_FILE_SYSTEM_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_FILE_SYSTEM),
-        ('volumeId', Guid),
-        ('dwPercentCompleted', UInt32),
-    ]
-    return VDS_FILE_SYSTEM_NOTIFICATION
+VDS_DRS_UNKNOWN: VDS_DRIVE_STATUS = 0
+VDS_DRS_ONLINE: VDS_DRIVE_STATUS = 1
+VDS_DRS_NOT_READY: VDS_DRIVE_STATUS = 2
+VDS_DRS_OFFLINE: VDS_DRIVE_STATUS = 4
+VDS_DRS_FAILED: VDS_DRIVE_STATUS = 5
+VDS_DRS_REMOVED: VDS_DRIVE_STATUS = 8
+class VDS_FILE_SYSTEM_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_FILE_SYSTEM
+    volumeId: Guid
+    dwPercentCompleted: UInt32
 VDS_FILE_SYSTEM_TYPE = Int32
-VDS_FST_UNKNOWN = 0
-VDS_FST_RAW = 1
-VDS_FST_FAT = 2
-VDS_FST_FAT32 = 3
-VDS_FST_NTFS = 4
-VDS_FST_CDFS = 5
-VDS_FST_UDF = 6
-VDS_FST_EXFAT = 7
-VDS_FST_CSVFS = 8
-VDS_FST_REFS = 9
-def _define_VDS_HBAPORT_PROP_head():
-    class VDS_HBAPORT_PROP(Structure):
-        pass
-    return VDS_HBAPORT_PROP
-def _define_VDS_HBAPORT_PROP():
-    VDS_HBAPORT_PROP = win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP_head
-    VDS_HBAPORT_PROP._fields_ = [
-        ('id', Guid),
-        ('wwnNode', win32more.Storage.VirtualDiskService.VDS_WWN),
-        ('wwnPort', win32more.Storage.VirtualDiskService.VDS_WWN),
-        ('type', win32more.Storage.VirtualDiskService.VDS_HBAPORT_TYPE),
-        ('status', win32more.Storage.VirtualDiskService.VDS_HBAPORT_STATUS),
-        ('ulPortSpeed', UInt32),
-        ('ulSupportedPortSpeed', UInt32),
-    ]
-    return VDS_HBAPORT_PROP
+VDS_FST_UNKNOWN: VDS_FILE_SYSTEM_TYPE = 0
+VDS_FST_RAW: VDS_FILE_SYSTEM_TYPE = 1
+VDS_FST_FAT: VDS_FILE_SYSTEM_TYPE = 2
+VDS_FST_FAT32: VDS_FILE_SYSTEM_TYPE = 3
+VDS_FST_NTFS: VDS_FILE_SYSTEM_TYPE = 4
+VDS_FST_CDFS: VDS_FILE_SYSTEM_TYPE = 5
+VDS_FST_UDF: VDS_FILE_SYSTEM_TYPE = 6
+VDS_FST_EXFAT: VDS_FILE_SYSTEM_TYPE = 7
+VDS_FST_CSVFS: VDS_FILE_SYSTEM_TYPE = 8
+VDS_FST_REFS: VDS_FILE_SYSTEM_TYPE = 9
+class VDS_HBAPORT_PROP(Structure):
+    id: Guid
+    wwnNode: win32more.Storage.VirtualDiskService.VDS_WWN
+    wwnPort: win32more.Storage.VirtualDiskService.VDS_WWN
+    type: win32more.Storage.VirtualDiskService.VDS_HBAPORT_TYPE
+    status: win32more.Storage.VirtualDiskService.VDS_HBAPORT_STATUS
+    ulPortSpeed: UInt32
+    ulSupportedPortSpeed: UInt32
 VDS_HBAPORT_SPEED_FLAG = Int32
-VDS_HSF_UNKNOWN = 0
-VDS_HSF_1GBIT = 1
-VDS_HSF_2GBIT = 2
-VDS_HSF_10GBIT = 4
-VDS_HSF_4GBIT = 8
-VDS_HSF_NOT_NEGOTIATED = 32768
+VDS_HSF_UNKNOWN: VDS_HBAPORT_SPEED_FLAG = 0
+VDS_HSF_1GBIT: VDS_HBAPORT_SPEED_FLAG = 1
+VDS_HSF_2GBIT: VDS_HBAPORT_SPEED_FLAG = 2
+VDS_HSF_10GBIT: VDS_HBAPORT_SPEED_FLAG = 4
+VDS_HSF_4GBIT: VDS_HBAPORT_SPEED_FLAG = 8
+VDS_HSF_NOT_NEGOTIATED: VDS_HBAPORT_SPEED_FLAG = 32768
 VDS_HBAPORT_STATUS = Int32
-VDS_HPS_UNKNOWN = 1
-VDS_HPS_ONLINE = 2
-VDS_HPS_OFFLINE = 3
-VDS_HPS_BYPASSED = 4
-VDS_HPS_DIAGNOSTICS = 5
-VDS_HPS_LINKDOWN = 6
-VDS_HPS_ERROR = 7
-VDS_HPS_LOOPBACK = 8
+VDS_HPS_UNKNOWN: VDS_HBAPORT_STATUS = 1
+VDS_HPS_ONLINE: VDS_HBAPORT_STATUS = 2
+VDS_HPS_OFFLINE: VDS_HBAPORT_STATUS = 3
+VDS_HPS_BYPASSED: VDS_HBAPORT_STATUS = 4
+VDS_HPS_DIAGNOSTICS: VDS_HBAPORT_STATUS = 5
+VDS_HPS_LINKDOWN: VDS_HBAPORT_STATUS = 6
+VDS_HPS_ERROR: VDS_HBAPORT_STATUS = 7
+VDS_HPS_LOOPBACK: VDS_HBAPORT_STATUS = 8
 VDS_HBAPORT_TYPE = Int32
-VDS_HPT_UNKNOWN = 1
-VDS_HPT_OTHER = 2
-VDS_HPT_NOTPRESENT = 3
-VDS_HPT_NPORT = 5
-VDS_HPT_NLPORT = 6
-VDS_HPT_FLPORT = 7
-VDS_HPT_FPORT = 8
-VDS_HPT_EPORT = 9
-VDS_HPT_GPORT = 10
-VDS_HPT_LPORT = 20
-VDS_HPT_PTP = 21
+VDS_HPT_UNKNOWN: VDS_HBAPORT_TYPE = 1
+VDS_HPT_OTHER: VDS_HBAPORT_TYPE = 2
+VDS_HPT_NOTPRESENT: VDS_HBAPORT_TYPE = 3
+VDS_HPT_NPORT: VDS_HBAPORT_TYPE = 5
+VDS_HPT_NLPORT: VDS_HBAPORT_TYPE = 6
+VDS_HPT_FLPORT: VDS_HBAPORT_TYPE = 7
+VDS_HPT_FPORT: VDS_HBAPORT_TYPE = 8
+VDS_HPT_EPORT: VDS_HBAPORT_TYPE = 9
+VDS_HPT_GPORT: VDS_HBAPORT_TYPE = 10
+VDS_HPT_LPORT: VDS_HBAPORT_TYPE = 20
+VDS_HPT_PTP: VDS_HBAPORT_TYPE = 21
 VDS_HEALTH = Int32
-VDS_H_UNKNOWN = 0
-VDS_H_HEALTHY = 1
-VDS_H_REBUILDING = 2
-VDS_H_STALE = 3
-VDS_H_FAILING = 4
-VDS_H_FAILING_REDUNDANCY = 5
-VDS_H_FAILED_REDUNDANCY = 6
-VDS_H_FAILED_REDUNDANCY_FAILING = 7
-VDS_H_FAILED = 8
-VDS_H_REPLACED = 9
-VDS_H_PENDING_FAILURE = 10
-VDS_H_DEGRADED = 11
-def _define_VDS_HINTS_head():
-    class VDS_HINTS(Structure):
-        pass
-    return VDS_HINTS
-def _define_VDS_HINTS():
-    VDS_HINTS = win32more.Storage.VirtualDiskService.VDS_HINTS_head
-    VDS_HINTS._fields_ = [
-        ('ullHintMask', UInt64),
-        ('ullExpectedMaximumSize', UInt64),
-        ('ulOptimalReadSize', UInt32),
-        ('ulOptimalReadAlignment', UInt32),
-        ('ulOptimalWriteSize', UInt32),
-        ('ulOptimalWriteAlignment', UInt32),
-        ('ulMaximumDriveCount', UInt32),
-        ('ulStripeSize', UInt32),
-        ('bFastCrashRecoveryRequired', win32more.Foundation.BOOL),
-        ('bMostlyReads', win32more.Foundation.BOOL),
-        ('bOptimizeForSequentialReads', win32more.Foundation.BOOL),
-        ('bOptimizeForSequentialWrites', win32more.Foundation.BOOL),
-        ('bRemapEnabled', win32more.Foundation.BOOL),
-        ('bReadBackVerifyEnabled', win32more.Foundation.BOOL),
-        ('bWriteThroughCachingEnabled', win32more.Foundation.BOOL),
-        ('bHardwareChecksumEnabled', win32more.Foundation.BOOL),
-        ('bIsYankable', win32more.Foundation.BOOL),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_HINTS
-def _define_VDS_HINTS2_head():
-    class VDS_HINTS2(Structure):
-        pass
-    return VDS_HINTS2
-def _define_VDS_HINTS2():
-    VDS_HINTS2 = win32more.Storage.VirtualDiskService.VDS_HINTS2_head
-    VDS_HINTS2._fields_ = [
-        ('ullHintMask', UInt64),
-        ('ullExpectedMaximumSize', UInt64),
-        ('ulOptimalReadSize', UInt32),
-        ('ulOptimalReadAlignment', UInt32),
-        ('ulOptimalWriteSize', UInt32),
-        ('ulOptimalWriteAlignment', UInt32),
-        ('ulMaximumDriveCount', UInt32),
-        ('ulStripeSize', UInt32),
-        ('ulReserved1', UInt32),
-        ('ulReserved2', UInt32),
-        ('ulReserved3', UInt32),
-        ('bFastCrashRecoveryRequired', win32more.Foundation.BOOL),
-        ('bMostlyReads', win32more.Foundation.BOOL),
-        ('bOptimizeForSequentialReads', win32more.Foundation.BOOL),
-        ('bOptimizeForSequentialWrites', win32more.Foundation.BOOL),
-        ('bRemapEnabled', win32more.Foundation.BOOL),
-        ('bReadBackVerifyEnabled', win32more.Foundation.BOOL),
-        ('bWriteThroughCachingEnabled', win32more.Foundation.BOOL),
-        ('bHardwareChecksumEnabled', win32more.Foundation.BOOL),
-        ('bIsYankable', win32more.Foundation.BOOL),
-        ('bAllocateHotSpare', win32more.Foundation.BOOL),
-        ('bUseMirroredCache', win32more.Foundation.BOOL),
-        ('bReadCachingEnabled', win32more.Foundation.BOOL),
-        ('bWriteCachingEnabled', win32more.Foundation.BOOL),
-        ('bMediaScanEnabled', win32more.Foundation.BOOL),
-        ('bConsistencyCheckEnabled', win32more.Foundation.BOOL),
-        ('BusType', win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE),
-        ('bReserved1', win32more.Foundation.BOOL),
-        ('bReserved2', win32more.Foundation.BOOL),
-        ('bReserved3', win32more.Foundation.BOOL),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_HINTS2
+VDS_H_UNKNOWN: VDS_HEALTH = 0
+VDS_H_HEALTHY: VDS_HEALTH = 1
+VDS_H_REBUILDING: VDS_HEALTH = 2
+VDS_H_STALE: VDS_HEALTH = 3
+VDS_H_FAILING: VDS_HEALTH = 4
+VDS_H_FAILING_REDUNDANCY: VDS_HEALTH = 5
+VDS_H_FAILED_REDUNDANCY: VDS_HEALTH = 6
+VDS_H_FAILED_REDUNDANCY_FAILING: VDS_HEALTH = 7
+VDS_H_FAILED: VDS_HEALTH = 8
+VDS_H_REPLACED: VDS_HEALTH = 9
+VDS_H_PENDING_FAILURE: VDS_HEALTH = 10
+VDS_H_DEGRADED: VDS_HEALTH = 11
+class VDS_HINTS(Structure):
+    ullHintMask: UInt64
+    ullExpectedMaximumSize: UInt64
+    ulOptimalReadSize: UInt32
+    ulOptimalReadAlignment: UInt32
+    ulOptimalWriteSize: UInt32
+    ulOptimalWriteAlignment: UInt32
+    ulMaximumDriveCount: UInt32
+    ulStripeSize: UInt32
+    bFastCrashRecoveryRequired: win32more.Foundation.BOOL
+    bMostlyReads: win32more.Foundation.BOOL
+    bOptimizeForSequentialReads: win32more.Foundation.BOOL
+    bOptimizeForSequentialWrites: win32more.Foundation.BOOL
+    bRemapEnabled: win32more.Foundation.BOOL
+    bReadBackVerifyEnabled: win32more.Foundation.BOOL
+    bWriteThroughCachingEnabled: win32more.Foundation.BOOL
+    bHardwareChecksumEnabled: win32more.Foundation.BOOL
+    bIsYankable: win32more.Foundation.BOOL
+    sRebuildPriority: Int16
+class VDS_HINTS2(Structure):
+    ullHintMask: UInt64
+    ullExpectedMaximumSize: UInt64
+    ulOptimalReadSize: UInt32
+    ulOptimalReadAlignment: UInt32
+    ulOptimalWriteSize: UInt32
+    ulOptimalWriteAlignment: UInt32
+    ulMaximumDriveCount: UInt32
+    ulStripeSize: UInt32
+    ulReserved1: UInt32
+    ulReserved2: UInt32
+    ulReserved3: UInt32
+    bFastCrashRecoveryRequired: win32more.Foundation.BOOL
+    bMostlyReads: win32more.Foundation.BOOL
+    bOptimizeForSequentialReads: win32more.Foundation.BOOL
+    bOptimizeForSequentialWrites: win32more.Foundation.BOOL
+    bRemapEnabled: win32more.Foundation.BOOL
+    bReadBackVerifyEnabled: win32more.Foundation.BOOL
+    bWriteThroughCachingEnabled: win32more.Foundation.BOOL
+    bHardwareChecksumEnabled: win32more.Foundation.BOOL
+    bIsYankable: win32more.Foundation.BOOL
+    bAllocateHotSpare: win32more.Foundation.BOOL
+    bUseMirroredCache: win32more.Foundation.BOOL
+    bReadCachingEnabled: win32more.Foundation.BOOL
+    bWriteCachingEnabled: win32more.Foundation.BOOL
+    bMediaScanEnabled: win32more.Foundation.BOOL
+    bConsistencyCheckEnabled: win32more.Foundation.BOOL
+    BusType: win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    bReserved1: win32more.Foundation.BOOL
+    bReserved2: win32more.Foundation.BOOL
+    bReserved3: win32more.Foundation.BOOL
+    sRebuildPriority: Int16
 VDS_HWPROVIDER_TYPE = Int32
-VDS_HWT_UNKNOWN = 0
-VDS_HWT_PCI_RAID = 1
-VDS_HWT_FIBRE_CHANNEL = 2
-VDS_HWT_ISCSI = 3
-VDS_HWT_SAS = 4
-VDS_HWT_HYBRID = 5
-def _define_VDS_INTERCONNECT_head():
-    class VDS_INTERCONNECT(Structure):
-        pass
-    return VDS_INTERCONNECT
-def _define_VDS_INTERCONNECT():
-    VDS_INTERCONNECT = win32more.Storage.VirtualDiskService.VDS_INTERCONNECT_head
-    VDS_INTERCONNECT._fields_ = [
-        ('m_addressType', win32more.Storage.VirtualDiskService.VDS_INTERCONNECT_ADDRESS_TYPE),
-        ('m_cbPort', UInt32),
-        ('m_pbPort', c_char_p_no),
-        ('m_cbAddress', UInt32),
-        ('m_pbAddress', c_char_p_no),
-    ]
-    return VDS_INTERCONNECT
+VDS_HWT_UNKNOWN: VDS_HWPROVIDER_TYPE = 0
+VDS_HWT_PCI_RAID: VDS_HWPROVIDER_TYPE = 1
+VDS_HWT_FIBRE_CHANNEL: VDS_HWPROVIDER_TYPE = 2
+VDS_HWT_ISCSI: VDS_HWPROVIDER_TYPE = 3
+VDS_HWT_SAS: VDS_HWPROVIDER_TYPE = 4
+VDS_HWT_HYBRID: VDS_HWPROVIDER_TYPE = 5
+class VDS_INTERCONNECT(Structure):
+    m_addressType: win32more.Storage.VirtualDiskService.VDS_INTERCONNECT_ADDRESS_TYPE
+    m_cbPort: UInt32
+    m_pbPort: c_char_p_no
+    m_cbAddress: UInt32
+    m_pbAddress: c_char_p_no
 VDS_INTERCONNECT_ADDRESS_TYPE = Int32
-VDS_IA_UNKNOWN = 0
-VDS_IA_FCFS = 1
-VDS_IA_FCPH = 2
-VDS_IA_FCPH3 = 3
-VDS_IA_MAC = 4
-VDS_IA_SCSI = 5
+VDS_IA_UNKNOWN: VDS_INTERCONNECT_ADDRESS_TYPE = 0
+VDS_IA_FCFS: VDS_INTERCONNECT_ADDRESS_TYPE = 1
+VDS_IA_FCPH: VDS_INTERCONNECT_ADDRESS_TYPE = 2
+VDS_IA_FCPH3: VDS_INTERCONNECT_ADDRESS_TYPE = 3
+VDS_IA_MAC: VDS_INTERCONNECT_ADDRESS_TYPE = 4
+VDS_IA_SCSI: VDS_INTERCONNECT_ADDRESS_TYPE = 5
 VDS_INTERCONNECT_FLAG = Int32
-VDS_ITF_PCI_RAID = 1
-VDS_ITF_FIBRE_CHANNEL = 2
-VDS_ITF_ISCSI = 4
-VDS_ITF_SAS = 8
-def _define_VDS_IPADDRESS_head():
-    class VDS_IPADDRESS(Structure):
-        pass
-    return VDS_IPADDRESS
-def _define_VDS_IPADDRESS():
-    VDS_IPADDRESS = win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head
-    VDS_IPADDRESS._fields_ = [
-        ('type', win32more.Storage.VirtualDiskService.VDS_IPADDRESS_TYPE),
-        ('ipv4Address', UInt32),
-        ('ipv6Address', Byte * 16),
-        ('ulIpv6FlowInfo', UInt32),
-        ('ulIpv6ScopeId', UInt32),
-        ('wszTextAddress', Char * 257),
-        ('ulPort', UInt32),
-    ]
-    return VDS_IPADDRESS
+VDS_ITF_PCI_RAID: VDS_INTERCONNECT_FLAG = 1
+VDS_ITF_FIBRE_CHANNEL: VDS_INTERCONNECT_FLAG = 2
+VDS_ITF_ISCSI: VDS_INTERCONNECT_FLAG = 4
+VDS_ITF_SAS: VDS_INTERCONNECT_FLAG = 8
+class VDS_IPADDRESS(Structure):
+    type: win32more.Storage.VirtualDiskService.VDS_IPADDRESS_TYPE
+    ipv4Address: UInt32
+    ipv6Address: Byte * 16
+    ulIpv6FlowInfo: UInt32
+    ulIpv6ScopeId: UInt32
+    wszTextAddress: Char * 257
+    ulPort: UInt32
 VDS_IPADDRESS_TYPE = Int32
-VDS_IPT_TEXT = 0
-VDS_IPT_IPV4 = 1
-VDS_IPT_IPV6 = 2
-VDS_IPT_EMPTY = 3
+VDS_IPT_TEXT: VDS_IPADDRESS_TYPE = 0
+VDS_IPT_IPV4: VDS_IPADDRESS_TYPE = 1
+VDS_IPT_IPV6: VDS_IPADDRESS_TYPE = 2
+VDS_IPT_EMPTY: VDS_IPADDRESS_TYPE = 3
 VDS_ISCSI_AUTH_TYPE = Int32
-VDS_IAT_NONE = 0
-VDS_IAT_CHAP = 1
-VDS_IAT_MUTUAL_CHAP = 2
-def _define_VDS_ISCSI_INITIATOR_ADAPTER_PROP_head():
-    class VDS_ISCSI_INITIATOR_ADAPTER_PROP(Structure):
-        pass
-    return VDS_ISCSI_INITIATOR_ADAPTER_PROP
-def _define_VDS_ISCSI_INITIATOR_ADAPTER_PROP():
-    VDS_ISCSI_INITIATOR_ADAPTER_PROP = win32more.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_ADAPTER_PROP_head
-    VDS_ISCSI_INITIATOR_ADAPTER_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszName', win32more.Foundation.PWSTR),
-    ]
-    return VDS_ISCSI_INITIATOR_ADAPTER_PROP
-def _define_VDS_ISCSI_INITIATOR_PORTAL_PROP_head():
-    class VDS_ISCSI_INITIATOR_PORTAL_PROP(Structure):
-        pass
-    return VDS_ISCSI_INITIATOR_PORTAL_PROP
-def _define_VDS_ISCSI_INITIATOR_PORTAL_PROP():
-    VDS_ISCSI_INITIATOR_PORTAL_PROP = win32more.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_PORTAL_PROP_head
-    VDS_ISCSI_INITIATOR_PORTAL_PROP._fields_ = [
-        ('id', Guid),
-        ('address', win32more.Storage.VirtualDiskService.VDS_IPADDRESS),
-        ('ulPortIndex', UInt32),
-    ]
-    return VDS_ISCSI_INITIATOR_PORTAL_PROP
+VDS_IAT_NONE: VDS_ISCSI_AUTH_TYPE = 0
+VDS_IAT_CHAP: VDS_ISCSI_AUTH_TYPE = 1
+VDS_IAT_MUTUAL_CHAP: VDS_ISCSI_AUTH_TYPE = 2
+class VDS_ISCSI_INITIATOR_ADAPTER_PROP(Structure):
+    id: Guid
+    pwszName: win32more.Foundation.PWSTR
+class VDS_ISCSI_INITIATOR_PORTAL_PROP(Structure):
+    id: Guid
+    address: win32more.Storage.VirtualDiskService.VDS_IPADDRESS
+    ulPortIndex: UInt32
 VDS_ISCSI_IPSEC_FLAG = Int32
-VDS_IIF_VALID = 1
-VDS_IIF_IKE = 2
-VDS_IIF_MAIN_MODE = 4
-VDS_IIF_AGGRESSIVE_MODE = 8
-VDS_IIF_PFS_ENABLE = 16
-VDS_IIF_TRANSPORT_MODE_PREFERRED = 32
-VDS_IIF_TUNNEL_MODE_PREFERRED = 64
-def _define_VDS_ISCSI_IPSEC_KEY_head():
-    class VDS_ISCSI_IPSEC_KEY(Structure):
-        pass
-    return VDS_ISCSI_IPSEC_KEY
-def _define_VDS_ISCSI_IPSEC_KEY():
-    VDS_ISCSI_IPSEC_KEY = win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head
-    VDS_ISCSI_IPSEC_KEY._fields_ = [
-        ('pKey', c_char_p_no),
-        ('ulKeySize', UInt32),
-    ]
-    return VDS_ISCSI_IPSEC_KEY
+VDS_IIF_VALID: VDS_ISCSI_IPSEC_FLAG = 1
+VDS_IIF_IKE: VDS_ISCSI_IPSEC_FLAG = 2
+VDS_IIF_MAIN_MODE: VDS_ISCSI_IPSEC_FLAG = 4
+VDS_IIF_AGGRESSIVE_MODE: VDS_ISCSI_IPSEC_FLAG = 8
+VDS_IIF_PFS_ENABLE: VDS_ISCSI_IPSEC_FLAG = 16
+VDS_IIF_TRANSPORT_MODE_PREFERRED: VDS_ISCSI_IPSEC_FLAG = 32
+VDS_IIF_TUNNEL_MODE_PREFERRED: VDS_ISCSI_IPSEC_FLAG = 64
+class VDS_ISCSI_IPSEC_KEY(Structure):
+    pKey: c_char_p_no
+    ulKeySize: UInt32
 VDS_ISCSI_LOGIN_FLAG = Int32
-VDS_ILF_REQUIRE_IPSEC = 1
-VDS_ILF_MULTIPATH_ENABLED = 2
+VDS_ILF_REQUIRE_IPSEC: VDS_ISCSI_LOGIN_FLAG = 1
+VDS_ILF_MULTIPATH_ENABLED: VDS_ISCSI_LOGIN_FLAG = 2
 VDS_ISCSI_LOGIN_TYPE = Int32
-VDS_ILT_MANUAL = 0
-VDS_ILT_PERSISTENT = 1
-VDS_ILT_BOOT = 2
-def _define_VDS_ISCSI_PORTAL_PROP_head():
-    class VDS_ISCSI_PORTAL_PROP(Structure):
-        pass
-    return VDS_ISCSI_PORTAL_PROP
-def _define_VDS_ISCSI_PORTAL_PROP():
-    VDS_ISCSI_PORTAL_PROP = win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_PROP_head
-    VDS_ISCSI_PORTAL_PROP._fields_ = [
-        ('id', Guid),
-        ('address', win32more.Storage.VirtualDiskService.VDS_IPADDRESS),
-        ('status', win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS),
-    ]
-    return VDS_ISCSI_PORTAL_PROP
+VDS_ILT_MANUAL: VDS_ISCSI_LOGIN_TYPE = 0
+VDS_ILT_PERSISTENT: VDS_ISCSI_LOGIN_TYPE = 1
+VDS_ILT_BOOT: VDS_ISCSI_LOGIN_TYPE = 2
+class VDS_ISCSI_PORTAL_PROP(Structure):
+    id: Guid
+    address: win32more.Storage.VirtualDiskService.VDS_IPADDRESS
+    status: win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS
 VDS_ISCSI_PORTAL_STATUS = Int32
-VDS_IPS_UNKNOWN = 0
-VDS_IPS_ONLINE = 1
-VDS_IPS_NOT_READY = 2
-VDS_IPS_OFFLINE = 4
-VDS_IPS_FAILED = 5
-def _define_VDS_ISCSI_PORTALGROUP_PROP_head():
-    class VDS_ISCSI_PORTALGROUP_PROP(Structure):
-        pass
-    return VDS_ISCSI_PORTALGROUP_PROP
-def _define_VDS_ISCSI_PORTALGROUP_PROP():
-    VDS_ISCSI_PORTALGROUP_PROP = win32more.Storage.VirtualDiskService.VDS_ISCSI_PORTALGROUP_PROP_head
-    VDS_ISCSI_PORTALGROUP_PROP._fields_ = [
-        ('id', Guid),
-        ('tag', UInt16),
-    ]
-    return VDS_ISCSI_PORTALGROUP_PROP
-def _define_VDS_ISCSI_SHARED_SECRET_head():
-    class VDS_ISCSI_SHARED_SECRET(Structure):
-        pass
-    return VDS_ISCSI_SHARED_SECRET
-def _define_VDS_ISCSI_SHARED_SECRET():
-    VDS_ISCSI_SHARED_SECRET = win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head
-    VDS_ISCSI_SHARED_SECRET._fields_ = [
-        ('pSharedSecret', c_char_p_no),
-        ('ulSharedSecretSize', UInt32),
-    ]
-    return VDS_ISCSI_SHARED_SECRET
-def _define_VDS_ISCSI_TARGET_PROP_head():
-    class VDS_ISCSI_TARGET_PROP(Structure):
-        pass
-    return VDS_ISCSI_TARGET_PROP
-def _define_VDS_ISCSI_TARGET_PROP():
-    VDS_ISCSI_TARGET_PROP = win32more.Storage.VirtualDiskService.VDS_ISCSI_TARGET_PROP_head
-    VDS_ISCSI_TARGET_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszIscsiName', win32more.Foundation.PWSTR),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('bChapEnabled', win32more.Foundation.BOOL),
-    ]
-    return VDS_ISCSI_TARGET_PROP
+VDS_IPS_UNKNOWN: VDS_ISCSI_PORTAL_STATUS = 0
+VDS_IPS_ONLINE: VDS_ISCSI_PORTAL_STATUS = 1
+VDS_IPS_NOT_READY: VDS_ISCSI_PORTAL_STATUS = 2
+VDS_IPS_OFFLINE: VDS_ISCSI_PORTAL_STATUS = 4
+VDS_IPS_FAILED: VDS_ISCSI_PORTAL_STATUS = 5
+class VDS_ISCSI_PORTALGROUP_PROP(Structure):
+    id: Guid
+    tag: UInt16
+class VDS_ISCSI_SHARED_SECRET(Structure):
+    pSharedSecret: c_char_p_no
+    ulSharedSecretSize: UInt32
+class VDS_ISCSI_TARGET_PROP(Structure):
+    id: Guid
+    pwszIscsiName: win32more.Foundation.PWSTR
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    bChapEnabled: win32more.Foundation.BOOL
 VDS_LOADBALANCE_POLICY_ENUM = Int32
-VDS_LBP_UNKNOWN = 0
-VDS_LBP_FAILOVER = 1
-VDS_LBP_ROUND_ROBIN = 2
-VDS_LBP_ROUND_ROBIN_WITH_SUBSET = 3
-VDS_LBP_DYN_LEAST_QUEUE_DEPTH = 4
-VDS_LBP_WEIGHTED_PATHS = 5
-VDS_LBP_LEAST_BLOCKS = 6
-VDS_LBP_VENDOR_SPECIFIC = 7
+VDS_LBP_UNKNOWN: VDS_LOADBALANCE_POLICY_ENUM = 0
+VDS_LBP_FAILOVER: VDS_LOADBALANCE_POLICY_ENUM = 1
+VDS_LBP_ROUND_ROBIN: VDS_LOADBALANCE_POLICY_ENUM = 2
+VDS_LBP_ROUND_ROBIN_WITH_SUBSET: VDS_LOADBALANCE_POLICY_ENUM = 3
+VDS_LBP_DYN_LEAST_QUEUE_DEPTH: VDS_LOADBALANCE_POLICY_ENUM = 4
+VDS_LBP_WEIGHTED_PATHS: VDS_LOADBALANCE_POLICY_ENUM = 5
+VDS_LBP_LEAST_BLOCKS: VDS_LOADBALANCE_POLICY_ENUM = 6
+VDS_LBP_VENDOR_SPECIFIC: VDS_LOADBALANCE_POLICY_ENUM = 7
 VDS_LUN_FLAG = Int32
-VDS_LF_LBN_REMAP_ENABLED = 1
-VDS_LF_READ_BACK_VERIFY_ENABLED = 2
-VDS_LF_WRITE_THROUGH_CACHING_ENABLED = 4
-VDS_LF_HARDWARE_CHECKSUM_ENABLED = 8
-VDS_LF_READ_CACHE_ENABLED = 16
-VDS_LF_WRITE_CACHE_ENABLED = 32
-VDS_LF_MEDIA_SCAN_ENABLED = 64
-VDS_LF_CONSISTENCY_CHECK_ENABLED = 128
-VDS_LF_SNAPSHOT = 256
-def _define_VDS_LUN_INFORMATION_head():
-    class VDS_LUN_INFORMATION(Structure):
-        pass
-    return VDS_LUN_INFORMATION
-def _define_VDS_LUN_INFORMATION():
-    VDS_LUN_INFORMATION = win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head
-    VDS_LUN_INFORMATION._fields_ = [
-        ('m_version', UInt32),
-        ('m_DeviceType', Byte),
-        ('m_DeviceTypeModifier', Byte),
-        ('m_bCommandQueueing', win32more.Foundation.BOOL),
-        ('m_BusType', win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE),
-        ('m_szVendorId', c_char_p_no),
-        ('m_szProductId', c_char_p_no),
-        ('m_szProductRevision', c_char_p_no),
-        ('m_szSerialNumber', c_char_p_no),
-        ('m_diskSignature', Guid),
-        ('m_deviceIdDescriptor', win32more.Storage.VirtualDiskService.VDS_STORAGE_DEVICE_ID_DESCRIPTOR),
-        ('m_cInterconnects', UInt32),
-        ('m_rgInterconnects', POINTER(win32more.Storage.VirtualDiskService.VDS_INTERCONNECT_head)),
-    ]
-    return VDS_LUN_INFORMATION
-def _define_VDS_LUN_NOTIFICATION_head():
-    class VDS_LUN_NOTIFICATION(Structure):
-        pass
-    return VDS_LUN_NOTIFICATION
-def _define_VDS_LUN_NOTIFICATION():
-    VDS_LUN_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_LUN_NOTIFICATION_head
-    VDS_LUN_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_LUN),
-        ('LunId', Guid),
-    ]
-    return VDS_LUN_NOTIFICATION
+VDS_LF_LBN_REMAP_ENABLED: VDS_LUN_FLAG = 1
+VDS_LF_READ_BACK_VERIFY_ENABLED: VDS_LUN_FLAG = 2
+VDS_LF_WRITE_THROUGH_CACHING_ENABLED: VDS_LUN_FLAG = 4
+VDS_LF_HARDWARE_CHECKSUM_ENABLED: VDS_LUN_FLAG = 8
+VDS_LF_READ_CACHE_ENABLED: VDS_LUN_FLAG = 16
+VDS_LF_WRITE_CACHE_ENABLED: VDS_LUN_FLAG = 32
+VDS_LF_MEDIA_SCAN_ENABLED: VDS_LUN_FLAG = 64
+VDS_LF_CONSISTENCY_CHECK_ENABLED: VDS_LUN_FLAG = 128
+VDS_LF_SNAPSHOT: VDS_LUN_FLAG = 256
+class VDS_LUN_INFORMATION(Structure):
+    m_version: UInt32
+    m_DeviceType: Byte
+    m_DeviceTypeModifier: Byte
+    m_bCommandQueueing: win32more.Foundation.BOOL
+    m_BusType: win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    m_szVendorId: c_char_p_no
+    m_szProductId: c_char_p_no
+    m_szProductRevision: c_char_p_no
+    m_szSerialNumber: c_char_p_no
+    m_diskSignature: Guid
+    m_deviceIdDescriptor: win32more.Storage.VirtualDiskService.VDS_STORAGE_DEVICE_ID_DESCRIPTOR
+    m_cInterconnects: UInt32
+    m_rgInterconnects: POINTER(win32more.Storage.VirtualDiskService.VDS_INTERCONNECT_head)
+class VDS_LUN_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_LUN
+    LunId: Guid
 VDS_LUN_PLEX_FLAG = Int32
-VDS_LPF_LBN_REMAP_ENABLED = 1
-def _define_VDS_LUN_PLEX_PROP_head():
-    class VDS_LUN_PLEX_PROP(Structure):
-        pass
-    return VDS_LUN_PLEX_PROP
-def _define_VDS_LUN_PLEX_PROP():
-    VDS_LUN_PLEX_PROP = win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_PROP_head
-    VDS_LUN_PLEX_PROP._fields_ = [
-        ('id', Guid),
-        ('ullSize', UInt64),
-        ('type', win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE),
-        ('status', win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('TransitionState', win32more.Storage.VirtualDiskService.VDS_TRANSITION_STATE),
-        ('ulFlags', UInt32),
-        ('ulStripeSize', UInt32),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_LUN_PLEX_PROP
+VDS_LPF_LBN_REMAP_ENABLED: VDS_LUN_PLEX_FLAG = 1
+class VDS_LUN_PLEX_PROP(Structure):
+    id: Guid
+    ullSize: UInt64
+    type: win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE
+    status: win32more.Storage.VirtualDiskService.VDS_LUN_PLEX_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    TransitionState: win32more.Storage.VirtualDiskService.VDS_TRANSITION_STATE
+    ulFlags: UInt32
+    ulStripeSize: UInt32
+    sRebuildPriority: Int16
 VDS_LUN_PLEX_STATUS = Int32
-VDS_LPS_UNKNOWN = 0
-VDS_LPS_ONLINE = 1
-VDS_LPS_NOT_READY = 2
-VDS_LPS_OFFLINE = 4
-VDS_LPS_FAILED = 5
+VDS_LPS_UNKNOWN: VDS_LUN_PLEX_STATUS = 0
+VDS_LPS_ONLINE: VDS_LUN_PLEX_STATUS = 1
+VDS_LPS_NOT_READY: VDS_LUN_PLEX_STATUS = 2
+VDS_LPS_OFFLINE: VDS_LUN_PLEX_STATUS = 4
+VDS_LPS_FAILED: VDS_LUN_PLEX_STATUS = 5
 VDS_LUN_PLEX_TYPE = Int32
-VDS_LPT_UNKNOWN = 0
-VDS_LPT_SIMPLE = 10
-VDS_LPT_SPAN = 11
-VDS_LPT_STRIPE = 12
-VDS_LPT_PARITY = 14
-VDS_LPT_RAID2 = 15
-VDS_LPT_RAID3 = 16
-VDS_LPT_RAID4 = 17
-VDS_LPT_RAID5 = 18
-VDS_LPT_RAID6 = 19
-VDS_LPT_RAID03 = 21
-VDS_LPT_RAID05 = 22
-VDS_LPT_RAID10 = 23
-VDS_LPT_RAID15 = 24
-VDS_LPT_RAID30 = 25
-VDS_LPT_RAID50 = 26
-VDS_LPT_RAID53 = 28
-VDS_LPT_RAID60 = 29
-def _define_VDS_LUN_PROP_head():
-    class VDS_LUN_PROP(Structure):
-        pass
-    return VDS_LUN_PROP
-def _define_VDS_LUN_PROP():
-    VDS_LUN_PROP = win32more.Storage.VirtualDiskService.VDS_LUN_PROP_head
-    VDS_LUN_PROP._fields_ = [
-        ('id', Guid),
-        ('ullSize', UInt64),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('pwszUnmaskingList', win32more.Foundation.PWSTR),
-        ('ulFlags', UInt32),
-        ('type', win32more.Storage.VirtualDiskService.VDS_LUN_TYPE),
-        ('status', win32more.Storage.VirtualDiskService.VDS_LUN_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('TransitionState', win32more.Storage.VirtualDiskService.VDS_TRANSITION_STATE),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_LUN_PROP
+VDS_LPT_UNKNOWN: VDS_LUN_PLEX_TYPE = 0
+VDS_LPT_SIMPLE: VDS_LUN_PLEX_TYPE = 10
+VDS_LPT_SPAN: VDS_LUN_PLEX_TYPE = 11
+VDS_LPT_STRIPE: VDS_LUN_PLEX_TYPE = 12
+VDS_LPT_PARITY: VDS_LUN_PLEX_TYPE = 14
+VDS_LPT_RAID2: VDS_LUN_PLEX_TYPE = 15
+VDS_LPT_RAID3: VDS_LUN_PLEX_TYPE = 16
+VDS_LPT_RAID4: VDS_LUN_PLEX_TYPE = 17
+VDS_LPT_RAID5: VDS_LUN_PLEX_TYPE = 18
+VDS_LPT_RAID6: VDS_LUN_PLEX_TYPE = 19
+VDS_LPT_RAID03: VDS_LUN_PLEX_TYPE = 21
+VDS_LPT_RAID05: VDS_LUN_PLEX_TYPE = 22
+VDS_LPT_RAID10: VDS_LUN_PLEX_TYPE = 23
+VDS_LPT_RAID15: VDS_LUN_PLEX_TYPE = 24
+VDS_LPT_RAID30: VDS_LUN_PLEX_TYPE = 25
+VDS_LPT_RAID50: VDS_LUN_PLEX_TYPE = 26
+VDS_LPT_RAID53: VDS_LUN_PLEX_TYPE = 28
+VDS_LPT_RAID60: VDS_LUN_PLEX_TYPE = 29
+class VDS_LUN_PROP(Structure):
+    id: Guid
+    ullSize: UInt64
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    pwszUnmaskingList: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    type: win32more.Storage.VirtualDiskService.VDS_LUN_TYPE
+    status: win32more.Storage.VirtualDiskService.VDS_LUN_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    TransitionState: win32more.Storage.VirtualDiskService.VDS_TRANSITION_STATE
+    sRebuildPriority: Int16
 VDS_LUN_STATUS = Int32
-VDS_LS_UNKNOWN = 0
-VDS_LS_ONLINE = 1
-VDS_LS_NOT_READY = 2
-VDS_LS_OFFLINE = 4
-VDS_LS_FAILED = 5
+VDS_LS_UNKNOWN: VDS_LUN_STATUS = 0
+VDS_LS_ONLINE: VDS_LUN_STATUS = 1
+VDS_LS_NOT_READY: VDS_LUN_STATUS = 2
+VDS_LS_OFFLINE: VDS_LUN_STATUS = 4
+VDS_LS_FAILED: VDS_LUN_STATUS = 5
 VDS_LUN_TYPE = Int32
-VDS_LT_UNKNOWN = 0
-VDS_LT_DEFAULT = 1
-VDS_LT_FAULT_TOLERANT = 2
-VDS_LT_NON_FAULT_TOLERANT = 3
-VDS_LT_SIMPLE = 10
-VDS_LT_SPAN = 11
-VDS_LT_STRIPE = 12
-VDS_LT_MIRROR = 13
-VDS_LT_PARITY = 14
-VDS_LT_RAID2 = 15
-VDS_LT_RAID3 = 16
-VDS_LT_RAID4 = 17
-VDS_LT_RAID5 = 18
-VDS_LT_RAID6 = 19
-VDS_LT_RAID01 = 20
-VDS_LT_RAID03 = 21
-VDS_LT_RAID05 = 22
-VDS_LT_RAID10 = 23
-VDS_LT_RAID15 = 24
-VDS_LT_RAID30 = 25
-VDS_LT_RAID50 = 26
-VDS_LT_RAID51 = 27
-VDS_LT_RAID53 = 28
-VDS_LT_RAID60 = 29
-VDS_LT_RAID61 = 30
+VDS_LT_UNKNOWN: VDS_LUN_TYPE = 0
+VDS_LT_DEFAULT: VDS_LUN_TYPE = 1
+VDS_LT_FAULT_TOLERANT: VDS_LUN_TYPE = 2
+VDS_LT_NON_FAULT_TOLERANT: VDS_LUN_TYPE = 3
+VDS_LT_SIMPLE: VDS_LUN_TYPE = 10
+VDS_LT_SPAN: VDS_LUN_TYPE = 11
+VDS_LT_STRIPE: VDS_LUN_TYPE = 12
+VDS_LT_MIRROR: VDS_LUN_TYPE = 13
+VDS_LT_PARITY: VDS_LUN_TYPE = 14
+VDS_LT_RAID2: VDS_LUN_TYPE = 15
+VDS_LT_RAID3: VDS_LUN_TYPE = 16
+VDS_LT_RAID4: VDS_LUN_TYPE = 17
+VDS_LT_RAID5: VDS_LUN_TYPE = 18
+VDS_LT_RAID6: VDS_LUN_TYPE = 19
+VDS_LT_RAID01: VDS_LUN_TYPE = 20
+VDS_LT_RAID03: VDS_LUN_TYPE = 21
+VDS_LT_RAID05: VDS_LUN_TYPE = 22
+VDS_LT_RAID10: VDS_LUN_TYPE = 23
+VDS_LT_RAID15: VDS_LUN_TYPE = 24
+VDS_LT_RAID30: VDS_LUN_TYPE = 25
+VDS_LT_RAID50: VDS_LUN_TYPE = 26
+VDS_LT_RAID51: VDS_LUN_TYPE = 27
+VDS_LT_RAID53: VDS_LUN_TYPE = 28
+VDS_LT_RAID60: VDS_LUN_TYPE = 29
+VDS_LT_RAID61: VDS_LUN_TYPE = 30
 VDS_MAINTENANCE_OPERATION = Int32
-VDS_MAINTENANCE_OPERATION_BlinkLight = 1
-VDS_MAINTENANCE_OPERATION_BeepAlarm = 2
-VDS_MAINTENANCE_OPERATION_SpinDown = 3
-VDS_MAINTENANCE_OPERATION_SpinUp = 4
-VDS_MAINTENANCE_OPERATION_Ping = 5
-def _define_VDS_MOUNT_POINT_NOTIFICATION_head():
-    class VDS_MOUNT_POINT_NOTIFICATION(Structure):
-        pass
-    return VDS_MOUNT_POINT_NOTIFICATION
-def _define_VDS_MOUNT_POINT_NOTIFICATION():
-    VDS_MOUNT_POINT_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_MOUNT_POINT_NOTIFICATION_head
-    VDS_MOUNT_POINT_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('volumeId', Guid),
-    ]
-    return VDS_MOUNT_POINT_NOTIFICATION
+VDS_MAINTENANCE_OPERATION_BlinkLight: VDS_MAINTENANCE_OPERATION = 1
+VDS_MAINTENANCE_OPERATION_BeepAlarm: VDS_MAINTENANCE_OPERATION = 2
+VDS_MAINTENANCE_OPERATION_SpinDown: VDS_MAINTENANCE_OPERATION = 3
+VDS_MAINTENANCE_OPERATION_SpinUp: VDS_MAINTENANCE_OPERATION = 4
+VDS_MAINTENANCE_OPERATION_Ping: VDS_MAINTENANCE_OPERATION = 5
+class VDS_MOUNT_POINT_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    volumeId: Guid
 VDS_NF_CONTROLLER = UInt32
-VDS_NF_CONTROLLER_ARRIVE = 103
-VDS_NF_CONTROLLER_DEPART = 104
-VDS_NF_CONTROLLER_MODIFY = 350
-VDS_NF_CONTROLLER_REMOVED = 351
+VDS_NF_CONTROLLER_ARRIVE: VDS_NF_CONTROLLER = 103
+VDS_NF_CONTROLLER_DEPART: VDS_NF_CONTROLLER = 104
+VDS_NF_CONTROLLER_MODIFY: VDS_NF_CONTROLLER = 350
+VDS_NF_CONTROLLER_REMOVED: VDS_NF_CONTROLLER = 351
 VDS_NF_DISK = UInt32
-VDS_NF_DISK_ARRIVE = 8
-VDS_NF_DISK_DEPART = 9
-VDS_NF_DISK_MODIFY = 10
+VDS_NF_DISK_ARRIVE: VDS_NF_DISK = 8
+VDS_NF_DISK_DEPART: VDS_NF_DISK = 9
+VDS_NF_DISK_MODIFY: VDS_NF_DISK = 10
 VDS_NF_DRIVE = UInt32
-VDS_NF_DRIVE_ARRIVE = 105
-VDS_NF_DRIVE_DEPART = 106
-VDS_NF_DRIVE_MODIFY = 107
-VDS_NF_DRIVE_REMOVED = 354
+VDS_NF_DRIVE_ARRIVE: VDS_NF_DRIVE = 105
+VDS_NF_DRIVE_DEPART: VDS_NF_DRIVE = 106
+VDS_NF_DRIVE_MODIFY: VDS_NF_DRIVE = 107
+VDS_NF_DRIVE_REMOVED: VDS_NF_DRIVE = 354
 VDS_NF_FILE_SYSTEM = UInt32
-VDS_NF_FILE_SYSTEM_MODIFY = 203
-VDS_NF_FILE_SYSTEM_FORMAT_PROGRESS = 204
+VDS_NF_FILE_SYSTEM_MODIFY: VDS_NF_FILE_SYSTEM = 203
+VDS_NF_FILE_SYSTEM_FORMAT_PROGRESS: VDS_NF_FILE_SYSTEM = 204
 VDS_NF_LUN = UInt32
-VDS_NF_LUN_ARRIVE = 108
-VDS_NF_LUN_DEPART = 109
-VDS_NF_LUN_MODIFY = 110
+VDS_NF_LUN_ARRIVE: VDS_NF_LUN = 108
+VDS_NF_LUN_DEPART: VDS_NF_LUN = 109
+VDS_NF_LUN_MODIFY: VDS_NF_LUN = 110
 VDS_NF_PACK = UInt32
-VDS_NF_PACK_ARRIVE = 1
-VDS_NF_PACK_DEPART = 2
-VDS_NF_PACK_MODIFY = 3
+VDS_NF_PACK_ARRIVE: VDS_NF_PACK = 1
+VDS_NF_PACK_DEPART: VDS_NF_PACK = 2
+VDS_NF_PACK_MODIFY: VDS_NF_PACK = 3
 VDS_NF_PORT = UInt32
-VDS_NF_PORT_ARRIVE = 121
-VDS_NF_PORT_DEPART = 122
-VDS_NF_PORT_MODIFY = 352
-VDS_NF_PORT_REMOVED = 353
-def _define_VDS_NOTIFICATION_head():
-    class VDS_NOTIFICATION(Structure):
-        pass
-    return VDS_NOTIFICATION
-def _define_VDS_NOTIFICATION():
-    VDS_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_NOTIFICATION_head
-    class VDS_NOTIFICATION__Anonymous_e__Union(Union):
-        pass
-    VDS_NOTIFICATION__Anonymous_e__Union._fields_ = [
-        ('Pack', win32more.Storage.VirtualDiskService.VDS_PACK_NOTIFICATION),
-        ('Disk', win32more.Storage.VirtualDiskService.VDS_DISK_NOTIFICATION),
-        ('Volume', win32more.Storage.VirtualDiskService.VDS_VOLUME_NOTIFICATION),
-        ('Partition', win32more.Storage.VirtualDiskService.VDS_PARTITION_NOTIFICATION),
-        ('Letter', win32more.Storage.VirtualDiskService.VDS_DRIVE_LETTER_NOTIFICATION),
-        ('FileSystem', win32more.Storage.VirtualDiskService.VDS_FILE_SYSTEM_NOTIFICATION),
-        ('MountPoint', win32more.Storage.VirtualDiskService.VDS_MOUNT_POINT_NOTIFICATION),
-        ('SubSystem', win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_NOTIFICATION),
-        ('Controller', win32more.Storage.VirtualDiskService.VDS_CONTROLLER_NOTIFICATION),
-        ('Drive', win32more.Storage.VirtualDiskService.VDS_DRIVE_NOTIFICATION),
-        ('Lun', win32more.Storage.VirtualDiskService.VDS_LUN_NOTIFICATION),
-        ('Port', win32more.Storage.VirtualDiskService.VDS_PORT_NOTIFICATION),
-        ('Portal', win32more.Storage.VirtualDiskService.VDS_PORTAL_NOTIFICATION),
-        ('Target', win32more.Storage.VirtualDiskService.VDS_TARGET_NOTIFICATION),
-        ('PortalGroup', win32more.Storage.VirtualDiskService.VDS_PORTAL_GROUP_NOTIFICATION),
-        ('Service', win32more.Storage.VirtualDiskService.VDS_SERVICE_NOTIFICATION),
-    ]
-    VDS_NOTIFICATION._anonymous_ = [
-        'Anonymous',
-    ]
-    VDS_NOTIFICATION._fields_ = [
-        ('objectType', win32more.Storage.VirtualDiskService.VDS_NOTIFICATION_TARGET_TYPE),
-        ('Anonymous', VDS_NOTIFICATION__Anonymous_e__Union),
-    ]
-    return VDS_NOTIFICATION
+VDS_NF_PORT_ARRIVE: VDS_NF_PORT = 121
+VDS_NF_PORT_DEPART: VDS_NF_PORT = 122
+VDS_NF_PORT_MODIFY: VDS_NF_PORT = 352
+VDS_NF_PORT_REMOVED: VDS_NF_PORT = 353
+class VDS_NOTIFICATION(Structure):
+    objectType: win32more.Storage.VirtualDiskService.VDS_NOTIFICATION_TARGET_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Pack: win32more.Storage.VirtualDiskService.VDS_PACK_NOTIFICATION
+        Disk: win32more.Storage.VirtualDiskService.VDS_DISK_NOTIFICATION
+        Volume: win32more.Storage.VirtualDiskService.VDS_VOLUME_NOTIFICATION
+        Partition: win32more.Storage.VirtualDiskService.VDS_PARTITION_NOTIFICATION
+        Letter: win32more.Storage.VirtualDiskService.VDS_DRIVE_LETTER_NOTIFICATION
+        FileSystem: win32more.Storage.VirtualDiskService.VDS_FILE_SYSTEM_NOTIFICATION
+        MountPoint: win32more.Storage.VirtualDiskService.VDS_MOUNT_POINT_NOTIFICATION
+        SubSystem: win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_NOTIFICATION
+        Controller: win32more.Storage.VirtualDiskService.VDS_CONTROLLER_NOTIFICATION
+        Drive: win32more.Storage.VirtualDiskService.VDS_DRIVE_NOTIFICATION
+        Lun: win32more.Storage.VirtualDiskService.VDS_LUN_NOTIFICATION
+        Port: win32more.Storage.VirtualDiskService.VDS_PORT_NOTIFICATION
+        Portal: win32more.Storage.VirtualDiskService.VDS_PORTAL_NOTIFICATION
+        Target: win32more.Storage.VirtualDiskService.VDS_TARGET_NOTIFICATION
+        PortalGroup: win32more.Storage.VirtualDiskService.VDS_PORTAL_GROUP_NOTIFICATION
+        Service: win32more.Storage.VirtualDiskService.VDS_SERVICE_NOTIFICATION
 VDS_NOTIFICATION_TARGET_TYPE = Int32
-VDS_NTT_UNKNOWN = 0
-VDS_NTT_PACK = 10
-VDS_NTT_VOLUME = 11
-VDS_NTT_DISK = 13
-VDS_NTT_PARTITION = 60
-VDS_NTT_DRIVE_LETTER = 61
-VDS_NTT_FILE_SYSTEM = 62
-VDS_NTT_MOUNT_POINT = 63
-VDS_NTT_SUB_SYSTEM = 30
-VDS_NTT_CONTROLLER = 31
-VDS_NTT_DRIVE = 32
-VDS_NTT_LUN = 33
-VDS_NTT_PORT = 35
-VDS_NTT_PORTAL = 36
-VDS_NTT_TARGET = 37
-VDS_NTT_PORTAL_GROUP = 38
-VDS_NTT_SERVICE = 200
+VDS_NTT_UNKNOWN: VDS_NOTIFICATION_TARGET_TYPE = 0
+VDS_NTT_PACK: VDS_NOTIFICATION_TARGET_TYPE = 10
+VDS_NTT_VOLUME: VDS_NOTIFICATION_TARGET_TYPE = 11
+VDS_NTT_DISK: VDS_NOTIFICATION_TARGET_TYPE = 13
+VDS_NTT_PARTITION: VDS_NOTIFICATION_TARGET_TYPE = 60
+VDS_NTT_DRIVE_LETTER: VDS_NOTIFICATION_TARGET_TYPE = 61
+VDS_NTT_FILE_SYSTEM: VDS_NOTIFICATION_TARGET_TYPE = 62
+VDS_NTT_MOUNT_POINT: VDS_NOTIFICATION_TARGET_TYPE = 63
+VDS_NTT_SUB_SYSTEM: VDS_NOTIFICATION_TARGET_TYPE = 30
+VDS_NTT_CONTROLLER: VDS_NOTIFICATION_TARGET_TYPE = 31
+VDS_NTT_DRIVE: VDS_NOTIFICATION_TARGET_TYPE = 32
+VDS_NTT_LUN: VDS_NOTIFICATION_TARGET_TYPE = 33
+VDS_NTT_PORT: VDS_NOTIFICATION_TARGET_TYPE = 35
+VDS_NTT_PORTAL: VDS_NOTIFICATION_TARGET_TYPE = 36
+VDS_NTT_TARGET: VDS_NOTIFICATION_TARGET_TYPE = 37
+VDS_NTT_PORTAL_GROUP: VDS_NOTIFICATION_TARGET_TYPE = 38
+VDS_NTT_SERVICE: VDS_NOTIFICATION_TARGET_TYPE = 200
 VDS_OBJECT_TYPE = Int32
-VDS_OT_UNKNOWN = 0
-VDS_OT_PROVIDER = 1
-VDS_OT_PACK = 10
-VDS_OT_VOLUME = 11
-VDS_OT_VOLUME_PLEX = 12
-VDS_OT_DISK = 13
-VDS_OT_SUB_SYSTEM = 30
-VDS_OT_CONTROLLER = 31
-VDS_OT_DRIVE = 32
-VDS_OT_LUN = 33
-VDS_OT_LUN_PLEX = 34
-VDS_OT_PORT = 35
-VDS_OT_PORTAL = 36
-VDS_OT_TARGET = 37
-VDS_OT_PORTAL_GROUP = 38
-VDS_OT_STORAGE_POOL = 39
-VDS_OT_HBAPORT = 90
-VDS_OT_INIT_ADAPTER = 91
-VDS_OT_INIT_PORTAL = 92
-VDS_OT_ASYNC = 100
-VDS_OT_ENUM = 101
-VDS_OT_VDISK = 200
-VDS_OT_OPEN_VDISK = 201
-def _define_VDS_PACK_NOTIFICATION_head():
-    class VDS_PACK_NOTIFICATION(Structure):
-        pass
-    return VDS_PACK_NOTIFICATION
-def _define_VDS_PACK_NOTIFICATION():
-    VDS_PACK_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_PACK_NOTIFICATION_head
-    VDS_PACK_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_PACK),
-        ('packId', Guid),
-    ]
-    return VDS_PACK_NOTIFICATION
-def _define_VDS_PARTITION_NOTIFICATION_head():
-    class VDS_PARTITION_NOTIFICATION(Structure):
-        pass
-    return VDS_PARTITION_NOTIFICATION
-def _define_VDS_PARTITION_NOTIFICATION():
-    VDS_PARTITION_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_PARTITION_NOTIFICATION_head
-    VDS_PARTITION_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('diskId', Guid),
-        ('ullOffset', UInt64),
-    ]
-    return VDS_PARTITION_NOTIFICATION
-def _define_VDS_PATH_ID_head():
-    class VDS_PATH_ID(Structure):
-        pass
-    return VDS_PATH_ID
-def _define_VDS_PATH_ID():
-    VDS_PATH_ID = win32more.Storage.VirtualDiskService.VDS_PATH_ID_head
-    VDS_PATH_ID._fields_ = [
-        ('ullSourceId', UInt64),
-        ('ullPathId', UInt64),
-    ]
-    return VDS_PATH_ID
-def _define_VDS_PATH_INFO_head():
-    class VDS_PATH_INFO(Structure):
-        pass
-    return VDS_PATH_INFO
-def _define_VDS_PATH_INFO():
-    VDS_PATH_INFO = win32more.Storage.VirtualDiskService.VDS_PATH_INFO_head
-    class VDS_PATH_INFO__Anonymous1_e__Union(Union):
-        pass
-    VDS_PATH_INFO__Anonymous1_e__Union._fields_ = [
-        ('controllerPortId', Guid),
-        ('targetPortalId', Guid),
-    ]
-    class VDS_PATH_INFO__Anonymous2_e__Union(Union):
-        pass
-    VDS_PATH_INFO__Anonymous2_e__Union._fields_ = [
-        ('hbaPortId', Guid),
-        ('initiatorAdapterId', Guid),
-    ]
-    class VDS_PATH_INFO__Anonymous3_e__Union(Union):
-        pass
-    VDS_PATH_INFO__Anonymous3_e__Union._fields_ = [
-        ('pHbaPortProp', POINTER(win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP_head)),
-        ('pInitiatorPortalIpAddr', POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head)),
-    ]
-    VDS_PATH_INFO._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-        'Anonymous3',
-    ]
-    VDS_PATH_INFO._fields_ = [
-        ('pathId', win32more.Storage.VirtualDiskService.VDS_PATH_ID),
-        ('type', win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE),
-        ('status', win32more.Storage.VirtualDiskService.VDS_PATH_STATUS),
-        ('Anonymous1', VDS_PATH_INFO__Anonymous1_e__Union),
-        ('Anonymous2', VDS_PATH_INFO__Anonymous2_e__Union),
-        ('Anonymous3', VDS_PATH_INFO__Anonymous3_e__Union),
-    ]
-    return VDS_PATH_INFO
-def _define_VDS_PATH_POLICY_head():
-    class VDS_PATH_POLICY(Structure):
-        pass
-    return VDS_PATH_POLICY
-def _define_VDS_PATH_POLICY():
-    VDS_PATH_POLICY = win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head
-    VDS_PATH_POLICY._fields_ = [
-        ('pathId', win32more.Storage.VirtualDiskService.VDS_PATH_ID),
-        ('bPrimaryPath', win32more.Foundation.BOOL),
-        ('ulWeight', UInt32),
-    ]
-    return VDS_PATH_POLICY
+VDS_OT_UNKNOWN: VDS_OBJECT_TYPE = 0
+VDS_OT_PROVIDER: VDS_OBJECT_TYPE = 1
+VDS_OT_PACK: VDS_OBJECT_TYPE = 10
+VDS_OT_VOLUME: VDS_OBJECT_TYPE = 11
+VDS_OT_VOLUME_PLEX: VDS_OBJECT_TYPE = 12
+VDS_OT_DISK: VDS_OBJECT_TYPE = 13
+VDS_OT_SUB_SYSTEM: VDS_OBJECT_TYPE = 30
+VDS_OT_CONTROLLER: VDS_OBJECT_TYPE = 31
+VDS_OT_DRIVE: VDS_OBJECT_TYPE = 32
+VDS_OT_LUN: VDS_OBJECT_TYPE = 33
+VDS_OT_LUN_PLEX: VDS_OBJECT_TYPE = 34
+VDS_OT_PORT: VDS_OBJECT_TYPE = 35
+VDS_OT_PORTAL: VDS_OBJECT_TYPE = 36
+VDS_OT_TARGET: VDS_OBJECT_TYPE = 37
+VDS_OT_PORTAL_GROUP: VDS_OBJECT_TYPE = 38
+VDS_OT_STORAGE_POOL: VDS_OBJECT_TYPE = 39
+VDS_OT_HBAPORT: VDS_OBJECT_TYPE = 90
+VDS_OT_INIT_ADAPTER: VDS_OBJECT_TYPE = 91
+VDS_OT_INIT_PORTAL: VDS_OBJECT_TYPE = 92
+VDS_OT_ASYNC: VDS_OBJECT_TYPE = 100
+VDS_OT_ENUM: VDS_OBJECT_TYPE = 101
+VDS_OT_VDISK: VDS_OBJECT_TYPE = 200
+VDS_OT_OPEN_VDISK: VDS_OBJECT_TYPE = 201
+class VDS_PACK_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_PACK
+    packId: Guid
+class VDS_PARTITION_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    diskId: Guid
+    ullOffset: UInt64
+class VDS_PATH_ID(Structure):
+    ullSourceId: UInt64
+    ullPathId: UInt64
+class VDS_PATH_INFO(Structure):
+    pathId: win32more.Storage.VirtualDiskService.VDS_PATH_ID
+    type: win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE
+    status: win32more.Storage.VirtualDiskService.VDS_PATH_STATUS
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    Anonymous3: _Anonymous3_e__Union
+    class _Anonymous1_e__Union(Union):
+        controllerPortId: Guid
+        targetPortalId: Guid
+    class _Anonymous2_e__Union(Union):
+        hbaPortId: Guid
+        initiatorAdapterId: Guid
+    class _Anonymous3_e__Union(Union):
+        pHbaPortProp: POINTER(win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP_head)
+        pInitiatorPortalIpAddr: POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head)
+class VDS_PATH_POLICY(Structure):
+    pathId: win32more.Storage.VirtualDiskService.VDS_PATH_ID
+    bPrimaryPath: win32more.Foundation.BOOL
+    ulWeight: UInt32
 VDS_PATH_STATUS = Int32
-VDS_MPS_UNKNOWN = 0
-VDS_MPS_ONLINE = 1
-VDS_MPS_FAILED = 5
-VDS_MPS_STANDBY = 7
-def _define_VDS_POOL_ATTRIBUTES_head():
-    class VDS_POOL_ATTRIBUTES(Structure):
-        pass
-    return VDS_POOL_ATTRIBUTES
-def _define_VDS_POOL_ATTRIBUTES():
-    VDS_POOL_ATTRIBUTES = win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head
-    VDS_POOL_ATTRIBUTES._fields_ = [
-        ('ullAttributeMask', UInt64),
-        ('raidType', win32more.Storage.VirtualDiskService.VDS_RAID_TYPE),
-        ('busType', win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE),
-        ('pwszIntendedUsage', win32more.Foundation.PWSTR),
-        ('bSpinDown', win32more.Foundation.BOOL),
-        ('bIsThinProvisioned', win32more.Foundation.BOOL),
-        ('ullProvisionedSpace', UInt64),
-        ('bNoSinglePointOfFailure', win32more.Foundation.BOOL),
-        ('ulDataRedundancyMax', UInt32),
-        ('ulDataRedundancyMin', UInt32),
-        ('ulDataRedundancyDefault', UInt32),
-        ('ulPackageRedundancyMax', UInt32),
-        ('ulPackageRedundancyMin', UInt32),
-        ('ulPackageRedundancyDefault', UInt32),
-        ('ulStripeSize', UInt32),
-        ('ulStripeSizeMax', UInt32),
-        ('ulStripeSizeMin', UInt32),
-        ('ulDefaultStripeSize', UInt32),
-        ('ulNumberOfColumns', UInt32),
-        ('ulNumberOfColumnsMax', UInt32),
-        ('ulNumberOfColumnsMin', UInt32),
-        ('ulDefaultNumberofColumns', UInt32),
-        ('ulDataAvailabilityHint', UInt32),
-        ('ulAccessRandomnessHint', UInt32),
-        ('ulAccessDirectionHint', UInt32),
-        ('ulAccessSizeHint', UInt32),
-        ('ulAccessLatencyHint', UInt32),
-        ('ulAccessBandwidthWeightHint', UInt32),
-        ('ulStorageCostHint', UInt32),
-        ('ulStorageEfficiencyHint', UInt32),
-        ('ulNumOfCustomAttributes', UInt32),
-        ('pPoolCustomAttributes', POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_CUSTOM_ATTRIBUTES_head)),
-        ('bReserved1', win32more.Foundation.BOOL),
-        ('bReserved2', win32more.Foundation.BOOL),
-        ('ulReserved1', UInt32),
-        ('ulReserved2', UInt32),
-        ('ullReserved1', UInt64),
-        ('ullReserved2', UInt64),
-    ]
-    return VDS_POOL_ATTRIBUTES
-def _define_VDS_POOL_CUSTOM_ATTRIBUTES_head():
-    class VDS_POOL_CUSTOM_ATTRIBUTES(Structure):
-        pass
-    return VDS_POOL_CUSTOM_ATTRIBUTES
-def _define_VDS_POOL_CUSTOM_ATTRIBUTES():
-    VDS_POOL_CUSTOM_ATTRIBUTES = win32more.Storage.VirtualDiskService.VDS_POOL_CUSTOM_ATTRIBUTES_head
-    VDS_POOL_CUSTOM_ATTRIBUTES._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('pwszValue', win32more.Foundation.PWSTR),
-    ]
-    return VDS_POOL_CUSTOM_ATTRIBUTES
-def _define_VDS_PORT_NOTIFICATION_head():
-    class VDS_PORT_NOTIFICATION(Structure):
-        pass
-    return VDS_PORT_NOTIFICATION
-def _define_VDS_PORT_NOTIFICATION():
-    VDS_PORT_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_PORT_NOTIFICATION_head
-    VDS_PORT_NOTIFICATION._fields_ = [
-        ('ulEvent', win32more.Storage.VirtualDiskService.VDS_NF_PORT),
-        ('portId', Guid),
-    ]
-    return VDS_PORT_NOTIFICATION
-def _define_VDS_PORT_PROP_head():
-    class VDS_PORT_PROP(Structure):
-        pass
-    return VDS_PORT_PROP
-def _define_VDS_PORT_PROP():
-    VDS_PORT_PROP = win32more.Storage.VirtualDiskService.VDS_PORT_PROP_head
-    VDS_PORT_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('status', win32more.Storage.VirtualDiskService.VDS_PORT_STATUS),
-    ]
-    return VDS_PORT_PROP
+VDS_MPS_UNKNOWN: VDS_PATH_STATUS = 0
+VDS_MPS_ONLINE: VDS_PATH_STATUS = 1
+VDS_MPS_FAILED: VDS_PATH_STATUS = 5
+VDS_MPS_STANDBY: VDS_PATH_STATUS = 7
+class VDS_POOL_ATTRIBUTES(Structure):
+    ullAttributeMask: UInt64
+    raidType: win32more.Storage.VirtualDiskService.VDS_RAID_TYPE
+    busType: win32more.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    pwszIntendedUsage: win32more.Foundation.PWSTR
+    bSpinDown: win32more.Foundation.BOOL
+    bIsThinProvisioned: win32more.Foundation.BOOL
+    ullProvisionedSpace: UInt64
+    bNoSinglePointOfFailure: win32more.Foundation.BOOL
+    ulDataRedundancyMax: UInt32
+    ulDataRedundancyMin: UInt32
+    ulDataRedundancyDefault: UInt32
+    ulPackageRedundancyMax: UInt32
+    ulPackageRedundancyMin: UInt32
+    ulPackageRedundancyDefault: UInt32
+    ulStripeSize: UInt32
+    ulStripeSizeMax: UInt32
+    ulStripeSizeMin: UInt32
+    ulDefaultStripeSize: UInt32
+    ulNumberOfColumns: UInt32
+    ulNumberOfColumnsMax: UInt32
+    ulNumberOfColumnsMin: UInt32
+    ulDefaultNumberofColumns: UInt32
+    ulDataAvailabilityHint: UInt32
+    ulAccessRandomnessHint: UInt32
+    ulAccessDirectionHint: UInt32
+    ulAccessSizeHint: UInt32
+    ulAccessLatencyHint: UInt32
+    ulAccessBandwidthWeightHint: UInt32
+    ulStorageCostHint: UInt32
+    ulStorageEfficiencyHint: UInt32
+    ulNumOfCustomAttributes: UInt32
+    pPoolCustomAttributes: POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_CUSTOM_ATTRIBUTES_head)
+    bReserved1: win32more.Foundation.BOOL
+    bReserved2: win32more.Foundation.BOOL
+    ulReserved1: UInt32
+    ulReserved2: UInt32
+    ullReserved1: UInt64
+    ullReserved2: UInt64
+class VDS_POOL_CUSTOM_ATTRIBUTES(Structure):
+    pwszName: win32more.Foundation.PWSTR
+    pwszValue: win32more.Foundation.PWSTR
+class VDS_PORT_NOTIFICATION(Structure):
+    ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_PORT
+    portId: Guid
+class VDS_PORT_PROP(Structure):
+    id: Guid
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    status: win32more.Storage.VirtualDiskService.VDS_PORT_STATUS
 VDS_PORT_STATUS = Int32
-VDS_PRS_UNKNOWN = 0
-VDS_PRS_ONLINE = 1
-VDS_PRS_NOT_READY = 2
-VDS_PRS_OFFLINE = 4
-VDS_PRS_FAILED = 5
-VDS_PRS_REMOVED = 8
-def _define_VDS_PORTAL_GROUP_NOTIFICATION_head():
-    class VDS_PORTAL_GROUP_NOTIFICATION(Structure):
-        pass
-    return VDS_PORTAL_GROUP_NOTIFICATION
-def _define_VDS_PORTAL_GROUP_NOTIFICATION():
-    VDS_PORTAL_GROUP_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_PORTAL_GROUP_NOTIFICATION_head
-    VDS_PORTAL_GROUP_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('portalGroupId', Guid),
-    ]
-    return VDS_PORTAL_GROUP_NOTIFICATION
-def _define_VDS_PORTAL_NOTIFICATION_head():
-    class VDS_PORTAL_NOTIFICATION(Structure):
-        pass
-    return VDS_PORTAL_NOTIFICATION
-def _define_VDS_PORTAL_NOTIFICATION():
-    VDS_PORTAL_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_PORTAL_NOTIFICATION_head
-    VDS_PORTAL_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('portalId', Guid),
-    ]
-    return VDS_PORTAL_NOTIFICATION
+VDS_PRS_UNKNOWN: VDS_PORT_STATUS = 0
+VDS_PRS_ONLINE: VDS_PORT_STATUS = 1
+VDS_PRS_NOT_READY: VDS_PORT_STATUS = 2
+VDS_PRS_OFFLINE: VDS_PORT_STATUS = 4
+VDS_PRS_FAILED: VDS_PORT_STATUS = 5
+VDS_PRS_REMOVED: VDS_PORT_STATUS = 8
+class VDS_PORTAL_GROUP_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    portalGroupId: Guid
+class VDS_PORTAL_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    portalId: Guid
 VDS_PROVIDER_FLAG = Int32
-VDS_PF_DYNAMIC = 1
-VDS_PF_INTERNAL_HARDWARE_PROVIDER = 2
-VDS_PF_ONE_DISK_ONLY_PER_PACK = 4
-VDS_PF_ONE_PACK_ONLINE_ONLY = 8
-VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS = 16
-VDS_PF_SUPPORT_DYNAMIC = -2147483648
-VDS_PF_SUPPORT_FAULT_TOLERANT = 1073741824
-VDS_PF_SUPPORT_DYNAMIC_1394 = 536870912
-VDS_PF_SUPPORT_MIRROR = 32
-VDS_PF_SUPPORT_RAID5 = 64
+VDS_PF_DYNAMIC: VDS_PROVIDER_FLAG = 1
+VDS_PF_INTERNAL_HARDWARE_PROVIDER: VDS_PROVIDER_FLAG = 2
+VDS_PF_ONE_DISK_ONLY_PER_PACK: VDS_PROVIDER_FLAG = 4
+VDS_PF_ONE_PACK_ONLINE_ONLY: VDS_PROVIDER_FLAG = 8
+VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS: VDS_PROVIDER_FLAG = 16
+VDS_PF_SUPPORT_DYNAMIC: VDS_PROVIDER_FLAG = -2147483648
+VDS_PF_SUPPORT_FAULT_TOLERANT: VDS_PROVIDER_FLAG = 1073741824
+VDS_PF_SUPPORT_DYNAMIC_1394: VDS_PROVIDER_FLAG = 536870912
+VDS_PF_SUPPORT_MIRROR: VDS_PROVIDER_FLAG = 32
+VDS_PF_SUPPORT_RAID5: VDS_PROVIDER_FLAG = 64
 VDS_PROVIDER_LBSUPPORT_FLAG = Int32
-VDS_LBF_FAILOVER = 1
-VDS_LBF_ROUND_ROBIN = 2
-VDS_LBF_ROUND_ROBIN_WITH_SUBSET = 4
-VDS_LBF_DYN_LEAST_QUEUE_DEPTH = 8
-VDS_LBF_WEIGHTED_PATHS = 16
-VDS_LBF_LEAST_BLOCKS = 32
-VDS_LBF_VENDOR_SPECIFIC = 64
-def _define_VDS_PROVIDER_PROP_head():
-    class VDS_PROVIDER_PROP(Structure):
-        pass
-    return VDS_PROVIDER_PROP
-def _define_VDS_PROVIDER_PROP():
-    VDS_PROVIDER_PROP = win32more.Storage.VirtualDiskService.VDS_PROVIDER_PROP_head
-    VDS_PROVIDER_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('guidVersionId', Guid),
-        ('pwszVersion', win32more.Foundation.PWSTR),
-        ('type', win32more.Storage.VirtualDiskService.VDS_PROVIDER_TYPE),
-        ('ulFlags', UInt32),
-        ('ulStripeSizeFlags', UInt32),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_PROVIDER_PROP
+VDS_LBF_FAILOVER: VDS_PROVIDER_LBSUPPORT_FLAG = 1
+VDS_LBF_ROUND_ROBIN: VDS_PROVIDER_LBSUPPORT_FLAG = 2
+VDS_LBF_ROUND_ROBIN_WITH_SUBSET: VDS_PROVIDER_LBSUPPORT_FLAG = 4
+VDS_LBF_DYN_LEAST_QUEUE_DEPTH: VDS_PROVIDER_LBSUPPORT_FLAG = 8
+VDS_LBF_WEIGHTED_PATHS: VDS_PROVIDER_LBSUPPORT_FLAG = 16
+VDS_LBF_LEAST_BLOCKS: VDS_PROVIDER_LBSUPPORT_FLAG = 32
+VDS_LBF_VENDOR_SPECIFIC: VDS_PROVIDER_LBSUPPORT_FLAG = 64
+class VDS_PROVIDER_PROP(Structure):
+    id: Guid
+    pwszName: win32more.Foundation.PWSTR
+    guidVersionId: Guid
+    pwszVersion: win32more.Foundation.PWSTR
+    type: win32more.Storage.VirtualDiskService.VDS_PROVIDER_TYPE
+    ulFlags: UInt32
+    ulStripeSizeFlags: UInt32
+    sRebuildPriority: Int16
 VDS_PROVIDER_TYPE = Int32
-VDS_PT_UNKNOWN = 0
-VDS_PT_SOFTWARE = 1
-VDS_PT_HARDWARE = 2
-VDS_PT_VIRTUALDISK = 3
-VDS_PT_MAX = 4
+VDS_PT_UNKNOWN: VDS_PROVIDER_TYPE = 0
+VDS_PT_SOFTWARE: VDS_PROVIDER_TYPE = 1
+VDS_PT_HARDWARE: VDS_PROVIDER_TYPE = 2
+VDS_PT_VIRTUALDISK: VDS_PROVIDER_TYPE = 3
+VDS_PT_MAX: VDS_PROVIDER_TYPE = 4
 VDS_RAID_TYPE = Int32
-VDS_RT_UNKNOWN = 0
-VDS_RT_RAID0 = 10
-VDS_RT_RAID1 = 11
-VDS_RT_RAID2 = 12
-VDS_RT_RAID3 = 13
-VDS_RT_RAID4 = 14
-VDS_RT_RAID5 = 15
-VDS_RT_RAID6 = 16
-VDS_RT_RAID01 = 17
-VDS_RT_RAID03 = 18
-VDS_RT_RAID05 = 19
-VDS_RT_RAID10 = 20
-VDS_RT_RAID15 = 21
-VDS_RT_RAID30 = 22
-VDS_RT_RAID50 = 23
-VDS_RT_RAID51 = 24
-VDS_RT_RAID53 = 25
-VDS_RT_RAID60 = 26
-VDS_RT_RAID61 = 27
+VDS_RT_UNKNOWN: VDS_RAID_TYPE = 0
+VDS_RT_RAID0: VDS_RAID_TYPE = 10
+VDS_RT_RAID1: VDS_RAID_TYPE = 11
+VDS_RT_RAID2: VDS_RAID_TYPE = 12
+VDS_RT_RAID3: VDS_RAID_TYPE = 13
+VDS_RT_RAID4: VDS_RAID_TYPE = 14
+VDS_RT_RAID5: VDS_RAID_TYPE = 15
+VDS_RT_RAID6: VDS_RAID_TYPE = 16
+VDS_RT_RAID01: VDS_RAID_TYPE = 17
+VDS_RT_RAID03: VDS_RAID_TYPE = 18
+VDS_RT_RAID05: VDS_RAID_TYPE = 19
+VDS_RT_RAID10: VDS_RAID_TYPE = 20
+VDS_RT_RAID15: VDS_RAID_TYPE = 21
+VDS_RT_RAID30: VDS_RAID_TYPE = 22
+VDS_RT_RAID50: VDS_RAID_TYPE = 23
+VDS_RT_RAID51: VDS_RAID_TYPE = 24
+VDS_RT_RAID53: VDS_RAID_TYPE = 25
+VDS_RT_RAID60: VDS_RAID_TYPE = 26
+VDS_RT_RAID61: VDS_RAID_TYPE = 27
 VDS_RECOVER_ACTION = Int32
-VDS_RA_UNKNOWN = 0
-VDS_RA_REFRESH = 1
-VDS_RA_RESTART = 2
-def _define_VDS_SERVICE_NOTIFICATION_head():
-    class VDS_SERVICE_NOTIFICATION(Structure):
-        pass
-    return VDS_SERVICE_NOTIFICATION
-def _define_VDS_SERVICE_NOTIFICATION():
-    VDS_SERVICE_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_SERVICE_NOTIFICATION_head
-    VDS_SERVICE_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('action', win32more.Storage.VirtualDiskService.VDS_RECOVER_ACTION),
-    ]
-    return VDS_SERVICE_NOTIFICATION
+VDS_RA_UNKNOWN: VDS_RECOVER_ACTION = 0
+VDS_RA_REFRESH: VDS_RECOVER_ACTION = 1
+VDS_RA_RESTART: VDS_RECOVER_ACTION = 2
+class VDS_SERVICE_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    action: win32more.Storage.VirtualDiskService.VDS_RECOVER_ACTION
 VDS_STORAGE_BUS_TYPE = Int32
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUnknown = 0
-VDS_STORAGE_BUS_TYPE_VDSBusTypeScsi = 1
-VDS_STORAGE_BUS_TYPE_VDSBusTypeAtapi = 2
-VDS_STORAGE_BUS_TYPE_VDSBusTypeAta = 3
-VDS_STORAGE_BUS_TYPE_VDSBusType1394 = 4
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSsa = 5
-VDS_STORAGE_BUS_TYPE_VDSBusTypeFibre = 6
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUsb = 7
-VDS_STORAGE_BUS_TYPE_VDSBusTypeRAID = 8
-VDS_STORAGE_BUS_TYPE_VDSBusTypeiScsi = 9
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSas = 10
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSata = 11
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSd = 12
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMmc = 13
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMax = 14
-VDS_STORAGE_BUS_TYPE_VDSBusTypeVirtual = 14
-VDS_STORAGE_BUS_TYPE_VDSBusTypeFileBackedVirtual = 15
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSpaces = 16
-VDS_STORAGE_BUS_TYPE_VDSBusTypeNVMe = 17
-VDS_STORAGE_BUS_TYPE_VDSBusTypeScm = 18
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUfs = 19
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMaxReserved = 127
-def _define_VDS_STORAGE_DEVICE_ID_DESCRIPTOR_head():
-    class VDS_STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
-        pass
-    return VDS_STORAGE_DEVICE_ID_DESCRIPTOR
-def _define_VDS_STORAGE_DEVICE_ID_DESCRIPTOR():
-    VDS_STORAGE_DEVICE_ID_DESCRIPTOR = win32more.Storage.VirtualDiskService.VDS_STORAGE_DEVICE_ID_DESCRIPTOR_head
-    VDS_STORAGE_DEVICE_ID_DESCRIPTOR._fields_ = [
-        ('m_version', UInt32),
-        ('m_cIdentifiers', UInt32),
-        ('m_rgIdentifiers', POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_head)),
-    ]
-    return VDS_STORAGE_DEVICE_ID_DESCRIPTOR
-def _define_VDS_STORAGE_IDENTIFIER_head():
-    class VDS_STORAGE_IDENTIFIER(Structure):
-        pass
-    return VDS_STORAGE_IDENTIFIER
-def _define_VDS_STORAGE_IDENTIFIER():
-    VDS_STORAGE_IDENTIFIER = win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_head
-    VDS_STORAGE_IDENTIFIER._fields_ = [
-        ('m_CodeSet', win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET),
-        ('m_Type', win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE),
-        ('m_cbIdentifier', UInt32),
-        ('m_rgbIdentifier', c_char_p_no),
-    ]
-    return VDS_STORAGE_IDENTIFIER
+VDS_STORAGE_BUS_TYPE_VDSBusTypeUnknown: VDS_STORAGE_BUS_TYPE = 0
+VDS_STORAGE_BUS_TYPE_VDSBusTypeScsi: VDS_STORAGE_BUS_TYPE = 1
+VDS_STORAGE_BUS_TYPE_VDSBusTypeAtapi: VDS_STORAGE_BUS_TYPE = 2
+VDS_STORAGE_BUS_TYPE_VDSBusTypeAta: VDS_STORAGE_BUS_TYPE = 3
+VDS_STORAGE_BUS_TYPE_VDSBusType1394: VDS_STORAGE_BUS_TYPE = 4
+VDS_STORAGE_BUS_TYPE_VDSBusTypeSsa: VDS_STORAGE_BUS_TYPE = 5
+VDS_STORAGE_BUS_TYPE_VDSBusTypeFibre: VDS_STORAGE_BUS_TYPE = 6
+VDS_STORAGE_BUS_TYPE_VDSBusTypeUsb: VDS_STORAGE_BUS_TYPE = 7
+VDS_STORAGE_BUS_TYPE_VDSBusTypeRAID: VDS_STORAGE_BUS_TYPE = 8
+VDS_STORAGE_BUS_TYPE_VDSBusTypeiScsi: VDS_STORAGE_BUS_TYPE = 9
+VDS_STORAGE_BUS_TYPE_VDSBusTypeSas: VDS_STORAGE_BUS_TYPE = 10
+VDS_STORAGE_BUS_TYPE_VDSBusTypeSata: VDS_STORAGE_BUS_TYPE = 11
+VDS_STORAGE_BUS_TYPE_VDSBusTypeSd: VDS_STORAGE_BUS_TYPE = 12
+VDS_STORAGE_BUS_TYPE_VDSBusTypeMmc: VDS_STORAGE_BUS_TYPE = 13
+VDS_STORAGE_BUS_TYPE_VDSBusTypeMax: VDS_STORAGE_BUS_TYPE = 14
+VDS_STORAGE_BUS_TYPE_VDSBusTypeVirtual: VDS_STORAGE_BUS_TYPE = 14
+VDS_STORAGE_BUS_TYPE_VDSBusTypeFileBackedVirtual: VDS_STORAGE_BUS_TYPE = 15
+VDS_STORAGE_BUS_TYPE_VDSBusTypeSpaces: VDS_STORAGE_BUS_TYPE = 16
+VDS_STORAGE_BUS_TYPE_VDSBusTypeNVMe: VDS_STORAGE_BUS_TYPE = 17
+VDS_STORAGE_BUS_TYPE_VDSBusTypeScm: VDS_STORAGE_BUS_TYPE = 18
+VDS_STORAGE_BUS_TYPE_VDSBusTypeUfs: VDS_STORAGE_BUS_TYPE = 19
+VDS_STORAGE_BUS_TYPE_VDSBusTypeMaxReserved: VDS_STORAGE_BUS_TYPE = 127
+class VDS_STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
+    m_version: UInt32
+    m_cIdentifiers: UInt32
+    m_rgIdentifiers: POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_head)
+class VDS_STORAGE_IDENTIFIER(Structure):
+    m_CodeSet: win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET
+    m_Type: win32more.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE
+    m_cbIdentifier: UInt32
+    m_rgbIdentifier: c_char_p_no
 VDS_STORAGE_IDENTIFIER_CODE_SET = Int32
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetReserved = 0
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetBinary = 1
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetAscii = 2
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetUtf8 = 3
+VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetReserved: VDS_STORAGE_IDENTIFIER_CODE_SET = 0
+VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetBinary: VDS_STORAGE_IDENTIFIER_CODE_SET = 1
+VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetAscii: VDS_STORAGE_IDENTIFIER_CODE_SET = 2
+VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetUtf8: VDS_STORAGE_IDENTIFIER_CODE_SET = 3
 VDS_STORAGE_IDENTIFIER_TYPE = Int32
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorSpecific = 0
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorId = 1
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeEUI64 = 2
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeFCPHName = 3
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypePortRelative = 4
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeTargetPortGroup = 5
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeLogicalUnitGroup = 6
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeMD5LogicalUnitIdentifier = 7
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeScsiNameString = 8
-def _define_VDS_STORAGE_POOL_DRIVE_EXTENT_head():
-    class VDS_STORAGE_POOL_DRIVE_EXTENT(Structure):
-        pass
-    return VDS_STORAGE_POOL_DRIVE_EXTENT
-def _define_VDS_STORAGE_POOL_DRIVE_EXTENT():
-    VDS_STORAGE_POOL_DRIVE_EXTENT = win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_DRIVE_EXTENT_head
-    VDS_STORAGE_POOL_DRIVE_EXTENT._fields_ = [
-        ('id', Guid),
-        ('ullSize', UInt64),
-        ('bUsed', win32more.Foundation.BOOL),
-    ]
-    return VDS_STORAGE_POOL_DRIVE_EXTENT
-def _define_VDS_STORAGE_POOL_PROP_head():
-    class VDS_STORAGE_POOL_PROP(Structure):
-        pass
-    return VDS_STORAGE_POOL_PROP
-def _define_VDS_STORAGE_POOL_PROP():
-    VDS_STORAGE_POOL_PROP = win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_PROP_head
-    VDS_STORAGE_POOL_PROP._fields_ = [
-        ('id', Guid),
-        ('status', win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('type', win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_TYPE),
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('pwszDescription', win32more.Foundation.PWSTR),
-        ('ullTotalConsumedSpace', UInt64),
-        ('ullTotalManagedSpace', UInt64),
-        ('ullRemainingFreeSpace', UInt64),
-    ]
-    return VDS_STORAGE_POOL_PROP
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorSpecific: VDS_STORAGE_IDENTIFIER_TYPE = 0
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorId: VDS_STORAGE_IDENTIFIER_TYPE = 1
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeEUI64: VDS_STORAGE_IDENTIFIER_TYPE = 2
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeFCPHName: VDS_STORAGE_IDENTIFIER_TYPE = 3
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypePortRelative: VDS_STORAGE_IDENTIFIER_TYPE = 4
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeTargetPortGroup: VDS_STORAGE_IDENTIFIER_TYPE = 5
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeLogicalUnitGroup: VDS_STORAGE_IDENTIFIER_TYPE = 6
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeMD5LogicalUnitIdentifier: VDS_STORAGE_IDENTIFIER_TYPE = 7
+VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeScsiNameString: VDS_STORAGE_IDENTIFIER_TYPE = 8
+class VDS_STORAGE_POOL_DRIVE_EXTENT(Structure):
+    id: Guid
+    ullSize: UInt64
+    bUsed: win32more.Foundation.BOOL
+class VDS_STORAGE_POOL_PROP(Structure):
+    id: Guid
+    status: win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    type: win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_TYPE
+    pwszName: win32more.Foundation.PWSTR
+    pwszDescription: win32more.Foundation.PWSTR
+    ullTotalConsumedSpace: UInt64
+    ullTotalManagedSpace: UInt64
+    ullRemainingFreeSpace: UInt64
 VDS_STORAGE_POOL_STATUS = Int32
-VDS_SPS_UNKNOWN = 0
-VDS_SPS_ONLINE = 1
-VDS_SPS_NOT_READY = 2
-VDS_SPS_OFFLINE = 4
+VDS_SPS_UNKNOWN: VDS_STORAGE_POOL_STATUS = 0
+VDS_SPS_ONLINE: VDS_STORAGE_POOL_STATUS = 1
+VDS_SPS_NOT_READY: VDS_STORAGE_POOL_STATUS = 2
+VDS_SPS_OFFLINE: VDS_STORAGE_POOL_STATUS = 4
 VDS_STORAGE_POOL_TYPE = Int32
-VDS_SPT_UNKNOWN = 0
-VDS_SPT_PRIMORDIAL = 1
-VDS_SPT_CONCRETE = 2
+VDS_SPT_UNKNOWN: VDS_STORAGE_POOL_TYPE = 0
+VDS_SPT_PRIMORDIAL: VDS_STORAGE_POOL_TYPE = 1
+VDS_SPT_CONCRETE: VDS_STORAGE_POOL_TYPE = 2
 VDS_SUB_SYSTEM_FLAG = Int32
-VDS_SF_LUN_MASKING_CAPABLE = 1
-VDS_SF_LUN_PLEXING_CAPABLE = 2
-VDS_SF_LUN_REMAPPING_CAPABLE = 4
-VDS_SF_DRIVE_EXTENT_CAPABLE = 8
-VDS_SF_HARDWARE_CHECKSUM_CAPABLE = 16
-VDS_SF_RADIUS_CAPABLE = 32
-VDS_SF_READ_BACK_VERIFY_CAPABLE = 64
-VDS_SF_WRITE_THROUGH_CACHING_CAPABLE = 128
-VDS_SF_SUPPORTS_FAULT_TOLERANT_LUNS = 512
-VDS_SF_SUPPORTS_NON_FAULT_TOLERANT_LUNS = 1024
-VDS_SF_SUPPORTS_SIMPLE_LUNS = 2048
-VDS_SF_SUPPORTS_SPAN_LUNS = 4096
-VDS_SF_SUPPORTS_STRIPE_LUNS = 8192
-VDS_SF_SUPPORTS_MIRROR_LUNS = 16384
-VDS_SF_SUPPORTS_PARITY_LUNS = 32768
-VDS_SF_SUPPORTS_AUTH_CHAP = 65536
-VDS_SF_SUPPORTS_AUTH_MUTUAL_CHAP = 131072
-VDS_SF_SUPPORTS_SIMPLE_TARGET_CONFIG = 262144
-VDS_SF_SUPPORTS_LUN_NUMBER = 524288
-VDS_SF_SUPPORTS_MIRRORED_CACHE = 1048576
-VDS_SF_READ_CACHING_CAPABLE = 2097152
-VDS_SF_WRITE_CACHING_CAPABLE = 4194304
-VDS_SF_MEDIA_SCAN_CAPABLE = 8388608
-VDS_SF_CONSISTENCY_CHECK_CAPABLE = 16777216
-def _define_VDS_SUB_SYSTEM_NOTIFICATION_head():
-    class VDS_SUB_SYSTEM_NOTIFICATION(Structure):
-        pass
-    return VDS_SUB_SYSTEM_NOTIFICATION
-def _define_VDS_SUB_SYSTEM_NOTIFICATION():
-    VDS_SUB_SYSTEM_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_NOTIFICATION_head
-    VDS_SUB_SYSTEM_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('subSystemId', Guid),
-    ]
-    return VDS_SUB_SYSTEM_NOTIFICATION
-def _define_VDS_SUB_SYSTEM_PROP_head():
-    class VDS_SUB_SYSTEM_PROP(Structure):
-        pass
-    return VDS_SUB_SYSTEM_PROP
-def _define_VDS_SUB_SYSTEM_PROP():
-    VDS_SUB_SYSTEM_PROP = win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP_head
-    VDS_SUB_SYSTEM_PROP._fields_ = [
-        ('id', Guid),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('ulFlags', UInt32),
-        ('ulStripeSizeFlags', UInt32),
-        ('status', win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('sNumberOfInternalBuses', Int16),
-        ('sMaxNumberOfSlotsEachBus', Int16),
-        ('sMaxNumberOfControllers', Int16),
-        ('sRebuildPriority', Int16),
-    ]
-    return VDS_SUB_SYSTEM_PROP
-def _define_VDS_SUB_SYSTEM_PROP2_head():
-    class VDS_SUB_SYSTEM_PROP2(Structure):
-        pass
-    return VDS_SUB_SYSTEM_PROP2
-def _define_VDS_SUB_SYSTEM_PROP2():
-    VDS_SUB_SYSTEM_PROP2 = win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP2_head
-    VDS_SUB_SYSTEM_PROP2._fields_ = [
-        ('id', Guid),
-        ('pwszFriendlyName', win32more.Foundation.PWSTR),
-        ('pwszIdentification', win32more.Foundation.PWSTR),
-        ('ulFlags', UInt32),
-        ('ulStripeSizeFlags', UInt32),
-        ('ulSupportedRaidTypeFlags', UInt32),
-        ('status', win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS),
-        ('health', win32more.Storage.VirtualDiskService.VDS_HEALTH),
-        ('sNumberOfInternalBuses', Int16),
-        ('sMaxNumberOfSlotsEachBus', Int16),
-        ('sMaxNumberOfControllers', Int16),
-        ('sRebuildPriority', Int16),
-        ('ulNumberOfEnclosures', UInt32),
-    ]
-    return VDS_SUB_SYSTEM_PROP2
+VDS_SF_LUN_MASKING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 1
+VDS_SF_LUN_PLEXING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 2
+VDS_SF_LUN_REMAPPING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 4
+VDS_SF_DRIVE_EXTENT_CAPABLE: VDS_SUB_SYSTEM_FLAG = 8
+VDS_SF_HARDWARE_CHECKSUM_CAPABLE: VDS_SUB_SYSTEM_FLAG = 16
+VDS_SF_RADIUS_CAPABLE: VDS_SUB_SYSTEM_FLAG = 32
+VDS_SF_READ_BACK_VERIFY_CAPABLE: VDS_SUB_SYSTEM_FLAG = 64
+VDS_SF_WRITE_THROUGH_CACHING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 128
+VDS_SF_SUPPORTS_FAULT_TOLERANT_LUNS: VDS_SUB_SYSTEM_FLAG = 512
+VDS_SF_SUPPORTS_NON_FAULT_TOLERANT_LUNS: VDS_SUB_SYSTEM_FLAG = 1024
+VDS_SF_SUPPORTS_SIMPLE_LUNS: VDS_SUB_SYSTEM_FLAG = 2048
+VDS_SF_SUPPORTS_SPAN_LUNS: VDS_SUB_SYSTEM_FLAG = 4096
+VDS_SF_SUPPORTS_STRIPE_LUNS: VDS_SUB_SYSTEM_FLAG = 8192
+VDS_SF_SUPPORTS_MIRROR_LUNS: VDS_SUB_SYSTEM_FLAG = 16384
+VDS_SF_SUPPORTS_PARITY_LUNS: VDS_SUB_SYSTEM_FLAG = 32768
+VDS_SF_SUPPORTS_AUTH_CHAP: VDS_SUB_SYSTEM_FLAG = 65536
+VDS_SF_SUPPORTS_AUTH_MUTUAL_CHAP: VDS_SUB_SYSTEM_FLAG = 131072
+VDS_SF_SUPPORTS_SIMPLE_TARGET_CONFIG: VDS_SUB_SYSTEM_FLAG = 262144
+VDS_SF_SUPPORTS_LUN_NUMBER: VDS_SUB_SYSTEM_FLAG = 524288
+VDS_SF_SUPPORTS_MIRRORED_CACHE: VDS_SUB_SYSTEM_FLAG = 1048576
+VDS_SF_READ_CACHING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 2097152
+VDS_SF_WRITE_CACHING_CAPABLE: VDS_SUB_SYSTEM_FLAG = 4194304
+VDS_SF_MEDIA_SCAN_CAPABLE: VDS_SUB_SYSTEM_FLAG = 8388608
+VDS_SF_CONSISTENCY_CHECK_CAPABLE: VDS_SUB_SYSTEM_FLAG = 16777216
+class VDS_SUB_SYSTEM_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    subSystemId: Guid
+class VDS_SUB_SYSTEM_PROP(Structure):
+    id: Guid
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    ulStripeSizeFlags: UInt32
+    status: win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    sNumberOfInternalBuses: Int16
+    sMaxNumberOfSlotsEachBus: Int16
+    sMaxNumberOfControllers: Int16
+    sRebuildPriority: Int16
+class VDS_SUB_SYSTEM_PROP2(Structure):
+    id: Guid
+    pwszFriendlyName: win32more.Foundation.PWSTR
+    pwszIdentification: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    ulStripeSizeFlags: UInt32
+    ulSupportedRaidTypeFlags: UInt32
+    status: win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS
+    health: win32more.Storage.VirtualDiskService.VDS_HEALTH
+    sNumberOfInternalBuses: Int16
+    sMaxNumberOfSlotsEachBus: Int16
+    sMaxNumberOfControllers: Int16
+    sRebuildPriority: Int16
+    ulNumberOfEnclosures: UInt32
 VDS_SUB_SYSTEM_STATUS = Int32
-VDS_SSS_UNKNOWN = 0
-VDS_SSS_ONLINE = 1
-VDS_SSS_NOT_READY = 2
-VDS_SSS_OFFLINE = 4
-VDS_SSS_FAILED = 5
-VDS_SSS_PARTIALLY_MANAGED = 9
+VDS_SSS_UNKNOWN: VDS_SUB_SYSTEM_STATUS = 0
+VDS_SSS_ONLINE: VDS_SUB_SYSTEM_STATUS = 1
+VDS_SSS_NOT_READY: VDS_SUB_SYSTEM_STATUS = 2
+VDS_SSS_OFFLINE: VDS_SUB_SYSTEM_STATUS = 4
+VDS_SSS_FAILED: VDS_SUB_SYSTEM_STATUS = 5
+VDS_SSS_PARTIALLY_MANAGED: VDS_SUB_SYSTEM_STATUS = 9
 VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = Int32
-VDS_SF_SUPPORTS_RAID2_LUNS = 1
-VDS_SF_SUPPORTS_RAID3_LUNS = 2
-VDS_SF_SUPPORTS_RAID4_LUNS = 4
-VDS_SF_SUPPORTS_RAID5_LUNS = 8
-VDS_SF_SUPPORTS_RAID6_LUNS = 16
-VDS_SF_SUPPORTS_RAID01_LUNS = 32
-VDS_SF_SUPPORTS_RAID03_LUNS = 64
-VDS_SF_SUPPORTS_RAID05_LUNS = 128
-VDS_SF_SUPPORTS_RAID10_LUNS = 256
-VDS_SF_SUPPORTS_RAID15_LUNS = 512
-VDS_SF_SUPPORTS_RAID30_LUNS = 1024
-VDS_SF_SUPPORTS_RAID50_LUNS = 2048
-VDS_SF_SUPPORTS_RAID51_LUNS = 4096
-VDS_SF_SUPPORTS_RAID53_LUNS = 8192
-VDS_SF_SUPPORTS_RAID60_LUNS = 16384
-VDS_SF_SUPPORTS_RAID61_LUNS = 32768
-def _define_VDS_TARGET_NOTIFICATION_head():
-    class VDS_TARGET_NOTIFICATION(Structure):
-        pass
-    return VDS_TARGET_NOTIFICATION
-def _define_VDS_TARGET_NOTIFICATION():
-    VDS_TARGET_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_TARGET_NOTIFICATION_head
-    VDS_TARGET_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('targetId', Guid),
-    ]
-    return VDS_TARGET_NOTIFICATION
+VDS_SF_SUPPORTS_RAID2_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 1
+VDS_SF_SUPPORTS_RAID3_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 2
+VDS_SF_SUPPORTS_RAID4_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 4
+VDS_SF_SUPPORTS_RAID5_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 8
+VDS_SF_SUPPORTS_RAID6_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 16
+VDS_SF_SUPPORTS_RAID01_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 32
+VDS_SF_SUPPORTS_RAID03_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 64
+VDS_SF_SUPPORTS_RAID05_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 128
+VDS_SF_SUPPORTS_RAID10_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 256
+VDS_SF_SUPPORTS_RAID15_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 512
+VDS_SF_SUPPORTS_RAID30_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 1024
+VDS_SF_SUPPORTS_RAID50_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 2048
+VDS_SF_SUPPORTS_RAID51_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 4096
+VDS_SF_SUPPORTS_RAID53_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 8192
+VDS_SF_SUPPORTS_RAID60_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 16384
+VDS_SF_SUPPORTS_RAID61_LUNS: VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 32768
+class VDS_TARGET_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    targetId: Guid
 VDS_TRANSITION_STATE = Int32
-VDS_TS_UNKNOWN = 0
-VDS_TS_STABLE = 1
-VDS_TS_EXTENDING = 2
-VDS_TS_SHRINKING = 3
-VDS_TS_RECONFIGING = 4
-VDS_TS_RESTRIPING = 5
+VDS_TS_UNKNOWN: VDS_TRANSITION_STATE = 0
+VDS_TS_STABLE: VDS_TRANSITION_STATE = 1
+VDS_TS_EXTENDING: VDS_TRANSITION_STATE = 2
+VDS_TS_SHRINKING: VDS_TRANSITION_STATE = 3
+VDS_TS_RECONFIGING: VDS_TRANSITION_STATE = 4
+VDS_TS_RESTRIPING: VDS_TRANSITION_STATE = 5
 VDS_VERSION_SUPPORT_FLAG = Int32
-VDS_VSF_1_0 = 1
-VDS_VSF_1_1 = 2
-VDS_VSF_2_0 = 4
-VDS_VSF_2_1 = 8
-VDS_VSF_3_0 = 16
-def _define_VDS_VOLUME_NOTIFICATION_head():
-    class VDS_VOLUME_NOTIFICATION(Structure):
-        pass
-    return VDS_VOLUME_NOTIFICATION
-def _define_VDS_VOLUME_NOTIFICATION():
-    VDS_VOLUME_NOTIFICATION = win32more.Storage.VirtualDiskService.VDS_VOLUME_NOTIFICATION_head
-    VDS_VOLUME_NOTIFICATION._fields_ = [
-        ('ulEvent', UInt32),
-        ('volumeId', Guid),
-        ('plexId', Guid),
-        ('ulPercentCompleted', UInt32),
-    ]
-    return VDS_VOLUME_NOTIFICATION
-def _define_VDS_WWN_head():
-    class VDS_WWN(Structure):
-        pass
-    return VDS_WWN
-def _define_VDS_WWN():
-    VDS_WWN = win32more.Storage.VirtualDiskService.VDS_WWN_head
-    VDS_WWN._fields_ = [
-        ('rguchWwn', Byte * 8),
-    ]
-    return VDS_WWN
+VDS_VSF_1_0: VDS_VERSION_SUPPORT_FLAG = 1
+VDS_VSF_1_1: VDS_VERSION_SUPPORT_FLAG = 2
+VDS_VSF_2_0: VDS_VERSION_SUPPORT_FLAG = 4
+VDS_VSF_2_1: VDS_VERSION_SUPPORT_FLAG = 8
+VDS_VSF_3_0: VDS_VERSION_SUPPORT_FLAG = 16
+class VDS_VOLUME_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    volumeId: Guid
+    plexId: Guid
+    ulPercentCompleted: UInt32
+class VDS_WWN(Structure):
+    rguchWwn: Byte * 8
+make_head(_module, 'IEnumVdsObject')
+make_head(_module, 'IVdsAdmin')
+make_head(_module, 'IVdsAdviseSink')
+make_head(_module, 'IVdsAsync')
+make_head(_module, 'IVdsController')
+make_head(_module, 'IVdsControllerControllerPort')
+make_head(_module, 'IVdsControllerPort')
+make_head(_module, 'IVdsDrive')
+make_head(_module, 'IVdsDrive2')
+make_head(_module, 'IVdsHwProvider')
+make_head(_module, 'IVdsHwProviderPrivate')
+make_head(_module, 'IVdsHwProviderPrivateMpio')
+make_head(_module, 'IVdsHwProviderStoragePools')
+make_head(_module, 'IVdsHwProviderType')
+make_head(_module, 'IVdsHwProviderType2')
+make_head(_module, 'IVdsIscsiPortal')
+make_head(_module, 'IVdsIscsiPortalGroup')
+make_head(_module, 'IVdsIscsiTarget')
+make_head(_module, 'IVdsLun')
+make_head(_module, 'IVdsLun2')
+make_head(_module, 'IVdsLunControllerPorts')
+make_head(_module, 'IVdsLunIscsi')
+make_head(_module, 'IVdsLunMpio')
+make_head(_module, 'IVdsLunNaming')
+make_head(_module, 'IVdsLunNumber')
+make_head(_module, 'IVdsLunPlex')
+make_head(_module, 'IVdsMaintenance')
+make_head(_module, 'IVdsProvider')
+make_head(_module, 'IVdsProviderPrivate')
+make_head(_module, 'IVdsProviderSupport')
+make_head(_module, 'IVdsStoragePool')
+make_head(_module, 'IVdsSubSystem')
+make_head(_module, 'IVdsSubSystem2')
+make_head(_module, 'IVdsSubSystemInterconnect')
+make_head(_module, 'IVdsSubSystemIscsi')
+make_head(_module, 'IVdsSubSystemNaming')
+make_head(_module, 'VDS_ASYNC_OUTPUT')
+make_head(_module, 'VDS_CONTROLLER_NOTIFICATION')
+make_head(_module, 'VDS_CONTROLLER_PROP')
+make_head(_module, 'VDS_DISK_NOTIFICATION')
+make_head(_module, 'VDS_DRIVE_EXTENT')
+make_head(_module, 'VDS_DRIVE_LETTER_NOTIFICATION')
+make_head(_module, 'VDS_DRIVE_NOTIFICATION')
+make_head(_module, 'VDS_DRIVE_PROP')
+make_head(_module, 'VDS_DRIVE_PROP2')
+make_head(_module, 'VDS_FILE_SYSTEM_NOTIFICATION')
+make_head(_module, 'VDS_HBAPORT_PROP')
+make_head(_module, 'VDS_HINTS')
+make_head(_module, 'VDS_HINTS2')
+make_head(_module, 'VDS_INTERCONNECT')
+make_head(_module, 'VDS_IPADDRESS')
+make_head(_module, 'VDS_ISCSI_INITIATOR_ADAPTER_PROP')
+make_head(_module, 'VDS_ISCSI_INITIATOR_PORTAL_PROP')
+make_head(_module, 'VDS_ISCSI_IPSEC_KEY')
+make_head(_module, 'VDS_ISCSI_PORTAL_PROP')
+make_head(_module, 'VDS_ISCSI_PORTALGROUP_PROP')
+make_head(_module, 'VDS_ISCSI_SHARED_SECRET')
+make_head(_module, 'VDS_ISCSI_TARGET_PROP')
+make_head(_module, 'VDS_LUN_INFORMATION')
+make_head(_module, 'VDS_LUN_NOTIFICATION')
+make_head(_module, 'VDS_LUN_PLEX_PROP')
+make_head(_module, 'VDS_LUN_PROP')
+make_head(_module, 'VDS_MOUNT_POINT_NOTIFICATION')
+make_head(_module, 'VDS_NOTIFICATION')
+make_head(_module, 'VDS_PACK_NOTIFICATION')
+make_head(_module, 'VDS_PARTITION_NOTIFICATION')
+make_head(_module, 'VDS_PATH_ID')
+make_head(_module, 'VDS_PATH_INFO')
+make_head(_module, 'VDS_PATH_POLICY')
+make_head(_module, 'VDS_POOL_ATTRIBUTES')
+make_head(_module, 'VDS_POOL_CUSTOM_ATTRIBUTES')
+make_head(_module, 'VDS_PORT_NOTIFICATION')
+make_head(_module, 'VDS_PORT_PROP')
+make_head(_module, 'VDS_PORTAL_GROUP_NOTIFICATION')
+make_head(_module, 'VDS_PORTAL_NOTIFICATION')
+make_head(_module, 'VDS_PROVIDER_PROP')
+make_head(_module, 'VDS_SERVICE_NOTIFICATION')
+make_head(_module, 'VDS_STORAGE_DEVICE_ID_DESCRIPTOR')
+make_head(_module, 'VDS_STORAGE_IDENTIFIER')
+make_head(_module, 'VDS_STORAGE_POOL_DRIVE_EXTENT')
+make_head(_module, 'VDS_STORAGE_POOL_PROP')
+make_head(_module, 'VDS_SUB_SYSTEM_NOTIFICATION')
+make_head(_module, 'VDS_SUB_SYSTEM_PROP')
+make_head(_module, 'VDS_SUB_SYSTEM_PROP2')
+make_head(_module, 'VDS_TARGET_NOTIFICATION')
+make_head(_module, 'VDS_VOLUME_NOTIFICATION')
+make_head(_module, 'VDS_WWN')
 __all__ = [
     "CLSID_VdsLoader",
     "CLSID_VdsService",

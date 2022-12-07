@@ -1,5262 +1,3131 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_ABC_head():
-    class ABC(Structure):
-        pass
-    return ABC
-def _define_ABC():
-    ABC = win32more.Graphics.Gdi.ABC_head
-    ABC._fields_ = [
-        ('abcA', Int32),
-        ('abcB', UInt32),
-        ('abcC', Int32),
-    ]
-    return ABC
-def _define_ABCFLOAT_head():
-    class ABCFLOAT(Structure):
-        pass
-    return ABCFLOAT
-def _define_ABCFLOAT():
-    ABCFLOAT = win32more.Graphics.Gdi.ABCFLOAT_head
-    ABCFLOAT._fields_ = [
-        ('abcfA', Single),
-        ('abcfB', Single),
-        ('abcfC', Single),
-    ]
-    return ABCFLOAT
-def _define_ABORTPATH_head():
-    class ABORTPATH(Structure):
-        pass
-    return ABORTPATH
-def _define_ABORTPATH():
-    ABORTPATH = win32more.Graphics.Gdi.ABORTPATH_head
-    ABORTPATH._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-    ]
-    return ABORTPATH
-GDI_ERROR = -1
-ERROR = 0
-MAXSTRETCHBLTMODE = 4
-POLYFILL_LAST = 2
-LAYOUT_BTT = 2
-LAYOUT_VBH = 4
-ASPECT_FILTERING = 1
-META_SETBKCOLOR = 513
-META_SETBKMODE = 258
-META_SETMAPMODE = 259
-META_SETROP2 = 260
-META_SETRELABS = 261
-META_SETPOLYFILLMODE = 262
-META_SETSTRETCHBLTMODE = 263
-META_SETTEXTCHAREXTRA = 264
-META_SETTEXTCOLOR = 521
-META_SETTEXTJUSTIFICATION = 522
-META_SETWINDOWORG = 523
-META_SETWINDOWEXT = 524
-META_SETVIEWPORTORG = 525
-META_SETVIEWPORTEXT = 526
-META_OFFSETWINDOWORG = 527
-META_SCALEWINDOWEXT = 1040
-META_OFFSETVIEWPORTORG = 529
-META_SCALEVIEWPORTEXT = 1042
-META_LINETO = 531
-META_MOVETO = 532
-META_EXCLUDECLIPRECT = 1045
-META_INTERSECTCLIPRECT = 1046
-META_ARC = 2071
-META_ELLIPSE = 1048
-META_FLOODFILL = 1049
-META_PIE = 2074
-META_RECTANGLE = 1051
-META_ROUNDRECT = 1564
-META_PATBLT = 1565
-META_SAVEDC = 30
-META_SETPIXEL = 1055
-META_OFFSETCLIPRGN = 544
-META_TEXTOUT = 1313
-META_BITBLT = 2338
-META_STRETCHBLT = 2851
-META_POLYGON = 804
-META_POLYLINE = 805
-META_ESCAPE = 1574
-META_RESTOREDC = 295
-META_FILLREGION = 552
-META_FRAMEREGION = 1065
-META_INVERTREGION = 298
-META_PAINTREGION = 299
-META_SELECTCLIPREGION = 300
-META_SELECTOBJECT = 301
-META_SETTEXTALIGN = 302
-META_CHORD = 2096
-META_SETMAPPERFLAGS = 561
-META_EXTTEXTOUT = 2610
-META_SETDIBTODEV = 3379
-META_SELECTPALETTE = 564
-META_REALIZEPALETTE = 53
-META_ANIMATEPALETTE = 1078
-META_SETPALENTRIES = 55
-META_POLYPOLYGON = 1336
-META_RESIZEPALETTE = 313
-META_DIBBITBLT = 2368
-META_DIBSTRETCHBLT = 2881
-META_DIBCREATEPATTERNBRUSH = 322
-META_STRETCHDIB = 3907
-META_EXTFLOODFILL = 1352
-META_SETLAYOUT = 329
-META_DELETEOBJECT = 496
-META_CREATEPALETTE = 247
-META_CREATEPATTERNBRUSH = 505
-META_CREATEPENINDIRECT = 762
-META_CREATEFONTINDIRECT = 763
-META_CREATEBRUSHINDIRECT = 764
-META_CREATEREGION = 1791
-NEWFRAME = 1
-ABORTDOC = 2
-NEXTBAND = 3
-SETCOLORTABLE = 4
-GETCOLORTABLE = 5
-FLUSHOUTPUT = 6
-DRAFTMODE = 7
-QUERYESCSUPPORT = 8
-SETABORTPROC = 9
-STARTDOC = 10
-ENDDOC = 11
-GETPHYSPAGESIZE = 12
-GETPRINTINGOFFSET = 13
-GETSCALINGFACTOR = 14
-MFCOMMENT = 15
-GETPENWIDTH = 16
-SETCOPYCOUNT = 17
-SELECTPAPERSOURCE = 18
-DEVICEDATA = 19
-PASSTHROUGH = 19
-GETTECHNOLGY = 20
-GETTECHNOLOGY = 20
-SETLINECAP = 21
-SETLINEJOIN = 22
-SETMITERLIMIT = 23
-BANDINFO = 24
-DRAWPATTERNRECT = 25
-GETVECTORPENSIZE = 26
-GETVECTORBRUSHSIZE = 27
-ENABLEDUPLEX = 28
-GETSETPAPERBINS = 29
-GETSETPRINTORIENT = 30
-ENUMPAPERBINS = 31
-SETDIBSCALING = 32
-EPSPRINTING = 33
-ENUMPAPERMETRICS = 34
-GETSETPAPERMETRICS = 35
-POSTSCRIPT_DATA = 37
-POSTSCRIPT_IGNORE = 38
-MOUSETRAILS = 39
-GETDEVICEUNITS = 42
-GETEXTENDEDTEXTMETRICS = 256
-GETEXTENTTABLE = 257
-GETPAIRKERNTABLE = 258
-GETTRACKKERNTABLE = 259
-EXTTEXTOUT = 512
-GETFACENAME = 513
-DOWNLOADFACE = 514
-ENABLERELATIVEWIDTHS = 768
-ENABLEPAIRKERNING = 769
-SETKERNTRACK = 770
-SETALLJUSTVALUES = 771
-SETCHARSET = 772
-STRETCHBLT = 2048
-METAFILE_DRIVER = 2049
-GETSETSCREENPARAMS = 3072
-QUERYDIBSUPPORT = 3073
-BEGIN_PATH = 4096
-CLIP_TO_PATH = 4097
-END_PATH = 4098
-EXT_DEVICE_CAPS = 4099
-RESTORE_CTM = 4100
-SAVE_CTM = 4101
-SET_ARC_DIRECTION = 4102
-SET_BACKGROUND_COLOR = 4103
-SET_POLY_MODE = 4104
-SET_SCREEN_ANGLE = 4105
-SET_SPREAD = 4106
-TRANSFORM_CTM = 4107
-SET_CLIP_BOX = 4108
-SET_BOUNDS = 4109
-SET_MIRROR_MODE = 4110
-OPENCHANNEL = 4110
-DOWNLOADHEADER = 4111
-CLOSECHANNEL = 4112
-POSTSCRIPT_PASSTHROUGH = 4115
-ENCAPSULATED_POSTSCRIPT = 4116
-POSTSCRIPT_IDENTIFY = 4117
-POSTSCRIPT_INJECTION = 4118
-CHECKJPEGFORMAT = 4119
-CHECKPNGFORMAT = 4120
-GET_PS_FEATURESETTING = 4121
-GDIPLUS_TS_QUERYVER = 4122
-GDIPLUS_TS_RECORD = 4123
-MILCORE_TS_QUERYVER_RESULT_FALSE = 0
-MILCORE_TS_QUERYVER_RESULT_TRUE = 2147483647
-SPCLPASSTHROUGH2 = 4568
-PSIDENT_GDICENTRIC = 0
-PSIDENT_PSCENTRIC = 1
-PSINJECT_DLFONT = 3722304989
-FEATURESETTING_NUP = 0
-FEATURESETTING_OUTPUT = 1
-FEATURESETTING_PSLEVEL = 2
-FEATURESETTING_CUSTPAPER = 3
-FEATURESETTING_MIRROR = 4
-FEATURESETTING_NEGATIVE = 5
-FEATURESETTING_PROTOCOL = 6
-FEATURESETTING_PRIVATE_BEGIN = 4096
-FEATURESETTING_PRIVATE_END = 8191
-PSPROTOCOL_ASCII = 0
-PSPROTOCOL_BCP = 1
-PSPROTOCOL_TBCP = 2
-PSPROTOCOL_BINARY = 3
-QDI_SETDIBITS = 1
-QDI_GETDIBITS = 2
-QDI_DIBTOSCREEN = 4
-QDI_STRETCHDIB = 8
-SP_NOTREPORTED = 16384
-SP_ERROR = -1
-SP_APPABORT = -2
-SP_USERABORT = -3
-SP_OUTOFDISK = -4
-SP_OUTOFMEMORY = -5
-PR_JOBSTATUS = 0
-LCS_CALIBRATED_RGB = 0
-LCS_GM_BUSINESS = 1
-LCS_GM_GRAPHICS = 2
-LCS_GM_IMAGES = 4
-LCS_GM_ABS_COLORIMETRIC = 8
-CM_OUT_OF_GAMUT = 255
-CM_IN_GAMUT = 0
-NTM_REGULAR = 64
-NTM_BOLD = 32
-NTM_ITALIC = 1
-NTM_NONNEGATIVE_AC = 65536
-NTM_PS_OPENTYPE = 131072
-NTM_TT_OPENTYPE = 262144
-NTM_MULTIPLEMASTER = 524288
-NTM_TYPE1 = 1048576
-NTM_DSIG = 2097152
-LF_FACESIZE = 32
-LF_FULLFACESIZE = 64
-CLEARTYPE_NATURAL_QUALITY = 6
-MONO_FONT = 8
-FS_LATIN1 = 1
-FS_LATIN2 = 2
-FS_CYRILLIC = 4
-FS_GREEK = 8
-FS_TURKISH = 16
-FS_HEBREW = 32
-FS_ARABIC = 64
-FS_BALTIC = 128
-FS_VIETNAMESE = 256
-FS_THAI = 65536
-FS_JISJAPAN = 131072
-FS_CHINESESIMP = 262144
-FS_WANSUNG = 524288
-FS_CHINESETRAD = 1048576
-FS_JOHAB = 2097152
-FS_SYMBOL = -2147483648
-PANOSE_COUNT = 10
-PAN_FAMILYTYPE_INDEX = 0
-PAN_SERIFSTYLE_INDEX = 1
-PAN_PROPORTION_INDEX = 3
-PAN_STROKEVARIATION_INDEX = 5
-PAN_ARMSTYLE_INDEX = 6
-PAN_LETTERFORM_INDEX = 7
-PAN_CULTURE_LATIN = 0
-PAN_ANY = 0
-PAN_NO_FIT = 1
-ELF_VENDOR_SIZE = 4
-ELF_VERSION = 0
-ELF_CULTURE_LATIN = 0
-RASTER_FONTTYPE = 1
-DEVICE_FONTTYPE = 2
-TRUETYPE_FONTTYPE = 4
-PC_RESERVED = 1
-PC_EXPLICIT = 2
-PC_NOCOLLAPSE = 4
-BKMODE_LAST = 2
-GM_LAST = 2
-PT_CLOSEFIGURE = 1
-PT_LINETO = 2
-PT_BEZIERTO = 4
-PT_MOVETO = 6
-ABSOLUTE = 1
-RELATIVE = 2
-STOCK_LAST = 19
-CLR_INVALID = 4294967295
-HS_API_MAX = 12
-DT_PLOTTER = 0
-DT_RASDISPLAY = 1
-DT_RASPRINTER = 2
-DT_RASCAMERA = 3
-DT_CHARSTREAM = 4
-DT_METAFILE = 5
-DT_DISPFILE = 6
-CC_NONE = 0
-CC_CIRCLES = 1
-CC_PIE = 2
-CC_CHORD = 4
-CC_ELLIPSES = 8
-CC_WIDE = 16
-CC_STYLED = 32
-CC_WIDESTYLED = 64
-CC_INTERIORS = 128
-CC_ROUNDRECT = 256
-LC_NONE = 0
-LC_POLYLINE = 2
-LC_MARKER = 4
-LC_POLYMARKER = 8
-LC_WIDE = 16
-LC_STYLED = 32
-LC_WIDESTYLED = 64
-LC_INTERIORS = 128
-PC_NONE = 0
-PC_POLYGON = 1
-PC_RECTANGLE = 2
-PC_WINDPOLYGON = 4
-PC_TRAPEZOID = 4
-PC_SCANLINE = 8
-PC_WIDE = 16
-PC_STYLED = 32
-PC_WIDESTYLED = 64
-PC_INTERIORS = 128
-PC_POLYPOLYGON = 256
-PC_PATHS = 512
-CP_NONE = 0
-CP_RECTANGLE = 1
-CP_REGION = 2
-TC_OP_CHARACTER = 1
-TC_OP_STROKE = 2
-TC_CP_STROKE = 4
-TC_CR_90 = 8
-TC_CR_ANY = 16
-TC_SF_X_YINDEP = 32
-TC_SA_DOUBLE = 64
-TC_SA_INTEGER = 128
-TC_SA_CONTIN = 256
-TC_EA_DOUBLE = 512
-TC_IA_ABLE = 1024
-TC_UA_ABLE = 2048
-TC_SO_ABLE = 4096
-TC_RA_ABLE = 8192
-TC_VA_ABLE = 16384
-TC_RESERVED = 32768
-TC_SCROLLBLT = 65536
-RC_BITBLT = 1
-RC_BANDING = 2
-RC_SCALING = 4
-RC_BITMAP64 = 8
-RC_GDI20_OUTPUT = 16
-RC_GDI20_STATE = 32
-RC_SAVEBITMAP = 64
-RC_DI_BITMAP = 128
-RC_PALETTE = 256
-RC_DIBTODEV = 512
-RC_BIGFONT = 1024
-RC_STRETCHBLT = 2048
-RC_FLOODFILL = 4096
-RC_STRETCHDIB = 8192
-RC_OP_DX_OUTPUT = 16384
-RC_DEVBITS = 32768
-SB_NONE = 0
-SB_CONST_ALPHA = 1
-SB_PIXEL_ALPHA = 2
-SB_PREMULT_ALPHA = 4
-SB_GRAD_RECT = 16
-SB_GRAD_TRI = 32
-CM_NONE = 0
-CM_DEVICE_ICM = 1
-CM_GAMMA_RAMP = 2
-CM_CMYK_COLOR = 4
-SYSPAL_ERROR = 0
-CBM_INIT = 4
-CCHFORMNAME = 32
-DMORIENT_PORTRAIT = 1
-DMORIENT_LANDSCAPE = 2
-DMPAPER_LETTER = 1
-DMPAPER_LETTERSMALL = 2
-DMPAPER_TABLOID = 3
-DMPAPER_LEDGER = 4
-DMPAPER_LEGAL = 5
-DMPAPER_STATEMENT = 6
-DMPAPER_EXECUTIVE = 7
-DMPAPER_A3 = 8
-DMPAPER_A4 = 9
-DMPAPER_A4SMALL = 10
-DMPAPER_A5 = 11
-DMPAPER_B4 = 12
-DMPAPER_B5 = 13
-DMPAPER_FOLIO = 14
-DMPAPER_QUARTO = 15
-DMPAPER_10X14 = 16
-DMPAPER_11X17 = 17
-DMPAPER_NOTE = 18
-DMPAPER_ENV_9 = 19
-DMPAPER_ENV_10 = 20
-DMPAPER_ENV_11 = 21
-DMPAPER_ENV_12 = 22
-DMPAPER_ENV_14 = 23
-DMPAPER_CSHEET = 24
-DMPAPER_DSHEET = 25
-DMPAPER_ESHEET = 26
-DMPAPER_ENV_DL = 27
-DMPAPER_ENV_C5 = 28
-DMPAPER_ENV_C3 = 29
-DMPAPER_ENV_C4 = 30
-DMPAPER_ENV_C6 = 31
-DMPAPER_ENV_C65 = 32
-DMPAPER_ENV_B4 = 33
-DMPAPER_ENV_B5 = 34
-DMPAPER_ENV_B6 = 35
-DMPAPER_ENV_ITALY = 36
-DMPAPER_ENV_MONARCH = 37
-DMPAPER_ENV_PERSONAL = 38
-DMPAPER_FANFOLD_US = 39
-DMPAPER_FANFOLD_STD_GERMAN = 40
-DMPAPER_FANFOLD_LGL_GERMAN = 41
-DMPAPER_ISO_B4 = 42
-DMPAPER_JAPANESE_POSTCARD = 43
-DMPAPER_9X11 = 44
-DMPAPER_10X11 = 45
-DMPAPER_15X11 = 46
-DMPAPER_ENV_INVITE = 47
-DMPAPER_RESERVED_48 = 48
-DMPAPER_RESERVED_49 = 49
-DMPAPER_LETTER_EXTRA = 50
-DMPAPER_LEGAL_EXTRA = 51
-DMPAPER_TABLOID_EXTRA = 52
-DMPAPER_A4_EXTRA = 53
-DMPAPER_LETTER_TRANSVERSE = 54
-DMPAPER_A4_TRANSVERSE = 55
-DMPAPER_LETTER_EXTRA_TRANSVERSE = 56
-DMPAPER_A_PLUS = 57
-DMPAPER_B_PLUS = 58
-DMPAPER_LETTER_PLUS = 59
-DMPAPER_A4_PLUS = 60
-DMPAPER_A5_TRANSVERSE = 61
-DMPAPER_B5_TRANSVERSE = 62
-DMPAPER_A3_EXTRA = 63
-DMPAPER_A5_EXTRA = 64
-DMPAPER_B5_EXTRA = 65
-DMPAPER_A2 = 66
-DMPAPER_A3_TRANSVERSE = 67
-DMPAPER_A3_EXTRA_TRANSVERSE = 68
-DMPAPER_DBL_JAPANESE_POSTCARD = 69
-DMPAPER_A6 = 70
-DMPAPER_JENV_KAKU2 = 71
-DMPAPER_JENV_KAKU3 = 72
-DMPAPER_JENV_CHOU3 = 73
-DMPAPER_JENV_CHOU4 = 74
-DMPAPER_LETTER_ROTATED = 75
-DMPAPER_A3_ROTATED = 76
-DMPAPER_A4_ROTATED = 77
-DMPAPER_A5_ROTATED = 78
-DMPAPER_B4_JIS_ROTATED = 79
-DMPAPER_B5_JIS_ROTATED = 80
-DMPAPER_JAPANESE_POSTCARD_ROTATED = 81
-DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED = 82
-DMPAPER_A6_ROTATED = 83
-DMPAPER_JENV_KAKU2_ROTATED = 84
-DMPAPER_JENV_KAKU3_ROTATED = 85
-DMPAPER_JENV_CHOU3_ROTATED = 86
-DMPAPER_JENV_CHOU4_ROTATED = 87
-DMPAPER_B6_JIS = 88
-DMPAPER_B6_JIS_ROTATED = 89
-DMPAPER_12X11 = 90
-DMPAPER_JENV_YOU4 = 91
-DMPAPER_JENV_YOU4_ROTATED = 92
-DMPAPER_P16K = 93
-DMPAPER_P32K = 94
-DMPAPER_P32KBIG = 95
-DMPAPER_PENV_1 = 96
-DMPAPER_PENV_2 = 97
-DMPAPER_PENV_3 = 98
-DMPAPER_PENV_4 = 99
-DMPAPER_PENV_5 = 100
-DMPAPER_PENV_6 = 101
-DMPAPER_PENV_7 = 102
-DMPAPER_PENV_8 = 103
-DMPAPER_PENV_9 = 104
-DMPAPER_PENV_10 = 105
-DMPAPER_P16K_ROTATED = 106
-DMPAPER_P32K_ROTATED = 107
-DMPAPER_P32KBIG_ROTATED = 108
-DMPAPER_PENV_1_ROTATED = 109
-DMPAPER_PENV_2_ROTATED = 110
-DMPAPER_PENV_3_ROTATED = 111
-DMPAPER_PENV_4_ROTATED = 112
-DMPAPER_PENV_5_ROTATED = 113
-DMPAPER_PENV_6_ROTATED = 114
-DMPAPER_PENV_7_ROTATED = 115
-DMPAPER_PENV_8_ROTATED = 116
-DMPAPER_PENV_9_ROTATED = 117
-DMPAPER_PENV_10_ROTATED = 118
-DMPAPER_LAST = 118
-DMPAPER_USER = 256
-DMBIN_UPPER = 1
-DMBIN_ONLYONE = 1
-DMBIN_LOWER = 2
-DMBIN_MIDDLE = 3
-DMBIN_MANUAL = 4
-DMBIN_ENVELOPE = 5
-DMBIN_ENVMANUAL = 6
-DMBIN_AUTO = 7
-DMBIN_TRACTOR = 8
-DMBIN_SMALLFMT = 9
-DMBIN_LARGEFMT = 10
-DMBIN_LARGECAPACITY = 11
-DMBIN_CASSETTE = 14
-DMBIN_FORMSOURCE = 15
-DMBIN_LAST = 15
-DMBIN_USER = 256
-DMRES_DRAFT = -1
-DMRES_LOW = -2
-DMRES_MEDIUM = -3
-DMRES_HIGH = -4
-DMDISPLAYFLAGS_TEXTMODE = 4
-DMNUP_SYSTEM = 1
-DMNUP_ONEUP = 2
-DMICMMETHOD_NONE = 1
-DMICMMETHOD_SYSTEM = 2
-DMICMMETHOD_DRIVER = 3
-DMICMMETHOD_DEVICE = 4
-DMICMMETHOD_USER = 256
-DMICM_SATURATE = 1
-DMICM_CONTRAST = 2
-DMICM_COLORIMETRIC = 3
-DMICM_ABS_COLORIMETRIC = 4
-DMICM_USER = 256
-DMMEDIA_STANDARD = 1
-DMMEDIA_TRANSPARENCY = 2
-DMMEDIA_GLOSSY = 3
-DMMEDIA_USER = 256
-DMDITHER_NONE = 1
-DMDITHER_COARSE = 2
-DMDITHER_FINE = 3
-DMDITHER_LINEART = 4
-DMDITHER_ERRORDIFFUSION = 5
-DMDITHER_RESERVED6 = 6
-DMDITHER_RESERVED7 = 7
-DMDITHER_RESERVED8 = 8
-DMDITHER_RESERVED9 = 9
-DMDITHER_GRAYSCALE = 10
-DMDITHER_USER = 256
-DISPLAY_DEVICE_ATTACHED_TO_DESKTOP = 1
-DISPLAY_DEVICE_MULTI_DRIVER = 2
-DISPLAY_DEVICE_PRIMARY_DEVICE = 4
-DISPLAY_DEVICE_MIRRORING_DRIVER = 8
-DISPLAY_DEVICE_VGA_COMPATIBLE = 16
-DISPLAY_DEVICE_REMOVABLE = 32
-DISPLAY_DEVICE_ACC_DRIVER = 64
-DISPLAY_DEVICE_MODESPRUNED = 134217728
-DISPLAY_DEVICE_RDPUDD = 16777216
-DISPLAY_DEVICE_REMOTE = 67108864
-DISPLAY_DEVICE_DISCONNECT = 33554432
-DISPLAY_DEVICE_TS_COMPATIBLE = 2097152
-DISPLAY_DEVICE_UNSAFE_MODES_ON = 524288
-DISPLAY_DEVICE_ACTIVE = 1
-DISPLAY_DEVICE_ATTACHED = 2
-DISPLAYCONFIG_MAXPATH = 1024
-DISPLAYCONFIG_PATH_MODE_IDX_INVALID = 4294967295
-DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID = 65535
-DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID = 65535
-DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID = 65535
-DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID = 65535
-DISPLAYCONFIG_SOURCE_IN_USE = 1
-DISPLAYCONFIG_TARGET_IN_USE = 1
-DISPLAYCONFIG_TARGET_FORCIBLE = 2
-DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT = 4
-DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH = 8
-DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM = 16
-DISPLAYCONFIG_TARGET_IS_HMD = 32
-DISPLAYCONFIG_PATH_ACTIVE = 1
-DISPLAYCONFIG_PATH_PREFERRED_UNSCALED = 4
-DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE = 8
-DISPLAYCONFIG_PATH_VALID_FLAGS = 29
-QDC_ALL_PATHS = 1
-QDC_ONLY_ACTIVE_PATHS = 2
-QDC_DATABASE_CURRENT = 4
-QDC_VIRTUAL_MODE_AWARE = 16
-QDC_INCLUDE_HMD = 32
-QDC_VIRTUAL_REFRESH_RATE_AWARE = 64
-SDC_TOPOLOGY_INTERNAL = 1
-SDC_TOPOLOGY_CLONE = 2
-SDC_TOPOLOGY_EXTEND = 4
-SDC_TOPOLOGY_EXTERNAL = 8
-SDC_TOPOLOGY_SUPPLIED = 16
-SDC_USE_SUPPLIED_DISPLAY_CONFIG = 32
-SDC_VALIDATE = 64
-SDC_APPLY = 128
-SDC_NO_OPTIMIZATION = 256
-SDC_SAVE_TO_DATABASE = 512
-SDC_ALLOW_CHANGES = 1024
-SDC_PATH_PERSIST_IF_REQUIRED = 2048
-SDC_FORCE_MODE_ENUMERATION = 4096
-SDC_ALLOW_PATH_ORDER_CHANGES = 8192
-SDC_VIRTUAL_MODE_AWARE = 32768
-SDC_VIRTUAL_REFRESH_RATE_AWARE = 131072
-RDH_RECTANGLES = 1
-SYSRGN = 4
-TT_POLYGON_TYPE = 24
-TT_PRIM_LINE = 1
-TT_PRIM_QSPLINE = 2
-TT_PRIM_CSPLINE = 3
-GCP_DBCS = 1
-GCP_ERROR = 32768
-FLI_MASK = 4155
-FLI_GLYPHS = 262144
-GCP_JUSTIFYIN = 2097152
-GCPCLASS_LATIN = 1
-GCPCLASS_HEBREW = 2
-GCPCLASS_ARABIC = 2
-GCPCLASS_NEUTRAL = 3
-GCPCLASS_LOCALNUMBER = 4
-GCPCLASS_LATINNUMBER = 5
-GCPCLASS_LATINNUMERICTERMINATOR = 6
-GCPCLASS_LATINNUMERICSEPARATOR = 7
-GCPCLASS_NUMERICSEPARATOR = 8
-GCPCLASS_PREBOUNDLTR = 128
-GCPCLASS_PREBOUNDRTL = 64
-GCPCLASS_POSTBOUNDLTR = 32
-GCPCLASS_POSTBOUNDRTL = 16
-GCPGLYPH_LINKBEFORE = 32768
-GCPGLYPH_LINKAFTER = 16384
-TT_AVAILABLE = 1
-TT_ENABLED = 2
-DC_BINADJUST = 19
-DC_EMF_COMPLIANT = 20
-DC_DATATYPE_PRODUCED = 21
-DC_MANUFACTURER = 23
-DC_MODEL = 24
-PRINTRATEUNIT_PPM = 1
-PRINTRATEUNIT_CPS = 2
-PRINTRATEUNIT_LPM = 3
-PRINTRATEUNIT_IPM = 4
-DCTT_BITMAP = 1
-DCTT_DOWNLOAD = 2
-DCTT_SUBDEV = 4
-DCTT_DOWNLOAD_OUTLINE = 8
-DCBA_FACEUPNONE = 0
-DCBA_FACEUPCENTER = 1
-DCBA_FACEUPLEFT = 2
-DCBA_FACEUPRIGHT = 3
-DCBA_FACEDOWNNONE = 256
-DCBA_FACEDOWNCENTER = 257
-DCBA_FACEDOWNLEFT = 258
-DCBA_FACEDOWNRIGHT = 259
-GS_8BIT_INDICES = 1
-GGI_MARK_NONEXISTING_GLYPHS = 1
-MM_MAX_NUMAXES = 16
-MM_MAX_AXES_NAMELEN = 16
-GDIREGISTERDDRAWPACKETVERSION = 1
-AC_SRC_OVER = 0
-AC_SRC_ALPHA = 1
-GRADIENT_FILL_OP_FLAG = 255
-CA_NEGATIVE = 1
-CA_LOG_FILTER = 2
-ILLUMINANT_DEVICE_DEFAULT = 0
-ILLUMINANT_A = 1
-ILLUMINANT_B = 2
-ILLUMINANT_C = 3
-ILLUMINANT_D50 = 4
-ILLUMINANT_D55 = 5
-ILLUMINANT_D65 = 6
-ILLUMINANT_D75 = 7
-ILLUMINANT_F2 = 8
-ILLUMINANT_MAX_INDEX = 8
-ILLUMINANT_TUNGSTEN = 1
-ILLUMINANT_DAYLIGHT = 3
-ILLUMINANT_FLUORESCENT = 8
-ILLUMINANT_NTSC = 3
-DI_APPBANDING = 1
-DI_ROPS_READ_DESTINATION = 2
-FONTMAPPER_MAX = 10
-ENHMETA_SIGNATURE = 1179469088
-ENHMETA_STOCK_OBJECT = 2147483648
-SETICMPROFILE_EMBEDED = 1
-CREATECOLORSPACE_EMBEDED = 1
-COLORMATCHTOTARGET_EMBEDED = 1
-GDICOMMENT_IDENTIFIER = 1128875079
-GDICOMMENT_WINDOWS_METAFILE = 2147483649
-GDICOMMENT_BEGINGROUP = 2
-GDICOMMENT_ENDGROUP = 3
-GDICOMMENT_MULTIFORMATS = 1073741828
-EPS_SIGNATURE = 1179865157
-GDICOMMENT_UNICODE_STRING = 64
-GDICOMMENT_UNICODE_END = 128
-WGL_FONT_LINES = 0
-WGL_FONT_POLYGONS = 1
-LPD_DOUBLEBUFFER = 1
-LPD_STEREO = 2
-LPD_SUPPORT_GDI = 16
-LPD_SUPPORT_OPENGL = 32
-LPD_SHARE_DEPTH = 64
-LPD_SHARE_STENCIL = 128
-LPD_SHARE_ACCUM = 256
-LPD_SWAP_EXCHANGE = 512
-LPD_SWAP_COPY = 1024
-LPD_TRANSPARENT = 4096
-LPD_TYPE_RGBA = 0
-LPD_TYPE_COLORINDEX = 1
-WGL_SWAP_MAIN_PLANE = 1
-WGL_SWAP_OVERLAY1 = 2
-WGL_SWAP_OVERLAY2 = 4
-WGL_SWAP_OVERLAY3 = 8
-WGL_SWAP_OVERLAY4 = 16
-WGL_SWAP_OVERLAY5 = 32
-WGL_SWAP_OVERLAY6 = 64
-WGL_SWAP_OVERLAY7 = 128
-WGL_SWAP_OVERLAY8 = 256
-WGL_SWAP_OVERLAY9 = 512
-WGL_SWAP_OVERLAY10 = 1024
-WGL_SWAP_OVERLAY11 = 2048
-WGL_SWAP_OVERLAY12 = 4096
-WGL_SWAP_OVERLAY13 = 8192
-WGL_SWAP_OVERLAY14 = 16384
-WGL_SWAP_OVERLAY15 = 32768
-WGL_SWAP_UNDERLAY1 = 65536
-WGL_SWAP_UNDERLAY2 = 131072
-WGL_SWAP_UNDERLAY3 = 262144
-WGL_SWAP_UNDERLAY4 = 524288
-WGL_SWAP_UNDERLAY5 = 1048576
-WGL_SWAP_UNDERLAY6 = 2097152
-WGL_SWAP_UNDERLAY7 = 4194304
-WGL_SWAP_UNDERLAY8 = 8388608
-WGL_SWAP_UNDERLAY9 = 16777216
-WGL_SWAP_UNDERLAY10 = 33554432
-WGL_SWAP_UNDERLAY11 = 67108864
-WGL_SWAP_UNDERLAY12 = 134217728
-WGL_SWAP_UNDERLAY13 = 268435456
-WGL_SWAP_UNDERLAY14 = 536870912
-WGL_SWAP_UNDERLAY15 = 1073741824
-WGL_SWAPMULTIPLE_MAX = 16
-NEWTRANSPARENT = 3
-QUERYROPSUPPORT = 40
-SELECTDIB = 41
-SC_SCREENSAVE = 61760
-TTFCFP_SUBSET = 0
-TTFCFP_SUBSET1 = 1
-TTFCFP_DELTA = 2
-TTFCFP_APPLE_PLATFORMID = 1
-TTFCFP_MS_PLATFORMID = 3
-TTFCFP_DONT_CARE = 65535
-TTFCFP_LANG_KEEP_ALL = 0
-TTFCFP_FLAGS_SUBSET = 1
-TTFCFP_FLAGS_COMPRESS = 2
-TTFCFP_FLAGS_TTC = 4
-TTFCFP_FLAGS_GLYPHLIST = 8
-TTFMFP_SUBSET = 0
-TTFMFP_SUBSET1 = 1
-TTFMFP_DELTA = 2
-ERR_GENERIC = 1000
-ERR_READOUTOFBOUNDS = 1001
-ERR_WRITEOUTOFBOUNDS = 1002
-ERR_READCONTROL = 1003
-ERR_WRITECONTROL = 1004
-ERR_MEM = 1005
-ERR_FORMAT = 1006
-ERR_WOULD_GROW = 1007
-ERR_VERSION = 1008
-ERR_NO_GLYPHS = 1009
-ERR_INVALID_MERGE_FORMATS = 1010
-ERR_INVALID_MERGE_CHECKSUMS = 1011
-ERR_INVALID_MERGE_NUMGLYPHS = 1012
-ERR_INVALID_DELTA_FORMAT = 1013
-ERR_NOT_TTC = 1014
-ERR_INVALID_TTC_INDEX = 1015
-ERR_MISSING_CMAP = 1030
-ERR_MISSING_GLYF = 1031
-ERR_MISSING_HEAD = 1032
-ERR_MISSING_HHEA = 1033
-ERR_MISSING_HMTX = 1034
-ERR_MISSING_LOCA = 1035
-ERR_MISSING_MAXP = 1036
-ERR_MISSING_NAME = 1037
-ERR_MISSING_POST = 1038
-ERR_MISSING_OS2 = 1039
-ERR_MISSING_VHEA = 1040
-ERR_MISSING_VMTX = 1041
-ERR_MISSING_HHEA_OR_VHEA = 1042
-ERR_MISSING_HMTX_OR_VMTX = 1043
-ERR_MISSING_EBDT = 1044
-ERR_INVALID_CMAP = 1060
-ERR_INVALID_GLYF = 1061
-ERR_INVALID_HEAD = 1062
-ERR_INVALID_HHEA = 1063
-ERR_INVALID_HMTX = 1064
-ERR_INVALID_LOCA = 1065
-ERR_INVALID_MAXP = 1066
-ERR_INVALID_NAME = 1067
-ERR_INVALID_POST = 1068
-ERR_INVALID_OS2 = 1069
-ERR_INVALID_VHEA = 1070
-ERR_INVALID_VMTX = 1071
-ERR_INVALID_HHEA_OR_VHEA = 1072
-ERR_INVALID_HMTX_OR_VMTX = 1073
-ERR_INVALID_TTO = 1080
-ERR_INVALID_GSUB = 1081
-ERR_INVALID_GPOS = 1082
-ERR_INVALID_GDEF = 1083
-ERR_INVALID_JSTF = 1084
-ERR_INVALID_BASE = 1085
-ERR_INVALID_EBLC = 1086
-ERR_INVALID_LTSH = 1087
-ERR_INVALID_VDMX = 1088
-ERR_INVALID_HDMX = 1089
-ERR_PARAMETER0 = 1100
-ERR_PARAMETER1 = 1101
-ERR_PARAMETER2 = 1102
-ERR_PARAMETER3 = 1103
-ERR_PARAMETER4 = 1104
-ERR_PARAMETER5 = 1105
-ERR_PARAMETER6 = 1106
-ERR_PARAMETER7 = 1107
-ERR_PARAMETER8 = 1108
-ERR_PARAMETER9 = 1109
-ERR_PARAMETER10 = 1110
-ERR_PARAMETER11 = 1111
-ERR_PARAMETER12 = 1112
-ERR_PARAMETER13 = 1113
-ERR_PARAMETER14 = 1114
-ERR_PARAMETER15 = 1115
-ERR_PARAMETER16 = 1116
-CHARSET_DEFAULT = 1
-CHARSET_GLYPHIDX = 3
-TTEMBED_FAILIFVARIATIONSIMULATED = 16
-TTEMBED_WEBOBJECT = 128
-TTEMBED_XORENCRYPTDATA = 268435456
-TTEMBED_VARIATIONSIMULATED = 1
-TTEMBED_EUDCEMBEDDED = 2
-TTEMBED_SUBSETCANCEL = 4
-TTLOAD_PRIVATE = 1
-TTLOAD_EUDC_OVERWRITE = 2
-TTLOAD_EUDC_SET = 4
-TTDELETE_DONTREMOVEFONT = 1
-E_NONE = 0
-E_API_NOTIMPL = 1
-E_CHARCODECOUNTINVALID = 2
-E_CHARCODESETINVALID = 3
-E_DEVICETRUETYPEFONT = 4
-E_HDCINVALID = 6
-E_NOFREEMEMORY = 7
-E_FONTREFERENCEINVALID = 8
-E_NOTATRUETYPEFONT = 10
-E_ERRORACCESSINGFONTDATA = 12
-E_ERRORACCESSINGFACENAME = 13
-E_ERRORUNICODECONVERSION = 17
-E_ERRORCONVERTINGCHARS = 18
-E_EXCEPTION = 19
-E_RESERVEDPARAMNOTNULL = 20
-E_CHARSETINVALID = 21
-E_FILE_NOT_FOUND = 23
-E_TTC_INDEX_OUT_OF_RANGE = 24
-E_INPUTPARAMINVALID = 25
-E_ERRORCOMPRESSINGFONTDATA = 256
-E_FONTDATAINVALID = 258
-E_NAMECHANGEFAILED = 259
-E_FONTNOTEMBEDDABLE = 260
-E_PRIVSINVALID = 261
-E_SUBSETTINGFAILED = 262
-E_READFROMSTREAMFAILED = 263
-E_SAVETOSTREAMFAILED = 264
-E_NOOS2 = 265
-E_T2NOFREEMEMORY = 266
-E_ERRORREADINGFONTDATA = 267
-E_FLAGSINVALID = 268
-E_ERRORCREATINGFONTFILE = 269
-E_FONTALREADYEXISTS = 270
-E_FONTNAMEALREADYEXISTS = 271
-E_FONTINSTALLFAILED = 272
-E_ERRORDECOMPRESSINGFONTDATA = 273
-E_ERRORACCESSINGEXCLUDELIST = 274
-E_FACENAMEINVALID = 275
-E_STREAMINVALID = 276
-E_STATUSINVALID = 277
-E_PRIVSTATUSINVALID = 278
-E_PERMISSIONSINVALID = 279
-E_PBENABLEDINVALID = 280
-E_SUBSETTINGEXCEPTION = 281
-E_SUBSTRING_TEST_FAIL = 282
-E_FONTVARIATIONSIMULATED = 283
-E_FONTFAMILYNAMENOTINFULL = 285
-E_ADDFONTFAILED = 512
-E_COULDNTCREATETEMPFILE = 513
-E_FONTFILECREATEFAILED = 515
-E_WINDOWSAPI = 516
-E_FONTFILENOTFOUND = 517
-E_RESOURCEFILECREATEFAILED = 518
-E_ERROREXPANDINGFONTDATA = 519
-E_ERRORGETTINGDC = 520
-E_EXCEPTIONINDECOMPRESSION = 521
-E_EXCEPTIONINCOMPRESSION = 522
-def _define_GetObjectA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HGDIOBJ,Int32,c_void_p)(('GetObjectA', windll['GDI32.dll']), ((1, 'h'),(1, 'c'),(1, 'pv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddFontResourceA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR)(('AddFontResourceA', windll['GDI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddFontResourceW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR)(('AddFontResourceW', windll['GDI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AnimatePalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HPALETTE,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('AnimatePalette', windll['GDI32.dll']), ((1, 'hPal'),(1, 'iStartIndex'),(1, 'cEntries'),(1, 'ppe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Arc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)(('Arc', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),(1, 'x3'),(1, 'y3'),(1, 'x4'),(1, 'y4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BitBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Graphics.Gdi.ROP_CODE)(('BitBlt', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'cx'),(1, 'cy'),(1, 'hdcSrc'),(1, 'x1'),(1, 'y1'),(1, 'rop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelDC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('CancelDC', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Chord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)(('Chord', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),(1, 'x3'),(1, 'y3'),(1, 'x4'),(1, 'y4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,win32more.Graphics.Gdi.HDC)(('CloseMetaFile', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CombineRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.RGN_COMBINE_MODE)(('CombineRgn', windll['GDI32.dll']), ((1, 'hrgnDst'),(1, 'hrgnSrc1'),(1, 'hrgnSrc2'),(1, 'iMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,win32more.Graphics.Gdi.HMETAFILE,win32more.Foundation.PSTR)(('CopyMetaFileA', windll['GDI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,win32more.Graphics.Gdi.HMETAFILE,win32more.Foundation.PWSTR)(('CopyMetaFileW', windll['GDI32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateBitmap():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,Int32,Int32,UInt32,UInt32,c_void_p)(('CreateBitmap', windll['GDI32.dll']), ((1, 'nWidth'),(1, 'nHeight'),(1, 'nPlanes'),(1, 'nBitCount'),(1, 'lpBits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateBitmapIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,POINTER(win32more.Graphics.Gdi.BITMAP_head))(('CreateBitmapIndirect', windll['GDI32.dll']), ((1, 'pbm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateBrushIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,POINTER(win32more.Graphics.Gdi.LOGBRUSH_head))(('CreateBrushIndirect', windll['GDI32.dll']), ((1, 'plbrush'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCompatibleBitmap():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HDC,Int32,Int32)(('CreateCompatibleBitmap', windll['GDI32.dll']), ((1, 'hdc'),(1, 'cx'),(1, 'cy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDiscardableBitmap():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HDC,Int32,Int32)(('CreateDiscardableBitmap', windll['GDI32.dll']), ((1, 'hdc'),(1, 'cx'),(1, 'cy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCompatibleDC():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.CreatedHDC,win32more.Graphics.Gdi.HDC)(('CreateCompatibleDC', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDCA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.CreatedHDC,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head))(('CreateDCA', windll['GDI32.dll']), ((1, 'pwszDriver'),(1, 'pwszDevice'),(1, 'pszPort'),(1, 'pdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDCW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.CreatedHDC,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Gdi.DEVMODEW_head))(('CreateDCW', windll['GDI32.dll']), ((1, 'pwszDriver'),(1, 'pwszDevice'),(1, 'pszPort'),(1, 'pdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDIBitmap():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE)(('CreateDIBitmap', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pbmih'),(1, 'flInit'),(1, 'pjBits'),(1, 'pbmi'),(1, 'iUsage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDIBPatternBrush():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,IntPtr,win32more.Graphics.Gdi.DIB_USAGE)(('CreateDIBPatternBrush', windll['GDI32.dll']), ((1, 'h'),(1, 'iUsage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDIBPatternBrushPt():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,c_void_p,win32more.Graphics.Gdi.DIB_USAGE)(('CreateDIBPatternBrushPt', windll['GDI32.dll']), ((1, 'lpPackedDIB'),(1, 'iUsage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEllipticRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,Int32,Int32,Int32,Int32)(('CreateEllipticRgn', windll['GDI32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEllipticRgnIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head))(('CreateEllipticRgnIndirect', windll['GDI32.dll']), ((1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontIndirectA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(('CreateFontIndirectA', windll['GDI32.dll']), ((1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontIndirectW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(('CreateFontIndirectW', windll['GDI32.dll']), ((1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,Int32,Int32,Int32,Int32,Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,win32more.Foundation.PSTR)(('CreateFontA', windll['GDI32.dll']), ((1, 'cHeight'),(1, 'cWidth'),(1, 'cEscapement'),(1, 'cOrientation'),(1, 'cWeight'),(1, 'bItalic'),(1, 'bUnderline'),(1, 'bStrikeOut'),(1, 'iCharSet'),(1, 'iOutPrecision'),(1, 'iClipPrecision'),(1, 'iQuality'),(1, 'iPitchAndFamily'),(1, 'pszFaceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,Int32,Int32,Int32,Int32,Int32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,win32more.Foundation.PWSTR)(('CreateFontW', windll['GDI32.dll']), ((1, 'cHeight'),(1, 'cWidth'),(1, 'cEscapement'),(1, 'cOrientation'),(1, 'cWeight'),(1, 'bItalic'),(1, 'bUnderline'),(1, 'bStrikeOut'),(1, 'iCharSet'),(1, 'iOutPrecision'),(1, 'iClipPrecision'),(1, 'iQuality'),(1, 'iPitchAndFamily'),(1, 'pszFaceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateHatchBrush():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.HATCH_BRUSH_STYLE,win32more.Foundation.COLORREF)(('CreateHatchBrush', windll['GDI32.dll']), ((1, 'iHatch'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateICA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.CreatedHDC,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head))(('CreateICA', windll['GDI32.dll']), ((1, 'pszDriver'),(1, 'pszDevice'),(1, 'pszPort'),(1, 'pdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateICW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.CreatedHDC,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Gdi.DEVMODEW_head))(('CreateICW', windll['GDI32.dll']), ((1, 'pszDriver'),(1, 'pszDevice'),(1, 'pszPort'),(1, 'pdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HdcMetdataFileHandle,win32more.Foundation.PSTR)(('CreateMetaFileA', windll['GDI32.dll']), ((1, 'pszFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HdcMetdataFileHandle,win32more.Foundation.PWSTR)(('CreateMetaFileW', windll['GDI32.dll']), ((1, 'pszFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePalette():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPALETTE,POINTER(win32more.Graphics.Gdi.LOGPALETTE_head))(('CreatePalette', windll['GDI32.dll']), ((1, 'plpal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePen():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPEN,win32more.Graphics.Gdi.PEN_STYLE,Int32,win32more.Foundation.COLORREF)(('CreatePen', windll['GDI32.dll']), ((1, 'iStyle'),(1, 'cWidth'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePenIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPEN,POINTER(win32more.Graphics.Gdi.LOGPEN_head))(('CreatePenIndirect', windll['GDI32.dll']), ((1, 'plpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePolyPolygonRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.POINT_head),POINTER(Int32),Int32,win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE)(('CreatePolyPolygonRgn', windll['GDI32.dll']), ((1, 'pptl'),(1, 'pc'),(1, 'cPoly'),(1, 'iMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePatternBrush():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.HBITMAP)(('CreatePatternBrush', windll['GDI32.dll']), ((1, 'hbm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRectRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,Int32,Int32,Int32,Int32)(('CreateRectRgn', windll['GDI32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRectRgnIndirect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head))(('CreateRectRgnIndirect', windll['GDI32.dll']), ((1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRoundRectRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,Int32,Int32,Int32,Int32,Int32,Int32)(('CreateRoundRectRgn', windll['GDI32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),(1, 'w'),(1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateScalableFontResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('CreateScalableFontResourceA', windll['GDI32.dll']), ((1, 'fdwHidden'),(1, 'lpszFont'),(1, 'lpszFile'),(1, 'lpszPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateScalableFontResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('CreateScalableFontResourceW', windll['GDI32.dll']), ((1, 'fdwHidden'),(1, 'lpszFont'),(1, 'lpszFile'),(1, 'lpszPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSolidBrush():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,win32more.Foundation.COLORREF)(('CreateSolidBrush', windll['GDI32.dll']), ((1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteDC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.CreatedHDC)(('DeleteDC', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HMETAFILE)(('DeleteMetaFile', windll['GDI32.dll']), ((1, 'hmf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HGDIOBJ)(('DeleteObject', windll['GDI32.dll']), ((1, 'ho'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawEscape():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.PSTR)(('DrawEscape', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iEscape'),(1, 'cjIn'),(1, 'lpIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Ellipse():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32)(('Ellipse', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontFamiliesExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head),win32more.Graphics.Gdi.FONTENUMPROCA,win32more.Foundation.LPARAM,UInt32)(('EnumFontFamiliesExA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontFamiliesExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head),win32more.Graphics.Gdi.FONTENUMPROCW,win32more.Foundation.LPARAM,UInt32)(('EnumFontFamiliesExW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontFamiliesA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,win32more.Graphics.Gdi.FONTENUMPROCA,win32more.Foundation.LPARAM)(('EnumFontFamiliesA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontFamiliesW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.FONTENUMPROCW,win32more.Foundation.LPARAM)(('EnumFontFamiliesW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontsA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,win32more.Graphics.Gdi.FONTENUMPROCA,win32more.Foundation.LPARAM)(('EnumFontsA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumFontsW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.FONTENUMPROCW,win32more.Foundation.LPARAM)(('EnumFontsW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpLogfont'),(1, 'lpProc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumObjects():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.OBJ_TYPE,win32more.Graphics.Gdi.GOBJENUMPROC,win32more.Foundation.LPARAM)(('EnumObjects', windll['GDI32.dll']), ((1, 'hdc'),(1, 'nType'),(1, 'lpFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EqualRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HRGN)(('EqualRgn', windll['GDI32.dll']), ((1, 'hrgn1'),(1, 'hrgn2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExcludeClipRect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32)(('ExcludeClipRect', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtCreateRegion():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,POINTER(win32more.Graphics.Gdi.XFORM_head),UInt32,POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('ExtCreateRegion', windll['GDI32.dll']), ((1, 'lpx'),(1, 'nCount'),(1, 'lpData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtFloodFill():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.COLORREF,win32more.Graphics.Gdi.EXT_FLOOD_FILL_TYPE)(('ExtFloodFill', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'color'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FillRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HBRUSH)(('FillRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),(1, 'hbr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FloodFill():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.COLORREF)(('FloodFill', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FrameRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HBRUSH,Int32,Int32)(('FrameRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),(1, 'hbr'),(1, 'w'),(1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetROP2():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.R2_MODE,win32more.Graphics.Gdi.HDC)(('GetROP2', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAspectRatioFilterEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.SIZE_head))(('GetAspectRatioFilterEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpsize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBkColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC)(('GetBkColor', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDCBrushColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC)(('GetDCBrushColor', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDCPenColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC)(('GetDCPenColor', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBkMode():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.BACKGROUND_MODE,win32more.Graphics.Gdi.HDC)(('GetBkMode', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBitmapBits():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HBITMAP,Int32,c_void_p)(('GetBitmapBits', windll['GDI32.dll']), ((1, 'hbit'),(1, 'cb'),(1, 'lpvBits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBitmapDimensionEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HBITMAP,POINTER(win32more.Foundation.SIZE_head))(('GetBitmapDimensionEx', windll['GDI32.dll']), ((1, 'hbit'),(1, 'lpsize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBoundsRect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),UInt32)(('GetBoundsRect', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lprect'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBrushOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head))(('GetBrushOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidthA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Int32))(('GetCharWidthA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidthW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Int32))(('GetCharWidthW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidth32A():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Int32))(('GetCharWidth32A', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidth32W():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Int32))(('GetCharWidth32W', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidthFloatA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Single))(('GetCharWidthFloatA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidthFloatW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(Single))(('GetCharWidthFloatW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharABCWidthsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.ABC_head))(('GetCharABCWidthsA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'wFirst'),(1, 'wLast'),(1, 'lpABC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharABCWidthsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.ABC_head))(('GetCharABCWidthsW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'wFirst'),(1, 'wLast'),(1, 'lpABC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharABCWidthsFloatA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.ABCFLOAT_head))(('GetCharABCWidthsFloatA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpABC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharABCWidthsFloatW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.ABCFLOAT_head))(('GetCharABCWidthsFloatW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iFirst'),(1, 'iLast'),(1, 'lpABC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClipBox():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(('GetClipBox', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClipRgn():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN)(('GetClipRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMetaRgn():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN)(('GetMetaRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentObject():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HGDIOBJ,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.OBJ_TYPE)(('GetCurrentObject', windll['GDI32.dll']), ((1, 'hdc'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentPositionEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head))(('GetCurrentPositionEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeviceCaps():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.GET_DEVICE_CAPS_INDEX)(('GetDeviceCaps', windll['GDI32.dll']), ((1, 'hdc'),(1, 'index'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDIBits():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBITMAP,UInt32,UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE)(('GetDIBits', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hbm'),(1, 'start'),(1, 'cLines'),(1, 'lpvBits'),(1, 'lpbmi'),(1, 'usage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFontData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,UInt32,c_void_p,UInt32)(('GetFontData', windll['GDI32.dll']), ((1, 'hdc'),(1, 'dwTable'),(1, 'dwOffset'),(1, 'pvBuffer'),(1, 'cjBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGlyphOutlineA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,win32more.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT,POINTER(win32more.Graphics.Gdi.GLYPHMETRICS_head),UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.MAT2_head))(('GetGlyphOutlineA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'uChar'),(1, 'fuFormat'),(1, 'lpgm'),(1, 'cjBuffer'),(1, 'pvBuffer'),(1, 'lpmat2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGlyphOutlineW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,win32more.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT,POINTER(win32more.Graphics.Gdi.GLYPHMETRICS_head),UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.MAT2_head))(('GetGlyphOutlineW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'uChar'),(1, 'fuFormat'),(1, 'lpgm'),(1, 'cjBuffer'),(1, 'pvBuffer'),(1, 'lpmat2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGraphicsMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetGraphicsMode', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMapMode():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC_MAP_MODE,win32more.Graphics.Gdi.HDC)(('GetMapMode', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMetaFileBitsEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HMETAFILE,UInt32,c_void_p)(('GetMetaFileBitsEx', windll['GDI32.dll']), ((1, 'hMF'),(1, 'cbBuffer'),(1, 'lpData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,win32more.Foundation.PSTR)(('GetMetaFileA', windll['GDI32.dll']), ((1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,win32more.Foundation.PWSTR)(('GetMetaFileW', windll['GDI32.dll']), ((1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNearestColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,win32more.Foundation.COLORREF)(('GetNearestColor', windll['GDI32.dll']), ((1, 'hdc'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNearestPaletteIndex():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HPALETTE,win32more.Foundation.COLORREF)(('GetNearestPaletteIndex', windll['GDI32.dll']), ((1, 'h'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetObjectType():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HGDIOBJ)(('GetObjectType', windll['GDI32.dll']), ((1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOutlineTextMetricsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,POINTER(win32more.Graphics.Gdi.OUTLINETEXTMETRICA_head))(('GetOutlineTextMetricsA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'cjCopy'),(1, 'potm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOutlineTextMetricsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,POINTER(win32more.Graphics.Gdi.OUTLINETEXTMETRICW_head))(('GetOutlineTextMetricsW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'cjCopy'),(1, 'potm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPaletteEntries():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HPALETTE,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('GetPaletteEntries', windll['GDI32.dll']), ((1, 'hpal'),(1, 'iStart'),(1, 'cEntries'),(1, 'pPalEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPixel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,Int32,Int32)(('GetPixel', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPolyFillMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetPolyFillMode', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRasterizerCaps():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Gdi.RASTERIZER_STATUS_head),UInt32)(('GetRasterizerCaps', windll['GDI32.dll']), ((1, 'lpraststat'),(1, 'cjBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRandomRgn():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN,Int32)(('GetRandomRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),(1, 'i'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRegionData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HRGN,UInt32,POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('GetRegionData', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'nCount'),(1, 'lpRgnData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRgnBox():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head))(('GetRgnBox', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStockObject():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HGDIOBJ,win32more.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS)(('GetStockObject', windll['GDI32.dll']), ((1, 'i'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStretchBltMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetStretchBltMode', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemPaletteEntries():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('GetSystemPaletteEntries', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iStart'),(1, 'cEntries'),(1, 'pPalEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemPaletteUse():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC)(('GetSystemPaletteUse', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextCharacterExtra():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetTextCharacterExtra', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextAlign():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS,win32more.Graphics.Gdi.HDC)(('GetTextAlign', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC)(('GetTextColor', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentPointA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentPointA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'c'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentPointW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentPointW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'c'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentPoint32A():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentPoint32A', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'c'),(1, 'psizl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentPoint32W():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentPoint32W', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'c'),(1, 'psizl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentExPointA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,Int32,POINTER(Int32),POINTER(Int32),POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentExPointA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpszString'),(1, 'cchString'),(1, 'nMaxExtent'),(1, 'lpnFit'),(1, 'lpnDx'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentExPointW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,Int32,POINTER(Int32),POINTER(Int32),POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentExPointW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpszString'),(1, 'cchString'),(1, 'nMaxExtent'),(1, 'lpnFit'),(1, 'lpnDx'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFontLanguageInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC)(('GetFontLanguageInfo', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharacterPlacementA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,Int32,POINTER(win32more.Graphics.Gdi.GCP_RESULTSA_head),win32more.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS)(('GetCharacterPlacementA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'nCount'),(1, 'nMexExtent'),(1, 'lpResults'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharacterPlacementW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,Int32,POINTER(win32more.Graphics.Gdi.GCP_RESULTSW_head),win32more.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS)(('GetCharacterPlacementW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'nCount'),(1, 'nMexExtent'),(1, 'lpResults'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFontUnicodeRanges():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.GLYPHSET_head))(('GetFontUnicodeRanges', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpgs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGlyphIndicesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,POINTER(UInt16),UInt32)(('GetGlyphIndicesA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpstr'),(1, 'c'),(1, 'pgi'),(1, 'fl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGlyphIndicesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,POINTER(UInt16),UInt32)(('GetGlyphIndicesW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpstr'),(1, 'c'),(1, 'pgi'),(1, 'fl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentPointI():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(UInt16),Int32,POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentPointI', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pgiIn'),(1, 'cgi'),(1, 'psize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextExtentExPointI():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(UInt16),Int32,Int32,POINTER(Int32),POINTER(Int32),POINTER(win32more.Foundation.SIZE_head))(('GetTextExtentExPointI', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpwszString'),(1, 'cwchString'),(1, 'nMaxExtent'),(1, 'lpnFit'),(1, 'lpnDx'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharWidthI():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(UInt16),POINTER(Int32))(('GetCharWidthI', windll['GDI32.dll']), ((1, 'hdc'),(1, 'giFirst'),(1, 'cgi'),(1, 'pgi'),(1, 'piWidths'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCharABCWidthsI():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(UInt16),POINTER(win32more.Graphics.Gdi.ABC_head))(('GetCharABCWidthsI', windll['GDI32.dll']), ((1, 'hdc'),(1, 'giFirst'),(1, 'cgi'),(1, 'pgi'),(1, 'pabc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddFontResourceExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS,c_void_p)(('AddFontResourceExA', windll['GDI32.dll']), ((1, 'name'),(1, 'fl'),(1, 'res'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddFontResourceExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS,c_void_p)(('AddFontResourceExW', windll['GDI32.dll']), ((1, 'name'),(1, 'fl'),(1, 'res'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveFontResourceExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,c_void_p)(('RemoveFontResourceExA', windll['GDI32.dll']), ((1, 'name'),(1, 'fl'),(1, 'pdv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveFontResourceExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,c_void_p)(('RemoveFontResourceExW', windll['GDI32.dll']), ((1, 'name'),(1, 'fl'),(1, 'pdv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddFontMemResourceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('AddFontMemResourceEx', windll['GDI32.dll']), ((1, 'pFileView'),(1, 'cjSize'),(1, 'pvResrved'),(1, 'pNumFonts'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveFontMemResourceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('RemoveFontMemResourceEx', windll['GDI32.dll']), ((1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontIndirectExA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,POINTER(win32more.Graphics.Gdi.ENUMLOGFONTEXDVA_head))(('CreateFontIndirectExA', windll['GDI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontIndirectExW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HFONT,POINTER(win32more.Graphics.Gdi.ENUMLOGFONTEXDVW_head))(('CreateFontIndirectExW', windll['GDI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetViewportExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.SIZE_head))(('GetViewportExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpsize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetViewportOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head))(('GetViewportOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.SIZE_head))(('GetWindowExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpsize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head))(('GetWindowOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IntersectClipRect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32)(('IntersectClipRect', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InvertRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN)(('InvertRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LineDDA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.LINEDDAPROC,win32more.Foundation.LPARAM)(('LineDDA', windll['GDI32.dll']), ((1, 'xStart'),(1, 'yStart'),(1, 'xEnd'),(1, 'yEnd'),(1, 'lpProc'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LineTo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32)(('LineTo', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MaskBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Graphics.Gdi.HBITMAP,Int32,Int32,UInt32)(('MaskBlt', windll['GDI32.dll']), ((1, 'hdcDest'),(1, 'xDest'),(1, 'yDest'),(1, 'width'),(1, 'height'),(1, 'hdcSrc'),(1, 'xSrc'),(1, 'ySrc'),(1, 'hbmMask'),(1, 'xMask'),(1, 'yMask'),(1, 'rop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlgBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HBITMAP,Int32,Int32)(('PlgBlt', windll['GDI32.dll']), ((1, 'hdcDest'),(1, 'lpPoint'),(1, 'hdcSrc'),(1, 'xSrc'),(1, 'ySrc'),(1, 'width'),(1, 'height'),(1, 'hbmMask'),(1, 'xMask'),(1, 'yMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OffsetClipRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,Int32,Int32)(('OffsetClipRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OffsetRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HRGN,Int32,Int32)(('OffsetRgn', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PatBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.ROP_CODE)(('PatBlt', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'w'),(1, 'h'),(1, 'rop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Pie():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)(('Pie', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),(1, 'xr1'),(1, 'yr1'),(1, 'xr2'),(1, 'yr2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlayMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HMETAFILE)(('PlayMetaFile', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hmf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PaintRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN)(('PaintRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyPolygon():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),POINTER(Int32),Int32)(('PolyPolygon', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'asz'),(1, 'csz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PtInRegion():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HRGN,Int32,Int32)(('PtInRegion', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PtVisible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32)(('PtVisible', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RectInRegion():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.RECT_head))(('RectInRegion', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RectVisible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(('RectVisible', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Rectangle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32)(('Rectangle', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RestoreDC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32)(('RestoreDC', windll['GDI32.dll']), ((1, 'hdc'),(1, 'nSavedDC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetDCA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.DEVMODEA_head))(('ResetDCA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetDCW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.DEVMODEW_head))(('ResetDCW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpdm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RealizePalette():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC)(('RealizePalette', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveFontResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('RemoveFontResourceA', windll['GDI32.dll']), ((1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveFontResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('RemoveFontResourceW', windll['GDI32.dll']), ((1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RoundRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32)(('RoundRect', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),(1, 'width'),(1, 'height'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResizePalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HPALETTE,UInt32)(('ResizePalette', windll['GDI32.dll']), ((1, 'hpal'),(1, 'n'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SaveDC():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('SaveDC', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectClipRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN)(('SelectClipRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtSelectClipRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.RGN_COMBINE_MODE)(('ExtSelectClipRgn', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hrgn'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMetaRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Graphics.Gdi.HDC)(('SetMetaRgn', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectObject():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HGDIOBJ,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HGDIOBJ)(('SelectObject', windll['GDI32.dll']), ((1, 'hdc'),(1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectPalette():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPALETTE,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HPALETTE,win32more.Foundation.BOOL)(('SelectPalette', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hPal'),(1, 'bForceBkgd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBkColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,win32more.Foundation.COLORREF)(('SetBkColor', windll['GDI32.dll']), ((1, 'hdc'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDCBrushColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,win32more.Foundation.COLORREF)(('SetDCBrushColor', windll['GDI32.dll']), ((1, 'hdc'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDCPenColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,win32more.Foundation.COLORREF)(('SetDCPenColor', windll['GDI32.dll']), ((1, 'hdc'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBkMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.BACKGROUND_MODE)(('SetBkMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBitmapBits():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HBITMAP,UInt32,c_void_p)(('SetBitmapBits', windll['GDI32.dll']), ((1, 'hbm'),(1, 'cb'),(1, 'pvBits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBoundsRect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.SET_BOUNDS_RECT_FLAGS)(('SetBoundsRect', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lprect'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDIBits():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBITMAP,UInt32,UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE)(('SetDIBits', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hbm'),(1, 'start'),(1, 'cLines'),(1, 'lpBits'),(1, 'lpbmi'),(1, 'ColorUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDIBitsToDevice():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,UInt32,UInt32,Int32,Int32,UInt32,UInt32,c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE)(('SetDIBitsToDevice', windll['GDI32.dll']), ((1, 'hdc'),(1, 'xDest'),(1, 'yDest'),(1, 'w'),(1, 'h'),(1, 'xSrc'),(1, 'ySrc'),(1, 'StartScan'),(1, 'cLines'),(1, 'lpvBits'),(1, 'lpbmi'),(1, 'ColorUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMapperFlags():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32)(('SetMapperFlags', windll['GDI32.dll']), ((1, 'hdc'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetGraphicsMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.GRAPHICS_MODE)(('SetGraphicsMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMapMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HDC_MAP_MODE)(('SetMapMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetLayout():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.DC_LAYOUT)(('SetLayout', windll['GDI32.dll']), ((1, 'hdc'),(1, 'l'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLayout():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC)(('GetLayout', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMetaFileBitsEx():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMETAFILE,UInt32,c_char_p_no)(('SetMetaFileBitsEx', windll['GDI32.dll']), ((1, 'cbBuffer'),(1, 'lpData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPaletteEntries():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HPALETTE,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('SetPaletteEntries', windll['GDI32.dll']), ((1, 'hpal'),(1, 'iStart'),(1, 'cEntries'),(1, 'pPalEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPixel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.COLORREF)(('SetPixel', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPixelV():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.COLORREF)(('SetPixelV', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPolyFillMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE)(('SetPolyFillMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StretchBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.ROP_CODE)(('StretchBlt', windll['GDI32.dll']), ((1, 'hdcDest'),(1, 'xDest'),(1, 'yDest'),(1, 'wDest'),(1, 'hDest'),(1, 'hdcSrc'),(1, 'xSrc'),(1, 'ySrc'),(1, 'wSrc'),(1, 'hSrc'),(1, 'rop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetRectRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HRGN,Int32,Int32,Int32,Int32)(('SetRectRgn', windll['GDI32.dll']), ((1, 'hrgn'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StretchDIBits():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32,c_void_p,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE,win32more.Graphics.Gdi.ROP_CODE)(('StretchDIBits', windll['GDI32.dll']), ((1, 'hdc'),(1, 'xDest'),(1, 'yDest'),(1, 'DestWidth'),(1, 'DestHeight'),(1, 'xSrc'),(1, 'ySrc'),(1, 'SrcWidth'),(1, 'SrcHeight'),(1, 'lpBits'),(1, 'lpbmi'),(1, 'iUsage'),(1, 'rop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetROP2():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.R2_MODE)(('SetROP2', windll['GDI32.dll']), ((1, 'hdc'),(1, 'rop2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetStretchBltMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.STRETCH_BLT_MODE)(('SetStretchBltMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSystemPaletteUse():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.SYSTEM_PALETTE_USE)(('SetSystemPaletteUse', windll['GDI32.dll']), ((1, 'hdc'),(1, 'use'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTextCharacterExtra():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32)(('SetTextCharacterExtra', windll['GDI32.dll']), ((1, 'hdc'),(1, 'extra'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTextColor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.COLORREF,win32more.Graphics.Gdi.HDC,win32more.Foundation.COLORREF)(('SetTextColor', windll['GDI32.dll']), ((1, 'hdc'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTextAlign():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS)(('SetTextAlign', windll['GDI32.dll']), ((1, 'hdc'),(1, 'align'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTextJustification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32)(('SetTextJustification', windll['GDI32.dll']), ((1, 'hdc'),(1, 'extra'),(1, 'count'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('UpdateColors', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AlphaBlend():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.BLENDFUNCTION)(('AlphaBlend', windll['MSIMG32.dll']), ((1, 'hdcDest'),(1, 'xoriginDest'),(1, 'yoriginDest'),(1, 'wDest'),(1, 'hDest'),(1, 'hdcSrc'),(1, 'xoriginSrc'),(1, 'yoriginSrc'),(1, 'wSrc'),(1, 'hSrc'),(1, 'ftn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TransparentBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,UInt32)(('TransparentBlt', windll['MSIMG32.dll']), ((1, 'hdcDest'),(1, 'xoriginDest'),(1, 'yoriginDest'),(1, 'wDest'),(1, 'hDest'),(1, 'hdcSrc'),(1, 'xoriginSrc'),(1, 'yoriginSrc'),(1, 'wSrc'),(1, 'hSrc'),(1, 'crTransparent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GradientFill():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TRIVERTEX_head),UInt32,c_void_p,UInt32,win32more.Graphics.Gdi.GRADIENT_FILL)(('GradientFill', windll['MSIMG32.dll']), ((1, 'hdc'),(1, 'pVertex'),(1, 'nVertex'),(1, 'pMesh'),(1, 'nMesh'),(1, 'ulMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiAlphaBlend():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.BLENDFUNCTION)(('GdiAlphaBlend', windll['GDI32.dll']), ((1, 'hdcDest'),(1, 'xoriginDest'),(1, 'yoriginDest'),(1, 'wDest'),(1, 'hDest'),(1, 'hdcSrc'),(1, 'xoriginSrc'),(1, 'yoriginSrc'),(1, 'wSrc'),(1, 'hSrc'),(1, 'ftn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiTransparentBlt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,UInt32)(('GdiTransparentBlt', windll['GDI32.dll']), ((1, 'hdcDest'),(1, 'xoriginDest'),(1, 'yoriginDest'),(1, 'wDest'),(1, 'hDest'),(1, 'hdcSrc'),(1, 'xoriginSrc'),(1, 'yoriginSrc'),(1, 'wSrc'),(1, 'hSrc'),(1, 'crTransparent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiGradientFill():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TRIVERTEX_head),UInt32,c_void_p,UInt32,win32more.Graphics.Gdi.GRADIENT_FILL)(('GdiGradientFill', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pVertex'),(1, 'nVertex'),(1, 'pMesh'),(1, 'nCount'),(1, 'ulMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlayMetaFileRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.HANDLETABLE_head),POINTER(win32more.Graphics.Gdi.METARECORD_head),UInt32)(('PlayMetaFileRecord', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpHandleTable'),(1, 'lpMR'),(1, 'noObjs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HMETAFILE,win32more.Graphics.Gdi.MFENUMPROC,win32more.Foundation.LPARAM)(('EnumMetaFile', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hmf'),(1, 'proc'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseEnhMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,win32more.Graphics.Gdi.HDC)(('CloseEnhMetaFile', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyEnhMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,win32more.Graphics.Gdi.HENHMETAFILE,win32more.Foundation.PSTR)(('CopyEnhMetaFileA', windll['GDI32.dll']), ((1, 'hEnh'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyEnhMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,win32more.Graphics.Gdi.HENHMETAFILE,win32more.Foundation.PWSTR)(('CopyEnhMetaFileW', windll['GDI32.dll']), ((1, 'hEnh'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEnhMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HdcMetdataEnhFileHandle,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.PSTR)(('CreateEnhMetaFileA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpFilename'),(1, 'lprc'),(1, 'lpDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEnhMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HdcMetdataEnhFileHandle,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.PWSTR)(('CreateEnhMetaFileW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpFilename'),(1, 'lprc'),(1, 'lpDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteEnhMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HENHMETAFILE)(('DeleteEnhMetaFile', windll['GDI32.dll']), ((1, 'hmf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumEnhMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HENHMETAFILE,win32more.Graphics.Gdi.ENHMFENUMPROC,c_void_p,POINTER(win32more.Foundation.RECT_head))(('EnumEnhMetaFile', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hmf'),(1, 'proc'),(1, 'param3'),(1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,win32more.Foundation.PSTR)(('GetEnhMetaFileA', windll['GDI32.dll']), ((1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,win32more.Foundation.PWSTR)(('GetEnhMetaFileW', windll['GDI32.dll']), ((1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileBits():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,c_char_p_no)(('GetEnhMetaFileBits', windll['GDI32.dll']), ((1, 'hEMF'),(1, 'nSize'),(1, 'lpData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileDescriptionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,win32more.Foundation.PSTR)(('GetEnhMetaFileDescriptionA', windll['GDI32.dll']), ((1, 'hemf'),(1, 'cchBuffer'),(1, 'lpDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileDescriptionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,win32more.Foundation.PWSTR)(('GetEnhMetaFileDescriptionW', windll['GDI32.dll']), ((1, 'hemf'),(1, 'cchBuffer'),(1, 'lpDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFileHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,POINTER(win32more.Graphics.Gdi.ENHMETAHEADER_head))(('GetEnhMetaFileHeader', windll['GDI32.dll']), ((1, 'hemf'),(1, 'nSize'),(1, 'lpEnhMetaHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFilePaletteEntries():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head))(('GetEnhMetaFilePaletteEntries', windll['GDI32.dll']), ((1, 'hemf'),(1, 'nNumEntries'),(1, 'lpPaletteEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWinMetaFileBits():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,c_char_p_no,Int32,win32more.Graphics.Gdi.HDC)(('GetWinMetaFileBits', windll['GDI32.dll']), ((1, 'hemf'),(1, 'cbData16'),(1, 'pData16'),(1, 'iMapMode'),(1, 'hdcRef'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlayEnhMetaFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HENHMETAFILE,POINTER(win32more.Foundation.RECT_head))(('PlayEnhMetaFile', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hmf'),(1, 'lprect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlayEnhMetaFileRecord():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.HANDLETABLE_head),POINTER(win32more.Graphics.Gdi.ENHMETARECORD_head),UInt32)(('PlayEnhMetaFileRecord', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pht'),(1, 'pmr'),(1, 'cht'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetEnhMetaFileBits():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HENHMETAFILE,UInt32,c_char_p_no)(('SetEnhMetaFileBits', windll['GDI32.dll']), ((1, 'nSize'),(1, 'pb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiComment():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,c_char_p_no)(('GdiComment', windll['GDI32.dll']), ((1, 'hdc'),(1, 'nSize'),(1, 'lpData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextMetricsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TEXTMETRICA_head))(('GetTextMetricsA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lptm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextMetricsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TEXTMETRICW_head))(('GetTextMetricsW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lptm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AngleArc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,UInt32,Single,Single)(('AngleArc', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'r'),(1, 'StartAngle'),(1, 'SweepAngle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyPolyline():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),POINTER(UInt32),UInt32)(('PolyPolyline', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'asz'),(1, 'csz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWorldTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.XFORM_head))(('GetWorldTransform', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpxf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWorldTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.XFORM_head))(('SetWorldTransform', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpxf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ModifyWorldTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.XFORM_head),win32more.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE)(('ModifyWorldTransform', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpxf'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CombineTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Gdi.XFORM_head),POINTER(win32more.Graphics.Gdi.XFORM_head),POINTER(win32more.Graphics.Gdi.XFORM_head))(('CombineTransform', windll['GDI32.dll']), ((1, 'lpxfOut'),(1, 'lpxf1'),(1, 'lpxf2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDIBSection():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.BITMAPINFO_head),win32more.Graphics.Gdi.DIB_USAGE,POINTER(c_void_p),win32more.Foundation.HANDLE,UInt32)(('CreateDIBSection', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pbmi'),(1, 'usage'),(1, 'ppvBits'),(1, 'hSection'),(1, 'offset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDIBColorTable():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.RGBQUAD_head))(('GetDIBColorTable', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iStart'),(1, 'cEntries'),(1, 'prgbq'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDIBColorTable():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.RGBQUAD_head))(('SetDIBColorTable', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iStart'),(1, 'cEntries'),(1, 'prgbq'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorAdjustment():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.COLORADJUSTMENT_head))(('SetColorAdjustment', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpca'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorAdjustment():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.COLORADJUSTMENT_head))(('GetColorAdjustment', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpca'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateHalftonePalette():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPALETTE,win32more.Graphics.Gdi.HDC)(('CreateHalftonePalette', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AbortPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('AbortPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ArcTo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)(('ArcTo', windll['GDI32.dll']), ((1, 'hdc'),(1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),(1, 'xr1'),(1, 'yr1'),(1, 'xr2'),(1, 'yr2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BeginPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('BeginPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseFigure():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('CloseFigure', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('EndPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FillPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('FillPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlattenPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('FlattenPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPath():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),c_char_p_no,Int32)(('GetPath', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'aj'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PathToRegion():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.HDC)(('PathToRegion', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyDraw():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),c_char_p_no,Int32)(('PolyDraw', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'aj'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectClipPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.RGN_COMBINE_MODE)(('SelectClipPath', windll['GDI32.dll']), ((1, 'hdc'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetArcDirection():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.ARC_DIRECTION)(('SetArcDirection', windll['GDI32.dll']), ((1, 'hdc'),(1, 'dir'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMiterLimit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Single,POINTER(Single))(('SetMiterLimit', windll['GDI32.dll']), ((1, 'hdc'),(1, 'limit'),(1, 'old'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StrokeAndFillPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('StrokeAndFillPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StrokePath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('StrokePath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WidenPath():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('WidenPath', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtCreatePen():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HPEN,win32more.Graphics.Gdi.PEN_STYLE,UInt32,POINTER(win32more.Graphics.Gdi.LOGBRUSH_head),UInt32,POINTER(UInt32))(('ExtCreatePen', windll['GDI32.dll']), ((1, 'iPenStyle'),(1, 'cWidth'),(1, 'plbrush'),(1, 'cStyle'),(1, 'pstyle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMiterLimit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(Single))(('GetMiterLimit', windll['GDI32.dll']), ((1, 'hdc'),(1, 'plimit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetArcDirection():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetArcDirection', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetObjectW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HGDIOBJ,Int32,c_void_p)(('GetObjectW', windll['GDI32.dll']), ((1, 'h'),(1, 'c'),(1, 'pv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MoveToEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('MoveToEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextOutA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.PSTR,Int32)(('TextOutA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpString'),(1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextOutW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.PWSTR,Int32)(('TextOutW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpString'),(1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtTextOutA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Graphics.Gdi.ETO_OPTIONS,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.PSTR,UInt32,POINTER(Int32))(('ExtTextOutA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'options'),(1, 'lprect'),(1, 'lpString'),(1, 'c'),(1, 'lpDx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtTextOutW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Graphics.Gdi.ETO_OPTIONS,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.PWSTR,UInt32,POINTER(Int32))(('ExtTextOutW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'options'),(1, 'lprect'),(1, 'lpString'),(1, 'c'),(1, 'lpDx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyTextOutA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.POLYTEXTA_head),Int32)(('PolyTextOutA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'ppt'),(1, 'nstrings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyTextOutW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.POLYTEXTW_head),Int32)(('PolyTextOutW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'ppt'),(1, 'nstrings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePolygonRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HRGN,POINTER(win32more.Foundation.POINT_head),Int32,win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE)(('CreatePolygonRgn', windll['GDI32.dll']), ((1, 'pptl'),(1, 'cPoint'),(1, 'iMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DPtoLP():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),Int32)(('DPtoLP', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppt'),(1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPtoDP():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),Int32)(('LPtoDP', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppt'),(1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Polygon():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),Int32)(('Polygon', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Polyline():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),Int32)(('Polyline', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyBezier():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),UInt32)(('PolyBezier', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolyBezierTo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),UInt32)(('PolyBezierTo', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PolylineTo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head),UInt32)(('PolylineTo', windll['GDI32.dll']), ((1, 'hdc'),(1, 'apt'),(1, 'cpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetViewportExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.SIZE_head))(('SetViewportExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetViewportOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('SetViewportOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.SIZE_head))(('SetWindowExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('SetWindowOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OffsetViewportOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('OffsetViewportOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OffsetWindowOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('OffsetWindowOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScaleViewportExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Foundation.SIZE_head))(('ScaleViewportExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'xn'),(1, 'dx'),(1, 'yn'),(1, 'yd'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScaleWindowExtEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,Int32,POINTER(win32more.Foundation.SIZE_head))(('ScaleWindowExtEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'xn'),(1, 'xd'),(1, 'yn'),(1, 'yd'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBitmapDimensionEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HBITMAP,Int32,Int32,POINTER(win32more.Foundation.SIZE_head))(('SetBitmapDimensionEx', windll['GDI32.dll']), ((1, 'hbm'),(1, 'w'),(1, 'h'),(1, 'lpsz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetBrushOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('SetBrushOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextFaceA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,win32more.Foundation.PSTR)(('GetTextFaceA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'c'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTextFaceW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,win32more.Foundation.PWSTR)(('GetTextFaceW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'c'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKerningPairsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,POINTER(win32more.Graphics.Gdi.KERNINGPAIR_head))(('GetKerningPairsA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'nPairs'),(1, 'lpKernPair'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKerningPairsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,POINTER(win32more.Graphics.Gdi.KERNINGPAIR_head))(('GetKerningPairsW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'nPairs'),(1, 'lpKernPair'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDCOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.POINT_head))(('GetDCOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lppt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FixBrushOrgEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,POINTER(win32more.Foundation.POINT_head))(('FixBrushOrgEx', windll['GDI32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'ptl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnrealizeObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HGDIOBJ)(('UnrealizeObject', windll['GDI32.dll']), ((1, 'h'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiFlush():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('GdiFlush', windll['GDI32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiSetBatchLimit():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('GdiSetBatchLimit', windll['GDI32.dll']), ((1, 'dw'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiGetBatchLimit():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GdiGetBatchLimit', windll['GDI32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglSwapMultipleBuffers():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.Graphics.Gdi.WGLSWAP_head))(('wglSwapMultipleBuffers', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFontPackage():
-    try:
-        return CFUNCTYPE(UInt32,c_char_p_no,UInt32,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt32),UInt16,UInt16,UInt16,UInt16,win32more.Graphics.Gdi.CREATE_FONT_PACKAGE_SUBSET_PLATFORM,win32more.Graphics.Gdi.CREATE_FONT_PACKAGE_SUBSET_ENCODING,POINTER(UInt16),UInt16,win32more.Graphics.Gdi.CFP_ALLOCPROC,win32more.Graphics.Gdi.CFP_REALLOCPROC,win32more.Graphics.Gdi.CFP_FREEPROC,c_void_p)(('CreateFontPackage', cdll['FONTSUB.dll']), ((1, 'puchSrcBuffer'),(1, 'ulSrcBufferSize'),(1, 'ppuchFontPackageBuffer'),(1, 'pulFontPackageBufferSize'),(1, 'pulBytesWritten'),(1, 'usFlag'),(1, 'usTTCIndex'),(1, 'usSubsetFormat'),(1, 'usSubsetLanguage'),(1, 'usSubsetPlatform'),(1, 'usSubsetEncoding'),(1, 'pusSubsetKeepList'),(1, 'usSubsetListCount'),(1, 'lpfnAllocate'),(1, 'lpfnReAllocate'),(1, 'lpfnFree'),(1, 'lpvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MergeFontPackage():
-    try:
-        return CFUNCTYPE(UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt32),UInt16,win32more.Graphics.Gdi.CFP_ALLOCPROC,win32more.Graphics.Gdi.CFP_REALLOCPROC,win32more.Graphics.Gdi.CFP_FREEPROC,c_void_p)(('MergeFontPackage', cdll['FONTSUB.dll']), ((1, 'puchMergeFontBuffer'),(1, 'ulMergeFontBufferSize'),(1, 'puchFontPackageBuffer'),(1, 'ulFontPackageBufferSize'),(1, 'ppuchDestBuffer'),(1, 'pulDestBufferSize'),(1, 'pulBytesWritten'),(1, 'usMode'),(1, 'lpfnAllocate'),(1, 'lpfnReAllocate'),(1, 'lpfnFree'),(1, 'lpvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTEmbedFont():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.TTEMBED_FLAGS,win32more.Graphics.Gdi.EMBED_FONT_CHARSET,POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS),POINTER(UInt32),win32more.Graphics.Gdi.WRITEEMBEDPROC,c_void_p,POINTER(UInt16),UInt16,UInt16,POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head))(('TTEmbedFont', windll['t2embed.dll']), ((1, 'hDC'),(1, 'ulFlags'),(1, 'ulCharSet'),(1, 'pulPrivStatus'),(1, 'pulStatus'),(1, 'lpfnWriteToStream'),(1, 'lpvWriteStream'),(1, 'pusCharCodeSet'),(1, 'usCharCodeCount'),(1, 'usLanguage'),(1, 'pTTEmbedInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTEmbedFontFromFileA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,UInt16,win32more.Graphics.Gdi.TTEMBED_FLAGS,win32more.Graphics.Gdi.EMBED_FONT_CHARSET,POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS),POINTER(UInt32),win32more.Graphics.Gdi.WRITEEMBEDPROC,c_void_p,POINTER(UInt16),UInt16,UInt16,POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head))(('TTEmbedFontFromFileA', windll['t2embed.dll']), ((1, 'hDC'),(1, 'szFontFileName'),(1, 'usTTCIndex'),(1, 'ulFlags'),(1, 'ulCharSet'),(1, 'pulPrivStatus'),(1, 'pulStatus'),(1, 'lpfnWriteToStream'),(1, 'lpvWriteStream'),(1, 'pusCharCodeSet'),(1, 'usCharCodeCount'),(1, 'usLanguage'),(1, 'pTTEmbedInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTLoadEmbeddedFont():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE),UInt32,POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS),win32more.Graphics.Gdi.FONT_LICENSE_PRIVS,POINTER(win32more.Graphics.Gdi.TTLOAD_EMBEDDED_FONT_STATUS),win32more.Graphics.Gdi.READEMBEDPROC,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.TTLOADINFO_head))(('TTLoadEmbeddedFont', windll['t2embed.dll']), ((1, 'phFontReference'),(1, 'ulFlags'),(1, 'pulPrivStatus'),(1, 'ulPrivs'),(1, 'pulStatus'),(1, 'lpfnReadFromStream'),(1, 'lpvReadStream'),(1, 'szWinFamilyName'),(1, 'szMacFamilyName'),(1, 'pTTLoadInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTGetEmbeddedFontInfo():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.TTEMBED_FLAGS,POINTER(UInt32),win32more.Graphics.Gdi.FONT_LICENSE_PRIVS,POINTER(UInt32),win32more.Graphics.Gdi.READEMBEDPROC,c_void_p,POINTER(win32more.Graphics.Gdi.TTLOADINFO_head))(('TTGetEmbeddedFontInfo', windll['t2embed.dll']), ((1, 'ulFlags'),(1, 'pulPrivStatus'),(1, 'ulPrivs'),(1, 'pulStatus'),(1, 'lpfnReadFromStream'),(1, 'lpvReadStream'),(1, 'pTTLoadInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTDeleteEmbeddedFont():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32))(('TTDeleteEmbeddedFont', windll['t2embed.dll']), ((1, 'hFontReference'),(1, 'ulFlags'),(1, 'pulStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTGetEmbeddingType():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS))(('TTGetEmbeddingType', windll['t2embed.dll']), ((1, 'hDC'),(1, 'pulEmbedType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTCharToUnicode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,c_char_p_no,UInt32,POINTER(UInt16),UInt32,UInt32)(('TTCharToUnicode', windll['t2embed.dll']), ((1, 'hDC'),(1, 'pucCharCodes'),(1, 'ulCharCodeSize'),(1, 'pusShortCodes'),(1, 'ulShortCodeSize'),(1, 'ulFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTRunValidationTests():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMS_head))(('TTRunValidationTests', windll['t2embed.dll']), ((1, 'hDC'),(1, 'pTestParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTIsEmbeddingEnabled():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.BOOL))(('TTIsEmbeddingEnabled', windll['t2embed.dll']), ((1, 'hDC'),(1, 'pbEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTIsEmbeddingEnabledForFacename():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.BOOL))(('TTIsEmbeddingEnabledForFacename', windll['t2embed.dll']), ((1, 'lpszFacename'),(1, 'pbEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTEnableEmbeddingForFacename():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('TTEnableEmbeddingForFacename', windll['t2embed.dll']), ((1, 'lpszFacename'),(1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTEmbedFontEx():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.TTEMBED_FLAGS,win32more.Graphics.Gdi.EMBED_FONT_CHARSET,POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS),POINTER(UInt32),win32more.Graphics.Gdi.WRITEEMBEDPROC,c_void_p,POINTER(UInt32),UInt16,UInt16,POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head))(('TTEmbedFontEx', windll['t2embed.dll']), ((1, 'hDC'),(1, 'ulFlags'),(1, 'ulCharSet'),(1, 'pulPrivStatus'),(1, 'pulStatus'),(1, 'lpfnWriteToStream'),(1, 'lpvWriteStream'),(1, 'pulCharCodeSet'),(1, 'usCharCodeCount'),(1, 'usLanguage'),(1, 'pTTEmbedInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTRunValidationTestsEx():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMSEX_head))(('TTRunValidationTestsEx', windll['t2embed.dll']), ((1, 'hDC'),(1, 'pTestParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TTGetNewFontName():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.PWSTR,Int32,win32more.Foundation.PSTR,Int32)(('TTGetNewFontName', windll['t2embed.dll']), ((1, 'phFontReference'),(1, 'wzWinFamilyName'),(1, 'cchMaxWinName'),(1, 'szMacFamilyName'),(1, 'cchMaxMacName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawEdge():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAWEDGE_FLAGS,win32more.Graphics.Gdi.DRAW_EDGE_FLAGS)(('DrawEdge', windll['USER32.dll']), ((1, 'hdc'),(1, 'qrc'),(1, 'edge'),(1, 'grfFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawFrameControl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DFC_TYPE,win32more.Graphics.Gdi.DFCS_STATE)(('DrawFrameControl', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawCaption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAW_CAPTION_FLAGS)(('DrawCaption', windll['USER32.dll']), ((1, 'hwnd'),(1, 'hdc'),(1, 'lprect'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawAnimatedRects():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('DrawAnimatedRects', windll['USER32.dll']), ((1, 'hwnd'),(1, 'idAni'),(1, 'lprcFrom'),(1, 'lprcTo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawTextA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAW_TEXT_FORMAT)(('DrawTextA', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpchText'),(1, 'cchText'),(1, 'lprc'),(1, 'format'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawTextW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAW_TEXT_FORMAT)(('DrawTextW', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpchText'),(1, 'cchText'),(1, 'lprc'),(1, 'format'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawTextExA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAW_TEXT_FORMAT,POINTER(win32more.Graphics.Gdi.DRAWTEXTPARAMS_head))(('DrawTextExA', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpchText'),(1, 'cchText'),(1, 'lprc'),(1, 'format'),(1, 'lpdtp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawTextExW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.DRAW_TEXT_FORMAT,POINTER(win32more.Graphics.Gdi.DRAWTEXTPARAMS_head))(('DrawTextExW', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpchText'),(1, 'cchText'),(1, 'lprc'),(1, 'format'),(1, 'lpdtp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GrayStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.GRAYSTRINGPROC,win32more.Foundation.LPARAM,Int32,Int32,Int32,Int32,Int32)(('GrayStringA', windll['USER32.dll']), ((1, 'hDC'),(1, 'hBrush'),(1, 'lpOutputFunc'),(1, 'lpData'),(1, 'nCount'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GrayStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.GRAYSTRINGPROC,win32more.Foundation.LPARAM,Int32,Int32,Int32,Int32,Int32)(('GrayStringW', windll['USER32.dll']), ((1, 'hDC'),(1, 'hBrush'),(1, 'lpOutputFunc'),(1, 'lpData'),(1, 'nCount'),(1, 'X'),(1, 'Y'),(1, 'nWidth'),(1, 'nHeight'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawStateA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.DRAWSTATEPROC,win32more.Foundation.LPARAM,win32more.Foundation.WPARAM,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.DRAWSTATE_FLAGS)(('DrawStateA', windll['USER32.dll']), ((1, 'hdc'),(1, 'hbrFore'),(1, 'qfnCallBack'),(1, 'lData'),(1, 'wData'),(1, 'x'),(1, 'y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawStateW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.DRAWSTATEPROC,win32more.Foundation.LPARAM,win32more.Foundation.WPARAM,Int32,Int32,Int32,Int32,win32more.Graphics.Gdi.DRAWSTATE_FLAGS)(('DrawStateW', windll['USER32.dll']), ((1, 'hdc'),(1, 'hbrFore'),(1, 'qfnCallBack'),(1, 'lData'),(1, 'wData'),(1, 'x'),(1, 'y'),(1, 'cx'),(1, 'cy'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TabbedTextOutA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.PSTR,Int32,Int32,POINTER(Int32),Int32)(('TabbedTextOutA', windll['USER32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpString'),(1, 'chCount'),(1, 'nTabPositions'),(1, 'lpnTabStopPositions'),(1, 'nTabOrigin'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TabbedTextOutW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,win32more.Foundation.PWSTR,Int32,Int32,POINTER(Int32),Int32)(('TabbedTextOutW', windll['USER32.dll']), ((1, 'hdc'),(1, 'x'),(1, 'y'),(1, 'lpString'),(1, 'chCount'),(1, 'nTabPositions'),(1, 'lpnTabStopPositions'),(1, 'nTabOrigin'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTabbedTextExtentA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR,Int32,Int32,POINTER(Int32))(('GetTabbedTextExtentA', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'chCount'),(1, 'nTabPositions'),(1, 'lpnTabStopPositions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTabbedTextExtentW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR,Int32,Int32,POINTER(Int32))(('GetTabbedTextExtentW', windll['USER32.dll']), ((1, 'hdc'),(1, 'lpString'),(1, 'chCount'),(1, 'nTabPositions'),(1, 'lpnTabStopPositions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('UpdateWindow', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PaintDesktop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('PaintDesktop', windll['USER32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowFromDC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC)(('WindowFromDC', windll['USER32.dll']), ((1, 'hDC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDC():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Foundation.HWND)(('GetDC', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDCEx():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.GET_DCX_FLAGS)(('GetDCEx', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hrgnClip'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowDC():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Foundation.HWND)(('GetWindowDC', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseDC():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Graphics.Gdi.HDC)(('ReleaseDC', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hDC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BeginPaint():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,win32more.Foundation.HWND,POINTER(win32more.Graphics.Gdi.PAINTSTRUCT_head))(('BeginPaint', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPaint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndPaint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Graphics.Gdi.PAINTSTRUCT_head))(('EndPaint', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPaint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUpdateRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL)(('GetUpdateRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpRect'),(1, 'bErase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUpdateRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN,win32more.Foundation.BOOL)(('GetUpdateRgn', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hRgn'),(1, 'bErase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWindowRgn():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN,win32more.Foundation.BOOL)(('SetWindowRgn', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hRgn'),(1, 'bRedraw'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowRgn():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN)(('GetWindowRgn', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hRgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowRgnBox():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.GDI_REGION_TYPE,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('GetWindowRgnBox', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExcludeUpdateRgn():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.Foundation.HWND)(('ExcludeUpdateRgn', windll['USER32.dll']), ((1, 'hDC'),(1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InvalidateRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL)(('InvalidateRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpRect'),(1, 'bErase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ValidateRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head))(('ValidateRect', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpRect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InvalidateRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN,win32more.Foundation.BOOL)(('InvalidateRgn', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hRgn'),(1, 'bErase'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ValidateRgn():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Graphics.Gdi.HRGN)(('ValidateRgn', windll['USER32.dll']), ((1, 'hWnd'),(1, 'hRgn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RedrawWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HRGN,win32more.Graphics.Gdi.REDRAW_WINDOW_FLAGS)(('RedrawWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lprcUpdate'),(1, 'hrgnUpdate'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LockWindowUpdate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('LockWindowUpdate', windll['USER32.dll']), ((1, 'hWndLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ClientToScreen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head))(('ClientToScreen', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScreenToClient():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head))(('ScreenToClient', windll['USER32.dll']), ((1, 'hWnd'),(1, 'lpPoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapWindowPoints():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head),UInt32)(('MapWindowPoints', windll['USER32.dll']), ((1, 'hWndFrom'),(1, 'hWndTo'),(1, 'lpPoints'),(1, 'cPoints'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSysColor():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.SYS_COLOR_INDEX)(('GetSysColor', windll['USER32.dll']), ((1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSysColorBrush():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBRUSH,win32more.Graphics.Gdi.SYS_COLOR_INDEX)(('GetSysColorBrush', windll['USER32.dll']), ((1, 'nIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSysColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Int32,POINTER(Int32),POINTER(win32more.Foundation.COLORREF))(('SetSysColors', windll['USER32.dll']), ((1, 'cElements'),(1, 'lpaElements'),(1, 'lpaRgbValues'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DrawFocusRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(('DrawFocusRect', windll['USER32.dll']), ((1, 'hDC'),(1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FillRect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HBRUSH)(('FillRect', windll['USER32.dll']), ((1, 'hDC'),(1, 'lprc'),(1, 'hbr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FrameRect():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.HBRUSH)(('FrameRect', windll['USER32.dll']), ((1, 'hDC'),(1, 'lprc'),(1, 'hbr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InvertRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(('InvertRect', windll['USER32.dll']), ((1, 'hDC'),(1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),Int32,Int32,Int32,Int32)(('SetRect', windll['USER32.dll']), ((1, 'lprc'),(1, 'xLeft'),(1, 'yTop'),(1, 'xRight'),(1, 'yBottom'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetRectEmpty():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head))(('SetRectEmpty', windll['USER32.dll']), ((1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('CopyRect', windll['USER32.dll']), ((1, 'lprcDst'),(1, 'lprcSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InflateRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),Int32,Int32)(('InflateRect', windll['USER32.dll']), ((1, 'lprc'),(1, 'dx'),(1, 'dy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IntersectRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('IntersectRect', windll['USER32.dll']), ((1, 'lprcDst'),(1, 'lprcSrc1'),(1, 'lprcSrc2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnionRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('UnionRect', windll['USER32.dll']), ((1, 'lprcDst'),(1, 'lprcSrc1'),(1, 'lprcSrc2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SubtractRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('SubtractRect', windll['USER32.dll']), ((1, 'lprcDst'),(1, 'lprcSrc1'),(1, 'lprcSrc2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OffsetRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),Int32,Int32)(('OffsetRect', windll['USER32.dll']), ((1, 'lprc'),(1, 'dx'),(1, 'dy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsRectEmpty():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head))(('IsRectEmpty', windll['USER32.dll']), ((1, 'lprc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EqualRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('EqualRect', windll['USER32.dll']), ((1, 'lprc1'),(1, 'lprc2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PtInRect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.POINT)(('PtInRect', windll['USER32.dll']), ((1, 'lprc'),(1, 'pt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadBitmapA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadBitmapA', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpBitmapName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadBitmapW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HBITMAP,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadBitmapW', windll['USER32.dll']), ((1, 'hInstance'),(1, 'lpBitmapName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeDisplaySettingsA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.DISP_CHANGE,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Graphics.Gdi.CDS_TYPE)(('ChangeDisplaySettingsA', windll['USER32.dll']), ((1, 'lpDevMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeDisplaySettingsW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.DISP_CHANGE,POINTER(win32more.Graphics.Gdi.DEVMODEW_head),win32more.Graphics.Gdi.CDS_TYPE)(('ChangeDisplaySettingsW', windll['USER32.dll']), ((1, 'lpDevMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeDisplaySettingsExA():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.DISP_CHANGE,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Foundation.HWND,win32more.Graphics.Gdi.CDS_TYPE,c_void_p)(('ChangeDisplaySettingsExA', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'lpDevMode'),(1, 'hwnd'),(1, 'dwflags'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeDisplaySettingsExW():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.DISP_CHANGE,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Gdi.DEVMODEW_head),win32more.Foundation.HWND,win32more.Graphics.Gdi.CDS_TYPE,c_void_p)(('ChangeDisplaySettingsExW', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'lpDevMode'),(1, 'hwnd'),(1, 'dwflags'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplaySettingsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE,POINTER(win32more.Graphics.Gdi.DEVMODEA_head))(('EnumDisplaySettingsA', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'iModeNum'),(1, 'lpDevMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplaySettingsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE,POINTER(win32more.Graphics.Gdi.DEVMODEW_head))(('EnumDisplaySettingsW', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'iModeNum'),(1, 'lpDevMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplaySettingsExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32)(('EnumDisplaySettingsExA', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'iModeNum'),(1, 'lpDevMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplaySettingsExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE,POINTER(win32more.Graphics.Gdi.DEVMODEW_head),UInt32)(('EnumDisplaySettingsExW', windll['USER32.dll']), ((1, 'lpszDeviceName'),(1, 'iModeNum'),(1, 'lpDevMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplayDevicesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Graphics.Gdi.DISPLAY_DEVICEA_head),UInt32)(('EnumDisplayDevicesA', windll['USER32.dll']), ((1, 'lpDevice'),(1, 'iDevNum'),(1, 'lpDisplayDevice'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplayDevicesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Graphics.Gdi.DISPLAY_DEVICEW_head),UInt32)(('EnumDisplayDevicesW', windll['USER32.dll']), ((1, 'lpDevice'),(1, 'iDevNum'),(1, 'lpDisplayDevice'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MonitorFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMONITOR,win32more.Foundation.POINT,win32more.Graphics.Gdi.MONITOR_FROM_FLAGS)(('MonitorFromPoint', windll['USER32.dll']), ((1, 'pt'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MonitorFromRect():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMONITOR,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.MONITOR_FROM_FLAGS)(('MonitorFromRect', windll['USER32.dll']), ((1, 'lprc'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MonitorFromWindow():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HMONITOR,win32more.Foundation.HWND,win32more.Graphics.Gdi.MONITOR_FROM_FLAGS)(('MonitorFromWindow', windll['USER32.dll']), ((1, 'hwnd'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMonitorInfoA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HMONITOR,POINTER(win32more.Graphics.Gdi.MONITORINFO_head))(('GetMonitorInfoA', windll['USER32.dll']), ((1, 'hMonitor'),(1, 'lpmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMonitorInfoW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HMONITOR,POINTER(win32more.Graphics.Gdi.MONITORINFO_head))(('GetMonitorInfoW', windll['USER32.dll']), ((1, 'hMonitor'),(1, 'lpmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumDisplayMonitors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Gdi.MONITORENUMPROC,win32more.Foundation.LPARAM)(('EnumDisplayMonitors', windll['USER32.dll']), ((1, 'hdc'),(1, 'lprcClip'),(1, 'lpfnEnum'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+class ABC(Structure):
+    abcA: Int32
+    abcB: UInt32
+    abcC: Int32
+class ABCFLOAT(Structure):
+    abcfA: Single
+    abcfB: Single
+    abcfC: Single
+class ABORTPATH(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+GDI_ERROR: Int32 = -1
+ERROR: Int32 = 0
+MAXSTRETCHBLTMODE: UInt32 = 4
+POLYFILL_LAST: UInt32 = 2
+LAYOUT_BTT: UInt32 = 2
+LAYOUT_VBH: UInt32 = 4
+ASPECT_FILTERING: UInt32 = 1
+META_SETBKCOLOR: UInt32 = 513
+META_SETBKMODE: UInt32 = 258
+META_SETMAPMODE: UInt32 = 259
+META_SETROP2: UInt32 = 260
+META_SETRELABS: UInt32 = 261
+META_SETPOLYFILLMODE: UInt32 = 262
+META_SETSTRETCHBLTMODE: UInt32 = 263
+META_SETTEXTCHAREXTRA: UInt32 = 264
+META_SETTEXTCOLOR: UInt32 = 521
+META_SETTEXTJUSTIFICATION: UInt32 = 522
+META_SETWINDOWORG: UInt32 = 523
+META_SETWINDOWEXT: UInt32 = 524
+META_SETVIEWPORTORG: UInt32 = 525
+META_SETVIEWPORTEXT: UInt32 = 526
+META_OFFSETWINDOWORG: UInt32 = 527
+META_SCALEWINDOWEXT: UInt32 = 1040
+META_OFFSETVIEWPORTORG: UInt32 = 529
+META_SCALEVIEWPORTEXT: UInt32 = 1042
+META_LINETO: UInt32 = 531
+META_MOVETO: UInt32 = 532
+META_EXCLUDECLIPRECT: UInt32 = 1045
+META_INTERSECTCLIPRECT: UInt32 = 1046
+META_ARC: UInt32 = 2071
+META_ELLIPSE: UInt32 = 1048
+META_FLOODFILL: UInt32 = 1049
+META_PIE: UInt32 = 2074
+META_RECTANGLE: UInt32 = 1051
+META_ROUNDRECT: UInt32 = 1564
+META_PATBLT: UInt32 = 1565
+META_SAVEDC: UInt32 = 30
+META_SETPIXEL: UInt32 = 1055
+META_OFFSETCLIPRGN: UInt32 = 544
+META_TEXTOUT: UInt32 = 1313
+META_BITBLT: UInt32 = 2338
+META_STRETCHBLT: UInt32 = 2851
+META_POLYGON: UInt32 = 804
+META_POLYLINE: UInt32 = 805
+META_ESCAPE: UInt32 = 1574
+META_RESTOREDC: UInt32 = 295
+META_FILLREGION: UInt32 = 552
+META_FRAMEREGION: UInt32 = 1065
+META_INVERTREGION: UInt32 = 298
+META_PAINTREGION: UInt32 = 299
+META_SELECTCLIPREGION: UInt32 = 300
+META_SELECTOBJECT: UInt32 = 301
+META_SETTEXTALIGN: UInt32 = 302
+META_CHORD: UInt32 = 2096
+META_SETMAPPERFLAGS: UInt32 = 561
+META_EXTTEXTOUT: UInt32 = 2610
+META_SETDIBTODEV: UInt32 = 3379
+META_SELECTPALETTE: UInt32 = 564
+META_REALIZEPALETTE: UInt32 = 53
+META_ANIMATEPALETTE: UInt32 = 1078
+META_SETPALENTRIES: UInt32 = 55
+META_POLYPOLYGON: UInt32 = 1336
+META_RESIZEPALETTE: UInt32 = 313
+META_DIBBITBLT: UInt32 = 2368
+META_DIBSTRETCHBLT: UInt32 = 2881
+META_DIBCREATEPATTERNBRUSH: UInt32 = 322
+META_STRETCHDIB: UInt32 = 3907
+META_EXTFLOODFILL: UInt32 = 1352
+META_SETLAYOUT: UInt32 = 329
+META_DELETEOBJECT: UInt32 = 496
+META_CREATEPALETTE: UInt32 = 247
+META_CREATEPATTERNBRUSH: UInt32 = 505
+META_CREATEPENINDIRECT: UInt32 = 762
+META_CREATEFONTINDIRECT: UInt32 = 763
+META_CREATEBRUSHINDIRECT: UInt32 = 764
+META_CREATEREGION: UInt32 = 1791
+NEWFRAME: UInt32 = 1
+ABORTDOC: UInt32 = 2
+NEXTBAND: UInt32 = 3
+SETCOLORTABLE: UInt32 = 4
+GETCOLORTABLE: UInt32 = 5
+FLUSHOUTPUT: UInt32 = 6
+DRAFTMODE: UInt32 = 7
+QUERYESCSUPPORT: UInt32 = 8
+SETABORTPROC: UInt32 = 9
+STARTDOC: UInt32 = 10
+ENDDOC: UInt32 = 11
+GETPHYSPAGESIZE: UInt32 = 12
+GETPRINTINGOFFSET: UInt32 = 13
+GETSCALINGFACTOR: UInt32 = 14
+MFCOMMENT: UInt32 = 15
+GETPENWIDTH: UInt32 = 16
+SETCOPYCOUNT: UInt32 = 17
+SELECTPAPERSOURCE: UInt32 = 18
+DEVICEDATA: UInt32 = 19
+PASSTHROUGH: UInt32 = 19
+GETTECHNOLGY: UInt32 = 20
+GETTECHNOLOGY: UInt32 = 20
+SETLINECAP: UInt32 = 21
+SETLINEJOIN: UInt32 = 22
+SETMITERLIMIT: UInt32 = 23
+BANDINFO: UInt32 = 24
+DRAWPATTERNRECT: UInt32 = 25
+GETVECTORPENSIZE: UInt32 = 26
+GETVECTORBRUSHSIZE: UInt32 = 27
+ENABLEDUPLEX: UInt32 = 28
+GETSETPAPERBINS: UInt32 = 29
+GETSETPRINTORIENT: UInt32 = 30
+ENUMPAPERBINS: UInt32 = 31
+SETDIBSCALING: UInt32 = 32
+EPSPRINTING: UInt32 = 33
+ENUMPAPERMETRICS: UInt32 = 34
+GETSETPAPERMETRICS: UInt32 = 35
+POSTSCRIPT_DATA: UInt32 = 37
+POSTSCRIPT_IGNORE: UInt32 = 38
+MOUSETRAILS: UInt32 = 39
+GETDEVICEUNITS: UInt32 = 42
+GETEXTENDEDTEXTMETRICS: UInt32 = 256
+GETEXTENTTABLE: UInt32 = 257
+GETPAIRKERNTABLE: UInt32 = 258
+GETTRACKKERNTABLE: UInt32 = 259
+EXTTEXTOUT: UInt32 = 512
+GETFACENAME: UInt32 = 513
+DOWNLOADFACE: UInt32 = 514
+ENABLERELATIVEWIDTHS: UInt32 = 768
+ENABLEPAIRKERNING: UInt32 = 769
+SETKERNTRACK: UInt32 = 770
+SETALLJUSTVALUES: UInt32 = 771
+SETCHARSET: UInt32 = 772
+STRETCHBLT: UInt32 = 2048
+METAFILE_DRIVER: UInt32 = 2049
+GETSETSCREENPARAMS: UInt32 = 3072
+QUERYDIBSUPPORT: UInt32 = 3073
+BEGIN_PATH: UInt32 = 4096
+CLIP_TO_PATH: UInt32 = 4097
+END_PATH: UInt32 = 4098
+EXT_DEVICE_CAPS: UInt32 = 4099
+RESTORE_CTM: UInt32 = 4100
+SAVE_CTM: UInt32 = 4101
+SET_ARC_DIRECTION: UInt32 = 4102
+SET_BACKGROUND_COLOR: UInt32 = 4103
+SET_POLY_MODE: UInt32 = 4104
+SET_SCREEN_ANGLE: UInt32 = 4105
+SET_SPREAD: UInt32 = 4106
+TRANSFORM_CTM: UInt32 = 4107
+SET_CLIP_BOX: UInt32 = 4108
+SET_BOUNDS: UInt32 = 4109
+SET_MIRROR_MODE: UInt32 = 4110
+OPENCHANNEL: UInt32 = 4110
+DOWNLOADHEADER: UInt32 = 4111
+CLOSECHANNEL: UInt32 = 4112
+POSTSCRIPT_PASSTHROUGH: UInt32 = 4115
+ENCAPSULATED_POSTSCRIPT: UInt32 = 4116
+POSTSCRIPT_IDENTIFY: UInt32 = 4117
+POSTSCRIPT_INJECTION: UInt32 = 4118
+CHECKJPEGFORMAT: UInt32 = 4119
+CHECKPNGFORMAT: UInt32 = 4120
+GET_PS_FEATURESETTING: UInt32 = 4121
+GDIPLUS_TS_QUERYVER: UInt32 = 4122
+GDIPLUS_TS_RECORD: UInt32 = 4123
+MILCORE_TS_QUERYVER_RESULT_FALSE: UInt32 = 0
+MILCORE_TS_QUERYVER_RESULT_TRUE: UInt32 = 2147483647
+SPCLPASSTHROUGH2: UInt32 = 4568
+PSIDENT_GDICENTRIC: UInt32 = 0
+PSIDENT_PSCENTRIC: UInt32 = 1
+PSINJECT_DLFONT: UInt32 = 3722304989
+FEATURESETTING_NUP: UInt32 = 0
+FEATURESETTING_OUTPUT: UInt32 = 1
+FEATURESETTING_PSLEVEL: UInt32 = 2
+FEATURESETTING_CUSTPAPER: UInt32 = 3
+FEATURESETTING_MIRROR: UInt32 = 4
+FEATURESETTING_NEGATIVE: UInt32 = 5
+FEATURESETTING_PROTOCOL: UInt32 = 6
+FEATURESETTING_PRIVATE_BEGIN: UInt32 = 4096
+FEATURESETTING_PRIVATE_END: UInt32 = 8191
+PSPROTOCOL_ASCII: UInt32 = 0
+PSPROTOCOL_BCP: UInt32 = 1
+PSPROTOCOL_TBCP: UInt32 = 2
+PSPROTOCOL_BINARY: UInt32 = 3
+QDI_SETDIBITS: UInt32 = 1
+QDI_GETDIBITS: UInt32 = 2
+QDI_DIBTOSCREEN: UInt32 = 4
+QDI_STRETCHDIB: UInt32 = 8
+SP_NOTREPORTED: UInt32 = 16384
+SP_ERROR: Int32 = -1
+SP_APPABORT: Int32 = -2
+SP_USERABORT: Int32 = -3
+SP_OUTOFDISK: Int32 = -4
+SP_OUTOFMEMORY: Int32 = -5
+PR_JOBSTATUS: UInt32 = 0
+LCS_CALIBRATED_RGB: Int32 = 0
+LCS_GM_BUSINESS: Int32 = 1
+LCS_GM_GRAPHICS: Int32 = 2
+LCS_GM_IMAGES: Int32 = 4
+LCS_GM_ABS_COLORIMETRIC: Int32 = 8
+CM_OUT_OF_GAMUT: UInt32 = 255
+CM_IN_GAMUT: UInt32 = 0
+NTM_REGULAR: Int32 = 64
+NTM_BOLD: Int32 = 32
+NTM_ITALIC: Int32 = 1
+NTM_NONNEGATIVE_AC: UInt32 = 65536
+NTM_PS_OPENTYPE: UInt32 = 131072
+NTM_TT_OPENTYPE: UInt32 = 262144
+NTM_MULTIPLEMASTER: UInt32 = 524288
+NTM_TYPE1: UInt32 = 1048576
+NTM_DSIG: UInt32 = 2097152
+LF_FACESIZE: UInt32 = 32
+LF_FULLFACESIZE: UInt32 = 64
+CLEARTYPE_NATURAL_QUALITY: UInt32 = 6
+MONO_FONT: UInt32 = 8
+FS_LATIN1: Int32 = 1
+FS_LATIN2: Int32 = 2
+FS_CYRILLIC: Int32 = 4
+FS_GREEK: Int32 = 8
+FS_TURKISH: Int32 = 16
+FS_HEBREW: Int32 = 32
+FS_ARABIC: Int32 = 64
+FS_BALTIC: Int32 = 128
+FS_VIETNAMESE: Int32 = 256
+FS_THAI: Int32 = 65536
+FS_JISJAPAN: Int32 = 131072
+FS_CHINESESIMP: Int32 = 262144
+FS_WANSUNG: Int32 = 524288
+FS_CHINESETRAD: Int32 = 1048576
+FS_JOHAB: Int32 = 2097152
+FS_SYMBOL: Int32 = -2147483648
+PANOSE_COUNT: UInt32 = 10
+PAN_FAMILYTYPE_INDEX: UInt32 = 0
+PAN_SERIFSTYLE_INDEX: UInt32 = 1
+PAN_PROPORTION_INDEX: UInt32 = 3
+PAN_STROKEVARIATION_INDEX: UInt32 = 5
+PAN_ARMSTYLE_INDEX: UInt32 = 6
+PAN_LETTERFORM_INDEX: UInt32 = 7
+PAN_CULTURE_LATIN: UInt32 = 0
+PAN_ANY: UInt32 = 0
+PAN_NO_FIT: UInt32 = 1
+ELF_VENDOR_SIZE: UInt32 = 4
+ELF_VERSION: UInt32 = 0
+ELF_CULTURE_LATIN: UInt32 = 0
+RASTER_FONTTYPE: UInt32 = 1
+DEVICE_FONTTYPE: UInt32 = 2
+TRUETYPE_FONTTYPE: UInt32 = 4
+PC_RESERVED: UInt32 = 1
+PC_EXPLICIT: UInt32 = 2
+PC_NOCOLLAPSE: UInt32 = 4
+BKMODE_LAST: UInt32 = 2
+GM_LAST: UInt32 = 2
+PT_CLOSEFIGURE: UInt32 = 1
+PT_LINETO: UInt32 = 2
+PT_BEZIERTO: UInt32 = 4
+PT_MOVETO: UInt32 = 6
+ABSOLUTE: UInt32 = 1
+RELATIVE: UInt32 = 2
+STOCK_LAST: UInt32 = 19
+CLR_INVALID: UInt32 = 4294967295
+HS_API_MAX: UInt32 = 12
+DT_PLOTTER: UInt32 = 0
+DT_RASDISPLAY: UInt32 = 1
+DT_RASPRINTER: UInt32 = 2
+DT_RASCAMERA: UInt32 = 3
+DT_CHARSTREAM: UInt32 = 4
+DT_METAFILE: UInt32 = 5
+DT_DISPFILE: UInt32 = 6
+CC_NONE: UInt32 = 0
+CC_CIRCLES: UInt32 = 1
+CC_PIE: UInt32 = 2
+CC_CHORD: UInt32 = 4
+CC_ELLIPSES: UInt32 = 8
+CC_WIDE: UInt32 = 16
+CC_STYLED: UInt32 = 32
+CC_WIDESTYLED: UInt32 = 64
+CC_INTERIORS: UInt32 = 128
+CC_ROUNDRECT: UInt32 = 256
+LC_NONE: UInt32 = 0
+LC_POLYLINE: UInt32 = 2
+LC_MARKER: UInt32 = 4
+LC_POLYMARKER: UInt32 = 8
+LC_WIDE: UInt32 = 16
+LC_STYLED: UInt32 = 32
+LC_WIDESTYLED: UInt32 = 64
+LC_INTERIORS: UInt32 = 128
+PC_NONE: UInt32 = 0
+PC_POLYGON: UInt32 = 1
+PC_RECTANGLE: UInt32 = 2
+PC_WINDPOLYGON: UInt32 = 4
+PC_TRAPEZOID: UInt32 = 4
+PC_SCANLINE: UInt32 = 8
+PC_WIDE: UInt32 = 16
+PC_STYLED: UInt32 = 32
+PC_WIDESTYLED: UInt32 = 64
+PC_INTERIORS: UInt32 = 128
+PC_POLYPOLYGON: UInt32 = 256
+PC_PATHS: UInt32 = 512
+CP_NONE: UInt32 = 0
+CP_RECTANGLE: UInt32 = 1
+CP_REGION: UInt32 = 2
+TC_OP_CHARACTER: UInt32 = 1
+TC_OP_STROKE: UInt32 = 2
+TC_CP_STROKE: UInt32 = 4
+TC_CR_90: UInt32 = 8
+TC_CR_ANY: UInt32 = 16
+TC_SF_X_YINDEP: UInt32 = 32
+TC_SA_DOUBLE: UInt32 = 64
+TC_SA_INTEGER: UInt32 = 128
+TC_SA_CONTIN: UInt32 = 256
+TC_EA_DOUBLE: UInt32 = 512
+TC_IA_ABLE: UInt32 = 1024
+TC_UA_ABLE: UInt32 = 2048
+TC_SO_ABLE: UInt32 = 4096
+TC_RA_ABLE: UInt32 = 8192
+TC_VA_ABLE: UInt32 = 16384
+TC_RESERVED: UInt32 = 32768
+TC_SCROLLBLT: UInt32 = 65536
+RC_BITBLT: UInt32 = 1
+RC_BANDING: UInt32 = 2
+RC_SCALING: UInt32 = 4
+RC_BITMAP64: UInt32 = 8
+RC_GDI20_OUTPUT: UInt32 = 16
+RC_GDI20_STATE: UInt32 = 32
+RC_SAVEBITMAP: UInt32 = 64
+RC_DI_BITMAP: UInt32 = 128
+RC_PALETTE: UInt32 = 256
+RC_DIBTODEV: UInt32 = 512
+RC_BIGFONT: UInt32 = 1024
+RC_STRETCHBLT: UInt32 = 2048
+RC_FLOODFILL: UInt32 = 4096
+RC_STRETCHDIB: UInt32 = 8192
+RC_OP_DX_OUTPUT: UInt32 = 16384
+RC_DEVBITS: UInt32 = 32768
+SB_NONE: UInt32 = 0
+SB_CONST_ALPHA: UInt32 = 1
+SB_PIXEL_ALPHA: UInt32 = 2
+SB_PREMULT_ALPHA: UInt32 = 4
+SB_GRAD_RECT: UInt32 = 16
+SB_GRAD_TRI: UInt32 = 32
+CM_NONE: UInt32 = 0
+CM_DEVICE_ICM: UInt32 = 1
+CM_GAMMA_RAMP: UInt32 = 2
+CM_CMYK_COLOR: UInt32 = 4
+SYSPAL_ERROR: UInt32 = 0
+CBM_INIT: Int32 = 4
+CCHFORMNAME: UInt32 = 32
+DMORIENT_PORTRAIT: UInt32 = 1
+DMORIENT_LANDSCAPE: UInt32 = 2
+DMPAPER_LETTER: UInt32 = 1
+DMPAPER_LETTERSMALL: UInt32 = 2
+DMPAPER_TABLOID: UInt32 = 3
+DMPAPER_LEDGER: UInt32 = 4
+DMPAPER_LEGAL: UInt32 = 5
+DMPAPER_STATEMENT: UInt32 = 6
+DMPAPER_EXECUTIVE: UInt32 = 7
+DMPAPER_A3: UInt32 = 8
+DMPAPER_A4: UInt32 = 9
+DMPAPER_A4SMALL: UInt32 = 10
+DMPAPER_A5: UInt32 = 11
+DMPAPER_B4: UInt32 = 12
+DMPAPER_B5: UInt32 = 13
+DMPAPER_FOLIO: UInt32 = 14
+DMPAPER_QUARTO: UInt32 = 15
+DMPAPER_10X14: UInt32 = 16
+DMPAPER_11X17: UInt32 = 17
+DMPAPER_NOTE: UInt32 = 18
+DMPAPER_ENV_9: UInt32 = 19
+DMPAPER_ENV_10: UInt32 = 20
+DMPAPER_ENV_11: UInt32 = 21
+DMPAPER_ENV_12: UInt32 = 22
+DMPAPER_ENV_14: UInt32 = 23
+DMPAPER_CSHEET: UInt32 = 24
+DMPAPER_DSHEET: UInt32 = 25
+DMPAPER_ESHEET: UInt32 = 26
+DMPAPER_ENV_DL: UInt32 = 27
+DMPAPER_ENV_C5: UInt32 = 28
+DMPAPER_ENV_C3: UInt32 = 29
+DMPAPER_ENV_C4: UInt32 = 30
+DMPAPER_ENV_C6: UInt32 = 31
+DMPAPER_ENV_C65: UInt32 = 32
+DMPAPER_ENV_B4: UInt32 = 33
+DMPAPER_ENV_B5: UInt32 = 34
+DMPAPER_ENV_B6: UInt32 = 35
+DMPAPER_ENV_ITALY: UInt32 = 36
+DMPAPER_ENV_MONARCH: UInt32 = 37
+DMPAPER_ENV_PERSONAL: UInt32 = 38
+DMPAPER_FANFOLD_US: UInt32 = 39
+DMPAPER_FANFOLD_STD_GERMAN: UInt32 = 40
+DMPAPER_FANFOLD_LGL_GERMAN: UInt32 = 41
+DMPAPER_ISO_B4: UInt32 = 42
+DMPAPER_JAPANESE_POSTCARD: UInt32 = 43
+DMPAPER_9X11: UInt32 = 44
+DMPAPER_10X11: UInt32 = 45
+DMPAPER_15X11: UInt32 = 46
+DMPAPER_ENV_INVITE: UInt32 = 47
+DMPAPER_RESERVED_48: UInt32 = 48
+DMPAPER_RESERVED_49: UInt32 = 49
+DMPAPER_LETTER_EXTRA: UInt32 = 50
+DMPAPER_LEGAL_EXTRA: UInt32 = 51
+DMPAPER_TABLOID_EXTRA: UInt32 = 52
+DMPAPER_A4_EXTRA: UInt32 = 53
+DMPAPER_LETTER_TRANSVERSE: UInt32 = 54
+DMPAPER_A4_TRANSVERSE: UInt32 = 55
+DMPAPER_LETTER_EXTRA_TRANSVERSE: UInt32 = 56
+DMPAPER_A_PLUS: UInt32 = 57
+DMPAPER_B_PLUS: UInt32 = 58
+DMPAPER_LETTER_PLUS: UInt32 = 59
+DMPAPER_A4_PLUS: UInt32 = 60
+DMPAPER_A5_TRANSVERSE: UInt32 = 61
+DMPAPER_B5_TRANSVERSE: UInt32 = 62
+DMPAPER_A3_EXTRA: UInt32 = 63
+DMPAPER_A5_EXTRA: UInt32 = 64
+DMPAPER_B5_EXTRA: UInt32 = 65
+DMPAPER_A2: UInt32 = 66
+DMPAPER_A3_TRANSVERSE: UInt32 = 67
+DMPAPER_A3_EXTRA_TRANSVERSE: UInt32 = 68
+DMPAPER_DBL_JAPANESE_POSTCARD: UInt32 = 69
+DMPAPER_A6: UInt32 = 70
+DMPAPER_JENV_KAKU2: UInt32 = 71
+DMPAPER_JENV_KAKU3: UInt32 = 72
+DMPAPER_JENV_CHOU3: UInt32 = 73
+DMPAPER_JENV_CHOU4: UInt32 = 74
+DMPAPER_LETTER_ROTATED: UInt32 = 75
+DMPAPER_A3_ROTATED: UInt32 = 76
+DMPAPER_A4_ROTATED: UInt32 = 77
+DMPAPER_A5_ROTATED: UInt32 = 78
+DMPAPER_B4_JIS_ROTATED: UInt32 = 79
+DMPAPER_B5_JIS_ROTATED: UInt32 = 80
+DMPAPER_JAPANESE_POSTCARD_ROTATED: UInt32 = 81
+DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED: UInt32 = 82
+DMPAPER_A6_ROTATED: UInt32 = 83
+DMPAPER_JENV_KAKU2_ROTATED: UInt32 = 84
+DMPAPER_JENV_KAKU3_ROTATED: UInt32 = 85
+DMPAPER_JENV_CHOU3_ROTATED: UInt32 = 86
+DMPAPER_JENV_CHOU4_ROTATED: UInt32 = 87
+DMPAPER_B6_JIS: UInt32 = 88
+DMPAPER_B6_JIS_ROTATED: UInt32 = 89
+DMPAPER_12X11: UInt32 = 90
+DMPAPER_JENV_YOU4: UInt32 = 91
+DMPAPER_JENV_YOU4_ROTATED: UInt32 = 92
+DMPAPER_P16K: UInt32 = 93
+DMPAPER_P32K: UInt32 = 94
+DMPAPER_P32KBIG: UInt32 = 95
+DMPAPER_PENV_1: UInt32 = 96
+DMPAPER_PENV_2: UInt32 = 97
+DMPAPER_PENV_3: UInt32 = 98
+DMPAPER_PENV_4: UInt32 = 99
+DMPAPER_PENV_5: UInt32 = 100
+DMPAPER_PENV_6: UInt32 = 101
+DMPAPER_PENV_7: UInt32 = 102
+DMPAPER_PENV_8: UInt32 = 103
+DMPAPER_PENV_9: UInt32 = 104
+DMPAPER_PENV_10: UInt32 = 105
+DMPAPER_P16K_ROTATED: UInt32 = 106
+DMPAPER_P32K_ROTATED: UInt32 = 107
+DMPAPER_P32KBIG_ROTATED: UInt32 = 108
+DMPAPER_PENV_1_ROTATED: UInt32 = 109
+DMPAPER_PENV_2_ROTATED: UInt32 = 110
+DMPAPER_PENV_3_ROTATED: UInt32 = 111
+DMPAPER_PENV_4_ROTATED: UInt32 = 112
+DMPAPER_PENV_5_ROTATED: UInt32 = 113
+DMPAPER_PENV_6_ROTATED: UInt32 = 114
+DMPAPER_PENV_7_ROTATED: UInt32 = 115
+DMPAPER_PENV_8_ROTATED: UInt32 = 116
+DMPAPER_PENV_9_ROTATED: UInt32 = 117
+DMPAPER_PENV_10_ROTATED: UInt32 = 118
+DMPAPER_LAST: UInt32 = 118
+DMPAPER_USER: UInt32 = 256
+DMBIN_UPPER: UInt32 = 1
+DMBIN_ONLYONE: UInt32 = 1
+DMBIN_LOWER: UInt32 = 2
+DMBIN_MIDDLE: UInt32 = 3
+DMBIN_MANUAL: UInt32 = 4
+DMBIN_ENVELOPE: UInt32 = 5
+DMBIN_ENVMANUAL: UInt32 = 6
+DMBIN_AUTO: UInt32 = 7
+DMBIN_TRACTOR: UInt32 = 8
+DMBIN_SMALLFMT: UInt32 = 9
+DMBIN_LARGEFMT: UInt32 = 10
+DMBIN_LARGECAPACITY: UInt32 = 11
+DMBIN_CASSETTE: UInt32 = 14
+DMBIN_FORMSOURCE: UInt32 = 15
+DMBIN_LAST: UInt32 = 15
+DMBIN_USER: UInt32 = 256
+DMRES_DRAFT: Int32 = -1
+DMRES_LOW: Int32 = -2
+DMRES_MEDIUM: Int32 = -3
+DMRES_HIGH: Int32 = -4
+DMDISPLAYFLAGS_TEXTMODE: UInt32 = 4
+DMNUP_SYSTEM: UInt32 = 1
+DMNUP_ONEUP: UInt32 = 2
+DMICMMETHOD_NONE: UInt32 = 1
+DMICMMETHOD_SYSTEM: UInt32 = 2
+DMICMMETHOD_DRIVER: UInt32 = 3
+DMICMMETHOD_DEVICE: UInt32 = 4
+DMICMMETHOD_USER: UInt32 = 256
+DMICM_SATURATE: UInt32 = 1
+DMICM_CONTRAST: UInt32 = 2
+DMICM_COLORIMETRIC: UInt32 = 3
+DMICM_ABS_COLORIMETRIC: UInt32 = 4
+DMICM_USER: UInt32 = 256
+DMMEDIA_STANDARD: UInt32 = 1
+DMMEDIA_TRANSPARENCY: UInt32 = 2
+DMMEDIA_GLOSSY: UInt32 = 3
+DMMEDIA_USER: UInt32 = 256
+DMDITHER_NONE: UInt32 = 1
+DMDITHER_COARSE: UInt32 = 2
+DMDITHER_FINE: UInt32 = 3
+DMDITHER_LINEART: UInt32 = 4
+DMDITHER_ERRORDIFFUSION: UInt32 = 5
+DMDITHER_RESERVED6: UInt32 = 6
+DMDITHER_RESERVED7: UInt32 = 7
+DMDITHER_RESERVED8: UInt32 = 8
+DMDITHER_RESERVED9: UInt32 = 9
+DMDITHER_GRAYSCALE: UInt32 = 10
+DMDITHER_USER: UInt32 = 256
+DISPLAY_DEVICE_ATTACHED_TO_DESKTOP: UInt32 = 1
+DISPLAY_DEVICE_MULTI_DRIVER: UInt32 = 2
+DISPLAY_DEVICE_PRIMARY_DEVICE: UInt32 = 4
+DISPLAY_DEVICE_MIRRORING_DRIVER: UInt32 = 8
+DISPLAY_DEVICE_VGA_COMPATIBLE: UInt32 = 16
+DISPLAY_DEVICE_REMOVABLE: UInt32 = 32
+DISPLAY_DEVICE_ACC_DRIVER: UInt32 = 64
+DISPLAY_DEVICE_MODESPRUNED: UInt32 = 134217728
+DISPLAY_DEVICE_RDPUDD: UInt32 = 16777216
+DISPLAY_DEVICE_REMOTE: UInt32 = 67108864
+DISPLAY_DEVICE_DISCONNECT: UInt32 = 33554432
+DISPLAY_DEVICE_TS_COMPATIBLE: UInt32 = 2097152
+DISPLAY_DEVICE_UNSAFE_MODES_ON: UInt32 = 524288
+DISPLAY_DEVICE_ACTIVE: UInt32 = 1
+DISPLAY_DEVICE_ATTACHED: UInt32 = 2
+DISPLAYCONFIG_MAXPATH: UInt32 = 1024
+DISPLAYCONFIG_PATH_MODE_IDX_INVALID: UInt32 = 4294967295
+DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID: UInt32 = 65535
+DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID: UInt32 = 65535
+DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID: UInt32 = 65535
+DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID: UInt32 = 65535
+DISPLAYCONFIG_SOURCE_IN_USE: UInt32 = 1
+DISPLAYCONFIG_TARGET_IN_USE: UInt32 = 1
+DISPLAYCONFIG_TARGET_FORCIBLE: UInt32 = 2
+DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT: UInt32 = 4
+DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH: UInt32 = 8
+DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM: UInt32 = 16
+DISPLAYCONFIG_TARGET_IS_HMD: UInt32 = 32
+DISPLAYCONFIG_PATH_ACTIVE: UInt32 = 1
+DISPLAYCONFIG_PATH_PREFERRED_UNSCALED: UInt32 = 4
+DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE: UInt32 = 8
+DISPLAYCONFIG_PATH_VALID_FLAGS: UInt32 = 29
+QDC_ALL_PATHS: UInt32 = 1
+QDC_ONLY_ACTIVE_PATHS: UInt32 = 2
+QDC_DATABASE_CURRENT: UInt32 = 4
+QDC_VIRTUAL_MODE_AWARE: UInt32 = 16
+QDC_INCLUDE_HMD: UInt32 = 32
+QDC_VIRTUAL_REFRESH_RATE_AWARE: UInt32 = 64
+SDC_TOPOLOGY_INTERNAL: UInt32 = 1
+SDC_TOPOLOGY_CLONE: UInt32 = 2
+SDC_TOPOLOGY_EXTEND: UInt32 = 4
+SDC_TOPOLOGY_EXTERNAL: UInt32 = 8
+SDC_TOPOLOGY_SUPPLIED: UInt32 = 16
+SDC_USE_SUPPLIED_DISPLAY_CONFIG: UInt32 = 32
+SDC_VALIDATE: UInt32 = 64
+SDC_APPLY: UInt32 = 128
+SDC_NO_OPTIMIZATION: UInt32 = 256
+SDC_SAVE_TO_DATABASE: UInt32 = 512
+SDC_ALLOW_CHANGES: UInt32 = 1024
+SDC_PATH_PERSIST_IF_REQUIRED: UInt32 = 2048
+SDC_FORCE_MODE_ENUMERATION: UInt32 = 4096
+SDC_ALLOW_PATH_ORDER_CHANGES: UInt32 = 8192
+SDC_VIRTUAL_MODE_AWARE: UInt32 = 32768
+SDC_VIRTUAL_REFRESH_RATE_AWARE: UInt32 = 131072
+RDH_RECTANGLES: UInt32 = 1
+SYSRGN: UInt32 = 4
+TT_POLYGON_TYPE: UInt32 = 24
+TT_PRIM_LINE: UInt32 = 1
+TT_PRIM_QSPLINE: UInt32 = 2
+TT_PRIM_CSPLINE: UInt32 = 3
+GCP_DBCS: UInt32 = 1
+GCP_ERROR: UInt32 = 32768
+FLI_MASK: UInt32 = 4155
+FLI_GLYPHS: Int32 = 262144
+GCP_JUSTIFYIN: Int32 = 2097152
+GCPCLASS_LATIN: UInt32 = 1
+GCPCLASS_HEBREW: UInt32 = 2
+GCPCLASS_ARABIC: UInt32 = 2
+GCPCLASS_NEUTRAL: UInt32 = 3
+GCPCLASS_LOCALNUMBER: UInt32 = 4
+GCPCLASS_LATINNUMBER: UInt32 = 5
+GCPCLASS_LATINNUMERICTERMINATOR: UInt32 = 6
+GCPCLASS_LATINNUMERICSEPARATOR: UInt32 = 7
+GCPCLASS_NUMERICSEPARATOR: UInt32 = 8
+GCPCLASS_PREBOUNDLTR: UInt32 = 128
+GCPCLASS_PREBOUNDRTL: UInt32 = 64
+GCPCLASS_POSTBOUNDLTR: UInt32 = 32
+GCPCLASS_POSTBOUNDRTL: UInt32 = 16
+GCPGLYPH_LINKBEFORE: UInt32 = 32768
+GCPGLYPH_LINKAFTER: UInt32 = 16384
+TT_AVAILABLE: UInt32 = 1
+TT_ENABLED: UInt32 = 2
+DC_BINADJUST: UInt32 = 19
+DC_EMF_COMPLIANT: UInt32 = 20
+DC_DATATYPE_PRODUCED: UInt32 = 21
+DC_MANUFACTURER: UInt32 = 23
+DC_MODEL: UInt32 = 24
+PRINTRATEUNIT_PPM: UInt32 = 1
+PRINTRATEUNIT_CPS: UInt32 = 2
+PRINTRATEUNIT_LPM: UInt32 = 3
+PRINTRATEUNIT_IPM: UInt32 = 4
+DCTT_BITMAP: Int32 = 1
+DCTT_DOWNLOAD: Int32 = 2
+DCTT_SUBDEV: Int32 = 4
+DCTT_DOWNLOAD_OUTLINE: Int32 = 8
+DCBA_FACEUPNONE: UInt32 = 0
+DCBA_FACEUPCENTER: UInt32 = 1
+DCBA_FACEUPLEFT: UInt32 = 2
+DCBA_FACEUPRIGHT: UInt32 = 3
+DCBA_FACEDOWNNONE: UInt32 = 256
+DCBA_FACEDOWNCENTER: UInt32 = 257
+DCBA_FACEDOWNLEFT: UInt32 = 258
+DCBA_FACEDOWNRIGHT: UInt32 = 259
+GS_8BIT_INDICES: UInt32 = 1
+GGI_MARK_NONEXISTING_GLYPHS: UInt32 = 1
+MM_MAX_NUMAXES: UInt32 = 16
+MM_MAX_AXES_NAMELEN: UInt32 = 16
+GDIREGISTERDDRAWPACKETVERSION: UInt32 = 1
+AC_SRC_OVER: UInt32 = 0
+AC_SRC_ALPHA: UInt32 = 1
+GRADIENT_FILL_OP_FLAG: UInt32 = 255
+CA_NEGATIVE: UInt32 = 1
+CA_LOG_FILTER: UInt32 = 2
+ILLUMINANT_DEVICE_DEFAULT: UInt32 = 0
+ILLUMINANT_A: UInt32 = 1
+ILLUMINANT_B: UInt32 = 2
+ILLUMINANT_C: UInt32 = 3
+ILLUMINANT_D50: UInt32 = 4
+ILLUMINANT_D55: UInt32 = 5
+ILLUMINANT_D65: UInt32 = 6
+ILLUMINANT_D75: UInt32 = 7
+ILLUMINANT_F2: UInt32 = 8
+ILLUMINANT_MAX_INDEX: UInt32 = 8
+ILLUMINANT_TUNGSTEN: UInt32 = 1
+ILLUMINANT_DAYLIGHT: UInt32 = 3
+ILLUMINANT_FLUORESCENT: UInt32 = 8
+ILLUMINANT_NTSC: UInt32 = 3
+DI_APPBANDING: UInt32 = 1
+DI_ROPS_READ_DESTINATION: UInt32 = 2
+FONTMAPPER_MAX: UInt32 = 10
+ENHMETA_SIGNATURE: UInt32 = 1179469088
+ENHMETA_STOCK_OBJECT: UInt32 = 2147483648
+SETICMPROFILE_EMBEDED: UInt32 = 1
+CREATECOLORSPACE_EMBEDED: UInt32 = 1
+COLORMATCHTOTARGET_EMBEDED: UInt32 = 1
+GDICOMMENT_IDENTIFIER: UInt32 = 1128875079
+GDICOMMENT_WINDOWS_METAFILE: UInt32 = 2147483649
+GDICOMMENT_BEGINGROUP: UInt32 = 2
+GDICOMMENT_ENDGROUP: UInt32 = 3
+GDICOMMENT_MULTIFORMATS: UInt32 = 1073741828
+EPS_SIGNATURE: UInt32 = 1179865157
+GDICOMMENT_UNICODE_STRING: UInt32 = 64
+GDICOMMENT_UNICODE_END: UInt32 = 128
+WGL_FONT_LINES: UInt32 = 0
+WGL_FONT_POLYGONS: UInt32 = 1
+LPD_DOUBLEBUFFER: UInt32 = 1
+LPD_STEREO: UInt32 = 2
+LPD_SUPPORT_GDI: UInt32 = 16
+LPD_SUPPORT_OPENGL: UInt32 = 32
+LPD_SHARE_DEPTH: UInt32 = 64
+LPD_SHARE_STENCIL: UInt32 = 128
+LPD_SHARE_ACCUM: UInt32 = 256
+LPD_SWAP_EXCHANGE: UInt32 = 512
+LPD_SWAP_COPY: UInt32 = 1024
+LPD_TRANSPARENT: UInt32 = 4096
+LPD_TYPE_RGBA: UInt32 = 0
+LPD_TYPE_COLORINDEX: UInt32 = 1
+WGL_SWAP_MAIN_PLANE: UInt32 = 1
+WGL_SWAP_OVERLAY1: UInt32 = 2
+WGL_SWAP_OVERLAY2: UInt32 = 4
+WGL_SWAP_OVERLAY3: UInt32 = 8
+WGL_SWAP_OVERLAY4: UInt32 = 16
+WGL_SWAP_OVERLAY5: UInt32 = 32
+WGL_SWAP_OVERLAY6: UInt32 = 64
+WGL_SWAP_OVERLAY7: UInt32 = 128
+WGL_SWAP_OVERLAY8: UInt32 = 256
+WGL_SWAP_OVERLAY9: UInt32 = 512
+WGL_SWAP_OVERLAY10: UInt32 = 1024
+WGL_SWAP_OVERLAY11: UInt32 = 2048
+WGL_SWAP_OVERLAY12: UInt32 = 4096
+WGL_SWAP_OVERLAY13: UInt32 = 8192
+WGL_SWAP_OVERLAY14: UInt32 = 16384
+WGL_SWAP_OVERLAY15: UInt32 = 32768
+WGL_SWAP_UNDERLAY1: UInt32 = 65536
+WGL_SWAP_UNDERLAY2: UInt32 = 131072
+WGL_SWAP_UNDERLAY3: UInt32 = 262144
+WGL_SWAP_UNDERLAY4: UInt32 = 524288
+WGL_SWAP_UNDERLAY5: UInt32 = 1048576
+WGL_SWAP_UNDERLAY6: UInt32 = 2097152
+WGL_SWAP_UNDERLAY7: UInt32 = 4194304
+WGL_SWAP_UNDERLAY8: UInt32 = 8388608
+WGL_SWAP_UNDERLAY9: UInt32 = 16777216
+WGL_SWAP_UNDERLAY10: UInt32 = 33554432
+WGL_SWAP_UNDERLAY11: UInt32 = 67108864
+WGL_SWAP_UNDERLAY12: UInt32 = 134217728
+WGL_SWAP_UNDERLAY13: UInt32 = 268435456
+WGL_SWAP_UNDERLAY14: UInt32 = 536870912
+WGL_SWAP_UNDERLAY15: UInt32 = 1073741824
+WGL_SWAPMULTIPLE_MAX: UInt32 = 16
+NEWTRANSPARENT: UInt32 = 3
+QUERYROPSUPPORT: UInt32 = 40
+SELECTDIB: UInt32 = 41
+SC_SCREENSAVE: UInt32 = 61760
+TTFCFP_SUBSET: UInt32 = 0
+TTFCFP_SUBSET1: UInt32 = 1
+TTFCFP_DELTA: UInt32 = 2
+TTFCFP_APPLE_PLATFORMID: UInt32 = 1
+TTFCFP_MS_PLATFORMID: UInt32 = 3
+TTFCFP_DONT_CARE: UInt32 = 65535
+TTFCFP_LANG_KEEP_ALL: UInt32 = 0
+TTFCFP_FLAGS_SUBSET: UInt32 = 1
+TTFCFP_FLAGS_COMPRESS: UInt32 = 2
+TTFCFP_FLAGS_TTC: UInt32 = 4
+TTFCFP_FLAGS_GLYPHLIST: UInt32 = 8
+TTFMFP_SUBSET: UInt32 = 0
+TTFMFP_SUBSET1: UInt32 = 1
+TTFMFP_DELTA: UInt32 = 2
+ERR_GENERIC: UInt32 = 1000
+ERR_READOUTOFBOUNDS: UInt32 = 1001
+ERR_WRITEOUTOFBOUNDS: UInt32 = 1002
+ERR_READCONTROL: UInt32 = 1003
+ERR_WRITECONTROL: UInt32 = 1004
+ERR_MEM: UInt32 = 1005
+ERR_FORMAT: UInt32 = 1006
+ERR_WOULD_GROW: UInt32 = 1007
+ERR_VERSION: UInt32 = 1008
+ERR_NO_GLYPHS: UInt32 = 1009
+ERR_INVALID_MERGE_FORMATS: UInt32 = 1010
+ERR_INVALID_MERGE_CHECKSUMS: UInt32 = 1011
+ERR_INVALID_MERGE_NUMGLYPHS: UInt32 = 1012
+ERR_INVALID_DELTA_FORMAT: UInt32 = 1013
+ERR_NOT_TTC: UInt32 = 1014
+ERR_INVALID_TTC_INDEX: UInt32 = 1015
+ERR_MISSING_CMAP: UInt32 = 1030
+ERR_MISSING_GLYF: UInt32 = 1031
+ERR_MISSING_HEAD: UInt32 = 1032
+ERR_MISSING_HHEA: UInt32 = 1033
+ERR_MISSING_HMTX: UInt32 = 1034
+ERR_MISSING_LOCA: UInt32 = 1035
+ERR_MISSING_MAXP: UInt32 = 1036
+ERR_MISSING_NAME: UInt32 = 1037
+ERR_MISSING_POST: UInt32 = 1038
+ERR_MISSING_OS2: UInt32 = 1039
+ERR_MISSING_VHEA: UInt32 = 1040
+ERR_MISSING_VMTX: UInt32 = 1041
+ERR_MISSING_HHEA_OR_VHEA: UInt32 = 1042
+ERR_MISSING_HMTX_OR_VMTX: UInt32 = 1043
+ERR_MISSING_EBDT: UInt32 = 1044
+ERR_INVALID_CMAP: UInt32 = 1060
+ERR_INVALID_GLYF: UInt32 = 1061
+ERR_INVALID_HEAD: UInt32 = 1062
+ERR_INVALID_HHEA: UInt32 = 1063
+ERR_INVALID_HMTX: UInt32 = 1064
+ERR_INVALID_LOCA: UInt32 = 1065
+ERR_INVALID_MAXP: UInt32 = 1066
+ERR_INVALID_NAME: UInt32 = 1067
+ERR_INVALID_POST: UInt32 = 1068
+ERR_INVALID_OS2: UInt32 = 1069
+ERR_INVALID_VHEA: UInt32 = 1070
+ERR_INVALID_VMTX: UInt32 = 1071
+ERR_INVALID_HHEA_OR_VHEA: UInt32 = 1072
+ERR_INVALID_HMTX_OR_VMTX: UInt32 = 1073
+ERR_INVALID_TTO: UInt32 = 1080
+ERR_INVALID_GSUB: UInt32 = 1081
+ERR_INVALID_GPOS: UInt32 = 1082
+ERR_INVALID_GDEF: UInt32 = 1083
+ERR_INVALID_JSTF: UInt32 = 1084
+ERR_INVALID_BASE: UInt32 = 1085
+ERR_INVALID_EBLC: UInt32 = 1086
+ERR_INVALID_LTSH: UInt32 = 1087
+ERR_INVALID_VDMX: UInt32 = 1088
+ERR_INVALID_HDMX: UInt32 = 1089
+ERR_PARAMETER0: UInt32 = 1100
+ERR_PARAMETER1: UInt32 = 1101
+ERR_PARAMETER2: UInt32 = 1102
+ERR_PARAMETER3: UInt32 = 1103
+ERR_PARAMETER4: UInt32 = 1104
+ERR_PARAMETER5: UInt32 = 1105
+ERR_PARAMETER6: UInt32 = 1106
+ERR_PARAMETER7: UInt32 = 1107
+ERR_PARAMETER8: UInt32 = 1108
+ERR_PARAMETER9: UInt32 = 1109
+ERR_PARAMETER10: UInt32 = 1110
+ERR_PARAMETER11: UInt32 = 1111
+ERR_PARAMETER12: UInt32 = 1112
+ERR_PARAMETER13: UInt32 = 1113
+ERR_PARAMETER14: UInt32 = 1114
+ERR_PARAMETER15: UInt32 = 1115
+ERR_PARAMETER16: UInt32 = 1116
+CHARSET_DEFAULT: UInt32 = 1
+CHARSET_GLYPHIDX: UInt32 = 3
+TTEMBED_FAILIFVARIATIONSIMULATED: UInt32 = 16
+TTEMBED_WEBOBJECT: UInt32 = 128
+TTEMBED_XORENCRYPTDATA: UInt32 = 268435456
+TTEMBED_VARIATIONSIMULATED: UInt32 = 1
+TTEMBED_EUDCEMBEDDED: UInt32 = 2
+TTEMBED_SUBSETCANCEL: UInt32 = 4
+TTLOAD_PRIVATE: UInt32 = 1
+TTLOAD_EUDC_OVERWRITE: UInt32 = 2
+TTLOAD_EUDC_SET: UInt32 = 4
+TTDELETE_DONTREMOVEFONT: UInt32 = 1
+E_NONE: Int32 = 0
+E_API_NOTIMPL: Int32 = 1
+E_CHARCODECOUNTINVALID: Int32 = 2
+E_CHARCODESETINVALID: Int32 = 3
+E_DEVICETRUETYPEFONT: Int32 = 4
+E_HDCINVALID: Int32 = 6
+E_NOFREEMEMORY: Int32 = 7
+E_FONTREFERENCEINVALID: Int32 = 8
+E_NOTATRUETYPEFONT: Int32 = 10
+E_ERRORACCESSINGFONTDATA: Int32 = 12
+E_ERRORACCESSINGFACENAME: Int32 = 13
+E_ERRORUNICODECONVERSION: Int32 = 17
+E_ERRORCONVERTINGCHARS: Int32 = 18
+E_EXCEPTION: Int32 = 19
+E_RESERVEDPARAMNOTNULL: Int32 = 20
+E_CHARSETINVALID: Int32 = 21
+E_FILE_NOT_FOUND: Int32 = 23
+E_TTC_INDEX_OUT_OF_RANGE: Int32 = 24
+E_INPUTPARAMINVALID: Int32 = 25
+E_ERRORCOMPRESSINGFONTDATA: Int32 = 256
+E_FONTDATAINVALID: Int32 = 258
+E_NAMECHANGEFAILED: Int32 = 259
+E_FONTNOTEMBEDDABLE: Int32 = 260
+E_PRIVSINVALID: Int32 = 261
+E_SUBSETTINGFAILED: Int32 = 262
+E_READFROMSTREAMFAILED: Int32 = 263
+E_SAVETOSTREAMFAILED: Int32 = 264
+E_NOOS2: Int32 = 265
+E_T2NOFREEMEMORY: Int32 = 266
+E_ERRORREADINGFONTDATA: Int32 = 267
+E_FLAGSINVALID: Int32 = 268
+E_ERRORCREATINGFONTFILE: Int32 = 269
+E_FONTALREADYEXISTS: Int32 = 270
+E_FONTNAMEALREADYEXISTS: Int32 = 271
+E_FONTINSTALLFAILED: Int32 = 272
+E_ERRORDECOMPRESSINGFONTDATA: Int32 = 273
+E_ERRORACCESSINGEXCLUDELIST: Int32 = 274
+E_FACENAMEINVALID: Int32 = 275
+E_STREAMINVALID: Int32 = 276
+E_STATUSINVALID: Int32 = 277
+E_PRIVSTATUSINVALID: Int32 = 278
+E_PERMISSIONSINVALID: Int32 = 279
+E_PBENABLEDINVALID: Int32 = 280
+E_SUBSETTINGEXCEPTION: Int32 = 281
+E_SUBSTRING_TEST_FAIL: Int32 = 282
+E_FONTVARIATIONSIMULATED: Int32 = 283
+E_FONTFAMILYNAMENOTINFULL: Int32 = 285
+E_ADDFONTFAILED: Int32 = 512
+E_COULDNTCREATETEMPFILE: Int32 = 513
+E_FONTFILECREATEFAILED: Int32 = 515
+E_WINDOWSAPI: Int32 = 516
+E_FONTFILENOTFOUND: Int32 = 517
+E_RESOURCEFILECREATEFAILED: Int32 = 518
+E_ERROREXPANDINGFONTDATA: Int32 = 519
+E_ERRORGETTINGDC: Int32 = 520
+E_EXCEPTIONINDECOMPRESSION: Int32 = 521
+E_EXCEPTIONINCOMPRESSION: Int32 = 522
+@winfunctype('GDI32.dll')
+def GetObjectA(h: win32more.Graphics.Gdi.HGDIOBJ, c: Int32, pv: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def AddFontResourceA(param0: win32more.Foundation.PSTR) -> Int32: ...
+@winfunctype('GDI32.dll')
+def AddFontResourceW(param0: win32more.Foundation.PWSTR) -> Int32: ...
+@winfunctype('GDI32.dll')
+def AnimatePalette(hPal: win32more.Graphics.Gdi.HPALETTE, iStartIndex: UInt32, cEntries: UInt32, ppe: POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Arc(hdc: win32more.Graphics.Gdi.HDC, x1: Int32, y1: Int32, x2: Int32, y2: Int32, x3: Int32, y3: Int32, x4: Int32, y4: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def BitBlt(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, cx: Int32, cy: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, x1: Int32, y1: Int32, rop: win32more.Graphics.Gdi.ROP_CODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CancelDC(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Chord(hdc: win32more.Graphics.Gdi.HDC, x1: Int32, y1: Int32, x2: Int32, y2: Int32, x3: Int32, y3: Int32, x4: Int32, y4: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CloseMetaFile(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CombineRgn(hrgnDst: win32more.Graphics.Gdi.HRGN, hrgnSrc1: win32more.Graphics.Gdi.HRGN, hrgnSrc2: win32more.Graphics.Gdi.HRGN, iMode: win32more.Graphics.Gdi.RGN_COMBINE_MODE) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def CopyMetaFileA(param0: win32more.Graphics.Gdi.HMETAFILE, param1: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CopyMetaFileW(param0: win32more.Graphics.Gdi.HMETAFILE, param1: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CreateBitmap(nWidth: Int32, nHeight: Int32, nPlanes: UInt32, nBitCount: UInt32, lpBits: c_void_p) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def CreateBitmapIndirect(pbm: POINTER(win32more.Graphics.Gdi.BITMAP_head)) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def CreateBrushIndirect(plbrush: POINTER(win32more.Graphics.Gdi.LOGBRUSH_head)) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def CreateCompatibleBitmap(hdc: win32more.Graphics.Gdi.HDC, cx: Int32, cy: Int32) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def CreateDiscardableBitmap(hdc: win32more.Graphics.Gdi.HDC, cx: Int32, cy: Int32) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def CreateCompatibleDC(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.CreatedHDC: ...
+@winfunctype('GDI32.dll')
+def CreateDCA(pwszDriver: win32more.Foundation.PSTR, pwszDevice: win32more.Foundation.PSTR, pszPort: win32more.Foundation.PSTR, pdm: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)) -> win32more.Graphics.Gdi.CreatedHDC: ...
+@winfunctype('GDI32.dll')
+def CreateDCW(pwszDriver: win32more.Foundation.PWSTR, pwszDevice: win32more.Foundation.PWSTR, pszPort: win32more.Foundation.PWSTR, pdm: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)) -> win32more.Graphics.Gdi.CreatedHDC: ...
+@winfunctype('GDI32.dll')
+def CreateDIBitmap(hdc: win32more.Graphics.Gdi.HDC, pbmih: POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head), flInit: UInt32, pjBits: c_void_p, pbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), iUsage: win32more.Graphics.Gdi.DIB_USAGE) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def CreateDIBPatternBrush(h: IntPtr, iUsage: win32more.Graphics.Gdi.DIB_USAGE) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def CreateDIBPatternBrushPt(lpPackedDIB: c_void_p, iUsage: win32more.Graphics.Gdi.DIB_USAGE) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def CreateEllipticRgn(x1: Int32, y1: Int32, x2: Int32, y2: Int32) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreateEllipticRgnIndirect(lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreateFontIndirectA(lplf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def CreateFontIndirectW(lplf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def CreateFontA(cHeight: Int32, cWidth: Int32, cEscapement: Int32, cOrientation: Int32, cWeight: Int32, bItalic: UInt32, bUnderline: UInt32, bStrikeOut: UInt32, iCharSet: UInt32, iOutPrecision: UInt32, iClipPrecision: UInt32, iQuality: UInt32, iPitchAndFamily: UInt32, pszFaceName: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def CreateFontW(cHeight: Int32, cWidth: Int32, cEscapement: Int32, cOrientation: Int32, cWeight: Int32, bItalic: UInt32, bUnderline: UInt32, bStrikeOut: UInt32, iCharSet: UInt32, iOutPrecision: UInt32, iClipPrecision: UInt32, iQuality: UInt32, iPitchAndFamily: UInt32, pszFaceName: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def CreateHatchBrush(iHatch: win32more.Graphics.Gdi.HATCH_BRUSH_STYLE, color: win32more.Foundation.COLORREF) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def CreateICA(pszDriver: win32more.Foundation.PSTR, pszDevice: win32more.Foundation.PSTR, pszPort: win32more.Foundation.PSTR, pdm: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)) -> win32more.Graphics.Gdi.CreatedHDC: ...
+@winfunctype('GDI32.dll')
+def CreateICW(pszDriver: win32more.Foundation.PWSTR, pszDevice: win32more.Foundation.PWSTR, pszPort: win32more.Foundation.PWSTR, pdm: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)) -> win32more.Graphics.Gdi.CreatedHDC: ...
+@winfunctype('GDI32.dll')
+def CreateMetaFileA(pszFile: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HdcMetdataFileHandle: ...
+@winfunctype('GDI32.dll')
+def CreateMetaFileW(pszFile: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HdcMetdataFileHandle: ...
+@winfunctype('GDI32.dll')
+def CreatePalette(plpal: POINTER(win32more.Graphics.Gdi.LOGPALETTE_head)) -> win32more.Graphics.Gdi.HPALETTE: ...
+@winfunctype('GDI32.dll')
+def CreatePen(iStyle: win32more.Graphics.Gdi.PEN_STYLE, cWidth: Int32, color: win32more.Foundation.COLORREF) -> win32more.Graphics.Gdi.HPEN: ...
+@winfunctype('GDI32.dll')
+def CreatePenIndirect(plpen: POINTER(win32more.Graphics.Gdi.LOGPEN_head)) -> win32more.Graphics.Gdi.HPEN: ...
+@winfunctype('GDI32.dll')
+def CreatePolyPolygonRgn(pptl: POINTER(win32more.Foundation.POINT_head), pc: POINTER(Int32), cPoly: Int32, iMode: win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreatePatternBrush(hbm: win32more.Graphics.Gdi.HBITMAP) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def CreateRectRgn(x1: Int32, y1: Int32, x2: Int32, y2: Int32) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreateRectRgnIndirect(lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreateRoundRectRgn(x1: Int32, y1: Int32, x2: Int32, y2: Int32, w: Int32, h: Int32) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def CreateScalableFontResourceA(fdwHidden: UInt32, lpszFont: win32more.Foundation.PSTR, lpszFile: win32more.Foundation.PSTR, lpszPath: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateScalableFontResourceW(fdwHidden: UInt32, lpszFont: win32more.Foundation.PWSTR, lpszFile: win32more.Foundation.PWSTR, lpszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateSolidBrush(color: win32more.Foundation.COLORREF) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('GDI32.dll')
+def DeleteDC(hdc: win32more.Graphics.Gdi.CreatedHDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def DeleteMetaFile(hmf: win32more.Graphics.Gdi.HMETAFILE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def DeleteObject(ho: win32more.Graphics.Gdi.HGDIOBJ) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def DrawEscape(hdc: win32more.Graphics.Gdi.HDC, iEscape: Int32, cjIn: Int32, lpIn: win32more.Foundation.PSTR) -> Int32: ...
+@winfunctype('GDI32.dll')
+def Ellipse(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def EnumFontFamiliesExA(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: POINTER(win32more.Graphics.Gdi.LOGFONTA_head), lpProc: win32more.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Foundation.LPARAM, dwFlags: UInt32) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumFontFamiliesExW(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: POINTER(win32more.Graphics.Gdi.LOGFONTW_head), lpProc: win32more.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Foundation.LPARAM, dwFlags: UInt32) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumFontFamiliesA(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: win32more.Foundation.PSTR, lpProc: win32more.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumFontFamiliesW(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: win32more.Foundation.PWSTR, lpProc: win32more.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumFontsA(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: win32more.Foundation.PSTR, lpProc: win32more.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumFontsW(hdc: win32more.Graphics.Gdi.HDC, lpLogfont: win32more.Foundation.PWSTR, lpProc: win32more.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumObjects(hdc: win32more.Graphics.Gdi.HDC, nType: win32more.Graphics.Gdi.OBJ_TYPE, lpFunc: win32more.Graphics.Gdi.GOBJENUMPROC, lParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EqualRgn(hrgn1: win32more.Graphics.Gdi.HRGN, hrgn2: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ExcludeClipRect(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def ExtCreateRegion(lpx: POINTER(win32more.Graphics.Gdi.XFORM_head), nCount: UInt32, lpData: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def ExtFloodFill(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, color: win32more.Foundation.COLORREF, type: win32more.Graphics.Gdi.EXT_FLOOD_FILL_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FillRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN, hbr: win32more.Graphics.Gdi.HBRUSH) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FloodFill(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, color: win32more.Foundation.COLORREF) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FrameRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN, hbr: win32more.Graphics.Gdi.HBRUSH, w: Int32, h: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetROP2(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.R2_MODE: ...
+@winfunctype('GDI32.dll')
+def GetAspectRatioFilterEx(hdc: win32more.Graphics.Gdi.HDC, lpsize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetBkColor(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetDCBrushColor(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetDCPenColor(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetBkMode(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.BACKGROUND_MODE: ...
+@winfunctype('GDI32.dll')
+def GetBitmapBits(hbit: win32more.Graphics.Gdi.HBITMAP, cb: Int32, lpvBits: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetBitmapDimensionEx(hbit: win32more.Graphics.Gdi.HBITMAP, lpsize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetBoundsRect(hdc: win32more.Graphics.Gdi.HDC, lprect: POINTER(win32more.Foundation.RECT_head), flags: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetBrushOrgEx(hdc: win32more.Graphics.Gdi.HDC, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidthA(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidthW(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidth32A(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidth32W(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidthFloatA(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Single)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidthFloatW(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Single)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharABCWidthsA(hdc: win32more.Graphics.Gdi.HDC, wFirst: UInt32, wLast: UInt32, lpABC: POINTER(win32more.Graphics.Gdi.ABC_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharABCWidthsW(hdc: win32more.Graphics.Gdi.HDC, wFirst: UInt32, wLast: UInt32, lpABC: POINTER(win32more.Graphics.Gdi.ABC_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharABCWidthsFloatA(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpABC: POINTER(win32more.Graphics.Gdi.ABCFLOAT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharABCWidthsFloatW(hdc: win32more.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpABC: POINTER(win32more.Graphics.Gdi.ABCFLOAT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetClipBox(hdc: win32more.Graphics.Gdi.HDC, lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def GetClipRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetMetaRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetCurrentObject(hdc: win32more.Graphics.Gdi.HDC, type: win32more.Graphics.Gdi.OBJ_TYPE) -> win32more.Graphics.Gdi.HGDIOBJ: ...
+@winfunctype('GDI32.dll')
+def GetCurrentPositionEx(hdc: win32more.Graphics.Gdi.HDC, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetDeviceCaps(hdc: win32more.Graphics.Gdi.HDC, index: win32more.Graphics.Gdi.GET_DEVICE_CAPS_INDEX) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetDIBits(hdc: win32more.Graphics.Gdi.HDC, hbm: win32more.Graphics.Gdi.HBITMAP, start: UInt32, cLines: UInt32, lpvBits: c_void_p, lpbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), usage: win32more.Graphics.Gdi.DIB_USAGE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetFontData(hdc: win32more.Graphics.Gdi.HDC, dwTable: UInt32, dwOffset: UInt32, pvBuffer: c_void_p, cjBuffer: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetGlyphOutlineA(hdc: win32more.Graphics.Gdi.HDC, uChar: UInt32, fuFormat: win32more.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT, lpgm: POINTER(win32more.Graphics.Gdi.GLYPHMETRICS_head), cjBuffer: UInt32, pvBuffer: c_void_p, lpmat2: POINTER(win32more.Graphics.Gdi.MAT2_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetGlyphOutlineW(hdc: win32more.Graphics.Gdi.HDC, uChar: UInt32, fuFormat: win32more.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT, lpgm: POINTER(win32more.Graphics.Gdi.GLYPHMETRICS_head), cjBuffer: UInt32, pvBuffer: c_void_p, lpmat2: POINTER(win32more.Graphics.Gdi.MAT2_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetGraphicsMode(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetMapMode(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.HDC_MAP_MODE: ...
+@winfunctype('GDI32.dll')
+def GetMetaFileBitsEx(hMF: win32more.Graphics.Gdi.HMETAFILE, cbBuffer: UInt32, lpData: c_void_p) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetMetaFileA(lpName: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def GetMetaFileW(lpName: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def GetNearestColor(hdc: win32more.Graphics.Gdi.HDC, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetNearestPaletteIndex(h: win32more.Graphics.Gdi.HPALETTE, color: win32more.Foundation.COLORREF) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetObjectType(h: win32more.Graphics.Gdi.HGDIOBJ) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetOutlineTextMetricsA(hdc: win32more.Graphics.Gdi.HDC, cjCopy: UInt32, potm: POINTER(win32more.Graphics.Gdi.OUTLINETEXTMETRICA_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetOutlineTextMetricsW(hdc: win32more.Graphics.Gdi.HDC, cjCopy: UInt32, potm: POINTER(win32more.Graphics.Gdi.OUTLINETEXTMETRICW_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetPaletteEntries(hpal: win32more.Graphics.Gdi.HPALETTE, iStart: UInt32, cEntries: UInt32, pPalEntries: POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetPixel(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetPolyFillMode(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetRasterizerCaps(lpraststat: POINTER(win32more.Graphics.Gdi.RASTERIZER_STATUS_head), cjBytes: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetRandomRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN, i: Int32) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetRegionData(hrgn: win32more.Graphics.Gdi.HRGN, nCount: UInt32, lpRgnData: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetRgnBox(hrgn: win32more.Graphics.Gdi.HRGN, lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def GetStockObject(i: win32more.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS) -> win32more.Graphics.Gdi.HGDIOBJ: ...
+@winfunctype('GDI32.dll')
+def GetStretchBltMode(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetSystemPaletteEntries(hdc: win32more.Graphics.Gdi.HDC, iStart: UInt32, cEntries: UInt32, pPalEntries: POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetSystemPaletteUse(hdc: win32more.Graphics.Gdi.HDC) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetTextCharacterExtra(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetTextAlign(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS: ...
+@winfunctype('GDI32.dll')
+def GetTextColor(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentPointA(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PSTR, c: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentPointW(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PWSTR, c: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentPoint32A(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PSTR, c: Int32, psizl: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentPoint32W(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PWSTR, c: Int32, psizl: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentExPointA(hdc: win32more.Graphics.Gdi.HDC, lpszString: win32more.Foundation.PSTR, cchString: Int32, nMaxExtent: Int32, lpnFit: POINTER(Int32), lpnDx: POINTER(Int32), lpSize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentExPointW(hdc: win32more.Graphics.Gdi.HDC, lpszString: win32more.Foundation.PWSTR, cchString: Int32, nMaxExtent: Int32, lpnFit: POINTER(Int32), lpnDx: POINTER(Int32), lpSize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetFontLanguageInfo(hdc: win32more.Graphics.Gdi.HDC) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetCharacterPlacementA(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PSTR, nCount: Int32, nMexExtent: Int32, lpResults: POINTER(win32more.Graphics.Gdi.GCP_RESULTSA_head), dwFlags: win32more.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetCharacterPlacementW(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PWSTR, nCount: Int32, nMexExtent: Int32, lpResults: POINTER(win32more.Graphics.Gdi.GCP_RESULTSW_head), dwFlags: win32more.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetFontUnicodeRanges(hdc: win32more.Graphics.Gdi.HDC, lpgs: POINTER(win32more.Graphics.Gdi.GLYPHSET_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetGlyphIndicesA(hdc: win32more.Graphics.Gdi.HDC, lpstr: win32more.Foundation.PSTR, c: Int32, pgi: POINTER(UInt16), fl: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetGlyphIndicesW(hdc: win32more.Graphics.Gdi.HDC, lpstr: win32more.Foundation.PWSTR, c: Int32, pgi: POINTER(UInt16), fl: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentPointI(hdc: win32more.Graphics.Gdi.HDC, pgiIn: POINTER(UInt16), cgi: Int32, psize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextExtentExPointI(hdc: win32more.Graphics.Gdi.HDC, lpwszString: POINTER(UInt16), cwchString: Int32, nMaxExtent: Int32, lpnFit: POINTER(Int32), lpnDx: POINTER(Int32), lpSize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharWidthI(hdc: win32more.Graphics.Gdi.HDC, giFirst: UInt32, cgi: UInt32, pgi: POINTER(UInt16), piWidths: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetCharABCWidthsI(hdc: win32more.Graphics.Gdi.HDC, giFirst: UInt32, cgi: UInt32, pgi: POINTER(UInt16), pabc: POINTER(win32more.Graphics.Gdi.ABC_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def AddFontResourceExA(name: win32more.Foundation.PSTR, fl: win32more.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS, res: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def AddFontResourceExW(name: win32more.Foundation.PWSTR, fl: win32more.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS, res: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def RemoveFontResourceExA(name: win32more.Foundation.PSTR, fl: UInt32, pdv: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RemoveFontResourceExW(name: win32more.Foundation.PWSTR, fl: UInt32, pdv: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def AddFontMemResourceEx(pFileView: c_void_p, cjSize: UInt32, pvResrved: c_void_p, pNumFonts: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('GDI32.dll')
+def RemoveFontMemResourceEx(h: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateFontIndirectExA(param0: POINTER(win32more.Graphics.Gdi.ENUMLOGFONTEXDVA_head)) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def CreateFontIndirectExW(param0: POINTER(win32more.Graphics.Gdi.ENUMLOGFONTEXDVW_head)) -> win32more.Graphics.Gdi.HFONT: ...
+@winfunctype('GDI32.dll')
+def GetViewportExtEx(hdc: win32more.Graphics.Gdi.HDC, lpsize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetViewportOrgEx(hdc: win32more.Graphics.Gdi.HDC, lppoint: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetWindowExtEx(hdc: win32more.Graphics.Gdi.HDC, lpsize: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetWindowOrgEx(hdc: win32more.Graphics.Gdi.HDC, lppoint: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def IntersectClipRect(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def InvertRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def LineDDA(xStart: Int32, yStart: Int32, xEnd: Int32, yEnd: Int32, lpProc: win32more.Graphics.Gdi.LINEDDAPROC, data: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def LineTo(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def MaskBlt(hdcDest: win32more.Graphics.Gdi.HDC, xDest: Int32, yDest: Int32, width: Int32, height: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xSrc: Int32, ySrc: Int32, hbmMask: win32more.Graphics.Gdi.HBITMAP, xMask: Int32, yMask: Int32, rop: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PlgBlt(hdcDest: win32more.Graphics.Gdi.HDC, lpPoint: POINTER(win32more.Foundation.POINT_head), hdcSrc: win32more.Graphics.Gdi.HDC, xSrc: Int32, ySrc: Int32, width: Int32, height: Int32, hbmMask: win32more.Graphics.Gdi.HBITMAP, xMask: Int32, yMask: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def OffsetClipRgn(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def OffsetRgn(hrgn: win32more.Graphics.Gdi.HRGN, x: Int32, y: Int32) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def PatBlt(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, w: Int32, h: Int32, rop: win32more.Graphics.Gdi.ROP_CODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Pie(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32, xr1: Int32, yr1: Int32, xr2: Int32, yr2: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PlayMetaFile(hdc: win32more.Graphics.Gdi.HDC, hmf: win32more.Graphics.Gdi.HMETAFILE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PaintRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyPolygon(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), asz: POINTER(Int32), csz: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PtInRegion(hrgn: win32more.Graphics.Gdi.HRGN, x: Int32, y: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PtVisible(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RectInRegion(hrgn: win32more.Graphics.Gdi.HRGN, lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RectVisible(hdc: win32more.Graphics.Gdi.HDC, lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Rectangle(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RestoreDC(hdc: win32more.Graphics.Gdi.HDC, nSavedDC: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ResetDCA(hdc: win32more.Graphics.Gdi.HDC, lpdm: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('GDI32.dll')
+def ResetDCW(hdc: win32more.Graphics.Gdi.HDC, lpdm: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('GDI32.dll')
+def RealizePalette(hdc: win32more.Graphics.Gdi.HDC) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def RemoveFontResourceA(lpFileName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RemoveFontResourceW(lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def RoundRect(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32, width: Int32, height: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ResizePalette(hpal: win32more.Graphics.Gdi.HPALETTE, n: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SaveDC(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SelectClipRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def ExtSelectClipRgn(hdc: win32more.Graphics.Gdi.HDC, hrgn: win32more.Graphics.Gdi.HRGN, mode: win32more.Graphics.Gdi.RGN_COMBINE_MODE) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def SetMetaRgn(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('GDI32.dll')
+def SelectObject(hdc: win32more.Graphics.Gdi.HDC, h: win32more.Graphics.Gdi.HGDIOBJ) -> win32more.Graphics.Gdi.HGDIOBJ: ...
+@winfunctype('GDI32.dll')
+def SelectPalette(hdc: win32more.Graphics.Gdi.HDC, hPal: win32more.Graphics.Gdi.HPALETTE, bForceBkgd: win32more.Foundation.BOOL) -> win32more.Graphics.Gdi.HPALETTE: ...
+@winfunctype('GDI32.dll')
+def SetBkColor(hdc: win32more.Graphics.Gdi.HDC, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def SetDCBrushColor(hdc: win32more.Graphics.Gdi.HDC, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def SetDCPenColor(hdc: win32more.Graphics.Gdi.HDC, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def SetBkMode(hdc: win32more.Graphics.Gdi.HDC, mode: win32more.Graphics.Gdi.BACKGROUND_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetBitmapBits(hbm: win32more.Graphics.Gdi.HBITMAP, cb: UInt32, pvBits: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetBoundsRect(hdc: win32more.Graphics.Gdi.HDC, lprect: POINTER(win32more.Foundation.RECT_head), flags: win32more.Graphics.Gdi.SET_BOUNDS_RECT_FLAGS) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetDIBits(hdc: win32more.Graphics.Gdi.HDC, hbm: win32more.Graphics.Gdi.HBITMAP, start: UInt32, cLines: UInt32, lpBits: c_void_p, lpbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), ColorUse: win32more.Graphics.Gdi.DIB_USAGE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetDIBitsToDevice(hdc: win32more.Graphics.Gdi.HDC, xDest: Int32, yDest: Int32, w: UInt32, h: UInt32, xSrc: Int32, ySrc: Int32, StartScan: UInt32, cLines: UInt32, lpvBits: c_void_p, lpbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), ColorUse: win32more.Graphics.Gdi.DIB_USAGE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetMapperFlags(hdc: win32more.Graphics.Gdi.HDC, flags: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetGraphicsMode(hdc: win32more.Graphics.Gdi.HDC, iMode: win32more.Graphics.Gdi.GRAPHICS_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetMapMode(hdc: win32more.Graphics.Gdi.HDC, iMode: win32more.Graphics.Gdi.HDC_MAP_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetLayout(hdc: win32more.Graphics.Gdi.HDC, l: win32more.Graphics.Gdi.DC_LAYOUT) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetLayout(hdc: win32more.Graphics.Gdi.HDC) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetMetaFileBitsEx(cbBuffer: UInt32, lpData: c_char_p_no) -> win32more.Graphics.Gdi.HMETAFILE: ...
+@winfunctype('GDI32.dll')
+def SetPaletteEntries(hpal: win32more.Graphics.Gdi.HPALETTE, iStart: UInt32, cEntries: UInt32, pPalEntries: POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetPixel(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def SetPixelV(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, color: win32more.Foundation.COLORREF) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetPolyFillMode(hdc: win32more.Graphics.Gdi.HDC, mode: win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def StretchBlt(hdcDest: win32more.Graphics.Gdi.HDC, xDest: Int32, yDest: Int32, wDest: Int32, hDest: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xSrc: Int32, ySrc: Int32, wSrc: Int32, hSrc: Int32, rop: win32more.Graphics.Gdi.ROP_CODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetRectRgn(hrgn: win32more.Graphics.Gdi.HRGN, left: Int32, top: Int32, right: Int32, bottom: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def StretchDIBits(hdc: win32more.Graphics.Gdi.HDC, xDest: Int32, yDest: Int32, DestWidth: Int32, DestHeight: Int32, xSrc: Int32, ySrc: Int32, SrcWidth: Int32, SrcHeight: Int32, lpBits: c_void_p, lpbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), iUsage: win32more.Graphics.Gdi.DIB_USAGE, rop: win32more.Graphics.Gdi.ROP_CODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetROP2(hdc: win32more.Graphics.Gdi.HDC, rop2: win32more.Graphics.Gdi.R2_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetStretchBltMode(hdc: win32more.Graphics.Gdi.HDC, mode: win32more.Graphics.Gdi.STRETCH_BLT_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetSystemPaletteUse(hdc: win32more.Graphics.Gdi.HDC, use: win32more.Graphics.Gdi.SYSTEM_PALETTE_USE) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetTextCharacterExtra(hdc: win32more.Graphics.Gdi.HDC, extra: Int32) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetTextColor(hdc: win32more.Graphics.Gdi.HDC, color: win32more.Foundation.COLORREF) -> win32more.Foundation.COLORREF: ...
+@winfunctype('GDI32.dll')
+def SetTextAlign(hdc: win32more.Graphics.Gdi.HDC, align: win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetTextJustification(hdc: win32more.Graphics.Gdi.HDC, extra: Int32, count: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def UpdateColors(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('MSIMG32.dll')
+def AlphaBlend(hdcDest: win32more.Graphics.Gdi.HDC, xoriginDest: Int32, yoriginDest: Int32, wDest: Int32, hDest: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xoriginSrc: Int32, yoriginSrc: Int32, wSrc: Int32, hSrc: Int32, ftn: win32more.Graphics.Gdi.BLENDFUNCTION) -> win32more.Foundation.BOOL: ...
+@winfunctype('MSIMG32.dll')
+def TransparentBlt(hdcDest: win32more.Graphics.Gdi.HDC, xoriginDest: Int32, yoriginDest: Int32, wDest: Int32, hDest: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xoriginSrc: Int32, yoriginSrc: Int32, wSrc: Int32, hSrc: Int32, crTransparent: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('MSIMG32.dll')
+def GradientFill(hdc: win32more.Graphics.Gdi.HDC, pVertex: POINTER(win32more.Graphics.Gdi.TRIVERTEX_head), nVertex: UInt32, pMesh: c_void_p, nMesh: UInt32, ulMode: win32more.Graphics.Gdi.GRADIENT_FILL) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GdiAlphaBlend(hdcDest: win32more.Graphics.Gdi.HDC, xoriginDest: Int32, yoriginDest: Int32, wDest: Int32, hDest: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xoriginSrc: Int32, yoriginSrc: Int32, wSrc: Int32, hSrc: Int32, ftn: win32more.Graphics.Gdi.BLENDFUNCTION) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GdiTransparentBlt(hdcDest: win32more.Graphics.Gdi.HDC, xoriginDest: Int32, yoriginDest: Int32, wDest: Int32, hDest: Int32, hdcSrc: win32more.Graphics.Gdi.HDC, xoriginSrc: Int32, yoriginSrc: Int32, wSrc: Int32, hSrc: Int32, crTransparent: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GdiGradientFill(hdc: win32more.Graphics.Gdi.HDC, pVertex: POINTER(win32more.Graphics.Gdi.TRIVERTEX_head), nVertex: UInt32, pMesh: c_void_p, nCount: UInt32, ulMode: win32more.Graphics.Gdi.GRADIENT_FILL) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PlayMetaFileRecord(hdc: win32more.Graphics.Gdi.HDC, lpHandleTable: POINTER(win32more.Graphics.Gdi.HANDLETABLE_head), lpMR: POINTER(win32more.Graphics.Gdi.METARECORD_head), noObjs: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def EnumMetaFile(hdc: win32more.Graphics.Gdi.HDC, hmf: win32more.Graphics.Gdi.HMETAFILE, proc: win32more.Graphics.Gdi.MFENUMPROC, param3: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CloseEnhMetaFile(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CopyEnhMetaFileA(hEnh: win32more.Graphics.Gdi.HENHMETAFILE, lpFileName: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CopyEnhMetaFileW(hEnh: win32more.Graphics.Gdi.HENHMETAFILE, lpFileName: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def CreateEnhMetaFileA(hdc: win32more.Graphics.Gdi.HDC, lpFilename: win32more.Foundation.PSTR, lprc: POINTER(win32more.Foundation.RECT_head), lpDesc: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HdcMetdataEnhFileHandle: ...
+@winfunctype('GDI32.dll')
+def CreateEnhMetaFileW(hdc: win32more.Graphics.Gdi.HDC, lpFilename: win32more.Foundation.PWSTR, lprc: POINTER(win32more.Foundation.RECT_head), lpDesc: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HdcMetdataEnhFileHandle: ...
+@winfunctype('GDI32.dll')
+def DeleteEnhMetaFile(hmf: win32more.Graphics.Gdi.HENHMETAFILE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def EnumEnhMetaFile(hdc: win32more.Graphics.Gdi.HDC, hmf: win32more.Graphics.Gdi.HENHMETAFILE, proc: win32more.Graphics.Gdi.ENHMFENUMPROC, param3: c_void_p, lpRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileA(lpName: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileW(lpName: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileBits(hEMF: win32more.Graphics.Gdi.HENHMETAFILE, nSize: UInt32, lpData: c_char_p_no) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileDescriptionA(hemf: win32more.Graphics.Gdi.HENHMETAFILE, cchBuffer: UInt32, lpDescription: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileDescriptionW(hemf: win32more.Graphics.Gdi.HENHMETAFILE, cchBuffer: UInt32, lpDescription: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFileHeader(hemf: win32more.Graphics.Gdi.HENHMETAFILE, nSize: UInt32, lpEnhMetaHeader: POINTER(win32more.Graphics.Gdi.ENHMETAHEADER_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFilePaletteEntries(hemf: win32more.Graphics.Gdi.HENHMETAFILE, nNumEntries: UInt32, lpPaletteEntries: POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetWinMetaFileBits(hemf: win32more.Graphics.Gdi.HENHMETAFILE, cbData16: UInt32, pData16: c_char_p_no, iMapMode: Int32, hdcRef: win32more.Graphics.Gdi.HDC) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def PlayEnhMetaFile(hdc: win32more.Graphics.Gdi.HDC, hmf: win32more.Graphics.Gdi.HENHMETAFILE, lprect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PlayEnhMetaFileRecord(hdc: win32more.Graphics.Gdi.HDC, pht: POINTER(win32more.Graphics.Gdi.HANDLETABLE_head), pmr: POINTER(win32more.Graphics.Gdi.ENHMETARECORD_head), cht: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetEnhMetaFileBits(nSize: UInt32, pb: c_char_p_no) -> win32more.Graphics.Gdi.HENHMETAFILE: ...
+@winfunctype('GDI32.dll')
+def GdiComment(hdc: win32more.Graphics.Gdi.HDC, nSize: UInt32, lpData: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextMetricsA(hdc: win32more.Graphics.Gdi.HDC, lptm: POINTER(win32more.Graphics.Gdi.TEXTMETRICA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextMetricsW(hdc: win32more.Graphics.Gdi.HDC, lptm: POINTER(win32more.Graphics.Gdi.TEXTMETRICW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def AngleArc(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, r: UInt32, StartAngle: Single, SweepAngle: Single) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyPolyline(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), asz: POINTER(UInt32), csz: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetWorldTransform(hdc: win32more.Graphics.Gdi.HDC, lpxf: POINTER(win32more.Graphics.Gdi.XFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetWorldTransform(hdc: win32more.Graphics.Gdi.HDC, lpxf: POINTER(win32more.Graphics.Gdi.XFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ModifyWorldTransform(hdc: win32more.Graphics.Gdi.HDC, lpxf: POINTER(win32more.Graphics.Gdi.XFORM_head), mode: win32more.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CombineTransform(lpxfOut: POINTER(win32more.Graphics.Gdi.XFORM_head), lpxf1: POINTER(win32more.Graphics.Gdi.XFORM_head), lpxf2: POINTER(win32more.Graphics.Gdi.XFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateDIBSection(hdc: win32more.Graphics.Gdi.HDC, pbmi: POINTER(win32more.Graphics.Gdi.BITMAPINFO_head), usage: win32more.Graphics.Gdi.DIB_USAGE, ppvBits: POINTER(c_void_p), hSection: win32more.Foundation.HANDLE, offset: UInt32) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('GDI32.dll')
+def GetDIBColorTable(hdc: win32more.Graphics.Gdi.HDC, iStart: UInt32, cEntries: UInt32, prgbq: POINTER(win32more.Graphics.Gdi.RGBQUAD_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetDIBColorTable(hdc: win32more.Graphics.Gdi.HDC, iStart: UInt32, cEntries: UInt32, prgbq: POINTER(win32more.Graphics.Gdi.RGBQUAD_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def SetColorAdjustment(hdc: win32more.Graphics.Gdi.HDC, lpca: POINTER(win32more.Graphics.Gdi.COLORADJUSTMENT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetColorAdjustment(hdc: win32more.Graphics.Gdi.HDC, lpca: POINTER(win32more.Graphics.Gdi.COLORADJUSTMENT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateHalftonePalette(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.HPALETTE: ...
+@winfunctype('GDI32.dll')
+def AbortPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ArcTo(hdc: win32more.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32, xr1: Int32, yr1: Int32, xr2: Int32, yr2: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def BeginPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CloseFigure(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def EndPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FillPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FlattenPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetPath(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), aj: c_char_p_no, cpt: Int32) -> Int32: ...
+@winfunctype('GDI32.dll')
+def PathToRegion(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def PolyDraw(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), aj: c_char_p_no, cpt: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SelectClipPath(hdc: win32more.Graphics.Gdi.HDC, mode: win32more.Graphics.Gdi.RGN_COMBINE_MODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetArcDirection(hdc: win32more.Graphics.Gdi.HDC, dir: win32more.Graphics.Gdi.ARC_DIRECTION) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetMiterLimit(hdc: win32more.Graphics.Gdi.HDC, limit: Single, old: POINTER(Single)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def StrokeAndFillPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def StrokePath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def WidenPath(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ExtCreatePen(iPenStyle: win32more.Graphics.Gdi.PEN_STYLE, cWidth: UInt32, plbrush: POINTER(win32more.Graphics.Gdi.LOGBRUSH_head), cStyle: UInt32, pstyle: POINTER(UInt32)) -> win32more.Graphics.Gdi.HPEN: ...
+@winfunctype('GDI32.dll')
+def GetMiterLimit(hdc: win32more.Graphics.Gdi.HDC, plimit: POINTER(Single)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetArcDirection(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetObjectW(h: win32more.Graphics.Gdi.HGDIOBJ, c: Int32, pv: c_void_p) -> Int32: ...
+@winfunctype('GDI32.dll')
+def MoveToEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def TextOutA(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Foundation.PSTR, c: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def TextOutW(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Foundation.PWSTR, c: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ExtTextOutA(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, options: win32more.Graphics.Gdi.ETO_OPTIONS, lprect: POINTER(win32more.Foundation.RECT_head), lpString: win32more.Foundation.PSTR, c: UInt32, lpDx: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ExtTextOutW(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, options: win32more.Graphics.Gdi.ETO_OPTIONS, lprect: POINTER(win32more.Foundation.RECT_head), lpString: win32more.Foundation.PWSTR, c: UInt32, lpDx: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyTextOutA(hdc: win32more.Graphics.Gdi.HDC, ppt: POINTER(win32more.Graphics.Gdi.POLYTEXTA_head), nstrings: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyTextOutW(hdc: win32more.Graphics.Gdi.HDC, ppt: POINTER(win32more.Graphics.Gdi.POLYTEXTW_head), nstrings: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreatePolygonRgn(pptl: POINTER(win32more.Foundation.POINT_head), cPoint: Int32, iMode: win32more.Graphics.Gdi.CREATE_POLYGON_RGN_MODE) -> win32more.Graphics.Gdi.HRGN: ...
+@winfunctype('GDI32.dll')
+def DPtoLP(hdc: win32more.Graphics.Gdi.HDC, lppt: POINTER(win32more.Foundation.POINT_head), c: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def LPtoDP(hdc: win32more.Graphics.Gdi.HDC, lppt: POINTER(win32more.Foundation.POINT_head), c: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Polygon(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), cpt: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def Polyline(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), cpt: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyBezier(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), cpt: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolyBezierTo(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), cpt: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def PolylineTo(hdc: win32more.Graphics.Gdi.HDC, apt: POINTER(win32more.Foundation.POINT_head), cpt: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetViewportExtEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetViewportOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetWindowExtEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetWindowOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def OffsetViewportOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def OffsetWindowOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ScaleViewportExtEx(hdc: win32more.Graphics.Gdi.HDC, xn: Int32, dx: Int32, yn: Int32, yd: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ScaleWindowExtEx(hdc: win32more.Graphics.Gdi.HDC, xn: Int32, xd: Int32, yn: Int32, yd: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetBitmapDimensionEx(hbm: win32more.Graphics.Gdi.HBITMAP, w: Int32, h: Int32, lpsz: POINTER(win32more.Foundation.SIZE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetBrushOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetTextFaceA(hdc: win32more.Graphics.Gdi.HDC, c: Int32, lpName: win32more.Foundation.PSTR) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetTextFaceW(hdc: win32more.Graphics.Gdi.HDC, c: Int32, lpName: win32more.Foundation.PWSTR) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetKerningPairsA(hdc: win32more.Graphics.Gdi.HDC, nPairs: UInt32, lpKernPair: POINTER(win32more.Graphics.Gdi.KERNINGPAIR_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetKerningPairsW(hdc: win32more.Graphics.Gdi.HDC, nPairs: UInt32, lpKernPair: POINTER(win32more.Graphics.Gdi.KERNINGPAIR_head)) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GetDCOrgEx(hdc: win32more.Graphics.Gdi.HDC, lppt: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def FixBrushOrgEx(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, ptl: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def UnrealizeObject(h: win32more.Graphics.Gdi.HGDIOBJ) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GdiFlush() -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GdiSetBatchLimit(dw: UInt32) -> UInt32: ...
+@winfunctype('GDI32.dll')
+def GdiGetBatchLimit() -> UInt32: ...
+@winfunctype('OPENGL32.dll')
+def wglSwapMultipleBuffers(param0: UInt32, param1: POINTER(win32more.Graphics.Gdi.WGLSWAP_head)) -> UInt32: ...
+@cfunctype('FONTSUB.dll')
+def CreateFontPackage(puchSrcBuffer: c_char_p_no, ulSrcBufferSize: UInt32, ppuchFontPackageBuffer: POINTER(c_char_p_no), pulFontPackageBufferSize: POINTER(UInt32), pulBytesWritten: POINTER(UInt32), usFlag: UInt16, usTTCIndex: UInt16, usSubsetFormat: UInt16, usSubsetLanguage: UInt16, usSubsetPlatform: win32more.Graphics.Gdi.CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetEncoding: win32more.Graphics.Gdi.CREATE_FONT_PACKAGE_SUBSET_ENCODING, pusSubsetKeepList: POINTER(UInt16), usSubsetListCount: UInt16, lpfnAllocate: win32more.Graphics.Gdi.CFP_ALLOCPROC, lpfnReAllocate: win32more.Graphics.Gdi.CFP_REALLOCPROC, lpfnFree: win32more.Graphics.Gdi.CFP_FREEPROC, lpvReserved: c_void_p) -> UInt32: ...
+@cfunctype('FONTSUB.dll')
+def MergeFontPackage(puchMergeFontBuffer: c_char_p_no, ulMergeFontBufferSize: UInt32, puchFontPackageBuffer: c_char_p_no, ulFontPackageBufferSize: UInt32, ppuchDestBuffer: POINTER(c_char_p_no), pulDestBufferSize: POINTER(UInt32), pulBytesWritten: POINTER(UInt32), usMode: UInt16, lpfnAllocate: win32more.Graphics.Gdi.CFP_ALLOCPROC, lpfnReAllocate: win32more.Graphics.Gdi.CFP_REALLOCPROC, lpfnFree: win32more.Graphics.Gdi.CFP_FREEPROC, lpvReserved: c_void_p) -> UInt32: ...
+@winfunctype('t2embed.dll')
+def TTEmbedFont(hDC: win32more.Graphics.Gdi.HDC, ulFlags: win32more.Graphics.Gdi.TTEMBED_FLAGS, ulCharSet: win32more.Graphics.Gdi.EMBED_FONT_CHARSET, pulPrivStatus: POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS), pulStatus: POINTER(UInt32), lpfnWriteToStream: win32more.Graphics.Gdi.WRITEEMBEDPROC, lpvWriteStream: c_void_p, pusCharCodeSet: POINTER(UInt16), usCharCodeCount: UInt16, usLanguage: UInt16, pTTEmbedInfo: POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTEmbedFontFromFileA(hDC: win32more.Graphics.Gdi.HDC, szFontFileName: win32more.Foundation.PSTR, usTTCIndex: UInt16, ulFlags: win32more.Graphics.Gdi.TTEMBED_FLAGS, ulCharSet: win32more.Graphics.Gdi.EMBED_FONT_CHARSET, pulPrivStatus: POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS), pulStatus: POINTER(UInt32), lpfnWriteToStream: win32more.Graphics.Gdi.WRITEEMBEDPROC, lpvWriteStream: c_void_p, pusCharCodeSet: POINTER(UInt16), usCharCodeCount: UInt16, usLanguage: UInt16, pTTEmbedInfo: POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTLoadEmbeddedFont(phFontReference: POINTER(win32more.Foundation.HANDLE), ulFlags: UInt32, pulPrivStatus: POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS), ulPrivs: win32more.Graphics.Gdi.FONT_LICENSE_PRIVS, pulStatus: POINTER(win32more.Graphics.Gdi.TTLOAD_EMBEDDED_FONT_STATUS), lpfnReadFromStream: win32more.Graphics.Gdi.READEMBEDPROC, lpvReadStream: c_void_p, szWinFamilyName: win32more.Foundation.PWSTR, szMacFamilyName: win32more.Foundation.PSTR, pTTLoadInfo: POINTER(win32more.Graphics.Gdi.TTLOADINFO_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTGetEmbeddedFontInfo(ulFlags: win32more.Graphics.Gdi.TTEMBED_FLAGS, pulPrivStatus: POINTER(UInt32), ulPrivs: win32more.Graphics.Gdi.FONT_LICENSE_PRIVS, pulStatus: POINTER(UInt32), lpfnReadFromStream: win32more.Graphics.Gdi.READEMBEDPROC, lpvReadStream: c_void_p, pTTLoadInfo: POINTER(win32more.Graphics.Gdi.TTLOADINFO_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTDeleteEmbeddedFont(hFontReference: win32more.Foundation.HANDLE, ulFlags: UInt32, pulStatus: POINTER(UInt32)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTGetEmbeddingType(hDC: win32more.Graphics.Gdi.HDC, pulEmbedType: POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTCharToUnicode(hDC: win32more.Graphics.Gdi.HDC, pucCharCodes: c_char_p_no, ulCharCodeSize: UInt32, pusShortCodes: POINTER(UInt16), ulShortCodeSize: UInt32, ulFlags: UInt32) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTRunValidationTests(hDC: win32more.Graphics.Gdi.HDC, pTestParam: POINTER(win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMS_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTIsEmbeddingEnabled(hDC: win32more.Graphics.Gdi.HDC, pbEnabled: POINTER(win32more.Foundation.BOOL)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTIsEmbeddingEnabledForFacename(lpszFacename: win32more.Foundation.PSTR, pbEnabled: POINTER(win32more.Foundation.BOOL)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTEnableEmbeddingForFacename(lpszFacename: win32more.Foundation.PSTR, bEnable: win32more.Foundation.BOOL) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTEmbedFontEx(hDC: win32more.Graphics.Gdi.HDC, ulFlags: win32more.Graphics.Gdi.TTEMBED_FLAGS, ulCharSet: win32more.Graphics.Gdi.EMBED_FONT_CHARSET, pulPrivStatus: POINTER(win32more.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATUS), pulStatus: POINTER(UInt32), lpfnWriteToStream: win32more.Graphics.Gdi.WRITEEMBEDPROC, lpvWriteStream: c_void_p, pulCharCodeSet: POINTER(UInt32), usCharCodeCount: UInt16, usLanguage: UInt16, pTTEmbedInfo: POINTER(win32more.Graphics.Gdi.TTEMBEDINFO_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTRunValidationTestsEx(hDC: win32more.Graphics.Gdi.HDC, pTestParam: POINTER(win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMSEX_head)) -> Int32: ...
+@winfunctype('t2embed.dll')
+def TTGetNewFontName(phFontReference: POINTER(win32more.Foundation.HANDLE), wzWinFamilyName: win32more.Foundation.PWSTR, cchMaxWinName: Int32, szMacFamilyName: win32more.Foundation.PSTR, cchMaxMacName: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def DrawEdge(hdc: win32more.Graphics.Gdi.HDC, qrc: POINTER(win32more.Foundation.RECT_head), edge: win32more.Graphics.Gdi.DRAWEDGE_FLAGS, grfFlags: win32more.Graphics.Gdi.DRAW_EDGE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawFrameControl(param0: win32more.Graphics.Gdi.HDC, param1: POINTER(win32more.Foundation.RECT_head), param2: win32more.Graphics.Gdi.DFC_TYPE, param3: win32more.Graphics.Gdi.DFCS_STATE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawCaption(hwnd: win32more.Foundation.HWND, hdc: win32more.Graphics.Gdi.HDC, lprect: POINTER(win32more.Foundation.RECT_head), flags: win32more.Graphics.Gdi.DRAW_CAPTION_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawAnimatedRects(hwnd: win32more.Foundation.HWND, idAni: Int32, lprcFrom: POINTER(win32more.Foundation.RECT_head), lprcTo: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawTextA(hdc: win32more.Graphics.Gdi.HDC, lpchText: win32more.Foundation.PSTR, cchText: Int32, lprc: POINTER(win32more.Foundation.RECT_head), format: win32more.Graphics.Gdi.DRAW_TEXT_FORMAT) -> Int32: ...
+@winfunctype('USER32.dll')
+def DrawTextW(hdc: win32more.Graphics.Gdi.HDC, lpchText: win32more.Foundation.PWSTR, cchText: Int32, lprc: POINTER(win32more.Foundation.RECT_head), format: win32more.Graphics.Gdi.DRAW_TEXT_FORMAT) -> Int32: ...
+@winfunctype('USER32.dll')
+def DrawTextExA(hdc: win32more.Graphics.Gdi.HDC, lpchText: win32more.Foundation.PSTR, cchText: Int32, lprc: POINTER(win32more.Foundation.RECT_head), format: win32more.Graphics.Gdi.DRAW_TEXT_FORMAT, lpdtp: POINTER(win32more.Graphics.Gdi.DRAWTEXTPARAMS_head)) -> Int32: ...
+@winfunctype('USER32.dll')
+def DrawTextExW(hdc: win32more.Graphics.Gdi.HDC, lpchText: win32more.Foundation.PWSTR, cchText: Int32, lprc: POINTER(win32more.Foundation.RECT_head), format: win32more.Graphics.Gdi.DRAW_TEXT_FORMAT, lpdtp: POINTER(win32more.Graphics.Gdi.DRAWTEXTPARAMS_head)) -> Int32: ...
+@winfunctype('USER32.dll')
+def GrayStringA(hDC: win32more.Graphics.Gdi.HDC, hBrush: win32more.Graphics.Gdi.HBRUSH, lpOutputFunc: win32more.Graphics.Gdi.GRAYSTRINGPROC, lpData: win32more.Foundation.LPARAM, nCount: Int32, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GrayStringW(hDC: win32more.Graphics.Gdi.HDC, hBrush: win32more.Graphics.Gdi.HBRUSH, lpOutputFunc: win32more.Graphics.Gdi.GRAYSTRINGPROC, lpData: win32more.Foundation.LPARAM, nCount: Int32, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawStateA(hdc: win32more.Graphics.Gdi.HDC, hbrFore: win32more.Graphics.Gdi.HBRUSH, qfnCallBack: win32more.Graphics.Gdi.DRAWSTATEPROC, lData: win32more.Foundation.LPARAM, wData: win32more.Foundation.WPARAM, x: Int32, y: Int32, cx: Int32, cy: Int32, uFlags: win32more.Graphics.Gdi.DRAWSTATE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawStateW(hdc: win32more.Graphics.Gdi.HDC, hbrFore: win32more.Graphics.Gdi.HBRUSH, qfnCallBack: win32more.Graphics.Gdi.DRAWSTATEPROC, lData: win32more.Foundation.LPARAM, wData: win32more.Foundation.WPARAM, x: Int32, y: Int32, cx: Int32, cy: Int32, uFlags: win32more.Graphics.Gdi.DRAWSTATE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def TabbedTextOutA(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Foundation.PSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32), nTabOrigin: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def TabbedTextOutW(hdc: win32more.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Foundation.PWSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32), nTabOrigin: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetTabbedTextExtentA(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32)) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetTabbedTextExtentW(hdc: win32more.Graphics.Gdi.HDC, lpString: win32more.Foundation.PWSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32)) -> UInt32: ...
+@winfunctype('USER32.dll')
+def UpdateWindow(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def PaintDesktop(hdc: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def WindowFromDC(hDC: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def GetDC(hWnd: win32more.Foundation.HWND) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('USER32.dll')
+def GetDCEx(hWnd: win32more.Foundation.HWND, hrgnClip: win32more.Graphics.Gdi.HRGN, flags: win32more.Graphics.Gdi.GET_DCX_FLAGS) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('USER32.dll')
+def GetWindowDC(hWnd: win32more.Foundation.HWND) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('USER32.dll')
+def ReleaseDC(hWnd: win32more.Foundation.HWND, hDC: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('USER32.dll')
+def BeginPaint(hWnd: win32more.Foundation.HWND, lpPaint: POINTER(win32more.Graphics.Gdi.PAINTSTRUCT_head)) -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('USER32.dll')
+def EndPaint(hWnd: win32more.Foundation.HWND, lpPaint: POINTER(win32more.Graphics.Gdi.PAINTSTRUCT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetUpdateRect(hWnd: win32more.Foundation.HWND, lpRect: POINTER(win32more.Foundation.RECT_head), bErase: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetUpdateRgn(hWnd: win32more.Foundation.HWND, hRgn: win32more.Graphics.Gdi.HRGN, bErase: win32more.Foundation.BOOL) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('USER32.dll')
+def SetWindowRgn(hWnd: win32more.Foundation.HWND, hRgn: win32more.Graphics.Gdi.HRGN, bRedraw: win32more.Foundation.BOOL) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetWindowRgn(hWnd: win32more.Foundation.HWND, hRgn: win32more.Graphics.Gdi.HRGN) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('USER32.dll')
+def GetWindowRgnBox(hWnd: win32more.Foundation.HWND, lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Graphics.Gdi.GDI_REGION_TYPE: ...
+@winfunctype('USER32.dll')
+def ExcludeUpdateRgn(hDC: win32more.Graphics.Gdi.HDC, hWnd: win32more.Foundation.HWND) -> Int32: ...
+@winfunctype('USER32.dll')
+def InvalidateRect(hWnd: win32more.Foundation.HWND, lpRect: POINTER(win32more.Foundation.RECT_head), bErase: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ValidateRect(hWnd: win32more.Foundation.HWND, lpRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def InvalidateRgn(hWnd: win32more.Foundation.HWND, hRgn: win32more.Graphics.Gdi.HRGN, bErase: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ValidateRgn(hWnd: win32more.Foundation.HWND, hRgn: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def RedrawWindow(hWnd: win32more.Foundation.HWND, lprcUpdate: POINTER(win32more.Foundation.RECT_head), hrgnUpdate: win32more.Graphics.Gdi.HRGN, flags: win32more.Graphics.Gdi.REDRAW_WINDOW_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def LockWindowUpdate(hWndLock: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ClientToScreen(hWnd: win32more.Foundation.HWND, lpPoint: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ScreenToClient(hWnd: win32more.Foundation.HWND, lpPoint: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def MapWindowPoints(hWndFrom: win32more.Foundation.HWND, hWndTo: win32more.Foundation.HWND, lpPoints: POINTER(win32more.Foundation.POINT_head), cPoints: UInt32) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetSysColor(nIndex: win32more.Graphics.Gdi.SYS_COLOR_INDEX) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetSysColorBrush(nIndex: win32more.Graphics.Gdi.SYS_COLOR_INDEX) -> win32more.Graphics.Gdi.HBRUSH: ...
+@winfunctype('USER32.dll')
+def SetSysColors(cElements: Int32, lpaElements: POINTER(Int32), lpaRgbValues: POINTER(win32more.Foundation.COLORREF)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DrawFocusRect(hDC: win32more.Graphics.Gdi.HDC, lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def FillRect(hDC: win32more.Graphics.Gdi.HDC, lprc: POINTER(win32more.Foundation.RECT_head), hbr: win32more.Graphics.Gdi.HBRUSH) -> Int32: ...
+@winfunctype('USER32.dll')
+def FrameRect(hDC: win32more.Graphics.Gdi.HDC, lprc: POINTER(win32more.Foundation.RECT_head), hbr: win32more.Graphics.Gdi.HBRUSH) -> Int32: ...
+@winfunctype('USER32.dll')
+def InvertRect(hDC: win32more.Graphics.Gdi.HDC, lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetRect(lprc: POINTER(win32more.Foundation.RECT_head), xLeft: Int32, yTop: Int32, xRight: Int32, yBottom: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetRectEmpty(lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def CopyRect(lprcDst: POINTER(win32more.Foundation.RECT_head), lprcSrc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def InflateRect(lprc: POINTER(win32more.Foundation.RECT_head), dx: Int32, dy: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IntersectRect(lprcDst: POINTER(win32more.Foundation.RECT_head), lprcSrc1: POINTER(win32more.Foundation.RECT_head), lprcSrc2: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def UnionRect(lprcDst: POINTER(win32more.Foundation.RECT_head), lprcSrc1: POINTER(win32more.Foundation.RECT_head), lprcSrc2: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SubtractRect(lprcDst: POINTER(win32more.Foundation.RECT_head), lprcSrc1: POINTER(win32more.Foundation.RECT_head), lprcSrc2: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def OffsetRect(lprc: POINTER(win32more.Foundation.RECT_head), dx: Int32, dy: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IsRectEmpty(lprc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EqualRect(lprc1: POINTER(win32more.Foundation.RECT_head), lprc2: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def PtInRect(lprc: POINTER(win32more.Foundation.RECT_head), pt: win32more.Foundation.POINT) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def LoadBitmapA(hInstance: win32more.Foundation.HINSTANCE, lpBitmapName: win32more.Foundation.PSTR) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('USER32.dll')
+def LoadBitmapW(hInstance: win32more.Foundation.HINSTANCE, lpBitmapName: win32more.Foundation.PWSTR) -> win32more.Graphics.Gdi.HBITMAP: ...
+@winfunctype('USER32.dll')
+def ChangeDisplaySettingsA(lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: win32more.Graphics.Gdi.CDS_TYPE) -> win32more.Graphics.Gdi.DISP_CHANGE: ...
+@winfunctype('USER32.dll')
+def ChangeDisplaySettingsW(lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: win32more.Graphics.Gdi.CDS_TYPE) -> win32more.Graphics.Gdi.DISP_CHANGE: ...
+@winfunctype('USER32.dll')
+def ChangeDisplaySettingsExA(lpszDeviceName: win32more.Foundation.PSTR, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), hwnd: win32more.Foundation.HWND, dwflags: win32more.Graphics.Gdi.CDS_TYPE, lParam: c_void_p) -> win32more.Graphics.Gdi.DISP_CHANGE: ...
+@winfunctype('USER32.dll')
+def ChangeDisplaySettingsExW(lpszDeviceName: win32more.Foundation.PWSTR, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), hwnd: win32more.Foundation.HWND, dwflags: win32more.Graphics.Gdi.CDS_TYPE, lParam: c_void_p) -> win32more.Graphics.Gdi.DISP_CHANGE: ...
+@winfunctype('USER32.dll')
+def EnumDisplaySettingsA(lpszDeviceName: win32more.Foundation.PSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplaySettingsW(lpszDeviceName: win32more.Foundation.PWSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplaySettingsExA(lpszDeviceName: win32more.Foundation.PSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplaySettingsExW(lpszDeviceName: win32more.Foundation.PWSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplayDevicesA(lpDevice: win32more.Foundation.PSTR, iDevNum: UInt32, lpDisplayDevice: POINTER(win32more.Graphics.Gdi.DISPLAY_DEVICEA_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplayDevicesW(lpDevice: win32more.Foundation.PWSTR, iDevNum: UInt32, lpDisplayDevice: POINTER(win32more.Graphics.Gdi.DISPLAY_DEVICEW_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def MonitorFromPoint(pt: win32more.Foundation.POINT, dwFlags: win32more.Graphics.Gdi.MONITOR_FROM_FLAGS) -> win32more.Graphics.Gdi.HMONITOR: ...
+@winfunctype('USER32.dll')
+def MonitorFromRect(lprc: POINTER(win32more.Foundation.RECT_head), dwFlags: win32more.Graphics.Gdi.MONITOR_FROM_FLAGS) -> win32more.Graphics.Gdi.HMONITOR: ...
+@winfunctype('USER32.dll')
+def MonitorFromWindow(hwnd: win32more.Foundation.HWND, dwFlags: win32more.Graphics.Gdi.MONITOR_FROM_FLAGS) -> win32more.Graphics.Gdi.HMONITOR: ...
+@winfunctype('USER32.dll')
+def GetMonitorInfoA(hMonitor: win32more.Graphics.Gdi.HMONITOR, lpmi: POINTER(win32more.Graphics.Gdi.MONITORINFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetMonitorInfoW(hMonitor: win32more.Graphics.Gdi.HMONITOR, lpmi: POINTER(win32more.Graphics.Gdi.MONITORINFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnumDisplayMonitors(hdc: win32more.Graphics.Gdi.HDC, lprcClip: POINTER(win32more.Foundation.RECT_head), lpfnEnum: win32more.Graphics.Gdi.MONITORENUMPROC, dwData: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 ARC_DIRECTION = UInt32
-AD_COUNTERCLOCKWISE = 1
-AD_CLOCKWISE = 2
-def _define_AXESLISTA_head():
-    class AXESLISTA(Structure):
-        pass
-    return AXESLISTA
-def _define_AXESLISTA():
-    AXESLISTA = win32more.Graphics.Gdi.AXESLISTA_head
-    AXESLISTA._fields_ = [
-        ('axlReserved', UInt32),
-        ('axlNumAxes', UInt32),
-        ('axlAxisInfo', win32more.Graphics.Gdi.AXISINFOA * 16),
-    ]
-    return AXESLISTA
-def _define_AXESLISTW_head():
-    class AXESLISTW(Structure):
-        pass
-    return AXESLISTW
-def _define_AXESLISTW():
-    AXESLISTW = win32more.Graphics.Gdi.AXESLISTW_head
-    AXESLISTW._fields_ = [
-        ('axlReserved', UInt32),
-        ('axlNumAxes', UInt32),
-        ('axlAxisInfo', win32more.Graphics.Gdi.AXISINFOW * 16),
-    ]
-    return AXESLISTW
-def _define_AXISINFOA_head():
-    class AXISINFOA(Structure):
-        pass
-    return AXISINFOA
-def _define_AXISINFOA():
-    AXISINFOA = win32more.Graphics.Gdi.AXISINFOA_head
-    AXISINFOA._fields_ = [
-        ('axMinValue', Int32),
-        ('axMaxValue', Int32),
-        ('axAxisName', Byte * 16),
-    ]
-    return AXISINFOA
-def _define_AXISINFOW_head():
-    class AXISINFOW(Structure):
-        pass
-    return AXISINFOW
-def _define_AXISINFOW():
-    AXISINFOW = win32more.Graphics.Gdi.AXISINFOW_head
-    AXISINFOW._fields_ = [
-        ('axMinValue', Int32),
-        ('axMaxValue', Int32),
-        ('axAxisName', Char * 16),
-    ]
-    return AXISINFOW
+AD_COUNTERCLOCKWISE: ARC_DIRECTION = 1
+AD_CLOCKWISE: ARC_DIRECTION = 2
+class AXESLISTA(Structure):
+    axlReserved: UInt32
+    axlNumAxes: UInt32
+    axlAxisInfo: win32more.Graphics.Gdi.AXISINFOA * 16
+class AXESLISTW(Structure):
+    axlReserved: UInt32
+    axlNumAxes: UInt32
+    axlAxisInfo: win32more.Graphics.Gdi.AXISINFOW * 16
+class AXISINFOA(Structure):
+    axMinValue: Int32
+    axMaxValue: Int32
+    axAxisName: Byte * 16
+class AXISINFOW(Structure):
+    axMinValue: Int32
+    axMaxValue: Int32
+    axAxisName: Char * 16
 BACKGROUND_MODE = UInt32
-OPAQUE = 2
-TRANSPARENT = 1
+OPAQUE: BACKGROUND_MODE = 2
+TRANSPARENT: BACKGROUND_MODE = 1
 BI_COMPRESSION = Int32
-BI_RGB = 0
-BI_RLE8 = 1
-BI_RLE4 = 2
-BI_BITFIELDS = 3
-BI_JPEG = 4
-BI_PNG = 5
-def _define_BITMAP_head():
-    class BITMAP(Structure):
-        pass
-    return BITMAP
-def _define_BITMAP():
-    BITMAP = win32more.Graphics.Gdi.BITMAP_head
-    BITMAP._fields_ = [
-        ('bmType', Int32),
-        ('bmWidth', Int32),
-        ('bmHeight', Int32),
-        ('bmWidthBytes', Int32),
-        ('bmPlanes', UInt16),
-        ('bmBitsPixel', UInt16),
-        ('bmBits', c_void_p),
-    ]
-    return BITMAP
-def _define_BITMAPCOREHEADER_head():
-    class BITMAPCOREHEADER(Structure):
-        pass
-    return BITMAPCOREHEADER
-def _define_BITMAPCOREHEADER():
-    BITMAPCOREHEADER = win32more.Graphics.Gdi.BITMAPCOREHEADER_head
-    BITMAPCOREHEADER._fields_ = [
-        ('bcSize', UInt32),
-        ('bcWidth', UInt16),
-        ('bcHeight', UInt16),
-        ('bcPlanes', UInt16),
-        ('bcBitCount', UInt16),
-    ]
-    return BITMAPCOREHEADER
-def _define_BITMAPCOREINFO_head():
-    class BITMAPCOREINFO(Structure):
-        pass
-    return BITMAPCOREINFO
-def _define_BITMAPCOREINFO():
-    BITMAPCOREINFO = win32more.Graphics.Gdi.BITMAPCOREINFO_head
-    BITMAPCOREINFO._fields_ = [
-        ('bmciHeader', win32more.Graphics.Gdi.BITMAPCOREHEADER),
-        ('bmciColors', win32more.Graphics.Gdi.RGBTRIPLE * 1),
-    ]
-    return BITMAPCOREINFO
-def _define_BITMAPFILEHEADER_head():
-    class BITMAPFILEHEADER(Structure):
-        pass
-    return BITMAPFILEHEADER
-def _define_BITMAPFILEHEADER():
-    BITMAPFILEHEADER = win32more.Graphics.Gdi.BITMAPFILEHEADER_head
-    BITMAPFILEHEADER._pack_ = 2
-    BITMAPFILEHEADER._fields_ = [
-        ('bfType', UInt16),
-        ('bfSize', UInt32),
-        ('bfReserved1', UInt16),
-        ('bfReserved2', UInt16),
-        ('bfOffBits', UInt32),
-    ]
-    return BITMAPFILEHEADER
-def _define_BITMAPINFO_head():
-    class BITMAPINFO(Structure):
-        pass
-    return BITMAPINFO
-def _define_BITMAPINFO():
-    BITMAPINFO = win32more.Graphics.Gdi.BITMAPINFO_head
-    BITMAPINFO._fields_ = [
-        ('bmiHeader', win32more.Graphics.Gdi.BITMAPINFOHEADER),
-        ('bmiColors', win32more.Graphics.Gdi.RGBQUAD * 1),
-    ]
-    return BITMAPINFO
-def _define_BITMAPINFOHEADER_head():
-    class BITMAPINFOHEADER(Structure):
-        pass
-    return BITMAPINFOHEADER
-def _define_BITMAPINFOHEADER():
-    BITMAPINFOHEADER = win32more.Graphics.Gdi.BITMAPINFOHEADER_head
-    BITMAPINFOHEADER._fields_ = [
-        ('biSize', UInt32),
-        ('biWidth', Int32),
-        ('biHeight', Int32),
-        ('biPlanes', UInt16),
-        ('biBitCount', UInt16),
-        ('biCompression', win32more.Graphics.Gdi.BI_COMPRESSION),
-        ('biSizeImage', UInt32),
-        ('biXPelsPerMeter', Int32),
-        ('biYPelsPerMeter', Int32),
-        ('biClrUsed', UInt32),
-        ('biClrImportant', UInt32),
-    ]
-    return BITMAPINFOHEADER
-def _define_BITMAPV4HEADER_head():
-    class BITMAPV4HEADER(Structure):
-        pass
-    return BITMAPV4HEADER
-def _define_BITMAPV4HEADER():
-    BITMAPV4HEADER = win32more.Graphics.Gdi.BITMAPV4HEADER_head
-    BITMAPV4HEADER._fields_ = [
-        ('bV4Size', UInt32),
-        ('bV4Width', Int32),
-        ('bV4Height', Int32),
-        ('bV4Planes', UInt16),
-        ('bV4BitCount', UInt16),
-        ('bV4V4Compression', win32more.Graphics.Gdi.BI_COMPRESSION),
-        ('bV4SizeImage', UInt32),
-        ('bV4XPelsPerMeter', Int32),
-        ('bV4YPelsPerMeter', Int32),
-        ('bV4ClrUsed', UInt32),
-        ('bV4ClrImportant', UInt32),
-        ('bV4RedMask', UInt32),
-        ('bV4GreenMask', UInt32),
-        ('bV4BlueMask', UInt32),
-        ('bV4AlphaMask', UInt32),
-        ('bV4CSType', UInt32),
-        ('bV4Endpoints', win32more.Graphics.Gdi.CIEXYZTRIPLE),
-        ('bV4GammaRed', UInt32),
-        ('bV4GammaGreen', UInt32),
-        ('bV4GammaBlue', UInt32),
-    ]
-    return BITMAPV4HEADER
-def _define_BITMAPV5HEADER_head():
-    class BITMAPV5HEADER(Structure):
-        pass
-    return BITMAPV5HEADER
-def _define_BITMAPV5HEADER():
-    BITMAPV5HEADER = win32more.Graphics.Gdi.BITMAPV5HEADER_head
-    BITMAPV5HEADER._fields_ = [
-        ('bV5Size', UInt32),
-        ('bV5Width', Int32),
-        ('bV5Height', Int32),
-        ('bV5Planes', UInt16),
-        ('bV5BitCount', UInt16),
-        ('bV5Compression', win32more.Graphics.Gdi.BI_COMPRESSION),
-        ('bV5SizeImage', UInt32),
-        ('bV5XPelsPerMeter', Int32),
-        ('bV5YPelsPerMeter', Int32),
-        ('bV5ClrUsed', UInt32),
-        ('bV5ClrImportant', UInt32),
-        ('bV5RedMask', UInt32),
-        ('bV5GreenMask', UInt32),
-        ('bV5BlueMask', UInt32),
-        ('bV5AlphaMask', UInt32),
-        ('bV5CSType', UInt32),
-        ('bV5Endpoints', win32more.Graphics.Gdi.CIEXYZTRIPLE),
-        ('bV5GammaRed', UInt32),
-        ('bV5GammaGreen', UInt32),
-        ('bV5GammaBlue', UInt32),
-        ('bV5Intent', UInt32),
-        ('bV5ProfileData', UInt32),
-        ('bV5ProfileSize', UInt32),
-        ('bV5Reserved', UInt32),
-    ]
-    return BITMAPV5HEADER
-def _define_BLENDFUNCTION_head():
-    class BLENDFUNCTION(Structure):
-        pass
-    return BLENDFUNCTION
-def _define_BLENDFUNCTION():
-    BLENDFUNCTION = win32more.Graphics.Gdi.BLENDFUNCTION_head
-    BLENDFUNCTION._fields_ = [
-        ('BlendOp', Byte),
-        ('BlendFlags', Byte),
-        ('SourceConstantAlpha', Byte),
-        ('AlphaFormat', Byte),
-    ]
-    return BLENDFUNCTION
+BI_RGB: BI_COMPRESSION = 0
+BI_RLE8: BI_COMPRESSION = 1
+BI_RLE4: BI_COMPRESSION = 2
+BI_BITFIELDS: BI_COMPRESSION = 3
+BI_JPEG: BI_COMPRESSION = 4
+BI_PNG: BI_COMPRESSION = 5
+class BITMAP(Structure):
+    bmType: Int32
+    bmWidth: Int32
+    bmHeight: Int32
+    bmWidthBytes: Int32
+    bmPlanes: UInt16
+    bmBitsPixel: UInt16
+    bmBits: c_void_p
+class BITMAPCOREHEADER(Structure):
+    bcSize: UInt32
+    bcWidth: UInt16
+    bcHeight: UInt16
+    bcPlanes: UInt16
+    bcBitCount: UInt16
+class BITMAPCOREINFO(Structure):
+    bmciHeader: win32more.Graphics.Gdi.BITMAPCOREHEADER
+    bmciColors: win32more.Graphics.Gdi.RGBTRIPLE * 1
+class BITMAPFILEHEADER(Structure):
+    bfType: UInt16
+    bfSize: UInt32
+    bfReserved1: UInt16
+    bfReserved2: UInt16
+    bfOffBits: UInt32
+    _pack_ = 2
+class BITMAPINFO(Structure):
+    bmiHeader: win32more.Graphics.Gdi.BITMAPINFOHEADER
+    bmiColors: win32more.Graphics.Gdi.RGBQUAD * 1
+class BITMAPINFOHEADER(Structure):
+    biSize: UInt32
+    biWidth: Int32
+    biHeight: Int32
+    biPlanes: UInt16
+    biBitCount: UInt16
+    biCompression: win32more.Graphics.Gdi.BI_COMPRESSION
+    biSizeImage: UInt32
+    biXPelsPerMeter: Int32
+    biYPelsPerMeter: Int32
+    biClrUsed: UInt32
+    biClrImportant: UInt32
+class BITMAPV4HEADER(Structure):
+    bV4Size: UInt32
+    bV4Width: Int32
+    bV4Height: Int32
+    bV4Planes: UInt16
+    bV4BitCount: UInt16
+    bV4V4Compression: win32more.Graphics.Gdi.BI_COMPRESSION
+    bV4SizeImage: UInt32
+    bV4XPelsPerMeter: Int32
+    bV4YPelsPerMeter: Int32
+    bV4ClrUsed: UInt32
+    bV4ClrImportant: UInt32
+    bV4RedMask: UInt32
+    bV4GreenMask: UInt32
+    bV4BlueMask: UInt32
+    bV4AlphaMask: UInt32
+    bV4CSType: UInt32
+    bV4Endpoints: win32more.Graphics.Gdi.CIEXYZTRIPLE
+    bV4GammaRed: UInt32
+    bV4GammaGreen: UInt32
+    bV4GammaBlue: UInt32
+class BITMAPV5HEADER(Structure):
+    bV5Size: UInt32
+    bV5Width: Int32
+    bV5Height: Int32
+    bV5Planes: UInt16
+    bV5BitCount: UInt16
+    bV5Compression: win32more.Graphics.Gdi.BI_COMPRESSION
+    bV5SizeImage: UInt32
+    bV5XPelsPerMeter: Int32
+    bV5YPelsPerMeter: Int32
+    bV5ClrUsed: UInt32
+    bV5ClrImportant: UInt32
+    bV5RedMask: UInt32
+    bV5GreenMask: UInt32
+    bV5BlueMask: UInt32
+    bV5AlphaMask: UInt32
+    bV5CSType: UInt32
+    bV5Endpoints: win32more.Graphics.Gdi.CIEXYZTRIPLE
+    bV5GammaRed: UInt32
+    bV5GammaGreen: UInt32
+    bV5GammaBlue: UInt32
+    bV5Intent: UInt32
+    bV5ProfileData: UInt32
+    bV5ProfileSize: UInt32
+    bV5Reserved: UInt32
+class BLENDFUNCTION(Structure):
+    BlendOp: Byte
+    BlendFlags: Byte
+    SourceConstantAlpha: Byte
+    AlphaFormat: Byte
 BRUSH_STYLE = UInt32
-BS_SOLID = 0
-BS_NULL = 1
-BS_HOLLOW = 1
-BS_HATCHED = 2
-BS_PATTERN = 3
-BS_INDEXED = 4
-BS_DIBPATTERN = 5
-BS_DIBPATTERNPT = 6
-BS_PATTERN8X8 = 7
-BS_DIBPATTERN8X8 = 8
-BS_MONOPATTERN = 9
+BS_SOLID: BRUSH_STYLE = 0
+BS_NULL: BRUSH_STYLE = 1
+BS_HOLLOW: BRUSH_STYLE = 1
+BS_HATCHED: BRUSH_STYLE = 2
+BS_PATTERN: BRUSH_STYLE = 3
+BS_INDEXED: BRUSH_STYLE = 4
+BS_DIBPATTERN: BRUSH_STYLE = 5
+BS_DIBPATTERNPT: BRUSH_STYLE = 6
+BS_PATTERN8X8: BRUSH_STYLE = 7
+BS_DIBPATTERN8X8: BRUSH_STYLE = 8
+BS_MONOPATTERN: BRUSH_STYLE = 9
 CDS_TYPE = UInt32
-CDS_FULLSCREEN = 4
-CDS_GLOBAL = 8
-CDS_NORESET = 268435456
-CDS_RESET = 1073741824
-CDS_SET_PRIMARY = 16
-CDS_TEST = 2
-CDS_UPDATEREGISTRY = 1
-CDS_VIDEOPARAMETERS = 32
-CDS_ENABLE_UNSAFE_MODES = 256
-CDS_DISABLE_UNSAFE_MODES = 512
-CDS_RESET_EX = 536870912
-def _define_CFP_ALLOCPROC():
-    return CFUNCTYPE(c_void_p,UIntPtr)
-def _define_CFP_FREEPROC():
-    return CFUNCTYPE(Void,c_void_p)
-def _define_CFP_REALLOCPROC():
-    return CFUNCTYPE(c_void_p,c_void_p,UIntPtr)
-def _define_CIEXYZ_head():
-    class CIEXYZ(Structure):
-        pass
-    return CIEXYZ
-def _define_CIEXYZ():
-    CIEXYZ = win32more.Graphics.Gdi.CIEXYZ_head
-    CIEXYZ._fields_ = [
-        ('ciexyzX', Int32),
-        ('ciexyzY', Int32),
-        ('ciexyzZ', Int32),
-    ]
-    return CIEXYZ
-def _define_CIEXYZTRIPLE_head():
-    class CIEXYZTRIPLE(Structure):
-        pass
-    return CIEXYZTRIPLE
-def _define_CIEXYZTRIPLE():
-    CIEXYZTRIPLE = win32more.Graphics.Gdi.CIEXYZTRIPLE_head
-    CIEXYZTRIPLE._fields_ = [
-        ('ciexyzRed', win32more.Graphics.Gdi.CIEXYZ),
-        ('ciexyzGreen', win32more.Graphics.Gdi.CIEXYZ),
-        ('ciexyzBlue', win32more.Graphics.Gdi.CIEXYZ),
-    ]
-    return CIEXYZTRIPLE
-def _define_COLORADJUSTMENT_head():
-    class COLORADJUSTMENT(Structure):
-        pass
-    return COLORADJUSTMENT
-def _define_COLORADJUSTMENT():
-    COLORADJUSTMENT = win32more.Graphics.Gdi.COLORADJUSTMENT_head
-    COLORADJUSTMENT._fields_ = [
-        ('caSize', UInt16),
-        ('caFlags', UInt16),
-        ('caIlluminantIndex', UInt16),
-        ('caRedGamma', UInt16),
-        ('caGreenGamma', UInt16),
-        ('caBlueGamma', UInt16),
-        ('caReferenceBlack', UInt16),
-        ('caReferenceWhite', UInt16),
-        ('caContrast', Int16),
-        ('caBrightness', Int16),
-        ('caColorfulness', Int16),
-        ('caRedGreenTint', Int16),
-    ]
-    return COLORADJUSTMENT
+CDS_FULLSCREEN: CDS_TYPE = 4
+CDS_GLOBAL: CDS_TYPE = 8
+CDS_NORESET: CDS_TYPE = 268435456
+CDS_RESET: CDS_TYPE = 1073741824
+CDS_SET_PRIMARY: CDS_TYPE = 16
+CDS_TEST: CDS_TYPE = 2
+CDS_UPDATEREGISTRY: CDS_TYPE = 1
+CDS_VIDEOPARAMETERS: CDS_TYPE = 32
+CDS_ENABLE_UNSAFE_MODES: CDS_TYPE = 256
+CDS_DISABLE_UNSAFE_MODES: CDS_TYPE = 512
+CDS_RESET_EX: CDS_TYPE = 536870912
+@cfunctype_pointer
+def CFP_ALLOCPROC(param0: UIntPtr) -> c_void_p: ...
+@cfunctype_pointer
+def CFP_FREEPROC(param0: c_void_p) -> Void: ...
+@cfunctype_pointer
+def CFP_REALLOCPROC(param0: c_void_p, param1: UIntPtr) -> c_void_p: ...
+class CIEXYZ(Structure):
+    ciexyzX: Int32
+    ciexyzY: Int32
+    ciexyzZ: Int32
+class CIEXYZTRIPLE(Structure):
+    ciexyzRed: win32more.Graphics.Gdi.CIEXYZ
+    ciexyzGreen: win32more.Graphics.Gdi.CIEXYZ
+    ciexyzBlue: win32more.Graphics.Gdi.CIEXYZ
+class COLORADJUSTMENT(Structure):
+    caSize: UInt16
+    caFlags: UInt16
+    caIlluminantIndex: UInt16
+    caRedGamma: UInt16
+    caGreenGamma: UInt16
+    caBlueGamma: UInt16
+    caReferenceBlack: UInt16
+    caReferenceWhite: UInt16
+    caContrast: Int16
+    caBrightness: Int16
+    caColorfulness: Int16
+    caRedGreenTint: Int16
 CREATE_FONT_PACKAGE_SUBSET_ENCODING = UInt16
-TTFCFP_STD_MAC_CHAR_SET = 0
-TTFCFP_SYMBOL_CHAR_SET = 0
-TTFCFP_UNICODE_CHAR_SET = 1
+TTFCFP_STD_MAC_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 0
+TTFCFP_SYMBOL_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 0
+TTFCFP_UNICODE_CHAR_SET: CREATE_FONT_PACKAGE_SUBSET_ENCODING = 1
 CREATE_FONT_PACKAGE_SUBSET_PLATFORM = UInt16
-TTFCFP_UNICODE_PLATFORMID = 0
-TTFCFP_ISO_PLATFORMID = 2
+TTFCFP_UNICODE_PLATFORMID: CREATE_FONT_PACKAGE_SUBSET_PLATFORM = 0
+TTFCFP_ISO_PLATFORMID: CREATE_FONT_PACKAGE_SUBSET_PLATFORM = 2
 CREATE_POLYGON_RGN_MODE = UInt32
-ALTERNATE = 1
-WINDING = 2
+ALTERNATE: CREATE_POLYGON_RGN_MODE = 1
+WINDING: CREATE_POLYGON_RGN_MODE = 2
 CreatedHDC = IntPtr
 DC_LAYOUT = UInt32
-LAYOUT_BITMAPORIENTATIONPRESERVED = 8
-LAYOUT_RTL = 1
-def _define_DESIGNVECTOR_head():
-    class DESIGNVECTOR(Structure):
-        pass
-    return DESIGNVECTOR
-def _define_DESIGNVECTOR():
-    DESIGNVECTOR = win32more.Graphics.Gdi.DESIGNVECTOR_head
-    DESIGNVECTOR._fields_ = [
-        ('dvReserved', UInt32),
-        ('dvNumAxes', UInt32),
-        ('dvValues', Int32 * 16),
-    ]
-    return DESIGNVECTOR
+LAYOUT_BITMAPORIENTATIONPRESERVED: DC_LAYOUT = 8
+LAYOUT_RTL: DC_LAYOUT = 1
+class DESIGNVECTOR(Structure):
+    dvReserved: UInt32
+    dvNumAxes: UInt32
+    dvValues: Int32 * 16
 DEVMODE_COLLATE = UInt16
-DMCOLLATE_FALSE = 0
-DMCOLLATE_TRUE = 1
+DMCOLLATE_FALSE: DEVMODE_COLLATE = 0
+DMCOLLATE_TRUE: DEVMODE_COLLATE = 1
 DEVMODE_COLOR = UInt16
-DMCOLOR_MONOCHROME = 1
-DMCOLOR_COLOR = 2
+DMCOLOR_MONOCHROME: DEVMODE_COLOR = 1
+DMCOLOR_COLOR: DEVMODE_COLOR = 2
 DEVMODE_DISPLAY_FIXED_OUTPUT = UInt32
-DMDFO_DEFAULT = 0
-DMDFO_STRETCH = 1
-DMDFO_CENTER = 2
+DMDFO_DEFAULT: DEVMODE_DISPLAY_FIXED_OUTPUT = 0
+DMDFO_STRETCH: DEVMODE_DISPLAY_FIXED_OUTPUT = 1
+DMDFO_CENTER: DEVMODE_DISPLAY_FIXED_OUTPUT = 2
 DEVMODE_DISPLAY_ORIENTATION = UInt32
-DMDO_DEFAULT = 0
-DMDO_90 = 1
-DMDO_180 = 2
-DMDO_270 = 3
+DMDO_DEFAULT: DEVMODE_DISPLAY_ORIENTATION = 0
+DMDO_90: DEVMODE_DISPLAY_ORIENTATION = 1
+DMDO_180: DEVMODE_DISPLAY_ORIENTATION = 2
+DMDO_270: DEVMODE_DISPLAY_ORIENTATION = 3
 DEVMODE_DUPLEX = UInt16
-DMDUP_SIMPLEX = 1
-DMDUP_VERTICAL = 2
-DMDUP_HORIZONTAL = 3
+DMDUP_SIMPLEX: DEVMODE_DUPLEX = 1
+DMDUP_VERTICAL: DEVMODE_DUPLEX = 2
+DMDUP_HORIZONTAL: DEVMODE_DUPLEX = 3
 DEVMODE_FIELD_FLAGS = UInt32
-DM_SPECVERSION = 1025
-DM_ORIENTATION = 1
-DM_PAPERSIZE = 2
-DM_PAPERLENGTH = 4
-DM_PAPERWIDTH = 8
-DM_SCALE = 16
-DM_POSITION = 32
-DM_NUP = 64
-DM_DISPLAYORIENTATION = 128
-DM_COPIES = 256
-DM_DEFAULTSOURCE = 512
-DM_PRINTQUALITY = 1024
-DM_COLOR = 2048
-DM_DUPLEX = 4096
-DM_YRESOLUTION = 8192
-DM_TTOPTION = 16384
-DM_COLLATE = 32768
-DM_FORMNAME = 65536
-DM_LOGPIXELS = 131072
-DM_BITSPERPEL = 262144
-DM_PELSWIDTH = 524288
-DM_PELSHEIGHT = 1048576
-DM_DISPLAYFLAGS = 2097152
-DM_DISPLAYFREQUENCY = 4194304
-DM_ICMMETHOD = 8388608
-DM_ICMINTENT = 16777216
-DM_MEDIATYPE = 33554432
-DM_DITHERTYPE = 67108864
-DM_PANNINGWIDTH = 134217728
-DM_PANNINGHEIGHT = 268435456
-DM_DISPLAYFIXEDOUTPUT = 536870912
-DM_INTERLACED = 2
-DM_UPDATE = 1
-DM_COPY = 2
-DM_PROMPT = 4
-DM_MODIFY = 8
-DM_IN_BUFFER = 8
-DM_IN_PROMPT = 4
-DM_OUT_BUFFER = 2
-DM_OUT_DEFAULT = 1
+DM_SPECVERSION: DEVMODE_FIELD_FLAGS = 1025
+DM_ORIENTATION: DEVMODE_FIELD_FLAGS = 1
+DM_PAPERSIZE: DEVMODE_FIELD_FLAGS = 2
+DM_PAPERLENGTH: DEVMODE_FIELD_FLAGS = 4
+DM_PAPERWIDTH: DEVMODE_FIELD_FLAGS = 8
+DM_SCALE: DEVMODE_FIELD_FLAGS = 16
+DM_POSITION: DEVMODE_FIELD_FLAGS = 32
+DM_NUP: DEVMODE_FIELD_FLAGS = 64
+DM_DISPLAYORIENTATION: DEVMODE_FIELD_FLAGS = 128
+DM_COPIES: DEVMODE_FIELD_FLAGS = 256
+DM_DEFAULTSOURCE: DEVMODE_FIELD_FLAGS = 512
+DM_PRINTQUALITY: DEVMODE_FIELD_FLAGS = 1024
+DM_COLOR: DEVMODE_FIELD_FLAGS = 2048
+DM_DUPLEX: DEVMODE_FIELD_FLAGS = 4096
+DM_YRESOLUTION: DEVMODE_FIELD_FLAGS = 8192
+DM_TTOPTION: DEVMODE_FIELD_FLAGS = 16384
+DM_COLLATE: DEVMODE_FIELD_FLAGS = 32768
+DM_FORMNAME: DEVMODE_FIELD_FLAGS = 65536
+DM_LOGPIXELS: DEVMODE_FIELD_FLAGS = 131072
+DM_BITSPERPEL: DEVMODE_FIELD_FLAGS = 262144
+DM_PELSWIDTH: DEVMODE_FIELD_FLAGS = 524288
+DM_PELSHEIGHT: DEVMODE_FIELD_FLAGS = 1048576
+DM_DISPLAYFLAGS: DEVMODE_FIELD_FLAGS = 2097152
+DM_DISPLAYFREQUENCY: DEVMODE_FIELD_FLAGS = 4194304
+DM_ICMMETHOD: DEVMODE_FIELD_FLAGS = 8388608
+DM_ICMINTENT: DEVMODE_FIELD_FLAGS = 16777216
+DM_MEDIATYPE: DEVMODE_FIELD_FLAGS = 33554432
+DM_DITHERTYPE: DEVMODE_FIELD_FLAGS = 67108864
+DM_PANNINGWIDTH: DEVMODE_FIELD_FLAGS = 134217728
+DM_PANNINGHEIGHT: DEVMODE_FIELD_FLAGS = 268435456
+DM_DISPLAYFIXEDOUTPUT: DEVMODE_FIELD_FLAGS = 536870912
+DM_INTERLACED: DEVMODE_FIELD_FLAGS = 2
+DM_UPDATE: DEVMODE_FIELD_FLAGS = 1
+DM_COPY: DEVMODE_FIELD_FLAGS = 2
+DM_PROMPT: DEVMODE_FIELD_FLAGS = 4
+DM_MODIFY: DEVMODE_FIELD_FLAGS = 8
+DM_IN_BUFFER: DEVMODE_FIELD_FLAGS = 8
+DM_IN_PROMPT: DEVMODE_FIELD_FLAGS = 4
+DM_OUT_BUFFER: DEVMODE_FIELD_FLAGS = 2
+DM_OUT_DEFAULT: DEVMODE_FIELD_FLAGS = 1
 DEVMODE_TRUETYPE_OPTION = UInt16
-DMTT_BITMAP = 1
-DMTT_DOWNLOAD = 2
-DMTT_SUBDEV = 3
-DMTT_DOWNLOAD_OUTLINE = 4
-def _define_DEVMODEA_head():
-    class DEVMODEA(Structure):
-        pass
-    return DEVMODEA
-def _define_DEVMODEA():
-    DEVMODEA = win32more.Graphics.Gdi.DEVMODEA_head
-    class DEVMODEA__Anonymous1_e__Union(Union):
-        pass
-    class DEVMODEA__Anonymous1_e__Union__Anonymous1_e__Struct(Structure):
-        pass
-    DEVMODEA__Anonymous1_e__Union__Anonymous1_e__Struct._fields_ = [
-        ('dmOrientation', Int16),
-        ('dmPaperSize', Int16),
-        ('dmPaperLength', Int16),
-        ('dmPaperWidth', Int16),
-        ('dmScale', Int16),
-        ('dmCopies', Int16),
-        ('dmDefaultSource', Int16),
-        ('dmPrintQuality', Int16),
-    ]
-    class DEVMODEA__Anonymous1_e__Union__Anonymous2_e__Struct(Structure):
-        pass
-    DEVMODEA__Anonymous1_e__Union__Anonymous2_e__Struct._fields_ = [
-        ('dmPosition', win32more.Foundation.POINTL),
-        ('dmDisplayOrientation', win32more.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION),
-        ('dmDisplayFixedOutput', win32more.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT),
-    ]
-    DEVMODEA__Anonymous1_e__Union._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    DEVMODEA__Anonymous1_e__Union._fields_ = [
-        ('Anonymous1', DEVMODEA__Anonymous1_e__Union__Anonymous1_e__Struct),
-        ('Anonymous2', DEVMODEA__Anonymous1_e__Union__Anonymous2_e__Struct),
-    ]
-    class DEVMODEA__Anonymous2_e__Union(Union):
-        pass
-    DEVMODEA__Anonymous2_e__Union._fields_ = [
-        ('dmDisplayFlags', UInt32),
-        ('dmNup', UInt32),
-    ]
-    DEVMODEA._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    DEVMODEA._fields_ = [
-        ('dmDeviceName', Byte * 32),
-        ('dmSpecVersion', UInt16),
-        ('dmDriverVersion', UInt16),
-        ('dmSize', UInt16),
-        ('dmDriverExtra', UInt16),
-        ('dmFields', win32more.Graphics.Gdi.DEVMODE_FIELD_FLAGS),
-        ('Anonymous1', DEVMODEA__Anonymous1_e__Union),
-        ('dmColor', win32more.Graphics.Gdi.DEVMODE_COLOR),
-        ('dmDuplex', win32more.Graphics.Gdi.DEVMODE_DUPLEX),
-        ('dmYResolution', Int16),
-        ('dmTTOption', win32more.Graphics.Gdi.DEVMODE_TRUETYPE_OPTION),
-        ('dmCollate', win32more.Graphics.Gdi.DEVMODE_COLLATE),
-        ('dmFormName', Byte * 32),
-        ('dmLogPixels', UInt16),
-        ('dmBitsPerPel', UInt32),
-        ('dmPelsWidth', UInt32),
-        ('dmPelsHeight', UInt32),
-        ('Anonymous2', DEVMODEA__Anonymous2_e__Union),
-        ('dmDisplayFrequency', UInt32),
-        ('dmICMMethod', UInt32),
-        ('dmICMIntent', UInt32),
-        ('dmMediaType', UInt32),
-        ('dmDitherType', UInt32),
-        ('dmReserved1', UInt32),
-        ('dmReserved2', UInt32),
-        ('dmPanningWidth', UInt32),
-        ('dmPanningHeight', UInt32),
-    ]
-    return DEVMODEA
-def _define_DEVMODEW_head():
-    class DEVMODEW(Structure):
-        pass
-    return DEVMODEW
-def _define_DEVMODEW():
-    DEVMODEW = win32more.Graphics.Gdi.DEVMODEW_head
-    class DEVMODEW__Anonymous1_e__Union(Union):
-        pass
-    class DEVMODEW__Anonymous1_e__Union__Anonymous1_e__Struct(Structure):
-        pass
-    DEVMODEW__Anonymous1_e__Union__Anonymous1_e__Struct._fields_ = [
-        ('dmOrientation', Int16),
-        ('dmPaperSize', Int16),
-        ('dmPaperLength', Int16),
-        ('dmPaperWidth', Int16),
-        ('dmScale', Int16),
-        ('dmCopies', Int16),
-        ('dmDefaultSource', Int16),
-        ('dmPrintQuality', Int16),
-    ]
-    class DEVMODEW__Anonymous1_e__Union__Anonymous2_e__Struct(Structure):
-        pass
-    DEVMODEW__Anonymous1_e__Union__Anonymous2_e__Struct._fields_ = [
-        ('dmPosition', win32more.Foundation.POINTL),
-        ('dmDisplayOrientation', win32more.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION),
-        ('dmDisplayFixedOutput', win32more.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT),
-    ]
-    DEVMODEW__Anonymous1_e__Union._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    DEVMODEW__Anonymous1_e__Union._fields_ = [
-        ('Anonymous1', DEVMODEW__Anonymous1_e__Union__Anonymous1_e__Struct),
-        ('Anonymous2', DEVMODEW__Anonymous1_e__Union__Anonymous2_e__Struct),
-    ]
-    class DEVMODEW__Anonymous2_e__Union(Union):
-        pass
-    DEVMODEW__Anonymous2_e__Union._fields_ = [
-        ('dmDisplayFlags', UInt32),
-        ('dmNup', UInt32),
-    ]
-    DEVMODEW._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    DEVMODEW._fields_ = [
-        ('dmDeviceName', Char * 32),
-        ('dmSpecVersion', UInt16),
-        ('dmDriverVersion', UInt16),
-        ('dmSize', UInt16),
-        ('dmDriverExtra', UInt16),
-        ('dmFields', win32more.Graphics.Gdi.DEVMODE_FIELD_FLAGS),
-        ('Anonymous1', DEVMODEW__Anonymous1_e__Union),
-        ('dmColor', win32more.Graphics.Gdi.DEVMODE_COLOR),
-        ('dmDuplex', win32more.Graphics.Gdi.DEVMODE_DUPLEX),
-        ('dmYResolution', Int16),
-        ('dmTTOption', win32more.Graphics.Gdi.DEVMODE_TRUETYPE_OPTION),
-        ('dmCollate', win32more.Graphics.Gdi.DEVMODE_COLLATE),
-        ('dmFormName', Char * 32),
-        ('dmLogPixels', UInt16),
-        ('dmBitsPerPel', UInt32),
-        ('dmPelsWidth', UInt32),
-        ('dmPelsHeight', UInt32),
-        ('Anonymous2', DEVMODEW__Anonymous2_e__Union),
-        ('dmDisplayFrequency', UInt32),
-        ('dmICMMethod', UInt32),
-        ('dmICMIntent', UInt32),
-        ('dmMediaType', UInt32),
-        ('dmDitherType', UInt32),
-        ('dmReserved1', UInt32),
-        ('dmReserved2', UInt32),
-        ('dmPanningWidth', UInt32),
-        ('dmPanningHeight', UInt32),
-    ]
-    return DEVMODEW
+DMTT_BITMAP: DEVMODE_TRUETYPE_OPTION = 1
+DMTT_DOWNLOAD: DEVMODE_TRUETYPE_OPTION = 2
+DMTT_SUBDEV: DEVMODE_TRUETYPE_OPTION = 3
+DMTT_DOWNLOAD_OUTLINE: DEVMODE_TRUETYPE_OPTION = 4
+class DEVMODEA(Structure):
+    dmDeviceName: Byte * 32
+    dmSpecVersion: UInt16
+    dmDriverVersion: UInt16
+    dmSize: UInt16
+    dmDriverExtra: UInt16
+    dmFields: win32more.Graphics.Gdi.DEVMODE_FIELD_FLAGS
+    Anonymous1: _Anonymous1_e__Union
+    dmColor: win32more.Graphics.Gdi.DEVMODE_COLOR
+    dmDuplex: win32more.Graphics.Gdi.DEVMODE_DUPLEX
+    dmYResolution: Int16
+    dmTTOption: win32more.Graphics.Gdi.DEVMODE_TRUETYPE_OPTION
+    dmCollate: win32more.Graphics.Gdi.DEVMODE_COLLATE
+    dmFormName: Byte * 32
+    dmLogPixels: UInt16
+    dmBitsPerPel: UInt32
+    dmPelsWidth: UInt32
+    dmPelsHeight: UInt32
+    Anonymous2: _Anonymous2_e__Union
+    dmDisplayFrequency: UInt32
+    dmICMMethod: UInt32
+    dmICMIntent: UInt32
+    dmMediaType: UInt32
+    dmDitherType: UInt32
+    dmReserved1: UInt32
+    dmReserved2: UInt32
+    dmPanningWidth: UInt32
+    dmPanningHeight: UInt32
+    class _Anonymous1_e__Union(Union):
+        Anonymous1: _Anonymous1_e__Struct
+        Anonymous2: _Anonymous2_e__Struct
+        class _Anonymous1_e__Struct(Structure):
+            dmOrientation: Int16
+            dmPaperSize: Int16
+            dmPaperLength: Int16
+            dmPaperWidth: Int16
+            dmScale: Int16
+            dmCopies: Int16
+            dmDefaultSource: Int16
+            dmPrintQuality: Int16
+        class _Anonymous2_e__Struct(Structure):
+            dmPosition: win32more.Foundation.POINTL
+            dmDisplayOrientation: win32more.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION
+            dmDisplayFixedOutput: win32more.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT
+    class _Anonymous2_e__Union(Union):
+        dmDisplayFlags: UInt32
+        dmNup: UInt32
+class DEVMODEW(Structure):
+    dmDeviceName: Char * 32
+    dmSpecVersion: UInt16
+    dmDriverVersion: UInt16
+    dmSize: UInt16
+    dmDriverExtra: UInt16
+    dmFields: win32more.Graphics.Gdi.DEVMODE_FIELD_FLAGS
+    Anonymous1: _Anonymous1_e__Union
+    dmColor: win32more.Graphics.Gdi.DEVMODE_COLOR
+    dmDuplex: win32more.Graphics.Gdi.DEVMODE_DUPLEX
+    dmYResolution: Int16
+    dmTTOption: win32more.Graphics.Gdi.DEVMODE_TRUETYPE_OPTION
+    dmCollate: win32more.Graphics.Gdi.DEVMODE_COLLATE
+    dmFormName: Char * 32
+    dmLogPixels: UInt16
+    dmBitsPerPel: UInt32
+    dmPelsWidth: UInt32
+    dmPelsHeight: UInt32
+    Anonymous2: _Anonymous2_e__Union
+    dmDisplayFrequency: UInt32
+    dmICMMethod: UInt32
+    dmICMIntent: UInt32
+    dmMediaType: UInt32
+    dmDitherType: UInt32
+    dmReserved1: UInt32
+    dmReserved2: UInt32
+    dmPanningWidth: UInt32
+    dmPanningHeight: UInt32
+    class _Anonymous1_e__Union(Union):
+        Anonymous1: _Anonymous1_e__Struct
+        Anonymous2: _Anonymous2_e__Struct
+        class _Anonymous1_e__Struct(Structure):
+            dmOrientation: Int16
+            dmPaperSize: Int16
+            dmPaperLength: Int16
+            dmPaperWidth: Int16
+            dmScale: Int16
+            dmCopies: Int16
+            dmDefaultSource: Int16
+            dmPrintQuality: Int16
+        class _Anonymous2_e__Struct(Structure):
+            dmPosition: win32more.Foundation.POINTL
+            dmDisplayOrientation: win32more.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION
+            dmDisplayFixedOutput: win32more.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT
+    class _Anonymous2_e__Union(Union):
+        dmDisplayFlags: UInt32
+        dmNup: UInt32
 DFC_TYPE = UInt32
-DFC_CAPTION = 1
-DFC_MENU = 2
-DFC_SCROLL = 3
-DFC_BUTTON = 4
-DFC_POPUPMENU = 5
+DFC_CAPTION: DFC_TYPE = 1
+DFC_MENU: DFC_TYPE = 2
+DFC_SCROLL: DFC_TYPE = 3
+DFC_BUTTON: DFC_TYPE = 4
+DFC_POPUPMENU: DFC_TYPE = 5
 DFCS_STATE = UInt32
-DFCS_CAPTIONCLOSE = 0
-DFCS_CAPTIONMIN = 1
-DFCS_CAPTIONMAX = 2
-DFCS_CAPTIONRESTORE = 3
-DFCS_CAPTIONHELP = 4
-DFCS_MENUARROW = 0
-DFCS_MENUCHECK = 1
-DFCS_MENUBULLET = 2
-DFCS_MENUARROWRIGHT = 4
-DFCS_SCROLLUP = 0
-DFCS_SCROLLDOWN = 1
-DFCS_SCROLLLEFT = 2
-DFCS_SCROLLRIGHT = 3
-DFCS_SCROLLCOMBOBOX = 5
-DFCS_SCROLLSIZEGRIP = 8
-DFCS_SCROLLSIZEGRIPRIGHT = 16
-DFCS_BUTTONCHECK = 0
-DFCS_BUTTONRADIOIMAGE = 1
-DFCS_BUTTONRADIOMASK = 2
-DFCS_BUTTONRADIO = 4
-DFCS_BUTTON3STATE = 8
-DFCS_BUTTONPUSH = 16
-DFCS_INACTIVE = 256
-DFCS_PUSHED = 512
-DFCS_CHECKED = 1024
-DFCS_TRANSPARENT = 2048
-DFCS_HOT = 4096
-DFCS_ADJUSTRECT = 8192
-DFCS_FLAT = 16384
-DFCS_MONO = 32768
+DFCS_CAPTIONCLOSE: DFCS_STATE = 0
+DFCS_CAPTIONMIN: DFCS_STATE = 1
+DFCS_CAPTIONMAX: DFCS_STATE = 2
+DFCS_CAPTIONRESTORE: DFCS_STATE = 3
+DFCS_CAPTIONHELP: DFCS_STATE = 4
+DFCS_MENUARROW: DFCS_STATE = 0
+DFCS_MENUCHECK: DFCS_STATE = 1
+DFCS_MENUBULLET: DFCS_STATE = 2
+DFCS_MENUARROWRIGHT: DFCS_STATE = 4
+DFCS_SCROLLUP: DFCS_STATE = 0
+DFCS_SCROLLDOWN: DFCS_STATE = 1
+DFCS_SCROLLLEFT: DFCS_STATE = 2
+DFCS_SCROLLRIGHT: DFCS_STATE = 3
+DFCS_SCROLLCOMBOBOX: DFCS_STATE = 5
+DFCS_SCROLLSIZEGRIP: DFCS_STATE = 8
+DFCS_SCROLLSIZEGRIPRIGHT: DFCS_STATE = 16
+DFCS_BUTTONCHECK: DFCS_STATE = 0
+DFCS_BUTTONRADIOIMAGE: DFCS_STATE = 1
+DFCS_BUTTONRADIOMASK: DFCS_STATE = 2
+DFCS_BUTTONRADIO: DFCS_STATE = 4
+DFCS_BUTTON3STATE: DFCS_STATE = 8
+DFCS_BUTTONPUSH: DFCS_STATE = 16
+DFCS_INACTIVE: DFCS_STATE = 256
+DFCS_PUSHED: DFCS_STATE = 512
+DFCS_CHECKED: DFCS_STATE = 1024
+DFCS_TRANSPARENT: DFCS_STATE = 2048
+DFCS_HOT: DFCS_STATE = 4096
+DFCS_ADJUSTRECT: DFCS_STATE = 8192
+DFCS_FLAT: DFCS_STATE = 16384
+DFCS_MONO: DFCS_STATE = 32768
 DIB_USAGE = UInt32
-DIB_RGB_COLORS = 0
-DIB_PAL_COLORS = 1
-def _define_DIBSECTION_head():
-    class DIBSECTION(Structure):
-        pass
-    return DIBSECTION
-def _define_DIBSECTION():
-    DIBSECTION = win32more.Graphics.Gdi.DIBSECTION_head
-    DIBSECTION._fields_ = [
-        ('dsBm', win32more.Graphics.Gdi.BITMAP),
-        ('dsBmih', win32more.Graphics.Gdi.BITMAPINFOHEADER),
-        ('dsBitfields', UInt32 * 3),
-        ('dshSection', win32more.Foundation.HANDLE),
-        ('dsOffset', UInt32),
-    ]
-    return DIBSECTION
+DIB_RGB_COLORS: DIB_USAGE = 0
+DIB_PAL_COLORS: DIB_USAGE = 1
+class DIBSECTION(Structure):
+    dsBm: win32more.Graphics.Gdi.BITMAP
+    dsBmih: win32more.Graphics.Gdi.BITMAPINFOHEADER
+    dsBitfields: UInt32 * 3
+    dshSection: win32more.Foundation.HANDLE
+    dsOffset: UInt32
 DISP_CHANGE = Int32
-DISP_CHANGE_SUCCESSFUL = 0
-DISP_CHANGE_RESTART = 1
-DISP_CHANGE_FAILED = -1
-DISP_CHANGE_BADMODE = -2
-DISP_CHANGE_NOTUPDATED = -3
-DISP_CHANGE_BADFLAGS = -4
-DISP_CHANGE_BADPARAM = -5
-DISP_CHANGE_BADDUALVIEW = -6
-def _define_DISPLAY_DEVICEA_head():
-    class DISPLAY_DEVICEA(Structure):
-        pass
-    return DISPLAY_DEVICEA
-def _define_DISPLAY_DEVICEA():
-    DISPLAY_DEVICEA = win32more.Graphics.Gdi.DISPLAY_DEVICEA_head
-    DISPLAY_DEVICEA._fields_ = [
-        ('cb', UInt32),
-        ('DeviceName', win32more.Foundation.CHAR * 32),
-        ('DeviceString', win32more.Foundation.CHAR * 128),
-        ('StateFlags', UInt32),
-        ('DeviceID', win32more.Foundation.CHAR * 128),
-        ('DeviceKey', win32more.Foundation.CHAR * 128),
-    ]
-    return DISPLAY_DEVICEA
-def _define_DISPLAY_DEVICEW_head():
-    class DISPLAY_DEVICEW(Structure):
-        pass
-    return DISPLAY_DEVICEW
-def _define_DISPLAY_DEVICEW():
-    DISPLAY_DEVICEW = win32more.Graphics.Gdi.DISPLAY_DEVICEW_head
-    DISPLAY_DEVICEW._fields_ = [
-        ('cb', UInt32),
-        ('DeviceName', Char * 32),
-        ('DeviceString', Char * 128),
-        ('StateFlags', UInt32),
-        ('DeviceID', Char * 128),
-        ('DeviceKey', Char * 128),
-    ]
-    return DISPLAY_DEVICEW
+DISP_CHANGE_SUCCESSFUL: DISP_CHANGE = 0
+DISP_CHANGE_RESTART: DISP_CHANGE = 1
+DISP_CHANGE_FAILED: DISP_CHANGE = -1
+DISP_CHANGE_BADMODE: DISP_CHANGE = -2
+DISP_CHANGE_NOTUPDATED: DISP_CHANGE = -3
+DISP_CHANGE_BADFLAGS: DISP_CHANGE = -4
+DISP_CHANGE_BADPARAM: DISP_CHANGE = -5
+DISP_CHANGE_BADDUALVIEW: DISP_CHANGE = -6
+class DISPLAY_DEVICEA(Structure):
+    cb: UInt32
+    DeviceName: win32more.Foundation.CHAR * 32
+    DeviceString: win32more.Foundation.CHAR * 128
+    StateFlags: UInt32
+    DeviceID: win32more.Foundation.CHAR * 128
+    DeviceKey: win32more.Foundation.CHAR * 128
+class DISPLAY_DEVICEW(Structure):
+    cb: UInt32
+    DeviceName: Char * 32
+    DeviceString: Char * 128
+    StateFlags: UInt32
+    DeviceID: Char * 128
+    DeviceKey: Char * 128
 DISPLAYCONFIG_COLOR_ENCODING = Int32
-DISPLAYCONFIG_COLOR_ENCODING_RGB = 0
-DISPLAYCONFIG_COLOR_ENCODING_YCBCR444 = 1
-DISPLAYCONFIG_COLOR_ENCODING_YCBCR422 = 2
-DISPLAYCONFIG_COLOR_ENCODING_YCBCR420 = 3
-DISPLAYCONFIG_COLOR_ENCODING_INTENSITY = 4
-DISPLAYCONFIG_COLOR_ENCODING_FORCE_UINT32 = -1
+DISPLAYCONFIG_COLOR_ENCODING_RGB: DISPLAYCONFIG_COLOR_ENCODING = 0
+DISPLAYCONFIG_COLOR_ENCODING_YCBCR444: DISPLAYCONFIG_COLOR_ENCODING = 1
+DISPLAYCONFIG_COLOR_ENCODING_YCBCR422: DISPLAYCONFIG_COLOR_ENCODING = 2
+DISPLAYCONFIG_COLOR_ENCODING_YCBCR420: DISPLAYCONFIG_COLOR_ENCODING = 3
+DISPLAYCONFIG_COLOR_ENCODING_INTENSITY: DISPLAYCONFIG_COLOR_ENCODING = 4
+DISPLAYCONFIG_COLOR_ENCODING_FORCE_UINT32: DISPLAYCONFIG_COLOR_ENCODING = -1
 DRAW_CAPTION_FLAGS = UInt32
-DC_ACTIVE = 1
-DC_BUTTONS = 4096
-DC_GRADIENT = 32
-DC_ICON = 4
-DC_INBUTTON = 16
-DC_SMALLCAP = 2
-DC_TEXT = 8
+DC_ACTIVE: DRAW_CAPTION_FLAGS = 1
+DC_BUTTONS: DRAW_CAPTION_FLAGS = 4096
+DC_GRADIENT: DRAW_CAPTION_FLAGS = 32
+DC_ICON: DRAW_CAPTION_FLAGS = 4
+DC_INBUTTON: DRAW_CAPTION_FLAGS = 16
+DC_SMALLCAP: DRAW_CAPTION_FLAGS = 2
+DC_TEXT: DRAW_CAPTION_FLAGS = 8
 DRAW_EDGE_FLAGS = UInt32
-BF_ADJUST = 8192
-BF_BOTTOM = 8
-BF_BOTTOMLEFT = 9
-BF_BOTTOMRIGHT = 12
-BF_DIAGONAL = 16
-BF_DIAGONAL_ENDBOTTOMLEFT = 25
-BF_DIAGONAL_ENDBOTTOMRIGHT = 28
-BF_DIAGONAL_ENDTOPLEFT = 19
-BF_DIAGONAL_ENDTOPRIGHT = 22
-BF_FLAT = 16384
-BF_LEFT = 1
-BF_MIDDLE = 2048
-BF_MONO = 32768
-BF_RECT = 15
-BF_RIGHT = 4
-BF_SOFT = 4096
-BF_TOP = 2
-BF_TOPLEFT = 3
-BF_TOPRIGHT = 6
+BF_ADJUST: DRAW_EDGE_FLAGS = 8192
+BF_BOTTOM: DRAW_EDGE_FLAGS = 8
+BF_BOTTOMLEFT: DRAW_EDGE_FLAGS = 9
+BF_BOTTOMRIGHT: DRAW_EDGE_FLAGS = 12
+BF_DIAGONAL: DRAW_EDGE_FLAGS = 16
+BF_DIAGONAL_ENDBOTTOMLEFT: DRAW_EDGE_FLAGS = 25
+BF_DIAGONAL_ENDBOTTOMRIGHT: DRAW_EDGE_FLAGS = 28
+BF_DIAGONAL_ENDTOPLEFT: DRAW_EDGE_FLAGS = 19
+BF_DIAGONAL_ENDTOPRIGHT: DRAW_EDGE_FLAGS = 22
+BF_FLAT: DRAW_EDGE_FLAGS = 16384
+BF_LEFT: DRAW_EDGE_FLAGS = 1
+BF_MIDDLE: DRAW_EDGE_FLAGS = 2048
+BF_MONO: DRAW_EDGE_FLAGS = 32768
+BF_RECT: DRAW_EDGE_FLAGS = 15
+BF_RIGHT: DRAW_EDGE_FLAGS = 4
+BF_SOFT: DRAW_EDGE_FLAGS = 4096
+BF_TOP: DRAW_EDGE_FLAGS = 2
+BF_TOPLEFT: DRAW_EDGE_FLAGS = 3
+BF_TOPRIGHT: DRAW_EDGE_FLAGS = 6
 DRAW_TEXT_FORMAT = UInt32
-DT_BOTTOM = 8
-DT_CALCRECT = 1024
-DT_CENTER = 1
-DT_EDITCONTROL = 8192
-DT_END_ELLIPSIS = 32768
-DT_EXPANDTABS = 64
-DT_EXTERNALLEADING = 512
-DT_HIDEPREFIX = 1048576
-DT_INTERNAL = 4096
-DT_LEFT = 0
-DT_MODIFYSTRING = 65536
-DT_NOCLIP = 256
-DT_NOFULLWIDTHCHARBREAK = 524288
-DT_NOPREFIX = 2048
-DT_PATH_ELLIPSIS = 16384
-DT_PREFIXONLY = 2097152
-DT_RIGHT = 2
-DT_RTLREADING = 131072
-DT_SINGLELINE = 32
-DT_TABSTOP = 128
-DT_TOP = 0
-DT_VCENTER = 4
-DT_WORDBREAK = 16
-DT_WORD_ELLIPSIS = 262144
+DT_BOTTOM: DRAW_TEXT_FORMAT = 8
+DT_CALCRECT: DRAW_TEXT_FORMAT = 1024
+DT_CENTER: DRAW_TEXT_FORMAT = 1
+DT_EDITCONTROL: DRAW_TEXT_FORMAT = 8192
+DT_END_ELLIPSIS: DRAW_TEXT_FORMAT = 32768
+DT_EXPANDTABS: DRAW_TEXT_FORMAT = 64
+DT_EXTERNALLEADING: DRAW_TEXT_FORMAT = 512
+DT_HIDEPREFIX: DRAW_TEXT_FORMAT = 1048576
+DT_INTERNAL: DRAW_TEXT_FORMAT = 4096
+DT_LEFT: DRAW_TEXT_FORMAT = 0
+DT_MODIFYSTRING: DRAW_TEXT_FORMAT = 65536
+DT_NOCLIP: DRAW_TEXT_FORMAT = 256
+DT_NOFULLWIDTHCHARBREAK: DRAW_TEXT_FORMAT = 524288
+DT_NOPREFIX: DRAW_TEXT_FORMAT = 2048
+DT_PATH_ELLIPSIS: DRAW_TEXT_FORMAT = 16384
+DT_PREFIXONLY: DRAW_TEXT_FORMAT = 2097152
+DT_RIGHT: DRAW_TEXT_FORMAT = 2
+DT_RTLREADING: DRAW_TEXT_FORMAT = 131072
+DT_SINGLELINE: DRAW_TEXT_FORMAT = 32
+DT_TABSTOP: DRAW_TEXT_FORMAT = 128
+DT_TOP: DRAW_TEXT_FORMAT = 0
+DT_VCENTER: DRAW_TEXT_FORMAT = 4
+DT_WORDBREAK: DRAW_TEXT_FORMAT = 16
+DT_WORD_ELLIPSIS: DRAW_TEXT_FORMAT = 262144
 DRAWEDGE_FLAGS = UInt32
-BDR_RAISEDOUTER = 1
-BDR_SUNKENOUTER = 2
-BDR_RAISEDINNER = 4
-BDR_SUNKENINNER = 8
-BDR_OUTER = 3
-BDR_INNER = 12
-BDR_RAISED = 5
-BDR_SUNKEN = 10
-EDGE_RAISED = 5
-EDGE_SUNKEN = 10
-EDGE_ETCHED = 6
-EDGE_BUMP = 9
+BDR_RAISEDOUTER: DRAWEDGE_FLAGS = 1
+BDR_SUNKENOUTER: DRAWEDGE_FLAGS = 2
+BDR_RAISEDINNER: DRAWEDGE_FLAGS = 4
+BDR_SUNKENINNER: DRAWEDGE_FLAGS = 8
+BDR_OUTER: DRAWEDGE_FLAGS = 3
+BDR_INNER: DRAWEDGE_FLAGS = 12
+BDR_RAISED: DRAWEDGE_FLAGS = 5
+BDR_SUNKEN: DRAWEDGE_FLAGS = 10
+EDGE_RAISED: DRAWEDGE_FLAGS = 5
+EDGE_SUNKEN: DRAWEDGE_FLAGS = 10
+EDGE_ETCHED: DRAWEDGE_FLAGS = 6
+EDGE_BUMP: DRAWEDGE_FLAGS = 9
 DRAWSTATE_FLAGS = UInt32
-DST_COMPLEX = 0
-DST_TEXT = 1
-DST_PREFIXTEXT = 2
-DST_ICON = 3
-DST_BITMAP = 4
-DSS_NORMAL = 0
-DSS_UNION = 16
-DSS_DISABLED = 32
-DSS_MONO = 128
-DSS_HIDEPREFIX = 512
-DSS_PREFIXONLY = 1024
-DSS_RIGHT = 32768
-def _define_DRAWSTATEPROC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.LPARAM,win32more.Foundation.WPARAM,Int32,Int32)
-def _define_DRAWTEXTPARAMS_head():
-    class DRAWTEXTPARAMS(Structure):
-        pass
-    return DRAWTEXTPARAMS
-def _define_DRAWTEXTPARAMS():
-    DRAWTEXTPARAMS = win32more.Graphics.Gdi.DRAWTEXTPARAMS_head
-    DRAWTEXTPARAMS._fields_ = [
-        ('cbSize', UInt32),
-        ('iTabLength', Int32),
-        ('iLeftMargin', Int32),
-        ('iRightMargin', Int32),
-        ('uiLengthDrawn', UInt32),
-    ]
-    return DRAWTEXTPARAMS
+DST_COMPLEX: DRAWSTATE_FLAGS = 0
+DST_TEXT: DRAWSTATE_FLAGS = 1
+DST_PREFIXTEXT: DRAWSTATE_FLAGS = 2
+DST_ICON: DRAWSTATE_FLAGS = 3
+DST_BITMAP: DRAWSTATE_FLAGS = 4
+DSS_NORMAL: DRAWSTATE_FLAGS = 0
+DSS_UNION: DRAWSTATE_FLAGS = 16
+DSS_DISABLED: DRAWSTATE_FLAGS = 32
+DSS_MONO: DRAWSTATE_FLAGS = 128
+DSS_HIDEPREFIX: DRAWSTATE_FLAGS = 512
+DSS_PREFIXONLY: DRAWSTATE_FLAGS = 1024
+DSS_RIGHT: DRAWSTATE_FLAGS = 32768
+@winfunctype_pointer
+def DRAWSTATEPROC(hdc: win32more.Graphics.Gdi.HDC, lData: win32more.Foundation.LPARAM, wData: win32more.Foundation.WPARAM, cx: Int32, cy: Int32) -> win32more.Foundation.BOOL: ...
+class DRAWTEXTPARAMS(Structure):
+    cbSize: UInt32
+    iTabLength: Int32
+    iLeftMargin: Int32
+    iRightMargin: Int32
+    uiLengthDrawn: UInt32
 EMBED_FONT_CHARSET = UInt32
-CHARSET_UNICODE = 1
-CHARSET_SYMBOL = 2
+CHARSET_UNICODE: EMBED_FONT_CHARSET = 1
+CHARSET_SYMBOL: EMBED_FONT_CHARSET = 2
 EMBEDDED_FONT_PRIV_STATUS = UInt32
-EMBED_PREVIEWPRINT = 1
-EMBED_EDITABLE = 2
-EMBED_INSTALLABLE = 3
-EMBED_NOEMBEDDING = 4
-def _define_EMR_head():
-    class EMR(Structure):
-        pass
-    return EMR
-def _define_EMR():
-    EMR = win32more.Graphics.Gdi.EMR_head
-    EMR._fields_ = [
-        ('iType', win32more.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE),
-        ('nSize', UInt32),
-    ]
-    return EMR
-def _define_EMRALPHABLEND_head():
-    class EMRALPHABLEND(Structure):
-        pass
-    return EMRALPHABLEND
-def _define_EMRALPHABLEND():
-    EMRALPHABLEND = win32more.Graphics.Gdi.EMRALPHABLEND_head
-    EMRALPHABLEND._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-        ('dwRop', UInt32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-    ]
-    return EMRALPHABLEND
-def _define_EMRANGLEARC_head():
-    class EMRANGLEARC(Structure):
-        pass
-    return EMRANGLEARC
-def _define_EMRANGLEARC():
-    EMRANGLEARC = win32more.Graphics.Gdi.EMRANGLEARC_head
-    EMRANGLEARC._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptlCenter', win32more.Foundation.POINTL),
-        ('nRadius', UInt32),
-        ('eStartAngle', Single),
-        ('eSweepAngle', Single),
-    ]
-    return EMRANGLEARC
-def _define_EMRARC_head():
-    class EMRARC(Structure):
-        pass
-    return EMRARC
-def _define_EMRARC():
-    EMRARC = win32more.Graphics.Gdi.EMRARC_head
-    EMRARC._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBox', win32more.Foundation.RECTL),
-        ('ptlStart', win32more.Foundation.POINTL),
-        ('ptlEnd', win32more.Foundation.POINTL),
-    ]
-    return EMRARC
-def _define_EMRBITBLT_head():
-    class EMRBITBLT(Structure):
-        pass
-    return EMRBITBLT
-def _define_EMRBITBLT():
-    EMRBITBLT = win32more.Graphics.Gdi.EMRBITBLT_head
-    EMRBITBLT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-        ('dwRop', UInt32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-    ]
-    return EMRBITBLT
-def _define_EMRCOLORCORRECTPALETTE_head():
-    class EMRCOLORCORRECTPALETTE(Structure):
-        pass
-    return EMRCOLORCORRECTPALETTE
-def _define_EMRCOLORCORRECTPALETTE():
-    EMRCOLORCORRECTPALETTE = win32more.Graphics.Gdi.EMRCOLORCORRECTPALETTE_head
-    EMRCOLORCORRECTPALETTE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPalette', UInt32),
-        ('nFirstEntry', UInt32),
-        ('nPalEntries', UInt32),
-        ('nReserved', UInt32),
-    ]
-    return EMRCOLORCORRECTPALETTE
-def _define_EMRCOLORMATCHTOTARGET_head():
-    class EMRCOLORMATCHTOTARGET(Structure):
-        pass
-    return EMRCOLORMATCHTOTARGET
-def _define_EMRCOLORMATCHTOTARGET():
-    EMRCOLORMATCHTOTARGET = win32more.Graphics.Gdi.EMRCOLORMATCHTOTARGET_head
-    EMRCOLORMATCHTOTARGET._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('dwAction', UInt32),
-        ('dwFlags', UInt32),
-        ('cbName', UInt32),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRCOLORMATCHTOTARGET
-def _define_EMRCREATEBRUSHINDIRECT_head():
-    class EMRCREATEBRUSHINDIRECT(Structure):
-        pass
-    return EMRCREATEBRUSHINDIRECT
-def _define_EMRCREATEBRUSHINDIRECT():
-    EMRCREATEBRUSHINDIRECT = win32more.Graphics.Gdi.EMRCREATEBRUSHINDIRECT_head
-    EMRCREATEBRUSHINDIRECT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihBrush', UInt32),
-        ('lb', win32more.Graphics.Gdi.LOGBRUSH32),
-    ]
-    return EMRCREATEBRUSHINDIRECT
-def _define_EMRCREATEDIBPATTERNBRUSHPT_head():
-    class EMRCREATEDIBPATTERNBRUSHPT(Structure):
-        pass
-    return EMRCREATEDIBPATTERNBRUSHPT
-def _define_EMRCREATEDIBPATTERNBRUSHPT():
-    EMRCREATEDIBPATTERNBRUSHPT = win32more.Graphics.Gdi.EMRCREATEDIBPATTERNBRUSHPT_head
-    EMRCREATEDIBPATTERNBRUSHPT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihBrush', UInt32),
-        ('iUsage', UInt32),
-        ('offBmi', UInt32),
-        ('cbBmi', UInt32),
-        ('offBits', UInt32),
-        ('cbBits', UInt32),
-    ]
-    return EMRCREATEDIBPATTERNBRUSHPT
-def _define_EMRCREATEMONOBRUSH_head():
-    class EMRCREATEMONOBRUSH(Structure):
-        pass
-    return EMRCREATEMONOBRUSH
-def _define_EMRCREATEMONOBRUSH():
-    EMRCREATEMONOBRUSH = win32more.Graphics.Gdi.EMRCREATEMONOBRUSH_head
-    EMRCREATEMONOBRUSH._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihBrush', UInt32),
-        ('iUsage', UInt32),
-        ('offBmi', UInt32),
-        ('cbBmi', UInt32),
-        ('offBits', UInt32),
-        ('cbBits', UInt32),
-    ]
-    return EMRCREATEMONOBRUSH
-def _define_EMRCREATEPALETTE_head():
-    class EMRCREATEPALETTE(Structure):
-        pass
-    return EMRCREATEPALETTE
-def _define_EMRCREATEPALETTE():
-    EMRCREATEPALETTE = win32more.Graphics.Gdi.EMRCREATEPALETTE_head
-    EMRCREATEPALETTE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPal', UInt32),
-        ('lgpl', win32more.Graphics.Gdi.LOGPALETTE),
-    ]
-    return EMRCREATEPALETTE
-def _define_EMRCREATEPEN_head():
-    class EMRCREATEPEN(Structure):
-        pass
-    return EMRCREATEPEN
-def _define_EMRCREATEPEN():
-    EMRCREATEPEN = win32more.Graphics.Gdi.EMRCREATEPEN_head
-    EMRCREATEPEN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPen', UInt32),
-        ('lopn', win32more.Graphics.Gdi.LOGPEN),
-    ]
-    return EMRCREATEPEN
-def _define_EMRELLIPSE_head():
-    class EMRELLIPSE(Structure):
-        pass
-    return EMRELLIPSE
-def _define_EMRELLIPSE():
-    EMRELLIPSE = win32more.Graphics.Gdi.EMRELLIPSE_head
-    EMRELLIPSE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBox', win32more.Foundation.RECTL),
-    ]
-    return EMRELLIPSE
-def _define_EMREOF_head():
-    class EMREOF(Structure):
-        pass
-    return EMREOF
-def _define_EMREOF():
-    EMREOF = win32more.Graphics.Gdi.EMREOF_head
-    EMREOF._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('nPalEntries', UInt32),
-        ('offPalEntries', UInt32),
-        ('nSizeLast', UInt32),
-    ]
-    return EMREOF
-def _define_EMREXCLUDECLIPRECT_head():
-    class EMREXCLUDECLIPRECT(Structure):
-        pass
-    return EMREXCLUDECLIPRECT
-def _define_EMREXCLUDECLIPRECT():
-    EMREXCLUDECLIPRECT = win32more.Graphics.Gdi.EMREXCLUDECLIPRECT_head
-    EMREXCLUDECLIPRECT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclClip', win32more.Foundation.RECTL),
-    ]
-    return EMREXCLUDECLIPRECT
-def _define_EMREXTCREATEFONTINDIRECTW_head():
-    class EMREXTCREATEFONTINDIRECTW(Structure):
-        pass
-    return EMREXTCREATEFONTINDIRECTW
-def _define_EMREXTCREATEFONTINDIRECTW():
-    EMREXTCREATEFONTINDIRECTW = win32more.Graphics.Gdi.EMREXTCREATEFONTINDIRECTW_head
-    EMREXTCREATEFONTINDIRECTW._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihFont', UInt32),
-        ('elfw', win32more.Graphics.Gdi.EXTLOGFONTW),
-    ]
-    return EMREXTCREATEFONTINDIRECTW
-def _define_EMREXTCREATEPEN_head():
-    class EMREXTCREATEPEN(Structure):
-        pass
-    return EMREXTCREATEPEN
-def _define_EMREXTCREATEPEN():
-    EMREXTCREATEPEN = win32more.Graphics.Gdi.EMREXTCREATEPEN_head
-    EMREXTCREATEPEN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPen', UInt32),
-        ('offBmi', UInt32),
-        ('cbBmi', UInt32),
-        ('offBits', UInt32),
-        ('cbBits', UInt32),
-        ('elp', win32more.Graphics.Gdi.EXTLOGPEN32),
-    ]
-    return EMREXTCREATEPEN
-def _define_EMREXTESCAPE_head():
-    class EMREXTESCAPE(Structure):
-        pass
-    return EMREXTESCAPE
-def _define_EMREXTESCAPE():
-    EMREXTESCAPE = win32more.Graphics.Gdi.EMREXTESCAPE_head
-    EMREXTESCAPE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('iEscape', Int32),
-        ('cbEscData', Int32),
-        ('EscData', Byte * 1),
-    ]
-    return EMREXTESCAPE
-def _define_EMREXTFLOODFILL_head():
-    class EMREXTFLOODFILL(Structure):
-        pass
-    return EMREXTFLOODFILL
-def _define_EMREXTFLOODFILL():
-    EMREXTFLOODFILL = win32more.Graphics.Gdi.EMREXTFLOODFILL_head
-    EMREXTFLOODFILL._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptlStart', win32more.Foundation.POINTL),
-        ('crColor', win32more.Foundation.COLORREF),
-        ('iMode', UInt32),
-    ]
-    return EMREXTFLOODFILL
-def _define_EMREXTSELECTCLIPRGN_head():
-    class EMREXTSELECTCLIPRGN(Structure):
-        pass
-    return EMREXTSELECTCLIPRGN
-def _define_EMREXTSELECTCLIPRGN():
-    EMREXTSELECTCLIPRGN = win32more.Graphics.Gdi.EMREXTSELECTCLIPRGN_head
-    EMREXTSELECTCLIPRGN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('cbRgnData', UInt32),
-        ('iMode', win32more.Graphics.Gdi.RGN_COMBINE_MODE),
-        ('RgnData', Byte * 1),
-    ]
-    return EMREXTSELECTCLIPRGN
-def _define_EMREXTTEXTOUTA_head():
-    class EMREXTTEXTOUTA(Structure):
-        pass
-    return EMREXTTEXTOUTA
-def _define_EMREXTTEXTOUTA():
-    EMREXTTEXTOUTA = win32more.Graphics.Gdi.EMREXTTEXTOUTA_head
-    EMREXTTEXTOUTA._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('iGraphicsMode', UInt32),
-        ('exScale', Single),
-        ('eyScale', Single),
-        ('emrtext', win32more.Graphics.Gdi.EMRTEXT),
-    ]
-    return EMREXTTEXTOUTA
-def _define_EMRFILLPATH_head():
-    class EMRFILLPATH(Structure):
-        pass
-    return EMRFILLPATH
-def _define_EMRFILLPATH():
-    EMRFILLPATH = win32more.Graphics.Gdi.EMRFILLPATH_head
-    EMRFILLPATH._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-    ]
-    return EMRFILLPATH
-def _define_EMRFILLRGN_head():
-    class EMRFILLRGN(Structure):
-        pass
-    return EMRFILLRGN
-def _define_EMRFILLRGN():
-    EMRFILLRGN = win32more.Graphics.Gdi.EMRFILLRGN_head
-    EMRFILLRGN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cbRgnData', UInt32),
-        ('ihBrush', UInt32),
-        ('RgnData', Byte * 1),
-    ]
-    return EMRFILLRGN
-def _define_EMRFORMAT_head():
-    class EMRFORMAT(Structure):
-        pass
-    return EMRFORMAT
-def _define_EMRFORMAT():
-    EMRFORMAT = win32more.Graphics.Gdi.EMRFORMAT_head
-    EMRFORMAT._fields_ = [
-        ('dSignature', UInt32),
-        ('nVersion', UInt32),
-        ('cbData', UInt32),
-        ('offData', UInt32),
-    ]
-    return EMRFORMAT
-def _define_EMRFRAMERGN_head():
-    class EMRFRAMERGN(Structure):
-        pass
-    return EMRFRAMERGN
-def _define_EMRFRAMERGN():
-    EMRFRAMERGN = win32more.Graphics.Gdi.EMRFRAMERGN_head
-    EMRFRAMERGN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cbRgnData', UInt32),
-        ('ihBrush', UInt32),
-        ('szlStroke', win32more.Foundation.SIZE),
-        ('RgnData', Byte * 1),
-    ]
-    return EMRFRAMERGN
-def _define_EMRGDICOMMENT_head():
-    class EMRGDICOMMENT(Structure):
-        pass
-    return EMRGDICOMMENT
-def _define_EMRGDICOMMENT():
-    EMRGDICOMMENT = win32more.Graphics.Gdi.EMRGDICOMMENT_head
-    EMRGDICOMMENT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRGDICOMMENT
-def _define_EMRGLSBOUNDEDRECORD_head():
-    class EMRGLSBOUNDEDRECORD(Structure):
-        pass
-    return EMRGLSBOUNDEDRECORD
-def _define_EMRGLSBOUNDEDRECORD():
-    EMRGLSBOUNDEDRECORD = win32more.Graphics.Gdi.EMRGLSBOUNDEDRECORD_head
-    EMRGLSBOUNDEDRECORD._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRGLSBOUNDEDRECORD
-def _define_EMRGLSRECORD_head():
-    class EMRGLSRECORD(Structure):
-        pass
-    return EMRGLSRECORD
-def _define_EMRGLSRECORD():
-    EMRGLSRECORD = win32more.Graphics.Gdi.EMRGLSRECORD_head
-    EMRGLSRECORD._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRGLSRECORD
-def _define_EMRGRADIENTFILL_head():
-    class EMRGRADIENTFILL(Structure):
-        pass
-    return EMRGRADIENTFILL
-def _define_EMRGRADIENTFILL():
-    EMRGRADIENTFILL = win32more.Graphics.Gdi.EMRGRADIENTFILL_head
-    EMRGRADIENTFILL._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('nVer', UInt32),
-        ('nTri', UInt32),
-        ('ulMode', win32more.Graphics.Gdi.GRADIENT_FILL),
-        ('Ver', win32more.Graphics.Gdi.TRIVERTEX * 1),
-    ]
-    return EMRGRADIENTFILL
-def _define_EMRINVERTRGN_head():
-    class EMRINVERTRGN(Structure):
-        pass
-    return EMRINVERTRGN
-def _define_EMRINVERTRGN():
-    EMRINVERTRGN = win32more.Graphics.Gdi.EMRINVERTRGN_head
-    EMRINVERTRGN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cbRgnData', UInt32),
-        ('RgnData', Byte * 1),
-    ]
-    return EMRINVERTRGN
-def _define_EMRLINETO_head():
-    class EMRLINETO(Structure):
-        pass
-    return EMRLINETO
-def _define_EMRLINETO():
-    EMRLINETO = win32more.Graphics.Gdi.EMRLINETO_head
-    EMRLINETO._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptl', win32more.Foundation.POINTL),
-    ]
-    return EMRLINETO
-def _define_EMRMASKBLT_head():
-    class EMRMASKBLT(Structure):
-        pass
-    return EMRMASKBLT
-def _define_EMRMASKBLT():
-    EMRMASKBLT = win32more.Graphics.Gdi.EMRMASKBLT_head
-    EMRMASKBLT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-        ('dwRop', UInt32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('xMask', Int32),
-        ('yMask', Int32),
-        ('iUsageMask', UInt32),
-        ('offBmiMask', UInt32),
-        ('cbBmiMask', UInt32),
-        ('offBitsMask', UInt32),
-        ('cbBitsMask', UInt32),
-    ]
-    return EMRMASKBLT
-def _define_EMRMODIFYWORLDTRANSFORM_head():
-    class EMRMODIFYWORLDTRANSFORM(Structure):
-        pass
-    return EMRMODIFYWORLDTRANSFORM
-def _define_EMRMODIFYWORLDTRANSFORM():
-    EMRMODIFYWORLDTRANSFORM = win32more.Graphics.Gdi.EMRMODIFYWORLDTRANSFORM_head
-    EMRMODIFYWORLDTRANSFORM._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('xform', win32more.Graphics.Gdi.XFORM),
-        ('iMode', win32more.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE),
-    ]
-    return EMRMODIFYWORLDTRANSFORM
-def _define_EMRNAMEDESCAPE_head():
-    class EMRNAMEDESCAPE(Structure):
-        pass
-    return EMRNAMEDESCAPE
-def _define_EMRNAMEDESCAPE():
-    EMRNAMEDESCAPE = win32more.Graphics.Gdi.EMRNAMEDESCAPE_head
-    EMRNAMEDESCAPE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('iEscape', Int32),
-        ('cbDriver', Int32),
-        ('cbEscData', Int32),
-        ('EscData', Byte * 1),
-    ]
-    return EMRNAMEDESCAPE
-def _define_EMROFFSETCLIPRGN_head():
-    class EMROFFSETCLIPRGN(Structure):
-        pass
-    return EMROFFSETCLIPRGN
-def _define_EMROFFSETCLIPRGN():
-    EMROFFSETCLIPRGN = win32more.Graphics.Gdi.EMROFFSETCLIPRGN_head
-    EMROFFSETCLIPRGN._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptlOffset', win32more.Foundation.POINTL),
-    ]
-    return EMROFFSETCLIPRGN
-def _define_EMRPLGBLT_head():
-    class EMRPLGBLT(Structure):
-        pass
-    return EMRPLGBLT
-def _define_EMRPLGBLT():
-    EMRPLGBLT = win32more.Graphics.Gdi.EMRPLGBLT_head
-    EMRPLGBLT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('aptlDest', win32more.Foundation.POINTL * 3),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('xMask', Int32),
-        ('yMask', Int32),
-        ('iUsageMask', UInt32),
-        ('offBmiMask', UInt32),
-        ('cbBmiMask', UInt32),
-        ('offBitsMask', UInt32),
-        ('cbBitsMask', UInt32),
-    ]
-    return EMRPLGBLT
-def _define_EMRPOLYDRAW_head():
-    class EMRPOLYDRAW(Structure):
-        pass
-    return EMRPOLYDRAW
-def _define_EMRPOLYDRAW():
-    EMRPOLYDRAW = win32more.Graphics.Gdi.EMRPOLYDRAW_head
-    EMRPOLYDRAW._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cptl', UInt32),
-        ('aptl', win32more.Foundation.POINTL * 1),
-        ('abTypes', Byte * 1),
-    ]
-    return EMRPOLYDRAW
-def _define_EMRPOLYDRAW16_head():
-    class EMRPOLYDRAW16(Structure):
-        pass
-    return EMRPOLYDRAW16
-def _define_EMRPOLYDRAW16():
-    EMRPOLYDRAW16 = win32more.Graphics.Gdi.EMRPOLYDRAW16_head
-    EMRPOLYDRAW16._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cpts', UInt32),
-        ('apts', win32more.Foundation.POINTS * 1),
-        ('abTypes', Byte * 1),
-    ]
-    return EMRPOLYDRAW16
-def _define_EMRPOLYLINE_head():
-    class EMRPOLYLINE(Structure):
-        pass
-    return EMRPOLYLINE
-def _define_EMRPOLYLINE():
-    EMRPOLYLINE = win32more.Graphics.Gdi.EMRPOLYLINE_head
-    EMRPOLYLINE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cptl', UInt32),
-        ('aptl', win32more.Foundation.POINTL * 1),
-    ]
-    return EMRPOLYLINE
-def _define_EMRPOLYLINE16_head():
-    class EMRPOLYLINE16(Structure):
-        pass
-    return EMRPOLYLINE16
-def _define_EMRPOLYLINE16():
-    EMRPOLYLINE16 = win32more.Graphics.Gdi.EMRPOLYLINE16_head
-    EMRPOLYLINE16._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('cpts', UInt32),
-        ('apts', win32more.Foundation.POINTS * 1),
-    ]
-    return EMRPOLYLINE16
-def _define_EMRPOLYPOLYLINE_head():
-    class EMRPOLYPOLYLINE(Structure):
-        pass
-    return EMRPOLYPOLYLINE
-def _define_EMRPOLYPOLYLINE():
-    EMRPOLYPOLYLINE = win32more.Graphics.Gdi.EMRPOLYPOLYLINE_head
-    EMRPOLYPOLYLINE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('nPolys', UInt32),
-        ('cptl', UInt32),
-        ('aPolyCounts', UInt32 * 1),
-        ('aptl', win32more.Foundation.POINTL * 1),
-    ]
-    return EMRPOLYPOLYLINE
-def _define_EMRPOLYPOLYLINE16_head():
-    class EMRPOLYPOLYLINE16(Structure):
-        pass
-    return EMRPOLYPOLYLINE16
-def _define_EMRPOLYPOLYLINE16():
-    EMRPOLYPOLYLINE16 = win32more.Graphics.Gdi.EMRPOLYPOLYLINE16_head
-    EMRPOLYPOLYLINE16._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('nPolys', UInt32),
-        ('cpts', UInt32),
-        ('aPolyCounts', UInt32 * 1),
-        ('apts', win32more.Foundation.POINTS * 1),
-    ]
-    return EMRPOLYPOLYLINE16
-def _define_EMRPOLYTEXTOUTA_head():
-    class EMRPOLYTEXTOUTA(Structure):
-        pass
-    return EMRPOLYTEXTOUTA
-def _define_EMRPOLYTEXTOUTA():
-    EMRPOLYTEXTOUTA = win32more.Graphics.Gdi.EMRPOLYTEXTOUTA_head
-    EMRPOLYTEXTOUTA._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('iGraphicsMode', UInt32),
-        ('exScale', Single),
-        ('eyScale', Single),
-        ('cStrings', Int32),
-        ('aemrtext', win32more.Graphics.Gdi.EMRTEXT * 1),
-    ]
-    return EMRPOLYTEXTOUTA
-def _define_EMRRESIZEPALETTE_head():
-    class EMRRESIZEPALETTE(Structure):
-        pass
-    return EMRRESIZEPALETTE
-def _define_EMRRESIZEPALETTE():
-    EMRRESIZEPALETTE = win32more.Graphics.Gdi.EMRRESIZEPALETTE_head
-    EMRRESIZEPALETTE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPal', UInt32),
-        ('cEntries', UInt32),
-    ]
-    return EMRRESIZEPALETTE
-def _define_EMRRESTOREDC_head():
-    class EMRRESTOREDC(Structure):
-        pass
-    return EMRRESTOREDC
-def _define_EMRRESTOREDC():
-    EMRRESTOREDC = win32more.Graphics.Gdi.EMRRESTOREDC_head
-    EMRRESTOREDC._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('iRelative', Int32),
-    ]
-    return EMRRESTOREDC
-def _define_EMRROUNDRECT_head():
-    class EMRROUNDRECT(Structure):
-        pass
-    return EMRROUNDRECT
-def _define_EMRROUNDRECT():
-    EMRROUNDRECT = win32more.Graphics.Gdi.EMRROUNDRECT_head
-    EMRROUNDRECT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBox', win32more.Foundation.RECTL),
-        ('szlCorner', win32more.Foundation.SIZE),
-    ]
-    return EMRROUNDRECT
-def _define_EMRSCALEVIEWPORTEXTEX_head():
-    class EMRSCALEVIEWPORTEXTEX(Structure):
-        pass
-    return EMRSCALEVIEWPORTEXTEX
-def _define_EMRSCALEVIEWPORTEXTEX():
-    EMRSCALEVIEWPORTEXTEX = win32more.Graphics.Gdi.EMRSCALEVIEWPORTEXTEX_head
-    EMRSCALEVIEWPORTEXTEX._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('xNum', Int32),
-        ('xDenom', Int32),
-        ('yNum', Int32),
-        ('yDenom', Int32),
-    ]
-    return EMRSCALEVIEWPORTEXTEX
-def _define_EMRSELECTCLIPPATH_head():
-    class EMRSELECTCLIPPATH(Structure):
-        pass
-    return EMRSELECTCLIPPATH
-def _define_EMRSELECTCLIPPATH():
-    EMRSELECTCLIPPATH = win32more.Graphics.Gdi.EMRSELECTCLIPPATH_head
-    EMRSELECTCLIPPATH._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('iMode', UInt32),
-    ]
-    return EMRSELECTCLIPPATH
-def _define_EMRSELECTOBJECT_head():
-    class EMRSELECTOBJECT(Structure):
-        pass
-    return EMRSELECTOBJECT
-def _define_EMRSELECTOBJECT():
-    EMRSELECTOBJECT = win32more.Graphics.Gdi.EMRSELECTOBJECT_head
-    EMRSELECTOBJECT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihObject', UInt32),
-    ]
-    return EMRSELECTOBJECT
-def _define_EMRSELECTPALETTE_head():
-    class EMRSELECTPALETTE(Structure):
-        pass
-    return EMRSELECTPALETTE
-def _define_EMRSELECTPALETTE():
-    EMRSELECTPALETTE = win32more.Graphics.Gdi.EMRSELECTPALETTE_head
-    EMRSELECTPALETTE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPal', UInt32),
-    ]
-    return EMRSELECTPALETTE
-def _define_EMRSETARCDIRECTION_head():
-    class EMRSETARCDIRECTION(Structure):
-        pass
-    return EMRSETARCDIRECTION
-def _define_EMRSETARCDIRECTION():
-    EMRSETARCDIRECTION = win32more.Graphics.Gdi.EMRSETARCDIRECTION_head
-    EMRSETARCDIRECTION._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('iArcDirection', UInt32),
-    ]
-    return EMRSETARCDIRECTION
-def _define_EMRSETCOLORADJUSTMENT_head():
-    class EMRSETCOLORADJUSTMENT(Structure):
-        pass
-    return EMRSETCOLORADJUSTMENT
-def _define_EMRSETCOLORADJUSTMENT():
-    EMRSETCOLORADJUSTMENT = win32more.Graphics.Gdi.EMRSETCOLORADJUSTMENT_head
-    EMRSETCOLORADJUSTMENT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ColorAdjustment', win32more.Graphics.Gdi.COLORADJUSTMENT),
-    ]
-    return EMRSETCOLORADJUSTMENT
-def _define_EMRSETCOLORSPACE_head():
-    class EMRSETCOLORSPACE(Structure):
-        pass
-    return EMRSETCOLORSPACE
-def _define_EMRSETCOLORSPACE():
-    EMRSETCOLORSPACE = win32more.Graphics.Gdi.EMRSETCOLORSPACE_head
-    EMRSETCOLORSPACE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihCS', UInt32),
-    ]
-    return EMRSETCOLORSPACE
-def _define_EMRSETDIBITSTODEVICE_head():
-    class EMRSETDIBITSTODEVICE(Structure):
-        pass
-    return EMRSETDIBITSTODEVICE
-def _define_EMRSETDIBITSTODEVICE():
-    EMRSETDIBITSTODEVICE = win32more.Graphics.Gdi.EMRSETDIBITSTODEVICE_head
-    EMRSETDIBITSTODEVICE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('iUsageSrc', UInt32),
-        ('iStartScan', UInt32),
-        ('cScans', UInt32),
-    ]
-    return EMRSETDIBITSTODEVICE
-def _define_EMRSETICMPROFILE_head():
-    class EMRSETICMPROFILE(Structure):
-        pass
-    return EMRSETICMPROFILE
-def _define_EMRSETICMPROFILE():
-    EMRSETICMPROFILE = win32more.Graphics.Gdi.EMRSETICMPROFILE_head
-    EMRSETICMPROFILE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('dwFlags', UInt32),
-        ('cbName', UInt32),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRSETICMPROFILE
-def _define_EMRSETMAPPERFLAGS_head():
-    class EMRSETMAPPERFLAGS(Structure):
-        pass
-    return EMRSETMAPPERFLAGS
-def _define_EMRSETMAPPERFLAGS():
-    EMRSETMAPPERFLAGS = win32more.Graphics.Gdi.EMRSETMAPPERFLAGS_head
-    EMRSETMAPPERFLAGS._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('dwFlags', UInt32),
-    ]
-    return EMRSETMAPPERFLAGS
-def _define_EMRSETMITERLIMIT_head():
-    class EMRSETMITERLIMIT(Structure):
-        pass
-    return EMRSETMITERLIMIT
-def _define_EMRSETMITERLIMIT():
-    EMRSETMITERLIMIT = win32more.Graphics.Gdi.EMRSETMITERLIMIT_head
-    EMRSETMITERLIMIT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('eMiterLimit', Single),
-    ]
-    return EMRSETMITERLIMIT
-def _define_EMRSETPALETTEENTRIES_head():
-    class EMRSETPALETTEENTRIES(Structure):
-        pass
-    return EMRSETPALETTEENTRIES
-def _define_EMRSETPALETTEENTRIES():
-    EMRSETPALETTEENTRIES = win32more.Graphics.Gdi.EMRSETPALETTEENTRIES_head
-    EMRSETPALETTEENTRIES._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihPal', UInt32),
-        ('iStart', UInt32),
-        ('cEntries', UInt32),
-        ('aPalEntries', win32more.Graphics.Gdi.PALETTEENTRY * 1),
-    ]
-    return EMRSETPALETTEENTRIES
-def _define_EMRSETPIXELV_head():
-    class EMRSETPIXELV(Structure):
-        pass
-    return EMRSETPIXELV
-def _define_EMRSETPIXELV():
-    EMRSETPIXELV = win32more.Graphics.Gdi.EMRSETPIXELV_head
-    EMRSETPIXELV._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptlPixel', win32more.Foundation.POINTL),
-        ('crColor', win32more.Foundation.COLORREF),
-    ]
-    return EMRSETPIXELV
-def _define_EMRSETTEXTCOLOR_head():
-    class EMRSETTEXTCOLOR(Structure):
-        pass
-    return EMRSETTEXTCOLOR
-def _define_EMRSETTEXTCOLOR():
-    EMRSETTEXTCOLOR = win32more.Graphics.Gdi.EMRSETTEXTCOLOR_head
-    EMRSETTEXTCOLOR._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('crColor', win32more.Foundation.COLORREF),
-    ]
-    return EMRSETTEXTCOLOR
-def _define_EMRSETVIEWPORTEXTEX_head():
-    class EMRSETVIEWPORTEXTEX(Structure):
-        pass
-    return EMRSETVIEWPORTEXTEX
-def _define_EMRSETVIEWPORTEXTEX():
-    EMRSETVIEWPORTEXTEX = win32more.Graphics.Gdi.EMRSETVIEWPORTEXTEX_head
-    EMRSETVIEWPORTEXTEX._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('szlExtent', win32more.Foundation.SIZE),
-    ]
-    return EMRSETVIEWPORTEXTEX
-def _define_EMRSETVIEWPORTORGEX_head():
-    class EMRSETVIEWPORTORGEX(Structure):
-        pass
-    return EMRSETVIEWPORTORGEX
-def _define_EMRSETVIEWPORTORGEX():
-    EMRSETVIEWPORTORGEX = win32more.Graphics.Gdi.EMRSETVIEWPORTORGEX_head
-    EMRSETVIEWPORTORGEX._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ptlOrigin', win32more.Foundation.POINTL),
-    ]
-    return EMRSETVIEWPORTORGEX
-def _define_EMRSETWORLDTRANSFORM_head():
-    class EMRSETWORLDTRANSFORM(Structure):
-        pass
-    return EMRSETWORLDTRANSFORM
-def _define_EMRSETWORLDTRANSFORM():
-    EMRSETWORLDTRANSFORM = win32more.Graphics.Gdi.EMRSETWORLDTRANSFORM_head
-    EMRSETWORLDTRANSFORM._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('xform', win32more.Graphics.Gdi.XFORM),
-    ]
-    return EMRSETWORLDTRANSFORM
-def _define_EMRSTRETCHBLT_head():
-    class EMRSTRETCHBLT(Structure):
-        pass
-    return EMRSTRETCHBLT
-def _define_EMRSTRETCHBLT():
-    EMRSTRETCHBLT = win32more.Graphics.Gdi.EMRSTRETCHBLT_head
-    EMRSTRETCHBLT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-        ('dwRop', UInt32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-    ]
-    return EMRSTRETCHBLT
-def _define_EMRSTRETCHDIBITS_head():
-    class EMRSTRETCHDIBITS(Structure):
-        pass
-    return EMRSTRETCHDIBITS
-def _define_EMRSTRETCHDIBITS():
-    EMRSTRETCHDIBITS = win32more.Graphics.Gdi.EMRSTRETCHDIBITS_head
-    EMRSTRETCHDIBITS._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('iUsageSrc', UInt32),
-        ('dwRop', UInt32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-    ]
-    return EMRSTRETCHDIBITS
-def _define_EMRTEXT_head():
-    class EMRTEXT(Structure):
-        pass
-    return EMRTEXT
-def _define_EMRTEXT():
-    EMRTEXT = win32more.Graphics.Gdi.EMRTEXT_head
-    EMRTEXT._fields_ = [
-        ('ptlReference', win32more.Foundation.POINTL),
-        ('nChars', UInt32),
-        ('offString', UInt32),
-        ('fOptions', UInt32),
-        ('rcl', win32more.Foundation.RECTL),
-        ('offDx', UInt32),
-    ]
-    return EMRTEXT
-def _define_EMRTRANSPARENTBLT_head():
-    class EMRTRANSPARENTBLT(Structure):
-        pass
-    return EMRTRANSPARENTBLT
-def _define_EMRTRANSPARENTBLT():
-    EMRTRANSPARENTBLT = win32more.Graphics.Gdi.EMRTRANSPARENTBLT_head
-    EMRTRANSPARENTBLT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('xDest', Int32),
-        ('yDest', Int32),
-        ('cxDest', Int32),
-        ('cyDest', Int32),
-        ('dwRop', UInt32),
-        ('xSrc', Int32),
-        ('ySrc', Int32),
-        ('xformSrc', win32more.Graphics.Gdi.XFORM),
-        ('crBkColorSrc', win32more.Foundation.COLORREF),
-        ('iUsageSrc', UInt32),
-        ('offBmiSrc', UInt32),
-        ('cbBmiSrc', UInt32),
-        ('offBitsSrc', UInt32),
-        ('cbBitsSrc', UInt32),
-        ('cxSrc', Int32),
-        ('cySrc', Int32),
-    ]
-    return EMRTRANSPARENTBLT
+EMBED_PREVIEWPRINT: EMBEDDED_FONT_PRIV_STATUS = 1
+EMBED_EDITABLE: EMBEDDED_FONT_PRIV_STATUS = 2
+EMBED_INSTALLABLE: EMBEDDED_FONT_PRIV_STATUS = 3
+EMBED_NOEMBEDDING: EMBEDDED_FONT_PRIV_STATUS = 4
+class EMR(Structure):
+    iType: win32more.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE
+    nSize: UInt32
+class EMRALPHABLEND(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    cxDest: Int32
+    cyDest: Int32
+    dwRop: UInt32
+    xSrc: Int32
+    ySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    cxSrc: Int32
+    cySrc: Int32
+class EMRANGLEARC(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptlCenter: win32more.Foundation.POINTL
+    nRadius: UInt32
+    eStartAngle: Single
+    eSweepAngle: Single
+class EMRARC(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBox: win32more.Foundation.RECTL
+    ptlStart: win32more.Foundation.POINTL
+    ptlEnd: win32more.Foundation.POINTL
+class EMRBITBLT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    cxDest: Int32
+    cyDest: Int32
+    dwRop: UInt32
+    xSrc: Int32
+    ySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+class EMRCOLORCORRECTPALETTE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPalette: UInt32
+    nFirstEntry: UInt32
+    nPalEntries: UInt32
+    nReserved: UInt32
+class EMRCOLORMATCHTOTARGET(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    dwAction: UInt32
+    dwFlags: UInt32
+    cbName: UInt32
+    cbData: UInt32
+    Data: Byte * 1
+class EMRCREATEBRUSHINDIRECT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihBrush: UInt32
+    lb: win32more.Graphics.Gdi.LOGBRUSH32
+class EMRCREATEDIBPATTERNBRUSHPT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihBrush: UInt32
+    iUsage: UInt32
+    offBmi: UInt32
+    cbBmi: UInt32
+    offBits: UInt32
+    cbBits: UInt32
+class EMRCREATEMONOBRUSH(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihBrush: UInt32
+    iUsage: UInt32
+    offBmi: UInt32
+    cbBmi: UInt32
+    offBits: UInt32
+    cbBits: UInt32
+class EMRCREATEPALETTE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPal: UInt32
+    lgpl: win32more.Graphics.Gdi.LOGPALETTE
+class EMRCREATEPEN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPen: UInt32
+    lopn: win32more.Graphics.Gdi.LOGPEN
+class EMRELLIPSE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBox: win32more.Foundation.RECTL
+class EMREOF(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    nPalEntries: UInt32
+    offPalEntries: UInt32
+    nSizeLast: UInt32
+class EMREXCLUDECLIPRECT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclClip: win32more.Foundation.RECTL
+class EMREXTCREATEFONTINDIRECTW(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihFont: UInt32
+    elfw: win32more.Graphics.Gdi.EXTLOGFONTW
+class EMREXTCREATEPEN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPen: UInt32
+    offBmi: UInt32
+    cbBmi: UInt32
+    offBits: UInt32
+    cbBits: UInt32
+    elp: win32more.Graphics.Gdi.EXTLOGPEN32
+class EMREXTESCAPE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    iEscape: Int32
+    cbEscData: Int32
+    EscData: Byte * 1
+class EMREXTFLOODFILL(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptlStart: win32more.Foundation.POINTL
+    crColor: win32more.Foundation.COLORREF
+    iMode: UInt32
+class EMREXTSELECTCLIPRGN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    cbRgnData: UInt32
+    iMode: win32more.Graphics.Gdi.RGN_COMBINE_MODE
+    RgnData: Byte * 1
+class EMREXTTEXTOUTA(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    iGraphicsMode: UInt32
+    exScale: Single
+    eyScale: Single
+    emrtext: win32more.Graphics.Gdi.EMRTEXT
+class EMRFILLPATH(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+class EMRFILLRGN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cbRgnData: UInt32
+    ihBrush: UInt32
+    RgnData: Byte * 1
+class EMRFORMAT(Structure):
+    dSignature: UInt32
+    nVersion: UInt32
+    cbData: UInt32
+    offData: UInt32
+class EMRFRAMERGN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cbRgnData: UInt32
+    ihBrush: UInt32
+    szlStroke: win32more.Foundation.SIZE
+    RgnData: Byte * 1
+class EMRGDICOMMENT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    cbData: UInt32
+    Data: Byte * 1
+class EMRGLSBOUNDEDRECORD(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cbData: UInt32
+    Data: Byte * 1
+class EMRGLSRECORD(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    cbData: UInt32
+    Data: Byte * 1
+class EMRGRADIENTFILL(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    nVer: UInt32
+    nTri: UInt32
+    ulMode: win32more.Graphics.Gdi.GRADIENT_FILL
+    Ver: win32more.Graphics.Gdi.TRIVERTEX * 1
+class EMRINVERTRGN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cbRgnData: UInt32
+    RgnData: Byte * 1
+class EMRLINETO(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptl: win32more.Foundation.POINTL
+class EMRMASKBLT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    cxDest: Int32
+    cyDest: Int32
+    dwRop: UInt32
+    xSrc: Int32
+    ySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    xMask: Int32
+    yMask: Int32
+    iUsageMask: UInt32
+    offBmiMask: UInt32
+    cbBmiMask: UInt32
+    offBitsMask: UInt32
+    cbBitsMask: UInt32
+class EMRMODIFYWORLDTRANSFORM(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    xform: win32more.Graphics.Gdi.XFORM
+    iMode: win32more.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE
+class EMRNAMEDESCAPE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    iEscape: Int32
+    cbDriver: Int32
+    cbEscData: Int32
+    EscData: Byte * 1
+class EMROFFSETCLIPRGN(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptlOffset: win32more.Foundation.POINTL
+class EMRPLGBLT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    aptlDest: win32more.Foundation.POINTL * 3
+    xSrc: Int32
+    ySrc: Int32
+    cxSrc: Int32
+    cySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    xMask: Int32
+    yMask: Int32
+    iUsageMask: UInt32
+    offBmiMask: UInt32
+    cbBmiMask: UInt32
+    offBitsMask: UInt32
+    cbBitsMask: UInt32
+class EMRPOLYDRAW(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cptl: UInt32
+    aptl: win32more.Foundation.POINTL * 1
+    abTypes: Byte * 1
+class EMRPOLYDRAW16(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cpts: UInt32
+    apts: win32more.Foundation.POINTS * 1
+    abTypes: Byte * 1
+class EMRPOLYLINE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cptl: UInt32
+    aptl: win32more.Foundation.POINTL * 1
+class EMRPOLYLINE16(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    cpts: UInt32
+    apts: win32more.Foundation.POINTS * 1
+class EMRPOLYPOLYLINE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    nPolys: UInt32
+    cptl: UInt32
+    aPolyCounts: UInt32 * 1
+    aptl: win32more.Foundation.POINTL * 1
+class EMRPOLYPOLYLINE16(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    nPolys: UInt32
+    cpts: UInt32
+    aPolyCounts: UInt32 * 1
+    apts: win32more.Foundation.POINTS * 1
+class EMRPOLYTEXTOUTA(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    iGraphicsMode: UInt32
+    exScale: Single
+    eyScale: Single
+    cStrings: Int32
+    aemrtext: win32more.Graphics.Gdi.EMRTEXT * 1
+class EMRRESIZEPALETTE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPal: UInt32
+    cEntries: UInt32
+class EMRRESTOREDC(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    iRelative: Int32
+class EMRROUNDRECT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBox: win32more.Foundation.RECTL
+    szlCorner: win32more.Foundation.SIZE
+class EMRSCALEVIEWPORTEXTEX(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    xNum: Int32
+    xDenom: Int32
+    yNum: Int32
+    yDenom: Int32
+class EMRSELECTCLIPPATH(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    iMode: UInt32
+class EMRSELECTOBJECT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihObject: UInt32
+class EMRSELECTPALETTE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPal: UInt32
+class EMRSETARCDIRECTION(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    iArcDirection: UInt32
+class EMRSETCOLORADJUSTMENT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ColorAdjustment: win32more.Graphics.Gdi.COLORADJUSTMENT
+class EMRSETCOLORSPACE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihCS: UInt32
+class EMRSETDIBITSTODEVICE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    xSrc: Int32
+    ySrc: Int32
+    cxSrc: Int32
+    cySrc: Int32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    iUsageSrc: UInt32
+    iStartScan: UInt32
+    cScans: UInt32
+class EMRSETICMPROFILE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    dwFlags: UInt32
+    cbName: UInt32
+    cbData: UInt32
+    Data: Byte * 1
+class EMRSETMAPPERFLAGS(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    dwFlags: UInt32
+class EMRSETMITERLIMIT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    eMiterLimit: Single
+class EMRSETPALETTEENTRIES(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihPal: UInt32
+    iStart: UInt32
+    cEntries: UInt32
+    aPalEntries: win32more.Graphics.Gdi.PALETTEENTRY * 1
+class EMRSETPIXELV(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptlPixel: win32more.Foundation.POINTL
+    crColor: win32more.Foundation.COLORREF
+class EMRSETTEXTCOLOR(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    crColor: win32more.Foundation.COLORREF
+class EMRSETVIEWPORTEXTEX(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    szlExtent: win32more.Foundation.SIZE
+class EMRSETVIEWPORTORGEX(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ptlOrigin: win32more.Foundation.POINTL
+class EMRSETWORLDTRANSFORM(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    xform: win32more.Graphics.Gdi.XFORM
+class EMRSTRETCHBLT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    cxDest: Int32
+    cyDest: Int32
+    dwRop: UInt32
+    xSrc: Int32
+    ySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    cxSrc: Int32
+    cySrc: Int32
+class EMRSTRETCHDIBITS(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    xSrc: Int32
+    ySrc: Int32
+    cxSrc: Int32
+    cySrc: Int32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    iUsageSrc: UInt32
+    dwRop: UInt32
+    cxDest: Int32
+    cyDest: Int32
+class EMRTEXT(Structure):
+    ptlReference: win32more.Foundation.POINTL
+    nChars: UInt32
+    offString: UInt32
+    fOptions: UInt32
+    rcl: win32more.Foundation.RECTL
+    offDx: UInt32
+class EMRTRANSPARENTBLT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    rclBounds: win32more.Foundation.RECTL
+    xDest: Int32
+    yDest: Int32
+    cxDest: Int32
+    cyDest: Int32
+    dwRop: UInt32
+    xSrc: Int32
+    ySrc: Int32
+    xformSrc: win32more.Graphics.Gdi.XFORM
+    crBkColorSrc: win32more.Foundation.COLORREF
+    iUsageSrc: UInt32
+    offBmiSrc: UInt32
+    cbBmiSrc: UInt32
+    offBitsSrc: UInt32
+    cbBitsSrc: UInt32
+    cxSrc: Int32
+    cySrc: Int32
 ENHANCED_METAFILE_RECORD_TYPE = UInt32
-EMR_HEADER = 1
-EMR_POLYBEZIER = 2
-EMR_POLYGON = 3
-EMR_POLYLINE = 4
-EMR_POLYBEZIERTO = 5
-EMR_POLYLINETO = 6
-EMR_POLYPOLYLINE = 7
-EMR_POLYPOLYGON = 8
-EMR_SETWINDOWEXTEX = 9
-EMR_SETWINDOWORGEX = 10
-EMR_SETVIEWPORTEXTEX = 11
-EMR_SETVIEWPORTORGEX = 12
-EMR_SETBRUSHORGEX = 13
-EMR_EOF = 14
-EMR_SETPIXELV = 15
-EMR_SETMAPPERFLAGS = 16
-EMR_SETMAPMODE = 17
-EMR_SETBKMODE = 18
-EMR_SETPOLYFILLMODE = 19
-EMR_SETROP2 = 20
-EMR_SETSTRETCHBLTMODE = 21
-EMR_SETTEXTALIGN = 22
-EMR_SETCOLORADJUSTMENT = 23
-EMR_SETTEXTCOLOR = 24
-EMR_SETBKCOLOR = 25
-EMR_OFFSETCLIPRGN = 26
-EMR_MOVETOEX = 27
-EMR_SETMETARGN = 28
-EMR_EXCLUDECLIPRECT = 29
-EMR_INTERSECTCLIPRECT = 30
-EMR_SCALEVIEWPORTEXTEX = 31
-EMR_SCALEWINDOWEXTEX = 32
-EMR_SAVEDC = 33
-EMR_RESTOREDC = 34
-EMR_SETWORLDTRANSFORM = 35
-EMR_MODIFYWORLDTRANSFORM = 36
-EMR_SELECTOBJECT = 37
-EMR_CREATEPEN = 38
-EMR_CREATEBRUSHINDIRECT = 39
-EMR_DELETEOBJECT = 40
-EMR_ANGLEARC = 41
-EMR_ELLIPSE = 42
-EMR_RECTANGLE = 43
-EMR_ROUNDRECT = 44
-EMR_ARC = 45
-EMR_CHORD = 46
-EMR_PIE = 47
-EMR_SELECTPALETTE = 48
-EMR_CREATEPALETTE = 49
-EMR_SETPALETTEENTRIES = 50
-EMR_RESIZEPALETTE = 51
-EMR_REALIZEPALETTE = 52
-EMR_EXTFLOODFILL = 53
-EMR_LINETO = 54
-EMR_ARCTO = 55
-EMR_POLYDRAW = 56
-EMR_SETARCDIRECTION = 57
-EMR_SETMITERLIMIT = 58
-EMR_BEGINPATH = 59
-EMR_ENDPATH = 60
-EMR_CLOSEFIGURE = 61
-EMR_FILLPATH = 62
-EMR_STROKEANDFILLPATH = 63
-EMR_STROKEPATH = 64
-EMR_FLATTENPATH = 65
-EMR_WIDENPATH = 66
-EMR_SELECTCLIPPATH = 67
-EMR_ABORTPATH = 68
-EMR_GDICOMMENT = 70
-EMR_FILLRGN = 71
-EMR_FRAMERGN = 72
-EMR_INVERTRGN = 73
-EMR_PAINTRGN = 74
-EMR_EXTSELECTCLIPRGN = 75
-EMR_BITBLT = 76
-EMR_STRETCHBLT = 77
-EMR_MASKBLT = 78
-EMR_PLGBLT = 79
-EMR_SETDIBITSTODEVICE = 80
-EMR_STRETCHDIBITS = 81
-EMR_EXTCREATEFONTINDIRECTW = 82
-EMR_EXTTEXTOUTA = 83
-EMR_EXTTEXTOUTW = 84
-EMR_POLYBEZIER16 = 85
-EMR_POLYGON16 = 86
-EMR_POLYLINE16 = 87
-EMR_POLYBEZIERTO16 = 88
-EMR_POLYLINETO16 = 89
-EMR_POLYPOLYLINE16 = 90
-EMR_POLYPOLYGON16 = 91
-EMR_POLYDRAW16 = 92
-EMR_CREATEMONOBRUSH = 93
-EMR_CREATEDIBPATTERNBRUSHPT = 94
-EMR_EXTCREATEPEN = 95
-EMR_POLYTEXTOUTA = 96
-EMR_POLYTEXTOUTW = 97
-EMR_SETICMMODE = 98
-EMR_CREATECOLORSPACE = 99
-EMR_SETCOLORSPACE = 100
-EMR_DELETECOLORSPACE = 101
-EMR_GLSRECORD = 102
-EMR_GLSBOUNDEDRECORD = 103
-EMR_PIXELFORMAT = 104
-EMR_RESERVED_105 = 105
-EMR_RESERVED_106 = 106
-EMR_RESERVED_107 = 107
-EMR_RESERVED_108 = 108
-EMR_RESERVED_109 = 109
-EMR_RESERVED_110 = 110
-EMR_COLORCORRECTPALETTE = 111
-EMR_SETICMPROFILEA = 112
-EMR_SETICMPROFILEW = 113
-EMR_ALPHABLEND = 114
-EMR_SETLAYOUT = 115
-EMR_TRANSPARENTBLT = 116
-EMR_RESERVED_117 = 117
-EMR_GRADIENTFILL = 118
-EMR_RESERVED_119 = 119
-EMR_RESERVED_120 = 120
-EMR_COLORMATCHTOTARGETW = 121
-EMR_CREATECOLORSPACEW = 122
-EMR_MIN = 1
-EMR_MAX = 122
-def _define_ENHMETAHEADER_head():
-    class ENHMETAHEADER(Structure):
-        pass
-    return ENHMETAHEADER
-def _define_ENHMETAHEADER():
-    ENHMETAHEADER = win32more.Graphics.Gdi.ENHMETAHEADER_head
-    ENHMETAHEADER._fields_ = [
-        ('iType', UInt32),
-        ('nSize', UInt32),
-        ('rclBounds', win32more.Foundation.RECTL),
-        ('rclFrame', win32more.Foundation.RECTL),
-        ('dSignature', UInt32),
-        ('nVersion', UInt32),
-        ('nBytes', UInt32),
-        ('nRecords', UInt32),
-        ('nHandles', UInt16),
-        ('sReserved', UInt16),
-        ('nDescription', UInt32),
-        ('offDescription', UInt32),
-        ('nPalEntries', UInt32),
-        ('szlDevice', win32more.Foundation.SIZE),
-        ('szlMillimeters', win32more.Foundation.SIZE),
-        ('cbPixelFormat', UInt32),
-        ('offPixelFormat', UInt32),
-        ('bOpenGL', UInt32),
-        ('szlMicrometers', win32more.Foundation.SIZE),
-    ]
-    return ENHMETAHEADER
-def _define_ENHMETARECORD_head():
-    class ENHMETARECORD(Structure):
-        pass
-    return ENHMETARECORD
-def _define_ENHMETARECORD():
-    ENHMETARECORD = win32more.Graphics.Gdi.ENHMETARECORD_head
-    ENHMETARECORD._fields_ = [
-        ('iType', win32more.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE),
-        ('nSize', UInt32),
-        ('dParm', UInt32 * 1),
-    ]
-    return ENHMETARECORD
-def _define_ENHMFENUMPROC():
-    return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.HANDLETABLE_head),POINTER(win32more.Graphics.Gdi.ENHMETARECORD_head),Int32,win32more.Foundation.LPARAM)
+EMR_HEADER: ENHANCED_METAFILE_RECORD_TYPE = 1
+EMR_POLYBEZIER: ENHANCED_METAFILE_RECORD_TYPE = 2
+EMR_POLYGON: ENHANCED_METAFILE_RECORD_TYPE = 3
+EMR_POLYLINE: ENHANCED_METAFILE_RECORD_TYPE = 4
+EMR_POLYBEZIERTO: ENHANCED_METAFILE_RECORD_TYPE = 5
+EMR_POLYLINETO: ENHANCED_METAFILE_RECORD_TYPE = 6
+EMR_POLYPOLYLINE: ENHANCED_METAFILE_RECORD_TYPE = 7
+EMR_POLYPOLYGON: ENHANCED_METAFILE_RECORD_TYPE = 8
+EMR_SETWINDOWEXTEX: ENHANCED_METAFILE_RECORD_TYPE = 9
+EMR_SETWINDOWORGEX: ENHANCED_METAFILE_RECORD_TYPE = 10
+EMR_SETVIEWPORTEXTEX: ENHANCED_METAFILE_RECORD_TYPE = 11
+EMR_SETVIEWPORTORGEX: ENHANCED_METAFILE_RECORD_TYPE = 12
+EMR_SETBRUSHORGEX: ENHANCED_METAFILE_RECORD_TYPE = 13
+EMR_EOF: ENHANCED_METAFILE_RECORD_TYPE = 14
+EMR_SETPIXELV: ENHANCED_METAFILE_RECORD_TYPE = 15
+EMR_SETMAPPERFLAGS: ENHANCED_METAFILE_RECORD_TYPE = 16
+EMR_SETMAPMODE: ENHANCED_METAFILE_RECORD_TYPE = 17
+EMR_SETBKMODE: ENHANCED_METAFILE_RECORD_TYPE = 18
+EMR_SETPOLYFILLMODE: ENHANCED_METAFILE_RECORD_TYPE = 19
+EMR_SETROP2: ENHANCED_METAFILE_RECORD_TYPE = 20
+EMR_SETSTRETCHBLTMODE: ENHANCED_METAFILE_RECORD_TYPE = 21
+EMR_SETTEXTALIGN: ENHANCED_METAFILE_RECORD_TYPE = 22
+EMR_SETCOLORADJUSTMENT: ENHANCED_METAFILE_RECORD_TYPE = 23
+EMR_SETTEXTCOLOR: ENHANCED_METAFILE_RECORD_TYPE = 24
+EMR_SETBKCOLOR: ENHANCED_METAFILE_RECORD_TYPE = 25
+EMR_OFFSETCLIPRGN: ENHANCED_METAFILE_RECORD_TYPE = 26
+EMR_MOVETOEX: ENHANCED_METAFILE_RECORD_TYPE = 27
+EMR_SETMETARGN: ENHANCED_METAFILE_RECORD_TYPE = 28
+EMR_EXCLUDECLIPRECT: ENHANCED_METAFILE_RECORD_TYPE = 29
+EMR_INTERSECTCLIPRECT: ENHANCED_METAFILE_RECORD_TYPE = 30
+EMR_SCALEVIEWPORTEXTEX: ENHANCED_METAFILE_RECORD_TYPE = 31
+EMR_SCALEWINDOWEXTEX: ENHANCED_METAFILE_RECORD_TYPE = 32
+EMR_SAVEDC: ENHANCED_METAFILE_RECORD_TYPE = 33
+EMR_RESTOREDC: ENHANCED_METAFILE_RECORD_TYPE = 34
+EMR_SETWORLDTRANSFORM: ENHANCED_METAFILE_RECORD_TYPE = 35
+EMR_MODIFYWORLDTRANSFORM: ENHANCED_METAFILE_RECORD_TYPE = 36
+EMR_SELECTOBJECT: ENHANCED_METAFILE_RECORD_TYPE = 37
+EMR_CREATEPEN: ENHANCED_METAFILE_RECORD_TYPE = 38
+EMR_CREATEBRUSHINDIRECT: ENHANCED_METAFILE_RECORD_TYPE = 39
+EMR_DELETEOBJECT: ENHANCED_METAFILE_RECORD_TYPE = 40
+EMR_ANGLEARC: ENHANCED_METAFILE_RECORD_TYPE = 41
+EMR_ELLIPSE: ENHANCED_METAFILE_RECORD_TYPE = 42
+EMR_RECTANGLE: ENHANCED_METAFILE_RECORD_TYPE = 43
+EMR_ROUNDRECT: ENHANCED_METAFILE_RECORD_TYPE = 44
+EMR_ARC: ENHANCED_METAFILE_RECORD_TYPE = 45
+EMR_CHORD: ENHANCED_METAFILE_RECORD_TYPE = 46
+EMR_PIE: ENHANCED_METAFILE_RECORD_TYPE = 47
+EMR_SELECTPALETTE: ENHANCED_METAFILE_RECORD_TYPE = 48
+EMR_CREATEPALETTE: ENHANCED_METAFILE_RECORD_TYPE = 49
+EMR_SETPALETTEENTRIES: ENHANCED_METAFILE_RECORD_TYPE = 50
+EMR_RESIZEPALETTE: ENHANCED_METAFILE_RECORD_TYPE = 51
+EMR_REALIZEPALETTE: ENHANCED_METAFILE_RECORD_TYPE = 52
+EMR_EXTFLOODFILL: ENHANCED_METAFILE_RECORD_TYPE = 53
+EMR_LINETO: ENHANCED_METAFILE_RECORD_TYPE = 54
+EMR_ARCTO: ENHANCED_METAFILE_RECORD_TYPE = 55
+EMR_POLYDRAW: ENHANCED_METAFILE_RECORD_TYPE = 56
+EMR_SETARCDIRECTION: ENHANCED_METAFILE_RECORD_TYPE = 57
+EMR_SETMITERLIMIT: ENHANCED_METAFILE_RECORD_TYPE = 58
+EMR_BEGINPATH: ENHANCED_METAFILE_RECORD_TYPE = 59
+EMR_ENDPATH: ENHANCED_METAFILE_RECORD_TYPE = 60
+EMR_CLOSEFIGURE: ENHANCED_METAFILE_RECORD_TYPE = 61
+EMR_FILLPATH: ENHANCED_METAFILE_RECORD_TYPE = 62
+EMR_STROKEANDFILLPATH: ENHANCED_METAFILE_RECORD_TYPE = 63
+EMR_STROKEPATH: ENHANCED_METAFILE_RECORD_TYPE = 64
+EMR_FLATTENPATH: ENHANCED_METAFILE_RECORD_TYPE = 65
+EMR_WIDENPATH: ENHANCED_METAFILE_RECORD_TYPE = 66
+EMR_SELECTCLIPPATH: ENHANCED_METAFILE_RECORD_TYPE = 67
+EMR_ABORTPATH: ENHANCED_METAFILE_RECORD_TYPE = 68
+EMR_GDICOMMENT: ENHANCED_METAFILE_RECORD_TYPE = 70
+EMR_FILLRGN: ENHANCED_METAFILE_RECORD_TYPE = 71
+EMR_FRAMERGN: ENHANCED_METAFILE_RECORD_TYPE = 72
+EMR_INVERTRGN: ENHANCED_METAFILE_RECORD_TYPE = 73
+EMR_PAINTRGN: ENHANCED_METAFILE_RECORD_TYPE = 74
+EMR_EXTSELECTCLIPRGN: ENHANCED_METAFILE_RECORD_TYPE = 75
+EMR_BITBLT: ENHANCED_METAFILE_RECORD_TYPE = 76
+EMR_STRETCHBLT: ENHANCED_METAFILE_RECORD_TYPE = 77
+EMR_MASKBLT: ENHANCED_METAFILE_RECORD_TYPE = 78
+EMR_PLGBLT: ENHANCED_METAFILE_RECORD_TYPE = 79
+EMR_SETDIBITSTODEVICE: ENHANCED_METAFILE_RECORD_TYPE = 80
+EMR_STRETCHDIBITS: ENHANCED_METAFILE_RECORD_TYPE = 81
+EMR_EXTCREATEFONTINDIRECTW: ENHANCED_METAFILE_RECORD_TYPE = 82
+EMR_EXTTEXTOUTA: ENHANCED_METAFILE_RECORD_TYPE = 83
+EMR_EXTTEXTOUTW: ENHANCED_METAFILE_RECORD_TYPE = 84
+EMR_POLYBEZIER16: ENHANCED_METAFILE_RECORD_TYPE = 85
+EMR_POLYGON16: ENHANCED_METAFILE_RECORD_TYPE = 86
+EMR_POLYLINE16: ENHANCED_METAFILE_RECORD_TYPE = 87
+EMR_POLYBEZIERTO16: ENHANCED_METAFILE_RECORD_TYPE = 88
+EMR_POLYLINETO16: ENHANCED_METAFILE_RECORD_TYPE = 89
+EMR_POLYPOLYLINE16: ENHANCED_METAFILE_RECORD_TYPE = 90
+EMR_POLYPOLYGON16: ENHANCED_METAFILE_RECORD_TYPE = 91
+EMR_POLYDRAW16: ENHANCED_METAFILE_RECORD_TYPE = 92
+EMR_CREATEMONOBRUSH: ENHANCED_METAFILE_RECORD_TYPE = 93
+EMR_CREATEDIBPATTERNBRUSHPT: ENHANCED_METAFILE_RECORD_TYPE = 94
+EMR_EXTCREATEPEN: ENHANCED_METAFILE_RECORD_TYPE = 95
+EMR_POLYTEXTOUTA: ENHANCED_METAFILE_RECORD_TYPE = 96
+EMR_POLYTEXTOUTW: ENHANCED_METAFILE_RECORD_TYPE = 97
+EMR_SETICMMODE: ENHANCED_METAFILE_RECORD_TYPE = 98
+EMR_CREATECOLORSPACE: ENHANCED_METAFILE_RECORD_TYPE = 99
+EMR_SETCOLORSPACE: ENHANCED_METAFILE_RECORD_TYPE = 100
+EMR_DELETECOLORSPACE: ENHANCED_METAFILE_RECORD_TYPE = 101
+EMR_GLSRECORD: ENHANCED_METAFILE_RECORD_TYPE = 102
+EMR_GLSBOUNDEDRECORD: ENHANCED_METAFILE_RECORD_TYPE = 103
+EMR_PIXELFORMAT: ENHANCED_METAFILE_RECORD_TYPE = 104
+EMR_RESERVED_105: ENHANCED_METAFILE_RECORD_TYPE = 105
+EMR_RESERVED_106: ENHANCED_METAFILE_RECORD_TYPE = 106
+EMR_RESERVED_107: ENHANCED_METAFILE_RECORD_TYPE = 107
+EMR_RESERVED_108: ENHANCED_METAFILE_RECORD_TYPE = 108
+EMR_RESERVED_109: ENHANCED_METAFILE_RECORD_TYPE = 109
+EMR_RESERVED_110: ENHANCED_METAFILE_RECORD_TYPE = 110
+EMR_COLORCORRECTPALETTE: ENHANCED_METAFILE_RECORD_TYPE = 111
+EMR_SETICMPROFILEA: ENHANCED_METAFILE_RECORD_TYPE = 112
+EMR_SETICMPROFILEW: ENHANCED_METAFILE_RECORD_TYPE = 113
+EMR_ALPHABLEND: ENHANCED_METAFILE_RECORD_TYPE = 114
+EMR_SETLAYOUT: ENHANCED_METAFILE_RECORD_TYPE = 115
+EMR_TRANSPARENTBLT: ENHANCED_METAFILE_RECORD_TYPE = 116
+EMR_RESERVED_117: ENHANCED_METAFILE_RECORD_TYPE = 117
+EMR_GRADIENTFILL: ENHANCED_METAFILE_RECORD_TYPE = 118
+EMR_RESERVED_119: ENHANCED_METAFILE_RECORD_TYPE = 119
+EMR_RESERVED_120: ENHANCED_METAFILE_RECORD_TYPE = 120
+EMR_COLORMATCHTOTARGETW: ENHANCED_METAFILE_RECORD_TYPE = 121
+EMR_CREATECOLORSPACEW: ENHANCED_METAFILE_RECORD_TYPE = 122
+EMR_MIN: ENHANCED_METAFILE_RECORD_TYPE = 1
+EMR_MAX: ENHANCED_METAFILE_RECORD_TYPE = 122
+class ENHMETAHEADER(Structure):
+    iType: UInt32
+    nSize: UInt32
+    rclBounds: win32more.Foundation.RECTL
+    rclFrame: win32more.Foundation.RECTL
+    dSignature: UInt32
+    nVersion: UInt32
+    nBytes: UInt32
+    nRecords: UInt32
+    nHandles: UInt16
+    sReserved: UInt16
+    nDescription: UInt32
+    offDescription: UInt32
+    nPalEntries: UInt32
+    szlDevice: win32more.Foundation.SIZE
+    szlMillimeters: win32more.Foundation.SIZE
+    cbPixelFormat: UInt32
+    offPixelFormat: UInt32
+    bOpenGL: UInt32
+    szlMicrometers: win32more.Foundation.SIZE
+class ENHMETARECORD(Structure):
+    iType: win32more.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE
+    nSize: UInt32
+    dParm: UInt32 * 1
+@winfunctype_pointer
+def ENHMFENUMPROC(hdc: win32more.Graphics.Gdi.HDC, lpht: POINTER(win32more.Graphics.Gdi.HANDLETABLE_head), lpmr: POINTER(win32more.Graphics.Gdi.ENHMETARECORD_head), nHandles: Int32, data: win32more.Foundation.LPARAM) -> Int32: ...
 ENUM_DISPLAY_SETTINGS_MODE = UInt32
-ENUM_CURRENT_SETTINGS = 4294967295
-ENUM_REGISTRY_SETTINGS = 4294967294
-def _define_ENUMLOGFONTA_head():
-    class ENUMLOGFONTA(Structure):
-        pass
-    return ENUMLOGFONTA
-def _define_ENUMLOGFONTA():
-    ENUMLOGFONTA = win32more.Graphics.Gdi.ENUMLOGFONTA_head
-    ENUMLOGFONTA._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTA),
-        ('elfFullName', Byte * 64),
-        ('elfStyle', Byte * 32),
-    ]
-    return ENUMLOGFONTA
-def _define_ENUMLOGFONTEXA_head():
-    class ENUMLOGFONTEXA(Structure):
-        pass
-    return ENUMLOGFONTEXA
-def _define_ENUMLOGFONTEXA():
-    ENUMLOGFONTEXA = win32more.Graphics.Gdi.ENUMLOGFONTEXA_head
-    ENUMLOGFONTEXA._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTA),
-        ('elfFullName', Byte * 64),
-        ('elfStyle', Byte * 32),
-        ('elfScript', Byte * 32),
-    ]
-    return ENUMLOGFONTEXA
-def _define_ENUMLOGFONTEXDVA_head():
-    class ENUMLOGFONTEXDVA(Structure):
-        pass
-    return ENUMLOGFONTEXDVA
-def _define_ENUMLOGFONTEXDVA():
-    ENUMLOGFONTEXDVA = win32more.Graphics.Gdi.ENUMLOGFONTEXDVA_head
-    ENUMLOGFONTEXDVA._fields_ = [
-        ('elfEnumLogfontEx', win32more.Graphics.Gdi.ENUMLOGFONTEXA),
-        ('elfDesignVector', win32more.Graphics.Gdi.DESIGNVECTOR),
-    ]
-    return ENUMLOGFONTEXDVA
-def _define_ENUMLOGFONTEXDVW_head():
-    class ENUMLOGFONTEXDVW(Structure):
-        pass
-    return ENUMLOGFONTEXDVW
-def _define_ENUMLOGFONTEXDVW():
-    ENUMLOGFONTEXDVW = win32more.Graphics.Gdi.ENUMLOGFONTEXDVW_head
-    ENUMLOGFONTEXDVW._fields_ = [
-        ('elfEnumLogfontEx', win32more.Graphics.Gdi.ENUMLOGFONTEXW),
-        ('elfDesignVector', win32more.Graphics.Gdi.DESIGNVECTOR),
-    ]
-    return ENUMLOGFONTEXDVW
-def _define_ENUMLOGFONTEXW_head():
-    class ENUMLOGFONTEXW(Structure):
-        pass
-    return ENUMLOGFONTEXW
-def _define_ENUMLOGFONTEXW():
-    ENUMLOGFONTEXW = win32more.Graphics.Gdi.ENUMLOGFONTEXW_head
-    ENUMLOGFONTEXW._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTW),
-        ('elfFullName', Char * 64),
-        ('elfStyle', Char * 32),
-        ('elfScript', Char * 32),
-    ]
-    return ENUMLOGFONTEXW
-def _define_ENUMLOGFONTW_head():
-    class ENUMLOGFONTW(Structure):
-        pass
-    return ENUMLOGFONTW
-def _define_ENUMLOGFONTW():
-    ENUMLOGFONTW = win32more.Graphics.Gdi.ENUMLOGFONTW_head
-    ENUMLOGFONTW._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTW),
-        ('elfFullName', Char * 64),
-        ('elfStyle', Char * 32),
-    ]
-    return ENUMLOGFONTW
+ENUM_CURRENT_SETTINGS: ENUM_DISPLAY_SETTINGS_MODE = 4294967295
+ENUM_REGISTRY_SETTINGS: ENUM_DISPLAY_SETTINGS_MODE = 4294967294
+class ENUMLOGFONTA(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTA
+    elfFullName: Byte * 64
+    elfStyle: Byte * 32
+class ENUMLOGFONTEXA(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTA
+    elfFullName: Byte * 64
+    elfStyle: Byte * 32
+    elfScript: Byte * 32
+class ENUMLOGFONTEXDVA(Structure):
+    elfEnumLogfontEx: win32more.Graphics.Gdi.ENUMLOGFONTEXA
+    elfDesignVector: win32more.Graphics.Gdi.DESIGNVECTOR
+class ENUMLOGFONTEXDVW(Structure):
+    elfEnumLogfontEx: win32more.Graphics.Gdi.ENUMLOGFONTEXW
+    elfDesignVector: win32more.Graphics.Gdi.DESIGNVECTOR
+class ENUMLOGFONTEXW(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTW
+    elfFullName: Char * 64
+    elfStyle: Char * 32
+    elfScript: Char * 32
+class ENUMLOGFONTW(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTW
+    elfFullName: Char * 64
+    elfStyle: Char * 32
 ETO_OPTIONS = UInt32
-ETO_OPAQUE = 2
-ETO_CLIPPED = 4
-ETO_GLYPH_INDEX = 16
-ETO_RTLREADING = 128
-ETO_NUMERICSLOCAL = 1024
-ETO_NUMERICSLATIN = 2048
-ETO_IGNORELANGUAGE = 4096
-ETO_PDY = 8192
-ETO_REVERSE_INDEX_MAP = 65536
+ETO_OPAQUE: ETO_OPTIONS = 2
+ETO_CLIPPED: ETO_OPTIONS = 4
+ETO_GLYPH_INDEX: ETO_OPTIONS = 16
+ETO_RTLREADING: ETO_OPTIONS = 128
+ETO_NUMERICSLOCAL: ETO_OPTIONS = 1024
+ETO_NUMERICSLATIN: ETO_OPTIONS = 2048
+ETO_IGNORELANGUAGE: ETO_OPTIONS = 4096
+ETO_PDY: ETO_OPTIONS = 8192
+ETO_REVERSE_INDEX_MAP: ETO_OPTIONS = 65536
 EXT_FLOOD_FILL_TYPE = UInt32
-FLOODFILLBORDER = 0
-FLOODFILLSURFACE = 1
-def _define_EXTLOGFONTA_head():
-    class EXTLOGFONTA(Structure):
-        pass
-    return EXTLOGFONTA
-def _define_EXTLOGFONTA():
-    EXTLOGFONTA = win32more.Graphics.Gdi.EXTLOGFONTA_head
-    EXTLOGFONTA._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTA),
-        ('elfFullName', Byte * 64),
-        ('elfStyle', Byte * 32),
-        ('elfVersion', UInt32),
-        ('elfStyleSize', UInt32),
-        ('elfMatch', UInt32),
-        ('elfReserved', UInt32),
-        ('elfVendorId', Byte * 4),
-        ('elfCulture', UInt32),
-        ('elfPanose', win32more.Graphics.Gdi.PANOSE),
-    ]
-    return EXTLOGFONTA
-def _define_EXTLOGFONTW_head():
-    class EXTLOGFONTW(Structure):
-        pass
-    return EXTLOGFONTW
-def _define_EXTLOGFONTW():
-    EXTLOGFONTW = win32more.Graphics.Gdi.EXTLOGFONTW_head
-    EXTLOGFONTW._fields_ = [
-        ('elfLogFont', win32more.Graphics.Gdi.LOGFONTW),
-        ('elfFullName', Char * 64),
-        ('elfStyle', Char * 32),
-        ('elfVersion', UInt32),
-        ('elfStyleSize', UInt32),
-        ('elfMatch', UInt32),
-        ('elfReserved', UInt32),
-        ('elfVendorId', Byte * 4),
-        ('elfCulture', UInt32),
-        ('elfPanose', win32more.Graphics.Gdi.PANOSE),
-    ]
-    return EXTLOGFONTW
-def _define_EXTLOGPEN_head():
-    class EXTLOGPEN(Structure):
-        pass
-    return EXTLOGPEN
-def _define_EXTLOGPEN():
-    EXTLOGPEN = win32more.Graphics.Gdi.EXTLOGPEN_head
-    EXTLOGPEN._fields_ = [
-        ('elpPenStyle', win32more.Graphics.Gdi.PEN_STYLE),
-        ('elpWidth', UInt32),
-        ('elpBrushStyle', UInt32),
-        ('elpColor', win32more.Foundation.COLORREF),
-        ('elpHatch', UIntPtr),
-        ('elpNumEntries', UInt32),
-        ('elpStyleEntry', UInt32 * 1),
-    ]
-    return EXTLOGPEN
-def _define_EXTLOGPEN32_head():
-    class EXTLOGPEN32(Structure):
-        pass
-    return EXTLOGPEN32
-def _define_EXTLOGPEN32():
-    EXTLOGPEN32 = win32more.Graphics.Gdi.EXTLOGPEN32_head
-    EXTLOGPEN32._fields_ = [
-        ('elpPenStyle', win32more.Graphics.Gdi.PEN_STYLE),
-        ('elpWidth', UInt32),
-        ('elpBrushStyle', UInt32),
-        ('elpColor', win32more.Foundation.COLORREF),
-        ('elpHatch', UInt32),
-        ('elpNumEntries', UInt32),
-        ('elpStyleEntry', UInt32 * 1),
-    ]
-    return EXTLOGPEN32
-def _define_FIXED_head():
-    class FIXED(Structure):
-        pass
-    return FIXED
-def _define_FIXED():
-    FIXED = win32more.Graphics.Gdi.FIXED_head
-    FIXED._fields_ = [
-        ('fract', UInt16),
-        ('value', Int16),
-    ]
-    return FIXED
+FLOODFILLBORDER: EXT_FLOOD_FILL_TYPE = 0
+FLOODFILLSURFACE: EXT_FLOOD_FILL_TYPE = 1
+class EXTLOGFONTA(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTA
+    elfFullName: Byte * 64
+    elfStyle: Byte * 32
+    elfVersion: UInt32
+    elfStyleSize: UInt32
+    elfMatch: UInt32
+    elfReserved: UInt32
+    elfVendorId: Byte * 4
+    elfCulture: UInt32
+    elfPanose: win32more.Graphics.Gdi.PANOSE
+class EXTLOGFONTW(Structure):
+    elfLogFont: win32more.Graphics.Gdi.LOGFONTW
+    elfFullName: Char * 64
+    elfStyle: Char * 32
+    elfVersion: UInt32
+    elfStyleSize: UInt32
+    elfMatch: UInt32
+    elfReserved: UInt32
+    elfVendorId: Byte * 4
+    elfCulture: UInt32
+    elfPanose: win32more.Graphics.Gdi.PANOSE
+class EXTLOGPEN(Structure):
+    elpPenStyle: win32more.Graphics.Gdi.PEN_STYLE
+    elpWidth: UInt32
+    elpBrushStyle: UInt32
+    elpColor: win32more.Foundation.COLORREF
+    elpHatch: UIntPtr
+    elpNumEntries: UInt32
+    elpStyleEntry: UInt32 * 1
+class EXTLOGPEN32(Structure):
+    elpPenStyle: win32more.Graphics.Gdi.PEN_STYLE
+    elpWidth: UInt32
+    elpBrushStyle: UInt32
+    elpColor: win32more.Foundation.COLORREF
+    elpHatch: UInt32
+    elpNumEntries: UInt32
+    elpStyleEntry: UInt32 * 1
+class FIXED(Structure):
+    fract: UInt16
+    value: Int16
 FONT_CHARSET = Byte
-ANSI_CHARSET = 0
-DEFAULT_CHARSET = 1
-SYMBOL_CHARSET = 2
-SHIFTJIS_CHARSET = 128
-HANGEUL_CHARSET = 129
-HANGUL_CHARSET = 129
-GB2312_CHARSET = 134
-CHINESEBIG5_CHARSET = 136
-OEM_CHARSET = 255
-JOHAB_CHARSET = 130
-HEBREW_CHARSET = 177
-ARABIC_CHARSET = 178
-GREEK_CHARSET = 161
-TURKISH_CHARSET = 162
-VIETNAMESE_CHARSET = 163
-THAI_CHARSET = 222
-EASTEUROPE_CHARSET = 238
-RUSSIAN_CHARSET = 204
-MAC_CHARSET = 77
-BALTIC_CHARSET = 186
+ANSI_CHARSET: FONT_CHARSET = 0
+DEFAULT_CHARSET: FONT_CHARSET = 1
+SYMBOL_CHARSET: FONT_CHARSET = 2
+SHIFTJIS_CHARSET: FONT_CHARSET = 128
+HANGEUL_CHARSET: FONT_CHARSET = 129
+HANGUL_CHARSET: FONT_CHARSET = 129
+GB2312_CHARSET: FONT_CHARSET = 134
+CHINESEBIG5_CHARSET: FONT_CHARSET = 136
+OEM_CHARSET: FONT_CHARSET = 255
+JOHAB_CHARSET: FONT_CHARSET = 130
+HEBREW_CHARSET: FONT_CHARSET = 177
+ARABIC_CHARSET: FONT_CHARSET = 178
+GREEK_CHARSET: FONT_CHARSET = 161
+TURKISH_CHARSET: FONT_CHARSET = 162
+VIETNAMESE_CHARSET: FONT_CHARSET = 163
+THAI_CHARSET: FONT_CHARSET = 222
+EASTEUROPE_CHARSET: FONT_CHARSET = 238
+RUSSIAN_CHARSET: FONT_CHARSET = 204
+MAC_CHARSET: FONT_CHARSET = 77
+BALTIC_CHARSET: FONT_CHARSET = 186
 FONT_CLIP_PRECISION = Byte
-CLIP_DEFAULT_PRECIS = 0
-CLIP_CHARACTER_PRECIS = 1
-CLIP_STROKE_PRECIS = 2
-CLIP_MASK = 15
-CLIP_LH_ANGLES = 16
-CLIP_TT_ALWAYS = 32
-CLIP_DFA_DISABLE = 64
-CLIP_EMBEDDED = 128
-CLIP_DFA_OVERRIDE = 64
+CLIP_DEFAULT_PRECIS: FONT_CLIP_PRECISION = 0
+CLIP_CHARACTER_PRECIS: FONT_CLIP_PRECISION = 1
+CLIP_STROKE_PRECIS: FONT_CLIP_PRECISION = 2
+CLIP_MASK: FONT_CLIP_PRECISION = 15
+CLIP_LH_ANGLES: FONT_CLIP_PRECISION = 16
+CLIP_TT_ALWAYS: FONT_CLIP_PRECISION = 32
+CLIP_DFA_DISABLE: FONT_CLIP_PRECISION = 64
+CLIP_EMBEDDED: FONT_CLIP_PRECISION = 128
+CLIP_DFA_OVERRIDE: FONT_CLIP_PRECISION = 64
 FONT_FAMILY = Byte
-FF_DECORATIVE = 80
-FF_DONTCARE = 0
-FF_MODERN = 48
-FF_ROMAN = 16
-FF_SCRIPT = 64
-FF_SWISS = 32
+FF_DECORATIVE: FONT_FAMILY = 80
+FF_DONTCARE: FONT_FAMILY = 0
+FF_MODERN: FONT_FAMILY = 48
+FF_ROMAN: FONT_FAMILY = 16
+FF_SCRIPT: FONT_FAMILY = 64
+FF_SWISS: FONT_FAMILY = 32
 FONT_LICENSE_PRIVS = UInt32
-LICENSE_PREVIEWPRINT = 4
-LICENSE_EDITABLE = 8
-LICENSE_INSTALLABLE = 0
-LICENSE_NOEMBEDDING = 2
-LICENSE_DEFAULT = 0
+LICENSE_PREVIEWPRINT: FONT_LICENSE_PRIVS = 4
+LICENSE_EDITABLE: FONT_LICENSE_PRIVS = 8
+LICENSE_INSTALLABLE: FONT_LICENSE_PRIVS = 0
+LICENSE_NOEMBEDDING: FONT_LICENSE_PRIVS = 2
+LICENSE_DEFAULT: FONT_LICENSE_PRIVS = 0
 FONT_OUTPUT_PRECISION = Byte
-OUT_DEFAULT_PRECIS = 0
-OUT_STRING_PRECIS = 1
-OUT_CHARACTER_PRECIS = 2
-OUT_STROKE_PRECIS = 3
-OUT_TT_PRECIS = 4
-OUT_DEVICE_PRECIS = 5
-OUT_RASTER_PRECIS = 6
-OUT_TT_ONLY_PRECIS = 7
-OUT_OUTLINE_PRECIS = 8
-OUT_SCREEN_OUTLINE_PRECIS = 9
-OUT_PS_ONLY_PRECIS = 10
+OUT_DEFAULT_PRECIS: FONT_OUTPUT_PRECISION = 0
+OUT_STRING_PRECIS: FONT_OUTPUT_PRECISION = 1
+OUT_CHARACTER_PRECIS: FONT_OUTPUT_PRECISION = 2
+OUT_STROKE_PRECIS: FONT_OUTPUT_PRECISION = 3
+OUT_TT_PRECIS: FONT_OUTPUT_PRECISION = 4
+OUT_DEVICE_PRECIS: FONT_OUTPUT_PRECISION = 5
+OUT_RASTER_PRECIS: FONT_OUTPUT_PRECISION = 6
+OUT_TT_ONLY_PRECIS: FONT_OUTPUT_PRECISION = 7
+OUT_OUTLINE_PRECIS: FONT_OUTPUT_PRECISION = 8
+OUT_SCREEN_OUTLINE_PRECIS: FONT_OUTPUT_PRECISION = 9
+OUT_PS_ONLY_PRECIS: FONT_OUTPUT_PRECISION = 10
 FONT_PITCH = Byte
-DEFAULT_PITCH = 0
-FIXED_PITCH = 1
-VARIABLE_PITCH = 2
+DEFAULT_PITCH: FONT_PITCH = 0
+FIXED_PITCH: FONT_PITCH = 1
+VARIABLE_PITCH: FONT_PITCH = 2
 FONT_QUALITY = Byte
-DEFAULT_QUALITY = 0
-DRAFT_QUALITY = 1
-PROOF_QUALITY = 2
-NONANTIALIASED_QUALITY = 3
-ANTIALIASED_QUALITY = 4
-CLEARTYPE_QUALITY = 5
+DEFAULT_QUALITY: FONT_QUALITY = 0
+DRAFT_QUALITY: FONT_QUALITY = 1
+PROOF_QUALITY: FONT_QUALITY = 2
+NONANTIALIASED_QUALITY: FONT_QUALITY = 3
+ANTIALIASED_QUALITY: FONT_QUALITY = 4
+CLEARTYPE_QUALITY: FONT_QUALITY = 5
 FONT_RESOURCE_CHARACTERISTICS = UInt32
-FR_PRIVATE = 16
-FR_NOT_ENUM = 32
+FR_PRIVATE: FONT_RESOURCE_CHARACTERISTICS = 16
+FR_NOT_ENUM: FONT_RESOURCE_CHARACTERISTICS = 32
 FONT_WEIGHT = UInt32
-FW_DONTCARE = 0
-FW_THIN = 100
-FW_EXTRALIGHT = 200
-FW_LIGHT = 300
-FW_NORMAL = 400
-FW_MEDIUM = 500
-FW_SEMIBOLD = 600
-FW_BOLD = 700
-FW_EXTRABOLD = 800
-FW_HEAVY = 900
-FW_ULTRALIGHT = 200
-FW_REGULAR = 400
-FW_DEMIBOLD = 600
-FW_ULTRABOLD = 800
-FW_BLACK = 900
-def _define_FONTENUMPROCA():
-    return WINFUNCTYPE(Int32,POINTER(win32more.Graphics.Gdi.LOGFONTA_head),POINTER(win32more.Graphics.Gdi.TEXTMETRICA_head),UInt32,win32more.Foundation.LPARAM)
-def _define_FONTENUMPROCW():
-    return WINFUNCTYPE(Int32,POINTER(win32more.Graphics.Gdi.LOGFONTW_head),POINTER(win32more.Graphics.Gdi.TEXTMETRICW_head),UInt32,win32more.Foundation.LPARAM)
-def _define_GCP_RESULTSA_head():
-    class GCP_RESULTSA(Structure):
-        pass
-    return GCP_RESULTSA
-def _define_GCP_RESULTSA():
-    GCP_RESULTSA = win32more.Graphics.Gdi.GCP_RESULTSA_head
-    GCP_RESULTSA._fields_ = [
-        ('lStructSize', UInt32),
-        ('lpOutString', win32more.Foundation.PSTR),
-        ('lpOrder', POINTER(UInt32)),
-        ('lpDx', POINTER(Int32)),
-        ('lpCaretPos', POINTER(Int32)),
-        ('lpClass', win32more.Foundation.PSTR),
-        ('lpGlyphs', win32more.Foundation.PWSTR),
-        ('nGlyphs', UInt32),
-        ('nMaxFit', Int32),
-    ]
-    return GCP_RESULTSA
-def _define_GCP_RESULTSW_head():
-    class GCP_RESULTSW(Structure):
-        pass
-    return GCP_RESULTSW
-def _define_GCP_RESULTSW():
-    GCP_RESULTSW = win32more.Graphics.Gdi.GCP_RESULTSW_head
-    GCP_RESULTSW._fields_ = [
-        ('lStructSize', UInt32),
-        ('lpOutString', win32more.Foundation.PWSTR),
-        ('lpOrder', POINTER(UInt32)),
-        ('lpDx', POINTER(Int32)),
-        ('lpCaretPos', POINTER(Int32)),
-        ('lpClass', win32more.Foundation.PSTR),
-        ('lpGlyphs', win32more.Foundation.PWSTR),
-        ('nGlyphs', UInt32),
-        ('nMaxFit', Int32),
-    ]
-    return GCP_RESULTSW
+FW_DONTCARE: FONT_WEIGHT = 0
+FW_THIN: FONT_WEIGHT = 100
+FW_EXTRALIGHT: FONT_WEIGHT = 200
+FW_LIGHT: FONT_WEIGHT = 300
+FW_NORMAL: FONT_WEIGHT = 400
+FW_MEDIUM: FONT_WEIGHT = 500
+FW_SEMIBOLD: FONT_WEIGHT = 600
+FW_BOLD: FONT_WEIGHT = 700
+FW_EXTRABOLD: FONT_WEIGHT = 800
+FW_HEAVY: FONT_WEIGHT = 900
+FW_ULTRALIGHT: FONT_WEIGHT = 200
+FW_REGULAR: FONT_WEIGHT = 400
+FW_DEMIBOLD: FONT_WEIGHT = 600
+FW_ULTRABOLD: FONT_WEIGHT = 800
+FW_BLACK: FONT_WEIGHT = 900
+@winfunctype_pointer
+def FONTENUMPROCA(param0: POINTER(win32more.Graphics.Gdi.LOGFONTA_head), param1: POINTER(win32more.Graphics.Gdi.TEXTMETRICA_head), param2: UInt32, param3: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype_pointer
+def FONTENUMPROCW(param0: POINTER(win32more.Graphics.Gdi.LOGFONTW_head), param1: POINTER(win32more.Graphics.Gdi.TEXTMETRICW_head), param2: UInt32, param3: win32more.Foundation.LPARAM) -> Int32: ...
+class GCP_RESULTSA(Structure):
+    lStructSize: UInt32
+    lpOutString: win32more.Foundation.PSTR
+    lpOrder: POINTER(UInt32)
+    lpDx: POINTER(Int32)
+    lpCaretPos: POINTER(Int32)
+    lpClass: win32more.Foundation.PSTR
+    lpGlyphs: win32more.Foundation.PWSTR
+    nGlyphs: UInt32
+    nMaxFit: Int32
+class GCP_RESULTSW(Structure):
+    lStructSize: UInt32
+    lpOutString: win32more.Foundation.PWSTR
+    lpOrder: POINTER(UInt32)
+    lpDx: POINTER(Int32)
+    lpCaretPos: POINTER(Int32)
+    lpClass: win32more.Foundation.PSTR
+    lpGlyphs: win32more.Foundation.PWSTR
+    nGlyphs: UInt32
+    nMaxFit: Int32
 GDI_REGION_TYPE = Int32
-RGN_ERROR = 0
-NULLREGION = 1
-SIMPLEREGION = 2
-COMPLEXREGION = 3
+RGN_ERROR: GDI_REGION_TYPE = 0
+NULLREGION: GDI_REGION_TYPE = 1
+SIMPLEREGION: GDI_REGION_TYPE = 2
+COMPLEXREGION: GDI_REGION_TYPE = 3
 GET_CHARACTER_PLACEMENT_FLAGS = UInt32
-GCP_CLASSIN = 524288
-GCP_DIACRITIC = 256
-GCP_DISPLAYZWG = 4194304
-GCP_GLYPHSHAPE = 16
-GCP_JUSTIFY = 65536
-GCP_KASHIDA = 1024
-GCP_LIGATE = 32
-GCP_MAXEXTENT = 1048576
-GCP_NEUTRALOVERRIDE = 33554432
-GCP_NUMERICOVERRIDE = 16777216
-GCP_NUMERICSLATIN = 67108864
-GCP_NUMERICSLOCAL = 134217728
-GCP_REORDER = 2
-GCP_SYMSWAPOFF = 8388608
-GCP_USEKERNING = 8
+GCP_CLASSIN: GET_CHARACTER_PLACEMENT_FLAGS = 524288
+GCP_DIACRITIC: GET_CHARACTER_PLACEMENT_FLAGS = 256
+GCP_DISPLAYZWG: GET_CHARACTER_PLACEMENT_FLAGS = 4194304
+GCP_GLYPHSHAPE: GET_CHARACTER_PLACEMENT_FLAGS = 16
+GCP_JUSTIFY: GET_CHARACTER_PLACEMENT_FLAGS = 65536
+GCP_KASHIDA: GET_CHARACTER_PLACEMENT_FLAGS = 1024
+GCP_LIGATE: GET_CHARACTER_PLACEMENT_FLAGS = 32
+GCP_MAXEXTENT: GET_CHARACTER_PLACEMENT_FLAGS = 1048576
+GCP_NEUTRALOVERRIDE: GET_CHARACTER_PLACEMENT_FLAGS = 33554432
+GCP_NUMERICOVERRIDE: GET_CHARACTER_PLACEMENT_FLAGS = 16777216
+GCP_NUMERICSLATIN: GET_CHARACTER_PLACEMENT_FLAGS = 67108864
+GCP_NUMERICSLOCAL: GET_CHARACTER_PLACEMENT_FLAGS = 134217728
+GCP_REORDER: GET_CHARACTER_PLACEMENT_FLAGS = 2
+GCP_SYMSWAPOFF: GET_CHARACTER_PLACEMENT_FLAGS = 8388608
+GCP_USEKERNING: GET_CHARACTER_PLACEMENT_FLAGS = 8
 GET_DCX_FLAGS = UInt32
-DCX_WINDOW = 1
-DCX_CACHE = 2
-DCX_PARENTCLIP = 32
-DCX_CLIPSIBLINGS = 16
-DCX_CLIPCHILDREN = 8
-DCX_NORESETATTRS = 4
-DCX_LOCKWINDOWUPDATE = 1024
-DCX_EXCLUDERGN = 64
-DCX_INTERSECTRGN = 128
-DCX_INTERSECTUPDATE = 512
-DCX_VALIDATE = 2097152
+DCX_WINDOW: GET_DCX_FLAGS = 1
+DCX_CACHE: GET_DCX_FLAGS = 2
+DCX_PARENTCLIP: GET_DCX_FLAGS = 32
+DCX_CLIPSIBLINGS: GET_DCX_FLAGS = 16
+DCX_CLIPCHILDREN: GET_DCX_FLAGS = 8
+DCX_NORESETATTRS: GET_DCX_FLAGS = 4
+DCX_LOCKWINDOWUPDATE: GET_DCX_FLAGS = 1024
+DCX_EXCLUDERGN: GET_DCX_FLAGS = 64
+DCX_INTERSECTRGN: GET_DCX_FLAGS = 128
+DCX_INTERSECTUPDATE: GET_DCX_FLAGS = 512
+DCX_VALIDATE: GET_DCX_FLAGS = 2097152
 GET_DEVICE_CAPS_INDEX = UInt32
-DRIVERVERSION = 0
-TECHNOLOGY = 2
-HORZSIZE = 4
-VERTSIZE = 6
-HORZRES = 8
-VERTRES = 10
-BITSPIXEL = 12
-PLANES = 14
-NUMBRUSHES = 16
-NUMPENS = 18
-NUMMARKERS = 20
-NUMFONTS = 22
-NUMCOLORS = 24
-PDEVICESIZE = 26
-CURVECAPS = 28
-LINECAPS = 30
-POLYGONALCAPS = 32
-TEXTCAPS = 34
-CLIPCAPS = 36
-RASTERCAPS = 38
-ASPECTX = 40
-ASPECTY = 42
-ASPECTXY = 44
-LOGPIXELSX = 88
-LOGPIXELSY = 90
-SIZEPALETTE = 104
-NUMRESERVED = 106
-COLORRES = 108
-PHYSICALWIDTH = 110
-PHYSICALHEIGHT = 111
-PHYSICALOFFSETX = 112
-PHYSICALOFFSETY = 113
-SCALINGFACTORX = 114
-SCALINGFACTORY = 115
-VREFRESH = 116
-DESKTOPVERTRES = 117
-DESKTOPHORZRES = 118
-BLTALIGNMENT = 119
-SHADEBLENDCAPS = 120
-COLORMGMTCAPS = 121
+DRIVERVERSION: GET_DEVICE_CAPS_INDEX = 0
+TECHNOLOGY: GET_DEVICE_CAPS_INDEX = 2
+HORZSIZE: GET_DEVICE_CAPS_INDEX = 4
+VERTSIZE: GET_DEVICE_CAPS_INDEX = 6
+HORZRES: GET_DEVICE_CAPS_INDEX = 8
+VERTRES: GET_DEVICE_CAPS_INDEX = 10
+BITSPIXEL: GET_DEVICE_CAPS_INDEX = 12
+PLANES: GET_DEVICE_CAPS_INDEX = 14
+NUMBRUSHES: GET_DEVICE_CAPS_INDEX = 16
+NUMPENS: GET_DEVICE_CAPS_INDEX = 18
+NUMMARKERS: GET_DEVICE_CAPS_INDEX = 20
+NUMFONTS: GET_DEVICE_CAPS_INDEX = 22
+NUMCOLORS: GET_DEVICE_CAPS_INDEX = 24
+PDEVICESIZE: GET_DEVICE_CAPS_INDEX = 26
+CURVECAPS: GET_DEVICE_CAPS_INDEX = 28
+LINECAPS: GET_DEVICE_CAPS_INDEX = 30
+POLYGONALCAPS: GET_DEVICE_CAPS_INDEX = 32
+TEXTCAPS: GET_DEVICE_CAPS_INDEX = 34
+CLIPCAPS: GET_DEVICE_CAPS_INDEX = 36
+RASTERCAPS: GET_DEVICE_CAPS_INDEX = 38
+ASPECTX: GET_DEVICE_CAPS_INDEX = 40
+ASPECTY: GET_DEVICE_CAPS_INDEX = 42
+ASPECTXY: GET_DEVICE_CAPS_INDEX = 44
+LOGPIXELSX: GET_DEVICE_CAPS_INDEX = 88
+LOGPIXELSY: GET_DEVICE_CAPS_INDEX = 90
+SIZEPALETTE: GET_DEVICE_CAPS_INDEX = 104
+NUMRESERVED: GET_DEVICE_CAPS_INDEX = 106
+COLORRES: GET_DEVICE_CAPS_INDEX = 108
+PHYSICALWIDTH: GET_DEVICE_CAPS_INDEX = 110
+PHYSICALHEIGHT: GET_DEVICE_CAPS_INDEX = 111
+PHYSICALOFFSETX: GET_DEVICE_CAPS_INDEX = 112
+PHYSICALOFFSETY: GET_DEVICE_CAPS_INDEX = 113
+SCALINGFACTORX: GET_DEVICE_CAPS_INDEX = 114
+SCALINGFACTORY: GET_DEVICE_CAPS_INDEX = 115
+VREFRESH: GET_DEVICE_CAPS_INDEX = 116
+DESKTOPVERTRES: GET_DEVICE_CAPS_INDEX = 117
+DESKTOPHORZRES: GET_DEVICE_CAPS_INDEX = 118
+BLTALIGNMENT: GET_DEVICE_CAPS_INDEX = 119
+SHADEBLENDCAPS: GET_DEVICE_CAPS_INDEX = 120
+COLORMGMTCAPS: GET_DEVICE_CAPS_INDEX = 121
 GET_GLYPH_OUTLINE_FORMAT = UInt32
-GGO_BEZIER = 3
-GGO_BITMAP = 1
-GGO_GLYPH_INDEX = 128
-GGO_GRAY2_BITMAP = 4
-GGO_GRAY4_BITMAP = 5
-GGO_GRAY8_BITMAP = 6
-GGO_METRICS = 0
-GGO_NATIVE = 2
-GGO_UNHINTED = 256
+GGO_BEZIER: GET_GLYPH_OUTLINE_FORMAT = 3
+GGO_BITMAP: GET_GLYPH_OUTLINE_FORMAT = 1
+GGO_GLYPH_INDEX: GET_GLYPH_OUTLINE_FORMAT = 128
+GGO_GRAY2_BITMAP: GET_GLYPH_OUTLINE_FORMAT = 4
+GGO_GRAY4_BITMAP: GET_GLYPH_OUTLINE_FORMAT = 5
+GGO_GRAY8_BITMAP: GET_GLYPH_OUTLINE_FORMAT = 6
+GGO_METRICS: GET_GLYPH_OUTLINE_FORMAT = 0
+GGO_NATIVE: GET_GLYPH_OUTLINE_FORMAT = 2
+GGO_UNHINTED: GET_GLYPH_OUTLINE_FORMAT = 256
 GET_STOCK_OBJECT_FLAGS = UInt32
-BLACK_BRUSH = 4
-DKGRAY_BRUSH = 3
-DC_BRUSH = 18
-GRAY_BRUSH = 2
-HOLLOW_BRUSH = 5
-LTGRAY_BRUSH = 1
-NULL_BRUSH = 5
-WHITE_BRUSH = 0
-BLACK_PEN = 7
-DC_PEN = 19
-NULL_PEN = 8
-WHITE_PEN = 6
-ANSI_FIXED_FONT = 11
-ANSI_VAR_FONT = 12
-DEVICE_DEFAULT_FONT = 14
-DEFAULT_GUI_FONT = 17
-OEM_FIXED_FONT = 10
-SYSTEM_FONT = 13
-SYSTEM_FIXED_FONT = 16
-DEFAULT_PALETTE = 15
-def _define_GLYPHMETRICS_head():
-    class GLYPHMETRICS(Structure):
-        pass
-    return GLYPHMETRICS
-def _define_GLYPHMETRICS():
-    GLYPHMETRICS = win32more.Graphics.Gdi.GLYPHMETRICS_head
-    GLYPHMETRICS._fields_ = [
-        ('gmBlackBoxX', UInt32),
-        ('gmBlackBoxY', UInt32),
-        ('gmptGlyphOrigin', win32more.Foundation.POINT),
-        ('gmCellIncX', Int16),
-        ('gmCellIncY', Int16),
-    ]
-    return GLYPHMETRICS
-def _define_GLYPHSET_head():
-    class GLYPHSET(Structure):
-        pass
-    return GLYPHSET
-def _define_GLYPHSET():
-    GLYPHSET = win32more.Graphics.Gdi.GLYPHSET_head
-    GLYPHSET._fields_ = [
-        ('cbThis', UInt32),
-        ('flAccel', UInt32),
-        ('cGlyphsSupported', UInt32),
-        ('cRanges', UInt32),
-        ('ranges', win32more.Graphics.Gdi.WCRANGE * 1),
-    ]
-    return GLYPHSET
-def _define_GOBJENUMPROC():
-    return WINFUNCTYPE(Int32,c_void_p,win32more.Foundation.LPARAM)
+BLACK_BRUSH: GET_STOCK_OBJECT_FLAGS = 4
+DKGRAY_BRUSH: GET_STOCK_OBJECT_FLAGS = 3
+DC_BRUSH: GET_STOCK_OBJECT_FLAGS = 18
+GRAY_BRUSH: GET_STOCK_OBJECT_FLAGS = 2
+HOLLOW_BRUSH: GET_STOCK_OBJECT_FLAGS = 5
+LTGRAY_BRUSH: GET_STOCK_OBJECT_FLAGS = 1
+NULL_BRUSH: GET_STOCK_OBJECT_FLAGS = 5
+WHITE_BRUSH: GET_STOCK_OBJECT_FLAGS = 0
+BLACK_PEN: GET_STOCK_OBJECT_FLAGS = 7
+DC_PEN: GET_STOCK_OBJECT_FLAGS = 19
+NULL_PEN: GET_STOCK_OBJECT_FLAGS = 8
+WHITE_PEN: GET_STOCK_OBJECT_FLAGS = 6
+ANSI_FIXED_FONT: GET_STOCK_OBJECT_FLAGS = 11
+ANSI_VAR_FONT: GET_STOCK_OBJECT_FLAGS = 12
+DEVICE_DEFAULT_FONT: GET_STOCK_OBJECT_FLAGS = 14
+DEFAULT_GUI_FONT: GET_STOCK_OBJECT_FLAGS = 17
+OEM_FIXED_FONT: GET_STOCK_OBJECT_FLAGS = 10
+SYSTEM_FONT: GET_STOCK_OBJECT_FLAGS = 13
+SYSTEM_FIXED_FONT: GET_STOCK_OBJECT_FLAGS = 16
+DEFAULT_PALETTE: GET_STOCK_OBJECT_FLAGS = 15
+class GLYPHMETRICS(Structure):
+    gmBlackBoxX: UInt32
+    gmBlackBoxY: UInt32
+    gmptGlyphOrigin: win32more.Foundation.POINT
+    gmCellIncX: Int16
+    gmCellIncY: Int16
+class GLYPHSET(Structure):
+    cbThis: UInt32
+    flAccel: UInt32
+    cGlyphsSupported: UInt32
+    cRanges: UInt32
+    ranges: win32more.Graphics.Gdi.WCRANGE * 1
+@winfunctype_pointer
+def GOBJENUMPROC(param0: c_void_p, param1: win32more.Foundation.LPARAM) -> Int32: ...
 GRADIENT_FILL = UInt32
-GRADIENT_FILL_RECT_H = 0
-GRADIENT_FILL_RECT_V = 1
-GRADIENT_FILL_TRIANGLE = 2
-def _define_GRADIENT_RECT_head():
-    class GRADIENT_RECT(Structure):
-        pass
-    return GRADIENT_RECT
-def _define_GRADIENT_RECT():
-    GRADIENT_RECT = win32more.Graphics.Gdi.GRADIENT_RECT_head
-    GRADIENT_RECT._fields_ = [
-        ('UpperLeft', UInt32),
-        ('LowerRight', UInt32),
-    ]
-    return GRADIENT_RECT
-def _define_GRADIENT_TRIANGLE_head():
-    class GRADIENT_TRIANGLE(Structure):
-        pass
-    return GRADIENT_TRIANGLE
-def _define_GRADIENT_TRIANGLE():
-    GRADIENT_TRIANGLE = win32more.Graphics.Gdi.GRADIENT_TRIANGLE_head
-    GRADIENT_TRIANGLE._fields_ = [
-        ('Vertex1', UInt32),
-        ('Vertex2', UInt32),
-        ('Vertex3', UInt32),
-    ]
-    return GRADIENT_TRIANGLE
+GRADIENT_FILL_RECT_H: GRADIENT_FILL = 0
+GRADIENT_FILL_RECT_V: GRADIENT_FILL = 1
+GRADIENT_FILL_TRIANGLE: GRADIENT_FILL = 2
+class GRADIENT_RECT(Structure):
+    UpperLeft: UInt32
+    LowerRight: UInt32
+class GRADIENT_TRIANGLE(Structure):
+    Vertex1: UInt32
+    Vertex2: UInt32
+    Vertex3: UInt32
 GRAPHICS_MODE = UInt32
-GM_COMPATIBLE = 1
-GM_ADVANCED = 2
-def _define_GRAYSTRINGPROC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.LPARAM,Int32)
-def _define_HANDLETABLE_head():
-    class HANDLETABLE(Structure):
-        pass
-    return HANDLETABLE
-def _define_HANDLETABLE():
-    HANDLETABLE = win32more.Graphics.Gdi.HANDLETABLE_head
-    HANDLETABLE._fields_ = [
-        ('objectHandle', win32more.Graphics.Gdi.HGDIOBJ * 1),
-    ]
-    return HANDLETABLE
+GM_COMPATIBLE: GRAPHICS_MODE = 1
+GM_ADVANCED: GRAPHICS_MODE = 2
+@winfunctype_pointer
+def GRAYSTRINGPROC(param0: win32more.Graphics.Gdi.HDC, param1: win32more.Foundation.LPARAM, param2: Int32) -> win32more.Foundation.BOOL: ...
+class HANDLETABLE(Structure):
+    objectHandle: win32more.Graphics.Gdi.HGDIOBJ * 1
 HATCH_BRUSH_STYLE = UInt32
-HS_BDIAGONAL = 3
-HS_CROSS = 4
-HS_DIAGCROSS = 5
-HS_FDIAGONAL = 2
-HS_HORIZONTAL = 0
-HS_VERTICAL = 1
+HS_BDIAGONAL: HATCH_BRUSH_STYLE = 3
+HS_CROSS: HATCH_BRUSH_STYLE = 4
+HS_DIAGCROSS: HATCH_BRUSH_STYLE = 5
+HS_FDIAGONAL: HATCH_BRUSH_STYLE = 2
+HS_HORIZONTAL: HATCH_BRUSH_STYLE = 0
+HS_VERTICAL: HATCH_BRUSH_STYLE = 1
 HBITMAP = IntPtr
 HBRUSH = IntPtr
 HDC = IntPtr
 HDC_MAP_MODE = UInt32
-MM_ANISOTROPIC = 8
-MM_HIENGLISH = 5
-MM_HIMETRIC = 3
-MM_ISOTROPIC = 7
-MM_LOENGLISH = 4
-MM_LOMETRIC = 2
-MM_TEXT = 1
-MM_TWIPS = 6
+MM_ANISOTROPIC: HDC_MAP_MODE = 8
+MM_HIENGLISH: HDC_MAP_MODE = 5
+MM_HIMETRIC: HDC_MAP_MODE = 3
+MM_ISOTROPIC: HDC_MAP_MODE = 7
+MM_LOENGLISH: HDC_MAP_MODE = 4
+MM_LOMETRIC: HDC_MAP_MODE = 2
+MM_TEXT: HDC_MAP_MODE = 1
+MM_TWIPS: HDC_MAP_MODE = 6
 HdcMetdataEnhFileHandle = IntPtr
 HdcMetdataFileHandle = IntPtr
 HENHMETAFILE = IntPtr
@@ -5267,1021 +3136,863 @@ HMONITOR = IntPtr
 HPALETTE = IntPtr
 HPEN = IntPtr
 HRGN = IntPtr
-def _define_KERNINGPAIR_head():
-    class KERNINGPAIR(Structure):
-        pass
-    return KERNINGPAIR
-def _define_KERNINGPAIR():
-    KERNINGPAIR = win32more.Graphics.Gdi.KERNINGPAIR_head
-    KERNINGPAIR._fields_ = [
-        ('wFirst', UInt16),
-        ('wSecond', UInt16),
-        ('iKernAmount', Int32),
-    ]
-    return KERNINGPAIR
-def _define_LINEDDAPROC():
-    return WINFUNCTYPE(Void,Int32,Int32,win32more.Foundation.LPARAM)
-def _define_LOGBRUSH_head():
-    class LOGBRUSH(Structure):
-        pass
-    return LOGBRUSH
-def _define_LOGBRUSH():
-    LOGBRUSH = win32more.Graphics.Gdi.LOGBRUSH_head
-    LOGBRUSH._fields_ = [
-        ('lbStyle', win32more.Graphics.Gdi.BRUSH_STYLE),
-        ('lbColor', win32more.Foundation.COLORREF),
-        ('lbHatch', UIntPtr),
-    ]
-    return LOGBRUSH
-def _define_LOGBRUSH32_head():
-    class LOGBRUSH32(Structure):
-        pass
-    return LOGBRUSH32
-def _define_LOGBRUSH32():
-    LOGBRUSH32 = win32more.Graphics.Gdi.LOGBRUSH32_head
-    LOGBRUSH32._fields_ = [
-        ('lbStyle', win32more.Graphics.Gdi.BRUSH_STYLE),
-        ('lbColor', win32more.Foundation.COLORREF),
-        ('lbHatch', UInt32),
-    ]
-    return LOGBRUSH32
-def _define_LOGFONTA_head():
-    class LOGFONTA(Structure):
-        pass
-    return LOGFONTA
-def _define_LOGFONTA():
-    LOGFONTA = win32more.Graphics.Gdi.LOGFONTA_head
-    LOGFONTA._fields_ = [
-        ('lfHeight', Int32),
-        ('lfWidth', Int32),
-        ('lfEscapement', Int32),
-        ('lfOrientation', Int32),
-        ('lfWeight', Int32),
-        ('lfItalic', Byte),
-        ('lfUnderline', Byte),
-        ('lfStrikeOut', Byte),
-        ('lfCharSet', win32more.Graphics.Gdi.FONT_CHARSET),
-        ('lfOutPrecision', win32more.Graphics.Gdi.FONT_OUTPUT_PRECISION),
-        ('lfClipPrecision', win32more.Graphics.Gdi.FONT_CLIP_PRECISION),
-        ('lfQuality', win32more.Graphics.Gdi.FONT_QUALITY),
-        ('lfPitchAndFamily', Byte),
-        ('lfFaceName', win32more.Foundation.CHAR * 32),
-    ]
-    return LOGFONTA
-def _define_LOGFONTW_head():
-    class LOGFONTW(Structure):
-        pass
-    return LOGFONTW
-def _define_LOGFONTW():
-    LOGFONTW = win32more.Graphics.Gdi.LOGFONTW_head
-    LOGFONTW._fields_ = [
-        ('lfHeight', Int32),
-        ('lfWidth', Int32),
-        ('lfEscapement', Int32),
-        ('lfOrientation', Int32),
-        ('lfWeight', Int32),
-        ('lfItalic', Byte),
-        ('lfUnderline', Byte),
-        ('lfStrikeOut', Byte),
-        ('lfCharSet', win32more.Graphics.Gdi.FONT_CHARSET),
-        ('lfOutPrecision', win32more.Graphics.Gdi.FONT_OUTPUT_PRECISION),
-        ('lfClipPrecision', win32more.Graphics.Gdi.FONT_CLIP_PRECISION),
-        ('lfQuality', win32more.Graphics.Gdi.FONT_QUALITY),
-        ('lfPitchAndFamily', Byte),
-        ('lfFaceName', Char * 32),
-    ]
-    return LOGFONTW
-def _define_LOGPALETTE_head():
-    class LOGPALETTE(Structure):
-        pass
-    return LOGPALETTE
-def _define_LOGPALETTE():
-    LOGPALETTE = win32more.Graphics.Gdi.LOGPALETTE_head
-    LOGPALETTE._fields_ = [
-        ('palVersion', UInt16),
-        ('palNumEntries', UInt16),
-        ('palPalEntry', win32more.Graphics.Gdi.PALETTEENTRY * 1),
-    ]
-    return LOGPALETTE
-def _define_LOGPEN_head():
-    class LOGPEN(Structure):
-        pass
-    return LOGPEN
-def _define_LOGPEN():
-    LOGPEN = win32more.Graphics.Gdi.LOGPEN_head
-    LOGPEN._fields_ = [
-        ('lopnStyle', win32more.Graphics.Gdi.PEN_STYLE),
-        ('lopnWidth', win32more.Foundation.POINT),
-        ('lopnColor', win32more.Foundation.COLORREF),
-    ]
-    return LOGPEN
-def _define_LPFNDEVCAPS():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head))
-def _define_LPFNDEVMODE():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Foundation.PSTR,UInt32)
-def _define_MAT2_head():
-    class MAT2(Structure):
-        pass
-    return MAT2
-def _define_MAT2():
-    MAT2 = win32more.Graphics.Gdi.MAT2_head
-    MAT2._fields_ = [
-        ('eM11', win32more.Graphics.Gdi.FIXED),
-        ('eM12', win32more.Graphics.Gdi.FIXED),
-        ('eM21', win32more.Graphics.Gdi.FIXED),
-        ('eM22', win32more.Graphics.Gdi.FIXED),
-    ]
-    return MAT2
-def _define_METAHEADER_head():
-    class METAHEADER(Structure):
-        pass
-    return METAHEADER
-def _define_METAHEADER():
-    METAHEADER = win32more.Graphics.Gdi.METAHEADER_head
-    METAHEADER._pack_ = 2
-    METAHEADER._fields_ = [
-        ('mtType', UInt16),
-        ('mtHeaderSize', UInt16),
-        ('mtVersion', UInt16),
-        ('mtSize', UInt32),
-        ('mtNoObjects', UInt16),
-        ('mtMaxRecord', UInt32),
-        ('mtNoParameters', UInt16),
-    ]
-    return METAHEADER
-def _define_METARECORD_head():
-    class METARECORD(Structure):
-        pass
-    return METARECORD
-def _define_METARECORD():
-    METARECORD = win32more.Graphics.Gdi.METARECORD_head
-    METARECORD._fields_ = [
-        ('rdSize', UInt32),
-        ('rdFunction', UInt16),
-        ('rdParm', UInt16 * 1),
-    ]
-    return METARECORD
-def _define_MFENUMPROC():
-    return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.HANDLETABLE_head),POINTER(win32more.Graphics.Gdi.METARECORD_head),Int32,win32more.Foundation.LPARAM)
+class KERNINGPAIR(Structure):
+    wFirst: UInt16
+    wSecond: UInt16
+    iKernAmount: Int32
+@winfunctype_pointer
+def LINEDDAPROC(param0: Int32, param1: Int32, param2: win32more.Foundation.LPARAM) -> Void: ...
+class LOGBRUSH(Structure):
+    lbStyle: win32more.Graphics.Gdi.BRUSH_STYLE
+    lbColor: win32more.Foundation.COLORREF
+    lbHatch: UIntPtr
+class LOGBRUSH32(Structure):
+    lbStyle: win32more.Graphics.Gdi.BRUSH_STYLE
+    lbColor: win32more.Foundation.COLORREF
+    lbHatch: UInt32
+class LOGFONTA(Structure):
+    lfHeight: Int32
+    lfWidth: Int32
+    lfEscapement: Int32
+    lfOrientation: Int32
+    lfWeight: Int32
+    lfItalic: Byte
+    lfUnderline: Byte
+    lfStrikeOut: Byte
+    lfCharSet: win32more.Graphics.Gdi.FONT_CHARSET
+    lfOutPrecision: win32more.Graphics.Gdi.FONT_OUTPUT_PRECISION
+    lfClipPrecision: win32more.Graphics.Gdi.FONT_CLIP_PRECISION
+    lfQuality: win32more.Graphics.Gdi.FONT_QUALITY
+    lfPitchAndFamily: Byte
+    lfFaceName: win32more.Foundation.CHAR * 32
+class LOGFONTW(Structure):
+    lfHeight: Int32
+    lfWidth: Int32
+    lfEscapement: Int32
+    lfOrientation: Int32
+    lfWeight: Int32
+    lfItalic: Byte
+    lfUnderline: Byte
+    lfStrikeOut: Byte
+    lfCharSet: win32more.Graphics.Gdi.FONT_CHARSET
+    lfOutPrecision: win32more.Graphics.Gdi.FONT_OUTPUT_PRECISION
+    lfClipPrecision: win32more.Graphics.Gdi.FONT_CLIP_PRECISION
+    lfQuality: win32more.Graphics.Gdi.FONT_QUALITY
+    lfPitchAndFamily: Byte
+    lfFaceName: Char * 32
+class LOGPALETTE(Structure):
+    palVersion: UInt16
+    palNumEntries: UInt16
+    palPalEntry: win32more.Graphics.Gdi.PALETTEENTRY * 1
+class LOGPEN(Structure):
+    lopnStyle: win32more.Graphics.Gdi.PEN_STYLE
+    lopnWidth: win32more.Foundation.POINT
+    lopnColor: win32more.Foundation.COLORREF
+@winfunctype_pointer
+def LPFNDEVCAPS(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: UInt32, param3: win32more.Foundation.PSTR, param4: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)) -> UInt32: ...
+@winfunctype_pointer
+def LPFNDEVMODE(param0: win32more.Foundation.HWND, param1: win32more.Foundation.HINSTANCE, param2: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), param3: win32more.Foundation.PSTR, param4: win32more.Foundation.PSTR, param5: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), param6: win32more.Foundation.PSTR, param7: UInt32) -> UInt32: ...
+class MAT2(Structure):
+    eM11: win32more.Graphics.Gdi.FIXED
+    eM12: win32more.Graphics.Gdi.FIXED
+    eM21: win32more.Graphics.Gdi.FIXED
+    eM22: win32more.Graphics.Gdi.FIXED
+class METAHEADER(Structure):
+    mtType: UInt16
+    mtHeaderSize: UInt16
+    mtVersion: UInt16
+    mtSize: UInt32
+    mtNoObjects: UInt16
+    mtMaxRecord: UInt32
+    mtNoParameters: UInt16
+    _pack_ = 2
+class METARECORD(Structure):
+    rdSize: UInt32
+    rdFunction: UInt16
+    rdParm: UInt16 * 1
+@winfunctype_pointer
+def MFENUMPROC(hdc: win32more.Graphics.Gdi.HDC, lpht: POINTER(win32more.Graphics.Gdi.HANDLETABLE_head), lpMR: POINTER(win32more.Graphics.Gdi.METARECORD_head), nObj: Int32, param4: win32more.Foundation.LPARAM) -> Int32: ...
 MODIFY_WORLD_TRANSFORM_MODE = UInt32
-MWT_IDENTITY = 1
-MWT_LEFTMULTIPLY = 2
-MWT_RIGHTMULTIPLY = 3
+MWT_IDENTITY: MODIFY_WORLD_TRANSFORM_MODE = 1
+MWT_LEFTMULTIPLY: MODIFY_WORLD_TRANSFORM_MODE = 2
+MWT_RIGHTMULTIPLY: MODIFY_WORLD_TRANSFORM_MODE = 3
 MONITOR_FROM_FLAGS = UInt32
-MONITOR_DEFAULTTONEAREST = 2
-MONITOR_DEFAULTTONULL = 0
-MONITOR_DEFAULTTOPRIMARY = 1
-def _define_MONITORENUMPROC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HMONITOR,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.LPARAM)
-def _define_MONITORINFO_head():
-    class MONITORINFO(Structure):
-        pass
-    return MONITORINFO
-def _define_MONITORINFO():
-    MONITORINFO = win32more.Graphics.Gdi.MONITORINFO_head
-    MONITORINFO._fields_ = [
-        ('cbSize', UInt32),
-        ('rcMonitor', win32more.Foundation.RECT),
-        ('rcWork', win32more.Foundation.RECT),
-        ('dwFlags', UInt32),
-    ]
-    return MONITORINFO
-def _define_MONITORINFOEXA_head():
-    class MONITORINFOEXA(Structure):
-        pass
-    return MONITORINFOEXA
-def _define_MONITORINFOEXA():
-    MONITORINFOEXA = win32more.Graphics.Gdi.MONITORINFOEXA_head
-    MONITORINFOEXA._fields_ = [
-        ('monitorInfo', win32more.Graphics.Gdi.MONITORINFO),
-        ('szDevice', win32more.Foundation.CHAR * 32),
-    ]
-    return MONITORINFOEXA
-def _define_MONITORINFOEXW_head():
-    class MONITORINFOEXW(Structure):
-        pass
-    return MONITORINFOEXW
-def _define_MONITORINFOEXW():
-    MONITORINFOEXW = win32more.Graphics.Gdi.MONITORINFOEXW_head
-    MONITORINFOEXW._fields_ = [
-        ('monitorInfo', win32more.Graphics.Gdi.MONITORINFO),
-        ('szDevice', Char * 32),
-    ]
-    return MONITORINFOEXW
-def _define_NEWTEXTMETRICA_head():
-    class NEWTEXTMETRICA(Structure):
-        pass
-    return NEWTEXTMETRICA
-def _define_NEWTEXTMETRICA():
-    NEWTEXTMETRICA = win32more.Graphics.Gdi.NEWTEXTMETRICA_head
-    NEWTEXTMETRICA._fields_ = [
-        ('tmHeight', Int32),
-        ('tmAscent', Int32),
-        ('tmDescent', Int32),
-        ('tmInternalLeading', Int32),
-        ('tmExternalLeading', Int32),
-        ('tmAveCharWidth', Int32),
-        ('tmMaxCharWidth', Int32),
-        ('tmWeight', Int32),
-        ('tmOverhang', Int32),
-        ('tmDigitizedAspectX', Int32),
-        ('tmDigitizedAspectY', Int32),
-        ('tmFirstChar', Byte),
-        ('tmLastChar', Byte),
-        ('tmDefaultChar', Byte),
-        ('tmBreakChar', Byte),
-        ('tmItalic', Byte),
-        ('tmUnderlined', Byte),
-        ('tmStruckOut', Byte),
-        ('tmPitchAndFamily', win32more.Graphics.Gdi.TMPF_FLAGS),
-        ('tmCharSet', Byte),
-        ('ntmFlags', UInt32),
-        ('ntmSizeEM', UInt32),
-        ('ntmCellHeight', UInt32),
-        ('ntmAvgWidth', UInt32),
-    ]
-    return NEWTEXTMETRICA
-def _define_NEWTEXTMETRICW_head():
-    class NEWTEXTMETRICW(Structure):
-        pass
-    return NEWTEXTMETRICW
-def _define_NEWTEXTMETRICW():
-    NEWTEXTMETRICW = win32more.Graphics.Gdi.NEWTEXTMETRICW_head
-    NEWTEXTMETRICW._fields_ = [
-        ('tmHeight', Int32),
-        ('tmAscent', Int32),
-        ('tmDescent', Int32),
-        ('tmInternalLeading', Int32),
-        ('tmExternalLeading', Int32),
-        ('tmAveCharWidth', Int32),
-        ('tmMaxCharWidth', Int32),
-        ('tmWeight', Int32),
-        ('tmOverhang', Int32),
-        ('tmDigitizedAspectX', Int32),
-        ('tmDigitizedAspectY', Int32),
-        ('tmFirstChar', Char),
-        ('tmLastChar', Char),
-        ('tmDefaultChar', Char),
-        ('tmBreakChar', Char),
-        ('tmItalic', Byte),
-        ('tmUnderlined', Byte),
-        ('tmStruckOut', Byte),
-        ('tmPitchAndFamily', win32more.Graphics.Gdi.TMPF_FLAGS),
-        ('tmCharSet', Byte),
-        ('ntmFlags', UInt32),
-        ('ntmSizeEM', UInt32),
-        ('ntmCellHeight', UInt32),
-        ('ntmAvgWidth', UInt32),
-    ]
-    return NEWTEXTMETRICW
+MONITOR_DEFAULTTONEAREST: MONITOR_FROM_FLAGS = 2
+MONITOR_DEFAULTTONULL: MONITOR_FROM_FLAGS = 0
+MONITOR_DEFAULTTOPRIMARY: MONITOR_FROM_FLAGS = 1
+@winfunctype_pointer
+def MONITORENUMPROC(param0: win32more.Graphics.Gdi.HMONITOR, param1: win32more.Graphics.Gdi.HDC, param2: POINTER(win32more.Foundation.RECT_head), param3: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+class MONITORINFO(Structure):
+    cbSize: UInt32
+    rcMonitor: win32more.Foundation.RECT
+    rcWork: win32more.Foundation.RECT
+    dwFlags: UInt32
+class MONITORINFOEXA(Structure):
+    monitorInfo: win32more.Graphics.Gdi.MONITORINFO
+    szDevice: win32more.Foundation.CHAR * 32
+class MONITORINFOEXW(Structure):
+    monitorInfo: win32more.Graphics.Gdi.MONITORINFO
+    szDevice: Char * 32
+class NEWTEXTMETRICA(Structure):
+    tmHeight: Int32
+    tmAscent: Int32
+    tmDescent: Int32
+    tmInternalLeading: Int32
+    tmExternalLeading: Int32
+    tmAveCharWidth: Int32
+    tmMaxCharWidth: Int32
+    tmWeight: Int32
+    tmOverhang: Int32
+    tmDigitizedAspectX: Int32
+    tmDigitizedAspectY: Int32
+    tmFirstChar: Byte
+    tmLastChar: Byte
+    tmDefaultChar: Byte
+    tmBreakChar: Byte
+    tmItalic: Byte
+    tmUnderlined: Byte
+    tmStruckOut: Byte
+    tmPitchAndFamily: win32more.Graphics.Gdi.TMPF_FLAGS
+    tmCharSet: Byte
+    ntmFlags: UInt32
+    ntmSizeEM: UInt32
+    ntmCellHeight: UInt32
+    ntmAvgWidth: UInt32
+class NEWTEXTMETRICW(Structure):
+    tmHeight: Int32
+    tmAscent: Int32
+    tmDescent: Int32
+    tmInternalLeading: Int32
+    tmExternalLeading: Int32
+    tmAveCharWidth: Int32
+    tmMaxCharWidth: Int32
+    tmWeight: Int32
+    tmOverhang: Int32
+    tmDigitizedAspectX: Int32
+    tmDigitizedAspectY: Int32
+    tmFirstChar: Char
+    tmLastChar: Char
+    tmDefaultChar: Char
+    tmBreakChar: Char
+    tmItalic: Byte
+    tmUnderlined: Byte
+    tmStruckOut: Byte
+    tmPitchAndFamily: win32more.Graphics.Gdi.TMPF_FLAGS
+    tmCharSet: Byte
+    ntmFlags: UInt32
+    ntmSizeEM: UInt32
+    ntmCellHeight: UInt32
+    ntmAvgWidth: UInt32
 OBJ_TYPE = Int32
-OBJ_PEN = 1
-OBJ_BRUSH = 2
-OBJ_DC = 3
-OBJ_METADC = 4
-OBJ_PAL = 5
-OBJ_FONT = 6
-OBJ_BITMAP = 7
-OBJ_REGION = 8
-OBJ_METAFILE = 9
-OBJ_MEMDC = 10
-OBJ_EXTPEN = 11
-OBJ_ENHMETADC = 12
-OBJ_ENHMETAFILE = 13
-OBJ_COLORSPACE = 14
-def _define_OUTLINETEXTMETRICA_head():
-    class OUTLINETEXTMETRICA(Structure):
-        pass
-    return OUTLINETEXTMETRICA
-def _define_OUTLINETEXTMETRICA():
-    OUTLINETEXTMETRICA = win32more.Graphics.Gdi.OUTLINETEXTMETRICA_head
-    OUTLINETEXTMETRICA._fields_ = [
-        ('otmSize', UInt32),
-        ('otmTextMetrics', win32more.Graphics.Gdi.TEXTMETRICA),
-        ('otmFiller', Byte),
-        ('otmPanoseNumber', win32more.Graphics.Gdi.PANOSE),
-        ('otmfsSelection', UInt32),
-        ('otmfsType', UInt32),
-        ('otmsCharSlopeRise', Int32),
-        ('otmsCharSlopeRun', Int32),
-        ('otmItalicAngle', Int32),
-        ('otmEMSquare', UInt32),
-        ('otmAscent', Int32),
-        ('otmDescent', Int32),
-        ('otmLineGap', UInt32),
-        ('otmsCapEmHeight', UInt32),
-        ('otmsXHeight', UInt32),
-        ('otmrcFontBox', win32more.Foundation.RECT),
-        ('otmMacAscent', Int32),
-        ('otmMacDescent', Int32),
-        ('otmMacLineGap', UInt32),
-        ('otmusMinimumPPEM', UInt32),
-        ('otmptSubscriptSize', win32more.Foundation.POINT),
-        ('otmptSubscriptOffset', win32more.Foundation.POINT),
-        ('otmptSuperscriptSize', win32more.Foundation.POINT),
-        ('otmptSuperscriptOffset', win32more.Foundation.POINT),
-        ('otmsStrikeoutSize', UInt32),
-        ('otmsStrikeoutPosition', Int32),
-        ('otmsUnderscoreSize', Int32),
-        ('otmsUnderscorePosition', Int32),
-        ('otmpFamilyName', win32more.Foundation.PSTR),
-        ('otmpFaceName', win32more.Foundation.PSTR),
-        ('otmpStyleName', win32more.Foundation.PSTR),
-        ('otmpFullName', win32more.Foundation.PSTR),
-    ]
-    return OUTLINETEXTMETRICA
-def _define_OUTLINETEXTMETRICW_head():
-    class OUTLINETEXTMETRICW(Structure):
-        pass
-    return OUTLINETEXTMETRICW
-def _define_OUTLINETEXTMETRICW():
-    OUTLINETEXTMETRICW = win32more.Graphics.Gdi.OUTLINETEXTMETRICW_head
-    OUTLINETEXTMETRICW._fields_ = [
-        ('otmSize', UInt32),
-        ('otmTextMetrics', win32more.Graphics.Gdi.TEXTMETRICW),
-        ('otmFiller', Byte),
-        ('otmPanoseNumber', win32more.Graphics.Gdi.PANOSE),
-        ('otmfsSelection', UInt32),
-        ('otmfsType', UInt32),
-        ('otmsCharSlopeRise', Int32),
-        ('otmsCharSlopeRun', Int32),
-        ('otmItalicAngle', Int32),
-        ('otmEMSquare', UInt32),
-        ('otmAscent', Int32),
-        ('otmDescent', Int32),
-        ('otmLineGap', UInt32),
-        ('otmsCapEmHeight', UInt32),
-        ('otmsXHeight', UInt32),
-        ('otmrcFontBox', win32more.Foundation.RECT),
-        ('otmMacAscent', Int32),
-        ('otmMacDescent', Int32),
-        ('otmMacLineGap', UInt32),
-        ('otmusMinimumPPEM', UInt32),
-        ('otmptSubscriptSize', win32more.Foundation.POINT),
-        ('otmptSubscriptOffset', win32more.Foundation.POINT),
-        ('otmptSuperscriptSize', win32more.Foundation.POINT),
-        ('otmptSuperscriptOffset', win32more.Foundation.POINT),
-        ('otmsStrikeoutSize', UInt32),
-        ('otmsStrikeoutPosition', Int32),
-        ('otmsUnderscoreSize', Int32),
-        ('otmsUnderscorePosition', Int32),
-        ('otmpFamilyName', win32more.Foundation.PSTR),
-        ('otmpFaceName', win32more.Foundation.PSTR),
-        ('otmpStyleName', win32more.Foundation.PSTR),
-        ('otmpFullName', win32more.Foundation.PSTR),
-    ]
-    return OUTLINETEXTMETRICW
-def _define_PAINTSTRUCT_head():
-    class PAINTSTRUCT(Structure):
-        pass
-    return PAINTSTRUCT
-def _define_PAINTSTRUCT():
-    PAINTSTRUCT = win32more.Graphics.Gdi.PAINTSTRUCT_head
-    PAINTSTRUCT._fields_ = [
-        ('hdc', win32more.Graphics.Gdi.HDC),
-        ('fErase', win32more.Foundation.BOOL),
-        ('rcPaint', win32more.Foundation.RECT),
-        ('fRestore', win32more.Foundation.BOOL),
-        ('fIncUpdate', win32more.Foundation.BOOL),
-        ('rgbReserved', Byte * 32),
-    ]
-    return PAINTSTRUCT
-def _define_PALETTEENTRY_head():
-    class PALETTEENTRY(Structure):
-        pass
-    return PALETTEENTRY
-def _define_PALETTEENTRY():
-    PALETTEENTRY = win32more.Graphics.Gdi.PALETTEENTRY_head
-    PALETTEENTRY._fields_ = [
-        ('peRed', Byte),
-        ('peGreen', Byte),
-        ('peBlue', Byte),
-        ('peFlags', Byte),
-    ]
-    return PALETTEENTRY
+OBJ_PEN: OBJ_TYPE = 1
+OBJ_BRUSH: OBJ_TYPE = 2
+OBJ_DC: OBJ_TYPE = 3
+OBJ_METADC: OBJ_TYPE = 4
+OBJ_PAL: OBJ_TYPE = 5
+OBJ_FONT: OBJ_TYPE = 6
+OBJ_BITMAP: OBJ_TYPE = 7
+OBJ_REGION: OBJ_TYPE = 8
+OBJ_METAFILE: OBJ_TYPE = 9
+OBJ_MEMDC: OBJ_TYPE = 10
+OBJ_EXTPEN: OBJ_TYPE = 11
+OBJ_ENHMETADC: OBJ_TYPE = 12
+OBJ_ENHMETAFILE: OBJ_TYPE = 13
+OBJ_COLORSPACE: OBJ_TYPE = 14
+class OUTLINETEXTMETRICA(Structure):
+    otmSize: UInt32
+    otmTextMetrics: win32more.Graphics.Gdi.TEXTMETRICA
+    otmFiller: Byte
+    otmPanoseNumber: win32more.Graphics.Gdi.PANOSE
+    otmfsSelection: UInt32
+    otmfsType: UInt32
+    otmsCharSlopeRise: Int32
+    otmsCharSlopeRun: Int32
+    otmItalicAngle: Int32
+    otmEMSquare: UInt32
+    otmAscent: Int32
+    otmDescent: Int32
+    otmLineGap: UInt32
+    otmsCapEmHeight: UInt32
+    otmsXHeight: UInt32
+    otmrcFontBox: win32more.Foundation.RECT
+    otmMacAscent: Int32
+    otmMacDescent: Int32
+    otmMacLineGap: UInt32
+    otmusMinimumPPEM: UInt32
+    otmptSubscriptSize: win32more.Foundation.POINT
+    otmptSubscriptOffset: win32more.Foundation.POINT
+    otmptSuperscriptSize: win32more.Foundation.POINT
+    otmptSuperscriptOffset: win32more.Foundation.POINT
+    otmsStrikeoutSize: UInt32
+    otmsStrikeoutPosition: Int32
+    otmsUnderscoreSize: Int32
+    otmsUnderscorePosition: Int32
+    otmpFamilyName: win32more.Foundation.PSTR
+    otmpFaceName: win32more.Foundation.PSTR
+    otmpStyleName: win32more.Foundation.PSTR
+    otmpFullName: win32more.Foundation.PSTR
+class OUTLINETEXTMETRICW(Structure):
+    otmSize: UInt32
+    otmTextMetrics: win32more.Graphics.Gdi.TEXTMETRICW
+    otmFiller: Byte
+    otmPanoseNumber: win32more.Graphics.Gdi.PANOSE
+    otmfsSelection: UInt32
+    otmfsType: UInt32
+    otmsCharSlopeRise: Int32
+    otmsCharSlopeRun: Int32
+    otmItalicAngle: Int32
+    otmEMSquare: UInt32
+    otmAscent: Int32
+    otmDescent: Int32
+    otmLineGap: UInt32
+    otmsCapEmHeight: UInt32
+    otmsXHeight: UInt32
+    otmrcFontBox: win32more.Foundation.RECT
+    otmMacAscent: Int32
+    otmMacDescent: Int32
+    otmMacLineGap: UInt32
+    otmusMinimumPPEM: UInt32
+    otmptSubscriptSize: win32more.Foundation.POINT
+    otmptSubscriptOffset: win32more.Foundation.POINT
+    otmptSuperscriptSize: win32more.Foundation.POINT
+    otmptSuperscriptOffset: win32more.Foundation.POINT
+    otmsStrikeoutSize: UInt32
+    otmsStrikeoutPosition: Int32
+    otmsUnderscoreSize: Int32
+    otmsUnderscorePosition: Int32
+    otmpFamilyName: win32more.Foundation.PSTR
+    otmpFaceName: win32more.Foundation.PSTR
+    otmpStyleName: win32more.Foundation.PSTR
+    otmpFullName: win32more.Foundation.PSTR
+class PAINTSTRUCT(Structure):
+    hdc: win32more.Graphics.Gdi.HDC
+    fErase: win32more.Foundation.BOOL
+    rcPaint: win32more.Foundation.RECT
+    fRestore: win32more.Foundation.BOOL
+    fIncUpdate: win32more.Foundation.BOOL
+    rgbReserved: Byte * 32
+class PALETTEENTRY(Structure):
+    peRed: Byte
+    peGreen: Byte
+    peBlue: Byte
+    peFlags: Byte
 PAN_ARM_STYLE = UInt32
-PAN_ARM_ANY = 0
-PAN_ARM_NO_FIT = 1
-PAN_STRAIGHT_ARMS_HORZ = 2
-PAN_STRAIGHT_ARMS_WEDGE = 3
-PAN_STRAIGHT_ARMS_VERT = 4
-PAN_STRAIGHT_ARMS_SINGLE_SERIF = 5
-PAN_STRAIGHT_ARMS_DOUBLE_SERIF = 6
-PAN_BENT_ARMS_HORZ = 7
-PAN_BENT_ARMS_WEDGE = 8
-PAN_BENT_ARMS_VERT = 9
-PAN_BENT_ARMS_SINGLE_SERIF = 10
-PAN_BENT_ARMS_DOUBLE_SERIF = 11
+PAN_ARM_ANY: PAN_ARM_STYLE = 0
+PAN_ARM_NO_FIT: PAN_ARM_STYLE = 1
+PAN_STRAIGHT_ARMS_HORZ: PAN_ARM_STYLE = 2
+PAN_STRAIGHT_ARMS_WEDGE: PAN_ARM_STYLE = 3
+PAN_STRAIGHT_ARMS_VERT: PAN_ARM_STYLE = 4
+PAN_STRAIGHT_ARMS_SINGLE_SERIF: PAN_ARM_STYLE = 5
+PAN_STRAIGHT_ARMS_DOUBLE_SERIF: PAN_ARM_STYLE = 6
+PAN_BENT_ARMS_HORZ: PAN_ARM_STYLE = 7
+PAN_BENT_ARMS_WEDGE: PAN_ARM_STYLE = 8
+PAN_BENT_ARMS_VERT: PAN_ARM_STYLE = 9
+PAN_BENT_ARMS_SINGLE_SERIF: PAN_ARM_STYLE = 10
+PAN_BENT_ARMS_DOUBLE_SERIF: PAN_ARM_STYLE = 11
 PAN_CONTRAST = UInt32
-PAN_CONTRAST_ANY = 0
-PAN_CONTRAST_NO_FIT = 1
-PAN_CONTRAST_INDEX = 4
-PAN_CONTRAST_NONE = 2
-PAN_CONTRAST_VERY_LOW = 3
-PAN_CONTRAST_LOW = 4
-PAN_CONTRAST_MEDIUM_LOW = 5
-PAN_CONTRAST_MEDIUM = 6
-PAN_CONTRAST_MEDIUM_HIGH = 7
-PAN_CONTRAST_HIGH = 8
-PAN_CONTRAST_VERY_HIGH = 9
+PAN_CONTRAST_ANY: PAN_CONTRAST = 0
+PAN_CONTRAST_NO_FIT: PAN_CONTRAST = 1
+PAN_CONTRAST_INDEX: PAN_CONTRAST = 4
+PAN_CONTRAST_NONE: PAN_CONTRAST = 2
+PAN_CONTRAST_VERY_LOW: PAN_CONTRAST = 3
+PAN_CONTRAST_LOW: PAN_CONTRAST = 4
+PAN_CONTRAST_MEDIUM_LOW: PAN_CONTRAST = 5
+PAN_CONTRAST_MEDIUM: PAN_CONTRAST = 6
+PAN_CONTRAST_MEDIUM_HIGH: PAN_CONTRAST = 7
+PAN_CONTRAST_HIGH: PAN_CONTRAST = 8
+PAN_CONTRAST_VERY_HIGH: PAN_CONTRAST = 9
 PAN_FAMILY_TYPE = UInt32
-PAN_FAMILY_ANY = 0
-PAN_FAMILY_NO_FIT = 1
-PAN_FAMILY_TEXT_DISPLAY = 2
-PAN_FAMILY_SCRIPT = 3
-PAN_FAMILY_DECORATIVE = 4
-PAN_FAMILY_PICTORIAL = 5
+PAN_FAMILY_ANY: PAN_FAMILY_TYPE = 0
+PAN_FAMILY_NO_FIT: PAN_FAMILY_TYPE = 1
+PAN_FAMILY_TEXT_DISPLAY: PAN_FAMILY_TYPE = 2
+PAN_FAMILY_SCRIPT: PAN_FAMILY_TYPE = 3
+PAN_FAMILY_DECORATIVE: PAN_FAMILY_TYPE = 4
+PAN_FAMILY_PICTORIAL: PAN_FAMILY_TYPE = 5
 PAN_LETT_FORM = UInt32
-PAN_LETT_FORM_ANY = 0
-PAN_LETT_FORM_NO_FIT = 1
-PAN_LETT_NORMAL_CONTACT = 2
-PAN_LETT_NORMAL_WEIGHTED = 3
-PAN_LETT_NORMAL_BOXED = 4
-PAN_LETT_NORMAL_FLATTENED = 5
-PAN_LETT_NORMAL_ROUNDED = 6
-PAN_LETT_NORMAL_OFF_CENTER = 7
-PAN_LETT_NORMAL_SQUARE = 8
-PAN_LETT_OBLIQUE_CONTACT = 9
-PAN_LETT_OBLIQUE_WEIGHTED = 10
-PAN_LETT_OBLIQUE_BOXED = 11
-PAN_LETT_OBLIQUE_FLATTENED = 12
-PAN_LETT_OBLIQUE_ROUNDED = 13
-PAN_LETT_OBLIQUE_OFF_CENTER = 14
-PAN_LETT_OBLIQUE_SQUARE = 15
+PAN_LETT_FORM_ANY: PAN_LETT_FORM = 0
+PAN_LETT_FORM_NO_FIT: PAN_LETT_FORM = 1
+PAN_LETT_NORMAL_CONTACT: PAN_LETT_FORM = 2
+PAN_LETT_NORMAL_WEIGHTED: PAN_LETT_FORM = 3
+PAN_LETT_NORMAL_BOXED: PAN_LETT_FORM = 4
+PAN_LETT_NORMAL_FLATTENED: PAN_LETT_FORM = 5
+PAN_LETT_NORMAL_ROUNDED: PAN_LETT_FORM = 6
+PAN_LETT_NORMAL_OFF_CENTER: PAN_LETT_FORM = 7
+PAN_LETT_NORMAL_SQUARE: PAN_LETT_FORM = 8
+PAN_LETT_OBLIQUE_CONTACT: PAN_LETT_FORM = 9
+PAN_LETT_OBLIQUE_WEIGHTED: PAN_LETT_FORM = 10
+PAN_LETT_OBLIQUE_BOXED: PAN_LETT_FORM = 11
+PAN_LETT_OBLIQUE_FLATTENED: PAN_LETT_FORM = 12
+PAN_LETT_OBLIQUE_ROUNDED: PAN_LETT_FORM = 13
+PAN_LETT_OBLIQUE_OFF_CENTER: PAN_LETT_FORM = 14
+PAN_LETT_OBLIQUE_SQUARE: PAN_LETT_FORM = 15
 PAN_MIDLINE = UInt32
-PAN_MIDLINE_ANY = 0
-PAN_MIDLINE_NO_FIT = 1
-PAN_MIDLINE_INDEX = 8
-PAN_MIDLINE_STANDARD_TRIMMED = 2
-PAN_MIDLINE_STANDARD_POINTED = 3
-PAN_MIDLINE_STANDARD_SERIFED = 4
-PAN_MIDLINE_HIGH_TRIMMED = 5
-PAN_MIDLINE_HIGH_POINTED = 6
-PAN_MIDLINE_HIGH_SERIFED = 7
-PAN_MIDLINE_CONSTANT_TRIMMED = 8
-PAN_MIDLINE_CONSTANT_POINTED = 9
-PAN_MIDLINE_CONSTANT_SERIFED = 10
-PAN_MIDLINE_LOW_TRIMMED = 11
-PAN_MIDLINE_LOW_POINTED = 12
-PAN_MIDLINE_LOW_SERIFED = 13
+PAN_MIDLINE_ANY: PAN_MIDLINE = 0
+PAN_MIDLINE_NO_FIT: PAN_MIDLINE = 1
+PAN_MIDLINE_INDEX: PAN_MIDLINE = 8
+PAN_MIDLINE_STANDARD_TRIMMED: PAN_MIDLINE = 2
+PAN_MIDLINE_STANDARD_POINTED: PAN_MIDLINE = 3
+PAN_MIDLINE_STANDARD_SERIFED: PAN_MIDLINE = 4
+PAN_MIDLINE_HIGH_TRIMMED: PAN_MIDLINE = 5
+PAN_MIDLINE_HIGH_POINTED: PAN_MIDLINE = 6
+PAN_MIDLINE_HIGH_SERIFED: PAN_MIDLINE = 7
+PAN_MIDLINE_CONSTANT_TRIMMED: PAN_MIDLINE = 8
+PAN_MIDLINE_CONSTANT_POINTED: PAN_MIDLINE = 9
+PAN_MIDLINE_CONSTANT_SERIFED: PAN_MIDLINE = 10
+PAN_MIDLINE_LOW_TRIMMED: PAN_MIDLINE = 11
+PAN_MIDLINE_LOW_POINTED: PAN_MIDLINE = 12
+PAN_MIDLINE_LOW_SERIFED: PAN_MIDLINE = 13
 PAN_PROPORTION = UInt32
-PAN_PROP_ANY = 0
-PAN_PROP_NO_FIT = 1
-PAN_PROP_OLD_STYLE = 2
-PAN_PROP_MODERN = 3
-PAN_PROP_EVEN_WIDTH = 4
-PAN_PROP_EXPANDED = 5
-PAN_PROP_CONDENSED = 6
-PAN_PROP_VERY_EXPANDED = 7
-PAN_PROP_VERY_CONDENSED = 8
-PAN_PROP_MONOSPACED = 9
+PAN_PROP_ANY: PAN_PROPORTION = 0
+PAN_PROP_NO_FIT: PAN_PROPORTION = 1
+PAN_PROP_OLD_STYLE: PAN_PROPORTION = 2
+PAN_PROP_MODERN: PAN_PROPORTION = 3
+PAN_PROP_EVEN_WIDTH: PAN_PROPORTION = 4
+PAN_PROP_EXPANDED: PAN_PROPORTION = 5
+PAN_PROP_CONDENSED: PAN_PROPORTION = 6
+PAN_PROP_VERY_EXPANDED: PAN_PROPORTION = 7
+PAN_PROP_VERY_CONDENSED: PAN_PROPORTION = 8
+PAN_PROP_MONOSPACED: PAN_PROPORTION = 9
 PAN_SERIF_STYLE = UInt32
-PAN_SERIF_ANY = 0
-PAN_SERIF_NO_FIT = 1
-PAN_SERIF_COVE = 2
-PAN_SERIF_OBTUSE_COVE = 3
-PAN_SERIF_SQUARE_COVE = 4
-PAN_SERIF_OBTUSE_SQUARE_COVE = 5
-PAN_SERIF_SQUARE = 6
-PAN_SERIF_THIN = 7
-PAN_SERIF_BONE = 8
-PAN_SERIF_EXAGGERATED = 9
-PAN_SERIF_TRIANGLE = 10
-PAN_SERIF_NORMAL_SANS = 11
-PAN_SERIF_OBTUSE_SANS = 12
-PAN_SERIF_PERP_SANS = 13
-PAN_SERIF_FLARED = 14
-PAN_SERIF_ROUNDED = 15
+PAN_SERIF_ANY: PAN_SERIF_STYLE = 0
+PAN_SERIF_NO_FIT: PAN_SERIF_STYLE = 1
+PAN_SERIF_COVE: PAN_SERIF_STYLE = 2
+PAN_SERIF_OBTUSE_COVE: PAN_SERIF_STYLE = 3
+PAN_SERIF_SQUARE_COVE: PAN_SERIF_STYLE = 4
+PAN_SERIF_OBTUSE_SQUARE_COVE: PAN_SERIF_STYLE = 5
+PAN_SERIF_SQUARE: PAN_SERIF_STYLE = 6
+PAN_SERIF_THIN: PAN_SERIF_STYLE = 7
+PAN_SERIF_BONE: PAN_SERIF_STYLE = 8
+PAN_SERIF_EXAGGERATED: PAN_SERIF_STYLE = 9
+PAN_SERIF_TRIANGLE: PAN_SERIF_STYLE = 10
+PAN_SERIF_NORMAL_SANS: PAN_SERIF_STYLE = 11
+PAN_SERIF_OBTUSE_SANS: PAN_SERIF_STYLE = 12
+PAN_SERIF_PERP_SANS: PAN_SERIF_STYLE = 13
+PAN_SERIF_FLARED: PAN_SERIF_STYLE = 14
+PAN_SERIF_ROUNDED: PAN_SERIF_STYLE = 15
 PAN_STROKE_VARIATION = UInt32
-PAN_STROKE_ANY = 0
-PAN_STROKE_NO_FIT = 1
-PAN_STROKE_GRADUAL_DIAG = 2
-PAN_STROKE_GRADUAL_TRAN = 3
-PAN_STROKE_GRADUAL_VERT = 4
-PAN_STROKE_GRADUAL_HORZ = 5
-PAN_STROKE_RAPID_VERT = 6
-PAN_STROKE_RAPID_HORZ = 7
-PAN_STROKE_INSTANT_VERT = 8
+PAN_STROKE_ANY: PAN_STROKE_VARIATION = 0
+PAN_STROKE_NO_FIT: PAN_STROKE_VARIATION = 1
+PAN_STROKE_GRADUAL_DIAG: PAN_STROKE_VARIATION = 2
+PAN_STROKE_GRADUAL_TRAN: PAN_STROKE_VARIATION = 3
+PAN_STROKE_GRADUAL_VERT: PAN_STROKE_VARIATION = 4
+PAN_STROKE_GRADUAL_HORZ: PAN_STROKE_VARIATION = 5
+PAN_STROKE_RAPID_VERT: PAN_STROKE_VARIATION = 6
+PAN_STROKE_RAPID_HORZ: PAN_STROKE_VARIATION = 7
+PAN_STROKE_INSTANT_VERT: PAN_STROKE_VARIATION = 8
 PAN_WEIGHT = UInt32
-PAN_WEIGHT_ANY = 0
-PAN_WEIGHT_NO_FIT = 1
-PAN_WEIGHT_INDEX = 2
-PAN_WEIGHT_VERY_LIGHT = 2
-PAN_WEIGHT_LIGHT = 3
-PAN_WEIGHT_THIN = 4
-PAN_WEIGHT_BOOK = 5
-PAN_WEIGHT_MEDIUM = 6
-PAN_WEIGHT_DEMI = 7
-PAN_WEIGHT_BOLD = 8
-PAN_WEIGHT_HEAVY = 9
-PAN_WEIGHT_BLACK = 10
-PAN_WEIGHT_NORD = 11
+PAN_WEIGHT_ANY: PAN_WEIGHT = 0
+PAN_WEIGHT_NO_FIT: PAN_WEIGHT = 1
+PAN_WEIGHT_INDEX: PAN_WEIGHT = 2
+PAN_WEIGHT_VERY_LIGHT: PAN_WEIGHT = 2
+PAN_WEIGHT_LIGHT: PAN_WEIGHT = 3
+PAN_WEIGHT_THIN: PAN_WEIGHT = 4
+PAN_WEIGHT_BOOK: PAN_WEIGHT = 5
+PAN_WEIGHT_MEDIUM: PAN_WEIGHT = 6
+PAN_WEIGHT_DEMI: PAN_WEIGHT = 7
+PAN_WEIGHT_BOLD: PAN_WEIGHT = 8
+PAN_WEIGHT_HEAVY: PAN_WEIGHT = 9
+PAN_WEIGHT_BLACK: PAN_WEIGHT = 10
+PAN_WEIGHT_NORD: PAN_WEIGHT = 11
 PAN_XHEIGHT = UInt32
-PAN_XHEIGHT_ANY = 0
-PAN_XHEIGHT_NO_FIT = 1
-PAN_XHEIGHT_INDEX = 9
-PAN_XHEIGHT_CONSTANT_SMALL = 2
-PAN_XHEIGHT_CONSTANT_STD = 3
-PAN_XHEIGHT_CONSTANT_LARGE = 4
-PAN_XHEIGHT_DUCKING_SMALL = 5
-PAN_XHEIGHT_DUCKING_STD = 6
-PAN_XHEIGHT_DUCKING_LARGE = 7
-def _define_PANOSE_head():
-    class PANOSE(Structure):
-        pass
-    return PANOSE
-def _define_PANOSE():
-    PANOSE = win32more.Graphics.Gdi.PANOSE_head
-    PANOSE._fields_ = [
-        ('bFamilyType', win32more.Graphics.Gdi.PAN_FAMILY_TYPE),
-        ('bSerifStyle', win32more.Graphics.Gdi.PAN_SERIF_STYLE),
-        ('bWeight', win32more.Graphics.Gdi.PAN_WEIGHT),
-        ('bProportion', win32more.Graphics.Gdi.PAN_PROPORTION),
-        ('bContrast', win32more.Graphics.Gdi.PAN_CONTRAST),
-        ('bStrokeVariation', win32more.Graphics.Gdi.PAN_STROKE_VARIATION),
-        ('bArmStyle', win32more.Graphics.Gdi.PAN_ARM_STYLE),
-        ('bLetterform', win32more.Graphics.Gdi.PAN_LETT_FORM),
-        ('bMidline', win32more.Graphics.Gdi.PAN_MIDLINE),
-        ('bXHeight', win32more.Graphics.Gdi.PAN_XHEIGHT),
-    ]
-    return PANOSE
-def _define_PELARRAY_head():
-    class PELARRAY(Structure):
-        pass
-    return PELARRAY
-def _define_PELARRAY():
-    PELARRAY = win32more.Graphics.Gdi.PELARRAY_head
-    PELARRAY._fields_ = [
-        ('paXCount', Int32),
-        ('paYCount', Int32),
-        ('paXExt', Int32),
-        ('paYExt', Int32),
-        ('paRGBs', Byte),
-    ]
-    return PELARRAY
+PAN_XHEIGHT_ANY: PAN_XHEIGHT = 0
+PAN_XHEIGHT_NO_FIT: PAN_XHEIGHT = 1
+PAN_XHEIGHT_INDEX: PAN_XHEIGHT = 9
+PAN_XHEIGHT_CONSTANT_SMALL: PAN_XHEIGHT = 2
+PAN_XHEIGHT_CONSTANT_STD: PAN_XHEIGHT = 3
+PAN_XHEIGHT_CONSTANT_LARGE: PAN_XHEIGHT = 4
+PAN_XHEIGHT_DUCKING_SMALL: PAN_XHEIGHT = 5
+PAN_XHEIGHT_DUCKING_STD: PAN_XHEIGHT = 6
+PAN_XHEIGHT_DUCKING_LARGE: PAN_XHEIGHT = 7
+class PANOSE(Structure):
+    bFamilyType: win32more.Graphics.Gdi.PAN_FAMILY_TYPE
+    bSerifStyle: win32more.Graphics.Gdi.PAN_SERIF_STYLE
+    bWeight: win32more.Graphics.Gdi.PAN_WEIGHT
+    bProportion: win32more.Graphics.Gdi.PAN_PROPORTION
+    bContrast: win32more.Graphics.Gdi.PAN_CONTRAST
+    bStrokeVariation: win32more.Graphics.Gdi.PAN_STROKE_VARIATION
+    bArmStyle: win32more.Graphics.Gdi.PAN_ARM_STYLE
+    bLetterform: win32more.Graphics.Gdi.PAN_LETT_FORM
+    bMidline: win32more.Graphics.Gdi.PAN_MIDLINE
+    bXHeight: win32more.Graphics.Gdi.PAN_XHEIGHT
+class PELARRAY(Structure):
+    paXCount: Int32
+    paYCount: Int32
+    paXExt: Int32
+    paYExt: Int32
+    paRGBs: Byte
 PEN_STYLE = UInt32
-PS_GEOMETRIC = 65536
-PS_COSMETIC = 0
-PS_SOLID = 0
-PS_DASH = 1
-PS_DOT = 2
-PS_DASHDOT = 3
-PS_DASHDOTDOT = 4
-PS_NULL = 5
-PS_INSIDEFRAME = 6
-PS_USERSTYLE = 7
-PS_ALTERNATE = 8
-PS_STYLE_MASK = 15
-PS_ENDCAP_ROUND = 0
-PS_ENDCAP_SQUARE = 256
-PS_ENDCAP_FLAT = 512
-PS_ENDCAP_MASK = 3840
-PS_JOIN_ROUND = 0
-PS_JOIN_BEVEL = 4096
-PS_JOIN_MITER = 8192
-PS_JOIN_MASK = 61440
-PS_TYPE_MASK = 983040
-def _define_POINTFX_head():
-    class POINTFX(Structure):
-        pass
-    return POINTFX
-def _define_POINTFX():
-    POINTFX = win32more.Graphics.Gdi.POINTFX_head
-    POINTFX._fields_ = [
-        ('x', win32more.Graphics.Gdi.FIXED),
-        ('y', win32more.Graphics.Gdi.FIXED),
-    ]
-    return POINTFX
-def _define_POLYTEXTA_head():
-    class POLYTEXTA(Structure):
-        pass
-    return POLYTEXTA
-def _define_POLYTEXTA():
-    POLYTEXTA = win32more.Graphics.Gdi.POLYTEXTA_head
-    POLYTEXTA._fields_ = [
-        ('x', Int32),
-        ('y', Int32),
-        ('n', UInt32),
-        ('lpstr', win32more.Foundation.PSTR),
-        ('uiFlags', UInt32),
-        ('rcl', win32more.Foundation.RECT),
-        ('pdx', POINTER(Int32)),
-    ]
-    return POLYTEXTA
-def _define_POLYTEXTW_head():
-    class POLYTEXTW(Structure):
-        pass
-    return POLYTEXTW
-def _define_POLYTEXTW():
-    POLYTEXTW = win32more.Graphics.Gdi.POLYTEXTW_head
-    POLYTEXTW._fields_ = [
-        ('x', Int32),
-        ('y', Int32),
-        ('n', UInt32),
-        ('lpstr', win32more.Foundation.PWSTR),
-        ('uiFlags', UInt32),
-        ('rcl', win32more.Foundation.RECT),
-        ('pdx', POINTER(Int32)),
-    ]
-    return POLYTEXTW
+PS_GEOMETRIC: PEN_STYLE = 65536
+PS_COSMETIC: PEN_STYLE = 0
+PS_SOLID: PEN_STYLE = 0
+PS_DASH: PEN_STYLE = 1
+PS_DOT: PEN_STYLE = 2
+PS_DASHDOT: PEN_STYLE = 3
+PS_DASHDOTDOT: PEN_STYLE = 4
+PS_NULL: PEN_STYLE = 5
+PS_INSIDEFRAME: PEN_STYLE = 6
+PS_USERSTYLE: PEN_STYLE = 7
+PS_ALTERNATE: PEN_STYLE = 8
+PS_STYLE_MASK: PEN_STYLE = 15
+PS_ENDCAP_ROUND: PEN_STYLE = 0
+PS_ENDCAP_SQUARE: PEN_STYLE = 256
+PS_ENDCAP_FLAT: PEN_STYLE = 512
+PS_ENDCAP_MASK: PEN_STYLE = 3840
+PS_JOIN_ROUND: PEN_STYLE = 0
+PS_JOIN_BEVEL: PEN_STYLE = 4096
+PS_JOIN_MITER: PEN_STYLE = 8192
+PS_JOIN_MASK: PEN_STYLE = 61440
+PS_TYPE_MASK: PEN_STYLE = 983040
+class POINTFX(Structure):
+    x: win32more.Graphics.Gdi.FIXED
+    y: win32more.Graphics.Gdi.FIXED
+class POLYTEXTA(Structure):
+    x: Int32
+    y: Int32
+    n: UInt32
+    lpstr: win32more.Foundation.PSTR
+    uiFlags: UInt32
+    rcl: win32more.Foundation.RECT
+    pdx: POINTER(Int32)
+class POLYTEXTW(Structure):
+    x: Int32
+    y: Int32
+    n: UInt32
+    lpstr: win32more.Foundation.PWSTR
+    uiFlags: UInt32
+    rcl: win32more.Foundation.RECT
+    pdx: POINTER(Int32)
 R2_MODE = Int32
-R2_BLACK = 1
-R2_NOTMERGEPEN = 2
-R2_MASKNOTPEN = 3
-R2_NOTCOPYPEN = 4
-R2_MASKPENNOT = 5
-R2_NOT = 6
-R2_XORPEN = 7
-R2_NOTMASKPEN = 8
-R2_MASKPEN = 9
-R2_NOTXORPEN = 10
-R2_NOP = 11
-R2_MERGENOTPEN = 12
-R2_COPYPEN = 13
-R2_MERGEPENNOT = 14
-R2_MERGEPEN = 15
-R2_WHITE = 16
-R2_LAST = 16
-def _define_RASTERIZER_STATUS_head():
-    class RASTERIZER_STATUS(Structure):
-        pass
-    return RASTERIZER_STATUS
-def _define_RASTERIZER_STATUS():
-    RASTERIZER_STATUS = win32more.Graphics.Gdi.RASTERIZER_STATUS_head
-    RASTERIZER_STATUS._fields_ = [
-        ('nSize', Int16),
-        ('wFlags', Int16),
-        ('nLanguageID', Int16),
-    ]
-    return RASTERIZER_STATUS
-def _define_READEMBEDPROC():
-    return CFUNCTYPE(UInt32,c_void_p,c_void_p,UInt32)
+R2_BLACK: R2_MODE = 1
+R2_NOTMERGEPEN: R2_MODE = 2
+R2_MASKNOTPEN: R2_MODE = 3
+R2_NOTCOPYPEN: R2_MODE = 4
+R2_MASKPENNOT: R2_MODE = 5
+R2_NOT: R2_MODE = 6
+R2_XORPEN: R2_MODE = 7
+R2_NOTMASKPEN: R2_MODE = 8
+R2_MASKPEN: R2_MODE = 9
+R2_NOTXORPEN: R2_MODE = 10
+R2_NOP: R2_MODE = 11
+R2_MERGENOTPEN: R2_MODE = 12
+R2_COPYPEN: R2_MODE = 13
+R2_MERGEPENNOT: R2_MODE = 14
+R2_MERGEPEN: R2_MODE = 15
+R2_WHITE: R2_MODE = 16
+R2_LAST: R2_MODE = 16
+class RASTERIZER_STATUS(Structure):
+    nSize: Int16
+    wFlags: Int16
+    nLanguageID: Int16
+@cfunctype_pointer
+def READEMBEDPROC(param0: c_void_p, param1: c_void_p, param2: UInt32) -> UInt32: ...
 REDRAW_WINDOW_FLAGS = UInt32
-RDW_INVALIDATE = 1
-RDW_INTERNALPAINT = 2
-RDW_ERASE = 4
-RDW_VALIDATE = 8
-RDW_NOINTERNALPAINT = 16
-RDW_NOERASE = 32
-RDW_NOCHILDREN = 64
-RDW_ALLCHILDREN = 128
-RDW_UPDATENOW = 256
-RDW_ERASENOW = 512
-RDW_FRAME = 1024
-RDW_NOFRAME = 2048
-def _define_RGBQUAD_head():
-    class RGBQUAD(Structure):
-        pass
-    return RGBQUAD
-def _define_RGBQUAD():
-    RGBQUAD = win32more.Graphics.Gdi.RGBQUAD_head
-    RGBQUAD._fields_ = [
-        ('rgbBlue', Byte),
-        ('rgbGreen', Byte),
-        ('rgbRed', Byte),
-        ('rgbReserved', Byte),
-    ]
-    return RGBQUAD
-def _define_RGBTRIPLE_head():
-    class RGBTRIPLE(Structure):
-        pass
-    return RGBTRIPLE
-def _define_RGBTRIPLE():
-    RGBTRIPLE = win32more.Graphics.Gdi.RGBTRIPLE_head
-    RGBTRIPLE._fields_ = [
-        ('rgbtBlue', Byte),
-        ('rgbtGreen', Byte),
-        ('rgbtRed', Byte),
-    ]
-    return RGBTRIPLE
+RDW_INVALIDATE: REDRAW_WINDOW_FLAGS = 1
+RDW_INTERNALPAINT: REDRAW_WINDOW_FLAGS = 2
+RDW_ERASE: REDRAW_WINDOW_FLAGS = 4
+RDW_VALIDATE: REDRAW_WINDOW_FLAGS = 8
+RDW_NOINTERNALPAINT: REDRAW_WINDOW_FLAGS = 16
+RDW_NOERASE: REDRAW_WINDOW_FLAGS = 32
+RDW_NOCHILDREN: REDRAW_WINDOW_FLAGS = 64
+RDW_ALLCHILDREN: REDRAW_WINDOW_FLAGS = 128
+RDW_UPDATENOW: REDRAW_WINDOW_FLAGS = 256
+RDW_ERASENOW: REDRAW_WINDOW_FLAGS = 512
+RDW_FRAME: REDRAW_WINDOW_FLAGS = 1024
+RDW_NOFRAME: REDRAW_WINDOW_FLAGS = 2048
+class RGBQUAD(Structure):
+    rgbBlue: Byte
+    rgbGreen: Byte
+    rgbRed: Byte
+    rgbReserved: Byte
+class RGBTRIPLE(Structure):
+    rgbtBlue: Byte
+    rgbtGreen: Byte
+    rgbtRed: Byte
 RGN_COMBINE_MODE = Int32
-RGN_AND = 1
-RGN_OR = 2
-RGN_XOR = 3
-RGN_DIFF = 4
-RGN_COPY = 5
-RGN_MIN = 1
-RGN_MAX = 5
-def _define_RGNDATA_head():
-    class RGNDATA(Structure):
-        pass
-    return RGNDATA
-def _define_RGNDATA():
-    RGNDATA = win32more.Graphics.Gdi.RGNDATA_head
-    RGNDATA._fields_ = [
-        ('rdh', win32more.Graphics.Gdi.RGNDATAHEADER),
-        ('Buffer', win32more.Foundation.CHAR * 1),
-    ]
-    return RGNDATA
-def _define_RGNDATAHEADER_head():
-    class RGNDATAHEADER(Structure):
-        pass
-    return RGNDATAHEADER
-def _define_RGNDATAHEADER():
-    RGNDATAHEADER = win32more.Graphics.Gdi.RGNDATAHEADER_head
-    RGNDATAHEADER._fields_ = [
-        ('dwSize', UInt32),
-        ('iType', UInt32),
-        ('nCount', UInt32),
-        ('nRgnSize', UInt32),
-        ('rcBound', win32more.Foundation.RECT),
-    ]
-    return RGNDATAHEADER
+RGN_AND: RGN_COMBINE_MODE = 1
+RGN_OR: RGN_COMBINE_MODE = 2
+RGN_XOR: RGN_COMBINE_MODE = 3
+RGN_DIFF: RGN_COMBINE_MODE = 4
+RGN_COPY: RGN_COMBINE_MODE = 5
+RGN_MIN: RGN_COMBINE_MODE = 1
+RGN_MAX: RGN_COMBINE_MODE = 5
+class RGNDATA(Structure):
+    rdh: win32more.Graphics.Gdi.RGNDATAHEADER
+    Buffer: win32more.Foundation.CHAR * 1
+class RGNDATAHEADER(Structure):
+    dwSize: UInt32
+    iType: UInt32
+    nCount: UInt32
+    nRgnSize: UInt32
+    rcBound: win32more.Foundation.RECT
 ROP_CODE = UInt32
-BLACKNESS = 66
-NOTSRCERASE = 1114278
-NOTSRCCOPY = 3342344
-SRCERASE = 4457256
-DSTINVERT = 5570569
-PATINVERT = 5898313
-SRCINVERT = 6684742
-SRCAND = 8913094
-MERGEPAINT = 12255782
-MERGECOPY = 12583114
-SRCCOPY = 13369376
-SRCPAINT = 15597702
-PATCOPY = 15728673
-PATPAINT = 16452105
-WHITENESS = 16711778
-CAPTUREBLT = 1073741824
-NOMIRRORBITMAP = 2147483648
+BLACKNESS: ROP_CODE = 66
+NOTSRCERASE: ROP_CODE = 1114278
+NOTSRCCOPY: ROP_CODE = 3342344
+SRCERASE: ROP_CODE = 4457256
+DSTINVERT: ROP_CODE = 5570569
+PATINVERT: ROP_CODE = 5898313
+SRCINVERT: ROP_CODE = 6684742
+SRCAND: ROP_CODE = 8913094
+MERGEPAINT: ROP_CODE = 12255782
+MERGECOPY: ROP_CODE = 12583114
+SRCCOPY: ROP_CODE = 13369376
+SRCPAINT: ROP_CODE = 15597702
+PATCOPY: ROP_CODE = 15728673
+PATPAINT: ROP_CODE = 16452105
+WHITENESS: ROP_CODE = 16711778
+CAPTUREBLT: ROP_CODE = 1073741824
+NOMIRRORBITMAP: ROP_CODE = 2147483648
 SET_BOUNDS_RECT_FLAGS = UInt32
-DCB_ACCUMULATE = 2
-DCB_DISABLE = 8
-DCB_ENABLE = 4
-DCB_RESET = 1
+DCB_ACCUMULATE: SET_BOUNDS_RECT_FLAGS = 2
+DCB_DISABLE: SET_BOUNDS_RECT_FLAGS = 8
+DCB_ENABLE: SET_BOUNDS_RECT_FLAGS = 4
+DCB_RESET: SET_BOUNDS_RECT_FLAGS = 1
 STRETCH_BLT_MODE = UInt32
-BLACKONWHITE = 1
-COLORONCOLOR = 3
-HALFTONE = 4
-STRETCH_ANDSCANS = 1
-STRETCH_DELETESCANS = 3
-STRETCH_HALFTONE = 4
-STRETCH_ORSCANS = 2
-WHITEONBLACK = 2
+BLACKONWHITE: STRETCH_BLT_MODE = 1
+COLORONCOLOR: STRETCH_BLT_MODE = 3
+HALFTONE: STRETCH_BLT_MODE = 4
+STRETCH_ANDSCANS: STRETCH_BLT_MODE = 1
+STRETCH_DELETESCANS: STRETCH_BLT_MODE = 3
+STRETCH_HALFTONE: STRETCH_BLT_MODE = 4
+STRETCH_ORSCANS: STRETCH_BLT_MODE = 2
+WHITEONBLACK: STRETCH_BLT_MODE = 2
 SYS_COLOR_INDEX = Int32
-COLOR_SCROLLBAR = 0
-COLOR_BACKGROUND = 1
-COLOR_ACTIVECAPTION = 2
-COLOR_INACTIVECAPTION = 3
-COLOR_MENU = 4
-COLOR_WINDOW = 5
-COLOR_WINDOWFRAME = 6
-COLOR_MENUTEXT = 7
-COLOR_WINDOWTEXT = 8
-COLOR_CAPTIONTEXT = 9
-COLOR_ACTIVEBORDER = 10
-COLOR_INACTIVEBORDER = 11
-COLOR_APPWORKSPACE = 12
-COLOR_HIGHLIGHT = 13
-COLOR_HIGHLIGHTTEXT = 14
-COLOR_BTNFACE = 15
-COLOR_BTNSHADOW = 16
-COLOR_GRAYTEXT = 17
-COLOR_BTNTEXT = 18
-COLOR_INACTIVECAPTIONTEXT = 19
-COLOR_BTNHIGHLIGHT = 20
-COLOR_3DDKSHADOW = 21
-COLOR_3DLIGHT = 22
-COLOR_INFOTEXT = 23
-COLOR_INFOBK = 24
-COLOR_HOTLIGHT = 26
-COLOR_GRADIENTACTIVECAPTION = 27
-COLOR_GRADIENTINACTIVECAPTION = 28
-COLOR_MENUHILIGHT = 29
-COLOR_MENUBAR = 30
-COLOR_DESKTOP = 1
-COLOR_3DFACE = 15
-COLOR_3DSHADOW = 16
-COLOR_3DHIGHLIGHT = 20
-COLOR_3DHILIGHT = 20
-COLOR_BTNHILIGHT = 20
+COLOR_SCROLLBAR: SYS_COLOR_INDEX = 0
+COLOR_BACKGROUND: SYS_COLOR_INDEX = 1
+COLOR_ACTIVECAPTION: SYS_COLOR_INDEX = 2
+COLOR_INACTIVECAPTION: SYS_COLOR_INDEX = 3
+COLOR_MENU: SYS_COLOR_INDEX = 4
+COLOR_WINDOW: SYS_COLOR_INDEX = 5
+COLOR_WINDOWFRAME: SYS_COLOR_INDEX = 6
+COLOR_MENUTEXT: SYS_COLOR_INDEX = 7
+COLOR_WINDOWTEXT: SYS_COLOR_INDEX = 8
+COLOR_CAPTIONTEXT: SYS_COLOR_INDEX = 9
+COLOR_ACTIVEBORDER: SYS_COLOR_INDEX = 10
+COLOR_INACTIVEBORDER: SYS_COLOR_INDEX = 11
+COLOR_APPWORKSPACE: SYS_COLOR_INDEX = 12
+COLOR_HIGHLIGHT: SYS_COLOR_INDEX = 13
+COLOR_HIGHLIGHTTEXT: SYS_COLOR_INDEX = 14
+COLOR_BTNFACE: SYS_COLOR_INDEX = 15
+COLOR_BTNSHADOW: SYS_COLOR_INDEX = 16
+COLOR_GRAYTEXT: SYS_COLOR_INDEX = 17
+COLOR_BTNTEXT: SYS_COLOR_INDEX = 18
+COLOR_INACTIVECAPTIONTEXT: SYS_COLOR_INDEX = 19
+COLOR_BTNHIGHLIGHT: SYS_COLOR_INDEX = 20
+COLOR_3DDKSHADOW: SYS_COLOR_INDEX = 21
+COLOR_3DLIGHT: SYS_COLOR_INDEX = 22
+COLOR_INFOTEXT: SYS_COLOR_INDEX = 23
+COLOR_INFOBK: SYS_COLOR_INDEX = 24
+COLOR_HOTLIGHT: SYS_COLOR_INDEX = 26
+COLOR_GRADIENTACTIVECAPTION: SYS_COLOR_INDEX = 27
+COLOR_GRADIENTINACTIVECAPTION: SYS_COLOR_INDEX = 28
+COLOR_MENUHILIGHT: SYS_COLOR_INDEX = 29
+COLOR_MENUBAR: SYS_COLOR_INDEX = 30
+COLOR_DESKTOP: SYS_COLOR_INDEX = 1
+COLOR_3DFACE: SYS_COLOR_INDEX = 15
+COLOR_3DSHADOW: SYS_COLOR_INDEX = 16
+COLOR_3DHIGHLIGHT: SYS_COLOR_INDEX = 20
+COLOR_3DHILIGHT: SYS_COLOR_INDEX = 20
+COLOR_BTNHILIGHT: SYS_COLOR_INDEX = 20
 SYSTEM_PALETTE_USE = UInt32
-SYSPAL_NOSTATIC = 2
-SYSPAL_NOSTATIC256 = 3
-SYSPAL_STATIC = 1
+SYSPAL_NOSTATIC: SYSTEM_PALETTE_USE = 2
+SYSPAL_NOSTATIC256: SYSTEM_PALETTE_USE = 3
+SYSPAL_STATIC: SYSTEM_PALETTE_USE = 1
 TEXT_ALIGN_OPTIONS = UInt32
-TA_NOUPDATECP = 0
-TA_UPDATECP = 1
-TA_LEFT = 0
-TA_RIGHT = 2
-TA_CENTER = 6
-TA_TOP = 0
-TA_BOTTOM = 8
-TA_BASELINE = 24
-TA_RTLREADING = 256
-TA_MASK = 287
-VTA_BASELINE = 24
-VTA_LEFT = 8
-VTA_RIGHT = 0
-VTA_CENTER = 6
-VTA_BOTTOM = 2
-VTA_TOP = 0
-def _define_TEXTMETRICA_head():
-    class TEXTMETRICA(Structure):
-        pass
-    return TEXTMETRICA
-def _define_TEXTMETRICA():
-    TEXTMETRICA = win32more.Graphics.Gdi.TEXTMETRICA_head
-    TEXTMETRICA._fields_ = [
-        ('tmHeight', Int32),
-        ('tmAscent', Int32),
-        ('tmDescent', Int32),
-        ('tmInternalLeading', Int32),
-        ('tmExternalLeading', Int32),
-        ('tmAveCharWidth', Int32),
-        ('tmMaxCharWidth', Int32),
-        ('tmWeight', Int32),
-        ('tmOverhang', Int32),
-        ('tmDigitizedAspectX', Int32),
-        ('tmDigitizedAspectY', Int32),
-        ('tmFirstChar', Byte),
-        ('tmLastChar', Byte),
-        ('tmDefaultChar', Byte),
-        ('tmBreakChar', Byte),
-        ('tmItalic', Byte),
-        ('tmUnderlined', Byte),
-        ('tmStruckOut', Byte),
-        ('tmPitchAndFamily', win32more.Graphics.Gdi.TMPF_FLAGS),
-        ('tmCharSet', Byte),
-    ]
-    return TEXTMETRICA
-def _define_TEXTMETRICW_head():
-    class TEXTMETRICW(Structure):
-        pass
-    return TEXTMETRICW
-def _define_TEXTMETRICW():
-    TEXTMETRICW = win32more.Graphics.Gdi.TEXTMETRICW_head
-    TEXTMETRICW._fields_ = [
-        ('tmHeight', Int32),
-        ('tmAscent', Int32),
-        ('tmDescent', Int32),
-        ('tmInternalLeading', Int32),
-        ('tmExternalLeading', Int32),
-        ('tmAveCharWidth', Int32),
-        ('tmMaxCharWidth', Int32),
-        ('tmWeight', Int32),
-        ('tmOverhang', Int32),
-        ('tmDigitizedAspectX', Int32),
-        ('tmDigitizedAspectY', Int32),
-        ('tmFirstChar', Char),
-        ('tmLastChar', Char),
-        ('tmDefaultChar', Char),
-        ('tmBreakChar', Char),
-        ('tmItalic', Byte),
-        ('tmUnderlined', Byte),
-        ('tmStruckOut', Byte),
-        ('tmPitchAndFamily', win32more.Graphics.Gdi.TMPF_FLAGS),
-        ('tmCharSet', Byte),
-    ]
-    return TEXTMETRICW
+TA_NOUPDATECP: TEXT_ALIGN_OPTIONS = 0
+TA_UPDATECP: TEXT_ALIGN_OPTIONS = 1
+TA_LEFT: TEXT_ALIGN_OPTIONS = 0
+TA_RIGHT: TEXT_ALIGN_OPTIONS = 2
+TA_CENTER: TEXT_ALIGN_OPTIONS = 6
+TA_TOP: TEXT_ALIGN_OPTIONS = 0
+TA_BOTTOM: TEXT_ALIGN_OPTIONS = 8
+TA_BASELINE: TEXT_ALIGN_OPTIONS = 24
+TA_RTLREADING: TEXT_ALIGN_OPTIONS = 256
+TA_MASK: TEXT_ALIGN_OPTIONS = 287
+VTA_BASELINE: TEXT_ALIGN_OPTIONS = 24
+VTA_LEFT: TEXT_ALIGN_OPTIONS = 8
+VTA_RIGHT: TEXT_ALIGN_OPTIONS = 0
+VTA_CENTER: TEXT_ALIGN_OPTIONS = 6
+VTA_BOTTOM: TEXT_ALIGN_OPTIONS = 2
+VTA_TOP: TEXT_ALIGN_OPTIONS = 0
+class TEXTMETRICA(Structure):
+    tmHeight: Int32
+    tmAscent: Int32
+    tmDescent: Int32
+    tmInternalLeading: Int32
+    tmExternalLeading: Int32
+    tmAveCharWidth: Int32
+    tmMaxCharWidth: Int32
+    tmWeight: Int32
+    tmOverhang: Int32
+    tmDigitizedAspectX: Int32
+    tmDigitizedAspectY: Int32
+    tmFirstChar: Byte
+    tmLastChar: Byte
+    tmDefaultChar: Byte
+    tmBreakChar: Byte
+    tmItalic: Byte
+    tmUnderlined: Byte
+    tmStruckOut: Byte
+    tmPitchAndFamily: win32more.Graphics.Gdi.TMPF_FLAGS
+    tmCharSet: Byte
+class TEXTMETRICW(Structure):
+    tmHeight: Int32
+    tmAscent: Int32
+    tmDescent: Int32
+    tmInternalLeading: Int32
+    tmExternalLeading: Int32
+    tmAveCharWidth: Int32
+    tmMaxCharWidth: Int32
+    tmWeight: Int32
+    tmOverhang: Int32
+    tmDigitizedAspectX: Int32
+    tmDigitizedAspectY: Int32
+    tmFirstChar: Char
+    tmLastChar: Char
+    tmDefaultChar: Char
+    tmBreakChar: Char
+    tmItalic: Byte
+    tmUnderlined: Byte
+    tmStruckOut: Byte
+    tmPitchAndFamily: win32more.Graphics.Gdi.TMPF_FLAGS
+    tmCharSet: Byte
 TMPF_FLAGS = Byte
-TMPF_FIXED_PITCH = 1
-TMPF_VECTOR = 2
-TMPF_DEVICE = 8
-TMPF_TRUETYPE = 4
-def _define_TRIVERTEX_head():
-    class TRIVERTEX(Structure):
-        pass
-    return TRIVERTEX
-def _define_TRIVERTEX():
-    TRIVERTEX = win32more.Graphics.Gdi.TRIVERTEX_head
-    TRIVERTEX._fields_ = [
-        ('x', Int32),
-        ('y', Int32),
-        ('Red', UInt16),
-        ('Green', UInt16),
-        ('Blue', UInt16),
-        ('Alpha', UInt16),
-    ]
-    return TRIVERTEX
+TMPF_FIXED_PITCH: TMPF_FLAGS = 1
+TMPF_VECTOR: TMPF_FLAGS = 2
+TMPF_DEVICE: TMPF_FLAGS = 8
+TMPF_TRUETYPE: TMPF_FLAGS = 4
+class TRIVERTEX(Structure):
+    x: Int32
+    y: Int32
+    Red: UInt16
+    Green: UInt16
+    Blue: UInt16
+    Alpha: UInt16
 TTEMBED_FLAGS = UInt32
-TTEMBED_EMBEDEUDC = 32
-TTEMBED_RAW = 0
-TTEMBED_SUBSET = 1
-TTEMBED_TTCOMPRESSED = 4
-def _define_TTEMBEDINFO_head():
-    class TTEMBEDINFO(Structure):
-        pass
-    return TTEMBEDINFO
-def _define_TTEMBEDINFO():
-    TTEMBEDINFO = win32more.Graphics.Gdi.TTEMBEDINFO_head
-    TTEMBEDINFO._fields_ = [
-        ('usStructSize', UInt16),
-        ('usRootStrSize', UInt16),
-        ('pusRootStr', POINTER(UInt16)),
-    ]
-    return TTEMBEDINFO
+TTEMBED_EMBEDEUDC: TTEMBED_FLAGS = 32
+TTEMBED_RAW: TTEMBED_FLAGS = 0
+TTEMBED_SUBSET: TTEMBED_FLAGS = 1
+TTEMBED_TTCOMPRESSED: TTEMBED_FLAGS = 4
+class TTEMBEDINFO(Structure):
+    usStructSize: UInt16
+    usRootStrSize: UInt16
+    pusRootStr: POINTER(UInt16)
 TTLOAD_EMBEDDED_FONT_STATUS = UInt32
-TTLOAD_FONT_SUBSETTED = 1
-TTLOAD_FONT_IN_SYSSTARTUP = 2
-def _define_TTLOADINFO_head():
-    class TTLOADINFO(Structure):
-        pass
-    return TTLOADINFO
-def _define_TTLOADINFO():
-    TTLOADINFO = win32more.Graphics.Gdi.TTLOADINFO_head
-    TTLOADINFO._fields_ = [
-        ('usStructSize', UInt16),
-        ('usRefStrSize', UInt16),
-        ('pusRefStr', POINTER(UInt16)),
-    ]
-    return TTLOADINFO
-def _define_TTPOLYCURVE_head():
-    class TTPOLYCURVE(Structure):
-        pass
-    return TTPOLYCURVE
-def _define_TTPOLYCURVE():
-    TTPOLYCURVE = win32more.Graphics.Gdi.TTPOLYCURVE_head
-    TTPOLYCURVE._fields_ = [
-        ('wType', UInt16),
-        ('cpfx', UInt16),
-        ('apfx', win32more.Graphics.Gdi.POINTFX * 1),
-    ]
-    return TTPOLYCURVE
-def _define_TTPOLYGONHEADER_head():
-    class TTPOLYGONHEADER(Structure):
-        pass
-    return TTPOLYGONHEADER
-def _define_TTPOLYGONHEADER():
-    TTPOLYGONHEADER = win32more.Graphics.Gdi.TTPOLYGONHEADER_head
-    TTPOLYGONHEADER._fields_ = [
-        ('cb', UInt32),
-        ('dwType', UInt32),
-        ('pfxStart', win32more.Graphics.Gdi.POINTFX),
-    ]
-    return TTPOLYGONHEADER
-def _define_TTVALIDATIONTESTSPARAMS_head():
-    class TTVALIDATIONTESTSPARAMS(Structure):
-        pass
-    return TTVALIDATIONTESTSPARAMS
-def _define_TTVALIDATIONTESTSPARAMS():
-    TTVALIDATIONTESTSPARAMS = win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMS_head
-    TTVALIDATIONTESTSPARAMS._fields_ = [
-        ('ulStructSize', UInt32),
-        ('lTestFromSize', Int32),
-        ('lTestToSize', Int32),
-        ('ulCharSet', UInt32),
-        ('usReserved1', UInt16),
-        ('usCharCodeCount', UInt16),
-        ('pusCharCodeSet', POINTER(UInt16)),
-    ]
-    return TTVALIDATIONTESTSPARAMS
-def _define_TTVALIDATIONTESTSPARAMSEX_head():
-    class TTVALIDATIONTESTSPARAMSEX(Structure):
-        pass
-    return TTVALIDATIONTESTSPARAMSEX
-def _define_TTVALIDATIONTESTSPARAMSEX():
-    TTVALIDATIONTESTSPARAMSEX = win32more.Graphics.Gdi.TTVALIDATIONTESTSPARAMSEX_head
-    TTVALIDATIONTESTSPARAMSEX._fields_ = [
-        ('ulStructSize', UInt32),
-        ('lTestFromSize', Int32),
-        ('lTestToSize', Int32),
-        ('ulCharSet', UInt32),
-        ('usReserved1', UInt16),
-        ('usCharCodeCount', UInt16),
-        ('pulCharCodeSet', POINTER(UInt32)),
-    ]
-    return TTVALIDATIONTESTSPARAMSEX
-def _define_WCRANGE_head():
-    class WCRANGE(Structure):
-        pass
-    return WCRANGE
-def _define_WCRANGE():
-    WCRANGE = win32more.Graphics.Gdi.WCRANGE_head
-    WCRANGE._fields_ = [
-        ('wcLow', Char),
-        ('cGlyphs', UInt16),
-    ]
-    return WCRANGE
-def _define_WGLSWAP_head():
-    class WGLSWAP(Structure):
-        pass
-    return WGLSWAP
-def _define_WGLSWAP():
-    WGLSWAP = win32more.Graphics.Gdi.WGLSWAP_head
-    WGLSWAP._fields_ = [
-        ('hdc', win32more.Graphics.Gdi.HDC),
-        ('uiFlags', UInt32),
-    ]
-    return WGLSWAP
-def _define_WRITEEMBEDPROC():
-    return CFUNCTYPE(UInt32,c_void_p,c_void_p,UInt32)
-def _define_XFORM_head():
-    class XFORM(Structure):
-        pass
-    return XFORM
-def _define_XFORM():
-    XFORM = win32more.Graphics.Gdi.XFORM_head
-    XFORM._fields_ = [
-        ('eM11', Single),
-        ('eM12', Single),
-        ('eM21', Single),
-        ('eM22', Single),
-        ('eDx', Single),
-        ('eDy', Single),
-    ]
-    return XFORM
+TTLOAD_FONT_SUBSETTED: TTLOAD_EMBEDDED_FONT_STATUS = 1
+TTLOAD_FONT_IN_SYSSTARTUP: TTLOAD_EMBEDDED_FONT_STATUS = 2
+class TTLOADINFO(Structure):
+    usStructSize: UInt16
+    usRefStrSize: UInt16
+    pusRefStr: POINTER(UInt16)
+class TTPOLYCURVE(Structure):
+    wType: UInt16
+    cpfx: UInt16
+    apfx: win32more.Graphics.Gdi.POINTFX * 1
+class TTPOLYGONHEADER(Structure):
+    cb: UInt32
+    dwType: UInt32
+    pfxStart: win32more.Graphics.Gdi.POINTFX
+class TTVALIDATIONTESTSPARAMS(Structure):
+    ulStructSize: UInt32
+    lTestFromSize: Int32
+    lTestToSize: Int32
+    ulCharSet: UInt32
+    usReserved1: UInt16
+    usCharCodeCount: UInt16
+    pusCharCodeSet: POINTER(UInt16)
+class TTVALIDATIONTESTSPARAMSEX(Structure):
+    ulStructSize: UInt32
+    lTestFromSize: Int32
+    lTestToSize: Int32
+    ulCharSet: UInt32
+    usReserved1: UInt16
+    usCharCodeCount: UInt16
+    pulCharCodeSet: POINTER(UInt32)
+class WCRANGE(Structure):
+    wcLow: Char
+    cGlyphs: UInt16
+class WGLSWAP(Structure):
+    hdc: win32more.Graphics.Gdi.HDC
+    uiFlags: UInt32
+@cfunctype_pointer
+def WRITEEMBEDPROC(param0: c_void_p, param1: c_void_p, param2: UInt32) -> UInt32: ...
+class XFORM(Structure):
+    eM11: Single
+    eM12: Single
+    eM21: Single
+    eM22: Single
+    eDx: Single
+    eDy: Single
+make_head(_module, 'ABC')
+make_head(_module, 'ABCFLOAT')
+make_head(_module, 'ABORTPATH')
+make_head(_module, 'AXESLISTA')
+make_head(_module, 'AXESLISTW')
+make_head(_module, 'AXISINFOA')
+make_head(_module, 'AXISINFOW')
+make_head(_module, 'BITMAP')
+make_head(_module, 'BITMAPCOREHEADER')
+make_head(_module, 'BITMAPCOREINFO')
+make_head(_module, 'BITMAPFILEHEADER')
+make_head(_module, 'BITMAPINFO')
+make_head(_module, 'BITMAPINFOHEADER')
+make_head(_module, 'BITMAPV4HEADER')
+make_head(_module, 'BITMAPV5HEADER')
+make_head(_module, 'BLENDFUNCTION')
+make_head(_module, 'CFP_ALLOCPROC')
+make_head(_module, 'CFP_FREEPROC')
+make_head(_module, 'CFP_REALLOCPROC')
+make_head(_module, 'CIEXYZ')
+make_head(_module, 'CIEXYZTRIPLE')
+make_head(_module, 'COLORADJUSTMENT')
+make_head(_module, 'DESIGNVECTOR')
+make_head(_module, 'DEVMODEA')
+make_head(_module, 'DEVMODEW')
+make_head(_module, 'DIBSECTION')
+make_head(_module, 'DISPLAY_DEVICEA')
+make_head(_module, 'DISPLAY_DEVICEW')
+make_head(_module, 'DRAWSTATEPROC')
+make_head(_module, 'DRAWTEXTPARAMS')
+make_head(_module, 'EMR')
+make_head(_module, 'EMRALPHABLEND')
+make_head(_module, 'EMRANGLEARC')
+make_head(_module, 'EMRARC')
+make_head(_module, 'EMRBITBLT')
+make_head(_module, 'EMRCOLORCORRECTPALETTE')
+make_head(_module, 'EMRCOLORMATCHTOTARGET')
+make_head(_module, 'EMRCREATEBRUSHINDIRECT')
+make_head(_module, 'EMRCREATEDIBPATTERNBRUSHPT')
+make_head(_module, 'EMRCREATEMONOBRUSH')
+make_head(_module, 'EMRCREATEPALETTE')
+make_head(_module, 'EMRCREATEPEN')
+make_head(_module, 'EMRELLIPSE')
+make_head(_module, 'EMREOF')
+make_head(_module, 'EMREXCLUDECLIPRECT')
+make_head(_module, 'EMREXTCREATEFONTINDIRECTW')
+make_head(_module, 'EMREXTCREATEPEN')
+make_head(_module, 'EMREXTESCAPE')
+make_head(_module, 'EMREXTFLOODFILL')
+make_head(_module, 'EMREXTSELECTCLIPRGN')
+make_head(_module, 'EMREXTTEXTOUTA')
+make_head(_module, 'EMRFILLPATH')
+make_head(_module, 'EMRFILLRGN')
+make_head(_module, 'EMRFORMAT')
+make_head(_module, 'EMRFRAMERGN')
+make_head(_module, 'EMRGDICOMMENT')
+make_head(_module, 'EMRGLSBOUNDEDRECORD')
+make_head(_module, 'EMRGLSRECORD')
+make_head(_module, 'EMRGRADIENTFILL')
+make_head(_module, 'EMRINVERTRGN')
+make_head(_module, 'EMRLINETO')
+make_head(_module, 'EMRMASKBLT')
+make_head(_module, 'EMRMODIFYWORLDTRANSFORM')
+make_head(_module, 'EMRNAMEDESCAPE')
+make_head(_module, 'EMROFFSETCLIPRGN')
+make_head(_module, 'EMRPLGBLT')
+make_head(_module, 'EMRPOLYDRAW')
+make_head(_module, 'EMRPOLYDRAW16')
+make_head(_module, 'EMRPOLYLINE')
+make_head(_module, 'EMRPOLYLINE16')
+make_head(_module, 'EMRPOLYPOLYLINE')
+make_head(_module, 'EMRPOLYPOLYLINE16')
+make_head(_module, 'EMRPOLYTEXTOUTA')
+make_head(_module, 'EMRRESIZEPALETTE')
+make_head(_module, 'EMRRESTOREDC')
+make_head(_module, 'EMRROUNDRECT')
+make_head(_module, 'EMRSCALEVIEWPORTEXTEX')
+make_head(_module, 'EMRSELECTCLIPPATH')
+make_head(_module, 'EMRSELECTOBJECT')
+make_head(_module, 'EMRSELECTPALETTE')
+make_head(_module, 'EMRSETARCDIRECTION')
+make_head(_module, 'EMRSETCOLORADJUSTMENT')
+make_head(_module, 'EMRSETCOLORSPACE')
+make_head(_module, 'EMRSETDIBITSTODEVICE')
+make_head(_module, 'EMRSETICMPROFILE')
+make_head(_module, 'EMRSETMAPPERFLAGS')
+make_head(_module, 'EMRSETMITERLIMIT')
+make_head(_module, 'EMRSETPALETTEENTRIES')
+make_head(_module, 'EMRSETPIXELV')
+make_head(_module, 'EMRSETTEXTCOLOR')
+make_head(_module, 'EMRSETVIEWPORTEXTEX')
+make_head(_module, 'EMRSETVIEWPORTORGEX')
+make_head(_module, 'EMRSETWORLDTRANSFORM')
+make_head(_module, 'EMRSTRETCHBLT')
+make_head(_module, 'EMRSTRETCHDIBITS')
+make_head(_module, 'EMRTEXT')
+make_head(_module, 'EMRTRANSPARENTBLT')
+make_head(_module, 'ENHMETAHEADER')
+make_head(_module, 'ENHMETARECORD')
+make_head(_module, 'ENHMFENUMPROC')
+make_head(_module, 'ENUMLOGFONTA')
+make_head(_module, 'ENUMLOGFONTEXA')
+make_head(_module, 'ENUMLOGFONTEXDVA')
+make_head(_module, 'ENUMLOGFONTEXDVW')
+make_head(_module, 'ENUMLOGFONTEXW')
+make_head(_module, 'ENUMLOGFONTW')
+make_head(_module, 'EXTLOGFONTA')
+make_head(_module, 'EXTLOGFONTW')
+make_head(_module, 'EXTLOGPEN')
+make_head(_module, 'EXTLOGPEN32')
+make_head(_module, 'FIXED')
+make_head(_module, 'FONTENUMPROCA')
+make_head(_module, 'FONTENUMPROCW')
+make_head(_module, 'GCP_RESULTSA')
+make_head(_module, 'GCP_RESULTSW')
+make_head(_module, 'GLYPHMETRICS')
+make_head(_module, 'GLYPHSET')
+make_head(_module, 'GOBJENUMPROC')
+make_head(_module, 'GRADIENT_RECT')
+make_head(_module, 'GRADIENT_TRIANGLE')
+make_head(_module, 'GRAYSTRINGPROC')
+make_head(_module, 'HANDLETABLE')
+make_head(_module, 'KERNINGPAIR')
+make_head(_module, 'LINEDDAPROC')
+make_head(_module, 'LOGBRUSH')
+make_head(_module, 'LOGBRUSH32')
+make_head(_module, 'LOGFONTA')
+make_head(_module, 'LOGFONTW')
+make_head(_module, 'LOGPALETTE')
+make_head(_module, 'LOGPEN')
+make_head(_module, 'LPFNDEVCAPS')
+make_head(_module, 'LPFNDEVMODE')
+make_head(_module, 'MAT2')
+make_head(_module, 'METAHEADER')
+make_head(_module, 'METARECORD')
+make_head(_module, 'MFENUMPROC')
+make_head(_module, 'MONITORENUMPROC')
+make_head(_module, 'MONITORINFO')
+make_head(_module, 'MONITORINFOEXA')
+make_head(_module, 'MONITORINFOEXW')
+make_head(_module, 'NEWTEXTMETRICA')
+make_head(_module, 'NEWTEXTMETRICW')
+make_head(_module, 'OUTLINETEXTMETRICA')
+make_head(_module, 'OUTLINETEXTMETRICW')
+make_head(_module, 'PAINTSTRUCT')
+make_head(_module, 'PALETTEENTRY')
+make_head(_module, 'PANOSE')
+make_head(_module, 'PELARRAY')
+make_head(_module, 'POINTFX')
+make_head(_module, 'POLYTEXTA')
+make_head(_module, 'POLYTEXTW')
+make_head(_module, 'RASTERIZER_STATUS')
+make_head(_module, 'READEMBEDPROC')
+make_head(_module, 'RGBQUAD')
+make_head(_module, 'RGBTRIPLE')
+make_head(_module, 'RGNDATA')
+make_head(_module, 'RGNDATAHEADER')
+make_head(_module, 'TEXTMETRICA')
+make_head(_module, 'TEXTMETRICW')
+make_head(_module, 'TRIVERTEX')
+make_head(_module, 'TTEMBEDINFO')
+make_head(_module, 'TTLOADINFO')
+make_head(_module, 'TTPOLYCURVE')
+make_head(_module, 'TTPOLYGONHEADER')
+make_head(_module, 'TTVALIDATIONTESTSPARAMS')
+make_head(_module, 'TTVALIDATIONTESTSPARAMSEX')
+make_head(_module, 'WCRANGE')
+make_head(_module, 'WGLSWAP')
+make_head(_module, 'WRITEEMBEDPROC')
+make_head(_module, 'XFORM')
 __all__ = [
     "ABC",
     "ABCFLOAT",

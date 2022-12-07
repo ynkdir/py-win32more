@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Dxgi
 import win32more.System.Com
@@ -9,32 +10,23 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_CreateDirect3D11DeviceFromDXGIDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.System.WinRT.IInspectable_head))(('CreateDirect3D11DeviceFromDXGIDevice', windll['d3d11.dll']), ((1, 'dxgiDevice'),(1, 'graphicsDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDirect3D11SurfaceFromDXGISurface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head,POINTER(win32more.System.WinRT.IInspectable_head))(('CreateDirect3D11SurfaceFromDXGISurface', windll['d3d11.dll']), ((1, 'dgxiSurface'),(1, 'graphicsSurface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IDirect3DDxgiInterfaceAccess_head():
-    class IDirect3DDxgiInterfaceAccess(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9b3d012-3df2-4ee3-b8-d1-86-95-f4-57-d3-c1')
-    return IDirect3DDxgiInterfaceAccess
-def _define_IDirect3DDxgiInterfaceAccess():
-    IDirect3DDxgiInterfaceAccess = win32more.System.WinRT.Direct3D11.IDirect3DDxgiInterfaceAccess_head
-    IDirect3DDxgiInterfaceAccess.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(3, 'GetInterface', ((1, 'iid'),(1, 'p'),)))
-    win32more.System.Com.IUnknown
-    return IDirect3DDxgiInterfaceAccess
+@winfunctype('d3d11.dll')
+def CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, graphicsDevice: POINTER(win32more.System.WinRT.IInspectable_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('d3d11.dll')
+def CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface: win32more.Graphics.Dxgi.IDXGISurface_head, graphicsSurface: POINTER(win32more.System.WinRT.IInspectable_head)) -> win32more.Foundation.HRESULT: ...
+class IDirect3DDxgiInterfaceAccess(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a9b3d012-3df2-4ee3-b8-d1-86-95-f4-57-d3-c1')
+    @commethod(3)
+    def GetInterface(iid: POINTER(Guid), p: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'IDirect3DDxgiInterfaceAccess')
 __all__ = [
     "CreateDirect3D11DeviceFromDXGIDevice",
     "CreateDirect3D11SurfaceFromDXGISurface",

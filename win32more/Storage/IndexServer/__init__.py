@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.IndexServer
 import win32more.System.Com
@@ -8,322 +9,268 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-CI_VERSION_WDS30 = 258
-CI_VERSION_WDS40 = 265
-CI_VERSION_WIN70 = 1792
-CINULLCATALOG = '::_noindex_::'
-CIADMIN = '::_nodocstore_::'
-LIFF_LOAD_DEFINED_FILTER = 1
-LIFF_IMPLEMENT_TEXT_FILTER_FALLBACK_POLICY = 2
-LIFF_FORCE_TEXT_FILTER_FALLBACK = 3
-PID_FILENAME = 100
-DBPROP_CI_CATALOG_NAME = 2
-DBPROP_CI_INCLUDE_SCOPES = 3
-DBPROP_CI_DEPTHS = 4
-DBPROP_CI_SCOPE_FLAGS = 4
-DBPROP_CI_EXCLUDE_SCOPES = 5
-DBPROP_CI_SECURITY_ID = 6
-DBPROP_CI_QUERY_TYPE = 7
-DBPROP_CI_PROVIDER = 8
-CI_PROVIDER_MSSEARCH = 1
-CI_PROVIDER_INDEXING_SERVICE = 2
-CI_PROVIDER_ALL = 4294967295
-DBPROP_DEFAULT_EQUALS_BEHAVIOR = 2
-DBPROP_USECONTENTINDEX = 2
-DBPROP_DEFERNONINDEXEDTRIMMING = 3
-DBPROP_USEEXTENDEDDBTYPES = 4
-DBPROP_IGNORENOISEONLYCLAUSES = 5
-DBPROP_GENERICOPTIONS_STRING = 6
-DBPROP_FIRSTROWS = 7
-DBPROP_DEFERCATALOGVERIFICATION = 8
-DBPROP_CATALOGLISTID = 9
-DBPROP_GENERATEPARSETREE = 10
-DBPROP_APPLICATION_NAME = 11
-DBPROP_FREETEXTANYTERM = 12
-DBPROP_FREETEXTUSESTEMMING = 13
-DBPROP_IGNORESBRI = 14
-DBPROP_DONOTCOMPUTEEXPENSIVEPROPS = 15
-DBPROP_ENABLEROWSETEVENTS = 16
-DBPROP_MACHINE = 2
-DBPROP_CLIENT_CLSID = 3
-MSIDXSPROP_ROWSETQUERYSTATUS = 2
-MSIDXSPROP_COMMAND_LOCALE_STRING = 3
-MSIDXSPROP_QUERY_RESTRICTION = 4
-MSIDXSPROP_PARSE_TREE = 5
-MSIDXSPROP_MAX_RANK = 6
-MSIDXSPROP_RESULTS_FOUND = 7
-MSIDXSPROP_WHEREID = 8
-MSIDXSPROP_SERVER_VERSION = 9
-MSIDXSPROP_SERVER_WINVER_MAJOR = 10
-MSIDXSPROP_SERVER_WINVER_MINOR = 11
-MSIDXSPROP_SERVER_NLSVERSION = 12
-MSIDXSPROP_SERVER_NLSVER_DEFINED = 13
-MSIDXSPROP_SAME_SORTORDER_USED = 14
-STAT_BUSY = 0
-STAT_ERROR = 1
-STAT_DONE = 2
-STAT_REFRESH = 3
-STAT_PARTIAL_SCOPE = 8
-STAT_NOISE_WORDS = 16
-STAT_CONTENT_OUT_OF_DATE = 32
-STAT_REFRESH_INCOMPLETE = 64
-STAT_CONTENT_QUERY_INCOMPLETE = 128
-STAT_TIME_LIMIT_EXCEEDED = 256
-STAT_SHARING_VIOLATION = 512
-STAT_MISSING_RELDOC = 1024
-STAT_MISSING_PROP_IN_RELDOC = 2048
-STAT_RELDOC_ACCESS_DENIED = 4096
-STAT_COALESCE_COMP_ALL_NOISE = 8192
-QUERY_SHALLOW = 0
-QUERY_DEEP = 1
-QUERY_PHYSICAL_PATH = 0
-QUERY_VIRTUAL_PATH = 2
-PROPID_QUERY_WORKID = 5
-PROPID_QUERY_UNFILTERED = 7
-PROPID_QUERY_VIRTUALPATH = 9
-PROPID_QUERY_LASTSEENTIME = 10
-CICAT_STOPPED = 1
-CICAT_READONLY = 2
-CICAT_WRITABLE = 4
-CICAT_NO_QUERY = 8
-CICAT_GET_STATE = 16
-CICAT_ALL_OPENED = 32
-CI_STATE_SHADOW_MERGE = 1
-CI_STATE_MASTER_MERGE = 2
-CI_STATE_CONTENT_SCAN_REQUIRED = 4
-CI_STATE_ANNEALING_MERGE = 8
-CI_STATE_SCANNING = 16
-CI_STATE_RECOVERING = 32
-CI_STATE_INDEX_MIGRATION_MERGE = 64
-CI_STATE_LOW_MEMORY = 128
-CI_STATE_HIGH_IO = 256
-CI_STATE_MASTER_MERGE_PAUSED = 512
-CI_STATE_READ_ONLY = 1024
-CI_STATE_BATTERY_POWER = 2048
-CI_STATE_USER_ACTIVE = 4096
-CI_STATE_STARTING = 8192
-CI_STATE_READING_USNS = 16384
-CI_STATE_DELETION_MERGE = 32768
-CI_STATE_LOW_DISK = 65536
-CI_STATE_HIGH_CPU = 131072
-CI_STATE_BATTERY_POLICY = 262144
-GENERATE_METHOD_EXACT = 0
-GENERATE_METHOD_PREFIX = 1
-GENERATE_METHOD_INFLECT = 2
-SCOPE_FLAG_MASK = 255
-SCOPE_FLAG_INCLUDE = 1
-SCOPE_FLAG_DEEP = 2
-SCOPE_TYPE_MASK = 4294967040
-SCOPE_TYPE_WINPATH = 256
-SCOPE_TYPE_VPATH = 512
-PROPID_QUERY_RANKVECTOR = 2
-PROPID_QUERY_RANK = 3
-PROPID_QUERY_HITCOUNT = 4
-PROPID_QUERY_ALL = 6
-PROPID_STG_CONTENTS = 19
-VECTOR_RANK_MIN = 0
-VECTOR_RANK_MAX = 1
-VECTOR_RANK_INNER = 2
-VECTOR_RANK_DICE = 3
-VECTOR_RANK_JACCARD = 4
-DBSETFUNC_NONE = 0
-DBSETFUNC_ALL = 1
-DBSETFUNC_DISTINCT = 2
-PROXIMITY_UNIT_WORD = 0
-PROXIMITY_UNIT_SENTENCE = 1
-PROXIMITY_UNIT_PARAGRAPH = 2
-PROXIMITY_UNIT_CHAPTER = 3
-NOT_AN_ERROR = 524288
-FILTER_E_END_OF_CHUNKS = -2147215616
-FILTER_E_NO_MORE_TEXT = -2147215615
-FILTER_E_NO_MORE_VALUES = -2147215614
-FILTER_E_ACCESS = -2147215613
-FILTER_W_MONIKER_CLIPPED = 268036
-FILTER_E_NO_TEXT = -2147215611
-FILTER_E_NO_VALUES = -2147215610
-FILTER_E_EMBEDDING_UNAVAILABLE = -2147215609
-FILTER_E_LINK_UNAVAILABLE = -2147215608
-FILTER_S_LAST_TEXT = 268041
-FILTER_S_LAST_VALUES = 268042
-FILTER_E_PASSWORD = -2147215605
-FILTER_E_UNKNOWNFORMAT = -2147215604
-def _define_LoadIFilter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,POINTER(c_void_p))(('LoadIFilter', windll['query.dll']), ((1, 'pwcsPath'),(1, 'pUnkOuter'),(1, 'ppIUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadIFilterEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(c_void_p))(('LoadIFilterEx', windll['query.dll']), ((1, 'pwcsPath'),(1, 'dwFlags'),(1, 'riid'),(1, 'ppIUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BindIFilterFromStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.IUnknown_head,POINTER(c_void_p))(('BindIFilterFromStorage', windll['query.dll']), ((1, 'pStg'),(1, 'pUnkOuter'),(1, 'ppIUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BindIFilterFromStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IUnknown_head,POINTER(c_void_p))(('BindIFilterFromStream', windll['query.dll']), ((1, 'pStm'),(1, 'pUnkOuter'),(1, 'ppIUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+CI_VERSION_WDS30: UInt32 = 258
+CI_VERSION_WDS40: UInt32 = 265
+CI_VERSION_WIN70: UInt32 = 1792
+CINULLCATALOG: String = '::_noindex_::'
+CIADMIN: String = '::_nodocstore_::'
+LIFF_LOAD_DEFINED_FILTER: UInt32 = 1
+LIFF_IMPLEMENT_TEXT_FILTER_FALLBACK_POLICY: UInt32 = 2
+LIFF_FORCE_TEXT_FILTER_FALLBACK: UInt32 = 3
+PID_FILENAME: UInt32 = 100
+DBPROP_CI_CATALOG_NAME: UInt32 = 2
+DBPROP_CI_INCLUDE_SCOPES: UInt32 = 3
+DBPROP_CI_DEPTHS: UInt32 = 4
+DBPROP_CI_SCOPE_FLAGS: UInt32 = 4
+DBPROP_CI_EXCLUDE_SCOPES: UInt32 = 5
+DBPROP_CI_SECURITY_ID: UInt32 = 6
+DBPROP_CI_QUERY_TYPE: UInt32 = 7
+DBPROP_CI_PROVIDER: UInt32 = 8
+CI_PROVIDER_MSSEARCH: UInt32 = 1
+CI_PROVIDER_INDEXING_SERVICE: UInt32 = 2
+CI_PROVIDER_ALL: UInt32 = 4294967295
+DBPROP_DEFAULT_EQUALS_BEHAVIOR: UInt32 = 2
+DBPROP_USECONTENTINDEX: UInt32 = 2
+DBPROP_DEFERNONINDEXEDTRIMMING: UInt32 = 3
+DBPROP_USEEXTENDEDDBTYPES: UInt32 = 4
+DBPROP_IGNORENOISEONLYCLAUSES: UInt32 = 5
+DBPROP_GENERICOPTIONS_STRING: UInt32 = 6
+DBPROP_FIRSTROWS: UInt32 = 7
+DBPROP_DEFERCATALOGVERIFICATION: UInt32 = 8
+DBPROP_CATALOGLISTID: UInt32 = 9
+DBPROP_GENERATEPARSETREE: UInt32 = 10
+DBPROP_APPLICATION_NAME: UInt32 = 11
+DBPROP_FREETEXTANYTERM: UInt32 = 12
+DBPROP_FREETEXTUSESTEMMING: UInt32 = 13
+DBPROP_IGNORESBRI: UInt32 = 14
+DBPROP_DONOTCOMPUTEEXPENSIVEPROPS: UInt32 = 15
+DBPROP_ENABLEROWSETEVENTS: UInt32 = 16
+DBPROP_MACHINE: UInt32 = 2
+DBPROP_CLIENT_CLSID: UInt32 = 3
+MSIDXSPROP_ROWSETQUERYSTATUS: UInt32 = 2
+MSIDXSPROP_COMMAND_LOCALE_STRING: UInt32 = 3
+MSIDXSPROP_QUERY_RESTRICTION: UInt32 = 4
+MSIDXSPROP_PARSE_TREE: UInt32 = 5
+MSIDXSPROP_MAX_RANK: UInt32 = 6
+MSIDXSPROP_RESULTS_FOUND: UInt32 = 7
+MSIDXSPROP_WHEREID: UInt32 = 8
+MSIDXSPROP_SERVER_VERSION: UInt32 = 9
+MSIDXSPROP_SERVER_WINVER_MAJOR: UInt32 = 10
+MSIDXSPROP_SERVER_WINVER_MINOR: UInt32 = 11
+MSIDXSPROP_SERVER_NLSVERSION: UInt32 = 12
+MSIDXSPROP_SERVER_NLSVER_DEFINED: UInt32 = 13
+MSIDXSPROP_SAME_SORTORDER_USED: UInt32 = 14
+STAT_BUSY: UInt32 = 0
+STAT_ERROR: UInt32 = 1
+STAT_DONE: UInt32 = 2
+STAT_REFRESH: UInt32 = 3
+STAT_PARTIAL_SCOPE: UInt32 = 8
+STAT_NOISE_WORDS: UInt32 = 16
+STAT_CONTENT_OUT_OF_DATE: UInt32 = 32
+STAT_REFRESH_INCOMPLETE: UInt32 = 64
+STAT_CONTENT_QUERY_INCOMPLETE: UInt32 = 128
+STAT_TIME_LIMIT_EXCEEDED: UInt32 = 256
+STAT_SHARING_VIOLATION: UInt32 = 512
+STAT_MISSING_RELDOC: UInt32 = 1024
+STAT_MISSING_PROP_IN_RELDOC: UInt32 = 2048
+STAT_RELDOC_ACCESS_DENIED: UInt32 = 4096
+STAT_COALESCE_COMP_ALL_NOISE: UInt32 = 8192
+QUERY_SHALLOW: UInt32 = 0
+QUERY_DEEP: UInt32 = 1
+QUERY_PHYSICAL_PATH: UInt32 = 0
+QUERY_VIRTUAL_PATH: UInt32 = 2
+PROPID_QUERY_WORKID: UInt32 = 5
+PROPID_QUERY_UNFILTERED: UInt32 = 7
+PROPID_QUERY_VIRTUALPATH: UInt32 = 9
+PROPID_QUERY_LASTSEENTIME: UInt32 = 10
+CICAT_STOPPED: UInt32 = 1
+CICAT_READONLY: UInt32 = 2
+CICAT_WRITABLE: UInt32 = 4
+CICAT_NO_QUERY: UInt32 = 8
+CICAT_GET_STATE: UInt32 = 16
+CICAT_ALL_OPENED: UInt32 = 32
+CI_STATE_SHADOW_MERGE: UInt32 = 1
+CI_STATE_MASTER_MERGE: UInt32 = 2
+CI_STATE_CONTENT_SCAN_REQUIRED: UInt32 = 4
+CI_STATE_ANNEALING_MERGE: UInt32 = 8
+CI_STATE_SCANNING: UInt32 = 16
+CI_STATE_RECOVERING: UInt32 = 32
+CI_STATE_INDEX_MIGRATION_MERGE: UInt32 = 64
+CI_STATE_LOW_MEMORY: UInt32 = 128
+CI_STATE_HIGH_IO: UInt32 = 256
+CI_STATE_MASTER_MERGE_PAUSED: UInt32 = 512
+CI_STATE_READ_ONLY: UInt32 = 1024
+CI_STATE_BATTERY_POWER: UInt32 = 2048
+CI_STATE_USER_ACTIVE: UInt32 = 4096
+CI_STATE_STARTING: UInt32 = 8192
+CI_STATE_READING_USNS: UInt32 = 16384
+CI_STATE_DELETION_MERGE: UInt32 = 32768
+CI_STATE_LOW_DISK: UInt32 = 65536
+CI_STATE_HIGH_CPU: UInt32 = 131072
+CI_STATE_BATTERY_POLICY: UInt32 = 262144
+GENERATE_METHOD_EXACT: UInt32 = 0
+GENERATE_METHOD_PREFIX: UInt32 = 1
+GENERATE_METHOD_INFLECT: UInt32 = 2
+SCOPE_FLAG_MASK: UInt32 = 255
+SCOPE_FLAG_INCLUDE: UInt32 = 1
+SCOPE_FLAG_DEEP: UInt32 = 2
+SCOPE_TYPE_MASK: UInt32 = 4294967040
+SCOPE_TYPE_WINPATH: UInt32 = 256
+SCOPE_TYPE_VPATH: UInt32 = 512
+PROPID_QUERY_RANKVECTOR: UInt32 = 2
+PROPID_QUERY_RANK: UInt32 = 3
+PROPID_QUERY_HITCOUNT: UInt32 = 4
+PROPID_QUERY_ALL: UInt32 = 6
+PROPID_STG_CONTENTS: UInt32 = 19
+VECTOR_RANK_MIN: UInt32 = 0
+VECTOR_RANK_MAX: UInt32 = 1
+VECTOR_RANK_INNER: UInt32 = 2
+VECTOR_RANK_DICE: UInt32 = 3
+VECTOR_RANK_JACCARD: UInt32 = 4
+DBSETFUNC_NONE: UInt32 = 0
+DBSETFUNC_ALL: UInt32 = 1
+DBSETFUNC_DISTINCT: UInt32 = 2
+PROXIMITY_UNIT_WORD: UInt32 = 0
+PROXIMITY_UNIT_SENTENCE: UInt32 = 1
+PROXIMITY_UNIT_PARAGRAPH: UInt32 = 2
+PROXIMITY_UNIT_CHAPTER: UInt32 = 3
+NOT_AN_ERROR: win32more.Foundation.HRESULT = 524288
+FILTER_E_END_OF_CHUNKS: win32more.Foundation.HRESULT = -2147215616
+FILTER_E_NO_MORE_TEXT: win32more.Foundation.HRESULT = -2147215615
+FILTER_E_NO_MORE_VALUES: win32more.Foundation.HRESULT = -2147215614
+FILTER_E_ACCESS: win32more.Foundation.HRESULT = -2147215613
+FILTER_W_MONIKER_CLIPPED: win32more.Foundation.HRESULT = 268036
+FILTER_E_NO_TEXT: win32more.Foundation.HRESULT = -2147215611
+FILTER_E_NO_VALUES: win32more.Foundation.HRESULT = -2147215610
+FILTER_E_EMBEDDING_UNAVAILABLE: win32more.Foundation.HRESULT = -2147215609
+FILTER_E_LINK_UNAVAILABLE: win32more.Foundation.HRESULT = -2147215608
+FILTER_S_LAST_TEXT: win32more.Foundation.HRESULT = 268041
+FILTER_S_LAST_VALUES: win32more.Foundation.HRESULT = 268042
+FILTER_E_PASSWORD: win32more.Foundation.HRESULT = -2147215605
+FILTER_E_UNKNOWNFORMAT: win32more.Foundation.HRESULT = -2147215604
+@winfunctype('query.dll')
+def LoadIFilter(pwcsPath: win32more.Foundation.PWSTR, pUnkOuter: win32more.System.Com.IUnknown_head, ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('query.dll')
+def LoadIFilterEx(pwcsPath: win32more.Foundation.PWSTR, dwFlags: UInt32, riid: POINTER(Guid), ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('query.dll')
+def BindIFilterFromStorage(pStg: win32more.System.Com.StructuredStorage.IStorage_head, pUnkOuter: win32more.System.Com.IUnknown_head, ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('query.dll')
+def BindIFilterFromStream(pStm: win32more.System.Com.IStream_head, pUnkOuter: win32more.System.Com.IUnknown_head, ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 CHUNK_BREAKTYPE = Int32
-CHUNK_NO_BREAK = 0
-CHUNK_EOW = 1
-CHUNK_EOS = 2
-CHUNK_EOP = 3
-CHUNK_EOC = 4
+CHUNK_NO_BREAK: CHUNK_BREAKTYPE = 0
+CHUNK_EOW: CHUNK_BREAKTYPE = 1
+CHUNK_EOS: CHUNK_BREAKTYPE = 2
+CHUNK_EOP: CHUNK_BREAKTYPE = 3
+CHUNK_EOC: CHUNK_BREAKTYPE = 4
 CHUNKSTATE = Int32
-CHUNK_TEXT = 1
-CHUNK_VALUE = 2
-CHUNK_FILTER_OWNED_VALUE = 4
-def _define_CI_STATE_head():
-    class CI_STATE(Structure):
-        pass
-    return CI_STATE
-def _define_CI_STATE():
-    CI_STATE = win32more.Storage.IndexServer.CI_STATE_head
-    CI_STATE._fields_ = [
-        ('cbStruct', UInt32),
-        ('cWordList', UInt32),
-        ('cPersistentIndex', UInt32),
-        ('cQueries', UInt32),
-        ('cDocuments', UInt32),
-        ('cFreshTest', UInt32),
-        ('dwMergeProgress', UInt32),
-        ('eState', UInt32),
-        ('cFilteredDocuments', UInt32),
-        ('cTotalDocuments', UInt32),
-        ('cPendingScans', UInt32),
-        ('dwIndexSize', UInt32),
-        ('cUniqueKeys', UInt32),
-        ('cSecQDocuments', UInt32),
-        ('dwPropCacheSize', UInt32),
-    ]
-    return CI_STATE
-def _define_DBID_head():
-    class DBID(Structure):
-        pass
-    return DBID
-def _define_DBID():
-    DBID = win32more.Storage.IndexServer.DBID_head
-    class DBID__uGuid_e__Union(Union):
-        pass
-    DBID__uGuid_e__Union._fields_ = [
-        ('guid', Guid),
-        ('pguid', POINTER(Guid)),
-    ]
-    class DBID__uName_e__Union(Union):
-        pass
-    DBID__uName_e__Union._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('ulPropid', UInt32),
-    ]
-    DBID._fields_ = [
-        ('uGuid', DBID__uGuid_e__Union),
-        ('eKind', UInt32),
-        ('uName', DBID__uName_e__Union),
-    ]
-    return DBID
+CHUNK_TEXT: CHUNKSTATE = 1
+CHUNK_VALUE: CHUNKSTATE = 2
+CHUNK_FILTER_OWNED_VALUE: CHUNKSTATE = 4
+class CI_STATE(Structure):
+    cbStruct: UInt32
+    cWordList: UInt32
+    cPersistentIndex: UInt32
+    cQueries: UInt32
+    cDocuments: UInt32
+    cFreshTest: UInt32
+    dwMergeProgress: UInt32
+    eState: UInt32
+    cFilteredDocuments: UInt32
+    cTotalDocuments: UInt32
+    cPendingScans: UInt32
+    dwIndexSize: UInt32
+    cUniqueKeys: UInt32
+    cSecQDocuments: UInt32
+    dwPropCacheSize: UInt32
+class DBID(Structure):
+    uGuid: _uGuid_e__Union
+    eKind: UInt32
+    uName: _uName_e__Union
+    class _uGuid_e__Union(Union):
+        guid: Guid
+        pguid: POINTER(Guid)
+    class _uName_e__Union(Union):
+        pwszName: win32more.Foundation.PWSTR
+        ulPropid: UInt32
 DBKINDENUM = Int32
-DBKIND_GUID_NAME = 0
-DBKIND_GUID_PROPID = 1
-DBKIND_NAME = 2
-DBKIND_PGUID_NAME = 3
-DBKIND_PGUID_PROPID = 4
-DBKIND_PROPID = 5
-DBKIND_GUID = 6
-def _define_FILTERREGION_head():
-    class FILTERREGION(Structure):
-        pass
-    return FILTERREGION
-def _define_FILTERREGION():
-    FILTERREGION = win32more.Storage.IndexServer.FILTERREGION_head
-    FILTERREGION._fields_ = [
-        ('idChunk', UInt32),
-        ('cwcStart', UInt32),
-        ('cwcExtent', UInt32),
-    ]
-    return FILTERREGION
-def _define_FULLPROPSPEC_head():
-    class FULLPROPSPEC(Structure):
-        pass
-    return FULLPROPSPEC
-def _define_FULLPROPSPEC():
-    FULLPROPSPEC = win32more.Storage.IndexServer.FULLPROPSPEC_head
-    FULLPROPSPEC._fields_ = [
-        ('guidPropSet', Guid),
-        ('psProperty', win32more.System.Com.StructuredStorage.PROPSPEC),
-    ]
-    return FULLPROPSPEC
-def _define_IFilter_head():
-    class IFilter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
-    return IFilter
-def _define_IFilter():
-    IFilter = win32more.Storage.IndexServer.IFilter_head
-    IFilter.Init = COMMETHOD(WINFUNCTYPE(Int32,UInt32,UInt32,POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head),POINTER(UInt32))(3, 'Init', ((1, 'grfFlags'),(1, 'cAttributes'),(1, 'aAttributes'),(1, 'pFlags'),)))
-    IFilter.GetChunk = COMMETHOD(WINFUNCTYPE(Int32,POINTER(win32more.Storage.IndexServer.STAT_CHUNK_head))(4, 'GetChunk', ((1, 'pStat'),)))
-    IFilter.GetText = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),win32more.Foundation.PWSTR)(5, 'GetText', ((1, 'pcwcBuffer'),(1, 'awcBuffer'),)))
-    IFilter.GetValue = COMMETHOD(WINFUNCTYPE(Int32,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)))(6, 'GetValue', ((1, 'ppPropValue'),)))
-    IFilter.BindRegion = COMMETHOD(WINFUNCTYPE(Int32,win32more.Storage.IndexServer.FILTERREGION,POINTER(Guid),POINTER(c_void_p))(7, 'BindRegion', ((1, 'origPos'),(1, 'riid'),(1, 'ppunk'),)))
-    win32more.System.Com.IUnknown
-    return IFilter
+DBKIND_GUID_NAME: DBKINDENUM = 0
+DBKIND_GUID_PROPID: DBKINDENUM = 1
+DBKIND_NAME: DBKINDENUM = 2
+DBKIND_PGUID_NAME: DBKINDENUM = 3
+DBKIND_PGUID_PROPID: DBKINDENUM = 4
+DBKIND_PROPID: DBKINDENUM = 5
+DBKIND_GUID: DBKINDENUM = 6
+class FILTERREGION(Structure):
+    idChunk: UInt32
+    cwcStart: UInt32
+    cwcExtent: UInt32
+class FULLPROPSPEC(Structure):
+    guidPropSet: Guid
+    psProperty: win32more.System.Com.StructuredStorage.PROPSPEC
+class IFilter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
+    @commethod(3)
+    def Init(grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
+    @commethod(4)
+    def GetChunk(pStat: POINTER(win32more.Storage.IndexServer.STAT_CHUNK_head)) -> Int32: ...
+    @commethod(5)
+    def GetText(pcwcBuffer: POINTER(UInt32), awcBuffer: win32more.Foundation.PWSTR) -> Int32: ...
+    @commethod(6)
+    def GetValue(ppPropValue: POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))) -> Int32: ...
+    @commethod(7)
+    def BindRegion(origPos: win32more.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
 IFILTER_FLAGS = Int32
-IFILTER_FLAGS_OLE_PROPERTIES = 1
+IFILTER_FLAGS_OLE_PROPERTIES: IFILTER_FLAGS = 1
 IFILTER_INIT = Int32
-IFILTER_INIT_CANON_PARAGRAPHS = 1
-IFILTER_INIT_HARD_LINE_BREAKS = 2
-IFILTER_INIT_CANON_HYPHENS = 4
-IFILTER_INIT_CANON_SPACES = 8
-IFILTER_INIT_APPLY_INDEX_ATTRIBUTES = 16
-IFILTER_INIT_APPLY_OTHER_ATTRIBUTES = 32
-IFILTER_INIT_APPLY_CRAWL_ATTRIBUTES = 256
-IFILTER_INIT_INDEXING_ONLY = 64
-IFILTER_INIT_SEARCH_LINKS = 128
-IFILTER_INIT_FILTER_OWNED_VALUE_OK = 512
-IFILTER_INIT_FILTER_AGGRESSIVE_BREAK = 1024
-IFILTER_INIT_DISABLE_EMBEDDED = 2048
-IFILTER_INIT_EMIT_FORMATTING = 4096
-def _define_IPhraseSink_head():
-    class IPhraseSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
-    return IPhraseSink
-def _define_IPhraseSink():
-    IPhraseSink = win32more.Storage.IndexServer.IPhraseSink_head
-    IPhraseSink.PutSmallPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32)(3, 'PutSmallPhrase', ((1, 'pwcNoun'),(1, 'cwcNoun'),(1, 'pwcModifier'),(1, 'cwcModifier'),(1, 'ulAttachmentType'),)))
-    IPhraseSink.PutPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(4, 'PutPhrase', ((1, 'pwcPhrase'),(1, 'cwcPhrase'),)))
-    win32more.System.Com.IUnknown
-    return IPhraseSink
-def _define_STAT_CHUNK_head():
-    class STAT_CHUNK(Structure):
-        pass
-    return STAT_CHUNK
-def _define_STAT_CHUNK():
-    STAT_CHUNK = win32more.Storage.IndexServer.STAT_CHUNK_head
-    STAT_CHUNK._fields_ = [
-        ('idChunk', UInt32),
-        ('breakType', win32more.Storage.IndexServer.CHUNK_BREAKTYPE),
-        ('flags', win32more.Storage.IndexServer.CHUNKSTATE),
-        ('locale', UInt32),
-        ('attribute', win32more.Storage.IndexServer.FULLPROPSPEC),
-        ('idChunkSource', UInt32),
-        ('cwcStartSource', UInt32),
-        ('cwcLenSource', UInt32),
-    ]
-    return STAT_CHUNK
+IFILTER_INIT_CANON_PARAGRAPHS: IFILTER_INIT = 1
+IFILTER_INIT_HARD_LINE_BREAKS: IFILTER_INIT = 2
+IFILTER_INIT_CANON_HYPHENS: IFILTER_INIT = 4
+IFILTER_INIT_CANON_SPACES: IFILTER_INIT = 8
+IFILTER_INIT_APPLY_INDEX_ATTRIBUTES: IFILTER_INIT = 16
+IFILTER_INIT_APPLY_OTHER_ATTRIBUTES: IFILTER_INIT = 32
+IFILTER_INIT_APPLY_CRAWL_ATTRIBUTES: IFILTER_INIT = 256
+IFILTER_INIT_INDEXING_ONLY: IFILTER_INIT = 64
+IFILTER_INIT_SEARCH_LINKS: IFILTER_INIT = 128
+IFILTER_INIT_FILTER_OWNED_VALUE_OK: IFILTER_INIT = 512
+IFILTER_INIT_FILTER_AGGRESSIVE_BREAK: IFILTER_INIT = 1024
+IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
+IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
+class IPhraseSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
+    @commethod(3)
+    def PutSmallPhrase(pwcNoun: win32more.Foundation.PWSTR, cwcNoun: UInt32, pwcModifier: win32more.Foundation.PWSTR, cwcModifier: UInt32, ulAttachmentType: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def PutPhrase(pwcPhrase: win32more.Foundation.PWSTR, cwcPhrase: UInt32) -> win32more.Foundation.HRESULT: ...
+class STAT_CHUNK(Structure):
+    idChunk: UInt32
+    breakType: win32more.Storage.IndexServer.CHUNK_BREAKTYPE
+    flags: win32more.Storage.IndexServer.CHUNKSTATE
+    locale: UInt32
+    attribute: win32more.Storage.IndexServer.FULLPROPSPEC
+    idChunkSource: UInt32
+    cwcStartSource: UInt32
+    cwcLenSource: UInt32
 WORDREP_BREAK_TYPE = Int32
-WORDREP_BREAK_EOW = 0
-WORDREP_BREAK_EOS = 1
-WORDREP_BREAK_EOP = 2
-WORDREP_BREAK_EOC = 3
+WORDREP_BREAK_EOW: WORDREP_BREAK_TYPE = 0
+WORDREP_BREAK_EOS: WORDREP_BREAK_TYPE = 1
+WORDREP_BREAK_EOP: WORDREP_BREAK_TYPE = 2
+WORDREP_BREAK_EOC: WORDREP_BREAK_TYPE = 3
+make_head(_module, 'CI_STATE')
+make_head(_module, 'DBID')
+make_head(_module, 'FILTERREGION')
+make_head(_module, 'FULLPROPSPEC')
+make_head(_module, 'IFilter')
+make_head(_module, 'IPhraseSink')
+make_head(_module, 'STAT_CHUNK')
 __all__ = [
     "BindIFilterFromStorage",
     "BindIFilterFromStream",

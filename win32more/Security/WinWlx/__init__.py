@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.Security.WinWlx
@@ -9,436 +10,359 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-WLX_VERSION_1_0 = 65536
-WLX_VERSION_1_1 = 65537
-WLX_VERSION_1_2 = 65538
-WLX_VERSION_1_3 = 65539
-WLX_VERSION_1_4 = 65540
-WLX_CURRENT_VERSION = 65540
-WLX_SAS_TYPE_TIMEOUT = 0
-WLX_SAS_TYPE_CTRL_ALT_DEL = 1
-WLX_SAS_TYPE_SCRNSVR_TIMEOUT = 2
-WLX_SAS_TYPE_SCRNSVR_ACTIVITY = 3
-WLX_SAS_TYPE_USER_LOGOFF = 4
-WLX_SAS_TYPE_SC_INSERT = 5
-WLX_SAS_TYPE_SC_REMOVE = 6
-WLX_SAS_TYPE_AUTHENTICATED = 7
-WLX_SAS_TYPE_SC_FIRST_READER_ARRIVED = 8
-WLX_SAS_TYPE_SC_LAST_READER_REMOVED = 9
-WLX_SAS_TYPE_SWITCHUSER = 10
-WLX_SAS_TYPE_MAX_MSFT_VALUE = 127
-WLX_LOGON_OPT_NO_PROFILE = 1
-WLX_PROFILE_TYPE_V1_0 = 1
-WLX_PROFILE_TYPE_V2_0 = 2
-WLX_SAS_ACTION_LOGON = 1
-WLX_SAS_ACTION_NONE = 2
-WLX_SAS_ACTION_LOCK_WKSTA = 3
-WLX_SAS_ACTION_LOGOFF = 4
-WLX_SAS_ACTION_PWD_CHANGED = 6
-WLX_SAS_ACTION_TASKLIST = 7
-WLX_SAS_ACTION_UNLOCK_WKSTA = 8
-WLX_SAS_ACTION_FORCE_LOGOFF = 9
-WLX_SAS_ACTION_SHUTDOWN_SLEEP = 12
-WLX_SAS_ACTION_SHUTDOWN_SLEEP2 = 13
-WLX_SAS_ACTION_SHUTDOWN_HIBERNATE = 14
-WLX_SAS_ACTION_RECONNECTED = 15
-WLX_SAS_ACTION_DELAYED_FORCE_LOGOFF = 16
-WLX_SAS_ACTION_SWITCH_CONSOLE = 17
-WLX_WM_SAS = 1625
-WLX_DLG_SAS = 101
-WLX_DLG_INPUT_TIMEOUT = 102
-WLX_DLG_SCREEN_SAVER_TIMEOUT = 103
-WLX_DLG_USER_LOGOFF = 104
-WLX_DIRECTORY_LENGTH = 256
-WLX_CREDENTIAL_TYPE_V1_0 = 1
-WLX_CREDENTIAL_TYPE_V2_0 = 2
-WLX_CONSOLESWITCHCREDENTIAL_TYPE_V1_0 = 1
-STATUSMSG_OPTION_NOANIMATION = 1
-STATUSMSG_OPTION_SETFOREGROUND = 2
-WLX_DESKTOP_NAME = 1
-WLX_DESKTOP_HANDLE = 2
-WLX_CREATE_INSTANCE_ONLY = 1
-WLX_CREATE_USER = 2
-WLX_OPTION_USE_CTRL_ALT_DEL = 1
-WLX_OPTION_CONTEXT_POINTER = 2
-WLX_OPTION_USE_SMART_CARD = 3
-WLX_OPTION_FORCE_LOGOFF_TIME = 4
-WLX_OPTION_IGNORE_AUTO_LOGON = 8
-WLX_OPTION_NO_SWITCH_ON_SAS = 9
-WLX_OPTION_SMART_CARD_PRESENT = 65537
-WLX_OPTION_SMART_CARD_INFO = 65538
-WLX_OPTION_DISPATCH_TABLE_SIZE = 65539
-def _define_PFNMSGECALLBACK():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)
-def _define_PWLX_ASSIGN_SHELL_PROTECTION():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)
-def _define_PWLX_CHANGE_PASSWORD_NOTIFY():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,POINTER(win32more.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head),UInt32)
-def _define_PWLX_CHANGE_PASSWORD_NOTIFY_EX():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,POINTER(win32more.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head),UInt32,win32more.Foundation.PWSTR,c_void_p)
-def _define_PWLX_CLOSE_USER_DESKTOP():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head),win32more.Foundation.HANDLE)
-def _define_PWLX_CREATE_USER_DESKTOP():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head)))
-def _define_PWLX_DIALOG_BOX():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC)
-def _define_PWLX_DIALOG_BOX_INDIRECT():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC)
-def _define_PWLX_DIALOG_BOX_INDIRECT_PARAM():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head),win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)
-def _define_PWLX_DIALOG_BOX_PARAM():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.DLGPROC,win32more.Foundation.LPARAM)
-def _define_PWLX_DISCONNECT():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,)
-def _define_PWLX_GET_OPTION():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,POINTER(UIntPtr))
-def _define_PWLX_GET_SOURCE_DESKTOP():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head)))
-def _define_PWLX_MESSAGE_BOX():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)
-def _define_PWLX_QUERY_CLIENT_CREDENTIALS():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head))
-def _define_PWLX_QUERY_CONSOLESWITCH_CREDENTIALS():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.Security.WinWlx.WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0_head))
-def _define_PWLX_QUERY_IC_CREDENTIALS():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head))
-def _define_PWLX_QUERY_TERMINAL_SERVICES_DATA():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Security.WinWlx.WLX_TERMINAL_SERVICES_DATA_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
-def _define_PWLX_QUERY_TS_LOGON_CREDENTIALS():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V2_0_head))
-def _define_PWLX_SAS_NOTIFY():
-    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE,UInt32)
-def _define_PWLX_SET_CONTEXT_POINTER():
-    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE,c_void_p)
-def _define_PWLX_SET_OPTION():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UIntPtr,POINTER(UIntPtr))
-def _define_PWLX_SET_RETURN_DESKTOP():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head))
-def _define_PWLX_SET_TIMEOUT():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)
-def _define_PWLX_SWITCH_DESKTOP_TO_USER():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)
-def _define_PWLX_SWITCH_DESKTOP_TO_WINLOGON():
-    return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)
-def _define_PWLX_USE_CTRL_ALT_DEL():
-    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)
-def _define_PWLX_WIN31_MIGRATE():
-    return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)
-def _define_WLX_CLIENT_CREDENTIALS_INFO_V1_0_head():
-    class WLX_CLIENT_CREDENTIALS_INFO_V1_0(Structure):
-        pass
-    return WLX_CLIENT_CREDENTIALS_INFO_V1_0
-def _define_WLX_CLIENT_CREDENTIALS_INFO_V1_0():
-    WLX_CLIENT_CREDENTIALS_INFO_V1_0 = win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head
-    WLX_CLIENT_CREDENTIALS_INFO_V1_0._fields_ = [
-        ('dwType', UInt32),
-        ('pszUserName', win32more.Foundation.PWSTR),
-        ('pszDomain', win32more.Foundation.PWSTR),
-        ('pszPassword', win32more.Foundation.PWSTR),
-        ('fPromptForPassword', win32more.Foundation.BOOL),
-    ]
-    return WLX_CLIENT_CREDENTIALS_INFO_V1_0
-def _define_WLX_CLIENT_CREDENTIALS_INFO_V2_0_head():
-    class WLX_CLIENT_CREDENTIALS_INFO_V2_0(Structure):
-        pass
-    return WLX_CLIENT_CREDENTIALS_INFO_V2_0
-def _define_WLX_CLIENT_CREDENTIALS_INFO_V2_0():
-    WLX_CLIENT_CREDENTIALS_INFO_V2_0 = win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V2_0_head
-    WLX_CLIENT_CREDENTIALS_INFO_V2_0._fields_ = [
-        ('dwType', UInt32),
-        ('pszUserName', win32more.Foundation.PWSTR),
-        ('pszDomain', win32more.Foundation.PWSTR),
-        ('pszPassword', win32more.Foundation.PWSTR),
-        ('fPromptForPassword', win32more.Foundation.BOOL),
-        ('fDisconnectOnLogonFailure', win32more.Foundation.BOOL),
-    ]
-    return WLX_CLIENT_CREDENTIALS_INFO_V2_0
-def _define_WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0_head():
-    class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(Structure):
-        pass
-    return WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0
-def _define_WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0():
-    WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 = win32more.Security.WinWlx.WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0_head
-    WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0._fields_ = [
-        ('dwType', UInt32),
-        ('UserToken', win32more.Foundation.HANDLE),
-        ('LogonId', win32more.Foundation.LUID),
-        ('Quotas', win32more.Security.QUOTA_LIMITS),
-        ('UserName', win32more.Foundation.PWSTR),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('LogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('SmartCardLogon', win32more.Foundation.BOOL),
-        ('ProfileLength', UInt32),
-        ('MessageType', UInt32),
-        ('LogonCount', UInt16),
-        ('BadPasswordCount', UInt16),
-        ('ProfileLogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('LogoffTime', win32more.Foundation.LARGE_INTEGER),
-        ('KickOffTime', win32more.Foundation.LARGE_INTEGER),
-        ('PasswordLastSet', win32more.Foundation.LARGE_INTEGER),
-        ('PasswordCanChange', win32more.Foundation.LARGE_INTEGER),
-        ('PasswordMustChange', win32more.Foundation.LARGE_INTEGER),
-        ('LogonScript', win32more.Foundation.PWSTR),
-        ('HomeDirectory', win32more.Foundation.PWSTR),
-        ('FullName', win32more.Foundation.PWSTR),
-        ('ProfilePath', win32more.Foundation.PWSTR),
-        ('HomeDirectoryDrive', win32more.Foundation.PWSTR),
-        ('LogonServer', win32more.Foundation.PWSTR),
-        ('UserFlags', UInt32),
-        ('PrivateDataLen', UInt32),
-        ('PrivateData', c_char_p_no),
-    ]
-    return WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0
-def _define_WLX_DESKTOP_head():
-    class WLX_DESKTOP(Structure):
-        pass
-    return WLX_DESKTOP
-def _define_WLX_DESKTOP():
-    WLX_DESKTOP = win32more.Security.WinWlx.WLX_DESKTOP_head
-    WLX_DESKTOP._fields_ = [
-        ('Size', UInt32),
-        ('Flags', UInt32),
-        ('hDesktop', win32more.System.StationsAndDesktops.HDESK),
-        ('pszDesktopName', win32more.Foundation.PWSTR),
-    ]
-    return WLX_DESKTOP
-def _define_WLX_DISPATCH_VERSION_1_0_head():
-    class WLX_DISPATCH_VERSION_1_0(Structure):
-        pass
-    return WLX_DISPATCH_VERSION_1_0
-def _define_WLX_DISPATCH_VERSION_1_0():
-    WLX_DISPATCH_VERSION_1_0 = win32more.Security.WinWlx.WLX_DISPATCH_VERSION_1_0_head
-    WLX_DISPATCH_VERSION_1_0._fields_ = [
-        ('WlxUseCtrlAltDel', win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL),
-        ('WlxSetContextPointer', win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER),
-        ('WlxSasNotify', win32more.Security.WinWlx.PWLX_SAS_NOTIFY),
-        ('WlxSetTimeout', win32more.Security.WinWlx.PWLX_SET_TIMEOUT),
-        ('WlxAssignShellProtection', win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION),
-        ('WlxMessageBox', win32more.Security.WinWlx.PWLX_MESSAGE_BOX),
-        ('WlxDialogBox', win32more.Security.WinWlx.PWLX_DIALOG_BOX),
-        ('WlxDialogBoxParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM),
-        ('WlxDialogBoxIndirect', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT),
-        ('WlxDialogBoxIndirectParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM),
-        ('WlxSwitchDesktopToUser', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER),
-        ('WlxSwitchDesktopToWinlogon', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON),
-        ('WlxChangePasswordNotify', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY),
-    ]
-    return WLX_DISPATCH_VERSION_1_0
-def _define_WLX_DISPATCH_VERSION_1_1_head():
-    class WLX_DISPATCH_VERSION_1_1(Structure):
-        pass
-    return WLX_DISPATCH_VERSION_1_1
-def _define_WLX_DISPATCH_VERSION_1_1():
-    WLX_DISPATCH_VERSION_1_1 = win32more.Security.WinWlx.WLX_DISPATCH_VERSION_1_1_head
-    WLX_DISPATCH_VERSION_1_1._fields_ = [
-        ('WlxUseCtrlAltDel', win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL),
-        ('WlxSetContextPointer', win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER),
-        ('WlxSasNotify', win32more.Security.WinWlx.PWLX_SAS_NOTIFY),
-        ('WlxSetTimeout', win32more.Security.WinWlx.PWLX_SET_TIMEOUT),
-        ('WlxAssignShellProtection', win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION),
-        ('WlxMessageBox', win32more.Security.WinWlx.PWLX_MESSAGE_BOX),
-        ('WlxDialogBox', win32more.Security.WinWlx.PWLX_DIALOG_BOX),
-        ('WlxDialogBoxParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM),
-        ('WlxDialogBoxIndirect', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT),
-        ('WlxDialogBoxIndirectParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM),
-        ('WlxSwitchDesktopToUser', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER),
-        ('WlxSwitchDesktopToWinlogon', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON),
-        ('WlxChangePasswordNotify', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY),
-        ('WlxGetSourceDesktop', win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP),
-        ('WlxSetReturnDesktop', win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP),
-        ('WlxCreateUserDesktop', win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP),
-        ('WlxChangePasswordNotifyEx', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX),
-    ]
-    return WLX_DISPATCH_VERSION_1_1
-def _define_WLX_DISPATCH_VERSION_1_2_head():
-    class WLX_DISPATCH_VERSION_1_2(Structure):
-        pass
-    return WLX_DISPATCH_VERSION_1_2
-def _define_WLX_DISPATCH_VERSION_1_2():
-    WLX_DISPATCH_VERSION_1_2 = win32more.Security.WinWlx.WLX_DISPATCH_VERSION_1_2_head
-    WLX_DISPATCH_VERSION_1_2._fields_ = [
-        ('WlxUseCtrlAltDel', win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL),
-        ('WlxSetContextPointer', win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER),
-        ('WlxSasNotify', win32more.Security.WinWlx.PWLX_SAS_NOTIFY),
-        ('WlxSetTimeout', win32more.Security.WinWlx.PWLX_SET_TIMEOUT),
-        ('WlxAssignShellProtection', win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION),
-        ('WlxMessageBox', win32more.Security.WinWlx.PWLX_MESSAGE_BOX),
-        ('WlxDialogBox', win32more.Security.WinWlx.PWLX_DIALOG_BOX),
-        ('WlxDialogBoxParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM),
-        ('WlxDialogBoxIndirect', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT),
-        ('WlxDialogBoxIndirectParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM),
-        ('WlxSwitchDesktopToUser', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER),
-        ('WlxSwitchDesktopToWinlogon', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON),
-        ('WlxChangePasswordNotify', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY),
-        ('WlxGetSourceDesktop', win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP),
-        ('WlxSetReturnDesktop', win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP),
-        ('WlxCreateUserDesktop', win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP),
-        ('WlxChangePasswordNotifyEx', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX),
-        ('WlxCloseUserDesktop', win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP),
-    ]
-    return WLX_DISPATCH_VERSION_1_2
-def _define_WLX_DISPATCH_VERSION_1_3_head():
-    class WLX_DISPATCH_VERSION_1_3(Structure):
-        pass
-    return WLX_DISPATCH_VERSION_1_3
-def _define_WLX_DISPATCH_VERSION_1_3():
-    WLX_DISPATCH_VERSION_1_3 = win32more.Security.WinWlx.WLX_DISPATCH_VERSION_1_3_head
-    WLX_DISPATCH_VERSION_1_3._fields_ = [
-        ('WlxUseCtrlAltDel', win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL),
-        ('WlxSetContextPointer', win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER),
-        ('WlxSasNotify', win32more.Security.WinWlx.PWLX_SAS_NOTIFY),
-        ('WlxSetTimeout', win32more.Security.WinWlx.PWLX_SET_TIMEOUT),
-        ('WlxAssignShellProtection', win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION),
-        ('WlxMessageBox', win32more.Security.WinWlx.PWLX_MESSAGE_BOX),
-        ('WlxDialogBox', win32more.Security.WinWlx.PWLX_DIALOG_BOX),
-        ('WlxDialogBoxParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM),
-        ('WlxDialogBoxIndirect', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT),
-        ('WlxDialogBoxIndirectParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM),
-        ('WlxSwitchDesktopToUser', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER),
-        ('WlxSwitchDesktopToWinlogon', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON),
-        ('WlxChangePasswordNotify', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY),
-        ('WlxGetSourceDesktop', win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP),
-        ('WlxSetReturnDesktop', win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP),
-        ('WlxCreateUserDesktop', win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP),
-        ('WlxChangePasswordNotifyEx', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX),
-        ('WlxCloseUserDesktop', win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP),
-        ('WlxSetOption', win32more.Security.WinWlx.PWLX_SET_OPTION),
-        ('WlxGetOption', win32more.Security.WinWlx.PWLX_GET_OPTION),
-        ('WlxWin31Migrate', win32more.Security.WinWlx.PWLX_WIN31_MIGRATE),
-        ('WlxQueryClientCredentials', win32more.Security.WinWlx.PWLX_QUERY_CLIENT_CREDENTIALS),
-        ('WlxQueryInetConnectorCredentials', win32more.Security.WinWlx.PWLX_QUERY_IC_CREDENTIALS),
-        ('WlxDisconnect', win32more.Security.WinWlx.PWLX_DISCONNECT),
-        ('WlxQueryTerminalServicesData', win32more.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA),
-    ]
-    return WLX_DISPATCH_VERSION_1_3
-def _define_WLX_DISPATCH_VERSION_1_4_head():
-    class WLX_DISPATCH_VERSION_1_4(Structure):
-        pass
-    return WLX_DISPATCH_VERSION_1_4
-def _define_WLX_DISPATCH_VERSION_1_4():
-    WLX_DISPATCH_VERSION_1_4 = win32more.Security.WinWlx.WLX_DISPATCH_VERSION_1_4_head
-    WLX_DISPATCH_VERSION_1_4._fields_ = [
-        ('WlxUseCtrlAltDel', win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL),
-        ('WlxSetContextPointer', win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER),
-        ('WlxSasNotify', win32more.Security.WinWlx.PWLX_SAS_NOTIFY),
-        ('WlxSetTimeout', win32more.Security.WinWlx.PWLX_SET_TIMEOUT),
-        ('WlxAssignShellProtection', win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION),
-        ('WlxMessageBox', win32more.Security.WinWlx.PWLX_MESSAGE_BOX),
-        ('WlxDialogBox', win32more.Security.WinWlx.PWLX_DIALOG_BOX),
-        ('WlxDialogBoxParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM),
-        ('WlxDialogBoxIndirect', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT),
-        ('WlxDialogBoxIndirectParam', win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM),
-        ('WlxSwitchDesktopToUser', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER),
-        ('WlxSwitchDesktopToWinlogon', win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON),
-        ('WlxChangePasswordNotify', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY),
-        ('WlxGetSourceDesktop', win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP),
-        ('WlxSetReturnDesktop', win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP),
-        ('WlxCreateUserDesktop', win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP),
-        ('WlxChangePasswordNotifyEx', win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX),
-        ('WlxCloseUserDesktop', win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP),
-        ('WlxSetOption', win32more.Security.WinWlx.PWLX_SET_OPTION),
-        ('WlxGetOption', win32more.Security.WinWlx.PWLX_GET_OPTION),
-        ('WlxWin31Migrate', win32more.Security.WinWlx.PWLX_WIN31_MIGRATE),
-        ('WlxQueryClientCredentials', win32more.Security.WinWlx.PWLX_QUERY_CLIENT_CREDENTIALS),
-        ('WlxQueryInetConnectorCredentials', win32more.Security.WinWlx.PWLX_QUERY_IC_CREDENTIALS),
-        ('WlxDisconnect', win32more.Security.WinWlx.PWLX_DISCONNECT),
-        ('WlxQueryTerminalServicesData', win32more.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA),
-        ('WlxQueryConsoleSwitchCredentials', win32more.Security.WinWlx.PWLX_QUERY_CONSOLESWITCH_CREDENTIALS),
-        ('WlxQueryTsLogonCredentials', win32more.Security.WinWlx.PWLX_QUERY_TS_LOGON_CREDENTIALS),
-    ]
-    return WLX_DISPATCH_VERSION_1_4
-def _define_WLX_MPR_NOTIFY_INFO_head():
-    class WLX_MPR_NOTIFY_INFO(Structure):
-        pass
-    return WLX_MPR_NOTIFY_INFO
-def _define_WLX_MPR_NOTIFY_INFO():
-    WLX_MPR_NOTIFY_INFO = win32more.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head
-    WLX_MPR_NOTIFY_INFO._fields_ = [
-        ('pszUserName', win32more.Foundation.PWSTR),
-        ('pszDomain', win32more.Foundation.PWSTR),
-        ('pszPassword', win32more.Foundation.PWSTR),
-        ('pszOldPassword', win32more.Foundation.PWSTR),
-    ]
-    return WLX_MPR_NOTIFY_INFO
-def _define_WLX_NOTIFICATION_INFO_head():
-    class WLX_NOTIFICATION_INFO(Structure):
-        pass
-    return WLX_NOTIFICATION_INFO
-def _define_WLX_NOTIFICATION_INFO():
-    WLX_NOTIFICATION_INFO = win32more.Security.WinWlx.WLX_NOTIFICATION_INFO_head
-    WLX_NOTIFICATION_INFO._fields_ = [
-        ('Size', UInt32),
-        ('Flags', UInt32),
-        ('UserName', win32more.Foundation.PWSTR),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('WindowStation', win32more.Foundation.PWSTR),
-        ('hToken', win32more.Foundation.HANDLE),
-        ('hDesktop', win32more.System.StationsAndDesktops.HDESK),
-        ('pStatusCallback', win32more.Security.WinWlx.PFNMSGECALLBACK),
-    ]
-    return WLX_NOTIFICATION_INFO
-def _define_WLX_PROFILE_V1_0_head():
-    class WLX_PROFILE_V1_0(Structure):
-        pass
-    return WLX_PROFILE_V1_0
-def _define_WLX_PROFILE_V1_0():
-    WLX_PROFILE_V1_0 = win32more.Security.WinWlx.WLX_PROFILE_V1_0_head
-    WLX_PROFILE_V1_0._fields_ = [
-        ('dwType', UInt32),
-        ('pszProfile', win32more.Foundation.PWSTR),
-    ]
-    return WLX_PROFILE_V1_0
-def _define_WLX_PROFILE_V2_0_head():
-    class WLX_PROFILE_V2_0(Structure):
-        pass
-    return WLX_PROFILE_V2_0
-def _define_WLX_PROFILE_V2_0():
-    WLX_PROFILE_V2_0 = win32more.Security.WinWlx.WLX_PROFILE_V2_0_head
-    WLX_PROFILE_V2_0._fields_ = [
-        ('dwType', UInt32),
-        ('pszProfile', win32more.Foundation.PWSTR),
-        ('pszPolicy', win32more.Foundation.PWSTR),
-        ('pszNetworkDefaultUserProfile', win32more.Foundation.PWSTR),
-        ('pszServerName', win32more.Foundation.PWSTR),
-        ('pszEnvironment', win32more.Foundation.PWSTR),
-    ]
-    return WLX_PROFILE_V2_0
-def _define_WLX_SC_NOTIFICATION_INFO_head():
-    class WLX_SC_NOTIFICATION_INFO(Structure):
-        pass
-    return WLX_SC_NOTIFICATION_INFO
-def _define_WLX_SC_NOTIFICATION_INFO():
-    WLX_SC_NOTIFICATION_INFO = win32more.Security.WinWlx.WLX_SC_NOTIFICATION_INFO_head
-    WLX_SC_NOTIFICATION_INFO._fields_ = [
-        ('pszCard', win32more.Foundation.PWSTR),
-        ('pszReader', win32more.Foundation.PWSTR),
-        ('pszContainer', win32more.Foundation.PWSTR),
-        ('pszCryptoProvider', win32more.Foundation.PWSTR),
-    ]
-    return WLX_SC_NOTIFICATION_INFO
+WLX_VERSION_1_0: UInt32 = 65536
+WLX_VERSION_1_1: UInt32 = 65537
+WLX_VERSION_1_2: UInt32 = 65538
+WLX_VERSION_1_3: UInt32 = 65539
+WLX_VERSION_1_4: UInt32 = 65540
+WLX_CURRENT_VERSION: UInt32 = 65540
+WLX_SAS_TYPE_TIMEOUT: UInt32 = 0
+WLX_SAS_TYPE_CTRL_ALT_DEL: UInt32 = 1
+WLX_SAS_TYPE_SCRNSVR_TIMEOUT: UInt32 = 2
+WLX_SAS_TYPE_SCRNSVR_ACTIVITY: UInt32 = 3
+WLX_SAS_TYPE_USER_LOGOFF: UInt32 = 4
+WLX_SAS_TYPE_SC_INSERT: UInt32 = 5
+WLX_SAS_TYPE_SC_REMOVE: UInt32 = 6
+WLX_SAS_TYPE_AUTHENTICATED: UInt32 = 7
+WLX_SAS_TYPE_SC_FIRST_READER_ARRIVED: UInt32 = 8
+WLX_SAS_TYPE_SC_LAST_READER_REMOVED: UInt32 = 9
+WLX_SAS_TYPE_SWITCHUSER: UInt32 = 10
+WLX_SAS_TYPE_MAX_MSFT_VALUE: UInt32 = 127
+WLX_LOGON_OPT_NO_PROFILE: UInt32 = 1
+WLX_PROFILE_TYPE_V1_0: UInt32 = 1
+WLX_PROFILE_TYPE_V2_0: UInt32 = 2
+WLX_SAS_ACTION_LOGON: UInt32 = 1
+WLX_SAS_ACTION_NONE: UInt32 = 2
+WLX_SAS_ACTION_LOCK_WKSTA: UInt32 = 3
+WLX_SAS_ACTION_LOGOFF: UInt32 = 4
+WLX_SAS_ACTION_PWD_CHANGED: UInt32 = 6
+WLX_SAS_ACTION_TASKLIST: UInt32 = 7
+WLX_SAS_ACTION_UNLOCK_WKSTA: UInt32 = 8
+WLX_SAS_ACTION_FORCE_LOGOFF: UInt32 = 9
+WLX_SAS_ACTION_SHUTDOWN_SLEEP: UInt32 = 12
+WLX_SAS_ACTION_SHUTDOWN_SLEEP2: UInt32 = 13
+WLX_SAS_ACTION_SHUTDOWN_HIBERNATE: UInt32 = 14
+WLX_SAS_ACTION_RECONNECTED: UInt32 = 15
+WLX_SAS_ACTION_DELAYED_FORCE_LOGOFF: UInt32 = 16
+WLX_SAS_ACTION_SWITCH_CONSOLE: UInt32 = 17
+WLX_WM_SAS: UInt32 = 1625
+WLX_DLG_SAS: UInt32 = 101
+WLX_DLG_INPUT_TIMEOUT: UInt32 = 102
+WLX_DLG_SCREEN_SAVER_TIMEOUT: UInt32 = 103
+WLX_DLG_USER_LOGOFF: UInt32 = 104
+WLX_DIRECTORY_LENGTH: UInt32 = 256
+WLX_CREDENTIAL_TYPE_V1_0: UInt32 = 1
+WLX_CREDENTIAL_TYPE_V2_0: UInt32 = 2
+WLX_CONSOLESWITCHCREDENTIAL_TYPE_V1_0: UInt32 = 1
+STATUSMSG_OPTION_NOANIMATION: UInt32 = 1
+STATUSMSG_OPTION_SETFOREGROUND: UInt32 = 2
+WLX_DESKTOP_NAME: UInt32 = 1
+WLX_DESKTOP_HANDLE: UInt32 = 2
+WLX_CREATE_INSTANCE_ONLY: UInt32 = 1
+WLX_CREATE_USER: UInt32 = 2
+WLX_OPTION_USE_CTRL_ALT_DEL: UInt32 = 1
+WLX_OPTION_CONTEXT_POINTER: UInt32 = 2
+WLX_OPTION_USE_SMART_CARD: UInt32 = 3
+WLX_OPTION_FORCE_LOGOFF_TIME: UInt32 = 4
+WLX_OPTION_IGNORE_AUTO_LOGON: UInt32 = 8
+WLX_OPTION_NO_SWITCH_ON_SAS: UInt32 = 9
+WLX_OPTION_SMART_CARD_PRESENT: UInt32 = 65537
+WLX_OPTION_SMART_CARD_INFO: UInt32 = 65538
+WLX_OPTION_DISPATCH_TABLE_SIZE: UInt32 = 65539
+@winfunctype_pointer
+def PFNMSGECALLBACK(bVerbose: win32more.Foundation.BOOL, lpMessage: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype_pointer
+def PWLX_ASSIGN_SHELL_PROTECTION(hWlx: win32more.Foundation.HANDLE, hToken: win32more.Foundation.HANDLE, hProcess: win32more.Foundation.HANDLE, hThread: win32more.Foundation.HANDLE) -> Int32: ...
+@winfunctype_pointer
+def PWLX_CHANGE_PASSWORD_NOTIFY(hWlx: win32more.Foundation.HANDLE, pMprInfo: POINTER(win32more.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32) -> Int32: ...
+@winfunctype_pointer
+def PWLX_CHANGE_PASSWORD_NOTIFY_EX(hWlx: win32more.Foundation.HANDLE, pMprInfo: POINTER(win32more.Security.WinWlx.WLX_MPR_NOTIFY_INFO_head), dwChangeInfo: UInt32, ProviderName: win32more.Foundation.PWSTR, Reserved: c_void_p) -> Int32: ...
+@winfunctype_pointer
+def PWLX_CLOSE_USER_DESKTOP(hWlx: win32more.Foundation.HANDLE, pDesktop: POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head), hToken: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_CREATE_USER_DESKTOP(hWlx: win32more.Foundation.HANDLE, hToken: win32more.Foundation.HANDLE, Flags: UInt32, pszDesktopName: win32more.Foundation.PWSTR, ppDesktop: POINTER(POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head))) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_DIALOG_BOX(hWlx: win32more.Foundation.HANDLE, hInst: win32more.Foundation.HANDLE, lpszTemplate: win32more.Foundation.PWSTR, hwndOwner: win32more.Foundation.HWND, dlgprc: win32more.UI.WindowsAndMessaging.DLGPROC) -> Int32: ...
+@winfunctype_pointer
+def PWLX_DIALOG_BOX_INDIRECT(hWlx: win32more.Foundation.HANDLE, hInst: win32more.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head), hwndOwner: win32more.Foundation.HWND, dlgprc: win32more.UI.WindowsAndMessaging.DLGPROC) -> Int32: ...
+@winfunctype_pointer
+def PWLX_DIALOG_BOX_INDIRECT_PARAM(hWlx: win32more.Foundation.HANDLE, hInst: win32more.Foundation.HANDLE, hDialogTemplate: POINTER(win32more.UI.WindowsAndMessaging.DLGTEMPLATE_head), hwndOwner: win32more.Foundation.HWND, dlgprc: win32more.UI.WindowsAndMessaging.DLGPROC, dwInitParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype_pointer
+def PWLX_DIALOG_BOX_PARAM(hWlx: win32more.Foundation.HANDLE, hInst: win32more.Foundation.HANDLE, lpszTemplate: win32more.Foundation.PWSTR, hwndOwner: win32more.Foundation.HWND, dlgprc: win32more.UI.WindowsAndMessaging.DLGPROC, dwInitParam: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype_pointer
+def PWLX_DISCONNECT() -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_GET_OPTION(hWlx: win32more.Foundation.HANDLE, Option: UInt32, Value: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_GET_SOURCE_DESKTOP(hWlx: win32more.Foundation.HANDLE, ppDesktop: POINTER(POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head))) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_MESSAGE_BOX(hWlx: win32more.Foundation.HANDLE, hwndOwner: win32more.Foundation.HWND, lpszText: win32more.Foundation.PWSTR, lpszTitle: win32more.Foundation.PWSTR, fuStyle: UInt32) -> Int32: ...
+@winfunctype_pointer
+def PWLX_QUERY_CLIENT_CREDENTIALS(pCred: POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_QUERY_CONSOLESWITCH_CREDENTIALS(pCred: POINTER(win32more.Security.WinWlx.WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0_head)) -> UInt32: ...
+@winfunctype_pointer
+def PWLX_QUERY_IC_CREDENTIALS(pCred: POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V1_0_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_QUERY_TERMINAL_SERVICES_DATA(hWlx: win32more.Foundation.HANDLE, pTSData: POINTER(win32more.Security.WinWlx.WLX_TERMINAL_SERVICES_DATA_head), UserName: win32more.Foundation.PWSTR, Domain: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype_pointer
+def PWLX_QUERY_TS_LOGON_CREDENTIALS(pCred: POINTER(win32more.Security.WinWlx.WLX_CLIENT_CREDENTIALS_INFO_V2_0_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_SAS_NOTIFY(hWlx: win32more.Foundation.HANDLE, dwSasType: UInt32) -> Void: ...
+@winfunctype_pointer
+def PWLX_SET_CONTEXT_POINTER(hWlx: win32more.Foundation.HANDLE, pWlxContext: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PWLX_SET_OPTION(hWlx: win32more.Foundation.HANDLE, Option: UInt32, Value: UIntPtr, OldValue: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_SET_RETURN_DESKTOP(hWlx: win32more.Foundation.HANDLE, pDesktop: POINTER(win32more.Security.WinWlx.WLX_DESKTOP_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_SET_TIMEOUT(hWlx: win32more.Foundation.HANDLE, Timeout: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PWLX_SWITCH_DESKTOP_TO_USER(hWlx: win32more.Foundation.HANDLE) -> Int32: ...
+@winfunctype_pointer
+def PWLX_SWITCH_DESKTOP_TO_WINLOGON(hWlx: win32more.Foundation.HANDLE) -> Int32: ...
+@winfunctype_pointer
+def PWLX_USE_CTRL_ALT_DEL(hWlx: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype_pointer
+def PWLX_WIN31_MIGRATE(hWlx: win32more.Foundation.HANDLE) -> Void: ...
+class WLX_CLIENT_CREDENTIALS_INFO_V1_0(Structure):
+    dwType: UInt32
+    pszUserName: win32more.Foundation.PWSTR
+    pszDomain: win32more.Foundation.PWSTR
+    pszPassword: win32more.Foundation.PWSTR
+    fPromptForPassword: win32more.Foundation.BOOL
+class WLX_CLIENT_CREDENTIALS_INFO_V2_0(Structure):
+    dwType: UInt32
+    pszUserName: win32more.Foundation.PWSTR
+    pszDomain: win32more.Foundation.PWSTR
+    pszPassword: win32more.Foundation.PWSTR
+    fPromptForPassword: win32more.Foundation.BOOL
+    fDisconnectOnLogonFailure: win32more.Foundation.BOOL
+class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(Structure):
+    dwType: UInt32
+    UserToken: win32more.Foundation.HANDLE
+    LogonId: win32more.Foundation.LUID
+    Quotas: win32more.Security.QUOTA_LIMITS
+    UserName: win32more.Foundation.PWSTR
+    Domain: win32more.Foundation.PWSTR
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    SmartCardLogon: win32more.Foundation.BOOL
+    ProfileLength: UInt32
+    MessageType: UInt32
+    LogonCount: UInt16
+    BadPasswordCount: UInt16
+    ProfileLogonTime: win32more.Foundation.LARGE_INTEGER
+    LogoffTime: win32more.Foundation.LARGE_INTEGER
+    KickOffTime: win32more.Foundation.LARGE_INTEGER
+    PasswordLastSet: win32more.Foundation.LARGE_INTEGER
+    PasswordCanChange: win32more.Foundation.LARGE_INTEGER
+    PasswordMustChange: win32more.Foundation.LARGE_INTEGER
+    LogonScript: win32more.Foundation.PWSTR
+    HomeDirectory: win32more.Foundation.PWSTR
+    FullName: win32more.Foundation.PWSTR
+    ProfilePath: win32more.Foundation.PWSTR
+    HomeDirectoryDrive: win32more.Foundation.PWSTR
+    LogonServer: win32more.Foundation.PWSTR
+    UserFlags: UInt32
+    PrivateDataLen: UInt32
+    PrivateData: c_char_p_no
+class WLX_DESKTOP(Structure):
+    Size: UInt32
+    Flags: UInt32
+    hDesktop: win32more.System.StationsAndDesktops.HDESK
+    pszDesktopName: win32more.Foundation.PWSTR
+class WLX_DISPATCH_VERSION_1_0(Structure):
+    WlxUseCtrlAltDel: win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
+    WlxSetContextPointer: win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
+    WlxSasNotify: win32more.Security.WinWlx.PWLX_SAS_NOTIFY
+    WlxSetTimeout: win32more.Security.WinWlx.PWLX_SET_TIMEOUT
+    WlxAssignShellProtection: win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION
+    WlxMessageBox: win32more.Security.WinWlx.PWLX_MESSAGE_BOX
+    WlxDialogBox: win32more.Security.WinWlx.PWLX_DIALOG_BOX
+    WlxDialogBoxParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM
+    WlxDialogBoxIndirect: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT
+    WlxDialogBoxIndirectParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM
+    WlxSwitchDesktopToUser: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
+    WlxSwitchDesktopToWinlogon: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
+    WlxChangePasswordNotify: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
+class WLX_DISPATCH_VERSION_1_1(Structure):
+    WlxUseCtrlAltDel: win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
+    WlxSetContextPointer: win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
+    WlxSasNotify: win32more.Security.WinWlx.PWLX_SAS_NOTIFY
+    WlxSetTimeout: win32more.Security.WinWlx.PWLX_SET_TIMEOUT
+    WlxAssignShellProtection: win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION
+    WlxMessageBox: win32more.Security.WinWlx.PWLX_MESSAGE_BOX
+    WlxDialogBox: win32more.Security.WinWlx.PWLX_DIALOG_BOX
+    WlxDialogBoxParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM
+    WlxDialogBoxIndirect: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT
+    WlxDialogBoxIndirectParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM
+    WlxSwitchDesktopToUser: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
+    WlxSwitchDesktopToWinlogon: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
+    WlxChangePasswordNotify: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
+    WlxGetSourceDesktop: win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP
+    WlxSetReturnDesktop: win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP
+    WlxCreateUserDesktop: win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
+    WlxChangePasswordNotifyEx: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
+class WLX_DISPATCH_VERSION_1_2(Structure):
+    WlxUseCtrlAltDel: win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
+    WlxSetContextPointer: win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
+    WlxSasNotify: win32more.Security.WinWlx.PWLX_SAS_NOTIFY
+    WlxSetTimeout: win32more.Security.WinWlx.PWLX_SET_TIMEOUT
+    WlxAssignShellProtection: win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION
+    WlxMessageBox: win32more.Security.WinWlx.PWLX_MESSAGE_BOX
+    WlxDialogBox: win32more.Security.WinWlx.PWLX_DIALOG_BOX
+    WlxDialogBoxParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM
+    WlxDialogBoxIndirect: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT
+    WlxDialogBoxIndirectParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM
+    WlxSwitchDesktopToUser: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
+    WlxSwitchDesktopToWinlogon: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
+    WlxChangePasswordNotify: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
+    WlxGetSourceDesktop: win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP
+    WlxSetReturnDesktop: win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP
+    WlxCreateUserDesktop: win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
+    WlxChangePasswordNotifyEx: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
+    WlxCloseUserDesktop: win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP
+class WLX_DISPATCH_VERSION_1_3(Structure):
+    WlxUseCtrlAltDel: win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
+    WlxSetContextPointer: win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
+    WlxSasNotify: win32more.Security.WinWlx.PWLX_SAS_NOTIFY
+    WlxSetTimeout: win32more.Security.WinWlx.PWLX_SET_TIMEOUT
+    WlxAssignShellProtection: win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION
+    WlxMessageBox: win32more.Security.WinWlx.PWLX_MESSAGE_BOX
+    WlxDialogBox: win32more.Security.WinWlx.PWLX_DIALOG_BOX
+    WlxDialogBoxParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM
+    WlxDialogBoxIndirect: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT
+    WlxDialogBoxIndirectParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM
+    WlxSwitchDesktopToUser: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
+    WlxSwitchDesktopToWinlogon: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
+    WlxChangePasswordNotify: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
+    WlxGetSourceDesktop: win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP
+    WlxSetReturnDesktop: win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP
+    WlxCreateUserDesktop: win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
+    WlxChangePasswordNotifyEx: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
+    WlxCloseUserDesktop: win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP
+    WlxSetOption: win32more.Security.WinWlx.PWLX_SET_OPTION
+    WlxGetOption: win32more.Security.WinWlx.PWLX_GET_OPTION
+    WlxWin31Migrate: win32more.Security.WinWlx.PWLX_WIN31_MIGRATE
+    WlxQueryClientCredentials: win32more.Security.WinWlx.PWLX_QUERY_CLIENT_CREDENTIALS
+    WlxQueryInetConnectorCredentials: win32more.Security.WinWlx.PWLX_QUERY_IC_CREDENTIALS
+    WlxDisconnect: win32more.Security.WinWlx.PWLX_DISCONNECT
+    WlxQueryTerminalServicesData: win32more.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA
+class WLX_DISPATCH_VERSION_1_4(Structure):
+    WlxUseCtrlAltDel: win32more.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
+    WlxSetContextPointer: win32more.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
+    WlxSasNotify: win32more.Security.WinWlx.PWLX_SAS_NOTIFY
+    WlxSetTimeout: win32more.Security.WinWlx.PWLX_SET_TIMEOUT
+    WlxAssignShellProtection: win32more.Security.WinWlx.PWLX_ASSIGN_SHELL_PROTECTION
+    WlxMessageBox: win32more.Security.WinWlx.PWLX_MESSAGE_BOX
+    WlxDialogBox: win32more.Security.WinWlx.PWLX_DIALOG_BOX
+    WlxDialogBoxParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_PARAM
+    WlxDialogBoxIndirect: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT
+    WlxDialogBoxIndirectParam: win32more.Security.WinWlx.PWLX_DIALOG_BOX_INDIRECT_PARAM
+    WlxSwitchDesktopToUser: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
+    WlxSwitchDesktopToWinlogon: win32more.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
+    WlxChangePasswordNotify: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
+    WlxGetSourceDesktop: win32more.Security.WinWlx.PWLX_GET_SOURCE_DESKTOP
+    WlxSetReturnDesktop: win32more.Security.WinWlx.PWLX_SET_RETURN_DESKTOP
+    WlxCreateUserDesktop: win32more.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
+    WlxChangePasswordNotifyEx: win32more.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
+    WlxCloseUserDesktop: win32more.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP
+    WlxSetOption: win32more.Security.WinWlx.PWLX_SET_OPTION
+    WlxGetOption: win32more.Security.WinWlx.PWLX_GET_OPTION
+    WlxWin31Migrate: win32more.Security.WinWlx.PWLX_WIN31_MIGRATE
+    WlxQueryClientCredentials: win32more.Security.WinWlx.PWLX_QUERY_CLIENT_CREDENTIALS
+    WlxQueryInetConnectorCredentials: win32more.Security.WinWlx.PWLX_QUERY_IC_CREDENTIALS
+    WlxDisconnect: win32more.Security.WinWlx.PWLX_DISCONNECT
+    WlxQueryTerminalServicesData: win32more.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA
+    WlxQueryConsoleSwitchCredentials: win32more.Security.WinWlx.PWLX_QUERY_CONSOLESWITCH_CREDENTIALS
+    WlxQueryTsLogonCredentials: win32more.Security.WinWlx.PWLX_QUERY_TS_LOGON_CREDENTIALS
+class WLX_MPR_NOTIFY_INFO(Structure):
+    pszUserName: win32more.Foundation.PWSTR
+    pszDomain: win32more.Foundation.PWSTR
+    pszPassword: win32more.Foundation.PWSTR
+    pszOldPassword: win32more.Foundation.PWSTR
+class WLX_NOTIFICATION_INFO(Structure):
+    Size: UInt32
+    Flags: UInt32
+    UserName: win32more.Foundation.PWSTR
+    Domain: win32more.Foundation.PWSTR
+    WindowStation: win32more.Foundation.PWSTR
+    hToken: win32more.Foundation.HANDLE
+    hDesktop: win32more.System.StationsAndDesktops.HDESK
+    pStatusCallback: win32more.Security.WinWlx.PFNMSGECALLBACK
+class WLX_PROFILE_V1_0(Structure):
+    dwType: UInt32
+    pszProfile: win32more.Foundation.PWSTR
+class WLX_PROFILE_V2_0(Structure):
+    dwType: UInt32
+    pszProfile: win32more.Foundation.PWSTR
+    pszPolicy: win32more.Foundation.PWSTR
+    pszNetworkDefaultUserProfile: win32more.Foundation.PWSTR
+    pszServerName: win32more.Foundation.PWSTR
+    pszEnvironment: win32more.Foundation.PWSTR
+class WLX_SC_NOTIFICATION_INFO(Structure):
+    pszCard: win32more.Foundation.PWSTR
+    pszReader: win32more.Foundation.PWSTR
+    pszContainer: win32more.Foundation.PWSTR
+    pszCryptoProvider: win32more.Foundation.PWSTR
 WLX_SHUTDOWN_TYPE = UInt32
-WLX_SAS_ACTION_SHUTDOWN = 5
-WLX_SAS_ACTION_SHUTDOWN_REBOOT = 11
-WLX_SAS_ACTION_SHUTDOWN_POWER_OFF = 10
-def _define_WLX_TERMINAL_SERVICES_DATA_head():
-    class WLX_TERMINAL_SERVICES_DATA(Structure):
-        pass
-    return WLX_TERMINAL_SERVICES_DATA
-def _define_WLX_TERMINAL_SERVICES_DATA():
-    WLX_TERMINAL_SERVICES_DATA = win32more.Security.WinWlx.WLX_TERMINAL_SERVICES_DATA_head
-    WLX_TERMINAL_SERVICES_DATA._fields_ = [
-        ('ProfilePath', Char * 257),
-        ('HomeDir', Char * 257),
-        ('HomeDirDrive', Char * 4),
-    ]
-    return WLX_TERMINAL_SERVICES_DATA
+WLX_SAS_ACTION_SHUTDOWN: WLX_SHUTDOWN_TYPE = 5
+WLX_SAS_ACTION_SHUTDOWN_REBOOT: WLX_SHUTDOWN_TYPE = 11
+WLX_SAS_ACTION_SHUTDOWN_POWER_OFF: WLX_SHUTDOWN_TYPE = 10
+class WLX_TERMINAL_SERVICES_DATA(Structure):
+    ProfilePath: Char * 257
+    HomeDir: Char * 257
+    HomeDirDrive: Char * 4
+make_head(_module, 'PFNMSGECALLBACK')
+make_head(_module, 'PWLX_ASSIGN_SHELL_PROTECTION')
+make_head(_module, 'PWLX_CHANGE_PASSWORD_NOTIFY')
+make_head(_module, 'PWLX_CHANGE_PASSWORD_NOTIFY_EX')
+make_head(_module, 'PWLX_CLOSE_USER_DESKTOP')
+make_head(_module, 'PWLX_CREATE_USER_DESKTOP')
+make_head(_module, 'PWLX_DIALOG_BOX')
+make_head(_module, 'PWLX_DIALOG_BOX_INDIRECT')
+make_head(_module, 'PWLX_DIALOG_BOX_INDIRECT_PARAM')
+make_head(_module, 'PWLX_DIALOG_BOX_PARAM')
+make_head(_module, 'PWLX_DISCONNECT')
+make_head(_module, 'PWLX_GET_OPTION')
+make_head(_module, 'PWLX_GET_SOURCE_DESKTOP')
+make_head(_module, 'PWLX_MESSAGE_BOX')
+make_head(_module, 'PWLX_QUERY_CLIENT_CREDENTIALS')
+make_head(_module, 'PWLX_QUERY_CONSOLESWITCH_CREDENTIALS')
+make_head(_module, 'PWLX_QUERY_IC_CREDENTIALS')
+make_head(_module, 'PWLX_QUERY_TERMINAL_SERVICES_DATA')
+make_head(_module, 'PWLX_QUERY_TS_LOGON_CREDENTIALS')
+make_head(_module, 'PWLX_SAS_NOTIFY')
+make_head(_module, 'PWLX_SET_CONTEXT_POINTER')
+make_head(_module, 'PWLX_SET_OPTION')
+make_head(_module, 'PWLX_SET_RETURN_DESKTOP')
+make_head(_module, 'PWLX_SET_TIMEOUT')
+make_head(_module, 'PWLX_SWITCH_DESKTOP_TO_USER')
+make_head(_module, 'PWLX_SWITCH_DESKTOP_TO_WINLOGON')
+make_head(_module, 'PWLX_USE_CTRL_ALT_DEL')
+make_head(_module, 'PWLX_WIN31_MIGRATE')
+make_head(_module, 'WLX_CLIENT_CREDENTIALS_INFO_V1_0')
+make_head(_module, 'WLX_CLIENT_CREDENTIALS_INFO_V2_0')
+make_head(_module, 'WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0')
+make_head(_module, 'WLX_DESKTOP')
+make_head(_module, 'WLX_DISPATCH_VERSION_1_0')
+make_head(_module, 'WLX_DISPATCH_VERSION_1_1')
+make_head(_module, 'WLX_DISPATCH_VERSION_1_2')
+make_head(_module, 'WLX_DISPATCH_VERSION_1_3')
+make_head(_module, 'WLX_DISPATCH_VERSION_1_4')
+make_head(_module, 'WLX_MPR_NOTIFY_INFO')
+make_head(_module, 'WLX_NOTIFICATION_INFO')
+make_head(_module, 'WLX_PROFILE_V1_0')
+make_head(_module, 'WLX_PROFILE_V2_0')
+make_head(_module, 'WLX_SC_NOTIFICATION_INFO')
+make_head(_module, 'WLX_TERMINAL_SERVICES_DATA')
 __all__ = [
     "PFNMSGECALLBACK",
     "PWLX_ASSIGN_SHELL_PROTECTION",

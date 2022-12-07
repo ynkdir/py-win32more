@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.Enumeration.Pnp
 import win32more.Devices.Properties
 import win32more.Foundation
@@ -9,432 +10,355 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-UPNP_E_ROOT_ELEMENT_EXPECTED = -2147220992
-UPNP_E_DEVICE_ELEMENT_EXPECTED = -2147220991
-UPNP_E_SERVICE_ELEMENT_EXPECTED = -2147220990
-UPNP_E_SERVICE_NODE_INCOMPLETE = -2147220989
-UPNP_E_DEVICE_NODE_INCOMPLETE = -2147220988
-UPNP_E_ICON_ELEMENT_EXPECTED = -2147220987
-UPNP_E_ICON_NODE_INCOMPLETE = -2147220986
-UPNP_E_INVALID_ACTION = -2147220985
-UPNP_E_INVALID_ARGUMENTS = -2147220984
-UPNP_E_OUT_OF_SYNC = -2147220983
-UPNP_E_ACTION_REQUEST_FAILED = -2147220976
-UPNP_E_TRANSPORT_ERROR = -2147220975
-UPNP_E_VARIABLE_VALUE_UNKNOWN = -2147220974
-UPNP_E_INVALID_VARIABLE = -2147220973
-UPNP_E_DEVICE_ERROR = -2147220972
-UPNP_E_PROTOCOL_ERROR = -2147220971
-UPNP_E_ERROR_PROCESSING_RESPONSE = -2147220970
-UPNP_E_DEVICE_TIMEOUT = -2147220969
-UPNP_E_INVALID_DOCUMENT = -2147220224
-UPNP_E_EVENT_SUBSCRIPTION_FAILED = -2147220223
-FAULT_INVALID_ACTION = 401
-FAULT_INVALID_ARG = 402
-FAULT_INVALID_SEQUENCE_NUMBER = 403
-FAULT_INVALID_VARIABLE = 404
-FAULT_DEVICE_INTERNAL_ERROR = 501
-FAULT_ACTION_SPECIFIC_BASE = 600
-FAULT_ACTION_SPECIFIC_MAX = 899
-UPNP_E_ACTION_SPECIFIC_BASE = -2147220736
-UPNP_ADDRESSFAMILY_IPv4 = 1
-UPNP_ADDRESSFAMILY_IPv6 = 2
-UPNP_ADDRESSFAMILY_BOTH = 3
-UPNP_SERVICE_DELAY_SCPD_AND_SUBSCRIPTION = 1
-UPNP_E_REQUIRED_ELEMENT_ERROR = -2147180512
-UPNP_E_DUPLICATE_NOT_ALLOWED = -2147180511
-UPNP_E_DUPLICATE_SERVICE_ID = -2147180510
-UPNP_E_INVALID_DESCRIPTION = -2147180509
-UPNP_E_INVALID_SERVICE = -2147180508
-UPNP_E_INVALID_ICON = -2147180507
-UPNP_E_INVALID_XML = -2147180506
-UPNP_E_INVALID_ROOT_NAMESPACE = -2147180505
-UPNP_E_SUFFIX_TOO_LONG = -2147180504
-UPNP_E_URLBASE_PRESENT = -2147180503
-UPNP_E_VALUE_TOO_LONG = -2147180496
-UPNP_E_DEVICE_RUNNING = -2147180495
-UPNP_E_DEVICE_NOTREGISTERED = -2147180494
-REMOTE_ADDRESS_VALUE_NAME = 'RemoteAddress'
-ADDRESS_FAMILY_VALUE_NAME = 'AddressFamily'
-def _define_SwDeviceCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_INFO_head),UInt32,POINTER(win32more.Devices.Properties.DEVPROPERTY_head),win32more.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_CALLBACK,c_void_p,POINTER(IntPtr))(('SwDeviceCreate', windll['CFGMGR32.dll']), ((1, 'pszEnumeratorName'),(1, 'pszParentDeviceInstance'),(1, 'pCreateInfo'),(1, 'cPropertyCount'),(1, 'pProperties'),(1, 'pCallback'),(1, 'pContext'),(1, 'phSwDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceClose():
-    try:
-        return WINFUNCTYPE(Void,win32more.Devices.Enumeration.Pnp.HSWDEVICE)(('SwDeviceClose', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceSetLifetime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,win32more.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME)(('SwDeviceSetLifetime', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'Lifetime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceGetLifetime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,POINTER(win32more.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME))(('SwDeviceGetLifetime', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'pLifetime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDevicePropertySet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,UInt32,POINTER(win32more.Devices.Properties.DEVPROPERTY_head))(('SwDevicePropertySet', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'cPropertyCount'),(1, 'pProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceInterfaceRegister():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Properties.DEVPROPERTY_head),win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR))(('SwDeviceInterfaceRegister', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'pInterfaceClassGuid'),(1, 'pszReferenceString'),(1, 'cPropertyCount'),(1, 'pProperties'),(1, 'fEnabled'),(1, 'ppszDeviceInterfaceId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwMemFree():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('SwMemFree', windll['CFGMGR32.dll']), ((1, 'pMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceInterfaceSetState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('SwDeviceInterfaceSetState', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'pszDeviceInterfaceId'),(1, 'fEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwDeviceInterfacePropertySet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.HSWDEVICE,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.Properties.DEVPROPERTY_head))(('SwDeviceInterfacePropertySet', windll['CFGMGR32.dll']), ((1, 'hSwDevice'),(1, 'pszDeviceInterfaceId'),(1, 'cPropertyCount'),(1, 'pProperties'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+UPNP_E_ROOT_ELEMENT_EXPECTED: win32more.Foundation.HRESULT = -2147220992
+UPNP_E_DEVICE_ELEMENT_EXPECTED: win32more.Foundation.HRESULT = -2147220991
+UPNP_E_SERVICE_ELEMENT_EXPECTED: win32more.Foundation.HRESULT = -2147220990
+UPNP_E_SERVICE_NODE_INCOMPLETE: win32more.Foundation.HRESULT = -2147220989
+UPNP_E_DEVICE_NODE_INCOMPLETE: win32more.Foundation.HRESULT = -2147220988
+UPNP_E_ICON_ELEMENT_EXPECTED: win32more.Foundation.HRESULT = -2147220987
+UPNP_E_ICON_NODE_INCOMPLETE: win32more.Foundation.HRESULT = -2147220986
+UPNP_E_INVALID_ACTION: win32more.Foundation.HRESULT = -2147220985
+UPNP_E_INVALID_ARGUMENTS: win32more.Foundation.HRESULT = -2147220984
+UPNP_E_OUT_OF_SYNC: win32more.Foundation.HRESULT = -2147220983
+UPNP_E_ACTION_REQUEST_FAILED: win32more.Foundation.HRESULT = -2147220976
+UPNP_E_TRANSPORT_ERROR: win32more.Foundation.HRESULT = -2147220975
+UPNP_E_VARIABLE_VALUE_UNKNOWN: win32more.Foundation.HRESULT = -2147220974
+UPNP_E_INVALID_VARIABLE: win32more.Foundation.HRESULT = -2147220973
+UPNP_E_DEVICE_ERROR: win32more.Foundation.HRESULT = -2147220972
+UPNP_E_PROTOCOL_ERROR: win32more.Foundation.HRESULT = -2147220971
+UPNP_E_ERROR_PROCESSING_RESPONSE: win32more.Foundation.HRESULT = -2147220970
+UPNP_E_DEVICE_TIMEOUT: win32more.Foundation.HRESULT = -2147220969
+UPNP_E_INVALID_DOCUMENT: win32more.Foundation.HRESULT = -2147220224
+UPNP_E_EVENT_SUBSCRIPTION_FAILED: win32more.Foundation.HRESULT = -2147220223
+FAULT_INVALID_ACTION: UInt32 = 401
+FAULT_INVALID_ARG: UInt32 = 402
+FAULT_INVALID_SEQUENCE_NUMBER: UInt32 = 403
+FAULT_INVALID_VARIABLE: UInt32 = 404
+FAULT_DEVICE_INTERNAL_ERROR: UInt32 = 501
+FAULT_ACTION_SPECIFIC_BASE: UInt32 = 600
+FAULT_ACTION_SPECIFIC_MAX: UInt32 = 899
+UPNP_E_ACTION_SPECIFIC_BASE: win32more.Foundation.HRESULT = -2147220736
+UPNP_ADDRESSFAMILY_IPv4: UInt32 = 1
+UPNP_ADDRESSFAMILY_IPv6: UInt32 = 2
+UPNP_ADDRESSFAMILY_BOTH: UInt32 = 3
+UPNP_SERVICE_DELAY_SCPD_AND_SUBSCRIPTION: UInt32 = 1
+UPNP_E_REQUIRED_ELEMENT_ERROR: win32more.Foundation.HRESULT = -2147180512
+UPNP_E_DUPLICATE_NOT_ALLOWED: win32more.Foundation.HRESULT = -2147180511
+UPNP_E_DUPLICATE_SERVICE_ID: win32more.Foundation.HRESULT = -2147180510
+UPNP_E_INVALID_DESCRIPTION: win32more.Foundation.HRESULT = -2147180509
+UPNP_E_INVALID_SERVICE: win32more.Foundation.HRESULT = -2147180508
+UPNP_E_INVALID_ICON: win32more.Foundation.HRESULT = -2147180507
+UPNP_E_INVALID_XML: win32more.Foundation.HRESULT = -2147180506
+UPNP_E_INVALID_ROOT_NAMESPACE: win32more.Foundation.HRESULT = -2147180505
+UPNP_E_SUFFIX_TOO_LONG: win32more.Foundation.HRESULT = -2147180504
+UPNP_E_URLBASE_PRESENT: win32more.Foundation.HRESULT = -2147180503
+UPNP_E_VALUE_TOO_LONG: win32more.Foundation.HRESULT = -2147180496
+UPNP_E_DEVICE_RUNNING: win32more.Foundation.HRESULT = -2147180495
+UPNP_E_DEVICE_NOTREGISTERED: win32more.Foundation.HRESULT = -2147180494
+REMOTE_ADDRESS_VALUE_NAME: String = 'RemoteAddress'
+ADDRESS_FAMILY_VALUE_NAME: String = 'AddressFamily'
+@winfunctype('CFGMGR32.dll')
+def SwDeviceCreate(pszEnumeratorName: win32more.Foundation.PWSTR, pszParentDeviceInstance: win32more.Foundation.PWSTR, pCreateInfo: POINTER(win32more.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_INFO_head), cPropertyCount: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head), pCallback: win32more.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_CALLBACK, pContext: c_void_p, phSwDevice: POINTER(IntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceClose(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE) -> Void: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceSetLifetime(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, Lifetime: win32more.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceGetLifetime(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, pLifetime: POINTER(win32more.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwDevicePropertySet(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, cPropertyCount: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceInterfaceRegister(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, pInterfaceClassGuid: POINTER(Guid), pszReferenceString: win32more.Foundation.PWSTR, cPropertyCount: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head), fEnabled: win32more.Foundation.BOOL, ppszDeviceInterfaceId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwMemFree(pMem: c_void_p) -> Void: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceInterfaceSetState(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, pszDeviceInterfaceId: win32more.Foundation.PWSTR, fEnabled: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('CFGMGR32.dll')
+def SwDeviceInterfacePropertySet(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, pszDeviceInterfaceId: win32more.Foundation.PWSTR, cPropertyCount: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)) -> win32more.Foundation.HRESULT: ...
 HSWDEVICE = IntPtr
-def _define_IUPnPAddressFamilyControl_head():
-    class IUPnPAddressFamilyControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e3bf6178-694e-459f-a5-a6-19-1e-a0-ff-a1-c7')
-    return IUPnPAddressFamilyControl
-def _define_IUPnPAddressFamilyControl():
-    IUPnPAddressFamilyControl = win32more.Devices.Enumeration.Pnp.IUPnPAddressFamilyControl_head
-    IUPnPAddressFamilyControl.SetAddressFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'SetAddressFamily', ((1, 'dwFlags'),)))
-    IUPnPAddressFamilyControl.GetAddressFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'GetAddressFamily', ((1, 'pdwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPAddressFamilyControl
-def _define_IUPnPAsyncResult_head():
-    class IUPnPAsyncResult(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4d65fd08-d13e-4274-9c-8b-dd-8d-02-8c-86-44')
-    return IUPnPAsyncResult
-def _define_IUPnPAsyncResult():
-    IUPnPAsyncResult = win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head
-    IUPnPAsyncResult.AsyncOperationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(3, 'AsyncOperationComplete', ((1, 'ullRequestID'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPAsyncResult
-def _define_IUPnPDescriptionDocument_head():
-    class IUPnPDescriptionDocument(win32more.System.Com.IDispatch_head):
-        Guid = Guid('11d1c1b2-7daa-4c9e-95-95-7f-82-ed-20-6d-1e')
-    return IUPnPDescriptionDocument
-def _define_IUPnPDescriptionDocument():
-    IUPnPDescriptionDocument = win32more.Devices.Enumeration.Pnp.IUPnPDescriptionDocument_head
-    IUPnPDescriptionDocument.get_ReadyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_ReadyState', ((1, 'plReadyState'),)))
-    IUPnPDescriptionDocument.Load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'Load', ((1, 'bstrUrl'),)))
-    IUPnPDescriptionDocument.LoadAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IUnknown_head)(9, 'LoadAsync', ((1, 'bstrUrl'),(1, 'punkCallback'),)))
-    IUPnPDescriptionDocument.get_LoadResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_LoadResult', ((1, 'phrError'),)))
-    IUPnPDescriptionDocument.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Abort', ()))
-    IUPnPDescriptionDocument.RootDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(12, 'RootDevice', ((1, 'ppudRootDevice'),)))
-    IUPnPDescriptionDocument.DeviceByUDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(13, 'DeviceByUDN', ((1, 'bstrUDN'),(1, 'ppudDevice'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPDescriptionDocument
-def _define_IUPnPDescriptionDocumentCallback_head():
-    class IUPnPDescriptionDocumentCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('77394c69-5486-40d6-9b-c3-49-91-98-3e-02-da')
-    return IUPnPDescriptionDocumentCallback
-def _define_IUPnPDescriptionDocumentCallback():
-    IUPnPDescriptionDocumentCallback = win32more.Devices.Enumeration.Pnp.IUPnPDescriptionDocumentCallback_head
-    IUPnPDescriptionDocumentCallback.LoadComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(3, 'LoadComplete', ((1, 'hrLoadResult'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDescriptionDocumentCallback
-def _define_IUPnPDevice_head():
-    class IUPnPDevice(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3d44d0d1-98c9-4889-ac-d1-f9-d6-74-bf-22-21')
-    return IUPnPDevice
-def _define_IUPnPDevice():
-    IUPnPDevice = win32more.Devices.Enumeration.Pnp.IUPnPDevice_head
-    IUPnPDevice.get_IsRootDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(7, 'get_IsRootDevice', ((1, 'pvarb'),)))
-    IUPnPDevice.get_RootDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(8, 'get_RootDevice', ((1, 'ppudRootDevice'),)))
-    IUPnPDevice.get_ParentDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(9, 'get_ParentDevice', ((1, 'ppudDeviceParent'),)))
-    IUPnPDevice.get_HasChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'get_HasChildren', ((1, 'pvarb'),)))
-    IUPnPDevice.get_Children = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevices_head))(11, 'get_Children', ((1, 'ppudChildren'),)))
-    IUPnPDevice.get_UniqueDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_UniqueDeviceName', ((1, 'pbstr'),)))
-    IUPnPDevice.get_FriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_FriendlyName', ((1, 'pbstr'),)))
-    IUPnPDevice.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Type', ((1, 'pbstr'),)))
-    IUPnPDevice.get_PresentationURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_PresentationURL', ((1, 'pbstr'),)))
-    IUPnPDevice.get_ManufacturerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_ManufacturerName', ((1, 'pbstr'),)))
-    IUPnPDevice.get_ManufacturerURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_ManufacturerURL', ((1, 'pbstr'),)))
-    IUPnPDevice.get_ModelName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_ModelName', ((1, 'pbstr'),)))
-    IUPnPDevice.get_ModelNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_ModelNumber', ((1, 'pbstr'),)))
-    IUPnPDevice.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(20, 'get_Description', ((1, 'pbstr'),)))
-    IUPnPDevice.get_ModelURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(21, 'get_ModelURL', ((1, 'pbstr'),)))
-    IUPnPDevice.get_UPC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_UPC', ((1, 'pbstr'),)))
-    IUPnPDevice.get_SerialNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_SerialNumber', ((1, 'pbstr'),)))
-    IUPnPDevice.IconURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,Int32,POINTER(win32more.Foundation.BSTR))(24, 'IconURL', ((1, 'bstrEncodingFormat'),(1, 'lSizeX'),(1, 'lSizeY'),(1, 'lBitDepth'),(1, 'pbstrIconURL'),)))
-    IUPnPDevice.get_Services = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPServices_head))(25, 'get_Services', ((1, 'ppusServices'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPDevice
-def _define_IUPnPDeviceControl_head():
-    class IUPnPDeviceControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810ba-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPDeviceControl
-def _define_IUPnPDeviceControl():
-    IUPnPDeviceControl = win32more.Devices.Enumeration.Pnp.IUPnPDeviceControl_head
-    IUPnPDeviceControl.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(3, 'Initialize', ((1, 'bstrXMLDesc'),(1, 'bstrDeviceIdentifier'),(1, 'bstrInitString'),)))
-    IUPnPDeviceControl.GetServiceObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head))(4, 'GetServiceObject', ((1, 'bstrUDN'),(1, 'bstrServiceId'),(1, 'ppdispService'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceControl
-def _define_IUPnPDeviceControlHttpHeaders_head():
-    class IUPnPDeviceControlHttpHeaders(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810bb-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPDeviceControlHttpHeaders
-def _define_IUPnPDeviceControlHttpHeaders():
-    IUPnPDeviceControlHttpHeaders = win32more.Devices.Enumeration.Pnp.IUPnPDeviceControlHttpHeaders_head
-    IUPnPDeviceControlHttpHeaders.GetAdditionalResponseHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetAdditionalResponseHeaders', ((1, 'bstrHttpResponseHeaders'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceControlHttpHeaders
-def _define_IUPnPDeviceDocumentAccess_head():
-    class IUPnPDeviceDocumentAccess(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e7772804-3287-418e-90-72-cf-2b-47-23-89-81')
-    return IUPnPDeviceDocumentAccess
-def _define_IUPnPDeviceDocumentAccess():
-    IUPnPDeviceDocumentAccess = win32more.Devices.Enumeration.Pnp.IUPnPDeviceDocumentAccess_head
-    IUPnPDeviceDocumentAccess.GetDocumentURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetDocumentURL', ((1, 'pbstrDocument'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceDocumentAccess
-def _define_IUPnPDeviceDocumentAccessEx_head():
-    class IUPnPDeviceDocumentAccessEx(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c4bc4050-6178-4bd1-a4-b8-63-98-32-1f-32-47')
-    return IUPnPDeviceDocumentAccessEx
-def _define_IUPnPDeviceDocumentAccessEx():
-    IUPnPDeviceDocumentAccessEx = win32more.Devices.Enumeration.Pnp.IUPnPDeviceDocumentAccessEx_head
-    IUPnPDeviceDocumentAccessEx.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetDocument', ((1, 'pbstrDocument'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceDocumentAccessEx
-def _define_IUPnPDeviceFinder_head():
-    class IUPnPDeviceFinder(win32more.System.Com.IDispatch_head):
-        Guid = Guid('adda3d55-6f72-4319-bf-f9-18-60-0a-53-9b-10')
-    return IUPnPDeviceFinder
-def _define_IUPnPDeviceFinder():
-    IUPnPDeviceFinder = win32more.Devices.Enumeration.Pnp.IUPnPDeviceFinder_head
-    IUPnPDeviceFinder.FindByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevices_head))(7, 'FindByType', ((1, 'bstrTypeURI'),(1, 'dwFlags'),(1, 'pDevices'),)))
-    IUPnPDeviceFinder.CreateAsyncFind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.System.Com.IUnknown_head,POINTER(Int32))(8, 'CreateAsyncFind', ((1, 'bstrTypeURI'),(1, 'dwFlags'),(1, 'punkDeviceFinderCallback'),(1, 'plFindData'),)))
-    IUPnPDeviceFinder.StartAsyncFind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(9, 'StartAsyncFind', ((1, 'lFindData'),)))
-    IUPnPDeviceFinder.CancelAsyncFind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'CancelAsyncFind', ((1, 'lFindData'),)))
-    IUPnPDeviceFinder.FindByUDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(11, 'FindByUDN', ((1, 'bstrUDN'),(1, 'pDevice'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPDeviceFinder
-def _define_IUPnPDeviceFinderAddCallbackWithInterface_head():
-    class IUPnPDeviceFinderAddCallbackWithInterface(win32more.System.Com.IUnknown_head):
-        Guid = Guid('983dfc0b-1796-44df-89-75-ca-54-5b-62-0e-e5')
-    return IUPnPDeviceFinderAddCallbackWithInterface
-def _define_IUPnPDeviceFinderAddCallbackWithInterface():
-    IUPnPDeviceFinderAddCallbackWithInterface = win32more.Devices.Enumeration.Pnp.IUPnPDeviceFinderAddCallbackWithInterface_head
-    IUPnPDeviceFinderAddCallbackWithInterface.DeviceAddedWithInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Enumeration.Pnp.IUPnPDevice_head,POINTER(Guid))(3, 'DeviceAddedWithInterface', ((1, 'lFindData'),(1, 'pDevice'),(1, 'pguidInterface'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceFinderAddCallbackWithInterface
-def _define_IUPnPDeviceFinderCallback_head():
-    class IUPnPDeviceFinderCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('415a984a-88b3-49f3-92-af-05-08-be-df-0d-6c')
-    return IUPnPDeviceFinderCallback
-def _define_IUPnPDeviceFinderCallback():
-    IUPnPDeviceFinderCallback = win32more.Devices.Enumeration.Pnp.IUPnPDeviceFinderCallback_head
-    IUPnPDeviceFinderCallback.DeviceAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)(3, 'DeviceAdded', ((1, 'lFindData'),(1, 'pDevice'),)))
-    IUPnPDeviceFinderCallback.DeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR)(4, 'DeviceRemoved', ((1, 'lFindData'),(1, 'bstrUDN'),)))
-    IUPnPDeviceFinderCallback.SearchComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(5, 'SearchComplete', ((1, 'lFindData'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceFinderCallback
-def _define_IUPnPDeviceProvider_head():
-    class IUPnPDeviceProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810b8-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPDeviceProvider
-def _define_IUPnPDeviceProvider():
-    IUPnPDeviceProvider = win32more.Devices.Enumeration.Pnp.IUPnPDeviceProvider_head
-    IUPnPDeviceProvider.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'Start', ((1, 'bstrInitString'),)))
-    IUPnPDeviceProvider.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Stop', ()))
-    win32more.System.Com.IUnknown
-    return IUPnPDeviceProvider
-def _define_IUPnPDevices_head():
-    class IUPnPDevices(win32more.System.Com.IDispatch_head):
-        Guid = Guid('fdbc0c73-bda3-4c66-ac-4f-f2-d9-6f-da-d6-8c')
-    return IUPnPDevices
-def _define_IUPnPDevices():
-    IUPnPDevices = win32more.Devices.Enumeration.Pnp.IUPnPDevices_head
-    IUPnPDevices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'plCount'),)))
-    IUPnPDevices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(8, 'get__NewEnum', ((1, 'ppunk'),)))
-    IUPnPDevices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head))(9, 'get_Item', ((1, 'bstrUDN'),(1, 'ppDevice'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPDevices
-def _define_IUPnPEventSink_head():
-    class IUPnPEventSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810b4-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPEventSink
-def _define_IUPnPEventSink():
-    IUPnPEventSink = win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head
-    IUPnPEventSink.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int32))(3, 'OnStateChanged', ((1, 'cChanges'),(1, 'rgdispidChanges'),)))
-    IUPnPEventSink.OnStateChangedSafe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(4, 'OnStateChangedSafe', ((1, 'varsadispidChanges'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPEventSink
-def _define_IUPnPEventSource_head():
-    class IUPnPEventSource(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810b5-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPEventSource
-def _define_IUPnPEventSource():
-    IUPnPEventSource = win32more.Devices.Enumeration.Pnp.IUPnPEventSource_head
-    IUPnPEventSource.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head)(3, 'Advise', ((1, 'pesSubscriber'),)))
-    IUPnPEventSource.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head)(4, 'Unadvise', ((1, 'pesSubscriber'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPEventSource
-def _define_IUPnPHttpHeaderControl_head():
-    class IUPnPHttpHeaderControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0405af4f-8b5c-447c-80-f2-b7-59-84-a3-1f-3c')
-    return IUPnPHttpHeaderControl
-def _define_IUPnPHttpHeaderControl():
-    IUPnPHttpHeaderControl = win32more.Devices.Enumeration.Pnp.IUPnPHttpHeaderControl_head
-    IUPnPHttpHeaderControl.AddRequestHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'AddRequestHeaders', ((1, 'bstrHttpHeaders'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPHttpHeaderControl
-def _define_IUPnPRegistrar_head():
-    class IUPnPRegistrar(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810b6-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPRegistrar
-def _define_IUPnPRegistrar():
-    IUPnPRegistrar = win32more.Devices.Enumeration.Pnp.IUPnPRegistrar_head
-    IUPnPRegistrar.RegisterDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR))(3, 'RegisterDevice', ((1, 'bstrXMLDesc'),(1, 'bstrProgIDDeviceControlClass'),(1, 'bstrInitString'),(1, 'bstrContainerId'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),(1, 'pbstrDeviceIdentifier'),)))
-    IUPnPRegistrar.RegisterRunningDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR))(4, 'RegisterRunningDevice', ((1, 'bstrXMLDesc'),(1, 'punkDeviceControl'),(1, 'bstrInitString'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),(1, 'pbstrDeviceIdentifier'),)))
-    IUPnPRegistrar.RegisterDeviceProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(5, 'RegisterDeviceProvider', ((1, 'bstrProviderName'),(1, 'bstrProgIDProviderClass'),(1, 'bstrInitString'),(1, 'bstrContainerId'),)))
-    IUPnPRegistrar.GetUniqueDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(6, 'GetUniqueDeviceName', ((1, 'bstrDeviceIdentifier'),(1, 'bstrTemplateUDN'),(1, 'pbstrUDN'),)))
-    IUPnPRegistrar.UnregisterDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BOOL)(7, 'UnregisterDevice', ((1, 'bstrDeviceIdentifier'),(1, 'fPermanent'),)))
-    IUPnPRegistrar.UnregisterDeviceProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'UnregisterDeviceProvider', ((1, 'bstrProviderName'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPRegistrar
-def _define_IUPnPRemoteEndpointInfo_head():
-    class IUPnPRemoteEndpointInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c92eb863-0269-4aff-9c-72-75-32-1b-ba-29-52')
-    return IUPnPRemoteEndpointInfo
-def _define_IUPnPRemoteEndpointInfo():
-    IUPnPRemoteEndpointInfo = win32more.Devices.Enumeration.Pnp.IUPnPRemoteEndpointInfo_head
-    IUPnPRemoteEndpointInfo.GetDwordValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32))(3, 'GetDwordValue', ((1, 'bstrValueName'),(1, 'pdwValue'),)))
-    IUPnPRemoteEndpointInfo.GetStringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(4, 'GetStringValue', ((1, 'bstrValueName'),(1, 'pbstrValue'),)))
-    IUPnPRemoteEndpointInfo.GetGuidValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Guid))(5, 'GetGuidValue', ((1, 'bstrValueName'),(1, 'pguidValue'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPRemoteEndpointInfo
-def _define_IUPnPReregistrar_head():
-    class IUPnPReregistrar(win32more.System.Com.IUnknown_head):
-        Guid = Guid('204810b7-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
-    return IUPnPReregistrar
-def _define_IUPnPReregistrar():
-    IUPnPReregistrar = win32more.Devices.Enumeration.Pnp.IUPnPReregistrar_head
-    IUPnPReregistrar.ReregisterDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32)(3, 'ReregisterDevice', ((1, 'bstrDeviceIdentifier'),(1, 'bstrXMLDesc'),(1, 'bstrProgIDDeviceControlClass'),(1, 'bstrInitString'),(1, 'bstrContainerId'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),)))
-    IUPnPReregistrar.ReregisterRunningDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32)(4, 'ReregisterRunningDevice', ((1, 'bstrDeviceIdentifier'),(1, 'bstrXMLDesc'),(1, 'punkDeviceControl'),(1, 'bstrInitString'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPReregistrar
-def _define_IUPnPService_head():
-    class IUPnPService(win32more.System.Com.IDispatch_head):
-        Guid = Guid('a295019c-dc65-47dd-90-dc-7f-e9-18-a1-ab-44')
-    return IUPnPService
-def _define_IUPnPService():
-    IUPnPService = win32more.Devices.Enumeration.Pnp.IUPnPService_head
-    IUPnPService.QueryStateVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(7, 'QueryStateVariable', ((1, 'bstrVariableName'),(1, 'pValue'),)))
-    IUPnPService.InvokeAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(8, 'InvokeAction', ((1, 'bstrActionName'),(1, 'vInActionArgs'),(1, 'pvOutActionArgs'),(1, 'pvRetVal'),)))
-    IUPnPService.get_ServiceTypeIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_ServiceTypeIdentifier', ((1, 'pVal'),)))
-    IUPnPService.AddCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(10, 'AddCallback', ((1, 'pUnkCallback'),)))
-    IUPnPService.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_Id', ((1, 'pbstrId'),)))
-    IUPnPService.get_LastTransportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_LastTransportStatus', ((1, 'plValue'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPService
-def _define_IUPnPServiceAsync_head():
-    class IUPnPServiceAsync(win32more.System.Com.IUnknown_head):
-        Guid = Guid('098bdaf5-5ec1-49e7-a2-60-b3-a1-1d-d8-68-0c')
-    return IUPnPServiceAsync
-def _define_IUPnPServiceAsync():
-    IUPnPServiceAsync = win32more.Devices.Enumeration.Pnp.IUPnPServiceAsync_head
-    IUPnPServiceAsync.BeginInvokeAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head,POINTER(UInt64))(3, 'BeginInvokeAction', ((1, 'bstrActionName'),(1, 'vInActionArgs'),(1, 'pAsyncResult'),(1, 'pullRequestID'),)))
-    IUPnPServiceAsync.EndInvokeAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(4, 'EndInvokeAction', ((1, 'ullRequestID'),(1, 'pvOutActionArgs'),(1, 'pvRetVal'),)))
-    IUPnPServiceAsync.BeginQueryStateVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head,POINTER(UInt64))(5, 'BeginQueryStateVariable', ((1, 'bstrVariableName'),(1, 'pAsyncResult'),(1, 'pullRequestID'),)))
-    IUPnPServiceAsync.EndQueryStateVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Com.VARIANT_head))(6, 'EndQueryStateVariable', ((1, 'ullRequestID'),(1, 'pValue'),)))
-    IUPnPServiceAsync.BeginSubscribeToEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head,POINTER(UInt64))(7, 'BeginSubscribeToEvents', ((1, 'pUnkCallback'),(1, 'pAsyncResult'),(1, 'pullRequestID'),)))
-    IUPnPServiceAsync.EndSubscribeToEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(8, 'EndSubscribeToEvents', ((1, 'ullRequestID'),)))
-    IUPnPServiceAsync.BeginSCPDDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head,POINTER(UInt64))(9, 'BeginSCPDDownload', ((1, 'pAsyncResult'),(1, 'pullRequestID'),)))
-    IUPnPServiceAsync.EndSCPDDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Foundation.BSTR))(10, 'EndSCPDDownload', ((1, 'ullRequestID'),(1, 'pbstrSCPDDoc'),)))
-    IUPnPServiceAsync.CancelAsyncOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(11, 'CancelAsyncOperation', ((1, 'ullRequestID'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPServiceAsync
-def _define_IUPnPServiceCallback_head():
-    class IUPnPServiceCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('31fadca9-ab73-464b-b6-7d-5c-1d-0f-83-c8-b8')
-    return IUPnPServiceCallback
-def _define_IUPnPServiceCallback():
-    IUPnPServiceCallback = win32more.Devices.Enumeration.Pnp.IUPnPServiceCallback_head
-    IUPnPServiceCallback.StateVariableChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPService_head,win32more.Foundation.PWSTR,win32more.System.Com.VARIANT)(3, 'StateVariableChanged', ((1, 'pus'),(1, 'pcwszStateVarName'),(1, 'vaValue'),)))
-    IUPnPServiceCallback.ServiceInstanceDied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPService_head)(4, 'ServiceInstanceDied', ((1, 'pus'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPServiceCallback
-def _define_IUPnPServiceDocumentAccess_head():
-    class IUPnPServiceDocumentAccess(win32more.System.Com.IUnknown_head):
-        Guid = Guid('21905529-0a5e-4589-82-5d-7e-6d-87-ea-69-98')
-    return IUPnPServiceDocumentAccess
-def _define_IUPnPServiceDocumentAccess():
-    IUPnPServiceDocumentAccess = win32more.Devices.Enumeration.Pnp.IUPnPServiceDocumentAccess_head
-    IUPnPServiceDocumentAccess.GetDocumentURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetDocumentURL', ((1, 'pbstrDocUrl'),)))
-    IUPnPServiceDocumentAccess.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'GetDocument', ((1, 'pbstrDoc'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPServiceDocumentAccess
-def _define_IUPnPServiceEnumProperty_head():
-    class IUPnPServiceEnumProperty(win32more.System.Com.IUnknown_head):
-        Guid = Guid('38873b37-91bb-49f4-b2-49-2e-8e-fb-b8-a8-16')
-    return IUPnPServiceEnumProperty
-def _define_IUPnPServiceEnumProperty():
-    IUPnPServiceEnumProperty = win32more.Devices.Enumeration.Pnp.IUPnPServiceEnumProperty_head
-    IUPnPServiceEnumProperty.SetServiceEnumProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(3, 'SetServiceEnumProperty', ((1, 'dwMask'),)))
-    win32more.System.Com.IUnknown
-    return IUPnPServiceEnumProperty
-def _define_IUPnPServices_head():
-    class IUPnPServices(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3f8c8e9e-9a7a-4dc8-bc-41-ff-31-fa-37-49-56')
-    return IUPnPServices
-def _define_IUPnPServices():
-    IUPnPServices = win32more.Devices.Enumeration.Pnp.IUPnPServices_head
-    IUPnPServices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_Count', ((1, 'plCount'),)))
-    IUPnPServices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(8, 'get__NewEnum', ((1, 'ppunk'),)))
-    IUPnPServices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPService_head))(9, 'get_Item', ((1, 'bstrServiceId'),(1, 'ppService'),)))
-    win32more.System.Com.IDispatch
-    return IUPnPServices
+class IUPnPAddressFamilyControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e3bf6178-694e-459f-a5-a6-19-1e-a0-ff-a1-c7')
+    @commethod(3)
+    def SetAddressFamily(dwFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAddressFamily(pdwFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUPnPAsyncResult(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4d65fd08-d13e-4274-9c-8b-dd-8d-02-8c-86-44')
+    @commethod(3)
+    def AsyncOperationComplete(ullRequestID: UInt64) -> win32more.Foundation.HRESULT: ...
+class IUPnPDescriptionDocument(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('11d1c1b2-7daa-4c9e-95-95-7f-82-ed-20-6d-1e')
+    @commethod(7)
+    def get_ReadyState(plReadyState: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Load(bstrUrl: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def LoadAsync(bstrUrl: win32more.Foundation.BSTR, punkCallback: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_LoadResult(phrError: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Abort() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def RootDevice(ppudRootDevice: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DeviceByUDN(bstrUDN: win32more.Foundation.BSTR, ppudDevice: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDescriptionDocumentCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('77394c69-5486-40d6-9b-c3-49-91-98-3e-02-da')
+    @commethod(3)
+    def LoadComplete(hrLoadResult: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+class IUPnPDevice(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3d44d0d1-98c9-4889-ac-d1-f9-d6-74-bf-22-21')
+    @commethod(7)
+    def get_IsRootDevice(pvarb: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_RootDevice(ppudRootDevice: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ParentDevice(ppudDeviceParent: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_HasChildren(pvarb: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Children(ppudChildren: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevices_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_UniqueDeviceName(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_FriendlyName(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Type(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_PresentationURL(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ManufacturerName(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ManufacturerURL(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_ModelName(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_ModelNumber(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_Description(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_ModelURL(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_UPC(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_SerialNumber(pbstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def IconURL(bstrEncodingFormat: win32more.Foundation.BSTR, lSizeX: Int32, lSizeY: Int32, lBitDepth: Int32, pbstrIconURL: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_Services(ppusServices: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPServices_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810ba-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def Initialize(bstrXMLDesc: win32more.Foundation.BSTR, bstrDeviceIdentifier: win32more.Foundation.BSTR, bstrInitString: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetServiceObject(bstrUDN: win32more.Foundation.BSTR, bstrServiceId: win32more.Foundation.BSTR, ppdispService: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceControlHttpHeaders(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810bb-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def GetAdditionalResponseHeaders(bstrHttpResponseHeaders: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceDocumentAccess(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e7772804-3287-418e-90-72-cf-2b-47-23-89-81')
+    @commethod(3)
+    def GetDocumentURL(pbstrDocument: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceDocumentAccessEx(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c4bc4050-6178-4bd1-a4-b8-63-98-32-1f-32-47')
+    @commethod(3)
+    def GetDocument(pbstrDocument: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceFinder(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('adda3d55-6f72-4319-bf-f9-18-60-0a-53-9b-10')
+    @commethod(7)
+    def FindByType(bstrTypeURI: win32more.Foundation.BSTR, dwFlags: UInt32, pDevices: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevices_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateAsyncFind(bstrTypeURI: win32more.Foundation.BSTR, dwFlags: UInt32, punkDeviceFinderCallback: win32more.System.Com.IUnknown_head, plFindData: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def StartAsyncFind(lFindData: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CancelAsyncFind(lFindData: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def FindByUDN(bstrUDN: win32more.Foundation.BSTR, pDevice: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceFinderAddCallbackWithInterface(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('983dfc0b-1796-44df-89-75-ca-54-5b-62-0e-e5')
+    @commethod(3)
+    def DeviceAddedWithInterface(lFindData: Int32, pDevice: win32more.Devices.Enumeration.Pnp.IUPnPDevice_head, pguidInterface: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceFinderCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('415a984a-88b3-49f3-92-af-05-08-be-df-0d-6c')
+    @commethod(3)
+    def DeviceAdded(lFindData: Int32, pDevice: win32more.Devices.Enumeration.Pnp.IUPnPDevice_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DeviceRemoved(lFindData: Int32, bstrUDN: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SearchComplete(lFindData: Int32) -> win32more.Foundation.HRESULT: ...
+class IUPnPDeviceProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810b8-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def Start(bstrInitString: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+class IUPnPDevices(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('fdbc0c73-bda3-4c66-ac-4f-f2-d9-6f-da-d6-8c')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Item(bstrUDN: win32more.Foundation.BSTR, ppDevice: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> win32more.Foundation.HRESULT: ...
+class IUPnPEventSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810b4-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def OnStateChanged(cChanges: UInt32, rgdispidChanges: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnStateChangedSafe(varsadispidChanges: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IUPnPEventSource(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810b5-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def Advise(pesSubscriber: win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Unadvise(pesSubscriber: win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head) -> win32more.Foundation.HRESULT: ...
+class IUPnPHttpHeaderControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0405af4f-8b5c-447c-80-f2-b7-59-84-a3-1f-3c')
+    @commethod(3)
+    def AddRequestHeaders(bstrHttpHeaders: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IUPnPRegistrar(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810b6-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def RegisterDevice(bstrXMLDesc: win32more.Foundation.BSTR, bstrProgIDDeviceControlClass: win32more.Foundation.BSTR, bstrInitString: win32more.Foundation.BSTR, bstrContainerId: win32more.Foundation.BSTR, bstrResourcePath: win32more.Foundation.BSTR, nLifeTime: Int32, pbstrDeviceIdentifier: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RegisterRunningDevice(bstrXMLDesc: win32more.Foundation.BSTR, punkDeviceControl: win32more.System.Com.IUnknown_head, bstrInitString: win32more.Foundation.BSTR, bstrResourcePath: win32more.Foundation.BSTR, nLifeTime: Int32, pbstrDeviceIdentifier: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RegisterDeviceProvider(bstrProviderName: win32more.Foundation.BSTR, bstrProgIDProviderClass: win32more.Foundation.BSTR, bstrInitString: win32more.Foundation.BSTR, bstrContainerId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetUniqueDeviceName(bstrDeviceIdentifier: win32more.Foundation.BSTR, bstrTemplateUDN: win32more.Foundation.BSTR, pbstrUDN: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UnregisterDevice(bstrDeviceIdentifier: win32more.Foundation.BSTR, fPermanent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def UnregisterDeviceProvider(bstrProviderName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IUPnPRemoteEndpointInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c92eb863-0269-4aff-9c-72-75-32-1b-ba-29-52')
+    @commethod(3)
+    def GetDwordValue(bstrValueName: win32more.Foundation.BSTR, pdwValue: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetStringValue(bstrValueName: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetGuidValue(bstrValueName: win32more.Foundation.BSTR, pguidValue: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IUPnPReregistrar(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('204810b7-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    @commethod(3)
+    def ReregisterDevice(bstrDeviceIdentifier: win32more.Foundation.BSTR, bstrXMLDesc: win32more.Foundation.BSTR, bstrProgIDDeviceControlClass: win32more.Foundation.BSTR, bstrInitString: win32more.Foundation.BSTR, bstrContainerId: win32more.Foundation.BSTR, bstrResourcePath: win32more.Foundation.BSTR, nLifeTime: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReregisterRunningDevice(bstrDeviceIdentifier: win32more.Foundation.BSTR, bstrXMLDesc: win32more.Foundation.BSTR, punkDeviceControl: win32more.System.Com.IUnknown_head, bstrInitString: win32more.Foundation.BSTR, bstrResourcePath: win32more.Foundation.BSTR, nLifeTime: Int32) -> win32more.Foundation.HRESULT: ...
+class IUPnPService(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('a295019c-dc65-47dd-90-dc-7f-e9-18-a1-ab-44')
+    @commethod(7)
+    def QueryStateVariable(bstrVariableName: win32more.Foundation.BSTR, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InvokeAction(bstrActionName: win32more.Foundation.BSTR, vInActionArgs: win32more.System.Com.VARIANT, pvOutActionArgs: POINTER(win32more.System.Com.VARIANT_head), pvRetVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ServiceTypeIdentifier(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def AddCallback(pUnkCallback: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Id(pbstrId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_LastTransportStatus(plValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUPnPServiceAsync(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('098bdaf5-5ec1-49e7-a2-60-b3-a1-1d-d8-68-0c')
+    @commethod(3)
+    def BeginInvokeAction(bstrActionName: win32more.Foundation.BSTR, vInActionArgs: win32more.System.Com.VARIANT, pAsyncResult: win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head, pullRequestID: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EndInvokeAction(ullRequestID: UInt64, pvOutActionArgs: POINTER(win32more.System.Com.VARIANT_head), pvRetVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def BeginQueryStateVariable(bstrVariableName: win32more.Foundation.BSTR, pAsyncResult: win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head, pullRequestID: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def EndQueryStateVariable(ullRequestID: UInt64, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def BeginSubscribeToEvents(pUnkCallback: win32more.System.Com.IUnknown_head, pAsyncResult: win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head, pullRequestID: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def EndSubscribeToEvents(ullRequestID: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def BeginSCPDDownload(pAsyncResult: win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head, pullRequestID: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def EndSCPDDownload(ullRequestID: UInt64, pbstrSCPDDoc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CancelAsyncOperation(ullRequestID: UInt64) -> win32more.Foundation.HRESULT: ...
+class IUPnPServiceCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('31fadca9-ab73-464b-b6-7d-5c-1d-0f-83-c8-b8')
+    @commethod(3)
+    def StateVariableChanged(pus: win32more.Devices.Enumeration.Pnp.IUPnPService_head, pcwszStateVarName: win32more.Foundation.PWSTR, vaValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ServiceInstanceDied(pus: win32more.Devices.Enumeration.Pnp.IUPnPService_head) -> win32more.Foundation.HRESULT: ...
+class IUPnPServiceDocumentAccess(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('21905529-0a5e-4589-82-5d-7e-6d-87-ea-69-98')
+    @commethod(3)
+    def GetDocumentURL(pbstrDocUrl: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDocument(pbstrDoc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUPnPServiceEnumProperty(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('38873b37-91bb-49f4-b2-49-2e-8e-fb-b8-a8-16')
+    @commethod(3)
+    def SetServiceEnumProperty(dwMask: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUPnPServices(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3f8c8e9e-9a7a-4dc8-bc-41-ff-31-fa-37-49-56')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Item(bstrServiceId: win32more.Foundation.BSTR, ppService: POINTER(win32more.Devices.Enumeration.Pnp.IUPnPService_head)) -> win32more.Foundation.HRESULT: ...
 SW_DEVICE_CAPABILITIES = Int32
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNone = 0
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesRemovable = 1
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesSilentInstall = 2
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNoDisplayInUI = 4
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesDriverRequired = 8
-def _define_SW_DEVICE_CREATE_CALLBACK():
-    return WINFUNCTYPE(Void,win32more.Devices.Enumeration.Pnp.HSWDEVICE,win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR)
-def _define_SW_DEVICE_CREATE_INFO_head():
-    class SW_DEVICE_CREATE_INFO(Structure):
-        pass
-    return SW_DEVICE_CREATE_INFO
-def _define_SW_DEVICE_CREATE_INFO():
-    SW_DEVICE_CREATE_INFO = win32more.Devices.Enumeration.Pnp.SW_DEVICE_CREATE_INFO_head
-    SW_DEVICE_CREATE_INFO._fields_ = [
-        ('cbSize', UInt32),
-        ('pszInstanceId', win32more.Foundation.PWSTR),
-        ('pszzHardwareIds', win32more.Foundation.PWSTR),
-        ('pszzCompatibleIds', win32more.Foundation.PWSTR),
-        ('pContainerId', POINTER(Guid)),
-        ('CapabilityFlags', UInt32),
-        ('pszDeviceDescription', win32more.Foundation.PWSTR),
-        ('pszDeviceLocation', win32more.Foundation.PWSTR),
-        ('pSecurityDescriptor', POINTER(win32more.Security.SECURITY_DESCRIPTOR_head)),
-    ]
-    return SW_DEVICE_CREATE_INFO
+SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNone: SW_DEVICE_CAPABILITIES = 0
+SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesRemovable: SW_DEVICE_CAPABILITIES = 1
+SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesSilentInstall: SW_DEVICE_CAPABILITIES = 2
+SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNoDisplayInUI: SW_DEVICE_CAPABILITIES = 4
+SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesDriverRequired: SW_DEVICE_CAPABILITIES = 8
+@winfunctype_pointer
+def SW_DEVICE_CREATE_CALLBACK(hSwDevice: win32more.Devices.Enumeration.Pnp.HSWDEVICE, CreateResult: win32more.Foundation.HRESULT, pContext: c_void_p, pszDeviceInstanceId: win32more.Foundation.PWSTR) -> Void: ...
+class SW_DEVICE_CREATE_INFO(Structure):
+    cbSize: UInt32
+    pszInstanceId: win32more.Foundation.PWSTR
+    pszzHardwareIds: win32more.Foundation.PWSTR
+    pszzCompatibleIds: win32more.Foundation.PWSTR
+    pContainerId: POINTER(Guid)
+    CapabilityFlags: UInt32
+    pszDeviceDescription: win32more.Foundation.PWSTR
+    pszDeviceLocation: win32more.Foundation.PWSTR
+    pSecurityDescriptor: POINTER(win32more.Security.SECURITY_DESCRIPTOR_head)
 SW_DEVICE_LIFETIME = Int32
-SW_DEVICE_LIFETIME_SWDeviceLifetimeHandle = 0
-SW_DEVICE_LIFETIME_SWDeviceLifetimeParentPresent = 1
-SW_DEVICE_LIFETIME_SWDeviceLifetimeMax = 2
+SW_DEVICE_LIFETIME_SWDeviceLifetimeHandle: SW_DEVICE_LIFETIME = 0
+SW_DEVICE_LIFETIME_SWDeviceLifetimeParentPresent: SW_DEVICE_LIFETIME = 1
+SW_DEVICE_LIFETIME_SWDeviceLifetimeMax: SW_DEVICE_LIFETIME = 2
 UPnPDescriptionDocument = Guid('1d8a9b47-3a28-4ce2-8a-4b-bd-34-e4-5b-ce-eb')
 UPnPDescriptionDocumentEx = Guid('33fd0563-d81a-4393-83-cc-01-95-b1-da-2f-91')
 UPnPDevice = Guid('a32552c5-ba61-457a-b5-9a-a2-56-1e-12-5e-33')
@@ -445,6 +369,34 @@ UPnPRegistrar = Guid('204810b9-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
 UPnPRemoteEndpointInfo = Guid('2e5e84e9-4049-4244-b7-28-2d-24-22-71-57-c7')
 UPnPService = Guid('c624ba95-fbcb-4409-8c-03-8c-ce-ec-53-3e-f1')
 UPnPServices = Guid('c0bc4b4a-a406-4efc-93-2f-b8-54-6b-81-00-cc')
+make_head(_module, 'IUPnPAddressFamilyControl')
+make_head(_module, 'IUPnPAsyncResult')
+make_head(_module, 'IUPnPDescriptionDocument')
+make_head(_module, 'IUPnPDescriptionDocumentCallback')
+make_head(_module, 'IUPnPDevice')
+make_head(_module, 'IUPnPDeviceControl')
+make_head(_module, 'IUPnPDeviceControlHttpHeaders')
+make_head(_module, 'IUPnPDeviceDocumentAccess')
+make_head(_module, 'IUPnPDeviceDocumentAccessEx')
+make_head(_module, 'IUPnPDeviceFinder')
+make_head(_module, 'IUPnPDeviceFinderAddCallbackWithInterface')
+make_head(_module, 'IUPnPDeviceFinderCallback')
+make_head(_module, 'IUPnPDeviceProvider')
+make_head(_module, 'IUPnPDevices')
+make_head(_module, 'IUPnPEventSink')
+make_head(_module, 'IUPnPEventSource')
+make_head(_module, 'IUPnPHttpHeaderControl')
+make_head(_module, 'IUPnPRegistrar')
+make_head(_module, 'IUPnPRemoteEndpointInfo')
+make_head(_module, 'IUPnPReregistrar')
+make_head(_module, 'IUPnPService')
+make_head(_module, 'IUPnPServiceAsync')
+make_head(_module, 'IUPnPServiceCallback')
+make_head(_module, 'IUPnPServiceDocumentAccess')
+make_head(_module, 'IUPnPServiceEnumProperty')
+make_head(_module, 'IUPnPServices')
+make_head(_module, 'SW_DEVICE_CREATE_CALLBACK')
+make_head(_module, 'SW_DEVICE_CREATE_INFO')
 __all__ = [
     "ADDRESS_FAMILY_VALUE_NAME",
     "FAULT_ACTION_SPECIFIC_BASE",

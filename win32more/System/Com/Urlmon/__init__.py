@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.System.Com
@@ -8,1769 +9,1392 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-MKSYS_URLMONIKER = 6
-URL_MK_LEGACY = 0
-URL_MK_UNIFORM = 1
-URL_MK_NO_CANONICALIZE = 2
-FIEF_FLAG_FORCE_JITUI = 1
-FIEF_FLAG_PEEK = 2
-FIEF_FLAG_SKIP_INSTALLED_VERSION_CHECK = 4
-FIEF_FLAG_RESERVED_0 = 8
-FMFD_DEFAULT = 0
-FMFD_URLASFILENAME = 1
-FMFD_ENABLEMIMESNIFFING = 2
-FMFD_IGNOREMIMETEXTPLAIN = 4
-FMFD_SERVERMIME = 8
-FMFD_RESPECTTEXTPLAIN = 16
-FMFD_RETURNUPDATEDIMGMIMES = 32
-FMFD_RESERVED_1 = 64
-FMFD_RESERVED_2 = 128
-UAS_EXACTLEGACY = 4096
-URLMON_OPTION_USERAGENT = 268435457
-URLMON_OPTION_USERAGENT_REFRESH = 268435458
-URLMON_OPTION_URL_ENCODING = 268435460
-URLMON_OPTION_USE_BINDSTRINGCREDS = 268435464
-URLMON_OPTION_USE_BROWSERAPPSDOCUMENTS = 268435472
-CF_NULL = 0
-MK_S_ASYNCHRONOUS = 262632
-S_ASYNCHRONOUS = 262632
-E_PENDING = -2147483638
-INET_E_INVALID_URL = -2146697214
-INET_E_NO_SESSION = -2146697213
-INET_E_CANNOT_CONNECT = -2146697212
-INET_E_RESOURCE_NOT_FOUND = -2146697211
-INET_E_OBJECT_NOT_FOUND = -2146697210
-INET_E_DATA_NOT_AVAILABLE = -2146697209
-INET_E_DOWNLOAD_FAILURE = -2146697208
-INET_E_AUTHENTICATION_REQUIRED = -2146697207
-INET_E_NO_VALID_MEDIA = -2146697206
-INET_E_CONNECTION_TIMEOUT = -2146697205
-INET_E_INVALID_REQUEST = -2146697204
-INET_E_UNKNOWN_PROTOCOL = -2146697203
-INET_E_SECURITY_PROBLEM = -2146697202
-INET_E_CANNOT_LOAD_DATA = -2146697201
-INET_E_CANNOT_INSTANTIATE_OBJECT = -2146697200
-INET_E_INVALID_CERTIFICATE = -2146697191
-INET_E_REDIRECT_FAILED = -2146697196
-INET_E_REDIRECT_TO_DIR = -2146697195
-INET_E_CANNOT_LOCK_REQUEST = -2146697194
-INET_E_USE_EXTEND_BINDING = -2146697193
-INET_E_TERMINATED_BIND = -2146697192
-INET_E_RESERVED_1 = -2146697190
-INET_E_BLOCKED_REDIRECT_XSECURITYID = -2146697189
-INET_E_DOMINJECTIONVALIDATION = -2146697188
-INET_E_VTAB_SWITCH_FORCE_ENGINE = -2146697187
-INET_E_HSTS_CERTIFICATE_ERROR = -2146697186
-INET_E_RESERVED_2 = -2146697185
-INET_E_RESERVED_3 = -2146697184
-INET_E_RESERVED_4 = -2146697183
-INET_E_RESERVED_5 = -2146697182
-INET_E_ERROR_FIRST = -2146697214
-INET_E_CODE_DOWNLOAD_DECLINED = -2146696960
-INET_E_RESULT_DISPATCHED = -2146696704
-INET_E_CANNOT_REPLACE_SFP_FILE = -2146696448
-INET_E_CODE_INSTALL_SUPPRESSED = -2146696192
-INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY = -2146695936
-INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE = -2146695935
-INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE = -2146695934
-INET_E_FORBIDFRAMING = -2146695933
-INET_E_CODE_INSTALL_BLOCKED_ARM = -2146695932
-INET_E_BLOCKED_PLUGGABLE_PROTOCOL = -2146695931
-INET_E_BLOCKED_ENHANCEDPROTECTEDMODE = -2146695930
-INET_E_CODE_INSTALL_BLOCKED_BITNESS = -2146695929
-INET_E_DOWNLOAD_BLOCKED_BY_CSP = -2146695928
-INET_E_ERROR_LAST = -2146695928
-Uri_DISPLAY_NO_FRAGMENT = 1
-Uri_PUNYCODE_IDN_HOST = 2
-Uri_DISPLAY_IDN_HOST = 4
-Uri_DISPLAY_NO_PUNYCODE = 8
-Uri_ENCODING_USER_INFO_AND_PATH_IS_PERCENT_ENCODED_UTF8 = 1
-Uri_ENCODING_USER_INFO_AND_PATH_IS_CP = 2
-Uri_ENCODING_HOST_IS_IDN = 4
-Uri_ENCODING_HOST_IS_PERCENT_ENCODED_UTF8 = 8
-Uri_ENCODING_HOST_IS_PERCENT_ENCODED_CP = 16
-Uri_ENCODING_QUERY_AND_FRAGMENT_IS_PERCENT_ENCODED_UTF8 = 32
-Uri_ENCODING_QUERY_AND_FRAGMENT_IS_CP = 64
-UriBuilder_USE_ORIGINAL_FLAGS = 1
-WININETINFO_OPTION_LOCK_HANDLE = 65534
-URLOSTRM_USECACHEDCOPY_ONLY = 1
-URLOSTRM_USECACHEDCOPY = 2
-URLOSTRM_GETNEWESTVERSION = 3
-SET_FEATURE_ON_THREAD = 1
-SET_FEATURE_ON_PROCESS = 2
-SET_FEATURE_IN_REGISTRY = 4
-SET_FEATURE_ON_THREAD_LOCALMACHINE = 8
-SET_FEATURE_ON_THREAD_INTRANET = 16
-SET_FEATURE_ON_THREAD_TRUSTED = 32
-SET_FEATURE_ON_THREAD_INTERNET = 64
-SET_FEATURE_ON_THREAD_RESTRICTED = 128
-GET_FEATURE_FROM_THREAD = 1
-GET_FEATURE_FROM_PROCESS = 2
-GET_FEATURE_FROM_REGISTRY = 4
-GET_FEATURE_FROM_THREAD_LOCALMACHINE = 8
-GET_FEATURE_FROM_THREAD_INTRANET = 16
-GET_FEATURE_FROM_THREAD_TRUSTED = 32
-GET_FEATURE_FROM_THREAD_INTERNET = 64
-GET_FEATURE_FROM_THREAD_RESTRICTED = 128
-INET_E_USE_DEFAULT_PROTOCOLHANDLER = -2146697199
-INET_E_USE_DEFAULT_SETTING = -2146697198
-INET_E_DEFAULT_ACTION = -2146697199
-INET_E_QUERYOPTION_UNKNOWN = -2146697197
-INET_E_REDIRECTING = -2146697196
-PROTOCOLFLAG_NO_PICS_CHECK = 1
-MUTZ_NOSAVEDFILECHECK = 1
-MUTZ_ISFILE = 2
-MUTZ_ACCEPT_WILDCARD_SCHEME = 128
-MUTZ_ENFORCERESTRICTED = 256
-MUTZ_RESERVED = 512
-MUTZ_REQUIRESAVEDFILECHECK = 1024
-MUTZ_DONT_UNESCAPE = 2048
-MUTZ_DONT_USE_CACHE = 4096
-MUTZ_FORCE_INTRANET_FLAGS = 8192
-MUTZ_IGNORE_ZONE_MAPPINGS = 16384
-MAX_SIZE_SECURITY_ID = 512
-URLACTION_MIN = 4096
-URLACTION_DOWNLOAD_MIN = 4096
-URLACTION_DOWNLOAD_SIGNED_ACTIVEX = 4097
-URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX = 4100
-URLACTION_DOWNLOAD_CURR_MAX = 4100
-URLACTION_DOWNLOAD_MAX = 4607
-URLACTION_ACTIVEX_MIN = 4608
-URLACTION_ACTIVEX_RUN = 4608
-URLPOLICY_ACTIVEX_CHECK_LIST = 65536
-URLACTION_ACTIVEX_OVERRIDE_OBJECT_SAFETY = 4609
-URLACTION_ACTIVEX_OVERRIDE_DATA_SAFETY = 4610
-URLACTION_ACTIVEX_OVERRIDE_SCRIPT_SAFETY = 4611
-URLACTION_SCRIPT_OVERRIDE_SAFETY = 5121
-URLACTION_ACTIVEX_CONFIRM_NOOBJECTSAFETY = 4612
-URLACTION_ACTIVEX_TREATASUNTRUSTED = 4613
-URLACTION_ACTIVEX_NO_WEBOC_SCRIPT = 4614
-URLACTION_ACTIVEX_OVERRIDE_REPURPOSEDETECTION = 4615
-URLACTION_ACTIVEX_OVERRIDE_OPTIN = 4616
-URLACTION_ACTIVEX_SCRIPTLET_RUN = 4617
-URLACTION_ACTIVEX_DYNSRC_VIDEO_AND_ANIMATION = 4618
-URLACTION_ACTIVEX_OVERRIDE_DOMAINLIST = 4619
-URLACTION_ACTIVEX_ALLOW_TDC = 4620
-URLACTION_ACTIVEX_CURR_MAX = 4620
-URLACTION_ACTIVEX_MAX = 5119
-URLACTION_SCRIPT_MIN = 5120
-URLACTION_SCRIPT_RUN = 5120
-URLACTION_SCRIPT_JAVA_USE = 5122
-URLACTION_SCRIPT_SAFE_ACTIVEX = 5125
-URLACTION_CROSS_DOMAIN_DATA = 5126
-URLACTION_SCRIPT_PASTE = 5127
-URLACTION_ALLOW_XDOMAIN_SUBFRAME_RESIZE = 5128
-URLACTION_SCRIPT_XSSFILTER = 5129
-URLACTION_SCRIPT_NAVIGATE = 5130
-URLACTION_PLUGGABLE_PROTOCOL_XHR = 5131
-URLACTION_ALLOW_VBSCRIPT_IE = 5132
-URLACTION_ALLOW_JSCRIPT_IE = 5133
-URLACTION_SCRIPT_CURR_MAX = 5133
-URLACTION_SCRIPT_MAX = 5631
-URLACTION_HTML_MIN = 5632
-URLACTION_HTML_SUBMIT_FORMS = 5633
-URLACTION_HTML_SUBMIT_FORMS_FROM = 5634
-URLACTION_HTML_SUBMIT_FORMS_TO = 5635
-URLACTION_HTML_FONT_DOWNLOAD = 5636
-URLACTION_HTML_JAVA_RUN = 5637
-URLACTION_HTML_USERDATA_SAVE = 5638
-URLACTION_HTML_SUBFRAME_NAVIGATE = 5639
-URLACTION_HTML_META_REFRESH = 5640
-URLACTION_HTML_MIXED_CONTENT = 5641
-URLACTION_HTML_INCLUDE_FILE_PATH = 5642
-URLACTION_HTML_ALLOW_INJECTED_DYNAMIC_HTML = 5643
-URLACTION_HTML_REQUIRE_UTF8_DOCUMENT_CODEPAGE = 5644
-URLACTION_HTML_ALLOW_CROSS_DOMAIN_CANVAS = 5645
-URLACTION_HTML_ALLOW_WINDOW_CLOSE = 5646
-URLACTION_HTML_ALLOW_CROSS_DOMAIN_WEBWORKER = 5647
-URLACTION_HTML_ALLOW_CROSS_DOMAIN_TEXTTRACK = 5648
-URLACTION_HTML_ALLOW_INDEXEDDB = 5649
-URLACTION_HTML_MAX = 6143
-URLACTION_SHELL_MIN = 6144
-URLACTION_SHELL_INSTALL_DTITEMS = 6144
-URLACTION_SHELL_MOVE_OR_COPY = 6146
-URLACTION_SHELL_FILE_DOWNLOAD = 6147
-URLACTION_SHELL_VERB = 6148
-URLACTION_SHELL_WEBVIEW_VERB = 6149
-URLACTION_SHELL_SHELLEXECUTE = 6150
-URLACTION_SHELL_EXECUTE_HIGHRISK = 6150
-URLACTION_SHELL_EXECUTE_MODRISK = 6151
-URLACTION_SHELL_EXECUTE_LOWRISK = 6152
-URLACTION_SHELL_POPUPMGR = 6153
-URLACTION_SHELL_RTF_OBJECTS_LOAD = 6154
-URLACTION_SHELL_ENHANCED_DRAGDROP_SECURITY = 6155
-URLACTION_SHELL_EXTENSIONSECURITY = 6156
-URLACTION_SHELL_SECURE_DRAGSOURCE = 6157
-URLACTION_SHELL_REMOTEQUERY = 6158
-URLACTION_SHELL_PREVIEW = 6159
-URLACTION_SHELL_SHARE = 6160
-URLACTION_SHELL_ALLOW_CROSS_SITE_SHARE = 6161
-URLACTION_SHELL_TOCTOU_RISK = 6162
-URLACTION_SHELL_CURR_MAX = 6162
-URLACTION_SHELL_MAX = 6655
-URLACTION_NETWORK_MIN = 6656
-URLACTION_CREDENTIALS_USE = 6656
-URLPOLICY_CREDENTIALS_SILENT_LOGON_OK = 0
-URLPOLICY_CREDENTIALS_MUST_PROMPT_USER = 65536
-URLPOLICY_CREDENTIALS_CONDITIONAL_PROMPT = 131072
-URLPOLICY_CREDENTIALS_ANONYMOUS_ONLY = 196608
-URLACTION_AUTHENTICATE_CLIENT = 6657
-URLPOLICY_AUTHENTICATE_CLEARTEXT_OK = 0
-URLPOLICY_AUTHENTICATE_CHALLENGE_RESPONSE = 65536
-URLPOLICY_AUTHENTICATE_MUTUAL_ONLY = 196608
-URLACTION_COOKIES = 6658
-URLACTION_COOKIES_SESSION = 6659
-URLACTION_CLIENT_CERT_PROMPT = 6660
-URLACTION_COOKIES_THIRD_PARTY = 6661
-URLACTION_COOKIES_SESSION_THIRD_PARTY = 6662
-URLACTION_COOKIES_ENABLED = 6672
-URLACTION_NETWORK_CURR_MAX = 6672
-URLACTION_NETWORK_MAX = 7167
-URLACTION_JAVA_MIN = 7168
-URLACTION_JAVA_PERMISSIONS = 7168
-URLPOLICY_JAVA_PROHIBIT = 0
-URLPOLICY_JAVA_HIGH = 65536
-URLPOLICY_JAVA_MEDIUM = 131072
-URLPOLICY_JAVA_LOW = 196608
-URLPOLICY_JAVA_CUSTOM = 8388608
-URLACTION_JAVA_CURR_MAX = 7168
-URLACTION_JAVA_MAX = 7423
-URLACTION_INFODELIVERY_MIN = 7424
-URLACTION_INFODELIVERY_NO_ADDING_CHANNELS = 7424
-URLACTION_INFODELIVERY_NO_EDITING_CHANNELS = 7425
-URLACTION_INFODELIVERY_NO_REMOVING_CHANNELS = 7426
-URLACTION_INFODELIVERY_NO_ADDING_SUBSCRIPTIONS = 7427
-URLACTION_INFODELIVERY_NO_EDITING_SUBSCRIPTIONS = 7428
-URLACTION_INFODELIVERY_NO_REMOVING_SUBSCRIPTIONS = 7429
-URLACTION_INFODELIVERY_NO_CHANNEL_LOGGING = 7430
-URLACTION_INFODELIVERY_CURR_MAX = 7430
-URLACTION_INFODELIVERY_MAX = 7679
-URLACTION_CHANNEL_SOFTDIST_MIN = 7680
-URLACTION_CHANNEL_SOFTDIST_PERMISSIONS = 7685
-URLPOLICY_CHANNEL_SOFTDIST_PROHIBIT = 65536
-URLPOLICY_CHANNEL_SOFTDIST_PRECACHE = 131072
-URLPOLICY_CHANNEL_SOFTDIST_AUTOINSTALL = 196608
-URLACTION_CHANNEL_SOFTDIST_MAX = 7935
-URLACTION_DOTNET_USERCONTROLS = 8197
-URLACTION_BEHAVIOR_MIN = 8192
-URLACTION_BEHAVIOR_RUN = 8192
-URLPOLICY_BEHAVIOR_CHECK_LIST = 65536
-URLACTION_FEATURE_MIN = 8448
-URLACTION_FEATURE_MIME_SNIFFING = 8448
-URLACTION_FEATURE_ZONE_ELEVATION = 8449
-URLACTION_FEATURE_WINDOW_RESTRICTIONS = 8450
-URLACTION_FEATURE_SCRIPT_STATUS_BAR = 8451
-URLACTION_FEATURE_FORCE_ADDR_AND_STATUS = 8452
-URLACTION_FEATURE_BLOCK_INPUT_PROMPTS = 8453
-URLACTION_FEATURE_DATA_BINDING = 8454
-URLACTION_FEATURE_CROSSDOMAIN_FOCUS_CHANGE = 8455
-URLACTION_AUTOMATIC_DOWNLOAD_UI_MIN = 8704
-URLACTION_AUTOMATIC_DOWNLOAD_UI = 8704
-URLACTION_AUTOMATIC_ACTIVEX_UI = 8705
-URLACTION_ALLOW_RESTRICTEDPROTOCOLS = 8960
-URLACTION_ALLOW_APEVALUATION = 8961
-URLACTION_ALLOW_XHR_EVALUATION = 8962
-URLACTION_WINDOWS_BROWSER_APPLICATIONS = 9216
-URLACTION_XPS_DOCUMENTS = 9217
-URLACTION_LOOSE_XAML = 9218
-URLACTION_LOWRIGHTS = 9472
-URLACTION_WINFX_SETUP = 9728
-URLACTION_INPRIVATE_BLOCKING = 9984
-URLACTION_ALLOW_AUDIO_VIDEO = 9985
-URLACTION_ALLOW_ACTIVEX_FILTERING = 9986
-URLACTION_ALLOW_STRUCTURED_STORAGE_SNIFFING = 9987
-URLACTION_ALLOW_AUDIO_VIDEO_PLUGINS = 9988
-URLACTION_ALLOW_ZONE_ELEVATION_VIA_OPT_OUT = 9989
-URLACTION_ALLOW_ZONE_ELEVATION_OPT_OUT_ADDITION = 9990
-URLACTION_ALLOW_CROSSDOMAIN_DROP_WITHIN_WINDOW = 9992
-URLACTION_ALLOW_CROSSDOMAIN_DROP_ACROSS_WINDOWS = 9993
-URLACTION_ALLOW_CROSSDOMAIN_APPCACHE_MANIFEST = 9994
-URLACTION_ALLOW_RENDER_LEGACY_DXTFILTERS = 9995
-URLACTION_ALLOW_ANTIMALWARE_SCANNING_OF_ACTIVEX = 9996
-URLACTION_ALLOW_CSS_EXPRESSIONS = 9997
-URLPOLICY_ALLOW = 0
-URLPOLICY_QUERY = 1
-URLPOLICY_DISALLOW = 3
-URLPOLICY_NOTIFY_ON_ALLOW = 16
-URLPOLICY_NOTIFY_ON_DISALLOW = 32
-URLPOLICY_LOG_ON_ALLOW = 64
-URLPOLICY_LOG_ON_DISALLOW = 128
-URLPOLICY_MASK_PERMISSIONS = 15
-URLPOLICY_DONTCHECKDLGBOX = 256
-URLZONE_ESC_FLAG = 256
-SECURITY_IE_STATE_GREEN = 0
-SECURITY_IE_STATE_RED = 1
-SOFTDIST_FLAG_USAGE_EMAIL = 1
-SOFTDIST_FLAG_USAGE_PRECACHE = 2
-SOFTDIST_FLAG_USAGE_AUTOINSTALL = 4
-SOFTDIST_FLAG_DELETE_SUBSCRIPTION = 8
-SOFTDIST_ADSTATE_NONE = 0
-SOFTDIST_ADSTATE_AVAILABLE = 1
-SOFTDIST_ADSTATE_DOWNLOADED = 2
-SOFTDIST_ADSTATE_INSTALLED = 3
-CONFIRMSAFETYACTION_LOADOBJECT = 1
-def _define_CreateURLMoniker():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IMoniker_head))(('CreateURLMoniker', windll['urlmon.dll']), ((1, 'pMkCtx'),(1, 'szURL'),(1, 'ppmk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateURLMonikerEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IMoniker_head),UInt32)(('CreateURLMonikerEx', windll['urlmon.dll']), ((1, 'pMkCtx'),(1, 'szURL'),(1, 'ppmk'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassURL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(('GetClassURL', windll['urlmon.dll']), ((1, 'szURL'),(1, 'pClsID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAsyncBindCtx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IBindStatusCallback_head,win32more.System.Com.IEnumFORMATETC_head,POINTER(win32more.System.Com.IBindCtx_head))(('CreateAsyncBindCtx', windll['urlmon.dll']), ((1, 'reserved'),(1, 'pBSCb'),(1, 'pEFetc'),(1, 'ppBC'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateURLMonikerEx2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IUri_head,POINTER(win32more.System.Com.IMoniker_head),UInt32)(('CreateURLMonikerEx2', windll['urlmon.dll']), ((1, 'pMkCtx'),(1, 'pUri'),(1, 'ppmk'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAsyncBindCtxEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,UInt32,win32more.System.Com.IBindStatusCallback_head,win32more.System.Com.IEnumFORMATETC_head,POINTER(win32more.System.Com.IBindCtx_head),UInt32)(('CreateAsyncBindCtxEx', windll['urlmon.dll']), ((1, 'pbc'),(1, 'dwOptions'),(1, 'pBSCb'),(1, 'pEnum'),(1, 'ppBC'),(1, 'reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MkParseDisplayNameEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Com.IMoniker_head))(('MkParseDisplayNameEx', windll['urlmon.dll']), ((1, 'pbc'),(1, 'szDisplayName'),(1, 'pchEaten'),(1, 'ppmk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterBindStatusCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,POINTER(win32more.System.Com.IBindStatusCallback_head),UInt32)(('RegisterBindStatusCallback', windll['urlmon.dll']), ((1, 'pBC'),(1, 'pBSCb'),(1, 'ppBSCBPrev'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RevokeBindStatusCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head)(('RevokeBindStatusCallback', windll['urlmon.dll']), ((1, 'pBC'),(1, 'pBSCb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetClassFileOrMime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Guid))(('GetClassFileOrMime', windll['urlmon.dll']), ((1, 'pBC'),(1, 'szFilename'),(1, 'pBuffer'),(1, 'cbSize'),(1, 'szMime'),(1, 'dwReserved'),(1, 'pclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsValidURL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,UInt32)(('IsValidURL', windll['urlmon.dll']), ((1, 'pBC'),(1, 'szURL'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetClassObjectFromURL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.System.Com.IBindCtx_head,win32more.System.Com.CLSCTX,c_void_p,POINTER(Guid),POINTER(c_void_p))(('CoGetClassObjectFromURL', windll['urlmon.dll']), ((1, 'rCLASSID'),(1, 'szCODE'),(1, 'dwFileVersionMS'),(1, 'dwFileVersionLS'),(1, 'szTYPE'),(1, 'pBindCtx'),(1, 'dwClsContext'),(1, 'pvReserved'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IEInstallScope():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(('IEInstallScope', windll['urlmon.dll']), ((1, 'pdwScope'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FaultInIEFeature():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.System.Com.uCLSSPEC_head),POINTER(win32more.System.Com.QUERYCONTEXT_head),UInt32)(('FaultInIEFeature', windll['urlmon.dll']), ((1, 'hWnd'),(1, 'pClassSpec'),(1, 'pQuery'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetComponentIDFromCLSSPEC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.uCLSSPEC_head),POINTER(win32more.Foundation.PSTR))(('GetComponentIDFromCLSSPEC', windll['urlmon.dll']), ((1, 'pClassspec'),(1, 'ppszComponentID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsAsyncMoniker():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head)(('IsAsyncMoniker', windll['urlmon.dll']), ((1, 'pmk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterMediaTypes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PSTR),POINTER(UInt16))(('RegisterMediaTypes', windll['urlmon.dll']), ((1, 'ctypes'),(1, 'rgszTypes'),(1, 'rgcfTypes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindMediaType():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt16))(('FindMediaType', windll['urlmon.dll']), ((1, 'rgszTypes'),(1, 'rgcfTypes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFormatEnumerator():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.FORMATETC_head),POINTER(win32more.System.Com.IEnumFORMATETC_head))(('CreateFormatEnumerator', windll['urlmon.dll']), ((1, 'cfmtetc'),(1, 'rgfmtetc'),(1, 'ppenumfmtetc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterFormatEnumerator():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.System.Com.IEnumFORMATETC_head,UInt32)(('RegisterFormatEnumerator', windll['urlmon.dll']), ((1, 'pBC'),(1, 'pEFetc'),(1, 'reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RevokeFormatEnumerator():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.System.Com.IEnumFORMATETC_head)(('RevokeFormatEnumerator', windll['urlmon.dll']), ((1, 'pBC'),(1, 'pEFetc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterMediaTypeClass():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,UInt32,POINTER(win32more.Foundation.PSTR),POINTER(Guid),UInt32)(('RegisterMediaTypeClass', windll['urlmon.dll']), ((1, 'pBC'),(1, 'ctypes'),(1, 'rgszTypes'),(1, 'rgclsID'),(1, 'reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindMediaTypeClass():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PSTR,POINTER(Guid),UInt32)(('FindMediaTypeClass', windll['urlmon.dll']), ((1, 'pBC'),(1, 'szType'),(1, 'pclsID'),(1, 'reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlMkSetSessionOption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32)(('UrlMkSetSessionOption', windll['urlmon.dll']), ((1, 'dwOption'),(1, 'pBuffer'),(1, 'dwBufferLength'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UrlMkGetSessionOption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,POINTER(UInt32),UInt32)(('UrlMkGetSessionOption', windll['urlmon.dll']), ((1, 'dwOption'),(1, 'pBuffer'),(1, 'dwBufferLength'),(1, 'pdwBufferLengthOut'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindMimeFromData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),UInt32)(('FindMimeFromData', windll['urlmon.dll']), ((1, 'pBC'),(1, 'pwzUrl'),(1, 'pBuffer'),(1, 'cbSize'),(1, 'pwzMimeProposed'),(1, 'dwMimeFlags'),(1, 'ppwzMimeOut'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObtainUserAgentString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('ObtainUserAgentString', windll['urlmon.dll']), ((1, 'dwOption'),(1, 'pszUAOut'),(1, 'cbSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CompareSecurityIds():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,UInt32,UInt32)(('CompareSecurityIds', windll['urlmon.dll']), ((1, 'pbSecurityId1'),(1, 'dwLen1'),(1, 'pbSecurityId2'),(1, 'dwLen2'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CompatFlagsFromClsid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),POINTER(UInt32))(('CompatFlagsFromClsid', windll['urlmon.dll']), ((1, 'pclsid'),(1, 'pdwCompatFlags'),(1, 'pdwMiscStatusFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetAccessForIEAppContainer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.System.Com.Urlmon.IEObjectType,UInt32)(('SetAccessForIEAppContainer', windll['urlmon.dll']), ((1, 'hObject'),(1, 'ieObjectType'),(1, 'dwAccessMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkSimpleNavigateToString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,UInt32,UInt32)(('HlinkSimpleNavigateToString', windll['urlmon.dll']), ((1, 'szTarget'),(1, 'szLocation'),(1, 'szTargetFrameName'),(1, 'pUnk'),(1, 'pbc'),(1, 'param5'),(1, 'grfHLNF'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkSimpleNavigateToMoniker():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,UInt32,UInt32)(('HlinkSimpleNavigateToMoniker', windll['urlmon.dll']), ((1, 'pmkTarget'),(1, 'szLocation'),(1, 'szTargetFrameName'),(1, 'pUnk'),(1, 'pbc'),(1, 'param5'),(1, 'grfHLNF'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenStreamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenStreamA', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenStreamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenStreamW', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenPullStreamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenPullStreamA', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenPullStreamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenPullStreamW', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLDownloadToFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLDownloadToFileA', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLDownloadToFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLDownloadToFileW', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLDownloadToCacheFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLDownloadToCacheFileA', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'cchFileName'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLDownloadToCacheFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLDownloadToCacheFileW', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'cchFileName'),(1, 'param4'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenBlockingStreamA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PSTR,POINTER(win32more.System.Com.IStream_head),UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenBlockingStreamA', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_URLOpenBlockingStreamW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IStream_head),UInt32,win32more.System.Com.IBindStatusCallback_head)(('URLOpenBlockingStreamW', windll['urlmon.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkGoBack():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(('HlinkGoBack', windll['urlmon.dll']), ((1, 'pUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkGoForward():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(('HlinkGoForward', windll['urlmon.dll']), ((1, 'pUnk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkNavigateString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR)(('HlinkNavigateString', windll['urlmon.dll']), ((1, 'pUnk'),(1, 'szTarget'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HlinkNavigateMoniker():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IMoniker_head)(('HlinkNavigateMoniker', windll['urlmon.dll']), ((1, 'pUnk'),(1, 'pmkTarget'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetParseUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.PARSEACTION,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32)(('CoInternetParseUrl', windll['urlmon.dll']), ((1, 'pwzUrl'),(1, 'ParseAction'),(1, 'dwFlags'),(1, 'pszResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetParseIUri():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.System.Com.Urlmon.PARSEACTION,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UIntPtr)(('CoInternetParseIUri', windll['urlmon.dll']), ((1, 'pIUri'),(1, 'ParseAction'),(1, 'dwFlags'),(1, 'pwzResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCombineUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32)(('CoInternetCombineUrl', windll['urlmon.dll']), ((1, 'pwzBaseUrl'),(1, 'pwzRelativeUrl'),(1, 'dwCombineFlags'),(1, 'pszResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCombineUrlEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Com.IUri_head),UIntPtr)(('CoInternetCombineUrlEx', windll['urlmon.dll']), ((1, 'pBaseUri'),(1, 'pwzRelativeUrl'),(1, 'dwCombineFlags'),(1, 'ppCombinedUri'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCombineIUri():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.System.Com.IUri_head,UInt32,POINTER(win32more.System.Com.IUri_head),UIntPtr)(('CoInternetCombineIUri', windll['urlmon.dll']), ((1, 'pBaseUri'),(1, 'pRelativeUri'),(1, 'dwCombineFlags'),(1, 'ppCombinedUri'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCompareUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('CoInternetCompareUrl', windll['urlmon.dll']), ((1, 'pwzUrl1'),(1, 'pwzUrl2'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetGetProtocolFlags():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(('CoInternetGetProtocolFlags', windll['urlmon.dll']), ((1, 'pwzUrl'),(1, 'pdwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetQueryInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.QUERYOPTION,UInt32,c_void_p,UInt32,POINTER(UInt32),UInt32)(('CoInternetQueryInfo', windll['urlmon.dll']), ((1, 'pwzUrl'),(1, 'QueryOptions'),(1, 'dwQueryFlags'),(1, 'pvBuffer'),(1, 'cbBuffer'),(1, 'pcbBuffer'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetGetSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.Urlmon.IInternetSession_head),UInt32)(('CoInternetGetSession', windll['urlmon.dll']), ((1, 'dwSessionMode'),(1, 'ppIInternetSession'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetGetSecurityUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),win32more.System.Com.Urlmon.PSUACTION,UInt32)(('CoInternetGetSecurityUrl', windll['urlmon.dll']), ((1, 'pwszUrl'),(1, 'ppwszSecUrl'),(1, 'psuAction'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetGetSecurityUrlEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(win32more.System.Com.IUri_head),win32more.System.Com.Urlmon.PSUACTION,UIntPtr)(('CoInternetGetSecurityUrlEx', windll['urlmon.dll']), ((1, 'pUri'),(1, 'ppSecUri'),(1, 'psuAction'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetSetFeatureEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.INTERNETFEATURELIST,UInt32,win32more.Foundation.BOOL)(('CoInternetSetFeatureEnabled', windll['urlmon.dll']), ((1, 'FeatureEntry'),(1, 'dwFlags'),(1, 'fEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetIsFeatureEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.INTERNETFEATURELIST,UInt32)(('CoInternetIsFeatureEnabled', windll['urlmon.dll']), ((1, 'FeatureEntry'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetIsFeatureEnabledForUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.INTERNETFEATURELIST,UInt32,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.IInternetSecurityManager_head)(('CoInternetIsFeatureEnabledForUrl', windll['urlmon.dll']), ((1, 'FeatureEntry'),(1, 'dwFlags'),(1, 'szURL'),(1, 'pSecMgr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetIsFeatureEnabledForIUri():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.INTERNETFEATURELIST,UInt32,win32more.System.Com.IUri_head,win32more.System.Com.Urlmon.IInternetSecurityManagerEx2_head)(('CoInternetIsFeatureEnabledForIUri', windll['urlmon.dll']), ((1, 'FeatureEntry'),(1, 'dwFlags'),(1, 'pIUri'),(1, 'pSecMgr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetIsFeatureZoneElevationEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.IInternetSecurityManager_head,UInt32)(('CoInternetIsFeatureZoneElevationEnabled', windll['urlmon.dll']), ((1, 'szFromURL'),(1, 'szToURL'),(1, 'pSecMgr'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyStgMedium():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.STGMEDIUM_head),POINTER(win32more.System.Com.STGMEDIUM_head))(('CopyStgMedium', windll['urlmon.dll']), ((1, 'pcstgmedSrc'),(1, 'pstgmedDest'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopyBindInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.BINDINFO_head),POINTER(win32more.System.Com.BINDINFO_head))(('CopyBindInfo', windll['urlmon.dll']), ((1, 'pcbiSrc'),(1, 'pbiDest'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseBindInfo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Com.BINDINFO_head))(('ReleaseBindInfo', windll['urlmon.dll']), ((1, 'pbindinfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IEGetUserPrivateNamespaceName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,)(('IEGetUserPrivateNamespaceName', windll['urlmon.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCreateSecurityManager():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IServiceProvider_head,POINTER(win32more.System.Com.Urlmon.IInternetSecurityManager_head),UInt32)(('CoInternetCreateSecurityManager', windll['urlmon.dll']), ((1, 'pSP'),(1, 'ppSM'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoInternetCreateZoneManager():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IServiceProvider_head,POINTER(win32more.System.Com.Urlmon.IInternetZoneManager_head),UInt32)(('CoInternetCreateZoneManager', windll['urlmon.dll']), ((1, 'pSP'),(1, 'ppZM'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSoftwareUpdateInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.Urlmon.SOFTDISTINFO_head))(('GetSoftwareUpdateInfo', windll['urlmon.dll']), ((1, 'szDistUnit'),(1, 'psdi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSoftwareUpdateAdvertisementState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32)(('SetSoftwareUpdateAdvertisementState', windll['urlmon.dll']), ((1, 'szDistUnit'),(1, 'dwAdState'),(1, 'dwAdvertisedVersionMS'),(1, 'dwAdvertisedVersionLS'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsLoggingEnabledA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('IsLoggingEnabledA', windll['urlmon.dll']), ((1, 'pszUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsLoggingEnabledW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('IsLoggingEnabledW', windll['urlmon.dll']), ((1, 'pwszUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteHitLogging():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Com.Urlmon.HIT_LOGGING_INFO_head))(('WriteHitLogging', windll['urlmon.dll']), ((1, 'lpLogginginfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+MKSYS_URLMONIKER: UInt32 = 6
+URL_MK_LEGACY: UInt32 = 0
+URL_MK_UNIFORM: UInt32 = 1
+URL_MK_NO_CANONICALIZE: UInt32 = 2
+FIEF_FLAG_FORCE_JITUI: UInt32 = 1
+FIEF_FLAG_PEEK: UInt32 = 2
+FIEF_FLAG_SKIP_INSTALLED_VERSION_CHECK: UInt32 = 4
+FIEF_FLAG_RESERVED_0: UInt32 = 8
+FMFD_DEFAULT: UInt32 = 0
+FMFD_URLASFILENAME: UInt32 = 1
+FMFD_ENABLEMIMESNIFFING: UInt32 = 2
+FMFD_IGNOREMIMETEXTPLAIN: UInt32 = 4
+FMFD_SERVERMIME: UInt32 = 8
+FMFD_RESPECTTEXTPLAIN: UInt32 = 16
+FMFD_RETURNUPDATEDIMGMIMES: UInt32 = 32
+FMFD_RESERVED_1: UInt32 = 64
+FMFD_RESERVED_2: UInt32 = 128
+UAS_EXACTLEGACY: UInt32 = 4096
+URLMON_OPTION_USERAGENT: UInt32 = 268435457
+URLMON_OPTION_USERAGENT_REFRESH: UInt32 = 268435458
+URLMON_OPTION_URL_ENCODING: UInt32 = 268435460
+URLMON_OPTION_USE_BINDSTRINGCREDS: UInt32 = 268435464
+URLMON_OPTION_USE_BROWSERAPPSDOCUMENTS: UInt32 = 268435472
+CF_NULL: UInt32 = 0
+MK_S_ASYNCHRONOUS: win32more.Foundation.HRESULT = 262632
+S_ASYNCHRONOUS: Int32 = 262632
+E_PENDING: win32more.Foundation.HRESULT = -2147483638
+INET_E_INVALID_URL: win32more.Foundation.HRESULT = -2146697214
+INET_E_NO_SESSION: win32more.Foundation.HRESULT = -2146697213
+INET_E_CANNOT_CONNECT: win32more.Foundation.HRESULT = -2146697212
+INET_E_RESOURCE_NOT_FOUND: win32more.Foundation.HRESULT = -2146697211
+INET_E_OBJECT_NOT_FOUND: win32more.Foundation.HRESULT = -2146697210
+INET_E_DATA_NOT_AVAILABLE: win32more.Foundation.HRESULT = -2146697209
+INET_E_DOWNLOAD_FAILURE: win32more.Foundation.HRESULT = -2146697208
+INET_E_AUTHENTICATION_REQUIRED: win32more.Foundation.HRESULT = -2146697207
+INET_E_NO_VALID_MEDIA: win32more.Foundation.HRESULT = -2146697206
+INET_E_CONNECTION_TIMEOUT: win32more.Foundation.HRESULT = -2146697205
+INET_E_INVALID_REQUEST: win32more.Foundation.HRESULT = -2146697204
+INET_E_UNKNOWN_PROTOCOL: win32more.Foundation.HRESULT = -2146697203
+INET_E_SECURITY_PROBLEM: win32more.Foundation.HRESULT = -2146697202
+INET_E_CANNOT_LOAD_DATA: win32more.Foundation.HRESULT = -2146697201
+INET_E_CANNOT_INSTANTIATE_OBJECT: win32more.Foundation.HRESULT = -2146697200
+INET_E_INVALID_CERTIFICATE: win32more.Foundation.HRESULT = -2146697191
+INET_E_REDIRECT_FAILED: win32more.Foundation.HRESULT = -2146697196
+INET_E_REDIRECT_TO_DIR: win32more.Foundation.HRESULT = -2146697195
+INET_E_CANNOT_LOCK_REQUEST: win32more.Foundation.HRESULT = -2146697194
+INET_E_USE_EXTEND_BINDING: win32more.Foundation.HRESULT = -2146697193
+INET_E_TERMINATED_BIND: win32more.Foundation.HRESULT = -2146697192
+INET_E_RESERVED_1: win32more.Foundation.HRESULT = -2146697190
+INET_E_BLOCKED_REDIRECT_XSECURITYID: win32more.Foundation.HRESULT = -2146697189
+INET_E_DOMINJECTIONVALIDATION: win32more.Foundation.HRESULT = -2146697188
+INET_E_VTAB_SWITCH_FORCE_ENGINE: win32more.Foundation.HRESULT = -2146697187
+INET_E_HSTS_CERTIFICATE_ERROR: win32more.Foundation.HRESULT = -2146697186
+INET_E_RESERVED_2: win32more.Foundation.HRESULT = -2146697185
+INET_E_RESERVED_3: win32more.Foundation.HRESULT = -2146697184
+INET_E_RESERVED_4: win32more.Foundation.HRESULT = -2146697183
+INET_E_RESERVED_5: win32more.Foundation.HRESULT = -2146697182
+INET_E_ERROR_FIRST: win32more.Foundation.HRESULT = -2146697214
+INET_E_CODE_DOWNLOAD_DECLINED: win32more.Foundation.HRESULT = -2146696960
+INET_E_RESULT_DISPATCHED: win32more.Foundation.HRESULT = -2146696704
+INET_E_CANNOT_REPLACE_SFP_FILE: win32more.Foundation.HRESULT = -2146696448
+INET_E_CODE_INSTALL_SUPPRESSED: win32more.Foundation.HRESULT = -2146696192
+INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY: win32more.Foundation.HRESULT = -2146695936
+INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE: win32more.Foundation.HRESULT = -2146695935
+INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE: win32more.Foundation.HRESULT = -2146695934
+INET_E_FORBIDFRAMING: win32more.Foundation.HRESULT = -2146695933
+INET_E_CODE_INSTALL_BLOCKED_ARM: win32more.Foundation.HRESULT = -2146695932
+INET_E_BLOCKED_PLUGGABLE_PROTOCOL: win32more.Foundation.HRESULT = -2146695931
+INET_E_BLOCKED_ENHANCEDPROTECTEDMODE: win32more.Foundation.HRESULT = -2146695930
+INET_E_CODE_INSTALL_BLOCKED_BITNESS: win32more.Foundation.HRESULT = -2146695929
+INET_E_DOWNLOAD_BLOCKED_BY_CSP: win32more.Foundation.HRESULT = -2146695928
+INET_E_ERROR_LAST: Int32 = -2146695928
+Uri_DISPLAY_NO_FRAGMENT: UInt32 = 1
+Uri_PUNYCODE_IDN_HOST: UInt32 = 2
+Uri_DISPLAY_IDN_HOST: UInt32 = 4
+Uri_DISPLAY_NO_PUNYCODE: UInt32 = 8
+Uri_ENCODING_USER_INFO_AND_PATH_IS_PERCENT_ENCODED_UTF8: UInt32 = 1
+Uri_ENCODING_USER_INFO_AND_PATH_IS_CP: UInt32 = 2
+Uri_ENCODING_HOST_IS_IDN: UInt32 = 4
+Uri_ENCODING_HOST_IS_PERCENT_ENCODED_UTF8: UInt32 = 8
+Uri_ENCODING_HOST_IS_PERCENT_ENCODED_CP: UInt32 = 16
+Uri_ENCODING_QUERY_AND_FRAGMENT_IS_PERCENT_ENCODED_UTF8: UInt32 = 32
+Uri_ENCODING_QUERY_AND_FRAGMENT_IS_CP: UInt32 = 64
+UriBuilder_USE_ORIGINAL_FLAGS: UInt32 = 1
+WININETINFO_OPTION_LOCK_HANDLE: UInt32 = 65534
+URLOSTRM_USECACHEDCOPY_ONLY: UInt32 = 1
+URLOSTRM_USECACHEDCOPY: UInt32 = 2
+URLOSTRM_GETNEWESTVERSION: UInt32 = 3
+SET_FEATURE_ON_THREAD: UInt32 = 1
+SET_FEATURE_ON_PROCESS: UInt32 = 2
+SET_FEATURE_IN_REGISTRY: UInt32 = 4
+SET_FEATURE_ON_THREAD_LOCALMACHINE: UInt32 = 8
+SET_FEATURE_ON_THREAD_INTRANET: UInt32 = 16
+SET_FEATURE_ON_THREAD_TRUSTED: UInt32 = 32
+SET_FEATURE_ON_THREAD_INTERNET: UInt32 = 64
+SET_FEATURE_ON_THREAD_RESTRICTED: UInt32 = 128
+GET_FEATURE_FROM_THREAD: UInt32 = 1
+GET_FEATURE_FROM_PROCESS: UInt32 = 2
+GET_FEATURE_FROM_REGISTRY: UInt32 = 4
+GET_FEATURE_FROM_THREAD_LOCALMACHINE: UInt32 = 8
+GET_FEATURE_FROM_THREAD_INTRANET: UInt32 = 16
+GET_FEATURE_FROM_THREAD_TRUSTED: UInt32 = 32
+GET_FEATURE_FROM_THREAD_INTERNET: UInt32 = 64
+GET_FEATURE_FROM_THREAD_RESTRICTED: UInt32 = 128
+INET_E_USE_DEFAULT_PROTOCOLHANDLER: win32more.Foundation.HRESULT = -2146697199
+INET_E_USE_DEFAULT_SETTING: win32more.Foundation.HRESULT = -2146697198
+INET_E_DEFAULT_ACTION: Int32 = -2146697199
+INET_E_QUERYOPTION_UNKNOWN: win32more.Foundation.HRESULT = -2146697197
+INET_E_REDIRECTING: win32more.Foundation.HRESULT = -2146697196
+PROTOCOLFLAG_NO_PICS_CHECK: UInt32 = 1
+MUTZ_NOSAVEDFILECHECK: UInt32 = 1
+MUTZ_ISFILE: UInt32 = 2
+MUTZ_ACCEPT_WILDCARD_SCHEME: UInt32 = 128
+MUTZ_ENFORCERESTRICTED: UInt32 = 256
+MUTZ_RESERVED: UInt32 = 512
+MUTZ_REQUIRESAVEDFILECHECK: UInt32 = 1024
+MUTZ_DONT_UNESCAPE: UInt32 = 2048
+MUTZ_DONT_USE_CACHE: UInt32 = 4096
+MUTZ_FORCE_INTRANET_FLAGS: UInt32 = 8192
+MUTZ_IGNORE_ZONE_MAPPINGS: UInt32 = 16384
+MAX_SIZE_SECURITY_ID: UInt32 = 512
+URLACTION_MIN: UInt32 = 4096
+URLACTION_DOWNLOAD_MIN: UInt32 = 4096
+URLACTION_DOWNLOAD_SIGNED_ACTIVEX: UInt32 = 4097
+URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX: UInt32 = 4100
+URLACTION_DOWNLOAD_CURR_MAX: UInt32 = 4100
+URLACTION_DOWNLOAD_MAX: UInt32 = 4607
+URLACTION_ACTIVEX_MIN: UInt32 = 4608
+URLACTION_ACTIVEX_RUN: UInt32 = 4608
+URLPOLICY_ACTIVEX_CHECK_LIST: UInt32 = 65536
+URLACTION_ACTIVEX_OVERRIDE_OBJECT_SAFETY: UInt32 = 4609
+URLACTION_ACTIVEX_OVERRIDE_DATA_SAFETY: UInt32 = 4610
+URLACTION_ACTIVEX_OVERRIDE_SCRIPT_SAFETY: UInt32 = 4611
+URLACTION_SCRIPT_OVERRIDE_SAFETY: UInt32 = 5121
+URLACTION_ACTIVEX_CONFIRM_NOOBJECTSAFETY: UInt32 = 4612
+URLACTION_ACTIVEX_TREATASUNTRUSTED: UInt32 = 4613
+URLACTION_ACTIVEX_NO_WEBOC_SCRIPT: UInt32 = 4614
+URLACTION_ACTIVEX_OVERRIDE_REPURPOSEDETECTION: UInt32 = 4615
+URLACTION_ACTIVEX_OVERRIDE_OPTIN: UInt32 = 4616
+URLACTION_ACTIVEX_SCRIPTLET_RUN: UInt32 = 4617
+URLACTION_ACTIVEX_DYNSRC_VIDEO_AND_ANIMATION: UInt32 = 4618
+URLACTION_ACTIVEX_OVERRIDE_DOMAINLIST: UInt32 = 4619
+URLACTION_ACTIVEX_ALLOW_TDC: UInt32 = 4620
+URLACTION_ACTIVEX_CURR_MAX: UInt32 = 4620
+URLACTION_ACTIVEX_MAX: UInt32 = 5119
+URLACTION_SCRIPT_MIN: UInt32 = 5120
+URLACTION_SCRIPT_RUN: UInt32 = 5120
+URLACTION_SCRIPT_JAVA_USE: UInt32 = 5122
+URLACTION_SCRIPT_SAFE_ACTIVEX: UInt32 = 5125
+URLACTION_CROSS_DOMAIN_DATA: UInt32 = 5126
+URLACTION_SCRIPT_PASTE: UInt32 = 5127
+URLACTION_ALLOW_XDOMAIN_SUBFRAME_RESIZE: UInt32 = 5128
+URLACTION_SCRIPT_XSSFILTER: UInt32 = 5129
+URLACTION_SCRIPT_NAVIGATE: UInt32 = 5130
+URLACTION_PLUGGABLE_PROTOCOL_XHR: UInt32 = 5131
+URLACTION_ALLOW_VBSCRIPT_IE: UInt32 = 5132
+URLACTION_ALLOW_JSCRIPT_IE: UInt32 = 5133
+URLACTION_SCRIPT_CURR_MAX: UInt32 = 5133
+URLACTION_SCRIPT_MAX: UInt32 = 5631
+URLACTION_HTML_MIN: UInt32 = 5632
+URLACTION_HTML_SUBMIT_FORMS: UInt32 = 5633
+URLACTION_HTML_SUBMIT_FORMS_FROM: UInt32 = 5634
+URLACTION_HTML_SUBMIT_FORMS_TO: UInt32 = 5635
+URLACTION_HTML_FONT_DOWNLOAD: UInt32 = 5636
+URLACTION_HTML_JAVA_RUN: UInt32 = 5637
+URLACTION_HTML_USERDATA_SAVE: UInt32 = 5638
+URLACTION_HTML_SUBFRAME_NAVIGATE: UInt32 = 5639
+URLACTION_HTML_META_REFRESH: UInt32 = 5640
+URLACTION_HTML_MIXED_CONTENT: UInt32 = 5641
+URLACTION_HTML_INCLUDE_FILE_PATH: UInt32 = 5642
+URLACTION_HTML_ALLOW_INJECTED_DYNAMIC_HTML: UInt32 = 5643
+URLACTION_HTML_REQUIRE_UTF8_DOCUMENT_CODEPAGE: UInt32 = 5644
+URLACTION_HTML_ALLOW_CROSS_DOMAIN_CANVAS: UInt32 = 5645
+URLACTION_HTML_ALLOW_WINDOW_CLOSE: UInt32 = 5646
+URLACTION_HTML_ALLOW_CROSS_DOMAIN_WEBWORKER: UInt32 = 5647
+URLACTION_HTML_ALLOW_CROSS_DOMAIN_TEXTTRACK: UInt32 = 5648
+URLACTION_HTML_ALLOW_INDEXEDDB: UInt32 = 5649
+URLACTION_HTML_MAX: UInt32 = 6143
+URLACTION_SHELL_MIN: UInt32 = 6144
+URLACTION_SHELL_INSTALL_DTITEMS: UInt32 = 6144
+URLACTION_SHELL_MOVE_OR_COPY: UInt32 = 6146
+URLACTION_SHELL_FILE_DOWNLOAD: UInt32 = 6147
+URLACTION_SHELL_VERB: UInt32 = 6148
+URLACTION_SHELL_WEBVIEW_VERB: UInt32 = 6149
+URLACTION_SHELL_SHELLEXECUTE: UInt32 = 6150
+URLACTION_SHELL_EXECUTE_HIGHRISK: UInt32 = 6150
+URLACTION_SHELL_EXECUTE_MODRISK: UInt32 = 6151
+URLACTION_SHELL_EXECUTE_LOWRISK: UInt32 = 6152
+URLACTION_SHELL_POPUPMGR: UInt32 = 6153
+URLACTION_SHELL_RTF_OBJECTS_LOAD: UInt32 = 6154
+URLACTION_SHELL_ENHANCED_DRAGDROP_SECURITY: UInt32 = 6155
+URLACTION_SHELL_EXTENSIONSECURITY: UInt32 = 6156
+URLACTION_SHELL_SECURE_DRAGSOURCE: UInt32 = 6157
+URLACTION_SHELL_REMOTEQUERY: UInt32 = 6158
+URLACTION_SHELL_PREVIEW: UInt32 = 6159
+URLACTION_SHELL_SHARE: UInt32 = 6160
+URLACTION_SHELL_ALLOW_CROSS_SITE_SHARE: UInt32 = 6161
+URLACTION_SHELL_TOCTOU_RISK: UInt32 = 6162
+URLACTION_SHELL_CURR_MAX: UInt32 = 6162
+URLACTION_SHELL_MAX: UInt32 = 6655
+URLACTION_NETWORK_MIN: UInt32 = 6656
+URLACTION_CREDENTIALS_USE: UInt32 = 6656
+URLPOLICY_CREDENTIALS_SILENT_LOGON_OK: UInt32 = 0
+URLPOLICY_CREDENTIALS_MUST_PROMPT_USER: UInt32 = 65536
+URLPOLICY_CREDENTIALS_CONDITIONAL_PROMPT: UInt32 = 131072
+URLPOLICY_CREDENTIALS_ANONYMOUS_ONLY: UInt32 = 196608
+URLACTION_AUTHENTICATE_CLIENT: UInt32 = 6657
+URLPOLICY_AUTHENTICATE_CLEARTEXT_OK: UInt32 = 0
+URLPOLICY_AUTHENTICATE_CHALLENGE_RESPONSE: UInt32 = 65536
+URLPOLICY_AUTHENTICATE_MUTUAL_ONLY: UInt32 = 196608
+URLACTION_COOKIES: UInt32 = 6658
+URLACTION_COOKIES_SESSION: UInt32 = 6659
+URLACTION_CLIENT_CERT_PROMPT: UInt32 = 6660
+URLACTION_COOKIES_THIRD_PARTY: UInt32 = 6661
+URLACTION_COOKIES_SESSION_THIRD_PARTY: UInt32 = 6662
+URLACTION_COOKIES_ENABLED: UInt32 = 6672
+URLACTION_NETWORK_CURR_MAX: UInt32 = 6672
+URLACTION_NETWORK_MAX: UInt32 = 7167
+URLACTION_JAVA_MIN: UInt32 = 7168
+URLACTION_JAVA_PERMISSIONS: UInt32 = 7168
+URLPOLICY_JAVA_PROHIBIT: UInt32 = 0
+URLPOLICY_JAVA_HIGH: UInt32 = 65536
+URLPOLICY_JAVA_MEDIUM: UInt32 = 131072
+URLPOLICY_JAVA_LOW: UInt32 = 196608
+URLPOLICY_JAVA_CUSTOM: UInt32 = 8388608
+URLACTION_JAVA_CURR_MAX: UInt32 = 7168
+URLACTION_JAVA_MAX: UInt32 = 7423
+URLACTION_INFODELIVERY_MIN: UInt32 = 7424
+URLACTION_INFODELIVERY_NO_ADDING_CHANNELS: UInt32 = 7424
+URLACTION_INFODELIVERY_NO_EDITING_CHANNELS: UInt32 = 7425
+URLACTION_INFODELIVERY_NO_REMOVING_CHANNELS: UInt32 = 7426
+URLACTION_INFODELIVERY_NO_ADDING_SUBSCRIPTIONS: UInt32 = 7427
+URLACTION_INFODELIVERY_NO_EDITING_SUBSCRIPTIONS: UInt32 = 7428
+URLACTION_INFODELIVERY_NO_REMOVING_SUBSCRIPTIONS: UInt32 = 7429
+URLACTION_INFODELIVERY_NO_CHANNEL_LOGGING: UInt32 = 7430
+URLACTION_INFODELIVERY_CURR_MAX: UInt32 = 7430
+URLACTION_INFODELIVERY_MAX: UInt32 = 7679
+URLACTION_CHANNEL_SOFTDIST_MIN: UInt32 = 7680
+URLACTION_CHANNEL_SOFTDIST_PERMISSIONS: UInt32 = 7685
+URLPOLICY_CHANNEL_SOFTDIST_PROHIBIT: UInt32 = 65536
+URLPOLICY_CHANNEL_SOFTDIST_PRECACHE: UInt32 = 131072
+URLPOLICY_CHANNEL_SOFTDIST_AUTOINSTALL: UInt32 = 196608
+URLACTION_CHANNEL_SOFTDIST_MAX: UInt32 = 7935
+URLACTION_DOTNET_USERCONTROLS: UInt32 = 8197
+URLACTION_BEHAVIOR_MIN: UInt32 = 8192
+URLACTION_BEHAVIOR_RUN: UInt32 = 8192
+URLPOLICY_BEHAVIOR_CHECK_LIST: UInt32 = 65536
+URLACTION_FEATURE_MIN: UInt32 = 8448
+URLACTION_FEATURE_MIME_SNIFFING: UInt32 = 8448
+URLACTION_FEATURE_ZONE_ELEVATION: UInt32 = 8449
+URLACTION_FEATURE_WINDOW_RESTRICTIONS: UInt32 = 8450
+URLACTION_FEATURE_SCRIPT_STATUS_BAR: UInt32 = 8451
+URLACTION_FEATURE_FORCE_ADDR_AND_STATUS: UInt32 = 8452
+URLACTION_FEATURE_BLOCK_INPUT_PROMPTS: UInt32 = 8453
+URLACTION_FEATURE_DATA_BINDING: UInt32 = 8454
+URLACTION_FEATURE_CROSSDOMAIN_FOCUS_CHANGE: UInt32 = 8455
+URLACTION_AUTOMATIC_DOWNLOAD_UI_MIN: UInt32 = 8704
+URLACTION_AUTOMATIC_DOWNLOAD_UI: UInt32 = 8704
+URLACTION_AUTOMATIC_ACTIVEX_UI: UInt32 = 8705
+URLACTION_ALLOW_RESTRICTEDPROTOCOLS: UInt32 = 8960
+URLACTION_ALLOW_APEVALUATION: UInt32 = 8961
+URLACTION_ALLOW_XHR_EVALUATION: UInt32 = 8962
+URLACTION_WINDOWS_BROWSER_APPLICATIONS: UInt32 = 9216
+URLACTION_XPS_DOCUMENTS: UInt32 = 9217
+URLACTION_LOOSE_XAML: UInt32 = 9218
+URLACTION_LOWRIGHTS: UInt32 = 9472
+URLACTION_WINFX_SETUP: UInt32 = 9728
+URLACTION_INPRIVATE_BLOCKING: UInt32 = 9984
+URLACTION_ALLOW_AUDIO_VIDEO: UInt32 = 9985
+URLACTION_ALLOW_ACTIVEX_FILTERING: UInt32 = 9986
+URLACTION_ALLOW_STRUCTURED_STORAGE_SNIFFING: UInt32 = 9987
+URLACTION_ALLOW_AUDIO_VIDEO_PLUGINS: UInt32 = 9988
+URLACTION_ALLOW_ZONE_ELEVATION_VIA_OPT_OUT: UInt32 = 9989
+URLACTION_ALLOW_ZONE_ELEVATION_OPT_OUT_ADDITION: UInt32 = 9990
+URLACTION_ALLOW_CROSSDOMAIN_DROP_WITHIN_WINDOW: UInt32 = 9992
+URLACTION_ALLOW_CROSSDOMAIN_DROP_ACROSS_WINDOWS: UInt32 = 9993
+URLACTION_ALLOW_CROSSDOMAIN_APPCACHE_MANIFEST: UInt32 = 9994
+URLACTION_ALLOW_RENDER_LEGACY_DXTFILTERS: UInt32 = 9995
+URLACTION_ALLOW_ANTIMALWARE_SCANNING_OF_ACTIVEX: UInt32 = 9996
+URLACTION_ALLOW_CSS_EXPRESSIONS: UInt32 = 9997
+URLPOLICY_ALLOW: UInt32 = 0
+URLPOLICY_QUERY: UInt32 = 1
+URLPOLICY_DISALLOW: UInt32 = 3
+URLPOLICY_NOTIFY_ON_ALLOW: UInt32 = 16
+URLPOLICY_NOTIFY_ON_DISALLOW: UInt32 = 32
+URLPOLICY_LOG_ON_ALLOW: UInt32 = 64
+URLPOLICY_LOG_ON_DISALLOW: UInt32 = 128
+URLPOLICY_MASK_PERMISSIONS: UInt32 = 15
+URLPOLICY_DONTCHECKDLGBOX: UInt32 = 256
+URLZONE_ESC_FLAG: UInt32 = 256
+SECURITY_IE_STATE_GREEN: UInt32 = 0
+SECURITY_IE_STATE_RED: UInt32 = 1
+SOFTDIST_FLAG_USAGE_EMAIL: UInt32 = 1
+SOFTDIST_FLAG_USAGE_PRECACHE: UInt32 = 2
+SOFTDIST_FLAG_USAGE_AUTOINSTALL: UInt32 = 4
+SOFTDIST_FLAG_DELETE_SUBSCRIPTION: UInt32 = 8
+SOFTDIST_ADSTATE_NONE: UInt32 = 0
+SOFTDIST_ADSTATE_AVAILABLE: UInt32 = 1
+SOFTDIST_ADSTATE_DOWNLOADED: UInt32 = 2
+SOFTDIST_ADSTATE_INSTALLED: UInt32 = 3
+CONFIRMSAFETYACTION_LOADOBJECT: UInt32 = 1
+@winfunctype('urlmon.dll')
+def CreateURLMoniker(pMkCtx: win32more.System.Com.IMoniker_head, szURL: win32more.Foundation.PWSTR, ppmk: POINTER(win32more.System.Com.IMoniker_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CreateURLMonikerEx(pMkCtx: win32more.System.Com.IMoniker_head, szURL: win32more.Foundation.PWSTR, ppmk: POINTER(win32more.System.Com.IMoniker_head), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def GetClassURL(szURL: win32more.Foundation.PWSTR, pClsID: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CreateAsyncBindCtx(reserved: UInt32, pBSCb: win32more.System.Com.IBindStatusCallback_head, pEFetc: win32more.System.Com.IEnumFORMATETC_head, ppBC: POINTER(win32more.System.Com.IBindCtx_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CreateURLMonikerEx2(pMkCtx: win32more.System.Com.IMoniker_head, pUri: win32more.System.Com.IUri_head, ppmk: POINTER(win32more.System.Com.IMoniker_head), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CreateAsyncBindCtxEx(pbc: win32more.System.Com.IBindCtx_head, dwOptions: UInt32, pBSCb: win32more.System.Com.IBindStatusCallback_head, pEnum: win32more.System.Com.IEnumFORMATETC_head, ppBC: POINTER(win32more.System.Com.IBindCtx_head), reserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def MkParseDisplayNameEx(pbc: win32more.System.Com.IBindCtx_head, szDisplayName: win32more.Foundation.PWSTR, pchEaten: POINTER(UInt32), ppmk: POINTER(win32more.System.Com.IMoniker_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RegisterBindStatusCallback(pBC: win32more.System.Com.IBindCtx_head, pBSCb: win32more.System.Com.IBindStatusCallback_head, ppBSCBPrev: POINTER(win32more.System.Com.IBindStatusCallback_head), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RevokeBindStatusCallback(pBC: win32more.System.Com.IBindCtx_head, pBSCb: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def GetClassFileOrMime(pBC: win32more.System.Com.IBindCtx_head, szFilename: win32more.Foundation.PWSTR, pBuffer: c_void_p, cbSize: UInt32, szMime: win32more.Foundation.PWSTR, dwReserved: UInt32, pclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def IsValidURL(pBC: win32more.System.Com.IBindCtx_head, szURL: win32more.Foundation.PWSTR, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoGetClassObjectFromURL(rCLASSID: POINTER(Guid), szCODE: win32more.Foundation.PWSTR, dwFileVersionMS: UInt32, dwFileVersionLS: UInt32, szTYPE: win32more.Foundation.PWSTR, pBindCtx: win32more.System.Com.IBindCtx_head, dwClsContext: win32more.System.Com.CLSCTX, pvReserved: c_void_p, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def IEInstallScope(pdwScope: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def FaultInIEFeature(hWnd: win32more.Foundation.HWND, pClassSpec: POINTER(win32more.System.Com.uCLSSPEC_head), pQuery: POINTER(win32more.System.Com.QUERYCONTEXT_head), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def GetComponentIDFromCLSSPEC(pClassspec: POINTER(win32more.System.Com.uCLSSPEC_head), ppszComponentID: POINTER(win32more.Foundation.PSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def IsAsyncMoniker(pmk: win32more.System.Com.IMoniker_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RegisterMediaTypes(ctypes: UInt32, rgszTypes: POINTER(win32more.Foundation.PSTR), rgcfTypes: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def FindMediaType(rgszTypes: win32more.Foundation.PSTR, rgcfTypes: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CreateFormatEnumerator(cfmtetc: UInt32, rgfmtetc: POINTER(win32more.System.Com.FORMATETC_head), ppenumfmtetc: POINTER(win32more.System.Com.IEnumFORMATETC_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RegisterFormatEnumerator(pBC: win32more.System.Com.IBindCtx_head, pEFetc: win32more.System.Com.IEnumFORMATETC_head, reserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RevokeFormatEnumerator(pBC: win32more.System.Com.IBindCtx_head, pEFetc: win32more.System.Com.IEnumFORMATETC_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def RegisterMediaTypeClass(pBC: win32more.System.Com.IBindCtx_head, ctypes: UInt32, rgszTypes: POINTER(win32more.Foundation.PSTR), rgclsID: POINTER(Guid), reserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def FindMediaTypeClass(pBC: win32more.System.Com.IBindCtx_head, szType: win32more.Foundation.PSTR, pclsID: POINTER(Guid), reserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def UrlMkSetSessionOption(dwOption: UInt32, pBuffer: c_void_p, dwBufferLength: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def UrlMkGetSessionOption(dwOption: UInt32, pBuffer: c_void_p, dwBufferLength: UInt32, pdwBufferLengthOut: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def FindMimeFromData(pBC: win32more.System.Com.IBindCtx_head, pwzUrl: win32more.Foundation.PWSTR, pBuffer: c_void_p, cbSize: UInt32, pwzMimeProposed: win32more.Foundation.PWSTR, dwMimeFlags: UInt32, ppwzMimeOut: POINTER(win32more.Foundation.PWSTR), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def ObtainUserAgentString(dwOption: UInt32, pszUAOut: win32more.Foundation.PSTR, cbSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CompareSecurityIds(pbSecurityId1: c_char_p_no, dwLen1: UInt32, pbSecurityId2: c_char_p_no, dwLen2: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CompatFlagsFromClsid(pclsid: POINTER(Guid), pdwCompatFlags: POINTER(UInt32), pdwMiscStatusFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def SetAccessForIEAppContainer(hObject: win32more.Foundation.HANDLE, ieObjectType: win32more.System.Com.Urlmon.IEObjectType, dwAccessMask: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkSimpleNavigateToString(szTarget: win32more.Foundation.PWSTR, szLocation: win32more.Foundation.PWSTR, szTargetFrameName: win32more.Foundation.PWSTR, pUnk: win32more.System.Com.IUnknown_head, pbc: win32more.System.Com.IBindCtx_head, param5: win32more.System.Com.IBindStatusCallback_head, grfHLNF: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkSimpleNavigateToMoniker(pmkTarget: win32more.System.Com.IMoniker_head, szLocation: win32more.Foundation.PWSTR, szTargetFrameName: win32more.Foundation.PWSTR, pUnk: win32more.System.Com.IUnknown_head, pbc: win32more.System.Com.IBindCtx_head, param5: win32more.System.Com.IBindStatusCallback_head, grfHLNF: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenStreamA(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PSTR, param2: UInt32, param3: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenStreamW(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PWSTR, param2: UInt32, param3: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenPullStreamA(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PSTR, param2: UInt32, param3: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenPullStreamW(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PWSTR, param2: UInt32, param3: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLDownloadToFileA(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR, param3: UInt32, param4: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLDownloadToFileW(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR, param3: UInt32, param4: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLDownloadToCacheFileA(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR, cchFileName: UInt32, param4: UInt32, param5: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLDownloadToCacheFileW(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR, cchFileName: UInt32, param4: UInt32, param5: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenBlockingStreamA(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PSTR, param2: POINTER(win32more.System.Com.IStream_head), param3: UInt32, param4: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def URLOpenBlockingStreamW(param0: win32more.System.Com.IUnknown_head, param1: win32more.Foundation.PWSTR, param2: POINTER(win32more.System.Com.IStream_head), param3: UInt32, param4: win32more.System.Com.IBindStatusCallback_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkGoBack(pUnk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkGoForward(pUnk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkNavigateString(pUnk: win32more.System.Com.IUnknown_head, szTarget: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def HlinkNavigateMoniker(pUnk: win32more.System.Com.IUnknown_head, pmkTarget: win32more.System.Com.IMoniker_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetParseUrl(pwzUrl: win32more.Foundation.PWSTR, ParseAction: win32more.System.Com.Urlmon.PARSEACTION, dwFlags: UInt32, pszResult: win32more.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetParseIUri(pIUri: win32more.System.Com.IUri_head, ParseAction: win32more.System.Com.Urlmon.PARSEACTION, dwFlags: UInt32, pwzResult: win32more.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetCombineUrl(pwzBaseUrl: win32more.Foundation.PWSTR, pwzRelativeUrl: win32more.Foundation.PWSTR, dwCombineFlags: UInt32, pszResult: win32more.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetCombineUrlEx(pBaseUri: win32more.System.Com.IUri_head, pwzRelativeUrl: win32more.Foundation.PWSTR, dwCombineFlags: UInt32, ppCombinedUri: POINTER(win32more.System.Com.IUri_head), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetCombineIUri(pBaseUri: win32more.System.Com.IUri_head, pRelativeUri: win32more.System.Com.IUri_head, dwCombineFlags: UInt32, ppCombinedUri: POINTER(win32more.System.Com.IUri_head), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetCompareUrl(pwzUrl1: win32more.Foundation.PWSTR, pwzUrl2: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetGetProtocolFlags(pwzUrl: win32more.Foundation.PWSTR, pdwFlags: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetQueryInfo(pwzUrl: win32more.Foundation.PWSTR, QueryOptions: win32more.System.Com.Urlmon.QUERYOPTION, dwQueryFlags: UInt32, pvBuffer: c_void_p, cbBuffer: UInt32, pcbBuffer: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetGetSession(dwSessionMode: UInt32, ppIInternetSession: POINTER(win32more.System.Com.Urlmon.IInternetSession_head), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetGetSecurityUrl(pwszUrl: win32more.Foundation.PWSTR, ppwszSecUrl: POINTER(win32more.Foundation.PWSTR), psuAction: win32more.System.Com.Urlmon.PSUACTION, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetGetSecurityUrlEx(pUri: win32more.System.Com.IUri_head, ppSecUri: POINTER(win32more.System.Com.IUri_head), psuAction: win32more.System.Com.Urlmon.PSUACTION, dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetSetFeatureEnabled(FeatureEntry: win32more.System.Com.Urlmon.INTERNETFEATURELIST, dwFlags: UInt32, fEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetIsFeatureEnabled(FeatureEntry: win32more.System.Com.Urlmon.INTERNETFEATURELIST, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetIsFeatureEnabledForUrl(FeatureEntry: win32more.System.Com.Urlmon.INTERNETFEATURELIST, dwFlags: UInt32, szURL: win32more.Foundation.PWSTR, pSecMgr: win32more.System.Com.Urlmon.IInternetSecurityManager_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetIsFeatureEnabledForIUri(FeatureEntry: win32more.System.Com.Urlmon.INTERNETFEATURELIST, dwFlags: UInt32, pIUri: win32more.System.Com.IUri_head, pSecMgr: win32more.System.Com.Urlmon.IInternetSecurityManagerEx2_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetIsFeatureZoneElevationEnabled(szFromURL: win32more.Foundation.PWSTR, szToURL: win32more.Foundation.PWSTR, pSecMgr: win32more.System.Com.Urlmon.IInternetSecurityManager_head, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CopyStgMedium(pcstgmedSrc: POINTER(win32more.System.Com.STGMEDIUM_head), pstgmedDest: POINTER(win32more.System.Com.STGMEDIUM_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CopyBindInfo(pcbiSrc: POINTER(win32more.System.Com.BINDINFO_head), pbiDest: POINTER(win32more.System.Com.BINDINFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def ReleaseBindInfo(pbindinfo: POINTER(win32more.System.Com.BINDINFO_head)) -> Void: ...
+@winfunctype('urlmon.dll')
+def IEGetUserPrivateNamespaceName() -> win32more.Foundation.PWSTR: ...
+@winfunctype('urlmon.dll')
+def CoInternetCreateSecurityManager(pSP: win32more.System.Com.IServiceProvider_head, ppSM: POINTER(win32more.System.Com.Urlmon.IInternetSecurityManager_head), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def CoInternetCreateZoneManager(pSP: win32more.System.Com.IServiceProvider_head, ppZM: POINTER(win32more.System.Com.Urlmon.IInternetZoneManager_head), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def GetSoftwareUpdateInfo(szDistUnit: win32more.Foundation.PWSTR, psdi: POINTER(win32more.System.Com.Urlmon.SOFTDISTINFO_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def SetSoftwareUpdateAdvertisementState(szDistUnit: win32more.Foundation.PWSTR, dwAdState: UInt32, dwAdvertisedVersionMS: UInt32, dwAdvertisedVersionLS: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('urlmon.dll')
+def IsLoggingEnabledA(pszUrl: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('urlmon.dll')
+def IsLoggingEnabledW(pwszUrl: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('urlmon.dll')
+def WriteHitLogging(lpLogginginfo: POINTER(win32more.System.Com.Urlmon.HIT_LOGGING_INFO_head)) -> win32more.Foundation.BOOL: ...
 AUTHENTICATEF = Int32
-AUTHENTICATEF_PROXY = 1
-AUTHENTICATEF_BASIC = 2
-AUTHENTICATEF_HTTP = 4
+AUTHENTICATEF_PROXY: AUTHENTICATEF = 1
+AUTHENTICATEF_BASIC: AUTHENTICATEF = 2
+AUTHENTICATEF_HTTP: AUTHENTICATEF = 4
 BINDF = Int32
-BINDF_ASYNCHRONOUS = 1
-BINDF_ASYNCSTORAGE = 2
-BINDF_NOPROGRESSIVERENDERING = 4
-BINDF_OFFLINEOPERATION = 8
-BINDF_GETNEWESTVERSION = 16
-BINDF_NOWRITECACHE = 32
-BINDF_NEEDFILE = 64
-BINDF_PULLDATA = 128
-BINDF_IGNORESECURITYPROBLEM = 256
-BINDF_RESYNCHRONIZE = 512
-BINDF_HYPERLINK = 1024
-BINDF_NO_UI = 2048
-BINDF_SILENTOPERATION = 4096
-BINDF_PRAGMA_NO_CACHE = 8192
-BINDF_GETCLASSOBJECT = 16384
-BINDF_RESERVED_1 = 32768
-BINDF_FREE_THREADED = 65536
-BINDF_DIRECT_READ = 131072
-BINDF_FORMS_SUBMIT = 262144
-BINDF_GETFROMCACHE_IF_NET_FAIL = 524288
-BINDF_FROMURLMON = 1048576
-BINDF_FWD_BACK = 2097152
-BINDF_PREFERDEFAULTHANDLER = 4194304
-BINDF_ENFORCERESTRICTED = 8388608
-BINDF_RESERVED_2 = -2147483648
-BINDF_RESERVED_3 = 16777216
-BINDF_RESERVED_4 = 33554432
-BINDF_RESERVED_5 = 67108864
-BINDF_RESERVED_6 = 134217728
-BINDF_RESERVED_7 = 1073741824
-BINDF_RESERVED_8 = 536870912
+BINDF_ASYNCHRONOUS: BINDF = 1
+BINDF_ASYNCSTORAGE: BINDF = 2
+BINDF_NOPROGRESSIVERENDERING: BINDF = 4
+BINDF_OFFLINEOPERATION: BINDF = 8
+BINDF_GETNEWESTVERSION: BINDF = 16
+BINDF_NOWRITECACHE: BINDF = 32
+BINDF_NEEDFILE: BINDF = 64
+BINDF_PULLDATA: BINDF = 128
+BINDF_IGNORESECURITYPROBLEM: BINDF = 256
+BINDF_RESYNCHRONIZE: BINDF = 512
+BINDF_HYPERLINK: BINDF = 1024
+BINDF_NO_UI: BINDF = 2048
+BINDF_SILENTOPERATION: BINDF = 4096
+BINDF_PRAGMA_NO_CACHE: BINDF = 8192
+BINDF_GETCLASSOBJECT: BINDF = 16384
+BINDF_RESERVED_1: BINDF = 32768
+BINDF_FREE_THREADED: BINDF = 65536
+BINDF_DIRECT_READ: BINDF = 131072
+BINDF_FORMS_SUBMIT: BINDF = 262144
+BINDF_GETFROMCACHE_IF_NET_FAIL: BINDF = 524288
+BINDF_FROMURLMON: BINDF = 1048576
+BINDF_FWD_BACK: BINDF = 2097152
+BINDF_PREFERDEFAULTHANDLER: BINDF = 4194304
+BINDF_ENFORCERESTRICTED: BINDF = 8388608
+BINDF_RESERVED_2: BINDF = -2147483648
+BINDF_RESERVED_3: BINDF = 16777216
+BINDF_RESERVED_4: BINDF = 33554432
+BINDF_RESERVED_5: BINDF = 67108864
+BINDF_RESERVED_6: BINDF = 134217728
+BINDF_RESERVED_7: BINDF = 1073741824
+BINDF_RESERVED_8: BINDF = 536870912
 BINDF2 = Int32
-BINDF2_DISABLEBASICOVERHTTP = 1
-BINDF2_DISABLEAUTOCOOKIEHANDLING = 2
-BINDF2_READ_DATA_GREATER_THAN_4GB = 4
-BINDF2_DISABLE_HTTP_REDIRECT_XSECURITYID = 8
-BINDF2_SETDOWNLOADMODE = 32
-BINDF2_DISABLE_HTTP_REDIRECT_CACHING = 64
-BINDF2_KEEP_CALLBACK_MODULE_LOADED = 128
-BINDF2_ALLOW_PROXY_CRED_PROMPT = 256
-BINDF2_RESERVED_17 = 512
-BINDF2_RESERVED_16 = 1024
-BINDF2_RESERVED_15 = 2048
-BINDF2_RESERVED_14 = 4096
-BINDF2_RESERVED_13 = 8192
-BINDF2_RESERVED_12 = 16384
-BINDF2_RESERVED_11 = 32768
-BINDF2_RESERVED_10 = 65536
-BINDF2_RESERVED_F = 131072
-BINDF2_RESERVED_E = 262144
-BINDF2_RESERVED_D = 524288
-BINDF2_RESERVED_C = 1048576
-BINDF2_RESERVED_B = 2097152
-BINDF2_RESERVED_A = 4194304
-BINDF2_RESERVED_9 = 8388608
-BINDF2_RESERVED_8 = 16777216
-BINDF2_RESERVED_7 = 33554432
-BINDF2_RESERVED_6 = 67108864
-BINDF2_RESERVED_5 = 134217728
-BINDF2_RESERVED_4 = 268435456
-BINDF2_RESERVED_3 = 536870912
-BINDF2_RESERVED_2 = 1073741824
-BINDF2_RESERVED_1 = -2147483648
+BINDF2_DISABLEBASICOVERHTTP: BINDF2 = 1
+BINDF2_DISABLEAUTOCOOKIEHANDLING: BINDF2 = 2
+BINDF2_READ_DATA_GREATER_THAN_4GB: BINDF2 = 4
+BINDF2_DISABLE_HTTP_REDIRECT_XSECURITYID: BINDF2 = 8
+BINDF2_SETDOWNLOADMODE: BINDF2 = 32
+BINDF2_DISABLE_HTTP_REDIRECT_CACHING: BINDF2 = 64
+BINDF2_KEEP_CALLBACK_MODULE_LOADED: BINDF2 = 128
+BINDF2_ALLOW_PROXY_CRED_PROMPT: BINDF2 = 256
+BINDF2_RESERVED_17: BINDF2 = 512
+BINDF2_RESERVED_16: BINDF2 = 1024
+BINDF2_RESERVED_15: BINDF2 = 2048
+BINDF2_RESERVED_14: BINDF2 = 4096
+BINDF2_RESERVED_13: BINDF2 = 8192
+BINDF2_RESERVED_12: BINDF2 = 16384
+BINDF2_RESERVED_11: BINDF2 = 32768
+BINDF2_RESERVED_10: BINDF2 = 65536
+BINDF2_RESERVED_F: BINDF2 = 131072
+BINDF2_RESERVED_E: BINDF2 = 262144
+BINDF2_RESERVED_D: BINDF2 = 524288
+BINDF2_RESERVED_C: BINDF2 = 1048576
+BINDF2_RESERVED_B: BINDF2 = 2097152
+BINDF2_RESERVED_A: BINDF2 = 4194304
+BINDF2_RESERVED_9: BINDF2 = 8388608
+BINDF2_RESERVED_8: BINDF2 = 16777216
+BINDF2_RESERVED_7: BINDF2 = 33554432
+BINDF2_RESERVED_6: BINDF2 = 67108864
+BINDF2_RESERVED_5: BINDF2 = 134217728
+BINDF2_RESERVED_4: BINDF2 = 268435456
+BINDF2_RESERVED_3: BINDF2 = 536870912
+BINDF2_RESERVED_2: BINDF2 = 1073741824
+BINDF2_RESERVED_1: BINDF2 = -2147483648
 BINDHANDLETYPES = Int32
-BINDHANDLETYPES_APPCACHE = 0
-BINDHANDLETYPES_DEPENDENCY = 1
-BINDHANDLETYPES_COUNT = 2
+BINDHANDLETYPES_APPCACHE: BINDHANDLETYPES = 0
+BINDHANDLETYPES_DEPENDENCY: BINDHANDLETYPES = 1
+BINDHANDLETYPES_COUNT: BINDHANDLETYPES = 2
 BINDINFO_OPTIONS = Int32
-BINDINFO_OPTIONS_WININETFLAG = 65536
-BINDINFO_OPTIONS_ENABLE_UTF8 = 131072
-BINDINFO_OPTIONS_DISABLE_UTF8 = 262144
-BINDINFO_OPTIONS_USE_IE_ENCODING = 524288
-BINDINFO_OPTIONS_BINDTOOBJECT = 1048576
-BINDINFO_OPTIONS_SECURITYOPTOUT = 2097152
-BINDINFO_OPTIONS_IGNOREMIMETEXTPLAIN = 4194304
-BINDINFO_OPTIONS_USEBINDSTRINGCREDS = 8388608
-BINDINFO_OPTIONS_IGNOREHTTPHTTPSREDIRECTS = 16777216
-BINDINFO_OPTIONS_IGNORE_SSLERRORS_ONCE = 33554432
-BINDINFO_WPC_DOWNLOADBLOCKED = 134217728
-BINDINFO_WPC_LOGGING_ENABLED = 268435456
-BINDINFO_OPTIONS_ALLOWCONNECTDATA = 536870912
-BINDINFO_OPTIONS_DISABLEAUTOREDIRECTS = 1073741824
-BINDINFO_OPTIONS_SHDOCVW_NAVIGATE = -2147483648
+BINDINFO_OPTIONS_WININETFLAG: BINDINFO_OPTIONS = 65536
+BINDINFO_OPTIONS_ENABLE_UTF8: BINDINFO_OPTIONS = 131072
+BINDINFO_OPTIONS_DISABLE_UTF8: BINDINFO_OPTIONS = 262144
+BINDINFO_OPTIONS_USE_IE_ENCODING: BINDINFO_OPTIONS = 524288
+BINDINFO_OPTIONS_BINDTOOBJECT: BINDINFO_OPTIONS = 1048576
+BINDINFO_OPTIONS_SECURITYOPTOUT: BINDINFO_OPTIONS = 2097152
+BINDINFO_OPTIONS_IGNOREMIMETEXTPLAIN: BINDINFO_OPTIONS = 4194304
+BINDINFO_OPTIONS_USEBINDSTRINGCREDS: BINDINFO_OPTIONS = 8388608
+BINDINFO_OPTIONS_IGNOREHTTPHTTPSREDIRECTS: BINDINFO_OPTIONS = 16777216
+BINDINFO_OPTIONS_IGNORE_SSLERRORS_ONCE: BINDINFO_OPTIONS = 33554432
+BINDINFO_WPC_DOWNLOADBLOCKED: BINDINFO_OPTIONS = 134217728
+BINDINFO_WPC_LOGGING_ENABLED: BINDINFO_OPTIONS = 268435456
+BINDINFO_OPTIONS_ALLOWCONNECTDATA: BINDINFO_OPTIONS = 536870912
+BINDINFO_OPTIONS_DISABLEAUTOREDIRECTS: BINDINFO_OPTIONS = 1073741824
+BINDINFO_OPTIONS_SHDOCVW_NAVIGATE: BINDINFO_OPTIONS = -2147483648
 BINDSTATUS = Int32
-BINDSTATUS_FINDINGRESOURCE = 1
-BINDSTATUS_CONNECTING = 2
-BINDSTATUS_REDIRECTING = 3
-BINDSTATUS_BEGINDOWNLOADDATA = 4
-BINDSTATUS_DOWNLOADINGDATA = 5
-BINDSTATUS_ENDDOWNLOADDATA = 6
-BINDSTATUS_BEGINDOWNLOADCOMPONENTS = 7
-BINDSTATUS_INSTALLINGCOMPONENTS = 8
-BINDSTATUS_ENDDOWNLOADCOMPONENTS = 9
-BINDSTATUS_USINGCACHEDCOPY = 10
-BINDSTATUS_SENDINGREQUEST = 11
-BINDSTATUS_CLASSIDAVAILABLE = 12
-BINDSTATUS_MIMETYPEAVAILABLE = 13
-BINDSTATUS_CACHEFILENAMEAVAILABLE = 14
-BINDSTATUS_BEGINSYNCOPERATION = 15
-BINDSTATUS_ENDSYNCOPERATION = 16
-BINDSTATUS_BEGINUPLOADDATA = 17
-BINDSTATUS_UPLOADINGDATA = 18
-BINDSTATUS_ENDUPLOADDATA = 19
-BINDSTATUS_PROTOCOLCLASSID = 20
-BINDSTATUS_ENCODING = 21
-BINDSTATUS_VERIFIEDMIMETYPEAVAILABLE = 22
-BINDSTATUS_CLASSINSTALLLOCATION = 23
-BINDSTATUS_DECODING = 24
-BINDSTATUS_LOADINGMIMEHANDLER = 25
-BINDSTATUS_CONTENTDISPOSITIONATTACH = 26
-BINDSTATUS_FILTERREPORTMIMETYPE = 27
-BINDSTATUS_CLSIDCANINSTANTIATE = 28
-BINDSTATUS_IUNKNOWNAVAILABLE = 29
-BINDSTATUS_DIRECTBIND = 30
-BINDSTATUS_RAWMIMETYPE = 31
-BINDSTATUS_PROXYDETECTING = 32
-BINDSTATUS_ACCEPTRANGES = 33
-BINDSTATUS_COOKIE_SENT = 34
-BINDSTATUS_COMPACT_POLICY_RECEIVED = 35
-BINDSTATUS_COOKIE_SUPPRESSED = 36
-BINDSTATUS_COOKIE_STATE_UNKNOWN = 37
-BINDSTATUS_COOKIE_STATE_ACCEPT = 38
-BINDSTATUS_COOKIE_STATE_REJECT = 39
-BINDSTATUS_COOKIE_STATE_PROMPT = 40
-BINDSTATUS_COOKIE_STATE_LEASH = 41
-BINDSTATUS_COOKIE_STATE_DOWNGRADE = 42
-BINDSTATUS_POLICY_HREF = 43
-BINDSTATUS_P3P_HEADER = 44
-BINDSTATUS_SESSION_COOKIE_RECEIVED = 45
-BINDSTATUS_PERSISTENT_COOKIE_RECEIVED = 46
-BINDSTATUS_SESSION_COOKIES_ALLOWED = 47
-BINDSTATUS_CACHECONTROL = 48
-BINDSTATUS_CONTENTDISPOSITIONFILENAME = 49
-BINDSTATUS_MIMETEXTPLAINMISMATCH = 50
-BINDSTATUS_PUBLISHERAVAILABLE = 51
-BINDSTATUS_DISPLAYNAMEAVAILABLE = 52
-BINDSTATUS_SSLUX_NAVBLOCKED = 53
-BINDSTATUS_SERVER_MIMETYPEAVAILABLE = 54
-BINDSTATUS_SNIFFED_CLASSIDAVAILABLE = 55
-BINDSTATUS_64BIT_PROGRESS = 56
-BINDSTATUS_LAST = 56
-BINDSTATUS_RESERVED_0 = 57
-BINDSTATUS_RESERVED_1 = 58
-BINDSTATUS_RESERVED_2 = 59
-BINDSTATUS_RESERVED_3 = 60
-BINDSTATUS_RESERVED_4 = 61
-BINDSTATUS_RESERVED_5 = 62
-BINDSTATUS_RESERVED_6 = 63
-BINDSTATUS_RESERVED_7 = 64
-BINDSTATUS_RESERVED_8 = 65
-BINDSTATUS_RESERVED_9 = 66
-BINDSTATUS_RESERVED_A = 67
-BINDSTATUS_RESERVED_B = 68
-BINDSTATUS_RESERVED_C = 69
-BINDSTATUS_RESERVED_D = 70
-BINDSTATUS_RESERVED_E = 71
-BINDSTATUS_RESERVED_F = 72
-BINDSTATUS_RESERVED_10 = 73
-BINDSTATUS_RESERVED_11 = 74
-BINDSTATUS_RESERVED_12 = 75
-BINDSTATUS_RESERVED_13 = 76
-BINDSTATUS_RESERVED_14 = 77
-BINDSTATUS_LAST_PRIVATE = 77
+BINDSTATUS_FINDINGRESOURCE: BINDSTATUS = 1
+BINDSTATUS_CONNECTING: BINDSTATUS = 2
+BINDSTATUS_REDIRECTING: BINDSTATUS = 3
+BINDSTATUS_BEGINDOWNLOADDATA: BINDSTATUS = 4
+BINDSTATUS_DOWNLOADINGDATA: BINDSTATUS = 5
+BINDSTATUS_ENDDOWNLOADDATA: BINDSTATUS = 6
+BINDSTATUS_BEGINDOWNLOADCOMPONENTS: BINDSTATUS = 7
+BINDSTATUS_INSTALLINGCOMPONENTS: BINDSTATUS = 8
+BINDSTATUS_ENDDOWNLOADCOMPONENTS: BINDSTATUS = 9
+BINDSTATUS_USINGCACHEDCOPY: BINDSTATUS = 10
+BINDSTATUS_SENDINGREQUEST: BINDSTATUS = 11
+BINDSTATUS_CLASSIDAVAILABLE: BINDSTATUS = 12
+BINDSTATUS_MIMETYPEAVAILABLE: BINDSTATUS = 13
+BINDSTATUS_CACHEFILENAMEAVAILABLE: BINDSTATUS = 14
+BINDSTATUS_BEGINSYNCOPERATION: BINDSTATUS = 15
+BINDSTATUS_ENDSYNCOPERATION: BINDSTATUS = 16
+BINDSTATUS_BEGINUPLOADDATA: BINDSTATUS = 17
+BINDSTATUS_UPLOADINGDATA: BINDSTATUS = 18
+BINDSTATUS_ENDUPLOADDATA: BINDSTATUS = 19
+BINDSTATUS_PROTOCOLCLASSID: BINDSTATUS = 20
+BINDSTATUS_ENCODING: BINDSTATUS = 21
+BINDSTATUS_VERIFIEDMIMETYPEAVAILABLE: BINDSTATUS = 22
+BINDSTATUS_CLASSINSTALLLOCATION: BINDSTATUS = 23
+BINDSTATUS_DECODING: BINDSTATUS = 24
+BINDSTATUS_LOADINGMIMEHANDLER: BINDSTATUS = 25
+BINDSTATUS_CONTENTDISPOSITIONATTACH: BINDSTATUS = 26
+BINDSTATUS_FILTERREPORTMIMETYPE: BINDSTATUS = 27
+BINDSTATUS_CLSIDCANINSTANTIATE: BINDSTATUS = 28
+BINDSTATUS_IUNKNOWNAVAILABLE: BINDSTATUS = 29
+BINDSTATUS_DIRECTBIND: BINDSTATUS = 30
+BINDSTATUS_RAWMIMETYPE: BINDSTATUS = 31
+BINDSTATUS_PROXYDETECTING: BINDSTATUS = 32
+BINDSTATUS_ACCEPTRANGES: BINDSTATUS = 33
+BINDSTATUS_COOKIE_SENT: BINDSTATUS = 34
+BINDSTATUS_COMPACT_POLICY_RECEIVED: BINDSTATUS = 35
+BINDSTATUS_COOKIE_SUPPRESSED: BINDSTATUS = 36
+BINDSTATUS_COOKIE_STATE_UNKNOWN: BINDSTATUS = 37
+BINDSTATUS_COOKIE_STATE_ACCEPT: BINDSTATUS = 38
+BINDSTATUS_COOKIE_STATE_REJECT: BINDSTATUS = 39
+BINDSTATUS_COOKIE_STATE_PROMPT: BINDSTATUS = 40
+BINDSTATUS_COOKIE_STATE_LEASH: BINDSTATUS = 41
+BINDSTATUS_COOKIE_STATE_DOWNGRADE: BINDSTATUS = 42
+BINDSTATUS_POLICY_HREF: BINDSTATUS = 43
+BINDSTATUS_P3P_HEADER: BINDSTATUS = 44
+BINDSTATUS_SESSION_COOKIE_RECEIVED: BINDSTATUS = 45
+BINDSTATUS_PERSISTENT_COOKIE_RECEIVED: BINDSTATUS = 46
+BINDSTATUS_SESSION_COOKIES_ALLOWED: BINDSTATUS = 47
+BINDSTATUS_CACHECONTROL: BINDSTATUS = 48
+BINDSTATUS_CONTENTDISPOSITIONFILENAME: BINDSTATUS = 49
+BINDSTATUS_MIMETEXTPLAINMISMATCH: BINDSTATUS = 50
+BINDSTATUS_PUBLISHERAVAILABLE: BINDSTATUS = 51
+BINDSTATUS_DISPLAYNAMEAVAILABLE: BINDSTATUS = 52
+BINDSTATUS_SSLUX_NAVBLOCKED: BINDSTATUS = 53
+BINDSTATUS_SERVER_MIMETYPEAVAILABLE: BINDSTATUS = 54
+BINDSTATUS_SNIFFED_CLASSIDAVAILABLE: BINDSTATUS = 55
+BINDSTATUS_64BIT_PROGRESS: BINDSTATUS = 56
+BINDSTATUS_LAST: BINDSTATUS = 56
+BINDSTATUS_RESERVED_0: BINDSTATUS = 57
+BINDSTATUS_RESERVED_1: BINDSTATUS = 58
+BINDSTATUS_RESERVED_2: BINDSTATUS = 59
+BINDSTATUS_RESERVED_3: BINDSTATUS = 60
+BINDSTATUS_RESERVED_4: BINDSTATUS = 61
+BINDSTATUS_RESERVED_5: BINDSTATUS = 62
+BINDSTATUS_RESERVED_6: BINDSTATUS = 63
+BINDSTATUS_RESERVED_7: BINDSTATUS = 64
+BINDSTATUS_RESERVED_8: BINDSTATUS = 65
+BINDSTATUS_RESERVED_9: BINDSTATUS = 66
+BINDSTATUS_RESERVED_A: BINDSTATUS = 67
+BINDSTATUS_RESERVED_B: BINDSTATUS = 68
+BINDSTATUS_RESERVED_C: BINDSTATUS = 69
+BINDSTATUS_RESERVED_D: BINDSTATUS = 70
+BINDSTATUS_RESERVED_E: BINDSTATUS = 71
+BINDSTATUS_RESERVED_F: BINDSTATUS = 72
+BINDSTATUS_RESERVED_10: BINDSTATUS = 73
+BINDSTATUS_RESERVED_11: BINDSTATUS = 74
+BINDSTATUS_RESERVED_12: BINDSTATUS = 75
+BINDSTATUS_RESERVED_13: BINDSTATUS = 76
+BINDSTATUS_RESERVED_14: BINDSTATUS = 77
+BINDSTATUS_LAST_PRIVATE: BINDSTATUS = 77
 BINDSTRING = Int32
-BINDSTRING_HEADERS = 1
-BINDSTRING_ACCEPT_MIMES = 2
-BINDSTRING_EXTRA_URL = 3
-BINDSTRING_LANGUAGE = 4
-BINDSTRING_USERNAME = 5
-BINDSTRING_PASSWORD = 6
-BINDSTRING_UA_PIXELS = 7
-BINDSTRING_UA_COLOR = 8
-BINDSTRING_OS = 9
-BINDSTRING_USER_AGENT = 10
-BINDSTRING_ACCEPT_ENCODINGS = 11
-BINDSTRING_POST_COOKIE = 12
-BINDSTRING_POST_DATA_MIME = 13
-BINDSTRING_URL = 14
-BINDSTRING_IID = 15
-BINDSTRING_FLAG_BIND_TO_OBJECT = 16
-BINDSTRING_PTR_BIND_CONTEXT = 17
-BINDSTRING_XDR_ORIGIN = 18
-BINDSTRING_DOWNLOADPATH = 19
-BINDSTRING_ROOTDOC_URL = 20
-BINDSTRING_INITIAL_FILENAME = 21
-BINDSTRING_PROXY_USERNAME = 22
-BINDSTRING_PROXY_PASSWORD = 23
-BINDSTRING_ENTERPRISE_ID = 24
-BINDSTRING_DOC_URL = 25
-BINDSTRING_SAMESITE_COOKIE_LEVEL = 26
+BINDSTRING_HEADERS: BINDSTRING = 1
+BINDSTRING_ACCEPT_MIMES: BINDSTRING = 2
+BINDSTRING_EXTRA_URL: BINDSTRING = 3
+BINDSTRING_LANGUAGE: BINDSTRING = 4
+BINDSTRING_USERNAME: BINDSTRING = 5
+BINDSTRING_PASSWORD: BINDSTRING = 6
+BINDSTRING_UA_PIXELS: BINDSTRING = 7
+BINDSTRING_UA_COLOR: BINDSTRING = 8
+BINDSTRING_OS: BINDSTRING = 9
+BINDSTRING_USER_AGENT: BINDSTRING = 10
+BINDSTRING_ACCEPT_ENCODINGS: BINDSTRING = 11
+BINDSTRING_POST_COOKIE: BINDSTRING = 12
+BINDSTRING_POST_DATA_MIME: BINDSTRING = 13
+BINDSTRING_URL: BINDSTRING = 14
+BINDSTRING_IID: BINDSTRING = 15
+BINDSTRING_FLAG_BIND_TO_OBJECT: BINDSTRING = 16
+BINDSTRING_PTR_BIND_CONTEXT: BINDSTRING = 17
+BINDSTRING_XDR_ORIGIN: BINDSTRING = 18
+BINDSTRING_DOWNLOADPATH: BINDSTRING = 19
+BINDSTRING_ROOTDOC_URL: BINDSTRING = 20
+BINDSTRING_INITIAL_FILENAME: BINDSTRING = 21
+BINDSTRING_PROXY_USERNAME: BINDSTRING = 22
+BINDSTRING_PROXY_PASSWORD: BINDSTRING = 23
+BINDSTRING_ENTERPRISE_ID: BINDSTRING = 24
+BINDSTRING_DOC_URL: BINDSTRING = 25
+BINDSTRING_SAMESITE_COOKIE_LEVEL: BINDSTRING = 26
 BINDVERB = Int32
-BINDVERB_GET = 0
-BINDVERB_POST = 1
-BINDVERB_PUT = 2
-BINDVERB_CUSTOM = 3
-BINDVERB_RESERVED1 = 4
+BINDVERB_GET: BINDVERB = 0
+BINDVERB_POST: BINDVERB = 1
+BINDVERB_PUT: BINDVERB = 2
+BINDVERB_CUSTOM: BINDVERB = 3
+BINDVERB_RESERVED1: BINDVERB = 4
 BSCF = Int32
-BSCF_FIRSTDATANOTIFICATION = 1
-BSCF_INTERMEDIATEDATANOTIFICATION = 2
-BSCF_LASTDATANOTIFICATION = 4
-BSCF_DATAFULLYAVAILABLE = 8
-BSCF_AVAILABLEDATASIZEUNKNOWN = 16
-BSCF_SKIPDRAINDATAFORFILEURLS = 32
-BSCF_64BITLENGTHDOWNLOAD = 64
+BSCF_FIRSTDATANOTIFICATION: BSCF = 1
+BSCF_INTERMEDIATEDATANOTIFICATION: BSCF = 2
+BSCF_LASTDATANOTIFICATION: BSCF = 4
+BSCF_DATAFULLYAVAILABLE: BSCF = 8
+BSCF_AVAILABLEDATASIZEUNKNOWN: BSCF = 16
+BSCF_SKIPDRAINDATAFORFILEURLS: BSCF = 32
+BSCF_64BITLENGTHDOWNLOAD: BSCF = 64
 CIP_STATUS = Int32
-CIP_DISK_FULL = 0
-CIP_ACCESS_DENIED = 1
-CIP_NEWER_VERSION_EXISTS = 2
-CIP_OLDER_VERSION_EXISTS = 3
-CIP_NAME_CONFLICT = 4
-CIP_TRUST_VERIFICATION_COMPONENT_MISSING = 5
-CIP_EXE_SELF_REGISTERATION_TIMEOUT = 6
-CIP_UNSAFE_TO_ABORT = 7
-CIP_NEED_REBOOT = 8
-CIP_NEED_REBOOT_UI_PERMISSION = 9
-def _define_CODEBASEHOLD_head():
-    class CODEBASEHOLD(Structure):
-        pass
-    return CODEBASEHOLD
-def _define_CODEBASEHOLD():
-    CODEBASEHOLD = win32more.System.Com.Urlmon.CODEBASEHOLD_head
-    CODEBASEHOLD._fields_ = [
-        ('cbSize', UInt32),
-        ('szDistUnit', win32more.Foundation.PWSTR),
-        ('szCodeBase', win32more.Foundation.PWSTR),
-        ('dwVersionMS', UInt32),
-        ('dwVersionLS', UInt32),
-        ('dwStyle', UInt32),
-    ]
-    return CODEBASEHOLD
-def _define_CONFIRMSAFETY_head():
-    class CONFIRMSAFETY(Structure):
-        pass
-    return CONFIRMSAFETY
-def _define_CONFIRMSAFETY():
-    CONFIRMSAFETY = win32more.System.Com.Urlmon.CONFIRMSAFETY_head
-    CONFIRMSAFETY._fields_ = [
-        ('clsid', Guid),
-        ('pUnk', win32more.System.Com.IUnknown_head),
-        ('dwFlags', UInt32),
-    ]
-    return CONFIRMSAFETY
-def _define_DATAINFO_head():
-    class DATAINFO(Structure):
-        pass
-    return DATAINFO
-def _define_DATAINFO():
-    DATAINFO = win32more.System.Com.Urlmon.DATAINFO_head
-    DATAINFO._fields_ = [
-        ('ulTotalSize', UInt32),
-        ('ulavrPacketSize', UInt32),
-        ('ulConnectSpeed', UInt32),
-        ('ulProcessorSpeed', UInt32),
-    ]
-    return DATAINFO
-def _define_HIT_LOGGING_INFO_head():
-    class HIT_LOGGING_INFO(Structure):
-        pass
-    return HIT_LOGGING_INFO
-def _define_HIT_LOGGING_INFO():
-    HIT_LOGGING_INFO = win32more.System.Com.Urlmon.HIT_LOGGING_INFO_head
-    HIT_LOGGING_INFO._fields_ = [
-        ('dwStructSize', UInt32),
-        ('lpszLoggedUrlName', win32more.Foundation.PSTR),
-        ('StartTime', win32more.Foundation.SYSTEMTIME),
-        ('EndTime', win32more.Foundation.SYSTEMTIME),
-        ('lpszExtendedInfo', win32more.Foundation.PSTR),
-    ]
-    return HIT_LOGGING_INFO
-def _define_IBindCallbackRedirect_head():
-    class IBindCallbackRedirect(win32more.System.Com.IUnknown_head):
-        Guid = Guid('11c81bc2-121e-4ed5-b9-c4-b4-30-bd-54-f2-c0')
-    return IBindCallbackRedirect
-def _define_IBindCallbackRedirect():
-    IBindCallbackRedirect = win32more.System.Com.Urlmon.IBindCallbackRedirect_head
-    IBindCallbackRedirect.Redirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.VARIANT_BOOL))(3, 'Redirect', ((1, 'lpcUrl'),(1, 'vbCancel'),)))
-    win32more.System.Com.IUnknown
-    return IBindCallbackRedirect
-def _define_IBindHttpSecurity_head():
-    class IBindHttpSecurity(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9eda967-f50e-4a33-b3-58-20-6f-6e-f3-08-6d')
-    return IBindHttpSecurity
-def _define_IBindHttpSecurity():
-    IBindHttpSecurity = win32more.System.Com.Urlmon.IBindHttpSecurity_head
-    IBindHttpSecurity.GetIgnoreCertMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetIgnoreCertMask', ((1, 'pdwIgnoreCertMask'),)))
-    win32more.System.Com.IUnknown
-    return IBindHttpSecurity
-def _define_IBindProtocol_head():
-    class IBindProtocol(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9cd-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IBindProtocol
-def _define_IBindProtocol():
-    IBindProtocol = win32more.System.Com.Urlmon.IBindProtocol_head
-    IBindProtocol.CreateBinding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IBindCtx_head,POINTER(win32more.System.Com.IBinding_head))(3, 'CreateBinding', ((1, 'szUrl'),(1, 'pbc'),(1, 'ppb'),)))
-    win32more.System.Com.IUnknown
-    return IBindProtocol
-def _define_ICatalogFileInfo_head():
-    class ICatalogFileInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('711c7600-6b48-11d1-b4-03-00-aa-00-b9-2a-f1')
-    return ICatalogFileInfo
-def _define_ICatalogFileInfo():
-    ICatalogFileInfo = win32more.System.Com.Urlmon.ICatalogFileInfo_head
-    ICatalogFileInfo.GetCatalogFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR))(3, 'GetCatalogFile', ((1, 'ppszCatalogFile'),)))
-    ICatalogFileInfo.GetJavaTrust = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))(4, 'GetJavaTrust', ((1, 'ppJavaTrust'),)))
-    win32more.System.Com.IUnknown
-    return ICatalogFileInfo
-def _define_ICodeInstall_head():
-    class ICodeInstall(win32more.System.Com.Urlmon.IWindowForBindingUI_head):
-        Guid = Guid('79eac9d1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return ICodeInstall
-def _define_ICodeInstall():
-    ICodeInstall = win32more.System.Com.Urlmon.ICodeInstall_head
-    ICodeInstall.OnCodeInstallProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(4, 'OnCodeInstallProblem', ((1, 'ulStatusCode'),(1, 'szDestination'),(1, 'szSource'),(1, 'dwReserved'),)))
-    win32more.System.Com.Urlmon.IWindowForBindingUI
-    return ICodeInstall
-def _define_IDataFilter_head():
-    class IDataFilter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('69d14c80-c18e-11d0-a9-ce-00-60-97-94-23-11')
-    return IDataFilter
-def _define_IDataFilter():
-    IDataFilter = win32more.System.Com.Urlmon.IDataFilter_head
-    IDataFilter.DoEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,c_char_p_no,Int32,c_char_p_no,Int32,POINTER(Int32),POINTER(Int32),UInt32)(3, 'DoEncode', ((1, 'dwFlags'),(1, 'lInBufferSize'),(1, 'pbInBuffer'),(1, 'lOutBufferSize'),(1, 'pbOutBuffer'),(1, 'lInBytesAvailable'),(1, 'plInBytesRead'),(1, 'plOutBytesWritten'),(1, 'dwReserved'),)))
-    IDataFilter.DoDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,c_char_p_no,Int32,c_char_p_no,Int32,POINTER(Int32),POINTER(Int32),UInt32)(4, 'DoDecode', ((1, 'dwFlags'),(1, 'lInBufferSize'),(1, 'pbInBuffer'),(1, 'lOutBufferSize'),(1, 'pbOutBuffer'),(1, 'lInBytesAvailable'),(1, 'plInBytesRead'),(1, 'plOutBytesWritten'),(1, 'dwReserved'),)))
-    IDataFilter.SetEncodingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'SetEncodingLevel', ((1, 'dwEncLevel'),)))
-    win32more.System.Com.IUnknown
-    return IDataFilter
-def _define_IEncodingFilterFactory_head():
-    class IEncodingFilterFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('70bdde00-c18e-11d0-a9-ce-00-60-97-94-23-11')
-    return IEncodingFilterFactory
-def _define_IEncodingFilterFactory():
-    IEncodingFilterFactory = win32more.System.Com.Urlmon.IEncodingFilterFactory_head
-    IEncodingFilterFactory.FindBestFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.DATAINFO,POINTER(win32more.System.Com.Urlmon.IDataFilter_head))(3, 'FindBestFilter', ((1, 'pwzCodeIn'),(1, 'pwzCodeOut'),(1, 'info'),(1, 'ppDF'),)))
-    IEncodingFilterFactory.GetDefaultFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.Urlmon.IDataFilter_head))(4, 'GetDefaultFilter', ((1, 'pwzCodeIn'),(1, 'pwzCodeOut'),(1, 'ppDF'),)))
-    win32more.System.Com.IUnknown
-    return IEncodingFilterFactory
+CIP_DISK_FULL: CIP_STATUS = 0
+CIP_ACCESS_DENIED: CIP_STATUS = 1
+CIP_NEWER_VERSION_EXISTS: CIP_STATUS = 2
+CIP_OLDER_VERSION_EXISTS: CIP_STATUS = 3
+CIP_NAME_CONFLICT: CIP_STATUS = 4
+CIP_TRUST_VERIFICATION_COMPONENT_MISSING: CIP_STATUS = 5
+CIP_EXE_SELF_REGISTERATION_TIMEOUT: CIP_STATUS = 6
+CIP_UNSAFE_TO_ABORT: CIP_STATUS = 7
+CIP_NEED_REBOOT: CIP_STATUS = 8
+CIP_NEED_REBOOT_UI_PERMISSION: CIP_STATUS = 9
+class CODEBASEHOLD(Structure):
+    cbSize: UInt32
+    szDistUnit: win32more.Foundation.PWSTR
+    szCodeBase: win32more.Foundation.PWSTR
+    dwVersionMS: UInt32
+    dwVersionLS: UInt32
+    dwStyle: UInt32
+class CONFIRMSAFETY(Structure):
+    clsid: Guid
+    pUnk: win32more.System.Com.IUnknown_head
+    dwFlags: UInt32
+class DATAINFO(Structure):
+    ulTotalSize: UInt32
+    ulavrPacketSize: UInt32
+    ulConnectSpeed: UInt32
+    ulProcessorSpeed: UInt32
+class HIT_LOGGING_INFO(Structure):
+    dwStructSize: UInt32
+    lpszLoggedUrlName: win32more.Foundation.PSTR
+    StartTime: win32more.Foundation.SYSTEMTIME
+    EndTime: win32more.Foundation.SYSTEMTIME
+    lpszExtendedInfo: win32more.Foundation.PSTR
+class IBindCallbackRedirect(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('11c81bc2-121e-4ed5-b9-c4-b4-30-bd-54-f2-c0')
+    @commethod(3)
+    def Redirect(lpcUrl: win32more.Foundation.PWSTR, vbCancel: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class IBindHttpSecurity(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a9eda967-f50e-4a33-b3-58-20-6f-6e-f3-08-6d')
+    @commethod(3)
+    def GetIgnoreCertMask(pdwIgnoreCertMask: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IBindProtocol(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9cd-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def CreateBinding(szUrl: win32more.Foundation.PWSTR, pbc: win32more.System.Com.IBindCtx_head, ppb: POINTER(win32more.System.Com.IBinding_head)) -> win32more.Foundation.HRESULT: ...
+class ICatalogFileInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('711c7600-6b48-11d1-b4-03-00-aa-00-b9-2a-f1')
+    @commethod(3)
+    def GetCatalogFile(ppszCatalogFile: POINTER(win32more.Foundation.PSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetJavaTrust(ppJavaTrust: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class ICodeInstall(c_void_p):
+    extends: win32more.System.Com.Urlmon.IWindowForBindingUI
+    Guid = Guid('79eac9d1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(4)
+    def OnCodeInstallProblem(ulStatusCode: UInt32, szDestination: win32more.Foundation.PWSTR, szSource: win32more.Foundation.PWSTR, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDataFilter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('69d14c80-c18e-11d0-a9-ce-00-60-97-94-23-11')
+    @commethod(3)
+    def DoEncode(dwFlags: UInt32, lInBufferSize: Int32, pbInBuffer: c_char_p_no, lOutBufferSize: Int32, pbOutBuffer: c_char_p_no, lInBytesAvailable: Int32, plInBytesRead: POINTER(Int32), plOutBytesWritten: POINTER(Int32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DoDecode(dwFlags: UInt32, lInBufferSize: Int32, pbInBuffer: c_char_p_no, lOutBufferSize: Int32, pbOutBuffer: c_char_p_no, lInBytesAvailable: Int32, plInBytesRead: POINTER(Int32), plOutBytesWritten: POINTER(Int32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetEncodingLevel(dwEncLevel: UInt32) -> win32more.Foundation.HRESULT: ...
+class IEncodingFilterFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('70bdde00-c18e-11d0-a9-ce-00-60-97-94-23-11')
+    @commethod(3)
+    def FindBestFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, info: win32more.System.Com.Urlmon.DATAINFO, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDefaultFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
 IEObjectType = Int32
-IE_EPM_OBJECT_EVENT = 0
-IE_EPM_OBJECT_MUTEX = 1
-IE_EPM_OBJECT_SEMAPHORE = 2
-IE_EPM_OBJECT_SHARED_MEMORY = 3
-IE_EPM_OBJECT_WAITABLE_TIMER = 4
-IE_EPM_OBJECT_FILE = 5
-IE_EPM_OBJECT_NAMED_PIPE = 6
-IE_EPM_OBJECT_REGISTRY = 7
-def _define_IGetBindHandle_head():
-    class IGetBindHandle(win32more.System.Com.IUnknown_head):
-        Guid = Guid('af0ff408-129d-4b20-91-f0-02-bd-23-d8-83-52')
-    return IGetBindHandle
-def _define_IGetBindHandle():
-    IGetBindHandle = win32more.System.Com.Urlmon.IGetBindHandle_head
-    IGetBindHandle.GetBindHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.BINDHANDLETYPES,POINTER(win32more.Foundation.HANDLE))(3, 'GetBindHandle', ((1, 'enumRequestedHandle'),(1, 'pRetHandle'),)))
-    win32more.System.Com.IUnknown
-    return IGetBindHandle
-def _define_IHttpNegotiate_head():
-    class IHttpNegotiate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9d2-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IHttpNegotiate
-def _define_IHttpNegotiate():
-    IHttpNegotiate = win32more.System.Com.Urlmon.IHttpNegotiate_head
-    IHttpNegotiate.BeginningTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR))(3, 'BeginningTransaction', ((1, 'szURL'),(1, 'szHeaders'),(1, 'dwReserved'),(1, 'pszAdditionalHeaders'),)))
-    IHttpNegotiate.OnResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(4, 'OnResponse', ((1, 'dwResponseCode'),(1, 'szResponseHeaders'),(1, 'szRequestHeaders'),(1, 'pszAdditionalRequestHeaders'),)))
-    win32more.System.Com.IUnknown
-    return IHttpNegotiate
-def _define_IHttpNegotiate2_head():
-    class IHttpNegotiate2(win32more.System.Com.Urlmon.IHttpNegotiate_head):
-        Guid = Guid('4f9f9fcb-e0f4-48eb-b7-ab-fa-2e-a9-36-5c-b4')
-    return IHttpNegotiate2
-def _define_IHttpNegotiate2():
-    IHttpNegotiate2 = win32more.System.Com.Urlmon.IHttpNegotiate2_head
-    IHttpNegotiate2.GetRootSecurityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32),UIntPtr)(5, 'GetRootSecurityId', ((1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
-    win32more.System.Com.Urlmon.IHttpNegotiate
-    return IHttpNegotiate2
-def _define_IHttpNegotiate3_head():
-    class IHttpNegotiate3(win32more.System.Com.Urlmon.IHttpNegotiate2_head):
-        Guid = Guid('57b6c80a-34c2-4602-bc-26-66-a0-2f-c5-71-53')
-    return IHttpNegotiate3
-def _define_IHttpNegotiate3():
-    IHttpNegotiate3 = win32more.System.Com.Urlmon.IHttpNegotiate3_head
-    IHttpNegotiate3.GetSerializedClientCertContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32))(6, 'GetSerializedClientCertContext', ((1, 'ppbCert'),(1, 'pcbCert'),)))
-    win32more.System.Com.Urlmon.IHttpNegotiate2
-    return IHttpNegotiate3
-def _define_IHttpSecurity_head():
-    class IHttpSecurity(win32more.System.Com.Urlmon.IWindowForBindingUI_head):
-        Guid = Guid('79eac9d7-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IHttpSecurity
-def _define_IHttpSecurity():
-    IHttpSecurity = win32more.System.Com.Urlmon.IHttpSecurity_head
-    IHttpSecurity.OnSecurityProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'OnSecurityProblem', ((1, 'dwProblem'),)))
-    win32more.System.Com.Urlmon.IWindowForBindingUI
-    return IHttpSecurity
-def _define_IInternet_head():
-    class IInternet(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternet
-def _define_IInternet():
-    IInternet = win32more.System.Com.Urlmon.IInternet_head
-    win32more.System.Com.IUnknown
-    return IInternet
-def _define_IInternetBindInfo_head():
-    class IInternetBindInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetBindInfo
-def _define_IInternetBindInfo():
-    IInternetBindInfo = win32more.System.Com.Urlmon.IInternetBindInfo_head
-    IInternetBindInfo.GetBindInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.System.Com.BINDINFO_head))(3, 'GetBindInfo', ((1, 'grfBINDF'),(1, 'pbindinfo'),)))
-    IInternetBindInfo.GetBindString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32))(4, 'GetBindString', ((1, 'ulStringType'),(1, 'ppwzStr'),(1, 'cEl'),(1, 'pcElFetched'),)))
-    win32more.System.Com.IUnknown
-    return IInternetBindInfo
-def _define_IInternetBindInfoEx_head():
-    class IInternetBindInfoEx(win32more.System.Com.Urlmon.IInternetBindInfo_head):
-        Guid = Guid('a3e015b7-a82c-4dcd-a1-50-56-9a-ee-ed-36-ab')
-    return IInternetBindInfoEx
-def _define_IInternetBindInfoEx():
-    IInternetBindInfoEx = win32more.System.Com.Urlmon.IInternetBindInfoEx_head
-    IInternetBindInfoEx.GetBindInfoEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.System.Com.BINDINFO_head),POINTER(UInt32),POINTER(UInt32))(5, 'GetBindInfoEx', ((1, 'grfBINDF'),(1, 'pbindinfo'),(1, 'grfBINDF2'),(1, 'pdwReserved'),)))
-    win32more.System.Com.Urlmon.IInternetBindInfo
-    return IInternetBindInfoEx
-def _define_IInternetHostSecurityManager_head():
-    class IInternetHostSecurityManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3af280b6-cb3f-11d0-89-1e-00-c0-4f-b6-bf-c4')
-    return IInternetHostSecurityManager
-def _define_IInternetHostSecurityManager():
-    IInternetHostSecurityManager = win32more.System.Com.Urlmon.IInternetHostSecurityManager_head
-    IInternetHostSecurityManager.GetSecurityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32),UIntPtr)(3, 'GetSecurityId', ((1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
-    IInternetHostSecurityManager.ProcessUrlAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,UInt32,UInt32)(4, 'ProcessUrlAction', ((1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),)))
-    IInternetHostSecurityManager.QueryCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),c_char_p_no,UInt32,UInt32)(5, 'QueryCustomPolicy', ((1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IInternetHostSecurityManager
-def _define_IInternetPriority_head():
-    class IInternetPriority(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9eb-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetPriority
-def _define_IInternetPriority():
-    IInternetPriority = win32more.System.Com.Urlmon.IInternetPriority_head
-    IInternetPriority.SetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'SetPriority', ((1, 'nPriority'),)))
-    IInternetPriority.GetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'GetPriority', ((1, 'pnPriority'),)))
-    win32more.System.Com.IUnknown
-    return IInternetPriority
-def _define_IInternetProtocol_head():
-    class IInternetProtocol(win32more.System.Com.Urlmon.IInternetProtocolRoot_head):
-        Guid = Guid('79eac9e4-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetProtocol
-def _define_IInternetProtocol():
-    IInternetProtocol = win32more.System.Com.Urlmon.IInternetProtocol_head
-    IInternetProtocol.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(UInt32))(9, 'Read', ((1, 'pv'),(1, 'cb'),(1, 'pcbRead'),)))
-    IInternetProtocol.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LARGE_INTEGER,UInt32,POINTER(win32more.Foundation.ULARGE_INTEGER_head))(10, 'Seek', ((1, 'dlibMove'),(1, 'dwOrigin'),(1, 'plibNewPosition'),)))
-    IInternetProtocol.LockRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(11, 'LockRequest', ((1, 'dwOptions'),)))
-    IInternetProtocol.UnlockRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'UnlockRequest', ()))
-    win32more.System.Com.Urlmon.IInternetProtocolRoot
-    return IInternetProtocol
-def _define_IInternetProtocolEx_head():
-    class IInternetProtocolEx(win32more.System.Com.Urlmon.IInternetProtocol_head):
-        Guid = Guid('c7a98e66-1010-492c-a1-c8-c8-09-e1-f7-59-05')
-    return IInternetProtocolEx
-def _define_IInternetProtocolEx():
-    IInternetProtocolEx = win32more.System.Com.Urlmon.IInternetProtocolEx_head
-    IInternetProtocolEx.StartEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.System.Com.Urlmon.IInternetProtocolSink_head,win32more.System.Com.Urlmon.IInternetBindInfo_head,UInt32,win32more.Foundation.HANDLE_PTR)(13, 'StartEx', ((1, 'pUri'),(1, 'pOIProtSink'),(1, 'pOIBindInfo'),(1, 'grfPI'),(1, 'dwReserved'),)))
-    win32more.System.Com.Urlmon.IInternetProtocol
-    return IInternetProtocolEx
-def _define_IInternetProtocolInfo_head():
-    class IInternetProtocolInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9ec-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetProtocolInfo
-def _define_IInternetProtocolInfo():
-    IInternetProtocolInfo = win32more.System.Com.Urlmon.IInternetProtocolInfo_head
-    IInternetProtocolInfo.ParseUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.PARSEACTION,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32)(3, 'ParseUrl', ((1, 'pwzUrl'),(1, 'ParseAction'),(1, 'dwParseFlags'),(1, 'pwzResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),)))
-    IInternetProtocolInfo.CombineUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32)(4, 'CombineUrl', ((1, 'pwzBaseUrl'),(1, 'pwzRelativeUrl'),(1, 'dwCombineFlags'),(1, 'pwzResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),)))
-    IInternetProtocolInfo.CompareUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(5, 'CompareUrl', ((1, 'pwzUrl1'),(1, 'pwzUrl2'),(1, 'dwCompareFlags'),)))
-    IInternetProtocolInfo.QueryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.QUERYOPTION,UInt32,c_void_p,UInt32,POINTER(UInt32),UInt32)(6, 'QueryInfo', ((1, 'pwzUrl'),(1, 'OueryOption'),(1, 'dwQueryFlags'),(1, 'pBuffer'),(1, 'cbBuffer'),(1, 'pcbBuf'),(1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IInternetProtocolInfo
-def _define_IInternetProtocolRoot_head():
-    class IInternetProtocolRoot(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e3-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetProtocolRoot
-def _define_IInternetProtocolRoot():
-    IInternetProtocolRoot = win32more.System.Com.Urlmon.IInternetProtocolRoot_head
-    IInternetProtocolRoot.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.IInternetProtocolSink_head,win32more.System.Com.Urlmon.IInternetBindInfo_head,UInt32,win32more.Foundation.HANDLE_PTR)(3, 'Start', ((1, 'szUrl'),(1, 'pOIProtSink'),(1, 'pOIBindInfo'),(1, 'grfPI'),(1, 'dwReserved'),)))
-    IInternetProtocolRoot.Continue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Urlmon.PROTOCOLDATA_head))(4, 'Continue', ((1, 'pProtocolData'),)))
-    IInternetProtocolRoot.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32)(5, 'Abort', ((1, 'hrReason'),(1, 'dwOptions'),)))
-    IInternetProtocolRoot.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'Terminate', ((1, 'dwOptions'),)))
-    IInternetProtocolRoot.Suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Suspend', ()))
-    IInternetProtocolRoot.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Resume', ()))
-    win32more.System.Com.IUnknown
-    return IInternetProtocolRoot
-def _define_IInternetProtocolSink_head():
-    class IInternetProtocolSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e5-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetProtocolSink
-def _define_IInternetProtocolSink():
-    IInternetProtocolSink = win32more.System.Com.Urlmon.IInternetProtocolSink_head
-    IInternetProtocolSink.Switch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Urlmon.PROTOCOLDATA_head))(3, 'Switch', ((1, 'pProtocolData'),)))
-    IInternetProtocolSink.ReportProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(4, 'ReportProgress', ((1, 'ulStatusCode'),(1, 'szStatusText'),)))
-    IInternetProtocolSink.ReportData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(5, 'ReportData', ((1, 'grfBSCF'),(1, 'ulProgress'),(1, 'ulProgressMax'),)))
-    IInternetProtocolSink.ReportResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(6, 'ReportResult', ((1, 'hrResult'),(1, 'dwError'),(1, 'szResult'),)))
-    win32more.System.Com.IUnknown
-    return IInternetProtocolSink
-def _define_IInternetProtocolSinkStackable_head():
-    class IInternetProtocolSinkStackable(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9f0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetProtocolSinkStackable
-def _define_IInternetProtocolSinkStackable():
-    IInternetProtocolSinkStackable = win32more.System.Com.Urlmon.IInternetProtocolSinkStackable_head
-    IInternetProtocolSinkStackable.SwitchSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.IInternetProtocolSink_head)(3, 'SwitchSink', ((1, 'pOIProtSink'),)))
-    IInternetProtocolSinkStackable.CommitSwitch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'CommitSwitch', ()))
-    IInternetProtocolSinkStackable.RollbackSwitch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'RollbackSwitch', ()))
-    win32more.System.Com.IUnknown
-    return IInternetProtocolSinkStackable
-def _define_IInternetSecurityManager_head():
-    class IInternetSecurityManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9ee-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetSecurityManager
-def _define_IInternetSecurityManager():
-    IInternetSecurityManager = win32more.System.Com.Urlmon.IInternetSecurityManager_head
-    IInternetSecurityManager.SetSecuritySite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head)(3, 'SetSecuritySite', ((1, 'pSite'),)))
-    IInternetSecurityManager.GetSecuritySite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head))(4, 'GetSecuritySite', ((1, 'ppSite'),)))
-    IInternetSecurityManager.MapUrlToZone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(5, 'MapUrlToZone', ((1, 'pwszUrl'),(1, 'pdwZone'),(1, 'dwFlags'),)))
-    IInternetSecurityManager.GetSecurityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_char_p_no,POINTER(UInt32),UIntPtr)(6, 'GetSecurityId', ((1, 'pwszUrl'),(1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
-    IInternetSecurityManager.ProcessUrlAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,UInt32,UInt32)(7, 'ProcessUrlAction', ((1, 'pwszUrl'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),)))
-    IInternetSecurityManager.QueryCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),c_char_p_no,UInt32,UInt32)(8, 'QueryCustomPolicy', ((1, 'pwszUrl'),(1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
-    IInternetSecurityManager.SetZoneMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32)(9, 'SetZoneMapping', ((1, 'dwZone'),(1, 'lpszPattern'),(1, 'dwFlags'),)))
-    IInternetSecurityManager.GetZoneMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IEnumString_head),UInt32)(10, 'GetZoneMappings', ((1, 'dwZone'),(1, 'ppenumString'),(1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IInternetSecurityManager
-def _define_IInternetSecurityManagerEx_head():
-    class IInternetSecurityManagerEx(win32more.System.Com.Urlmon.IInternetSecurityManager_head):
-        Guid = Guid('f164edf1-cc7c-4f0d-9a-94-34-22-26-25-c3-93')
-    return IInternetSecurityManagerEx
-def _define_IInternetSecurityManagerEx():
-    IInternetSecurityManagerEx = win32more.System.Com.Urlmon.IInternetSecurityManagerEx_head
-    IInternetSecurityManagerEx.ProcessUrlActionEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,UInt32,UInt32,POINTER(UInt32))(11, 'ProcessUrlActionEx', ((1, 'pwszUrl'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),(1, 'pdwOutFlags'),)))
-    win32more.System.Com.Urlmon.IInternetSecurityManager
-    return IInternetSecurityManagerEx
-def _define_IInternetSecurityManagerEx2_head():
-    class IInternetSecurityManagerEx2(win32more.System.Com.Urlmon.IInternetSecurityManagerEx_head):
-        Guid = Guid('f1e50292-a795-4117-8e-09-2b-56-0a-72-ac-60')
-    return IInternetSecurityManagerEx2
-def _define_IInternetSecurityManagerEx2():
-    IInternetSecurityManagerEx2 = win32more.System.Com.Urlmon.IInternetSecurityManagerEx2_head
-    IInternetSecurityManagerEx2.MapUrlToZoneEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(12, 'MapUrlToZoneEx2', ((1, 'pUri'),(1, 'pdwZone'),(1, 'dwFlags'),(1, 'ppwszMappedUrl'),(1, 'pdwOutFlags'),)))
-    IInternetSecurityManagerEx2.ProcessUrlActionEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,UInt32,UIntPtr,POINTER(UInt32))(13, 'ProcessUrlActionEx2', ((1, 'pUri'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),(1, 'pdwOutFlags'),)))
-    IInternetSecurityManagerEx2.GetSecurityIdEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,c_char_p_no,POINTER(UInt32),UIntPtr)(14, 'GetSecurityIdEx2', ((1, 'pUri'),(1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
-    IInternetSecurityManagerEx2.QueryCustomPolicyEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),c_char_p_no,UInt32,UIntPtr)(15, 'QueryCustomPolicyEx2', ((1, 'pUri'),(1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
-    win32more.System.Com.Urlmon.IInternetSecurityManagerEx
-    return IInternetSecurityManagerEx2
-def _define_IInternetSecurityMgrSite_head():
-    class IInternetSecurityMgrSite(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9ed-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetSecurityMgrSite
-def _define_IInternetSecurityMgrSite():
-    IInternetSecurityMgrSite = win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head
-    IInternetSecurityMgrSite.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(3, 'GetWindow', ((1, 'phwnd'),)))
-    IInternetSecurityMgrSite.EnableModeless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(4, 'EnableModeless', ((1, 'fEnable'),)))
-    win32more.System.Com.IUnknown
-    return IInternetSecurityMgrSite
-def _define_IInternetSession_head():
-    class IInternetSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e7-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetSession
-def _define_IInternetSession():
-    IInternetSession = win32more.System.Com.Urlmon.IInternetSession_head
-    IInternetSession.RegisterNameSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IClassFactory_head,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),UInt32)(3, 'RegisterNameSpace', ((1, 'pCF'),(1, 'rclsid'),(1, 'pwzProtocol'),(1, 'cPatterns'),(1, 'ppwzPatterns'),(1, 'dwReserved'),)))
-    IInternetSession.UnregisterNameSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IClassFactory_head,win32more.Foundation.PWSTR)(4, 'UnregisterNameSpace', ((1, 'pCF'),(1, 'pszProtocol'),)))
-    IInternetSession.RegisterMimeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IClassFactory_head,POINTER(Guid),win32more.Foundation.PWSTR)(5, 'RegisterMimeFilter', ((1, 'pCF'),(1, 'rclsid'),(1, 'pwzType'),)))
-    IInternetSession.UnregisterMimeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IClassFactory_head,win32more.Foundation.PWSTR)(6, 'UnregisterMimeFilter', ((1, 'pCF'),(1, 'pwzType'),)))
-    IInternetSession.CreateBinding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.System.Com.Urlmon.IInternetProtocol_head),UInt32)(7, 'CreateBinding', ((1, 'pBC'),(1, 'szUrl'),(1, 'pUnkOuter'),(1, 'ppUnk'),(1, 'ppOInetProt'),(1, 'dwOption'),)))
-    IInternetSession.SetSessionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32)(8, 'SetSessionOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'dwBufferLength'),(1, 'dwReserved'),)))
-    IInternetSession.GetSessionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32),UInt32)(9, 'GetSessionOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pdwBufferLength'),(1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IInternetSession
-def _define_IInternetThreadSwitch_head():
-    class IInternetThreadSwitch(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9e8-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetThreadSwitch
-def _define_IInternetThreadSwitch():
-    IInternetThreadSwitch = win32more.System.Com.Urlmon.IInternetThreadSwitch_head
-    IInternetThreadSwitch.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Prepare', ()))
-    IInternetThreadSwitch.Continue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Continue', ()))
-    win32more.System.Com.IUnknown
-    return IInternetThreadSwitch
-def _define_IInternetZoneManager_head():
-    class IInternetZoneManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9ef-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IInternetZoneManager
-def _define_IInternetZoneManager():
-    IInternetZoneManager = win32more.System.Com.Urlmon.IInternetZoneManager_head
-    IInternetZoneManager.GetZoneAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head))(3, 'GetZoneAttributes', ((1, 'dwZone'),(1, 'pZoneAttributes'),)))
-    IInternetZoneManager.SetZoneAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head))(4, 'SetZoneAttributes', ((1, 'dwZone'),(1, 'pZoneAttributes'),)))
-    IInternetZoneManager.GetZoneCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),win32more.System.Com.Urlmon.URLZONEREG)(5, 'GetZoneCustomPolicy', ((1, 'dwZone'),(1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'urlZoneReg'),)))
-    IInternetZoneManager.SetZoneCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),c_char_p_no,UInt32,win32more.System.Com.Urlmon.URLZONEREG)(6, 'SetZoneCustomPolicy', ((1, 'dwZone'),(1, 'guidKey'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),)))
-    IInternetZoneManager.GetZoneActionPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,win32more.System.Com.Urlmon.URLZONEREG)(7, 'GetZoneActionPolicy', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),)))
-    IInternetZoneManager.SetZoneActionPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,win32more.System.Com.Urlmon.URLZONEREG)(8, 'SetZoneActionPolicy', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),)))
-    IInternetZoneManager.PromptAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(9, 'PromptAction', ((1, 'dwAction'),(1, 'hwndParent'),(1, 'pwszUrl'),(1, 'pwszText'),(1, 'dwPromptFlags'),)))
-    IInternetZoneManager.LogAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(10, 'LogAction', ((1, 'dwAction'),(1, 'pwszUrl'),(1, 'pwszText'),(1, 'dwLogFlags'),)))
-    IInternetZoneManager.CreateZoneEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),UInt32)(11, 'CreateZoneEnumerator', ((1, 'pdwEnum'),(1, 'pdwCount'),(1, 'dwFlags'),)))
-    IInternetZoneManager.GetZoneAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32))(12, 'GetZoneAt', ((1, 'dwEnum'),(1, 'dwIndex'),(1, 'pdwZone'),)))
-    IInternetZoneManager.DestroyZoneEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'DestroyZoneEnumerator', ((1, 'dwEnum'),)))
-    IInternetZoneManager.CopyTemplatePoliciesToZone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(14, 'CopyTemplatePoliciesToZone', ((1, 'dwTemplate'),(1, 'dwZone'),(1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IInternetZoneManager
-def _define_IInternetZoneManagerEx_head():
-    class IInternetZoneManagerEx(win32more.System.Com.Urlmon.IInternetZoneManager_head):
-        Guid = Guid('a4c23339-8e06-431e-9b-f4-7e-71-1c-08-56-48')
-    return IInternetZoneManagerEx
-def _define_IInternetZoneManagerEx():
-    IInternetZoneManagerEx = win32more.System.Com.Urlmon.IInternetZoneManagerEx_head
-    IInternetZoneManagerEx.GetZoneActionPolicyEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,win32more.System.Com.Urlmon.URLZONEREG,UInt32)(15, 'GetZoneActionPolicyEx', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),(1, 'dwFlags'),)))
-    IInternetZoneManagerEx.SetZoneActionPolicyEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,win32more.System.Com.Urlmon.URLZONEREG,UInt32)(16, 'SetZoneActionPolicyEx', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),(1, 'dwFlags'),)))
-    win32more.System.Com.Urlmon.IInternetZoneManager
-    return IInternetZoneManagerEx
-def _define_IInternetZoneManagerEx2_head():
-    class IInternetZoneManagerEx2(win32more.System.Com.Urlmon.IInternetZoneManagerEx_head):
-        Guid = Guid('edc17559-dd5d-4846-8e-ef-8b-ec-ba-5a-4a-bf')
-    return IInternetZoneManagerEx2
-def _define_IInternetZoneManagerEx2():
-    IInternetZoneManagerEx2 = win32more.System.Com.Urlmon.IInternetZoneManagerEx2_head
-    IInternetZoneManagerEx2.GetZoneAttributesEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head),UInt32)(17, 'GetZoneAttributesEx', ((1, 'dwZone'),(1, 'pZoneAttributes'),(1, 'dwFlags'),)))
-    IInternetZoneManagerEx2.GetZoneSecurityState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(18, 'GetZoneSecurityState', ((1, 'dwZoneIndex'),(1, 'fRespectPolicy'),(1, 'pdwState'),(1, 'pfPolicyEncountered'),)))
-    IInternetZoneManagerEx2.GetIESecurityState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(win32more.Foundation.BOOL),win32more.Foundation.BOOL)(19, 'GetIESecurityState', ((1, 'fRespectPolicy'),(1, 'pdwState'),(1, 'pfPolicyEncountered'),(1, 'fNoCache'),)))
-    IInternetZoneManagerEx2.FixUnsecureSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'FixUnsecureSettings', ()))
-    win32more.System.Com.Urlmon.IInternetZoneManagerEx
-    return IInternetZoneManagerEx2
-def _define_IMonikerProp_head():
-    class IMonikerProp(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a5ca5f7f-1847-4d87-9c-5b-91-85-09-f7-51-1d')
-    return IMonikerProp
-def _define_IMonikerProp():
-    IMonikerProp = win32more.System.Com.Urlmon.IMonikerProp_head
-    IMonikerProp.PutProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.MONIKERPROPERTY,win32more.Foundation.PWSTR)(3, 'PutProperty', ((1, 'mkp'),(1, 'val'),)))
-    win32more.System.Com.IUnknown
-    return IMonikerProp
+IE_EPM_OBJECT_EVENT: IEObjectType = 0
+IE_EPM_OBJECT_MUTEX: IEObjectType = 1
+IE_EPM_OBJECT_SEMAPHORE: IEObjectType = 2
+IE_EPM_OBJECT_SHARED_MEMORY: IEObjectType = 3
+IE_EPM_OBJECT_WAITABLE_TIMER: IEObjectType = 4
+IE_EPM_OBJECT_FILE: IEObjectType = 5
+IE_EPM_OBJECT_NAMED_PIPE: IEObjectType = 6
+IE_EPM_OBJECT_REGISTRY: IEObjectType = 7
+class IGetBindHandle(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('af0ff408-129d-4b20-91-f0-02-bd-23-d8-83-52')
+    @commethod(3)
+    def GetBindHandle(enumRequestedHandle: win32more.System.Com.Urlmon.BINDHANDLETYPES, pRetHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IHttpNegotiate(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9d2-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def BeginningTransaction(szURL: win32more.Foundation.PWSTR, szHeaders: win32more.Foundation.PWSTR, dwReserved: UInt32, pszAdditionalHeaders: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnResponse(dwResponseCode: UInt32, szResponseHeaders: win32more.Foundation.PWSTR, szRequestHeaders: win32more.Foundation.PWSTR, pszAdditionalRequestHeaders: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IHttpNegotiate2(c_void_p):
+    extends: win32more.System.Com.Urlmon.IHttpNegotiate
+    Guid = Guid('4f9f9fcb-e0f4-48eb-b7-ab-fa-2e-a9-36-5c-b4')
+    @commethod(5)
+    def GetRootSecurityId(pbSecurityId: c_char_p_no, pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class IHttpNegotiate3(c_void_p):
+    extends: win32more.System.Com.Urlmon.IHttpNegotiate2
+    Guid = Guid('57b6c80a-34c2-4602-bc-26-66-a0-2f-c5-71-53')
+    @commethod(6)
+    def GetSerializedClientCertContext(ppbCert: POINTER(c_char_p_no), pcbCert: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IHttpSecurity(c_void_p):
+    extends: win32more.System.Com.Urlmon.IWindowForBindingUI
+    Guid = Guid('79eac9d7-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(4)
+    def OnSecurityProblem(dwProblem: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternet(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+class IInternetBindInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetBindInfo(grfBINDF: POINTER(UInt32), pbindinfo: POINTER(win32more.System.Com.BINDINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetBindString(ulStringType: UInt32, ppwzStr: POINTER(win32more.Foundation.PWSTR), cEl: UInt32, pcElFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IInternetBindInfoEx(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetBindInfo
+    Guid = Guid('a3e015b7-a82c-4dcd-a1-50-56-9a-ee-ed-36-ab')
+    @commethod(5)
+    def GetBindInfoEx(grfBINDF: POINTER(UInt32), pbindinfo: POINTER(win32more.System.Com.BINDINFO_head), grfBINDF2: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IInternetHostSecurityManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3af280b6-cb3f-11d0-89-1e-00-c0-4f-b6-bf-c4')
+    @commethod(3)
+    def GetSecurityId(pbSecurityId: c_char_p_no, pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ProcessUrlAction(dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, pContext: c_char_p_no, cbContext: UInt32, dwFlags: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryCustomPolicy(guidKey: POINTER(Guid), ppPolicy: POINTER(c_char_p_no), pcbPolicy: POINTER(UInt32), pContext: c_char_p_no, cbContext: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetPriority(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9eb-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def SetPriority(nPriority: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPriority(pnPriority: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IInternetProtocol(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetProtocolRoot
+    Guid = Guid('79eac9e4-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(9)
+    def Read(pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Seek(dlibMove: win32more.Foundation.LARGE_INTEGER, dwOrigin: UInt32, plibNewPosition: POINTER(win32more.Foundation.ULARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def LockRequest(dwOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def UnlockRequest() -> win32more.Foundation.HRESULT: ...
+class IInternetProtocolEx(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetProtocol
+    Guid = Guid('c7a98e66-1010-492c-a1-c8-c8-09-e1-f7-59-05')
+    @commethod(13)
+    def StartEx(pUri: win32more.System.Com.IUri_head, pOIProtSink: win32more.System.Com.Urlmon.IInternetProtocolSink_head, pOIBindInfo: win32more.System.Com.Urlmon.IInternetBindInfo_head, grfPI: UInt32, dwReserved: win32more.Foundation.HANDLE_PTR) -> win32more.Foundation.HRESULT: ...
+class IInternetProtocolInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9ec-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def ParseUrl(pwzUrl: win32more.Foundation.PWSTR, ParseAction: win32more.System.Com.Urlmon.PARSEACTION, dwParseFlags: UInt32, pwzResult: win32more.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CombineUrl(pwzBaseUrl: win32more.Foundation.PWSTR, pwzRelativeUrl: win32more.Foundation.PWSTR, dwCombineFlags: UInt32, pwzResult: win32more.Foundation.PWSTR, cchResult: UInt32, pcchResult: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CompareUrl(pwzUrl1: win32more.Foundation.PWSTR, pwzUrl2: win32more.Foundation.PWSTR, dwCompareFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryInfo(pwzUrl: win32more.Foundation.PWSTR, OueryOption: win32more.System.Com.Urlmon.QUERYOPTION, dwQueryFlags: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, pcbBuf: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetProtocolRoot(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e3-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def Start(szUrl: win32more.Foundation.PWSTR, pOIProtSink: win32more.System.Com.Urlmon.IInternetProtocolSink_head, pOIBindInfo: win32more.System.Com.Urlmon.IInternetBindInfo_head, grfPI: UInt32, dwReserved: win32more.Foundation.HANDLE_PTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Continue(pProtocolData: POINTER(win32more.System.Com.Urlmon.PROTOCOLDATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Abort(hrReason: win32more.Foundation.HRESULT, dwOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Terminate(dwOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Suspend() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+class IInternetProtocolSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e5-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def Switch(pProtocolData: POINTER(win32more.System.Com.Urlmon.PROTOCOLDATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReportProgress(ulStatusCode: UInt32, szStatusText: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ReportData(grfBSCF: UInt32, ulProgress: UInt32, ulProgressMax: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ReportResult(hrResult: win32more.Foundation.HRESULT, dwError: UInt32, szResult: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IInternetProtocolSinkStackable(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9f0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def SwitchSink(pOIProtSink: win32more.System.Com.Urlmon.IInternetProtocolSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CommitSwitch() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RollbackSwitch() -> win32more.Foundation.HRESULT: ...
+class IInternetSecurityManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9ee-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def SetSecuritySite(pSite: win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSecuritySite(ppSite: POINTER(win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def MapUrlToZone(pwszUrl: win32more.Foundation.PWSTR, pdwZone: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSecurityId(pwszUrl: win32more.Foundation.PWSTR, pbSecurityId: c_char_p_no, pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ProcessUrlAction(pwszUrl: win32more.Foundation.PWSTR, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, pContext: c_char_p_no, cbContext: UInt32, dwFlags: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def QueryCustomPolicy(pwszUrl: win32more.Foundation.PWSTR, guidKey: POINTER(Guid), ppPolicy: POINTER(c_char_p_no), pcbPolicy: POINTER(UInt32), pContext: c_char_p_no, cbContext: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetZoneMapping(dwZone: UInt32, lpszPattern: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetZoneMappings(dwZone: UInt32, ppenumString: POINTER(win32more.System.Com.IEnumString_head), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetSecurityManagerEx(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetSecurityManager
+    Guid = Guid('f164edf1-cc7c-4f0d-9a-94-34-22-26-25-c3-93')
+    @commethod(11)
+    def ProcessUrlActionEx(pwszUrl: win32more.Foundation.PWSTR, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, pContext: c_char_p_no, cbContext: UInt32, dwFlags: UInt32, dwReserved: UInt32, pdwOutFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IInternetSecurityManagerEx2(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetSecurityManagerEx
+    Guid = Guid('f1e50292-a795-4117-8e-09-2b-56-0a-72-ac-60')
+    @commethod(12)
+    def MapUrlToZoneEx2(pUri: win32more.System.Com.IUri_head, pdwZone: POINTER(UInt32), dwFlags: UInt32, ppwszMappedUrl: POINTER(win32more.Foundation.PWSTR), pdwOutFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ProcessUrlActionEx2(pUri: win32more.System.Com.IUri_head, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, pContext: c_char_p_no, cbContext: UInt32, dwFlags: UInt32, dwReserved: UIntPtr, pdwOutFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetSecurityIdEx2(pUri: win32more.System.Com.IUri_head, pbSecurityId: c_char_p_no, pcbSecurityId: POINTER(UInt32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def QueryCustomPolicyEx2(pUri: win32more.System.Com.IUri_head, guidKey: POINTER(Guid), ppPolicy: POINTER(c_char_p_no), pcbPolicy: POINTER(UInt32), pContext: c_char_p_no, cbContext: UInt32, dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class IInternetSecurityMgrSite(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9ed-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetWindow(phwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnableModeless(fEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IInternetSession(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e7-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def RegisterNameSpace(pCF: win32more.System.Com.IClassFactory_head, rclsid: POINTER(Guid), pwzProtocol: win32more.Foundation.PWSTR, cPatterns: UInt32, ppwzPatterns: POINTER(win32more.Foundation.PWSTR), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterNameSpace(pCF: win32more.System.Com.IClassFactory_head, pszProtocol: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RegisterMimeFilter(pCF: win32more.System.Com.IClassFactory_head, rclsid: POINTER(Guid), pwzType: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def UnregisterMimeFilter(pCF: win32more.System.Com.IClassFactory_head, pwzType: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateBinding(pBC: win32more.System.Com.IBindCtx_head, szUrl: win32more.Foundation.PWSTR, pUnkOuter: win32more.System.Com.IUnknown_head, ppUnk: POINTER(win32more.System.Com.IUnknown_head), ppOInetProt: POINTER(win32more.System.Com.Urlmon.IInternetProtocol_head), dwOption: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetSessionOption(dwOption: UInt32, pBuffer: c_void_p, dwBufferLength: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSessionOption(dwOption: UInt32, pBuffer: c_void_p, pdwBufferLength: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetThreadSwitch(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9e8-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def Prepare() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Continue() -> win32more.Foundation.HRESULT: ...
+class IInternetZoneManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9ef-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetZoneAttributes(dwZone: UInt32, pZoneAttributes: POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetZoneAttributes(dwZone: UInt32, pZoneAttributes: POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetZoneCustomPolicy(dwZone: UInt32, guidKey: POINTER(Guid), ppPolicy: POINTER(c_char_p_no), pcbPolicy: POINTER(UInt32), urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetZoneCustomPolicy(dwZone: UInt32, guidKey: POINTER(Guid), pPolicy: c_char_p_no, cbPolicy: UInt32, urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetZoneActionPolicy(dwZone: UInt32, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetZoneActionPolicy(dwZone: UInt32, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def PromptAction(dwAction: UInt32, hwndParent: win32more.Foundation.HWND, pwszUrl: win32more.Foundation.PWSTR, pwszText: win32more.Foundation.PWSTR, dwPromptFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def LogAction(dwAction: UInt32, pwszUrl: win32more.Foundation.PWSTR, pwszText: win32more.Foundation.PWSTR, dwLogFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateZoneEnumerator(pdwEnum: POINTER(UInt32), pdwCount: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetZoneAt(dwEnum: UInt32, dwIndex: UInt32, pdwZone: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DestroyZoneEnumerator(dwEnum: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CopyTemplatePoliciesToZone(dwTemplate: UInt32, dwZone: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetZoneManagerEx(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetZoneManager
+    Guid = Guid('a4c23339-8e06-431e-9b-f4-7e-71-1c-08-56-48')
+    @commethod(15)
+    def GetZoneActionPolicyEx(dwZone: UInt32, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetZoneActionPolicyEx(dwZone: UInt32, dwAction: UInt32, pPolicy: c_char_p_no, cbPolicy: UInt32, urlZoneReg: win32more.System.Com.Urlmon.URLZONEREG, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInternetZoneManagerEx2(c_void_p):
+    extends: win32more.System.Com.Urlmon.IInternetZoneManagerEx
+    Guid = Guid('edc17559-dd5d-4846-8e-ef-8b-ec-ba-5a-4a-bf')
+    @commethod(17)
+    def GetZoneAttributesEx(dwZone: UInt32, pZoneAttributes: POINTER(win32more.System.Com.Urlmon.ZONEATTRIBUTES_head), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetZoneSecurityState(dwZoneIndex: UInt32, fRespectPolicy: win32more.Foundation.BOOL, pdwState: POINTER(UInt32), pfPolicyEncountered: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetIESecurityState(fRespectPolicy: win32more.Foundation.BOOL, pdwState: POINTER(UInt32), pfPolicyEncountered: POINTER(win32more.Foundation.BOOL), fNoCache: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def FixUnsecureSettings() -> win32more.Foundation.HRESULT: ...
+class IMonikerProp(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a5ca5f7f-1847-4d87-9c-5b-91-85-09-f7-51-1d')
+    @commethod(3)
+    def PutProperty(mkp: win32more.System.Com.Urlmon.MONIKERPROPERTY, val: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
 INET_ZONE_MANAGER_CONSTANTS = Int32
-MAX_ZONE_PATH = 260
-MAX_ZONE_DESCRIPTION = 200
+MAX_ZONE_PATH: INET_ZONE_MANAGER_CONSTANTS = 260
+MAX_ZONE_DESCRIPTION: INET_ZONE_MANAGER_CONSTANTS = 200
 INTERNETFEATURELIST = Int32
-FEATURE_OBJECT_CACHING = 0
-FEATURE_ZONE_ELEVATION = 1
-FEATURE_MIME_HANDLING = 2
-FEATURE_MIME_SNIFFING = 3
-FEATURE_WINDOW_RESTRICTIONS = 4
-FEATURE_WEBOC_POPUPMANAGEMENT = 5
-FEATURE_BEHAVIORS = 6
-FEATURE_DISABLE_MK_PROTOCOL = 7
-FEATURE_LOCALMACHINE_LOCKDOWN = 8
-FEATURE_SECURITYBAND = 9
-FEATURE_RESTRICT_ACTIVEXINSTALL = 10
-FEATURE_VALIDATE_NAVIGATE_URL = 11
-FEATURE_RESTRICT_FILEDOWNLOAD = 12
-FEATURE_ADDON_MANAGEMENT = 13
-FEATURE_PROTOCOL_LOCKDOWN = 14
-FEATURE_HTTP_USERNAME_PASSWORD_DISABLE = 15
-FEATURE_SAFE_BINDTOOBJECT = 16
-FEATURE_UNC_SAVEDFILECHECK = 17
-FEATURE_GET_URL_DOM_FILEPATH_UNENCODED = 18
-FEATURE_TABBED_BROWSING = 19
-FEATURE_SSLUX = 20
-FEATURE_DISABLE_NAVIGATION_SOUNDS = 21
-FEATURE_DISABLE_LEGACY_COMPRESSION = 22
-FEATURE_FORCE_ADDR_AND_STATUS = 23
-FEATURE_XMLHTTP = 24
-FEATURE_DISABLE_TELNET_PROTOCOL = 25
-FEATURE_FEEDS = 26
-FEATURE_BLOCK_INPUT_PROMPTS = 27
-FEATURE_ENTRY_COUNT = 28
-def _define_IPersistMoniker_head():
-    class IPersistMoniker(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9c9-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IPersistMoniker
-def _define_IPersistMoniker():
-    IPersistMoniker = win32more.System.Com.Urlmon.IPersistMoniker_head
-    IPersistMoniker.GetClassID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(3, 'GetClassID', ((1, 'pClassID'),)))
-    IPersistMoniker.IsDirty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'IsDirty', ()))
-    IPersistMoniker.Load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head,UInt32)(5, 'Load', ((1, 'fFullyAvailable'),(1, 'pimkName'),(1, 'pibc'),(1, 'grfMode'),)))
-    IPersistMoniker.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head,win32more.Foundation.BOOL)(6, 'Save', ((1, 'pimkName'),(1, 'pbc'),(1, 'fRemember'),)))
-    IPersistMoniker.SaveCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head)(7, 'SaveCompleted', ((1, 'pimkName'),(1, 'pibc'),)))
-    IPersistMoniker.GetCurMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IMoniker_head))(8, 'GetCurMoniker', ((1, 'ppimkName'),)))
-    win32more.System.Com.IUnknown
-    return IPersistMoniker
-def _define_ISoftDistExt_head():
-    class ISoftDistExt(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b15b8dc1-c7e1-11d0-86-80-00-aa-00-bd-cb-71')
-    return ISoftDistExt
-def _define_ISoftDistExt():
-    ISoftDistExt = win32more.System.Com.Urlmon.ISoftDistExt_head
-    ISoftDistExt.ProcessSoftDist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Data.Xml.MsXml.IXMLElement_head,POINTER(win32more.System.Com.Urlmon.SOFTDISTINFO_head))(3, 'ProcessSoftDist', ((1, 'szCDFURL'),(1, 'pSoftDistElement'),(1, 'lpsdi'),)))
-    ISoftDistExt.GetFirstCodeBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(4, 'GetFirstCodeBase', ((1, 'szCodeBase'),(1, 'dwMaxSize'),)))
-    ISoftDistExt.GetNextCodeBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(5, 'GetNextCodeBase', ((1, 'szCodeBase'),(1, 'dwMaxSize'),)))
-    ISoftDistExt.AsyncInstallDistributionUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,c_void_p,UInt32,POINTER(win32more.System.Com.Urlmon.CODEBASEHOLD_head))(6, 'AsyncInstallDistributionUnit', ((1, 'pbc'),(1, 'pvReserved'),(1, 'flags'),(1, 'lpcbh'),)))
-    win32more.System.Com.IUnknown
-    return ISoftDistExt
-def _define_IUriBuilderFactory_head():
-    class IUriBuilderFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e982ce48-0b96-440c-bc-37-0c-86-9b-27-a2-9e')
-    return IUriBuilderFactory
-def _define_IUriBuilderFactory():
-    IUriBuilderFactory = win32more.System.Com.Urlmon.IUriBuilderFactory_head
-    IUriBuilderFactory.CreateIUriBuilder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Com.IUriBuilder_head))(3, 'CreateIUriBuilder', ((1, 'dwFlags'),(1, 'dwReserved'),(1, 'ppIUriBuilder'),)))
-    IUriBuilderFactory.CreateInitializedIUriBuilder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Com.IUriBuilder_head))(4, 'CreateInitializedIUriBuilder', ((1, 'dwFlags'),(1, 'dwReserved'),(1, 'ppIUriBuilder'),)))
-    win32more.System.Com.IUnknown
-    return IUriBuilderFactory
-def _define_IUriContainer_head():
-    class IUriContainer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a158a630-ed6f-45fb-b9-87-f6-86-76-f5-77-52')
-    return IUriContainer
-def _define_IUriContainer():
-    IUriContainer = win32more.System.Com.Urlmon.IUriContainer_head
-    IUriContainer.GetIUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUri_head))(3, 'GetIUri', ((1, 'ppIUri'),)))
-    win32more.System.Com.IUnknown
-    return IUriContainer
-def _define_IWindowForBindingUI_head():
-    class IWindowForBindingUI(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9d5-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IWindowForBindingUI
-def _define_IWindowForBindingUI():
-    IWindowForBindingUI = win32more.System.Com.Urlmon.IWindowForBindingUI_head
-    IWindowForBindingUI.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.HWND))(3, 'GetWindow', ((1, 'rguidReason'),(1, 'phwnd'),)))
-    win32more.System.Com.IUnknown
-    return IWindowForBindingUI
-def _define_IWinInetCacheHints_head():
-    class IWinInetCacheHints(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dd1ec3b3-8391-4fdb-a9-e6-34-7c-3c-aa-a7-dd')
-    return IWinInetCacheHints
-def _define_IWinInetCacheHints():
-    IWinInetCacheHints = win32more.System.Com.Urlmon.IWinInetCacheHints_head
-    IWinInetCacheHints.SetCacheExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(3, 'SetCacheExtension', ((1, 'pwzExt'),(1, 'pszCacheFile'),(1, 'pcbCacheFile'),(1, 'pdwWinInetError'),(1, 'pdwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IWinInetCacheHints
-def _define_IWinInetCacheHints2_head():
-    class IWinInetCacheHints2(win32more.System.Com.Urlmon.IWinInetCacheHints_head):
-        Guid = Guid('7857aeac-d31f-49bf-88-4e-dd-46-df-36-78-0a')
-    return IWinInetCacheHints2
-def _define_IWinInetCacheHints2():
-    IWinInetCacheHints2 = win32more.System.Com.Urlmon.IWinInetCacheHints2_head
-    IWinInetCacheHints2.SetCacheExtension2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(4, 'SetCacheExtension2', ((1, 'pwzExt'),(1, 'pwzCacheFile'),(1, 'pcchCacheFile'),(1, 'pdwWinInetError'),(1, 'pdwReserved'),)))
-    win32more.System.Com.Urlmon.IWinInetCacheHints
-    return IWinInetCacheHints2
-def _define_IWinInetFileStream_head():
-    class IWinInetFileStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f134c4b7-b1f8-4e75-b8-86-74-b9-09-43-be-cb')
-    return IWinInetFileStream
-def _define_IWinInetFileStream():
-    IWinInetFileStream = win32more.System.Com.Urlmon.IWinInetFileStream_head
-    IWinInetFileStream.SetHandleForUnlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr)(3, 'SetHandleForUnlock', ((1, 'hWinInetLockHandle'),(1, 'dwReserved'),)))
-    IWinInetFileStream.SetDeleteFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(4, 'SetDeleteFile', ((1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IWinInetFileStream
-def _define_IWinInetHttpInfo_head():
-    class IWinInetHttpInfo(win32more.System.Com.Urlmon.IWinInetInfo_head):
-        Guid = Guid('79eac9d8-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IWinInetHttpInfo
-def _define_IWinInetHttpInfo():
-    IWinInetHttpInfo = win32more.System.Com.Urlmon.IWinInetHttpInfo_head
-    IWinInetHttpInfo.QueryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(4, 'QueryInfo', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pcbBuf'),(1, 'pdwFlags'),(1, 'pdwReserved'),)))
-    win32more.System.Com.Urlmon.IWinInetInfo
-    return IWinInetHttpInfo
-def _define_IWinInetHttpTimeouts_head():
-    class IWinInetHttpTimeouts(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f286fa56-c1fd-4270-8e-67-b3-eb-79-0a-81-e8')
-    return IWinInetHttpTimeouts
-def _define_IWinInetHttpTimeouts():
-    IWinInetHttpTimeouts = win32more.System.Com.Urlmon.IWinInetHttpTimeouts_head
-    IWinInetHttpTimeouts.GetRequestTimeouts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(3, 'GetRequestTimeouts', ((1, 'pdwConnectTimeout'),(1, 'pdwSendTimeout'),(1, 'pdwReceiveTimeout'),)))
-    win32more.System.Com.IUnknown
-    return IWinInetHttpTimeouts
-def _define_IWinInetInfo_head():
-    class IWinInetInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('79eac9d6-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
-    return IWinInetInfo
-def _define_IWinInetInfo():
-    IWinInetInfo = win32more.System.Com.Urlmon.IWinInetInfo_head
-    IWinInetInfo.QueryOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32))(3, 'QueryOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pcbBuf'),)))
-    win32more.System.Com.IUnknown
-    return IWinInetInfo
-def _define_IWrappedProtocol_head():
-    class IWrappedProtocol(win32more.System.Com.IUnknown_head):
-        Guid = Guid('53c84785-8425-4dc5-97-1b-e5-8d-9c-19-f9-b6')
-    return IWrappedProtocol
-def _define_IWrappedProtocol():
-    IWrappedProtocol = win32more.System.Com.Urlmon.IWrappedProtocol_head
-    IWrappedProtocol.GetWrapperCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UIntPtr)(3, 'GetWrapperCode', ((1, 'pnCode'),(1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IWrappedProtocol
-def _define_IZoneIdentifier_head():
-    class IZoneIdentifier(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cd45f185-1b21-48e2-96-7b-ea-d7-43-a8-91-4e')
-    return IZoneIdentifier
-def _define_IZoneIdentifier():
-    IZoneIdentifier = win32more.System.Com.Urlmon.IZoneIdentifier_head
-    IZoneIdentifier.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetId', ((1, 'pdwZone'),)))
-    IZoneIdentifier.SetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'SetId', ((1, 'dwZone'),)))
-    IZoneIdentifier.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Remove', ()))
-    win32more.System.Com.IUnknown
-    return IZoneIdentifier
-def _define_IZoneIdentifier2_head():
-    class IZoneIdentifier2(win32more.System.Com.Urlmon.IZoneIdentifier_head):
-        Guid = Guid('eb5e760c-09ef-45c0-b5-10-70-83-0c-e3-1e-6a')
-    return IZoneIdentifier2
-def _define_IZoneIdentifier2():
-    IZoneIdentifier2 = win32more.System.Com.Urlmon.IZoneIdentifier2_head
-    IZoneIdentifier2.GetLastWriterPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetLastWriterPackageFamilyName', ((1, 'packageFamilyName'),)))
-    IZoneIdentifier2.SetLastWriterPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(7, 'SetLastWriterPackageFamilyName', ((1, 'packageFamilyName'),)))
-    IZoneIdentifier2.RemoveLastWriterPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'RemoveLastWriterPackageFamilyName', ()))
-    IZoneIdentifier2.GetAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(9, 'GetAppZoneId', ((1, 'zone'),)))
-    IZoneIdentifier2.SetAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(10, 'SetAppZoneId', ((1, 'zone'),)))
-    IZoneIdentifier2.RemoveAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'RemoveAppZoneId', ()))
-    win32more.System.Com.Urlmon.IZoneIdentifier
-    return IZoneIdentifier2
+FEATURE_OBJECT_CACHING: INTERNETFEATURELIST = 0
+FEATURE_ZONE_ELEVATION: INTERNETFEATURELIST = 1
+FEATURE_MIME_HANDLING: INTERNETFEATURELIST = 2
+FEATURE_MIME_SNIFFING: INTERNETFEATURELIST = 3
+FEATURE_WINDOW_RESTRICTIONS: INTERNETFEATURELIST = 4
+FEATURE_WEBOC_POPUPMANAGEMENT: INTERNETFEATURELIST = 5
+FEATURE_BEHAVIORS: INTERNETFEATURELIST = 6
+FEATURE_DISABLE_MK_PROTOCOL: INTERNETFEATURELIST = 7
+FEATURE_LOCALMACHINE_LOCKDOWN: INTERNETFEATURELIST = 8
+FEATURE_SECURITYBAND: INTERNETFEATURELIST = 9
+FEATURE_RESTRICT_ACTIVEXINSTALL: INTERNETFEATURELIST = 10
+FEATURE_VALIDATE_NAVIGATE_URL: INTERNETFEATURELIST = 11
+FEATURE_RESTRICT_FILEDOWNLOAD: INTERNETFEATURELIST = 12
+FEATURE_ADDON_MANAGEMENT: INTERNETFEATURELIST = 13
+FEATURE_PROTOCOL_LOCKDOWN: INTERNETFEATURELIST = 14
+FEATURE_HTTP_USERNAME_PASSWORD_DISABLE: INTERNETFEATURELIST = 15
+FEATURE_SAFE_BINDTOOBJECT: INTERNETFEATURELIST = 16
+FEATURE_UNC_SAVEDFILECHECK: INTERNETFEATURELIST = 17
+FEATURE_GET_URL_DOM_FILEPATH_UNENCODED: INTERNETFEATURELIST = 18
+FEATURE_TABBED_BROWSING: INTERNETFEATURELIST = 19
+FEATURE_SSLUX: INTERNETFEATURELIST = 20
+FEATURE_DISABLE_NAVIGATION_SOUNDS: INTERNETFEATURELIST = 21
+FEATURE_DISABLE_LEGACY_COMPRESSION: INTERNETFEATURELIST = 22
+FEATURE_FORCE_ADDR_AND_STATUS: INTERNETFEATURELIST = 23
+FEATURE_XMLHTTP: INTERNETFEATURELIST = 24
+FEATURE_DISABLE_TELNET_PROTOCOL: INTERNETFEATURELIST = 25
+FEATURE_FEEDS: INTERNETFEATURELIST = 26
+FEATURE_BLOCK_INPUT_PROMPTS: INTERNETFEATURELIST = 27
+FEATURE_ENTRY_COUNT: INTERNETFEATURELIST = 28
+class IPersistMoniker(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9c9-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetClassID(pClassID: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsDirty() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Load(fFullyAvailable: win32more.Foundation.BOOL, pimkName: win32more.System.Com.IMoniker_head, pibc: win32more.System.Com.IBindCtx_head, grfMode: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Save(pimkName: win32more.System.Com.IMoniker_head, pbc: win32more.System.Com.IBindCtx_head, fRemember: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SaveCompleted(pimkName: win32more.System.Com.IMoniker_head, pibc: win32more.System.Com.IBindCtx_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetCurMoniker(ppimkName: POINTER(win32more.System.Com.IMoniker_head)) -> win32more.Foundation.HRESULT: ...
+class ISoftDistExt(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b15b8dc1-c7e1-11d0-86-80-00-aa-00-bd-cb-71')
+    @commethod(3)
+    def ProcessSoftDist(szCDFURL: win32more.Foundation.PWSTR, pSoftDistElement: win32more.Data.Xml.MsXml.IXMLElement_head, lpsdi: POINTER(win32more.System.Com.Urlmon.SOFTDISTINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFirstCodeBase(szCodeBase: POINTER(win32more.Foundation.PWSTR), dwMaxSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetNextCodeBase(szCodeBase: POINTER(win32more.Foundation.PWSTR), dwMaxSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AsyncInstallDistributionUnit(pbc: win32more.System.Com.IBindCtx_head, pvReserved: c_void_p, flags: UInt32, lpcbh: POINTER(win32more.System.Com.Urlmon.CODEBASEHOLD_head)) -> win32more.Foundation.HRESULT: ...
+class IUriBuilderFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e982ce48-0b96-440c-bc-37-0c-86-9b-27-a2-9e')
+    @commethod(3)
+    def CreateIUriBuilder(dwFlags: UInt32, dwReserved: UIntPtr, ppIUriBuilder: POINTER(win32more.System.Com.IUriBuilder_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateInitializedIUriBuilder(dwFlags: UInt32, dwReserved: UIntPtr, ppIUriBuilder: POINTER(win32more.System.Com.IUriBuilder_head)) -> win32more.Foundation.HRESULT: ...
+class IUriContainer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a158a630-ed6f-45fb-b9-87-f6-86-76-f5-77-52')
+    @commethod(3)
+    def GetIUri(ppIUri: POINTER(win32more.System.Com.IUri_head)) -> win32more.Foundation.HRESULT: ...
+class IWindowForBindingUI(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9d5-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetWindow(rguidReason: POINTER(Guid), phwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+class IWinInetCacheHints(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dd1ec3b3-8391-4fdb-a9-e6-34-7c-3c-aa-a7-dd')
+    @commethod(3)
+    def SetCacheExtension(pwzExt: win32more.Foundation.PWSTR, pszCacheFile: c_void_p, pcbCacheFile: POINTER(UInt32), pdwWinInetError: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWinInetCacheHints2(c_void_p):
+    extends: win32more.System.Com.Urlmon.IWinInetCacheHints
+    Guid = Guid('7857aeac-d31f-49bf-88-4e-dd-46-df-36-78-0a')
+    @commethod(4)
+    def SetCacheExtension2(pwzExt: win32more.Foundation.PWSTR, pwzCacheFile: win32more.Foundation.PWSTR, pcchCacheFile: POINTER(UInt32), pdwWinInetError: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWinInetFileStream(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f134c4b7-b1f8-4e75-b8-86-74-b9-09-43-be-cb')
+    @commethod(3)
+    def SetHandleForUnlock(hWinInetLockHandle: UIntPtr, dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetDeleteFile(dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class IWinInetHttpInfo(c_void_p):
+    extends: win32more.System.Com.Urlmon.IWinInetInfo
+    Guid = Guid('79eac9d8-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(4)
+    def QueryInfo(dwOption: UInt32, pBuffer: c_void_p, pcbBuf: POINTER(UInt32), pdwFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWinInetHttpTimeouts(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f286fa56-c1fd-4270-8e-67-b3-eb-79-0a-81-e8')
+    @commethod(3)
+    def GetRequestTimeouts(pdwConnectTimeout: POINTER(UInt32), pdwSendTimeout: POINTER(UInt32), pdwReceiveTimeout: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWinInetInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9d6-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def QueryOption(dwOption: UInt32, pBuffer: c_void_p, pcbBuf: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWrappedProtocol(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('53c84785-8425-4dc5-97-1b-e5-8d-9c-19-f9-b6')
+    @commethod(3)
+    def GetWrapperCode(pnCode: POINTER(Int32), dwReserved: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class IZoneIdentifier(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cd45f185-1b21-48e2-96-7b-ea-d7-43-a8-91-4e')
+    @commethod(3)
+    def GetId(pdwZone: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetId(dwZone: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Remove() -> win32more.Foundation.HRESULT: ...
+class IZoneIdentifier2(c_void_p):
+    extends: win32more.System.Com.Urlmon.IZoneIdentifier
+    Guid = Guid('eb5e760c-09ef-45c0-b5-10-70-83-0c-e3-1e-6a')
+    @commethod(6)
+    def GetLastWriterPackageFamilyName(packageFamilyName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetLastWriterPackageFamilyName(packageFamilyName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RemoveLastWriterPackageFamilyName() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetAppZoneId(zone: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetAppZoneId(zone: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RemoveAppZoneId() -> win32more.Foundation.HRESULT: ...
 MONIKERPROPERTY = Int32
-MIMETYPEPROP = 0
-USE_SRC_URL = 1
-CLASSIDPROP = 2
-TRUSTEDDOWNLOADPROP = 3
-POPUPLEVELPROP = 4
+MIMETYPEPROP: MONIKERPROPERTY = 0
+USE_SRC_URL: MONIKERPROPERTY = 1
+CLASSIDPROP: MONIKERPROPERTY = 2
+TRUSTEDDOWNLOADPROP: MONIKERPROPERTY = 3
+POPUPLEVELPROP: MONIKERPROPERTY = 4
 OIBDG_FLAGS = Int32
-OIBDG_APARTMENTTHREADED = 256
-OIBDG_DATAONLY = 4096
+OIBDG_APARTMENTTHREADED: OIBDG_FLAGS = 256
+OIBDG_DATAONLY: OIBDG_FLAGS = 4096
 PARSEACTION = Int32
-PARSE_CANONICALIZE = 1
-PARSE_FRIENDLY = 2
-PARSE_SECURITY_URL = 3
-PARSE_ROOTDOCUMENT = 4
-PARSE_DOCUMENT = 5
-PARSE_ANCHOR = 6
-PARSE_ENCODE_IS_UNESCAPE = 7
-PARSE_DECODE_IS_ESCAPE = 8
-PARSE_PATH_FROM_URL = 9
-PARSE_URL_FROM_PATH = 10
-PARSE_MIME = 11
-PARSE_SERVER = 12
-PARSE_SCHEMA = 13
-PARSE_SITE = 14
-PARSE_DOMAIN = 15
-PARSE_LOCATION = 16
-PARSE_SECURITY_DOMAIN = 17
-PARSE_ESCAPE = 18
-PARSE_UNESCAPE = 19
+PARSE_CANONICALIZE: PARSEACTION = 1
+PARSE_FRIENDLY: PARSEACTION = 2
+PARSE_SECURITY_URL: PARSEACTION = 3
+PARSE_ROOTDOCUMENT: PARSEACTION = 4
+PARSE_DOCUMENT: PARSEACTION = 5
+PARSE_ANCHOR: PARSEACTION = 6
+PARSE_ENCODE_IS_UNESCAPE: PARSEACTION = 7
+PARSE_DECODE_IS_ESCAPE: PARSEACTION = 8
+PARSE_PATH_FROM_URL: PARSEACTION = 9
+PARSE_URL_FROM_PATH: PARSEACTION = 10
+PARSE_MIME: PARSEACTION = 11
+PARSE_SERVER: PARSEACTION = 12
+PARSE_SCHEMA: PARSEACTION = 13
+PARSE_SITE: PARSEACTION = 14
+PARSE_DOMAIN: PARSEACTION = 15
+PARSE_LOCATION: PARSEACTION = 16
+PARSE_SECURITY_DOMAIN: PARSEACTION = 17
+PARSE_ESCAPE: PARSEACTION = 18
+PARSE_UNESCAPE: PARSEACTION = 19
 PI_FLAGS = Int32
-PI_PARSE_URL = 1
-PI_FILTER_MODE = 2
-PI_FORCE_ASYNC = 4
-PI_USE_WORKERTHREAD = 8
-PI_MIMEVERIFICATION = 16
-PI_CLSIDLOOKUP = 32
-PI_DATAPROGRESS = 64
-PI_SYNCHRONOUS = 128
-PI_APARTMENTTHREADED = 256
-PI_CLASSINSTALL = 512
-PI_PASSONBINDCTX = 8192
-PI_NOMIMEHANDLER = 32768
-PI_LOADAPPDIRECT = 16384
-PD_FORCE_SWITCH = 65536
-PI_PREFERDEFAULTHANDLER = 131072
-def _define_PROTOCOL_ARGUMENT_head():
-    class PROTOCOL_ARGUMENT(Structure):
-        pass
-    return PROTOCOL_ARGUMENT
-def _define_PROTOCOL_ARGUMENT():
-    PROTOCOL_ARGUMENT = win32more.System.Com.Urlmon.PROTOCOL_ARGUMENT_head
-    PROTOCOL_ARGUMENT._fields_ = [
-        ('szMethod', win32more.Foundation.PWSTR),
-        ('szTargetUrl', win32more.Foundation.PWSTR),
-    ]
-    return PROTOCOL_ARGUMENT
-def _define_PROTOCOLDATA_head():
-    class PROTOCOLDATA(Structure):
-        pass
-    return PROTOCOLDATA
-def _define_PROTOCOLDATA():
-    PROTOCOLDATA = win32more.System.Com.Urlmon.PROTOCOLDATA_head
-    PROTOCOLDATA._fields_ = [
-        ('grfFlags', UInt32),
-        ('dwState', UInt32),
-        ('pData', c_void_p),
-        ('cbData', UInt32),
-    ]
-    return PROTOCOLDATA
-def _define_PROTOCOLFILTERDATA_head():
-    class PROTOCOLFILTERDATA(Structure):
-        pass
-    return PROTOCOLFILTERDATA
-def _define_PROTOCOLFILTERDATA():
-    PROTOCOLFILTERDATA = win32more.System.Com.Urlmon.PROTOCOLFILTERDATA_head
-    PROTOCOLFILTERDATA._fields_ = [
-        ('cbSize', UInt32),
-        ('pProtocolSink', win32more.System.Com.Urlmon.IInternetProtocolSink_head),
-        ('pProtocol', win32more.System.Com.Urlmon.IInternetProtocol_head),
-        ('pUnk', win32more.System.Com.IUnknown_head),
-        ('dwFilterFlags', UInt32),
-    ]
-    return PROTOCOLFILTERDATA
+PI_PARSE_URL: PI_FLAGS = 1
+PI_FILTER_MODE: PI_FLAGS = 2
+PI_FORCE_ASYNC: PI_FLAGS = 4
+PI_USE_WORKERTHREAD: PI_FLAGS = 8
+PI_MIMEVERIFICATION: PI_FLAGS = 16
+PI_CLSIDLOOKUP: PI_FLAGS = 32
+PI_DATAPROGRESS: PI_FLAGS = 64
+PI_SYNCHRONOUS: PI_FLAGS = 128
+PI_APARTMENTTHREADED: PI_FLAGS = 256
+PI_CLASSINSTALL: PI_FLAGS = 512
+PI_PASSONBINDCTX: PI_FLAGS = 8192
+PI_NOMIMEHANDLER: PI_FLAGS = 32768
+PI_LOADAPPDIRECT: PI_FLAGS = 16384
+PD_FORCE_SWITCH: PI_FLAGS = 65536
+PI_PREFERDEFAULTHANDLER: PI_FLAGS = 131072
+class PROTOCOL_ARGUMENT(Structure):
+    szMethod: win32more.Foundation.PWSTR
+    szTargetUrl: win32more.Foundation.PWSTR
+class PROTOCOLDATA(Structure):
+    grfFlags: UInt32
+    dwState: UInt32
+    pData: c_void_p
+    cbData: UInt32
+class PROTOCOLFILTERDATA(Structure):
+    cbSize: UInt32
+    pProtocolSink: win32more.System.Com.Urlmon.IInternetProtocolSink_head
+    pProtocol: win32more.System.Com.Urlmon.IInternetProtocol_head
+    pUnk: win32more.System.Com.IUnknown_head
+    dwFilterFlags: UInt32
 PSUACTION = Int32
-PSU_DEFAULT = 1
-PSU_SECURITY_URL_ONLY = 2
+PSU_DEFAULT: PSUACTION = 1
+PSU_SECURITY_URL_ONLY: PSUACTION = 2
 PUAF = Int32
-PUAF_DEFAULT = 0
-PUAF_NOUI = 1
-PUAF_ISFILE = 2
-PUAF_WARN_IF_DENIED = 4
-PUAF_FORCEUI_FOREGROUND = 8
-PUAF_CHECK_TIFS = 16
-PUAF_DONTCHECKBOXINDIALOG = 32
-PUAF_TRUSTED = 64
-PUAF_ACCEPT_WILDCARD_SCHEME = 128
-PUAF_ENFORCERESTRICTED = 256
-PUAF_NOSAVEDFILECHECK = 512
-PUAF_REQUIRESAVEDFILECHECK = 1024
-PUAF_DONT_USE_CACHE = 4096
-PUAF_RESERVED1 = 8192
-PUAF_RESERVED2 = 16384
-PUAF_LMZ_UNLOCKED = 65536
-PUAF_LMZ_LOCKED = 131072
-PUAF_DEFAULTZONEPOL = 262144
-PUAF_NPL_USE_LOCKED_IF_RESTRICTED = 524288
-PUAF_NOUIIFLOCKED = 1048576
-PUAF_DRAGPROTOCOLCHECK = 2097152
+PUAF_DEFAULT: PUAF = 0
+PUAF_NOUI: PUAF = 1
+PUAF_ISFILE: PUAF = 2
+PUAF_WARN_IF_DENIED: PUAF = 4
+PUAF_FORCEUI_FOREGROUND: PUAF = 8
+PUAF_CHECK_TIFS: PUAF = 16
+PUAF_DONTCHECKBOXINDIALOG: PUAF = 32
+PUAF_TRUSTED: PUAF = 64
+PUAF_ACCEPT_WILDCARD_SCHEME: PUAF = 128
+PUAF_ENFORCERESTRICTED: PUAF = 256
+PUAF_NOSAVEDFILECHECK: PUAF = 512
+PUAF_REQUIRESAVEDFILECHECK: PUAF = 1024
+PUAF_DONT_USE_CACHE: PUAF = 4096
+PUAF_RESERVED1: PUAF = 8192
+PUAF_RESERVED2: PUAF = 16384
+PUAF_LMZ_UNLOCKED: PUAF = 65536
+PUAF_LMZ_LOCKED: PUAF = 131072
+PUAF_DEFAULTZONEPOL: PUAF = 262144
+PUAF_NPL_USE_LOCKED_IF_RESTRICTED: PUAF = 524288
+PUAF_NOUIIFLOCKED: PUAF = 1048576
+PUAF_DRAGPROTOCOLCHECK: PUAF = 2097152
 PUAFOUT = Int32
-PUAFOUT_DEFAULT = 0
-PUAFOUT_ISLOCKZONEPOLICY = 1
+PUAFOUT_DEFAULT: PUAFOUT = 0
+PUAFOUT_ISLOCKZONEPOLICY: PUAFOUT = 1
 QUERYOPTION = Int32
-QUERY_EXPIRATION_DATE = 1
-QUERY_TIME_OF_LAST_CHANGE = 2
-QUERY_CONTENT_ENCODING = 3
-QUERY_CONTENT_TYPE = 4
-QUERY_REFRESH = 5
-QUERY_RECOMBINE = 6
-QUERY_CAN_NAVIGATE = 7
-QUERY_USES_NETWORK = 8
-QUERY_IS_CACHED = 9
-QUERY_IS_INSTALLEDENTRY = 10
-QUERY_IS_CACHED_OR_MAPPED = 11
-QUERY_USES_CACHE = 12
-QUERY_IS_SECURE = 13
-QUERY_IS_SAFE = 14
-QUERY_USES_HISTORYFOLDER = 15
-QUERY_IS_CACHED_AND_USABLE_OFFLINE = 16
-def _define_RemBINDINFO_head():
-    class RemBINDINFO(Structure):
-        pass
-    return RemBINDINFO
-def _define_RemBINDINFO():
-    RemBINDINFO = win32more.System.Com.Urlmon.RemBINDINFO_head
-    RemBINDINFO._fields_ = [
-        ('cbSize', UInt32),
-        ('szExtraInfo', win32more.Foundation.PWSTR),
-        ('grfBindInfoF', UInt32),
-        ('dwBindVerb', UInt32),
-        ('szCustomVerb', win32more.Foundation.PWSTR),
-        ('cbstgmedData', UInt32),
-        ('dwOptions', UInt32),
-        ('dwOptionsFlags', UInt32),
-        ('dwCodePage', UInt32),
-        ('securityAttributes', win32more.System.Com.Urlmon.REMSECURITY_ATTRIBUTES),
-        ('iid', Guid),
-        ('pUnk', win32more.System.Com.IUnknown_head),
-        ('dwReserved', UInt32),
-    ]
-    return RemBINDINFO
-def _define_RemFORMATETC_head():
-    class RemFORMATETC(Structure):
-        pass
-    return RemFORMATETC
-def _define_RemFORMATETC():
-    RemFORMATETC = win32more.System.Com.Urlmon.RemFORMATETC_head
-    RemFORMATETC._fields_ = [
-        ('cfFormat', UInt32),
-        ('ptd', UInt32),
-        ('dwAspect', UInt32),
-        ('lindex', Int32),
-        ('tymed', UInt32),
-    ]
-    return RemFORMATETC
-def _define_REMSECURITY_ATTRIBUTES_head():
-    class REMSECURITY_ATTRIBUTES(Structure):
-        pass
-    return REMSECURITY_ATTRIBUTES
-def _define_REMSECURITY_ATTRIBUTES():
-    REMSECURITY_ATTRIBUTES = win32more.System.Com.Urlmon.REMSECURITY_ATTRIBUTES_head
-    REMSECURITY_ATTRIBUTES._fields_ = [
-        ('nLength', UInt32),
-        ('lpSecurityDescriptor', UInt32),
-        ('bInheritHandle', win32more.Foundation.BOOL),
-    ]
-    return REMSECURITY_ATTRIBUTES
-def _define_SOFTDISTINFO_head():
-    class SOFTDISTINFO(Structure):
-        pass
-    return SOFTDISTINFO
-def _define_SOFTDISTINFO():
-    SOFTDISTINFO = win32more.System.Com.Urlmon.SOFTDISTINFO_head
-    SOFTDISTINFO._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwAdState', UInt32),
-        ('szTitle', win32more.Foundation.PWSTR),
-        ('szAbstract', win32more.Foundation.PWSTR),
-        ('szHREF', win32more.Foundation.PWSTR),
-        ('dwInstalledVersionMS', UInt32),
-        ('dwInstalledVersionLS', UInt32),
-        ('dwUpdateVersionMS', UInt32),
-        ('dwUpdateVersionLS', UInt32),
-        ('dwAdvertisedVersionMS', UInt32),
-        ('dwAdvertisedVersionLS', UInt32),
-        ('dwReserved', UInt32),
-    ]
-    return SOFTDISTINFO
-def _define_StartParam_head():
-    class StartParam(Structure):
-        pass
-    return StartParam
-def _define_StartParam():
-    StartParam = win32more.System.Com.Urlmon.StartParam_head
-    StartParam._fields_ = [
-        ('iid', Guid),
-        ('pIBindCtx', win32more.System.Com.IBindCtx_head),
-        ('pItf', win32more.System.Com.IUnknown_head),
-    ]
-    return StartParam
+QUERY_EXPIRATION_DATE: QUERYOPTION = 1
+QUERY_TIME_OF_LAST_CHANGE: QUERYOPTION = 2
+QUERY_CONTENT_ENCODING: QUERYOPTION = 3
+QUERY_CONTENT_TYPE: QUERYOPTION = 4
+QUERY_REFRESH: QUERYOPTION = 5
+QUERY_RECOMBINE: QUERYOPTION = 6
+QUERY_CAN_NAVIGATE: QUERYOPTION = 7
+QUERY_USES_NETWORK: QUERYOPTION = 8
+QUERY_IS_CACHED: QUERYOPTION = 9
+QUERY_IS_INSTALLEDENTRY: QUERYOPTION = 10
+QUERY_IS_CACHED_OR_MAPPED: QUERYOPTION = 11
+QUERY_USES_CACHE: QUERYOPTION = 12
+QUERY_IS_SECURE: QUERYOPTION = 13
+QUERY_IS_SAFE: QUERYOPTION = 14
+QUERY_USES_HISTORYFOLDER: QUERYOPTION = 15
+QUERY_IS_CACHED_AND_USABLE_OFFLINE: QUERYOPTION = 16
+class RemBINDINFO(Structure):
+    cbSize: UInt32
+    szExtraInfo: win32more.Foundation.PWSTR
+    grfBindInfoF: UInt32
+    dwBindVerb: UInt32
+    szCustomVerb: win32more.Foundation.PWSTR
+    cbstgmedData: UInt32
+    dwOptions: UInt32
+    dwOptionsFlags: UInt32
+    dwCodePage: UInt32
+    securityAttributes: win32more.System.Com.Urlmon.REMSECURITY_ATTRIBUTES
+    iid: Guid
+    pUnk: win32more.System.Com.IUnknown_head
+    dwReserved: UInt32
+class RemFORMATETC(Structure):
+    cfFormat: UInt32
+    ptd: UInt32
+    dwAspect: UInt32
+    lindex: Int32
+    tymed: UInt32
+class REMSECURITY_ATTRIBUTES(Structure):
+    nLength: UInt32
+    lpSecurityDescriptor: UInt32
+    bInheritHandle: win32more.Foundation.BOOL
+class SOFTDISTINFO(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    dwAdState: UInt32
+    szTitle: win32more.Foundation.PWSTR
+    szAbstract: win32more.Foundation.PWSTR
+    szHREF: win32more.Foundation.PWSTR
+    dwInstalledVersionMS: UInt32
+    dwInstalledVersionLS: UInt32
+    dwUpdateVersionMS: UInt32
+    dwUpdateVersionLS: UInt32
+    dwAdvertisedVersionMS: UInt32
+    dwAdvertisedVersionLS: UInt32
+    dwReserved: UInt32
+class StartParam(Structure):
+    iid: Guid
+    pIBindCtx: win32more.System.Com.IBindCtx_head
+    pItf: win32more.System.Com.IUnknown_head
 SZM_FLAGS = Int32
-SZM_CREATE = 0
-SZM_DELETE = 1
+SZM_CREATE: SZM_FLAGS = 0
+SZM_DELETE: SZM_FLAGS = 1
 Uri_HOST_TYPE = Int32
-Uri_HOST_UNKNOWN = 0
-Uri_HOST_DNS = 1
-Uri_HOST_IPV4 = 2
-Uri_HOST_IPV6 = 3
-Uri_HOST_IDN = 4
+Uri_HOST_UNKNOWN: Uri_HOST_TYPE = 0
+Uri_HOST_DNS: Uri_HOST_TYPE = 1
+Uri_HOST_IPV4: Uri_HOST_TYPE = 2
+Uri_HOST_IPV6: Uri_HOST_TYPE = 3
+Uri_HOST_IDN: Uri_HOST_TYPE = 4
 URL_ENCODING = Int32
-URL_ENCODING_NONE = 0
-URL_ENCODING_ENABLE_UTF8 = 268435456
-URL_ENCODING_DISABLE_UTF8 = 536870912
+URL_ENCODING_NONE: URL_ENCODING = 0
+URL_ENCODING_ENABLE_UTF8: URL_ENCODING = 268435456
+URL_ENCODING_DISABLE_UTF8: URL_ENCODING = 536870912
 URLTEMPLATE = Int32
-URLTEMPLATE_CUSTOM = 0
-URLTEMPLATE_PREDEFINED_MIN = 65536
-URLTEMPLATE_LOW = 65536
-URLTEMPLATE_MEDLOW = 66816
-URLTEMPLATE_MEDIUM = 69632
-URLTEMPLATE_MEDHIGH = 70912
-URLTEMPLATE_HIGH = 73728
-URLTEMPLATE_PREDEFINED_MAX = 131072
+URLTEMPLATE_CUSTOM: URLTEMPLATE = 0
+URLTEMPLATE_PREDEFINED_MIN: URLTEMPLATE = 65536
+URLTEMPLATE_LOW: URLTEMPLATE = 65536
+URLTEMPLATE_MEDLOW: URLTEMPLATE = 66816
+URLTEMPLATE_MEDIUM: URLTEMPLATE = 69632
+URLTEMPLATE_MEDHIGH: URLTEMPLATE = 70912
+URLTEMPLATE_HIGH: URLTEMPLATE = 73728
+URLTEMPLATE_PREDEFINED_MAX: URLTEMPLATE = 131072
 URLZONE = Int32
-URLZONE_INVALID = -1
-URLZONE_PREDEFINED_MIN = 0
-URLZONE_LOCAL_MACHINE = 0
-URLZONE_INTRANET = 1
-URLZONE_TRUSTED = 2
-URLZONE_INTERNET = 3
-URLZONE_UNTRUSTED = 4
-URLZONE_PREDEFINED_MAX = 999
-URLZONE_USER_MIN = 1000
-URLZONE_USER_MAX = 10000
+URLZONE_INVALID: URLZONE = -1
+URLZONE_PREDEFINED_MIN: URLZONE = 0
+URLZONE_LOCAL_MACHINE: URLZONE = 0
+URLZONE_INTRANET: URLZONE = 1
+URLZONE_TRUSTED: URLZONE = 2
+URLZONE_INTERNET: URLZONE = 3
+URLZONE_UNTRUSTED: URLZONE = 4
+URLZONE_PREDEFINED_MAX: URLZONE = 999
+URLZONE_USER_MIN: URLZONE = 1000
+URLZONE_USER_MAX: URLZONE = 10000
 URLZONEREG = Int32
-URLZONEREG_DEFAULT = 0
-URLZONEREG_HKLM = 1
-URLZONEREG_HKCU = 2
+URLZONEREG_DEFAULT: URLZONEREG = 0
+URLZONEREG_HKLM: URLZONEREG = 1
+URLZONEREG_HKCU: URLZONEREG = 2
 ZAFLAGS = Int32
-ZAFLAGS_CUSTOM_EDIT = 1
-ZAFLAGS_ADD_SITES = 2
-ZAFLAGS_REQUIRE_VERIFICATION = 4
-ZAFLAGS_INCLUDE_PROXY_OVERRIDE = 8
-ZAFLAGS_INCLUDE_INTRANET_SITES = 16
-ZAFLAGS_NO_UI = 32
-ZAFLAGS_SUPPORTS_VERIFICATION = 64
-ZAFLAGS_UNC_AS_INTRANET = 128
-ZAFLAGS_DETECT_INTRANET = 256
-ZAFLAGS_USE_LOCKED_ZONES = 65536
-ZAFLAGS_VERIFY_TEMPLATE_SETTINGS = 131072
-ZAFLAGS_NO_CACHE = 262144
-def _define_ZONEATTRIBUTES_head():
-    class ZONEATTRIBUTES(Structure):
-        pass
-    return ZONEATTRIBUTES
-def _define_ZONEATTRIBUTES():
-    ZONEATTRIBUTES = win32more.System.Com.Urlmon.ZONEATTRIBUTES_head
-    ZONEATTRIBUTES._fields_ = [
-        ('cbSize', UInt32),
-        ('szDisplayName', Char * 260),
-        ('szDescription', Char * 200),
-        ('szIconPath', Char * 260),
-        ('dwTemplateMinLevel', UInt32),
-        ('dwTemplateRecommended', UInt32),
-        ('dwTemplateCurrentLevel', UInt32),
-        ('dwFlags', UInt32),
-    ]
-    return ZONEATTRIBUTES
+ZAFLAGS_CUSTOM_EDIT: ZAFLAGS = 1
+ZAFLAGS_ADD_SITES: ZAFLAGS = 2
+ZAFLAGS_REQUIRE_VERIFICATION: ZAFLAGS = 4
+ZAFLAGS_INCLUDE_PROXY_OVERRIDE: ZAFLAGS = 8
+ZAFLAGS_INCLUDE_INTRANET_SITES: ZAFLAGS = 16
+ZAFLAGS_NO_UI: ZAFLAGS = 32
+ZAFLAGS_SUPPORTS_VERIFICATION: ZAFLAGS = 64
+ZAFLAGS_UNC_AS_INTRANET: ZAFLAGS = 128
+ZAFLAGS_DETECT_INTRANET: ZAFLAGS = 256
+ZAFLAGS_USE_LOCKED_ZONES: ZAFLAGS = 65536
+ZAFLAGS_VERIFY_TEMPLATE_SETTINGS: ZAFLAGS = 131072
+ZAFLAGS_NO_CACHE: ZAFLAGS = 262144
+class ZONEATTRIBUTES(Structure):
+    cbSize: UInt32
+    szDisplayName: Char * 260
+    szDescription: Char * 200
+    szIconPath: Char * 260
+    dwTemplateMinLevel: UInt32
+    dwTemplateRecommended: UInt32
+    dwTemplateCurrentLevel: UInt32
+    dwFlags: UInt32
+make_head(_module, 'CODEBASEHOLD')
+make_head(_module, 'CONFIRMSAFETY')
+make_head(_module, 'DATAINFO')
+make_head(_module, 'HIT_LOGGING_INFO')
+make_head(_module, 'IBindCallbackRedirect')
+make_head(_module, 'IBindHttpSecurity')
+make_head(_module, 'IBindProtocol')
+make_head(_module, 'ICatalogFileInfo')
+make_head(_module, 'ICodeInstall')
+make_head(_module, 'IDataFilter')
+make_head(_module, 'IEncodingFilterFactory')
+make_head(_module, 'IGetBindHandle')
+make_head(_module, 'IHttpNegotiate')
+make_head(_module, 'IHttpNegotiate2')
+make_head(_module, 'IHttpNegotiate3')
+make_head(_module, 'IHttpSecurity')
+make_head(_module, 'IInternet')
+make_head(_module, 'IInternetBindInfo')
+make_head(_module, 'IInternetBindInfoEx')
+make_head(_module, 'IInternetHostSecurityManager')
+make_head(_module, 'IInternetPriority')
+make_head(_module, 'IInternetProtocol')
+make_head(_module, 'IInternetProtocolEx')
+make_head(_module, 'IInternetProtocolInfo')
+make_head(_module, 'IInternetProtocolRoot')
+make_head(_module, 'IInternetProtocolSink')
+make_head(_module, 'IInternetProtocolSinkStackable')
+make_head(_module, 'IInternetSecurityManager')
+make_head(_module, 'IInternetSecurityManagerEx')
+make_head(_module, 'IInternetSecurityManagerEx2')
+make_head(_module, 'IInternetSecurityMgrSite')
+make_head(_module, 'IInternetSession')
+make_head(_module, 'IInternetThreadSwitch')
+make_head(_module, 'IInternetZoneManager')
+make_head(_module, 'IInternetZoneManagerEx')
+make_head(_module, 'IInternetZoneManagerEx2')
+make_head(_module, 'IMonikerProp')
+make_head(_module, 'IPersistMoniker')
+make_head(_module, 'ISoftDistExt')
+make_head(_module, 'IUriBuilderFactory')
+make_head(_module, 'IUriContainer')
+make_head(_module, 'IWindowForBindingUI')
+make_head(_module, 'IWinInetCacheHints')
+make_head(_module, 'IWinInetCacheHints2')
+make_head(_module, 'IWinInetFileStream')
+make_head(_module, 'IWinInetHttpInfo')
+make_head(_module, 'IWinInetHttpTimeouts')
+make_head(_module, 'IWinInetInfo')
+make_head(_module, 'IWrappedProtocol')
+make_head(_module, 'IZoneIdentifier')
+make_head(_module, 'IZoneIdentifier2')
+make_head(_module, 'PROTOCOL_ARGUMENT')
+make_head(_module, 'PROTOCOLDATA')
+make_head(_module, 'PROTOCOLFILTERDATA')
+make_head(_module, 'RemBINDINFO')
+make_head(_module, 'RemFORMATETC')
+make_head(_module, 'REMSECURITY_ATTRIBUTES')
+make_head(_module, 'SOFTDISTINFO')
+make_head(_module, 'StartParam')
+make_head(_module, 'ZONEATTRIBUTES')
 __all__ = [
     "AUTHENTICATEF",
     "AUTHENTICATEF_BASIC",

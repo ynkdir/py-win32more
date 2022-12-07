@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
@@ -9,652 +10,284 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_BSTR_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.BSTR))(('BSTR_UserSize', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.BSTR))(('BSTR_UserMarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.BSTR))(('BSTR_UserUnmarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Foundation.BSTR))(('BSTR_UserFree', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.HWND))(('HWND_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.HWND))(('HWND_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.HWND))(('HWND_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Foundation.HWND))(('HWND_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserSize', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserMarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserUnmarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserFree', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.BSTR))(('BSTR_UserSize64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.BSTR))(('BSTR_UserMarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.BSTR))(('BSTR_UserUnmarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTR_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Foundation.BSTR))(('BSTR_UserFree64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.HWND))(('HWND_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.HWND))(('HWND_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.HWND))(('HWND_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HWND_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Foundation.HWND))(('HWND_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserSize64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserMarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserUnmarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VARIANT_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.System.Com.VARIANT_head))(('VARIANT_UserFree64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(UInt16))(('CLIPFORMAT_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(UInt16))(('CLIPFORMAT_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(UInt16))(('CLIPFORMAT_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt16))(('CLIPFORMAT_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserSize', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserMarshal', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserUnmarshal', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(POINTER(POINTER(UInt16))))(('SNB_UserFree', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(UInt16))(('CLIPFORMAT_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(UInt16))(('CLIPFORMAT_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(UInt16))(('CLIPFORMAT_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CLIPFORMAT_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt16))(('CLIPFORMAT_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HBITMAP_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HBITMAP))(('HBITMAP_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HDC_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HDC))(('HDC_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HICON_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HICON))(('HICON_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserSize64', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserMarshal64', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(POINTER(UInt16))))(('SNB_UserUnmarshal64', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SNB_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(POINTER(POINTER(UInt16))))(('SNB_UserFree64', windll['ole32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_STGMEDIUM_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.System.Com.STGMEDIUM_head))(('STGMEDIUM_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetMarshalSizeMax():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,c_void_p,UInt32)(('CoGetMarshalSizeMax', windll['OLE32.dll']), ((1, 'pulSize'),(1, 'riid'),(1, 'pUnk'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoMarshalInterface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,c_void_p,UInt32)(('CoMarshalInterface', windll['OLE32.dll']), ((1, 'pStm'),(1, 'riid'),(1, 'pUnk'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoUnmarshalInterface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p))(('CoUnmarshalInterface', windll['OLE32.dll']), ((1, 'pStm'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoMarshalHresult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Foundation.HRESULT)(('CoMarshalHresult', windll['OLE32.dll']), ((1, 'pstm'),(1, 'hresult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoUnmarshalHresult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.HRESULT))(('CoUnmarshalHresult', windll['OLE32.dll']), ((1, 'pstm'),(1, 'phresult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoReleaseMarshalData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head)(('CoReleaseMarshalData', windll['OLE32.dll']), ((1, 'pStm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetStandardMarshal():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,c_void_p,UInt32,POINTER(win32more.System.Com.Marshal.IMarshal_head))(('CoGetStandardMarshal', windll['OLE32.dll']), ((1, 'riid'),(1, 'pUnk'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),(1, 'ppMarshal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetStdMarshalEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.System.Com.IUnknown_head))(('CoGetStdMarshalEx', windll['OLE32.dll']), ((1, 'pUnkOuter'),(1, 'smexflags'),(1, 'ppUnkInner'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoMarshalInterThreadInterfaceInStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IStream_head))(('CoMarshalInterThreadInterfaceInStream', windll['OLE32.dll']), ((1, 'riid'),(1, 'pUnk'),(1, 'ppStm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserSize', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserMarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserUnmarshal', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserFree', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserSize64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserMarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserUnmarshal64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LPSAFEARRAY_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('LPSAFEARRAY_UserFree64', windll['OLEAUT32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(IntPtr))(('HGLOBAL_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(IntPtr))(('HGLOBAL_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(IntPtr))(('HGLOBAL_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(IntPtr))(('HGLOBAL_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HACCEL_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HACCEL))(('HACCEL_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(IntPtr))(('HGLOBAL_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(IntPtr))(('HGLOBAL_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(IntPtr))(('HGLOBAL_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HGLOBAL_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(IntPtr))(('HGLOBAL_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HMENU_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.UI.WindowsAndMessaging.HMENU))(('HMENU_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserSize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserSize', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserMarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserMarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserUnmarshal():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserUnmarshal', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserFree', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserSize64():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserSize64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserMarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserMarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserUnmarshal64():
-    try:
-        return WINFUNCTYPE(c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserUnmarshal64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HPALETTE_UserFree64():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HPALETTE))(('HPALETTE_UserFree64', windll['OLE32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMarshal_head():
-    class IMarshal(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00000003-0000-0000-c0-00-00-00-00-00-00-46')
-    return IMarshal
-def _define_IMarshal():
-    IMarshal = win32more.System.Com.Marshal.IMarshal_head
-    IMarshal.GetUnmarshalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_void_p,UInt32,c_void_p,UInt32,POINTER(Guid))(3, 'GetUnmarshalClass', ((1, 'riid'),(1, 'pv'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),(1, 'pCid'),)))
-    IMarshal.GetMarshalSizeMax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32))(4, 'GetMarshalSizeMax', ((1, 'riid'),(1, 'pv'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),(1, 'pSize'),)))
-    IMarshal.MarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),c_void_p,UInt32,c_void_p,UInt32)(5, 'MarshalInterface', ((1, 'pStm'),(1, 'riid'),(1, 'pv'),(1, 'dwDestContext'),(1, 'pvDestContext'),(1, 'mshlflags'),)))
-    IMarshal.UnmarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p))(6, 'UnmarshalInterface', ((1, 'pStm'),(1, 'riid'),(1, 'ppv'),)))
-    IMarshal.ReleaseMarshalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head)(7, 'ReleaseMarshalData', ((1, 'pStm'),)))
-    IMarshal.DisconnectObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(8, 'DisconnectObject', ((1, 'dwReserved'),)))
-    win32more.System.Com.IUnknown
-    return IMarshal
-def _define_IMarshal2_head():
-    class IMarshal2(win32more.System.Com.Marshal.IMarshal_head):
-        Guid = Guid('000001cf-0000-0000-c0-00-00-00-00-00-00-46')
-    return IMarshal2
-def _define_IMarshal2():
-    IMarshal2 = win32more.System.Com.Marshal.IMarshal2_head
-    win32more.System.Com.Marshal.IMarshal
-    return IMarshal2
-def _define_IMarshalingStream_head():
-    class IMarshalingStream(win32more.System.Com.IStream_head):
-        Guid = Guid('d8f2f5e6-6102-4863-9f-26-38-9a-46-76-ef-de')
-    return IMarshalingStream
-def _define_IMarshalingStream():
-    IMarshalingStream = win32more.System.Com.Marshal.IMarshalingStream_head
-    IMarshalingStream.GetMarshalingContextAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES,POINTER(UIntPtr))(14, 'GetMarshalingContextAttribute', ((1, 'attribute'),(1, 'pAttributeValue'),)))
-    win32more.System.Com.IStream
-    return IMarshalingStream
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Foundation.BSTR)) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.BSTR)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.BSTR)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.Foundation.BSTR)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HWND_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Foundation.HWND)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HWND_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.HWND)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HWND_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.HWND)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HWND_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.Foundation.HWND)) -> Void: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.System.Com.VARIANT_head)) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.VARIANT_head)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.VARIANT_head)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.System.Com.VARIANT_head)) -> Void: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Foundation.BSTR)) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.BSTR)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.BSTR)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def BSTR_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.Foundation.BSTR)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HWND_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Foundation.HWND)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HWND_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.HWND)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HWND_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Foundation.HWND)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HWND_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.Foundation.HWND)) -> Void: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.System.Com.VARIANT_head)) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.VARIANT_head)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.VARIANT_head)) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def VARIANT_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.System.Com.VARIANT_head)) -> Void: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(UInt16)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(UInt16)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(UInt16)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserFree(param0: POINTER(UInt32), param1: POINTER(UInt16)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HDC_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HDC_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HDC_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HDC_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HDC)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HICON_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HICON_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HICON_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HICON_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> Void: ...
+@winfunctype('ole32.dll')
+def SNB_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(POINTER(POINTER(UInt16)))) -> UInt32: ...
+@winfunctype('ole32.dll')
+def SNB_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(POINTER(UInt16)))) -> c_char_p_no: ...
+@winfunctype('ole32.dll')
+def SNB_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(POINTER(UInt16)))) -> c_char_p_no: ...
+@winfunctype('ole32.dll')
+def SNB_UserFree(param0: POINTER(UInt32), param1: POINTER(POINTER(POINTER(UInt16)))) -> Void: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.System.Com.STGMEDIUM_head)) -> Void: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(UInt16)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(UInt16)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(UInt16)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def CLIPFORMAT_UserFree64(param0: POINTER(UInt32), param1: POINTER(UInt16)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HBITMAP_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HBITMAP)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HDC_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HDC_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HDC_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HDC)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HDC_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HDC)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HICON_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HICON_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HICON_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HICON_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> Void: ...
+@winfunctype('ole32.dll')
+def SNB_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(POINTER(POINTER(UInt16)))) -> UInt32: ...
+@winfunctype('ole32.dll')
+def SNB_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(POINTER(UInt16)))) -> c_char_p_no: ...
+@winfunctype('ole32.dll')
+def SNB_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(POINTER(UInt16)))) -> c_char_p_no: ...
+@winfunctype('ole32.dll')
+def SNB_UserFree64(param0: POINTER(UInt32), param1: POINTER(POINTER(POINTER(UInt16)))) -> Void: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.System.Com.STGMEDIUM_head)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def STGMEDIUM_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.System.Com.STGMEDIUM_head)) -> Void: ...
+@winfunctype('OLE32.dll')
+def CoGetMarshalSizeMax(pulSize: POINTER(UInt32), riid: POINTER(Guid), pUnk: win32more.System.Com.IUnknown_head, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoMarshalInterface(pStm: win32more.System.Com.IStream_head, riid: POINTER(Guid), pUnk: win32more.System.Com.IUnknown_head, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoUnmarshalInterface(pStm: win32more.System.Com.IStream_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoMarshalHresult(pstm: win32more.System.Com.IStream_head, hresult: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoUnmarshalHresult(pstm: win32more.System.Com.IStream_head, phresult: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoReleaseMarshalData(pStm: win32more.System.Com.IStream_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoGetStandardMarshal(riid: POINTER(Guid), pUnk: win32more.System.Com.IUnknown_head, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32, ppMarshal: POINTER(win32more.System.Com.Marshal.IMarshal_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoGetStdMarshalEx(pUnkOuter: win32more.System.Com.IUnknown_head, smexflags: UInt32, ppUnkInner: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoMarshalInterThreadInterfaceInStream(riid: POINTER(Guid), pUnk: win32more.System.Com.IUnknown_head, ppStm: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserFree(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> Void: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> UInt32: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> c_char_p_no: ...
+@winfunctype('OLEAUT32.dll')
+def LPSAFEARRAY_UserFree64(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> Void: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(IntPtr)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(IntPtr)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserFree(param0: POINTER(UInt32), param1: POINTER(IntPtr)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HACCEL_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HACCEL)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(IntPtr)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(IntPtr)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HGLOBAL_UserFree64(param0: POINTER(UInt32), param1: POINTER(IntPtr)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HMENU_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserMarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserUnmarshal(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserFree(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> Void: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserSize64(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserMarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserUnmarshal64(param0: POINTER(UInt32), param1: c_char_p_no, param2: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> c_char_p_no: ...
+@winfunctype('OLE32.dll')
+def HPALETTE_UserFree64(param0: POINTER(UInt32), param1: POINTER(win32more.Graphics.Gdi.HPALETTE)) -> Void: ...
+class IMarshal(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000003-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def GetUnmarshalClass(riid: POINTER(Guid), pv: c_void_p, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32, pCid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetMarshalSizeMax(riid: POINTER(Guid), pv: c_void_p, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32, pSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def MarshalInterface(pStm: win32more.System.Com.IStream_head, riid: POINTER(Guid), pv: c_void_p, dwDestContext: UInt32, pvDestContext: c_void_p, mshlflags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def UnmarshalInterface(pStm: win32more.System.Com.IStream_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ReleaseMarshalData(pStm: win32more.System.Com.IStream_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def DisconnectObject(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class IMarshal2(c_void_p):
+    extends: win32more.System.Com.Marshal.IMarshal
+    Guid = Guid('000001cf-0000-0000-c0-00-00-00-00-00-00-46')
+class IMarshalingStream(c_void_p):
+    extends: win32more.System.Com.IStream
+    Guid = Guid('d8f2f5e6-6102-4863-9f-26-38-9a-46-76-ef-de')
+    @commethod(14)
+    def GetMarshalingContextAttribute(attribute: win32more.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES, pAttributeValue: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
 STDMSHLFLAGS = Int32
-SMEXF_SERVER = 1
-SMEXF_HANDLER = 2
+SMEXF_SERVER: STDMSHLFLAGS = 1
+SMEXF_HANDLER: STDMSHLFLAGS = 2
+make_head(_module, 'IMarshal')
+make_head(_module, 'IMarshal2')
+make_head(_module, 'IMarshalingStream')
 __all__ = [
     "BSTR_UserFree",
     "BSTR_UserFree64",

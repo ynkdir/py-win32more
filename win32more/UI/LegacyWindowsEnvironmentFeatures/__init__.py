@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
@@ -10,127 +11,116 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-EVCCBF_LASTNOTIFICATION = 1
-STATEBITS_FLAT = 1
-REC_S_IDIDTHEUPDATES = 266240
-REC_S_NOTCOMPLETE = 266241
-REC_S_NOTCOMPLETEBUTPROPAGATE = 266242
-REC_E_ABORTED = -2147217408
-REC_E_NOCALLBACK = -2147217407
-REC_E_NORESIDUES = -2147217406
-REC_E_TOODIFFERENT = -2147217405
-REC_E_INEEDTODOTHEUPDATES = -2147217404
+EVCCBF_LASTNOTIFICATION: UInt32 = 1
+STATEBITS_FLAT: UInt32 = 1
+REC_S_IDIDTHEUPDATES: win32more.Foundation.HRESULT = 266240
+REC_S_NOTCOMPLETE: win32more.Foundation.HRESULT = 266241
+REC_S_NOTCOMPLETEBUTPROPAGATE: win32more.Foundation.HRESULT = 266242
+REC_E_ABORTED: win32more.Foundation.HRESULT = -2147217408
+REC_E_NOCALLBACK: win32more.Foundation.HRESULT = -2147217407
+REC_E_NORESIDUES: win32more.Foundation.HRESULT = -2147217406
+REC_E_TOODIFFERENT: win32more.Foundation.HRESULT = -2147217405
+REC_E_INEEDTODOTHEUPDATES: win32more.Foundation.HRESULT = -2147217404
 EMPTY_VOLUME_CACHE_FLAGS = UInt32
-EVCF_HASSETTINGS = 1
-EVCF_ENABLEBYDEFAULT = 2
-EVCF_REMOVEFROMLIST = 4
-EVCF_ENABLEBYDEFAULT_AUTO = 8
-EVCF_DONTSHOWIFZERO = 16
-EVCF_SETTINGSMODE = 32
-EVCF_OUTOFDISKSPACE = 64
-EVCF_USERCONSENTOBTAINED = 128
-EVCF_SYSTEMAUTORUN = 256
-def _define_IActiveDesktopP_head():
-    class IActiveDesktopP(win32more.System.Com.IUnknown_head):
-        Guid = Guid('52502ee0-ec80-11d0-89-ab-00-c0-4f-c2-97-2d')
-    return IActiveDesktopP
-def _define_IActiveDesktopP():
-    IActiveDesktopP = win32more.UI.LegacyWindowsEnvironmentFeatures.IActiveDesktopP_head
-    IActiveDesktopP.SetSafeMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(3, 'SetSafeMode', ((1, 'dwFlags'),)))
-    IActiveDesktopP.EnsureUpdateHTML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'EnsureUpdateHTML', ()))
-    IActiveDesktopP.SetScheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(5, 'SetScheme', ((1, 'pwszSchemeName'),(1, 'dwFlags'),)))
-    IActiveDesktopP.GetScheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32)(6, 'GetScheme', ((1, 'pwszSchemeName'),(1, 'pdwcchBuffer'),(1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IActiveDesktopP
-def _define_IADesktopP2_head():
-    class IADesktopP2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b22754e2-4574-11d1-98-88-00-60-97-de-ac-f9')
-    return IADesktopP2
-def _define_IADesktopP2():
-    IADesktopP2 = win32more.UI.LegacyWindowsEnvironmentFeatures.IADesktopP2_head
-    IADesktopP2.ReReadWallpaper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ReReadWallpaper', ()))
-    IADesktopP2.GetADObjectFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32)(4, 'GetADObjectFlags', ((1, 'pdwFlags'),(1, 'dwMask'),)))
-    IADesktopP2.UpdateAllDesktopSubscriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'UpdateAllDesktopSubscriptions', ()))
-    IADesktopP2.MakeDynamicChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Ole.IOleObject_head)(6, 'MakeDynamicChanges', ((1, 'pOleObj'),)))
-    win32more.System.Com.IUnknown
-    return IADesktopP2
-def _define_IBriefcaseInitiator_head():
-    class IBriefcaseInitiator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('99180164-da16-101a-93-5c-44-45-53-54-00-00')
-    return IBriefcaseInitiator
-def _define_IBriefcaseInitiator():
-    IBriefcaseInitiator = win32more.UI.LegacyWindowsEnvironmentFeatures.IBriefcaseInitiator_head
-    IBriefcaseInitiator.IsMonikerInBriefcase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head)(3, 'IsMonikerInBriefcase', ((1, 'pmk'),)))
-    win32more.System.Com.IUnknown
-    return IBriefcaseInitiator
-def _define_IEmptyVolumeCache_head():
-    class IEmptyVolumeCache(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8fce5227-04da-11d1-a0-04-00-80-5f-8a-be-06')
-    return IEmptyVolumeCache
-def _define_IEmptyVolumeCache():
-    IEmptyVolumeCache = win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache_head
-    IEmptyVolumeCache.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS))(3, 'Initialize', ((1, 'hkRegKey'),(1, 'pcwszVolume'),(1, 'ppwszDisplayName'),(1, 'ppwszDescription'),(1, 'pdwFlags'),)))
-    IEmptyVolumeCache.GetSpaceUsed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head)(4, 'GetSpaceUsed', ((1, 'pdwlSpaceUsed'),(1, 'picb'),)))
-    IEmptyVolumeCache.Purge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head)(5, 'Purge', ((1, 'dwlSpaceToFree'),(1, 'picb'),)))
-    IEmptyVolumeCache.ShowProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(6, 'ShowProperties', ((1, 'hwnd'),)))
-    IEmptyVolumeCache.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS))(7, 'Deactivate', ((1, 'pdwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IEmptyVolumeCache
-def _define_IEmptyVolumeCache2_head():
-    class IEmptyVolumeCache2(win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache_head):
-        Guid = Guid('02b7e3ba-4db3-11d2-b2-d9-00-c0-4f-8e-ec-8c')
-    return IEmptyVolumeCache2
-def _define_IEmptyVolumeCache2():
-    IEmptyVolumeCache2 = win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache2_head
-    IEmptyVolumeCache2.InitializeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS))(8, 'InitializeEx', ((1, 'hkRegKey'),(1, 'pcwszVolume'),(1, 'pcwszKeyName'),(1, 'ppwszDisplayName'),(1, 'ppwszDescription'),(1, 'ppwszBtnText'),(1, 'pdwFlags'),)))
-    win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache
-    return IEmptyVolumeCache2
-def _define_IEmptyVolumeCacheCallBack_head():
-    class IEmptyVolumeCacheCallBack(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6e793361-73c6-11d0-84-69-00-aa-00-44-29-01')
-    return IEmptyVolumeCacheCallBack
-def _define_IEmptyVolumeCacheCallBack():
-    IEmptyVolumeCacheCallBack = win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head
-    IEmptyVolumeCacheCallBack.ScanProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,win32more.Foundation.PWSTR)(3, 'ScanProgress', ((1, 'dwlSpaceUsed'),(1, 'dwFlags'),(1, 'pcwszStatus'),)))
-    IEmptyVolumeCacheCallBack.PurgeProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt32,win32more.Foundation.PWSTR)(4, 'PurgeProgress', ((1, 'dwlSpaceFreed'),(1, 'dwlSpaceToFree'),(1, 'dwFlags'),(1, 'pcwszStatus'),)))
-    win32more.System.Com.IUnknown
-    return IEmptyVolumeCacheCallBack
-def _define_IReconcilableObject_head():
-    class IReconcilableObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('99180162-da16-101a-93-5c-44-45-53-54-00-00')
-    return IReconcilableObject
-def _define_IReconcilableObject():
-    IReconcilableObject = win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcilableObject_head
-    IReconcilableObject.Reconcile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head,UInt32,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,POINTER(win32more.System.Com.IMoniker_head),POINTER(Int32),win32more.System.Com.StructuredStorage.IStorage_head,c_void_p)(3, 'Reconcile', ((1, 'pInitiator'),(1, 'dwFlags'),(1, 'hwndOwner'),(1, 'hwndProgressFeedback'),(1, 'ulcInput'),(1, 'rgpmkOtherInput'),(1, 'plOutIndex'),(1, 'pstgNewResidues'),(1, 'pvReserved'),)))
-    IReconcilableObject.GetProgressFeedbackMaxEstimate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetProgressFeedbackMaxEstimate', ((1, 'pulProgressMax'),)))
-    win32more.System.Com.IUnknown
-    return IReconcilableObject
-def _define_IReconcileInitiator_head():
-    class IReconcileInitiator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('99180161-da16-101a-93-5c-44-45-53-54-00-00')
-    return IReconcileInitiator
-def _define_IReconcileInitiator():
-    IReconcileInitiator = win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head
-    IReconcileInitiator.SetAbortCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(3, 'SetAbortCallback', ((1, 'punkForAbort'),)))
-    IReconcileInitiator.SetProgressFeedback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(4, 'SetProgressFeedback', ((1, 'ulProgress'),(1, 'ulProgressMax'),)))
-    win32more.System.Com.IUnknown
-    return IReconcileInitiator
+EVCF_HASSETTINGS: EMPTY_VOLUME_CACHE_FLAGS = 1
+EVCF_ENABLEBYDEFAULT: EMPTY_VOLUME_CACHE_FLAGS = 2
+EVCF_REMOVEFROMLIST: EMPTY_VOLUME_CACHE_FLAGS = 4
+EVCF_ENABLEBYDEFAULT_AUTO: EMPTY_VOLUME_CACHE_FLAGS = 8
+EVCF_DONTSHOWIFZERO: EMPTY_VOLUME_CACHE_FLAGS = 16
+EVCF_SETTINGSMODE: EMPTY_VOLUME_CACHE_FLAGS = 32
+EVCF_OUTOFDISKSPACE: EMPTY_VOLUME_CACHE_FLAGS = 64
+EVCF_USERCONSENTOBTAINED: EMPTY_VOLUME_CACHE_FLAGS = 128
+EVCF_SYSTEMAUTORUN: EMPTY_VOLUME_CACHE_FLAGS = 256
+class IActiveDesktopP(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('52502ee0-ec80-11d0-89-ab-00-c0-4f-c2-97-2d')
+    @commethod(3)
+    def SetSafeMode(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnsureUpdateHTML() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetScheme(pwszSchemeName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetScheme(pwszSchemeName: win32more.Foundation.PWSTR, pdwcchBuffer: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IADesktopP2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b22754e2-4574-11d1-98-88-00-60-97-de-ac-f9')
+    @commethod(3)
+    def ReReadWallpaper() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetADObjectFlags(pdwFlags: POINTER(UInt32), dwMask: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def UpdateAllDesktopSubscriptions() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def MakeDynamicChanges(pOleObj: win32more.System.Ole.IOleObject_head) -> win32more.Foundation.HRESULT: ...
+class IBriefcaseInitiator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('99180164-da16-101a-93-5c-44-45-53-54-00-00')
+    @commethod(3)
+    def IsMonikerInBriefcase(pmk: win32more.System.Com.IMoniker_head) -> win32more.Foundation.HRESULT: ...
+class IEmptyVolumeCache(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8fce5227-04da-11d1-a0-04-00-80-5f-8a-be-06')
+    @commethod(3)
+    def Initialize(hkRegKey: win32more.System.Registry.HKEY, pcwszVolume: win32more.Foundation.PWSTR, ppwszDisplayName: POINTER(win32more.Foundation.PWSTR), ppwszDescription: POINTER(win32more.Foundation.PWSTR), pdwFlags: POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSpaceUsed(pdwlSpaceUsed: POINTER(UInt64), picb: win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Purge(dwlSpaceToFree: UInt64, picb: win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ShowProperties(hwnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Deactivate(pdwFlags: POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS)) -> win32more.Foundation.HRESULT: ...
+class IEmptyVolumeCache2(c_void_p):
+    extends: win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache
+    Guid = Guid('02b7e3ba-4db3-11d2-b2-d9-00-c0-4f-8e-ec-8c')
+    @commethod(8)
+    def InitializeEx(hkRegKey: win32more.System.Registry.HKEY, pcwszVolume: win32more.Foundation.PWSTR, pcwszKeyName: win32more.Foundation.PWSTR, ppwszDisplayName: POINTER(win32more.Foundation.PWSTR), ppwszDescription: POINTER(win32more.Foundation.PWSTR), ppwszBtnText: POINTER(win32more.Foundation.PWSTR), pdwFlags: POINTER(win32more.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS)) -> win32more.Foundation.HRESULT: ...
+class IEmptyVolumeCacheCallBack(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6e793361-73c6-11d0-84-69-00-aa-00-44-29-01')
+    @commethod(3)
+    def ScanProgress(dwlSpaceUsed: UInt64, dwFlags: UInt32, pcwszStatus: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def PurgeProgress(dwlSpaceFreed: UInt64, dwlSpaceToFree: UInt64, dwFlags: UInt32, pcwszStatus: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IReconcilableObject(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('99180162-da16-101a-93-5c-44-45-53-54-00-00')
+    @commethod(3)
+    def Reconcile(pInitiator: win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head, dwFlags: UInt32, hwndOwner: win32more.Foundation.HWND, hwndProgressFeedback: win32more.Foundation.HWND, ulcInput: UInt32, rgpmkOtherInput: POINTER(win32more.System.Com.IMoniker_head), plOutIndex: POINTER(Int32), pstgNewResidues: win32more.System.Com.StructuredStorage.IStorage_head, pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetProgressFeedbackMaxEstimate(pulProgressMax: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IReconcileInitiator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('99180161-da16-101a-93-5c-44-45-53-54-00-00')
+    @commethod(3)
+    def SetAbortCallback(punkForAbort: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetProgressFeedback(ulProgress: UInt32, ulProgressMax: UInt32) -> win32more.Foundation.HRESULT: ...
 RECONCILEF = Int32
-RECONCILEF_MAYBOTHERUSER = 1
-RECONCILEF_FEEDBACKWINDOWVALID = 2
-RECONCILEF_NORESIDUESOK = 4
-RECONCILEF_OMITSELFRESIDUE = 8
-RECONCILEF_RESUMERECONCILIATION = 16
-RECONCILEF_YOUMAYDOTHEUPDATES = 32
-RECONCILEF_ONLYYOUWERECHANGED = 64
-ALL_RECONCILE_FLAGS = 127
+RECONCILEF_MAYBOTHERUSER: RECONCILEF = 1
+RECONCILEF_FEEDBACKWINDOWVALID: RECONCILEF = 2
+RECONCILEF_NORESIDUESOK: RECONCILEF = 4
+RECONCILEF_OMITSELFRESIDUE: RECONCILEF = 8
+RECONCILEF_RESUMERECONCILIATION: RECONCILEF = 16
+RECONCILEF_YOUMAYDOTHEUPDATES: RECONCILEF = 32
+RECONCILEF_ONLYYOUWERECHANGED: RECONCILEF = 64
+ALL_RECONCILE_FLAGS: RECONCILEF = 127
+make_head(_module, 'IActiveDesktopP')
+make_head(_module, 'IADesktopP2')
+make_head(_module, 'IBriefcaseInitiator')
+make_head(_module, 'IEmptyVolumeCache')
+make_head(_module, 'IEmptyVolumeCache2')
+make_head(_module, 'IEmptyVolumeCacheCallBack')
+make_head(_module, 'IReconcilableObject')
+make_head(_module, 'IReconcileInitiator')
 __all__ = [
     "ALL_RECONCILE_FLAGS",
     "EMPTY_VOLUME_CACHE_FLAGS",

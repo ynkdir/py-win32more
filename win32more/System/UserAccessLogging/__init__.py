@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Networking.WinSock
 import win32more.System.UserAccessLogging
@@ -7,47 +8,28 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_UalStart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalStart', windll['ualapi.dll']), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalStop():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalStop', windll['ualapi.dll']), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalInstrument():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head))(('UalInstrument', windll['ualapi.dll']), ((1, 'Data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UalRegisterProduct():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('UalRegisterProduct', windll['ualapi.dll']), ((1, 'wszProductName'),(1, 'wszRoleName'),(1, 'wszGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UAL_DATA_BLOB_head():
-    class UAL_DATA_BLOB(Structure):
-        pass
-    return UAL_DATA_BLOB
-def _define_UAL_DATA_BLOB():
-    UAL_DATA_BLOB = win32more.System.UserAccessLogging.UAL_DATA_BLOB_head
-    UAL_DATA_BLOB._fields_ = [
-        ('Size', UInt32),
-        ('RoleGuid', Guid),
-        ('TenantId', Guid),
-        ('Address', win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ('UserName', Char * 260),
-    ]
-    return UAL_DATA_BLOB
+@winfunctype('ualapi.dll')
+def UalStart(Data: POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ualapi.dll')
+def UalStop(Data: POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ualapi.dll')
+def UalInstrument(Data: POINTER(win32more.System.UserAccessLogging.UAL_DATA_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ualapi.dll')
+def UalRegisterProduct(wszProductName: win32more.Foundation.PWSTR, wszRoleName: win32more.Foundation.PWSTR, wszGuid: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class UAL_DATA_BLOB(Structure):
+    Size: UInt32
+    RoleGuid: Guid
+    TenantId: Guid
+    Address: win32more.Networking.WinSock.SOCKADDR_STORAGE
+    UserName: Char * 260
+make_head(_module, 'UAL_DATA_BLOB')
 __all__ = [
     "UAL_DATA_BLOB",
     "UalInstrument",

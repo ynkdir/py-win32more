@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.DirectComposition
 import win32more.System.Com
@@ -8,522 +9,572 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-UI_ANIMATION_SECONDS_EVENTUALLY = -1
-UI_ANIMATION_REPEAT_INDEFINITELY = -1
-UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_END = -1
-UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_START = -2
-UI_ANIMATION_SECONDS_INFINITE = -1
-def _define_IUIAnimationInterpolator_head():
-    class IUIAnimationInterpolator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7815cbba-ddf7-478c-a4-6c-7b-6c-73-8b-79-78')
-    return IUIAnimationInterpolator
-def _define_IUIAnimationInterpolator():
-    IUIAnimationInterpolator = win32more.UI.Animation.IUIAnimationInterpolator_head
-    IUIAnimationInterpolator.SetInitialValueAndVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(3, 'SetInitialValueAndVelocity', ((1, 'initialValue'),(1, 'initialVelocity'),)))
-    IUIAnimationInterpolator.SetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(4, 'SetDuration', ((1, 'duration'),)))
-    IUIAnimationInterpolator.GetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(5, 'GetDuration', ((1, 'duration'),)))
-    IUIAnimationInterpolator.GetFinalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'GetFinalValue', ((1, 'value'),)))
-    IUIAnimationInterpolator.InterpolateValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double))(7, 'InterpolateValue', ((1, 'offset'),(1, 'value'),)))
-    IUIAnimationInterpolator.InterpolateVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double))(8, 'InterpolateVelocity', ((1, 'offset'),(1, 'velocity'),)))
-    IUIAnimationInterpolator.GetDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES),POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES),POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES))(9, 'GetDependencies', ((1, 'initialValueDependencies'),(1, 'initialVelocityDependencies'),(1, 'durationDependencies'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationInterpolator
-def _define_IUIAnimationInterpolator2_head():
-    class IUIAnimationInterpolator2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ea76aff8-ea22-4a23-a0-ef-a6-a9-66-70-35-18')
-    return IUIAnimationInterpolator2
-def _define_IUIAnimationInterpolator2():
-    IUIAnimationInterpolator2 = win32more.UI.Animation.IUIAnimationInterpolator2_head
-    IUIAnimationInterpolator2.GetDimension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetDimension', ((1, 'dimension'),)))
-    IUIAnimationInterpolator2.SetInitialValueAndVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double),UInt32)(4, 'SetInitialValueAndVelocity', ((1, 'initialValue'),(1, 'initialVelocity'),(1, 'cDimension'),)))
-    IUIAnimationInterpolator2.SetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(5, 'SetDuration', ((1, 'duration'),)))
-    IUIAnimationInterpolator2.GetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'GetDuration', ((1, 'duration'),)))
-    IUIAnimationInterpolator2.GetFinalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(7, 'GetFinalValue', ((1, 'value'),(1, 'cDimension'),)))
-    IUIAnimationInterpolator2.InterpolateValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32)(8, 'InterpolateValue', ((1, 'offset'),(1, 'value'),(1, 'cDimension'),)))
-    IUIAnimationInterpolator2.InterpolateVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32)(9, 'InterpolateVelocity', ((1, 'offset'),(1, 'velocity'),(1, 'cDimension'),)))
-    IUIAnimationInterpolator2.GetPrimitiveInterpolation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPrimitiveInterpolation_head,UInt32)(10, 'GetPrimitiveInterpolation', ((1, 'interpolation'),(1, 'cDimension'),)))
-    IUIAnimationInterpolator2.GetDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES),POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES),POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES))(11, 'GetDependencies', ((1, 'initialValueDependencies'),(1, 'initialVelocityDependencies'),(1, 'durationDependencies'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationInterpolator2
-def _define_IUIAnimationLoopIterationChangeHandler2_head():
-    class IUIAnimationLoopIterationChangeHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2d3b15a4-4762-47ab-a0-30-b2-32-21-df-3a-e0')
-    return IUIAnimationLoopIterationChangeHandler2
-def _define_IUIAnimationLoopIterationChangeHandler2():
-    IUIAnimationLoopIterationChangeHandler2 = win32more.UI.Animation.IUIAnimationLoopIterationChangeHandler2_head
-    IUIAnimationLoopIterationChangeHandler2.OnLoopIterationChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head,UIntPtr,UInt32,UInt32)(3, 'OnLoopIterationChanged', ((1, 'storyboard'),(1, 'id'),(1, 'newIterationCount'),(1, 'oldIterationCount'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationLoopIterationChangeHandler2
-def _define_IUIAnimationManager_head():
-    class IUIAnimationManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9169896c-ac8d-4e7d-94-e5-67-fa-4d-c2-f2-e8')
-    return IUIAnimationManager
-def _define_IUIAnimationManager():
-    IUIAnimationManager = win32more.UI.Animation.IUIAnimationManager_head
-    IUIAnimationManager.CreateAnimationVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationVariable_head))(3, 'CreateAnimationVariable', ((1, 'initialValue'),(1, 'variable'),)))
-    IUIAnimationManager.ScheduleTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable_head,win32more.UI.Animation.IUIAnimationTransition_head,Double)(4, 'ScheduleTransition', ((1, 'variable'),(1, 'transition'),(1, 'timeNow'),)))
-    IUIAnimationManager.CreateStoryboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head))(5, 'CreateStoryboard', ((1, 'storyboard'),)))
-    IUIAnimationManager.FinishAllStoryboards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(6, 'FinishAllStoryboards', ((1, 'completionDeadline'),)))
-    IUIAnimationManager.AbandonAllStoryboards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'AbandonAllStoryboards', ()))
-    IUIAnimationManager.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT))(8, 'Update', ((1, 'timeNow'),(1, 'updateResult'),)))
-    IUIAnimationManager.GetVariableFromTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Animation.IUIAnimationVariable_head))(9, 'GetVariableFromTag', ((1, 'object'),(1, 'id'),(1, 'variable'),)))
-    IUIAnimationManager.GetStoryboardFromTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head))(10, 'GetStoryboardFromTag', ((1, 'object'),(1, 'id'),(1, 'storyboard'),)))
-    IUIAnimationManager.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS))(11, 'GetStatus', ((1, 'status'),)))
-    IUIAnimationManager.SetAnimationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_MODE)(12, 'SetAnimationMode', ((1, 'mode'),)))
-    IUIAnimationManager.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'Pause', ()))
-    IUIAnimationManager.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Resume', ()))
-    IUIAnimationManager.SetManagerEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationManagerEventHandler_head)(15, 'SetManagerEventHandler', ((1, 'handler'),)))
-    IUIAnimationManager.SetCancelPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison_head)(16, 'SetCancelPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager.SetTrimPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison_head)(17, 'SetTrimPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager.SetCompressPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison_head)(18, 'SetCompressPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager.SetConcludePriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison_head)(19, 'SetConcludePriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager.SetDefaultLongestAcceptableDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(20, 'SetDefaultLongestAcceptableDelay', ((1, 'delay'),)))
-    IUIAnimationManager.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(21, 'Shutdown', ()))
-    win32more.System.Com.IUnknown
-    return IUIAnimationManager
-def _define_IUIAnimationManager2_head():
-    class IUIAnimationManager2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d8b6f7d4-4109-4d3f-ac-ee-87-99-26-96-8c-b1')
-    return IUIAnimationManager2
-def _define_IUIAnimationManager2():
-    IUIAnimationManager2 = win32more.UI.Animation.IUIAnimationManager2_head
-    IUIAnimationManager2.CreateAnimationVectorVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32,POINTER(win32more.UI.Animation.IUIAnimationVariable2_head))(3, 'CreateAnimationVectorVariable', ((1, 'initialValue'),(1, 'cDimension'),(1, 'variable'),)))
-    IUIAnimationManager2.CreateAnimationVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationVariable2_head))(4, 'CreateAnimationVariable', ((1, 'initialValue'),(1, 'variable'),)))
-    IUIAnimationManager2.ScheduleTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head,win32more.UI.Animation.IUIAnimationTransition2_head,Double)(5, 'ScheduleTransition', ((1, 'variable'),(1, 'transition'),(1, 'timeNow'),)))
-    IUIAnimationManager2.CreateStoryboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head))(6, 'CreateStoryboard', ((1, 'storyboard'),)))
-    IUIAnimationManager2.FinishAllStoryboards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(7, 'FinishAllStoryboards', ((1, 'completionDeadline'),)))
-    IUIAnimationManager2.AbandonAllStoryboards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'AbandonAllStoryboards', ()))
-    IUIAnimationManager2.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT))(9, 'Update', ((1, 'timeNow'),(1, 'updateResult'),)))
-    IUIAnimationManager2.GetVariableFromTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Animation.IUIAnimationVariable2_head))(10, 'GetVariableFromTag', ((1, 'object'),(1, 'id'),(1, 'variable'),)))
-    IUIAnimationManager2.GetStoryboardFromTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head))(11, 'GetStoryboardFromTag', ((1, 'object'),(1, 'id'),(1, 'storyboard'),)))
-    IUIAnimationManager2.EstimateNextEventTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'EstimateNextEventTime', ((1, 'seconds'),)))
-    IUIAnimationManager2.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS))(13, 'GetStatus', ((1, 'status'),)))
-    IUIAnimationManager2.SetAnimationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_MODE)(14, 'SetAnimationMode', ((1, 'mode'),)))
-    IUIAnimationManager2.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Pause', ()))
-    IUIAnimationManager2.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'Resume', ()))
-    IUIAnimationManager2.SetManagerEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationManagerEventHandler2_head,win32more.Foundation.BOOL)(17, 'SetManagerEventHandler', ((1, 'handler'),(1, 'fRegisterForNextAnimationEvent'),)))
-    IUIAnimationManager2.SetCancelPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison2_head)(18, 'SetCancelPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager2.SetTrimPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison2_head)(19, 'SetTrimPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager2.SetCompressPriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison2_head)(20, 'SetCompressPriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager2.SetConcludePriorityComparison = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationPriorityComparison2_head)(21, 'SetConcludePriorityComparison', ((1, 'comparison'),)))
-    IUIAnimationManager2.SetDefaultLongestAcceptableDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(22, 'SetDefaultLongestAcceptableDelay', ((1, 'delay'),)))
-    IUIAnimationManager2.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(23, 'Shutdown', ()))
-    win32more.System.Com.IUnknown
-    return IUIAnimationManager2
-def _define_IUIAnimationManagerEventHandler_head():
-    class IUIAnimationManagerEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('783321ed-78a3-4366-b5-74-6a-f6-07-a6-47-88')
-    return IUIAnimationManagerEventHandler
-def _define_IUIAnimationManagerEventHandler():
-    IUIAnimationManagerEventHandler = win32more.UI.Animation.IUIAnimationManagerEventHandler_head
-    IUIAnimationManagerEventHandler.OnManagerStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS,win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS)(3, 'OnManagerStatusChanged', ((1, 'newStatus'),(1, 'previousStatus'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationManagerEventHandler
-def _define_IUIAnimationManagerEventHandler2_head():
-    class IUIAnimationManagerEventHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f6e022ba-bff3-42ec-90-33-e0-73-f3-3e-83-c3')
-    return IUIAnimationManagerEventHandler2
-def _define_IUIAnimationManagerEventHandler2():
-    IUIAnimationManagerEventHandler2 = win32more.UI.Animation.IUIAnimationManagerEventHandler2_head
-    IUIAnimationManagerEventHandler2.OnManagerStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS,win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS)(3, 'OnManagerStatusChanged', ((1, 'newStatus'),(1, 'previousStatus'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationManagerEventHandler2
-def _define_IUIAnimationPrimitiveInterpolation_head():
-    class IUIAnimationPrimitiveInterpolation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bab20d63-4361-45da-a2-4f-ab-85-08-84-6b-5b')
-    return IUIAnimationPrimitiveInterpolation
-def _define_IUIAnimationPrimitiveInterpolation():
-    IUIAnimationPrimitiveInterpolation = win32more.UI.Animation.IUIAnimationPrimitiveInterpolation_head
-    IUIAnimationPrimitiveInterpolation.AddCubic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Double,Single,Single,Single,Single)(3, 'AddCubic', ((1, 'dimension'),(1, 'beginOffset'),(1, 'constantCoefficient'),(1, 'linearCoefficient'),(1, 'quadraticCoefficient'),(1, 'cubicCoefficient'),)))
-    IUIAnimationPrimitiveInterpolation.AddSinusoidal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Double,Single,Single,Single,Single)(4, 'AddSinusoidal', ((1, 'dimension'),(1, 'beginOffset'),(1, 'bias'),(1, 'amplitude'),(1, 'frequency'),(1, 'phase'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationPrimitiveInterpolation
-def _define_IUIAnimationPriorityComparison_head():
-    class IUIAnimationPriorityComparison(win32more.System.Com.IUnknown_head):
-        Guid = Guid('83fa9b74-5f86-4618-bc-6a-a2-fa-c1-9b-3f-44')
-    return IUIAnimationPriorityComparison
-def _define_IUIAnimationPriorityComparison():
-    IUIAnimationPriorityComparison = win32more.UI.Animation.IUIAnimationPriorityComparison_head
-    IUIAnimationPriorityComparison.HasPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard_head,win32more.UI.Animation.IUIAnimationStoryboard_head,win32more.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT)(3, 'HasPriority', ((1, 'scheduledStoryboard'),(1, 'newStoryboard'),(1, 'priorityEffect'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationPriorityComparison
-def _define_IUIAnimationPriorityComparison2_head():
-    class IUIAnimationPriorityComparison2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5b6d7a37-4621-467c-8b-05-70-13-1d-e6-2d-db')
-    return IUIAnimationPriorityComparison2
-def _define_IUIAnimationPriorityComparison2():
-    IUIAnimationPriorityComparison2 = win32more.UI.Animation.IUIAnimationPriorityComparison2_head
-    IUIAnimationPriorityComparison2.HasPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head,win32more.UI.Animation.IUIAnimationStoryboard2_head,win32more.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT)(3, 'HasPriority', ((1, 'scheduledStoryboard'),(1, 'newStoryboard'),(1, 'priorityEffect'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationPriorityComparison2
-def _define_IUIAnimationStoryboard_head():
-    class IUIAnimationStoryboard(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a8ff128f-9bf9-4af1-9e-67-e5-e4-10-de-fb-84')
-    return IUIAnimationStoryboard
-def _define_IUIAnimationStoryboard():
-    IUIAnimationStoryboard = win32more.UI.Animation.IUIAnimationStoryboard_head
-    IUIAnimationStoryboard.AddTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable_head,win32more.UI.Animation.IUIAnimationTransition_head)(3, 'AddTransition', ((1, 'variable'),(1, 'transition'),)))
-    IUIAnimationStoryboard.AddKeyframeAtOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME))(4, 'AddKeyframeAtOffset', ((1, 'existingKeyframe'),(1, 'offset'),(1, 'keyframe'),)))
-    IUIAnimationStoryboard.AddKeyframeAfterTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationTransition_head,POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME))(5, 'AddKeyframeAfterTransition', ((1, 'transition'),(1, 'keyframe'),)))
-    IUIAnimationStoryboard.AddTransitionAtKeyframe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable_head,win32more.UI.Animation.IUIAnimationTransition_head,win32more.UI.Animation.UI_ANIMATION_KEYFRAME)(6, 'AddTransitionAtKeyframe', ((1, 'variable'),(1, 'transition'),(1, 'startKeyframe'),)))
-    IUIAnimationStoryboard.AddTransitionBetweenKeyframes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable_head,win32more.UI.Animation.IUIAnimationTransition_head,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,win32more.UI.Animation.UI_ANIMATION_KEYFRAME)(7, 'AddTransitionBetweenKeyframes', ((1, 'variable'),(1, 'transition'),(1, 'startKeyframe'),(1, 'endKeyframe'),)))
-    IUIAnimationStoryboard.RepeatBetweenKeyframes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,Int32)(8, 'RepeatBetweenKeyframes', ((1, 'startKeyframe'),(1, 'endKeyframe'),(1, 'repetitionCount'),)))
-    IUIAnimationStoryboard.HoldVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable_head)(9, 'HoldVariable', ((1, 'variable'),)))
-    IUIAnimationStoryboard.SetLongestAcceptableDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(10, 'SetLongestAcceptableDelay', ((1, 'delay'),)))
-    IUIAnimationStoryboard.Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_SCHEDULING_RESULT))(11, 'Schedule', ((1, 'timeNow'),(1, 'schedulingResult'),)))
-    IUIAnimationStoryboard.Conclude = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'Conclude', ()))
-    IUIAnimationStoryboard.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(13, 'Finish', ((1, 'completionDeadline'),)))
-    IUIAnimationStoryboard.Abandon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'Abandon', ()))
-    IUIAnimationStoryboard.SetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32)(15, 'SetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationStoryboard.GetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32))(16, 'GetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationStoryboard.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS))(17, 'GetStatus', ((1, 'status'),)))
-    IUIAnimationStoryboard.GetElapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(18, 'GetElapsedTime', ((1, 'elapsedTime'),)))
-    IUIAnimationStoryboard.SetStoryboardEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboardEventHandler_head)(19, 'SetStoryboardEventHandler', ((1, 'handler'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationStoryboard
-def _define_IUIAnimationStoryboard2_head():
-    class IUIAnimationStoryboard2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ae289cd2-12d4-4945-94-19-9e-41-be-03-4d-f2')
-    return IUIAnimationStoryboard2
-def _define_IUIAnimationStoryboard2():
-    IUIAnimationStoryboard2 = win32more.UI.Animation.IUIAnimationStoryboard2_head
-    IUIAnimationStoryboard2.AddTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head,win32more.UI.Animation.IUIAnimationTransition2_head)(3, 'AddTransition', ((1, 'variable'),(1, 'transition'),)))
-    IUIAnimationStoryboard2.AddKeyframeAtOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME))(4, 'AddKeyframeAtOffset', ((1, 'existingKeyframe'),(1, 'offset'),(1, 'keyframe'),)))
-    IUIAnimationStoryboard2.AddKeyframeAfterTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationTransition2_head,POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME))(5, 'AddKeyframeAfterTransition', ((1, 'transition'),(1, 'keyframe'),)))
-    IUIAnimationStoryboard2.AddTransitionAtKeyframe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head,win32more.UI.Animation.IUIAnimationTransition2_head,win32more.UI.Animation.UI_ANIMATION_KEYFRAME)(6, 'AddTransitionAtKeyframe', ((1, 'variable'),(1, 'transition'),(1, 'startKeyframe'),)))
-    IUIAnimationStoryboard2.AddTransitionBetweenKeyframes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head,win32more.UI.Animation.IUIAnimationTransition2_head,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,win32more.UI.Animation.UI_ANIMATION_KEYFRAME)(7, 'AddTransitionBetweenKeyframes', ((1, 'variable'),(1, 'transition'),(1, 'startKeyframe'),(1, 'endKeyframe'),)))
-    IUIAnimationStoryboard2.RepeatBetweenKeyframes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,win32more.UI.Animation.UI_ANIMATION_KEYFRAME,Double,win32more.UI.Animation.UI_ANIMATION_REPEAT_MODE,win32more.UI.Animation.IUIAnimationLoopIterationChangeHandler2_head,UIntPtr,win32more.Foundation.BOOL)(8, 'RepeatBetweenKeyframes', ((1, 'startKeyframe'),(1, 'endKeyframe'),(1, 'cRepetition'),(1, 'repeatMode'),(1, 'pIterationChangeHandler'),(1, 'id'),(1, 'fRegisterForNextAnimationEvent'),)))
-    IUIAnimationStoryboard2.HoldVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head)(9, 'HoldVariable', ((1, 'variable'),)))
-    IUIAnimationStoryboard2.SetLongestAcceptableDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(10, 'SetLongestAcceptableDelay', ((1, 'delay'),)))
-    IUIAnimationStoryboard2.SetSkipDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(11, 'SetSkipDuration', ((1, 'secondsDuration'),)))
-    IUIAnimationStoryboard2.Schedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_SCHEDULING_RESULT))(12, 'Schedule', ((1, 'timeNow'),(1, 'schedulingResult'),)))
-    IUIAnimationStoryboard2.Conclude = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'Conclude', ()))
-    IUIAnimationStoryboard2.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(14, 'Finish', ((1, 'completionDeadline'),)))
-    IUIAnimationStoryboard2.Abandon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Abandon', ()))
-    IUIAnimationStoryboard2.SetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32)(16, 'SetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationStoryboard2.GetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32))(17, 'GetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationStoryboard2.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS))(18, 'GetStatus', ((1, 'status'),)))
-    IUIAnimationStoryboard2.GetElapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(19, 'GetElapsedTime', ((1, 'elapsedTime'),)))
-    IUIAnimationStoryboard2.SetStoryboardEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboardEventHandler2_head,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(20, 'SetStoryboardEventHandler', ((1, 'handler'),(1, 'fRegisterStatusChangeForNextAnimationEvent'),(1, 'fRegisterUpdateForNextAnimationEvent'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationStoryboard2
-def _define_IUIAnimationStoryboardEventHandler_head():
-    class IUIAnimationStoryboardEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3d5c9008-ec7c-4364-9f-8a-9a-f3-c5-8c-ba-e6')
-    return IUIAnimationStoryboardEventHandler
-def _define_IUIAnimationStoryboardEventHandler():
-    IUIAnimationStoryboardEventHandler = win32more.UI.Animation.IUIAnimationStoryboardEventHandler_head
-    IUIAnimationStoryboardEventHandler.OnStoryboardStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard_head,win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS,win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS)(3, 'OnStoryboardStatusChanged', ((1, 'storyboard'),(1, 'newStatus'),(1, 'previousStatus'),)))
-    IUIAnimationStoryboardEventHandler.OnStoryboardUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard_head)(4, 'OnStoryboardUpdated', ((1, 'storyboard'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationStoryboardEventHandler
-def _define_IUIAnimationStoryboardEventHandler2_head():
-    class IUIAnimationStoryboardEventHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bac5f55a-ba7c-414c-b5-99-fb-f8-50-f5-53-c6')
-    return IUIAnimationStoryboardEventHandler2
-def _define_IUIAnimationStoryboardEventHandler2():
-    IUIAnimationStoryboardEventHandler2 = win32more.UI.Animation.IUIAnimationStoryboardEventHandler2_head
-    IUIAnimationStoryboardEventHandler2.OnStoryboardStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head,win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS,win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS)(3, 'OnStoryboardStatusChanged', ((1, 'storyboard'),(1, 'newStatus'),(1, 'previousStatus'),)))
-    IUIAnimationStoryboardEventHandler2.OnStoryboardUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head)(4, 'OnStoryboardUpdated', ((1, 'storyboard'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationStoryboardEventHandler2
-def _define_IUIAnimationTimer_head():
-    class IUIAnimationTimer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6b0efad1-a053-41d6-90-85-33-a6-89-14-46-65')
-    return IUIAnimationTimer
-def _define_IUIAnimationTimer():
-    IUIAnimationTimer = win32more.UI.Animation.IUIAnimationTimer_head
-    IUIAnimationTimer.SetTimerUpdateHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationTimerUpdateHandler_head,win32more.UI.Animation.UI_ANIMATION_IDLE_BEHAVIOR)(3, 'SetTimerUpdateHandler', ((1, 'updateHandler'),(1, 'idleBehavior'),)))
-    IUIAnimationTimer.SetTimerEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationTimerEventHandler_head)(4, 'SetTimerEventHandler', ((1, 'handler'),)))
-    IUIAnimationTimer.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Enable', ()))
-    IUIAnimationTimer.Disable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Disable', ()))
-    IUIAnimationTimer.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'IsEnabled', ()))
-    IUIAnimationTimer.GetTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'GetTime', ((1, 'seconds'),)))
-    IUIAnimationTimer.SetFrameRateThreshold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(9, 'SetFrameRateThreshold', ((1, 'framesPerSecond'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTimer
-def _define_IUIAnimationTimerClientEventHandler_head():
-    class IUIAnimationTimerClientEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bedb4db6-94fa-4bfb-a4-7f-ef-2d-9e-40-8c-25')
-    return IUIAnimationTimerClientEventHandler
-def _define_IUIAnimationTimerClientEventHandler():
-    IUIAnimationTimerClientEventHandler = win32more.UI.Animation.IUIAnimationTimerClientEventHandler_head
-    IUIAnimationTimerClientEventHandler.OnTimerClientStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS,win32more.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS)(3, 'OnTimerClientStatusChanged', ((1, 'newStatus'),(1, 'previousStatus'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTimerClientEventHandler
-def _define_IUIAnimationTimerEventHandler_head():
-    class IUIAnimationTimerEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('274a7dea-d771-4095-ab-bd-8d-f7-ab-d2-3c-e3')
-    return IUIAnimationTimerEventHandler
-def _define_IUIAnimationTimerEventHandler():
-    IUIAnimationTimerEventHandler = win32more.UI.Animation.IUIAnimationTimerEventHandler_head
-    IUIAnimationTimerEventHandler.OnPreUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnPreUpdate', ()))
-    IUIAnimationTimerEventHandler.OnPostUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'OnPostUpdate', ()))
-    IUIAnimationTimerEventHandler.OnRenderingTooSlow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'OnRenderingTooSlow', ((1, 'framesPerSecond'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTimerEventHandler
-def _define_IUIAnimationTimerUpdateHandler_head():
-    class IUIAnimationTimerUpdateHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('195509b7-5d5e-4e3e-b2-78-ee-37-59-b3-67-ad')
-    return IUIAnimationTimerUpdateHandler
-def _define_IUIAnimationTimerUpdateHandler():
-    IUIAnimationTimerUpdateHandler = win32more.UI.Animation.IUIAnimationTimerUpdateHandler_head
-    IUIAnimationTimerUpdateHandler.OnUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT))(3, 'OnUpdate', ((1, 'timeNow'),(1, 'result'),)))
-    IUIAnimationTimerUpdateHandler.SetTimerClientEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationTimerClientEventHandler_head)(4, 'SetTimerClientEventHandler', ((1, 'handler'),)))
-    IUIAnimationTimerUpdateHandler.ClearTimerClientEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'ClearTimerClientEventHandler', ()))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTimerUpdateHandler
-def _define_IUIAnimationTransition_head():
-    class IUIAnimationTransition(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dc6ce252-f731-41cf-b6-10-61-4b-6c-a0-49-ad')
-    return IUIAnimationTransition
-def _define_IUIAnimationTransition():
-    IUIAnimationTransition = win32more.UI.Animation.IUIAnimationTransition_head
-    IUIAnimationTransition.SetInitialValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(3, 'SetInitialValue', ((1, 'value'),)))
-    IUIAnimationTransition.SetInitialVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(4, 'SetInitialVelocity', ((1, 'velocity'),)))
-    IUIAnimationTransition.IsDurationKnown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'IsDurationKnown', ()))
-    IUIAnimationTransition.GetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'GetDuration', ((1, 'duration'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransition
-def _define_IUIAnimationTransition2_head():
-    class IUIAnimationTransition2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('62ff9123-a85a-4e9b-a2-18-43-5a-93-e2-68-fd')
-    return IUIAnimationTransition2
-def _define_IUIAnimationTransition2():
-    IUIAnimationTransition2 = win32more.UI.Animation.IUIAnimationTransition2_head
-    IUIAnimationTransition2.GetDimension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetDimension', ((1, 'dimension'),)))
-    IUIAnimationTransition2.SetInitialValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(4, 'SetInitialValue', ((1, 'value'),)))
-    IUIAnimationTransition2.SetInitialVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(5, 'SetInitialVectorValue', ((1, 'value'),(1, 'cDimension'),)))
-    IUIAnimationTransition2.SetInitialVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(6, 'SetInitialVelocity', ((1, 'velocity'),)))
-    IUIAnimationTransition2.SetInitialVectorVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(7, 'SetInitialVectorVelocity', ((1, 'velocity'),(1, 'cDimension'),)))
-    IUIAnimationTransition2.IsDurationKnown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'IsDurationKnown', ()))
-    IUIAnimationTransition2.GetDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(9, 'GetDuration', ((1, 'duration'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransition2
-def _define_IUIAnimationTransitionFactory_head():
-    class IUIAnimationTransitionFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fcd91e03-3e3b-45ad-bb-b1-6d-fc-81-53-74-3d')
-    return IUIAnimationTransitionFactory
-def _define_IUIAnimationTransitionFactory():
-    IUIAnimationTransitionFactory = win32more.UI.Animation.IUIAnimationTransitionFactory_head
-    IUIAnimationTransitionFactory.CreateTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationInterpolator_head,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(3, 'CreateTransition', ((1, 'interpolator'),(1, 'transition'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransitionFactory
-def _define_IUIAnimationTransitionFactory2_head():
-    class IUIAnimationTransitionFactory2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('937d4916-c1a6-42d5-88-d8-30-34-4d-6e-fe-31')
-    return IUIAnimationTransitionFactory2
-def _define_IUIAnimationTransitionFactory2():
-    IUIAnimationTransitionFactory2 = win32more.UI.Animation.IUIAnimationTransitionFactory2_head
-    IUIAnimationTransitionFactory2.CreateTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationInterpolator2_head,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(3, 'CreateTransition', ((1, 'interpolator'),(1, 'transition'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransitionFactory2
-def _define_IUIAnimationTransitionLibrary_head():
-    class IUIAnimationTransitionLibrary(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ca5a14b1-d24f-48b8-8f-e4-c7-81-69-ba-95-4e')
-    return IUIAnimationTransitionLibrary
-def _define_IUIAnimationTransitionLibrary():
-    IUIAnimationTransitionLibrary = win32more.UI.Animation.IUIAnimationTransitionLibrary_head
-    IUIAnimationTransitionLibrary.CreateInstantaneousTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(3, 'CreateInstantaneousTransition', ((1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateConstantTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(4, 'CreateConstantTransition', ((1, 'duration'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateDiscreteTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(5, 'CreateDiscreteTransition', ((1, 'delay'),(1, 'finalValue'),(1, 'hold'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateLinearTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(6, 'CreateLinearTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateLinearTransitionFromSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(7, 'CreateLinearTransitionFromSpeed', ((1, 'speed'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateSinusoidalTransitionFromVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(8, 'CreateSinusoidalTransitionFromVelocity', ((1, 'duration'),(1, 'period'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateSinusoidalTransitionFromRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,Double,win32more.UI.Animation.UI_ANIMATION_SLOPE,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(9, 'CreateSinusoidalTransitionFromRange', ((1, 'duration'),(1, 'minimumValue'),(1, 'maximumValue'),(1, 'period'),(1, 'slope'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateAccelerateDecelerateTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(10, 'CreateAccelerateDecelerateTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'accelerationRatio'),(1, 'decelerationRatio'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateReversalTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(11, 'CreateReversalTransition', ((1, 'duration'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateCubicTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(12, 'CreateCubicTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'finalVelocity'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateSmoothStopTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(13, 'CreateSmoothStopTransition', ((1, 'maximumDuration'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary.CreateParabolicTransitionFromAcceleration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition_head))(14, 'CreateParabolicTransitionFromAcceleration', ((1, 'finalValue'),(1, 'finalVelocity'),(1, 'acceleration'),(1, 'transition'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransitionLibrary
-def _define_IUIAnimationTransitionLibrary2_head():
-    class IUIAnimationTransitionLibrary2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('03cfae53-9580-4ee3-b3-63-2e-ce-51-b4-af-6a')
-    return IUIAnimationTransitionLibrary2
-def _define_IUIAnimationTransitionLibrary2():
-    IUIAnimationTransitionLibrary2 = win32more.UI.Animation.IUIAnimationTransitionLibrary2_head
-    IUIAnimationTransitionLibrary2.CreateInstantaneousTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(3, 'CreateInstantaneousTransition', ((1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateInstantaneousVectorTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(4, 'CreateInstantaneousVectorTransition', ((1, 'finalValue'),(1, 'cDimension'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateConstantTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(5, 'CreateConstantTransition', ((1, 'duration'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateDiscreteTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(6, 'CreateDiscreteTransition', ((1, 'delay'),(1, 'finalValue'),(1, 'hold'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateDiscreteVectorTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(7, 'CreateDiscreteVectorTransition', ((1, 'delay'),(1, 'finalValue'),(1, 'cDimension'),(1, 'hold'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateLinearTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(8, 'CreateLinearTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateLinearVectorTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(9, 'CreateLinearVectorTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'cDimension'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateLinearTransitionFromSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(10, 'CreateLinearTransitionFromSpeed', ((1, 'speed'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateLinearVectorTransitionFromSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(11, 'CreateLinearVectorTransitionFromSpeed', ((1, 'speed'),(1, 'finalValue'),(1, 'cDimension'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateSinusoidalTransitionFromVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(12, 'CreateSinusoidalTransitionFromVelocity', ((1, 'duration'),(1, 'period'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateSinusoidalTransitionFromRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,Double,win32more.UI.Animation.UI_ANIMATION_SLOPE,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(13, 'CreateSinusoidalTransitionFromRange', ((1, 'duration'),(1, 'minimumValue'),(1, 'maximumValue'),(1, 'period'),(1, 'slope'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateAccelerateDecelerateTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(14, 'CreateAccelerateDecelerateTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'accelerationRatio'),(1, 'decelerationRatio'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateReversalTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(15, 'CreateReversalTransition', ((1, 'duration'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateCubicTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(16, 'CreateCubicTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'finalVelocity'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateCubicVectorTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),POINTER(Double),UInt32,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(17, 'CreateCubicVectorTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'finalVelocity'),(1, 'cDimension'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateSmoothStopTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(18, 'CreateSmoothStopTransition', ((1, 'maximumDuration'),(1, 'finalValue'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateParabolicTransitionFromAcceleration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(19, 'CreateParabolicTransitionFromAcceleration', ((1, 'finalValue'),(1, 'finalVelocity'),(1, 'acceleration'),(1, 'transition'),)))
-    IUIAnimationTransitionLibrary2.CreateCubicBezierLinearTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,Double,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(20, 'CreateCubicBezierLinearTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),(1, 'ppTransition'),)))
-    IUIAnimationTransitionLibrary2.CreateCubicBezierLinearVectorTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,POINTER(Double),UInt32,Double,Double,Double,Double,POINTER(win32more.UI.Animation.IUIAnimationTransition2_head))(21, 'CreateCubicBezierLinearVectorTransition', ((1, 'duration'),(1, 'finalValue'),(1, 'cDimension'),(1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),(1, 'ppTransition'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationTransitionLibrary2
-def _define_IUIAnimationVariable_head():
-    class IUIAnimationVariable(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8ceeb155-2849-4ce5-94-48-91-ff-70-e1-e4-d9')
-    return IUIAnimationVariable
-def _define_IUIAnimationVariable():
-    IUIAnimationVariable = win32more.UI.Animation.IUIAnimationVariable_head
-    IUIAnimationVariable.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(3, 'GetValue', ((1, 'value'),)))
-    IUIAnimationVariable.GetFinalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(4, 'GetFinalValue', ((1, 'finalValue'),)))
-    IUIAnimationVariable.GetPreviousValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(5, 'GetPreviousValue', ((1, 'previousValue'),)))
-    IUIAnimationVariable.GetIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'GetIntegerValue', ((1, 'value'),)))
-    IUIAnimationVariable.GetFinalIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'GetFinalIntegerValue', ((1, 'finalValue'),)))
-    IUIAnimationVariable.GetPreviousIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'GetPreviousIntegerValue', ((1, 'previousValue'),)))
-    IUIAnimationVariable.GetCurrentStoryboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head))(9, 'GetCurrentStoryboard', ((1, 'storyboard'),)))
-    IUIAnimationVariable.SetLowerBound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(10, 'SetLowerBound', ((1, 'bound'),)))
-    IUIAnimationVariable.SetUpperBound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(11, 'SetUpperBound', ((1, 'bound'),)))
-    IUIAnimationVariable.SetRoundingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_ROUNDING_MODE)(12, 'SetRoundingMode', ((1, 'mode'),)))
-    IUIAnimationVariable.SetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32)(13, 'SetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationVariable.GetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32))(14, 'GetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationVariable.SetVariableChangeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariableChangeHandler_head)(15, 'SetVariableChangeHandler', ((1, 'handler'),)))
-    IUIAnimationVariable.SetVariableIntegerChangeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler_head)(16, 'SetVariableIntegerChangeHandler', ((1, 'handler'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariable
-def _define_IUIAnimationVariable2_head():
-    class IUIAnimationVariable2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4914b304-96ab-44d9-9e-77-d5-10-9b-7e-74-66')
-    return IUIAnimationVariable2
-def _define_IUIAnimationVariable2():
-    IUIAnimationVariable2 = win32more.UI.Animation.IUIAnimationVariable2_head
-    IUIAnimationVariable2.GetDimension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetDimension', ((1, 'dimension'),)))
-    IUIAnimationVariable2.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(4, 'GetValue', ((1, 'value'),)))
-    IUIAnimationVariable2.GetVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(5, 'GetVectorValue', ((1, 'value'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetCurve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head)(6, 'GetCurve', ((1, 'animation'),)))
-    IUIAnimationVariable2.GetVectorCurve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionAnimation_head),UInt32)(7, 'GetVectorCurve', ((1, 'animation'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetFinalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'GetFinalValue', ((1, 'finalValue'),)))
-    IUIAnimationVariable2.GetFinalVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(9, 'GetFinalVectorValue', ((1, 'finalValue'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetPreviousValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(10, 'GetPreviousValue', ((1, 'previousValue'),)))
-    IUIAnimationVariable2.GetPreviousVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(11, 'GetPreviousVectorValue', ((1, 'previousValue'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'GetIntegerValue', ((1, 'value'),)))
-    IUIAnimationVariable2.GetIntegerVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32)(13, 'GetIntegerVectorValue', ((1, 'value'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetFinalIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'GetFinalIntegerValue', ((1, 'finalValue'),)))
-    IUIAnimationVariable2.GetFinalIntegerVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32)(15, 'GetFinalIntegerVectorValue', ((1, 'finalValue'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetPreviousIntegerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'GetPreviousIntegerValue', ((1, 'previousValue'),)))
-    IUIAnimationVariable2.GetPreviousIntegerVectorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32)(17, 'GetPreviousIntegerVectorValue', ((1, 'previousValue'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.GetCurrentStoryboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head))(18, 'GetCurrentStoryboard', ((1, 'storyboard'),)))
-    IUIAnimationVariable2.SetLowerBound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(19, 'SetLowerBound', ((1, 'bound'),)))
-    IUIAnimationVariable2.SetLowerBoundVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(20, 'SetLowerBoundVector', ((1, 'bound'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.SetUpperBound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(21, 'SetUpperBound', ((1, 'bound'),)))
-    IUIAnimationVariable2.SetUpperBoundVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32)(22, 'SetUpperBoundVector', ((1, 'bound'),(1, 'cDimension'),)))
-    IUIAnimationVariable2.SetRoundingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.UI_ANIMATION_ROUNDING_MODE)(23, 'SetRoundingMode', ((1, 'mode'),)))
-    IUIAnimationVariable2.SetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32)(24, 'SetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationVariable2.GetTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32))(25, 'GetTag', ((1, 'object'),(1, 'id'),)))
-    IUIAnimationVariable2.SetVariableChangeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariableChangeHandler2_head,win32more.Foundation.BOOL)(26, 'SetVariableChangeHandler', ((1, 'handler'),(1, 'fRegisterForNextAnimationEvent'),)))
-    IUIAnimationVariable2.SetVariableIntegerChangeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler2_head,win32more.Foundation.BOOL)(27, 'SetVariableIntegerChangeHandler', ((1, 'handler'),(1, 'fRegisterForNextAnimationEvent'),)))
-    IUIAnimationVariable2.SetVariableCurveChangeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariableCurveChangeHandler2_head)(28, 'SetVariableCurveChangeHandler', ((1, 'handler'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariable2
-def _define_IUIAnimationVariableChangeHandler_head():
-    class IUIAnimationVariableChangeHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6358b7ba-87d2-42d5-bf-71-82-e9-19-dd-58-62')
-    return IUIAnimationVariableChangeHandler
-def _define_IUIAnimationVariableChangeHandler():
-    IUIAnimationVariableChangeHandler = win32more.UI.Animation.IUIAnimationVariableChangeHandler_head
-    IUIAnimationVariableChangeHandler.OnValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard_head,win32more.UI.Animation.IUIAnimationVariable_head,Double,Double)(3, 'OnValueChanged', ((1, 'storyboard'),(1, 'variable'),(1, 'newValue'),(1, 'previousValue'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariableChangeHandler
-def _define_IUIAnimationVariableChangeHandler2_head():
-    class IUIAnimationVariableChangeHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('63acc8d2-6eae-4bb0-b8-79-58-6d-d8-cf-be-42')
-    return IUIAnimationVariableChangeHandler2
-def _define_IUIAnimationVariableChangeHandler2():
-    IUIAnimationVariableChangeHandler2 = win32more.UI.Animation.IUIAnimationVariableChangeHandler2_head
-    IUIAnimationVariableChangeHandler2.OnValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head,win32more.UI.Animation.IUIAnimationVariable2_head,POINTER(Double),POINTER(Double),UInt32)(3, 'OnValueChanged', ((1, 'storyboard'),(1, 'variable'),(1, 'newValue'),(1, 'previousValue'),(1, 'cDimension'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariableChangeHandler2
-def _define_IUIAnimationVariableCurveChangeHandler2_head():
-    class IUIAnimationVariableCurveChangeHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('72895e91-0145-4c21-91-92-5a-ab-40-ed-df-80')
-    return IUIAnimationVariableCurveChangeHandler2
-def _define_IUIAnimationVariableCurveChangeHandler2():
-    IUIAnimationVariableCurveChangeHandler2 = win32more.UI.Animation.IUIAnimationVariableCurveChangeHandler2_head
-    IUIAnimationVariableCurveChangeHandler2.OnCurveChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationVariable2_head)(3, 'OnCurveChanged', ((1, 'variable'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariableCurveChangeHandler2
-def _define_IUIAnimationVariableIntegerChangeHandler_head():
-    class IUIAnimationVariableIntegerChangeHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bb3e1550-356e-44b0-99-da-85-ac-60-17-86-5e')
-    return IUIAnimationVariableIntegerChangeHandler
-def _define_IUIAnimationVariableIntegerChangeHandler():
-    IUIAnimationVariableIntegerChangeHandler = win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler_head
-    IUIAnimationVariableIntegerChangeHandler.OnIntegerValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard_head,win32more.UI.Animation.IUIAnimationVariable_head,Int32,Int32)(3, 'OnIntegerValueChanged', ((1, 'storyboard'),(1, 'variable'),(1, 'newValue'),(1, 'previousValue'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariableIntegerChangeHandler
-def _define_IUIAnimationVariableIntegerChangeHandler2_head():
-    class IUIAnimationVariableIntegerChangeHandler2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('829b6cf1-4f3a-4412-ae-09-b2-43-eb-4c-6b-58')
-    return IUIAnimationVariableIntegerChangeHandler2
-def _define_IUIAnimationVariableIntegerChangeHandler2():
-    IUIAnimationVariableIntegerChangeHandler2 = win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler2_head
-    IUIAnimationVariableIntegerChangeHandler2.OnIntegerValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Animation.IUIAnimationStoryboard2_head,win32more.UI.Animation.IUIAnimationVariable2_head,POINTER(Int32),POINTER(Int32),UInt32)(3, 'OnIntegerValueChanged', ((1, 'storyboard'),(1, 'variable'),(1, 'newValue'),(1, 'previousValue'),(1, 'cDimension'),)))
-    win32more.System.Com.IUnknown
-    return IUIAnimationVariableIntegerChangeHandler2
+UI_ANIMATION_SECONDS_EVENTUALLY: Int32 = -1
+UI_ANIMATION_REPEAT_INDEFINITELY: Int32 = -1
+UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_END: Int32 = -1
+UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_START: Int32 = -2
+UI_ANIMATION_SECONDS_INFINITE: Int32 = -1
+class IUIAnimationInterpolator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7815cbba-ddf7-478c-a4-6c-7b-6c-73-8b-79-78')
+    @commethod(3)
+    def SetInitialValueAndVelocity(initialValue: Double, initialVelocity: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetDuration(duration: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetDuration(duration: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetFinalValue(value: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def InterpolateValue(offset: Double, value: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InterpolateVelocity(offset: Double, velocity: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDependencies(initialValueDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES), initialVelocityDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES), durationDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationInterpolator2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ea76aff8-ea22-4a23-a0-ef-a6-a9-66-70-35-18')
+    @commethod(3)
+    def GetDimension(dimension: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetInitialValueAndVelocity(initialValue: POINTER(Double), initialVelocity: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetDuration(duration: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDuration(duration: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetFinalValue(value: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InterpolateValue(offset: Double, value: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def InterpolateVelocity(offset: Double, velocity: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetPrimitiveInterpolation(interpolation: win32more.UI.Animation.IUIAnimationPrimitiveInterpolation_head, cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetDependencies(initialValueDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES), initialVelocityDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES), durationDependencies: POINTER(win32more.UI.Animation.UI_ANIMATION_DEPENDENCIES)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationLoopIterationChangeHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2d3b15a4-4762-47ab-a0-30-b2-32-21-df-3a-e0')
+    @commethod(3)
+    def OnLoopIterationChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, id: UIntPtr, newIterationCount: UInt32, oldIterationCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9169896c-ac8d-4e7d-94-e5-67-fa-4d-c2-f2-e8')
+    @commethod(3)
+    def CreateAnimationVariable(initialValue: Double, variable: POINTER(win32more.UI.Animation.IUIAnimationVariable_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ScheduleTransition(variable: win32more.UI.Animation.IUIAnimationVariable_head, transition: win32more.UI.Animation.IUIAnimationTransition_head, timeNow: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateStoryboard(storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def FinishAllStoryboards(completionDeadline: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AbandonAllStoryboards() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Update(timeNow: Double, updateResult: POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetVariableFromTag(object: win32more.System.Com.IUnknown_head, id: UInt32, variable: POINTER(win32more.UI.Animation.IUIAnimationVariable_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetStoryboardFromTag(object: win32more.System.Com.IUnknown_head, id: UInt32, storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetStatus(status: POINTER(win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetAnimationMode(mode: win32more.UI.Animation.UI_ANIMATION_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Pause() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetManagerEventHandler(handler: win32more.UI.Animation.IUIAnimationManagerEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetCancelPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetTrimPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetCompressPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetConcludePriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SetDefaultLongestAcceptableDelay(delay: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def Shutdown() -> win32more.Foundation.HRESULT: ...
+class IUIAnimationManager2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d8b6f7d4-4109-4d3f-ac-ee-87-99-26-96-8c-b1')
+    @commethod(3)
+    def CreateAnimationVectorVariable(initialValue: POINTER(Double), cDimension: UInt32, variable: POINTER(win32more.UI.Animation.IUIAnimationVariable2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateAnimationVariable(initialValue: Double, variable: POINTER(win32more.UI.Animation.IUIAnimationVariable2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ScheduleTransition(variable: win32more.UI.Animation.IUIAnimationVariable2_head, transition: win32more.UI.Animation.IUIAnimationTransition2_head, timeNow: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateStoryboard(storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FinishAllStoryboards(completionDeadline: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def AbandonAllStoryboards() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Update(timeNow: Double, updateResult: POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetVariableFromTag(object: win32more.System.Com.IUnknown_head, id: UInt32, variable: POINTER(win32more.UI.Animation.IUIAnimationVariable2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetStoryboardFromTag(object: win32more.System.Com.IUnknown_head, id: UInt32, storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def EstimateNextEventTime(seconds: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetStatus(status: POINTER(win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetAnimationMode(mode: win32more.UI.Animation.UI_ANIMATION_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Pause() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetManagerEventHandler(handler: win32more.UI.Animation.IUIAnimationManagerEventHandler2_head, fRegisterForNextAnimationEvent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetCancelPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetTrimPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SetCompressPriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SetConcludePriorityComparison(comparison: win32more.UI.Animation.IUIAnimationPriorityComparison2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SetDefaultLongestAcceptableDelay(delay: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def Shutdown() -> win32more.Foundation.HRESULT: ...
+class IUIAnimationManagerEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('783321ed-78a3-4366-b5-74-6a-f6-07-a6-47-88')
+    @commethod(3)
+    def OnManagerStatusChanged(newStatus: win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS, previousStatus: win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationManagerEventHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f6e022ba-bff3-42ec-90-33-e0-73-f3-3e-83-c3')
+    @commethod(3)
+    def OnManagerStatusChanged(newStatus: win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS, previousStatus: win32more.UI.Animation.UI_ANIMATION_MANAGER_STATUS) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationPrimitiveInterpolation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bab20d63-4361-45da-a2-4f-ab-85-08-84-6b-5b')
+    @commethod(3)
+    def AddCubic(dimension: UInt32, beginOffset: Double, constantCoefficient: Single, linearCoefficient: Single, quadraticCoefficient: Single, cubicCoefficient: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddSinusoidal(dimension: UInt32, beginOffset: Double, bias: Single, amplitude: Single, frequency: Single, phase: Single) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationPriorityComparison(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('83fa9b74-5f86-4618-bc-6a-a2-fa-c1-9b-3f-44')
+    @commethod(3)
+    def HasPriority(scheduledStoryboard: win32more.UI.Animation.IUIAnimationStoryboard_head, newStoryboard: win32more.UI.Animation.IUIAnimationStoryboard_head, priorityEffect: win32more.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationPriorityComparison2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5b6d7a37-4621-467c-8b-05-70-13-1d-e6-2d-db')
+    @commethod(3)
+    def HasPriority(scheduledStoryboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, newStoryboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, priorityEffect: win32more.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationStoryboard(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a8ff128f-9bf9-4af1-9e-67-e5-e4-10-de-fb-84')
+    @commethod(3)
+    def AddTransition(variable: win32more.UI.Animation.IUIAnimationVariable_head, transition: win32more.UI.Animation.IUIAnimationTransition_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddKeyframeAtOffset(existingKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, offset: Double, keyframe: POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddKeyframeAfterTransition(transition: win32more.UI.Animation.IUIAnimationTransition_head, keyframe: POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AddTransitionAtKeyframe(variable: win32more.UI.Animation.IUIAnimationVariable_head, transition: win32more.UI.Animation.IUIAnimationTransition_head, startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AddTransitionBetweenKeyframes(variable: win32more.UI.Animation.IUIAnimationVariable_head, transition: win32more.UI.Animation.IUIAnimationTransition_head, startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, endKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RepeatBetweenKeyframes(startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, endKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, repetitionCount: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def HoldVariable(variable: win32more.UI.Animation.IUIAnimationVariable_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetLongestAcceptableDelay(delay: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Schedule(timeNow: Double, schedulingResult: POINTER(win32more.UI.Animation.UI_ANIMATION_SCHEDULING_RESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Conclude() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Finish(completionDeadline: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Abandon() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetTag(object: win32more.System.Com.IUnknown_head, id: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetTag(object: POINTER(win32more.System.Com.IUnknown_head), id: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetStatus(status: POINTER(win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetElapsedTime(elapsedTime: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetStoryboardEventHandler(handler: win32more.UI.Animation.IUIAnimationStoryboardEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationStoryboard2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ae289cd2-12d4-4945-94-19-9e-41-be-03-4d-f2')
+    @commethod(3)
+    def AddTransition(variable: win32more.UI.Animation.IUIAnimationVariable2_head, transition: win32more.UI.Animation.IUIAnimationTransition2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddKeyframeAtOffset(existingKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, offset: Double, keyframe: POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddKeyframeAfterTransition(transition: win32more.UI.Animation.IUIAnimationTransition2_head, keyframe: POINTER(win32more.UI.Animation.UI_ANIMATION_KEYFRAME)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AddTransitionAtKeyframe(variable: win32more.UI.Animation.IUIAnimationVariable2_head, transition: win32more.UI.Animation.IUIAnimationTransition2_head, startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AddTransitionBetweenKeyframes(variable: win32more.UI.Animation.IUIAnimationVariable2_head, transition: win32more.UI.Animation.IUIAnimationTransition2_head, startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, endKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RepeatBetweenKeyframes(startKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, endKeyframe: win32more.UI.Animation.UI_ANIMATION_KEYFRAME, cRepetition: Double, repeatMode: win32more.UI.Animation.UI_ANIMATION_REPEAT_MODE, pIterationChangeHandler: win32more.UI.Animation.IUIAnimationLoopIterationChangeHandler2_head, id: UIntPtr, fRegisterForNextAnimationEvent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def HoldVariable(variable: win32more.UI.Animation.IUIAnimationVariable2_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetLongestAcceptableDelay(delay: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetSkipDuration(secondsDuration: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Schedule(timeNow: Double, schedulingResult: POINTER(win32more.UI.Animation.UI_ANIMATION_SCHEDULING_RESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Conclude() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Finish(completionDeadline: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Abandon() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetTag(object: win32more.System.Com.IUnknown_head, id: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetTag(object: POINTER(win32more.System.Com.IUnknown_head), id: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetStatus(status: POINTER(win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetElapsedTime(elapsedTime: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SetStoryboardEventHandler(handler: win32more.UI.Animation.IUIAnimationStoryboardEventHandler2_head, fRegisterStatusChangeForNextAnimationEvent: win32more.Foundation.BOOL, fRegisterUpdateForNextAnimationEvent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationStoryboardEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3d5c9008-ec7c-4364-9f-8a-9a-f3-c5-8c-ba-e6')
+    @commethod(3)
+    def OnStoryboardStatusChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard_head, newStatus: win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS, previousStatus: win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnStoryboardUpdated(storyboard: win32more.UI.Animation.IUIAnimationStoryboard_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationStoryboardEventHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bac5f55a-ba7c-414c-b5-99-fb-f8-50-f5-53-c6')
+    @commethod(3)
+    def OnStoryboardStatusChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, newStatus: win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS, previousStatus: win32more.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnStoryboardUpdated(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTimer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6b0efad1-a053-41d6-90-85-33-a6-89-14-46-65')
+    @commethod(3)
+    def SetTimerUpdateHandler(updateHandler: win32more.UI.Animation.IUIAnimationTimerUpdateHandler_head, idleBehavior: win32more.UI.Animation.UI_ANIMATION_IDLE_BEHAVIOR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetTimerEventHandler(handler: win32more.UI.Animation.IUIAnimationTimerEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Enable() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Disable() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def IsEnabled() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTime(seconds: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetFrameRateThreshold(framesPerSecond: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTimerClientEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bedb4db6-94fa-4bfb-a4-7f-ef-2d-9e-40-8c-25')
+    @commethod(3)
+    def OnTimerClientStatusChanged(newStatus: win32more.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS, previousStatus: win32more.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTimerEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('274a7dea-d771-4095-ab-bd-8d-f7-ab-d2-3c-e3')
+    @commethod(3)
+    def OnPreUpdate() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnPostUpdate() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnRenderingTooSlow(framesPerSecond: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTimerUpdateHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('195509b7-5d5e-4e3e-b2-78-ee-37-59-b3-67-ad')
+    @commethod(3)
+    def OnUpdate(timeNow: Double, result: POINTER(win32more.UI.Animation.UI_ANIMATION_UPDATE_RESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetTimerClientEventHandler(handler: win32more.UI.Animation.IUIAnimationTimerClientEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ClearTimerClientEventHandler() -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransition(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dc6ce252-f731-41cf-b6-10-61-4b-6c-a0-49-ad')
+    @commethod(3)
+    def SetInitialValue(value: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetInitialVelocity(velocity: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IsDurationKnown() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDuration(duration: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransition2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('62ff9123-a85a-4e9b-a2-18-43-5a-93-e2-68-fd')
+    @commethod(3)
+    def GetDimension(dimension: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetInitialValue(value: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetInitialVectorValue(value: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetInitialVelocity(velocity: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetInitialVectorVelocity(velocity: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def IsDurationKnown() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDuration(duration: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransitionFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fcd91e03-3e3b-45ad-bb-b1-6d-fc-81-53-74-3d')
+    @commethod(3)
+    def CreateTransition(interpolator: win32more.UI.Animation.IUIAnimationInterpolator_head, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransitionFactory2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('937d4916-c1a6-42d5-88-d8-30-34-4d-6e-fe-31')
+    @commethod(3)
+    def CreateTransition(interpolator: win32more.UI.Animation.IUIAnimationInterpolator2_head, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransitionLibrary(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ca5a14b1-d24f-48b8-8f-e4-c7-81-69-ba-95-4e')
+    @commethod(3)
+    def CreateInstantaneousTransition(finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateConstantTransition(duration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateDiscreteTransition(delay: Double, finalValue: Double, hold: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateLinearTransition(duration: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateLinearTransitionFromSpeed(speed: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateSinusoidalTransitionFromVelocity(duration: Double, period: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateSinusoidalTransitionFromRange(duration: Double, minimumValue: Double, maximumValue: Double, period: Double, slope: win32more.UI.Animation.UI_ANIMATION_SLOPE, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateAccelerateDecelerateTransition(duration: Double, finalValue: Double, accelerationRatio: Double, decelerationRatio: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateReversalTransition(duration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateCubicTransition(duration: Double, finalValue: Double, finalVelocity: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateSmoothStopTransition(maximumDuration: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateParabolicTransitionFromAcceleration(finalValue: Double, finalVelocity: Double, acceleration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationTransitionLibrary2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('03cfae53-9580-4ee3-b3-63-2e-ce-51-b4-af-6a')
+    @commethod(3)
+    def CreateInstantaneousTransition(finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateInstantaneousVectorTransition(finalValue: POINTER(Double), cDimension: UInt32, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateConstantTransition(duration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateDiscreteTransition(delay: Double, finalValue: Double, hold: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateDiscreteVectorTransition(delay: Double, finalValue: POINTER(Double), cDimension: UInt32, hold: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateLinearTransition(duration: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateLinearVectorTransition(duration: Double, finalValue: POINTER(Double), cDimension: UInt32, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateLinearTransitionFromSpeed(speed: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateLinearVectorTransitionFromSpeed(speed: Double, finalValue: POINTER(Double), cDimension: UInt32, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateSinusoidalTransitionFromVelocity(duration: Double, period: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateSinusoidalTransitionFromRange(duration: Double, minimumValue: Double, maximumValue: Double, period: Double, slope: win32more.UI.Animation.UI_ANIMATION_SLOPE, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateAccelerateDecelerateTransition(duration: Double, finalValue: Double, accelerationRatio: Double, decelerationRatio: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def CreateReversalTransition(duration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def CreateCubicTransition(duration: Double, finalValue: Double, finalVelocity: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def CreateCubicVectorTransition(duration: Double, finalValue: POINTER(Double), finalVelocity: POINTER(Double), cDimension: UInt32, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateSmoothStopTransition(maximumDuration: Double, finalValue: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def CreateParabolicTransitionFromAcceleration(finalValue: Double, finalVelocity: Double, acceleration: Double, transition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CreateCubicBezierLinearTransition(duration: Double, finalValue: Double, x1: Double, y1: Double, x2: Double, y2: Double, ppTransition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CreateCubicBezierLinearVectorTransition(duration: Double, finalValue: POINTER(Double), cDimension: UInt32, x1: Double, y1: Double, x2: Double, y2: Double, ppTransition: POINTER(win32more.UI.Animation.IUIAnimationTransition2_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariable(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8ceeb155-2849-4ce5-94-48-91-ff-70-e1-e4-d9')
+    @commethod(3)
+    def GetValue(value: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFinalValue(finalValue: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPreviousValue(previousValue: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetIntegerValue(value: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetFinalIntegerValue(finalValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetPreviousIntegerValue(previousValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetCurrentStoryboard(storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetLowerBound(bound: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetUpperBound(bound: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetRoundingMode(mode: win32more.UI.Animation.UI_ANIMATION_ROUNDING_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetTag(object: win32more.System.Com.IUnknown_head, id: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetTag(object: POINTER(win32more.System.Com.IUnknown_head), id: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetVariableChangeHandler(handler: win32more.UI.Animation.IUIAnimationVariableChangeHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetVariableIntegerChangeHandler(handler: win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariable2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4914b304-96ab-44d9-9e-77-d5-10-9b-7e-74-66')
+    @commethod(3)
+    def GetDimension(dimension: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetValue(value: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetVectorValue(value: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCurve(animation: win32more.Graphics.DirectComposition.IDCompositionAnimation_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetVectorCurve(animation: POINTER(win32more.Graphics.DirectComposition.IDCompositionAnimation_head), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetFinalValue(finalValue: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetFinalVectorValue(finalValue: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetPreviousValue(previousValue: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetPreviousVectorValue(previousValue: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetIntegerValue(value: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetIntegerVectorValue(value: POINTER(Int32), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetFinalIntegerValue(finalValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetFinalIntegerVectorValue(finalValue: POINTER(Int32), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetPreviousIntegerValue(previousValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetPreviousIntegerVectorValue(previousValue: POINTER(Int32), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCurrentStoryboard(storyboard: POINTER(win32more.UI.Animation.IUIAnimationStoryboard2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetLowerBound(bound: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def SetLowerBoundVector(bound: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SetUpperBound(bound: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SetUpperBoundVector(bound: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def SetRoundingMode(mode: win32more.UI.Animation.UI_ANIMATION_ROUNDING_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetTag(object: win32more.System.Com.IUnknown_head, id: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetTag(object: POINTER(win32more.System.Com.IUnknown_head), id: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def SetVariableChangeHandler(handler: win32more.UI.Animation.IUIAnimationVariableChangeHandler2_head, fRegisterForNextAnimationEvent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SetVariableIntegerChangeHandler(handler: win32more.UI.Animation.IUIAnimationVariableIntegerChangeHandler2_head, fRegisterForNextAnimationEvent: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def SetVariableCurveChangeHandler(handler: win32more.UI.Animation.IUIAnimationVariableCurveChangeHandler2_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariableChangeHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6358b7ba-87d2-42d5-bf-71-82-e9-19-dd-58-62')
+    @commethod(3)
+    def OnValueChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard_head, variable: win32more.UI.Animation.IUIAnimationVariable_head, newValue: Double, previousValue: Double) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariableChangeHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('63acc8d2-6eae-4bb0-b8-79-58-6d-d8-cf-be-42')
+    @commethod(3)
+    def OnValueChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, variable: win32more.UI.Animation.IUIAnimationVariable2_head, newValue: POINTER(Double), previousValue: POINTER(Double), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariableCurveChangeHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('72895e91-0145-4c21-91-92-5a-ab-40-ed-df-80')
+    @commethod(3)
+    def OnCurveChanged(variable: win32more.UI.Animation.IUIAnimationVariable2_head) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariableIntegerChangeHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bb3e1550-356e-44b0-99-da-85-ac-60-17-86-5e')
+    @commethod(3)
+    def OnIntegerValueChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard_head, variable: win32more.UI.Animation.IUIAnimationVariable_head, newValue: Int32, previousValue: Int32) -> win32more.Foundation.HRESULT: ...
+class IUIAnimationVariableIntegerChangeHandler2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('829b6cf1-4f3a-4412-ae-09-b2-43-eb-4c-6b-58')
+    @commethod(3)
+    def OnIntegerValueChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, variable: win32more.UI.Animation.IUIAnimationVariable2_head, newValue: POINTER(Int32), previousValue: POINTER(Int32), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
 UI_ANIMATION_DEPENDENCIES = UInt32
-UI_ANIMATION_DEPENDENCY_NONE = 0
-UI_ANIMATION_DEPENDENCY_INTERMEDIATE_VALUES = 1
-UI_ANIMATION_DEPENDENCY_FINAL_VALUE = 2
-UI_ANIMATION_DEPENDENCY_FINAL_VELOCITY = 4
-UI_ANIMATION_DEPENDENCY_DURATION = 8
+UI_ANIMATION_DEPENDENCY_NONE: UI_ANIMATION_DEPENDENCIES = 0
+UI_ANIMATION_DEPENDENCY_INTERMEDIATE_VALUES: UI_ANIMATION_DEPENDENCIES = 1
+UI_ANIMATION_DEPENDENCY_FINAL_VALUE: UI_ANIMATION_DEPENDENCIES = 2
+UI_ANIMATION_DEPENDENCY_FINAL_VELOCITY: UI_ANIMATION_DEPENDENCIES = 4
+UI_ANIMATION_DEPENDENCY_DURATION: UI_ANIMATION_DEPENDENCIES = 8
 UI_ANIMATION_IDLE_BEHAVIOR = Int32
-UI_ANIMATION_IDLE_BEHAVIOR_CONTINUE = 0
-UI_ANIMATION_IDLE_BEHAVIOR_DISABLE = 1
+UI_ANIMATION_IDLE_BEHAVIOR_CONTINUE: UI_ANIMATION_IDLE_BEHAVIOR = 0
+UI_ANIMATION_IDLE_BEHAVIOR_DISABLE: UI_ANIMATION_IDLE_BEHAVIOR = 1
 UI_ANIMATION_KEYFRAME = IntPtr
 UI_ANIMATION_MANAGER_STATUS = Int32
-UI_ANIMATION_MANAGER_IDLE = 0
-UI_ANIMATION_MANAGER_BUSY = 1
+UI_ANIMATION_MANAGER_IDLE: UI_ANIMATION_MANAGER_STATUS = 0
+UI_ANIMATION_MANAGER_BUSY: UI_ANIMATION_MANAGER_STATUS = 1
 UI_ANIMATION_MODE = Int32
-UI_ANIMATION_MODE_DISABLED = 0
-UI_ANIMATION_MODE_SYSTEM_DEFAULT = 1
-UI_ANIMATION_MODE_ENABLED = 2
+UI_ANIMATION_MODE_DISABLED: UI_ANIMATION_MODE = 0
+UI_ANIMATION_MODE_SYSTEM_DEFAULT: UI_ANIMATION_MODE = 1
+UI_ANIMATION_MODE_ENABLED: UI_ANIMATION_MODE = 2
 UI_ANIMATION_PRIORITY_EFFECT = Int32
-UI_ANIMATION_PRIORITY_EFFECT_FAILURE = 0
-UI_ANIMATION_PRIORITY_EFFECT_DELAY = 1
+UI_ANIMATION_PRIORITY_EFFECT_FAILURE: UI_ANIMATION_PRIORITY_EFFECT = 0
+UI_ANIMATION_PRIORITY_EFFECT_DELAY: UI_ANIMATION_PRIORITY_EFFECT = 1
 UI_ANIMATION_REPEAT_MODE = Int32
-UI_ANIMATION_REPEAT_MODE_NORMAL = 0
-UI_ANIMATION_REPEAT_MODE_ALTERNATE = 1
+UI_ANIMATION_REPEAT_MODE_NORMAL: UI_ANIMATION_REPEAT_MODE = 0
+UI_ANIMATION_REPEAT_MODE_ALTERNATE: UI_ANIMATION_REPEAT_MODE = 1
 UI_ANIMATION_ROUNDING_MODE = Int32
-UI_ANIMATION_ROUNDING_NEAREST = 0
-UI_ANIMATION_ROUNDING_FLOOR = 1
-UI_ANIMATION_ROUNDING_CEILING = 2
+UI_ANIMATION_ROUNDING_NEAREST: UI_ANIMATION_ROUNDING_MODE = 0
+UI_ANIMATION_ROUNDING_FLOOR: UI_ANIMATION_ROUNDING_MODE = 1
+UI_ANIMATION_ROUNDING_CEILING: UI_ANIMATION_ROUNDING_MODE = 2
 UI_ANIMATION_SCHEDULING_RESULT = Int32
-UI_ANIMATION_SCHEDULING_UNEXPECTED_FAILURE = 0
-UI_ANIMATION_SCHEDULING_INSUFFICIENT_PRIORITY = 1
-UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED = 2
-UI_ANIMATION_SCHEDULING_SUCCEEDED = 3
-UI_ANIMATION_SCHEDULING_DEFERRED = 4
+UI_ANIMATION_SCHEDULING_UNEXPECTED_FAILURE: UI_ANIMATION_SCHEDULING_RESULT = 0
+UI_ANIMATION_SCHEDULING_INSUFFICIENT_PRIORITY: UI_ANIMATION_SCHEDULING_RESULT = 1
+UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED: UI_ANIMATION_SCHEDULING_RESULT = 2
+UI_ANIMATION_SCHEDULING_SUCCEEDED: UI_ANIMATION_SCHEDULING_RESULT = 3
+UI_ANIMATION_SCHEDULING_DEFERRED: UI_ANIMATION_SCHEDULING_RESULT = 4
 UI_ANIMATION_SLOPE = Int32
-UI_ANIMATION_SLOPE_INCREASING = 0
-UI_ANIMATION_SLOPE_DECREASING = 1
+UI_ANIMATION_SLOPE_INCREASING: UI_ANIMATION_SLOPE = 0
+UI_ANIMATION_SLOPE_DECREASING: UI_ANIMATION_SLOPE = 1
 UI_ANIMATION_STORYBOARD_STATUS = Int32
-UI_ANIMATION_STORYBOARD_BUILDING = 0
-UI_ANIMATION_STORYBOARD_SCHEDULED = 1
-UI_ANIMATION_STORYBOARD_CANCELLED = 2
-UI_ANIMATION_STORYBOARD_PLAYING = 3
-UI_ANIMATION_STORYBOARD_TRUNCATED = 4
-UI_ANIMATION_STORYBOARD_FINISHED = 5
-UI_ANIMATION_STORYBOARD_READY = 6
-UI_ANIMATION_STORYBOARD_INSUFFICIENT_PRIORITY = 7
+UI_ANIMATION_STORYBOARD_BUILDING: UI_ANIMATION_STORYBOARD_STATUS = 0
+UI_ANIMATION_STORYBOARD_SCHEDULED: UI_ANIMATION_STORYBOARD_STATUS = 1
+UI_ANIMATION_STORYBOARD_CANCELLED: UI_ANIMATION_STORYBOARD_STATUS = 2
+UI_ANIMATION_STORYBOARD_PLAYING: UI_ANIMATION_STORYBOARD_STATUS = 3
+UI_ANIMATION_STORYBOARD_TRUNCATED: UI_ANIMATION_STORYBOARD_STATUS = 4
+UI_ANIMATION_STORYBOARD_FINISHED: UI_ANIMATION_STORYBOARD_STATUS = 5
+UI_ANIMATION_STORYBOARD_READY: UI_ANIMATION_STORYBOARD_STATUS = 6
+UI_ANIMATION_STORYBOARD_INSUFFICIENT_PRIORITY: UI_ANIMATION_STORYBOARD_STATUS = 7
 UI_ANIMATION_TIMER_CLIENT_STATUS = Int32
-UI_ANIMATION_TIMER_CLIENT_IDLE = 0
-UI_ANIMATION_TIMER_CLIENT_BUSY = 1
+UI_ANIMATION_TIMER_CLIENT_IDLE: UI_ANIMATION_TIMER_CLIENT_STATUS = 0
+UI_ANIMATION_TIMER_CLIENT_BUSY: UI_ANIMATION_TIMER_CLIENT_STATUS = 1
 UI_ANIMATION_UPDATE_RESULT = Int32
-UI_ANIMATION_UPDATE_NO_CHANGE = 0
-UI_ANIMATION_UPDATE_VARIABLES_CHANGED = 1
+UI_ANIMATION_UPDATE_NO_CHANGE: UI_ANIMATION_UPDATE_RESULT = 0
+UI_ANIMATION_UPDATE_VARIABLES_CHANGED: UI_ANIMATION_UPDATE_RESULT = 1
 UIAnimationManager = Guid('4c1fc63a-695c-47e8-a3-39-1a-19-4b-e3-d0-b8')
 UIAnimationManager2 = Guid('d25d8842-8884-4a4a-b3-21-09-13-14-37-9b-dd')
 UIAnimationTimer = Guid('bfcd4a0c-06b6-4384-b7-68-0d-aa-79-2c-38-0e')
@@ -531,6 +582,37 @@ UIAnimationTransitionFactory = Guid('8a9b1cdd-fcd7-419c-8b-44-42-fd-17-db-18-87'
 UIAnimationTransitionFactory2 = Guid('84302f97-7f7b-4040-b1-90-72-ac-9d-18-e4-20')
 UIAnimationTransitionLibrary = Guid('1d6322ad-aa85-4ef5-a8-28-86-d7-10-67-d1-45')
 UIAnimationTransitionLibrary2 = Guid('812f944a-c5c8-4cd9-b0-a6-b3-da-80-2f-22-8d')
+make_head(_module, 'IUIAnimationInterpolator')
+make_head(_module, 'IUIAnimationInterpolator2')
+make_head(_module, 'IUIAnimationLoopIterationChangeHandler2')
+make_head(_module, 'IUIAnimationManager')
+make_head(_module, 'IUIAnimationManager2')
+make_head(_module, 'IUIAnimationManagerEventHandler')
+make_head(_module, 'IUIAnimationManagerEventHandler2')
+make_head(_module, 'IUIAnimationPrimitiveInterpolation')
+make_head(_module, 'IUIAnimationPriorityComparison')
+make_head(_module, 'IUIAnimationPriorityComparison2')
+make_head(_module, 'IUIAnimationStoryboard')
+make_head(_module, 'IUIAnimationStoryboard2')
+make_head(_module, 'IUIAnimationStoryboardEventHandler')
+make_head(_module, 'IUIAnimationStoryboardEventHandler2')
+make_head(_module, 'IUIAnimationTimer')
+make_head(_module, 'IUIAnimationTimerClientEventHandler')
+make_head(_module, 'IUIAnimationTimerEventHandler')
+make_head(_module, 'IUIAnimationTimerUpdateHandler')
+make_head(_module, 'IUIAnimationTransition')
+make_head(_module, 'IUIAnimationTransition2')
+make_head(_module, 'IUIAnimationTransitionFactory')
+make_head(_module, 'IUIAnimationTransitionFactory2')
+make_head(_module, 'IUIAnimationTransitionLibrary')
+make_head(_module, 'IUIAnimationTransitionLibrary2')
+make_head(_module, 'IUIAnimationVariable')
+make_head(_module, 'IUIAnimationVariable2')
+make_head(_module, 'IUIAnimationVariableChangeHandler')
+make_head(_module, 'IUIAnimationVariableChangeHandler2')
+make_head(_module, 'IUIAnimationVariableCurveChangeHandler2')
+make_head(_module, 'IUIAnimationVariableIntegerChangeHandler')
+make_head(_module, 'IUIAnimationVariableIntegerChangeHandler2')
 __all__ = [
     "IUIAnimationInterpolator",
     "IUIAnimationInterpolator2",

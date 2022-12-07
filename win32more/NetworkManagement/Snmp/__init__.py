@@ -1,776 +1,459 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.Snmp
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-ASN_UNIVERSAL = 0
-ASN_APPLICATION = 64
-ASN_CONTEXT = 128
-ASN_PRIVATE = 192
-ASN_PRIMITIVE = 0
-ASN_CONSTRUCTOR = 32
-SNMP_ACCESS_NONE = 0
-SNMP_ACCESS_NOTIFY = 1
-SNMP_ACCESS_READ_ONLY = 2
-SNMP_ACCESS_READ_WRITE = 3
-SNMP_ACCESS_READ_CREATE = 4
-SNMPAPI_NOERROR = 1
-SNMPAPI_ERROR = 0
-SNMP_OUTPUT_TO_EVENTLOG = 4
-DEFAULT_SNMP_PORT_UDP = 161
-DEFAULT_SNMP_PORT_IPX = 36879
-DEFAULT_SNMPTRAP_PORT_UDP = 162
-DEFAULT_SNMPTRAP_PORT_IPX = 36880
-SNMP_MAX_OID_LEN = 128
-SNMP_MEM_ALLOC_ERROR = 1
-SNMP_BERAPI_INVALID_LENGTH = 10
-SNMP_BERAPI_INVALID_TAG = 11
-SNMP_BERAPI_OVERFLOW = 12
-SNMP_BERAPI_SHORT_BUFFER = 13
-SNMP_BERAPI_INVALID_OBJELEM = 14
-SNMP_PDUAPI_UNRECOGNIZED_PDU = 20
-SNMP_PDUAPI_INVALID_ES = 21
-SNMP_PDUAPI_INVALID_GT = 22
-SNMP_AUTHAPI_INVALID_VERSION = 30
-SNMP_AUTHAPI_INVALID_MSG_TYPE = 31
-SNMP_AUTHAPI_TRIV_AUTH_FAILED = 32
-ASN_CONTEXTSPECIFIC = 128
-ASN_PRIMATIVE = 0
-SNMP_MGMTAPI_TIMEOUT = 40
-SNMP_MGMTAPI_SELECT_FDERRORS = 41
-SNMP_MGMTAPI_TRAP_ERRORS = 42
-SNMP_MGMTAPI_TRAP_DUPINIT = 43
-SNMP_MGMTAPI_NOTRAPS = 44
-SNMP_MGMTAPI_AGAIN = 45
-SNMP_MGMTAPI_INVALID_CTL = 46
-SNMP_MGMTAPI_INVALID_SESSION = 47
-SNMP_MGMTAPI_INVALID_BUFFER = 48
-MGMCTL_SETAGENTPORT = 1
-MAXOBJIDSIZE = 128
-MAXOBJIDSTRSIZE = 1408
-SNMPLISTEN_USEENTITY_ADDR = 0
-SNMPLISTEN_ALL_ADDR = 1
-SNMP_TRAP_COLDSTART = 0
-SNMP_TRAP_WARMSTART = 1
-SNMP_TRAP_LINKDOWN = 2
-SNMP_TRAP_LINKUP = 3
-SNMP_TRAP_AUTHFAIL = 4
-SNMP_TRAP_EGPNEIGHBORLOSS = 5
-SNMP_TRAP_ENTERPRISESPECIFIC = 6
-SNMPAPI_NO_SUPPORT = 0
-SNMPAPI_V1_SUPPORT = 1
-SNMPAPI_V2_SUPPORT = 2
-SNMPAPI_M2M_SUPPORT = 3
-SNMPAPI_FAILURE = 0
-SNMPAPI_SUCCESS = 1
-SNMPAPI_ALLOC_ERROR = 2
-SNMPAPI_CONTEXT_INVALID = 3
-SNMPAPI_CONTEXT_UNKNOWN = 4
-SNMPAPI_ENTITY_INVALID = 5
-SNMPAPI_ENTITY_UNKNOWN = 6
-SNMPAPI_INDEX_INVALID = 7
-SNMPAPI_NOOP = 8
-SNMPAPI_OID_INVALID = 9
-SNMPAPI_OPERATION_INVALID = 10
-SNMPAPI_OUTPUT_TRUNCATED = 11
-SNMPAPI_PDU_INVALID = 12
-SNMPAPI_SESSION_INVALID = 13
-SNMPAPI_SYNTAX_INVALID = 14
-SNMPAPI_VBL_INVALID = 15
-SNMPAPI_MODE_INVALID = 16
-SNMPAPI_SIZE_INVALID = 17
-SNMPAPI_NOT_INITIALIZED = 18
-SNMPAPI_MESSAGE_INVALID = 19
-SNMPAPI_HWND_INVALID = 20
-SNMPAPI_OTHER_ERROR = 99
-SNMPAPI_TL_NOT_INITIALIZED = 100
-SNMPAPI_TL_NOT_SUPPORTED = 101
-SNMPAPI_TL_NOT_AVAILABLE = 102
-SNMPAPI_TL_RESOURCE_ERROR = 103
-SNMPAPI_TL_UNDELIVERABLE = 104
-SNMPAPI_TL_SRC_INVALID = 105
-SNMPAPI_TL_INVALID_PARAM = 106
-SNMPAPI_TL_IN_USE = 107
-SNMPAPI_TL_TIMEOUT = 108
-SNMPAPI_TL_PDU_TOO_BIG = 109
-SNMPAPI_TL_OTHER = 199
-MAXVENDORINFO = 32
-def _define_SnmpUtilOidCpy():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilOidCpy', windll['snmpapi.dll']), ((1, 'pOidDst'),(1, 'pOidSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOidAppend():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilOidAppend', windll['snmpapi.dll']), ((1, 'pOidDst'),(1, 'pOidSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOidNCmp():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),UInt32)(('SnmpUtilOidNCmp', windll['snmpapi.dll']), ((1, 'pOid1'),(1, 'pOid2'),(1, 'nSubIds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOidCmp():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilOidCmp', windll['snmpapi.dll']), ((1, 'pOid1'),(1, 'pOid2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOidFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilOidFree', windll['snmpapi.dll']), ((1, 'pOid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOctetsCmp():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head))(('SnmpUtilOctetsCmp', windll['snmpapi.dll']), ((1, 'pOctets1'),(1, 'pOctets2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOctetsNCmp():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),UInt32)(('SnmpUtilOctetsNCmp', windll['snmpapi.dll']), ((1, 'pOctets1'),(1, 'pOctets2'),(1, 'nChars'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOctetsCpy():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head))(('SnmpUtilOctetsCpy', windll['snmpapi.dll']), ((1, 'pOctetsDst'),(1, 'pOctetsSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOctetsFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head))(('SnmpUtilOctetsFree', windll['snmpapi.dll']), ((1, 'pOctets'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilAsnAnyCpy():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.AsnAny_head),POINTER(win32more.NetworkManagement.Snmp.AsnAny_head))(('SnmpUtilAsnAnyCpy', windll['snmpapi.dll']), ((1, 'pAnyDst'),(1, 'pAnySrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilAsnAnyFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.AsnAny_head))(('SnmpUtilAsnAnyFree', windll['snmpapi.dll']), ((1, 'pAny'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilVarBindCpy():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head),POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head))(('SnmpUtilVarBindCpy', windll['snmpapi.dll']), ((1, 'pVbDst'),(1, 'pVbSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilVarBindFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head))(('SnmpUtilVarBindFree', windll['snmpapi.dll']), ((1, 'pVb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilVarBindListCpy():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head),POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head))(('SnmpUtilVarBindListCpy', windll['snmpapi.dll']), ((1, 'pVblDst'),(1, 'pVblSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilVarBindListFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head))(('SnmpUtilVarBindListFree', windll['snmpapi.dll']), ((1, 'pVbl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilMemFree():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('SnmpUtilMemFree', windll['snmpapi.dll']), ((1, 'pMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilMemAlloc():
-    try:
-        return WINFUNCTYPE(c_void_p,UInt32)(('SnmpUtilMemAlloc', windll['snmpapi.dll']), ((1, 'nBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilMemReAlloc():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UInt32)(('SnmpUtilMemReAlloc', windll['snmpapi.dll']), ((1, 'pMem'),(1, 'nBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilOidToA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilOidToA', windll['snmpapi.dll']), ((1, 'Oid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilIdsToA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,POINTER(UInt32),UInt32)(('SnmpUtilIdsToA', windll['snmpapi.dll']), ((1, 'Ids'),(1, 'IdLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilPrintOid():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpUtilPrintOid', windll['snmpapi.dll']), ((1, 'Oid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilPrintAsnAny():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Snmp.AsnAny_head))(('SnmpUtilPrintAsnAny', windll['snmpapi.dll']), ((1, 'pAny'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSvcGetUptime():
-    try:
-        return WINFUNCTYPE(UInt32,)(('SnmpSvcGetUptime', windll['snmpapi.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSvcSetLogLevel():
-    try:
-        return WINFUNCTYPE(Void,win32more.NetworkManagement.Snmp.SNMP_LOG)(('SnmpSvcSetLogLevel', windll['snmpapi.dll']), ((1, 'nLogLevel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSvcSetLogType():
-    try:
-        return WINFUNCTYPE(Void,win32more.NetworkManagement.Snmp.SNMP_OUTPUT_LOG_TYPE)(('SnmpSvcSetLogType', windll['snmpapi.dll']), ((1, 'nLogType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpUtilDbgPrint():
-    try:
-        return CFUNCTYPE(Void,win32more.NetworkManagement.Snmp.SNMP_LOG,win32more.Foundation.PSTR)(('SnmpUtilDbgPrint', cdll['snmpapi.dll']), ((1, 'nLogLevel'),(1, 'szFormat'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrOpen():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32,Int32)(('SnmpMgrOpen', windll['mgmtapi.dll']), ((1, 'lpAgentAddress'),(1, 'lpAgentCommunity'),(1, 'nTimeOut'),(1, 'nRetries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrCtl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32))(('SnmpMgrCtl', windll['mgmtapi.dll']), ((1, 'session'),(1, 'dwCtlCode'),(1, 'lpvInBuffer'),(1, 'cbInBuffer'),(1, 'lpvOUTBuffer'),(1, 'cbOUTBuffer'),(1, 'lpcbBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('SnmpMgrClose', windll['mgmtapi.dll']), ((1, 'session'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrRequest():
-    try:
-        return WINFUNCTYPE(Int32,c_void_p,Byte,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head),POINTER(win32more.NetworkManagement.Snmp.SNMP_ERROR_STATUS),POINTER(Int32))(('SnmpMgrRequest', windll['mgmtapi.dll']), ((1, 'session'),(1, 'requestType'),(1, 'variableBindings'),(1, 'errorStatus'),(1, 'errorIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrStrToOid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))(('SnmpMgrStrToOid', windll['mgmtapi.dll']), ((1, 'string'),(1, 'oid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrOidToStr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.Foundation.PSTR))(('SnmpMgrOidToStr', windll['mgmtapi.dll']), ((1, 'oid'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrTrapListen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE))(('SnmpMgrTrapListen', windll['mgmtapi.dll']), ((1, 'phTrapAvailable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrGetTrap():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.SNMP_GENERICTRAP),POINTER(Int32),POINTER(UInt32),POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head))(('SnmpMgrGetTrap', windll['mgmtapi.dll']), ((1, 'enterprise'),(1, 'IPAddress'),(1, 'genericTrap'),(1, 'specificTrap'),(1, 'timeStamp'),(1, 'variableBindings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpMgrGetTrapEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(win32more.NetworkManagement.Snmp.SNMP_GENERICTRAP),POINTER(Int32),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(UInt32),POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head))(('SnmpMgrGetTrapEx', windll['mgmtapi.dll']), ((1, 'enterprise'),(1, 'agentAddress'),(1, 'sourceAddress'),(1, 'genericTrap'),(1, 'specificTrap'),(1, 'community'),(1, 'timeStamp'),(1, 'variableBindings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetTranslateMode():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE))(('SnmpGetTranslateMode', windll['wsnmp32.dll']), ((1, 'nTranslateMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetTranslateMode():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE)(('SnmpSetTranslateMode', windll['wsnmp32.dll']), ((1, 'nTranslateMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetRetransmitMode():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS))(('SnmpGetRetransmitMode', windll['wsnmp32.dll']), ((1, 'nRetransmitMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetRetransmitMode():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.Snmp.SNMP_STATUS)(('SnmpSetRetransmitMode', windll['wsnmp32.dll']), ((1, 'nRetransmitMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetTimeout():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(UInt32),POINTER(UInt32))(('SnmpGetTimeout', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'nPolicyTimeout'),(1, 'nActualTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetTimeout():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32)(('SnmpSetTimeout', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'nPolicyTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetRetry():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(UInt32),POINTER(UInt32))(('SnmpGetRetry', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'nPolicyRetry'),(1, 'nActualRetry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetRetry():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32)(('SnmpSetRetry', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'nPolicyRetry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetVendorInfo():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.smiVENDORINFO_head))(('SnmpGetVendorInfo', windll['wsnmp32.dll']), ((1, 'vendorInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpStartup():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE),POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS))(('SnmpStartup', windll['wsnmp32.dll']), ((1, 'nMajorVersion'),(1, 'nMinorVersion'),(1, 'nLevel'),(1, 'nTranslateMode'),(1, 'nRetransmitMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCleanup():
-    try:
-        return WINFUNCTYPE(UInt32,)(('SnmpCleanup', windll['wsnmp32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpOpen():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32)(('SnmpOpen', windll['wsnmp32.dll']), ((1, 'hWnd'),(1, 'wMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpClose():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpClose', windll['wsnmp32.dll']), ((1, 'session'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSendMsg():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)(('SnmpSendMsg', windll['wsnmp32.dll']), ((1, 'session'),(1, 'srcEntity'),(1, 'dstEntity'),(1, 'context'),(1, 'PDU'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpRecvMsg():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(IntPtr),POINTER(IntPtr),POINTER(IntPtr),POINTER(IntPtr))(('SnmpRecvMsg', windll['wsnmp32.dll']), ((1, 'session'),(1, 'srcEntity'),(1, 'dstEntity'),(1, 'context'),(1, 'PDU'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpRegister():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),win32more.NetworkManagement.Snmp.SNMP_STATUS)(('SnmpRegister', windll['wsnmp32.dll']), ((1, 'session'),(1, 'srcEntity'),(1, 'dstEntity'),(1, 'context'),(1, 'notification'),(1, 'state'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCreateSession():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HWND,UInt32,win32more.NetworkManagement.Snmp.SNMPAPI_CALLBACK,c_void_p)(('SnmpCreateSession', windll['wsnmp32.dll']), ((1, 'hWnd'),(1, 'wMsg'),(1, 'fCallBack'),(1, 'lpClientData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpListen():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,win32more.NetworkManagement.Snmp.SNMP_STATUS)(('SnmpListen', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'lStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpListenEx():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,UInt32)(('SnmpListenEx', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'lStatus'),(1, 'nUseEntityAddr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCancelMsg():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,Int32)(('SnmpCancelMsg', windll['wsnmp32.dll']), ((1, 'session'),(1, 'reqId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpStartupEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE),POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS))(('SnmpStartupEx', windll['wsnmp32.dll']), ((1, 'nMajorVersion'),(1, 'nMinorVersion'),(1, 'nLevel'),(1, 'nTranslateMode'),(1, 'nRetransmitMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCleanupEx():
-    try:
-        return WINFUNCTYPE(UInt32,)(('SnmpCleanupEx', windll['wsnmp32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpStrToEntity():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,win32more.Foundation.PSTR)(('SnmpStrToEntity', windll['wsnmp32.dll']), ((1, 'session'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpEntityToStr():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,win32more.Foundation.PSTR)(('SnmpEntityToStr', windll['wsnmp32.dll']), ((1, 'entity'),(1, 'size'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpFreeEntity():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpFreeEntity', windll['wsnmp32.dll']), ((1, 'entity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpStrToContext():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head))(('SnmpStrToContext', windll['wsnmp32.dll']), ((1, 'session'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpContextToStr():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head))(('SnmpContextToStr', windll['wsnmp32.dll']), ((1, 'context'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpFreeContext():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpFreeContext', windll['wsnmp32.dll']), ((1, 'context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetPort():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32)(('SnmpSetPort', windll['wsnmp32.dll']), ((1, 'hEntity'),(1, 'nPort'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCreatePdu():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,win32more.NetworkManagement.Snmp.SNMP_PDU_TYPE,Int32,Int32,Int32,IntPtr)(('SnmpCreatePdu', windll['wsnmp32.dll']), ((1, 'session'),(1, 'PDU_type'),(1, 'request_id'),(1, 'error_status'),(1, 'error_index'),(1, 'varbindlist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetPduData():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(win32more.NetworkManagement.Snmp.SNMP_PDU_TYPE),POINTER(Int32),POINTER(win32more.NetworkManagement.Snmp.SNMP_ERROR),POINTER(Int32),POINTER(IntPtr))(('SnmpGetPduData', windll['wsnmp32.dll']), ((1, 'PDU'),(1, 'PDU_type'),(1, 'request_id'),(1, 'error_status'),(1, 'error_index'),(1, 'varbindlist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetPduData():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(IntPtr))(('SnmpSetPduData', windll['wsnmp32.dll']), ((1, 'PDU'),(1, 'PDU_type'),(1, 'request_id'),(1, 'non_repeaters'),(1, 'max_repetitions'),(1, 'varbindlist'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpDuplicatePdu():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,IntPtr)(('SnmpDuplicatePdu', windll['wsnmp32.dll']), ((1, 'session'),(1, 'PDU'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpFreePdu():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpFreePdu', windll['wsnmp32.dll']), ((1, 'PDU'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCreateVbl():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head))(('SnmpCreateVbl', windll['wsnmp32.dll']), ((1, 'session'),(1, 'name'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpDuplicateVbl():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,IntPtr)(('SnmpDuplicateVbl', windll['wsnmp32.dll']), ((1, 'session'),(1, 'vbl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpFreeVbl():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpFreeVbl', windll['wsnmp32.dll']), ((1, 'vbl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpCountVbl():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpCountVbl', windll['wsnmp32.dll']), ((1, 'vbl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetVb():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head))(('SnmpGetVb', windll['wsnmp32.dll']), ((1, 'vbl'),(1, 'index'),(1, 'name'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpSetVb():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head))(('SnmpSetVb', windll['wsnmp32.dll']), ((1, 'vbl'),(1, 'index'),(1, 'name'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpDeleteVb():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32)(('SnmpDeleteVb', windll['wsnmp32.dll']), ((1, 'vbl'),(1, 'index'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpGetLastError():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('SnmpGetLastError', windll['wsnmp32.dll']), ((1, 'session'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpStrToOid():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Snmp.smiOID_head))(('SnmpStrToOid', windll['wsnmp32.dll']), ((1, 'string'),(1, 'dstOID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpOidToStr():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),UInt32,win32more.Foundation.PSTR)(('SnmpOidToStr', windll['wsnmp32.dll']), ((1, 'srcOID'),(1, 'size'),(1, 'string'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpOidCopy():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),POINTER(win32more.NetworkManagement.Snmp.smiOID_head))(('SnmpOidCopy', windll['wsnmp32.dll']), ((1, 'srcOID'),(1, 'dstOID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpOidCompare():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOID_head),POINTER(win32more.NetworkManagement.Snmp.smiOID_head),UInt32,POINTER(Int32))(('SnmpOidCompare', windll['wsnmp32.dll']), ((1, 'xOID'),(1, 'yOID'),(1, 'maxlen'),(1, 'result'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpEncodeMsg():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,IntPtr,IntPtr,IntPtr,IntPtr,POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head))(('SnmpEncodeMsg', windll['wsnmp32.dll']), ((1, 'session'),(1, 'srcEntity'),(1, 'dstEntity'),(1, 'context'),(1, 'pdu'),(1, 'msgBufDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpDecodeMsg():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,POINTER(IntPtr),POINTER(IntPtr),POINTER(IntPtr),POINTER(IntPtr),POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head))(('SnmpDecodeMsg', windll['wsnmp32.dll']), ((1, 'session'),(1, 'srcEntity'),(1, 'dstEntity'),(1, 'context'),(1, 'pdu'),(1, 'msgBufDesc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SnmpFreeDescriptor():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head))(('SnmpFreeDescriptor', windll['wsnmp32.dll']), ((1, 'syntax'),(1, 'descriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AsnAny_head():
-    class AsnAny(Structure):
-        pass
-    return AsnAny
-def _define_AsnAny():
-    AsnAny = win32more.NetworkManagement.Snmp.AsnAny_head
-    class AsnAny__asnValue_e__Union(Union):
-        pass
-    AsnAny__asnValue_e__Union._pack_ = 4
-    AsnAny__asnValue_e__Union._fields_ = [
-        ('number', Int32),
-        ('unsigned32', UInt32),
-        ('counter64', win32more.Foundation.ULARGE_INTEGER),
-        ('string', win32more.NetworkManagement.Snmp.AsnOctetString),
-        ('bits', win32more.NetworkManagement.Snmp.AsnOctetString),
-        ('object', win32more.NetworkManagement.Snmp.AsnObjectIdentifier),
-        ('sequence', win32more.NetworkManagement.Snmp.AsnOctetString),
-        ('address', win32more.NetworkManagement.Snmp.AsnOctetString),
-        ('counter', UInt32),
-        ('gauge', UInt32),
-        ('ticks', UInt32),
-        ('arbitrary', win32more.NetworkManagement.Snmp.AsnOctetString),
-    ]
-    AsnAny._pack_ = 4
-    AsnAny._fields_ = [
-        ('asnType', Byte),
-        ('asnValue', AsnAny__asnValue_e__Union),
-    ]
-    return AsnAny
-def _define_AsnObjectIdentifier_head():
-    class AsnObjectIdentifier(Structure):
-        pass
-    return AsnObjectIdentifier
-def _define_AsnObjectIdentifier():
-    AsnObjectIdentifier = win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head
-    AsnObjectIdentifier._pack_ = 4
-    AsnObjectIdentifier._fields_ = [
-        ('idLength', UInt32),
-        ('ids', POINTER(UInt32)),
-    ]
-    return AsnObjectIdentifier
-def _define_AsnOctetString_head():
-    class AsnOctetString(Structure):
-        pass
-    return AsnOctetString
-def _define_AsnOctetString():
-    AsnOctetString = win32more.NetworkManagement.Snmp.AsnOctetString_head
-    AsnOctetString._pack_ = 4
-    AsnOctetString._fields_ = [
-        ('stream', c_char_p_no),
-        ('length', UInt32),
-        ('dynamic', win32more.Foundation.BOOL),
-    ]
-    return AsnOctetString
-def _define_PFNSNMPCLEANUPEX():
-    return WINFUNCTYPE(UInt32,)
-def _define_PFNSNMPEXTENSIONCLOSE():
-    return WINFUNCTYPE(Void,)
-def _define_PFNSNMPEXTENSIONINIT():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))
-def _define_PFNSNMPEXTENSIONINITEX():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head))
-def _define_PFNSNMPEXTENSIONMONITOR():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)
-def _define_PFNSNMPEXTENSIONQUERY():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head),POINTER(Int32),POINTER(Int32))
-def _define_PFNSNMPEXTENSIONQUERYEX():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head),POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head),POINTER(Int32),POINTER(Int32))
-def _define_PFNSNMPEXTENSIONTRAP():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head),POINTER(Int32),POINTER(Int32),POINTER(UInt32),POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head))
-def _define_PFNSNMPSTARTUPEX():
-    return WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))
-def _define_smiCNTR64_head():
-    class smiCNTR64(Structure):
-        pass
-    return smiCNTR64
-def _define_smiCNTR64():
-    smiCNTR64 = win32more.NetworkManagement.Snmp.smiCNTR64_head
-    smiCNTR64._fields_ = [
-        ('hipart', UInt32),
-        ('lopart', UInt32),
-    ]
-    return smiCNTR64
-def _define_smiOCTETS_head():
-    class smiOCTETS(Structure):
-        pass
-    return smiOCTETS
-def _define_smiOCTETS():
-    smiOCTETS = win32more.NetworkManagement.Snmp.smiOCTETS_head
-    smiOCTETS._fields_ = [
-        ('len', UInt32),
-        ('ptr', c_char_p_no),
-    ]
-    return smiOCTETS
-def _define_smiOID_head():
-    class smiOID(Structure):
-        pass
-    return smiOID
-def _define_smiOID():
-    smiOID = win32more.NetworkManagement.Snmp.smiOID_head
-    smiOID._fields_ = [
-        ('len', UInt32),
-        ('ptr', POINTER(UInt32)),
-    ]
-    return smiOID
-def _define_smiVALUE_head():
-    class smiVALUE(Structure):
-        pass
-    return smiVALUE
-def _define_smiVALUE():
-    smiVALUE = win32more.NetworkManagement.Snmp.smiVALUE_head
-    class smiVALUE__value_e__Union(Union):
-        pass
-    smiVALUE__value_e__Union._fields_ = [
-        ('sNumber', Int32),
-        ('uNumber', UInt32),
-        ('hNumber', win32more.NetworkManagement.Snmp.smiCNTR64),
-        ('string', win32more.NetworkManagement.Snmp.smiOCTETS),
-        ('oid', win32more.NetworkManagement.Snmp.smiOID),
-        ('empty', Byte),
-    ]
-    smiVALUE._fields_ = [
-        ('syntax', UInt32),
-        ('value', smiVALUE__value_e__Union),
-    ]
-    return smiVALUE
-def _define_smiVENDORINFO_head():
-    class smiVENDORINFO(Structure):
-        pass
-    return smiVENDORINFO
-def _define_smiVENDORINFO():
-    smiVENDORINFO = win32more.NetworkManagement.Snmp.smiVENDORINFO_head
-    smiVENDORINFO._fields_ = [
-        ('vendorName', win32more.Foundation.CHAR * 64),
-        ('vendorContact', win32more.Foundation.CHAR * 64),
-        ('vendorVersionId', win32more.Foundation.CHAR * 32),
-        ('vendorVersionDate', win32more.Foundation.CHAR * 32),
-        ('vendorEnterprise', UInt32),
-    ]
-    return smiVENDORINFO
+ASN_UNIVERSAL: UInt32 = 0
+ASN_APPLICATION: UInt32 = 64
+ASN_CONTEXT: UInt32 = 128
+ASN_PRIVATE: UInt32 = 192
+ASN_PRIMITIVE: UInt32 = 0
+ASN_CONSTRUCTOR: UInt32 = 32
+SNMP_ACCESS_NONE: UInt32 = 0
+SNMP_ACCESS_NOTIFY: UInt32 = 1
+SNMP_ACCESS_READ_ONLY: UInt32 = 2
+SNMP_ACCESS_READ_WRITE: UInt32 = 3
+SNMP_ACCESS_READ_CREATE: UInt32 = 4
+SNMPAPI_NOERROR: UInt32 = 1
+SNMPAPI_ERROR: UInt32 = 0
+SNMP_OUTPUT_TO_EVENTLOG: UInt32 = 4
+DEFAULT_SNMP_PORT_UDP: UInt32 = 161
+DEFAULT_SNMP_PORT_IPX: UInt32 = 36879
+DEFAULT_SNMPTRAP_PORT_UDP: UInt32 = 162
+DEFAULT_SNMPTRAP_PORT_IPX: UInt32 = 36880
+SNMP_MAX_OID_LEN: UInt32 = 128
+SNMP_MEM_ALLOC_ERROR: UInt32 = 1
+SNMP_BERAPI_INVALID_LENGTH: UInt32 = 10
+SNMP_BERAPI_INVALID_TAG: UInt32 = 11
+SNMP_BERAPI_OVERFLOW: UInt32 = 12
+SNMP_BERAPI_SHORT_BUFFER: UInt32 = 13
+SNMP_BERAPI_INVALID_OBJELEM: UInt32 = 14
+SNMP_PDUAPI_UNRECOGNIZED_PDU: UInt32 = 20
+SNMP_PDUAPI_INVALID_ES: UInt32 = 21
+SNMP_PDUAPI_INVALID_GT: UInt32 = 22
+SNMP_AUTHAPI_INVALID_VERSION: UInt32 = 30
+SNMP_AUTHAPI_INVALID_MSG_TYPE: UInt32 = 31
+SNMP_AUTHAPI_TRIV_AUTH_FAILED: UInt32 = 32
+ASN_CONTEXTSPECIFIC: UInt32 = 128
+ASN_PRIMATIVE: UInt32 = 0
+SNMP_MGMTAPI_TIMEOUT: UInt32 = 40
+SNMP_MGMTAPI_SELECT_FDERRORS: UInt32 = 41
+SNMP_MGMTAPI_TRAP_ERRORS: UInt32 = 42
+SNMP_MGMTAPI_TRAP_DUPINIT: UInt32 = 43
+SNMP_MGMTAPI_NOTRAPS: UInt32 = 44
+SNMP_MGMTAPI_AGAIN: UInt32 = 45
+SNMP_MGMTAPI_INVALID_CTL: UInt32 = 46
+SNMP_MGMTAPI_INVALID_SESSION: UInt32 = 47
+SNMP_MGMTAPI_INVALID_BUFFER: UInt32 = 48
+MGMCTL_SETAGENTPORT: UInt32 = 1
+MAXOBJIDSIZE: UInt32 = 128
+MAXOBJIDSTRSIZE: UInt32 = 1408
+SNMPLISTEN_USEENTITY_ADDR: UInt32 = 0
+SNMPLISTEN_ALL_ADDR: UInt32 = 1
+SNMP_TRAP_COLDSTART: UInt32 = 0
+SNMP_TRAP_WARMSTART: UInt32 = 1
+SNMP_TRAP_LINKDOWN: UInt32 = 2
+SNMP_TRAP_LINKUP: UInt32 = 3
+SNMP_TRAP_AUTHFAIL: UInt32 = 4
+SNMP_TRAP_EGPNEIGHBORLOSS: UInt32 = 5
+SNMP_TRAP_ENTERPRISESPECIFIC: UInt32 = 6
+SNMPAPI_NO_SUPPORT: UInt32 = 0
+SNMPAPI_V1_SUPPORT: UInt32 = 1
+SNMPAPI_V2_SUPPORT: UInt32 = 2
+SNMPAPI_M2M_SUPPORT: UInt32 = 3
+SNMPAPI_FAILURE: UInt32 = 0
+SNMPAPI_SUCCESS: UInt32 = 1
+SNMPAPI_ALLOC_ERROR: UInt32 = 2
+SNMPAPI_CONTEXT_INVALID: UInt32 = 3
+SNMPAPI_CONTEXT_UNKNOWN: UInt32 = 4
+SNMPAPI_ENTITY_INVALID: UInt32 = 5
+SNMPAPI_ENTITY_UNKNOWN: UInt32 = 6
+SNMPAPI_INDEX_INVALID: UInt32 = 7
+SNMPAPI_NOOP: UInt32 = 8
+SNMPAPI_OID_INVALID: UInt32 = 9
+SNMPAPI_OPERATION_INVALID: UInt32 = 10
+SNMPAPI_OUTPUT_TRUNCATED: UInt32 = 11
+SNMPAPI_PDU_INVALID: UInt32 = 12
+SNMPAPI_SESSION_INVALID: UInt32 = 13
+SNMPAPI_SYNTAX_INVALID: UInt32 = 14
+SNMPAPI_VBL_INVALID: UInt32 = 15
+SNMPAPI_MODE_INVALID: UInt32 = 16
+SNMPAPI_SIZE_INVALID: UInt32 = 17
+SNMPAPI_NOT_INITIALIZED: UInt32 = 18
+SNMPAPI_MESSAGE_INVALID: UInt32 = 19
+SNMPAPI_HWND_INVALID: UInt32 = 20
+SNMPAPI_OTHER_ERROR: UInt32 = 99
+SNMPAPI_TL_NOT_INITIALIZED: UInt32 = 100
+SNMPAPI_TL_NOT_SUPPORTED: UInt32 = 101
+SNMPAPI_TL_NOT_AVAILABLE: UInt32 = 102
+SNMPAPI_TL_RESOURCE_ERROR: UInt32 = 103
+SNMPAPI_TL_UNDELIVERABLE: UInt32 = 104
+SNMPAPI_TL_SRC_INVALID: UInt32 = 105
+SNMPAPI_TL_INVALID_PARAM: UInt32 = 106
+SNMPAPI_TL_IN_USE: UInt32 = 107
+SNMPAPI_TL_TIMEOUT: UInt32 = 108
+SNMPAPI_TL_PDU_TOO_BIG: UInt32 = 109
+SNMPAPI_TL_OTHER: UInt32 = 199
+MAXVENDORINFO: UInt32 = 32
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidCpy(pOidDst: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pOidSrc: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidAppend(pOidDst: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pOidSrc: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidNCmp(pOid1: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pOid2: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), nSubIds: UInt32) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidCmp(pOid1: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pOid2: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidFree(pOid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOctetsCmp(pOctets1: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), pOctets2: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOctetsNCmp(pOctets1: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), pOctets2: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), nChars: UInt32) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOctetsCpy(pOctetsDst: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), pOctetsSrc: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOctetsFree(pOctets: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilAsnAnyCpy(pAnyDst: POINTER(win32more.NetworkManagement.Snmp.AsnAny_head), pAnySrc: POINTER(win32more.NetworkManagement.Snmp.AsnAny_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilAsnAnyFree(pAny: POINTER(win32more.NetworkManagement.Snmp.AsnAny_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilVarBindCpy(pVbDst: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head), pVbSrc: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilVarBindFree(pVb: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilVarBindListCpy(pVblDst: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head), pVblSrc: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> Int32: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilVarBindListFree(pVbl: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilMemFree(pMem: c_void_p) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilMemAlloc(nBytes: UInt32) -> c_void_p: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilMemReAlloc(pMem: c_void_p, nBytes: UInt32) -> c_void_p: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilOidToA(Oid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> win32more.Foundation.PSTR: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilIdsToA(Ids: POINTER(UInt32), IdLength: UInt32) -> win32more.Foundation.PSTR: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilPrintOid(Oid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpUtilPrintAsnAny(pAny: POINTER(win32more.NetworkManagement.Snmp.AsnAny_head)) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpSvcGetUptime() -> UInt32: ...
+@winfunctype('snmpapi.dll')
+def SnmpSvcSetLogLevel(nLogLevel: win32more.NetworkManagement.Snmp.SNMP_LOG) -> Void: ...
+@winfunctype('snmpapi.dll')
+def SnmpSvcSetLogType(nLogType: win32more.NetworkManagement.Snmp.SNMP_OUTPUT_LOG_TYPE) -> Void: ...
+@cfunctype('snmpapi.dll')
+def SnmpUtilDbgPrint(nLogLevel: win32more.NetworkManagement.Snmp.SNMP_LOG, szFormat: win32more.Foundation.PSTR) -> Void: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrOpen(lpAgentAddress: win32more.Foundation.PSTR, lpAgentCommunity: win32more.Foundation.PSTR, nTimeOut: Int32, nRetries: Int32) -> c_void_p: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrCtl(session: c_void_p, dwCtlCode: UInt32, lpvInBuffer: c_void_p, cbInBuffer: UInt32, lpvOUTBuffer: c_void_p, cbOUTBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrClose(session: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrRequest(session: c_void_p, requestType: Byte, variableBindings: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head), errorStatus: POINTER(win32more.NetworkManagement.Snmp.SNMP_ERROR_STATUS), errorIndex: POINTER(Int32)) -> Int32: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrStrToOid(string: win32more.Foundation.PSTR, oid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrOidToStr(oid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), string: POINTER(win32more.Foundation.PSTR)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrTrapListen(phTrapAvailable: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrGetTrap(enterprise: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), IPAddress: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), genericTrap: POINTER(win32more.NetworkManagement.Snmp.SNMP_GENERICTRAP), specificTrap: POINTER(Int32), timeStamp: POINTER(UInt32), variableBindings: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mgmtapi.dll')
+def SnmpMgrGetTrapEx(enterprise: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), agentAddress: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), sourceAddress: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), genericTrap: POINTER(win32more.NetworkManagement.Snmp.SNMP_GENERICTRAP), specificTrap: POINTER(Int32), community: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), timeStamp: POINTER(UInt32), variableBindings: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetTranslateMode(nTranslateMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetTranslateMode(nTranslateMode: win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetRetransmitMode(nRetransmitMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetRetransmitMode(nRetransmitMode: win32more.NetworkManagement.Snmp.SNMP_STATUS) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetTimeout(hEntity: IntPtr, nPolicyTimeout: POINTER(UInt32), nActualTimeout: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetTimeout(hEntity: IntPtr, nPolicyTimeout: UInt32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetRetry(hEntity: IntPtr, nPolicyRetry: POINTER(UInt32), nActualRetry: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetRetry(hEntity: IntPtr, nPolicyRetry: UInt32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetVendorInfo(vendorInfo: POINTER(win32more.NetworkManagement.Snmp.smiVENDORINFO_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpStartup(nMajorVersion: POINTER(UInt32), nMinorVersion: POINTER(UInt32), nLevel: POINTER(UInt32), nTranslateMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE), nRetransmitMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCleanup() -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpOpen(hWnd: win32more.Foundation.HWND, wMsg: UInt32) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpClose(session: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSendMsg(session: IntPtr, srcEntity: IntPtr, dstEntity: IntPtr, context: IntPtr, PDU: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpRecvMsg(session: IntPtr, srcEntity: POINTER(IntPtr), dstEntity: POINTER(IntPtr), context: POINTER(IntPtr), PDU: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpRegister(session: IntPtr, srcEntity: IntPtr, dstEntity: IntPtr, context: IntPtr, notification: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), state: win32more.NetworkManagement.Snmp.SNMP_STATUS) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCreateSession(hWnd: win32more.Foundation.HWND, wMsg: UInt32, fCallBack: win32more.NetworkManagement.Snmp.SNMPAPI_CALLBACK, lpClientData: c_void_p) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpListen(hEntity: IntPtr, lStatus: win32more.NetworkManagement.Snmp.SNMP_STATUS) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpListenEx(hEntity: IntPtr, lStatus: UInt32, nUseEntityAddr: UInt32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCancelMsg(session: IntPtr, reqId: Int32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpStartupEx(nMajorVersion: POINTER(UInt32), nMinorVersion: POINTER(UInt32), nLevel: POINTER(UInt32), nTranslateMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_API_TRANSLATE_MODE), nRetransmitMode: POINTER(win32more.NetworkManagement.Snmp.SNMP_STATUS)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCleanupEx() -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpStrToEntity(session: IntPtr, string: win32more.Foundation.PSTR) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpEntityToStr(entity: IntPtr, size: UInt32, string: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpFreeEntity(entity: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpStrToContext(session: IntPtr, string: POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head)) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpContextToStr(context: IntPtr, string: POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpFreeContext(context: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetPort(hEntity: IntPtr, nPort: UInt32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCreatePdu(session: IntPtr, PDU_type: win32more.NetworkManagement.Snmp.SNMP_PDU_TYPE, request_id: Int32, error_status: Int32, error_index: Int32, varbindlist: IntPtr) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetPduData(PDU: IntPtr, PDU_type: POINTER(win32more.NetworkManagement.Snmp.SNMP_PDU_TYPE), request_id: POINTER(Int32), error_status: POINTER(win32more.NetworkManagement.Snmp.SNMP_ERROR), error_index: POINTER(Int32), varbindlist: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetPduData(PDU: IntPtr, PDU_type: POINTER(Int32), request_id: POINTER(Int32), non_repeaters: POINTER(Int32), max_repetitions: POINTER(Int32), varbindlist: POINTER(IntPtr)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpDuplicatePdu(session: IntPtr, PDU: IntPtr) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpFreePdu(PDU: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCreateVbl(session: IntPtr, name: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), value: POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head)) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpDuplicateVbl(session: IntPtr, vbl: IntPtr) -> IntPtr: ...
+@winfunctype('wsnmp32.dll')
+def SnmpFreeVbl(vbl: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpCountVbl(vbl: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetVb(vbl: IntPtr, index: UInt32, name: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), value: POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpSetVb(vbl: IntPtr, index: UInt32, name: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), value: POINTER(win32more.NetworkManagement.Snmp.smiVALUE_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpDeleteVb(vbl: IntPtr, index: UInt32) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpGetLastError(session: IntPtr) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpStrToOid(string: win32more.Foundation.PSTR, dstOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpOidToStr(srcOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), size: UInt32, string: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpOidCopy(srcOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), dstOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpOidCompare(xOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), yOID: POINTER(win32more.NetworkManagement.Snmp.smiOID_head), maxlen: UInt32, result: POINTER(Int32)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpEncodeMsg(session: IntPtr, srcEntity: IntPtr, dstEntity: IntPtr, context: IntPtr, pdu: IntPtr, msgBufDesc: POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpDecodeMsg(session: IntPtr, srcEntity: POINTER(IntPtr), dstEntity: POINTER(IntPtr), context: POINTER(IntPtr), pdu: POINTER(IntPtr), msgBufDesc: POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head)) -> UInt32: ...
+@winfunctype('wsnmp32.dll')
+def SnmpFreeDescriptor(syntax: UInt32, descriptor: POINTER(win32more.NetworkManagement.Snmp.smiOCTETS_head)) -> UInt32: ...
+class AsnAny(Structure):
+    asnType: Byte
+    asnValue: _asnValue_e__Union
+    _pack_ = 4
+    class _asnValue_e__Union(Union):
+        number: Int32
+        unsigned32: UInt32
+        counter64: win32more.Foundation.ULARGE_INTEGER
+        string: win32more.NetworkManagement.Snmp.AsnOctetString
+        bits: win32more.NetworkManagement.Snmp.AsnOctetString
+        object: win32more.NetworkManagement.Snmp.AsnObjectIdentifier
+        sequence: win32more.NetworkManagement.Snmp.AsnOctetString
+        address: win32more.NetworkManagement.Snmp.AsnOctetString
+        counter: UInt32
+        gauge: UInt32
+        ticks: UInt32
+        arbitrary: win32more.NetworkManagement.Snmp.AsnOctetString
+        _pack_ = 4
+class AsnObjectIdentifier(Structure):
+    idLength: UInt32
+    ids: POINTER(UInt32)
+    _pack_ = 4
+class AsnOctetString(Structure):
+    stream: c_char_p_no
+    length: UInt32
+    dynamic: win32more.Foundation.BOOL
+    _pack_ = 4
+@winfunctype_pointer
+def PFNSNMPCLEANUPEX() -> UInt32: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONCLOSE() -> Void: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONINIT(dwUpTimeReference: UInt32, phSubagentTrapEvent: POINTER(win32more.Foundation.HANDLE), pFirstSupportedRegion: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONINITEX(pNextSupportedRegion: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONMONITOR(pAgentMgmtData: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONQUERY(bPduType: Byte, pVarBindList: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head), pErrorStatus: POINTER(Int32), pErrorIndex: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONQUERYEX(nRequestType: UInt32, nTransactionId: UInt32, pVarBindList: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head), pContextInfo: POINTER(win32more.NetworkManagement.Snmp.AsnOctetString_head), pErrorStatus: POINTER(Int32), pErrorIndex: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPEXTENSIONTRAP(pEnterpriseOid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pGenericTrapId: POINTER(Int32), pSpecificTrapId: POINTER(Int32), pTimeStamp: POINTER(UInt32), pVarBindList: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNSNMPSTARTUPEX(param0: POINTER(UInt32), param1: POINTER(UInt32), param2: POINTER(UInt32), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+class smiCNTR64(Structure):
+    hipart: UInt32
+    lopart: UInt32
+class smiOCTETS(Structure):
+    len: UInt32
+    ptr: c_char_p_no
+class smiOID(Structure):
+    len: UInt32
+    ptr: POINTER(UInt32)
+class smiVALUE(Structure):
+    syntax: UInt32
+    value: _value_e__Union
+    class _value_e__Union(Union):
+        sNumber: Int32
+        uNumber: UInt32
+        hNumber: win32more.NetworkManagement.Snmp.smiCNTR64
+        string: win32more.NetworkManagement.Snmp.smiOCTETS
+        oid: win32more.NetworkManagement.Snmp.smiOID
+        empty: Byte
+class smiVENDORINFO(Structure):
+    vendorName: win32more.Foundation.CHAR * 64
+    vendorContact: win32more.Foundation.CHAR * 64
+    vendorVersionId: win32more.Foundation.CHAR * 32
+    vendorVersionDate: win32more.Foundation.CHAR * 32
+    vendorEnterprise: UInt32
 SNMP_API_TRANSLATE_MODE = UInt32
-SNMPAPI_TRANSLATED = 0
-SNMPAPI_UNTRANSLATED_V1 = 1
-SNMPAPI_UNTRANSLATED_V2 = 2
+SNMPAPI_TRANSLATED: SNMP_API_TRANSLATE_MODE = 0
+SNMPAPI_UNTRANSLATED_V1: SNMP_API_TRANSLATE_MODE = 1
+SNMPAPI_UNTRANSLATED_V2: SNMP_API_TRANSLATE_MODE = 2
 SNMP_ERROR = UInt32
-SNMP_ERROR_NOERROR = 0
-SNMP_ERROR_TOOBIG = 1
-SNMP_ERROR_NOSUCHNAME = 2
-SNMP_ERROR_BADVALUE = 3
-SNMP_ERROR_READONLY = 4
-SNMP_ERROR_GENERR = 5
-SNMP_ERROR_NOACCESS = 6
-SNMP_ERROR_WRONGTYPE = 7
-SNMP_ERROR_WRONGLENGTH = 8
-SNMP_ERROR_WRONGENCODING = 9
-SNMP_ERROR_WRONGVALUE = 10
-SNMP_ERROR_NOCREATION = 11
-SNMP_ERROR_INCONSISTENTVALUE = 12
-SNMP_ERROR_RESOURCEUNAVAILABLE = 13
-SNMP_ERROR_COMMITFAILED = 14
-SNMP_ERROR_UNDOFAILED = 15
-SNMP_ERROR_AUTHORIZATIONERROR = 16
-SNMP_ERROR_NOTWRITABLE = 17
-SNMP_ERROR_INCONSISTENTNAME = 18
+SNMP_ERROR_NOERROR: SNMP_ERROR = 0
+SNMP_ERROR_TOOBIG: SNMP_ERROR = 1
+SNMP_ERROR_NOSUCHNAME: SNMP_ERROR = 2
+SNMP_ERROR_BADVALUE: SNMP_ERROR = 3
+SNMP_ERROR_READONLY: SNMP_ERROR = 4
+SNMP_ERROR_GENERR: SNMP_ERROR = 5
+SNMP_ERROR_NOACCESS: SNMP_ERROR = 6
+SNMP_ERROR_WRONGTYPE: SNMP_ERROR = 7
+SNMP_ERROR_WRONGLENGTH: SNMP_ERROR = 8
+SNMP_ERROR_WRONGENCODING: SNMP_ERROR = 9
+SNMP_ERROR_WRONGVALUE: SNMP_ERROR = 10
+SNMP_ERROR_NOCREATION: SNMP_ERROR = 11
+SNMP_ERROR_INCONSISTENTVALUE: SNMP_ERROR = 12
+SNMP_ERROR_RESOURCEUNAVAILABLE: SNMP_ERROR = 13
+SNMP_ERROR_COMMITFAILED: SNMP_ERROR = 14
+SNMP_ERROR_UNDOFAILED: SNMP_ERROR = 15
+SNMP_ERROR_AUTHORIZATIONERROR: SNMP_ERROR = 16
+SNMP_ERROR_NOTWRITABLE: SNMP_ERROR = 17
+SNMP_ERROR_INCONSISTENTNAME: SNMP_ERROR = 18
 SNMP_ERROR_STATUS = UInt32
-SNMP_ERRORSTATUS_NOERROR = 0
-SNMP_ERRORSTATUS_TOOBIG = 1
-SNMP_ERRORSTATUS_NOSUCHNAME = 2
-SNMP_ERRORSTATUS_BADVALUE = 3
-SNMP_ERRORSTATUS_READONLY = 4
-SNMP_ERRORSTATUS_GENERR = 5
-SNMP_ERRORSTATUS_NOACCESS = 6
-SNMP_ERRORSTATUS_WRONGTYPE = 7
-SNMP_ERRORSTATUS_WRONGLENGTH = 8
-SNMP_ERRORSTATUS_WRONGENCODING = 9
-SNMP_ERRORSTATUS_WRONGVALUE = 10
-SNMP_ERRORSTATUS_NOCREATION = 11
-SNMP_ERRORSTATUS_INCONSISTENTVALUE = 12
-SNMP_ERRORSTATUS_RESOURCEUNAVAILABLE = 13
-SNMP_ERRORSTATUS_COMMITFAILED = 14
-SNMP_ERRORSTATUS_UNDOFAILED = 15
-SNMP_ERRORSTATUS_AUTHORIZATIONERROR = 16
-SNMP_ERRORSTATUS_NOTWRITABLE = 17
-SNMP_ERRORSTATUS_INCONSISTENTNAME = 18
+SNMP_ERRORSTATUS_NOERROR: SNMP_ERROR_STATUS = 0
+SNMP_ERRORSTATUS_TOOBIG: SNMP_ERROR_STATUS = 1
+SNMP_ERRORSTATUS_NOSUCHNAME: SNMP_ERROR_STATUS = 2
+SNMP_ERRORSTATUS_BADVALUE: SNMP_ERROR_STATUS = 3
+SNMP_ERRORSTATUS_READONLY: SNMP_ERROR_STATUS = 4
+SNMP_ERRORSTATUS_GENERR: SNMP_ERROR_STATUS = 5
+SNMP_ERRORSTATUS_NOACCESS: SNMP_ERROR_STATUS = 6
+SNMP_ERRORSTATUS_WRONGTYPE: SNMP_ERROR_STATUS = 7
+SNMP_ERRORSTATUS_WRONGLENGTH: SNMP_ERROR_STATUS = 8
+SNMP_ERRORSTATUS_WRONGENCODING: SNMP_ERROR_STATUS = 9
+SNMP_ERRORSTATUS_WRONGVALUE: SNMP_ERROR_STATUS = 10
+SNMP_ERRORSTATUS_NOCREATION: SNMP_ERROR_STATUS = 11
+SNMP_ERRORSTATUS_INCONSISTENTVALUE: SNMP_ERROR_STATUS = 12
+SNMP_ERRORSTATUS_RESOURCEUNAVAILABLE: SNMP_ERROR_STATUS = 13
+SNMP_ERRORSTATUS_COMMITFAILED: SNMP_ERROR_STATUS = 14
+SNMP_ERRORSTATUS_UNDOFAILED: SNMP_ERROR_STATUS = 15
+SNMP_ERRORSTATUS_AUTHORIZATIONERROR: SNMP_ERROR_STATUS = 16
+SNMP_ERRORSTATUS_NOTWRITABLE: SNMP_ERROR_STATUS = 17
+SNMP_ERRORSTATUS_INCONSISTENTNAME: SNMP_ERROR_STATUS = 18
 SNMP_EXTENSION_REQUEST_TYPE = UInt32
-SNMP_EXTENSION_GET = 160
-SNMP_EXTENSION_GET_NEXT = 161
-SNMP_EXTENSION_SET_TEST = 224
-SNMP_EXTENSION_SET_COMMIT = 163
-SNMP_EXTENSION_SET_UNDO = 225
-SNMP_EXTENSION_SET_CLEANUP = 226
+SNMP_EXTENSION_GET: SNMP_EXTENSION_REQUEST_TYPE = 160
+SNMP_EXTENSION_GET_NEXT: SNMP_EXTENSION_REQUEST_TYPE = 161
+SNMP_EXTENSION_SET_TEST: SNMP_EXTENSION_REQUEST_TYPE = 224
+SNMP_EXTENSION_SET_COMMIT: SNMP_EXTENSION_REQUEST_TYPE = 163
+SNMP_EXTENSION_SET_UNDO: SNMP_EXTENSION_REQUEST_TYPE = 225
+SNMP_EXTENSION_SET_CLEANUP: SNMP_EXTENSION_REQUEST_TYPE = 226
 SNMP_GENERICTRAP = UInt32
-SNMP_GENERICTRAP_COLDSTART = 0
-SNMP_GENERICTRAP_WARMSTART = 1
-SNMP_GENERICTRAP_LINKDOWN = 2
-SNMP_GENERICTRAP_LINKUP = 3
-SNMP_GENERICTRAP_AUTHFAILURE = 4
-SNMP_GENERICTRAP_EGPNEIGHLOSS = 5
-SNMP_GENERICTRAP_ENTERSPECIFIC = 6
+SNMP_GENERICTRAP_COLDSTART: SNMP_GENERICTRAP = 0
+SNMP_GENERICTRAP_WARMSTART: SNMP_GENERICTRAP = 1
+SNMP_GENERICTRAP_LINKDOWN: SNMP_GENERICTRAP = 2
+SNMP_GENERICTRAP_LINKUP: SNMP_GENERICTRAP = 3
+SNMP_GENERICTRAP_AUTHFAILURE: SNMP_GENERICTRAP = 4
+SNMP_GENERICTRAP_EGPNEIGHLOSS: SNMP_GENERICTRAP = 5
+SNMP_GENERICTRAP_ENTERSPECIFIC: SNMP_GENERICTRAP = 6
 SNMP_LOG = UInt32
-SNMP_LOG_SILENT = 0
-SNMP_LOG_FATAL = 1
-SNMP_LOG_ERROR = 2
-SNMP_LOG_WARNING = 3
-SNMP_LOG_TRACE = 4
-SNMP_LOG_VERBOSE = 5
+SNMP_LOG_SILENT: SNMP_LOG = 0
+SNMP_LOG_FATAL: SNMP_LOG = 1
+SNMP_LOG_ERROR: SNMP_LOG = 2
+SNMP_LOG_WARNING: SNMP_LOG = 3
+SNMP_LOG_TRACE: SNMP_LOG = 4
+SNMP_LOG_VERBOSE: SNMP_LOG = 5
 SNMP_OUTPUT_LOG_TYPE = UInt32
-SNMP_OUTPUT_TO_CONSOLE = 1
-SNMP_OUTPUT_TO_LOGFILE = 2
-SNMP_OUTPUT_TO_DEBUGGER = 8
+SNMP_OUTPUT_TO_CONSOLE: SNMP_OUTPUT_LOG_TYPE = 1
+SNMP_OUTPUT_TO_LOGFILE: SNMP_OUTPUT_LOG_TYPE = 2
+SNMP_OUTPUT_TO_DEBUGGER: SNMP_OUTPUT_LOG_TYPE = 8
 SNMP_PDU_TYPE = UInt32
-SNMP_PDU_GET = 160
-SNMP_PDU_GETNEXT = 161
-SNMP_PDU_RESPONSE = 162
-SNMP_PDU_SET = 163
-SNMP_PDU_GETBULK = 165
-SNMP_PDU_TRAP = 167
+SNMP_PDU_GET: SNMP_PDU_TYPE = 160
+SNMP_PDU_GETNEXT: SNMP_PDU_TYPE = 161
+SNMP_PDU_RESPONSE: SNMP_PDU_TYPE = 162
+SNMP_PDU_SET: SNMP_PDU_TYPE = 163
+SNMP_PDU_GETBULK: SNMP_PDU_TYPE = 165
+SNMP_PDU_TRAP: SNMP_PDU_TYPE = 167
 SNMP_STATUS = UInt32
-SNMPAPI_ON = 1
-SNMPAPI_OFF = 0
-def _define_SNMPAPI_CALLBACK():
-    return WINFUNCTYPE(UInt32,IntPtr,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,c_void_p)
-def _define_SnmpVarBind_head():
-    class SnmpVarBind(Structure):
-        pass
-    return SnmpVarBind
-def _define_SnmpVarBind():
-    SnmpVarBind = win32more.NetworkManagement.Snmp.SnmpVarBind_head
-    SnmpVarBind._pack_ = 4
-    SnmpVarBind._fields_ = [
-        ('name', win32more.NetworkManagement.Snmp.AsnObjectIdentifier),
-        ('value', win32more.NetworkManagement.Snmp.AsnAny),
-    ]
-    return SnmpVarBind
-def _define_SnmpVarBindList_head():
-    class SnmpVarBindList(Structure):
-        pass
-    return SnmpVarBindList
-def _define_SnmpVarBindList():
-    SnmpVarBindList = win32more.NetworkManagement.Snmp.SnmpVarBindList_head
-    SnmpVarBindList._pack_ = 4
-    SnmpVarBindList._fields_ = [
-        ('list', POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head)),
-        ('len', UInt32),
-    ]
-    return SnmpVarBindList
+SNMPAPI_ON: SNMP_STATUS = 1
+SNMPAPI_OFF: SNMP_STATUS = 0
+@winfunctype_pointer
+def SNMPAPI_CALLBACK(hSession: IntPtr, hWnd: win32more.Foundation.HWND, wMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, lpClientData: c_void_p) -> UInt32: ...
+class SnmpVarBind(Structure):
+    name: win32more.NetworkManagement.Snmp.AsnObjectIdentifier
+    value: win32more.NetworkManagement.Snmp.AsnAny
+    _pack_ = 4
+class SnmpVarBindList(Structure):
+    list: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head)
+    len: UInt32
+    _pack_ = 4
+make_head(_module, 'AsnAny')
+make_head(_module, 'AsnObjectIdentifier')
+make_head(_module, 'AsnOctetString')
+make_head(_module, 'PFNSNMPCLEANUPEX')
+make_head(_module, 'PFNSNMPEXTENSIONCLOSE')
+make_head(_module, 'PFNSNMPEXTENSIONINIT')
+make_head(_module, 'PFNSNMPEXTENSIONINITEX')
+make_head(_module, 'PFNSNMPEXTENSIONMONITOR')
+make_head(_module, 'PFNSNMPEXTENSIONQUERY')
+make_head(_module, 'PFNSNMPEXTENSIONQUERYEX')
+make_head(_module, 'PFNSNMPEXTENSIONTRAP')
+make_head(_module, 'PFNSNMPSTARTUPEX')
+make_head(_module, 'smiCNTR64')
+make_head(_module, 'smiOCTETS')
+make_head(_module, 'smiOID')
+make_head(_module, 'smiVALUE')
+make_head(_module, 'smiVENDORINFO')
+make_head(_module, 'SNMPAPI_CALLBACK')
+make_head(_module, 'SnmpVarBind')
+make_head(_module, 'SnmpVarBindList')
 __all__ = [
     "ASN_APPLICATION",
     "ASN_CONSTRUCTOR",

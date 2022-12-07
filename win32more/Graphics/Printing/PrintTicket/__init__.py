@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Graphics.Printing.PrintTicket
@@ -9,82 +10,49 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-PRINTTICKET_ISTREAM_APIS = 1
-S_PT_NO_CONFLICT = 262145
-S_PT_CONFLICT_RESOLVED = 262146
-E_PRINTTICKET_FORMAT = 2147745795
-E_PRINTCAPABILITIES_FORMAT = 2147745796
-E_DELTA_PRINTTICKET_FORMAT = 2147745797
-E_PRINTDEVICECAPABILITIES_FORMAT = 2147745798
-def _define_PTQuerySchemaVersionSupport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32))(('PTQuerySchemaVersionSupport', windll['prntvpt.dll']), ((1, 'pszPrinterName'),(1, 'pMaxVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTOpenProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Storage.Xps.HPTPROVIDER))(('PTOpenProvider', windll['prntvpt.dll']), ((1, 'pszPrinterName'),(1, 'dwVersion'),(1, 'phProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTOpenProviderEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Storage.Xps.HPTPROVIDER),POINTER(UInt32))(('PTOpenProviderEx', windll['prntvpt.dll']), ((1, 'pszPrinterName'),(1, 'dwMaxVersion'),(1, 'dwPrefVersion'),(1, 'phProvider'),(1, 'pUsedVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTCloseProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER)(('PTCloseProvider', windll['prntvpt.dll']), ((1, 'hProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTReleaseMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('PTReleaseMemory', windll['prntvpt.dll']), ((1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTGetPrintCapabilities():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BSTR))(('PTGetPrintCapabilities', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'pPrintTicket'),(1, 'pCapabilities'),(1, 'pbstrErrorMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTGetPrintDeviceCapabilities():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BSTR))(('PTGetPrintDeviceCapabilities', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'pPrintTicket'),(1, 'pDeviceCapabilities'),(1, 'pbstrErrorMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTGetPrintDeviceResources():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BSTR))(('PTGetPrintDeviceResources', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'pszLocaleName'),(1, 'pPrintTicket'),(1, 'pDeviceResources'),(1, 'pbstrErrorMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTMergeAndValidatePrintTicket():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.Graphics.Printing.PrintTicket.EPrintTicketScope,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BSTR))(('PTMergeAndValidatePrintTicket', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'pBaseTicket'),(1, 'pDeltaTicket'),(1, 'scope'),(1, 'pResultTicket'),(1, 'pbstrErrorMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTConvertPrintTicketToDevMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,win32more.System.Com.IStream_head,win32more.Graphics.Printing.PrintTicket.EDefaultDevmodeType,win32more.Graphics.Printing.PrintTicket.EPrintTicketScope,POINTER(UInt32),POINTER(POINTER(win32more.Graphics.Gdi.DEVMODEA_head)),POINTER(win32more.Foundation.BSTR))(('PTConvertPrintTicketToDevMode', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'pPrintTicket'),(1, 'baseDevmodeType'),(1, 'scope'),(1, 'pcbDevmode'),(1, 'ppDevmode'),(1, 'pbstrErrorMessage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PTConvertDevModeToPrintTicket():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.HPTPROVIDER,UInt32,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Graphics.Printing.PrintTicket.EPrintTicketScope,win32more.System.Com.IStream_head)(('PTConvertDevModeToPrintTicket', windll['prntvpt.dll']), ((1, 'hProvider'),(1, 'cbDevmode'),(1, 'pDevmode'),(1, 'scope'),(1, 'pPrintTicket'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+PRINTTICKET_ISTREAM_APIS: UInt32 = 1
+S_PT_NO_CONFLICT: UInt32 = 262145
+S_PT_CONFLICT_RESOLVED: UInt32 = 262146
+E_PRINTTICKET_FORMAT: UInt32 = 2147745795
+E_PRINTCAPABILITIES_FORMAT: UInt32 = 2147745796
+E_DELTA_PRINTTICKET_FORMAT: UInt32 = 2147745797
+E_PRINTDEVICECAPABILITIES_FORMAT: UInt32 = 2147745798
+@winfunctype('prntvpt.dll')
+def PTQuerySchemaVersionSupport(pszPrinterName: win32more.Foundation.PWSTR, pMaxVersion: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTOpenProvider(pszPrinterName: win32more.Foundation.PWSTR, dwVersion: UInt32, phProvider: POINTER(win32more.Storage.Xps.HPTPROVIDER)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTOpenProviderEx(pszPrinterName: win32more.Foundation.PWSTR, dwMaxVersion: UInt32, dwPrefVersion: UInt32, phProvider: POINTER(win32more.Storage.Xps.HPTPROVIDER), pUsedVersion: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTCloseProvider(hProvider: win32more.Storage.Xps.HPTPROVIDER) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTReleaseMemory(pBuffer: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTGetPrintCapabilities(hProvider: win32more.Storage.Xps.HPTPROVIDER, pPrintTicket: win32more.System.Com.IStream_head, pCapabilities: win32more.System.Com.IStream_head, pbstrErrorMessage: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTGetPrintDeviceCapabilities(hProvider: win32more.Storage.Xps.HPTPROVIDER, pPrintTicket: win32more.System.Com.IStream_head, pDeviceCapabilities: win32more.System.Com.IStream_head, pbstrErrorMessage: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTGetPrintDeviceResources(hProvider: win32more.Storage.Xps.HPTPROVIDER, pszLocaleName: win32more.Foundation.PWSTR, pPrintTicket: win32more.System.Com.IStream_head, pDeviceResources: win32more.System.Com.IStream_head, pbstrErrorMessage: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTMergeAndValidatePrintTicket(hProvider: win32more.Storage.Xps.HPTPROVIDER, pBaseTicket: win32more.System.Com.IStream_head, pDeltaTicket: win32more.System.Com.IStream_head, scope: win32more.Graphics.Printing.PrintTicket.EPrintTicketScope, pResultTicket: win32more.System.Com.IStream_head, pbstrErrorMessage: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTConvertPrintTicketToDevMode(hProvider: win32more.Storage.Xps.HPTPROVIDER, pPrintTicket: win32more.System.Com.IStream_head, baseDevmodeType: win32more.Graphics.Printing.PrintTicket.EDefaultDevmodeType, scope: win32more.Graphics.Printing.PrintTicket.EPrintTicketScope, pcbDevmode: POINTER(UInt32), ppDevmode: POINTER(POINTER(win32more.Graphics.Gdi.DEVMODEA_head)), pbstrErrorMessage: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('prntvpt.dll')
+def PTConvertDevModeToPrintTicket(hProvider: win32more.Storage.Xps.HPTPROVIDER, cbDevmode: UInt32, pDevmode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), scope: win32more.Graphics.Printing.PrintTicket.EPrintTicketScope, pPrintTicket: win32more.System.Com.IStream_head) -> win32more.Foundation.HRESULT: ...
 EDefaultDevmodeType = Int32
-EDefaultDevmodeType_kUserDefaultDevmode = 0
-EDefaultDevmodeType_kPrinterDefaultDevmode = 1
+EDefaultDevmodeType_kUserDefaultDevmode: EDefaultDevmodeType = 0
+EDefaultDevmodeType_kPrinterDefaultDevmode: EDefaultDevmodeType = 1
 EPrintTicketScope = Int32
-EPrintTicketScope_kPTPageScope = 0
-EPrintTicketScope_kPTDocumentScope = 1
-EPrintTicketScope_kPTJobScope = 2
+EPrintTicketScope_kPTPageScope: EPrintTicketScope = 0
+EPrintTicketScope_kPTDocumentScope: EPrintTicketScope = 1
+EPrintTicketScope_kPTJobScope: EPrintTicketScope = 2
 __all__ = [
     "EDefaultDevmodeType",
     "EDefaultDevmodeType_kPrinterDefaultDevmode",

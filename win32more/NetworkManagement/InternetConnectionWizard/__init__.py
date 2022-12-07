@@ -1,42 +1,45 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.InternetConnectionWizard
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-ICW_REGPATHSETTINGS = 'Software\\Microsoft\\Internet Connection Wizard'
-ICW_REGKEYCOMPLETED = 'Completed'
-ICW_MAX_ACCTNAME = 256
-ICW_MAX_PASSWORD = 256
-ICW_MAX_LOGONNAME = 256
-ICW_MAX_SERVERNAME = 64
-ICW_MAX_RASNAME = 256
-ICW_MAX_EMAILNAME = 64
-ICW_MAX_EMAILADDR = 128
-ICW_CHECKSTATUS = 1
-ICW_LAUNCHFULL = 256
-ICW_LAUNCHMANUAL = 512
-ICW_USE_SHELLNEXT = 1024
-ICW_FULL_SMARTSTART = 2048
-ICW_FULLPRESENT = 1
-ICW_MANUALPRESENT = 2
-ICW_ALREADYRUN = 4
-ICW_LAUNCHEDFULL = 256
-ICW_LAUNCHEDMANUAL = 512
-ICW_USEDEFAULTS = 1
-def _define_PFNCHECKCONNECTIONWIZARD():
-    return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32))
-def _define_PFNSETSHELLNEXT():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)
+ICW_REGPATHSETTINGS: String = 'Software\\Microsoft\\Internet Connection Wizard'
+ICW_REGKEYCOMPLETED: String = 'Completed'
+ICW_MAX_ACCTNAME: UInt32 = 256
+ICW_MAX_PASSWORD: UInt32 = 256
+ICW_MAX_LOGONNAME: UInt32 = 256
+ICW_MAX_SERVERNAME: UInt32 = 64
+ICW_MAX_RASNAME: UInt32 = 256
+ICW_MAX_EMAILNAME: UInt32 = 64
+ICW_MAX_EMAILADDR: UInt32 = 128
+ICW_CHECKSTATUS: UInt32 = 1
+ICW_LAUNCHFULL: UInt32 = 256
+ICW_LAUNCHMANUAL: UInt32 = 512
+ICW_USE_SHELLNEXT: UInt32 = 1024
+ICW_FULL_SMARTSTART: UInt32 = 2048
+ICW_FULLPRESENT: UInt32 = 1
+ICW_MANUALPRESENT: UInt32 = 2
+ICW_ALREADYRUN: UInt32 = 4
+ICW_LAUNCHEDFULL: UInt32 = 256
+ICW_LAUNCHEDMANUAL: UInt32 = 512
+ICW_USEDEFAULTS: UInt32 = 1
+@winfunctype_pointer
+def PFNCHECKCONNECTIONWIZARD(param0: UInt32, param1: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PFNSETSHELLNEXT(param0: win32more.Foundation.PSTR) -> UInt32: ...
+make_head(_module, 'PFNCHECKCONNECTIONWIZARD')
+make_head(_module, 'PFNSETSHELLNEXT')
 __all__ = [
     "ICW_ALREADYRUN",
     "ICW_CHECKSTATUS",

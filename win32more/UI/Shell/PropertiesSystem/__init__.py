@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
@@ -10,1731 +11,1022 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 _PERSIST_SPROPSTORE_FLAGS = Int32
-FPSPS_DEFAULT = 0
-FPSPS_READONLY = 1
-FPSPS_TREAT_NEW_VALUES_AS_DIRTY = 2
-PKEY_PIDSTR_MAX = 10
-def _define_PropVariantToWinRTPropertyValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Guid),POINTER(c_void_p))(('PropVariantToWinRTPropertyValue', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinRTPropertyValueToPropVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('WinRTPropertyValueToPropVariant', windll['PROPSYS.dll']), ((1, 'punkPropertyValue'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSFormatForDisplay():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,win32more.Foundation.PWSTR,UInt32)(('PSFormatForDisplay', windll['PROPSYS.dll']), ((1, 'propkey'),(1, 'propvar'),(1, 'pdfFlags'),(1, 'pwszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSFormatForDisplayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,POINTER(win32more.Foundation.PWSTR))(('PSFormatForDisplayAlloc', windll['PROPSYS.dll']), ((1, 'key'),(1, 'propvar'),(1, 'pdff'),(1, 'ppszDisplay'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSFormatPropertyValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head,win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,POINTER(win32more.Foundation.PWSTR))(('PSFormatPropertyValue', windll['PROPSYS.dll']), ((1, 'pps'),(1, 'ppd'),(1, 'pdff'),(1, 'ppszDisplay'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetImageReferenceForValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR))(('PSGetImageReferenceForValue', windll['PROPSYS.dll']), ((1, 'propkey'),(1, 'propvar'),(1, 'ppszImageRes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSStringFromPropertyKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.Foundation.PWSTR,UInt32)(('PSStringFromPropertyKey', windll['PROPSYS.dll']), ((1, 'pkey'),(1, 'psz'),(1, 'cch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyKeyFromString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(('PSPropertyKeyFromString', windll['PROPSYS.dll']), ((1, 'pszString'),(1, 'pkey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreateMemoryPropertyStore():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('PSCreateMemoryPropertyStore', windll['PROPSYS.dll']), ((1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreateDelayedMultiplexPropertyStore():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,win32more.UI.Shell.PropertiesSystem.IDelayedPropertyStoreFactory_head,POINTER(UInt32),UInt32,POINTER(Guid),POINTER(c_void_p))(('PSCreateDelayedMultiplexPropertyStore', windll['PROPSYS.dll']), ((1, 'flags'),(1, 'pdpsf'),(1, 'rgStoreIds'),(1, 'cStores'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreateMultiplexPropertyStore():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),UInt32,POINTER(Guid),POINTER(c_void_p))(('PSCreateMultiplexPropertyStore', windll['PROPSYS.dll']), ((1, 'prgpunkStores'),(1, 'cStores'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreatePropertyChangeArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.UI.Shell.PropertiesSystem.PKA_FLAGS),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(Guid),POINTER(c_void_p))(('PSCreatePropertyChangeArray', windll['PROPSYS.dll']), ((1, 'rgpropkey'),(1, 'rgflags'),(1, 'rgpropvar'),(1, 'cChanges'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreateSimplePropertyChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.PKA_FLAGS,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Guid),POINTER(c_void_p))(('PSCreateSimplePropertyChange', windll['PROPSYS.dll']), ((1, 'flags'),(1, 'key'),(1, 'propvar'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyDescription():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(Guid),POINTER(c_void_p))(('PSGetPropertyDescription', windll['PROPSYS.dll']), ((1, 'propkey'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyDescriptionByName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(('PSGetPropertyDescriptionByName', windll['PROPSYS.dll']), ((1, 'pszCanonicalName'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSLookupPropertyHandlerCLSID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(('PSLookupPropertyHandlerCLSID', windll['PROPSYS.dll']), ((1, 'pszFilePath'),(1, 'pclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetItemPropertyHandler():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(c_void_p))(('PSGetItemPropertyHandler', windll['PROPSYS.dll']), ((1, 'punkItem'),(1, 'fReadWrite'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetItemPropertyHandlerWithCreateObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p))(('PSGetItemPropertyHandlerWithCreateObject', windll['PROPSYS.dll']), ((1, 'punkItem'),(1, 'fReadWrite'),(1, 'punkCreateObject'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PSGetPropertyValue', windll['PROPSYS.dll']), ((1, 'pps'),(1, 'ppd'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSSetPropertyValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PSSetPropertyValue', windll['PROPSYS.dll']), ((1, 'pps'),(1, 'ppd'),(1, 'propvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSRegisterPropertySchema():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('PSRegisterPropertySchema', windll['PROPSYS.dll']), ((1, 'pszPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSUnregisterPropertySchema():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('PSUnregisterPropertySchema', windll['PROPSYS.dll']), ((1, 'pszPath'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSRefreshPropertySchema():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('PSRefreshPropertySchema', windll['PROPSYS.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSEnumeratePropertyDescriptions():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.PROPDESC_ENUMFILTER,POINTER(Guid),POINTER(c_void_p))(('PSEnumeratePropertyDescriptions', windll['PROPSYS.dll']), ((1, 'filterOn'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyKeyFromName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(('PSGetPropertyKeyFromName', windll['PROPSYS.dll']), ((1, 'pszName'),(1, 'ppropkey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetNameFromPropertyKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.PWSTR))(('PSGetNameFromPropertyKey', windll['PROPSYS.dll']), ((1, 'propkey'),(1, 'ppszCanonicalName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCoerceToCanonicalValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PSCoerceToCanonicalValue', windll['PROPSYS.dll']), ((1, 'key'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyDescriptionListFromString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(('PSGetPropertyDescriptionListFromString', windll['PROPSYS.dll']), ((1, 'pszPropList'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreatePropertyStoreFromPropertySetStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertySetStorage_head,UInt32,POINTER(Guid),POINTER(c_void_p))(('PSCreatePropertyStoreFromPropertySetStorage', windll['PROPSYS.dll']), ((1, 'ppss'),(1, 'grfMode'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreatePropertyStoreFromObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(Guid),POINTER(c_void_p))(('PSCreatePropertyStoreFromObject', windll['PROPSYS.dll']), ((1, 'punk'),(1, 'grfMode'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSCreateAdapterFromPropertyStore():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,POINTER(Guid),POINTER(c_void_p))(('PSCreateAdapterFromPropertyStore', windll['PROPSYS.dll']), ((1, 'pps'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertySystem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('PSGetPropertySystem', windll['PROPSYS.dll']), ((1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetPropertyFromPropertyStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PSGetPropertyFromPropertyStorage', windll['PROPSYS.dll']), ((1, 'psps'),(1, 'cb'),(1, 'rpkey'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSGetNamedPropertyFromPropertyStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PSGetNamedPropertyFromPropertyStorage', windll['PROPSYS.dll']), ((1, 'psps'),(1, 'cb'),(1, 'pszName'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadType():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.VARENUM)(('PSPropertyBag_ReadType', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'var'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadStr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32)(('PSPropertyBag_ReadStr', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),(1, 'characterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadStrAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('PSPropertyBag_ReadStrAlloc', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadBSTR():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BSTR))(('PSPropertyBag_ReadBSTR', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteStr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('PSPropertyBag_WriteStr', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteBSTR():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.Foundation.BSTR)(('PSPropertyBag_WriteBSTR', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadInt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Int32))(('PSPropertyBag_ReadInt', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteInt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,Int32)(('PSPropertyBag_WriteInt', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadSHORT():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Int16))(('PSPropertyBag_ReadSHORT', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteSHORT():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,Int16)(('PSPropertyBag_WriteSHORT', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadLONG():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Int32))(('PSPropertyBag_ReadLONG', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteLONG():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,Int32)(('PSPropertyBag_WriteLONG', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadDWORD():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(UInt32))(('PSPropertyBag_ReadDWORD', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteDWORD():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,UInt32)(('PSPropertyBag_WriteDWORD', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadBOOL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(('PSPropertyBag_ReadBOOL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteBOOL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('PSPropertyBag_WriteBOOL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadPOINTL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.POINTL_head))(('PSPropertyBag_ReadPOINTL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WritePOINTL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.POINTL_head))(('PSPropertyBag_WritePOINTL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadPOINTS():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.POINTS_head))(('PSPropertyBag_ReadPOINTS', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WritePOINTS():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.POINTS_head))(('PSPropertyBag_WritePOINTS', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadRECTL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.RECTL_head))(('PSPropertyBag_ReadRECTL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteRECTL():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.RECTL_head))(('PSPropertyBag_WriteRECTL', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IStream_head))(('PSPropertyBag_ReadStream', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head)(('PSPropertyBag_WriteStream', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_Delete():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR)(('PSPropertyBag_Delete', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadULONGLONG():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(UInt64))(('PSPropertyBag_ReadULONGLONG', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteULONGLONG():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,UInt64)(('PSPropertyBag_WriteULONGLONG', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadUnknown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(('PSPropertyBag_ReadUnknown', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteUnknown():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head)(('PSPropertyBag_WriteUnknown', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'punk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadGUID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Guid))(('PSPropertyBag_ReadGUID', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WriteGUID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(Guid))(('PSPropertyBag_WriteGUID', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_ReadPropertyKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(('PSPropertyBag_ReadPropertyKey', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PSPropertyBag_WritePropertyKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyBag_head,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(('PSPropertyBag_WritePropertyKey', windll['PROPSYS.dll']), ((1, 'propBag'),(1, 'propName'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromResource():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromResource', windll['PROPSYS.dll']), ((1, 'hinst'),(1, 'id'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromBuffer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromBuffer', windll['PROPSYS.dll']), ((1, 'pv'),(1, 'cb'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromCLSID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromCLSID', windll['PROPSYS.dll']), ((1, 'clsid'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromGUIDAsString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromGUIDAsString', windll['PROPSYS.dll']), ((1, 'guid'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromFileTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromFileTime', windll['PROPSYS.dll']), ((1, 'pftIn'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromPropVariantVectorElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromPropVariantVectorElem', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'iElem'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantVectorFromPropVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantVectorFromPropVariant', windll['PROPSYS.dll']), ((1, 'propvarSingle'),(1, 'ppropvarVector'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromStrRet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.STRRET_head),POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromStrRet', windll['PROPSYS.dll']), ((1, 'pstrret'),(1, 'pidl'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromBooleanVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromBooleanVector', windll['PROPSYS.dll']), ((1, 'prgf'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromInt16Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromInt16Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromUInt16Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromUInt16Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromInt32Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromInt32Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromUInt32Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromUInt32Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromInt64Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromInt64Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromUInt64Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromUInt64Vector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromDoubleVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromDoubleVector', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromFileTimeVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromFileTimeVector', windll['PROPSYS.dll']), ((1, 'prgft'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromStringVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromStringVector', windll['PROPSYS.dll']), ((1, 'prgsz'),(1, 'cElems'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitPropVariantFromStringAsVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('InitPropVariantFromStringAsVector', windll['PROPSYS.dll']), ((1, 'psz'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBooleanWithDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.BOOL)(('PropVariantToBooleanWithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'fDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt16WithDefault():
-    try:
-        return WINFUNCTYPE(Int16,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),Int16)(('PropVariantToInt16WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'iDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt16WithDefault():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt16)(('PropVariantToUInt16WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'uiDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt32WithDefault():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),Int32)(('PropVariantToInt32WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'lDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt32WithDefault():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32)(('PropVariantToUInt32WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'ulDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt64WithDefault():
-    try:
-        return WINFUNCTYPE(Int64,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),Int64)(('PropVariantToInt64WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'llDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt64WithDefault():
-    try:
-        return WINFUNCTYPE(UInt64,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt64)(('PropVariantToUInt64WithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'ullDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToDoubleWithDefault():
-    try:
-        return WINFUNCTYPE(Double,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),Double)(('PropVariantToDoubleWithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'dblDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToStringWithDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.PWSTR)(('PropVariantToStringWithDefault', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pszDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBoolean():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.BOOL))(('PropVariantToBoolean', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pfRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt16():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int16))(('PropVariantToInt16', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'piRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt16():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt16))(('PropVariantToUInt16', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'puiRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt32():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int32))(('PropVariantToInt32', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'plRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt32():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32))(('PropVariantToUInt32', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pulRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt64():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int64))(('PropVariantToInt64', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pllRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt64():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt64))(('PropVariantToUInt64', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pullRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToDouble():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Double))(('PropVariantToDouble', windll['PROPSYS.dll']), ((1, 'propvarIn'),(1, 'pdblRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBuffer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),c_void_p,UInt32)(('PropVariantToBuffer', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pv'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.PWSTR,UInt32)(('PropVariantToString', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'psz'),(1, 'cch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToGUID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Guid))(('PropVariantToGUID', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pguid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToStringAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR))(('PropVariantToStringAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'ppszOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBSTR():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.BSTR))(('PropVariantToBSTR', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pbstrOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToStrRet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.UI.Shell.Common.STRRET_head))(('PropVariantToStrRet', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pstrret'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToFileTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PSTIME_FLAGS,POINTER(win32more.Foundation.FILETIME_head))(('PropVariantToFileTime', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pstfOut'),(1, 'pftOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetElementCount():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PropVariantGetElementCount', windll['PROPSYS.dll']), ((1, 'propvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBooleanVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.BOOL),UInt32,POINTER(UInt32))(('PropVariantToBooleanVector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgf'),(1, 'crgf'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt16Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int16),UInt32,POINTER(UInt32))(('PropVariantToInt16Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt16Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt16),UInt32,POINTER(UInt32))(('PropVariantToUInt16Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt32Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int32),UInt32,POINTER(UInt32))(('PropVariantToInt32Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt32Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32),UInt32,POINTER(UInt32))(('PropVariantToUInt32Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt64Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Int64),UInt32,POINTER(UInt32))(('PropVariantToInt64Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt64Vector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt64),UInt32,POINTER(UInt32))(('PropVariantToUInt64Vector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToDoubleVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Double),UInt32,POINTER(UInt32))(('PropVariantToDoubleVector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToFileTimeVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(UInt32))(('PropVariantToFileTimeVector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgft'),(1, 'crgft'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToStringVector():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32))(('PropVariantToStringVector', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'prgsz'),(1, 'crgsz'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToBooleanVectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(win32more.Foundation.BOOL)),POINTER(UInt32))(('PropVariantToBooleanVectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgf'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt16VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(Int16)),POINTER(UInt32))(('PropVariantToInt16VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt16VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(UInt16)),POINTER(UInt32))(('PropVariantToUInt16VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt32VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(Int32)),POINTER(UInt32))(('PropVariantToInt32VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt32VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(UInt32)),POINTER(UInt32))(('PropVariantToUInt32VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToInt64VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(Int64)),POINTER(UInt32))(('PropVariantToInt64VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToUInt64VectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(UInt64)),POINTER(UInt32))(('PropVariantToUInt64VectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToDoubleVectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(Double)),POINTER(UInt32))(('PropVariantToDoubleVectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToFileTimeVectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(win32more.Foundation.FILETIME_head)),POINTER(UInt32))(('PropVariantToFileTimeVectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgft'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToStringVectorAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32))(('PropVariantToStringVectorAlloc', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'pprgsz'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetBooleanElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(win32more.Foundation.BOOL))(('PropVariantGetBooleanElem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pfVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetInt16Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(Int16))(('PropVariantGetInt16Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetUInt16Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(UInt16))(('PropVariantGetUInt16Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetInt32Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(Int32))(('PropVariantGetInt32Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetUInt32Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(UInt32))(('PropVariantGetUInt32Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetInt64Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(Int64))(('PropVariantGetInt64Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetUInt64Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(UInt64))(('PropVariantGetUInt64Elem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetDoubleElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(Double))(('PropVariantGetDoubleElem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetFileTimeElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(win32more.Foundation.FILETIME_head))(('PropVariantGetFileTimeElem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'pftVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantGetStringElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32,POINTER(win32more.Foundation.PWSTR))(('PropVariantGetStringElem', windll['PROPSYS.dll']), ((1, 'propvar'),(1, 'iElem'),(1, 'ppszVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ClearPropVariantArray():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32)(('ClearPropVariantArray', windll['PROPSYS.dll']), ((1, 'rgPropVar'),(1, 'cVars'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantCompareEx():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPVAR_COMPARE_UNIT,win32more.UI.Shell.PropertiesSystem.PROPVAR_COMPARE_FLAGS)(('PropVariantCompareEx', windll['PROPSYS.dll']), ((1, 'propvar1'),(1, 'propvar2'),(1, 'unit'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantChangeType():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPVAR_CHANGE_FLAGS,win32more.System.Com.VARENUM)(('PropVariantChangeType', windll['PROPSYS.dll']), ((1, 'ppropvarDest'),(1, 'propvarSrc'),(1, 'flags'),(1, 'vt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantToVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(('PropVariantToVariant', windll['PROPSYS.dll']), ((1, 'pPropVar'),(1, 'pVar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToPropVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('VariantToPropVariant', windll['PROPSYS.dll']), ((1, 'pVar'),(1, 'pPropVar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromResource():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromResource', windll['PROPSYS.dll']), ((1, 'hinst'),(1, 'id'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromBuffer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromBuffer', windll['PROPSYS.dll']), ((1, 'pv'),(1, 'cb'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromGUIDAsString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromGUIDAsString', windll['PROPSYS.dll']), ((1, 'guid'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromFileTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromFileTime', windll['PROPSYS.dll']), ((1, 'pft'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromFileTimeArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromFileTimeArray', windll['PROPSYS.dll']), ((1, 'prgft'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromStrRet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.STRRET_head),POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromStrRet', windll['PROPSYS.dll']), ((1, 'pstrret'),(1, 'pidl'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromVariantArrayElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromVariantArrayElem', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'iElem'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromBooleanArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromBooleanArray', windll['PROPSYS.dll']), ((1, 'prgf'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromInt16Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromInt16Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromUInt16Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromUInt16Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromInt32Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromInt32Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromUInt32Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromUInt32Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromInt64Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromInt64Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromUInt64Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromUInt64Array', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromDoubleArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromDoubleArray', windll['PROPSYS.dll']), ((1, 'prgn'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitVariantFromStringArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.System.Com.VARIANT_head))(('InitVariantFromStringArray', windll['PROPSYS.dll']), ((1, 'prgsz'),(1, 'cElems'),(1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToBooleanWithDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BOOL)(('VariantToBooleanWithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'fDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt16WithDefault():
-    try:
-        return WINFUNCTYPE(Int16,POINTER(win32more.System.Com.VARIANT_head),Int16)(('VariantToInt16WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'iDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt16WithDefault():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.System.Com.VARIANT_head),UInt16)(('VariantToUInt16WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'uiDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt32WithDefault():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.Com.VARIANT_head),Int32)(('VariantToInt32WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'lDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt32WithDefault():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Com.VARIANT_head),UInt32)(('VariantToUInt32WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'ulDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt64WithDefault():
-    try:
-        return WINFUNCTYPE(Int64,POINTER(win32more.System.Com.VARIANT_head),Int64)(('VariantToInt64WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'llDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt64WithDefault():
-    try:
-        return WINFUNCTYPE(UInt64,POINTER(win32more.System.Com.VARIANT_head),UInt64)(('VariantToUInt64WithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'ullDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToDoubleWithDefault():
-    try:
-        return WINFUNCTYPE(Double,POINTER(win32more.System.Com.VARIANT_head),Double)(('VariantToDoubleWithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'dblDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToStringWithDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.PWSTR)(('VariantToStringWithDefault', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pszDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToBoolean():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BOOL))(('VariantToBoolean', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pfRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt16():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int16))(('VariantToInt16', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'piRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt16():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt16))(('VariantToUInt16', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'puiRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt32():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32))(('VariantToInt32', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'plRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt32():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32))(('VariantToUInt32', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pulRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt64():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int64))(('VariantToInt64', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pllRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt64():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt64))(('VariantToUInt64', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pullRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToDouble():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Double))(('VariantToDouble', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pdblRet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToBuffer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),c_void_p,UInt32)(('VariantToBuffer', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pv'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToGUID():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Guid))(('VariantToGUID', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pguid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.PWSTR,UInt32)(('VariantToString', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pszBuf'),(1, 'cchBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToStringAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.PWSTR))(('VariantToStringAlloc', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'ppszBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToDosDateTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt16),POINTER(UInt16))(('VariantToDosDateTime', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pwDate'),(1, 'pwTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToStrRet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.UI.Shell.Common.STRRET_head))(('VariantToStrRet', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'pstrret'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToFileTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.UI.Shell.PropertiesSystem.PSTIME_FLAGS,POINTER(win32more.Foundation.FILETIME_head))(('VariantToFileTime', windll['PROPSYS.dll']), ((1, 'varIn'),(1, 'stfOut'),(1, 'pftOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetElementCount():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Com.VARIANT_head))(('VariantGetElementCount', windll['PROPSYS.dll']), ((1, 'varIn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToBooleanArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BOOL),UInt32,POINTER(UInt32))(('VariantToBooleanArray', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgf'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt16Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int16),UInt32,POINTER(UInt32))(('VariantToInt16Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt16Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt16),UInt32,POINTER(UInt32))(('VariantToUInt16Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt32Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32),UInt32,POINTER(UInt32))(('VariantToInt32Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt32Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt32),UInt32,POINTER(UInt32))(('VariantToUInt32Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt64Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int64),UInt32,POINTER(UInt32))(('VariantToInt64Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt64Array():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(UInt64),UInt32,POINTER(UInt32))(('VariantToUInt64Array', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToDoubleArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(Double),UInt32,POINTER(UInt32))(('VariantToDoubleArray', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgn'),(1, 'crgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToStringArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32))(('VariantToStringArray', windll['PROPSYS.dll']), ((1, 'var'),(1, 'prgsz'),(1, 'crgsz'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToBooleanArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(win32more.Foundation.BOOL)),POINTER(UInt32))(('VariantToBooleanArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgf'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt16ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(Int16)),POINTER(UInt32))(('VariantToInt16ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt16ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(UInt16)),POINTER(UInt32))(('VariantToUInt16ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt32ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(Int32)),POINTER(UInt32))(('VariantToInt32ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt32ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(UInt32)),POINTER(UInt32))(('VariantToUInt32ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToInt64ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(Int64)),POINTER(UInt32))(('VariantToInt64ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToUInt64ArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(UInt64)),POINTER(UInt32))(('VariantToUInt64ArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToDoubleArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(Double)),POINTER(UInt32))(('VariantToDoubleArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgn'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantToStringArrayAlloc():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32))(('VariantToStringArrayAlloc', windll['PROPSYS.dll']), ((1, 'var'),(1, 'pprgsz'),(1, 'pcElem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetBooleanElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(win32more.Foundation.BOOL))(('VariantGetBooleanElem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pfVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetInt16Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(Int16))(('VariantGetInt16Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetUInt16Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(UInt16))(('VariantGetUInt16Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetInt32Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(Int32))(('VariantGetInt32Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetUInt32Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(UInt32))(('VariantGetUInt32Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetInt64Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(Int64))(('VariantGetInt64Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetUInt64Elem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(UInt64))(('VariantGetUInt64Elem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetDoubleElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(Double))(('VariantGetDoubleElem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'pnVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantGetStringElem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(win32more.Foundation.PWSTR))(('VariantGetStringElem', windll['PROPSYS.dll']), ((1, 'var'),(1, 'iElem'),(1, 'ppszVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ClearVariantArray():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Com.VARIANT_head),UInt32)(('ClearVariantArray', windll['PROPSYS.dll']), ((1, 'pvars'),(1, 'cvars'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VariantCompare():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head))(('VariantCompare', windll['PROPSYS.dll']), ((1, 'var1'),(1, 'var2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHGetPropertyStoreFromIDList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,POINTER(Guid),POINTER(c_void_p))(('SHGetPropertyStoreFromIDList', windll['SHELL32.dll']), ((1, 'pidl'),(1, 'flags'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHGetPropertyStoreFromParsingName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IBindCtx_head,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,POINTER(Guid),POINTER(c_void_p))(('SHGetPropertyStoreFromParsingName', windll['SHELL32.dll']), ((1, 'pszPath'),(1, 'pbc'),(1, 'flags'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHAddDefaultPropertiesByExt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)(('SHAddDefaultPropertiesByExt', windll['SHELL32.dll']), ((1, 'pszExt'),(1, 'pPropStore'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PifMgr_OpenProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32)(('PifMgr_OpenProperties', windll['SHELL32.dll']), ((1, 'pszApp'),(1, 'pszPIF'),(1, 'hInf'),(1, 'flOpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PifMgr_GetProperties():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,c_void_p,Int32,UInt32)(('PifMgr_GetProperties', windll['SHELL32.dll']), ((1, 'hProps'),(1, 'pszGroup'),(1, 'lpProps'),(1, 'cbProps'),(1, 'flOpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PifMgr_SetProperties():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,c_void_p,Int32,UInt32)(('PifMgr_SetProperties', windll['SHELL32.dll']), ((1, 'hProps'),(1, 'pszGroup'),(1, 'lpProps'),(1, 'cbProps'),(1, 'flOpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PifMgr_CloseProperties():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32)(('PifMgr_CloseProperties', windll['SHELL32.dll']), ((1, 'hProps'),(1, 'flOpt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHPropStgCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertySetStorage_head,POINTER(Guid),POINTER(Guid),UInt32,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head),POINTER(UInt32))(('SHPropStgCreate', windll['SHELL32.dll']), ((1, 'psstg'),(1, 'fmtid'),(1, 'pclsid'),(1, 'grfFlags'),(1, 'grfMode'),(1, 'dwDisposition'),(1, 'ppstg'),(1, 'puCodePage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHPropStgReadMultiple():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyStorage_head,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('SHPropStgReadMultiple', windll['SHELL32.dll']), ((1, 'pps'),(1, 'uCodePage'),(1, 'cpspec'),(1, 'rgpspec'),(1, 'rgvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHPropStgWriteMultiple():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyStorage_head,POINTER(UInt32),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32)(('SHPropStgWriteMultiple', windll['SHELL32.dll']), ((1, 'pps'),(1, 'puCodePage'),(1, 'cpspec'),(1, 'rgpspec'),(1, 'rgvar'),(1, 'propidNameFirst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SHGetPropertyStoreForWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p))(('SHGetPropertyStoreForWindow', windll['SHELL32.dll']), ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+FPSPS_DEFAULT: _PERSIST_SPROPSTORE_FLAGS = 0
+FPSPS_READONLY: _PERSIST_SPROPSTORE_FLAGS = 1
+FPSPS_TREAT_NEW_VALUES_AS_DIRTY: _PERSIST_SPROPSTORE_FLAGS = 2
+PKEY_PIDSTR_MAX: UInt32 = 10
+@winfunctype('PROPSYS.dll')
+def PropVariantToWinRTPropertyValue(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def WinRTPropertyValueToPropVariant(punkPropertyValue: win32more.System.Com.IUnknown_head, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSFormatForDisplay(propkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdfFlags: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSFormatForDisplayAlloc(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdff: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, ppszDisplay: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSFormatPropertyValue(pps: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, ppd: win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head, pdff: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, ppszDisplay: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetImageReferenceForValue(propkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppszImageRes: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSStringFromPropertyKey(pkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), psz: win32more.Foundation.PWSTR, cch: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyKeyFromString(pszString: win32more.Foundation.PWSTR, pkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreateMemoryPropertyStore(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreateDelayedMultiplexPropertyStore(flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, pdpsf: win32more.UI.Shell.PropertiesSystem.IDelayedPropertyStoreFactory_head, rgStoreIds: POINTER(UInt32), cStores: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreateMultiplexPropertyStore(prgpunkStores: POINTER(win32more.System.Com.IUnknown_head), cStores: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreatePropertyChangeArray(rgpropkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), rgflags: POINTER(win32more.UI.Shell.PropertiesSystem.PKA_FLAGS), rgpropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), cChanges: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreateSimplePropertyChange(flags: win32more.UI.Shell.PropertiesSystem.PKA_FLAGS, key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyDescription(propkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyDescriptionByName(pszCanonicalName: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSLookupPropertyHandlerCLSID(pszFilePath: win32more.Foundation.PWSTR, pclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetItemPropertyHandler(punkItem: win32more.System.Com.IUnknown_head, fReadWrite: win32more.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetItemPropertyHandlerWithCreateObject(punkItem: win32more.System.Com.IUnknown_head, fReadWrite: win32more.Foundation.BOOL, punkCreateObject: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyValue(pps: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, ppd: win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSSetPropertyValue(pps: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, ppd: win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head, propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSRegisterPropertySchema(pszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSUnregisterPropertySchema(pszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSRefreshPropertySchema() -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSEnumeratePropertyDescriptions(filterOn: win32more.UI.Shell.PropertiesSystem.PROPDESC_ENUMFILTER, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyKeyFromName(pszName: win32more.Foundation.PWSTR, ppropkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetNameFromPropertyKey(propkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppszCanonicalName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCoerceToCanonicalValue(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyDescriptionListFromString(pszPropList: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreatePropertyStoreFromPropertySetStorage(ppss: win32more.System.Com.StructuredStorage.IPropertySetStorage_head, grfMode: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreatePropertyStoreFromObject(punk: win32more.System.Com.IUnknown_head, grfMode: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSCreateAdapterFromPropertyStore(pps: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertySystem(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetPropertyFromPropertyStorage(psps: POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head), cb: UInt32, rpkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSGetNamedPropertyFromPropertyStorage(psps: POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head), cb: UInt32, pszName: win32more.Foundation.PWSTR, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadType(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, var: POINTER(win32more.System.Com.VARIANT_head), type: win32more.System.Com.VARENUM) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadStr(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: win32more.Foundation.PWSTR, characterCount: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadStrAlloc(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadBSTR(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteStr(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteBSTR(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadInt(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteInt(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadSHORT(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteSHORT(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: Int16) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadLONG(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteLONG(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadDWORD(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteDWORD(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadBOOL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteBOOL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadPOINTL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.POINTL_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WritePOINTL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.POINTL_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadPOINTS(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.POINTS_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WritePOINTS(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.POINTS_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadRECTL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.RECTL_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteRECTL(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.RECTL_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadStream(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteStream(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: win32more.System.Com.IStream_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_Delete(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadULONGLONG(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteULONGLONG(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadUnknown(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteUnknown(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, punk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadGUID(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WriteGUID(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_ReadPropertyKey(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PSPropertyBag_WritePropertyKey(propBag: win32more.System.Com.StructuredStorage.IPropertyBag_head, propName: win32more.Foundation.PWSTR, value: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromResource(hinst: win32more.Foundation.HINSTANCE, id: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromBuffer(pv: c_void_p, cb: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromCLSID(clsid: POINTER(Guid), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromGUIDAsString(guid: POINTER(Guid), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromFileTime(pftIn: POINTER(win32more.Foundation.FILETIME_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromPropVariantVectorElem(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantVectorFromPropVariant(propvarSingle: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppropvarVector: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromStrRet(pstrret: POINTER(win32more.UI.Shell.Common.STRRET_head), pidl: POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromBooleanVector(prgf: POINTER(win32more.Foundation.BOOL), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromInt16Vector(prgn: POINTER(Int16), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromUInt16Vector(prgn: POINTER(UInt16), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromInt32Vector(prgn: POINTER(Int32), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromUInt32Vector(prgn: POINTER(UInt32), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromInt64Vector(prgn: POINTER(Int64), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromUInt64Vector(prgn: POINTER(UInt64), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromDoubleVector(prgn: POINTER(Double), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromFileTimeVector(prgft: POINTER(win32more.Foundation.FILETIME_head), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromStringVector(prgsz: POINTER(win32more.Foundation.PWSTR), cElems: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitPropVariantFromStringAsVector(psz: win32more.Foundation.PWSTR, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBooleanWithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), fDefault: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt16WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iDefault: Int16) -> Int16: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt16WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), uiDefault: UInt16) -> UInt16: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt32WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), lDefault: Int32) -> Int32: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt32WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ulDefault: UInt32) -> UInt32: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt64WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), llDefault: Int64) -> Int64: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt64WithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ullDefault: UInt64) -> UInt64: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToDoubleWithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), dblDefault: Double) -> Double: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToStringWithDefault(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pszDefault: win32more.Foundation.PWSTR) -> win32more.Foundation.PWSTR: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBoolean(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pfRet: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt16(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), piRet: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt16(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), puiRet: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt32(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), plRet: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt32(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pulRet: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt64(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pllRet: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt64(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pullRet: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToDouble(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdblRet: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBuffer(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pv: c_void_p, cb: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToString(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), psz: win32more.Foundation.PWSTR, cch: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToGUID(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pguid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToStringAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppszOut: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBSTR(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pbstrOut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToStrRet(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pstrret: POINTER(win32more.UI.Shell.Common.STRRET_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToFileTime(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pstfOut: win32more.UI.Shell.PropertiesSystem.PSTIME_FLAGS, pftOut: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetElementCount(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> UInt32: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBooleanVector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgf: POINTER(win32more.Foundation.BOOL), crgf: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt16Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(Int16), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt16Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(UInt16), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt32Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(Int32), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt32Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(UInt32), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt64Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(Int64), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt64Vector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(UInt64), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToDoubleVector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgn: POINTER(Double), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToFileTimeVector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgft: POINTER(win32more.Foundation.FILETIME_head), crgft: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToStringVector(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), prgsz: POINTER(win32more.Foundation.PWSTR), crgsz: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToBooleanVectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgf: POINTER(POINTER(win32more.Foundation.BOOL)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt16VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(Int16)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt16VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(UInt16)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt32VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(Int32)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt32VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(UInt32)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToInt64VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(Int64)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToUInt64VectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(UInt64)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToDoubleVectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgn: POINTER(POINTER(Double)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToFileTimeVectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgft: POINTER(POINTER(win32more.Foundation.FILETIME_head)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToStringVectorAlloc(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pprgsz: POINTER(POINTER(win32more.Foundation.PWSTR)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetBooleanElem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pfVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetInt16Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetUInt16Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetInt32Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetUInt32Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetInt64Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetUInt64Elem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetDoubleElem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pnVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetFileTimeElem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, pftVal: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantGetStringElem(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), iElem: UInt32, ppszVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def ClearPropVariantArray(rgPropVar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), cVars: UInt32) -> Void: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantCompareEx(propvar1: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), propvar2: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), unit: win32more.UI.Shell.PropertiesSystem.PROPVAR_COMPARE_UNIT, flags: win32more.UI.Shell.PropertiesSystem.PROPVAR_COMPARE_FLAGS) -> Int32: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantChangeType(ppropvarDest: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), propvarSrc: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), flags: win32more.UI.Shell.PropertiesSystem.PROPVAR_CHANGE_FLAGS, vt: win32more.System.Com.VARENUM) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def PropVariantToVariant(pPropVar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pVar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToPropVariant(pVar: POINTER(win32more.System.Com.VARIANT_head), pPropVar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromResource(hinst: win32more.Foundation.HINSTANCE, id: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromBuffer(pv: c_void_p, cb: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromGUIDAsString(guid: POINTER(Guid), pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromFileTime(pft: POINTER(win32more.Foundation.FILETIME_head), pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromFileTimeArray(prgft: POINTER(win32more.Foundation.FILETIME_head), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromStrRet(pstrret: POINTER(win32more.UI.Shell.Common.STRRET_head), pidl: POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromVariantArrayElem(varIn: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromBooleanArray(prgf: POINTER(win32more.Foundation.BOOL), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromInt16Array(prgn: POINTER(Int16), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromUInt16Array(prgn: POINTER(UInt16), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromInt32Array(prgn: POINTER(Int32), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromUInt32Array(prgn: POINTER(UInt32), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromInt64Array(prgn: POINTER(Int64), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromUInt64Array(prgn: POINTER(UInt64), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromDoubleArray(prgn: POINTER(Double), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def InitVariantFromStringArray(prgsz: POINTER(win32more.Foundation.PWSTR), cElems: UInt32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToBooleanWithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), fDefault: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt16WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), iDefault: Int16) -> Int16: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt16WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), uiDefault: UInt16) -> UInt16: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt32WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), lDefault: Int32) -> Int32: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt32WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), ulDefault: UInt32) -> UInt32: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt64WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), llDefault: Int64) -> Int64: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt64WithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), ullDefault: UInt64) -> UInt64: ...
+@winfunctype('PROPSYS.dll')
+def VariantToDoubleWithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), dblDefault: Double) -> Double: ...
+@winfunctype('PROPSYS.dll')
+def VariantToStringWithDefault(varIn: POINTER(win32more.System.Com.VARIANT_head), pszDefault: win32more.Foundation.PWSTR) -> win32more.Foundation.PWSTR: ...
+@winfunctype('PROPSYS.dll')
+def VariantToBoolean(varIn: POINTER(win32more.System.Com.VARIANT_head), pfRet: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt16(varIn: POINTER(win32more.System.Com.VARIANT_head), piRet: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt16(varIn: POINTER(win32more.System.Com.VARIANT_head), puiRet: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt32(varIn: POINTER(win32more.System.Com.VARIANT_head), plRet: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt32(varIn: POINTER(win32more.System.Com.VARIANT_head), pulRet: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt64(varIn: POINTER(win32more.System.Com.VARIANT_head), pllRet: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt64(varIn: POINTER(win32more.System.Com.VARIANT_head), pullRet: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToDouble(varIn: POINTER(win32more.System.Com.VARIANT_head), pdblRet: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToBuffer(varIn: POINTER(win32more.System.Com.VARIANT_head), pv: c_void_p, cb: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToGUID(varIn: POINTER(win32more.System.Com.VARIANT_head), pguid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToString(varIn: POINTER(win32more.System.Com.VARIANT_head), pszBuf: win32more.Foundation.PWSTR, cchBuf: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToStringAlloc(varIn: POINTER(win32more.System.Com.VARIANT_head), ppszBuf: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToDosDateTime(varIn: POINTER(win32more.System.Com.VARIANT_head), pwDate: POINTER(UInt16), pwTime: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToStrRet(varIn: POINTER(win32more.System.Com.VARIANT_head), pstrret: POINTER(win32more.UI.Shell.Common.STRRET_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToFileTime(varIn: POINTER(win32more.System.Com.VARIANT_head), stfOut: win32more.UI.Shell.PropertiesSystem.PSTIME_FLAGS, pftOut: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetElementCount(varIn: POINTER(win32more.System.Com.VARIANT_head)) -> UInt32: ...
+@winfunctype('PROPSYS.dll')
+def VariantToBooleanArray(var: POINTER(win32more.System.Com.VARIANT_head), prgf: POINTER(win32more.Foundation.BOOL), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt16Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(Int16), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt16Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(UInt16), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt32Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(Int32), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt32Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(UInt32), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt64Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(Int64), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt64Array(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(UInt64), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToDoubleArray(var: POINTER(win32more.System.Com.VARIANT_head), prgn: POINTER(Double), crgn: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToStringArray(var: POINTER(win32more.System.Com.VARIANT_head), prgsz: POINTER(win32more.Foundation.PWSTR), crgsz: UInt32, pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToBooleanArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgf: POINTER(POINTER(win32more.Foundation.BOOL)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt16ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(Int16)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt16ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(UInt16)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt32ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(Int32)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt32ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(UInt32)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToInt64ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(Int64)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToUInt64ArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(UInt64)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToDoubleArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgn: POINTER(POINTER(Double)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantToStringArrayAlloc(var: POINTER(win32more.System.Com.VARIANT_head), pprgsz: POINTER(POINTER(win32more.Foundation.PWSTR)), pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetBooleanElem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pfVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetInt16Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetUInt16Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetInt32Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetUInt32Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetInt64Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetUInt64Elem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetDoubleElem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, pnVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def VariantGetStringElem(var: POINTER(win32more.System.Com.VARIANT_head), iElem: UInt32, ppszVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def ClearVariantArray(pvars: POINTER(win32more.System.Com.VARIANT_head), cvars: UInt32) -> Void: ...
+@winfunctype('PROPSYS.dll')
+def VariantCompare(var1: POINTER(win32more.System.Com.VARIANT_head), var2: POINTER(win32more.System.Com.VARIANT_head)) -> Int32: ...
+@winfunctype('SHELL32.dll')
+def SHGetPropertyStoreFromIDList(pidl: POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def SHGetPropertyStoreFromParsingName(pszPath: win32more.Foundation.PWSTR, pbc: win32more.System.Com.IBindCtx_head, flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def SHAddDefaultPropertiesByExt(pszExt: win32more.Foundation.PWSTR, pPropStore: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def PifMgr_OpenProperties(pszApp: win32more.Foundation.PWSTR, pszPIF: win32more.Foundation.PWSTR, hInf: UInt32, flOpt: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('SHELL32.dll')
+def PifMgr_GetProperties(hProps: win32more.Foundation.HANDLE, pszGroup: win32more.Foundation.PSTR, lpProps: c_void_p, cbProps: Int32, flOpt: UInt32) -> Int32: ...
+@winfunctype('SHELL32.dll')
+def PifMgr_SetProperties(hProps: win32more.Foundation.HANDLE, pszGroup: win32more.Foundation.PSTR, lpProps: c_void_p, cbProps: Int32, flOpt: UInt32) -> Int32: ...
+@winfunctype('SHELL32.dll')
+def PifMgr_CloseProperties(hProps: win32more.Foundation.HANDLE, flOpt: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('SHELL32.dll')
+def SHPropStgCreate(psstg: win32more.System.Com.StructuredStorage.IPropertySetStorage_head, fmtid: POINTER(Guid), pclsid: POINTER(Guid), grfFlags: UInt32, grfMode: UInt32, dwDisposition: UInt32, ppstg: POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head), puCodePage: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def SHPropStgReadMultiple(pps: win32more.System.Com.StructuredStorage.IPropertyStorage_head, uCodePage: UInt32, cpspec: UInt32, rgpspec: POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head), rgvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def SHPropStgWriteMultiple(pps: win32more.System.Com.StructuredStorage.IPropertyStorage_head, puCodePage: POINTER(UInt32), cpspec: UInt32, rgpspec: POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head), rgvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), propidNameFirst: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('SHELL32.dll')
+def SHGetPropertyStoreForWindow(hwnd: win32more.Foundation.HWND, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 DRAWPROGRESSFLAGS = UInt32
-DPF_NONE = 0
-DPF_MARQUEE = 1
-DPF_MARQUEE_COMPLETE = 2
-DPF_ERROR = 4
-DPF_WARNING = 8
-DPF_STOPPED = 16
+DPF_NONE: DRAWPROGRESSFLAGS = 0
+DPF_MARQUEE: DRAWPROGRESSFLAGS = 1
+DPF_MARQUEE_COMPLETE: DRAWPROGRESSFLAGS = 2
+DPF_ERROR: DRAWPROGRESSFLAGS = 4
+DPF_WARNING: DRAWPROGRESSFLAGS = 8
+DPF_STOPPED: DRAWPROGRESSFLAGS = 16
 GETPROPERTYSTOREFLAGS = UInt32
-GPS_DEFAULT = 0
-GPS_HANDLERPROPERTIESONLY = 1
-GPS_READWRITE = 2
-GPS_TEMPORARY = 4
-GPS_FASTPROPERTIESONLY = 8
-GPS_OPENSLOWITEM = 16
-GPS_DELAYCREATION = 32
-GPS_BESTEFFORT = 64
-GPS_NO_OPLOCK = 128
-GPS_PREFERQUERYPROPERTIES = 256
-GPS_EXTRINSICPROPERTIES = 512
-GPS_EXTRINSICPROPERTIESONLY = 1024
-GPS_VOLATILEPROPERTIES = 2048
-GPS_VOLATILEPROPERTIESONLY = 4096
-GPS_MASK_VALID = 8191
-def _define_ICreateObject_head():
-    class ICreateObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('75121952-e0d0-43e5-93-80-1d-80-48-3a-cf-72')
-    return ICreateObject
-def _define_ICreateObject():
-    ICreateObject = win32more.UI.Shell.PropertiesSystem.ICreateObject_head
-    ICreateObject.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p))(3, 'CreateObject', ((1, 'clsid'),(1, 'pUnkOuter'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return ICreateObject
-def _define_IDelayedPropertyStoreFactory_head():
-    class IDelayedPropertyStoreFactory(win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory_head):
-        Guid = Guid('40d4577f-e237-4bdb-bd-69-58-f0-89-43-1b-6a')
-    return IDelayedPropertyStoreFactory
-def _define_IDelayedPropertyStoreFactory():
-    IDelayedPropertyStoreFactory = win32more.UI.Shell.PropertiesSystem.IDelayedPropertyStoreFactory_head
-    IDelayedPropertyStoreFactory.GetDelayedPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,UInt32,POINTER(Guid),POINTER(c_void_p))(5, 'GetDelayedPropertyStore', ((1, 'flags'),(1, 'dwStoreId'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory
-    return IDelayedPropertyStoreFactory
-def _define_IInitializeWithFile_head():
-    class IInitializeWithFile(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b7d14566-0509-4cce-a7-1f-0a-55-42-33-bd-9b')
-    return IInitializeWithFile
-def _define_IInitializeWithFile():
-    IInitializeWithFile = win32more.UI.Shell.PropertiesSystem.IInitializeWithFile_head
-    IInitializeWithFile.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(3, 'Initialize', ((1, 'pszFilePath'),(1, 'grfMode'),)))
-    win32more.System.Com.IUnknown
-    return IInitializeWithFile
-def _define_IInitializeWithStream_head():
-    class IInitializeWithStream(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b824b49d-22ac-4161-ac-8a-99-16-e8-fa-3f-7f')
-    return IInitializeWithStream
-def _define_IInitializeWithStream():
-    IInitializeWithStream = win32more.UI.Shell.PropertiesSystem.IInitializeWithStream_head
-    IInitializeWithStream.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt32)(3, 'Initialize', ((1, 'pstream'),(1, 'grfMode'),)))
-    win32more.System.Com.IUnknown
-    return IInitializeWithStream
-def _define_INamedPropertyStore_head():
-    class INamedPropertyStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('71604b0f-97b0-4764-85-77-2f-13-e9-8a-14-22')
-    return INamedPropertyStore
-def _define_INamedPropertyStore():
-    INamedPropertyStore = win32more.UI.Shell.PropertiesSystem.INamedPropertyStore_head
-    INamedPropertyStore.GetNamedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(3, 'GetNamedValue', ((1, 'pszName'),(1, 'ppropvar'),)))
-    INamedPropertyStore.SetNamedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(4, 'SetNamedValue', ((1, 'pszName'),(1, 'propvar'),)))
-    INamedPropertyStore.GetNameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetNameCount', ((1, 'pdwCount'),)))
-    INamedPropertyStore.GetNameAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR))(6, 'GetNameAt', ((1, 'iProp'),(1, 'pbstrName'),)))
-    win32more.System.Com.IUnknown
-    return INamedPropertyStore
+GPS_DEFAULT: GETPROPERTYSTOREFLAGS = 0
+GPS_HANDLERPROPERTIESONLY: GETPROPERTYSTOREFLAGS = 1
+GPS_READWRITE: GETPROPERTYSTOREFLAGS = 2
+GPS_TEMPORARY: GETPROPERTYSTOREFLAGS = 4
+GPS_FASTPROPERTIESONLY: GETPROPERTYSTOREFLAGS = 8
+GPS_OPENSLOWITEM: GETPROPERTYSTOREFLAGS = 16
+GPS_DELAYCREATION: GETPROPERTYSTOREFLAGS = 32
+GPS_BESTEFFORT: GETPROPERTYSTOREFLAGS = 64
+GPS_NO_OPLOCK: GETPROPERTYSTOREFLAGS = 128
+GPS_PREFERQUERYPROPERTIES: GETPROPERTYSTOREFLAGS = 256
+GPS_EXTRINSICPROPERTIES: GETPROPERTYSTOREFLAGS = 512
+GPS_EXTRINSICPROPERTIESONLY: GETPROPERTYSTOREFLAGS = 1024
+GPS_VOLATILEPROPERTIES: GETPROPERTYSTOREFLAGS = 2048
+GPS_VOLATILEPROPERTIESONLY: GETPROPERTYSTOREFLAGS = 4096
+GPS_MASK_VALID: GETPROPERTYSTOREFLAGS = 8191
+class ICreateObject(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('75121952-e0d0-43e5-93-80-1d-80-48-3a-cf-72')
+    @commethod(3)
+    def CreateObject(clsid: POINTER(Guid), pUnkOuter: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDelayedPropertyStoreFactory(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory
+    Guid = Guid('40d4577f-e237-4bdb-bd-69-58-f0-89-43-1b-6a')
+    @commethod(5)
+    def GetDelayedPropertyStore(flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, dwStoreId: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IInitializeWithFile(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b7d14566-0509-4cce-a7-1f-0a-55-42-33-bd-9b')
+    @commethod(3)
+    def Initialize(pszFilePath: win32more.Foundation.PWSTR, grfMode: UInt32) -> win32more.Foundation.HRESULT: ...
+class IInitializeWithStream(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b824b49d-22ac-4161-ac-8a-99-16-e8-fa-3f-7f')
+    @commethod(3)
+    def Initialize(pstream: win32more.System.Com.IStream_head, grfMode: UInt32) -> win32more.Foundation.HRESULT: ...
+class INamedPropertyStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('71604b0f-97b0-4764-85-77-2f-13-e9-8a-14-22')
+    @commethod(3)
+    def GetNamedValue(pszName: win32more.Foundation.PWSTR, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetNamedValue(pszName: win32more.Foundation.PWSTR, propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetNameCount(pdwCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetNameAt(iProp: UInt32, pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 InMemoryPropertyStore = Guid('9a02e012-6303-4e1e-b9-a1-63-0f-80-25-92-c5')
 InMemoryPropertyStoreMarshalByValue = Guid('d4ca0e2d-6da7-4b75-a9-7c-5f-30-6f-0e-ae-dc')
-def _define_IObjectWithPropertyKey_head():
-    class IObjectWithPropertyKey(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fc0ca0a7-c316-4fd2-90-31-3e-62-8e-6d-4f-23')
-    return IObjectWithPropertyKey
-def _define_IObjectWithPropertyKey():
-    IObjectWithPropertyKey = win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey_head
-    IObjectWithPropertyKey.SetPropertyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(3, 'SetPropertyKey', ((1, 'key'),)))
-    IObjectWithPropertyKey.GetPropertyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(4, 'GetPropertyKey', ((1, 'pkey'),)))
-    win32more.System.Com.IUnknown
-    return IObjectWithPropertyKey
-def _define_IPersistSerializedPropStorage_head():
-    class IPersistSerializedPropStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e318ad57-0aa0-450f-ac-a5-6f-ab-71-03-d9-17')
-    return IPersistSerializedPropStorage
-def _define_IPersistSerializedPropStorage():
-    IPersistSerializedPropStorage = win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage_head
-    IPersistSerializedPropStorage.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'SetFlags', ((1, 'flags'),)))
-    IPersistSerializedPropStorage.SetPropertyStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32)(4, 'SetPropertyStorage', ((1, 'psps'),(1, 'cb'),)))
-    IPersistSerializedPropStorage.GetPropertyStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head)),POINTER(UInt32))(5, 'GetPropertyStorage', ((1, 'ppsps'),(1, 'pcb'),)))
-    win32more.System.Com.IUnknown
-    return IPersistSerializedPropStorage
-def _define_IPersistSerializedPropStorage2_head():
-    class IPersistSerializedPropStorage2(win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage_head):
-        Guid = Guid('77effa68-4f98-4366-ba-72-57-3b-3d-88-05-71')
-    return IPersistSerializedPropStorage2
-def _define_IPersistSerializedPropStorage2():
-    IPersistSerializedPropStorage2 = win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage2_head
-    IPersistSerializedPropStorage2.GetPropertyStorageSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetPropertyStorageSize', ((1, 'pcb'),)))
-    IPersistSerializedPropStorage2.GetPropertyStorageBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32,POINTER(UInt32))(7, 'GetPropertyStorageBuffer', ((1, 'psps'),(1, 'cb'),(1, 'pcbWritten'),)))
-    win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage
-    return IPersistSerializedPropStorage2
-def _define_IPropertyChange_head():
-    class IPropertyChange(win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey_head):
-        Guid = Guid('f917bc8a-1bba-4478-a2-45-1b-de-03-eb-94-31')
-    return IPropertyChange
-def _define_IPropertyChange():
-    IPropertyChange = win32more.UI.Shell.PropertiesSystem.IPropertyChange_head
-    IPropertyChange.ApplyToPropVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'ApplyToPropVariant', ((1, 'propvarIn'),(1, 'ppropvarOut'),)))
-    win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey
-    return IPropertyChange
-def _define_IPropertyChangeArray_head():
-    class IPropertyChangeArray(win32more.System.Com.IUnknown_head):
-        Guid = Guid('380f5cad-1b5e-42f2-80-5d-63-7f-d3-92-d3-1e')
-    return IPropertyChangeArray
-def _define_IPropertyChangeArray():
-    IPropertyChangeArray = win32more.UI.Shell.PropertiesSystem.IPropertyChangeArray_head
-    IPropertyChangeArray.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pcOperations'),)))
-    IPropertyChangeArray.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(4, 'GetAt', ((1, 'iIndex'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertyChangeArray.InsertAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Shell.PropertiesSystem.IPropertyChange_head)(5, 'InsertAt', ((1, 'iIndex'),(1, 'ppropChange'),)))
-    IPropertyChangeArray.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyChange_head)(6, 'Append', ((1, 'ppropChange'),)))
-    IPropertyChangeArray.AppendOrReplace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyChange_head)(7, 'AppendOrReplace', ((1, 'ppropChange'),)))
-    IPropertyChangeArray.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(8, 'RemoveAt', ((1, 'iIndex'),)))
-    IPropertyChangeArray.IsKeyInArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(9, 'IsKeyInArray', ((1, 'key'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyChangeArray
-def _define_IPropertyDescription_head():
-    class IPropertyDescription(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6f79d558-3e96-4549-a1-d1-7d-75-d2-28-88-14')
-    return IPropertyDescription
-def _define_IPropertyDescription():
-    IPropertyDescription = win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head
-    IPropertyDescription.GetPropertyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(3, 'GetPropertyKey', ((1, 'pkey'),)))
-    IPropertyDescription.GetCanonicalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'GetCanonicalName', ((1, 'ppszName'),)))
-    IPropertyDescription.GetPropertyType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(5, 'GetPropertyType', ((1, 'pvartype'),)))
-    IPropertyDescription.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetDisplayName', ((1, 'ppszName'),)))
-    IPropertyDescription.GetEditInvitation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'GetEditInvitation', ((1, 'ppszInvite'),)))
-    IPropertyDescription.GetTypeFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.PROPDESC_TYPE_FLAGS,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_TYPE_FLAGS))(8, 'GetTypeFlags', ((1, 'mask'),(1, 'ppdtFlags'),)))
-    IPropertyDescription.GetViewFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_VIEW_FLAGS))(9, 'GetViewFlags', ((1, 'ppdvFlags'),)))
-    IPropertyDescription.GetDefaultColumnWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(10, 'GetDefaultColumnWidth', ((1, 'pcxChars'),)))
-    IPropertyDescription.GetDisplayType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_DISPLAYTYPE))(11, 'GetDisplayType', ((1, 'pdisplaytype'),)))
-    IPropertyDescription.GetColumnState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'GetColumnState', ((1, 'pcsFlags'),)))
-    IPropertyDescription.GetGroupingRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_GROUPING_RANGE))(13, 'GetGroupingRange', ((1, 'pgr'),)))
-    IPropertyDescription.GetRelativeDescriptionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_RELATIVEDESCRIPTION_TYPE))(14, 'GetRelativeDescriptionType', ((1, 'prdt'),)))
-    IPropertyDescription.GetRelativeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR))(15, 'GetRelativeDescription', ((1, 'propvar1'),(1, 'propvar2'),(1, 'ppszDesc1'),(1, 'ppszDesc2'),)))
-    IPropertyDescription.GetSortDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_SORTDESCRIPTION))(16, 'GetSortDescription', ((1, 'psd'),)))
-    IPropertyDescription.GetSortDescriptionLabel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR))(17, 'GetSortDescriptionLabel', ((1, 'fDescending'),(1, 'ppszDescription'),)))
-    IPropertyDescription.GetAggregationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_AGGREGATION_TYPE))(18, 'GetAggregationType', ((1, 'paggtype'),)))
-    IPropertyDescription.GetConditionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_CONDITION_TYPE),POINTER(win32more.System.Search.Common.CONDITION_OPERATION))(19, 'GetConditionType', ((1, 'pcontype'),(1, 'popDefault'),)))
-    IPropertyDescription.GetEnumTypeList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(20, 'GetEnumTypeList', ((1, 'riid'),(1, 'ppv'),)))
-    IPropertyDescription.CoerceToCanonicalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(21, 'CoerceToCanonicalValue', ((1, 'ppropvar'),)))
-    IPropertyDescription.FormatForDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,POINTER(win32more.Foundation.PWSTR))(22, 'FormatForDisplay', ((1, 'propvar'),(1, 'pdfFlags'),(1, 'ppszDisplay'),)))
-    IPropertyDescription.IsValueCanonical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(23, 'IsValueCanonical', ((1, 'propvar'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyDescription
-def _define_IPropertyDescription2_head():
-    class IPropertyDescription2(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
-        Guid = Guid('57d2eded-5062-400e-b1-07-5d-ae-79-fe-57-a6')
-    return IPropertyDescription2
-def _define_IPropertyDescription2():
-    IPropertyDescription2 = win32more.UI.Shell.PropertiesSystem.IPropertyDescription2_head
-    IPropertyDescription2.GetImageReferenceForValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR))(24, 'GetImageReferenceForValue', ((1, 'propvar'),(1, 'ppszImageRes'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
-    return IPropertyDescription2
-def _define_IPropertyDescriptionAliasInfo_head():
-    class IPropertyDescriptionAliasInfo(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
-        Guid = Guid('f67104fc-2af9-46fd-b3-2d-24-3c-14-04-f3-d1')
-    return IPropertyDescriptionAliasInfo
-def _define_IPropertyDescriptionAliasInfo():
-    IPropertyDescriptionAliasInfo = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionAliasInfo_head
-    IPropertyDescriptionAliasInfo.GetSortByAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(24, 'GetSortByAlias', ((1, 'riid'),(1, 'ppv'),)))
-    IPropertyDescriptionAliasInfo.GetAdditionalSortByAliases = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(25, 'GetAdditionalSortByAliases', ((1, 'riid'),(1, 'ppv'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
-    return IPropertyDescriptionAliasInfo
-def _define_IPropertyDescriptionList_head():
-    class IPropertyDescriptionList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1f9fc1d0-c39b-4b26-81-7f-01-19-67-d3-44-0e')
-    return IPropertyDescriptionList
-def _define_IPropertyDescriptionList():
-    IPropertyDescriptionList = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionList_head
-    IPropertyDescriptionList.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pcElem'),)))
-    IPropertyDescriptionList.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(4, 'GetAt', ((1, 'iElem'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyDescriptionList
-def _define_IPropertyDescriptionRelatedPropertyInfo_head():
-    class IPropertyDescriptionRelatedPropertyInfo(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
-        Guid = Guid('507393f4-2a3d-4a60-b5-9e-d9-c7-57-16-c2-dd')
-    return IPropertyDescriptionRelatedPropertyInfo
-def _define_IPropertyDescriptionRelatedPropertyInfo():
-    IPropertyDescriptionRelatedPropertyInfo = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionRelatedPropertyInfo_head
-    IPropertyDescriptionRelatedPropertyInfo.GetRelatedProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(24, 'GetRelatedProperty', ((1, 'pszRelationshipName'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
-    return IPropertyDescriptionRelatedPropertyInfo
-def _define_IPropertyDescriptionSearchInfo_head():
-    class IPropertyDescriptionSearchInfo(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
-        Guid = Guid('078f91bd-29a2-440f-92-4e-46-a2-91-52-45-20')
-    return IPropertyDescriptionSearchInfo
-def _define_IPropertyDescriptionSearchInfo():
-    IPropertyDescriptionSearchInfo = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionSearchInfo_head
-    IPropertyDescriptionSearchInfo.GetSearchInfoFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_SEARCHINFO_FLAGS))(24, 'GetSearchInfoFlags', ((1, 'ppdsiFlags'),)))
-    IPropertyDescriptionSearchInfo.GetColumnIndexType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_COLUMNINDEX_TYPE))(25, 'GetColumnIndexType', ((1, 'ppdciType'),)))
-    IPropertyDescriptionSearchInfo.GetProjectionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(26, 'GetProjectionString', ((1, 'ppszProjection'),)))
-    IPropertyDescriptionSearchInfo.GetMaxSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(27, 'GetMaxSize', ((1, 'pcbMaxSize'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
-    return IPropertyDescriptionSearchInfo
-def _define_IPropertyEnumType_head():
-    class IPropertyEnumType(win32more.System.Com.IUnknown_head):
-        Guid = Guid('11e1fbf9-2d56-4a6b-8d-b3-7c-d1-93-a4-71-f2')
-    return IPropertyEnumType
-def _define_IPropertyEnumType():
-    IPropertyEnumType = win32more.UI.Shell.PropertiesSystem.IPropertyEnumType_head
-    IPropertyEnumType.GetEnumType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPENUMTYPE))(3, 'GetEnumType', ((1, 'penumtype'),)))
-    IPropertyEnumType.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(4, 'GetValue', ((1, 'ppropvar'),)))
-    IPropertyEnumType.GetRangeMinValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'GetRangeMinValue', ((1, 'ppropvarMin'),)))
-    IPropertyEnumType.GetRangeSetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'GetRangeSetValue', ((1, 'ppropvarSet'),)))
-    IPropertyEnumType.GetDisplayText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'GetDisplayText', ((1, 'ppszDisplay'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyEnumType
-def _define_IPropertyEnumType2_head():
-    class IPropertyEnumType2(win32more.UI.Shell.PropertiesSystem.IPropertyEnumType_head):
-        Guid = Guid('9b6e051c-5ddd-4321-90-70-fe-2a-cb-55-e7-94')
-    return IPropertyEnumType2
-def _define_IPropertyEnumType2():
-    IPropertyEnumType2 = win32more.UI.Shell.PropertiesSystem.IPropertyEnumType2_head
-    IPropertyEnumType2.GetImageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(8, 'GetImageReference', ((1, 'ppszImageRes'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyEnumType
-    return IPropertyEnumType2
-def _define_IPropertyEnumTypeList_head():
-    class IPropertyEnumTypeList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a99400f4-3d84-4557-94-ba-12-42-fb-2c-c9-a6')
-    return IPropertyEnumTypeList
-def _define_IPropertyEnumTypeList():
-    IPropertyEnumTypeList = win32more.UI.Shell.PropertiesSystem.IPropertyEnumTypeList_head
-    IPropertyEnumTypeList.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pctypes'),)))
-    IPropertyEnumTypeList.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(4, 'GetAt', ((1, 'itype'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertyEnumTypeList.GetConditionAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(5, 'GetConditionAt', ((1, 'nIndex'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertyEnumTypeList.FindMatchingIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32))(6, 'FindMatchingIndex', ((1, 'propvarCmp'),(1, 'pnIndex'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyEnumTypeList
-def _define_IPropertyStore_head():
-    class IPropertyStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('886d8eeb-8cf2-4446-8d-02-cd-ba-1d-bd-cf-99')
-    return IPropertyStore
-def _define_IPropertyStore():
-    IPropertyStore = win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    IPropertyStore.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'cProps'),)))
-    IPropertyStore.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(4, 'GetAt', ((1, 'iProp'),(1, 'pkey'),)))
-    IPropertyStore.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(5, 'GetValue', ((1, 'key'),(1, 'pv'),)))
-    IPropertyStore.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(6, 'SetValue', ((1, 'key'),(1, 'propvar'),)))
-    IPropertyStore.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Commit', ()))
-    win32more.System.Com.IUnknown
-    return IPropertyStore
-def _define_IPropertyStoreCache_head():
-    class IPropertyStoreCache(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head):
-        Guid = Guid('3017056d-9a91-4e90-93-7d-74-6c-72-ab-bf-4f')
-    return IPropertyStoreCache
-def _define_IPropertyStoreCache():
-    IPropertyStoreCache = win32more.UI.Shell.PropertiesSystem.IPropertyStoreCache_head
-    IPropertyStoreCache.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.UI.Shell.PropertiesSystem.PSC_STATE))(8, 'GetState', ((1, 'key'),(1, 'pstate'),)))
-    IPropertyStoreCache.GetValueAndState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.UI.Shell.PropertiesSystem.PSC_STATE))(9, 'GetValueAndState', ((1, 'key'),(1, 'ppropvar'),(1, 'pstate'),)))
-    IPropertyStoreCache.SetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.UI.Shell.PropertiesSystem.PSC_STATE)(10, 'SetState', ((1, 'key'),(1, 'state'),)))
-    IPropertyStoreCache.SetValueAndState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PSC_STATE)(11, 'SetValueAndState', ((1, 'key'),(1, 'ppropvar'),(1, 'state'),)))
-    win32more.UI.Shell.PropertiesSystem.IPropertyStore
-    return IPropertyStoreCache
-def _define_IPropertyStoreCapabilities_head():
-    class IPropertyStoreCapabilities(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c8e2d566-186e-4d49-bf-41-69-09-ea-d5-6a-cc')
-    return IPropertyStoreCapabilities
-def _define_IPropertyStoreCapabilities():
-    IPropertyStoreCapabilities = win32more.UI.Shell.PropertiesSystem.IPropertyStoreCapabilities_head
-    IPropertyStoreCapabilities.IsPropertyWritable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head))(3, 'IsPropertyWritable', ((1, 'key'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyStoreCapabilities
-def _define_IPropertyStoreFactory_head():
-    class IPropertyStoreFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bc110b6d-57e8-4148-a9-c6-91-01-5a-b2-f3-a5')
-    return IPropertyStoreFactory
-def _define_IPropertyStoreFactory():
-    IPropertyStoreFactory = win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory_head
-    IPropertyStoreFactory.GetPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p))(3, 'GetPropertyStore', ((1, 'flags'),(1, 'pUnkFactory'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertyStoreFactory.GetPropertyStoreForKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),UInt32,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,POINTER(Guid),POINTER(c_void_p))(4, 'GetPropertyStoreForKeys', ((1, 'rgKeys'),(1, 'cKeys'),(1, 'flags'),(1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyStoreFactory
-def _define_IPropertySystem_head():
-    class IPropertySystem(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ca724e8a-c3e6-442b-88-a4-6f-b0-db-80-35-a3')
-    return IPropertySystem
-def _define_IPropertySystem():
-    IPropertySystem = win32more.UI.Shell.PropertiesSystem.IPropertySystem_head
-    IPropertySystem.GetPropertyDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(Guid),POINTER(c_void_p))(3, 'GetPropertyDescription', ((1, 'propkey'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertySystem.GetPropertyDescriptionByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(4, 'GetPropertyDescriptionByName', ((1, 'pszCanonicalName'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertySystem.GetPropertyDescriptionListFromString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(5, 'GetPropertyDescriptionListFromString', ((1, 'pszPropList'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertySystem.EnumeratePropertyDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.PROPDESC_ENUMFILTER,POINTER(Guid),POINTER(c_void_p))(6, 'EnumeratePropertyDescriptions', ((1, 'filterOn'),(1, 'riid'),(1, 'ppv'),)))
-    IPropertySystem.FormatForDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,win32more.Foundation.PWSTR,UInt32)(7, 'FormatForDisplay', ((1, 'key'),(1, 'propvar'),(1, 'pdff'),(1, 'pszText'),(1, 'cchText'),)))
-    IPropertySystem.FormatForDisplayAlloc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,POINTER(win32more.Foundation.PWSTR))(8, 'FormatForDisplayAlloc', ((1, 'key'),(1, 'propvar'),(1, 'pdff'),(1, 'ppszDisplay'),)))
-    IPropertySystem.RegisterPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'RegisterPropertySchema', ((1, 'pszPath'),)))
-    IPropertySystem.UnregisterPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'UnregisterPropertySchema', ((1, 'pszPath'),)))
-    IPropertySystem.RefreshPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'RefreshPropertySchema', ()))
-    win32more.System.Com.IUnknown
-    return IPropertySystem
-def _define_IPropertySystemChangeNotify_head():
-    class IPropertySystemChangeNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fa955fd9-38be-4879-a6-ce-82-4c-f5-2d-60-9f')
-    return IPropertySystemChangeNotify
-def _define_IPropertySystemChangeNotify():
-    IPropertySystemChangeNotify = win32more.UI.Shell.PropertiesSystem.IPropertySystemChangeNotify_head
-    IPropertySystemChangeNotify.SchemaRefreshed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'SchemaRefreshed', ()))
-    win32more.System.Com.IUnknown
-    return IPropertySystemChangeNotify
-def _define_IPropertyUI_head():
-    class IPropertyUI(win32more.System.Com.IUnknown_head):
-        Guid = Guid('757a7d9f-919a-4118-99-d7-db-b2-08-c8-cc-66')
-    return IPropertyUI
-def _define_IPropertyUI():
-    IPropertyUI = win32more.UI.Shell.PropertiesSystem.IPropertyUI_head
-    IPropertyUI.ParsePropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(UInt32),POINTER(UInt32))(3, 'ParsePropertyName', ((1, 'pszName'),(1, 'pfmtid'),(1, 'ppid'),(1, 'pchEaten'),)))
-    IPropertyUI.GetCannonicalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,UInt32)(4, 'GetCannonicalName', ((1, 'fmtid'),(1, 'pid'),(1, 'pwszText'),(1, 'cchText'),)))
-    IPropertyUI.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,win32more.UI.Shell.PropertiesSystem.PROPERTYUI_NAME_FLAGS,win32more.Foundation.PWSTR,UInt32)(5, 'GetDisplayName', ((1, 'fmtid'),(1, 'pid'),(1, 'flags'),(1, 'pwszText'),(1, 'cchText'),)))
-    IPropertyUI.GetPropertyDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,UInt32)(6, 'GetPropertyDescription', ((1, 'fmtid'),(1, 'pid'),(1, 'pwszText'),(1, 'cchText'),)))
-    IPropertyUI.GetDefaultWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(UInt32))(7, 'GetDefaultWidth', ((1, 'fmtid'),(1, 'pid'),(1, 'pcxChars'),)))
-    IPropertyUI.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FLAGS))(8, 'GetFlags', ((1, 'fmtid'),(1, 'pid'),(1, 'pflags'),)))
-    IPropertyUI.FormatForDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FORMAT_FLAGS,win32more.Foundation.PWSTR,UInt32)(9, 'FormatForDisplay', ((1, 'fmtid'),(1, 'pid'),(1, 'ppropvar'),(1, 'puiff'),(1, 'pwszText'),(1, 'cchText'),)))
-    IPropertyUI.GetHelpInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(10, 'GetHelpInfo', ((1, 'fmtid'),(1, 'pid'),(1, 'pwszHelpFile'),(1, 'cch'),(1, 'puHelpID'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyUI
+class IObjectWithPropertyKey(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fc0ca0a7-c316-4fd2-90-31-3e-62-8e-6d-4f-23')
+    @commethod(3)
+    def SetPropertyKey(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPropertyKey(pkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+class IPersistSerializedPropStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e318ad57-0aa0-450f-ac-a5-6f-ab-71-03-d9-17')
+    @commethod(3)
+    def SetFlags(flags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPropertyStorage(psps: POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head), cb: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyStorage(ppsps: POINTER(POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head)), pcb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IPersistSerializedPropStorage2(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage
+    Guid = Guid('77effa68-4f98-4366-ba-72-57-3b-3d-88-05-71')
+    @commethod(6)
+    def GetPropertyStorageSize(pcb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPropertyStorageBuffer(psps: POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head), cb: UInt32, pcbWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IPropertyChange(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey
+    Guid = Guid('f917bc8a-1bba-4478-a2-45-1b-de-03-eb-94-31')
+    @commethod(5)
+    def ApplyToPropVariant(propvarIn: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppropvarOut: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyChangeArray(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('380f5cad-1b5e-42f2-80-5d-63-7f-d3-92-d3-1e')
+    @commethod(3)
+    def GetCount(pcOperations: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAt(iIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def InsertAt(iIndex: UInt32, ppropChange: win32more.UI.Shell.PropertiesSystem.IPropertyChange_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Append(ppropChange: win32more.UI.Shell.PropertiesSystem.IPropertyChange_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AppendOrReplace(ppropChange: win32more.UI.Shell.PropertiesSystem.IPropertyChange_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RemoveAt(iIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def IsKeyInArray(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescription(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6f79d558-3e96-4549-a1-d1-7d-75-d2-28-88-14')
+    @commethod(3)
+    def GetPropertyKey(pkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetCanonicalName(ppszName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyType(pvartype: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDisplayName(ppszName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetEditInvitation(ppszInvite: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTypeFlags(mask: win32more.UI.Shell.PropertiesSystem.PROPDESC_TYPE_FLAGS, ppdtFlags: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_TYPE_FLAGS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetViewFlags(ppdvFlags: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_VIEW_FLAGS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDefaultColumnWidth(pcxChars: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetDisplayType(pdisplaytype: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_DISPLAYTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetColumnState(pcsFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetGroupingRange(pgr: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_GROUPING_RANGE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetRelativeDescriptionType(prdt: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_RELATIVEDESCRIPTION_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetRelativeDescription(propvar1: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), propvar2: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppszDesc1: POINTER(win32more.Foundation.PWSTR), ppszDesc2: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetSortDescription(psd: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_SORTDESCRIPTION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetSortDescriptionLabel(fDescending: win32more.Foundation.BOOL, ppszDescription: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetAggregationType(paggtype: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_AGGREGATION_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetConditionType(pcontype: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_CONDITION_TYPE), popDefault: POINTER(win32more.System.Search.Common.CONDITION_OPERATION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetEnumTypeList(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CoerceToCanonicalValue(ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def FormatForDisplay(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdfFlags: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, ppszDisplay: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def IsValueCanonical(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescription2(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyDescription
+    Guid = Guid('57d2eded-5062-400e-b1-07-5d-ae-79-fe-57-a6')
+    @commethod(24)
+    def GetImageReferenceForValue(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppszImageRes: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescriptionAliasInfo(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyDescription
+    Guid = Guid('f67104fc-2af9-46fd-b3-2d-24-3c-14-04-f3-d1')
+    @commethod(24)
+    def GetSortByAlias(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetAdditionalSortByAliases(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescriptionList(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1f9fc1d0-c39b-4b26-81-7f-01-19-67-d3-44-0e')
+    @commethod(3)
+    def GetCount(pcElem: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAt(iElem: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescriptionRelatedPropertyInfo(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyDescription
+    Guid = Guid('507393f4-2a3d-4a60-b5-9e-d9-c7-57-16-c2-dd')
+    @commethod(24)
+    def GetRelatedProperty(pszRelationshipName: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IPropertyDescriptionSearchInfo(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyDescription
+    Guid = Guid('078f91bd-29a2-440f-92-4e-46-a2-91-52-45-20')
+    @commethod(24)
+    def GetSearchInfoFlags(ppdsiFlags: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_SEARCHINFO_FLAGS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetColumnIndexType(ppdciType: POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_COLUMNINDEX_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetProjectionString(ppszProjection: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetMaxSize(pcbMaxSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IPropertyEnumType(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('11e1fbf9-2d56-4a6b-8d-b3-7c-d1-93-a4-71-f2')
+    @commethod(3)
+    def GetEnumType(penumtype: POINTER(win32more.UI.Shell.PropertiesSystem.PROPENUMTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetValue(ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRangeMinValue(ppropvarMin: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetRangeSetValue(ppropvarSet: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetDisplayText(ppszDisplay: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IPropertyEnumType2(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyEnumType
+    Guid = Guid('9b6e051c-5ddd-4321-90-70-fe-2a-cb-55-e7-94')
+    @commethod(8)
+    def GetImageReference(ppszImageRes: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IPropertyEnumTypeList(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a99400f4-3d84-4557-94-ba-12-42-fb-2c-c9-a6')
+    @commethod(3)
+    def GetCount(pctypes: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAt(itype: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetConditionAt(nIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def FindMatchingIndex(propvarCmp: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pnIndex: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IPropertyStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('886d8eeb-8cf2-4446-8d-02-cd-ba-1d-bd-cf-99')
+    @commethod(3)
+    def GetCount(cProps: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAt(iProp: UInt32, pkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetValue(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pv: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetValue(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Commit() -> win32more.Foundation.HRESULT: ...
+class IPropertyStoreCache(c_void_p):
+    extends: win32more.UI.Shell.PropertiesSystem.IPropertyStore
+    Guid = Guid('3017056d-9a91-4e90-93-7d-74-6c-72-ab-bf-4f')
+    @commethod(8)
+    def GetState(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pstate: POINTER(win32more.UI.Shell.PropertiesSystem.PSC_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetValueAndState(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pstate: POINTER(win32more.UI.Shell.PropertiesSystem.PSC_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetState(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), state: win32more.UI.Shell.PropertiesSystem.PSC_STATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetValueAndState(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), state: win32more.UI.Shell.PropertiesSystem.PSC_STATE) -> win32more.Foundation.HRESULT: ...
+class IPropertyStoreCapabilities(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c8e2d566-186e-4d49-bf-41-69-09-ea-d5-6a-cc')
+    @commethod(3)
+    def IsPropertyWritable(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyStoreFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bc110b6d-57e8-4148-a9-c6-91-01-5a-b2-f3-a5')
+    @commethod(3)
+    def GetPropertyStore(flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, pUnkFactory: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPropertyStoreForKeys(rgKeys: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), cKeys: UInt32, flags: win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IPropertySystem(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ca724e8a-c3e6-442b-88-a4-6f-b0-db-80-35-a3')
+    @commethod(3)
+    def GetPropertyDescription(propkey: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPropertyDescriptionByName(pszCanonicalName: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyDescriptionListFromString(pszPropList: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def EnumeratePropertyDescriptions(filterOn: win32more.UI.Shell.PropertiesSystem.PROPDESC_ENUMFILTER, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FormatForDisplay(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdff: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, pszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def FormatForDisplayAlloc(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pdff: win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS, ppszDisplay: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def RegisterPropertySchema(pszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def UnregisterPropertySchema(pszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RefreshPropertySchema() -> win32more.Foundation.HRESULT: ...
+class IPropertySystemChangeNotify(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fa955fd9-38be-4879-a6-ce-82-4c-f5-2d-60-9f')
+    @commethod(3)
+    def SchemaRefreshed() -> win32more.Foundation.HRESULT: ...
+class IPropertyUI(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('757a7d9f-919a-4118-99-d7-db-b2-08-c8-cc-66')
+    @commethod(3)
+    def ParsePropertyName(pszName: win32more.Foundation.PWSTR, pfmtid: POINTER(Guid), ppid: POINTER(UInt32), pchEaten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetCannonicalName(fmtid: POINTER(Guid), pid: UInt32, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetDisplayName(fmtid: POINTER(Guid), pid: UInt32, flags: win32more.UI.Shell.PropertiesSystem.PROPERTYUI_NAME_FLAGS, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetPropertyDescription(fmtid: POINTER(Guid), pid: UInt32, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetDefaultWidth(fmtid: POINTER(Guid), pid: UInt32, pcxChars: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetFlags(fmtid: POINTER(Guid), pid: UInt32, pflags: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FLAGS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def FormatForDisplay(fmtid: POINTER(Guid), pid: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), puiff: win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FORMAT_FLAGS, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetHelpInfo(fmtid: POINTER(Guid), pid: UInt32, pwszHelpFile: win32more.Foundation.PWSTR, cch: UInt32, puHelpID: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 PDOPSTATUS = Int32
-PDOPS_RUNNING = 1
-PDOPS_PAUSED = 2
-PDOPS_CANCELLED = 3
-PDOPS_STOPPED = 4
-PDOPS_ERRORS = 5
+PDOPS_RUNNING: PDOPSTATUS = 1
+PDOPS_PAUSED: PDOPSTATUS = 2
+PDOPS_CANCELLED: PDOPSTATUS = 3
+PDOPS_STOPPED: PDOPSTATUS = 4
+PDOPS_ERRORS: PDOPSTATUS = 5
 PKA_FLAGS = UInt32
-PKA_SET = 0
-PKA_APPEND = 1
-PKA_DELETE = 2
+PKA_SET: PKA_FLAGS = 0
+PKA_APPEND: PKA_FLAGS = 1
+PKA_DELETE: PKA_FLAGS = 2
 PLACEHOLDER_STATES = UInt32
-PS_NONE = 0
-PS_MARKED_FOR_OFFLINE_AVAILABILITY = 1
-PS_FULL_PRIMARY_STREAM_AVAILABLE = 2
-PS_CREATE_FILE_ACCESSIBLE = 4
-PS_CLOUDFILE_PLACEHOLDER = 8
-PS_DEFAULT = 7
-PS_ALL = 15
+PS_NONE: PLACEHOLDER_STATES = 0
+PS_MARKED_FOR_OFFLINE_AVAILABILITY: PLACEHOLDER_STATES = 1
+PS_FULL_PRIMARY_STREAM_AVAILABLE: PLACEHOLDER_STATES = 2
+PS_CREATE_FILE_ACCESSIBLE: PLACEHOLDER_STATES = 4
+PS_CLOUDFILE_PLACEHOLDER: PLACEHOLDER_STATES = 8
+PS_DEFAULT: PLACEHOLDER_STATES = 7
+PS_ALL: PLACEHOLDER_STATES = 15
 PROPDESC_AGGREGATION_TYPE = Int32
-PDAT_DEFAULT = 0
-PDAT_FIRST = 1
-PDAT_SUM = 2
-PDAT_AVERAGE = 3
-PDAT_DATERANGE = 4
-PDAT_UNION = 5
-PDAT_MAX = 6
-PDAT_MIN = 7
+PDAT_DEFAULT: PROPDESC_AGGREGATION_TYPE = 0
+PDAT_FIRST: PROPDESC_AGGREGATION_TYPE = 1
+PDAT_SUM: PROPDESC_AGGREGATION_TYPE = 2
+PDAT_AVERAGE: PROPDESC_AGGREGATION_TYPE = 3
+PDAT_DATERANGE: PROPDESC_AGGREGATION_TYPE = 4
+PDAT_UNION: PROPDESC_AGGREGATION_TYPE = 5
+PDAT_MAX: PROPDESC_AGGREGATION_TYPE = 6
+PDAT_MIN: PROPDESC_AGGREGATION_TYPE = 7
 PROPDESC_COLUMNINDEX_TYPE = Int32
-PDCIT_NONE = 0
-PDCIT_ONDISK = 1
-PDCIT_INMEMORY = 2
-PDCIT_ONDEMAND = 3
-PDCIT_ONDISKALL = 4
-PDCIT_ONDISKVECTOR = 5
+PDCIT_NONE: PROPDESC_COLUMNINDEX_TYPE = 0
+PDCIT_ONDISK: PROPDESC_COLUMNINDEX_TYPE = 1
+PDCIT_INMEMORY: PROPDESC_COLUMNINDEX_TYPE = 2
+PDCIT_ONDEMAND: PROPDESC_COLUMNINDEX_TYPE = 3
+PDCIT_ONDISKALL: PROPDESC_COLUMNINDEX_TYPE = 4
+PDCIT_ONDISKVECTOR: PROPDESC_COLUMNINDEX_TYPE = 5
 PROPDESC_CONDITION_TYPE = Int32
-PDCOT_NONE = 0
-PDCOT_STRING = 1
-PDCOT_SIZE = 2
-PDCOT_DATETIME = 3
-PDCOT_BOOLEAN = 4
-PDCOT_NUMBER = 5
+PDCOT_NONE: PROPDESC_CONDITION_TYPE = 0
+PDCOT_STRING: PROPDESC_CONDITION_TYPE = 1
+PDCOT_SIZE: PROPDESC_CONDITION_TYPE = 2
+PDCOT_DATETIME: PROPDESC_CONDITION_TYPE = 3
+PDCOT_BOOLEAN: PROPDESC_CONDITION_TYPE = 4
+PDCOT_NUMBER: PROPDESC_CONDITION_TYPE = 5
 PROPDESC_DISPLAYTYPE = Int32
-PDDT_STRING = 0
-PDDT_NUMBER = 1
-PDDT_BOOLEAN = 2
-PDDT_DATETIME = 3
-PDDT_ENUMERATED = 4
+PDDT_STRING: PROPDESC_DISPLAYTYPE = 0
+PDDT_NUMBER: PROPDESC_DISPLAYTYPE = 1
+PDDT_BOOLEAN: PROPDESC_DISPLAYTYPE = 2
+PDDT_DATETIME: PROPDESC_DISPLAYTYPE = 3
+PDDT_ENUMERATED: PROPDESC_DISPLAYTYPE = 4
 PROPDESC_ENUMFILTER = Int32
-PDEF_ALL = 0
-PDEF_SYSTEM = 1
-PDEF_NONSYSTEM = 2
-PDEF_VIEWABLE = 3
-PDEF_QUERYABLE = 4
-PDEF_INFULLTEXTQUERY = 5
-PDEF_COLUMN = 6
+PDEF_ALL: PROPDESC_ENUMFILTER = 0
+PDEF_SYSTEM: PROPDESC_ENUMFILTER = 1
+PDEF_NONSYSTEM: PROPDESC_ENUMFILTER = 2
+PDEF_VIEWABLE: PROPDESC_ENUMFILTER = 3
+PDEF_QUERYABLE: PROPDESC_ENUMFILTER = 4
+PDEF_INFULLTEXTQUERY: PROPDESC_ENUMFILTER = 5
+PDEF_COLUMN: PROPDESC_ENUMFILTER = 6
 PROPDESC_FORMAT_FLAGS = UInt32
-PDFF_DEFAULT = 0
-PDFF_PREFIXNAME = 1
-PDFF_FILENAME = 2
-PDFF_ALWAYSKB = 4
-PDFF_RESERVED_RIGHTTOLEFT = 8
-PDFF_SHORTTIME = 16
-PDFF_LONGTIME = 32
-PDFF_HIDETIME = 64
-PDFF_SHORTDATE = 128
-PDFF_LONGDATE = 256
-PDFF_HIDEDATE = 512
-PDFF_RELATIVEDATE = 1024
-PDFF_USEEDITINVITATION = 2048
-PDFF_READONLY = 4096
-PDFF_NOAUTOREADINGORDER = 8192
+PDFF_DEFAULT: PROPDESC_FORMAT_FLAGS = 0
+PDFF_PREFIXNAME: PROPDESC_FORMAT_FLAGS = 1
+PDFF_FILENAME: PROPDESC_FORMAT_FLAGS = 2
+PDFF_ALWAYSKB: PROPDESC_FORMAT_FLAGS = 4
+PDFF_RESERVED_RIGHTTOLEFT: PROPDESC_FORMAT_FLAGS = 8
+PDFF_SHORTTIME: PROPDESC_FORMAT_FLAGS = 16
+PDFF_LONGTIME: PROPDESC_FORMAT_FLAGS = 32
+PDFF_HIDETIME: PROPDESC_FORMAT_FLAGS = 64
+PDFF_SHORTDATE: PROPDESC_FORMAT_FLAGS = 128
+PDFF_LONGDATE: PROPDESC_FORMAT_FLAGS = 256
+PDFF_HIDEDATE: PROPDESC_FORMAT_FLAGS = 512
+PDFF_RELATIVEDATE: PROPDESC_FORMAT_FLAGS = 1024
+PDFF_USEEDITINVITATION: PROPDESC_FORMAT_FLAGS = 2048
+PDFF_READONLY: PROPDESC_FORMAT_FLAGS = 4096
+PDFF_NOAUTOREADINGORDER: PROPDESC_FORMAT_FLAGS = 8192
 PROPDESC_GROUPING_RANGE = Int32
-PDGR_DISCRETE = 0
-PDGR_ALPHANUMERIC = 1
-PDGR_SIZE = 2
-PDGR_DYNAMIC = 3
-PDGR_DATE = 4
-PDGR_PERCENT = 5
-PDGR_ENUMERATED = 6
+PDGR_DISCRETE: PROPDESC_GROUPING_RANGE = 0
+PDGR_ALPHANUMERIC: PROPDESC_GROUPING_RANGE = 1
+PDGR_SIZE: PROPDESC_GROUPING_RANGE = 2
+PDGR_DYNAMIC: PROPDESC_GROUPING_RANGE = 3
+PDGR_DATE: PROPDESC_GROUPING_RANGE = 4
+PDGR_PERCENT: PROPDESC_GROUPING_RANGE = 5
+PDGR_ENUMERATED: PROPDESC_GROUPING_RANGE = 6
 PROPDESC_RELATIVEDESCRIPTION_TYPE = Int32
-PDRDT_GENERAL = 0
-PDRDT_DATE = 1
-PDRDT_SIZE = 2
-PDRDT_COUNT = 3
-PDRDT_REVISION = 4
-PDRDT_LENGTH = 5
-PDRDT_DURATION = 6
-PDRDT_SPEED = 7
-PDRDT_RATE = 8
-PDRDT_RATING = 9
-PDRDT_PRIORITY = 10
+PDRDT_GENERAL: PROPDESC_RELATIVEDESCRIPTION_TYPE = 0
+PDRDT_DATE: PROPDESC_RELATIVEDESCRIPTION_TYPE = 1
+PDRDT_SIZE: PROPDESC_RELATIVEDESCRIPTION_TYPE = 2
+PDRDT_COUNT: PROPDESC_RELATIVEDESCRIPTION_TYPE = 3
+PDRDT_REVISION: PROPDESC_RELATIVEDESCRIPTION_TYPE = 4
+PDRDT_LENGTH: PROPDESC_RELATIVEDESCRIPTION_TYPE = 5
+PDRDT_DURATION: PROPDESC_RELATIVEDESCRIPTION_TYPE = 6
+PDRDT_SPEED: PROPDESC_RELATIVEDESCRIPTION_TYPE = 7
+PDRDT_RATE: PROPDESC_RELATIVEDESCRIPTION_TYPE = 8
+PDRDT_RATING: PROPDESC_RELATIVEDESCRIPTION_TYPE = 9
+PDRDT_PRIORITY: PROPDESC_RELATIVEDESCRIPTION_TYPE = 10
 PROPDESC_SEARCHINFO_FLAGS = UInt32
-PDSIF_DEFAULT = 0
-PDSIF_ININVERTEDINDEX = 1
-PDSIF_ISCOLUMN = 2
-PDSIF_ISCOLUMNSPARSE = 4
-PDSIF_ALWAYSINCLUDE = 8
-PDSIF_USEFORTYPEAHEAD = 16
+PDSIF_DEFAULT: PROPDESC_SEARCHINFO_FLAGS = 0
+PDSIF_ININVERTEDINDEX: PROPDESC_SEARCHINFO_FLAGS = 1
+PDSIF_ISCOLUMN: PROPDESC_SEARCHINFO_FLAGS = 2
+PDSIF_ISCOLUMNSPARSE: PROPDESC_SEARCHINFO_FLAGS = 4
+PDSIF_ALWAYSINCLUDE: PROPDESC_SEARCHINFO_FLAGS = 8
+PDSIF_USEFORTYPEAHEAD: PROPDESC_SEARCHINFO_FLAGS = 16
 PROPDESC_SORTDESCRIPTION = Int32
-PDSD_GENERAL = 0
-PDSD_A_Z = 1
-PDSD_LOWEST_HIGHEST = 2
-PDSD_SMALLEST_BIGGEST = 3
-PDSD_OLDEST_NEWEST = 4
+PDSD_GENERAL: PROPDESC_SORTDESCRIPTION = 0
+PDSD_A_Z: PROPDESC_SORTDESCRIPTION = 1
+PDSD_LOWEST_HIGHEST: PROPDESC_SORTDESCRIPTION = 2
+PDSD_SMALLEST_BIGGEST: PROPDESC_SORTDESCRIPTION = 3
+PDSD_OLDEST_NEWEST: PROPDESC_SORTDESCRIPTION = 4
 PROPDESC_TYPE_FLAGS = UInt32
-PDTF_DEFAULT = 0
-PDTF_MULTIPLEVALUES = 1
-PDTF_ISINNATE = 2
-PDTF_ISGROUP = 4
-PDTF_CANGROUPBY = 8
-PDTF_CANSTACKBY = 16
-PDTF_ISTREEPROPERTY = 32
-PDTF_INCLUDEINFULLTEXTQUERY = 64
-PDTF_ISVIEWABLE = 128
-PDTF_ISQUERYABLE = 256
-PDTF_CANBEPURGED = 512
-PDTF_SEARCHRAWVALUE = 1024
-PDTF_DONTCOERCEEMPTYSTRINGS = 2048
-PDTF_ALWAYSINSUPPLEMENTALSTORE = 4096
-PDTF_ISSYSTEMPROPERTY = 2147483648
-PDTF_MASK_ALL = 2147491839
+PDTF_DEFAULT: PROPDESC_TYPE_FLAGS = 0
+PDTF_MULTIPLEVALUES: PROPDESC_TYPE_FLAGS = 1
+PDTF_ISINNATE: PROPDESC_TYPE_FLAGS = 2
+PDTF_ISGROUP: PROPDESC_TYPE_FLAGS = 4
+PDTF_CANGROUPBY: PROPDESC_TYPE_FLAGS = 8
+PDTF_CANSTACKBY: PROPDESC_TYPE_FLAGS = 16
+PDTF_ISTREEPROPERTY: PROPDESC_TYPE_FLAGS = 32
+PDTF_INCLUDEINFULLTEXTQUERY: PROPDESC_TYPE_FLAGS = 64
+PDTF_ISVIEWABLE: PROPDESC_TYPE_FLAGS = 128
+PDTF_ISQUERYABLE: PROPDESC_TYPE_FLAGS = 256
+PDTF_CANBEPURGED: PROPDESC_TYPE_FLAGS = 512
+PDTF_SEARCHRAWVALUE: PROPDESC_TYPE_FLAGS = 1024
+PDTF_DONTCOERCEEMPTYSTRINGS: PROPDESC_TYPE_FLAGS = 2048
+PDTF_ALWAYSINSUPPLEMENTALSTORE: PROPDESC_TYPE_FLAGS = 4096
+PDTF_ISSYSTEMPROPERTY: PROPDESC_TYPE_FLAGS = 2147483648
+PDTF_MASK_ALL: PROPDESC_TYPE_FLAGS = 2147491839
 PROPDESC_VIEW_FLAGS = UInt32
-PDVF_DEFAULT = 0
-PDVF_CENTERALIGN = 1
-PDVF_RIGHTALIGN = 2
-PDVF_BEGINNEWGROUP = 4
-PDVF_FILLAREA = 8
-PDVF_SORTDESCENDING = 16
-PDVF_SHOWONLYIFPRESENT = 32
-PDVF_SHOWBYDEFAULT = 64
-PDVF_SHOWINPRIMARYLIST = 128
-PDVF_SHOWINSECONDARYLIST = 256
-PDVF_HIDELABEL = 512
-PDVF_HIDDEN = 2048
-PDVF_CANWRAP = 4096
-PDVF_MASK_ALL = 7167
+PDVF_DEFAULT: PROPDESC_VIEW_FLAGS = 0
+PDVF_CENTERALIGN: PROPDESC_VIEW_FLAGS = 1
+PDVF_RIGHTALIGN: PROPDESC_VIEW_FLAGS = 2
+PDVF_BEGINNEWGROUP: PROPDESC_VIEW_FLAGS = 4
+PDVF_FILLAREA: PROPDESC_VIEW_FLAGS = 8
+PDVF_SORTDESCENDING: PROPDESC_VIEW_FLAGS = 16
+PDVF_SHOWONLYIFPRESENT: PROPDESC_VIEW_FLAGS = 32
+PDVF_SHOWBYDEFAULT: PROPDESC_VIEW_FLAGS = 64
+PDVF_SHOWINPRIMARYLIST: PROPDESC_VIEW_FLAGS = 128
+PDVF_SHOWINSECONDARYLIST: PROPDESC_VIEW_FLAGS = 256
+PDVF_HIDELABEL: PROPDESC_VIEW_FLAGS = 512
+PDVF_HIDDEN: PROPDESC_VIEW_FLAGS = 2048
+PDVF_CANWRAP: PROPDESC_VIEW_FLAGS = 4096
+PDVF_MASK_ALL: PROPDESC_VIEW_FLAGS = 7167
 PROPENUMTYPE = Int32
-PET_DISCRETEVALUE = 0
-PET_RANGEDVALUE = 1
-PET_DEFAULTVALUE = 2
-PET_ENDRANGE = 3
-def _define_PROPERTYKEY_head():
-    class PROPERTYKEY(Structure):
-        pass
-    return PROPERTYKEY
-def _define_PROPERTYKEY():
-    PROPERTYKEY = win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head
-    PROPERTYKEY._fields_ = [
-        ('fmtid', Guid),
-        ('pid', UInt32),
-    ]
-    return PROPERTYKEY
+PET_DISCRETEVALUE: PROPENUMTYPE = 0
+PET_RANGEDVALUE: PROPENUMTYPE = 1
+PET_DEFAULTVALUE: PROPENUMTYPE = 2
+PET_ENDRANGE: PROPENUMTYPE = 3
+class PROPERTYKEY(Structure):
+    fmtid: Guid
+    pid: UInt32
 PropertySystem = Guid('b8967f85-58ae-4f46-9f-b2-5d-79-04-79-8f-4b')
 PROPERTYUI_FLAGS = UInt32
-PUIF_DEFAULT = 0
-PUIF_RIGHTALIGN = 1
-PUIF_NOLABELININFOTIP = 2
+PUIF_DEFAULT: PROPERTYUI_FLAGS = 0
+PUIF_RIGHTALIGN: PROPERTYUI_FLAGS = 1
+PUIF_NOLABELININFOTIP: PROPERTYUI_FLAGS = 2
 PROPERTYUI_FORMAT_FLAGS = UInt32
-PUIFFDF_DEFAULT = 0
-PUIFFDF_RIGHTTOLEFT = 1
-PUIFFDF_SHORTFORMAT = 2
-PUIFFDF_NOTIME = 4
-PUIFFDF_FRIENDLYDATE = 8
+PUIFFDF_DEFAULT: PROPERTYUI_FORMAT_FLAGS = 0
+PUIFFDF_RIGHTTOLEFT: PROPERTYUI_FORMAT_FLAGS = 1
+PUIFFDF_SHORTFORMAT: PROPERTYUI_FORMAT_FLAGS = 2
+PUIFFDF_NOTIME: PROPERTYUI_FORMAT_FLAGS = 4
+PUIFFDF_FRIENDLYDATE: PROPERTYUI_FORMAT_FLAGS = 8
 PROPERTYUI_NAME_FLAGS = UInt32
-PUIFNF_DEFAULT = 0
-PUIFNF_MNEMONIC = 1
-def _define_PROPPRG_head():
-    class PROPPRG(Structure):
-        pass
-    return PROPPRG
-def _define_PROPPRG():
-    PROPPRG = win32more.UI.Shell.PropertiesSystem.PROPPRG_head
-    PROPPRG._pack_ = 1
-    PROPPRG._fields_ = [
-        ('flPrg', UInt16),
-        ('flPrgInit', UInt16),
-        ('achTitle', win32more.Foundation.CHAR * 30),
-        ('achCmdLine', win32more.Foundation.CHAR * 128),
-        ('achWorkDir', win32more.Foundation.CHAR * 64),
-        ('wHotKey', UInt16),
-        ('achIconFile', win32more.Foundation.CHAR * 80),
-        ('wIconIndex', UInt16),
-        ('dwEnhModeFlags', UInt32),
-        ('dwRealModeFlags', UInt32),
-        ('achOtherFile', win32more.Foundation.CHAR * 80),
-        ('achPIFFile', win32more.Foundation.CHAR * 260),
-    ]
-    return PROPPRG
+PUIFNF_DEFAULT: PROPERTYUI_NAME_FLAGS = 0
+PUIFNF_MNEMONIC: PROPERTYUI_NAME_FLAGS = 1
+class PROPPRG(Structure):
+    flPrg: UInt16
+    flPrgInit: UInt16
+    achTitle: win32more.Foundation.CHAR * 30
+    achCmdLine: win32more.Foundation.CHAR * 128
+    achWorkDir: win32more.Foundation.CHAR * 64
+    wHotKey: UInt16
+    achIconFile: win32more.Foundation.CHAR * 80
+    wIconIndex: UInt16
+    dwEnhModeFlags: UInt32
+    dwRealModeFlags: UInt32
+    achOtherFile: win32more.Foundation.CHAR * 80
+    achPIFFile: win32more.Foundation.CHAR * 260
+    _pack_ = 1
 PROPVAR_CHANGE_FLAGS = UInt32
-PVCHF_DEFAULT = 0
-PVCHF_NOVALUEPROP = 1
-PVCHF_ALPHABOOL = 2
-PVCHF_NOUSEROVERRIDE = 4
-PVCHF_LOCALBOOL = 8
-PVCHF_NOHEXSTRING = 16
+PVCHF_DEFAULT: PROPVAR_CHANGE_FLAGS = 0
+PVCHF_NOVALUEPROP: PROPVAR_CHANGE_FLAGS = 1
+PVCHF_ALPHABOOL: PROPVAR_CHANGE_FLAGS = 2
+PVCHF_NOUSEROVERRIDE: PROPVAR_CHANGE_FLAGS = 4
+PVCHF_LOCALBOOL: PROPVAR_CHANGE_FLAGS = 8
+PVCHF_NOHEXSTRING: PROPVAR_CHANGE_FLAGS = 16
 PROPVAR_COMPARE_FLAGS = UInt32
-PVCF_DEFAULT = 0
-PVCF_TREATEMPTYASGREATERTHAN = 1
-PVCF_USESTRCMP = 2
-PVCF_USESTRCMPC = 4
-PVCF_USESTRCMPI = 8
-PVCF_USESTRCMPIC = 16
-PVCF_DIGITSASNUMBERS_CASESENSITIVE = 32
+PVCF_DEFAULT: PROPVAR_COMPARE_FLAGS = 0
+PVCF_TREATEMPTYASGREATERTHAN: PROPVAR_COMPARE_FLAGS = 1
+PVCF_USESTRCMP: PROPVAR_COMPARE_FLAGS = 2
+PVCF_USESTRCMPC: PROPVAR_COMPARE_FLAGS = 4
+PVCF_USESTRCMPI: PROPVAR_COMPARE_FLAGS = 8
+PVCF_USESTRCMPIC: PROPVAR_COMPARE_FLAGS = 16
+PVCF_DIGITSASNUMBERS_CASESENSITIVE: PROPVAR_COMPARE_FLAGS = 32
 PROPVAR_COMPARE_UNIT = Int32
-PVCU_DEFAULT = 0
-PVCU_SECOND = 1
-PVCU_MINUTE = 2
-PVCU_HOUR = 3
-PVCU_DAY = 4
-PVCU_MONTH = 5
-PVCU_YEAR = 6
+PVCU_DEFAULT: PROPVAR_COMPARE_UNIT = 0
+PVCU_SECOND: PROPVAR_COMPARE_UNIT = 1
+PVCU_MINUTE: PROPVAR_COMPARE_UNIT = 2
+PVCU_HOUR: PROPVAR_COMPARE_UNIT = 3
+PVCU_DAY: PROPVAR_COMPARE_UNIT = 4
+PVCU_MONTH: PROPVAR_COMPARE_UNIT = 5
+PVCU_YEAR: PROPVAR_COMPARE_UNIT = 6
 PSC_STATE = Int32
-PSC_NORMAL = 0
-PSC_NOTINSOURCE = 1
-PSC_DIRTY = 2
-PSC_READONLY = 3
+PSC_NORMAL: PSC_STATE = 0
+PSC_NOTINSOURCE: PSC_STATE = 1
+PSC_DIRTY: PSC_STATE = 2
+PSC_READONLY: PSC_STATE = 3
 PSTIME_FLAGS = UInt32
-PSTF_UTC = 0
-PSTF_LOCAL = 1
-def _define_SERIALIZEDPROPSTORAGE_head():
-    class SERIALIZEDPROPSTORAGE(Structure):
-        pass
-    return SERIALIZEDPROPSTORAGE
-def _define_SERIALIZEDPROPSTORAGE():
-    SERIALIZEDPROPSTORAGE = win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head
-    return SERIALIZEDPROPSTORAGE
+PSTF_UTC: PSTIME_FLAGS = 0
+PSTF_LOCAL: PSTIME_FLAGS = 1
+class SERIALIZEDPROPSTORAGE(Structure):
+    pass
 SYNC_ENGINE_STATE_FLAGS = UInt32
-SESF_NONE = 0
-SESF_SERVICE_QUOTA_NEARING_LIMIT = 1
-SESF_SERVICE_QUOTA_EXCEEDED_LIMIT = 2
-SESF_AUTHENTICATION_ERROR = 4
-SESF_PAUSED_DUE_TO_METERED_NETWORK = 8
-SESF_PAUSED_DUE_TO_DISK_SPACE_FULL = 16
-SESF_PAUSED_DUE_TO_CLIENT_POLICY = 32
-SESF_PAUSED_DUE_TO_SERVICE_POLICY = 64
-SESF_SERVICE_UNAVAILABLE = 128
-SESF_PAUSED_DUE_TO_USER_REQUEST = 256
-SESF_ALL_FLAGS = 511
+SESF_NONE: SYNC_ENGINE_STATE_FLAGS = 0
+SESF_SERVICE_QUOTA_NEARING_LIMIT: SYNC_ENGINE_STATE_FLAGS = 1
+SESF_SERVICE_QUOTA_EXCEEDED_LIMIT: SYNC_ENGINE_STATE_FLAGS = 2
+SESF_AUTHENTICATION_ERROR: SYNC_ENGINE_STATE_FLAGS = 4
+SESF_PAUSED_DUE_TO_METERED_NETWORK: SYNC_ENGINE_STATE_FLAGS = 8
+SESF_PAUSED_DUE_TO_DISK_SPACE_FULL: SYNC_ENGINE_STATE_FLAGS = 16
+SESF_PAUSED_DUE_TO_CLIENT_POLICY: SYNC_ENGINE_STATE_FLAGS = 32
+SESF_PAUSED_DUE_TO_SERVICE_POLICY: SYNC_ENGINE_STATE_FLAGS = 64
+SESF_SERVICE_UNAVAILABLE: SYNC_ENGINE_STATE_FLAGS = 128
+SESF_PAUSED_DUE_TO_USER_REQUEST: SYNC_ENGINE_STATE_FLAGS = 256
+SESF_ALL_FLAGS: SYNC_ENGINE_STATE_FLAGS = 511
 SYNC_TRANSFER_STATUS = UInt32
-STS_NONE = 0
-STS_NEEDSUPLOAD = 1
-STS_NEEDSDOWNLOAD = 2
-STS_TRANSFERRING = 4
-STS_PAUSED = 8
-STS_HASERROR = 16
-STS_FETCHING_METADATA = 32
-STS_USER_REQUESTED_REFRESH = 64
-STS_HASWARNING = 128
-STS_EXCLUDED = 256
-STS_INCOMPLETE = 512
-STS_PLACEHOLDER_IFEMPTY = 1024
+STS_NONE: SYNC_TRANSFER_STATUS = 0
+STS_NEEDSUPLOAD: SYNC_TRANSFER_STATUS = 1
+STS_NEEDSDOWNLOAD: SYNC_TRANSFER_STATUS = 2
+STS_TRANSFERRING: SYNC_TRANSFER_STATUS = 4
+STS_PAUSED: SYNC_TRANSFER_STATUS = 8
+STS_HASERROR: SYNC_TRANSFER_STATUS = 16
+STS_FETCHING_METADATA: SYNC_TRANSFER_STATUS = 32
+STS_USER_REQUESTED_REFRESH: SYNC_TRANSFER_STATUS = 64
+STS_HASWARNING: SYNC_TRANSFER_STATUS = 128
+STS_EXCLUDED: SYNC_TRANSFER_STATUS = 256
+STS_INCOMPLETE: SYNC_TRANSFER_STATUS = 512
+STS_PLACEHOLDER_IFEMPTY: SYNC_TRANSFER_STATUS = 1024
+make_head(_module, 'ICreateObject')
+make_head(_module, 'IDelayedPropertyStoreFactory')
+make_head(_module, 'IInitializeWithFile')
+make_head(_module, 'IInitializeWithStream')
+make_head(_module, 'INamedPropertyStore')
+make_head(_module, 'IObjectWithPropertyKey')
+make_head(_module, 'IPersistSerializedPropStorage')
+make_head(_module, 'IPersistSerializedPropStorage2')
+make_head(_module, 'IPropertyChange')
+make_head(_module, 'IPropertyChangeArray')
+make_head(_module, 'IPropertyDescription')
+make_head(_module, 'IPropertyDescription2')
+make_head(_module, 'IPropertyDescriptionAliasInfo')
+make_head(_module, 'IPropertyDescriptionList')
+make_head(_module, 'IPropertyDescriptionRelatedPropertyInfo')
+make_head(_module, 'IPropertyDescriptionSearchInfo')
+make_head(_module, 'IPropertyEnumType')
+make_head(_module, 'IPropertyEnumType2')
+make_head(_module, 'IPropertyEnumTypeList')
+make_head(_module, 'IPropertyStore')
+make_head(_module, 'IPropertyStoreCache')
+make_head(_module, 'IPropertyStoreCapabilities')
+make_head(_module, 'IPropertyStoreFactory')
+make_head(_module, 'IPropertySystem')
+make_head(_module, 'IPropertySystemChangeNotify')
+make_head(_module, 'IPropertyUI')
+make_head(_module, 'PROPERTYKEY')
+make_head(_module, 'PROPPRG')
+make_head(_module, 'SERIALIZEDPROPSTORAGE')
 __all__ = [
     "ClearPropVariantArray",
     "ClearVariantArray",

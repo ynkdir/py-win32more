@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Media
 import win32more.Media.Audio
@@ -12,2061 +13,1304 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 _AUDCLNT_BUFFERFLAGS = Int32
-AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY = 1
-AUDCLNT_BUFFERFLAGS_SILENT = 2
-AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR = 4
-def _define_ACMDRIVERDETAILSA_head():
-    class ACMDRIVERDETAILSA(Structure):
-        pass
-    return ACMDRIVERDETAILSA
-def _define_ACMDRIVERDETAILSA():
-    ACMDRIVERDETAILSA = win32more.Media.Audio.ACMDRIVERDETAILSA_head
-    ACMDRIVERDETAILSA._pack_ = 1
-    ACMDRIVERDETAILSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('fccType', UInt32),
-        ('fccComp', UInt32),
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vdwACM', UInt32),
-        ('vdwDriver', UInt32),
-        ('fdwSupport', UInt32),
-        ('cFormatTags', UInt32),
-        ('cFilterTags', UInt32),
-        ('hicon', win32more.UI.WindowsAndMessaging.HICON),
-        ('szShortName', win32more.Foundation.CHAR * 32),
-        ('szLongName', win32more.Foundation.CHAR * 128),
-        ('szCopyright', win32more.Foundation.CHAR * 80),
-        ('szLicensing', win32more.Foundation.CHAR * 128),
-        ('szFeatures', win32more.Foundation.CHAR * 512),
-    ]
-    return ACMDRIVERDETAILSA
-def _define_ACMDRIVERDETAILSW_head():
-    class ACMDRIVERDETAILSW(Structure):
-        pass
-    return ACMDRIVERDETAILSW
-def _define_ACMDRIVERDETAILSW():
-    ACMDRIVERDETAILSW = win32more.Media.Audio.ACMDRIVERDETAILSW_head
-    ACMDRIVERDETAILSW._pack_ = 1
-    ACMDRIVERDETAILSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('fccType', UInt32),
-        ('fccComp', UInt32),
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vdwACM', UInt32),
-        ('vdwDriver', UInt32),
-        ('fdwSupport', UInt32),
-        ('cFormatTags', UInt32),
-        ('cFilterTags', UInt32),
-        ('hicon', win32more.UI.WindowsAndMessaging.HICON),
-        ('szShortName', Char * 32),
-        ('szLongName', Char * 128),
-        ('szCopyright', Char * 80),
-        ('szLicensing', Char * 128),
-        ('szFeatures', Char * 512),
-    ]
-    return ACMDRIVERDETAILSW
-def _define_ACMDRIVERENUMCB():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,UIntPtr,UInt32)
-def _define_ACMDRVFORMATSUGGEST_head():
-    class ACMDRVFORMATSUGGEST(Structure):
-        pass
-    return ACMDRVFORMATSUGGEST
-def _define_ACMDRVFORMATSUGGEST():
-    ACMDRVFORMATSUGGEST = win32more.Media.Audio.ACMDRVFORMATSUGGEST_head
-    ACMDRVFORMATSUGGEST._pack_ = 1
-    ACMDRVFORMATSUGGEST._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwSuggest', UInt32),
-        ('pwfxSrc', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfxSrc', UInt32),
-        ('pwfxDst', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfxDst', UInt32),
-    ]
-    return ACMDRVFORMATSUGGEST
-def _define_ACMDRVOPENDESCA_head():
-    class ACMDRVOPENDESCA(Structure):
-        pass
-    return ACMDRVOPENDESCA
-def _define_ACMDRVOPENDESCA():
-    ACMDRVOPENDESCA = win32more.Media.Audio.ACMDRVOPENDESCA_head
-    ACMDRVOPENDESCA._pack_ = 1
-    ACMDRVOPENDESCA._fields_ = [
-        ('cbStruct', UInt32),
-        ('fccType', UInt32),
-        ('fccComp', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-        ('dwError', UInt32),
-        ('pszSectionName', win32more.Foundation.PSTR),
-        ('pszAliasName', win32more.Foundation.PSTR),
-        ('dnDevNode', UInt32),
-    ]
-    return ACMDRVOPENDESCA
-def _define_ACMDRVOPENDESCW_head():
-    class ACMDRVOPENDESCW(Structure):
-        pass
-    return ACMDRVOPENDESCW
-def _define_ACMDRVOPENDESCW():
-    ACMDRVOPENDESCW = win32more.Media.Audio.ACMDRVOPENDESCW_head
-    ACMDRVOPENDESCW._pack_ = 1
-    ACMDRVOPENDESCW._fields_ = [
-        ('cbStruct', UInt32),
-        ('fccType', UInt32),
-        ('fccComp', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-        ('dwError', UInt32),
-        ('pszSectionName', win32more.Foundation.PWSTR),
-        ('pszAliasName', win32more.Foundation.PWSTR),
-        ('dnDevNode', UInt32),
-    ]
-    return ACMDRVOPENDESCW
-def _define_ACMDRVSTREAMHEADER_head():
-    class ACMDRVSTREAMHEADER(Structure):
-        pass
-    return ACMDRVSTREAMHEADER
-def _define_ACMDRVSTREAMHEADER():
-    ACMDRVSTREAMHEADER = win32more.Media.Audio.ACMDRVSTREAMHEADER_head
-    ACMDRVSTREAMHEADER._pack_ = 1
-    ACMDRVSTREAMHEADER._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStatus', UInt32),
-        ('dwUser', UIntPtr),
-        ('pbSrc', c_char_p_no),
-        ('cbSrcLength', UInt32),
-        ('cbSrcLengthUsed', UInt32),
-        ('dwSrcUser', UIntPtr),
-        ('pbDst', c_char_p_no),
-        ('cbDstLength', UInt32),
-        ('cbDstLengthUsed', UInt32),
-        ('dwDstUser', UIntPtr),
-        ('fdwConvert', UInt32),
-        ('padshNext', POINTER(win32more.Media.Audio.ACMDRVSTREAMHEADER_head)),
-        ('fdwDriver', UInt32),
-        ('dwDriver', UIntPtr),
-        ('fdwPrepared', UInt32),
-        ('dwPrepared', UIntPtr),
-        ('pbPreparedSrc', c_char_p_no),
-        ('cbPreparedSrcLength', UInt32),
-        ('pbPreparedDst', c_char_p_no),
-        ('cbPreparedDstLength', UInt32),
-    ]
-    return ACMDRVSTREAMHEADER
-def _define_ACMDRVSTREAMINSTANCE_head():
-    class ACMDRVSTREAMINSTANCE(Structure):
-        pass
-    return ACMDRVSTREAMINSTANCE
-def _define_ACMDRVSTREAMINSTANCE():
-    ACMDRVSTREAMINSTANCE = win32more.Media.Audio.ACMDRVSTREAMINSTANCE_head
-    ACMDRVSTREAMINSTANCE._pack_ = 1
-    ACMDRVSTREAMINSTANCE._fields_ = [
-        ('cbStruct', UInt32),
-        ('pwfxSrc', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('pwfxDst', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('pwfltr', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('dwCallback', UIntPtr),
-        ('dwInstance', UIntPtr),
-        ('fdwOpen', UInt32),
-        ('fdwDriver', UInt32),
-        ('dwDriver', UIntPtr),
-        ('has', win32more.Media.Audio.HACMSTREAM),
-    ]
-    return ACMDRVSTREAMINSTANCE
-def _define_ACMDRVSTREAMSIZE_head():
-    class ACMDRVSTREAMSIZE(Structure):
-        pass
-    return ACMDRVSTREAMSIZE
-def _define_ACMDRVSTREAMSIZE():
-    ACMDRVSTREAMSIZE = win32more.Media.Audio.ACMDRVSTREAMSIZE_head
-    ACMDRVSTREAMSIZE._pack_ = 1
-    ACMDRVSTREAMSIZE._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwSize', UInt32),
-        ('cbSrcLength', UInt32),
-        ('cbDstLength', UInt32),
-    ]
-    return ACMDRVSTREAMSIZE
-def _define_ACMFILTERCHOOSEA_head():
-    class ACMFILTERCHOOSEA(Structure):
-        pass
-    return ACMFILTERCHOOSEA
-def _define_ACMFILTERCHOOSEA():
-    ACMFILTERCHOOSEA = win32more.Media.Audio.ACMFILTERCHOOSEA_head
-    ACMFILTERCHOOSEA._pack_ = 1
-    ACMFILTERCHOOSEA._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStyle', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pwfltr', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('cbwfltr', UInt32),
-        ('pszTitle', win32more.Foundation.PSTR),
-        ('szFilterTag', win32more.Foundation.CHAR * 48),
-        ('szFilter', win32more.Foundation.CHAR * 128),
-        ('pszName', win32more.Foundation.PSTR),
-        ('cchName', UInt32),
-        ('fdwEnum', UInt32),
-        ('pwfltrEnum', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('hInstance', win32more.Foundation.HINSTANCE),
-        ('pszTemplateName', win32more.Foundation.PSTR),
-        ('lCustData', win32more.Foundation.LPARAM),
-        ('pfnHook', win32more.Media.Audio.ACMFILTERCHOOSEHOOKPROCA),
-    ]
-    return ACMFILTERCHOOSEA
-def _define_ACMFILTERCHOOSEHOOKPROCA():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
-def _define_ACMFILTERCHOOSEHOOKPROCW():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
-def _define_ACMFILTERCHOOSEW_head():
-    class ACMFILTERCHOOSEW(Structure):
-        pass
-    return ACMFILTERCHOOSEW
-def _define_ACMFILTERCHOOSEW():
-    ACMFILTERCHOOSEW = win32more.Media.Audio.ACMFILTERCHOOSEW_head
-    ACMFILTERCHOOSEW._pack_ = 1
-    ACMFILTERCHOOSEW._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStyle', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pwfltr', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('cbwfltr', UInt32),
-        ('pszTitle', win32more.Foundation.PWSTR),
-        ('szFilterTag', Char * 48),
-        ('szFilter', Char * 128),
-        ('pszName', win32more.Foundation.PWSTR),
-        ('cchName', UInt32),
-        ('fdwEnum', UInt32),
-        ('pwfltrEnum', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('hInstance', win32more.Foundation.HINSTANCE),
-        ('pszTemplateName', win32more.Foundation.PWSTR),
-        ('lCustData', win32more.Foundation.LPARAM),
-        ('pfnHook', win32more.Media.Audio.ACMFILTERCHOOSEHOOKPROCW),
-    ]
-    return ACMFILTERCHOOSEW
-def _define_ACMFILTERDETAILSA_head():
-    class ACMFILTERDETAILSA(Structure):
-        pass
-    return ACMFILTERDETAILSA
-def _define_ACMFILTERDETAILSA():
-    ACMFILTERDETAILSA = win32more.Media.Audio.ACMFILTERDETAILSA_head
-    ACMFILTERDETAILSA._pack_ = 1
-    ACMFILTERDETAILSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFilterIndex', UInt32),
-        ('dwFilterTag', UInt32),
-        ('fdwSupport', UInt32),
-        ('pwfltr', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('cbwfltr', UInt32),
-        ('szFilter', win32more.Foundation.CHAR * 128),
-    ]
-    return ACMFILTERDETAILSA
-def _define_ACMFILTERDETAILSW_head():
-    class ACMFILTERDETAILSW(Structure):
-        pass
-    return ACMFILTERDETAILSW
-def _define_ACMFILTERDETAILSW():
-    ACMFILTERDETAILSW = win32more.Media.Audio.ACMFILTERDETAILSW_head
-    ACMFILTERDETAILSW._pack_ = 1
-    ACMFILTERDETAILSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFilterIndex', UInt32),
-        ('dwFilterTag', UInt32),
-        ('fdwSupport', UInt32),
-        ('pwfltr', POINTER(win32more.Media.Audio.WAVEFILTER_head)),
-        ('cbwfltr', UInt32),
-        ('szFilter', Char * 128),
-    ]
-    return ACMFILTERDETAILSW
-def _define_ACMFILTERENUMCBA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head),UIntPtr,UInt32)
-def _define_ACMFILTERENUMCBW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head),UIntPtr,UInt32)
-def _define_ACMFILTERTAGDETAILSA_head():
-    class ACMFILTERTAGDETAILSA(Structure):
-        pass
-    return ACMFILTERTAGDETAILSA
-def _define_ACMFILTERTAGDETAILSA():
-    ACMFILTERTAGDETAILSA = win32more.Media.Audio.ACMFILTERTAGDETAILSA_head
-    ACMFILTERTAGDETAILSA._pack_ = 1
-    ACMFILTERTAGDETAILSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFilterTagIndex', UInt32),
-        ('dwFilterTag', UInt32),
-        ('cbFilterSize', UInt32),
-        ('fdwSupport', UInt32),
-        ('cStandardFilters', UInt32),
-        ('szFilterTag', win32more.Foundation.CHAR * 48),
-    ]
-    return ACMFILTERTAGDETAILSA
-def _define_ACMFILTERTAGDETAILSW_head():
-    class ACMFILTERTAGDETAILSW(Structure):
-        pass
-    return ACMFILTERTAGDETAILSW
-def _define_ACMFILTERTAGDETAILSW():
-    ACMFILTERTAGDETAILSW = win32more.Media.Audio.ACMFILTERTAGDETAILSW_head
-    ACMFILTERTAGDETAILSW._pack_ = 1
-    ACMFILTERTAGDETAILSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFilterTagIndex', UInt32),
-        ('dwFilterTag', UInt32),
-        ('cbFilterSize', UInt32),
-        ('fdwSupport', UInt32),
-        ('cStandardFilters', UInt32),
-        ('szFilterTag', Char * 48),
-    ]
-    return ACMFILTERTAGDETAILSW
-def _define_ACMFILTERTAGENUMCBA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head),UIntPtr,UInt32)
-def _define_ACMFILTERTAGENUMCBW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head),UIntPtr,UInt32)
-def _define_ACMFORMATCHOOSEA_head():
-    class ACMFORMATCHOOSEA(Structure):
-        pass
-    return ACMFORMATCHOOSEA
-def _define_ACMFORMATCHOOSEA():
-    ACMFORMATCHOOSEA = win32more.Media.Audio.ACMFORMATCHOOSEA_head
-    ACMFORMATCHOOSEA._pack_ = 1
-    ACMFORMATCHOOSEA._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStyle', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pwfx', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfx', UInt32),
-        ('pszTitle', win32more.Foundation.PSTR),
-        ('szFormatTag', win32more.Foundation.CHAR * 48),
-        ('szFormat', win32more.Foundation.CHAR * 128),
-        ('pszName', win32more.Foundation.PSTR),
-        ('cchName', UInt32),
-        ('fdwEnum', UInt32),
-        ('pwfxEnum', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('hInstance', win32more.Foundation.HINSTANCE),
-        ('pszTemplateName', win32more.Foundation.PSTR),
-        ('lCustData', win32more.Foundation.LPARAM),
-        ('pfnHook', win32more.Media.Audio.ACMFORMATCHOOSEHOOKPROCA),
-    ]
-    return ACMFORMATCHOOSEA
-def _define_ACMFORMATCHOOSEHOOKPROCA():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
-def _define_ACMFORMATCHOOSEHOOKPROCW():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)
-def _define_ACMFORMATCHOOSEW_head():
-    class ACMFORMATCHOOSEW(Structure):
-        pass
-    return ACMFORMATCHOOSEW
-def _define_ACMFORMATCHOOSEW():
-    ACMFORMATCHOOSEW = win32more.Media.Audio.ACMFORMATCHOOSEW_head
-    ACMFORMATCHOOSEW._pack_ = 1
-    ACMFORMATCHOOSEW._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStyle', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pwfx', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfx', UInt32),
-        ('pszTitle', win32more.Foundation.PWSTR),
-        ('szFormatTag', Char * 48),
-        ('szFormat', Char * 128),
-        ('pszName', win32more.Foundation.PWSTR),
-        ('cchName', UInt32),
-        ('fdwEnum', UInt32),
-        ('pwfxEnum', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('hInstance', win32more.Foundation.HINSTANCE),
-        ('pszTemplateName', win32more.Foundation.PWSTR),
-        ('lCustData', win32more.Foundation.LPARAM),
-        ('pfnHook', win32more.Media.Audio.ACMFORMATCHOOSEHOOKPROCW),
-    ]
-    return ACMFORMATCHOOSEW
-def _define_ACMFORMATDETAILSA_head():
-    class ACMFORMATDETAILSA(Structure):
-        pass
-    return ACMFORMATDETAILSA
-def _define_ACMFORMATDETAILSA():
-    ACMFORMATDETAILSA = win32more.Media.Audio.ACMFORMATDETAILSA_head
-    ACMFORMATDETAILSA._pack_ = 1
-    ACMFORMATDETAILSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFormatIndex', UInt32),
-        ('dwFormatTag', UInt32),
-        ('fdwSupport', UInt32),
-        ('pwfx', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfx', UInt32),
-        ('szFormat', win32more.Foundation.CHAR * 128),
-    ]
-    return ACMFORMATDETAILSA
-def _define_ACMFORMATENUMCBA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head),UIntPtr,UInt32)
-def _define_ACMFORMATENUMCBW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head),UIntPtr,UInt32)
-def _define_ACMFORMATTAGDETAILSA_head():
-    class ACMFORMATTAGDETAILSA(Structure):
-        pass
-    return ACMFORMATTAGDETAILSA
-def _define_ACMFORMATTAGDETAILSA():
-    ACMFORMATTAGDETAILSA = win32more.Media.Audio.ACMFORMATTAGDETAILSA_head
-    ACMFORMATTAGDETAILSA._pack_ = 1
-    ACMFORMATTAGDETAILSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFormatTagIndex', UInt32),
-        ('dwFormatTag', UInt32),
-        ('cbFormatSize', UInt32),
-        ('fdwSupport', UInt32),
-        ('cStandardFormats', UInt32),
-        ('szFormatTag', win32more.Foundation.CHAR * 48),
-    ]
-    return ACMFORMATTAGDETAILSA
-def _define_ACMFORMATTAGDETAILSW_head():
-    class ACMFORMATTAGDETAILSW(Structure):
-        pass
-    return ACMFORMATTAGDETAILSW
-def _define_ACMFORMATTAGDETAILSW():
-    ACMFORMATTAGDETAILSW = win32more.Media.Audio.ACMFORMATTAGDETAILSW_head
-    ACMFORMATTAGDETAILSW._pack_ = 1
-    ACMFORMATTAGDETAILSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFormatTagIndex', UInt32),
-        ('dwFormatTag', UInt32),
-        ('cbFormatSize', UInt32),
-        ('fdwSupport', UInt32),
-        ('cStandardFormats', UInt32),
-        ('szFormatTag', Char * 48),
-    ]
-    return ACMFORMATTAGDETAILSW
-def _define_ACMFORMATTAGENUMCBA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head),UIntPtr,UInt32)
-def _define_ACMFORMATTAGENUMCBW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head),UIntPtr,UInt32)
-def _define_ACMSTREAMHEADER_head():
-    class ACMSTREAMHEADER(Structure):
-        pass
-    return ACMSTREAMHEADER
-def _define_ACMSTREAMHEADER():
-    ACMSTREAMHEADER = win32more.Media.Audio.ACMSTREAMHEADER_head
-    ACMSTREAMHEADER._pack_ = 1
-    ACMSTREAMHEADER._fields_ = [
-        ('cbStruct', UInt32),
-        ('fdwStatus', UInt32),
-        ('dwUser', UIntPtr),
-        ('pbSrc', c_char_p_no),
-        ('cbSrcLength', UInt32),
-        ('cbSrcLengthUsed', UInt32),
-        ('dwSrcUser', UIntPtr),
-        ('pbDst', c_char_p_no),
-        ('cbDstLength', UInt32),
-        ('cbDstLengthUsed', UInt32),
-        ('dwDstUser', UIntPtr),
-        ('dwReservedDriver', UInt32 * 15),
-    ]
-    return ACMSTREAMHEADER
+AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY: _AUDCLNT_BUFFERFLAGS = 1
+AUDCLNT_BUFFERFLAGS_SILENT: _AUDCLNT_BUFFERFLAGS = 2
+AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR: _AUDCLNT_BUFFERFLAGS = 4
+class ACMDRIVERDETAILSA(Structure):
+    cbStruct: UInt32
+    fccType: UInt32
+    fccComp: UInt32
+    wMid: UInt16
+    wPid: UInt16
+    vdwACM: UInt32
+    vdwDriver: UInt32
+    fdwSupport: UInt32
+    cFormatTags: UInt32
+    cFilterTags: UInt32
+    hicon: win32more.UI.WindowsAndMessaging.HICON
+    szShortName: win32more.Foundation.CHAR * 32
+    szLongName: win32more.Foundation.CHAR * 128
+    szCopyright: win32more.Foundation.CHAR * 80
+    szLicensing: win32more.Foundation.CHAR * 128
+    szFeatures: win32more.Foundation.CHAR * 512
+    _pack_ = 1
+class ACMDRIVERDETAILSW(Structure):
+    cbStruct: UInt32
+    fccType: UInt32
+    fccComp: UInt32
+    wMid: UInt16
+    wPid: UInt16
+    vdwACM: UInt32
+    vdwDriver: UInt32
+    fdwSupport: UInt32
+    cFormatTags: UInt32
+    cFilterTags: UInt32
+    hicon: win32more.UI.WindowsAndMessaging.HICON
+    szShortName: Char * 32
+    szLongName: Char * 128
+    szCopyright: Char * 80
+    szLicensing: Char * 128
+    szFeatures: Char * 512
+    _pack_ = 1
+@winfunctype_pointer
+def ACMDRIVERENUMCB(hadid: win32more.Media.Audio.HACMDRIVERID, dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+class ACMDRVFORMATSUGGEST(Structure):
+    cbStruct: UInt32
+    fdwSuggest: UInt32
+    pwfxSrc: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfxSrc: UInt32
+    pwfxDst: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfxDst: UInt32
+    _pack_ = 1
+class ACMDRVOPENDESCA(Structure):
+    cbStruct: UInt32
+    fccType: UInt32
+    fccComp: UInt32
+    dwVersion: UInt32
+    dwFlags: UInt32
+    dwError: UInt32
+    pszSectionName: win32more.Foundation.PSTR
+    pszAliasName: win32more.Foundation.PSTR
+    dnDevNode: UInt32
+    _pack_ = 1
+class ACMDRVOPENDESCW(Structure):
+    cbStruct: UInt32
+    fccType: UInt32
+    fccComp: UInt32
+    dwVersion: UInt32
+    dwFlags: UInt32
+    dwError: UInt32
+    pszSectionName: win32more.Foundation.PWSTR
+    pszAliasName: win32more.Foundation.PWSTR
+    dnDevNode: UInt32
+    _pack_ = 1
+class ACMDRVSTREAMHEADER(Structure):
+    cbStruct: UInt32
+    fdwStatus: UInt32
+    dwUser: UIntPtr
+    pbSrc: c_char_p_no
+    cbSrcLength: UInt32
+    cbSrcLengthUsed: UInt32
+    dwSrcUser: UIntPtr
+    pbDst: c_char_p_no
+    cbDstLength: UInt32
+    cbDstLengthUsed: UInt32
+    dwDstUser: UIntPtr
+    fdwConvert: UInt32
+    padshNext: POINTER(win32more.Media.Audio.ACMDRVSTREAMHEADER_head)
+    fdwDriver: UInt32
+    dwDriver: UIntPtr
+    fdwPrepared: UInt32
+    dwPrepared: UIntPtr
+    pbPreparedSrc: c_char_p_no
+    cbPreparedSrcLength: UInt32
+    pbPreparedDst: c_char_p_no
+    cbPreparedDstLength: UInt32
+    _pack_ = 1
+class ACMDRVSTREAMINSTANCE(Structure):
+    cbStruct: UInt32
+    pwfxSrc: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    pwfxDst: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    dwCallback: UIntPtr
+    dwInstance: UIntPtr
+    fdwOpen: UInt32
+    fdwDriver: UInt32
+    dwDriver: UIntPtr
+    has: win32more.Media.Audio.HACMSTREAM
+    _pack_ = 1
+class ACMDRVSTREAMSIZE(Structure):
+    cbStruct: UInt32
+    fdwSize: UInt32
+    cbSrcLength: UInt32
+    cbDstLength: UInt32
+    _pack_ = 1
+class ACMFILTERCHOOSEA(Structure):
+    cbStruct: UInt32
+    fdwStyle: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    cbwfltr: UInt32
+    pszTitle: win32more.Foundation.PSTR
+    szFilterTag: win32more.Foundation.CHAR * 48
+    szFilter: win32more.Foundation.CHAR * 128
+    pszName: win32more.Foundation.PSTR
+    cchName: UInt32
+    fdwEnum: UInt32
+    pwfltrEnum: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    hInstance: win32more.Foundation.HINSTANCE
+    pszTemplateName: win32more.Foundation.PSTR
+    lCustData: win32more.Foundation.LPARAM
+    pfnHook: win32more.Media.Audio.ACMFILTERCHOOSEHOOKPROCA
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFILTERCHOOSEHOOKPROCA(hwnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> UInt32: ...
+@winfunctype_pointer
+def ACMFILTERCHOOSEHOOKPROCW(hwnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> UInt32: ...
+class ACMFILTERCHOOSEW(Structure):
+    cbStruct: UInt32
+    fdwStyle: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    cbwfltr: UInt32
+    pszTitle: win32more.Foundation.PWSTR
+    szFilterTag: Char * 48
+    szFilter: Char * 128
+    pszName: win32more.Foundation.PWSTR
+    cchName: UInt32
+    fdwEnum: UInt32
+    pwfltrEnum: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    hInstance: win32more.Foundation.HINSTANCE
+    pszTemplateName: win32more.Foundation.PWSTR
+    lCustData: win32more.Foundation.LPARAM
+    pfnHook: win32more.Media.Audio.ACMFILTERCHOOSEHOOKPROCW
+    _pack_ = 1
+class ACMFILTERDETAILSA(Structure):
+    cbStruct: UInt32
+    dwFilterIndex: UInt32
+    dwFilterTag: UInt32
+    fdwSupport: UInt32
+    pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    cbwfltr: UInt32
+    szFilter: win32more.Foundation.CHAR * 128
+    _pack_ = 1
+class ACMFILTERDETAILSW(Structure):
+    cbStruct: UInt32
+    dwFilterIndex: UInt32
+    dwFilterTag: UInt32
+    fdwSupport: UInt32
+    pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head)
+    cbwfltr: UInt32
+    szFilter: Char * 128
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFILTERENUMCBA(hadid: win32more.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ACMFILTERENUMCBW(hadid: win32more.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+class ACMFILTERTAGDETAILSA(Structure):
+    cbStruct: UInt32
+    dwFilterTagIndex: UInt32
+    dwFilterTag: UInt32
+    cbFilterSize: UInt32
+    fdwSupport: UInt32
+    cStandardFilters: UInt32
+    szFilterTag: win32more.Foundation.CHAR * 48
+    _pack_ = 1
+class ACMFILTERTAGDETAILSW(Structure):
+    cbStruct: UInt32
+    dwFilterTagIndex: UInt32
+    dwFilterTag: UInt32
+    cbFilterSize: UInt32
+    fdwSupport: UInt32
+    cStandardFilters: UInt32
+    szFilterTag: Char * 48
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFILTERTAGENUMCBA(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ACMFILTERTAGENUMCBW(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+class ACMFORMATCHOOSEA(Structure):
+    cbStruct: UInt32
+    fdwStyle: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfx: UInt32
+    pszTitle: win32more.Foundation.PSTR
+    szFormatTag: win32more.Foundation.CHAR * 48
+    szFormat: win32more.Foundation.CHAR * 128
+    pszName: win32more.Foundation.PSTR
+    cchName: UInt32
+    fdwEnum: UInt32
+    pwfxEnum: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    hInstance: win32more.Foundation.HINSTANCE
+    pszTemplateName: win32more.Foundation.PSTR
+    lCustData: win32more.Foundation.LPARAM
+    pfnHook: win32more.Media.Audio.ACMFORMATCHOOSEHOOKPROCA
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFORMATCHOOSEHOOKPROCA(hwnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> UInt32: ...
+@winfunctype_pointer
+def ACMFORMATCHOOSEHOOKPROCW(hwnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> UInt32: ...
+class ACMFORMATCHOOSEW(Structure):
+    cbStruct: UInt32
+    fdwStyle: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfx: UInt32
+    pszTitle: win32more.Foundation.PWSTR
+    szFormatTag: Char * 48
+    szFormat: Char * 128
+    pszName: win32more.Foundation.PWSTR
+    cchName: UInt32
+    fdwEnum: UInt32
+    pwfxEnum: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    hInstance: win32more.Foundation.HINSTANCE
+    pszTemplateName: win32more.Foundation.PWSTR
+    lCustData: win32more.Foundation.LPARAM
+    pfnHook: win32more.Media.Audio.ACMFORMATCHOOSEHOOKPROCW
+    _pack_ = 1
+class ACMFORMATDETAILSA(Structure):
+    cbStruct: UInt32
+    dwFormatIndex: UInt32
+    dwFormatTag: UInt32
+    fdwSupport: UInt32
+    pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfx: UInt32
+    szFormat: win32more.Foundation.CHAR * 128
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFORMATENUMCBA(hadid: win32more.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ACMFORMATENUMCBW(hadid: win32more.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+class ACMFORMATTAGDETAILSA(Structure):
+    cbStruct: UInt32
+    dwFormatTagIndex: UInt32
+    dwFormatTag: UInt32
+    cbFormatSize: UInt32
+    fdwSupport: UInt32
+    cStandardFormats: UInt32
+    szFormatTag: win32more.Foundation.CHAR * 48
+    _pack_ = 1
+class ACMFORMATTAGDETAILSW(Structure):
+    cbStruct: UInt32
+    dwFormatTagIndex: UInt32
+    dwFormatTag: UInt32
+    cbFormatSize: UInt32
+    fdwSupport: UInt32
+    cStandardFormats: UInt32
+    szFormatTag: Char * 48
+    _pack_ = 1
+@winfunctype_pointer
+def ACMFORMATTAGENUMCBA(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ACMFORMATTAGENUMCBW(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
+class ACMSTREAMHEADER(Structure):
+    cbStruct: UInt32
+    fdwStatus: UInt32
+    dwUser: UIntPtr
+    pbSrc: c_char_p_no
+    cbSrcLength: UInt32
+    cbSrcLengthUsed: UInt32
+    dwSrcUser: UIntPtr
+    pbDst: c_char_p_no
+    cbDstLength: UInt32
+    cbDstLengthUsed: UInt32
+    dwDstUser: UIntPtr
+    dwReservedDriver: UInt32 * 15
+    _pack_ = 1
 AMBISONICS_CHANNEL_ORDERING = Int32
-AMBISONICS_CHANNEL_ORDERING_ACN = 0
+AMBISONICS_CHANNEL_ORDERING_ACN: AMBISONICS_CHANNEL_ORDERING = 0
 AMBISONICS_NORMALIZATION = Int32
-AMBISONICS_NORMALIZATION_SN3D = 0
-AMBISONICS_NORMALIZATION_N3D = 1
-def _define_AMBISONICS_PARAMS_head():
-    class AMBISONICS_PARAMS(Structure):
-        pass
-    return AMBISONICS_PARAMS
-def _define_AMBISONICS_PARAMS():
-    AMBISONICS_PARAMS = win32more.Media.Audio.AMBISONICS_PARAMS_head
-    AMBISONICS_PARAMS._fields_ = [
-        ('u32Size', UInt32),
-        ('u32Version', UInt32),
-        ('u32Type', win32more.Media.Audio.AMBISONICS_TYPE),
-        ('u32ChannelOrdering', win32more.Media.Audio.AMBISONICS_CHANNEL_ORDERING),
-        ('u32Normalization', win32more.Media.Audio.AMBISONICS_NORMALIZATION),
-        ('u32Order', UInt32),
-        ('u32NumChannels', UInt32),
-        ('pu32ChannelMap', POINTER(UInt32)),
-    ]
-    return AMBISONICS_PARAMS
+AMBISONICS_NORMALIZATION_SN3D: AMBISONICS_NORMALIZATION = 0
+AMBISONICS_NORMALIZATION_N3D: AMBISONICS_NORMALIZATION = 1
+class AMBISONICS_PARAMS(Structure):
+    u32Size: UInt32
+    u32Version: UInt32
+    u32Type: win32more.Media.Audio.AMBISONICS_TYPE
+    u32ChannelOrdering: win32more.Media.Audio.AMBISONICS_CHANNEL_ORDERING
+    u32Normalization: win32more.Media.Audio.AMBISONICS_NORMALIZATION
+    u32Order: UInt32
+    u32NumChannels: UInt32
+    pu32ChannelMap: POINTER(UInt32)
 AMBISONICS_TYPE = Int32
-AMBISONICS_TYPE_FULL3D = 0
-MIXERCONTROL_CONTROLTYPE_CUSTOM = 0
-MIXERCONTROL_CONTROLTYPE_BOOLEANMETER = 268500992
-MIXERCONTROL_CONTROLTYPE_SIGNEDMETER = 268566528
-MIXERCONTROL_CONTROLTYPE_PEAKMETER = 268566529
-MIXERCONTROL_CONTROLTYPE_UNSIGNEDMETER = 268632064
-MIXERCONTROL_CONTROLTYPE_BOOLEAN = 536936448
-MIXERCONTROL_CONTROLTYPE_ONOFF = 536936449
-MIXERCONTROL_CONTROLTYPE_MUTE = 536936450
-MIXERCONTROL_CONTROLTYPE_MONO = 536936451
-MIXERCONTROL_CONTROLTYPE_LOUDNESS = 536936452
-MIXERCONTROL_CONTROLTYPE_STEREOENH = 536936453
-MIXERCONTROL_CONTROLTYPE_BASS_BOOST = 536945271
-MIXERCONTROL_CONTROLTYPE_BUTTON = 553713664
-MIXERCONTROL_CONTROLTYPE_DECIBELS = 805568512
-MIXERCONTROL_CONTROLTYPE_SIGNED = 805437440
-MIXERCONTROL_CONTROLTYPE_UNSIGNED = 805502976
-MIXERCONTROL_CONTROLTYPE_PERCENT = 805634048
-MIXERCONTROL_CONTROLTYPE_SLIDER = 1073872896
-MIXERCONTROL_CONTROLTYPE_PAN = 1073872897
-MIXERCONTROL_CONTROLTYPE_QSOUNDPAN = 1073872898
-MIXERCONTROL_CONTROLTYPE_FADER = 1342373888
-MIXERCONTROL_CONTROLTYPE_VOLUME = 1342373889
-MIXERCONTROL_CONTROLTYPE_BASS = 1342373890
-MIXERCONTROL_CONTROLTYPE_TREBLE = 1342373891
-MIXERCONTROL_CONTROLTYPE_EQUALIZER = 1342373892
-MIXERCONTROL_CONTROLTYPE_SINGLESELECT = 1879113728
-MIXERCONTROL_CONTROLTYPE_MUX = 1879113729
-MIXERCONTROL_CONTROLTYPE_MULTIPLESELECT = 1895890944
-MIXERCONTROL_CONTROLTYPE_MIXER = 1895890945
-MIXERCONTROL_CONTROLTYPE_MICROTIME = 1610809344
-MIXERCONTROL_CONTROLTYPE_MILLITIME = 1627586560
-WAVE_MAPPER = 4294967295
-ENDPOINT_FORMAT_RESET_MIX_ONLY = 1
-ENDPOINT_HARDWARE_SUPPORT_VOLUME = 1
-ENDPOINT_HARDWARE_SUPPORT_MUTE = 2
-ENDPOINT_HARDWARE_SUPPORT_METER = 4
-AUDIOCLOCK_CHARACTERISTIC_FIXED_FREQ = 1
-AMBISONICS_PARAM_VERSION_1 = 1
-AUDCLNT_E_NOT_INITIALIZED = -2004287487
-AUDCLNT_E_ALREADY_INITIALIZED = -2004287486
-AUDCLNT_E_WRONG_ENDPOINT_TYPE = -2004287485
-AUDCLNT_E_DEVICE_INVALIDATED = -2004287484
-AUDCLNT_E_NOT_STOPPED = -2004287483
-AUDCLNT_E_BUFFER_TOO_LARGE = -2004287482
-AUDCLNT_E_OUT_OF_ORDER = -2004287481
-AUDCLNT_E_UNSUPPORTED_FORMAT = -2004287480
-AUDCLNT_E_INVALID_SIZE = -2004287479
-AUDCLNT_E_DEVICE_IN_USE = -2004287478
-AUDCLNT_E_BUFFER_OPERATION_PENDING = -2004287477
-AUDCLNT_E_THREAD_NOT_REGISTERED = -2004287476
-AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED = -2004287474
-AUDCLNT_E_ENDPOINT_CREATE_FAILED = -2004287473
-AUDCLNT_E_SERVICE_NOT_RUNNING = -2004287472
-AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED = -2004287471
-AUDCLNT_E_EXCLUSIVE_MODE_ONLY = -2004287470
-AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL = -2004287469
-AUDCLNT_E_EVENTHANDLE_NOT_SET = -2004287468
-AUDCLNT_E_INCORRECT_BUFFER_SIZE = -2004287467
-AUDCLNT_E_BUFFER_SIZE_ERROR = -2004287466
-AUDCLNT_E_CPUUSAGE_EXCEEDED = -2004287465
-AUDCLNT_E_BUFFER_ERROR = -2004287464
-AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED = -2004287463
-AUDCLNT_E_INVALID_DEVICE_PERIOD = -2004287456
-AUDCLNT_E_INVALID_STREAM_FLAG = -2004287455
-AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE = -2004287454
-AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES = -2004287453
-AUDCLNT_E_OFFLOAD_MODE_ONLY = -2004287452
-AUDCLNT_E_NONOFFLOAD_MODE_ONLY = -2004287451
-AUDCLNT_E_RESOURCES_INVALIDATED = -2004287450
-AUDCLNT_E_RAW_MODE_UNSUPPORTED = -2004287449
-AUDCLNT_E_ENGINE_PERIODICITY_LOCKED = -2004287448
-AUDCLNT_E_ENGINE_FORMAT_LOCKED = -2004287447
-AUDCLNT_E_HEADTRACKING_ENABLED = -2004287440
-AUDCLNT_E_HEADTRACKING_UNSUPPORTED = -2004287424
-AUDCLNT_E_EFFECT_NOT_AVAILABLE = -2004287423
-AUDCLNT_E_EFFECT_STATE_READ_ONLY = -2004287422
-AUDCLNT_S_BUFFER_EMPTY = 143196161
-AUDCLNT_S_THREAD_ALREADY_REGISTERED = 143196162
-AUDCLNT_S_POSITION_STALLED = 143196163
-AUDCLNT_STREAMFLAGS_CROSSPROCESS = 65536
-AUDCLNT_STREAMFLAGS_LOOPBACK = 131072
-AUDCLNT_STREAMFLAGS_EVENTCALLBACK = 262144
-AUDCLNT_STREAMFLAGS_NOPERSIST = 524288
-AUDCLNT_STREAMFLAGS_RATEADJUST = 1048576
-AUDCLNT_STREAMFLAGS_SRC_DEFAULT_QUALITY = 134217728
-AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM = 2147483648
-AUDCLNT_SESSIONFLAGS_EXPIREWHENUNOWNED = 268435456
-AUDCLNT_SESSIONFLAGS_DISPLAY_HIDE = 536870912
-AUDCLNT_SESSIONFLAGS_DISPLAY_HIDEWHENEXPIRED = 1073741824
-SPTLAUDCLNT_E_DESTROYED = -2004287232
-SPTLAUDCLNT_E_OUT_OF_ORDER = -2004287231
-SPTLAUDCLNT_E_RESOURCES_INVALIDATED = -2004287230
-SPTLAUDCLNT_E_NO_MORE_OBJECTS = -2004287229
-SPTLAUDCLNT_E_PROPERTY_NOT_SUPPORTED = -2004287228
-SPTLAUDCLNT_E_ERRORS_IN_OBJECT_CALLS = -2004287227
-SPTLAUDCLNT_E_METADATA_FORMAT_NOT_SUPPORTED = -2004287226
-SPTLAUDCLNT_E_STREAM_NOT_AVAILABLE = -2004287225
-SPTLAUDCLNT_E_INVALID_LICENSE = -2004287224
-SPTLAUDCLNT_E_STREAM_NOT_STOPPED = -2004287222
-SPTLAUDCLNT_E_STATIC_OBJECT_NOT_AVAILABLE = -2004287221
-SPTLAUDCLNT_E_OBJECT_ALREADY_ACTIVE = -2004287220
-SPTLAUDCLNT_E_INTERNAL = -2004287219
-DEVICE_STATE_ACTIVE = 1
-DEVICE_STATE_DISABLED = 2
-DEVICE_STATE_NOTPRESENT = 4
-DEVICE_STATE_UNPLUGGED = 8
-DEVICE_STATEMASK_ALL = 15
-def _define_PKEY_AudioEndpoint_FormFactor():
+AMBISONICS_TYPE_FULL3D: AMBISONICS_TYPE = 0
+MIXERCONTROL_CONTROLTYPE_CUSTOM: UInt32 = 0
+MIXERCONTROL_CONTROLTYPE_BOOLEANMETER: UInt32 = 268500992
+MIXERCONTROL_CONTROLTYPE_SIGNEDMETER: UInt32 = 268566528
+MIXERCONTROL_CONTROLTYPE_PEAKMETER: UInt32 = 268566529
+MIXERCONTROL_CONTROLTYPE_UNSIGNEDMETER: UInt32 = 268632064
+MIXERCONTROL_CONTROLTYPE_BOOLEAN: UInt32 = 536936448
+MIXERCONTROL_CONTROLTYPE_ONOFF: UInt32 = 536936449
+MIXERCONTROL_CONTROLTYPE_MUTE: UInt32 = 536936450
+MIXERCONTROL_CONTROLTYPE_MONO: UInt32 = 536936451
+MIXERCONTROL_CONTROLTYPE_LOUDNESS: UInt32 = 536936452
+MIXERCONTROL_CONTROLTYPE_STEREOENH: UInt32 = 536936453
+MIXERCONTROL_CONTROLTYPE_BASS_BOOST: UInt32 = 536945271
+MIXERCONTROL_CONTROLTYPE_BUTTON: UInt32 = 553713664
+MIXERCONTROL_CONTROLTYPE_DECIBELS: UInt32 = 805568512
+MIXERCONTROL_CONTROLTYPE_SIGNED: UInt32 = 805437440
+MIXERCONTROL_CONTROLTYPE_UNSIGNED: UInt32 = 805502976
+MIXERCONTROL_CONTROLTYPE_PERCENT: UInt32 = 805634048
+MIXERCONTROL_CONTROLTYPE_SLIDER: UInt32 = 1073872896
+MIXERCONTROL_CONTROLTYPE_PAN: UInt32 = 1073872897
+MIXERCONTROL_CONTROLTYPE_QSOUNDPAN: UInt32 = 1073872898
+MIXERCONTROL_CONTROLTYPE_FADER: UInt32 = 1342373888
+MIXERCONTROL_CONTROLTYPE_VOLUME: UInt32 = 1342373889
+MIXERCONTROL_CONTROLTYPE_BASS: UInt32 = 1342373890
+MIXERCONTROL_CONTROLTYPE_TREBLE: UInt32 = 1342373891
+MIXERCONTROL_CONTROLTYPE_EQUALIZER: UInt32 = 1342373892
+MIXERCONTROL_CONTROLTYPE_SINGLESELECT: UInt32 = 1879113728
+MIXERCONTROL_CONTROLTYPE_MUX: UInt32 = 1879113729
+MIXERCONTROL_CONTROLTYPE_MULTIPLESELECT: UInt32 = 1895890944
+MIXERCONTROL_CONTROLTYPE_MIXER: UInt32 = 1895890945
+MIXERCONTROL_CONTROLTYPE_MICROTIME: UInt32 = 1610809344
+MIXERCONTROL_CONTROLTYPE_MILLITIME: UInt32 = 1627586560
+WAVE_MAPPER: UInt32 = 4294967295
+ENDPOINT_FORMAT_RESET_MIX_ONLY: UInt32 = 1
+ENDPOINT_HARDWARE_SUPPORT_VOLUME: UInt32 = 1
+ENDPOINT_HARDWARE_SUPPORT_MUTE: UInt32 = 2
+ENDPOINT_HARDWARE_SUPPORT_METER: UInt32 = 4
+AUDIOCLOCK_CHARACTERISTIC_FIXED_FREQ: UInt32 = 1
+AMBISONICS_PARAM_VERSION_1: UInt32 = 1
+AUDCLNT_E_NOT_INITIALIZED: win32more.Foundation.HRESULT = -2004287487
+AUDCLNT_E_ALREADY_INITIALIZED: win32more.Foundation.HRESULT = -2004287486
+AUDCLNT_E_WRONG_ENDPOINT_TYPE: win32more.Foundation.HRESULT = -2004287485
+AUDCLNT_E_DEVICE_INVALIDATED: win32more.Foundation.HRESULT = -2004287484
+AUDCLNT_E_NOT_STOPPED: win32more.Foundation.HRESULT = -2004287483
+AUDCLNT_E_BUFFER_TOO_LARGE: win32more.Foundation.HRESULT = -2004287482
+AUDCLNT_E_OUT_OF_ORDER: win32more.Foundation.HRESULT = -2004287481
+AUDCLNT_E_UNSUPPORTED_FORMAT: win32more.Foundation.HRESULT = -2004287480
+AUDCLNT_E_INVALID_SIZE: win32more.Foundation.HRESULT = -2004287479
+AUDCLNT_E_DEVICE_IN_USE: win32more.Foundation.HRESULT = -2004287478
+AUDCLNT_E_BUFFER_OPERATION_PENDING: win32more.Foundation.HRESULT = -2004287477
+AUDCLNT_E_THREAD_NOT_REGISTERED: win32more.Foundation.HRESULT = -2004287476
+AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED: win32more.Foundation.HRESULT = -2004287474
+AUDCLNT_E_ENDPOINT_CREATE_FAILED: win32more.Foundation.HRESULT = -2004287473
+AUDCLNT_E_SERVICE_NOT_RUNNING: win32more.Foundation.HRESULT = -2004287472
+AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED: win32more.Foundation.HRESULT = -2004287471
+AUDCLNT_E_EXCLUSIVE_MODE_ONLY: win32more.Foundation.HRESULT = -2004287470
+AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL: win32more.Foundation.HRESULT = -2004287469
+AUDCLNT_E_EVENTHANDLE_NOT_SET: win32more.Foundation.HRESULT = -2004287468
+AUDCLNT_E_INCORRECT_BUFFER_SIZE: win32more.Foundation.HRESULT = -2004287467
+AUDCLNT_E_BUFFER_SIZE_ERROR: win32more.Foundation.HRESULT = -2004287466
+AUDCLNT_E_CPUUSAGE_EXCEEDED: win32more.Foundation.HRESULT = -2004287465
+AUDCLNT_E_BUFFER_ERROR: win32more.Foundation.HRESULT = -2004287464
+AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED: win32more.Foundation.HRESULT = -2004287463
+AUDCLNT_E_INVALID_DEVICE_PERIOD: win32more.Foundation.HRESULT = -2004287456
+AUDCLNT_E_INVALID_STREAM_FLAG: win32more.Foundation.HRESULT = -2004287455
+AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE: win32more.Foundation.HRESULT = -2004287454
+AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES: win32more.Foundation.HRESULT = -2004287453
+AUDCLNT_E_OFFLOAD_MODE_ONLY: win32more.Foundation.HRESULT = -2004287452
+AUDCLNT_E_NONOFFLOAD_MODE_ONLY: win32more.Foundation.HRESULT = -2004287451
+AUDCLNT_E_RESOURCES_INVALIDATED: win32more.Foundation.HRESULT = -2004287450
+AUDCLNT_E_RAW_MODE_UNSUPPORTED: win32more.Foundation.HRESULT = -2004287449
+AUDCLNT_E_ENGINE_PERIODICITY_LOCKED: win32more.Foundation.HRESULT = -2004287448
+AUDCLNT_E_ENGINE_FORMAT_LOCKED: win32more.Foundation.HRESULT = -2004287447
+AUDCLNT_E_HEADTRACKING_ENABLED: win32more.Foundation.HRESULT = -2004287440
+AUDCLNT_E_HEADTRACKING_UNSUPPORTED: win32more.Foundation.HRESULT = -2004287424
+AUDCLNT_E_EFFECT_NOT_AVAILABLE: win32more.Foundation.HRESULT = -2004287423
+AUDCLNT_E_EFFECT_STATE_READ_ONLY: win32more.Foundation.HRESULT = -2004287422
+AUDCLNT_S_BUFFER_EMPTY: win32more.Foundation.HRESULT = 143196161
+AUDCLNT_S_THREAD_ALREADY_REGISTERED: win32more.Foundation.HRESULT = 143196162
+AUDCLNT_S_POSITION_STALLED: win32more.Foundation.HRESULT = 143196163
+AUDCLNT_STREAMFLAGS_CROSSPROCESS: UInt32 = 65536
+AUDCLNT_STREAMFLAGS_LOOPBACK: UInt32 = 131072
+AUDCLNT_STREAMFLAGS_EVENTCALLBACK: UInt32 = 262144
+AUDCLNT_STREAMFLAGS_NOPERSIST: UInt32 = 524288
+AUDCLNT_STREAMFLAGS_RATEADJUST: UInt32 = 1048576
+AUDCLNT_STREAMFLAGS_SRC_DEFAULT_QUALITY: UInt32 = 134217728
+AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM: UInt32 = 2147483648
+AUDCLNT_SESSIONFLAGS_EXPIREWHENUNOWNED: UInt32 = 268435456
+AUDCLNT_SESSIONFLAGS_DISPLAY_HIDE: UInt32 = 536870912
+AUDCLNT_SESSIONFLAGS_DISPLAY_HIDEWHENEXPIRED: UInt32 = 1073741824
+SPTLAUDCLNT_E_DESTROYED: win32more.Foundation.HRESULT = -2004287232
+SPTLAUDCLNT_E_OUT_OF_ORDER: win32more.Foundation.HRESULT = -2004287231
+SPTLAUDCLNT_E_RESOURCES_INVALIDATED: win32more.Foundation.HRESULT = -2004287230
+SPTLAUDCLNT_E_NO_MORE_OBJECTS: win32more.Foundation.HRESULT = -2004287229
+SPTLAUDCLNT_E_PROPERTY_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2004287228
+SPTLAUDCLNT_E_ERRORS_IN_OBJECT_CALLS: win32more.Foundation.HRESULT = -2004287227
+SPTLAUDCLNT_E_METADATA_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2004287226
+SPTLAUDCLNT_E_STREAM_NOT_AVAILABLE: win32more.Foundation.HRESULT = -2004287225
+SPTLAUDCLNT_E_INVALID_LICENSE: win32more.Foundation.HRESULT = -2004287224
+SPTLAUDCLNT_E_STREAM_NOT_STOPPED: win32more.Foundation.HRESULT = -2004287222
+SPTLAUDCLNT_E_STATIC_OBJECT_NOT_AVAILABLE: win32more.Foundation.HRESULT = -2004287221
+SPTLAUDCLNT_E_OBJECT_ALREADY_ACTIVE: win32more.Foundation.HRESULT = -2004287220
+SPTLAUDCLNT_E_INTERNAL: win32more.Foundation.HRESULT = -2004287219
+DEVICE_STATE_ACTIVE: UInt32 = 1
+DEVICE_STATE_DISABLED: UInt32 = 2
+DEVICE_STATE_NOTPRESENT: UInt32 = 4
+DEVICE_STATE_UNPLUGGED: UInt32 = 8
+DEVICE_STATEMASK_ALL: UInt32 = 15
+def PKEY_AudioEndpoint_FormFactor():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=0)
-def _define_PKEY_AudioEndpoint_ControlPanelPageProvider():
+def PKEY_AudioEndpoint_ControlPanelPageProvider():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=1)
-def _define_PKEY_AudioEndpoint_Association():
+def PKEY_AudioEndpoint_Association():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=2)
-def _define_PKEY_AudioEndpoint_PhysicalSpeakers():
+def PKEY_AudioEndpoint_PhysicalSpeakers():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=3)
-def _define_PKEY_AudioEndpoint_GUID():
+def PKEY_AudioEndpoint_GUID():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=4)
-def _define_PKEY_AudioEndpoint_Disable_SysFx():
+def PKEY_AudioEndpoint_Disable_SysFx():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=5)
-ENDPOINT_SYSFX_ENABLED = 0
-ENDPOINT_SYSFX_DISABLED = 1
-def _define_PKEY_AudioEndpoint_FullRangeSpeakers():
+ENDPOINT_SYSFX_ENABLED: UInt32 = 0
+ENDPOINT_SYSFX_DISABLED: UInt32 = 1
+def PKEY_AudioEndpoint_FullRangeSpeakers():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=6)
-def _define_PKEY_AudioEndpoint_Supports_EventDriven_Mode():
+def PKEY_AudioEndpoint_Supports_EventDriven_Mode():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=7)
-def _define_PKEY_AudioEndpoint_JackSubType():
+def PKEY_AudioEndpoint_JackSubType():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=8)
-def _define_PKEY_AudioEndpoint_Default_VolumeInDb():
+def PKEY_AudioEndpoint_Default_VolumeInDb():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('1da5d803-d492-4edd-8c-23-e0-c0-ff-ee-7f-0e'), pid=9)
-def _define_PKEY_AudioEngine_DeviceFormat():
+def PKEY_AudioEngine_DeviceFormat():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f19f064d-082c-4e27-bc-73-68-82-a1-bb-8e-4c'), pid=0)
-def _define_PKEY_AudioEngine_OEMFormat():
+def PKEY_AudioEngine_OEMFormat():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('e4870e26-3cc5-4cd2-ba-46-ca-0a-9a-70-ed-04'), pid=3)
-def _define_PKEY_AudioEndpointLogo_IconEffects():
+def PKEY_AudioEndpointLogo_IconEffects():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f1ab780d-2010-4ed3-a3-a6-8b-87-f0-f0-c4-76'), pid=0)
-def _define_PKEY_AudioEndpointLogo_IconPath():
+def PKEY_AudioEndpointLogo_IconPath():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('f1ab780d-2010-4ed3-a3-a6-8b-87-f0-f0-c4-76'), pid=1)
-def _define_PKEY_AudioEndpointSettings_MenuText():
+def PKEY_AudioEndpointSettings_MenuText():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14242002-0320-4de4-95-55-a7-d8-2b-73-c2-86'), pid=0)
-def _define_PKEY_AudioEndpointSettings_LaunchContract():
+def PKEY_AudioEndpointSettings_LaunchContract():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('14242002-0320-4de4-95-55-a7-d8-2b-73-c2-86'), pid=1)
-def _define_DEVINTERFACE_AUDIO_RENDER():
-    return Guid('e6327cad-dcec-4949-ae-8a-99-1e-97-6a-79-d2')
-def _define_DEVINTERFACE_AUDIO_CAPTURE():
-    return Guid('2eef81be-33fa-4800-96-70-1c-d4-74-97-2c-3f')
-def _define_DEVINTERFACE_MIDI_OUTPUT():
-    return Guid('6dc23320-ab33-4ce4-80-d4-bb-b3-eb-bf-28-14')
-def _define_DEVINTERFACE_MIDI_INPUT():
-    return Guid('504be32c-ccf6-4d2c-b7-3f-6f-8b-37-47-e2-2b')
-def _define_EVENTCONTEXT_VOLUMESLIDER():
-    return Guid('e2c2e9de-09b1-4b04-84-e5-07-93-12-25-ee-04')
-SPATIAL_AUDIO_STANDARD_COMMANDS_START = 200
-SPATIAL_AUDIO_POSITION = 200
-SPTLAUD_MD_CLNT_E_COMMAND_NOT_FOUND = -2004286976
-SPTLAUD_MD_CLNT_E_OBJECT_NOT_INITIALIZED = -2004286975
-SPTLAUD_MD_CLNT_E_INVALID_ARGS = -2004286974
-SPTLAUD_MD_CLNT_E_METADATA_FORMAT_NOT_FOUND = -2004286973
-SPTLAUD_MD_CLNT_E_VALUE_BUFFER_INCORRECT_SIZE = -2004286972
-SPTLAUD_MD_CLNT_E_MEMORY_BOUNDS = -2004286971
-SPTLAUD_MD_CLNT_E_NO_MORE_COMMANDS = -2004286970
-SPTLAUD_MD_CLNT_E_BUFFER_ALREADY_ATTACHED = -2004286969
-SPTLAUD_MD_CLNT_E_BUFFER_NOT_ATTACHED = -2004286968
-SPTLAUD_MD_CLNT_E_FRAMECOUNT_OUT_OF_RANGE = -2004286967
-SPTLAUD_MD_CLNT_E_NO_ITEMS_FOUND = -2004286960
-SPTLAUD_MD_CLNT_E_ITEM_COPY_OVERFLOW = -2004286959
-SPTLAUD_MD_CLNT_E_NO_ITEMS_OPEN = -2004286958
-SPTLAUD_MD_CLNT_E_ITEMS_ALREADY_OPEN = -2004286957
-SPTLAUD_MD_CLNT_E_ATTACH_FAILED_INTERNAL_BUFFER = -2004286956
-SPTLAUD_MD_CLNT_E_DETACH_FAILED_INTERNAL_BUFFER = -2004286955
-SPTLAUD_MD_CLNT_E_NO_BUFFER_ATTACHED = -2004286954
-SPTLAUD_MD_CLNT_E_NO_MORE_ITEMS = -2004286953
-SPTLAUD_MD_CLNT_E_FRAMEOFFSET_OUT_OF_RANGE = -2004286952
-SPTLAUD_MD_CLNT_E_ITEM_MUST_HAVE_COMMANDS = -2004286951
-SPTLAUD_MD_CLNT_E_NO_ITEMOFFSET_WRITTEN = -2004286944
-SPTLAUD_MD_CLNT_E_NO_ITEMS_WRITTEN = -2004286943
-SPTLAUD_MD_CLNT_E_COMMAND_ALREADY_WRITTEN = -2004286942
-SPTLAUD_MD_CLNT_E_FORMAT_MISMATCH = -2004286941
-SPTLAUD_MD_CLNT_E_BUFFER_STILL_ATTACHED = -2004286940
-SPTLAUD_MD_CLNT_E_ITEMS_LOCKED_FOR_WRITING = -2004286939
-VIRTUAL_AUDIO_DEVICE_PROCESS_LOOPBACK = 'VAD\\Process_Loopback'
-WAVERR_BADFORMAT = 32
-WAVERR_STILLPLAYING = 33
-WAVERR_UNPREPARED = 34
-WAVERR_SYNC = 35
-WAVERR_LASTERROR = 35
-WHDR_DONE = 1
-WHDR_PREPARED = 2
-WHDR_BEGINLOOP = 4
-WHDR_ENDLOOP = 8
-WHDR_INQUEUE = 16
-WAVECAPS_PITCH = 1
-WAVECAPS_PLAYBACKRATE = 2
-WAVECAPS_VOLUME = 4
-WAVECAPS_LRVOLUME = 8
-WAVECAPS_SYNC = 16
-WAVECAPS_SAMPLEACCURATE = 32
-WAVE_INVALIDFORMAT = 0
-WAVE_FORMAT_1M08 = 1
-WAVE_FORMAT_1S08 = 2
-WAVE_FORMAT_1M16 = 4
-WAVE_FORMAT_1S16 = 8
-WAVE_FORMAT_2M08 = 16
-WAVE_FORMAT_2S08 = 32
-WAVE_FORMAT_2M16 = 64
-WAVE_FORMAT_2S16 = 128
-WAVE_FORMAT_4M08 = 256
-WAVE_FORMAT_4S08 = 512
-WAVE_FORMAT_4M16 = 1024
-WAVE_FORMAT_4S16 = 2048
-WAVE_FORMAT_44M08 = 256
-WAVE_FORMAT_44S08 = 512
-WAVE_FORMAT_44M16 = 1024
-WAVE_FORMAT_44S16 = 2048
-WAVE_FORMAT_48M08 = 4096
-WAVE_FORMAT_48S08 = 8192
-WAVE_FORMAT_48M16 = 16384
-WAVE_FORMAT_48S16 = 32768
-WAVE_FORMAT_96M08 = 65536
-WAVE_FORMAT_96S08 = 131072
-WAVE_FORMAT_96M16 = 262144
-WAVE_FORMAT_96S16 = 524288
-WAVE_FORMAT_PCM = 1
-MIDIERR_UNPREPARED = 64
-MIDIERR_STILLPLAYING = 65
-MIDIERR_NOMAP = 66
-MIDIERR_NOTREADY = 67
-MIDIERR_NODEVICE = 68
-MIDIERR_INVALIDSETUP = 69
-MIDIERR_BADOPENMODE = 70
-MIDIERR_DONT_CONTINUE = 71
-MIDIERR_LASTERROR = 71
-MIDIPATCHSIZE = 128
-MIDI_CACHE_ALL = 1
-MIDI_CACHE_BESTFIT = 2
-MIDI_CACHE_QUERY = 3
-MIDI_UNCACHE = 4
-MOD_MIDIPORT = 1
-MOD_SYNTH = 2
-MOD_SQSYNTH = 3
-MOD_FMSYNTH = 4
-MOD_MAPPER = 5
-MOD_WAVETABLE = 6
-MOD_SWSYNTH = 7
-MIDICAPS_VOLUME = 1
-MIDICAPS_LRVOLUME = 2
-MIDICAPS_CACHE = 4
-MIDICAPS_STREAM = 8
-MHDR_DONE = 1
-MHDR_PREPARED = 2
-MHDR_INQUEUE = 4
-MHDR_ISSTRM = 8
-MEVT_F_SHORT = 0
-MEVT_F_LONG = -2147483648
-MEVT_F_CALLBACK = 1073741824
-MIDISTRM_ERROR = -2
-MIDIPROP_SET = -2147483648
-MIDIPROP_GET = 1073741824
-MIDIPROP_TIMEDIV = 1
-MIDIPROP_TEMPO = 2
-AUXCAPS_CDAUDIO = 1
-AUXCAPS_AUXIN = 2
-AUXCAPS_VOLUME = 1
-AUXCAPS_LRVOLUME = 2
-MIXER_SHORT_NAME_CHARS = 16
-MIXER_LONG_NAME_CHARS = 64
-MIXERR_INVALLINE = 1024
-MIXERR_INVALCONTROL = 1025
-MIXERR_INVALVALUE = 1026
-MIXERR_LASTERROR = 1026
-MIXER_OBJECTF_HANDLE = -2147483648
-MIXER_OBJECTF_MIXER = 0
-MIXER_OBJECTF_WAVEOUT = 268435456
-MIXER_OBJECTF_WAVEIN = 536870912
-MIXER_OBJECTF_MIDIOUT = 805306368
-MIXER_OBJECTF_MIDIIN = 1073741824
-MIXER_OBJECTF_AUX = 1342177280
-MIXERLINE_LINEF_ACTIVE = 1
-MIXERLINE_LINEF_DISCONNECTED = 32768
-MIXERLINE_LINEF_SOURCE = -2147483648
-MIXERLINE_COMPONENTTYPE_DST_FIRST = 0
-MIXERLINE_COMPONENTTYPE_DST_LAST = 8
-MIXERLINE_COMPONENTTYPE_SRC_FIRST = 4096
-MIXERLINE_COMPONENTTYPE_SRC_LAST = 4106
-MIXERLINE_TARGETTYPE_UNDEFINED = 0
-MIXERLINE_TARGETTYPE_WAVEOUT = 1
-MIXERLINE_TARGETTYPE_WAVEIN = 2
-MIXERLINE_TARGETTYPE_MIDIOUT = 3
-MIXERLINE_TARGETTYPE_MIDIIN = 4
-MIXERLINE_TARGETTYPE_AUX = 5
-MIXER_GETLINEINFOF_DESTINATION = 0
-MIXER_GETLINEINFOF_SOURCE = 1
-MIXER_GETLINEINFOF_LINEID = 2
-MIXER_GETLINEINFOF_COMPONENTTYPE = 3
-MIXER_GETLINEINFOF_TARGETTYPE = 4
-MIXER_GETLINEINFOF_QUERYMASK = 15
-MIXERCONTROL_CONTROLF_UNIFORM = 1
-MIXERCONTROL_CONTROLF_MULTIPLE = 2
-MIXERCONTROL_CONTROLF_DISABLED = -2147483648
-MIXERCONTROL_CT_CLASS_MASK = -268435456
-MIXERCONTROL_CT_CLASS_CUSTOM = 0
-MIXERCONTROL_CT_CLASS_METER = 268435456
-MIXERCONTROL_CT_CLASS_SWITCH = 536870912
-MIXERCONTROL_CT_CLASS_NUMBER = 805306368
-MIXERCONTROL_CT_CLASS_SLIDER = 1073741824
-MIXERCONTROL_CT_CLASS_FADER = 1342177280
-MIXERCONTROL_CT_CLASS_TIME = 1610612736
-MIXERCONTROL_CT_CLASS_LIST = 1879048192
-MIXERCONTROL_CT_SUBCLASS_MASK = 251658240
-MIXERCONTROL_CT_SC_SWITCH_BOOLEAN = 0
-MIXERCONTROL_CT_SC_SWITCH_BUTTON = 16777216
-MIXERCONTROL_CT_SC_METER_POLLED = 0
-MIXERCONTROL_CT_SC_TIME_MICROSECS = 0
-MIXERCONTROL_CT_SC_TIME_MILLISECS = 16777216
-MIXERCONTROL_CT_SC_LIST_SINGLE = 0
-MIXERCONTROL_CT_SC_LIST_MULTIPLE = 16777216
-MIXERCONTROL_CT_UNITS_MASK = 16711680
-MIXERCONTROL_CT_UNITS_CUSTOM = 0
-MIXERCONTROL_CT_UNITS_BOOLEAN = 65536
-MIXERCONTROL_CT_UNITS_SIGNED = 131072
-MIXERCONTROL_CT_UNITS_UNSIGNED = 196608
-MIXERCONTROL_CT_UNITS_DECIBELS = 262144
-MIXERCONTROL_CT_UNITS_PERCENT = 327680
-MIXER_GETLINECONTROLSF_ALL = 0
-MIXER_GETLINECONTROLSF_ONEBYID = 1
-MIXER_GETLINECONTROLSF_ONEBYTYPE = 2
-MIXER_GETLINECONTROLSF_QUERYMASK = 15
-MIXER_GETCONTROLDETAILSF_VALUE = 0
-MIXER_GETCONTROLDETAILSF_LISTTEXT = 1
-MIXER_GETCONTROLDETAILSF_QUERYMASK = 15
-MIXER_SETCONTROLDETAILSF_VALUE = 0
-MIXER_SETCONTROLDETAILSF_CUSTOM = 1
-MIXER_SETCONTROLDETAILSF_QUERYMASK = 15
-DRV_MAPPER_PREFERRED_INPUT_GET = 16384
-DRV_MAPPER_PREFERRED_OUTPUT_GET = 16386
-DRVM_MAPPER = 8192
-DRVM_MAPPER_STATUS = 8192
-WIDM_MAPPER_STATUS = 8192
-WAVEIN_MAPPER_STATUS_DEVICE = 0
-WAVEIN_MAPPER_STATUS_MAPPED = 1
-WAVEIN_MAPPER_STATUS_FORMAT = 2
-WODM_MAPPER_STATUS = 8192
-WAVEOUT_MAPPER_STATUS_DEVICE = 0
-WAVEOUT_MAPPER_STATUS_MAPPED = 1
-WAVEOUT_MAPPER_STATUS_FORMAT = 2
-ACMERR_BASE = 512
-ACMERR_NOTPOSSIBLE = 512
-ACMERR_BUSY = 513
-ACMERR_UNPREPARED = 514
-ACMERR_CANCELED = 515
-ACM_METRIC_COUNT_DRIVERS = 1
-ACM_METRIC_COUNT_CODECS = 2
-ACM_METRIC_COUNT_CONVERTERS = 3
-ACM_METRIC_COUNT_FILTERS = 4
-ACM_METRIC_COUNT_DISABLED = 5
-ACM_METRIC_COUNT_HARDWARE = 6
-ACM_METRIC_COUNT_LOCAL_DRIVERS = 20
-ACM_METRIC_COUNT_LOCAL_CODECS = 21
-ACM_METRIC_COUNT_LOCAL_CONVERTERS = 22
-ACM_METRIC_COUNT_LOCAL_FILTERS = 23
-ACM_METRIC_COUNT_LOCAL_DISABLED = 24
-ACM_METRIC_HARDWARE_WAVE_INPUT = 30
-ACM_METRIC_HARDWARE_WAVE_OUTPUT = 31
-ACM_METRIC_MAX_SIZE_FORMAT = 50
-ACM_METRIC_MAX_SIZE_FILTER = 51
-ACM_METRIC_DRIVER_SUPPORT = 100
-ACM_METRIC_DRIVER_PRIORITY = 101
-ACM_DRIVERENUMF_NOLOCAL = 1073741824
-ACM_DRIVERENUMF_DISABLED = -2147483648
-ACM_DRIVERADDF_NAME = 1
-ACM_DRIVERADDF_FUNCTION = 3
-ACM_DRIVERADDF_NOTIFYHWND = 4
-ACM_DRIVERADDF_TYPEMASK = 7
-ACM_DRIVERADDF_LOCAL = 0
-ACM_DRIVERADDF_GLOBAL = 8
-ACMDM_USER = 16384
-ACMDM_RESERVED_LOW = 24576
-ACMDM_RESERVED_HIGH = 28671
-ACMDM_DRIVER_ABOUT = 24587
-ACM_DRIVERPRIORITYF_ENABLE = 1
-ACM_DRIVERPRIORITYF_DISABLE = 2
-ACM_DRIVERPRIORITYF_ABLEMASK = 3
-ACM_DRIVERPRIORITYF_BEGIN = 65536
-ACM_DRIVERPRIORITYF_END = 131072
-ACM_DRIVERPRIORITYF_DEFERMASK = 196608
-ACMDRIVERDETAILS_SHORTNAME_CHARS = 32
-ACMDRIVERDETAILS_LONGNAME_CHARS = 128
-ACMDRIVERDETAILS_COPYRIGHT_CHARS = 80
-ACMDRIVERDETAILS_LICENSING_CHARS = 128
-ACMDRIVERDETAILS_FEATURES_CHARS = 512
-ACMDRIVERDETAILS_SUPPORTF_CODEC = 1
-ACMDRIVERDETAILS_SUPPORTF_CONVERTER = 2
-ACMDRIVERDETAILS_SUPPORTF_FILTER = 4
-ACMDRIVERDETAILS_SUPPORTF_HARDWARE = 8
-ACMDRIVERDETAILS_SUPPORTF_ASYNC = 16
-ACMDRIVERDETAILS_SUPPORTF_LOCAL = 1073741824
-ACMDRIVERDETAILS_SUPPORTF_DISABLED = -2147483648
-ACMFORMATTAGDETAILS_FORMATTAG_CHARS = 48
-ACM_FORMATTAGDETAILSF_INDEX = 0
-ACM_FORMATTAGDETAILSF_FORMATTAG = 1
-ACM_FORMATTAGDETAILSF_LARGESTSIZE = 2
-ACM_FORMATTAGDETAILSF_QUERYMASK = 15
-ACMFORMATDETAILS_FORMAT_CHARS = 128
-ACM_FORMATDETAILSF_INDEX = 0
-ACM_FORMATDETAILSF_FORMAT = 1
-ACM_FORMATDETAILSF_QUERYMASK = 15
-ACM_FORMATENUMF_WFORMATTAG = 65536
-ACM_FORMATENUMF_NCHANNELS = 131072
-ACM_FORMATENUMF_NSAMPLESPERSEC = 262144
-ACM_FORMATENUMF_WBITSPERSAMPLE = 524288
-ACM_FORMATENUMF_CONVERT = 1048576
-ACM_FORMATENUMF_SUGGEST = 2097152
-ACM_FORMATENUMF_HARDWARE = 4194304
-ACM_FORMATENUMF_INPUT = 8388608
-ACM_FORMATENUMF_OUTPUT = 16777216
-ACM_FORMATSUGGESTF_WFORMATTAG = 65536
-ACM_FORMATSUGGESTF_NCHANNELS = 131072
-ACM_FORMATSUGGESTF_NSAMPLESPERSEC = 262144
-ACM_FORMATSUGGESTF_WBITSPERSAMPLE = 524288
-ACM_FORMATSUGGESTF_TYPEMASK = 16711680
-ACMHELPMSGSTRINGA = 'acmchoose_help'
-ACMHELPMSGSTRINGW = 'acmchoose_help'
-ACMHELPMSGCONTEXTMENUA = 'acmchoose_contextmenu'
-ACMHELPMSGCONTEXTMENUW = 'acmchoose_contextmenu'
-ACMHELPMSGCONTEXTHELPA = 'acmchoose_contexthelp'
-ACMHELPMSGCONTEXTHELPW = 'acmchoose_contexthelp'
-ACMHELPMSGSTRING = 'acmchoose_help'
-ACMHELPMSGCONTEXTMENU = 'acmchoose_contextmenu'
-ACMHELPMSGCONTEXTHELP = 'acmchoose_contexthelp'
-MM_ACM_FORMATCHOOSE = 32768
-FORMATCHOOSE_MESSAGE = 0
-FORMATCHOOSE_FORMATTAG_VERIFY = 0
-FORMATCHOOSE_FORMAT_VERIFY = 1
-FORMATCHOOSE_CUSTOM_VERIFY = 2
-ACMFORMATCHOOSE_STYLEF_SHOWHELP = 4
-ACMFORMATCHOOSE_STYLEF_ENABLEHOOK = 8
-ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATE = 16
-ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = 32
-ACMFORMATCHOOSE_STYLEF_INITTOWFXSTRUCT = 64
-ACMFORMATCHOOSE_STYLEF_CONTEXTHELP = 128
-ACMFILTERTAGDETAILS_FILTERTAG_CHARS = 48
-ACM_FILTERTAGDETAILSF_INDEX = 0
-ACM_FILTERTAGDETAILSF_FILTERTAG = 1
-ACM_FILTERTAGDETAILSF_LARGESTSIZE = 2
-ACM_FILTERTAGDETAILSF_QUERYMASK = 15
-ACMFILTERDETAILS_FILTER_CHARS = 128
-ACM_FILTERDETAILSF_INDEX = 0
-ACM_FILTERDETAILSF_FILTER = 1
-ACM_FILTERDETAILSF_QUERYMASK = 15
-ACM_FILTERENUMF_DWFILTERTAG = 65536
-MM_ACM_FILTERCHOOSE = 32768
-FILTERCHOOSE_MESSAGE = 0
-FILTERCHOOSE_FILTERTAG_VERIFY = 0
-FILTERCHOOSE_FILTER_VERIFY = 1
-FILTERCHOOSE_CUSTOM_VERIFY = 2
-ACMFILTERCHOOSE_STYLEF_SHOWHELP = 4
-ACMFILTERCHOOSE_STYLEF_ENABLEHOOK = 8
-ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATE = 16
-ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATEHANDLE = 32
-ACMFILTERCHOOSE_STYLEF_INITTOFILTERSTRUCT = 64
-ACMFILTERCHOOSE_STYLEF_CONTEXTHELP = 128
-ACMSTREAMHEADER_STATUSF_DONE = 65536
-ACMSTREAMHEADER_STATUSF_PREPARED = 131072
-ACMSTREAMHEADER_STATUSF_INQUEUE = 1048576
-ACM_STREAMOPENF_QUERY = 1
-ACM_STREAMOPENF_ASYNC = 2
-ACM_STREAMOPENF_NONREALTIME = 4
-ACM_STREAMSIZEF_SOURCE = 0
-ACM_STREAMSIZEF_DESTINATION = 1
-ACM_STREAMSIZEF_QUERYMASK = 15
-ACM_STREAMCONVERTF_BLOCKALIGN = 4
-ACM_STREAMCONVERTF_START = 16
-ACM_STREAMCONVERTF_END = 32
-SND_RING = 1048576
-SND_ALIAS_START = 0
-ACMDM_DRIVER_NOTIFY = 24577
-ACMDM_DRIVER_DETAILS = 24586
-ACMDM_HARDWARE_WAVE_CAPS_INPUT = 24596
-ACMDM_HARDWARE_WAVE_CAPS_OUTPUT = 24597
-ACMDM_FORMATTAG_DETAILS = 24601
-ACMDM_FORMAT_DETAILS = 24602
-ACMDM_FORMAT_SUGGEST = 24603
-ACMDM_FILTERTAG_DETAILS = 24626
-ACMDM_FILTER_DETAILS = 24627
-ACMDM_STREAM_OPEN = 24652
-ACMDM_STREAM_CLOSE = 24653
-ACMDM_STREAM_SIZE = 24654
-ACMDM_STREAM_CONVERT = 24655
-ACMDM_STREAM_RESET = 24656
-ACMDM_STREAM_PREPARE = 24657
-ACMDM_STREAM_UNPREPARE = 24658
-ACMDM_STREAM_UPDATE = 24659
-def _define_CoRegisterMessageFilter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMessageFilter_head,POINTER(win32more.Media.Audio.IMessageFilter_head))(('CoRegisterMessageFilter', windll['OLE32.dll']), ((1, 'lpMessageFilter'),(1, 'lplpMessageFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_sndPlaySoundA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('sndPlaySoundA', windll['WINMM.dll']), ((1, 'pszSound'),(1, 'fuSound'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_sndPlaySoundW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('sndPlaySoundW', windll['WINMM.dll']), ((1, 'pszSound'),(1, 'fuSound'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlaySoundA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.HINSTANCE,win32more.Media.Audio.SND_FLAGS)(('PlaySoundA', windll['WINMM.dll']), ((1, 'pszSound'),(1, 'hmod'),(1, 'fdwSound'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PlaySoundW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HINSTANCE,win32more.Media.Audio.SND_FLAGS)(('PlaySoundW', windll['WINMM.dll']), ((1, 'pszSound'),(1, 'hmod'),(1, 'fdwSound'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('waveOutGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.WAVEOUTCAPSA_head),UInt32)(('waveOutGetDevCapsA', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pwoc'),(1, 'cbwoc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.WAVEOUTCAPSW_head),UInt32)(('waveOutGetDevCapsW', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pwoc'),(1, 'cbwoc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(UInt32))(('waveOutGetVolume', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pdwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutSetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,UInt32)(('waveOutSetVolume', windll['WINMM.dll']), ((1, 'hwo'),(1, 'dwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetErrorTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('waveOutGetErrorTextA', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetErrorTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('waveOutGetErrorTextW', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.HWAVEOUT),UInt32,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),UIntPtr,UIntPtr,win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE)(('waveOutOpen', windll['WINMM.dll']), ((1, 'phwo'),(1, 'uDeviceID'),(1, 'pwfx'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT)(('waveOutClose', windll['WINMM.dll']), ((1, 'hwo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutPrepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveOutPrepareHeader', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutUnprepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveOutUnprepareHeader', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutWrite():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveOutWrite', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutPause():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT)(('waveOutPause', windll['WINMM.dll']), ((1, 'hwo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutRestart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT)(('waveOutRestart', windll['WINMM.dll']), ((1, 'hwo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutReset():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT)(('waveOutReset', windll['WINMM.dll']), ((1, 'hwo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutBreakLoop():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT)(('waveOutBreakLoop', windll['WINMM.dll']), ((1, 'hwo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetPosition():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(win32more.Media.MMTIME_head),UInt32)(('waveOutGetPosition', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pmmt'),(1, 'cbmmt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetPitch():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(UInt32))(('waveOutGetPitch', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pdwPitch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutSetPitch():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,UInt32)(('waveOutSetPitch', windll['WINMM.dll']), ((1, 'hwo'),(1, 'dwPitch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetPlaybackRate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(UInt32))(('waveOutGetPlaybackRate', windll['WINMM.dll']), ((1, 'hwo'),(1, 'pdwRate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutSetPlaybackRate():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,UInt32)(('waveOutSetPlaybackRate', windll['WINMM.dll']), ((1, 'hwo'),(1, 'dwRate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutGetID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,POINTER(UInt32))(('waveOutGetID', windll['WINMM.dll']), ((1, 'hwo'),(1, 'puDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveOutMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEOUT,UInt32,UIntPtr,UIntPtr)(('waveOutMessage', windll['WINMM.dll']), ((1, 'hwo'),(1, 'uMsg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('waveInGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.WAVEINCAPSA_head),UInt32)(('waveInGetDevCapsA', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pwic'),(1, 'cbwic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.WAVEINCAPSW_head),UInt32)(('waveInGetDevCapsW', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pwic'),(1, 'cbwic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetErrorTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('waveInGetErrorTextA', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetErrorTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('waveInGetErrorTextW', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.HWAVEIN),UInt32,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),UIntPtr,UIntPtr,win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE)(('waveInOpen', windll['WINMM.dll']), ((1, 'phwi'),(1, 'uDeviceID'),(1, 'pwfx'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN)(('waveInClose', windll['WINMM.dll']), ((1, 'hwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInPrepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveInPrepareHeader', windll['WINMM.dll']), ((1, 'hwi'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInUnprepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveInUnprepareHeader', windll['WINMM.dll']), ((1, 'hwi'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInAddBuffer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,POINTER(win32more.Media.Audio.WAVEHDR_head),UInt32)(('waveInAddBuffer', windll['WINMM.dll']), ((1, 'hwi'),(1, 'pwh'),(1, 'cbwh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInStart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN)(('waveInStart', windll['WINMM.dll']), ((1, 'hwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInStop():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN)(('waveInStop', windll['WINMM.dll']), ((1, 'hwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInReset():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN)(('waveInReset', windll['WINMM.dll']), ((1, 'hwi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetPosition():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,POINTER(win32more.Media.MMTIME_head),UInt32)(('waveInGetPosition', windll['WINMM.dll']), ((1, 'hwi'),(1, 'pmmt'),(1, 'cbmmt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInGetID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,POINTER(UInt32))(('waveInGetID', windll['WINMM.dll']), ((1, 'hwi'),(1, 'puDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_waveInMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HWAVEIN,UInt32,UIntPtr,UIntPtr)(('waveInMessage', windll['WINMM.dll']), ((1, 'hwi'),(1, 'uMsg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('midiOutGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.HMIDISTRM),POINTER(UInt32),UInt32,UIntPtr,UIntPtr,UInt32)(('midiStreamOpen', windll['WINMM.dll']), ((1, 'phms'),(1, 'puDeviceID'),(1, 'cMidi'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM)(('midiStreamClose', windll['WINMM.dll']), ((1, 'hms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamProperty():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM,c_char_p_no,UInt32)(('midiStreamProperty', windll['WINMM.dll']), ((1, 'hms'),(1, 'lppropdata'),(1, 'dwProperty'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamPosition():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM,POINTER(win32more.Media.MMTIME_head),UInt32)(('midiStreamPosition', windll['WINMM.dll']), ((1, 'hms'),(1, 'lpmmt'),(1, 'cbmmt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamOut():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiStreamOut', windll['WINMM.dll']), ((1, 'hms'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamPause():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM)(('midiStreamPause', windll['WINMM.dll']), ((1, 'hms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamRestart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM)(('midiStreamRestart', windll['WINMM.dll']), ((1, 'hms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiStreamStop():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDISTRM)(('midiStreamStop', windll['WINMM.dll']), ((1, 'hms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiConnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDI,win32more.Media.Audio.HMIDIOUT,c_void_p)(('midiConnect', windll['WINMM.dll']), ((1, 'hmi'),(1, 'hmo'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiDisconnect():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDI,win32more.Media.Audio.HMIDIOUT,c_void_p)(('midiDisconnect', windll['WINMM.dll']), ((1, 'hmi'),(1, 'hmo'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIDIOUTCAPSA_head),UInt32)(('midiOutGetDevCapsA', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pmoc'),(1, 'cbmoc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIDIOUTCAPSW_head),UInt32)(('midiOutGetDevCapsW', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pmoc'),(1, 'cbmoc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,POINTER(UInt32))(('midiOutGetVolume', windll['WINMM.dll']), ((1, 'hmo'),(1, 'pdwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutSetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,UInt32)(('midiOutSetVolume', windll['WINMM.dll']), ((1, 'hmo'),(1, 'dwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetErrorTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('midiOutGetErrorTextA', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetErrorTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('midiOutGetErrorTextW', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.HMIDIOUT),UInt32,UIntPtr,UIntPtr,win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE)(('midiOutOpen', windll['WINMM.dll']), ((1, 'phmo'),(1, 'uDeviceID'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT)(('midiOutClose', windll['WINMM.dll']), ((1, 'hmo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutPrepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiOutPrepareHeader', windll['WINMM.dll']), ((1, 'hmo'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutUnprepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiOutUnprepareHeader', windll['WINMM.dll']), ((1, 'hmo'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutShortMsg():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,UInt32)(('midiOutShortMsg', windll['WINMM.dll']), ((1, 'hmo'),(1, 'dwMsg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutLongMsg():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiOutLongMsg', windll['WINMM.dll']), ((1, 'hmo'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutReset():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT)(('midiOutReset', windll['WINMM.dll']), ((1, 'hmo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutCachePatches():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,UInt32,POINTER(UInt16),UInt32)(('midiOutCachePatches', windll['WINMM.dll']), ((1, 'hmo'),(1, 'uBank'),(1, 'pwpa'),(1, 'fuCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutCacheDrumPatches():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,UInt32,POINTER(UInt16),UInt32)(('midiOutCacheDrumPatches', windll['WINMM.dll']), ((1, 'hmo'),(1, 'uPatch'),(1, 'pwkya'),(1, 'fuCache'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutGetID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,POINTER(UInt32))(('midiOutGetID', windll['WINMM.dll']), ((1, 'hmo'),(1, 'puDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiOutMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIOUT,UInt32,UIntPtr,UIntPtr)(('midiOutMessage', windll['WINMM.dll']), ((1, 'hmo'),(1, 'uMsg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('midiInGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIDIINCAPSA_head),UInt32)(('midiInGetDevCapsA', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pmic'),(1, 'cbmic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIDIINCAPSW_head),UInt32)(('midiInGetDevCapsW', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pmic'),(1, 'cbmic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetErrorTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('midiInGetErrorTextA', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetErrorTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('midiInGetErrorTextW', windll['WINMM.dll']), ((1, 'mmrError'),(1, 'pszText'),(1, 'cchText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.HMIDIIN),UInt32,UIntPtr,UIntPtr,win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE)(('midiInOpen', windll['WINMM.dll']), ((1, 'phmi'),(1, 'uDeviceID'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN)(('midiInClose', windll['WINMM.dll']), ((1, 'hmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInPrepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiInPrepareHeader', windll['WINMM.dll']), ((1, 'hmi'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInUnprepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiInUnprepareHeader', windll['WINMM.dll']), ((1, 'hmi'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInAddBuffer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN,POINTER(win32more.Media.Audio.MIDIHDR_head),UInt32)(('midiInAddBuffer', windll['WINMM.dll']), ((1, 'hmi'),(1, 'pmh'),(1, 'cbmh'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInStart():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN)(('midiInStart', windll['WINMM.dll']), ((1, 'hmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInStop():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN)(('midiInStop', windll['WINMM.dll']), ((1, 'hmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInReset():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN)(('midiInReset', windll['WINMM.dll']), ((1, 'hmi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInGetID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN,POINTER(UInt32))(('midiInGetID', windll['WINMM.dll']), ((1, 'hmi'),(1, 'puDeviceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_midiInMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIDIIN,UInt32,UIntPtr,UIntPtr)(('midiInMessage', windll['WINMM.dll']), ((1, 'hmi'),(1, 'uMsg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('auxGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.AUXCAPSA_head),UInt32)(('auxGetDevCapsA', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pac'),(1, 'cbac'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.AUXCAPSW_head),UInt32)(('auxGetDevCapsW', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pac'),(1, 'cbac'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxSetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32)(('auxSetVolume', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'dwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxGetVolume():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32))(('auxGetVolume', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'pdwVolume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_auxOutMessage():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UIntPtr,UIntPtr)(('auxOutMessage', windll['WINMM.dll']), ((1, 'uDeviceID'),(1, 'uMsg'),(1, 'dw1'),(1, 'dw2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetNumDevs():
-    try:
-        return WINFUNCTYPE(UInt32,)(('mixerGetNumDevs', windll['WINMM.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetDevCapsA():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIXERCAPSA_head),UInt32)(('mixerGetDevCapsA', windll['WINMM.dll']), ((1, 'uMxId'),(1, 'pmxcaps'),(1, 'cbmxcaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetDevCapsW():
-    try:
-        return WINFUNCTYPE(UInt32,UIntPtr,POINTER(win32more.Media.Audio.MIXERCAPSW_head),UInt32)(('mixerGetDevCapsW', windll['WINMM.dll']), ((1, 'uMxId'),(1, 'pmxcaps'),(1, 'cbmxcaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(IntPtr),UInt32,UIntPtr,UIntPtr,UInt32)(('mixerOpen', windll['WINMM.dll']), ((1, 'phmx'),(1, 'uMxId'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXER)(('mixerClose', windll['WINMM.dll']), ((1, 'hmx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXER,UInt32,UIntPtr,UIntPtr)(('mixerMessage', windll['WINMM.dll']), ((1, 'hmx'),(1, 'uMsg'),(1, 'dwParam1'),(1, 'dwParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetLineInfoA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERLINEA_head),UInt32)(('mixerGetLineInfoA', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxl'),(1, 'fdwInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetLineInfoW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERLINEW_head),UInt32)(('mixerGetLineInfoW', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxl'),(1, 'fdwInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(UInt32),UInt32)(('mixerGetID', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'puMxId'),(1, 'fdwId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetLineControlsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERLINECONTROLSA_head),UInt32)(('mixerGetLineControlsA', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxlc'),(1, 'fdwControls'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetLineControlsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERLINECONTROLSW_head),UInt32)(('mixerGetLineControlsW', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxlc'),(1, 'fdwControls'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetControlDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head),UInt32)(('mixerGetControlDetailsA', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxcd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerGetControlDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head),UInt32)(('mixerGetControlDetailsW', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxcd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mixerSetControlDetails():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HMIXEROBJ,POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head),UInt32)(('mixerSetControlDetails', windll['WINMM.dll']), ((1, 'hmxobj'),(1, 'pmxcd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ActivateAudioInterfaceAsync():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Media.Audio.IActivateAudioInterfaceCompletionHandler_head,POINTER(win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head))(('ActivateAudioInterfaceAsync', windll['MMDevAPI.dll']), ((1, 'deviceInterfacePath'),(1, 'riid'),(1, 'activationParams'),(1, 'completionHandler'),(1, 'activationOperation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRenderAudioStateMonitor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateRenderAudioStateMonitor', windll['Windows.Media.MediaControl.dll']), ((1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRenderAudioStateMonitorForCategory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateRenderAudioStateMonitorForCategory', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRenderAudioStateMonitorForCategoryAndDeviceRole():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Media.Audio.ERole,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateRenderAudioStateMonitorForCategoryAndDeviceRole', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'role'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRenderAudioStateMonitorForCategoryAndDeviceId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Foundation.PWSTR,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateRenderAudioStateMonitorForCategoryAndDeviceId', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'deviceId'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCaptureAudioStateMonitor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateCaptureAudioStateMonitor', windll['Windows.Media.MediaControl.dll']), ((1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCaptureAudioStateMonitorForCategory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateCaptureAudioStateMonitorForCategory', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCaptureAudioStateMonitorForCategoryAndDeviceRole():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Media.Audio.ERole,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateCaptureAudioStateMonitorForCategoryAndDeviceRole', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'role'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateCaptureAudioStateMonitorForCategoryAndDeviceId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Foundation.PWSTR,POINTER(win32more.Media.Audio.IAudioStateMonitor_head))(('CreateCaptureAudioStateMonitorForCategoryAndDeviceId', windll['Windows.Media.MediaControl.dll']), ((1, 'category'),(1, 'deviceId'),(1, 'audioStateMonitor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmGetVersion():
-    try:
-        return WINFUNCTYPE(UInt32,)(('acmGetVersion', windll['MSACM32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmMetrics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMOBJ,UInt32,c_void_p)(('acmMetrics', windll['MSACM32.dll']), ((1, 'hao'),(1, 'uMetric'),(1, 'pMetric'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.ACMDRIVERENUMCB,UIntPtr,UInt32)(('acmDriverEnum', windll['MSACM32.dll']), ((1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverID():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMOBJ,POINTER(IntPtr),UInt32)(('acmDriverID', windll['MSACM32.dll']), ((1, 'hao'),(1, 'phadid'),(1, 'fdwDriverID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverAddA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(IntPtr),win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM,UInt32,UInt32)(('acmDriverAddA', windll['MSACM32.dll']), ((1, 'phadid'),(1, 'hinstModule'),(1, 'lParam'),(1, 'dwPriority'),(1, 'fdwAdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverAddW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(IntPtr),win32more.Foundation.HINSTANCE,win32more.Foundation.LPARAM,UInt32,UInt32)(('acmDriverAddW', windll['MSACM32.dll']), ((1, 'phadid'),(1, 'hinstModule'),(1, 'lParam'),(1, 'dwPriority'),(1, 'fdwAdd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverRemove():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVERID,UInt32)(('acmDriverRemove', windll['MSACM32.dll']), ((1, 'hadid'),(1, 'fdwRemove'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(IntPtr),win32more.Media.Audio.HACMDRIVERID,UInt32)(('acmDriverOpen', windll['MSACM32.dll']), ((1, 'phad'),(1, 'hadid'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,UInt32)(('acmDriverClose', windll['MSACM32.dll']), ((1, 'had'),(1, 'fdwClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Media.Audio.HACMDRIVER,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('acmDriverMessage', windll['MSACM32.dll']), ((1, 'had'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverPriority():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVERID,UInt32,UInt32)(('acmDriverPriority', windll['MSACM32.dll']), ((1, 'hadid'),(1, 'dwPriority'),(1, 'fdwPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMDRIVERDETAILSA_head),UInt32)(('acmDriverDetailsA', windll['MSACM32.dll']), ((1, 'hadid'),(1, 'padd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmDriverDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVERID,POINTER(win32more.Media.Audio.ACMDRIVERDETAILSW_head),UInt32)(('acmDriverDetailsW', windll['MSACM32.dll']), ((1, 'hadid'),(1, 'padd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatTagDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head),UInt32)(('acmFormatTagDetailsA', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatTagDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head),UInt32)(('acmFormatTagDetailsW', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatTagEnumA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head),win32more.Media.Audio.ACMFORMATTAGENUMCBA,UIntPtr,UInt32)(('acmFormatTagEnumA', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatTagEnumW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head),win32more.Media.Audio.ACMFORMATTAGENUMCBW,UIntPtr,UInt32)(('acmFormatTagEnumW', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head),UInt32)(('acmFormatDetailsA', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head),UInt32)(('acmFormatDetailsW', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatEnumA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head),win32more.Media.Audio.ACMFORMATENUMCBA,UIntPtr,UInt32)(('acmFormatEnumA', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatEnumW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head),win32more.Media.Audio.ACMFORMATENUMCBW,UIntPtr,UInt32)(('acmFormatEnumW', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatSuggest():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),UInt32,UInt32)(('acmFormatSuggest', windll['MSACM32.dll']), ((1, 'had'),(1, 'pwfxSrc'),(1, 'pwfxDst'),(1, 'cbwfxDst'),(1, 'fdwSuggest'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatChooseA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.ACMFORMATCHOOSEA_head))(('acmFormatChooseA', windll['MSACM32.dll']), ((1, 'pafmtc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFormatChooseW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.ACMFORMATCHOOSEW_head))(('acmFormatChooseW', windll['MSACM32.dll']), ((1, 'pafmtc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterTagDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head),UInt32)(('acmFilterTagDetailsA', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterTagDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head),UInt32)(('acmFilterTagDetailsW', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterTagEnumA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head),win32more.Media.Audio.ACMFILTERTAGENUMCBA,UIntPtr,UInt32)(('acmFilterTagEnumA', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterTagEnumW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head),win32more.Media.Audio.ACMFILTERTAGENUMCBW,UIntPtr,UInt32)(('acmFilterTagEnumW', windll['MSACM32.dll']), ((1, 'had'),(1, 'paftd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterDetailsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head),UInt32)(('acmFilterDetailsA', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterDetailsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head),UInt32)(('acmFilterDetailsW', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fdwDetails'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterEnumA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head),win32more.Media.Audio.ACMFILTERENUMCBA,UIntPtr,UInt32)(('acmFilterEnumA', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterEnumW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head),win32more.Media.Audio.ACMFILTERENUMCBW,UIntPtr,UInt32)(('acmFilterEnumW', windll['MSACM32.dll']), ((1, 'had'),(1, 'pafd'),(1, 'fnCallback'),(1, 'dwInstance'),(1, 'fdwEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterChooseA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.ACMFILTERCHOOSEA_head))(('acmFilterChooseA', windll['MSACM32.dll']), ((1, 'pafltrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmFilterChooseW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Media.Audio.ACMFILTERCHOOSEW_head))(('acmFilterChooseW', windll['MSACM32.dll']), ((1, 'pafltrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamOpen():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(IntPtr),win32more.Media.Audio.HACMDRIVER,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(win32more.Media.Audio.WAVEFILTER_head),UIntPtr,UIntPtr,UInt32)(('acmStreamOpen', windll['MSACM32.dll']), ((1, 'phas'),(1, 'had'),(1, 'pwfxSrc'),(1, 'pwfxDst'),(1, 'pwfltr'),(1, 'dwCallback'),(1, 'dwInstance'),(1, 'fdwOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamClose():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,UInt32)(('acmStreamClose', windll['MSACM32.dll']), ((1, 'has'),(1, 'fdwClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamSize():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,UInt32,POINTER(UInt32),UInt32)(('acmStreamSize', windll['MSACM32.dll']), ((1, 'has'),(1, 'cbInput'),(1, 'pdwOutputBytes'),(1, 'fdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamReset():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,UInt32)(('acmStreamReset', windll['MSACM32.dll']), ((1, 'has'),(1, 'fdwReset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamMessage():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)(('acmStreamMessage', windll['MSACM32.dll']), ((1, 'has'),(1, 'uMsg'),(1, 'lParam1'),(1, 'lParam2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamConvert():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head),UInt32)(('acmStreamConvert', windll['MSACM32.dll']), ((1, 'has'),(1, 'pash'),(1, 'fdwConvert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamPrepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head),UInt32)(('acmStreamPrepareHeader', windll['MSACM32.dll']), ((1, 'has'),(1, 'pash'),(1, 'fdwPrepare'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_acmStreamUnprepareHeader():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Media.Audio.HACMSTREAM,POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head),UInt32)(('acmStreamUnprepareHeader', windll['MSACM32.dll']), ((1, 'has'),(1, 'pash'),(1, 'fdwUnprepare'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+DEVINTERFACE_AUDIO_RENDER: Guid = Guid('e6327cad-dcec-4949-ae-8a-99-1e-97-6a-79-d2')
+DEVINTERFACE_AUDIO_CAPTURE: Guid = Guid('2eef81be-33fa-4800-96-70-1c-d4-74-97-2c-3f')
+DEVINTERFACE_MIDI_OUTPUT: Guid = Guid('6dc23320-ab33-4ce4-80-d4-bb-b3-eb-bf-28-14')
+DEVINTERFACE_MIDI_INPUT: Guid = Guid('504be32c-ccf6-4d2c-b7-3f-6f-8b-37-47-e2-2b')
+EVENTCONTEXT_VOLUMESLIDER: Guid = Guid('e2c2e9de-09b1-4b04-84-e5-07-93-12-25-ee-04')
+SPATIAL_AUDIO_STANDARD_COMMANDS_START: UInt32 = 200
+SPATIAL_AUDIO_POSITION: UInt32 = 200
+SPTLAUD_MD_CLNT_E_COMMAND_NOT_FOUND: win32more.Foundation.HRESULT = -2004286976
+SPTLAUD_MD_CLNT_E_OBJECT_NOT_INITIALIZED: win32more.Foundation.HRESULT = -2004286975
+SPTLAUD_MD_CLNT_E_INVALID_ARGS: win32more.Foundation.HRESULT = -2004286974
+SPTLAUD_MD_CLNT_E_METADATA_FORMAT_NOT_FOUND: win32more.Foundation.HRESULT = -2004286973
+SPTLAUD_MD_CLNT_E_VALUE_BUFFER_INCORRECT_SIZE: win32more.Foundation.HRESULT = -2004286972
+SPTLAUD_MD_CLNT_E_MEMORY_BOUNDS: win32more.Foundation.HRESULT = -2004286971
+SPTLAUD_MD_CLNT_E_NO_MORE_COMMANDS: win32more.Foundation.HRESULT = -2004286970
+SPTLAUD_MD_CLNT_E_BUFFER_ALREADY_ATTACHED: win32more.Foundation.HRESULT = -2004286969
+SPTLAUD_MD_CLNT_E_BUFFER_NOT_ATTACHED: win32more.Foundation.HRESULT = -2004286968
+SPTLAUD_MD_CLNT_E_FRAMECOUNT_OUT_OF_RANGE: win32more.Foundation.HRESULT = -2004286967
+SPTLAUD_MD_CLNT_E_NO_ITEMS_FOUND: win32more.Foundation.HRESULT = -2004286960
+SPTLAUD_MD_CLNT_E_ITEM_COPY_OVERFLOW: win32more.Foundation.HRESULT = -2004286959
+SPTLAUD_MD_CLNT_E_NO_ITEMS_OPEN: win32more.Foundation.HRESULT = -2004286958
+SPTLAUD_MD_CLNT_E_ITEMS_ALREADY_OPEN: win32more.Foundation.HRESULT = -2004286957
+SPTLAUD_MD_CLNT_E_ATTACH_FAILED_INTERNAL_BUFFER: win32more.Foundation.HRESULT = -2004286956
+SPTLAUD_MD_CLNT_E_DETACH_FAILED_INTERNAL_BUFFER: win32more.Foundation.HRESULT = -2004286955
+SPTLAUD_MD_CLNT_E_NO_BUFFER_ATTACHED: win32more.Foundation.HRESULT = -2004286954
+SPTLAUD_MD_CLNT_E_NO_MORE_ITEMS: win32more.Foundation.HRESULT = -2004286953
+SPTLAUD_MD_CLNT_E_FRAMEOFFSET_OUT_OF_RANGE: win32more.Foundation.HRESULT = -2004286952
+SPTLAUD_MD_CLNT_E_ITEM_MUST_HAVE_COMMANDS: win32more.Foundation.HRESULT = -2004286951
+SPTLAUD_MD_CLNT_E_NO_ITEMOFFSET_WRITTEN: win32more.Foundation.HRESULT = -2004286944
+SPTLAUD_MD_CLNT_E_NO_ITEMS_WRITTEN: win32more.Foundation.HRESULT = -2004286943
+SPTLAUD_MD_CLNT_E_COMMAND_ALREADY_WRITTEN: win32more.Foundation.HRESULT = -2004286942
+SPTLAUD_MD_CLNT_E_FORMAT_MISMATCH: win32more.Foundation.HRESULT = -2004286941
+SPTLAUD_MD_CLNT_E_BUFFER_STILL_ATTACHED: win32more.Foundation.HRESULT = -2004286940
+SPTLAUD_MD_CLNT_E_ITEMS_LOCKED_FOR_WRITING: win32more.Foundation.HRESULT = -2004286939
+VIRTUAL_AUDIO_DEVICE_PROCESS_LOOPBACK: String = 'VAD\\Process_Loopback'
+WAVERR_BADFORMAT: UInt32 = 32
+WAVERR_STILLPLAYING: UInt32 = 33
+WAVERR_UNPREPARED: UInt32 = 34
+WAVERR_SYNC: UInt32 = 35
+WAVERR_LASTERROR: UInt32 = 35
+WHDR_DONE: UInt32 = 1
+WHDR_PREPARED: UInt32 = 2
+WHDR_BEGINLOOP: UInt32 = 4
+WHDR_ENDLOOP: UInt32 = 8
+WHDR_INQUEUE: UInt32 = 16
+WAVECAPS_PITCH: UInt32 = 1
+WAVECAPS_PLAYBACKRATE: UInt32 = 2
+WAVECAPS_VOLUME: UInt32 = 4
+WAVECAPS_LRVOLUME: UInt32 = 8
+WAVECAPS_SYNC: UInt32 = 16
+WAVECAPS_SAMPLEACCURATE: UInt32 = 32
+WAVE_INVALIDFORMAT: UInt32 = 0
+WAVE_FORMAT_1M08: UInt32 = 1
+WAVE_FORMAT_1S08: UInt32 = 2
+WAVE_FORMAT_1M16: UInt32 = 4
+WAVE_FORMAT_1S16: UInt32 = 8
+WAVE_FORMAT_2M08: UInt32 = 16
+WAVE_FORMAT_2S08: UInt32 = 32
+WAVE_FORMAT_2M16: UInt32 = 64
+WAVE_FORMAT_2S16: UInt32 = 128
+WAVE_FORMAT_4M08: UInt32 = 256
+WAVE_FORMAT_4S08: UInt32 = 512
+WAVE_FORMAT_4M16: UInt32 = 1024
+WAVE_FORMAT_4S16: UInt32 = 2048
+WAVE_FORMAT_44M08: UInt32 = 256
+WAVE_FORMAT_44S08: UInt32 = 512
+WAVE_FORMAT_44M16: UInt32 = 1024
+WAVE_FORMAT_44S16: UInt32 = 2048
+WAVE_FORMAT_48M08: UInt32 = 4096
+WAVE_FORMAT_48S08: UInt32 = 8192
+WAVE_FORMAT_48M16: UInt32 = 16384
+WAVE_FORMAT_48S16: UInt32 = 32768
+WAVE_FORMAT_96M08: UInt32 = 65536
+WAVE_FORMAT_96S08: UInt32 = 131072
+WAVE_FORMAT_96M16: UInt32 = 262144
+WAVE_FORMAT_96S16: UInt32 = 524288
+WAVE_FORMAT_PCM: UInt32 = 1
+MIDIERR_UNPREPARED: UInt32 = 64
+MIDIERR_STILLPLAYING: UInt32 = 65
+MIDIERR_NOMAP: UInt32 = 66
+MIDIERR_NOTREADY: UInt32 = 67
+MIDIERR_NODEVICE: UInt32 = 68
+MIDIERR_INVALIDSETUP: UInt32 = 69
+MIDIERR_BADOPENMODE: UInt32 = 70
+MIDIERR_DONT_CONTINUE: UInt32 = 71
+MIDIERR_LASTERROR: UInt32 = 71
+MIDIPATCHSIZE: UInt32 = 128
+MIDI_CACHE_ALL: UInt32 = 1
+MIDI_CACHE_BESTFIT: UInt32 = 2
+MIDI_CACHE_QUERY: UInt32 = 3
+MIDI_UNCACHE: UInt32 = 4
+MOD_MIDIPORT: UInt32 = 1
+MOD_SYNTH: UInt32 = 2
+MOD_SQSYNTH: UInt32 = 3
+MOD_FMSYNTH: UInt32 = 4
+MOD_MAPPER: UInt32 = 5
+MOD_WAVETABLE: UInt32 = 6
+MOD_SWSYNTH: UInt32 = 7
+MIDICAPS_VOLUME: UInt32 = 1
+MIDICAPS_LRVOLUME: UInt32 = 2
+MIDICAPS_CACHE: UInt32 = 4
+MIDICAPS_STREAM: UInt32 = 8
+MHDR_DONE: UInt32 = 1
+MHDR_PREPARED: UInt32 = 2
+MHDR_INQUEUE: UInt32 = 4
+MHDR_ISSTRM: UInt32 = 8
+MEVT_F_SHORT: Int32 = 0
+MEVT_F_LONG: Int32 = -2147483648
+MEVT_F_CALLBACK: Int32 = 1073741824
+MIDISTRM_ERROR: Int32 = -2
+MIDIPROP_SET: Int32 = -2147483648
+MIDIPROP_GET: Int32 = 1073741824
+MIDIPROP_TIMEDIV: Int32 = 1
+MIDIPROP_TEMPO: Int32 = 2
+AUXCAPS_CDAUDIO: UInt32 = 1
+AUXCAPS_AUXIN: UInt32 = 2
+AUXCAPS_VOLUME: UInt32 = 1
+AUXCAPS_LRVOLUME: UInt32 = 2
+MIXER_SHORT_NAME_CHARS: UInt32 = 16
+MIXER_LONG_NAME_CHARS: UInt32 = 64
+MIXERR_INVALLINE: UInt32 = 1024
+MIXERR_INVALCONTROL: UInt32 = 1025
+MIXERR_INVALVALUE: UInt32 = 1026
+MIXERR_LASTERROR: UInt32 = 1026
+MIXER_OBJECTF_HANDLE: Int32 = -2147483648
+MIXER_OBJECTF_MIXER: Int32 = 0
+MIXER_OBJECTF_WAVEOUT: Int32 = 268435456
+MIXER_OBJECTF_WAVEIN: Int32 = 536870912
+MIXER_OBJECTF_MIDIOUT: Int32 = 805306368
+MIXER_OBJECTF_MIDIIN: Int32 = 1073741824
+MIXER_OBJECTF_AUX: Int32 = 1342177280
+MIXERLINE_LINEF_ACTIVE: Int32 = 1
+MIXERLINE_LINEF_DISCONNECTED: Int32 = 32768
+MIXERLINE_LINEF_SOURCE: Int32 = -2147483648
+MIXERLINE_COMPONENTTYPE_DST_FIRST: Int32 = 0
+MIXERLINE_COMPONENTTYPE_DST_LAST: UInt32 = 8
+MIXERLINE_COMPONENTTYPE_SRC_FIRST: Int32 = 4096
+MIXERLINE_COMPONENTTYPE_SRC_LAST: UInt32 = 4106
+MIXERLINE_TARGETTYPE_UNDEFINED: UInt32 = 0
+MIXERLINE_TARGETTYPE_WAVEOUT: UInt32 = 1
+MIXERLINE_TARGETTYPE_WAVEIN: UInt32 = 2
+MIXERLINE_TARGETTYPE_MIDIOUT: UInt32 = 3
+MIXERLINE_TARGETTYPE_MIDIIN: UInt32 = 4
+MIXERLINE_TARGETTYPE_AUX: UInt32 = 5
+MIXER_GETLINEINFOF_DESTINATION: Int32 = 0
+MIXER_GETLINEINFOF_SOURCE: Int32 = 1
+MIXER_GETLINEINFOF_LINEID: Int32 = 2
+MIXER_GETLINEINFOF_COMPONENTTYPE: Int32 = 3
+MIXER_GETLINEINFOF_TARGETTYPE: Int32 = 4
+MIXER_GETLINEINFOF_QUERYMASK: Int32 = 15
+MIXERCONTROL_CONTROLF_UNIFORM: Int32 = 1
+MIXERCONTROL_CONTROLF_MULTIPLE: Int32 = 2
+MIXERCONTROL_CONTROLF_DISABLED: Int32 = -2147483648
+MIXERCONTROL_CT_CLASS_MASK: Int32 = -268435456
+MIXERCONTROL_CT_CLASS_CUSTOM: Int32 = 0
+MIXERCONTROL_CT_CLASS_METER: Int32 = 268435456
+MIXERCONTROL_CT_CLASS_SWITCH: Int32 = 536870912
+MIXERCONTROL_CT_CLASS_NUMBER: Int32 = 805306368
+MIXERCONTROL_CT_CLASS_SLIDER: Int32 = 1073741824
+MIXERCONTROL_CT_CLASS_FADER: Int32 = 1342177280
+MIXERCONTROL_CT_CLASS_TIME: Int32 = 1610612736
+MIXERCONTROL_CT_CLASS_LIST: Int32 = 1879048192
+MIXERCONTROL_CT_SUBCLASS_MASK: Int32 = 251658240
+MIXERCONTROL_CT_SC_SWITCH_BOOLEAN: Int32 = 0
+MIXERCONTROL_CT_SC_SWITCH_BUTTON: Int32 = 16777216
+MIXERCONTROL_CT_SC_METER_POLLED: Int32 = 0
+MIXERCONTROL_CT_SC_TIME_MICROSECS: Int32 = 0
+MIXERCONTROL_CT_SC_TIME_MILLISECS: Int32 = 16777216
+MIXERCONTROL_CT_SC_LIST_SINGLE: Int32 = 0
+MIXERCONTROL_CT_SC_LIST_MULTIPLE: Int32 = 16777216
+MIXERCONTROL_CT_UNITS_MASK: Int32 = 16711680
+MIXERCONTROL_CT_UNITS_CUSTOM: Int32 = 0
+MIXERCONTROL_CT_UNITS_BOOLEAN: Int32 = 65536
+MIXERCONTROL_CT_UNITS_SIGNED: Int32 = 131072
+MIXERCONTROL_CT_UNITS_UNSIGNED: Int32 = 196608
+MIXERCONTROL_CT_UNITS_DECIBELS: Int32 = 262144
+MIXERCONTROL_CT_UNITS_PERCENT: Int32 = 327680
+MIXER_GETLINECONTROLSF_ALL: Int32 = 0
+MIXER_GETLINECONTROLSF_ONEBYID: Int32 = 1
+MIXER_GETLINECONTROLSF_ONEBYTYPE: Int32 = 2
+MIXER_GETLINECONTROLSF_QUERYMASK: Int32 = 15
+MIXER_GETCONTROLDETAILSF_VALUE: Int32 = 0
+MIXER_GETCONTROLDETAILSF_LISTTEXT: Int32 = 1
+MIXER_GETCONTROLDETAILSF_QUERYMASK: Int32 = 15
+MIXER_SETCONTROLDETAILSF_VALUE: Int32 = 0
+MIXER_SETCONTROLDETAILSF_CUSTOM: Int32 = 1
+MIXER_SETCONTROLDETAILSF_QUERYMASK: Int32 = 15
+DRV_MAPPER_PREFERRED_INPUT_GET: UInt32 = 16384
+DRV_MAPPER_PREFERRED_OUTPUT_GET: UInt32 = 16386
+DRVM_MAPPER: UInt32 = 8192
+DRVM_MAPPER_STATUS: UInt32 = 8192
+WIDM_MAPPER_STATUS: UInt32 = 8192
+WAVEIN_MAPPER_STATUS_DEVICE: UInt32 = 0
+WAVEIN_MAPPER_STATUS_MAPPED: UInt32 = 1
+WAVEIN_MAPPER_STATUS_FORMAT: UInt32 = 2
+WODM_MAPPER_STATUS: UInt32 = 8192
+WAVEOUT_MAPPER_STATUS_DEVICE: UInt32 = 0
+WAVEOUT_MAPPER_STATUS_MAPPED: UInt32 = 1
+WAVEOUT_MAPPER_STATUS_FORMAT: UInt32 = 2
+ACMERR_BASE: UInt32 = 512
+ACMERR_NOTPOSSIBLE: UInt32 = 512
+ACMERR_BUSY: UInt32 = 513
+ACMERR_UNPREPARED: UInt32 = 514
+ACMERR_CANCELED: UInt32 = 515
+ACM_METRIC_COUNT_DRIVERS: UInt32 = 1
+ACM_METRIC_COUNT_CODECS: UInt32 = 2
+ACM_METRIC_COUNT_CONVERTERS: UInt32 = 3
+ACM_METRIC_COUNT_FILTERS: UInt32 = 4
+ACM_METRIC_COUNT_DISABLED: UInt32 = 5
+ACM_METRIC_COUNT_HARDWARE: UInt32 = 6
+ACM_METRIC_COUNT_LOCAL_DRIVERS: UInt32 = 20
+ACM_METRIC_COUNT_LOCAL_CODECS: UInt32 = 21
+ACM_METRIC_COUNT_LOCAL_CONVERTERS: UInt32 = 22
+ACM_METRIC_COUNT_LOCAL_FILTERS: UInt32 = 23
+ACM_METRIC_COUNT_LOCAL_DISABLED: UInt32 = 24
+ACM_METRIC_HARDWARE_WAVE_INPUT: UInt32 = 30
+ACM_METRIC_HARDWARE_WAVE_OUTPUT: UInt32 = 31
+ACM_METRIC_MAX_SIZE_FORMAT: UInt32 = 50
+ACM_METRIC_MAX_SIZE_FILTER: UInt32 = 51
+ACM_METRIC_DRIVER_SUPPORT: UInt32 = 100
+ACM_METRIC_DRIVER_PRIORITY: UInt32 = 101
+ACM_DRIVERENUMF_NOLOCAL: Int32 = 1073741824
+ACM_DRIVERENUMF_DISABLED: Int32 = -2147483648
+ACM_DRIVERADDF_NAME: Int32 = 1
+ACM_DRIVERADDF_FUNCTION: Int32 = 3
+ACM_DRIVERADDF_NOTIFYHWND: Int32 = 4
+ACM_DRIVERADDF_TYPEMASK: Int32 = 7
+ACM_DRIVERADDF_LOCAL: Int32 = 0
+ACM_DRIVERADDF_GLOBAL: Int32 = 8
+ACMDM_USER: UInt32 = 16384
+ACMDM_RESERVED_LOW: UInt32 = 24576
+ACMDM_RESERVED_HIGH: UInt32 = 28671
+ACMDM_DRIVER_ABOUT: UInt32 = 24587
+ACM_DRIVERPRIORITYF_ENABLE: Int32 = 1
+ACM_DRIVERPRIORITYF_DISABLE: Int32 = 2
+ACM_DRIVERPRIORITYF_ABLEMASK: Int32 = 3
+ACM_DRIVERPRIORITYF_BEGIN: Int32 = 65536
+ACM_DRIVERPRIORITYF_END: Int32 = 131072
+ACM_DRIVERPRIORITYF_DEFERMASK: Int32 = 196608
+ACMDRIVERDETAILS_SHORTNAME_CHARS: UInt32 = 32
+ACMDRIVERDETAILS_LONGNAME_CHARS: UInt32 = 128
+ACMDRIVERDETAILS_COPYRIGHT_CHARS: UInt32 = 80
+ACMDRIVERDETAILS_LICENSING_CHARS: UInt32 = 128
+ACMDRIVERDETAILS_FEATURES_CHARS: UInt32 = 512
+ACMDRIVERDETAILS_SUPPORTF_CODEC: Int32 = 1
+ACMDRIVERDETAILS_SUPPORTF_CONVERTER: Int32 = 2
+ACMDRIVERDETAILS_SUPPORTF_FILTER: Int32 = 4
+ACMDRIVERDETAILS_SUPPORTF_HARDWARE: Int32 = 8
+ACMDRIVERDETAILS_SUPPORTF_ASYNC: Int32 = 16
+ACMDRIVERDETAILS_SUPPORTF_LOCAL: Int32 = 1073741824
+ACMDRIVERDETAILS_SUPPORTF_DISABLED: Int32 = -2147483648
+ACMFORMATTAGDETAILS_FORMATTAG_CHARS: UInt32 = 48
+ACM_FORMATTAGDETAILSF_INDEX: Int32 = 0
+ACM_FORMATTAGDETAILSF_FORMATTAG: Int32 = 1
+ACM_FORMATTAGDETAILSF_LARGESTSIZE: Int32 = 2
+ACM_FORMATTAGDETAILSF_QUERYMASK: Int32 = 15
+ACMFORMATDETAILS_FORMAT_CHARS: UInt32 = 128
+ACM_FORMATDETAILSF_INDEX: Int32 = 0
+ACM_FORMATDETAILSF_FORMAT: Int32 = 1
+ACM_FORMATDETAILSF_QUERYMASK: Int32 = 15
+ACM_FORMATENUMF_WFORMATTAG: Int32 = 65536
+ACM_FORMATENUMF_NCHANNELS: Int32 = 131072
+ACM_FORMATENUMF_NSAMPLESPERSEC: Int32 = 262144
+ACM_FORMATENUMF_WBITSPERSAMPLE: Int32 = 524288
+ACM_FORMATENUMF_CONVERT: Int32 = 1048576
+ACM_FORMATENUMF_SUGGEST: Int32 = 2097152
+ACM_FORMATENUMF_HARDWARE: Int32 = 4194304
+ACM_FORMATENUMF_INPUT: Int32 = 8388608
+ACM_FORMATENUMF_OUTPUT: Int32 = 16777216
+ACM_FORMATSUGGESTF_WFORMATTAG: Int32 = 65536
+ACM_FORMATSUGGESTF_NCHANNELS: Int32 = 131072
+ACM_FORMATSUGGESTF_NSAMPLESPERSEC: Int32 = 262144
+ACM_FORMATSUGGESTF_WBITSPERSAMPLE: Int32 = 524288
+ACM_FORMATSUGGESTF_TYPEMASK: Int32 = 16711680
+ACMHELPMSGSTRINGA: String = 'acmchoose_help'
+ACMHELPMSGSTRINGW: String = 'acmchoose_help'
+ACMHELPMSGCONTEXTMENUA: String = 'acmchoose_contextmenu'
+ACMHELPMSGCONTEXTMENUW: String = 'acmchoose_contextmenu'
+ACMHELPMSGCONTEXTHELPA: String = 'acmchoose_contexthelp'
+ACMHELPMSGCONTEXTHELPW: String = 'acmchoose_contexthelp'
+ACMHELPMSGSTRING: String = 'acmchoose_help'
+ACMHELPMSGCONTEXTMENU: String = 'acmchoose_contextmenu'
+ACMHELPMSGCONTEXTHELP: String = 'acmchoose_contexthelp'
+MM_ACM_FORMATCHOOSE: UInt32 = 32768
+FORMATCHOOSE_MESSAGE: UInt32 = 0
+FORMATCHOOSE_FORMATTAG_VERIFY: UInt32 = 0
+FORMATCHOOSE_FORMAT_VERIFY: UInt32 = 1
+FORMATCHOOSE_CUSTOM_VERIFY: UInt32 = 2
+ACMFORMATCHOOSE_STYLEF_SHOWHELP: Int32 = 4
+ACMFORMATCHOOSE_STYLEF_ENABLEHOOK: Int32 = 8
+ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATE: Int32 = 16
+ACMFORMATCHOOSE_STYLEF_ENABLETEMPLATEHANDLE: Int32 = 32
+ACMFORMATCHOOSE_STYLEF_INITTOWFXSTRUCT: Int32 = 64
+ACMFORMATCHOOSE_STYLEF_CONTEXTHELP: Int32 = 128
+ACMFILTERTAGDETAILS_FILTERTAG_CHARS: UInt32 = 48
+ACM_FILTERTAGDETAILSF_INDEX: Int32 = 0
+ACM_FILTERTAGDETAILSF_FILTERTAG: Int32 = 1
+ACM_FILTERTAGDETAILSF_LARGESTSIZE: Int32 = 2
+ACM_FILTERTAGDETAILSF_QUERYMASK: Int32 = 15
+ACMFILTERDETAILS_FILTER_CHARS: UInt32 = 128
+ACM_FILTERDETAILSF_INDEX: Int32 = 0
+ACM_FILTERDETAILSF_FILTER: Int32 = 1
+ACM_FILTERDETAILSF_QUERYMASK: Int32 = 15
+ACM_FILTERENUMF_DWFILTERTAG: Int32 = 65536
+MM_ACM_FILTERCHOOSE: UInt32 = 32768
+FILTERCHOOSE_MESSAGE: UInt32 = 0
+FILTERCHOOSE_FILTERTAG_VERIFY: UInt32 = 0
+FILTERCHOOSE_FILTER_VERIFY: UInt32 = 1
+FILTERCHOOSE_CUSTOM_VERIFY: UInt32 = 2
+ACMFILTERCHOOSE_STYLEF_SHOWHELP: Int32 = 4
+ACMFILTERCHOOSE_STYLEF_ENABLEHOOK: Int32 = 8
+ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATE: Int32 = 16
+ACMFILTERCHOOSE_STYLEF_ENABLETEMPLATEHANDLE: Int32 = 32
+ACMFILTERCHOOSE_STYLEF_INITTOFILTERSTRUCT: Int32 = 64
+ACMFILTERCHOOSE_STYLEF_CONTEXTHELP: Int32 = 128
+ACMSTREAMHEADER_STATUSF_DONE: Int32 = 65536
+ACMSTREAMHEADER_STATUSF_PREPARED: Int32 = 131072
+ACMSTREAMHEADER_STATUSF_INQUEUE: Int32 = 1048576
+ACM_STREAMOPENF_QUERY: UInt32 = 1
+ACM_STREAMOPENF_ASYNC: UInt32 = 2
+ACM_STREAMOPENF_NONREALTIME: UInt32 = 4
+ACM_STREAMSIZEF_SOURCE: Int32 = 0
+ACM_STREAMSIZEF_DESTINATION: Int32 = 1
+ACM_STREAMSIZEF_QUERYMASK: Int32 = 15
+ACM_STREAMCONVERTF_BLOCKALIGN: UInt32 = 4
+ACM_STREAMCONVERTF_START: UInt32 = 16
+ACM_STREAMCONVERTF_END: UInt32 = 32
+SND_RING: Int32 = 1048576
+SND_ALIAS_START: UInt32 = 0
+ACMDM_DRIVER_NOTIFY: UInt32 = 24577
+ACMDM_DRIVER_DETAILS: UInt32 = 24586
+ACMDM_HARDWARE_WAVE_CAPS_INPUT: UInt32 = 24596
+ACMDM_HARDWARE_WAVE_CAPS_OUTPUT: UInt32 = 24597
+ACMDM_FORMATTAG_DETAILS: UInt32 = 24601
+ACMDM_FORMAT_DETAILS: UInt32 = 24602
+ACMDM_FORMAT_SUGGEST: UInt32 = 24603
+ACMDM_FILTERTAG_DETAILS: UInt32 = 24626
+ACMDM_FILTER_DETAILS: UInt32 = 24627
+ACMDM_STREAM_OPEN: UInt32 = 24652
+ACMDM_STREAM_CLOSE: UInt32 = 24653
+ACMDM_STREAM_SIZE: UInt32 = 24654
+ACMDM_STREAM_CONVERT: UInt32 = 24655
+ACMDM_STREAM_RESET: UInt32 = 24656
+ACMDM_STREAM_PREPARE: UInt32 = 24657
+ACMDM_STREAM_UNPREPARE: UInt32 = 24658
+ACMDM_STREAM_UPDATE: UInt32 = 24659
+@winfunctype('OLE32.dll')
+def CoRegisterMessageFilter(lpMessageFilter: win32more.Media.Audio.IMessageFilter_head, lplpMessageFilter: POINTER(win32more.Media.Audio.IMessageFilter_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('WINMM.dll')
+def sndPlaySoundA(pszSound: win32more.Foundation.PSTR, fuSound: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINMM.dll')
+def sndPlaySoundW(pszSound: win32more.Foundation.PWSTR, fuSound: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINMM.dll')
+def PlaySoundA(pszSound: win32more.Foundation.PSTR, hmod: win32more.Foundation.HINSTANCE, fdwSound: win32more.Media.Audio.SND_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINMM.dll')
+def PlaySoundW(pszSound: win32more.Foundation.PWSTR, hmod: win32more.Foundation.HINSTANCE, fdwSound: win32more.Media.Audio.SND_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINMM.dll')
+def waveOutGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetDevCapsA(uDeviceID: UIntPtr, pwoc: POINTER(win32more.Media.Audio.WAVEOUTCAPSA_head), cbwoc: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetDevCapsW(uDeviceID: UIntPtr, pwoc: POINTER(win32more.Media.Audio.WAVEOUTCAPSW_head), cbwoc: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetVolume(hwo: win32more.Media.Audio.HWAVEOUT, pdwVolume: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutSetVolume(hwo: win32more.Media.Audio.HWAVEOUT, dwVolume: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetErrorTextA(mmrError: UInt32, pszText: win32more.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetErrorTextW(mmrError: UInt32, pszText: win32more.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutOpen(phwo: POINTER(win32more.Media.Audio.HWAVEOUT), uDeviceID: UInt32, pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutClose(hwo: win32more.Media.Audio.HWAVEOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutPrepareHeader(hwo: win32more.Media.Audio.HWAVEOUT, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutUnprepareHeader(hwo: win32more.Media.Audio.HWAVEOUT, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutWrite(hwo: win32more.Media.Audio.HWAVEOUT, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutPause(hwo: win32more.Media.Audio.HWAVEOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutRestart(hwo: win32more.Media.Audio.HWAVEOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutReset(hwo: win32more.Media.Audio.HWAVEOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutBreakLoop(hwo: win32more.Media.Audio.HWAVEOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetPosition(hwo: win32more.Media.Audio.HWAVEOUT, pmmt: POINTER(win32more.Media.MMTIME_head), cbmmt: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetPitch(hwo: win32more.Media.Audio.HWAVEOUT, pdwPitch: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutSetPitch(hwo: win32more.Media.Audio.HWAVEOUT, dwPitch: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetPlaybackRate(hwo: win32more.Media.Audio.HWAVEOUT, pdwRate: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutSetPlaybackRate(hwo: win32more.Media.Audio.HWAVEOUT, dwRate: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutGetID(hwo: win32more.Media.Audio.HWAVEOUT, puDeviceID: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveOutMessage(hwo: win32more.Media.Audio.HWAVEOUT, uMsg: UInt32, dw1: UIntPtr, dw2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetDevCapsA(uDeviceID: UIntPtr, pwic: POINTER(win32more.Media.Audio.WAVEINCAPSA_head), cbwic: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetDevCapsW(uDeviceID: UIntPtr, pwic: POINTER(win32more.Media.Audio.WAVEINCAPSW_head), cbwic: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetErrorTextA(mmrError: UInt32, pszText: win32more.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetErrorTextW(mmrError: UInt32, pszText: win32more.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInOpen(phwi: POINTER(win32more.Media.Audio.HWAVEIN), uDeviceID: UInt32, pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInClose(hwi: win32more.Media.Audio.HWAVEIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInPrepareHeader(hwi: win32more.Media.Audio.HWAVEIN, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInUnprepareHeader(hwi: win32more.Media.Audio.HWAVEIN, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInAddBuffer(hwi: win32more.Media.Audio.HWAVEIN, pwh: POINTER(win32more.Media.Audio.WAVEHDR_head), cbwh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInStart(hwi: win32more.Media.Audio.HWAVEIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInStop(hwi: win32more.Media.Audio.HWAVEIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInReset(hwi: win32more.Media.Audio.HWAVEIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetPosition(hwi: win32more.Media.Audio.HWAVEIN, pmmt: POINTER(win32more.Media.MMTIME_head), cbmmt: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInGetID(hwi: win32more.Media.Audio.HWAVEIN, puDeviceID: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def waveInMessage(hwi: win32more.Media.Audio.HWAVEIN, uMsg: UInt32, dw1: UIntPtr, dw2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamOpen(phms: POINTER(win32more.Media.Audio.HMIDISTRM), puDeviceID: POINTER(UInt32), cMidi: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamClose(hms: win32more.Media.Audio.HMIDISTRM) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamProperty(hms: win32more.Media.Audio.HMIDISTRM, lppropdata: c_char_p_no, dwProperty: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamPosition(hms: win32more.Media.Audio.HMIDISTRM, lpmmt: POINTER(win32more.Media.MMTIME_head), cbmmt: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamOut(hms: win32more.Media.Audio.HMIDISTRM, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamPause(hms: win32more.Media.Audio.HMIDISTRM) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamRestart(hms: win32more.Media.Audio.HMIDISTRM) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiStreamStop(hms: win32more.Media.Audio.HMIDISTRM) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiConnect(hmi: win32more.Media.Audio.HMIDI, hmo: win32more.Media.Audio.HMIDIOUT, pReserved: c_void_p) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiDisconnect(hmi: win32more.Media.Audio.HMIDI, hmo: win32more.Media.Audio.HMIDIOUT, pReserved: c_void_p) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetDevCapsA(uDeviceID: UIntPtr, pmoc: POINTER(win32more.Media.Audio.MIDIOUTCAPSA_head), cbmoc: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetDevCapsW(uDeviceID: UIntPtr, pmoc: POINTER(win32more.Media.Audio.MIDIOUTCAPSW_head), cbmoc: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetVolume(hmo: win32more.Media.Audio.HMIDIOUT, pdwVolume: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutSetVolume(hmo: win32more.Media.Audio.HMIDIOUT, dwVolume: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetErrorTextA(mmrError: UInt32, pszText: win32more.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetErrorTextW(mmrError: UInt32, pszText: win32more.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutOpen(phmo: POINTER(win32more.Media.Audio.HMIDIOUT), uDeviceID: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutClose(hmo: win32more.Media.Audio.HMIDIOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutPrepareHeader(hmo: win32more.Media.Audio.HMIDIOUT, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutUnprepareHeader(hmo: win32more.Media.Audio.HMIDIOUT, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutShortMsg(hmo: win32more.Media.Audio.HMIDIOUT, dwMsg: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutLongMsg(hmo: win32more.Media.Audio.HMIDIOUT, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutReset(hmo: win32more.Media.Audio.HMIDIOUT) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutCachePatches(hmo: win32more.Media.Audio.HMIDIOUT, uBank: UInt32, pwpa: POINTER(UInt16), fuCache: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutCacheDrumPatches(hmo: win32more.Media.Audio.HMIDIOUT, uPatch: UInt32, pwkya: POINTER(UInt16), fuCache: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutGetID(hmo: win32more.Media.Audio.HMIDIOUT, puDeviceID: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiOutMessage(hmo: win32more.Media.Audio.HMIDIOUT, uMsg: UInt32, dw1: UIntPtr, dw2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetDevCapsA(uDeviceID: UIntPtr, pmic: POINTER(win32more.Media.Audio.MIDIINCAPSA_head), cbmic: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetDevCapsW(uDeviceID: UIntPtr, pmic: POINTER(win32more.Media.Audio.MIDIINCAPSW_head), cbmic: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetErrorTextA(mmrError: UInt32, pszText: win32more.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetErrorTextW(mmrError: UInt32, pszText: win32more.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInOpen(phmi: POINTER(win32more.Media.Audio.HMIDIIN), uDeviceID: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInClose(hmi: win32more.Media.Audio.HMIDIIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInPrepareHeader(hmi: win32more.Media.Audio.HMIDIIN, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInUnprepareHeader(hmi: win32more.Media.Audio.HMIDIIN, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInAddBuffer(hmi: win32more.Media.Audio.HMIDIIN, pmh: POINTER(win32more.Media.Audio.MIDIHDR_head), cbmh: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInStart(hmi: win32more.Media.Audio.HMIDIIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInStop(hmi: win32more.Media.Audio.HMIDIIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInReset(hmi: win32more.Media.Audio.HMIDIIN) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInGetID(hmi: win32more.Media.Audio.HMIDIIN, puDeviceID: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def midiInMessage(hmi: win32more.Media.Audio.HMIDIIN, uMsg: UInt32, dw1: UIntPtr, dw2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxGetDevCapsA(uDeviceID: UIntPtr, pac: POINTER(win32more.Media.Audio.AUXCAPSA_head), cbac: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxGetDevCapsW(uDeviceID: UIntPtr, pac: POINTER(win32more.Media.Audio.AUXCAPSW_head), cbac: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxSetVolume(uDeviceID: UInt32, dwVolume: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxGetVolume(uDeviceID: UInt32, pdwVolume: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def auxOutMessage(uDeviceID: UInt32, uMsg: UInt32, dw1: UIntPtr, dw2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetNumDevs() -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetDevCapsA(uMxId: UIntPtr, pmxcaps: POINTER(win32more.Media.Audio.MIXERCAPSA_head), cbmxcaps: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetDevCapsW(uMxId: UIntPtr, pmxcaps: POINTER(win32more.Media.Audio.MIXERCAPSW_head), cbmxcaps: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerOpen(phmx: POINTER(IntPtr), uMxId: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerClose(hmx: win32more.Media.Audio.HMIXER) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerMessage(hmx: win32more.Media.Audio.HMIXER, uMsg: UInt32, dwParam1: UIntPtr, dwParam2: UIntPtr) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetLineInfoA(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxl: POINTER(win32more.Media.Audio.MIXERLINEA_head), fdwInfo: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetLineInfoW(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxl: POINTER(win32more.Media.Audio.MIXERLINEW_head), fdwInfo: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetID(hmxobj: win32more.Media.Audio.HMIXEROBJ, puMxId: POINTER(UInt32), fdwId: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetLineControlsA(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxlc: POINTER(win32more.Media.Audio.MIXERLINECONTROLSA_head), fdwControls: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetLineControlsW(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxlc: POINTER(win32more.Media.Audio.MIXERLINECONTROLSW_head), fdwControls: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetControlDetailsA(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerGetControlDetailsW(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('WINMM.dll')
+def mixerSetControlDetails(hmxobj: win32more.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Media.Audio.MIXERCONTROLDETAILS_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MMDevAPI.dll')
+def ActivateAudioInterfaceAsync(deviceInterfacePath: win32more.Foundation.PWSTR, riid: POINTER(Guid), activationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), completionHandler: win32more.Media.Audio.IActivateAudioInterfaceCompletionHandler_head, activationOperation: POINTER(win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateRenderAudioStateMonitor(audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateRenderAudioStateMonitorForCategory(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, role: win32more.Media.Audio.ERole, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateRenderAudioStateMonitorForCategoryAndDeviceId(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, deviceId: win32more.Foundation.PWSTR, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateCaptureAudioStateMonitor(audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateCaptureAudioStateMonitorForCategory(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, role: win32more.Media.Audio.ERole, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Windows.Media.MediaControl.dll')
+def CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, deviceId: win32more.Foundation.PWSTR, audioStateMonitor: POINTER(win32more.Media.Audio.IAudioStateMonitor_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MSACM32.dll')
+def acmGetVersion() -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmMetrics(hao: win32more.Media.Audio.HACMOBJ, uMetric: UInt32, pMetric: c_void_p) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverEnum(fnCallback: win32more.Media.Audio.ACMDRIVERENUMCB, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverID(hao: win32more.Media.Audio.HACMOBJ, phadid: POINTER(IntPtr), fdwDriverID: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverAddA(phadid: POINTER(IntPtr), hinstModule: win32more.Foundation.HINSTANCE, lParam: win32more.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverAddW(phadid: POINTER(IntPtr), hinstModule: win32more.Foundation.HINSTANCE, lParam: win32more.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverRemove(hadid: win32more.Media.Audio.HACMDRIVERID, fdwRemove: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverOpen(phad: POINTER(IntPtr), hadid: win32more.Media.Audio.HACMDRIVERID, fdwOpen: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverClose(had: win32more.Media.Audio.HACMDRIVER, fdwClose: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverMessage(had: win32more.Media.Audio.HACMDRIVER, uMsg: UInt32, lParam1: win32more.Foundation.LPARAM, lParam2: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype('MSACM32.dll')
+def acmDriverPriority(hadid: win32more.Media.Audio.HACMDRIVERID, dwPriority: UInt32, fdwPriority: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverDetailsA(hadid: win32more.Media.Audio.HACMDRIVERID, padd: POINTER(win32more.Media.Audio.ACMDRIVERDETAILSA_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmDriverDetailsW(hadid: win32more.Media.Audio.HACMDRIVERID, padd: POINTER(win32more.Media.Audio.ACMDRIVERDETAILSW_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatTagDetailsA(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatTagDetailsW(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatTagEnumA(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head), fnCallback: win32more.Media.Audio.ACMFORMATTAGENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatTagEnumW(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head), fnCallback: win32more.Media.Audio.ACMFORMATTAGENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatDetailsA(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatDetailsW(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatEnumA(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFORMATDETAILSA_head), fnCallback: win32more.Media.Audio.ACMFORMATENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatEnumW(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.tACMFORMATDETAILSW_head), fnCallback: win32more.Media.Audio.ACMFORMATENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatSuggest(had: win32more.Media.Audio.HACMDRIVER, pwfxSrc: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pwfxDst: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), cbwfxDst: UInt32, fdwSuggest: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatChooseA(pafmtc: POINTER(win32more.Media.Audio.ACMFORMATCHOOSEA_head)) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFormatChooseW(pafmtc: POINTER(win32more.Media.Audio.ACMFORMATCHOOSEW_head)) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterTagDetailsA(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterTagDetailsW(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterTagEnumA(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSA_head), fnCallback: win32more.Media.Audio.ACMFILTERTAGENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterTagEnumW(had: win32more.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Media.Audio.ACMFILTERTAGDETAILSW_head), fnCallback: win32more.Media.Audio.ACMFILTERTAGENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterDetailsA(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterDetailsW(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head), fdwDetails: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterEnumA(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSA_head), fnCallback: win32more.Media.Audio.ACMFILTERENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterEnumW(had: win32more.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Media.Audio.ACMFILTERDETAILSW_head), fnCallback: win32more.Media.Audio.ACMFILTERENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterChooseA(pafltrc: POINTER(win32more.Media.Audio.ACMFILTERCHOOSEA_head)) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmFilterChooseW(pafltrc: POINTER(win32more.Media.Audio.ACMFILTERCHOOSEW_head)) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamOpen(phas: POINTER(IntPtr), had: win32more.Media.Audio.HACMDRIVER, pwfxSrc: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pwfxDst: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pwfltr: POINTER(win32more.Media.Audio.WAVEFILTER_head), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamClose(has: win32more.Media.Audio.HACMSTREAM, fdwClose: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamSize(has: win32more.Media.Audio.HACMSTREAM, cbInput: UInt32, pdwOutputBytes: POINTER(UInt32), fdwSize: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamReset(has: win32more.Media.Audio.HACMSTREAM, fdwReset: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamMessage(has: win32more.Media.Audio.HACMSTREAM, uMsg: UInt32, lParam1: win32more.Foundation.LPARAM, lParam2: win32more.Foundation.LPARAM) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamConvert(has: win32more.Media.Audio.HACMSTREAM, pash: POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head), fdwConvert: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamPrepareHeader(has: win32more.Media.Audio.HACMSTREAM, pash: POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head), fdwPrepare: UInt32) -> UInt32: ...
+@winfunctype('MSACM32.dll')
+def acmStreamUnprepareHeader(has: win32more.Media.Audio.HACMSTREAM, pash: POINTER(win32more.Media.Audio.ACMSTREAMHEADER_head), fdwUnprepare: UInt32) -> UInt32: ...
 AUDCLNT_SHAREMODE = Int32
-AUDCLNT_SHAREMODE_SHARED = 0
-AUDCLNT_SHAREMODE_EXCLUSIVE = 1
+AUDCLNT_SHAREMODE_SHARED: AUDCLNT_SHAREMODE = 0
+AUDCLNT_SHAREMODE_EXCLUSIVE: AUDCLNT_SHAREMODE = 1
 AUDCLNT_STREAMOPTIONS = UInt32
-AUDCLNT_STREAMOPTIONS_NONE = 0
-AUDCLNT_STREAMOPTIONS_RAW = 1
-AUDCLNT_STREAMOPTIONS_MATCH_FORMAT = 2
-AUDCLNT_STREAMOPTIONS_AMBISONICS = 4
+AUDCLNT_STREAMOPTIONS_NONE: AUDCLNT_STREAMOPTIONS = 0
+AUDCLNT_STREAMOPTIONS_RAW: AUDCLNT_STREAMOPTIONS = 1
+AUDCLNT_STREAMOPTIONS_MATCH_FORMAT: AUDCLNT_STREAMOPTIONS = 2
+AUDCLNT_STREAMOPTIONS_AMBISONICS: AUDCLNT_STREAMOPTIONS = 4
 AUDIO_DUCKING_OPTIONS = UInt32
-AUDIO_DUCKING_OPTIONS_DEFAULT = 0
-AUDIO_DUCKING_OPTIONS_DO_NOT_DUCK_OTHER_STREAMS = 1
-def _define_AUDIO_EFFECT_head():
-    class AUDIO_EFFECT(Structure):
-        pass
-    return AUDIO_EFFECT
-def _define_AUDIO_EFFECT():
-    AUDIO_EFFECT = win32more.Media.Audio.AUDIO_EFFECT_head
-    AUDIO_EFFECT._fields_ = [
-        ('id', Guid),
-        ('canSetState', win32more.Foundation.BOOL),
-        ('state', win32more.Media.Audio.AUDIO_EFFECT_STATE),
-    ]
-    return AUDIO_EFFECT
+AUDIO_DUCKING_OPTIONS_DEFAULT: AUDIO_DUCKING_OPTIONS = 0
+AUDIO_DUCKING_OPTIONS_DO_NOT_DUCK_OTHER_STREAMS: AUDIO_DUCKING_OPTIONS = 1
+class AUDIO_EFFECT(Structure):
+    id: Guid
+    canSetState: win32more.Foundation.BOOL
+    state: win32more.Media.Audio.AUDIO_EFFECT_STATE
 AUDIO_EFFECT_STATE = Int32
-AUDIO_EFFECT_STATE_OFF = 0
-AUDIO_EFFECT_STATE_ON = 1
+AUDIO_EFFECT_STATE_OFF: AUDIO_EFFECT_STATE = 0
+AUDIO_EFFECT_STATE_ON: AUDIO_EFFECT_STATE = 1
 AUDIO_STREAM_CATEGORY = Int32
-AudioCategory_Other = 0
-AudioCategory_ForegroundOnlyMedia = 1
-AudioCategory_Communications = 3
-AudioCategory_Alerts = 4
-AudioCategory_SoundEffects = 5
-AudioCategory_GameEffects = 6
-AudioCategory_GameMedia = 7
-AudioCategory_GameChat = 8
-AudioCategory_Speech = 9
-AudioCategory_Movie = 10
-AudioCategory_Media = 11
-AudioCategory_FarFieldSpeech = 12
-AudioCategory_UniformSpeech = 13
-AudioCategory_VoiceTyping = 14
+AudioCategory_Other: AUDIO_STREAM_CATEGORY = 0
+AudioCategory_ForegroundOnlyMedia: AUDIO_STREAM_CATEGORY = 1
+AudioCategory_Communications: AUDIO_STREAM_CATEGORY = 3
+AudioCategory_Alerts: AUDIO_STREAM_CATEGORY = 4
+AudioCategory_SoundEffects: AUDIO_STREAM_CATEGORY = 5
+AudioCategory_GameEffects: AUDIO_STREAM_CATEGORY = 6
+AudioCategory_GameMedia: AUDIO_STREAM_CATEGORY = 7
+AudioCategory_GameChat: AUDIO_STREAM_CATEGORY = 8
+AudioCategory_Speech: AUDIO_STREAM_CATEGORY = 9
+AudioCategory_Movie: AUDIO_STREAM_CATEGORY = 10
+AudioCategory_Media: AUDIO_STREAM_CATEGORY = 11
+AudioCategory_FarFieldSpeech: AUDIO_STREAM_CATEGORY = 12
+AudioCategory_UniformSpeech: AUDIO_STREAM_CATEGORY = 13
+AudioCategory_VoiceTyping: AUDIO_STREAM_CATEGORY = 14
 AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = Int32
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT = 0
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER = 1
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE = 2
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT = 3
-def _define_AUDIO_VOLUME_NOTIFICATION_DATA_head():
-    class AUDIO_VOLUME_NOTIFICATION_DATA(Structure):
-        pass
-    return AUDIO_VOLUME_NOTIFICATION_DATA
-def _define_AUDIO_VOLUME_NOTIFICATION_DATA():
-    AUDIO_VOLUME_NOTIFICATION_DATA = win32more.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA_head
-    AUDIO_VOLUME_NOTIFICATION_DATA._fields_ = [
-        ('guidEventContext', Guid),
-        ('bMuted', win32more.Foundation.BOOL),
-        ('fMasterVolume', Single),
-        ('nChannels', UInt32),
-        ('afChannelVolumes', Single * 1),
-    ]
-    return AUDIO_VOLUME_NOTIFICATION_DATA
-def _define_AUDIOCLIENT_ACTIVATION_PARAMS_head():
-    class AUDIOCLIENT_ACTIVATION_PARAMS(Structure):
-        pass
-    return AUDIOCLIENT_ACTIVATION_PARAMS
-def _define_AUDIOCLIENT_ACTIVATION_PARAMS():
-    AUDIOCLIENT_ACTIVATION_PARAMS = win32more.Media.Audio.AUDIOCLIENT_ACTIVATION_PARAMS_head
-    class AUDIOCLIENT_ACTIVATION_PARAMS__Anonymous_e__Union(Union):
-        pass
-    AUDIOCLIENT_ACTIVATION_PARAMS__Anonymous_e__Union._fields_ = [
-        ('ProcessLoopbackParams', win32more.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS),
-    ]
-    AUDIOCLIENT_ACTIVATION_PARAMS._anonymous_ = [
-        'Anonymous',
-    ]
-    AUDIOCLIENT_ACTIVATION_PARAMS._fields_ = [
-        ('ActivationType', win32more.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE),
-        ('Anonymous', AUDIOCLIENT_ACTIVATION_PARAMS__Anonymous_e__Union),
-    ]
-    return AUDIOCLIENT_ACTIVATION_PARAMS
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 0
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 1
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 2
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 3
+class AUDIO_VOLUME_NOTIFICATION_DATA(Structure):
+    guidEventContext: Guid
+    bMuted: win32more.Foundation.BOOL
+    fMasterVolume: Single
+    nChannels: UInt32
+    afChannelVolumes: Single * 1
+class AUDIOCLIENT_ACTIVATION_PARAMS(Structure):
+    ActivationType: win32more.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ProcessLoopbackParams: win32more.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
 AUDIOCLIENT_ACTIVATION_TYPE = Int32
-AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT = 0
-AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK = 1
-def _define_AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS_head():
-    class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(Structure):
-        pass
-    return AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
-def _define_AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS():
-    AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS = win32more.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS_head
-    AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS._fields_ = [
-        ('TargetProcessId', UInt32),
-        ('ProcessLoopbackMode', win32more.Media.Audio.PROCESS_LOOPBACK_MODE),
-    ]
-    return AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
-def _define_AudioClient3ActivationParams_head():
-    class AudioClient3ActivationParams(Structure):
-        pass
-    return AudioClient3ActivationParams
-def _define_AudioClient3ActivationParams():
-    AudioClient3ActivationParams = win32more.Media.Audio.AudioClient3ActivationParams_head
-    AudioClient3ActivationParams._fields_ = [
-        ('tracingContextId', Guid),
-    ]
-    return AudioClient3ActivationParams
-def _define_AudioClientProperties_head():
-    class AudioClientProperties(Structure):
-        pass
-    return AudioClientProperties
-def _define_AudioClientProperties():
-    AudioClientProperties = win32more.Media.Audio.AudioClientProperties_head
-    AudioClientProperties._fields_ = [
-        ('cbSize', UInt32),
-        ('bIsOffload', win32more.Foundation.BOOL),
-        ('eCategory', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('Options', win32more.Media.Audio.AUDCLNT_STREAMOPTIONS),
-    ]
-    return AudioClientProperties
-def _define_AudioExtensionParams_head():
-    class AudioExtensionParams(Structure):
-        pass
-    return AudioExtensionParams
-def _define_AudioExtensionParams():
-    AudioExtensionParams = win32more.Media.Audio.AudioExtensionParams_head
-    AudioExtensionParams._fields_ = [
-        ('AddPageParam', win32more.Foundation.LPARAM),
-        ('pEndpoint', win32more.Media.Audio.IMMDevice_head),
-        ('pPnpInterface', win32more.Media.Audio.IMMDevice_head),
-        ('pPnpDevnode', win32more.Media.Audio.IMMDevice_head),
-    ]
-    return AudioExtensionParams
+AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT: AUDIOCLIENT_ACTIVATION_TYPE = 0
+AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK: AUDIOCLIENT_ACTIVATION_TYPE = 1
+class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(Structure):
+    TargetProcessId: UInt32
+    ProcessLoopbackMode: win32more.Media.Audio.PROCESS_LOOPBACK_MODE
+class AudioClient3ActivationParams(Structure):
+    tracingContextId: Guid
+class AudioClientProperties(Structure):
+    cbSize: UInt32
+    bIsOffload: win32more.Foundation.BOOL
+    eCategory: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    Options: win32more.Media.Audio.AUDCLNT_STREAMOPTIONS
+class AudioExtensionParams(Structure):
+    AddPageParam: win32more.Foundation.LPARAM
+    pEndpoint: win32more.Media.Audio.IMMDevice_head
+    pPnpInterface: win32more.Media.Audio.IMMDevice_head
+    pPnpDevnode: win32more.Media.Audio.IMMDevice_head
 AudioObjectType = UInt32
-AudioObjectType_None = 0
-AudioObjectType_Dynamic = 1
-AudioObjectType_FrontLeft = 2
-AudioObjectType_FrontRight = 4
-AudioObjectType_FrontCenter = 8
-AudioObjectType_LowFrequency = 16
-AudioObjectType_SideLeft = 32
-AudioObjectType_SideRight = 64
-AudioObjectType_BackLeft = 128
-AudioObjectType_BackRight = 256
-AudioObjectType_TopFrontLeft = 512
-AudioObjectType_TopFrontRight = 1024
-AudioObjectType_TopBackLeft = 2048
-AudioObjectType_TopBackRight = 4096
-AudioObjectType_BottomFrontLeft = 8192
-AudioObjectType_BottomFrontRight = 16384
-AudioObjectType_BottomBackLeft = 32768
-AudioObjectType_BottomBackRight = 65536
-AudioObjectType_BackCenter = 131072
+AudioObjectType_None: AudioObjectType = 0
+AudioObjectType_Dynamic: AudioObjectType = 1
+AudioObjectType_FrontLeft: AudioObjectType = 2
+AudioObjectType_FrontRight: AudioObjectType = 4
+AudioObjectType_FrontCenter: AudioObjectType = 8
+AudioObjectType_LowFrequency: AudioObjectType = 16
+AudioObjectType_SideLeft: AudioObjectType = 32
+AudioObjectType_SideRight: AudioObjectType = 64
+AudioObjectType_BackLeft: AudioObjectType = 128
+AudioObjectType_BackRight: AudioObjectType = 256
+AudioObjectType_TopFrontLeft: AudioObjectType = 512
+AudioObjectType_TopFrontRight: AudioObjectType = 1024
+AudioObjectType_TopBackLeft: AudioObjectType = 2048
+AudioObjectType_TopBackRight: AudioObjectType = 4096
+AudioObjectType_BottomFrontLeft: AudioObjectType = 8192
+AudioObjectType_BottomFrontRight: AudioObjectType = 16384
+AudioObjectType_BottomBackLeft: AudioObjectType = 32768
+AudioObjectType_BottomBackRight: AudioObjectType = 65536
+AudioObjectType_BackCenter: AudioObjectType = 131072
 AudioSessionDisconnectReason = Int32
-AudioSessionDisconnectReason_DisconnectReasonDeviceRemoval = 0
-AudioSessionDisconnectReason_DisconnectReasonServerShutdown = 1
-AudioSessionDisconnectReason_DisconnectReasonFormatChanged = 2
-AudioSessionDisconnectReason_DisconnectReasonSessionLogoff = 3
-AudioSessionDisconnectReason_DisconnectReasonSessionDisconnected = 4
-AudioSessionDisconnectReason_DisconnectReasonExclusiveModeOverride = 5
+AudioSessionDisconnectReason_DisconnectReasonDeviceRemoval: AudioSessionDisconnectReason = 0
+AudioSessionDisconnectReason_DisconnectReasonServerShutdown: AudioSessionDisconnectReason = 1
+AudioSessionDisconnectReason_DisconnectReasonFormatChanged: AudioSessionDisconnectReason = 2
+AudioSessionDisconnectReason_DisconnectReasonSessionLogoff: AudioSessionDisconnectReason = 3
+AudioSessionDisconnectReason_DisconnectReasonSessionDisconnected: AudioSessionDisconnectReason = 4
+AudioSessionDisconnectReason_DisconnectReasonExclusiveModeOverride: AudioSessionDisconnectReason = 5
 AudioSessionState = Int32
-AudioSessionState_AudioSessionStateInactive = 0
-AudioSessionState_AudioSessionStateActive = 1
-AudioSessionState_AudioSessionStateExpired = 2
+AudioSessionState_AudioSessionStateInactive: AudioSessionState = 0
+AudioSessionState_AudioSessionStateActive: AudioSessionState = 1
+AudioSessionState_AudioSessionStateExpired: AudioSessionState = 2
 AudioStateMonitorSoundLevel = Int32
-AudioStateMonitorSoundLevel_Muted = 0
-AudioStateMonitorSoundLevel_Low = 1
-AudioStateMonitorSoundLevel_Full = 2
-def _define_AUXCAPS2A_head():
-    class AUXCAPS2A(Structure):
-        pass
-    return AUXCAPS2A
-def _define_AUXCAPS2A():
-    AUXCAPS2A = win32more.Media.Audio.AUXCAPS2A_head
-    AUXCAPS2A._pack_ = 1
-    AUXCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('wTechnology', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return AUXCAPS2A
-def _define_AUXCAPS2W_head():
-    class AUXCAPS2W(Structure):
-        pass
-    return AUXCAPS2W
-def _define_AUXCAPS2W():
-    AUXCAPS2W = win32more.Media.Audio.AUXCAPS2W_head
-    AUXCAPS2W._pack_ = 1
-    AUXCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('wTechnology', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return AUXCAPS2W
-def _define_AUXCAPSA_head():
-    class AUXCAPSA(Structure):
-        pass
-    return AUXCAPSA
-def _define_AUXCAPSA():
-    AUXCAPSA = win32more.Media.Audio.AUXCAPSA_head
-    AUXCAPSA._pack_ = 1
-    AUXCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('wTechnology', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return AUXCAPSA
-def _define_AUXCAPSW_head():
-    class AUXCAPSW(Structure):
-        pass
-    return AUXCAPSW
-def _define_AUXCAPSW():
-    AUXCAPSW = win32more.Media.Audio.AUXCAPSW_head
-    AUXCAPSW._pack_ = 1
-    AUXCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('wTechnology', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return AUXCAPSW
+AudioStateMonitorSoundLevel_Muted: AudioStateMonitorSoundLevel = 0
+AudioStateMonitorSoundLevel_Low: AudioStateMonitorSoundLevel = 1
+AudioStateMonitorSoundLevel_Full: AudioStateMonitorSoundLevel = 2
+class AUXCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    wTechnology: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class AUXCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    wTechnology: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class AUXCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    wTechnology: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
+class AUXCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    wTechnology: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
 ConnectorType = Int32
-ConnectorType_Unknown_Connector = 0
-ConnectorType_Physical_Internal = 1
-ConnectorType_Physical_External = 2
-ConnectorType_Software_IO = 3
-ConnectorType_Software_Fixed = 4
-ConnectorType_Network = 5
+ConnectorType_Unknown_Connector: ConnectorType = 0
+ConnectorType_Physical_Internal: ConnectorType = 1
+ConnectorType_Physical_External: ConnectorType = 2
+ConnectorType_Software_IO: ConnectorType = 3
+ConnectorType_Software_Fixed: ConnectorType = 4
+ConnectorType_Network: ConnectorType = 5
 DataFlow = Int32
-DataFlow_In = 0
-DataFlow_Out = 1
+DataFlow_In: DataFlow = 0
+DataFlow_Out: DataFlow = 1
 DeviceTopology = Guid('1df639d0-5ec1-47aa-93-79-82-8d-c1-aa-8c-59')
-def _define_DIRECTX_AUDIO_ACTIVATION_PARAMS_head():
-    class DIRECTX_AUDIO_ACTIVATION_PARAMS(Structure):
-        pass
-    return DIRECTX_AUDIO_ACTIVATION_PARAMS
-def _define_DIRECTX_AUDIO_ACTIVATION_PARAMS():
-    DIRECTX_AUDIO_ACTIVATION_PARAMS = win32more.Media.Audio.DIRECTX_AUDIO_ACTIVATION_PARAMS_head
-    DIRECTX_AUDIO_ACTIVATION_PARAMS._fields_ = [
-        ('cbDirectXAudioActivationParams', UInt32),
-        ('guidAudioSession', Guid),
-        ('dwAudioStreamFlags', UInt32),
-    ]
-    return DIRECTX_AUDIO_ACTIVATION_PARAMS
-def _define_ECHOWAVEFILTER_head():
-    class ECHOWAVEFILTER(Structure):
-        pass
-    return ECHOWAVEFILTER
-def _define_ECHOWAVEFILTER():
-    ECHOWAVEFILTER = win32more.Media.Audio.ECHOWAVEFILTER_head
-    ECHOWAVEFILTER._pack_ = 1
-    ECHOWAVEFILTER._fields_ = [
-        ('wfltr', win32more.Media.Audio.WAVEFILTER),
-        ('dwVolume', UInt32),
-        ('dwDelay', UInt32),
-    ]
-    return ECHOWAVEFILTER
+class DIRECTX_AUDIO_ACTIVATION_PARAMS(Structure):
+    cbDirectXAudioActivationParams: UInt32
+    guidAudioSession: Guid
+    dwAudioStreamFlags: UInt32
+class ECHOWAVEFILTER(Structure):
+    wfltr: win32more.Media.Audio.WAVEFILTER
+    dwVolume: UInt32
+    dwDelay: UInt32
+    _pack_ = 1
 EDataFlow = Int32
-EDataFlow_eRender = 0
-EDataFlow_eCapture = 1
-EDataFlow_eAll = 2
-EDataFlow_EDataFlow_enum_count = 3
+EDataFlow_eRender: EDataFlow = 0
+EDataFlow_eCapture: EDataFlow = 1
+EDataFlow_eAll: EDataFlow = 2
+EDataFlow_EDataFlow_enum_count: EDataFlow = 3
 EndpointFormFactor = Int32
-EndpointFormFactor_RemoteNetworkDevice = 0
-EndpointFormFactor_Speakers = 1
-EndpointFormFactor_LineLevel = 2
-EndpointFormFactor_Headphones = 3
-EndpointFormFactor_Microphone = 4
-EndpointFormFactor_Headset = 5
-EndpointFormFactor_Handset = 6
-EndpointFormFactor_UnknownDigitalPassthrough = 7
-EndpointFormFactor_SPDIF = 8
-EndpointFormFactor_DigitalAudioDisplayDevice = 9
-EndpointFormFactor_UnknownFormFactor = 10
-EndpointFormFactor_EndpointFormFactor_enum_count = 11
+EndpointFormFactor_RemoteNetworkDevice: EndpointFormFactor = 0
+EndpointFormFactor_Speakers: EndpointFormFactor = 1
+EndpointFormFactor_LineLevel: EndpointFormFactor = 2
+EndpointFormFactor_Headphones: EndpointFormFactor = 3
+EndpointFormFactor_Microphone: EndpointFormFactor = 4
+EndpointFormFactor_Headset: EndpointFormFactor = 5
+EndpointFormFactor_Handset: EndpointFormFactor = 6
+EndpointFormFactor_UnknownDigitalPassthrough: EndpointFormFactor = 7
+EndpointFormFactor_SPDIF: EndpointFormFactor = 8
+EndpointFormFactor_DigitalAudioDisplayDevice: EndpointFormFactor = 9
+EndpointFormFactor_UnknownFormFactor: EndpointFormFactor = 10
+EndpointFormFactor_EndpointFormFactor_enum_count: EndpointFormFactor = 11
 ERole = Int32
-ERole_eConsole = 0
-ERole_eMultimedia = 1
-ERole_eCommunications = 2
-ERole_ERole_enum_count = 3
+ERole_eConsole: ERole = 0
+ERole_eMultimedia: ERole = 1
+ERole_eCommunications: ERole = 2
+ERole_ERole_enum_count: ERole = 3
 HACMDRIVER = IntPtr
 HACMDRIVERID = IntPtr
 HACMOBJ = IntPtr
@@ -2080,2018 +1324,1562 @@ HMIXEROBJ = IntPtr
 HWAVE = IntPtr
 HWAVEIN = IntPtr
 HWAVEOUT = IntPtr
-def _define_IActivateAudioInterfaceAsyncOperation_head():
-    class IActivateAudioInterfaceAsyncOperation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('72a22d78-cde4-431d-b8-cc-84-3a-71-19-9b-6d')
-    return IActivateAudioInterfaceAsyncOperation
-def _define_IActivateAudioInterfaceAsyncOperation():
-    IActivateAudioInterfaceAsyncOperation = win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head
-    IActivateAudioInterfaceAsyncOperation.GetActivateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.Com.IUnknown_head))(3, 'GetActivateResult', ((1, 'activateResult'),(1, 'activatedInterface'),)))
-    win32more.System.Com.IUnknown
-    return IActivateAudioInterfaceAsyncOperation
-def _define_IActivateAudioInterfaceCompletionHandler_head():
-    class IActivateAudioInterfaceCompletionHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('41d949ab-9862-444a-80-f6-c2-61-33-4d-a5-eb')
-    return IActivateAudioInterfaceCompletionHandler
-def _define_IActivateAudioInterfaceCompletionHandler():
-    IActivateAudioInterfaceCompletionHandler = win32more.Media.Audio.IActivateAudioInterfaceCompletionHandler_head
-    IActivateAudioInterfaceCompletionHandler.ActivateCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head)(3, 'ActivateCompleted', ((1, 'activateOperation'),)))
-    win32more.System.Com.IUnknown
-    return IActivateAudioInterfaceCompletionHandler
-def _define_IAudioAmbisonicsControl_head():
-    class IAudioAmbisonicsControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('28724c91-df35-4856-9f-76-d6-a2-64-13-f3-df')
-    return IAudioAmbisonicsControl
-def _define_IAudioAmbisonicsControl():
-    IAudioAmbisonicsControl = win32more.Media.Audio.IAudioAmbisonicsControl_head
-    IAudioAmbisonicsControl.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AMBISONICS_PARAMS_head),UInt32)(3, 'SetData', ((1, 'pAmbisonicsParams'),(1, 'cbAmbisonicsParams'),)))
-    IAudioAmbisonicsControl.SetHeadTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(4, 'SetHeadTracking', ((1, 'bEnableHeadTracking'),)))
-    IAudioAmbisonicsControl.GetHeadTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'GetHeadTracking', ((1, 'pbEnableHeadTracking'),)))
-    IAudioAmbisonicsControl.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single)(6, 'SetRotation', ((1, 'X'),(1, 'Y'),(1, 'Z'),(1, 'W'),)))
-    win32more.System.Com.IUnknown
-    return IAudioAmbisonicsControl
-def _define_IAudioAutoGainControl_head():
-    class IAudioAutoGainControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('85401fd4-6de4-4b9d-98-69-2d-67-53-a8-2f-3c')
-    return IAudioAutoGainControl
-def _define_IAudioAutoGainControl():
-    IAudioAutoGainControl = win32more.Media.Audio.IAudioAutoGainControl_head
-    IAudioAutoGainControl.GetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'GetEnabled', ((1, 'pbEnabled'),)))
-    IAudioAutoGainControl.SetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid))(4, 'SetEnabled', ((1, 'bEnable'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IAudioAutoGainControl
-def _define_IAudioBass_head():
-    class IAudioBass(win32more.Media.Audio.IPerChannelDbLevel_head):
-        Guid = Guid('a2b1a1d9-4db3-425d-a2-b2-bd-33-5c-b3-e2-e5')
-    return IAudioBass
-def _define_IAudioBass():
-    IAudioBass = win32more.Media.Audio.IAudioBass_head
-    win32more.Media.Audio.IPerChannelDbLevel
-    return IAudioBass
-def _define_IAudioCaptureClient_head():
-    class IAudioCaptureClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c8adbd64-e71e-48a0-a4-de-18-5c-39-5c-d3-17')
-    return IAudioCaptureClient
-def _define_IAudioCaptureClient():
-    IAudioCaptureClient = win32more.Media.Audio.IAudioCaptureClient_head
-    IAudioCaptureClient.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64))(3, 'GetBuffer', ((1, 'ppData'),(1, 'pNumFramesToRead'),(1, 'pdwFlags'),(1, 'pu64DevicePosition'),(1, 'pu64QPCPosition'),)))
-    IAudioCaptureClient.ReleaseBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'ReleaseBuffer', ((1, 'NumFramesRead'),)))
-    IAudioCaptureClient.GetNextPacketSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetNextPacketSize', ((1, 'pNumFramesInNextPacket'),)))
-    win32more.System.Com.IUnknown
-    return IAudioCaptureClient
-def _define_IAudioChannelConfig_head():
-    class IAudioChannelConfig(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bb11c46f-ec28-493c-b8-8a-5d-b8-80-62-ce-98')
-    return IAudioChannelConfig
-def _define_IAudioChannelConfig():
-    IAudioChannelConfig = win32more.Media.Audio.IAudioChannelConfig_head
-    IAudioChannelConfig.SetChannelConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid))(3, 'SetChannelConfig', ((1, 'dwConfig'),(1, 'pguidEventContext'),)))
-    IAudioChannelConfig.GetChannelConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetChannelConfig', ((1, 'pdwConfig'),)))
-    win32more.System.Com.IUnknown
-    return IAudioChannelConfig
-def _define_IAudioClient_head():
-    class IAudioClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1cb9ad4c-dbfa-4c32-b1-78-c2-f5-68-a7-03-b2')
-    return IAudioClient
-def _define_IAudioClient():
-    IAudioClient = win32more.Media.Audio.IAudioClient_head
-    IAudioClient.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDCLNT_SHAREMODE,UInt32,Int64,Int64,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(Guid))(3, 'Initialize', ((1, 'ShareMode'),(1, 'StreamFlags'),(1, 'hnsBufferDuration'),(1, 'hnsPeriodicity'),(1, 'pFormat'),(1, 'AudioSessionGuid'),)))
-    IAudioClient.GetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetBufferSize', ((1, 'pNumBufferFrames'),)))
-    IAudioClient.GetStreamLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(5, 'GetStreamLatency', ((1, 'phnsLatency'),)))
-    IAudioClient.GetCurrentPadding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetCurrentPadding', ((1, 'pNumPaddingFrames'),)))
-    IAudioClient.IsFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDCLNT_SHAREMODE,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(7, 'IsFormatSupported', ((1, 'ShareMode'),(1, 'pFormat'),(1, 'ppClosestMatch'),)))
-    IAudioClient.GetMixFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(8, 'GetMixFormat', ((1, 'ppDeviceFormat'),)))
-    IAudioClient.GetDevicePeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64),POINTER(Int64))(9, 'GetDevicePeriod', ((1, 'phnsDefaultDevicePeriod'),(1, 'phnsMinimumDevicePeriod'),)))
-    IAudioClient.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Start', ()))
-    IAudioClient.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Stop', ()))
-    IAudioClient.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(12, 'Reset', ()))
-    IAudioClient.SetEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(13, 'SetEventHandle', ((1, 'eventHandle'),)))
-    IAudioClient.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(14, 'GetService', ((1, 'riid'),(1, 'ppv'),)))
-    win32more.System.Com.IUnknown
-    return IAudioClient
-def _define_IAudioClient2_head():
-    class IAudioClient2(win32more.Media.Audio.IAudioClient_head):
-        Guid = Guid('726778cd-f60a-4eda-82-de-e4-76-10-cd-78-aa')
-    return IAudioClient2
-def _define_IAudioClient2():
-    IAudioClient2 = win32more.Media.Audio.IAudioClient2_head
-    IAudioClient2.IsOffloadCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Foundation.BOOL))(15, 'IsOffloadCapable', ((1, 'Category'),(1, 'pbOffloadCapable'),)))
-    IAudioClient2.SetClientProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioClientProperties_head))(16, 'SetClientProperties', ((1, 'pProperties'),)))
-    IAudioClient2.GetBufferSizeLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),win32more.Foundation.BOOL,POINTER(Int64),POINTER(Int64))(17, 'GetBufferSizeLimits', ((1, 'pFormat'),(1, 'bEventDriven'),(1, 'phnsMinBufferDuration'),(1, 'phnsMaxBufferDuration'),)))
-    win32more.Media.Audio.IAudioClient
-    return IAudioClient2
-def _define_IAudioClient3_head():
-    class IAudioClient3(win32more.Media.Audio.IAudioClient2_head):
-        Guid = Guid('7ed4ee07-8e67-4cd4-8c-1a-2b-7a-59-87-ad-42')
-    return IAudioClient3
-def _define_IAudioClient3():
-    IAudioClient3 = win32more.Media.Audio.IAudioClient3_head
-    IAudioClient3.GetSharedModeEnginePeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(18, 'GetSharedModeEnginePeriod', ((1, 'pFormat'),(1, 'pDefaultPeriodInFrames'),(1, 'pFundamentalPeriodInFrames'),(1, 'pMinPeriodInFrames'),(1, 'pMaxPeriodInFrames'),)))
-    IAudioClient3.GetCurrentSharedModeEnginePeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),POINTER(UInt32))(19, 'GetCurrentSharedModeEnginePeriod', ((1, 'ppFormat'),(1, 'pCurrentPeriodInFrames'),)))
-    IAudioClient3.InitializeSharedAudioStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(Guid))(20, 'InitializeSharedAudioStream', ((1, 'StreamFlags'),(1, 'PeriodInFrames'),(1, 'pFormat'),(1, 'AudioSessionGuid'),)))
-    win32more.Media.Audio.IAudioClient2
-    return IAudioClient3
-def _define_IAudioClientDuckingControl_head():
-    class IAudioClientDuckingControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c789d381-a28c-4168-b2-8f-d3-a8-37-92-4d-c3')
-    return IAudioClientDuckingControl
-def _define_IAudioClientDuckingControl():
-    IAudioClientDuckingControl = win32more.Media.Audio.IAudioClientDuckingControl_head
-    IAudioClientDuckingControl.SetDuckingOptionsForCurrentStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_DUCKING_OPTIONS)(3, 'SetDuckingOptionsForCurrentStream', ((1, 'options'),)))
-    win32more.System.Com.IUnknown
-    return IAudioClientDuckingControl
-def _define_IAudioClock_head():
-    class IAudioClock(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cd63314f-3fba-4a1b-81-2c-ef-96-35-87-28-e7')
-    return IAudioClock
-def _define_IAudioClock():
-    IAudioClock = win32more.Media.Audio.IAudioClock_head
-    IAudioClock.GetFrequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(3, 'GetFrequency', ((1, 'pu64Frequency'),)))
-    IAudioClock.GetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64))(4, 'GetPosition', ((1, 'pu64Position'),(1, 'pu64QPCPosition'),)))
-    IAudioClock.GetCharacteristics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetCharacteristics', ((1, 'pdwCharacteristics'),)))
-    win32more.System.Com.IUnknown
-    return IAudioClock
-def _define_IAudioClock2_head():
-    class IAudioClock2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6f49ff73-6727-49ac-a0-08-d9-8c-f5-e7-00-48')
-    return IAudioClock2
-def _define_IAudioClock2():
-    IAudioClock2 = win32more.Media.Audio.IAudioClock2_head
-    IAudioClock2.GetDevicePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64))(3, 'GetDevicePosition', ((1, 'DevicePosition'),(1, 'QPCPosition'),)))
-    win32more.System.Com.IUnknown
-    return IAudioClock2
-def _define_IAudioClockAdjustment_head():
-    class IAudioClockAdjustment(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f6e4c0a0-46d9-4fb8-be-21-57-a3-ef-2b-62-6c')
-    return IAudioClockAdjustment
-def _define_IAudioClockAdjustment():
-    IAudioClockAdjustment = win32more.Media.Audio.IAudioClockAdjustment_head
-    IAudioClockAdjustment.SetSampleRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single)(3, 'SetSampleRate', ((1, 'flSampleRate'),)))
-    win32more.System.Com.IUnknown
-    return IAudioClockAdjustment
-def _define_IAudioEffectsChangedNotificationClient_head():
-    class IAudioEffectsChangedNotificationClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a5ded44f-3c5d-4b2b-bd-1e-5d-c1-ee-20-bb-f6')
-    return IAudioEffectsChangedNotificationClient
-def _define_IAudioEffectsChangedNotificationClient():
-    IAudioEffectsChangedNotificationClient = win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head
-    IAudioEffectsChangedNotificationClient.OnAudioEffectsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnAudioEffectsChanged', ()))
-    win32more.System.Com.IUnknown
-    return IAudioEffectsChangedNotificationClient
-def _define_IAudioEffectsManager_head():
-    class IAudioEffectsManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4460b3ae-4b44-4527-86-76-75-48-a8-ac-d2-60')
-    return IAudioEffectsManager
-def _define_IAudioEffectsManager():
-    IAudioEffectsManager = win32more.Media.Audio.IAudioEffectsManager_head
-    IAudioEffectsManager.RegisterAudioEffectsChangedNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head)(3, 'RegisterAudioEffectsChangedNotificationCallback', ((1, 'client'),)))
-    IAudioEffectsManager.UnregisterAudioEffectsChangedNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head)(4, 'UnregisterAudioEffectsChangedNotificationCallback', ((1, 'client'),)))
-    IAudioEffectsManager.GetAudioEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.AUDIO_EFFECT_head)),POINTER(UInt32))(5, 'GetAudioEffects', ((1, 'effects'),(1, 'numEffects'),)))
-    IAudioEffectsManager.SetAudioEffectState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Media.Audio.AUDIO_EFFECT_STATE)(6, 'SetAudioEffectState', ((1, 'effectId'),(1, 'state'),)))
-    win32more.System.Com.IUnknown
-    return IAudioEffectsManager
-def _define_IAudioFormatEnumerator_head():
-    class IAudioFormatEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcdaa858-895a-4a22-a5-eb-67-bd-a5-06-09-6d')
-    return IAudioFormatEnumerator
-def _define_IAudioFormatEnumerator():
-    IAudioFormatEnumerator = win32more.Media.Audio.IAudioFormatEnumerator_head
-    IAudioFormatEnumerator.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'count'),)))
-    IAudioFormatEnumerator.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(4, 'GetFormat', ((1, 'index'),(1, 'format'),)))
-    win32more.System.Com.IUnknown
-    return IAudioFormatEnumerator
-def _define_IAudioInputSelector_head():
-    class IAudioInputSelector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4f03dc02-5e6e-4653-8f-72-a0-30-c1-23-d5-98')
-    return IAudioInputSelector
-def _define_IAudioInputSelector():
-    IAudioInputSelector = win32more.Media.Audio.IAudioInputSelector_head
-    IAudioInputSelector.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetSelection', ((1, 'pnIdSelected'),)))
-    IAudioInputSelector.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid))(4, 'SetSelection', ((1, 'nIdSelect'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IAudioInputSelector
-def _define_IAudioLoudness_head():
-    class IAudioLoudness(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7d8b1437-dd53-4350-9c-1b-1e-e2-89-0b-d9-38')
-    return IAudioLoudness
-def _define_IAudioLoudness():
-    IAudioLoudness = win32more.Media.Audio.IAudioLoudness_head
-    IAudioLoudness.GetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'GetEnabled', ((1, 'pbEnabled'),)))
-    IAudioLoudness.SetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid))(4, 'SetEnabled', ((1, 'bEnable'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IAudioLoudness
-def _define_IAudioMidrange_head():
-    class IAudioMidrange(win32more.Media.Audio.IPerChannelDbLevel_head):
-        Guid = Guid('5e54b6d7-b44b-40d9-9a-9e-e6-91-d9-ce-6e-df')
-    return IAudioMidrange
-def _define_IAudioMidrange():
-    IAudioMidrange = win32more.Media.Audio.IAudioMidrange_head
-    win32more.Media.Audio.IPerChannelDbLevel
-    return IAudioMidrange
-def _define_IAudioMute_head():
-    class IAudioMute(win32more.System.Com.IUnknown_head):
-        Guid = Guid('df45aeea-b74a-4b6b-af-ad-23-66-b6-aa-01-2e')
-    return IAudioMute
-def _define_IAudioMute():
-    IAudioMute = win32more.Media.Audio.IAudioMute_head
-    IAudioMute.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid))(3, 'SetMute', ((1, 'bMuted'),(1, 'pguidEventContext'),)))
-    IAudioMute.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'GetMute', ((1, 'pbMuted'),)))
-    win32more.System.Com.IUnknown
-    return IAudioMute
-def _define_IAudioOutputSelector_head():
-    class IAudioOutputSelector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bb515f69-94a7-429e-8b-9c-27-1b-3f-11-a3-ab')
-    return IAudioOutputSelector
-def _define_IAudioOutputSelector():
-    IAudioOutputSelector = win32more.Media.Audio.IAudioOutputSelector_head
-    IAudioOutputSelector.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetSelection', ((1, 'pnIdSelected'),)))
-    IAudioOutputSelector.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid))(4, 'SetSelection', ((1, 'nIdSelect'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IAudioOutputSelector
-def _define_IAudioPeakMeter_head():
-    class IAudioPeakMeter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dd79923c-0599-45e0-b8-b6-c8-df-7d-b6-e7-96')
-    return IAudioPeakMeter
-def _define_IAudioPeakMeter():
-    IAudioPeakMeter = win32more.Media.Audio.IAudioPeakMeter_head
-    IAudioPeakMeter.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetChannelCount', ((1, 'pcChannels'),)))
-    IAudioPeakMeter.GetLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(4, 'GetLevel', ((1, 'nChannel'),(1, 'pfLevel'),)))
-    win32more.System.Com.IUnknown
-    return IAudioPeakMeter
-def _define_IAudioRenderClient_head():
-    class IAudioRenderClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f294acfc-3146-4483-a7-bf-ad-dc-a7-c2-60-e2')
-    return IAudioRenderClient
-def _define_IAudioRenderClient():
-    IAudioRenderClient = win32more.Media.Audio.IAudioRenderClient_head
-    IAudioRenderClient.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no))(3, 'GetBuffer', ((1, 'NumFramesRequested'),(1, 'ppData'),)))
-    IAudioRenderClient.ReleaseBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(4, 'ReleaseBuffer', ((1, 'NumFramesWritten'),(1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IAudioRenderClient
-def _define_IAudioSessionControl_head():
-    class IAudioSessionControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f4b1a599-7266-4319-a8-ca-e7-0a-cb-11-e8-cd')
-    return IAudioSessionControl
-def _define_IAudioSessionControl():
-    IAudioSessionControl = win32more.Media.Audio.IAudioSessionControl_head
-    IAudioSessionControl.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioSessionState))(3, 'GetState', ((1, 'pRetVal'),)))
-    IAudioSessionControl.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(4, 'GetDisplayName', ((1, 'pRetVal'),)))
-    IAudioSessionControl.SetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(5, 'SetDisplayName', ((1, 'Value'),(1, 'EventContext'),)))
-    IAudioSessionControl.GetIconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetIconPath', ((1, 'pRetVal'),)))
-    IAudioSessionControl.SetIconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(7, 'SetIconPath', ((1, 'Value'),(1, 'EventContext'),)))
-    IAudioSessionControl.GetGroupingParam = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'GetGroupingParam', ((1, 'pRetVal'),)))
-    IAudioSessionControl.SetGroupingParam = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid))(9, 'SetGroupingParam', ((1, 'Override'),(1, 'EventContext'),)))
-    IAudioSessionControl.RegisterAudioSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionEvents_head)(10, 'RegisterAudioSessionNotification', ((1, 'NewNotifications'),)))
-    IAudioSessionControl.UnregisterAudioSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionEvents_head)(11, 'UnregisterAudioSessionNotification', ((1, 'NewNotifications'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSessionControl
-def _define_IAudioSessionControl2_head():
-    class IAudioSessionControl2(win32more.Media.Audio.IAudioSessionControl_head):
-        Guid = Guid('bfb7ff88-7239-4fc9-8f-a2-07-c9-50-be-9c-6d')
-    return IAudioSessionControl2
-def _define_IAudioSessionControl2():
-    IAudioSessionControl2 = win32more.Media.Audio.IAudioSessionControl2_head
-    IAudioSessionControl2.GetSessionIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(12, 'GetSessionIdentifier', ((1, 'pRetVal'),)))
-    IAudioSessionControl2.GetSessionInstanceIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(13, 'GetSessionInstanceIdentifier', ((1, 'pRetVal'),)))
-    IAudioSessionControl2.GetProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'GetProcessId', ((1, 'pRetVal'),)))
-    IAudioSessionControl2.IsSystemSoundsSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'IsSystemSoundsSession', ()))
-    IAudioSessionControl2.SetDuckingPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(16, 'SetDuckingPreference', ((1, 'optOut'),)))
-    win32more.Media.Audio.IAudioSessionControl
-    return IAudioSessionControl2
-def _define_IAudioSessionEnumerator_head():
-    class IAudioSessionEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e2f5bb11-0570-40ca-ac-dd-3a-a0-12-77-de-e8')
-    return IAudioSessionEnumerator
-def _define_IAudioSessionEnumerator():
-    IAudioSessionEnumerator = win32more.Media.Audio.IAudioSessionEnumerator_head
-    IAudioSessionEnumerator.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'GetCount', ((1, 'SessionCount'),)))
-    IAudioSessionEnumerator.GetSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Audio.IAudioSessionControl_head))(4, 'GetSession', ((1, 'SessionCount'),(1, 'Session'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSessionEnumerator
-def _define_IAudioSessionEvents_head():
-    class IAudioSessionEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('24918acc-64b3-37c1-8c-a9-74-a6-6e-99-57-a8')
-    return IAudioSessionEvents
-def _define_IAudioSessionEvents():
-    IAudioSessionEvents = win32more.Media.Audio.IAudioSessionEvents_head
-    IAudioSessionEvents.OnDisplayNameChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(3, 'OnDisplayNameChanged', ((1, 'NewDisplayName'),(1, 'EventContext'),)))
-    IAudioSessionEvents.OnIconPathChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(4, 'OnIconPathChanged', ((1, 'NewIconPath'),(1, 'EventContext'),)))
-    IAudioSessionEvents.OnSimpleVolumeChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,win32more.Foundation.BOOL,POINTER(Guid))(5, 'OnSimpleVolumeChanged', ((1, 'NewVolume'),(1, 'NewMute'),(1, 'EventContext'),)))
-    IAudioSessionEvents.OnChannelVolumeChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),UInt32,POINTER(Guid))(6, 'OnChannelVolumeChanged', ((1, 'ChannelCount'),(1, 'NewChannelVolumeArray'),(1, 'ChangedChannel'),(1, 'EventContext'),)))
-    IAudioSessionEvents.OnGroupingParamChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid))(7, 'OnGroupingParamChanged', ((1, 'NewGroupingParam'),(1, 'EventContext'),)))
-    IAudioSessionEvents.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioSessionState)(8, 'OnStateChanged', ((1, 'NewState'),)))
-    IAudioSessionEvents.OnSessionDisconnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioSessionDisconnectReason)(9, 'OnSessionDisconnected', ((1, 'DisconnectReason'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSessionEvents
-def _define_IAudioSessionManager_head():
-    class IAudioSessionManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bfa971f1-4d5e-40bb-93-5e-96-70-39-bf-be-e4')
-    return IAudioSessionManager
-def _define_IAudioSessionManager():
-    IAudioSessionManager = win32more.Media.Audio.IAudioSessionManager_head
-    IAudioSessionManager.GetAudioSessionControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Media.Audio.IAudioSessionControl_head))(3, 'GetAudioSessionControl', ((1, 'AudioSessionGuid'),(1, 'StreamFlags'),(1, 'SessionControl'),)))
-    IAudioSessionManager.GetSimpleAudioVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Media.Audio.ISimpleAudioVolume_head))(4, 'GetSimpleAudioVolume', ((1, 'AudioSessionGuid'),(1, 'StreamFlags'),(1, 'AudioVolume'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSessionManager
-def _define_IAudioSessionManager2_head():
-    class IAudioSessionManager2(win32more.Media.Audio.IAudioSessionManager_head):
-        Guid = Guid('77aa99a0-1bd6-484f-8b-c7-2c-65-4c-9a-9b-6f')
-    return IAudioSessionManager2
-def _define_IAudioSessionManager2():
-    IAudioSessionManager2 = win32more.Media.Audio.IAudioSessionManager2_head
-    IAudioSessionManager2.GetSessionEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IAudioSessionEnumerator_head))(5, 'GetSessionEnumerator', ((1, 'SessionEnum'),)))
-    IAudioSessionManager2.RegisterSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionNotification_head)(6, 'RegisterSessionNotification', ((1, 'SessionNotification'),)))
-    IAudioSessionManager2.UnregisterSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionNotification_head)(7, 'UnregisterSessionNotification', ((1, 'SessionNotification'),)))
-    IAudioSessionManager2.RegisterDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.Audio.IAudioVolumeDuckNotification_head)(8, 'RegisterDuckNotification', ((1, 'sessionID'),(1, 'duckNotification'),)))
-    IAudioSessionManager2.UnregisterDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioVolumeDuckNotification_head)(9, 'UnregisterDuckNotification', ((1, 'duckNotification'),)))
-    win32more.Media.Audio.IAudioSessionManager
-    return IAudioSessionManager2
-def _define_IAudioSessionNotification_head():
-    class IAudioSessionNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('641dd20b-4d41-49cc-ab-a3-17-4b-94-77-bb-08')
-    return IAudioSessionNotification
-def _define_IAudioSessionNotification():
-    IAudioSessionNotification = win32more.Media.Audio.IAudioSessionNotification_head
-    IAudioSessionNotification.OnSessionCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionControl_head)(3, 'OnSessionCreated', ((1, 'NewSession'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSessionNotification
-def _define_IAudioStateMonitor_head():
-    class IAudioStateMonitor(win32more.System.Com.IUnknown_head):
-        Guid = Guid('63bd8738-e30d-4c77-bf-5c-83-4e-87-c6-57-e2')
-    return IAudioStateMonitor
-def _define_IAudioStateMonitor():
-    IAudioStateMonitor = win32more.Media.Audio.IAudioStateMonitor_head
-    IAudioStateMonitor.RegisterCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.PAudioStateMonitorCallback,c_void_p,POINTER(Int64))(3, 'RegisterCallback', ((1, 'callback'),(1, 'context'),(1, 'registration'),)))
-    IAudioStateMonitor.UnregisterCallback = COMMETHOD(WINFUNCTYPE(Void,Int64)(4, 'UnregisterCallback', ((1, 'registration'),)))
-    IAudioStateMonitor.GetSoundLevel = COMMETHOD(WINFUNCTYPE(win32more.Media.Audio.AudioStateMonitorSoundLevel,)(5, 'GetSoundLevel', ()))
-    win32more.System.Com.IUnknown
-    return IAudioStateMonitor
-def _define_IAudioStreamVolume_head():
-    class IAudioStreamVolume(win32more.System.Com.IUnknown_head):
-        Guid = Guid('93014887-242d-4068-8a-15-cf-5e-93-b9-0f-e3')
-    return IAudioStreamVolume
-def _define_IAudioStreamVolume():
-    IAudioStreamVolume = win32more.Media.Audio.IAudioStreamVolume_head
-    IAudioStreamVolume.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetChannelCount', ((1, 'pdwCount'),)))
-    IAudioStreamVolume.SetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single)(4, 'SetChannelVolume', ((1, 'dwIndex'),(1, 'fLevel'),)))
-    IAudioStreamVolume.GetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(5, 'GetChannelVolume', ((1, 'dwIndex'),(1, 'pfLevel'),)))
-    IAudioStreamVolume.SetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(6, 'SetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
-    IAudioStreamVolume.GetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(7, 'GetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
-    win32more.System.Com.IUnknown
-    return IAudioStreamVolume
-def _define_IAudioSystemEffectsPropertyChangeNotificationClient_head():
-    class IAudioSystemEffectsPropertyChangeNotificationClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('20049d40-56d5-400e-a2-ef-38-55-99-fe-ed-49')
-    return IAudioSystemEffectsPropertyChangeNotificationClient
-def _define_IAudioSystemEffectsPropertyChangeNotificationClient():
-    IAudioSystemEffectsPropertyChangeNotificationClient = win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head
-    IAudioSystemEffectsPropertyChangeNotificationClient.OnPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE,win32more.UI.Shell.PropertiesSystem.PROPERTYKEY)(3, 'OnPropertyChanged', ((1, 'type'),(1, 'key'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSystemEffectsPropertyChangeNotificationClient
-def _define_IAudioSystemEffectsPropertyStore_head():
-    class IAudioSystemEffectsPropertyStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('302ae7f9-d7e0-43e4-97-1b-1f-82-93-61-3d-2a')
-    return IAudioSystemEffectsPropertyStore
-def _define_IAudioSystemEffectsPropertyStore():
-    IAudioSystemEffectsPropertyStore = win32more.Media.Audio.IAudioSystemEffectsPropertyStore_head
-    IAudioSystemEffectsPropertyStore.OpenDefaultPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(3, 'OpenDefaultPropertyStore', ((1, 'stgmAccess'),(1, 'propStore'),)))
-    IAudioSystemEffectsPropertyStore.OpenUserPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(4, 'OpenUserPropertyStore', ((1, 'stgmAccess'),(1, 'propStore'),)))
-    IAudioSystemEffectsPropertyStore.OpenVolatilePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(5, 'OpenVolatilePropertyStore', ((1, 'stgmAccess'),(1, 'propStore'),)))
-    IAudioSystemEffectsPropertyStore.ResetUserPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'ResetUserPropertyStore', ()))
-    IAudioSystemEffectsPropertyStore.ResetVolatilePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'ResetVolatilePropertyStore', ()))
-    IAudioSystemEffectsPropertyStore.RegisterPropertyChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head)(8, 'RegisterPropertyChangeNotification', ((1, 'callback'),)))
-    IAudioSystemEffectsPropertyStore.UnregisterPropertyChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head)(9, 'UnregisterPropertyChangeNotification', ((1, 'callback'),)))
-    win32more.System.Com.IUnknown
-    return IAudioSystemEffectsPropertyStore
-def _define_IAudioTreble_head():
-    class IAudioTreble(win32more.Media.Audio.IPerChannelDbLevel_head):
-        Guid = Guid('0a717812-694e-4907-b7-4b-ba-fa-5c-fd-ca-7b')
-    return IAudioTreble
-def _define_IAudioTreble():
-    IAudioTreble = win32more.Media.Audio.IAudioTreble_head
-    win32more.Media.Audio.IPerChannelDbLevel
-    return IAudioTreble
-def _define_IAudioVolumeDuckNotification_head():
-    class IAudioVolumeDuckNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c3b284d4-6d39-4359-b3-cf-b5-6d-db-3b-b3-9c')
-    return IAudioVolumeDuckNotification
-def _define_IAudioVolumeDuckNotification():
-    IAudioVolumeDuckNotification = win32more.Media.Audio.IAudioVolumeDuckNotification_head
-    IAudioVolumeDuckNotification.OnVolumeDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(3, 'OnVolumeDuckNotification', ((1, 'sessionID'),(1, 'countCommunicationSessions'),)))
-    IAudioVolumeDuckNotification.OnVolumeUnduckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'OnVolumeUnduckNotification', ((1, 'sessionID'),)))
-    win32more.System.Com.IUnknown
-    return IAudioVolumeDuckNotification
-def _define_IAudioVolumeLevel_head():
-    class IAudioVolumeLevel(win32more.Media.Audio.IPerChannelDbLevel_head):
-        Guid = Guid('7fb7b48f-531d-44a2-bc-b3-5a-d5-a1-34-b3-dc')
-    return IAudioVolumeLevel
-def _define_IAudioVolumeLevel():
-    IAudioVolumeLevel = win32more.Media.Audio.IAudioVolumeLevel_head
-    win32more.Media.Audio.IPerChannelDbLevel
-    return IAudioVolumeLevel
-def _define_IChannelAudioVolume_head():
-    class IChannelAudioVolume(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1c158861-b533-4b30-b1-cf-e8-53-e5-1c-59-b8')
-    return IChannelAudioVolume
-def _define_IChannelAudioVolume():
-    IChannelAudioVolume = win32more.Media.Audio.IChannelAudioVolume_head
-    IChannelAudioVolume.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetChannelCount', ((1, 'pdwCount'),)))
-    IChannelAudioVolume.SetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single,POINTER(Guid))(4, 'SetChannelVolume', ((1, 'dwIndex'),(1, 'fLevel'),(1, 'EventContext'),)))
-    IChannelAudioVolume.GetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(5, 'GetChannelVolume', ((1, 'dwIndex'),(1, 'pfLevel'),)))
-    IChannelAudioVolume.SetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Guid))(6, 'SetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),(1, 'EventContext'),)))
-    IChannelAudioVolume.GetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(7, 'GetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
-    win32more.System.Com.IUnknown
-    return IChannelAudioVolume
-def _define_IConnector_head():
-    class IConnector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9c2c4058-23f5-41de-87-7a-df-3a-f2-36-a0-9e')
-    return IConnector
-def _define_IConnector():
-    IConnector = win32more.Media.Audio.IConnector_head
-    IConnector.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ConnectorType))(3, 'GetType', ((1, 'pType'),)))
-    IConnector.GetDataFlow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DataFlow))(4, 'GetDataFlow', ((1, 'pFlow'),)))
-    IConnector.ConnectTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IConnector_head)(5, 'ConnectTo', ((1, 'pConnectTo'),)))
-    IConnector.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Disconnect', ()))
-    IConnector.IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'IsConnected', ((1, 'pbConnected'),)))
-    IConnector.GetConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IConnector_head))(8, 'GetConnectedTo', ((1, 'ppConTo'),)))
-    IConnector.GetConnectorIdConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'GetConnectorIdConnectedTo', ((1, 'ppwstrConnectorId'),)))
-    IConnector.GetDeviceIdConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'GetDeviceIdConnectedTo', ((1, 'ppwstrDeviceId'),)))
-    win32more.System.Com.IUnknown
-    return IConnector
-def _define_IControlChangeNotify_head():
-    class IControlChangeNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a09513ed-c709-4d21-bd-7b-5f-34-c4-7f-39-47')
-    return IControlChangeNotify
-def _define_IControlChangeNotify():
-    IControlChangeNotify = win32more.Media.Audio.IControlChangeNotify_head
-    IControlChangeNotify.OnNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid))(3, 'OnNotify', ((1, 'dwSenderProcessId'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IControlChangeNotify
-def _define_IControlInterface_head():
-    class IControlInterface(win32more.System.Com.IUnknown_head):
-        Guid = Guid('45d37c3f-5140-444a-ae-24-40-07-89-f3-cb-f3')
-    return IControlInterface
-def _define_IControlInterface():
-    IControlInterface = win32more.Media.Audio.IControlInterface_head
-    IControlInterface.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetName', ((1, 'ppwstrName'),)))
-    IControlInterface.GetIID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(4, 'GetIID', ((1, 'pIID'),)))
-    win32more.System.Com.IUnknown
-    return IControlInterface
-def _define_IDeviceSpecificProperty_head():
-    class IDeviceSpecificProperty(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3b22bcbf-2586-4af0-85-83-20-5d-39-1b-80-7c')
-    return IDeviceSpecificProperty
-def _define_IDeviceSpecificProperty():
-    IDeviceSpecificProperty = win32more.Media.Audio.IDeviceSpecificProperty_head
-    IDeviceSpecificProperty.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(3, 'GetType', ((1, 'pVType'),)))
-    IDeviceSpecificProperty.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32))(4, 'GetValue', ((1, 'pvValue'),(1, 'pcbValue'),)))
-    IDeviceSpecificProperty.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(Guid))(5, 'SetValue', ((1, 'pvValue'),(1, 'cbValue'),(1, 'pguidEventContext'),)))
-    IDeviceSpecificProperty.Get4BRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32))(6, 'Get4BRange', ((1, 'plMin'),(1, 'plMax'),(1, 'plStepping'),)))
-    win32more.System.Com.IUnknown
-    return IDeviceSpecificProperty
-def _define_IDeviceTopology_head():
-    class IDeviceTopology(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2a07407e-6497-4a18-97-87-32-f7-9b-d0-d9-8f')
-    return IDeviceTopology
-def _define_IDeviceTopology():
-    IDeviceTopology = win32more.Media.Audio.IDeviceTopology_head
-    IDeviceTopology.GetConnectorCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetConnectorCount', ((1, 'pCount'),)))
-    IDeviceTopology.GetConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IConnector_head))(4, 'GetConnector', ((1, 'nIndex'),(1, 'ppConnector'),)))
-    IDeviceTopology.GetSubunitCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetSubunitCount', ((1, 'pCount'),)))
-    IDeviceTopology.GetSubunit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.ISubunit_head))(6, 'GetSubunit', ((1, 'nIndex'),(1, 'ppSubunit'),)))
-    IDeviceTopology.GetPartById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IPart_head))(7, 'GetPartById', ((1, 'nId'),(1, 'ppPart'),)))
-    IDeviceTopology.GetDeviceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(8, 'GetDeviceId', ((1, 'ppwstrDeviceId'),)))
-    IDeviceTopology.GetSignalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IPart_head,win32more.Media.Audio.IPart_head,win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.IPartsList_head))(9, 'GetSignalPath', ((1, 'pIPartFrom'),(1, 'pIPartTo'),(1, 'bRejectMixedPaths'),(1, 'ppParts'),)))
-    win32more.System.Com.IUnknown
-    return IDeviceTopology
-def _define_IMessageFilter_head():
-    class IMessageFilter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00000016-0000-0000-c0-00-00-00-00-00-00-46')
-    return IMessageFilter
-def _define_IMessageFilter():
-    IMessageFilter = win32more.Media.Audio.IMessageFilter_head
-    IMessageFilter.HandleInComingCall = COMMETHOD(WINFUNCTYPE(UInt32,UInt32,win32more.Media.HTASK,UInt32,POINTER(win32more.System.Com.INTERFACEINFO_head))(3, 'HandleInComingCall', ((1, 'dwCallType'),(1, 'htaskCaller'),(1, 'dwTickCount'),(1, 'lpInterfaceInfo'),)))
-    IMessageFilter.RetryRejectedCall = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Media.HTASK,UInt32,UInt32)(4, 'RetryRejectedCall', ((1, 'htaskCallee'),(1, 'dwTickCount'),(1, 'dwRejectType'),)))
-    IMessageFilter.MessagePending = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Media.HTASK,UInt32,UInt32)(5, 'MessagePending', ((1, 'htaskCallee'),(1, 'dwTickCount'),(1, 'dwPendingType'),)))
-    win32more.System.Com.IUnknown
-    return IMessageFilter
-def _define_IMMDevice_head():
-    class IMMDevice(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d666063f-1587-4e43-81-f1-b9-48-e8-07-36-3f')
-    return IMMDevice
-def _define_IMMDevice():
-    IMMDevice = win32more.Media.Audio.IMMDevice_head
-    IMMDevice.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.CLSCTX,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(c_void_p))(3, 'Activate', ((1, 'iid'),(1, 'dwClsCtx'),(1, 'pActivationParams'),(1, 'ppInterface'),)))
-    IMMDevice.OpenPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.STGM,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head))(4, 'OpenPropertyStore', ((1, 'stgmAccess'),(1, 'ppProperties'),)))
-    IMMDevice.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(5, 'GetId', ((1, 'ppstrId'),)))
-    IMMDevice.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetState', ((1, 'pdwState'),)))
-    win32more.System.Com.IUnknown
-    return IMMDevice
-def _define_IMMDeviceActivator_head():
-    class IMMDeviceActivator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3b0d0ea4-d0a9-4b0e-93-5b-09-51-67-46-fa-c0')
-    return IMMDeviceActivator
-def _define_IMMDeviceActivator():
-    IMMDeviceActivator = win32more.Media.Audio.IMMDeviceActivator_head
-    IMMDeviceActivator.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Media.Audio.IMMDevice_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(c_void_p))(3, 'Activate', ((1, 'iid'),(1, 'pDevice'),(1, 'pActivationParams'),(1, 'ppInterface'),)))
-    win32more.System.Com.IUnknown
-    return IMMDeviceActivator
-def _define_IMMDeviceCollection_head():
-    class IMMDeviceCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0bd7a1be-7a1a-44db-83-97-cc-53-92-38-7b-5e')
-    return IMMDeviceCollection
-def _define_IMMDeviceCollection():
-    IMMDeviceCollection = win32more.Media.Audio.IMMDeviceCollection_head
-    IMMDeviceCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pcDevices'),)))
-    IMMDeviceCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IMMDevice_head))(4, 'Item', ((1, 'nDevice'),(1, 'ppDevice'),)))
-    win32more.System.Com.IUnknown
-    return IMMDeviceCollection
-def _define_IMMDeviceEnumerator_head():
-    class IMMDeviceEnumerator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a95664d2-9614-4f35-a7-46-de-8d-b6-36-17-e6')
-    return IMMDeviceEnumerator
-def _define_IMMDeviceEnumerator():
-    IMMDeviceEnumerator = win32more.Media.Audio.IMMDeviceEnumerator_head
-    IMMDeviceEnumerator.EnumAudioEndpoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.EDataFlow,UInt32,POINTER(win32more.Media.Audio.IMMDeviceCollection_head))(3, 'EnumAudioEndpoints', ((1, 'dataFlow'),(1, 'dwStateMask'),(1, 'ppDevices'),)))
-    IMMDeviceEnumerator.GetDefaultAudioEndpoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.EDataFlow,win32more.Media.Audio.ERole,POINTER(win32more.Media.Audio.IMMDevice_head))(4, 'GetDefaultAudioEndpoint', ((1, 'dataFlow'),(1, 'role'),(1, 'ppEndpoint'),)))
-    IMMDeviceEnumerator.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.Audio.IMMDevice_head))(5, 'GetDevice', ((1, 'pwstrId'),(1, 'ppDevice'),)))
-    IMMDeviceEnumerator.RegisterEndpointNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMNotificationClient_head)(6, 'RegisterEndpointNotificationCallback', ((1, 'pClient'),)))
-    IMMDeviceEnumerator.UnregisterEndpointNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMNotificationClient_head)(7, 'UnregisterEndpointNotificationCallback', ((1, 'pClient'),)))
-    win32more.System.Com.IUnknown
-    return IMMDeviceEnumerator
-def _define_IMMEndpoint_head():
-    class IMMEndpoint(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1be09788-6894-4089-85-86-9a-2a-6c-26-5a-c5')
-    return IMMEndpoint
-def _define_IMMEndpoint():
-    IMMEndpoint = win32more.Media.Audio.IMMEndpoint_head
-    IMMEndpoint.GetDataFlow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.EDataFlow))(3, 'GetDataFlow', ((1, 'pDataFlow'),)))
-    win32more.System.Com.IUnknown
-    return IMMEndpoint
-def _define_IMMNotificationClient_head():
-    class IMMNotificationClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7991eec9-7e89-4d85-83-90-6c-70-3c-ec-60-c0')
-    return IMMNotificationClient
-def _define_IMMNotificationClient():
-    IMMNotificationClient = win32more.Media.Audio.IMMNotificationClient_head
-    IMMNotificationClient.OnDeviceStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(3, 'OnDeviceStateChanged', ((1, 'pwstrDeviceId'),(1, 'dwNewState'),)))
-    IMMNotificationClient.OnDeviceAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'OnDeviceAdded', ((1, 'pwstrDeviceId'),)))
-    IMMNotificationClient.OnDeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'OnDeviceRemoved', ((1, 'pwstrDeviceId'),)))
-    IMMNotificationClient.OnDefaultDeviceChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.EDataFlow,win32more.Media.Audio.ERole,win32more.Foundation.PWSTR)(6, 'OnDefaultDeviceChanged', ((1, 'flow'),(1, 'role'),(1, 'pwstrDefaultDeviceId'),)))
-    IMMNotificationClient.OnPropertyValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.PropertiesSystem.PROPERTYKEY)(7, 'OnPropertyValueChanged', ((1, 'pwstrDeviceId'),(1, 'key'),)))
-    win32more.System.Com.IUnknown
-    return IMMNotificationClient
-def _define_IPart_head():
-    class IPart(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ae2de0e4-5bca-4f2d-aa-46-5d-13-f8-fd-b3-a9')
-    return IPart
-def _define_IPart():
-    IPart = win32more.Media.Audio.IPart_head
-    IPart.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(3, 'GetName', ((1, 'ppwstrName'),)))
-    IPart.GetLocalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetLocalId', ((1, 'pnId'),)))
-    IPart.GetGlobalId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(5, 'GetGlobalId', ((1, 'ppwstrGlobalId'),)))
-    IPart.GetPartType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.PartType))(6, 'GetPartType', ((1, 'pPartType'),)))
-    IPart.GetSubType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(7, 'GetSubType', ((1, 'pSubType'),)))
-    IPart.GetControlInterfaceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'GetControlInterfaceCount', ((1, 'pCount'),)))
-    IPart.GetControlInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IControlInterface_head))(9, 'GetControlInterface', ((1, 'nIndex'),(1, 'ppInterfaceDesc'),)))
-    IPart.EnumPartsIncoming = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IPartsList_head))(10, 'EnumPartsIncoming', ((1, 'ppParts'),)))
-    IPart.EnumPartsOutgoing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IPartsList_head))(11, 'EnumPartsOutgoing', ((1, 'ppParts'),)))
-    IPart.GetTopologyObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IDeviceTopology_head))(12, 'GetTopologyObject', ((1, 'ppTopology'),)))
-    IPart.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(13, 'Activate', ((1, 'dwClsContext'),(1, 'refiid'),(1, 'ppvObject'),)))
-    IPart.RegisterControlChangeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Media.Audio.IControlChangeNotify_head)(14, 'RegisterControlChangeCallback', ((1, 'riid'),(1, 'pNotify'),)))
-    IPart.UnregisterControlChangeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IControlChangeNotify_head)(15, 'UnregisterControlChangeCallback', ((1, 'pNotify'),)))
-    win32more.System.Com.IUnknown
-    return IPart
-def _define_IPartsList_head():
-    class IPartsList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6daa848c-5eb0-45cc-ae-a5-99-8a-2c-da-1f-fb')
-    return IPartsList
-def _define_IPartsList():
-    IPartsList = win32more.Media.Audio.IPartsList_head
-    IPartsList.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCount', ((1, 'pCount'),)))
-    IPartsList.GetPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IPart_head))(4, 'GetPart', ((1, 'nIndex'),(1, 'ppPart'),)))
-    win32more.System.Com.IUnknown
-    return IPartsList
-def _define_IPerChannelDbLevel_head():
-    class IPerChannelDbLevel(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c2f8e001-f205-4bc9-99-bc-c1-3b-1e-04-8c-cb')
-    return IPerChannelDbLevel
-def _define_IPerChannelDbLevel():
-    IPerChannelDbLevel = win32more.Media.Audio.IPerChannelDbLevel_head
-    IPerChannelDbLevel.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetChannelCount', ((1, 'pcChannels'),)))
-    IPerChannelDbLevel.GetLevelRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Single),POINTER(Single))(4, 'GetLevelRange', ((1, 'nChannel'),(1, 'pfMinLevelDB'),(1, 'pfMaxLevelDB'),(1, 'pfStepping'),)))
-    IPerChannelDbLevel.GetLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single))(5, 'GetLevel', ((1, 'nChannel'),(1, 'pfLevelDB'),)))
-    IPerChannelDbLevel.SetLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single,POINTER(Guid))(6, 'SetLevel', ((1, 'nChannel'),(1, 'fLevelDB'),(1, 'pguidEventContext'),)))
-    IPerChannelDbLevel.SetLevelUniform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(Guid))(7, 'SetLevelUniform', ((1, 'fLevelDB'),(1, 'pguidEventContext'),)))
-    IPerChannelDbLevel.SetLevelAllChannels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,POINTER(Guid))(8, 'SetLevelAllChannels', ((1, 'aLevelsDB'),(1, 'cChannels'),(1, 'pguidEventContext'),)))
-    win32more.System.Com.IUnknown
-    return IPerChannelDbLevel
-def _define_ISimpleAudioVolume_head():
-    class ISimpleAudioVolume(win32more.System.Com.IUnknown_head):
-        Guid = Guid('87ce5498-68d6-44e5-92-15-6d-a4-7e-f8-83-d8')
-    return ISimpleAudioVolume
-def _define_ISimpleAudioVolume():
-    ISimpleAudioVolume = win32more.Media.Audio.ISimpleAudioVolume_head
-    ISimpleAudioVolume.SetMasterVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(Guid))(3, 'SetMasterVolume', ((1, 'fLevel'),(1, 'EventContext'),)))
-    ISimpleAudioVolume.GetMasterVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single))(4, 'GetMasterVolume', ((1, 'pfLevel'),)))
-    ISimpleAudioVolume.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid))(5, 'SetMute', ((1, 'bMute'),(1, 'EventContext'),)))
-    ISimpleAudioVolume.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'GetMute', ((1, 'pbMute'),)))
-    win32more.System.Com.IUnknown
-    return ISimpleAudioVolume
-def _define_ISpatialAudioClient_head():
-    class ISpatialAudioClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bbf8e066-aaaa-49be-9a-4d-fd-2a-85-8e-a2-7f')
-    return ISpatialAudioClient
-def _define_ISpatialAudioClient():
-    ISpatialAudioClient = win32more.Media.Audio.ISpatialAudioClient_head
-    ISpatialAudioClient.GetStaticObjectPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(Single),POINTER(Single),POINTER(Single))(3, 'GetStaticObjectPosition', ((1, 'type'),(1, 'x'),(1, 'y'),(1, 'z'),)))
-    ISpatialAudioClient.GetNativeStaticObjectTypeMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioObjectType))(4, 'GetNativeStaticObjectTypeMask', ((1, 'mask'),)))
-    ISpatialAudioClient.GetMaxDynamicObjectCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetMaxDynamicObjectCount', ((1, 'value'),)))
-    ISpatialAudioClient.GetSupportedAudioObjectFormatEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IAudioFormatEnumerator_head))(6, 'GetSupportedAudioObjectFormatEnumerator', ((1, 'enumerator'),)))
-    ISpatialAudioClient.GetMaxFrameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32))(7, 'GetMaxFrameCount', ((1, 'objectFormat'),(1, 'frameCountPerBuffer'),)))
-    ISpatialAudioClient.IsAudioObjectFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head))(8, 'IsAudioObjectFormatSupported', ((1, 'objectFormat'),)))
-    ISpatialAudioClient.IsSpatialAudioStreamAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(9, 'IsSpatialAudioStreamAvailable', ((1, 'streamUuid'),(1, 'auxiliaryInfo'),)))
-    ISpatialAudioClient.ActivateSpatialAudioStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Guid),POINTER(c_void_p))(10, 'ActivateSpatialAudioStream', ((1, 'activationParams'),(1, 'riid'),(1, 'stream'),)))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioClient
-def _define_ISpatialAudioClient2_head():
-    class ISpatialAudioClient2(win32more.Media.Audio.ISpatialAudioClient_head):
-        Guid = Guid('caabe452-a66a-4bee-a9-3e-e3-20-46-3f-6a-53')
-    return ISpatialAudioClient2
-def _define_ISpatialAudioClient2():
-    ISpatialAudioClient2 = win32more.Media.Audio.ISpatialAudioClient2_head
-    ISpatialAudioClient2.IsOffloadCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Foundation.BOOL))(11, 'IsOffloadCapable', ((1, 'category'),(1, 'isOffloadCapable'),)))
-    ISpatialAudioClient2.GetMaxFrameCountForCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32))(12, 'GetMaxFrameCountForCategory', ((1, 'category'),(1, 'offloadEnabled'),(1, 'objectFormat'),(1, 'frameCountPerBuffer'),)))
-    win32more.Media.Audio.ISpatialAudioClient
-    return ISpatialAudioClient2
-def _define_ISpatialAudioMetadataClient_head():
-    class ISpatialAudioMetadataClient(win32more.System.Com.IUnknown_head):
-        Guid = Guid('777d4a3b-f6ff-4a26-85-dc-68-d7-cd-ed-a1-d4')
-    return ISpatialAudioMetadataClient
-def _define_ISpatialAudioMetadataClient():
-    ISpatialAudioMetadataClient = win32more.Media.Audio.ISpatialAudioMetadataClient_head
-    ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,POINTER(win32more.Media.Audio.ISpatialAudioMetadataItemsBuffer_head),POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head))(3, 'ActivateSpatialAudioMetadataItems', ((1, 'maxItemCount'),(1, 'frameCount'),(1, 'metadataItemsBuffer'),(1, 'metadataItems'),)))
-    ISpatialAudioMetadataClient.GetSpatialAudioMetadataItemsBufferLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(UInt32))(4, 'GetSpatialAudioMetadataItemsBufferLength', ((1, 'maxItemCount'),(1, 'bufferLength'),)))
-    ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.SpatialAudioMetadataWriterOverflowMode,POINTER(win32more.Media.Audio.ISpatialAudioMetadataWriter_head))(5, 'ActivateSpatialAudioMetadataWriter', ((1, 'overflowMode'),(1, 'metadataWriter'),)))
-    ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataCopier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataCopier_head))(6, 'ActivateSpatialAudioMetadataCopier', ((1, 'metadataCopier'),)))
-    ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataReader_head))(7, 'ActivateSpatialAudioMetadataReader', ((1, 'metadataReader'),)))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataClient
-def _define_ISpatialAudioMetadataCopier_head():
-    class ISpatialAudioMetadataCopier(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d224b233-e251-4fd0-9c-a2-d5-ec-f9-a6-84-04')
-    return ISpatialAudioMetadataCopier
-def _define_ISpatialAudioMetadataCopier():
-    ISpatialAudioMetadataCopier = win32more.Media.Audio.ISpatialAudioMetadataCopier_head
-    ISpatialAudioMetadataCopier.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioMetadataItems_head)(3, 'Open', ((1, 'metadataItems'),)))
-    ISpatialAudioMetadataCopier.CopyMetadataForFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,win32more.Media.Audio.SpatialAudioMetadataCopyMode,win32more.Media.Audio.ISpatialAudioMetadataItems_head,POINTER(UInt16))(4, 'CopyMetadataForFrames', ((1, 'copyFrameCount'),(1, 'copyMode'),(1, 'dstMetadataItems'),(1, 'itemsCopied'),)))
-    ISpatialAudioMetadataCopier.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataCopier
-def _define_ISpatialAudioMetadataItems_head():
-    class ISpatialAudioMetadataItems(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bcd7c78f-3098-4f22-b5-47-a2-f2-5a-38-12-69')
-    return ISpatialAudioMetadataItems
-def _define_ISpatialAudioMetadataItems():
-    ISpatialAudioMetadataItems = win32more.Media.Audio.ISpatialAudioMetadataItems_head
-    ISpatialAudioMetadataItems.GetFrameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(3, 'GetFrameCount', ((1, 'frameCount'),)))
-    ISpatialAudioMetadataItems.GetItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(4, 'GetItemCount', ((1, 'itemCount'),)))
-    ISpatialAudioMetadataItems.GetMaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(5, 'GetMaxItemCount', ((1, 'maxItemCount'),)))
-    ISpatialAudioMetadataItems.GetMaxValueBufferLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetMaxValueBufferLength', ((1, 'maxValueBufferLength'),)))
-    ISpatialAudioMetadataItems.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioMetadataItemsInfo_head))(7, 'GetInfo', ((1, 'info'),)))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataItems
-def _define_ISpatialAudioMetadataItemsBuffer_head():
-    class ISpatialAudioMetadataItemsBuffer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('42640a16-e1bd-42d9-9f-f6-03-1a-b7-1a-2d-ba')
-    return ISpatialAudioMetadataItemsBuffer
-def _define_ISpatialAudioMetadataItemsBuffer():
-    ISpatialAudioMetadataItemsBuffer = win32more.Media.Audio.ISpatialAudioMetadataItemsBuffer_head
-    ISpatialAudioMetadataItemsBuffer.AttachToBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(3, 'AttachToBuffer', ((1, 'buffer'),(1, 'bufferLength'),)))
-    ISpatialAudioMetadataItemsBuffer.AttachToPopulatedBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(4, 'AttachToPopulatedBuffer', ((1, 'buffer'),(1, 'bufferLength'),)))
-    ISpatialAudioMetadataItemsBuffer.DetachBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'DetachBuffer', ()))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataItemsBuffer
-def _define_ISpatialAudioMetadataReader_head():
-    class ISpatialAudioMetadataReader(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b78e86a2-31d9-4c32-94-d2-7d-f4-0f-c7-eb-ec')
-    return ISpatialAudioMetadataReader
-def _define_ISpatialAudioMetadataReader():
-    ISpatialAudioMetadataReader = win32more.Media.Audio.ISpatialAudioMetadataReader_head
-    ISpatialAudioMetadataReader.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioMetadataItems_head)(3, 'Open', ((1, 'metadataItems'),)))
-    ISpatialAudioMetadataReader.ReadNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt16))(4, 'ReadNextItem', ((1, 'commandCount'),(1, 'frameOffset'),)))
-    ISpatialAudioMetadataReader.ReadNextItemCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_void_p,UInt32,POINTER(UInt32))(5, 'ReadNextItemCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'maxValueBufferLength'),(1, 'valueBufferLength'),)))
-    ISpatialAudioMetadataReader.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataReader
-def _define_ISpatialAudioMetadataWriter_head():
-    class ISpatialAudioMetadataWriter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1b17ca01-2955-444d-a4-30-53-7d-c5-89-a8-44')
-    return ISpatialAudioMetadataWriter
-def _define_ISpatialAudioMetadataWriter():
-    ISpatialAudioMetadataWriter = win32more.Media.Audio.ISpatialAudioMetadataWriter_head
-    ISpatialAudioMetadataWriter.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioMetadataItems_head)(3, 'Open', ((1, 'metadataItems'),)))
-    ISpatialAudioMetadataWriter.WriteNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16)(4, 'WriteNextItem', ((1, 'frameOffset'),)))
-    ISpatialAudioMetadataWriter.WriteNextItemCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,c_void_p,UInt32)(5, 'WriteNextItemCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'valueBufferLength'),)))
-    ISpatialAudioMetadataWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioMetadataWriter
-def _define_ISpatialAudioObject_head():
-    class ISpatialAudioObject(win32more.Media.Audio.ISpatialAudioObjectBase_head):
-        Guid = Guid('dde28967-521b-46e5-8f-00-bd-6f-2b-c8-ab-1d')
-    return ISpatialAudioObject
-def _define_ISpatialAudioObject():
-    ISpatialAudioObject = win32more.Media.Audio.ISpatialAudioObject_head
-    ISpatialAudioObject.SetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single)(7, 'SetPosition', ((1, 'x'),(1, 'y'),(1, 'z'),)))
-    ISpatialAudioObject.SetVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single)(8, 'SetVolume', ((1, 'volume'),)))
-    win32more.Media.Audio.ISpatialAudioObjectBase
-    return ISpatialAudioObject
-def _define_ISpatialAudioObjectBase_head():
-    class ISpatialAudioObjectBase(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cce0b8f2-8d4d-4efb-a8-cf-3d-6e-cf-1c-30-e0')
-    return ISpatialAudioObjectBase
-def _define_ISpatialAudioObjectBase():
-    ISpatialAudioObjectBase = win32more.Media.Audio.ISpatialAudioObjectBase_head
-    ISpatialAudioObjectBase.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32))(3, 'GetBuffer', ((1, 'buffer'),(1, 'bufferLength'),)))
-    ISpatialAudioObjectBase.SetEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'SetEndOfStream', ((1, 'frameCount'),)))
-    ISpatialAudioObjectBase.IsActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'IsActive', ((1, 'isActive'),)))
-    ISpatialAudioObjectBase.GetAudioObjectType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioObjectType))(6, 'GetAudioObjectType', ((1, 'audioObjectType'),)))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioObjectBase
-def _define_ISpatialAudioObjectForHrtf_head():
-    class ISpatialAudioObjectForHrtf(win32more.Media.Audio.ISpatialAudioObjectBase_head):
-        Guid = Guid('d7436ade-1978-4e14-ab-a0-55-5b-d8-eb-83-b4')
-    return ISpatialAudioObjectForHrtf
-def _define_ISpatialAudioObjectForHrtf():
-    ISpatialAudioObjectForHrtf = win32more.Media.Audio.ISpatialAudioObjectForHrtf_head
-    ISpatialAudioObjectForHrtf.SetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single)(7, 'SetPosition', ((1, 'x'),(1, 'y'),(1, 'z'),)))
-    ISpatialAudioObjectForHrtf.SetGain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single)(8, 'SetGain', ((1, 'gain'),)))
-    ISpatialAudioObjectForHrtf.SetOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Single)))(9, 'SetOrientation', ((1, 'orientation'),)))
-    ISpatialAudioObjectForHrtf.SetEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.SpatialAudioHrtfEnvironmentType)(10, 'SetEnvironment', ((1, 'environment'),)))
-    ISpatialAudioObjectForHrtf.SetDistanceDecay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head))(11, 'SetDistanceDecay', ((1, 'distanceDecay'),)))
-    ISpatialAudioObjectForHrtf.SetDirectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head))(12, 'SetDirectivity', ((1, 'directivity'),)))
-    win32more.Media.Audio.ISpatialAudioObjectBase
-    return ISpatialAudioObjectForHrtf
-def _define_ISpatialAudioObjectForMetadataCommands_head():
-    class ISpatialAudioObjectForMetadataCommands(win32more.Media.Audio.ISpatialAudioObjectBase_head):
-        Guid = Guid('0df2c94b-f5f9-472d-af-6b-c4-6e-0a-c9-cd-05')
-    return ISpatialAudioObjectForMetadataCommands
-def _define_ISpatialAudioObjectForMetadataCommands():
-    ISpatialAudioObjectForMetadataCommands = win32more.Media.Audio.ISpatialAudioObjectForMetadataCommands_head
-    ISpatialAudioObjectForMetadataCommands.WriteNextMetadataCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,c_void_p,UInt32)(7, 'WriteNextMetadataCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'valueBufferLength'),)))
-    win32more.Media.Audio.ISpatialAudioObjectBase
-    return ISpatialAudioObjectForMetadataCommands
-def _define_ISpatialAudioObjectForMetadataItems_head():
-    class ISpatialAudioObjectForMetadataItems(win32more.Media.Audio.ISpatialAudioObjectBase_head):
-        Guid = Guid('ddea49ff-3bc0-4377-8a-ad-9f-bc-fd-80-85-66')
-    return ISpatialAudioObjectForMetadataItems
-def _define_ISpatialAudioObjectForMetadataItems():
-    ISpatialAudioObjectForMetadataItems = win32more.Media.Audio.ISpatialAudioObjectForMetadataItems_head
-    ISpatialAudioObjectForMetadataItems.GetSpatialAudioMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head))(7, 'GetSpatialAudioMetadataItems', ((1, 'metadataItems'),)))
-    win32more.Media.Audio.ISpatialAudioObjectBase
-    return ISpatialAudioObjectForMetadataItems
-def _define_ISpatialAudioObjectRenderStream_head():
-    class ISpatialAudioObjectRenderStream(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
-        Guid = Guid('bab5f473-b423-477b-85-f5-b5-a3-32-a0-41-53')
-    return ISpatialAudioObjectRenderStream
-def _define_ISpatialAudioObjectRenderStream():
-    ISpatialAudioObjectRenderStream = win32more.Media.Audio.ISpatialAudioObjectRenderStream_head
-    ISpatialAudioObjectRenderStream.ActivateSpatialAudioObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObject_head))(10, 'ActivateSpatialAudioObject', ((1, 'type'),(1, 'audioObject'),)))
-    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
-    return ISpatialAudioObjectRenderStream
-def _define_ISpatialAudioObjectRenderStreamBase_head():
-    class ISpatialAudioObjectRenderStreamBase(win32more.System.Com.IUnknown_head):
-        Guid = Guid('feaaf403-c1d8-450d-aa-05-e0-cc-ee-75-02-a8')
-    return ISpatialAudioObjectRenderStreamBase
-def _define_ISpatialAudioObjectRenderStreamBase():
-    ISpatialAudioObjectRenderStreamBase = win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head
-    ISpatialAudioObjectRenderStreamBase.GetAvailableDynamicObjectCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetAvailableDynamicObjectCount', ((1, 'value'),)))
-    ISpatialAudioObjectRenderStreamBase.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(4, 'GetService', ((1, 'riid'),(1, 'service'),)))
-    ISpatialAudioObjectRenderStreamBase.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Start', ()))
-    ISpatialAudioObjectRenderStreamBase.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Stop', ()))
-    ISpatialAudioObjectRenderStreamBase.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Reset', ()))
-    ISpatialAudioObjectRenderStreamBase.BeginUpdatingAudioObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(8, 'BeginUpdatingAudioObjects', ((1, 'availableDynamicObjectCount'),(1, 'frameCountPerBuffer'),)))
-    ISpatialAudioObjectRenderStreamBase.EndUpdatingAudioObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'EndUpdatingAudioObjects', ()))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioObjectRenderStreamBase
-def _define_ISpatialAudioObjectRenderStreamForHrtf_head():
-    class ISpatialAudioObjectRenderStreamForHrtf(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
-        Guid = Guid('e08deef9-5363-406e-9f-dc-08-0e-e2-47-bb-e0')
-    return ISpatialAudioObjectRenderStreamForHrtf
-def _define_ISpatialAudioObjectRenderStreamForHrtf():
-    ISpatialAudioObjectRenderStreamForHrtf = win32more.Media.Audio.ISpatialAudioObjectRenderStreamForHrtf_head
-    ISpatialAudioObjectRenderStreamForHrtf.ActivateSpatialAudioObjectForHrtf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForHrtf_head))(10, 'ActivateSpatialAudioObjectForHrtf', ((1, 'type'),(1, 'audioObject'),)))
-    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
-    return ISpatialAudioObjectRenderStreamForHrtf
-def _define_ISpatialAudioObjectRenderStreamForMetadata_head():
-    class ISpatialAudioObjectRenderStreamForMetadata(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
-        Guid = Guid('bbc9c907-48d5-4a2e-a0-c7-f7-f0-d6-7c-1f-b1')
-    return ISpatialAudioObjectRenderStreamForMetadata
-def _define_ISpatialAudioObjectRenderStreamForMetadata():
-    ISpatialAudioObjectRenderStreamForMetadata = win32more.Media.Audio.ISpatialAudioObjectRenderStreamForMetadata_head
-    ISpatialAudioObjectRenderStreamForMetadata.ActivateSpatialAudioObjectForMetadataCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataCommands_head))(10, 'ActivateSpatialAudioObjectForMetadataCommands', ((1, 'type'),(1, 'audioObject'),)))
-    ISpatialAudioObjectRenderStreamForMetadata.ActivateSpatialAudioObjectForMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataItems_head))(11, 'ActivateSpatialAudioObjectForMetadataItems', ((1, 'type'),(1, 'audioObject'),)))
-    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
-    return ISpatialAudioObjectRenderStreamForMetadata
-def _define_ISpatialAudioObjectRenderStreamNotify_head():
-    class ISpatialAudioObjectRenderStreamNotify(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dddf83e6-68d7-4c70-88-3f-a1-83-6a-fb-4a-50')
-    return ISpatialAudioObjectRenderStreamNotify
-def _define_ISpatialAudioObjectRenderStreamNotify():
-    ISpatialAudioObjectRenderStreamNotify = win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
-    ISpatialAudioObjectRenderStreamNotify.OnAvailableDynamicObjectCountChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head,Int64,UInt32)(3, 'OnAvailableDynamicObjectCountChange', ((1, 'sender'),(1, 'hnsComplianceDeadlineTime'),(1, 'availableDynamicObjectCountChange'),)))
-    win32more.System.Com.IUnknown
-    return ISpatialAudioObjectRenderStreamNotify
-def _define_ISubunit_head():
-    class ISubunit(win32more.System.Com.IUnknown_head):
-        Guid = Guid('82149a85-dba6-4487-86-bb-ea-8f-7f-ef-cc-71')
-    return ISubunit
-def _define_ISubunit():
-    ISubunit = win32more.Media.Audio.ISubunit_head
-    win32more.System.Com.IUnknown
-    return ISubunit
-def _define_LPACMDRIVERPROC():
-    return WINFUNCTYPE(win32more.Foundation.LRESULT,UIntPtr,win32more.Media.Audio.HACMDRIVERID,UInt32,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM)
-def _define_LPMIDICALLBACK():
-    return WINFUNCTYPE(Void,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr)
-def _define_LPWAVECALLBACK():
-    return WINFUNCTYPE(Void,win32more.Media.Multimedia.HDRVR,UInt32,UIntPtr,UIntPtr,UIntPtr)
+class IActivateAudioInterfaceAsyncOperation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('72a22d78-cde4-431d-b8-cc-84-3a-71-19-9b-6d')
+    @commethod(3)
+    def GetActivateResult(activateResult: POINTER(win32more.Foundation.HRESULT), activatedInterface: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IActivateAudioInterfaceCompletionHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('41d949ab-9862-444a-80-f6-c2-61-33-4d-a5-eb')
+    @commethod(3)
+    def ActivateCompleted(activateOperation: win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head) -> win32more.Foundation.HRESULT: ...
+class IAudioAmbisonicsControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('28724c91-df35-4856-9f-76-d6-a2-64-13-f3-df')
+    @commethod(3)
+    def SetData(pAmbisonicsParams: POINTER(win32more.Media.Audio.AMBISONICS_PARAMS_head), cbAmbisonicsParams: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetHeadTracking(bEnableHeadTracking: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetHeadTracking(pbEnableHeadTracking: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetRotation(X: Single, Y: Single, Z: Single, W: Single) -> win32more.Foundation.HRESULT: ...
+class IAudioAutoGainControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('85401fd4-6de4-4b9d-98-69-2d-67-53-a8-2f-3c')
+    @commethod(3)
+    def GetEnabled(pbEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetEnabled(bEnable: win32more.Foundation.BOOL, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IAudioBass(c_void_p):
+    extends: win32more.Media.Audio.IPerChannelDbLevel
+    Guid = Guid('a2b1a1d9-4db3-425d-a2-b2-bd-33-5c-b3-e2-e5')
+class IAudioCaptureClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c8adbd64-e71e-48a0-a4-de-18-5c-39-5c-d3-17')
+    @commethod(3)
+    def GetBuffer(ppData: POINTER(c_char_p_no), pNumFramesToRead: POINTER(UInt32), pdwFlags: POINTER(UInt32), pu64DevicePosition: POINTER(UInt64), pu64QPCPosition: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReleaseBuffer(NumFramesRead: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetNextPacketSize(pNumFramesInNextPacket: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAudioChannelConfig(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bb11c46f-ec28-493c-b8-8a-5d-b8-80-62-ce-98')
+    @commethod(3)
+    def SetChannelConfig(dwConfig: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetChannelConfig(pdwConfig: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAudioClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1cb9ad4c-dbfa-4c32-b1-78-c2-f5-68-a7-03-b2')
+    @commethod(3)
+    def Initialize(ShareMode: win32more.Media.Audio.AUDCLNT_SHAREMODE, StreamFlags: UInt32, hnsBufferDuration: Int64, hnsPeriodicity: Int64, pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), AudioSessionGuid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetBufferSize(pNumBufferFrames: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetStreamLatency(phnsLatency: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCurrentPadding(pNumPaddingFrames: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def IsFormatSupported(ShareMode: win32more.Media.Audio.AUDCLNT_SHAREMODE, pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), ppClosestMatch: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetMixFormat(ppDeviceFormat: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDevicePeriod(phnsDefaultDevicePeriod: POINTER(Int64), phnsMinimumDevicePeriod: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Start() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetEventHandle(eventHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetService(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IAudioClient2(c_void_p):
+    extends: win32more.Media.Audio.IAudioClient
+    Guid = Guid('726778cd-f60a-4eda-82-de-e4-76-10-cd-78-aa')
+    @commethod(15)
+    def IsOffloadCapable(Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, pbOffloadCapable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetClientProperties(pProperties: POINTER(win32more.Media.Audio.AudioClientProperties_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetBufferSizeLimits(pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), bEventDriven: win32more.Foundation.BOOL, phnsMinBufferDuration: POINTER(Int64), phnsMaxBufferDuration: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+class IAudioClient3(c_void_p):
+    extends: win32more.Media.Audio.IAudioClient2
+    Guid = Guid('7ed4ee07-8e67-4cd4-8c-1a-2b-7a-59-87-ad-42')
+    @commethod(18)
+    def GetSharedModeEnginePeriod(pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pDefaultPeriodInFrames: POINTER(UInt32), pFundamentalPeriodInFrames: POINTER(UInt32), pMinPeriodInFrames: POINTER(UInt32), pMaxPeriodInFrames: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetCurrentSharedModeEnginePeriod(ppFormat: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)), pCurrentPeriodInFrames: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def InitializeSharedAudioStream(StreamFlags: UInt32, PeriodInFrames: UInt32, pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), AudioSessionGuid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IAudioClientDuckingControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c789d381-a28c-4168-b2-8f-d3-a8-37-92-4d-c3')
+    @commethod(3)
+    def SetDuckingOptionsForCurrentStream(options: win32more.Media.Audio.AUDIO_DUCKING_OPTIONS) -> win32more.Foundation.HRESULT: ...
+class IAudioClock(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cd63314f-3fba-4a1b-81-2c-ef-96-35-87-28-e7')
+    @commethod(3)
+    def GetFrequency(pu64Frequency: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPosition(pu64Position: POINTER(UInt64), pu64QPCPosition: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetCharacteristics(pdwCharacteristics: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAudioClock2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6f49ff73-6727-49ac-a0-08-d9-8c-f5-e7-00-48')
+    @commethod(3)
+    def GetDevicePosition(DevicePosition: POINTER(UInt64), QPCPosition: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class IAudioClockAdjustment(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f6e4c0a0-46d9-4fb8-be-21-57-a3-ef-2b-62-6c')
+    @commethod(3)
+    def SetSampleRate(flSampleRate: Single) -> win32more.Foundation.HRESULT: ...
+class IAudioEffectsChangedNotificationClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a5ded44f-3c5d-4b2b-bd-1e-5d-c1-ee-20-bb-f6')
+    @commethod(3)
+    def OnAudioEffectsChanged() -> win32more.Foundation.HRESULT: ...
+class IAudioEffectsManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4460b3ae-4b44-4527-86-76-75-48-a8-ac-d2-60')
+    @commethod(3)
+    def RegisterAudioEffectsChangedNotificationCallback(client: win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterAudioEffectsChangedNotificationCallback(client: win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetAudioEffects(effects: POINTER(POINTER(win32more.Media.Audio.AUDIO_EFFECT_head)), numEffects: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetAudioEffectState(effectId: Guid, state: win32more.Media.Audio.AUDIO_EFFECT_STATE) -> win32more.Foundation.HRESULT: ...
+class IAudioFormatEnumerator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcdaa858-895a-4a22-a5-eb-67-bd-a5-06-09-6d')
+    @commethod(3)
+    def GetCount(count: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFormat(index: UInt32, format: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+class IAudioInputSelector(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4f03dc02-5e6e-4653-8f-72-a0-30-c1-23-d5-98')
+    @commethod(3)
+    def GetSelection(pnIdSelected: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSelection(nIdSelect: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IAudioLoudness(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7d8b1437-dd53-4350-9c-1b-1e-e2-89-0b-d9-38')
+    @commethod(3)
+    def GetEnabled(pbEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetEnabled(bEnable: win32more.Foundation.BOOL, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IAudioMidrange(c_void_p):
+    extends: win32more.Media.Audio.IPerChannelDbLevel
+    Guid = Guid('5e54b6d7-b44b-40d9-9a-9e-e6-91-d9-ce-6e-df')
+class IAudioMute(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('df45aeea-b74a-4b6b-af-ad-23-66-b6-aa-01-2e')
+    @commethod(3)
+    def SetMute(bMuted: win32more.Foundation.BOOL, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetMute(pbMuted: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IAudioOutputSelector(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bb515f69-94a7-429e-8b-9c-27-1b-3f-11-a3-ab')
+    @commethod(3)
+    def GetSelection(pnIdSelected: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSelection(nIdSelect: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IAudioPeakMeter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dd79923c-0599-45e0-b8-b6-c8-df-7d-b6-e7-96')
+    @commethod(3)
+    def GetChannelCount(pcChannels: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetLevel(nChannel: UInt32, pfLevel: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+class IAudioRenderClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f294acfc-3146-4483-a7-bf-ad-dc-a7-c2-60-e2')
+    @commethod(3)
+    def GetBuffer(NumFramesRequested: UInt32, ppData: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReleaseBuffer(NumFramesWritten: UInt32, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f4b1a599-7266-4319-a8-ca-e7-0a-cb-11-e8-cd')
+    @commethod(3)
+    def GetState(pRetVal: POINTER(win32more.Media.Audio.AudioSessionState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDisplayName(pRetVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetDisplayName(Value: win32more.Foundation.PWSTR, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetIconPath(pRetVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetIconPath(Value: win32more.Foundation.PWSTR, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetGroupingParam(pRetVal: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetGroupingParam(Override: POINTER(Guid), EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def RegisterAudioSessionNotification(NewNotifications: win32more.Media.Audio.IAudioSessionEvents_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def UnregisterAudioSessionNotification(NewNotifications: win32more.Media.Audio.IAudioSessionEvents_head) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionControl2(c_void_p):
+    extends: win32more.Media.Audio.IAudioSessionControl
+    Guid = Guid('bfb7ff88-7239-4fc9-8f-a2-07-c9-50-be-9c-6d')
+    @commethod(12)
+    def GetSessionIdentifier(pRetVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetSessionInstanceIdentifier(pRetVal: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetProcessId(pRetVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def IsSystemSoundsSession() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetDuckingPreference(optOut: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionEnumerator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e2f5bb11-0570-40ca-ac-dd-3a-a0-12-77-de-e8')
+    @commethod(3)
+    def GetCount(SessionCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSession(SessionCount: Int32, Session: POINTER(win32more.Media.Audio.IAudioSessionControl_head)) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('24918acc-64b3-37c1-8c-a9-74-a6-6e-99-57-a8')
+    @commethod(3)
+    def OnDisplayNameChanged(NewDisplayName: win32more.Foundation.PWSTR, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnIconPathChanged(NewIconPath: win32more.Foundation.PWSTR, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnSimpleVolumeChanged(NewVolume: Single, NewMute: win32more.Foundation.BOOL, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnChannelVolumeChanged(ChannelCount: UInt32, NewChannelVolumeArray: POINTER(Single), ChangedChannel: UInt32, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def OnGroupingParamChanged(NewGroupingParam: POINTER(Guid), EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnStateChanged(NewState: win32more.Media.Audio.AudioSessionState) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def OnSessionDisconnected(DisconnectReason: win32more.Media.Audio.AudioSessionDisconnectReason) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bfa971f1-4d5e-40bb-93-5e-96-70-39-bf-be-e4')
+    @commethod(3)
+    def GetAudioSessionControl(AudioSessionGuid: POINTER(Guid), StreamFlags: UInt32, SessionControl: POINTER(win32more.Media.Audio.IAudioSessionControl_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSimpleAudioVolume(AudioSessionGuid: POINTER(Guid), StreamFlags: UInt32, AudioVolume: POINTER(win32more.Media.Audio.ISimpleAudioVolume_head)) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionManager2(c_void_p):
+    extends: win32more.Media.Audio.IAudioSessionManager
+    Guid = Guid('77aa99a0-1bd6-484f-8b-c7-2c-65-4c-9a-9b-6f')
+    @commethod(5)
+    def GetSessionEnumerator(SessionEnum: POINTER(win32more.Media.Audio.IAudioSessionEnumerator_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RegisterSessionNotification(SessionNotification: win32more.Media.Audio.IAudioSessionNotification_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UnregisterSessionNotification(SessionNotification: win32more.Media.Audio.IAudioSessionNotification_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RegisterDuckNotification(sessionID: win32more.Foundation.PWSTR, duckNotification: win32more.Media.Audio.IAudioVolumeDuckNotification_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def UnregisterDuckNotification(duckNotification: win32more.Media.Audio.IAudioVolumeDuckNotification_head) -> win32more.Foundation.HRESULT: ...
+class IAudioSessionNotification(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('641dd20b-4d41-49cc-ab-a3-17-4b-94-77-bb-08')
+    @commethod(3)
+    def OnSessionCreated(NewSession: win32more.Media.Audio.IAudioSessionControl_head) -> win32more.Foundation.HRESULT: ...
+class IAudioStateMonitor(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('63bd8738-e30d-4c77-bf-5c-83-4e-87-c6-57-e2')
+    @commethod(3)
+    def RegisterCallback(callback: win32more.Media.Audio.PAudioStateMonitorCallback, context: c_void_p, registration: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterCallback(registration: Int64) -> Void: ...
+    @commethod(5)
+    def GetSoundLevel() -> win32more.Media.Audio.AudioStateMonitorSoundLevel: ...
+class IAudioStreamVolume(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('93014887-242d-4068-8a-15-cf-5e-93-b9-0f-e3')
+    @commethod(3)
+    def GetChannelCount(pdwCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetChannelVolume(dwIndex: UInt32, fLevel: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetChannelVolume(dwIndex: UInt32, pfLevel: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetAllVolumes(dwCount: UInt32, pfVolumes: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetAllVolumes(dwCount: UInt32, pfVolumes: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+class IAudioSystemEffectsPropertyChangeNotificationClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('20049d40-56d5-400e-a2-ef-38-55-99-fe-ed-49')
+    @commethod(3)
+    def OnPropertyChanged(type: win32more.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE, key: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY) -> win32more.Foundation.HRESULT: ...
+class IAudioSystemEffectsPropertyStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('302ae7f9-d7e0-43e4-97-1b-1f-82-93-61-3d-2a')
+    @commethod(3)
+    def OpenDefaultPropertyStore(stgmAccess: UInt32, propStore: POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OpenUserPropertyStore(stgmAccess: UInt32, propStore: POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OpenVolatilePropertyStore(stgmAccess: UInt32, propStore: POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ResetUserPropertyStore() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ResetVolatilePropertyStore() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RegisterPropertyChangeNotification(callback: win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def UnregisterPropertyChangeNotification(callback: win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+class IAudioTreble(c_void_p):
+    extends: win32more.Media.Audio.IPerChannelDbLevel
+    Guid = Guid('0a717812-694e-4907-b7-4b-ba-fa-5c-fd-ca-7b')
+class IAudioVolumeDuckNotification(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c3b284d4-6d39-4359-b3-cf-b5-6d-db-3b-b3-9c')
+    @commethod(3)
+    def OnVolumeDuckNotification(sessionID: win32more.Foundation.PWSTR, countCommunicationSessions: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnVolumeUnduckNotification(sessionID: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IAudioVolumeLevel(c_void_p):
+    extends: win32more.Media.Audio.IPerChannelDbLevel
+    Guid = Guid('7fb7b48f-531d-44a2-bc-b3-5a-d5-a1-34-b3-dc')
+class IChannelAudioVolume(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1c158861-b533-4b30-b1-cf-e8-53-e5-1c-59-b8')
+    @commethod(3)
+    def GetChannelCount(pdwCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetChannelVolume(dwIndex: UInt32, fLevel: Single, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetChannelVolume(dwIndex: UInt32, pfLevel: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetAllVolumes(dwCount: UInt32, pfVolumes: POINTER(Single), EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetAllVolumes(dwCount: UInt32, pfVolumes: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+class IConnector(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9c2c4058-23f5-41de-87-7a-df-3a-f2-36-a0-9e')
+    @commethod(3)
+    def GetType(pType: POINTER(win32more.Media.Audio.ConnectorType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDataFlow(pFlow: POINTER(win32more.Media.Audio.DataFlow)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ConnectTo(pConnectTo: win32more.Media.Audio.IConnector_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Disconnect() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def IsConnected(pbConnected: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetConnectedTo(ppConTo: POINTER(win32more.Media.Audio.IConnector_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetConnectorIdConnectedTo(ppwstrConnectorId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDeviceIdConnectedTo(ppwstrDeviceId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IControlChangeNotify(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a09513ed-c709-4d21-bd-7b-5f-34-c4-7f-39-47')
+    @commethod(3)
+    def OnNotify(dwSenderProcessId: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IControlInterface(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('45d37c3f-5140-444a-ae-24-40-07-89-f3-cb-f3')
+    @commethod(3)
+    def GetName(ppwstrName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetIID(pIID: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IDeviceSpecificProperty(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3b22bcbf-2586-4af0-85-83-20-5d-39-1b-80-7c')
+    @commethod(3)
+    def GetType(pVType: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetValue(pvValue: c_void_p, pcbValue: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetValue(pvValue: c_void_p, cbValue: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Get4BRange(plMin: POINTER(Int32), plMax: POINTER(Int32), plStepping: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IDeviceTopology(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2a07407e-6497-4a18-97-87-32-f7-9b-d0-d9-8f')
+    @commethod(3)
+    def GetConnectorCount(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetConnector(nIndex: UInt32, ppConnector: POINTER(win32more.Media.Audio.IConnector_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetSubunitCount(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSubunit(nIndex: UInt32, ppSubunit: POINTER(win32more.Media.Audio.ISubunit_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPartById(nId: UInt32, ppPart: POINTER(win32more.Media.Audio.IPart_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetDeviceId(ppwstrDeviceId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSignalPath(pIPartFrom: win32more.Media.Audio.IPart_head, pIPartTo: win32more.Media.Audio.IPart_head, bRejectMixedPaths: win32more.Foundation.BOOL, ppParts: POINTER(win32more.Media.Audio.IPartsList_head)) -> win32more.Foundation.HRESULT: ...
+class IMessageFilter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000016-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def HandleInComingCall(dwCallType: UInt32, htaskCaller: win32more.Media.HTASK, dwTickCount: UInt32, lpInterfaceInfo: POINTER(win32more.System.Com.INTERFACEINFO_head)) -> UInt32: ...
+    @commethod(4)
+    def RetryRejectedCall(htaskCallee: win32more.Media.HTASK, dwTickCount: UInt32, dwRejectType: UInt32) -> UInt32: ...
+    @commethod(5)
+    def MessagePending(htaskCallee: win32more.Media.HTASK, dwTickCount: UInt32, dwPendingType: UInt32) -> UInt32: ...
+class IMMDevice(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d666063f-1587-4e43-81-f1-b9-48-e8-07-36-3f')
+    @commethod(3)
+    def Activate(iid: POINTER(Guid), dwClsCtx: win32more.System.Com.CLSCTX, pActivationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppInterface: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OpenPropertyStore(stgmAccess: win32more.System.Com.STGM, ppProperties: POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetId(ppstrId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetState(pdwState: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IMMDeviceActivator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3b0d0ea4-d0a9-4b0e-93-5b-09-51-67-46-fa-c0')
+    @commethod(3)
+    def Activate(iid: POINTER(Guid), pDevice: win32more.Media.Audio.IMMDevice_head, pActivationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppInterface: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IMMDeviceCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0bd7a1be-7a1a-44db-83-97-cc-53-92-38-7b-5e')
+    @commethod(3)
+    def GetCount(pcDevices: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Item(nDevice: UInt32, ppDevice: POINTER(win32more.Media.Audio.IMMDevice_head)) -> win32more.Foundation.HRESULT: ...
+class IMMDeviceEnumerator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a95664d2-9614-4f35-a7-46-de-8d-b6-36-17-e6')
+    @commethod(3)
+    def EnumAudioEndpoints(dataFlow: win32more.Media.Audio.EDataFlow, dwStateMask: UInt32, ppDevices: POINTER(win32more.Media.Audio.IMMDeviceCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDefaultAudioEndpoint(dataFlow: win32more.Media.Audio.EDataFlow, role: win32more.Media.Audio.ERole, ppEndpoint: POINTER(win32more.Media.Audio.IMMDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetDevice(pwstrId: win32more.Foundation.PWSTR, ppDevice: POINTER(win32more.Media.Audio.IMMDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RegisterEndpointNotificationCallback(pClient: win32more.Media.Audio.IMMNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UnregisterEndpointNotificationCallback(pClient: win32more.Media.Audio.IMMNotificationClient_head) -> win32more.Foundation.HRESULT: ...
+class IMMEndpoint(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1be09788-6894-4089-85-86-9a-2a-6c-26-5a-c5')
+    @commethod(3)
+    def GetDataFlow(pDataFlow: POINTER(win32more.Media.Audio.EDataFlow)) -> win32more.Foundation.HRESULT: ...
+class IMMNotificationClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7991eec9-7e89-4d85-83-90-6c-70-3c-ec-60-c0')
+    @commethod(3)
+    def OnDeviceStateChanged(pwstrDeviceId: win32more.Foundation.PWSTR, dwNewState: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnDeviceAdded(pwstrDeviceId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnDeviceRemoved(pwstrDeviceId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnDefaultDeviceChanged(flow: win32more.Media.Audio.EDataFlow, role: win32more.Media.Audio.ERole, pwstrDefaultDeviceId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def OnPropertyValueChanged(pwstrDeviceId: win32more.Foundation.PWSTR, key: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY) -> win32more.Foundation.HRESULT: ...
+class IPart(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ae2de0e4-5bca-4f2d-aa-46-5d-13-f8-fd-b3-a9')
+    @commethod(3)
+    def GetName(ppwstrName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetLocalId(pnId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetGlobalId(ppwstrGlobalId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetPartType(pPartType: POINTER(win32more.Media.Audio.PartType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetSubType(pSubType: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetControlInterfaceCount(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetControlInterface(nIndex: UInt32, ppInterfaceDesc: POINTER(win32more.Media.Audio.IControlInterface_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def EnumPartsIncoming(ppParts: POINTER(win32more.Media.Audio.IPartsList_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EnumPartsOutgoing(ppParts: POINTER(win32more.Media.Audio.IPartsList_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetTopologyObject(ppTopology: POINTER(win32more.Media.Audio.IDeviceTopology_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Activate(dwClsContext: UInt32, refiid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def RegisterControlChangeCallback(riid: POINTER(Guid), pNotify: win32more.Media.Audio.IControlChangeNotify_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def UnregisterControlChangeCallback(pNotify: win32more.Media.Audio.IControlChangeNotify_head) -> win32more.Foundation.HRESULT: ...
+class IPartsList(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6daa848c-5eb0-45cc-ae-a5-99-8a-2c-da-1f-fb')
+    @commethod(3)
+    def GetCount(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPart(nIndex: UInt32, ppPart: POINTER(win32more.Media.Audio.IPart_head)) -> win32more.Foundation.HRESULT: ...
+class IPerChannelDbLevel(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c2f8e001-f205-4bc9-99-bc-c1-3b-1e-04-8c-cb')
+    @commethod(3)
+    def GetChannelCount(pcChannels: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetLevelRange(nChannel: UInt32, pfMinLevelDB: POINTER(Single), pfMaxLevelDB: POINTER(Single), pfStepping: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetLevel(nChannel: UInt32, pfLevelDB: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetLevel(nChannel: UInt32, fLevelDB: Single, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetLevelUniform(fLevelDB: Single, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetLevelAllChannels(aLevelsDB: POINTER(Single), cChannels: UInt32, pguidEventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class ISimpleAudioVolume(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('87ce5498-68d6-44e5-92-15-6d-a4-7e-f8-83-d8')
+    @commethod(3)
+    def SetMasterVolume(fLevel: Single, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetMasterVolume(pfLevel: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetMute(bMute: win32more.Foundation.BOOL, EventContext: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetMute(pbMute: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bbf8e066-aaaa-49be-9a-4d-fd-2a-85-8e-a2-7f')
+    @commethod(3)
+    def GetStaticObjectPosition(type: win32more.Media.Audio.AudioObjectType, x: POINTER(Single), y: POINTER(Single), z: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetNativeStaticObjectTypeMask(mask: POINTER(win32more.Media.Audio.AudioObjectType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetMaxDynamicObjectCount(value: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSupportedAudioObjectFormatEnumerator(enumerator: POINTER(win32more.Media.Audio.IAudioFormatEnumerator_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetMaxFrameCount(objectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), frameCountPerBuffer: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def IsAudioObjectFormatSupported(objectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def IsSpatialAudioStreamAvailable(streamUuid: POINTER(Guid), auxiliaryInfo: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ActivateSpatialAudioStream(activationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), riid: POINTER(Guid), stream: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioClient2(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioClient
+    Guid = Guid('caabe452-a66a-4bee-a9-3e-e3-20-46-3f-6a-53')
+    @commethod(11)
+    def IsOffloadCapable(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, isOffloadCapable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetMaxFrameCountForCategory(category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY, offloadEnabled: win32more.Foundation.BOOL, objectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), frameCountPerBuffer: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataClient(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('777d4a3b-f6ff-4a26-85-dc-68-d7-cd-ed-a1-d4')
+    @commethod(3)
+    def ActivateSpatialAudioMetadataItems(maxItemCount: UInt16, frameCount: UInt16, metadataItemsBuffer: POINTER(win32more.Media.Audio.ISpatialAudioMetadataItemsBuffer_head), metadataItems: POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSpatialAudioMetadataItemsBufferLength(maxItemCount: UInt16, bufferLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ActivateSpatialAudioMetadataWriter(overflowMode: win32more.Media.Audio.SpatialAudioMetadataWriterOverflowMode, metadataWriter: POINTER(win32more.Media.Audio.ISpatialAudioMetadataWriter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ActivateSpatialAudioMetadataCopier(metadataCopier: POINTER(win32more.Media.Audio.ISpatialAudioMetadataCopier_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ActivateSpatialAudioMetadataReader(metadataReader: POINTER(win32more.Media.Audio.ISpatialAudioMetadataReader_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataCopier(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d224b233-e251-4fd0-9c-a2-d5-ec-f9-a6-84-04')
+    @commethod(3)
+    def Open(metadataItems: win32more.Media.Audio.ISpatialAudioMetadataItems_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CopyMetadataForFrames(copyFrameCount: UInt16, copyMode: win32more.Media.Audio.SpatialAudioMetadataCopyMode, dstMetadataItems: win32more.Media.Audio.ISpatialAudioMetadataItems_head, itemsCopied: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataItems(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bcd7c78f-3098-4f22-b5-47-a2-f2-5a-38-12-69')
+    @commethod(3)
+    def GetFrameCount(frameCount: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetItemCount(itemCount: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetMaxItemCount(maxItemCount: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetMaxValueBufferLength(maxValueBufferLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetInfo(info: POINTER(win32more.Media.Audio.SpatialAudioMetadataItemsInfo_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataItemsBuffer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('42640a16-e1bd-42d9-9f-f6-03-1a-b7-1a-2d-ba')
+    @commethod(3)
+    def AttachToBuffer(buffer: c_char_p_no, bufferLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AttachToPopulatedBuffer(buffer: c_char_p_no, bufferLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DetachBuffer() -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataReader(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b78e86a2-31d9-4c32-94-d2-7d-f4-0f-c7-eb-ec')
+    @commethod(3)
+    def Open(metadataItems: win32more.Media.Audio.ISpatialAudioMetadataItems_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReadNextItem(commandCount: c_char_p_no, frameOffset: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ReadNextItemCommand(commandID: c_char_p_no, valueBuffer: c_void_p, maxValueBufferLength: UInt32, valueBufferLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioMetadataWriter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1b17ca01-2955-444d-a4-30-53-7d-c5-89-a8-44')
+    @commethod(3)
+    def Open(metadataItems: win32more.Media.Audio.ISpatialAudioMetadataItems_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def WriteNextItem(frameOffset: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def WriteNextItemCommand(commandID: Byte, valueBuffer: c_void_p, valueBufferLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObject(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectBase
+    Guid = Guid('dde28967-521b-46e5-8f-00-bd-6f-2b-c8-ab-1d')
+    @commethod(7)
+    def SetPosition(x: Single, y: Single, z: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetVolume(volume: Single) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectBase(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cce0b8f2-8d4d-4efb-a8-cf-3d-6e-cf-1c-30-e0')
+    @commethod(3)
+    def GetBuffer(buffer: POINTER(c_char_p_no), bufferLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetEndOfStream(frameCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IsActive(isActive: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetAudioObjectType(audioObjectType: POINTER(win32more.Media.Audio.AudioObjectType)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectForHrtf(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectBase
+    Guid = Guid('d7436ade-1978-4e14-ab-a0-55-5b-d8-eb-83-b4')
+    @commethod(7)
+    def SetPosition(x: Single, y: Single, z: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetGain(gain: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetOrientation(orientation: POINTER(POINTER(Single))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetEnvironment(environment: win32more.Media.Audio.SpatialAudioHrtfEnvironmentType) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetDistanceDecay(distanceDecay: POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetDirectivity(directivity: POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectForMetadataCommands(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectBase
+    Guid = Guid('0df2c94b-f5f9-472d-af-6b-c4-6e-0a-c9-cd-05')
+    @commethod(7)
+    def WriteNextMetadataCommand(commandID: Byte, valueBuffer: c_void_p, valueBufferLength: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectForMetadataItems(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectBase
+    Guid = Guid('ddea49ff-3bc0-4377-8a-ad-9f-bc-fd-80-85-66')
+    @commethod(7)
+    def GetSpatialAudioMetadataItems(metadataItems: POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectRenderStream(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
+    Guid = Guid('bab5f473-b423-477b-85-f5-b5-a3-32-a0-41-53')
+    @commethod(10)
+    def ActivateSpatialAudioObject(type: win32more.Media.Audio.AudioObjectType, audioObject: POINTER(win32more.Media.Audio.ISpatialAudioObject_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectRenderStreamBase(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('feaaf403-c1d8-450d-aa-05-e0-cc-ee-75-02-a8')
+    @commethod(3)
+    def GetAvailableDynamicObjectCount(value: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetService(riid: POINTER(Guid), service: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Start() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def BeginUpdatingAudioObjects(availableDynamicObjectCount: POINTER(UInt32), frameCountPerBuffer: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EndUpdatingAudioObjects() -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectRenderStreamForHrtf(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
+    Guid = Guid('e08deef9-5363-406e-9f-dc-08-0e-e2-47-bb-e0')
+    @commethod(10)
+    def ActivateSpatialAudioObjectForHrtf(type: win32more.Media.Audio.AudioObjectType, audioObject: POINTER(win32more.Media.Audio.ISpatialAudioObjectForHrtf_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectRenderStreamForMetadata(c_void_p):
+    extends: win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
+    Guid = Guid('bbc9c907-48d5-4a2e-a0-c7-f7-f0-d6-7c-1f-b1')
+    @commethod(10)
+    def ActivateSpatialAudioObjectForMetadataCommands(type: win32more.Media.Audio.AudioObjectType, audioObject: POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataCommands_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ActivateSpatialAudioObjectForMetadataItems(type: win32more.Media.Audio.AudioObjectType, audioObject: POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataItems_head)) -> win32more.Foundation.HRESULT: ...
+class ISpatialAudioObjectRenderStreamNotify(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dddf83e6-68d7-4c70-88-3f-a1-83-6a-fb-4a-50')
+    @commethod(3)
+    def OnAvailableDynamicObjectCountChange(sender: win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head, hnsComplianceDeadlineTime: Int64, availableDynamicObjectCountChange: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISubunit(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('82149a85-dba6-4487-86-bb-ea-8f-7f-ef-cc-71')
+@winfunctype_pointer
+def LPACMDRIVERPROC(param0: UIntPtr, param1: win32more.Media.Audio.HACMDRIVERID, param2: UInt32, param3: win32more.Foundation.LPARAM, param4: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype_pointer
+def LPMIDICALLBACK(hdrvr: win32more.Media.Multimedia.HDRVR, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
+@winfunctype_pointer
+def LPWAVECALLBACK(hdrvr: win32more.Media.Multimedia.HDRVR, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
 MIDI_WAVE_OPEN_TYPE = UInt32
-CALLBACK_TYPEMASK = 458752
-CALLBACK_NULL = 0
-CALLBACK_WINDOW = 65536
-CALLBACK_TASK = 131072
-CALLBACK_FUNCTION = 196608
-CALLBACK_THREAD = 131072
-CALLBACK_EVENT = 327680
-WAVE_FORMAT_QUERY = 1
-WAVE_ALLOWSYNC = 2
-WAVE_MAPPED = 4
-WAVE_FORMAT_DIRECT = 8
-WAVE_FORMAT_DIRECT_QUERY = 9
-WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE = 16
-MIDI_IO_STATUS = 32
-def _define_MIDIEVENT_head():
-    class MIDIEVENT(Structure):
-        pass
-    return MIDIEVENT
-def _define_MIDIEVENT():
-    MIDIEVENT = win32more.Media.Audio.MIDIEVENT_head
-    MIDIEVENT._pack_ = 1
-    MIDIEVENT._fields_ = [
-        ('dwDeltaTime', UInt32),
-        ('dwStreamID', UInt32),
-        ('dwEvent', UInt32),
-        ('dwParms', UInt32 * 1),
-    ]
-    return MIDIEVENT
-def _define_MIDIHDR_head():
-    class MIDIHDR(Structure):
-        pass
-    return MIDIHDR
-def _define_MIDIHDR():
-    MIDIHDR = win32more.Media.Audio.MIDIHDR_head
-    MIDIHDR._pack_ = 1
-    MIDIHDR._fields_ = [
-        ('lpData', win32more.Foundation.PSTR),
-        ('dwBufferLength', UInt32),
-        ('dwBytesRecorded', UInt32),
-        ('dwUser', UIntPtr),
-        ('dwFlags', UInt32),
-        ('lpNext', POINTER(win32more.Media.Audio.MIDIHDR_head)),
-        ('reserved', UIntPtr),
-        ('dwOffset', UInt32),
-        ('dwReserved', UIntPtr * 8),
-    ]
-    return MIDIHDR
-def _define_MIDIINCAPS2A_head():
-    class MIDIINCAPS2A(Structure):
-        pass
-    return MIDIINCAPS2A
-def _define_MIDIINCAPS2A():
-    MIDIINCAPS2A = win32more.Media.Audio.MIDIINCAPS2A_head
-    MIDIINCAPS2A._pack_ = 1
-    MIDIINCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIDIINCAPS2A
-def _define_MIDIINCAPS2W_head():
-    class MIDIINCAPS2W(Structure):
-        pass
-    return MIDIINCAPS2W
-def _define_MIDIINCAPS2W():
-    MIDIINCAPS2W = win32more.Media.Audio.MIDIINCAPS2W_head
-    MIDIINCAPS2W._pack_ = 1
-    MIDIINCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIDIINCAPS2W
-def _define_MIDIINCAPSA_head():
-    class MIDIINCAPSA(Structure):
-        pass
-    return MIDIINCAPSA
-def _define_MIDIINCAPSA():
-    MIDIINCAPSA = win32more.Media.Audio.MIDIINCAPSA_head
-    MIDIINCAPSA._pack_ = 1
-    MIDIINCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwSupport', UInt32),
-    ]
-    return MIDIINCAPSA
-def _define_MIDIINCAPSW_head():
-    class MIDIINCAPSW(Structure):
-        pass
-    return MIDIINCAPSW
-def _define_MIDIINCAPSW():
-    MIDIINCAPSW = win32more.Media.Audio.MIDIINCAPSW_head
-    MIDIINCAPSW._pack_ = 1
-    MIDIINCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwSupport', UInt32),
-    ]
-    return MIDIINCAPSW
-def _define_MIDIOUTCAPS2A_head():
-    class MIDIOUTCAPS2A(Structure):
-        pass
-    return MIDIOUTCAPS2A
-def _define_MIDIOUTCAPS2A():
-    MIDIOUTCAPS2A = win32more.Media.Audio.MIDIOUTCAPS2A_head
-    MIDIOUTCAPS2A._pack_ = 1
-    MIDIOUTCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('wTechnology', UInt16),
-        ('wVoices', UInt16),
-        ('wNotes', UInt16),
-        ('wChannelMask', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIDIOUTCAPS2A
-def _define_MIDIOUTCAPS2W_head():
-    class MIDIOUTCAPS2W(Structure):
-        pass
-    return MIDIOUTCAPS2W
-def _define_MIDIOUTCAPS2W():
-    MIDIOUTCAPS2W = win32more.Media.Audio.MIDIOUTCAPS2W_head
-    MIDIOUTCAPS2W._pack_ = 1
-    MIDIOUTCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('wTechnology', UInt16),
-        ('wVoices', UInt16),
-        ('wNotes', UInt16),
-        ('wChannelMask', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIDIOUTCAPS2W
-def _define_MIDIOUTCAPSA_head():
-    class MIDIOUTCAPSA(Structure):
-        pass
-    return MIDIOUTCAPSA
-def _define_MIDIOUTCAPSA():
-    MIDIOUTCAPSA = win32more.Media.Audio.MIDIOUTCAPSA_head
-    MIDIOUTCAPSA._pack_ = 1
-    MIDIOUTCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('wTechnology', UInt16),
-        ('wVoices', UInt16),
-        ('wNotes', UInt16),
-        ('wChannelMask', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return MIDIOUTCAPSA
-def _define_MIDIOUTCAPSW_head():
-    class MIDIOUTCAPSW(Structure):
-        pass
-    return MIDIOUTCAPSW
-def _define_MIDIOUTCAPSW():
-    MIDIOUTCAPSW = win32more.Media.Audio.MIDIOUTCAPSW_head
-    MIDIOUTCAPSW._pack_ = 1
-    MIDIOUTCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('wTechnology', UInt16),
-        ('wVoices', UInt16),
-        ('wNotes', UInt16),
-        ('wChannelMask', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return MIDIOUTCAPSW
-def _define_MIDIPROPTEMPO_head():
-    class MIDIPROPTEMPO(Structure):
-        pass
-    return MIDIPROPTEMPO
-def _define_MIDIPROPTEMPO():
-    MIDIPROPTEMPO = win32more.Media.Audio.MIDIPROPTEMPO_head
-    MIDIPROPTEMPO._pack_ = 1
-    MIDIPROPTEMPO._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwTempo', UInt32),
-    ]
-    return MIDIPROPTEMPO
-def _define_MIDIPROPTIMEDIV_head():
-    class MIDIPROPTIMEDIV(Structure):
-        pass
-    return MIDIPROPTIMEDIV
-def _define_MIDIPROPTIMEDIV():
-    MIDIPROPTIMEDIV = win32more.Media.Audio.MIDIPROPTIMEDIV_head
-    MIDIPROPTIMEDIV._pack_ = 1
-    MIDIPROPTIMEDIV._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwTimeDiv', UInt32),
-    ]
-    return MIDIPROPTIMEDIV
-def _define_MIDISTRMBUFFVER_head():
-    class MIDISTRMBUFFVER(Structure):
-        pass
-    return MIDISTRMBUFFVER
-def _define_MIDISTRMBUFFVER():
-    MIDISTRMBUFFVER = win32more.Media.Audio.MIDISTRMBUFFVER_head
-    MIDISTRMBUFFVER._pack_ = 1
-    MIDISTRMBUFFVER._fields_ = [
-        ('dwVersion', UInt32),
-        ('dwMid', UInt32),
-        ('dwOEMVersion', UInt32),
-    ]
-    return MIDISTRMBUFFVER
-def _define_MIXERCAPS2A_head():
-    class MIXERCAPS2A(Structure):
-        pass
-    return MIXERCAPS2A
-def _define_MIXERCAPS2A():
-    MIXERCAPS2A = win32more.Media.Audio.MIXERCAPS2A_head
-    MIXERCAPS2A._pack_ = 1
-    MIXERCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('fdwSupport', UInt32),
-        ('cDestinations', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIXERCAPS2A
-def _define_MIXERCAPS2W_head():
-    class MIXERCAPS2W(Structure):
-        pass
-    return MIXERCAPS2W
-def _define_MIXERCAPS2W():
-    MIXERCAPS2W = win32more.Media.Audio.MIXERCAPS2W_head
-    MIXERCAPS2W._pack_ = 1
-    MIXERCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('fdwSupport', UInt32),
-        ('cDestinations', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return MIXERCAPS2W
-def _define_MIXERCAPSA_head():
-    class MIXERCAPSA(Structure):
-        pass
-    return MIXERCAPSA
-def _define_MIXERCAPSA():
-    MIXERCAPSA = win32more.Media.Audio.MIXERCAPSA_head
-    MIXERCAPSA._pack_ = 1
-    MIXERCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('fdwSupport', UInt32),
-        ('cDestinations', UInt32),
-    ]
-    return MIXERCAPSA
-def _define_MIXERCAPSW_head():
-    class MIXERCAPSW(Structure):
-        pass
-    return MIXERCAPSW
-def _define_MIXERCAPSW():
-    MIXERCAPSW = win32more.Media.Audio.MIXERCAPSW_head
-    MIXERCAPSW._pack_ = 1
-    MIXERCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('fdwSupport', UInt32),
-        ('cDestinations', UInt32),
-    ]
-    return MIXERCAPSW
-def _define_MIXERCONTROLA_head():
-    class MIXERCONTROLA(Structure):
-        pass
-    return MIXERCONTROLA
-def _define_MIXERCONTROLA():
-    MIXERCONTROLA = win32more.Media.Audio.MIXERCONTROLA_head
-    class MIXERCONTROLA__Bounds_e__Union(Union):
-        pass
-    class MIXERCONTROLA__Bounds_e__Union__Anonymous1_e__Struct(Structure):
-        pass
-    MIXERCONTROLA__Bounds_e__Union__Anonymous1_e__Struct._pack_ = 1
-    MIXERCONTROLA__Bounds_e__Union__Anonymous1_e__Struct._fields_ = [
-        ('lMinimum', Int32),
-        ('lMaximum', Int32),
-    ]
-    class MIXERCONTROLA__Bounds_e__Union__Anonymous2_e__Struct(Structure):
-        pass
-    MIXERCONTROLA__Bounds_e__Union__Anonymous2_e__Struct._pack_ = 1
-    MIXERCONTROLA__Bounds_e__Union__Anonymous2_e__Struct._fields_ = [
-        ('dwMinimum', UInt32),
-        ('dwMaximum', UInt32),
-    ]
-    MIXERCONTROLA__Bounds_e__Union._pack_ = 1
-    MIXERCONTROLA__Bounds_e__Union._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    MIXERCONTROLA__Bounds_e__Union._fields_ = [
-        ('Anonymous1', MIXERCONTROLA__Bounds_e__Union__Anonymous1_e__Struct),
-        ('Anonymous2', MIXERCONTROLA__Bounds_e__Union__Anonymous2_e__Struct),
-        ('dwReserved', UInt32 * 6),
-    ]
-    class MIXERCONTROLA__Metrics_e__Union(Union):
-        pass
-    MIXERCONTROLA__Metrics_e__Union._pack_ = 1
-    MIXERCONTROLA__Metrics_e__Union._fields_ = [
-        ('cSteps', UInt32),
-        ('cbCustomData', UInt32),
-        ('dwReserved', UInt32 * 6),
-    ]
-    MIXERCONTROLA._pack_ = 1
-    MIXERCONTROLA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwControlID', UInt32),
-        ('dwControlType', UInt32),
-        ('fdwControl', UInt32),
-        ('cMultipleItems', UInt32),
-        ('szShortName', win32more.Foundation.CHAR * 16),
-        ('szName', win32more.Foundation.CHAR * 64),
-        ('Bounds', MIXERCONTROLA__Bounds_e__Union),
-        ('Metrics', MIXERCONTROLA__Metrics_e__Union),
-    ]
-    return MIXERCONTROLA
-def _define_MIXERCONTROLDETAILS_head():
-    class MIXERCONTROLDETAILS(Structure):
-        pass
-    return MIXERCONTROLDETAILS
-def _define_MIXERCONTROLDETAILS():
-    MIXERCONTROLDETAILS = win32more.Media.Audio.MIXERCONTROLDETAILS_head
-    class MIXERCONTROLDETAILS__Anonymous_e__Union(Union):
-        pass
-    MIXERCONTROLDETAILS__Anonymous_e__Union._pack_ = 1
-    MIXERCONTROLDETAILS__Anonymous_e__Union._fields_ = [
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('cMultipleItems', UInt32),
-    ]
-    MIXERCONTROLDETAILS._pack_ = 1
-    MIXERCONTROLDETAILS._anonymous_ = [
-        'Anonymous',
-    ]
-    MIXERCONTROLDETAILS._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwControlID', UInt32),
-        ('cChannels', UInt32),
-        ('Anonymous', MIXERCONTROLDETAILS__Anonymous_e__Union),
-        ('cbDetails', UInt32),
-        ('paDetails', c_void_p),
-    ]
-    return MIXERCONTROLDETAILS
-def _define_MIXERCONTROLDETAILS_BOOLEAN_head():
-    class MIXERCONTROLDETAILS_BOOLEAN(Structure):
-        pass
-    return MIXERCONTROLDETAILS_BOOLEAN
-def _define_MIXERCONTROLDETAILS_BOOLEAN():
-    MIXERCONTROLDETAILS_BOOLEAN = win32more.Media.Audio.MIXERCONTROLDETAILS_BOOLEAN_head
-    MIXERCONTROLDETAILS_BOOLEAN._pack_ = 1
-    MIXERCONTROLDETAILS_BOOLEAN._fields_ = [
-        ('fValue', Int32),
-    ]
-    return MIXERCONTROLDETAILS_BOOLEAN
-def _define_MIXERCONTROLDETAILS_LISTTEXTA_head():
-    class MIXERCONTROLDETAILS_LISTTEXTA(Structure):
-        pass
-    return MIXERCONTROLDETAILS_LISTTEXTA
-def _define_MIXERCONTROLDETAILS_LISTTEXTA():
-    MIXERCONTROLDETAILS_LISTTEXTA = win32more.Media.Audio.MIXERCONTROLDETAILS_LISTTEXTA_head
-    MIXERCONTROLDETAILS_LISTTEXTA._pack_ = 1
-    MIXERCONTROLDETAILS_LISTTEXTA._fields_ = [
-        ('dwParam1', UInt32),
-        ('dwParam2', UInt32),
-        ('szName', win32more.Foundation.CHAR * 64),
-    ]
-    return MIXERCONTROLDETAILS_LISTTEXTA
-def _define_MIXERCONTROLDETAILS_LISTTEXTW_head():
-    class MIXERCONTROLDETAILS_LISTTEXTW(Structure):
-        pass
-    return MIXERCONTROLDETAILS_LISTTEXTW
-def _define_MIXERCONTROLDETAILS_LISTTEXTW():
-    MIXERCONTROLDETAILS_LISTTEXTW = win32more.Media.Audio.MIXERCONTROLDETAILS_LISTTEXTW_head
-    MIXERCONTROLDETAILS_LISTTEXTW._pack_ = 1
-    MIXERCONTROLDETAILS_LISTTEXTW._fields_ = [
-        ('dwParam1', UInt32),
-        ('dwParam2', UInt32),
-        ('szName', Char * 64),
-    ]
-    return MIXERCONTROLDETAILS_LISTTEXTW
-def _define_MIXERCONTROLDETAILS_SIGNED_head():
-    class MIXERCONTROLDETAILS_SIGNED(Structure):
-        pass
-    return MIXERCONTROLDETAILS_SIGNED
-def _define_MIXERCONTROLDETAILS_SIGNED():
-    MIXERCONTROLDETAILS_SIGNED = win32more.Media.Audio.MIXERCONTROLDETAILS_SIGNED_head
-    MIXERCONTROLDETAILS_SIGNED._pack_ = 1
-    MIXERCONTROLDETAILS_SIGNED._fields_ = [
-        ('lValue', Int32),
-    ]
-    return MIXERCONTROLDETAILS_SIGNED
-def _define_MIXERCONTROLDETAILS_UNSIGNED_head():
-    class MIXERCONTROLDETAILS_UNSIGNED(Structure):
-        pass
-    return MIXERCONTROLDETAILS_UNSIGNED
-def _define_MIXERCONTROLDETAILS_UNSIGNED():
-    MIXERCONTROLDETAILS_UNSIGNED = win32more.Media.Audio.MIXERCONTROLDETAILS_UNSIGNED_head
-    MIXERCONTROLDETAILS_UNSIGNED._pack_ = 1
-    MIXERCONTROLDETAILS_UNSIGNED._fields_ = [
-        ('dwValue', UInt32),
-    ]
-    return MIXERCONTROLDETAILS_UNSIGNED
-def _define_MIXERCONTROLW_head():
-    class MIXERCONTROLW(Structure):
-        pass
-    return MIXERCONTROLW
-def _define_MIXERCONTROLW():
-    MIXERCONTROLW = win32more.Media.Audio.MIXERCONTROLW_head
-    class MIXERCONTROLW__Bounds_e__Union(Union):
-        pass
-    class MIXERCONTROLW__Bounds_e__Union__Anonymous1_e__Struct(Structure):
-        pass
-    MIXERCONTROLW__Bounds_e__Union__Anonymous1_e__Struct._pack_ = 1
-    MIXERCONTROLW__Bounds_e__Union__Anonymous1_e__Struct._fields_ = [
-        ('lMinimum', Int32),
-        ('lMaximum', Int32),
-    ]
-    class MIXERCONTROLW__Bounds_e__Union__Anonymous2_e__Struct(Structure):
-        pass
-    MIXERCONTROLW__Bounds_e__Union__Anonymous2_e__Struct._pack_ = 1
-    MIXERCONTROLW__Bounds_e__Union__Anonymous2_e__Struct._fields_ = [
-        ('dwMinimum', UInt32),
-        ('dwMaximum', UInt32),
-    ]
-    MIXERCONTROLW__Bounds_e__Union._pack_ = 1
-    MIXERCONTROLW__Bounds_e__Union._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    MIXERCONTROLW__Bounds_e__Union._fields_ = [
-        ('Anonymous1', MIXERCONTROLW__Bounds_e__Union__Anonymous1_e__Struct),
-        ('Anonymous2', MIXERCONTROLW__Bounds_e__Union__Anonymous2_e__Struct),
-        ('dwReserved', UInt32 * 6),
-    ]
-    class MIXERCONTROLW__Metrics_e__Union(Union):
-        pass
-    MIXERCONTROLW__Metrics_e__Union._pack_ = 1
-    MIXERCONTROLW__Metrics_e__Union._fields_ = [
-        ('cSteps', UInt32),
-        ('cbCustomData', UInt32),
-        ('dwReserved', UInt32 * 6),
-    ]
-    MIXERCONTROLW._pack_ = 1
-    MIXERCONTROLW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwControlID', UInt32),
-        ('dwControlType', UInt32),
-        ('fdwControl', UInt32),
-        ('cMultipleItems', UInt32),
-        ('szShortName', Char * 16),
-        ('szName', Char * 64),
-        ('Bounds', MIXERCONTROLW__Bounds_e__Union),
-        ('Metrics', MIXERCONTROLW__Metrics_e__Union),
-    ]
-    return MIXERCONTROLW
+CALLBACK_TYPEMASK: MIDI_WAVE_OPEN_TYPE = 458752
+CALLBACK_NULL: MIDI_WAVE_OPEN_TYPE = 0
+CALLBACK_WINDOW: MIDI_WAVE_OPEN_TYPE = 65536
+CALLBACK_TASK: MIDI_WAVE_OPEN_TYPE = 131072
+CALLBACK_FUNCTION: MIDI_WAVE_OPEN_TYPE = 196608
+CALLBACK_THREAD: MIDI_WAVE_OPEN_TYPE = 131072
+CALLBACK_EVENT: MIDI_WAVE_OPEN_TYPE = 327680
+WAVE_FORMAT_QUERY: MIDI_WAVE_OPEN_TYPE = 1
+WAVE_ALLOWSYNC: MIDI_WAVE_OPEN_TYPE = 2
+WAVE_MAPPED: MIDI_WAVE_OPEN_TYPE = 4
+WAVE_FORMAT_DIRECT: MIDI_WAVE_OPEN_TYPE = 8
+WAVE_FORMAT_DIRECT_QUERY: MIDI_WAVE_OPEN_TYPE = 9
+WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE: MIDI_WAVE_OPEN_TYPE = 16
+MIDI_IO_STATUS: MIDI_WAVE_OPEN_TYPE = 32
+class MIDIEVENT(Structure):
+    dwDeltaTime: UInt32
+    dwStreamID: UInt32
+    dwEvent: UInt32
+    dwParms: UInt32 * 1
+    _pack_ = 1
+class MIDIHDR(Structure):
+    lpData: win32more.Foundation.PSTR
+    dwBufferLength: UInt32
+    dwBytesRecorded: UInt32
+    dwUser: UIntPtr
+    dwFlags: UInt32
+    lpNext: POINTER(win32more.Media.Audio.MIDIHDR_head)
+    reserved: UIntPtr
+    dwOffset: UInt32
+    dwReserved: UIntPtr * 8
+    _pack_ = 1
+class MIDIINCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIDIINCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIDIINCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwSupport: UInt32
+    _pack_ = 1
+class MIDIINCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwSupport: UInt32
+    _pack_ = 1
+class MIDIOUTCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    wTechnology: UInt16
+    wVoices: UInt16
+    wNotes: UInt16
+    wChannelMask: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIDIOUTCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    wTechnology: UInt16
+    wVoices: UInt16
+    wNotes: UInt16
+    wChannelMask: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIDIOUTCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    wTechnology: UInt16
+    wVoices: UInt16
+    wNotes: UInt16
+    wChannelMask: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
+class MIDIOUTCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    wTechnology: UInt16
+    wVoices: UInt16
+    wNotes: UInt16
+    wChannelMask: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
+class MIDIPROPTEMPO(Structure):
+    cbStruct: UInt32
+    dwTempo: UInt32
+    _pack_ = 1
+class MIDIPROPTIMEDIV(Structure):
+    cbStruct: UInt32
+    dwTimeDiv: UInt32
+    _pack_ = 1
+class MIDISTRMBUFFVER(Structure):
+    dwVersion: UInt32
+    dwMid: UInt32
+    dwOEMVersion: UInt32
+    _pack_ = 1
+class MIXERCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    fdwSupport: UInt32
+    cDestinations: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIXERCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    fdwSupport: UInt32
+    cDestinations: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class MIXERCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    fdwSupport: UInt32
+    cDestinations: UInt32
+    _pack_ = 1
+class MIXERCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    fdwSupport: UInt32
+    cDestinations: UInt32
+    _pack_ = 1
+class MIXERCONTROLA(Structure):
+    cbStruct: UInt32
+    dwControlID: UInt32
+    dwControlType: UInt32
+    fdwControl: UInt32
+    cMultipleItems: UInt32
+    szShortName: win32more.Foundation.CHAR * 16
+    szName: win32more.Foundation.CHAR * 64
+    Bounds: _Bounds_e__Union
+    Metrics: _Metrics_e__Union
+    _pack_ = 1
+    class _Bounds_e__Union(Union):
+        Anonymous1: _Anonymous1_e__Struct
+        Anonymous2: _Anonymous2_e__Struct
+        dwReserved: UInt32 * 6
+        _pack_ = 1
+        class _Anonymous1_e__Struct(Structure):
+            lMinimum: Int32
+            lMaximum: Int32
+            _pack_ = 1
+        class _Anonymous2_e__Struct(Structure):
+            dwMinimum: UInt32
+            dwMaximum: UInt32
+            _pack_ = 1
+    class _Metrics_e__Union(Union):
+        cSteps: UInt32
+        cbCustomData: UInt32
+        dwReserved: UInt32 * 6
+        _pack_ = 1
+class MIXERCONTROLDETAILS(Structure):
+    cbStruct: UInt32
+    dwControlID: UInt32
+    cChannels: UInt32
+    Anonymous: _Anonymous_e__Union
+    cbDetails: UInt32
+    paDetails: c_void_p
+    _pack_ = 1
+    class _Anonymous_e__Union(Union):
+        hwndOwner: win32more.Foundation.HWND
+        cMultipleItems: UInt32
+        _pack_ = 1
+class MIXERCONTROLDETAILS_BOOLEAN(Structure):
+    fValue: Int32
+    _pack_ = 1
+class MIXERCONTROLDETAILS_LISTTEXTA(Structure):
+    dwParam1: UInt32
+    dwParam2: UInt32
+    szName: win32more.Foundation.CHAR * 64
+    _pack_ = 1
+class MIXERCONTROLDETAILS_LISTTEXTW(Structure):
+    dwParam1: UInt32
+    dwParam2: UInt32
+    szName: Char * 64
+    _pack_ = 1
+class MIXERCONTROLDETAILS_SIGNED(Structure):
+    lValue: Int32
+    _pack_ = 1
+class MIXERCONTROLDETAILS_UNSIGNED(Structure):
+    dwValue: UInt32
+    _pack_ = 1
+class MIXERCONTROLW(Structure):
+    cbStruct: UInt32
+    dwControlID: UInt32
+    dwControlType: UInt32
+    fdwControl: UInt32
+    cMultipleItems: UInt32
+    szShortName: Char * 16
+    szName: Char * 64
+    Bounds: _Bounds_e__Union
+    Metrics: _Metrics_e__Union
+    _pack_ = 1
+    class _Bounds_e__Union(Union):
+        Anonymous1: _Anonymous1_e__Struct
+        Anonymous2: _Anonymous2_e__Struct
+        dwReserved: UInt32 * 6
+        _pack_ = 1
+        class _Anonymous1_e__Struct(Structure):
+            lMinimum: Int32
+            lMaximum: Int32
+            _pack_ = 1
+        class _Anonymous2_e__Struct(Structure):
+            dwMinimum: UInt32
+            dwMaximum: UInt32
+            _pack_ = 1
+    class _Metrics_e__Union(Union):
+        cSteps: UInt32
+        cbCustomData: UInt32
+        dwReserved: UInt32 * 6
+        _pack_ = 1
 MIXERLINE_COMPONENTTYPE = UInt32
-MIXERLINE_COMPONENTTYPE_DST_DIGITAL = 1
-MIXERLINE_COMPONENTTYPE_DST_HEADPHONES = 5
-MIXERLINE_COMPONENTTYPE_DST_LINE = 2
-MIXERLINE_COMPONENTTYPE_DST_MONITOR = 3
-MIXERLINE_COMPONENTTYPE_DST_SPEAKERS = 4
-MIXERLINE_COMPONENTTYPE_DST_TELEPHONE = 6
-MIXERLINE_COMPONENTTYPE_DST_UNDEFINED = 0
-MIXERLINE_COMPONENTTYPE_DST_VOICEIN = 8
-MIXERLINE_COMPONENTTYPE_DST_WAVEIN = 7
-MIXERLINE_COMPONENTTYPE_SRC_ANALOG = 4106
-MIXERLINE_COMPONENTTYPE_SRC_AUXILIARY = 4105
-MIXERLINE_COMPONENTTYPE_SRC_COMPACTDISC = 4101
-MIXERLINE_COMPONENTTYPE_SRC_DIGITAL = 4097
-MIXERLINE_COMPONENTTYPE_SRC_LINE = 4098
-MIXERLINE_COMPONENTTYPE_SRC_MICROPHONE = 4099
-MIXERLINE_COMPONENTTYPE_SRC_PCSPEAKER = 4103
-MIXERLINE_COMPONENTTYPE_SRC_SYNTHESIZER = 4100
-MIXERLINE_COMPONENTTYPE_SRC_TELEPHONE = 4102
-MIXERLINE_COMPONENTTYPE_SRC_UNDEFINED = 4096
-MIXERLINE_COMPONENTTYPE_SRC_WAVEOUT = 4104
-def _define_MIXERLINEA_head():
-    class MIXERLINEA(Structure):
-        pass
-    return MIXERLINEA
-def _define_MIXERLINEA():
-    MIXERLINEA = win32more.Media.Audio.MIXERLINEA_head
-    class MIXERLINEA__Target_e__Struct(Structure):
-        pass
-    MIXERLINEA__Target_e__Struct._pack_ = 1
-    MIXERLINEA__Target_e__Struct._fields_ = [
-        ('dwType', UInt32),
-        ('dwDeviceID', UInt32),
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-    ]
-    MIXERLINEA._pack_ = 1
-    MIXERLINEA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwDestination', UInt32),
-        ('dwSource', UInt32),
-        ('dwLineID', UInt32),
-        ('fdwLine', UInt32),
-        ('dwUser', UIntPtr),
-        ('dwComponentType', win32more.Media.Audio.MIXERLINE_COMPONENTTYPE),
-        ('cChannels', UInt32),
-        ('cConnections', UInt32),
-        ('cControls', UInt32),
-        ('szShortName', win32more.Foundation.CHAR * 16),
-        ('szName', win32more.Foundation.CHAR * 64),
-        ('Target', MIXERLINEA__Target_e__Struct),
-    ]
-    return MIXERLINEA
-def _define_MIXERLINECONTROLSA_head():
-    class MIXERLINECONTROLSA(Structure):
-        pass
-    return MIXERLINECONTROLSA
-def _define_MIXERLINECONTROLSA():
-    MIXERLINECONTROLSA = win32more.Media.Audio.MIXERLINECONTROLSA_head
-    class MIXERLINECONTROLSA__Anonymous_e__Union(Union):
-        pass
-    MIXERLINECONTROLSA__Anonymous_e__Union._pack_ = 1
-    MIXERLINECONTROLSA__Anonymous_e__Union._fields_ = [
-        ('dwControlID', UInt32),
-        ('dwControlType', UInt32),
-    ]
-    MIXERLINECONTROLSA._pack_ = 1
-    MIXERLINECONTROLSA._anonymous_ = [
-        'Anonymous',
-    ]
-    MIXERLINECONTROLSA._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwLineID', UInt32),
-        ('Anonymous', MIXERLINECONTROLSA__Anonymous_e__Union),
-        ('cControls', UInt32),
-        ('cbmxctrl', UInt32),
-        ('pamxctrl', POINTER(win32more.Media.Audio.MIXERCONTROLA_head)),
-    ]
-    return MIXERLINECONTROLSA
-def _define_MIXERLINECONTROLSW_head():
-    class MIXERLINECONTROLSW(Structure):
-        pass
-    return MIXERLINECONTROLSW
-def _define_MIXERLINECONTROLSW():
-    MIXERLINECONTROLSW = win32more.Media.Audio.MIXERLINECONTROLSW_head
-    class MIXERLINECONTROLSW__Anonymous_e__Union(Union):
-        pass
-    MIXERLINECONTROLSW__Anonymous_e__Union._pack_ = 1
-    MIXERLINECONTROLSW__Anonymous_e__Union._fields_ = [
-        ('dwControlID', UInt32),
-        ('dwControlType', UInt32),
-    ]
-    MIXERLINECONTROLSW._pack_ = 1
-    MIXERLINECONTROLSW._anonymous_ = [
-        'Anonymous',
-    ]
-    MIXERLINECONTROLSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwLineID', UInt32),
-        ('Anonymous', MIXERLINECONTROLSW__Anonymous_e__Union),
-        ('cControls', UInt32),
-        ('cbmxctrl', UInt32),
-        ('pamxctrl', POINTER(win32more.Media.Audio.MIXERCONTROLW_head)),
-    ]
-    return MIXERLINECONTROLSW
-def _define_MIXERLINEW_head():
-    class MIXERLINEW(Structure):
-        pass
-    return MIXERLINEW
-def _define_MIXERLINEW():
-    MIXERLINEW = win32more.Media.Audio.MIXERLINEW_head
-    class MIXERLINEW__Target_e__Struct(Structure):
-        pass
-    MIXERLINEW__Target_e__Struct._pack_ = 1
-    MIXERLINEW__Target_e__Struct._fields_ = [
-        ('dwType', UInt32),
-        ('dwDeviceID', UInt32),
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-    ]
-    MIXERLINEW._pack_ = 1
-    MIXERLINEW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwDestination', UInt32),
-        ('dwSource', UInt32),
-        ('dwLineID', UInt32),
-        ('fdwLine', UInt32),
-        ('dwUser', UIntPtr),
-        ('dwComponentType', win32more.Media.Audio.MIXERLINE_COMPONENTTYPE),
-        ('cChannels', UInt32),
-        ('cConnections', UInt32),
-        ('cControls', UInt32),
-        ('szShortName', Char * 16),
-        ('szName', Char * 64),
-        ('Target', MIXERLINEW__Target_e__Struct),
-    ]
-    return MIXERLINEW
+MIXERLINE_COMPONENTTYPE_DST_DIGITAL: MIXERLINE_COMPONENTTYPE = 1
+MIXERLINE_COMPONENTTYPE_DST_HEADPHONES: MIXERLINE_COMPONENTTYPE = 5
+MIXERLINE_COMPONENTTYPE_DST_LINE: MIXERLINE_COMPONENTTYPE = 2
+MIXERLINE_COMPONENTTYPE_DST_MONITOR: MIXERLINE_COMPONENTTYPE = 3
+MIXERLINE_COMPONENTTYPE_DST_SPEAKERS: MIXERLINE_COMPONENTTYPE = 4
+MIXERLINE_COMPONENTTYPE_DST_TELEPHONE: MIXERLINE_COMPONENTTYPE = 6
+MIXERLINE_COMPONENTTYPE_DST_UNDEFINED: MIXERLINE_COMPONENTTYPE = 0
+MIXERLINE_COMPONENTTYPE_DST_VOICEIN: MIXERLINE_COMPONENTTYPE = 8
+MIXERLINE_COMPONENTTYPE_DST_WAVEIN: MIXERLINE_COMPONENTTYPE = 7
+MIXERLINE_COMPONENTTYPE_SRC_ANALOG: MIXERLINE_COMPONENTTYPE = 4106
+MIXERLINE_COMPONENTTYPE_SRC_AUXILIARY: MIXERLINE_COMPONENTTYPE = 4105
+MIXERLINE_COMPONENTTYPE_SRC_COMPACTDISC: MIXERLINE_COMPONENTTYPE = 4101
+MIXERLINE_COMPONENTTYPE_SRC_DIGITAL: MIXERLINE_COMPONENTTYPE = 4097
+MIXERLINE_COMPONENTTYPE_SRC_LINE: MIXERLINE_COMPONENTTYPE = 4098
+MIXERLINE_COMPONENTTYPE_SRC_MICROPHONE: MIXERLINE_COMPONENTTYPE = 4099
+MIXERLINE_COMPONENTTYPE_SRC_PCSPEAKER: MIXERLINE_COMPONENTTYPE = 4103
+MIXERLINE_COMPONENTTYPE_SRC_SYNTHESIZER: MIXERLINE_COMPONENTTYPE = 4100
+MIXERLINE_COMPONENTTYPE_SRC_TELEPHONE: MIXERLINE_COMPONENTTYPE = 4102
+MIXERLINE_COMPONENTTYPE_SRC_UNDEFINED: MIXERLINE_COMPONENTTYPE = 4096
+MIXERLINE_COMPONENTTYPE_SRC_WAVEOUT: MIXERLINE_COMPONENTTYPE = 4104
+class MIXERLINEA(Structure):
+    cbStruct: UInt32
+    dwDestination: UInt32
+    dwSource: UInt32
+    dwLineID: UInt32
+    fdwLine: UInt32
+    dwUser: UIntPtr
+    dwComponentType: win32more.Media.Audio.MIXERLINE_COMPONENTTYPE
+    cChannels: UInt32
+    cConnections: UInt32
+    cControls: UInt32
+    szShortName: win32more.Foundation.CHAR * 16
+    szName: win32more.Foundation.CHAR * 64
+    Target: _Target_e__Struct
+    _pack_ = 1
+    class _Target_e__Struct(Structure):
+        dwType: UInt32
+        dwDeviceID: UInt32
+        wMid: UInt16
+        wPid: UInt16
+        vDriverVersion: UInt32
+        szPname: win32more.Foundation.CHAR * 32
+        _pack_ = 1
+class MIXERLINECONTROLSA(Structure):
+    cbStruct: UInt32
+    dwLineID: UInt32
+    Anonymous: _Anonymous_e__Union
+    cControls: UInt32
+    cbmxctrl: UInt32
+    pamxctrl: POINTER(win32more.Media.Audio.MIXERCONTROLA_head)
+    _pack_ = 1
+    class _Anonymous_e__Union(Union):
+        dwControlID: UInt32
+        dwControlType: UInt32
+        _pack_ = 1
+class MIXERLINECONTROLSW(Structure):
+    cbStruct: UInt32
+    dwLineID: UInt32
+    Anonymous: _Anonymous_e__Union
+    cControls: UInt32
+    cbmxctrl: UInt32
+    pamxctrl: POINTER(win32more.Media.Audio.MIXERCONTROLW_head)
+    _pack_ = 1
+    class _Anonymous_e__Union(Union):
+        dwControlID: UInt32
+        dwControlType: UInt32
+        _pack_ = 1
+class MIXERLINEW(Structure):
+    cbStruct: UInt32
+    dwDestination: UInt32
+    dwSource: UInt32
+    dwLineID: UInt32
+    fdwLine: UInt32
+    dwUser: UIntPtr
+    dwComponentType: win32more.Media.Audio.MIXERLINE_COMPONENTTYPE
+    cChannels: UInt32
+    cConnections: UInt32
+    cControls: UInt32
+    szShortName: Char * 16
+    szName: Char * 64
+    Target: _Target_e__Struct
+    _pack_ = 1
+    class _Target_e__Struct(Structure):
+        dwType: UInt32
+        dwDeviceID: UInt32
+        wMid: UInt16
+        wPid: UInt16
+        vDriverVersion: UInt32
+        szPname: Char * 32
+        _pack_ = 1
 MMDeviceEnumerator = Guid('bcde0395-e52f-467c-8e-3d-c4-57-92-91-69-2e')
 PartType = Int32
-PartType_Connector = 0
-PartType_Subunit = 1
-def _define_PAudioStateMonitorCallback():
-    return WINFUNCTYPE(Void,win32more.Media.Audio.IAudioStateMonitor_head,c_void_p)
-def _define_PCMWAVEFORMAT_head():
-    class PCMWAVEFORMAT(Structure):
-        pass
-    return PCMWAVEFORMAT
-def _define_PCMWAVEFORMAT():
-    PCMWAVEFORMAT = win32more.Media.Audio.PCMWAVEFORMAT_head
-    PCMWAVEFORMAT._pack_ = 1
-    PCMWAVEFORMAT._fields_ = [
-        ('wf', win32more.Media.Audio.WAVEFORMAT),
-        ('wBitsPerSample', UInt16),
-    ]
-    return PCMWAVEFORMAT
+PartType_Connector: PartType = 0
+PartType_Subunit: PartType = 1
+@winfunctype_pointer
+def PAudioStateMonitorCallback(audioStateMonitor: win32more.Media.Audio.IAudioStateMonitor_head, context: c_void_p) -> Void: ...
+class PCMWAVEFORMAT(Structure):
+    wf: win32more.Media.Audio.WAVEFORMAT
+    wBitsPerSample: UInt16
+    _pack_ = 1
 PROCESS_LOOPBACK_MODE = Int32
-PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE = 0
-PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE = 1
+PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE: PROCESS_LOOPBACK_MODE = 0
+PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE: PROCESS_LOOPBACK_MODE = 1
 SND_FLAGS = UInt32
-SND_APPLICATION = 128
-SND_ALIAS = 65536
-SND_ALIAS_ID = 1114112
-SND_FILENAME = 131072
-SND_RESOURCE = 262148
-SND_ASYNC = 1
-SND_NODEFAULT = 2
-SND_LOOP = 8
-SND_MEMORY = 4
-SND_NOSTOP = 16
-SND_NOWAIT = 8192
-SND_PURGE = 64
-SND_SENTRY = 524288
-SND_SYNC = 0
-SND_SYSTEM = 2097152
+SND_APPLICATION: SND_FLAGS = 128
+SND_ALIAS: SND_FLAGS = 65536
+SND_ALIAS_ID: SND_FLAGS = 1114112
+SND_FILENAME: SND_FLAGS = 131072
+SND_RESOURCE: SND_FLAGS = 262148
+SND_ASYNC: SND_FLAGS = 1
+SND_NODEFAULT: SND_FLAGS = 2
+SND_LOOP: SND_FLAGS = 8
+SND_MEMORY: SND_FLAGS = 4
+SND_NOSTOP: SND_FLAGS = 16
+SND_NOWAIT: SND_FLAGS = 8192
+SND_PURGE: SND_FLAGS = 64
+SND_SENTRY: SND_FLAGS = 524288
+SND_SYNC: SND_FLAGS = 0
+SND_SYSTEM: SND_FLAGS = 2097152
 SPATIAL_AUDIO_STREAM_OPTIONS = UInt32
-SPATIAL_AUDIO_STREAM_OPTIONS_NONE = 0
-SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD = 1
-def _define_SpatialAudioClientActivationParams_head():
-    class SpatialAudioClientActivationParams(Structure):
-        pass
-    return SpatialAudioClientActivationParams
-def _define_SpatialAudioClientActivationParams():
-    SpatialAudioClientActivationParams = win32more.Media.Audio.SpatialAudioClientActivationParams_head
-    SpatialAudioClientActivationParams._fields_ = [
-        ('tracingContextId', Guid),
-        ('appId', Guid),
-        ('majorVersion', Int32),
-        ('minorVersion1', Int32),
-        ('minorVersion2', Int32),
-        ('minorVersion3', Int32),
-    ]
-    return SpatialAudioClientActivationParams
-def _define_SpatialAudioHrtfActivationParams_head():
-    class SpatialAudioHrtfActivationParams(Structure):
-        pass
-    return SpatialAudioHrtfActivationParams
-def _define_SpatialAudioHrtfActivationParams():
-    SpatialAudioHrtfActivationParams = win32more.Media.Audio.SpatialAudioHrtfActivationParams_head
-    SpatialAudioHrtfActivationParams._pack_ = 1
-    SpatialAudioHrtfActivationParams._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-        ('DistanceDecay', POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head)),
-        ('Directivity', POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head)),
-        ('Environment', POINTER(win32more.Media.Audio.SpatialAudioHrtfEnvironmentType)),
-        ('Orientation', POINTER(Single)),
-    ]
-    return SpatialAudioHrtfActivationParams
-def _define_SpatialAudioHrtfActivationParams2_head():
-    class SpatialAudioHrtfActivationParams2(Structure):
-        pass
-    return SpatialAudioHrtfActivationParams2
-def _define_SpatialAudioHrtfActivationParams2():
-    SpatialAudioHrtfActivationParams2 = win32more.Media.Audio.SpatialAudioHrtfActivationParams2_head
-    SpatialAudioHrtfActivationParams2._pack_ = 1
-    SpatialAudioHrtfActivationParams2._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-        ('DistanceDecay', POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head)),
-        ('Directivity', POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head)),
-        ('Environment', POINTER(win32more.Media.Audio.SpatialAudioHrtfEnvironmentType)),
-        ('Orientation', POINTER(Single)),
-        ('Options', win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS),
-    ]
-    return SpatialAudioHrtfActivationParams2
-def _define_SpatialAudioHrtfDirectivity_head():
-    class SpatialAudioHrtfDirectivity(Structure):
-        pass
-    return SpatialAudioHrtfDirectivity
-def _define_SpatialAudioHrtfDirectivity():
-    SpatialAudioHrtfDirectivity = win32more.Media.Audio.SpatialAudioHrtfDirectivity_head
-    SpatialAudioHrtfDirectivity._pack_ = 1
-    SpatialAudioHrtfDirectivity._fields_ = [
-        ('Type', win32more.Media.Audio.SpatialAudioHrtfDirectivityType),
-        ('Scaling', Single),
-    ]
-    return SpatialAudioHrtfDirectivity
-def _define_SpatialAudioHrtfDirectivityCardioid_head():
-    class SpatialAudioHrtfDirectivityCardioid(Structure):
-        pass
-    return SpatialAudioHrtfDirectivityCardioid
-def _define_SpatialAudioHrtfDirectivityCardioid():
-    SpatialAudioHrtfDirectivityCardioid = win32more.Media.Audio.SpatialAudioHrtfDirectivityCardioid_head
-    SpatialAudioHrtfDirectivityCardioid._pack_ = 1
-    SpatialAudioHrtfDirectivityCardioid._fields_ = [
-        ('directivity', win32more.Media.Audio.SpatialAudioHrtfDirectivity),
-        ('Order', Single),
-    ]
-    return SpatialAudioHrtfDirectivityCardioid
-def _define_SpatialAudioHrtfDirectivityCone_head():
-    class SpatialAudioHrtfDirectivityCone(Structure):
-        pass
-    return SpatialAudioHrtfDirectivityCone
-def _define_SpatialAudioHrtfDirectivityCone():
-    SpatialAudioHrtfDirectivityCone = win32more.Media.Audio.SpatialAudioHrtfDirectivityCone_head
-    SpatialAudioHrtfDirectivityCone._pack_ = 1
-    SpatialAudioHrtfDirectivityCone._fields_ = [
-        ('directivity', win32more.Media.Audio.SpatialAudioHrtfDirectivity),
-        ('InnerAngle', Single),
-        ('OuterAngle', Single),
-    ]
-    return SpatialAudioHrtfDirectivityCone
+SPATIAL_AUDIO_STREAM_OPTIONS_NONE: SPATIAL_AUDIO_STREAM_OPTIONS = 0
+SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD: SPATIAL_AUDIO_STREAM_OPTIONS = 1
+class SpatialAudioClientActivationParams(Structure):
+    tracingContextId: Guid
+    appId: Guid
+    majorVersion: Int32
+    minorVersion1: Int32
+    minorVersion2: Int32
+    minorVersion3: Int32
+class SpatialAudioHrtfActivationParams(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    DistanceDecay: POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head)
+    Directivity: POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head)
+    Environment: POINTER(win32more.Media.Audio.SpatialAudioHrtfEnvironmentType)
+    Orientation: POINTER(Single)
+    _pack_ = 1
+class SpatialAudioHrtfActivationParams2(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    DistanceDecay: POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head)
+    Directivity: POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head)
+    Environment: POINTER(win32more.Media.Audio.SpatialAudioHrtfEnvironmentType)
+    Orientation: POINTER(Single)
+    Options: win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
+    _pack_ = 1
+class SpatialAudioHrtfDirectivity(Structure):
+    Type: win32more.Media.Audio.SpatialAudioHrtfDirectivityType
+    Scaling: Single
+    _pack_ = 1
+class SpatialAudioHrtfDirectivityCardioid(Structure):
+    directivity: win32more.Media.Audio.SpatialAudioHrtfDirectivity
+    Order: Single
+    _pack_ = 1
+class SpatialAudioHrtfDirectivityCone(Structure):
+    directivity: win32more.Media.Audio.SpatialAudioHrtfDirectivity
+    InnerAngle: Single
+    OuterAngle: Single
+    _pack_ = 1
 SpatialAudioHrtfDirectivityType = Int32
-SpatialAudioHrtfDirectivity_OmniDirectional = 0
-SpatialAudioHrtfDirectivity_Cardioid = 1
-SpatialAudioHrtfDirectivity_Cone = 2
-def _define_SpatialAudioHrtfDirectivityUnion_head():
-    class SpatialAudioHrtfDirectivityUnion(Union):
-        pass
-    return SpatialAudioHrtfDirectivityUnion
-def _define_SpatialAudioHrtfDirectivityUnion():
-    SpatialAudioHrtfDirectivityUnion = win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head
-    SpatialAudioHrtfDirectivityUnion._fields_ = [
-        ('Cone', win32more.Media.Audio.SpatialAudioHrtfDirectivityCone),
-        ('Cardiod', win32more.Media.Audio.SpatialAudioHrtfDirectivityCardioid),
-        ('Omni', win32more.Media.Audio.SpatialAudioHrtfDirectivity),
-    ]
-    return SpatialAudioHrtfDirectivityUnion
-def _define_SpatialAudioHrtfDistanceDecay_head():
-    class SpatialAudioHrtfDistanceDecay(Structure):
-        pass
-    return SpatialAudioHrtfDistanceDecay
-def _define_SpatialAudioHrtfDistanceDecay():
-    SpatialAudioHrtfDistanceDecay = win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head
-    SpatialAudioHrtfDistanceDecay._pack_ = 1
-    SpatialAudioHrtfDistanceDecay._fields_ = [
-        ('Type', win32more.Media.Audio.SpatialAudioHrtfDistanceDecayType),
-        ('MaxGain', Single),
-        ('MinGain', Single),
-        ('UnityGainDistance', Single),
-        ('CutoffDistance', Single),
-    ]
-    return SpatialAudioHrtfDistanceDecay
+SpatialAudioHrtfDirectivity_OmniDirectional: SpatialAudioHrtfDirectivityType = 0
+SpatialAudioHrtfDirectivity_Cardioid: SpatialAudioHrtfDirectivityType = 1
+SpatialAudioHrtfDirectivity_Cone: SpatialAudioHrtfDirectivityType = 2
+class SpatialAudioHrtfDirectivityUnion(Union):
+    Cone: win32more.Media.Audio.SpatialAudioHrtfDirectivityCone
+    Cardiod: win32more.Media.Audio.SpatialAudioHrtfDirectivityCardioid
+    Omni: win32more.Media.Audio.SpatialAudioHrtfDirectivity
+class SpatialAudioHrtfDistanceDecay(Structure):
+    Type: win32more.Media.Audio.SpatialAudioHrtfDistanceDecayType
+    MaxGain: Single
+    MinGain: Single
+    UnityGainDistance: Single
+    CutoffDistance: Single
+    _pack_ = 1
 SpatialAudioHrtfDistanceDecayType = Int32
-SpatialAudioHrtfDistanceDecay_NaturalDecay = 0
-SpatialAudioHrtfDistanceDecay_CustomDecay = 1
+SpatialAudioHrtfDistanceDecay_NaturalDecay: SpatialAudioHrtfDistanceDecayType = 0
+SpatialAudioHrtfDistanceDecay_CustomDecay: SpatialAudioHrtfDistanceDecayType = 1
 SpatialAudioHrtfEnvironmentType = Int32
-SpatialAudioHrtfEnvironment_Small = 0
-SpatialAudioHrtfEnvironment_Medium = 1
-SpatialAudioHrtfEnvironment_Large = 2
-SpatialAudioHrtfEnvironment_Outdoors = 3
-SpatialAudioHrtfEnvironment_Average = 4
+SpatialAudioHrtfEnvironment_Small: SpatialAudioHrtfEnvironmentType = 0
+SpatialAudioHrtfEnvironment_Medium: SpatialAudioHrtfEnvironmentType = 1
+SpatialAudioHrtfEnvironment_Large: SpatialAudioHrtfEnvironmentType = 2
+SpatialAudioHrtfEnvironment_Outdoors: SpatialAudioHrtfEnvironmentType = 3
+SpatialAudioHrtfEnvironment_Average: SpatialAudioHrtfEnvironmentType = 4
 SpatialAudioMetadataCopyMode = Int32
-SpatialAudioMetadataCopy_Overwrite = 0
-SpatialAudioMetadataCopy_Append = 1
-SpatialAudioMetadataCopy_AppendMergeWithLast = 2
-SpatialAudioMetadataCopy_AppendMergeWithFirst = 3
-def _define_SpatialAudioMetadataItemsInfo_head():
-    class SpatialAudioMetadataItemsInfo(Structure):
-        pass
-    return SpatialAudioMetadataItemsInfo
-def _define_SpatialAudioMetadataItemsInfo():
-    SpatialAudioMetadataItemsInfo = win32more.Media.Audio.SpatialAudioMetadataItemsInfo_head
-    SpatialAudioMetadataItemsInfo._pack_ = 1
-    SpatialAudioMetadataItemsInfo._fields_ = [
-        ('FrameCount', UInt16),
-        ('ItemCount', UInt16),
-        ('MaxItemCount', UInt16),
-        ('MaxValueBufferLength', UInt32),
-    ]
-    return SpatialAudioMetadataItemsInfo
+SpatialAudioMetadataCopy_Overwrite: SpatialAudioMetadataCopyMode = 0
+SpatialAudioMetadataCopy_Append: SpatialAudioMetadataCopyMode = 1
+SpatialAudioMetadataCopy_AppendMergeWithLast: SpatialAudioMetadataCopyMode = 2
+SpatialAudioMetadataCopy_AppendMergeWithFirst: SpatialAudioMetadataCopyMode = 3
+class SpatialAudioMetadataItemsInfo(Structure):
+    FrameCount: UInt16
+    ItemCount: UInt16
+    MaxItemCount: UInt16
+    MaxValueBufferLength: UInt32
+    _pack_ = 1
 SpatialAudioMetadataWriterOverflowMode = Int32
-SpatialAudioMetadataWriterOverflow_Fail = 0
-SpatialAudioMetadataWriterOverflow_MergeWithNew = 1
-SpatialAudioMetadataWriterOverflow_MergeWithLast = 2
-def _define_SpatialAudioObjectRenderStreamActivationParams_head():
-    class SpatialAudioObjectRenderStreamActivationParams(Structure):
-        pass
-    return SpatialAudioObjectRenderStreamActivationParams
-def _define_SpatialAudioObjectRenderStreamActivationParams():
-    SpatialAudioObjectRenderStreamActivationParams = win32more.Media.Audio.SpatialAudioObjectRenderStreamActivationParams_head
-    SpatialAudioObjectRenderStreamActivationParams._pack_ = 1
-    SpatialAudioObjectRenderStreamActivationParams._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-    ]
-    return SpatialAudioObjectRenderStreamActivationParams
-def _define_SpatialAudioObjectRenderStreamActivationParams2_head():
-    class SpatialAudioObjectRenderStreamActivationParams2(Structure):
-        pass
-    return SpatialAudioObjectRenderStreamActivationParams2
-def _define_SpatialAudioObjectRenderStreamActivationParams2():
-    SpatialAudioObjectRenderStreamActivationParams2 = win32more.Media.Audio.SpatialAudioObjectRenderStreamActivationParams2_head
-    SpatialAudioObjectRenderStreamActivationParams2._pack_ = 1
-    SpatialAudioObjectRenderStreamActivationParams2._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-        ('Options', win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS),
-    ]
-    return SpatialAudioObjectRenderStreamActivationParams2
-def _define_SpatialAudioObjectRenderStreamForMetadataActivationParams_head():
-    class SpatialAudioObjectRenderStreamForMetadataActivationParams(Structure):
-        pass
-    return SpatialAudioObjectRenderStreamForMetadataActivationParams
-def _define_SpatialAudioObjectRenderStreamForMetadataActivationParams():
-    SpatialAudioObjectRenderStreamForMetadataActivationParams = win32more.Media.Audio.SpatialAudioObjectRenderStreamForMetadataActivationParams_head
-    SpatialAudioObjectRenderStreamForMetadataActivationParams._pack_ = 1
-    SpatialAudioObjectRenderStreamForMetadataActivationParams._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('MetadataFormatId', Guid),
-        ('MaxMetadataItemCount', UInt16),
-        ('MetadataActivationParams', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-    ]
-    return SpatialAudioObjectRenderStreamForMetadataActivationParams
-def _define_SpatialAudioObjectRenderStreamForMetadataActivationParams2_head():
-    class SpatialAudioObjectRenderStreamForMetadataActivationParams2(Structure):
-        pass
-    return SpatialAudioObjectRenderStreamForMetadataActivationParams2
-def _define_SpatialAudioObjectRenderStreamForMetadataActivationParams2():
-    SpatialAudioObjectRenderStreamForMetadataActivationParams2 = win32more.Media.Audio.SpatialAudioObjectRenderStreamForMetadataActivationParams2_head
-    SpatialAudioObjectRenderStreamForMetadataActivationParams2._pack_ = 1
-    SpatialAudioObjectRenderStreamForMetadataActivationParams2._fields_ = [
-        ('ObjectFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('StaticObjectTypeMask', win32more.Media.Audio.AudioObjectType),
-        ('MinDynamicObjectCount', UInt32),
-        ('MaxDynamicObjectCount', UInt32),
-        ('Category', win32more.Media.Audio.AUDIO_STREAM_CATEGORY),
-        ('EventHandle', win32more.Foundation.HANDLE),
-        ('MetadataFormatId', Guid),
-        ('MaxMetadataItemCount', UInt32),
-        ('MetadataActivationParams', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-        ('NotifyObject', win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head),
-        ('Options', win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS),
-    ]
-    return SpatialAudioObjectRenderStreamForMetadataActivationParams2
-def _define_tACMFORMATDETAILSW_head():
-    class tACMFORMATDETAILSW(Structure):
-        pass
-    return tACMFORMATDETAILSW
-def _define_tACMFORMATDETAILSW():
-    tACMFORMATDETAILSW = win32more.Media.Audio.tACMFORMATDETAILSW_head
-    tACMFORMATDETAILSW._pack_ = 1
-    tACMFORMATDETAILSW._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFormatIndex', UInt32),
-        ('dwFormatTag', UInt32),
-        ('fdwSupport', UInt32),
-        ('pwfx', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('cbwfx', UInt32),
-        ('szFormat', Char * 128),
-    ]
-    return tACMFORMATDETAILSW
-def _define_VOLUMEWAVEFILTER_head():
-    class VOLUMEWAVEFILTER(Structure):
-        pass
-    return VOLUMEWAVEFILTER
-def _define_VOLUMEWAVEFILTER():
-    VOLUMEWAVEFILTER = win32more.Media.Audio.VOLUMEWAVEFILTER_head
-    VOLUMEWAVEFILTER._pack_ = 1
-    VOLUMEWAVEFILTER._fields_ = [
-        ('wfltr', win32more.Media.Audio.WAVEFILTER),
-        ('dwVolume', UInt32),
-    ]
-    return VOLUMEWAVEFILTER
-def _define_WAVEFILTER_head():
-    class WAVEFILTER(Structure):
-        pass
-    return WAVEFILTER
-def _define_WAVEFILTER():
-    WAVEFILTER = win32more.Media.Audio.WAVEFILTER_head
-    WAVEFILTER._pack_ = 1
-    WAVEFILTER._fields_ = [
-        ('cbStruct', UInt32),
-        ('dwFilterTag', UInt32),
-        ('fdwFilter', UInt32),
-        ('dwReserved', UInt32 * 5),
-    ]
-    return WAVEFILTER
-def _define_WAVEFORMAT_head():
-    class WAVEFORMAT(Structure):
-        pass
-    return WAVEFORMAT
-def _define_WAVEFORMAT():
-    WAVEFORMAT = win32more.Media.Audio.WAVEFORMAT_head
-    WAVEFORMAT._pack_ = 1
-    WAVEFORMAT._fields_ = [
-        ('wFormatTag', UInt16),
-        ('nChannels', UInt16),
-        ('nSamplesPerSec', UInt32),
-        ('nAvgBytesPerSec', UInt32),
-        ('nBlockAlign', UInt16),
-    ]
-    return WAVEFORMAT
-def _define_WAVEFORMATEX_head():
-    class WAVEFORMATEX(Structure):
-        pass
-    return WAVEFORMATEX
-def _define_WAVEFORMATEX():
-    WAVEFORMATEX = win32more.Media.Audio.WAVEFORMATEX_head
-    WAVEFORMATEX._pack_ = 1
-    WAVEFORMATEX._fields_ = [
-        ('wFormatTag', UInt16),
-        ('nChannels', UInt16),
-        ('nSamplesPerSec', UInt32),
-        ('nAvgBytesPerSec', UInt32),
-        ('nBlockAlign', UInt16),
-        ('wBitsPerSample', UInt16),
-        ('cbSize', UInt16),
-    ]
-    return WAVEFORMATEX
-def _define_WAVEFORMATEXTENSIBLE_head():
-    class WAVEFORMATEXTENSIBLE(Structure):
-        pass
-    return WAVEFORMATEXTENSIBLE
-def _define_WAVEFORMATEXTENSIBLE():
-    WAVEFORMATEXTENSIBLE = win32more.Media.Audio.WAVEFORMATEXTENSIBLE_head
-    class WAVEFORMATEXTENSIBLE__Samples_e__Union(Union):
-        pass
-    WAVEFORMATEXTENSIBLE__Samples_e__Union._pack_ = 1
-    WAVEFORMATEXTENSIBLE__Samples_e__Union._fields_ = [
-        ('wValidBitsPerSample', UInt16),
-        ('wSamplesPerBlock', UInt16),
-        ('wReserved', UInt16),
-    ]
-    WAVEFORMATEXTENSIBLE._pack_ = 1
-    WAVEFORMATEXTENSIBLE._fields_ = [
-        ('Format', win32more.Media.Audio.WAVEFORMATEX),
-        ('Samples', WAVEFORMATEXTENSIBLE__Samples_e__Union),
-        ('dwChannelMask', UInt32),
-        ('SubFormat', Guid),
-    ]
-    return WAVEFORMATEXTENSIBLE
-def _define_WAVEHDR_head():
-    class WAVEHDR(Structure):
-        pass
-    return WAVEHDR
-def _define_WAVEHDR():
-    WAVEHDR = win32more.Media.Audio.WAVEHDR_head
-    WAVEHDR._pack_ = 1
-    WAVEHDR._fields_ = [
-        ('lpData', win32more.Foundation.PSTR),
-        ('dwBufferLength', UInt32),
-        ('dwBytesRecorded', UInt32),
-        ('dwUser', UIntPtr),
-        ('dwFlags', UInt32),
-        ('dwLoops', UInt32),
-        ('lpNext', POINTER(win32more.Media.Audio.WAVEHDR_head)),
-        ('reserved', UIntPtr),
-    ]
-    return WAVEHDR
-def _define_WAVEINCAPS2A_head():
-    class WAVEINCAPS2A(Structure):
-        pass
-    return WAVEINCAPS2A
-def _define_WAVEINCAPS2A():
-    WAVEINCAPS2A = win32more.Media.Audio.WAVEINCAPS2A_head
-    WAVEINCAPS2A._pack_ = 1
-    WAVEINCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return WAVEINCAPS2A
-def _define_WAVEINCAPS2W_head():
-    class WAVEINCAPS2W(Structure):
-        pass
-    return WAVEINCAPS2W
-def _define_WAVEINCAPS2W():
-    WAVEINCAPS2W = win32more.Media.Audio.WAVEINCAPS2W_head
-    WAVEINCAPS2W._pack_ = 1
-    WAVEINCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return WAVEINCAPS2W
-def _define_WAVEINCAPSA_head():
-    class WAVEINCAPSA(Structure):
-        pass
-    return WAVEINCAPSA
-def _define_WAVEINCAPSA():
-    WAVEINCAPSA = win32more.Media.Audio.WAVEINCAPSA_head
-    WAVEINCAPSA._pack_ = 1
-    WAVEINCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-    ]
-    return WAVEINCAPSA
-def _define_WAVEINCAPSW_head():
-    class WAVEINCAPSW(Structure):
-        pass
-    return WAVEINCAPSW
-def _define_WAVEINCAPSW():
-    WAVEINCAPSW = win32more.Media.Audio.WAVEINCAPSW_head
-    WAVEINCAPSW._pack_ = 1
-    WAVEINCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-    ]
-    return WAVEINCAPSW
-def _define_WAVEOUTCAPS2A_head():
-    class WAVEOUTCAPS2A(Structure):
-        pass
-    return WAVEOUTCAPS2A
-def _define_WAVEOUTCAPS2A():
-    WAVEOUTCAPS2A = win32more.Media.Audio.WAVEOUTCAPS2A_head
-    WAVEOUTCAPS2A._pack_ = 1
-    WAVEOUTCAPS2A._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return WAVEOUTCAPS2A
-def _define_WAVEOUTCAPS2W_head():
-    class WAVEOUTCAPS2W(Structure):
-        pass
-    return WAVEOUTCAPS2W
-def _define_WAVEOUTCAPS2W():
-    WAVEOUTCAPS2W = win32more.Media.Audio.WAVEOUTCAPS2W_head
-    WAVEOUTCAPS2W._pack_ = 1
-    WAVEOUTCAPS2W._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-        ('ManufacturerGuid', Guid),
-        ('ProductGuid', Guid),
-        ('NameGuid', Guid),
-    ]
-    return WAVEOUTCAPS2W
-def _define_WAVEOUTCAPSA_head():
-    class WAVEOUTCAPSA(Structure):
-        pass
-    return WAVEOUTCAPSA
-def _define_WAVEOUTCAPSA():
-    WAVEOUTCAPSA = win32more.Media.Audio.WAVEOUTCAPSA_head
-    WAVEOUTCAPSA._pack_ = 1
-    WAVEOUTCAPSA._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', win32more.Foundation.CHAR * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return WAVEOUTCAPSA
-def _define_WAVEOUTCAPSW_head():
-    class WAVEOUTCAPSW(Structure):
-        pass
-    return WAVEOUTCAPSW
-def _define_WAVEOUTCAPSW():
-    WAVEOUTCAPSW = win32more.Media.Audio.WAVEOUTCAPSW_head
-    WAVEOUTCAPSW._pack_ = 1
-    WAVEOUTCAPSW._fields_ = [
-        ('wMid', UInt16),
-        ('wPid', UInt16),
-        ('vDriverVersion', UInt32),
-        ('szPname', Char * 32),
-        ('dwFormats', UInt32),
-        ('wChannels', UInt16),
-        ('wReserved1', UInt16),
-        ('dwSupport', UInt32),
-    ]
-    return WAVEOUTCAPSW
+SpatialAudioMetadataWriterOverflow_Fail: SpatialAudioMetadataWriterOverflowMode = 0
+SpatialAudioMetadataWriterOverflow_MergeWithNew: SpatialAudioMetadataWriterOverflowMode = 1
+SpatialAudioMetadataWriterOverflow_MergeWithLast: SpatialAudioMetadataWriterOverflowMode = 2
+class SpatialAudioObjectRenderStreamActivationParams(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    _pack_ = 1
+class SpatialAudioObjectRenderStreamActivationParams2(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    Options: win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
+    _pack_ = 1
+class SpatialAudioObjectRenderStreamForMetadataActivationParams(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    MetadataFormatId: Guid
+    MaxMetadataItemCount: UInt16
+    MetadataActivationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    _pack_ = 1
+class SpatialAudioObjectRenderStreamForMetadataActivationParams2(Structure):
+    ObjectFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    StaticObjectTypeMask: win32more.Media.Audio.AudioObjectType
+    MinDynamicObjectCount: UInt32
+    MaxDynamicObjectCount: UInt32
+    Category: win32more.Media.Audio.AUDIO_STREAM_CATEGORY
+    EventHandle: win32more.Foundation.HANDLE
+    MetadataFormatId: Guid
+    MaxMetadataItemCount: UInt32
+    MetadataActivationParams: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+    NotifyObject: win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
+    Options: win32more.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
+    _pack_ = 1
+class tACMFORMATDETAILSW(Structure):
+    cbStruct: UInt32
+    dwFormatIndex: UInt32
+    dwFormatTag: UInt32
+    fdwSupport: UInt32
+    pwfx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    cbwfx: UInt32
+    szFormat: Char * 128
+    _pack_ = 1
+class VOLUMEWAVEFILTER(Structure):
+    wfltr: win32more.Media.Audio.WAVEFILTER
+    dwVolume: UInt32
+    _pack_ = 1
+class WAVEFILTER(Structure):
+    cbStruct: UInt32
+    dwFilterTag: UInt32
+    fdwFilter: UInt32
+    dwReserved: UInt32 * 5
+    _pack_ = 1
+class WAVEFORMAT(Structure):
+    wFormatTag: UInt16
+    nChannels: UInt16
+    nSamplesPerSec: UInt32
+    nAvgBytesPerSec: UInt32
+    nBlockAlign: UInt16
+    _pack_ = 1
+class WAVEFORMATEX(Structure):
+    wFormatTag: UInt16
+    nChannels: UInt16
+    nSamplesPerSec: UInt32
+    nAvgBytesPerSec: UInt32
+    nBlockAlign: UInt16
+    wBitsPerSample: UInt16
+    cbSize: UInt16
+    _pack_ = 1
+class WAVEFORMATEXTENSIBLE(Structure):
+    Format: win32more.Media.Audio.WAVEFORMATEX
+    Samples: _Samples_e__Union
+    dwChannelMask: UInt32
+    SubFormat: Guid
+    _pack_ = 1
+    class _Samples_e__Union(Union):
+        wValidBitsPerSample: UInt16
+        wSamplesPerBlock: UInt16
+        wReserved: UInt16
+        _pack_ = 1
+class WAVEHDR(Structure):
+    lpData: win32more.Foundation.PSTR
+    dwBufferLength: UInt32
+    dwBytesRecorded: UInt32
+    dwUser: UIntPtr
+    dwFlags: UInt32
+    dwLoops: UInt32
+    lpNext: POINTER(win32more.Media.Audio.WAVEHDR_head)
+    reserved: UIntPtr
+    _pack_ = 1
+class WAVEINCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class WAVEINCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class WAVEINCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    _pack_ = 1
+class WAVEINCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    _pack_ = 1
+class WAVEOUTCAPS2A(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class WAVEOUTCAPS2W(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    ManufacturerGuid: Guid
+    ProductGuid: Guid
+    NameGuid: Guid
+    _pack_ = 1
+class WAVEOUTCAPSA(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: win32more.Foundation.CHAR * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
+class WAVEOUTCAPSW(Structure):
+    wMid: UInt16
+    wPid: UInt16
+    vDriverVersion: UInt32
+    szPname: Char * 32
+    dwFormats: UInt32
+    wChannels: UInt16
+    wReserved1: UInt16
+    dwSupport: UInt32
+    _pack_ = 1
+make_head(_module, 'ACMDRIVERDETAILSA')
+make_head(_module, 'ACMDRIVERDETAILSW')
+make_head(_module, 'ACMDRIVERENUMCB')
+make_head(_module, 'ACMDRVFORMATSUGGEST')
+make_head(_module, 'ACMDRVOPENDESCA')
+make_head(_module, 'ACMDRVOPENDESCW')
+make_head(_module, 'ACMDRVSTREAMHEADER')
+make_head(_module, 'ACMDRVSTREAMINSTANCE')
+make_head(_module, 'ACMDRVSTREAMSIZE')
+make_head(_module, 'ACMFILTERCHOOSEA')
+make_head(_module, 'ACMFILTERCHOOSEHOOKPROCA')
+make_head(_module, 'ACMFILTERCHOOSEHOOKPROCW')
+make_head(_module, 'ACMFILTERCHOOSEW')
+make_head(_module, 'ACMFILTERDETAILSA')
+make_head(_module, 'ACMFILTERDETAILSW')
+make_head(_module, 'ACMFILTERENUMCBA')
+make_head(_module, 'ACMFILTERENUMCBW')
+make_head(_module, 'ACMFILTERTAGDETAILSA')
+make_head(_module, 'ACMFILTERTAGDETAILSW')
+make_head(_module, 'ACMFILTERTAGENUMCBA')
+make_head(_module, 'ACMFILTERTAGENUMCBW')
+make_head(_module, 'ACMFORMATCHOOSEA')
+make_head(_module, 'ACMFORMATCHOOSEHOOKPROCA')
+make_head(_module, 'ACMFORMATCHOOSEHOOKPROCW')
+make_head(_module, 'ACMFORMATCHOOSEW')
+make_head(_module, 'ACMFORMATDETAILSA')
+make_head(_module, 'ACMFORMATENUMCBA')
+make_head(_module, 'ACMFORMATENUMCBW')
+make_head(_module, 'ACMFORMATTAGDETAILSA')
+make_head(_module, 'ACMFORMATTAGDETAILSW')
+make_head(_module, 'ACMFORMATTAGENUMCBA')
+make_head(_module, 'ACMFORMATTAGENUMCBW')
+make_head(_module, 'ACMSTREAMHEADER')
+make_head(_module, 'AMBISONICS_PARAMS')
+make_head(_module, 'PKEY_AudioEndpoint_FormFactor')
+make_head(_module, 'PKEY_AudioEndpoint_ControlPanelPageProvider')
+make_head(_module, 'PKEY_AudioEndpoint_Association')
+make_head(_module, 'PKEY_AudioEndpoint_PhysicalSpeakers')
+make_head(_module, 'PKEY_AudioEndpoint_GUID')
+make_head(_module, 'PKEY_AudioEndpoint_Disable_SysFx')
+make_head(_module, 'PKEY_AudioEndpoint_FullRangeSpeakers')
+make_head(_module, 'PKEY_AudioEndpoint_Supports_EventDriven_Mode')
+make_head(_module, 'PKEY_AudioEndpoint_JackSubType')
+make_head(_module, 'PKEY_AudioEndpoint_Default_VolumeInDb')
+make_head(_module, 'PKEY_AudioEngine_DeviceFormat')
+make_head(_module, 'PKEY_AudioEngine_OEMFormat')
+make_head(_module, 'PKEY_AudioEndpointLogo_IconEffects')
+make_head(_module, 'PKEY_AudioEndpointLogo_IconPath')
+make_head(_module, 'PKEY_AudioEndpointSettings_MenuText')
+make_head(_module, 'PKEY_AudioEndpointSettings_LaunchContract')
+make_head(_module, 'AUDIO_EFFECT')
+make_head(_module, 'AUDIO_VOLUME_NOTIFICATION_DATA')
+make_head(_module, 'AUDIOCLIENT_ACTIVATION_PARAMS')
+make_head(_module, 'AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS')
+make_head(_module, 'AudioClient3ActivationParams')
+make_head(_module, 'AudioClientProperties')
+make_head(_module, 'AudioExtensionParams')
+make_head(_module, 'AUXCAPS2A')
+make_head(_module, 'AUXCAPS2W')
+make_head(_module, 'AUXCAPSA')
+make_head(_module, 'AUXCAPSW')
+make_head(_module, 'DIRECTX_AUDIO_ACTIVATION_PARAMS')
+make_head(_module, 'ECHOWAVEFILTER')
+make_head(_module, 'IActivateAudioInterfaceAsyncOperation')
+make_head(_module, 'IActivateAudioInterfaceCompletionHandler')
+make_head(_module, 'IAudioAmbisonicsControl')
+make_head(_module, 'IAudioAutoGainControl')
+make_head(_module, 'IAudioBass')
+make_head(_module, 'IAudioCaptureClient')
+make_head(_module, 'IAudioChannelConfig')
+make_head(_module, 'IAudioClient')
+make_head(_module, 'IAudioClient2')
+make_head(_module, 'IAudioClient3')
+make_head(_module, 'IAudioClientDuckingControl')
+make_head(_module, 'IAudioClock')
+make_head(_module, 'IAudioClock2')
+make_head(_module, 'IAudioClockAdjustment')
+make_head(_module, 'IAudioEffectsChangedNotificationClient')
+make_head(_module, 'IAudioEffectsManager')
+make_head(_module, 'IAudioFormatEnumerator')
+make_head(_module, 'IAudioInputSelector')
+make_head(_module, 'IAudioLoudness')
+make_head(_module, 'IAudioMidrange')
+make_head(_module, 'IAudioMute')
+make_head(_module, 'IAudioOutputSelector')
+make_head(_module, 'IAudioPeakMeter')
+make_head(_module, 'IAudioRenderClient')
+make_head(_module, 'IAudioSessionControl')
+make_head(_module, 'IAudioSessionControl2')
+make_head(_module, 'IAudioSessionEnumerator')
+make_head(_module, 'IAudioSessionEvents')
+make_head(_module, 'IAudioSessionManager')
+make_head(_module, 'IAudioSessionManager2')
+make_head(_module, 'IAudioSessionNotification')
+make_head(_module, 'IAudioStateMonitor')
+make_head(_module, 'IAudioStreamVolume')
+make_head(_module, 'IAudioSystemEffectsPropertyChangeNotificationClient')
+make_head(_module, 'IAudioSystemEffectsPropertyStore')
+make_head(_module, 'IAudioTreble')
+make_head(_module, 'IAudioVolumeDuckNotification')
+make_head(_module, 'IAudioVolumeLevel')
+make_head(_module, 'IChannelAudioVolume')
+make_head(_module, 'IConnector')
+make_head(_module, 'IControlChangeNotify')
+make_head(_module, 'IControlInterface')
+make_head(_module, 'IDeviceSpecificProperty')
+make_head(_module, 'IDeviceTopology')
+make_head(_module, 'IMessageFilter')
+make_head(_module, 'IMMDevice')
+make_head(_module, 'IMMDeviceActivator')
+make_head(_module, 'IMMDeviceCollection')
+make_head(_module, 'IMMDeviceEnumerator')
+make_head(_module, 'IMMEndpoint')
+make_head(_module, 'IMMNotificationClient')
+make_head(_module, 'IPart')
+make_head(_module, 'IPartsList')
+make_head(_module, 'IPerChannelDbLevel')
+make_head(_module, 'ISimpleAudioVolume')
+make_head(_module, 'ISpatialAudioClient')
+make_head(_module, 'ISpatialAudioClient2')
+make_head(_module, 'ISpatialAudioMetadataClient')
+make_head(_module, 'ISpatialAudioMetadataCopier')
+make_head(_module, 'ISpatialAudioMetadataItems')
+make_head(_module, 'ISpatialAudioMetadataItemsBuffer')
+make_head(_module, 'ISpatialAudioMetadataReader')
+make_head(_module, 'ISpatialAudioMetadataWriter')
+make_head(_module, 'ISpatialAudioObject')
+make_head(_module, 'ISpatialAudioObjectBase')
+make_head(_module, 'ISpatialAudioObjectForHrtf')
+make_head(_module, 'ISpatialAudioObjectForMetadataCommands')
+make_head(_module, 'ISpatialAudioObjectForMetadataItems')
+make_head(_module, 'ISpatialAudioObjectRenderStream')
+make_head(_module, 'ISpatialAudioObjectRenderStreamBase')
+make_head(_module, 'ISpatialAudioObjectRenderStreamForHrtf')
+make_head(_module, 'ISpatialAudioObjectRenderStreamForMetadata')
+make_head(_module, 'ISpatialAudioObjectRenderStreamNotify')
+make_head(_module, 'ISubunit')
+make_head(_module, 'LPACMDRIVERPROC')
+make_head(_module, 'LPMIDICALLBACK')
+make_head(_module, 'LPWAVECALLBACK')
+make_head(_module, 'MIDIEVENT')
+make_head(_module, 'MIDIHDR')
+make_head(_module, 'MIDIINCAPS2A')
+make_head(_module, 'MIDIINCAPS2W')
+make_head(_module, 'MIDIINCAPSA')
+make_head(_module, 'MIDIINCAPSW')
+make_head(_module, 'MIDIOUTCAPS2A')
+make_head(_module, 'MIDIOUTCAPS2W')
+make_head(_module, 'MIDIOUTCAPSA')
+make_head(_module, 'MIDIOUTCAPSW')
+make_head(_module, 'MIDIPROPTEMPO')
+make_head(_module, 'MIDIPROPTIMEDIV')
+make_head(_module, 'MIDISTRMBUFFVER')
+make_head(_module, 'MIXERCAPS2A')
+make_head(_module, 'MIXERCAPS2W')
+make_head(_module, 'MIXERCAPSA')
+make_head(_module, 'MIXERCAPSW')
+make_head(_module, 'MIXERCONTROLA')
+make_head(_module, 'MIXERCONTROLDETAILS')
+make_head(_module, 'MIXERCONTROLDETAILS_BOOLEAN')
+make_head(_module, 'MIXERCONTROLDETAILS_LISTTEXTA')
+make_head(_module, 'MIXERCONTROLDETAILS_LISTTEXTW')
+make_head(_module, 'MIXERCONTROLDETAILS_SIGNED')
+make_head(_module, 'MIXERCONTROLDETAILS_UNSIGNED')
+make_head(_module, 'MIXERCONTROLW')
+make_head(_module, 'MIXERLINEA')
+make_head(_module, 'MIXERLINECONTROLSA')
+make_head(_module, 'MIXERLINECONTROLSW')
+make_head(_module, 'MIXERLINEW')
+make_head(_module, 'PAudioStateMonitorCallback')
+make_head(_module, 'PCMWAVEFORMAT')
+make_head(_module, 'SpatialAudioClientActivationParams')
+make_head(_module, 'SpatialAudioHrtfActivationParams')
+make_head(_module, 'SpatialAudioHrtfActivationParams2')
+make_head(_module, 'SpatialAudioHrtfDirectivity')
+make_head(_module, 'SpatialAudioHrtfDirectivityCardioid')
+make_head(_module, 'SpatialAudioHrtfDirectivityCone')
+make_head(_module, 'SpatialAudioHrtfDirectivityUnion')
+make_head(_module, 'SpatialAudioHrtfDistanceDecay')
+make_head(_module, 'SpatialAudioMetadataItemsInfo')
+make_head(_module, 'SpatialAudioObjectRenderStreamActivationParams')
+make_head(_module, 'SpatialAudioObjectRenderStreamActivationParams2')
+make_head(_module, 'SpatialAudioObjectRenderStreamForMetadataActivationParams')
+make_head(_module, 'SpatialAudioObjectRenderStreamForMetadataActivationParams2')
+make_head(_module, 'tACMFORMATDETAILSW')
+make_head(_module, 'VOLUMEWAVEFILTER')
+make_head(_module, 'WAVEFILTER')
+make_head(_module, 'WAVEFORMAT')
+make_head(_module, 'WAVEFORMATEX')
+make_head(_module, 'WAVEFORMATEXTENSIBLE')
+make_head(_module, 'WAVEHDR')
+make_head(_module, 'WAVEINCAPS2A')
+make_head(_module, 'WAVEINCAPS2W')
+make_head(_module, 'WAVEINCAPSA')
+make_head(_module, 'WAVEINCAPSW')
+make_head(_module, 'WAVEOUTCAPS2A')
+make_head(_module, 'WAVEOUTCAPS2W')
+make_head(_module, 'WAVEOUTCAPSA')
+make_head(_module, 'WAVEOUTCAPSW')
 __all__ = [
     "ACMDM_DRIVER_ABOUT",
     "ACMDM_DRIVER_DETAILS",

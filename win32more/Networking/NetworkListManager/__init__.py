@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Networking.NetworkListManager
 import win32more.System.Com
@@ -8,278 +9,257 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-NA_DomainAuthenticationFailed = 'NA_DomainAuthenticationFailed'
-NA_NetworkClass = 'NA_NetworkClass'
-NA_NameSetByPolicy = 'NA_NameSetByPolicy'
-NA_IconSetByPolicy = 'NA_IconSetByPolicy'
-NA_DescriptionSetByPolicy = 'NA_DescriptionSetByPolicy'
-NA_CategorySetByPolicy = 'NA_CategorySetByPolicy'
-NA_NameReadOnly = 'NA_NameReadOnly'
-NA_IconReadOnly = 'NA_IconReadOnly'
-NA_DescriptionReadOnly = 'NA_DescriptionReadOnly'
-NA_CategoryReadOnly = 'NA_CategoryReadOnly'
-NA_AllowMerge = 'NA_AllowMerge'
-NA_InternetConnectivityV4 = 'NA_InternetConnectivityV4'
-NA_InternetConnectivityV6 = 'NA_InternetConnectivityV6'
-NLM_MAX_ADDRESS_LIST_SIZE = 10
-NLM_UNKNOWN_DATAPLAN_STATUS = 4294967295
-def _define_IEnumNetworkConnections_head():
-    class IEnumNetworkConnections(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dcb00006-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return IEnumNetworkConnections
-def _define_IEnumNetworkConnections():
-    IEnumNetworkConnections = win32more.Networking.NetworkListManager.IEnumNetworkConnections_head
-    IEnumNetworkConnections.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(7, 'get__NewEnum', ((1, 'ppEnumVar'),)))
-    IEnumNetworkConnections.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.INetworkConnection_head),POINTER(UInt32))(8, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumNetworkConnections.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(9, 'Skip', ((1, 'celt'),)))
-    IEnumNetworkConnections.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Reset', ()))
-    IEnumNetworkConnections.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head))(11, 'Clone', ((1, 'ppEnumNetwork'),)))
-    win32more.System.Com.IDispatch
-    return IEnumNetworkConnections
-def _define_IEnumNetworks_head():
-    class IEnumNetworks(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dcb00003-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return IEnumNetworks
-def _define_IEnumNetworks():
-    IEnumNetworks = win32more.Networking.NetworkListManager.IEnumNetworks_head
-    IEnumNetworks.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head))(7, 'get__NewEnum', ((1, 'ppEnumVar'),)))
-    IEnumNetworks.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.INetwork_head),POINTER(UInt32))(8, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumNetworks.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(9, 'Skip', ((1, 'celt'),)))
-    IEnumNetworks.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Reset', ()))
-    IEnumNetworks.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworks_head))(11, 'Clone', ((1, 'ppEnumNetwork'),)))
-    win32more.System.Com.IDispatch
-    return IEnumNetworks
-def _define_INetwork_head():
-    class INetwork(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dcb00002-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetwork
-def _define_INetwork():
-    INetwork = win32more.Networking.NetworkListManager.INetwork_head
-    INetwork.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'GetName', ((1, 'pszNetworkName'),)))
-    INetwork.SetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'SetName', ((1, 'szNetworkNewName'),)))
-    INetwork.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'GetDescription', ((1, 'pszDescription'),)))
-    INetwork.SetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'SetDescription', ((1, 'szDescription'),)))
-    INetwork.GetNetworkId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(11, 'GetNetworkId', ((1, 'pgdGuidNetworkId'),)))
-    INetwork.GetDomainType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DOMAIN_TYPE))(12, 'GetDomainType', ((1, 'pNetworkType'),)))
-    INetwork.GetNetworkConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head))(13, 'GetNetworkConnections', ((1, 'ppEnumNetworkConnection'),)))
-    INetwork.GetTimeCreatedAndConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(14, 'GetTimeCreatedAndConnected', ((1, 'pdwLowDateTimeCreated'),(1, 'pdwHighDateTimeCreated'),(1, 'pdwLowDateTimeConnected'),(1, 'pdwHighDateTimeConnected'),)))
-    INetwork.get_IsConnectedToInternet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(15, 'get_IsConnectedToInternet', ((1, 'pbIsConnected'),)))
-    INetwork.get_IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_IsConnected', ((1, 'pbIsConnected'),)))
-    INetwork.GetConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY))(17, 'GetConnectivity', ((1, 'pConnectivity'),)))
-    INetwork.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY))(18, 'GetCategory', ((1, 'pCategory'),)))
-    INetwork.SetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY)(19, 'SetCategory', ((1, 'NewCategory'),)))
-    win32more.System.Com.IDispatch
-    return INetwork
-def _define_INetworkConnection_head():
-    class INetworkConnection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dcb00005-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkConnection
-def _define_INetworkConnection():
-    INetworkConnection = win32more.Networking.NetworkListManager.INetworkConnection_head
-    INetworkConnection.GetNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.INetwork_head))(7, 'GetNetwork', ((1, 'ppNetwork'),)))
-    INetworkConnection.get_IsConnectedToInternet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_IsConnectedToInternet', ((1, 'pbIsConnected'),)))
-    INetworkConnection.get_IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'get_IsConnected', ((1, 'pbIsConnected'),)))
-    INetworkConnection.GetConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY))(10, 'GetConnectivity', ((1, 'pConnectivity'),)))
-    INetworkConnection.GetConnectionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(11, 'GetConnectionId', ((1, 'pgdConnectionId'),)))
-    INetworkConnection.GetAdapterId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(12, 'GetAdapterId', ((1, 'pgdAdapterId'),)))
-    INetworkConnection.GetDomainType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DOMAIN_TYPE))(13, 'GetDomainType', ((1, 'pDomainType'),)))
-    win32more.System.Com.IDispatch
-    return INetworkConnection
-def _define_INetworkConnectionCost_head():
-    class INetworkConnectionCost(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb0000a-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkConnectionCost
-def _define_INetworkConnectionCost():
-    INetworkConnectionCost = win32more.Networking.NetworkListManager.INetworkConnectionCost_head
-    INetworkConnectionCost.GetCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetCost', ((1, 'pCost'),)))
-    INetworkConnectionCost.GetDataPlanStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head))(4, 'GetDataPlanStatus', ((1, 'pDataPlanStatus'),)))
-    win32more.System.Com.IUnknown
-    return INetworkConnectionCost
-def _define_INetworkConnectionCostEvents_head():
-    class INetworkConnectionCostEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb0000b-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkConnectionCostEvents
-def _define_INetworkConnectionCostEvents():
-    INetworkConnectionCostEvents = win32more.Networking.NetworkListManager.INetworkConnectionCostEvents_head
-    INetworkConnectionCostEvents.ConnectionCostChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32)(3, 'ConnectionCostChanged', ((1, 'connectionId'),(1, 'newCost'),)))
-    INetworkConnectionCostEvents.ConnectionDataPlanStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(4, 'ConnectionDataPlanStatusChanged', ((1, 'connectionId'),)))
-    win32more.System.Com.IUnknown
-    return INetworkConnectionCostEvents
-def _define_INetworkConnectionEvents_head():
-    class INetworkConnectionEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb00007-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkConnectionEvents
-def _define_INetworkConnectionEvents():
-    INetworkConnectionEvents = win32more.Networking.NetworkListManager.INetworkConnectionEvents_head
-    INetworkConnectionEvents.NetworkConnectionConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)(3, 'NetworkConnectionConnectivityChanged', ((1, 'connectionId'),(1, 'newConnectivity'),)))
-    INetworkConnectionEvents.NetworkConnectionPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTION_PROPERTY_CHANGE)(4, 'NetworkConnectionPropertyChanged', ((1, 'connectionId'),(1, 'flags'),)))
-    win32more.System.Com.IUnknown
-    return INetworkConnectionEvents
-def _define_INetworkCostManager_head():
-    class INetworkCostManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb00008-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkCostManager
-def _define_INetworkCostManager():
-    INetworkCostManager = win32more.Networking.NetworkListManager.INetworkCostManager_head
-    INetworkCostManager.GetCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head))(3, 'GetCost', ((1, 'pCost'),(1, 'pDestIPAddr'),)))
-    INetworkCostManager.GetDataPlanStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head),POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head))(4, 'GetDataPlanStatus', ((1, 'pDataPlanStatus'),(1, 'pDestIPAddr'),)))
-    INetworkCostManager.SetDestinationAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head),win32more.Foundation.VARIANT_BOOL)(5, 'SetDestinationAddresses', ((1, 'length'),(1, 'pDestIPAddrList'),(1, 'bAppend'),)))
-    win32more.System.Com.IUnknown
-    return INetworkCostManager
-def _define_INetworkCostManagerEvents_head():
-    class INetworkCostManagerEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb00009-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkCostManagerEvents
-def _define_INetworkCostManagerEvents():
-    INetworkCostManagerEvents = win32more.Networking.NetworkListManager.INetworkCostManagerEvents_head
-    INetworkCostManagerEvents.CostChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head))(3, 'CostChanged', ((1, 'newCost'),(1, 'pDestAddr'),)))
-    INetworkCostManagerEvents.DataPlanStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head))(4, 'DataPlanStatusChanged', ((1, 'pDestAddr'),)))
-    win32more.System.Com.IUnknown
-    return INetworkCostManagerEvents
-def _define_INetworkEvents_head():
-    class INetworkEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb00004-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkEvents
-def _define_INetworkEvents():
-    INetworkEvents = win32more.Networking.NetworkListManager.INetworkEvents_head
-    INetworkEvents.NetworkAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(3, 'NetworkAdded', ((1, 'networkId'),)))
-    INetworkEvents.NetworkDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(4, 'NetworkDeleted', ((1, 'networkId'),)))
-    INetworkEvents.NetworkConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)(5, 'NetworkConnectivityChanged', ((1, 'networkId'),(1, 'newConnectivity'),)))
-    INetworkEvents.NetworkPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE)(6, 'NetworkPropertyChanged', ((1, 'networkId'),(1, 'flags'),)))
-    win32more.System.Com.IUnknown
-    return INetworkEvents
-def _define_INetworkListManager_head():
-    class INetworkListManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('dcb00000-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkListManager
-def _define_INetworkListManager():
-    INetworkListManager = win32more.Networking.NetworkListManager.INetworkListManager_head
-    INetworkListManager.GetNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.NetworkListManager.NLM_ENUM_NETWORK,POINTER(win32more.Networking.NetworkListManager.IEnumNetworks_head))(7, 'GetNetworks', ((1, 'Flags'),(1, 'ppEnumNetwork'),)))
-    INetworkListManager.GetNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Networking.NetworkListManager.INetwork_head))(8, 'GetNetwork', ((1, 'gdNetworkId'),(1, 'ppNetwork'),)))
-    INetworkListManager.GetNetworkConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head))(9, 'GetNetworkConnections', ((1, 'ppEnum'),)))
-    INetworkListManager.GetNetworkConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Networking.NetworkListManager.INetworkConnection_head))(10, 'GetNetworkConnection', ((1, 'gdNetworkConnectionId'),(1, 'ppNetworkConnection'),)))
-    INetworkListManager.get_IsConnectedToInternet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(11, 'get_IsConnectedToInternet', ((1, 'pbIsConnected'),)))
-    INetworkListManager.get_IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'get_IsConnected', ((1, 'pbIsConnected'),)))
-    INetworkListManager.GetConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY))(13, 'GetConnectivity', ((1, 'pConnectivity'),)))
-    INetworkListManager.SetSimulatedProfileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_SIMULATED_PROFILE_INFO_head))(14, 'SetSimulatedProfileInfo', ((1, 'pSimulatedInfo'),)))
-    INetworkListManager.ClearSimulatedProfileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'ClearSimulatedProfileInfo', ()))
-    win32more.System.Com.IDispatch
-    return INetworkListManager
-def _define_INetworkListManagerEvents_head():
-    class INetworkListManagerEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dcb00001-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
-    return INetworkListManagerEvents
-def _define_INetworkListManagerEvents():
-    INetworkListManagerEvents = win32more.Networking.NetworkListManager.INetworkListManagerEvents_head
-    INetworkListManagerEvents.ConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)(3, 'ConnectivityChanged', ((1, 'newConnectivity'),)))
-    win32more.System.Com.IUnknown
-    return INetworkListManagerEvents
+NA_DomainAuthenticationFailed: String = 'NA_DomainAuthenticationFailed'
+NA_NetworkClass: String = 'NA_NetworkClass'
+NA_NameSetByPolicy: String = 'NA_NameSetByPolicy'
+NA_IconSetByPolicy: String = 'NA_IconSetByPolicy'
+NA_DescriptionSetByPolicy: String = 'NA_DescriptionSetByPolicy'
+NA_CategorySetByPolicy: String = 'NA_CategorySetByPolicy'
+NA_NameReadOnly: String = 'NA_NameReadOnly'
+NA_IconReadOnly: String = 'NA_IconReadOnly'
+NA_DescriptionReadOnly: String = 'NA_DescriptionReadOnly'
+NA_CategoryReadOnly: String = 'NA_CategoryReadOnly'
+NA_AllowMerge: String = 'NA_AllowMerge'
+NA_InternetConnectivityV4: String = 'NA_InternetConnectivityV4'
+NA_InternetConnectivityV6: String = 'NA_InternetConnectivityV6'
+NLM_MAX_ADDRESS_LIST_SIZE: UInt32 = 10
+NLM_UNKNOWN_DATAPLAN_STATUS: UInt32 = 4294967295
+class IEnumNetworkConnections(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dcb00006-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(7)
+    def get__NewEnum(ppEnumVar: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.Networking.NetworkListManager.INetworkConnection_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Clone(ppEnumNetwork: POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumNetworks(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dcb00003-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(7)
+    def get__NewEnum(ppEnumVar: POINTER(win32more.System.Ole.IEnumVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.Networking.NetworkListManager.INetwork_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Clone(ppEnumNetwork: POINTER(win32more.Networking.NetworkListManager.IEnumNetworks_head)) -> win32more.Foundation.HRESULT: ...
+class INetwork(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dcb00002-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(7)
+    def GetName(pszNetworkName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetName(szNetworkNewName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDescription(pszDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetDescription(szDescription: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetNetworkId(pgdGuidNetworkId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetDomainType(pNetworkType: POINTER(win32more.Networking.NetworkListManager.NLM_DOMAIN_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetNetworkConnections(ppEnumNetworkConnection: POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetTimeCreatedAndConnected(pdwLowDateTimeCreated: POINTER(UInt32), pdwHighDateTimeCreated: POINTER(UInt32), pdwLowDateTimeConnected: POINTER(UInt32), pdwHighDateTimeConnected: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_IsConnectedToInternet(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_IsConnected(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetConnectivity(pConnectivity: POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCategory(pCategory: POINTER(win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetCategory(NewCategory: win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY) -> win32more.Foundation.HRESULT: ...
+class INetworkConnection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dcb00005-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(7)
+    def GetNetwork(ppNetwork: POINTER(win32more.Networking.NetworkListManager.INetwork_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_IsConnectedToInternet(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_IsConnected(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetConnectivity(pConnectivity: POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetConnectionId(pgdConnectionId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetAdapterId(pgdAdapterId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetDomainType(pDomainType: POINTER(win32more.Networking.NetworkListManager.NLM_DOMAIN_TYPE)) -> win32more.Foundation.HRESULT: ...
+class INetworkConnectionCost(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb0000a-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def GetCost(pCost: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDataPlanStatus(pDataPlanStatus: POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head)) -> win32more.Foundation.HRESULT: ...
+class INetworkConnectionCostEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb0000b-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def ConnectionCostChanged(connectionId: Guid, newCost: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ConnectionDataPlanStatusChanged(connectionId: Guid) -> win32more.Foundation.HRESULT: ...
+class INetworkConnectionEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb00007-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def NetworkConnectionConnectivityChanged(connectionId: Guid, newConnectivity: win32more.Networking.NetworkListManager.NLM_CONNECTIVITY) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NetworkConnectionPropertyChanged(connectionId: Guid, flags: win32more.Networking.NetworkListManager.NLM_CONNECTION_PROPERTY_CHANGE) -> win32more.Foundation.HRESULT: ...
+class INetworkCostManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb00008-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def GetCost(pCost: POINTER(UInt32), pDestIPAddr: POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDataPlanStatus(pDataPlanStatus: POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head), pDestIPAddr: POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetDestinationAddresses(length: UInt32, pDestIPAddrList: POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head), bAppend: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class INetworkCostManagerEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb00009-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def CostChanged(newCost: UInt32, pDestAddr: POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DataPlanStatusChanged(pDestAddr: POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> win32more.Foundation.HRESULT: ...
+class INetworkEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb00004-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def NetworkAdded(networkId: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NetworkDeleted(networkId: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def NetworkConnectivityChanged(networkId: Guid, newConnectivity: win32more.Networking.NetworkListManager.NLM_CONNECTIVITY) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def NetworkPropertyChanged(networkId: Guid, flags: win32more.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE) -> win32more.Foundation.HRESULT: ...
+class INetworkListManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('dcb00000-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(7)
+    def GetNetworks(Flags: win32more.Networking.NetworkListManager.NLM_ENUM_NETWORK, ppEnumNetwork: POINTER(win32more.Networking.NetworkListManager.IEnumNetworks_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetNetwork(gdNetworkId: Guid, ppNetwork: POINTER(win32more.Networking.NetworkListManager.INetwork_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetNetworkConnections(ppEnum: POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetNetworkConnection(gdNetworkConnectionId: Guid, ppNetworkConnection: POINTER(win32more.Networking.NetworkListManager.INetworkConnection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_IsConnectedToInternet(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_IsConnected(pbIsConnected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetConnectivity(pConnectivity: POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetSimulatedProfileInfo(pSimulatedInfo: POINTER(win32more.Networking.NetworkListManager.NLM_SIMULATED_PROFILE_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ClearSimulatedProfileInfo() -> win32more.Foundation.HRESULT: ...
+class INetworkListManagerEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dcb00001-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    @commethod(3)
+    def ConnectivityChanged(newConnectivity: win32more.Networking.NetworkListManager.NLM_CONNECTIVITY) -> win32more.Foundation.HRESULT: ...
 NetworkListManager = Guid('dcb00c01-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
 NLM_CONNECTION_COST = Int32
-NLM_CONNECTION_COST_UNKNOWN = 0
-NLM_CONNECTION_COST_UNRESTRICTED = 1
-NLM_CONNECTION_COST_FIXED = 2
-NLM_CONNECTION_COST_VARIABLE = 4
-NLM_CONNECTION_COST_OVERDATALIMIT = 65536
-NLM_CONNECTION_COST_CONGESTED = 131072
-NLM_CONNECTION_COST_ROAMING = 262144
-NLM_CONNECTION_COST_APPROACHINGDATALIMIT = 524288
+NLM_CONNECTION_COST_UNKNOWN: NLM_CONNECTION_COST = 0
+NLM_CONNECTION_COST_UNRESTRICTED: NLM_CONNECTION_COST = 1
+NLM_CONNECTION_COST_FIXED: NLM_CONNECTION_COST = 2
+NLM_CONNECTION_COST_VARIABLE: NLM_CONNECTION_COST = 4
+NLM_CONNECTION_COST_OVERDATALIMIT: NLM_CONNECTION_COST = 65536
+NLM_CONNECTION_COST_CONGESTED: NLM_CONNECTION_COST = 131072
+NLM_CONNECTION_COST_ROAMING: NLM_CONNECTION_COST = 262144
+NLM_CONNECTION_COST_APPROACHINGDATALIMIT: NLM_CONNECTION_COST = 524288
 NLM_CONNECTION_PROPERTY_CHANGE = Int32
-NLM_CONNECTION_PROPERTY_CHANGE_AUTHENTICATION = 1
+NLM_CONNECTION_PROPERTY_CHANGE_AUTHENTICATION: NLM_CONNECTION_PROPERTY_CHANGE = 1
 NLM_CONNECTIVITY = Int32
-NLM_CONNECTIVITY_DISCONNECTED = 0
-NLM_CONNECTIVITY_IPV4_NOTRAFFIC = 1
-NLM_CONNECTIVITY_IPV6_NOTRAFFIC = 2
-NLM_CONNECTIVITY_IPV4_SUBNET = 16
-NLM_CONNECTIVITY_IPV4_LOCALNETWORK = 32
-NLM_CONNECTIVITY_IPV4_INTERNET = 64
-NLM_CONNECTIVITY_IPV6_SUBNET = 256
-NLM_CONNECTIVITY_IPV6_LOCALNETWORK = 512
-NLM_CONNECTIVITY_IPV6_INTERNET = 1024
-def _define_NLM_DATAPLAN_STATUS_head():
-    class NLM_DATAPLAN_STATUS(Structure):
-        pass
-    return NLM_DATAPLAN_STATUS
-def _define_NLM_DATAPLAN_STATUS():
-    NLM_DATAPLAN_STATUS = win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head
-    NLM_DATAPLAN_STATUS._fields_ = [
-        ('InterfaceGuid', Guid),
-        ('UsageData', win32more.Networking.NetworkListManager.NLM_USAGE_DATA),
-        ('DataLimitInMegabytes', UInt32),
-        ('InboundBandwidthInKbps', UInt32),
-        ('OutboundBandwidthInKbps', UInt32),
-        ('NextBillingCycle', win32more.Foundation.FILETIME),
-        ('MaxTransferSizeInMegabytes', UInt32),
-        ('Reserved', UInt32),
-    ]
-    return NLM_DATAPLAN_STATUS
+NLM_CONNECTIVITY_DISCONNECTED: NLM_CONNECTIVITY = 0
+NLM_CONNECTIVITY_IPV4_NOTRAFFIC: NLM_CONNECTIVITY = 1
+NLM_CONNECTIVITY_IPV6_NOTRAFFIC: NLM_CONNECTIVITY = 2
+NLM_CONNECTIVITY_IPV4_SUBNET: NLM_CONNECTIVITY = 16
+NLM_CONNECTIVITY_IPV4_LOCALNETWORK: NLM_CONNECTIVITY = 32
+NLM_CONNECTIVITY_IPV4_INTERNET: NLM_CONNECTIVITY = 64
+NLM_CONNECTIVITY_IPV6_SUBNET: NLM_CONNECTIVITY = 256
+NLM_CONNECTIVITY_IPV6_LOCALNETWORK: NLM_CONNECTIVITY = 512
+NLM_CONNECTIVITY_IPV6_INTERNET: NLM_CONNECTIVITY = 1024
+class NLM_DATAPLAN_STATUS(Structure):
+    InterfaceGuid: Guid
+    UsageData: win32more.Networking.NetworkListManager.NLM_USAGE_DATA
+    DataLimitInMegabytes: UInt32
+    InboundBandwidthInKbps: UInt32
+    OutboundBandwidthInKbps: UInt32
+    NextBillingCycle: win32more.Foundation.FILETIME
+    MaxTransferSizeInMegabytes: UInt32
+    Reserved: UInt32
 NLM_DOMAIN_TYPE = Int32
-NLM_DOMAIN_TYPE_NON_DOMAIN_NETWORK = 0
-NLM_DOMAIN_TYPE_DOMAIN_NETWORK = 1
-NLM_DOMAIN_TYPE_DOMAIN_AUTHENTICATED = 2
+NLM_DOMAIN_TYPE_NON_DOMAIN_NETWORK: NLM_DOMAIN_TYPE = 0
+NLM_DOMAIN_TYPE_DOMAIN_NETWORK: NLM_DOMAIN_TYPE = 1
+NLM_DOMAIN_TYPE_DOMAIN_AUTHENTICATED: NLM_DOMAIN_TYPE = 2
 NLM_ENUM_NETWORK = Int32
-NLM_ENUM_NETWORK_CONNECTED = 1
-NLM_ENUM_NETWORK_DISCONNECTED = 2
-NLM_ENUM_NETWORK_ALL = 3
+NLM_ENUM_NETWORK_CONNECTED: NLM_ENUM_NETWORK = 1
+NLM_ENUM_NETWORK_DISCONNECTED: NLM_ENUM_NETWORK = 2
+NLM_ENUM_NETWORK_ALL: NLM_ENUM_NETWORK = 3
 NLM_INTERNET_CONNECTIVITY = Int32
-NLM_INTERNET_CONNECTIVITY_WEBHIJACK = 1
-NLM_INTERNET_CONNECTIVITY_PROXIED = 2
-NLM_INTERNET_CONNECTIVITY_CORPORATE = 4
+NLM_INTERNET_CONNECTIVITY_WEBHIJACK: NLM_INTERNET_CONNECTIVITY = 1
+NLM_INTERNET_CONNECTIVITY_PROXIED: NLM_INTERNET_CONNECTIVITY = 2
+NLM_INTERNET_CONNECTIVITY_CORPORATE: NLM_INTERNET_CONNECTIVITY = 4
 NLM_NETWORK_CATEGORY = Int32
-NLM_NETWORK_CATEGORY_PUBLIC = 0
-NLM_NETWORK_CATEGORY_PRIVATE = 1
-NLM_NETWORK_CATEGORY_DOMAIN_AUTHENTICATED = 2
+NLM_NETWORK_CATEGORY_PUBLIC: NLM_NETWORK_CATEGORY = 0
+NLM_NETWORK_CATEGORY_PRIVATE: NLM_NETWORK_CATEGORY = 1
+NLM_NETWORK_CATEGORY_DOMAIN_AUTHENTICATED: NLM_NETWORK_CATEGORY = 2
 NLM_NETWORK_CLASS = Int32
-NLM_NETWORK_IDENTIFYING = 1
-NLM_NETWORK_IDENTIFIED = 2
-NLM_NETWORK_UNIDENTIFIED = 3
+NLM_NETWORK_IDENTIFYING: NLM_NETWORK_CLASS = 1
+NLM_NETWORK_IDENTIFIED: NLM_NETWORK_CLASS = 2
+NLM_NETWORK_UNIDENTIFIED: NLM_NETWORK_CLASS = 3
 NLM_NETWORK_PROPERTY_CHANGE = Int32
-NLM_NETWORK_PROPERTY_CHANGE_CONNECTION = 1
-NLM_NETWORK_PROPERTY_CHANGE_DESCRIPTION = 2
-NLM_NETWORK_PROPERTY_CHANGE_NAME = 4
-NLM_NETWORK_PROPERTY_CHANGE_ICON = 8
-NLM_NETWORK_PROPERTY_CHANGE_CATEGORY_VALUE = 16
-def _define_NLM_SIMULATED_PROFILE_INFO_head():
-    class NLM_SIMULATED_PROFILE_INFO(Structure):
-        pass
-    return NLM_SIMULATED_PROFILE_INFO
-def _define_NLM_SIMULATED_PROFILE_INFO():
-    NLM_SIMULATED_PROFILE_INFO = win32more.Networking.NetworkListManager.NLM_SIMULATED_PROFILE_INFO_head
-    NLM_SIMULATED_PROFILE_INFO._fields_ = [
-        ('ProfileName', Char * 256),
-        ('cost', win32more.Networking.NetworkListManager.NLM_CONNECTION_COST),
-        ('UsageInMegabytes', UInt32),
-        ('DataLimitInMegabytes', UInt32),
-    ]
-    return NLM_SIMULATED_PROFILE_INFO
-def _define_NLM_SOCKADDR_head():
-    class NLM_SOCKADDR(Structure):
-        pass
-    return NLM_SOCKADDR
-def _define_NLM_SOCKADDR():
-    NLM_SOCKADDR = win32more.Networking.NetworkListManager.NLM_SOCKADDR_head
-    NLM_SOCKADDR._fields_ = [
-        ('data', Byte * 128),
-    ]
-    return NLM_SOCKADDR
-def _define_NLM_USAGE_DATA_head():
-    class NLM_USAGE_DATA(Structure):
-        pass
-    return NLM_USAGE_DATA
-def _define_NLM_USAGE_DATA():
-    NLM_USAGE_DATA = win32more.Networking.NetworkListManager.NLM_USAGE_DATA_head
-    NLM_USAGE_DATA._fields_ = [
-        ('UsageInMegabytes', UInt32),
-        ('LastSyncTime', win32more.Foundation.FILETIME),
-    ]
-    return NLM_USAGE_DATA
+NLM_NETWORK_PROPERTY_CHANGE_CONNECTION: NLM_NETWORK_PROPERTY_CHANGE = 1
+NLM_NETWORK_PROPERTY_CHANGE_DESCRIPTION: NLM_NETWORK_PROPERTY_CHANGE = 2
+NLM_NETWORK_PROPERTY_CHANGE_NAME: NLM_NETWORK_PROPERTY_CHANGE = 4
+NLM_NETWORK_PROPERTY_CHANGE_ICON: NLM_NETWORK_PROPERTY_CHANGE = 8
+NLM_NETWORK_PROPERTY_CHANGE_CATEGORY_VALUE: NLM_NETWORK_PROPERTY_CHANGE = 16
+class NLM_SIMULATED_PROFILE_INFO(Structure):
+    ProfileName: Char * 256
+    cost: win32more.Networking.NetworkListManager.NLM_CONNECTION_COST
+    UsageInMegabytes: UInt32
+    DataLimitInMegabytes: UInt32
+class NLM_SOCKADDR(Structure):
+    data: Byte * 128
+class NLM_USAGE_DATA(Structure):
+    UsageInMegabytes: UInt32
+    LastSyncTime: win32more.Foundation.FILETIME
+make_head(_module, 'IEnumNetworkConnections')
+make_head(_module, 'IEnumNetworks')
+make_head(_module, 'INetwork')
+make_head(_module, 'INetworkConnection')
+make_head(_module, 'INetworkConnectionCost')
+make_head(_module, 'INetworkConnectionCostEvents')
+make_head(_module, 'INetworkConnectionEvents')
+make_head(_module, 'INetworkCostManager')
+make_head(_module, 'INetworkCostManagerEvents')
+make_head(_module, 'INetworkEvents')
+make_head(_module, 'INetworkListManager')
+make_head(_module, 'INetworkListManagerEvents')
+make_head(_module, 'NLM_DATAPLAN_STATUS')
+make_head(_module, 'NLM_SIMULATED_PROFILE_INFO')
+make_head(_module, 'NLM_SOCKADDR')
+make_head(_module, 'NLM_USAGE_DATA')
 __all__ = [
     "IEnumNetworkConnections",
     "IEnumNetworks",

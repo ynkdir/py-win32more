@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.UI.Input.KeyboardAndMouse
 import win32more.UI.TextServices
@@ -7,1162 +8,748 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 ACTIVATE_KEYBOARD_LAYOUT_FLAGS = UInt32
-KLF_REORDER = 8
-KLF_RESET = 1073741824
-KLF_SETFORPROCESS = 256
-KLF_SHIFTLOCK = 65536
-KLF_ACTIVATE = 1
-KLF_NOTELLSHELL = 128
-KLF_REPLACELANG = 16
-KLF_SUBSTITUTE_OK = 2
-EXTENDED_BIT = 16777216
-DONTCARE_BIT = 33554432
-FAKE_KEYSTROKE = 33554432
-KBDBASE = 0
-KBDSHIFT = 1
-KBDCTRL = 2
-KBDALT = 4
-KBDKANA = 8
-KBDROYA = 16
-KBDLOYA = 32
-KBDGRPSELTAP = 128
-GRAVE = 768
-ACUTE = 769
-CIRCUMFLEX = 770
-TILDE = 771
-MACRON = 772
-OVERSCORE = 773
-BREVE = 774
-DOT_ABOVE = 775
-UMLAUT = 776
-DIARESIS = 776
-HOOK_ABOVE = 777
-RING = 778
-DOUBLE_ACUTE = 779
-HACEK = 780
-CEDILLA = 807
-OGONEK = 808
-TONOS = 900
-DIARESIS_TONOS = 901
-wszGRAVE = '\u0300'
-wszACUTE = '\u0301'
-wszCIRCUMFLEX = '\u0302'
-wszTILDE = '\u0303'
-wszMACRON = '\u0304'
-wszOVERSCORE = '\u0305'
-wszBREVE = '\u0306'
-wszDOT_ABOVE = '\u0307'
-wszUMLAUT = '\u0308'
-wszHOOK_ABOVE = '\u0309'
-wszRING = '\u030a'
-wszDOUBLE_ACUTE = '\u030b'
-wszHACEK = '\u030c'
-wszCEDILLA = '\u0327'
-wszOGONEK = '\u0328'
-wszTONOS = '\u0384'
-wszDIARESIS_TONOS = '\u0385'
-SHFT_INVALID = 15
-WCH_NONE = 61440
-WCH_DEAD = 61441
-WCH_LGTR = 61442
-CAPLOK = 1
-SGCAPS = 2
-CAPLOKALTGR = 4
-KANALOK = 8
-GRPSELTAP = 128
-DKF_DEAD = 1
-KBD_VERSION = 1
-KLLF_ALTGR = 1
-KLLF_SHIFTLOCK = 2
-KLLF_LRM_RLM = 4
-KLLF_GLOBAL_ATTRS = 2
-KBDTABLE_MULTI_MAX = 8
-KEYBOARD_TYPE_GENERIC_101 = 4
-KEYBOARD_TYPE_JAPAN = 7
-KEYBOARD_TYPE_KOREA = 8
-KEYBOARD_TYPE_UNKNOWN = 81
-NLSKBD_OEM_MICROSOFT = 0
-NLSKBD_OEM_AX = 1
-NLSKBD_OEM_EPSON = 4
-NLSKBD_OEM_FUJITSU = 5
-NLSKBD_OEM_IBM = 7
-NLSKBD_OEM_MATSUSHITA = 10
-NLSKBD_OEM_NEC = 13
-NLSKBD_OEM_TOSHIBA = 18
-NLSKBD_OEM_DEC = 24
-MICROSOFT_KBD_101_TYPE = 0
-MICROSOFT_KBD_AX_TYPE = 1
-MICROSOFT_KBD_106_TYPE = 2
-MICROSOFT_KBD_002_TYPE = 3
-MICROSOFT_KBD_001_TYPE = 4
-MICROSOFT_KBD_FUNC = 12
-AX_KBD_DESKTOP_TYPE = 1
-FMR_KBD_JIS_TYPE = 0
-FMR_KBD_OASYS_TYPE = 1
-FMV_KBD_OASYS_TYPE = 2
-NEC_KBD_NORMAL_TYPE = 1
-NEC_KBD_N_MODE_TYPE = 2
-NEC_KBD_H_MODE_TYPE = 3
-NEC_KBD_LAPTOP_TYPE = 4
-NEC_KBD_106_TYPE = 5
-TOSHIBA_KBD_DESKTOP_TYPE = 13
-TOSHIBA_KBD_LAPTOP_TYPE = 15
-DEC_KBD_ANSI_LAYOUT_TYPE = 1
-DEC_KBD_JIS_LAYOUT_TYPE = 2
-MICROSOFT_KBD_101A_TYPE = 0
-MICROSOFT_KBD_101B_TYPE = 4
-MICROSOFT_KBD_101C_TYPE = 5
-MICROSOFT_KBD_103_TYPE = 6
-NLSKBD_INFO_SEND_IME_NOTIFICATION = 1
-NLSKBD_INFO_ACCESSIBILITY_KEYMAP = 2
-NLSKBD_INFO_EMURATE_101_KEYBOARD = 16
-NLSKBD_INFO_EMURATE_106_KEYBOARD = 32
-KBDNLS_TYPE_NULL = 0
-KBDNLS_TYPE_NORMAL = 1
-KBDNLS_TYPE_TOGGLE = 2
-KBDNLS_INDEX_NORMAL = 1
-KBDNLS_INDEX_ALT = 2
-KBDNLS_NULL = 0
-KBDNLS_NOEVENT = 1
-KBDNLS_SEND_BASE_VK = 2
-KBDNLS_SEND_PARAM_VK = 3
-KBDNLS_KANALOCK = 4
-KBDNLS_ALPHANUM = 5
-KBDNLS_HIRAGANA = 6
-KBDNLS_KATAKANA = 7
-KBDNLS_SBCSDBCS = 8
-KBDNLS_ROMAN = 9
-KBDNLS_CODEINPUT = 10
-KBDNLS_HELP_OR_END = 11
-KBDNLS_HOME_OR_CLEAR = 12
-KBDNLS_NUMPAD = 13
-KBDNLS_KANAEVENT = 14
-KBDNLS_CONV_OR_NONCONV = 15
-KBD_TYPE = 4
-VK__none_ = 255
-VK_ABNT_C1 = 193
-VK_ABNT_C2 = 194
-SCANCODE_LSHIFT = 42
-SCANCODE_RSHIFT = 54
-SCANCODE_CTRL = 29
-SCANCODE_ALT = 56
-SCANCODE_NUMPAD_FIRST = 71
-SCANCODE_NUMPAD_LAST = 82
-SCANCODE_LWIN = 91
-SCANCODE_RWIN = 92
-SCANCODE_THAI_LAYOUT_TOGGLE = 41
-VK_DBE_ALPHANUMERIC = 240
-VK_DBE_KATAKANA = 241
-VK_DBE_HIRAGANA = 242
-VK_DBE_SBCSCHAR = 243
-VK_DBE_DBCSCHAR = 244
-VK_DBE_ROMAN = 245
-VK_DBE_NOROMAN = 246
-VK_DBE_ENTERWORDREGISTERMODE = 247
-VK_DBE_ENTERIMECONFIGMODE = 248
-VK_DBE_FLUSHSTRING = 249
-VK_DBE_CODEINPUT = 250
-VK_DBE_NOCODEINPUT = 251
-VK_DBE_DETERMINESTRING = 252
-VK_DBE_ENTERDLGCONVERSIONMODE = 253
-def _define__TrackMouseEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head))(('_TrackMouseEvent', windll['COMCTL32.dll']), ((1, 'lpEventTrack'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadKeyboardLayoutA():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS)(('LoadKeyboardLayoutA', windll['USER32.dll']), ((1, 'pwszKLID'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadKeyboardLayoutW():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS)(('LoadKeyboardLayoutW', windll['USER32.dll']), ((1, 'pwszKLID'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ActivateKeyboardLayout():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,win32more.UI.TextServices.HKL,win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS)(('ActivateKeyboardLayout', windll['USER32.dll']), ((1, 'hkl'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ToUnicodeEx():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_char_p_no,win32more.Foundation.PWSTR,Int32,UInt32,win32more.UI.TextServices.HKL)(('ToUnicodeEx', windll['USER32.dll']), ((1, 'wVirtKey'),(1, 'wScanCode'),(1, 'lpKeyState'),(1, 'pwszBuff'),(1, 'cchBuff'),(1, 'wFlags'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnloadKeyboardLayout():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL)(('UnloadKeyboardLayout', windll['USER32.dll']), ((1, 'hkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardLayoutNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('GetKeyboardLayoutNameA', windll['USER32.dll']), ((1, 'pwszKLID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardLayoutNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('GetKeyboardLayoutNameW', windll['USER32.dll']), ((1, 'pwszKLID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardLayoutList():
-    try:
-        return WINFUNCTYPE(Int32,Int32,POINTER(win32more.UI.TextServices.HKL))(('GetKeyboardLayoutList', windll['USER32.dll']), ((1, 'nBuff'),(1, 'lpList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardLayout():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,UInt32)(('GetKeyboardLayout', windll['USER32.dll']), ((1, 'idThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMouseMovePointsEx():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,POINTER(win32more.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head),POINTER(win32more.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head),Int32,win32more.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION)(('GetMouseMovePointsEx', windll['USER32.dll']), ((1, 'cbSize'),(1, 'lppt'),(1, 'lpptBuf'),(1, 'nBufPoints'),(1, 'resolution'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TrackMouseEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head))(('TrackMouseEvent', windll['USER32.dll']), ((1, 'lpEventTrack'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterHotKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32,win32more.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS,UInt32)(('RegisterHotKey', windll['USER32.dll']), ((1, 'hWnd'),(1, 'id'),(1, 'fsModifiers'),(1, 'vk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterHotKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32)(('UnregisterHotKey', windll['USER32.dll']), ((1, 'hWnd'),(1, 'id'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwapMouseButton():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('SwapMouseButton', windll['USER32.dll']), ((1, 'fSwap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDoubleClickTime():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetDoubleClickTime', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDoubleClickTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('SetDoubleClickTime', windll['USER32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('SetFocus', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetActiveWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetActiveWindow', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetFocus', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKBCodePage():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetKBCodePage', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyState():
-    try:
-        return WINFUNCTYPE(Int16,Int32)(('GetKeyState', windll['USER32.dll']), ((1, 'nVirtKey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAsyncKeyState():
-    try:
-        return WINFUNCTYPE(Int16,Int32)(('GetAsyncKeyState', windll['USER32.dll']), ((1, 'vKey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no)(('GetKeyboardState', windll['USER32.dll']), ((1, 'lpKeyState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetKeyboardState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_char_p_no)(('SetKeyboardState', windll['USER32.dll']), ((1, 'lpKeyState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyNameTextA():
-    try:
-        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PSTR,Int32)(('GetKeyNameTextA', windll['USER32.dll']), ((1, 'lParam'),(1, 'lpString'),(1, 'cchSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyNameTextW():
-    try:
-        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PWSTR,Int32)(('GetKeyNameTextW', windll['USER32.dll']), ((1, 'lParam'),(1, 'lpString'),(1, 'cchSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKeyboardType():
-    try:
-        return WINFUNCTYPE(Int32,Int32)(('GetKeyboardType', windll['USER32.dll']), ((1, 'nTypeFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ToAscii():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_char_p_no,POINTER(UInt16),UInt32)(('ToAscii', windll['USER32.dll']), ((1, 'uVirtKey'),(1, 'uScanCode'),(1, 'lpKeyState'),(1, 'lpChar'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ToAsciiEx():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_char_p_no,POINTER(UInt16),UInt32,win32more.UI.TextServices.HKL)(('ToAsciiEx', windll['USER32.dll']), ((1, 'uVirtKey'),(1, 'uScanCode'),(1, 'lpKeyState'),(1, 'lpChar'),(1, 'uFlags'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ToUnicode():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,UInt32,c_char_p_no,win32more.Foundation.PWSTR,Int32,UInt32)(('ToUnicode', windll['USER32.dll']), ((1, 'wVirtKey'),(1, 'wScanCode'),(1, 'lpKeyState'),(1, 'pwszBuff'),(1, 'cchBuff'),(1, 'wFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OemKeyScan():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16)(('OemKeyScan', windll['USER32.dll']), ((1, 'wOemChar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VkKeyScanA():
-    try:
-        return WINFUNCTYPE(Int16,win32more.Foundation.CHAR)(('VkKeyScanA', windll['USER32.dll']), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VkKeyScanW():
-    try:
-        return WINFUNCTYPE(Int16,Char)(('VkKeyScanW', windll['USER32.dll']), ((1, 'ch'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VkKeyScanExA():
-    try:
-        return WINFUNCTYPE(Int16,win32more.Foundation.CHAR,win32more.UI.TextServices.HKL)(('VkKeyScanExA', windll['USER32.dll']), ((1, 'ch'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VkKeyScanExW():
-    try:
-        return WINFUNCTYPE(Int16,Char,win32more.UI.TextServices.HKL)(('VkKeyScanExW', windll['USER32.dll']), ((1, 'ch'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_keybd_event():
-    try:
-        return WINFUNCTYPE(Void,Byte,Byte,win32more.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS,UIntPtr)(('keybd_event', windll['USER32.dll']), ((1, 'bVk'),(1, 'bScan'),(1, 'dwFlags'),(1, 'dwExtraInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_mouse_event():
-    try:
-        return WINFUNCTYPE(Void,win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS,Int32,Int32,Int32,UIntPtr)(('mouse_event', windll['USER32.dll']), ((1, 'dwFlags'),(1, 'dx'),(1, 'dy'),(1, 'dwData'),(1, 'dwExtraInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendInput():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.UI.Input.KeyboardAndMouse.INPUT_head),Int32)(('SendInput', windll['USER32.dll']), ((1, 'cInputs'),(1, 'pInputs'),(1, 'cbSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLastInputInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Input.KeyboardAndMouse.LASTINPUTINFO_head))(('GetLastInputInfo', windll['USER32.dll']), ((1, 'plii'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapVirtualKeyA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32)(('MapVirtualKeyA', windll['USER32.dll']), ((1, 'uCode'),(1, 'uMapType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapVirtualKeyW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32)(('MapVirtualKeyW', windll['USER32.dll']), ((1, 'uCode'),(1, 'uMapType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapVirtualKeyExA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.UI.TextServices.HKL)(('MapVirtualKeyExA', windll['USER32.dll']), ((1, 'uCode'),(1, 'uMapType'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapVirtualKeyExW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.UI.TextServices.HKL)(('MapVirtualKeyExW', windll['USER32.dll']), ((1, 'uCode'),(1, 'uMapType'),(1, 'dwhkl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCapture():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,)(('GetCapture', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCapture():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('SetCapture', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseCapture():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('ReleaseCapture', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnableWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('EnableWindow', windll['USER32.dll']), ((1, 'hWnd'),(1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWindowEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('IsWindowEnabled', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DragDetect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.POINT)(('DragDetect', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetActiveWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('SetActiveWindow', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BlockInput():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('BlockInput', windll['USER32.dll']), ((1, 'fBlockIt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DEADKEY_head():
-    class DEADKEY(Structure):
-        pass
-    return DEADKEY
-def _define_DEADKEY():
-    DEADKEY = win32more.UI.Input.KeyboardAndMouse.DEADKEY_head
-    DEADKEY._fields_ = [
-        ('dwBoth', UInt32),
-        ('wchComposed', Char),
-        ('uFlags', UInt16),
-    ]
-    return DEADKEY
+KLF_REORDER: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 8
+KLF_RESET: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 1073741824
+KLF_SETFORPROCESS: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 256
+KLF_SHIFTLOCK: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 65536
+KLF_ACTIVATE: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 1
+KLF_NOTELLSHELL: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 128
+KLF_REPLACELANG: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 16
+KLF_SUBSTITUTE_OK: ACTIVATE_KEYBOARD_LAYOUT_FLAGS = 2
+EXTENDED_BIT: UInt32 = 16777216
+DONTCARE_BIT: UInt32 = 33554432
+FAKE_KEYSTROKE: UInt32 = 33554432
+KBDBASE: UInt32 = 0
+KBDSHIFT: UInt32 = 1
+KBDCTRL: UInt32 = 2
+KBDALT: UInt32 = 4
+KBDKANA: UInt32 = 8
+KBDROYA: UInt32 = 16
+KBDLOYA: UInt32 = 32
+KBDGRPSELTAP: UInt32 = 128
+GRAVE: UInt32 = 768
+ACUTE: UInt32 = 769
+CIRCUMFLEX: UInt32 = 770
+TILDE: UInt32 = 771
+MACRON: UInt32 = 772
+OVERSCORE: UInt32 = 773
+BREVE: UInt32 = 774
+DOT_ABOVE: UInt32 = 775
+UMLAUT: UInt32 = 776
+DIARESIS: UInt32 = 776
+HOOK_ABOVE: UInt32 = 777
+RING: UInt32 = 778
+DOUBLE_ACUTE: UInt32 = 779
+HACEK: UInt32 = 780
+CEDILLA: UInt32 = 807
+OGONEK: UInt32 = 808
+TONOS: UInt32 = 900
+DIARESIS_TONOS: UInt32 = 901
+wszGRAVE: String = '\u0300'
+wszACUTE: String = '\u0301'
+wszCIRCUMFLEX: String = '\u0302'
+wszTILDE: String = '\u0303'
+wszMACRON: String = '\u0304'
+wszOVERSCORE: String = '\u0305'
+wszBREVE: String = '\u0306'
+wszDOT_ABOVE: String = '\u0307'
+wszUMLAUT: String = '\u0308'
+wszHOOK_ABOVE: String = '\u0309'
+wszRING: String = '\u030a'
+wszDOUBLE_ACUTE: String = '\u030b'
+wszHACEK: String = '\u030c'
+wszCEDILLA: String = '\u0327'
+wszOGONEK: String = '\u0328'
+wszTONOS: String = '\u0384'
+wszDIARESIS_TONOS: String = '\u0385'
+SHFT_INVALID: UInt32 = 15
+WCH_NONE: UInt32 = 61440
+WCH_DEAD: UInt32 = 61441
+WCH_LGTR: UInt32 = 61442
+CAPLOK: UInt32 = 1
+SGCAPS: UInt32 = 2
+CAPLOKALTGR: UInt32 = 4
+KANALOK: UInt32 = 8
+GRPSELTAP: UInt32 = 128
+DKF_DEAD: UInt32 = 1
+KBD_VERSION: UInt32 = 1
+KLLF_ALTGR: UInt32 = 1
+KLLF_SHIFTLOCK: UInt32 = 2
+KLLF_LRM_RLM: UInt32 = 4
+KLLF_GLOBAL_ATTRS: UInt32 = 2
+KBDTABLE_MULTI_MAX: UInt32 = 8
+KEYBOARD_TYPE_GENERIC_101: UInt32 = 4
+KEYBOARD_TYPE_JAPAN: UInt32 = 7
+KEYBOARD_TYPE_KOREA: UInt32 = 8
+KEYBOARD_TYPE_UNKNOWN: UInt32 = 81
+NLSKBD_OEM_MICROSOFT: UInt32 = 0
+NLSKBD_OEM_AX: UInt32 = 1
+NLSKBD_OEM_EPSON: UInt32 = 4
+NLSKBD_OEM_FUJITSU: UInt32 = 5
+NLSKBD_OEM_IBM: UInt32 = 7
+NLSKBD_OEM_MATSUSHITA: UInt32 = 10
+NLSKBD_OEM_NEC: UInt32 = 13
+NLSKBD_OEM_TOSHIBA: UInt32 = 18
+NLSKBD_OEM_DEC: UInt32 = 24
+MICROSOFT_KBD_101_TYPE: UInt32 = 0
+MICROSOFT_KBD_AX_TYPE: UInt32 = 1
+MICROSOFT_KBD_106_TYPE: UInt32 = 2
+MICROSOFT_KBD_002_TYPE: UInt32 = 3
+MICROSOFT_KBD_001_TYPE: UInt32 = 4
+MICROSOFT_KBD_FUNC: UInt32 = 12
+AX_KBD_DESKTOP_TYPE: UInt32 = 1
+FMR_KBD_JIS_TYPE: UInt32 = 0
+FMR_KBD_OASYS_TYPE: UInt32 = 1
+FMV_KBD_OASYS_TYPE: UInt32 = 2
+NEC_KBD_NORMAL_TYPE: UInt32 = 1
+NEC_KBD_N_MODE_TYPE: UInt32 = 2
+NEC_KBD_H_MODE_TYPE: UInt32 = 3
+NEC_KBD_LAPTOP_TYPE: UInt32 = 4
+NEC_KBD_106_TYPE: UInt32 = 5
+TOSHIBA_KBD_DESKTOP_TYPE: UInt32 = 13
+TOSHIBA_KBD_LAPTOP_TYPE: UInt32 = 15
+DEC_KBD_ANSI_LAYOUT_TYPE: UInt32 = 1
+DEC_KBD_JIS_LAYOUT_TYPE: UInt32 = 2
+MICROSOFT_KBD_101A_TYPE: UInt32 = 0
+MICROSOFT_KBD_101B_TYPE: UInt32 = 4
+MICROSOFT_KBD_101C_TYPE: UInt32 = 5
+MICROSOFT_KBD_103_TYPE: UInt32 = 6
+NLSKBD_INFO_SEND_IME_NOTIFICATION: UInt32 = 1
+NLSKBD_INFO_ACCESSIBILITY_KEYMAP: UInt32 = 2
+NLSKBD_INFO_EMURATE_101_KEYBOARD: UInt32 = 16
+NLSKBD_INFO_EMURATE_106_KEYBOARD: UInt32 = 32
+KBDNLS_TYPE_NULL: UInt32 = 0
+KBDNLS_TYPE_NORMAL: UInt32 = 1
+KBDNLS_TYPE_TOGGLE: UInt32 = 2
+KBDNLS_INDEX_NORMAL: UInt32 = 1
+KBDNLS_INDEX_ALT: UInt32 = 2
+KBDNLS_NULL: UInt32 = 0
+KBDNLS_NOEVENT: UInt32 = 1
+KBDNLS_SEND_BASE_VK: UInt32 = 2
+KBDNLS_SEND_PARAM_VK: UInt32 = 3
+KBDNLS_KANALOCK: UInt32 = 4
+KBDNLS_ALPHANUM: UInt32 = 5
+KBDNLS_HIRAGANA: UInt32 = 6
+KBDNLS_KATAKANA: UInt32 = 7
+KBDNLS_SBCSDBCS: UInt32 = 8
+KBDNLS_ROMAN: UInt32 = 9
+KBDNLS_CODEINPUT: UInt32 = 10
+KBDNLS_HELP_OR_END: UInt32 = 11
+KBDNLS_HOME_OR_CLEAR: UInt32 = 12
+KBDNLS_NUMPAD: UInt32 = 13
+KBDNLS_KANAEVENT: UInt32 = 14
+KBDNLS_CONV_OR_NONCONV: UInt32 = 15
+KBD_TYPE: UInt32 = 4
+VK__none_: UInt32 = 255
+VK_ABNT_C1: UInt32 = 193
+VK_ABNT_C2: UInt32 = 194
+SCANCODE_LSHIFT: UInt32 = 42
+SCANCODE_RSHIFT: UInt32 = 54
+SCANCODE_CTRL: UInt32 = 29
+SCANCODE_ALT: UInt32 = 56
+SCANCODE_NUMPAD_FIRST: UInt32 = 71
+SCANCODE_NUMPAD_LAST: UInt32 = 82
+SCANCODE_LWIN: UInt32 = 91
+SCANCODE_RWIN: UInt32 = 92
+SCANCODE_THAI_LAYOUT_TOGGLE: UInt32 = 41
+VK_DBE_ALPHANUMERIC: UInt32 = 240
+VK_DBE_KATAKANA: UInt32 = 241
+VK_DBE_HIRAGANA: UInt32 = 242
+VK_DBE_SBCSCHAR: UInt32 = 243
+VK_DBE_DBCSCHAR: UInt32 = 244
+VK_DBE_ROMAN: UInt32 = 245
+VK_DBE_NOROMAN: UInt32 = 246
+VK_DBE_ENTERWORDREGISTERMODE: UInt32 = 247
+VK_DBE_ENTERIMECONFIGMODE: UInt32 = 248
+VK_DBE_FLUSHSTRING: UInt32 = 249
+VK_DBE_CODEINPUT: UInt32 = 250
+VK_DBE_NOCODEINPUT: UInt32 = 251
+VK_DBE_DETERMINESTRING: UInt32 = 252
+VK_DBE_ENTERDLGCONVERSIONMODE: UInt32 = 253
+@winfunctype('COMCTL32.dll')
+def _TrackMouseEvent(lpEventTrack: POINTER(win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def LoadKeyboardLayoutA(pwszKLID: win32more.Foundation.PSTR, Flags: win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('USER32.dll')
+def LoadKeyboardLayoutW(pwszKLID: win32more.Foundation.PWSTR, Flags: win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('USER32.dll')
+def ActivateKeyboardLayout(hkl: win32more.UI.TextServices.HKL, Flags: win32more.UI.Input.KeyboardAndMouse.ACTIVATE_KEYBOARD_LAYOUT_FLAGS) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('USER32.dll')
+def ToUnicodeEx(wVirtKey: UInt32, wScanCode: UInt32, lpKeyState: c_char_p_no, pwszBuff: win32more.Foundation.PWSTR, cchBuff: Int32, wFlags: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> Int32: ...
+@winfunctype('USER32.dll')
+def UnloadKeyboardLayout(hkl: win32more.UI.TextServices.HKL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetKeyboardLayoutNameA(pwszKLID: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetKeyboardLayoutNameW(pwszKLID: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetKeyboardLayoutList(nBuff: Int32, lpList: POINTER(win32more.UI.TextServices.HKL)) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetKeyboardLayout(idThread: UInt32) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('USER32.dll')
+def GetMouseMovePointsEx(cbSize: UInt32, lppt: POINTER(win32more.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head), lpptBuf: POINTER(win32more.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head), nBufPoints: Int32, resolution: win32more.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION) -> Int32: ...
+@winfunctype('USER32.dll')
+def TrackMouseEvent(lpEventTrack: POINTER(win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def RegisterHotKey(hWnd: win32more.Foundation.HWND, id: Int32, fsModifiers: win32more.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS, vk: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def UnregisterHotKey(hWnd: win32more.Foundation.HWND, id: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SwapMouseButton(fSwap: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetDoubleClickTime() -> UInt32: ...
+@winfunctype('USER32.dll')
+def SetDoubleClickTime(param0: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetFocus(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def GetActiveWindow() -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def GetFocus() -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def GetKBCodePage() -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetKeyState(nVirtKey: Int32) -> Int16: ...
+@winfunctype('USER32.dll')
+def GetAsyncKeyState(vKey: Int32) -> Int16: ...
+@winfunctype('USER32.dll')
+def GetKeyboardState(lpKeyState: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetKeyboardState(lpKeyState: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetKeyNameTextA(lParam: Int32, lpString: win32more.Foundation.PSTR, cchSize: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetKeyNameTextW(lParam: Int32, lpString: win32more.Foundation.PWSTR, cchSize: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def GetKeyboardType(nTypeFlag: Int32) -> Int32: ...
+@winfunctype('USER32.dll')
+def ToAscii(uVirtKey: UInt32, uScanCode: UInt32, lpKeyState: c_char_p_no, lpChar: POINTER(UInt16), uFlags: UInt32) -> Int32: ...
+@winfunctype('USER32.dll')
+def ToAsciiEx(uVirtKey: UInt32, uScanCode: UInt32, lpKeyState: c_char_p_no, lpChar: POINTER(UInt16), uFlags: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> Int32: ...
+@winfunctype('USER32.dll')
+def ToUnicode(wVirtKey: UInt32, wScanCode: UInt32, lpKeyState: c_char_p_no, pwszBuff: win32more.Foundation.PWSTR, cchBuff: Int32, wFlags: UInt32) -> Int32: ...
+@winfunctype('USER32.dll')
+def OemKeyScan(wOemChar: UInt16) -> UInt32: ...
+@winfunctype('USER32.dll')
+def VkKeyScanA(ch: win32more.Foundation.CHAR) -> Int16: ...
+@winfunctype('USER32.dll')
+def VkKeyScanW(ch: Char) -> Int16: ...
+@winfunctype('USER32.dll')
+def VkKeyScanExA(ch: win32more.Foundation.CHAR, dwhkl: win32more.UI.TextServices.HKL) -> Int16: ...
+@winfunctype('USER32.dll')
+def VkKeyScanExW(ch: Char, dwhkl: win32more.UI.TextServices.HKL) -> Int16: ...
+@winfunctype('USER32.dll')
+def keybd_event(bVk: Byte, bScan: Byte, dwFlags: win32more.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS, dwExtraInfo: UIntPtr) -> Void: ...
+@winfunctype('USER32.dll')
+def mouse_event(dwFlags: win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS, dx: Int32, dy: Int32, dwData: Int32, dwExtraInfo: UIntPtr) -> Void: ...
+@winfunctype('USER32.dll')
+def SendInput(cInputs: UInt32, pInputs: POINTER(win32more.UI.Input.KeyboardAndMouse.INPUT_head), cbSize: Int32) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetLastInputInfo(plii: POINTER(win32more.UI.Input.KeyboardAndMouse.LASTINPUTINFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def MapVirtualKeyA(uCode: UInt32, uMapType: UInt32) -> UInt32: ...
+@winfunctype('USER32.dll')
+def MapVirtualKeyW(uCode: UInt32, uMapType: UInt32) -> UInt32: ...
+@winfunctype('USER32.dll')
+def MapVirtualKeyExA(uCode: UInt32, uMapType: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
+@winfunctype('USER32.dll')
+def MapVirtualKeyExW(uCode: UInt32, uMapType: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetCapture() -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def SetCapture(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def ReleaseCapture() -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def EnableWindow(hWnd: win32more.Foundation.HWND, bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IsWindowEnabled(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def DragDetect(hwnd: win32more.Foundation.HWND, pt: win32more.Foundation.POINT) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetActiveWindow(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.HWND: ...
+@winfunctype('USER32.dll')
+def BlockInput(fBlockIt: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+class DEADKEY(Structure):
+    dwBoth: UInt32
+    wchComposed: Char
+    uFlags: UInt16
 GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = UInt32
-GMMP_USE_DISPLAY_POINTS = 1
-GMMP_USE_HIGH_RESOLUTION_POINTS = 2
-def _define_HARDWAREINPUT_head():
-    class HARDWAREINPUT(Structure):
-        pass
-    return HARDWAREINPUT
-def _define_HARDWAREINPUT():
-    HARDWAREINPUT = win32more.UI.Input.KeyboardAndMouse.HARDWAREINPUT_head
-    HARDWAREINPUT._fields_ = [
-        ('uMsg', UInt32),
-        ('wParamL', UInt16),
-        ('wParamH', UInt16),
-    ]
-    return HARDWAREINPUT
+GMMP_USE_DISPLAY_POINTS: GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = 1
+GMMP_USE_HIGH_RESOLUTION_POINTS: GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = 2
+class HARDWAREINPUT(Structure):
+    uMsg: UInt32
+    wParamL: UInt16
+    wParamH: UInt16
 HOT_KEY_MODIFIERS = UInt32
-MOD_ALT = 1
-MOD_CONTROL = 2
-MOD_NOREPEAT = 16384
-MOD_SHIFT = 4
-MOD_WIN = 8
-def _define_INPUT_head():
-    class INPUT(Structure):
-        pass
-    return INPUT
-def _define_INPUT():
-    INPUT = win32more.UI.Input.KeyboardAndMouse.INPUT_head
-    class INPUT__Anonymous_e__Union(Union):
-        pass
-    INPUT__Anonymous_e__Union._fields_ = [
-        ('mi', win32more.UI.Input.KeyboardAndMouse.MOUSEINPUT),
-        ('ki', win32more.UI.Input.KeyboardAndMouse.KEYBDINPUT),
-        ('hi', win32more.UI.Input.KeyboardAndMouse.HARDWAREINPUT),
-    ]
-    INPUT._anonymous_ = [
-        'Anonymous',
-    ]
-    INPUT._fields_ = [
-        ('type', win32more.UI.Input.KeyboardAndMouse.INPUT_TYPE),
-        ('Anonymous', INPUT__Anonymous_e__Union),
-    ]
-    return INPUT
+MOD_ALT: HOT_KEY_MODIFIERS = 1
+MOD_CONTROL: HOT_KEY_MODIFIERS = 2
+MOD_NOREPEAT: HOT_KEY_MODIFIERS = 16384
+MOD_SHIFT: HOT_KEY_MODIFIERS = 4
+MOD_WIN: HOT_KEY_MODIFIERS = 8
+class INPUT(Structure):
+    type: win32more.UI.Input.KeyboardAndMouse.INPUT_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        mi: win32more.UI.Input.KeyboardAndMouse.MOUSEINPUT
+        ki: win32more.UI.Input.KeyboardAndMouse.KEYBDINPUT
+        hi: win32more.UI.Input.KeyboardAndMouse.HARDWAREINPUT
 INPUT_TYPE = UInt32
-INPUT_MOUSE = 0
-INPUT_KEYBOARD = 1
-INPUT_HARDWARE = 2
-def _define_KBD_TYPE_INFO_head():
-    class KBD_TYPE_INFO(Structure):
-        pass
-    return KBD_TYPE_INFO
-def _define_KBD_TYPE_INFO():
-    KBD_TYPE_INFO = win32more.UI.Input.KeyboardAndMouse.KBD_TYPE_INFO_head
-    KBD_TYPE_INFO._fields_ = [
-        ('dwVersion', UInt32),
-        ('dwType', UInt32),
-        ('dwSubType', UInt32),
-    ]
-    return KBD_TYPE_INFO
-def _define_KBDNLSTABLES_head():
-    class KBDNLSTABLES(Structure):
-        pass
-    return KBDNLSTABLES
-def _define_KBDNLSTABLES():
-    KBDNLSTABLES = win32more.UI.Input.KeyboardAndMouse.KBDNLSTABLES_head
-    KBDNLSTABLES._fields_ = [
-        ('OEMIdentifier', UInt16),
-        ('LayoutInformation', UInt16),
-        ('NumOfVkToF', UInt32),
-        ('pVkToF', POINTER(win32more.UI.Input.KeyboardAndMouse.VK_F_head)),
-        ('NumOfMouseVKey', Int32),
-        ('pusMouseVKey', POINTER(UInt16)),
-    ]
-    return KBDNLSTABLES
-def _define_KBDTABLE_DESC_head():
-    class KBDTABLE_DESC(Structure):
-        pass
-    return KBDTABLE_DESC
-def _define_KBDTABLE_DESC():
-    KBDTABLE_DESC = win32more.UI.Input.KeyboardAndMouse.KBDTABLE_DESC_head
-    KBDTABLE_DESC._fields_ = [
-        ('wszDllName', Char * 32),
-        ('dwType', UInt32),
-        ('dwSubType', UInt32),
-    ]
-    return KBDTABLE_DESC
-def _define_KBDTABLE_MULTI_head():
-    class KBDTABLE_MULTI(Structure):
-        pass
-    return KBDTABLE_MULTI
-def _define_KBDTABLE_MULTI():
-    KBDTABLE_MULTI = win32more.UI.Input.KeyboardAndMouse.KBDTABLE_MULTI_head
-    KBDTABLE_MULTI._fields_ = [
-        ('nTables', UInt32),
-        ('aKbdTables', win32more.UI.Input.KeyboardAndMouse.KBDTABLE_DESC * 8),
-    ]
-    return KBDTABLE_MULTI
-def _define_KBDTABLES_head():
-    class KBDTABLES(Structure):
-        pass
-    return KBDTABLES
-def _define_KBDTABLES():
-    KBDTABLES = win32more.UI.Input.KeyboardAndMouse.KBDTABLES_head
-    KBDTABLES._fields_ = [
-        ('pCharModifiers', POINTER(win32more.UI.Input.KeyboardAndMouse.MODIFIERS_head)),
-        ('pVkToWcharTable', POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE_head)),
-        ('pDeadKey', POINTER(win32more.UI.Input.KeyboardAndMouse.DEADKEY_head)),
-        ('pKeyNames', POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)),
-        ('pKeyNamesExt', POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)),
-        ('pKeyNamesDead', POINTER(POINTER(UInt16))),
-        ('pusVSCtoVK', POINTER(UInt16)),
-        ('bMaxVSCtoVK', Byte),
-        ('pVSCtoVK_E0', POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_VK_head)),
-        ('pVSCtoVK_E1', POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_VK_head)),
-        ('fLocaleFlags', UInt32),
-        ('nLgMax', Byte),
-        ('cbLgEntry', Byte),
-        ('pLigature', POINTER(win32more.UI.Input.KeyboardAndMouse.LIGATURE1_head)),
-        ('dwType', UInt32),
-        ('dwSubType', UInt32),
-    ]
-    return KBDTABLES
+INPUT_MOUSE: INPUT_TYPE = 0
+INPUT_KEYBOARD: INPUT_TYPE = 1
+INPUT_HARDWARE: INPUT_TYPE = 2
+class KBD_TYPE_INFO(Structure):
+    dwVersion: UInt32
+    dwType: UInt32
+    dwSubType: UInt32
+class KBDNLSTABLES(Structure):
+    OEMIdentifier: UInt16
+    LayoutInformation: UInt16
+    NumOfVkToF: UInt32
+    pVkToF: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_F_head)
+    NumOfMouseVKey: Int32
+    pusMouseVKey: POINTER(UInt16)
+class KBDTABLE_DESC(Structure):
+    wszDllName: Char * 32
+    dwType: UInt32
+    dwSubType: UInt32
+class KBDTABLE_MULTI(Structure):
+    nTables: UInt32
+    aKbdTables: win32more.UI.Input.KeyboardAndMouse.KBDTABLE_DESC * 8
+class KBDTABLES(Structure):
+    pCharModifiers: POINTER(win32more.UI.Input.KeyboardAndMouse.MODIFIERS_head)
+    pVkToWcharTable: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE_head)
+    pDeadKey: POINTER(win32more.UI.Input.KeyboardAndMouse.DEADKEY_head)
+    pKeyNames: POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)
+    pKeyNamesExt: POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head)
+    pKeyNamesDead: POINTER(POINTER(UInt16))
+    pusVSCtoVK: POINTER(UInt16)
+    bMaxVSCtoVK: Byte
+    pVSCtoVK_E0: POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_VK_head)
+    pVSCtoVK_E1: POINTER(win32more.UI.Input.KeyboardAndMouse.VSC_VK_head)
+    fLocaleFlags: UInt32
+    nLgMax: Byte
+    cbLgEntry: Byte
+    pLigature: POINTER(win32more.UI.Input.KeyboardAndMouse.LIGATURE1_head)
+    dwType: UInt32
+    dwSubType: UInt32
 KEYBD_EVENT_FLAGS = UInt32
-KEYEVENTF_EXTENDEDKEY = 1
-KEYEVENTF_KEYUP = 2
-KEYEVENTF_SCANCODE = 8
-KEYEVENTF_UNICODE = 4
-def _define_KEYBDINPUT_head():
-    class KEYBDINPUT(Structure):
-        pass
-    return KEYBDINPUT
-def _define_KEYBDINPUT():
-    KEYBDINPUT = win32more.UI.Input.KeyboardAndMouse.KEYBDINPUT_head
-    KEYBDINPUT._fields_ = [
-        ('wVk', win32more.UI.Input.KeyboardAndMouse.VIRTUAL_KEY),
-        ('wScan', UInt16),
-        ('dwFlags', win32more.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS),
-        ('time', UInt32),
-        ('dwExtraInfo', UIntPtr),
-    ]
-    return KEYBDINPUT
-def _define_LASTINPUTINFO_head():
-    class LASTINPUTINFO(Structure):
-        pass
-    return LASTINPUTINFO
-def _define_LASTINPUTINFO():
-    LASTINPUTINFO = win32more.UI.Input.KeyboardAndMouse.LASTINPUTINFO_head
-    LASTINPUTINFO._fields_ = [
-        ('cbSize', UInt32),
-        ('dwTime', UInt32),
-    ]
-    return LASTINPUTINFO
-def _define_LIGATURE1_head():
-    class LIGATURE1(Structure):
-        pass
-    return LIGATURE1
-def _define_LIGATURE1():
-    LIGATURE1 = win32more.UI.Input.KeyboardAndMouse.LIGATURE1_head
-    LIGATURE1._fields_ = [
-        ('VirtualKey', Byte),
-        ('ModificationNumber', UInt16),
-        ('wch', Char * 1),
-    ]
-    return LIGATURE1
-def _define_LIGATURE2_head():
-    class LIGATURE2(Structure):
-        pass
-    return LIGATURE2
-def _define_LIGATURE2():
-    LIGATURE2 = win32more.UI.Input.KeyboardAndMouse.LIGATURE2_head
-    LIGATURE2._fields_ = [
-        ('VirtualKey', Byte),
-        ('ModificationNumber', UInt16),
-        ('wch', Char * 2),
-    ]
-    return LIGATURE2
-def _define_LIGATURE3_head():
-    class LIGATURE3(Structure):
-        pass
-    return LIGATURE3
-def _define_LIGATURE3():
-    LIGATURE3 = win32more.UI.Input.KeyboardAndMouse.LIGATURE3_head
-    LIGATURE3._fields_ = [
-        ('VirtualKey', Byte),
-        ('ModificationNumber', UInt16),
-        ('wch', Char * 3),
-    ]
-    return LIGATURE3
-def _define_LIGATURE4_head():
-    class LIGATURE4(Structure):
-        pass
-    return LIGATURE4
-def _define_LIGATURE4():
-    LIGATURE4 = win32more.UI.Input.KeyboardAndMouse.LIGATURE4_head
-    LIGATURE4._fields_ = [
-        ('VirtualKey', Byte),
-        ('ModificationNumber', UInt16),
-        ('wch', Char * 4),
-    ]
-    return LIGATURE4
-def _define_LIGATURE5_head():
-    class LIGATURE5(Structure):
-        pass
-    return LIGATURE5
-def _define_LIGATURE5():
-    LIGATURE5 = win32more.UI.Input.KeyboardAndMouse.LIGATURE5_head
-    LIGATURE5._fields_ = [
-        ('VirtualKey', Byte),
-        ('ModificationNumber', UInt16),
-        ('wch', Char * 5),
-    ]
-    return LIGATURE5
-def _define_MODIFIERS_head():
-    class MODIFIERS(Structure):
-        pass
-    return MODIFIERS
-def _define_MODIFIERS():
-    MODIFIERS = win32more.UI.Input.KeyboardAndMouse.MODIFIERS_head
-    MODIFIERS._fields_ = [
-        ('pVkToBit', POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_BIT_head)),
-        ('wMaxModBits', UInt16),
-        ('ModNumber', Byte * 1),
-    ]
-    return MODIFIERS
+KEYEVENTF_EXTENDEDKEY: KEYBD_EVENT_FLAGS = 1
+KEYEVENTF_KEYUP: KEYBD_EVENT_FLAGS = 2
+KEYEVENTF_SCANCODE: KEYBD_EVENT_FLAGS = 8
+KEYEVENTF_UNICODE: KEYBD_EVENT_FLAGS = 4
+class KEYBDINPUT(Structure):
+    wVk: win32more.UI.Input.KeyboardAndMouse.VIRTUAL_KEY
+    wScan: UInt16
+    dwFlags: win32more.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS
+    time: UInt32
+    dwExtraInfo: UIntPtr
+class LASTINPUTINFO(Structure):
+    cbSize: UInt32
+    dwTime: UInt32
+class LIGATURE1(Structure):
+    VirtualKey: Byte
+    ModificationNumber: UInt16
+    wch: Char * 1
+class LIGATURE2(Structure):
+    VirtualKey: Byte
+    ModificationNumber: UInt16
+    wch: Char * 2
+class LIGATURE3(Structure):
+    VirtualKey: Byte
+    ModificationNumber: UInt16
+    wch: Char * 3
+class LIGATURE4(Structure):
+    VirtualKey: Byte
+    ModificationNumber: UInt16
+    wch: Char * 4
+class LIGATURE5(Structure):
+    VirtualKey: Byte
+    ModificationNumber: UInt16
+    wch: Char * 5
+class MODIFIERS(Structure):
+    pVkToBit: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_BIT_head)
+    wMaxModBits: UInt16
+    ModNumber: Byte * 1
 MOUSE_EVENT_FLAGS = UInt32
-MOUSEEVENTF_ABSOLUTE = 32768
-MOUSEEVENTF_LEFTDOWN = 2
-MOUSEEVENTF_LEFTUP = 4
-MOUSEEVENTF_MIDDLEDOWN = 32
-MOUSEEVENTF_MIDDLEUP = 64
-MOUSEEVENTF_MOVE = 1
-MOUSEEVENTF_RIGHTDOWN = 8
-MOUSEEVENTF_RIGHTUP = 16
-MOUSEEVENTF_WHEEL = 2048
-MOUSEEVENTF_XDOWN = 128
-MOUSEEVENTF_XUP = 256
-MOUSEEVENTF_HWHEEL = 4096
-MOUSEEVENTF_MOVE_NOCOALESCE = 8192
-MOUSEEVENTF_VIRTUALDESK = 16384
-def _define_MOUSEINPUT_head():
-    class MOUSEINPUT(Structure):
-        pass
-    return MOUSEINPUT
-def _define_MOUSEINPUT():
-    MOUSEINPUT = win32more.UI.Input.KeyboardAndMouse.MOUSEINPUT_head
-    MOUSEINPUT._fields_ = [
-        ('dx', Int32),
-        ('dy', Int32),
-        ('mouseData', Int32),
-        ('dwFlags', win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS),
-        ('time', UInt32),
-        ('dwExtraInfo', UIntPtr),
-    ]
-    return MOUSEINPUT
-def _define_MOUSEMOVEPOINT_head():
-    class MOUSEMOVEPOINT(Structure):
-        pass
-    return MOUSEMOVEPOINT
-def _define_MOUSEMOVEPOINT():
-    MOUSEMOVEPOINT = win32more.UI.Input.KeyboardAndMouse.MOUSEMOVEPOINT_head
-    MOUSEMOVEPOINT._fields_ = [
-        ('x', Int32),
-        ('y', Int32),
-        ('time', UInt32),
-        ('dwExtraInfo', UIntPtr),
-    ]
-    return MOUSEMOVEPOINT
-def _define_TRACKMOUSEEVENT_head():
-    class TRACKMOUSEEVENT(Structure):
-        pass
-    return TRACKMOUSEEVENT
-def _define_TRACKMOUSEEVENT():
-    TRACKMOUSEEVENT = win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_head
-    TRACKMOUSEEVENT._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_FLAGS),
-        ('hwndTrack', win32more.Foundation.HWND),
-        ('dwHoverTime', UInt32),
-    ]
-    return TRACKMOUSEEVENT
+MOUSEEVENTF_ABSOLUTE: MOUSE_EVENT_FLAGS = 32768
+MOUSEEVENTF_LEFTDOWN: MOUSE_EVENT_FLAGS = 2
+MOUSEEVENTF_LEFTUP: MOUSE_EVENT_FLAGS = 4
+MOUSEEVENTF_MIDDLEDOWN: MOUSE_EVENT_FLAGS = 32
+MOUSEEVENTF_MIDDLEUP: MOUSE_EVENT_FLAGS = 64
+MOUSEEVENTF_MOVE: MOUSE_EVENT_FLAGS = 1
+MOUSEEVENTF_RIGHTDOWN: MOUSE_EVENT_FLAGS = 8
+MOUSEEVENTF_RIGHTUP: MOUSE_EVENT_FLAGS = 16
+MOUSEEVENTF_WHEEL: MOUSE_EVENT_FLAGS = 2048
+MOUSEEVENTF_XDOWN: MOUSE_EVENT_FLAGS = 128
+MOUSEEVENTF_XUP: MOUSE_EVENT_FLAGS = 256
+MOUSEEVENTF_HWHEEL: MOUSE_EVENT_FLAGS = 4096
+MOUSEEVENTF_MOVE_NOCOALESCE: MOUSE_EVENT_FLAGS = 8192
+MOUSEEVENTF_VIRTUALDESK: MOUSE_EVENT_FLAGS = 16384
+class MOUSEINPUT(Structure):
+    dx: Int32
+    dy: Int32
+    mouseData: Int32
+    dwFlags: win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS
+    time: UInt32
+    dwExtraInfo: UIntPtr
+class MOUSEMOVEPOINT(Structure):
+    x: Int32
+    y: Int32
+    time: UInt32
+    dwExtraInfo: UIntPtr
+class TRACKMOUSEEVENT(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_FLAGS
+    hwndTrack: win32more.Foundation.HWND
+    dwHoverTime: UInt32
 TRACKMOUSEEVENT_FLAGS = UInt32
-TME_CANCEL = 2147483648
-TME_HOVER = 1
-TME_LEAVE = 2
-TME_NONCLIENT = 16
-TME_QUERY = 1073741824
+TME_CANCEL: TRACKMOUSEEVENT_FLAGS = 2147483648
+TME_HOVER: TRACKMOUSEEVENT_FLAGS = 1
+TME_LEAVE: TRACKMOUSEEVENT_FLAGS = 2
+TME_NONCLIENT: TRACKMOUSEEVENT_FLAGS = 16
+TME_QUERY: TRACKMOUSEEVENT_FLAGS = 1073741824
 VIRTUAL_KEY = UInt16
-VK_0 = 48
-VK_1 = 49
-VK_2 = 50
-VK_3 = 51
-VK_4 = 52
-VK_5 = 53
-VK_6 = 54
-VK_7 = 55
-VK_8 = 56
-VK_9 = 57
-VK_A = 65
-VK_B = 66
-VK_C = 67
-VK_D = 68
-VK_E = 69
-VK_F = 70
-VK_G = 71
-VK_H = 72
-VK_I = 73
-VK_J = 74
-VK_K = 75
-VK_L = 76
-VK_M = 77
-VK_N = 78
-VK_O = 79
-VK_P = 80
-VK_Q = 81
-VK_R = 82
-VK_S = 83
-VK_T = 84
-VK_U = 85
-VK_V = 86
-VK_W = 87
-VK_X = 88
-VK_Y = 89
-VK_Z = 90
-VK_LBUTTON = 1
-VK_RBUTTON = 2
-VK_CANCEL = 3
-VK_MBUTTON = 4
-VK_XBUTTON1 = 5
-VK_XBUTTON2 = 6
-VK_BACK = 8
-VK_TAB = 9
-VK_CLEAR = 12
-VK_RETURN = 13
-VK_SHIFT = 16
-VK_CONTROL = 17
-VK_MENU = 18
-VK_PAUSE = 19
-VK_CAPITAL = 20
-VK_KANA = 21
-VK_HANGEUL = 21
-VK_HANGUL = 21
-VK_IME_ON = 22
-VK_JUNJA = 23
-VK_FINAL = 24
-VK_HANJA = 25
-VK_KANJI = 25
-VK_IME_OFF = 26
-VK_ESCAPE = 27
-VK_CONVERT = 28
-VK_NONCONVERT = 29
-VK_ACCEPT = 30
-VK_MODECHANGE = 31
-VK_SPACE = 32
-VK_PRIOR = 33
-VK_NEXT = 34
-VK_END = 35
-VK_HOME = 36
-VK_LEFT = 37
-VK_UP = 38
-VK_RIGHT = 39
-VK_DOWN = 40
-VK_SELECT = 41
-VK_PRINT = 42
-VK_EXECUTE = 43
-VK_SNAPSHOT = 44
-VK_INSERT = 45
-VK_DELETE = 46
-VK_HELP = 47
-VK_LWIN = 91
-VK_RWIN = 92
-VK_APPS = 93
-VK_SLEEP = 95
-VK_NUMPAD0 = 96
-VK_NUMPAD1 = 97
-VK_NUMPAD2 = 98
-VK_NUMPAD3 = 99
-VK_NUMPAD4 = 100
-VK_NUMPAD5 = 101
-VK_NUMPAD6 = 102
-VK_NUMPAD7 = 103
-VK_NUMPAD8 = 104
-VK_NUMPAD9 = 105
-VK_MULTIPLY = 106
-VK_ADD = 107
-VK_SEPARATOR = 108
-VK_SUBTRACT = 109
-VK_DECIMAL = 110
-VK_DIVIDE = 111
-VK_F1 = 112
-VK_F2 = 113
-VK_F3 = 114
-VK_F4 = 115
-VK_F5 = 116
-VK_F6 = 117
-VK_F7 = 118
-VK_F8 = 119
-VK_F9 = 120
-VK_F10 = 121
-VK_F11 = 122
-VK_F12 = 123
-VK_F13 = 124
-VK_F14 = 125
-VK_F15 = 126
-VK_F16 = 127
-VK_F17 = 128
-VK_F18 = 129
-VK_F19 = 130
-VK_F20 = 131
-VK_F21 = 132
-VK_F22 = 133
-VK_F23 = 134
-VK_F24 = 135
-VK_NAVIGATION_VIEW = 136
-VK_NAVIGATION_MENU = 137
-VK_NAVIGATION_UP = 138
-VK_NAVIGATION_DOWN = 139
-VK_NAVIGATION_LEFT = 140
-VK_NAVIGATION_RIGHT = 141
-VK_NAVIGATION_ACCEPT = 142
-VK_NAVIGATION_CANCEL = 143
-VK_NUMLOCK = 144
-VK_SCROLL = 145
-VK_OEM_NEC_EQUAL = 146
-VK_OEM_FJ_JISHO = 146
-VK_OEM_FJ_MASSHOU = 147
-VK_OEM_FJ_TOUROKU = 148
-VK_OEM_FJ_LOYA = 149
-VK_OEM_FJ_ROYA = 150
-VK_LSHIFT = 160
-VK_RSHIFT = 161
-VK_LCONTROL = 162
-VK_RCONTROL = 163
-VK_LMENU = 164
-VK_RMENU = 165
-VK_BROWSER_BACK = 166
-VK_BROWSER_FORWARD = 167
-VK_BROWSER_REFRESH = 168
-VK_BROWSER_STOP = 169
-VK_BROWSER_SEARCH = 170
-VK_BROWSER_FAVORITES = 171
-VK_BROWSER_HOME = 172
-VK_VOLUME_MUTE = 173
-VK_VOLUME_DOWN = 174
-VK_VOLUME_UP = 175
-VK_MEDIA_NEXT_TRACK = 176
-VK_MEDIA_PREV_TRACK = 177
-VK_MEDIA_STOP = 178
-VK_MEDIA_PLAY_PAUSE = 179
-VK_LAUNCH_MAIL = 180
-VK_LAUNCH_MEDIA_SELECT = 181
-VK_LAUNCH_APP1 = 182
-VK_LAUNCH_APP2 = 183
-VK_OEM_1 = 186
-VK_OEM_PLUS = 187
-VK_OEM_COMMA = 188
-VK_OEM_MINUS = 189
-VK_OEM_PERIOD = 190
-VK_OEM_2 = 191
-VK_OEM_3 = 192
-VK_GAMEPAD_A = 195
-VK_GAMEPAD_B = 196
-VK_GAMEPAD_X = 197
-VK_GAMEPAD_Y = 198
-VK_GAMEPAD_RIGHT_SHOULDER = 199
-VK_GAMEPAD_LEFT_SHOULDER = 200
-VK_GAMEPAD_LEFT_TRIGGER = 201
-VK_GAMEPAD_RIGHT_TRIGGER = 202
-VK_GAMEPAD_DPAD_UP = 203
-VK_GAMEPAD_DPAD_DOWN = 204
-VK_GAMEPAD_DPAD_LEFT = 205
-VK_GAMEPAD_DPAD_RIGHT = 206
-VK_GAMEPAD_MENU = 207
-VK_GAMEPAD_VIEW = 208
-VK_GAMEPAD_LEFT_THUMBSTICK_BUTTON = 209
-VK_GAMEPAD_RIGHT_THUMBSTICK_BUTTON = 210
-VK_GAMEPAD_LEFT_THUMBSTICK_UP = 211
-VK_GAMEPAD_LEFT_THUMBSTICK_DOWN = 212
-VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT = 213
-VK_GAMEPAD_LEFT_THUMBSTICK_LEFT = 214
-VK_GAMEPAD_RIGHT_THUMBSTICK_UP = 215
-VK_GAMEPAD_RIGHT_THUMBSTICK_DOWN = 216
-VK_GAMEPAD_RIGHT_THUMBSTICK_RIGHT = 217
-VK_GAMEPAD_RIGHT_THUMBSTICK_LEFT = 218
-VK_OEM_4 = 219
-VK_OEM_5 = 220
-VK_OEM_6 = 221
-VK_OEM_7 = 222
-VK_OEM_8 = 223
-VK_OEM_AX = 225
-VK_OEM_102 = 226
-VK_ICO_HELP = 227
-VK_ICO_00 = 228
-VK_PROCESSKEY = 229
-VK_ICO_CLEAR = 230
-VK_PACKET = 231
-VK_OEM_RESET = 233
-VK_OEM_JUMP = 234
-VK_OEM_PA1 = 235
-VK_OEM_PA2 = 236
-VK_OEM_PA3 = 237
-VK_OEM_WSCTRL = 238
-VK_OEM_CUSEL = 239
-VK_OEM_ATTN = 240
-VK_OEM_FINISH = 241
-VK_OEM_COPY = 242
-VK_OEM_AUTO = 243
-VK_OEM_ENLW = 244
-VK_OEM_BACKTAB = 245
-VK_ATTN = 246
-VK_CRSEL = 247
-VK_EXSEL = 248
-VK_EREOF = 249
-VK_PLAY = 250
-VK_ZOOM = 251
-VK_NONAME = 252
-VK_PA1 = 253
-VK_OEM_CLEAR = 254
-def _define_VK_F_head():
-    class VK_F(Structure):
-        pass
-    return VK_F
-def _define_VK_F():
-    VK_F = win32more.UI.Input.KeyboardAndMouse.VK_F_head
-    VK_F._fields_ = [
-        ('Vk', Byte),
-        ('NLSFEProcType', Byte),
-        ('NLSFEProcCurrent', Byte),
-        ('NLSFEProcSwitch', Byte),
-        ('NLSFEProc', win32more.UI.Input.KeyboardAndMouse.VK_FPARAM * 8),
-        ('NLSFEProcAlt', win32more.UI.Input.KeyboardAndMouse.VK_FPARAM * 8),
-    ]
-    return VK_F
-def _define_VK_FPARAM_head():
-    class VK_FPARAM(Structure):
-        pass
-    return VK_FPARAM
-def _define_VK_FPARAM():
-    VK_FPARAM = win32more.UI.Input.KeyboardAndMouse.VK_FPARAM_head
-    VK_FPARAM._fields_ = [
-        ('NLSFEProcIndex', Byte),
-        ('NLSFEProcParam', UInt32),
-    ]
-    return VK_FPARAM
-def _define_VK_TO_BIT_head():
-    class VK_TO_BIT(Structure):
-        pass
-    return VK_TO_BIT
-def _define_VK_TO_BIT():
-    VK_TO_BIT = win32more.UI.Input.KeyboardAndMouse.VK_TO_BIT_head
-    VK_TO_BIT._fields_ = [
-        ('Vk', Byte),
-        ('ModBits', Byte),
-    ]
-    return VK_TO_BIT
-def _define_VK_TO_WCHAR_TABLE_head():
-    class VK_TO_WCHAR_TABLE(Structure):
-        pass
-    return VK_TO_WCHAR_TABLE
-def _define_VK_TO_WCHAR_TABLE():
-    VK_TO_WCHAR_TABLE = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE_head
-    VK_TO_WCHAR_TABLE._fields_ = [
-        ('pVkToWchars', POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head)),
-        ('nModifications', Byte),
-        ('cbSize', Byte),
-    ]
-    return VK_TO_WCHAR_TABLE
-def _define_VK_TO_WCHARS1_head():
-    class VK_TO_WCHARS1(Structure):
-        pass
-    return VK_TO_WCHARS1
-def _define_VK_TO_WCHARS1():
-    VK_TO_WCHARS1 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head
-    VK_TO_WCHARS1._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 1),
-    ]
-    return VK_TO_WCHARS1
-def _define_VK_TO_WCHARS10_head():
-    class VK_TO_WCHARS10(Structure):
-        pass
-    return VK_TO_WCHARS10
-def _define_VK_TO_WCHARS10():
-    VK_TO_WCHARS10 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS10_head
-    VK_TO_WCHARS10._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 10),
-    ]
-    return VK_TO_WCHARS10
-def _define_VK_TO_WCHARS2_head():
-    class VK_TO_WCHARS2(Structure):
-        pass
-    return VK_TO_WCHARS2
-def _define_VK_TO_WCHARS2():
-    VK_TO_WCHARS2 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS2_head
-    VK_TO_WCHARS2._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 2),
-    ]
-    return VK_TO_WCHARS2
-def _define_VK_TO_WCHARS3_head():
-    class VK_TO_WCHARS3(Structure):
-        pass
-    return VK_TO_WCHARS3
-def _define_VK_TO_WCHARS3():
-    VK_TO_WCHARS3 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS3_head
-    VK_TO_WCHARS3._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 3),
-    ]
-    return VK_TO_WCHARS3
-def _define_VK_TO_WCHARS4_head():
-    class VK_TO_WCHARS4(Structure):
-        pass
-    return VK_TO_WCHARS4
-def _define_VK_TO_WCHARS4():
-    VK_TO_WCHARS4 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS4_head
-    VK_TO_WCHARS4._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 4),
-    ]
-    return VK_TO_WCHARS4
-def _define_VK_TO_WCHARS5_head():
-    class VK_TO_WCHARS5(Structure):
-        pass
-    return VK_TO_WCHARS5
-def _define_VK_TO_WCHARS5():
-    VK_TO_WCHARS5 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS5_head
-    VK_TO_WCHARS5._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 5),
-    ]
-    return VK_TO_WCHARS5
-def _define_VK_TO_WCHARS6_head():
-    class VK_TO_WCHARS6(Structure):
-        pass
-    return VK_TO_WCHARS6
-def _define_VK_TO_WCHARS6():
-    VK_TO_WCHARS6 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS6_head
-    VK_TO_WCHARS6._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 6),
-    ]
-    return VK_TO_WCHARS6
-def _define_VK_TO_WCHARS7_head():
-    class VK_TO_WCHARS7(Structure):
-        pass
-    return VK_TO_WCHARS7
-def _define_VK_TO_WCHARS7():
-    VK_TO_WCHARS7 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS7_head
-    VK_TO_WCHARS7._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 7),
-    ]
-    return VK_TO_WCHARS7
-def _define_VK_TO_WCHARS8_head():
-    class VK_TO_WCHARS8(Structure):
-        pass
-    return VK_TO_WCHARS8
-def _define_VK_TO_WCHARS8():
-    VK_TO_WCHARS8 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS8_head
-    VK_TO_WCHARS8._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 8),
-    ]
-    return VK_TO_WCHARS8
-def _define_VK_TO_WCHARS9_head():
-    class VK_TO_WCHARS9(Structure):
-        pass
-    return VK_TO_WCHARS9
-def _define_VK_TO_WCHARS9():
-    VK_TO_WCHARS9 = win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS9_head
-    VK_TO_WCHARS9._fields_ = [
-        ('VirtualKey', Byte),
-        ('Attributes', Byte),
-        ('wch', Char * 9),
-    ]
-    return VK_TO_WCHARS9
-def _define_VK_VSC_head():
-    class VK_VSC(Structure):
-        pass
-    return VK_VSC
-def _define_VK_VSC():
-    VK_VSC = win32more.UI.Input.KeyboardAndMouse.VK_VSC_head
-    VK_VSC._fields_ = [
-        ('Vk', Byte),
-        ('Vsc', Byte),
-    ]
-    return VK_VSC
-def _define_VSC_LPWSTR_head():
-    class VSC_LPWSTR(Structure):
-        pass
-    return VSC_LPWSTR
-def _define_VSC_LPWSTR():
-    VSC_LPWSTR = win32more.UI.Input.KeyboardAndMouse.VSC_LPWSTR_head
-    VSC_LPWSTR._fields_ = [
-        ('vsc', Byte),
-        ('pwsz', win32more.Foundation.PWSTR),
-    ]
-    return VSC_LPWSTR
-def _define_VSC_VK_head():
-    class VSC_VK(Structure):
-        pass
-    return VSC_VK
-def _define_VSC_VK():
-    VSC_VK = win32more.UI.Input.KeyboardAndMouse.VSC_VK_head
-    VSC_VK._fields_ = [
-        ('Vsc', Byte),
-        ('Vk', UInt16),
-    ]
-    return VSC_VK
+VK_0: VIRTUAL_KEY = 48
+VK_1: VIRTUAL_KEY = 49
+VK_2: VIRTUAL_KEY = 50
+VK_3: VIRTUAL_KEY = 51
+VK_4: VIRTUAL_KEY = 52
+VK_5: VIRTUAL_KEY = 53
+VK_6: VIRTUAL_KEY = 54
+VK_7: VIRTUAL_KEY = 55
+VK_8: VIRTUAL_KEY = 56
+VK_9: VIRTUAL_KEY = 57
+VK_A: VIRTUAL_KEY = 65
+VK_B: VIRTUAL_KEY = 66
+VK_C: VIRTUAL_KEY = 67
+VK_D: VIRTUAL_KEY = 68
+VK_E: VIRTUAL_KEY = 69
+VK_F: VIRTUAL_KEY = 70
+VK_G: VIRTUAL_KEY = 71
+VK_H: VIRTUAL_KEY = 72
+VK_I: VIRTUAL_KEY = 73
+VK_J: VIRTUAL_KEY = 74
+VK_K: VIRTUAL_KEY = 75
+VK_L: VIRTUAL_KEY = 76
+VK_M: VIRTUAL_KEY = 77
+VK_N: VIRTUAL_KEY = 78
+VK_O: VIRTUAL_KEY = 79
+VK_P: VIRTUAL_KEY = 80
+VK_Q: VIRTUAL_KEY = 81
+VK_R: VIRTUAL_KEY = 82
+VK_S: VIRTUAL_KEY = 83
+VK_T: VIRTUAL_KEY = 84
+VK_U: VIRTUAL_KEY = 85
+VK_V: VIRTUAL_KEY = 86
+VK_W: VIRTUAL_KEY = 87
+VK_X: VIRTUAL_KEY = 88
+VK_Y: VIRTUAL_KEY = 89
+VK_Z: VIRTUAL_KEY = 90
+VK_LBUTTON: VIRTUAL_KEY = 1
+VK_RBUTTON: VIRTUAL_KEY = 2
+VK_CANCEL: VIRTUAL_KEY = 3
+VK_MBUTTON: VIRTUAL_KEY = 4
+VK_XBUTTON1: VIRTUAL_KEY = 5
+VK_XBUTTON2: VIRTUAL_KEY = 6
+VK_BACK: VIRTUAL_KEY = 8
+VK_TAB: VIRTUAL_KEY = 9
+VK_CLEAR: VIRTUAL_KEY = 12
+VK_RETURN: VIRTUAL_KEY = 13
+VK_SHIFT: VIRTUAL_KEY = 16
+VK_CONTROL: VIRTUAL_KEY = 17
+VK_MENU: VIRTUAL_KEY = 18
+VK_PAUSE: VIRTUAL_KEY = 19
+VK_CAPITAL: VIRTUAL_KEY = 20
+VK_KANA: VIRTUAL_KEY = 21
+VK_HANGEUL: VIRTUAL_KEY = 21
+VK_HANGUL: VIRTUAL_KEY = 21
+VK_IME_ON: VIRTUAL_KEY = 22
+VK_JUNJA: VIRTUAL_KEY = 23
+VK_FINAL: VIRTUAL_KEY = 24
+VK_HANJA: VIRTUAL_KEY = 25
+VK_KANJI: VIRTUAL_KEY = 25
+VK_IME_OFF: VIRTUAL_KEY = 26
+VK_ESCAPE: VIRTUAL_KEY = 27
+VK_CONVERT: VIRTUAL_KEY = 28
+VK_NONCONVERT: VIRTUAL_KEY = 29
+VK_ACCEPT: VIRTUAL_KEY = 30
+VK_MODECHANGE: VIRTUAL_KEY = 31
+VK_SPACE: VIRTUAL_KEY = 32
+VK_PRIOR: VIRTUAL_KEY = 33
+VK_NEXT: VIRTUAL_KEY = 34
+VK_END: VIRTUAL_KEY = 35
+VK_HOME: VIRTUAL_KEY = 36
+VK_LEFT: VIRTUAL_KEY = 37
+VK_UP: VIRTUAL_KEY = 38
+VK_RIGHT: VIRTUAL_KEY = 39
+VK_DOWN: VIRTUAL_KEY = 40
+VK_SELECT: VIRTUAL_KEY = 41
+VK_PRINT: VIRTUAL_KEY = 42
+VK_EXECUTE: VIRTUAL_KEY = 43
+VK_SNAPSHOT: VIRTUAL_KEY = 44
+VK_INSERT: VIRTUAL_KEY = 45
+VK_DELETE: VIRTUAL_KEY = 46
+VK_HELP: VIRTUAL_KEY = 47
+VK_LWIN: VIRTUAL_KEY = 91
+VK_RWIN: VIRTUAL_KEY = 92
+VK_APPS: VIRTUAL_KEY = 93
+VK_SLEEP: VIRTUAL_KEY = 95
+VK_NUMPAD0: VIRTUAL_KEY = 96
+VK_NUMPAD1: VIRTUAL_KEY = 97
+VK_NUMPAD2: VIRTUAL_KEY = 98
+VK_NUMPAD3: VIRTUAL_KEY = 99
+VK_NUMPAD4: VIRTUAL_KEY = 100
+VK_NUMPAD5: VIRTUAL_KEY = 101
+VK_NUMPAD6: VIRTUAL_KEY = 102
+VK_NUMPAD7: VIRTUAL_KEY = 103
+VK_NUMPAD8: VIRTUAL_KEY = 104
+VK_NUMPAD9: VIRTUAL_KEY = 105
+VK_MULTIPLY: VIRTUAL_KEY = 106
+VK_ADD: VIRTUAL_KEY = 107
+VK_SEPARATOR: VIRTUAL_KEY = 108
+VK_SUBTRACT: VIRTUAL_KEY = 109
+VK_DECIMAL: VIRTUAL_KEY = 110
+VK_DIVIDE: VIRTUAL_KEY = 111
+VK_F1: VIRTUAL_KEY = 112
+VK_F2: VIRTUAL_KEY = 113
+VK_F3: VIRTUAL_KEY = 114
+VK_F4: VIRTUAL_KEY = 115
+VK_F5: VIRTUAL_KEY = 116
+VK_F6: VIRTUAL_KEY = 117
+VK_F7: VIRTUAL_KEY = 118
+VK_F8: VIRTUAL_KEY = 119
+VK_F9: VIRTUAL_KEY = 120
+VK_F10: VIRTUAL_KEY = 121
+VK_F11: VIRTUAL_KEY = 122
+VK_F12: VIRTUAL_KEY = 123
+VK_F13: VIRTUAL_KEY = 124
+VK_F14: VIRTUAL_KEY = 125
+VK_F15: VIRTUAL_KEY = 126
+VK_F16: VIRTUAL_KEY = 127
+VK_F17: VIRTUAL_KEY = 128
+VK_F18: VIRTUAL_KEY = 129
+VK_F19: VIRTUAL_KEY = 130
+VK_F20: VIRTUAL_KEY = 131
+VK_F21: VIRTUAL_KEY = 132
+VK_F22: VIRTUAL_KEY = 133
+VK_F23: VIRTUAL_KEY = 134
+VK_F24: VIRTUAL_KEY = 135
+VK_NAVIGATION_VIEW: VIRTUAL_KEY = 136
+VK_NAVIGATION_MENU: VIRTUAL_KEY = 137
+VK_NAVIGATION_UP: VIRTUAL_KEY = 138
+VK_NAVIGATION_DOWN: VIRTUAL_KEY = 139
+VK_NAVIGATION_LEFT: VIRTUAL_KEY = 140
+VK_NAVIGATION_RIGHT: VIRTUAL_KEY = 141
+VK_NAVIGATION_ACCEPT: VIRTUAL_KEY = 142
+VK_NAVIGATION_CANCEL: VIRTUAL_KEY = 143
+VK_NUMLOCK: VIRTUAL_KEY = 144
+VK_SCROLL: VIRTUAL_KEY = 145
+VK_OEM_NEC_EQUAL: VIRTUAL_KEY = 146
+VK_OEM_FJ_JISHO: VIRTUAL_KEY = 146
+VK_OEM_FJ_MASSHOU: VIRTUAL_KEY = 147
+VK_OEM_FJ_TOUROKU: VIRTUAL_KEY = 148
+VK_OEM_FJ_LOYA: VIRTUAL_KEY = 149
+VK_OEM_FJ_ROYA: VIRTUAL_KEY = 150
+VK_LSHIFT: VIRTUAL_KEY = 160
+VK_RSHIFT: VIRTUAL_KEY = 161
+VK_LCONTROL: VIRTUAL_KEY = 162
+VK_RCONTROL: VIRTUAL_KEY = 163
+VK_LMENU: VIRTUAL_KEY = 164
+VK_RMENU: VIRTUAL_KEY = 165
+VK_BROWSER_BACK: VIRTUAL_KEY = 166
+VK_BROWSER_FORWARD: VIRTUAL_KEY = 167
+VK_BROWSER_REFRESH: VIRTUAL_KEY = 168
+VK_BROWSER_STOP: VIRTUAL_KEY = 169
+VK_BROWSER_SEARCH: VIRTUAL_KEY = 170
+VK_BROWSER_FAVORITES: VIRTUAL_KEY = 171
+VK_BROWSER_HOME: VIRTUAL_KEY = 172
+VK_VOLUME_MUTE: VIRTUAL_KEY = 173
+VK_VOLUME_DOWN: VIRTUAL_KEY = 174
+VK_VOLUME_UP: VIRTUAL_KEY = 175
+VK_MEDIA_NEXT_TRACK: VIRTUAL_KEY = 176
+VK_MEDIA_PREV_TRACK: VIRTUAL_KEY = 177
+VK_MEDIA_STOP: VIRTUAL_KEY = 178
+VK_MEDIA_PLAY_PAUSE: VIRTUAL_KEY = 179
+VK_LAUNCH_MAIL: VIRTUAL_KEY = 180
+VK_LAUNCH_MEDIA_SELECT: VIRTUAL_KEY = 181
+VK_LAUNCH_APP1: VIRTUAL_KEY = 182
+VK_LAUNCH_APP2: VIRTUAL_KEY = 183
+VK_OEM_1: VIRTUAL_KEY = 186
+VK_OEM_PLUS: VIRTUAL_KEY = 187
+VK_OEM_COMMA: VIRTUAL_KEY = 188
+VK_OEM_MINUS: VIRTUAL_KEY = 189
+VK_OEM_PERIOD: VIRTUAL_KEY = 190
+VK_OEM_2: VIRTUAL_KEY = 191
+VK_OEM_3: VIRTUAL_KEY = 192
+VK_GAMEPAD_A: VIRTUAL_KEY = 195
+VK_GAMEPAD_B: VIRTUAL_KEY = 196
+VK_GAMEPAD_X: VIRTUAL_KEY = 197
+VK_GAMEPAD_Y: VIRTUAL_KEY = 198
+VK_GAMEPAD_RIGHT_SHOULDER: VIRTUAL_KEY = 199
+VK_GAMEPAD_LEFT_SHOULDER: VIRTUAL_KEY = 200
+VK_GAMEPAD_LEFT_TRIGGER: VIRTUAL_KEY = 201
+VK_GAMEPAD_RIGHT_TRIGGER: VIRTUAL_KEY = 202
+VK_GAMEPAD_DPAD_UP: VIRTUAL_KEY = 203
+VK_GAMEPAD_DPAD_DOWN: VIRTUAL_KEY = 204
+VK_GAMEPAD_DPAD_LEFT: VIRTUAL_KEY = 205
+VK_GAMEPAD_DPAD_RIGHT: VIRTUAL_KEY = 206
+VK_GAMEPAD_MENU: VIRTUAL_KEY = 207
+VK_GAMEPAD_VIEW: VIRTUAL_KEY = 208
+VK_GAMEPAD_LEFT_THUMBSTICK_BUTTON: VIRTUAL_KEY = 209
+VK_GAMEPAD_RIGHT_THUMBSTICK_BUTTON: VIRTUAL_KEY = 210
+VK_GAMEPAD_LEFT_THUMBSTICK_UP: VIRTUAL_KEY = 211
+VK_GAMEPAD_LEFT_THUMBSTICK_DOWN: VIRTUAL_KEY = 212
+VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT: VIRTUAL_KEY = 213
+VK_GAMEPAD_LEFT_THUMBSTICK_LEFT: VIRTUAL_KEY = 214
+VK_GAMEPAD_RIGHT_THUMBSTICK_UP: VIRTUAL_KEY = 215
+VK_GAMEPAD_RIGHT_THUMBSTICK_DOWN: VIRTUAL_KEY = 216
+VK_GAMEPAD_RIGHT_THUMBSTICK_RIGHT: VIRTUAL_KEY = 217
+VK_GAMEPAD_RIGHT_THUMBSTICK_LEFT: VIRTUAL_KEY = 218
+VK_OEM_4: VIRTUAL_KEY = 219
+VK_OEM_5: VIRTUAL_KEY = 220
+VK_OEM_6: VIRTUAL_KEY = 221
+VK_OEM_7: VIRTUAL_KEY = 222
+VK_OEM_8: VIRTUAL_KEY = 223
+VK_OEM_AX: VIRTUAL_KEY = 225
+VK_OEM_102: VIRTUAL_KEY = 226
+VK_ICO_HELP: VIRTUAL_KEY = 227
+VK_ICO_00: VIRTUAL_KEY = 228
+VK_PROCESSKEY: VIRTUAL_KEY = 229
+VK_ICO_CLEAR: VIRTUAL_KEY = 230
+VK_PACKET: VIRTUAL_KEY = 231
+VK_OEM_RESET: VIRTUAL_KEY = 233
+VK_OEM_JUMP: VIRTUAL_KEY = 234
+VK_OEM_PA1: VIRTUAL_KEY = 235
+VK_OEM_PA2: VIRTUAL_KEY = 236
+VK_OEM_PA3: VIRTUAL_KEY = 237
+VK_OEM_WSCTRL: VIRTUAL_KEY = 238
+VK_OEM_CUSEL: VIRTUAL_KEY = 239
+VK_OEM_ATTN: VIRTUAL_KEY = 240
+VK_OEM_FINISH: VIRTUAL_KEY = 241
+VK_OEM_COPY: VIRTUAL_KEY = 242
+VK_OEM_AUTO: VIRTUAL_KEY = 243
+VK_OEM_ENLW: VIRTUAL_KEY = 244
+VK_OEM_BACKTAB: VIRTUAL_KEY = 245
+VK_ATTN: VIRTUAL_KEY = 246
+VK_CRSEL: VIRTUAL_KEY = 247
+VK_EXSEL: VIRTUAL_KEY = 248
+VK_EREOF: VIRTUAL_KEY = 249
+VK_PLAY: VIRTUAL_KEY = 250
+VK_ZOOM: VIRTUAL_KEY = 251
+VK_NONAME: VIRTUAL_KEY = 252
+VK_PA1: VIRTUAL_KEY = 253
+VK_OEM_CLEAR: VIRTUAL_KEY = 254
+class VK_F(Structure):
+    Vk: Byte
+    NLSFEProcType: Byte
+    NLSFEProcCurrent: Byte
+    NLSFEProcSwitch: Byte
+    NLSFEProc: win32more.UI.Input.KeyboardAndMouse.VK_FPARAM * 8
+    NLSFEProcAlt: win32more.UI.Input.KeyboardAndMouse.VK_FPARAM * 8
+class VK_FPARAM(Structure):
+    NLSFEProcIndex: Byte
+    NLSFEProcParam: UInt32
+class VK_TO_BIT(Structure):
+    Vk: Byte
+    ModBits: Byte
+class VK_TO_WCHAR_TABLE(Structure):
+    pVkToWchars: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head)
+    nModifications: Byte
+    cbSize: Byte
+class VK_TO_WCHARS1(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 1
+class VK_TO_WCHARS10(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 10
+class VK_TO_WCHARS2(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 2
+class VK_TO_WCHARS3(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 3
+class VK_TO_WCHARS4(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 4
+class VK_TO_WCHARS5(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 5
+class VK_TO_WCHARS6(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 6
+class VK_TO_WCHARS7(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 7
+class VK_TO_WCHARS8(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 8
+class VK_TO_WCHARS9(Structure):
+    VirtualKey: Byte
+    Attributes: Byte
+    wch: Char * 9
+class VK_VSC(Structure):
+    Vk: Byte
+    Vsc: Byte
+class VSC_LPWSTR(Structure):
+    vsc: Byte
+    pwsz: win32more.Foundation.PWSTR
+class VSC_VK(Structure):
+    Vsc: Byte
+    Vk: UInt16
+make_head(_module, 'DEADKEY')
+make_head(_module, 'HARDWAREINPUT')
+make_head(_module, 'INPUT')
+make_head(_module, 'KBD_TYPE_INFO')
+make_head(_module, 'KBDNLSTABLES')
+make_head(_module, 'KBDTABLE_DESC')
+make_head(_module, 'KBDTABLE_MULTI')
+make_head(_module, 'KBDTABLES')
+make_head(_module, 'KEYBDINPUT')
+make_head(_module, 'LASTINPUTINFO')
+make_head(_module, 'LIGATURE1')
+make_head(_module, 'LIGATURE2')
+make_head(_module, 'LIGATURE3')
+make_head(_module, 'LIGATURE4')
+make_head(_module, 'LIGATURE5')
+make_head(_module, 'MODIFIERS')
+make_head(_module, 'MOUSEINPUT')
+make_head(_module, 'MOUSEMOVEPOINT')
+make_head(_module, 'TRACKMOUSEEVENT')
+make_head(_module, 'VK_F')
+make_head(_module, 'VK_FPARAM')
+make_head(_module, 'VK_TO_BIT')
+make_head(_module, 'VK_TO_WCHAR_TABLE')
+make_head(_module, 'VK_TO_WCHARS1')
+make_head(_module, 'VK_TO_WCHARS10')
+make_head(_module, 'VK_TO_WCHARS2')
+make_head(_module, 'VK_TO_WCHARS3')
+make_head(_module, 'VK_TO_WCHARS4')
+make_head(_module, 'VK_TO_WCHARS5')
+make_head(_module, 'VK_TO_WCHARS6')
+make_head(_module, 'VK_TO_WCHARS7')
+make_head(_module, 'VK_TO_WCHARS8')
+make_head(_module, 'VK_TO_WCHARS9')
+make_head(_module, 'VK_VSC')
+make_head(_module, 'VSC_LPWSTR')
+make_head(_module, 'VSC_VK')
 __all__ = [
     "ACTIVATE_KEYBOARD_LAYOUT_FLAGS",
     "ACUTE",

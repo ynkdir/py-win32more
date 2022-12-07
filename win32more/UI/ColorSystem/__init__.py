@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
@@ -9,1351 +10,767 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_CATID_WcsPlugin():
-    return Guid('a0b402e0-8240-405f-8a-16-8a-5b-4d-f2-f0-dd')
-MAX_COLOR_CHANNELS = 8
-INTENT_PERCEPTUAL = 0
-INTENT_RELATIVE_COLORIMETRIC = 1
-INTENT_SATURATION = 2
-INTENT_ABSOLUTE_COLORIMETRIC = 3
-FLAG_EMBEDDEDPROFILE = 1
-FLAG_DEPENDENTONDATA = 2
-FLAG_ENABLE_CHROMATIC_ADAPTATION = 33554432
-ATTRIB_TRANSPARENCY = 1
-ATTRIB_MATTE = 2
-PROFILE_FILENAME = 1
-PROFILE_MEMBUFFER = 2
-PROFILE_READ = 1
-PROFILE_READWRITE = 2
-INDEX_DONT_CARE = 0
-CMM_FROM_PROFILE = 0
-ENUM_TYPE_VERSION = 768
-ET_DEVICENAME = 1
-ET_MEDIATYPE = 2
-ET_DITHERMODE = 4
-ET_RESOLUTION = 8
-ET_CMMTYPE = 16
-ET_CLASS = 32
-ET_DATACOLORSPACE = 64
-ET_CONNECTIONSPACE = 128
-ET_SIGNATURE = 256
-ET_PLATFORM = 512
-ET_PROFILEFLAGS = 1024
-ET_MANUFACTURER = 2048
-ET_MODEL = 4096
-ET_ATTRIBUTES = 8192
-ET_RENDERINGINTENT = 16384
-ET_CREATOR = 32768
-ET_DEVICECLASS = 65536
-ET_STANDARDDISPLAYCOLOR = 131072
-ET_EXTENDEDDISPLAYCOLOR = 262144
-PROOF_MODE = 1
-NORMAL_MODE = 2
-BEST_MODE = 3
-ENABLE_GAMUT_CHECKING = 65536
-USE_RELATIVE_COLORIMETRIC = 131072
-FAST_TRANSLATE = 262144
-PRESERVEBLACK = 1048576
-WCS_ALWAYS = 2097152
-SEQUENTIAL_TRANSFORM = 2155872256
-RESERVED = 2147483648
-CSA_A = 1
-CSA_ABC = 2
-CSA_DEF = 3
-CSA_DEFG = 4
-CSA_GRAY = 5
-CSA_RGB = 6
-CSA_CMYK = 7
-CSA_Lab = 8
-CMM_WIN_VERSION = 0
-CMM_IDENT = 1
-CMM_DRIVER_VERSION = 2
-CMM_DLL_VERSION = 3
-CMM_VERSION = 4
-CMM_DESCRIPTION = 5
-CMM_LOGOICON = 6
-CMS_FORWARD = 0
-CMS_BACKWARD = 1
-COLOR_MATCH_VERSION = 512
-CMS_DISABLEICM = 1
-CMS_ENABLEPROOFING = 2
-CMS_SETRENDERINTENT = 4
-CMS_SETPROOFINTENT = 8
-CMS_SETMONITORPROFILE = 16
-CMS_SETPRINTERPROFILE = 32
-CMS_SETTARGETPROFILE = 64
-CMS_USEHOOK = 128
-CMS_USEAPPLYCALLBACK = 256
-CMS_USEDESCRIPTION = 512
-CMS_DISABLEINTENT = 1024
-CMS_DISABLERENDERINTENT = 2048
-CMS_MONITOROVERFLOW = -2147483648
-CMS_PRINTEROVERFLOW = 1073741824
-CMS_TARGETOVERFLOW = 536870912
-DONT_USE_EMBEDDED_WCS_PROFILES = 1
-WCS_DEFAULT = 0
-WCS_ICCONLY = 65536
-def _define_SetICMMode():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.UI.ColorSystem.ICM_MODE)(('SetICMMode', windll['GDI32.dll']), ((1, 'hdc'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckColorsInGamut():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.Gdi.RGBTRIPLE_head),c_void_p,UInt32)(('CheckColorsInGamut', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpRGBTriple'),(1, 'dlpBuffer'),(1, 'nCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorSpace():
-    try:
-        return WINFUNCTYPE(win32more.UI.ColorSystem.HCOLORSPACE,win32more.Graphics.Gdi.HDC)(('GetColorSpace', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLogColorSpaceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.HCOLORSPACE,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),UInt32)(('GetLogColorSpaceA', windll['GDI32.dll']), ((1, 'hColorSpace'),(1, 'lpBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLogColorSpaceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.HCOLORSPACE,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),UInt32)(('GetLogColorSpaceW', windll['GDI32.dll']), ((1, 'hColorSpace'),(1, 'lpBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateColorSpaceA():
-    try:
-        return WINFUNCTYPE(win32more.UI.ColorSystem.HCOLORSPACE,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head))(('CreateColorSpaceA', windll['GDI32.dll']), ((1, 'lplcs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateColorSpaceW():
-    try:
-        return WINFUNCTYPE(win32more.UI.ColorSystem.HCOLORSPACE,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head))(('CreateColorSpaceW', windll['GDI32.dll']), ((1, 'lplcs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorSpace():
-    try:
-        return WINFUNCTYPE(win32more.UI.ColorSystem.HCOLORSPACE,win32more.Graphics.Gdi.HDC,win32more.UI.ColorSystem.HCOLORSPACE)(('SetColorSpace', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hcs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteColorSpace():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.HCOLORSPACE)(('DeleteColorSpace', windll['GDI32.dll']), ((1, 'hcs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetICMProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(UInt32),win32more.Foundation.PSTR)(('GetICMProfileA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pBufSize'),(1, 'pszFilename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetICMProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(UInt32),win32more.Foundation.PWSTR)(('GetICMProfileW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'pBufSize'),(1, 'pszFilename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetICMProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PSTR)(('SetICMProfileA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetICMProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Foundation.PWSTR)(('SetICMProfileW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeviceGammaRamp():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,c_void_p)(('GetDeviceGammaRamp', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpRamp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDeviceGammaRamp():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,c_void_p)(('SetDeviceGammaRamp', windll['GDI32.dll']), ((1, 'hdc'),(1, 'lpRamp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorMatchToTarget():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HDC,win32more.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION)(('ColorMatchToTarget', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hdcTarget'),(1, 'action'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumICMProfilesA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.UI.ColorSystem.ICMENUMPROCA,win32more.Foundation.LPARAM)(('EnumICMProfilesA', windll['GDI32.dll']), ((1, 'hdc'),(1, 'proc'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumICMProfilesW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,win32more.UI.ColorSystem.ICMENUMPROCW,win32more.Foundation.LPARAM)(('EnumICMProfilesW', windll['GDI32.dll']), ((1, 'hdc'),(1, 'proc'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateICMRegKeyA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.UI.ColorSystem.ICM_COMMAND)(('UpdateICMRegKeyA', windll['GDI32.dll']), ((1, 'reserved'),(1, 'lpszCMID'),(1, 'lpszFileName'),(1, 'command'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateICMRegKeyW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.ColorSystem.ICM_COMMAND)(('UpdateICMRegKeyW', windll['GDI32.dll']), ((1, 'reserved'),(1, 'lpszCMID'),(1, 'lpszFileName'),(1, 'command'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorCorrectPalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HPALETTE,UInt32,UInt32)(('ColorCorrectPalette', windll['GDI32.dll']), ((1, 'hdc'),(1, 'hPal'),(1, 'deFirst'),(1, 'num'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenColorProfileA():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.PROFILE_head),UInt32,UInt32,UInt32)(('OpenColorProfileA', windll['mscms.dll']), ((1, 'pProfile'),(1, 'dwDesiredAccess'),(1, 'dwShareMode'),(1, 'dwCreationMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenColorProfileW():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.PROFILE_head),UInt32,UInt32,UInt32)(('OpenColorProfileW', windll['mscms.dll']), ((1, 'pProfile'),(1, 'dwDesiredAccess'),(1, 'dwShareMode'),(1, 'dwCreationMode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseColorProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('CloseColorProfile', windll['mscms.dll']), ((1, 'hProfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorProfileFromHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_char_p_no,POINTER(UInt32))(('GetColorProfileFromHandle', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pProfile'),(1, 'pcbProfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsColorProfileValid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Foundation.BOOL))(('IsColorProfileValid', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pbValid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProfileFromLogColorSpaceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),POINTER(c_char_p_no))(('CreateProfileFromLogColorSpaceA', windll['mscms.dll']), ((1, 'pLogColorSpace'),(1, 'pProfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProfileFromLogColorSpaceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),POINTER(c_char_p_no))(('CreateProfileFromLogColorSpaceW', windll['mscms.dll']), ((1, 'pLogColorSpace'),(1, 'pProfile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCountColorProfileElements():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(UInt32))(('GetCountColorProfileElements', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pnElementCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorProfileHeader():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.PROFILEHEADER_head))(('GetColorProfileHeader', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorProfileElementTag():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,POINTER(UInt32))(('GetColorProfileElementTag', windll['mscms.dll']), ((1, 'hProfile'),(1, 'dwIndex'),(1, 'pTag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsColorProfileTagPresent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,POINTER(win32more.Foundation.BOOL))(('IsColorProfileTagPresent', windll['mscms.dll']), ((1, 'hProfile'),(1, 'tag'),(1, 'pbPresent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorProfileElement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32,POINTER(UInt32),c_void_p,POINTER(win32more.Foundation.BOOL))(('GetColorProfileElement', windll['mscms.dll']), ((1, 'hProfile'),(1, 'tag'),(1, 'dwOffset'),(1, 'pcbElement'),(1, 'pElement'),(1, 'pbReference'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorProfileHeader():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.PROFILEHEADER_head))(('SetColorProfileHeader', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pHeader'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorProfileElementSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32)(('SetColorProfileElementSize', windll['mscms.dll']), ((1, 'hProfile'),(1, 'tagType'),(1, 'pcbElement'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorProfileElement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32,POINTER(UInt32),c_void_p)(('SetColorProfileElement', windll['mscms.dll']), ((1, 'hProfile'),(1, 'tag'),(1, 'dwOffset'),(1, 'pcbElement'),(1, 'pElement'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetColorProfileElementReference():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32)(('SetColorProfileElementReference', windll['mscms.dll']), ((1, 'hProfile'),(1, 'newTag'),(1, 'refTag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPS2ColorSpaceArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32,c_char_p_no,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(('GetPS2ColorSpaceArray', windll['mscms.dll']), ((1, 'hProfile'),(1, 'dwIntent'),(1, 'dwCSAType'),(1, 'pPS2ColorSpaceArray'),(1, 'pcbPS2ColorSpaceArray'),(1, 'pbBinary'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPS2ColorRenderingIntent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,c_char_p_no,POINTER(UInt32))(('GetPS2ColorRenderingIntent', windll['mscms.dll']), ((1, 'hProfile'),(1, 'dwIntent'),(1, 'pBuffer'),(1, 'pcbPS2ColorRenderingIntent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPS2ColorRenderingDictionary():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,c_char_p_no,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(('GetPS2ColorRenderingDictionary', windll['mscms.dll']), ((1, 'hProfile'),(1, 'dwIntent'),(1, 'pPS2ColorRenderingDictionary'),(1, 'pcbPS2ColorRenderingDictionary'),(1, 'pbBinary'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNamedProfileInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.NAMED_PROFILE_INFO_head))(('GetNamedProfileInfo', windll['mscms.dll']), ((1, 'hProfile'),(1, 'pNamedProfileInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertColorNameToIndex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(POINTER(SByte)),POINTER(UInt32),UInt32)(('ConvertColorNameToIndex', windll['mscms.dll']), ((1, 'hProfile'),(1, 'paColorName'),(1, 'paIndex'),(1, 'dwCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertIndexToColorName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(UInt32),POINTER(POINTER(SByte)),UInt32)(('ConvertIndexToColorName', windll['mscms.dll']), ((1, 'hProfile'),(1, 'paIndex'),(1, 'paColorName'),(1, 'dwCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDeviceLinkProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(IntPtr),UInt32,POINTER(UInt32),UInt32,UInt32,POINTER(c_char_p_no),UInt32)(('CreateDeviceLinkProfile', windll['mscms.dll']), ((1, 'hProfile'),(1, 'nProfiles'),(1, 'padwIntent'),(1, 'nIntents'),(1, 'dwFlags'),(1, 'pProfileData'),(1, 'indexPreferredCMM'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateColorTransformA():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),IntPtr,IntPtr,UInt32)(('CreateColorTransformA', windll['mscms.dll']), ((1, 'pLogColorSpace'),(1, 'hDestProfile'),(1, 'hTargetProfile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateColorTransformW():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),IntPtr,IntPtr,UInt32)(('CreateColorTransformW', windll['mscms.dll']), ((1, 'pLogColorSpace'),(1, 'hDestProfile'),(1, 'hTargetProfile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMultiProfileTransform():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(IntPtr),UInt32,POINTER(UInt32),UInt32,UInt32,UInt32)(('CreateMultiProfileTransform', windll['mscms.dll']), ((1, 'pahProfiles'),(1, 'nProfiles'),(1, 'padwIntent'),(1, 'nIntents'),(1, 'dwFlags'),(1, 'indexPreferredCMM'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteColorTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('DeleteColorTransform', windll['mscms.dll']), ((1, 'hxform'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateBitmapBits():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,UInt32,UInt32,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,win32more.UI.ColorSystem.LPBMCALLBACKFN,win32more.Foundation.LPARAM)(('TranslateBitmapBits', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'pSrcBits'),(1, 'bmInput'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwInputStride'),(1, 'pDestBits'),(1, 'bmOutput'),(1, 'dwOutputStride'),(1, 'pfnCallBack'),(1, 'ulCallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckBitmapBits():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,UInt32,UInt32,c_char_p_no,win32more.UI.ColorSystem.LPBMCALLBACKFN,win32more.Foundation.LPARAM)(('CheckBitmapBits', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'pSrcBits'),(1, 'bmInput'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwStride'),(1, 'paResult'),(1, 'pfnCallback'),(1, 'lpCallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.COLOR_head),UInt32,win32more.UI.ColorSystem.COLORTYPE,POINTER(win32more.UI.ColorSystem.COLOR_head),win32more.UI.ColorSystem.COLORTYPE)(('TranslateColors', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'paInputColors'),(1, 'nColors'),(1, 'ctInput'),(1, 'paOutputColors'),(1, 'ctOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.COLOR_head),UInt32,win32more.UI.ColorSystem.COLORTYPE,c_char_p_no)(('CheckColors', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'paInputColors'),(1, 'nColors'),(1, 'ctInput'),(1, 'paResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCMMInfo():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr,UInt32)(('GetCMMInfo', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterCMMA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('RegisterCMMA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'cmmID'),(1, 'pCMMdll'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterCMMW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('RegisterCMMW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'cmmID'),(1, 'pCMMdll'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterCMMA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32)(('UnregisterCMMA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'cmmID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterCMMW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32)(('UnregisterCMMW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'cmmID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectCMM():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('SelectCMM', windll['mscms.dll']), ((1, 'dwCMMType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('GetColorDirectoryA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetColorDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetColorDirectoryW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InstallColorProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('InstallColorProfileA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InstallColorProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('InstallColorProfileW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UninstallColorProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('UninstallColorProfileA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'bDelete'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UninstallColorProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('UninstallColorProfileW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'bDelete'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumColorProfilesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.UI.ColorSystem.ENUMTYPEA_head),c_char_p_no,POINTER(UInt32),POINTER(UInt32))(('EnumColorProfilesA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pEnumRecord'),(1, 'pEnumerationBuffer'),(1, 'pdwSizeOfEnumerationBuffer'),(1, 'pnProfiles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumColorProfilesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head),c_char_p_no,POINTER(UInt32),POINTER(UInt32))(('EnumColorProfilesW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pEnumRecord'),(1, 'pEnumerationBuffer'),(1, 'pdwSizeOfEnumerationBuffer'),(1, 'pnProfiles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetStandardColorSpaceProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('SetStandardColorSpaceProfileA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'dwProfileID'),(1, 'pProfilename'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetStandardColorSpaceProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('SetStandardColorSpaceProfileW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'dwProfileID'),(1, 'pProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStandardColorSpaceProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('GetStandardColorSpaceProfileA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'dwSCS'),(1, 'pBuffer'),(1, 'pcbSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStandardColorSpaceProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetStandardColorSpaceProfileW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'dwSCS'),(1, 'pBuffer'),(1, 'pcbSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AssociateColorProfileWithDeviceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('AssociateColorProfileWithDeviceA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AssociateColorProfileWithDeviceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('AssociateColorProfileWithDeviceW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DisassociateColorProfileFromDeviceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('DisassociateColorProfileFromDeviceA', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DisassociateColorProfileFromDeviceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DisassociateColorProfileFromDeviceW', windll['mscms.dll']), ((1, 'pMachineName'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetupColorMatchingW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPW_head))(('SetupColorMatchingW', windll['ICMUI.dll']), ((1, 'pcms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetupColorMatchingA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPA_head))(('SetupColorMatchingA', windll['ICMUI.dll']), ((1, 'pcms'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsAssociateColorProfileWithDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WcsAssociateColorProfileWithDevice', windll['mscms.dll']), ((1, 'scope'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsDisassociateColorProfileFromDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WcsDisassociateColorProfileFromDevice', windll['mscms.dll']), ((1, 'scope'),(1, 'pProfileName'),(1, 'pDeviceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsEnumColorProfilesSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head),POINTER(UInt32))(('WcsEnumColorProfilesSize', windll['mscms.dll']), ((1, 'scope'),(1, 'pEnumRecord'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsEnumColorProfiles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head),c_char_p_no,UInt32,POINTER(UInt32))(('WcsEnumColorProfiles', windll['mscms.dll']), ((1, 'scope'),(1, 'pEnumRecord'),(1, 'pBuffer'),(1, 'dwSize'),(1, 'pnProfiles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsGetDefaultColorProfileSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.UI.ColorSystem.COLORPROFILETYPE,win32more.UI.ColorSystem.COLORPROFILESUBTYPE,UInt32,POINTER(UInt32))(('WcsGetDefaultColorProfileSize', windll['mscms.dll']), ((1, 'scope'),(1, 'pDeviceName'),(1, 'cptColorProfileType'),(1, 'cpstColorProfileSubType'),(1, 'dwProfileID'),(1, 'pcbProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsGetDefaultColorProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.UI.ColorSystem.COLORPROFILETYPE,win32more.UI.ColorSystem.COLORPROFILESUBTYPE,UInt32,UInt32,win32more.Foundation.PWSTR)(('WcsGetDefaultColorProfile', windll['mscms.dll']), ((1, 'scope'),(1, 'pDeviceName'),(1, 'cptColorProfileType'),(1, 'cpstColorProfileSubType'),(1, 'dwProfileID'),(1, 'cbProfileName'),(1, 'pProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsSetDefaultColorProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.UI.ColorSystem.COLORPROFILETYPE,win32more.UI.ColorSystem.COLORPROFILESUBTYPE,UInt32,win32more.Foundation.PWSTR)(('WcsSetDefaultColorProfile', windll['mscms.dll']), ((1, 'scope'),(1, 'pDeviceName'),(1, 'cptColorProfileType'),(1, 'cpstColorProfileSubType'),(1, 'dwProfileID'),(1, 'pProfileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsSetDefaultRenderingIntent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,UInt32)(('WcsSetDefaultRenderingIntent', windll['mscms.dll']), ((1, 'scope'),(1, 'dwRenderingIntent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsGetDefaultRenderingIntent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,POINTER(UInt32))(('WcsGetDefaultRenderingIntent', windll['mscms.dll']), ((1, 'scope'),(1, 'pdwRenderingIntent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsGetUsePerUserProfiles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.BOOL))(('WcsGetUsePerUserProfiles', windll['mscms.dll']), ((1, 'pDeviceName'),(1, 'dwDeviceClass'),(1, 'pUsePerUserProfiles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsSetUsePerUserProfiles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL)(('WcsSetUsePerUserProfiles', windll['mscms.dll']), ((1, 'pDeviceName'),(1, 'dwDeviceClass'),(1, 'usePerUserProfiles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsTranslateColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32,win32more.UI.ColorSystem.COLORDATATYPE,UInt32,c_void_p,UInt32,win32more.UI.ColorSystem.COLORDATATYPE,UInt32,c_void_p)(('WcsTranslateColors', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'nColors'),(1, 'nInputChannels'),(1, 'cdtInput'),(1, 'cbInput'),(1, 'pInputData'),(1, 'nOutputChannels'),(1, 'cdtOutput'),(1, 'cbOutput'),(1, 'pOutputData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsCheckColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,UInt32,UInt32,win32more.UI.ColorSystem.COLORDATATYPE,UInt32,c_void_p,c_char_p_no)(('WcsCheckColors', windll['mscms.dll']), ((1, 'hColorTransform'),(1, 'nColors'),(1, 'nInputChannels'),(1, 'cdtInput'),(1, 'cbInput'),(1, 'pInputData'),(1, 'paResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCheckColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.COLOR_head),UInt32,win32more.UI.ColorSystem.COLORTYPE,c_char_p_no)(('CMCheckColors', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpaInputColors'),(1, 'nColors'),(1, 'ctInput'),(1, 'lpaResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCheckRGBs():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,UInt32,UInt32,c_char_p_no,win32more.UI.ColorSystem.LPBMCALLBACKFN,win32more.Foundation.LPARAM)(('CMCheckRGBs', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpSrcBits'),(1, 'bmInput'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwStride'),(1, 'lpaResult'),(1, 'pfnCallback'),(1, 'ulCallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMConvertColorNameToIndex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(POINTER(SByte)),POINTER(UInt32),UInt32)(('CMConvertColorNameToIndex', windll['ICM32.dll']), ((1, 'hProfile'),(1, 'paColorName'),(1, 'paIndex'),(1, 'dwCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMConvertIndexToColorName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(UInt32),POINTER(POINTER(SByte)),UInt32)(('CMConvertIndexToColorName', windll['ICM32.dll']), ((1, 'hProfile'),(1, 'paIndex'),(1, 'paColorName'),(1, 'dwCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateDeviceLinkProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(IntPtr),UInt32,POINTER(UInt32),UInt32,UInt32,POINTER(c_char_p_no))(('CMCreateDeviceLinkProfile', windll['ICM32.dll']), ((1, 'pahProfiles'),(1, 'nProfiles'),(1, 'padwIntents'),(1, 'nIntents'),(1, 'dwFlags'),(1, 'lpProfileData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateMultiProfileTransform():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(IntPtr),UInt32,POINTER(UInt32),UInt32,UInt32)(('CMCreateMultiProfileTransform', windll['ICM32.dll']), ((1, 'pahProfiles'),(1, 'nProfiles'),(1, 'padwIntents'),(1, 'nIntents'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),POINTER(c_void_p))(('CMCreateProfileW', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpProfileData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateTransform():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),c_void_p,c_void_p)(('CMCreateTransform', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpDevCharacter'),(1, 'lpTargetDevCharacter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateTransformW():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),c_void_p,c_void_p)(('CMCreateTransformW', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpDevCharacter'),(1, 'lpTargetDevCharacter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateTransformExt():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),c_void_p,c_void_p,UInt32)(('CMCreateTransformExt', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpDevCharacter'),(1, 'lpTargetDevCharacter'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCheckColorsInGamut():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.Graphics.Gdi.RGBTRIPLE_head),c_char_p_no,UInt32)(('CMCheckColorsInGamut', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpaRGBTriple'),(1, 'lpaResult'),(1, 'nCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateProfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head),POINTER(c_void_p))(('CMCreateProfile', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpProfileData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMTranslateRGB():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Foundation.COLORREF,POINTER(UInt32),UInt32)(('CMTranslateRGB', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'ColorRef'),(1, 'lpColorRef'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMTranslateRGBs():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,UInt32,UInt32,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32)(('CMTranslateRGBs', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpSrcBits'),(1, 'bmInput'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwStride'),(1, 'lpDestBits'),(1, 'bmOutput'),(1, 'dwTranslateDirection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMCreateTransformExtW():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head),c_void_p,c_void_p,UInt32)(('CMCreateTransformExtW', windll['ICM32.dll']), ((1, 'lpColorSpace'),(1, 'lpDevCharacter'),(1, 'lpTargetDevCharacter'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMDeleteTransform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('CMDeleteTransform', windll['ICM32.dll']), ((1, 'hcmTransform'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('CMGetInfo', windll['ICM32.dll']), ((1, 'dwInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMGetNamedProfileInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.NAMED_PROFILE_INFO_head))(('CMGetNamedProfileInfo', windll['ICM32.dll']), ((1, 'hProfile'),(1, 'pNamedProfileInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMIsProfileValid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(Int32))(('CMIsProfileValid', windll['ICM32.dll']), ((1, 'hProfile'),(1, 'lpbValid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMTranslateColors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,POINTER(win32more.UI.ColorSystem.COLOR_head),UInt32,win32more.UI.ColorSystem.COLORTYPE,POINTER(win32more.UI.ColorSystem.COLOR_head),win32more.UI.ColorSystem.COLORTYPE)(('CMTranslateColors', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpaInputColors'),(1, 'nColors'),(1, 'ctInput'),(1, 'lpaOutputColors'),(1, 'ctOutput'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CMTranslateRGBsExt():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,UInt32,UInt32,c_void_p,win32more.UI.ColorSystem.BMFORMAT,UInt32,win32more.UI.ColorSystem.LPBMCALLBACKFN,win32more.Foundation.LPARAM)(('CMTranslateRGBsExt', windll['ICM32.dll']), ((1, 'hcmTransform'),(1, 'lpSrcBits'),(1, 'bmInput'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwInputStride'),(1, 'lpDestBits'),(1, 'bmOutput'),(1, 'dwOutputStride'),(1, 'lpfnCallback'),(1, 'ulCallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsOpenColorProfileA():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.PROFILE_head),POINTER(win32more.UI.ColorSystem.PROFILE_head),POINTER(win32more.UI.ColorSystem.PROFILE_head),UInt32,UInt32,UInt32,UInt32)(('WcsOpenColorProfileA', windll['mscms.dll']), ((1, 'pCDMPProfile'),(1, 'pCAMPProfile'),(1, 'pGMMPProfile'),(1, 'dwDesireAccess'),(1, 'dwShareMode'),(1, 'dwCreationMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsOpenColorProfileW():
-    try:
-        return WINFUNCTYPE(IntPtr,POINTER(win32more.UI.ColorSystem.PROFILE_head),POINTER(win32more.UI.ColorSystem.PROFILE_head),POINTER(win32more.UI.ColorSystem.PROFILE_head),UInt32,UInt32,UInt32,UInt32)(('WcsOpenColorProfileW', windll['mscms.dll']), ((1, 'pCDMPProfile'),(1, 'pCAMPProfile'),(1, 'pGMMPProfile'),(1, 'dwDesireAccess'),(1, 'dwShareMode'),(1, 'dwCreationMode'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsCreateIccProfile():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,UInt32)(('WcsCreateIccProfile', windll['mscms.dll']), ((1, 'hWcsProfile'),(1, 'dwOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsGetCalibrationManagementState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL))(('WcsGetCalibrationManagementState', windll['mscms.dll']), ((1, 'pbIsEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WcsSetCalibrationManagementState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('WcsSetCalibrationManagementState', windll['mscms.dll']), ((1, 'bIsEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileAddDisplayAssociation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.Foundation.LUID,UInt32,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('ColorProfileAddDisplayAssociation', windll['mscms.dll']), ((1, 'scope'),(1, 'profileName'),(1, 'targetAdapterID'),(1, 'sourceID'),(1, 'setAsDefault'),(1, 'associateAsAdvancedColor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileRemoveDisplayAssociation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.Foundation.LUID,UInt32,win32more.Foundation.BOOL)(('ColorProfileRemoveDisplayAssociation', windll['mscms.dll']), ((1, 'scope'),(1, 'profileName'),(1, 'targetAdapterID'),(1, 'sourceID'),(1, 'dissociateAdvancedColor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileSetDisplayDefaultAssociation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.PWSTR,win32more.UI.ColorSystem.COLORPROFILETYPE,win32more.UI.ColorSystem.COLORPROFILESUBTYPE,win32more.Foundation.LUID,UInt32)(('ColorProfileSetDisplayDefaultAssociation', windll['mscms.dll']), ((1, 'scope'),(1, 'profileName'),(1, 'profileType'),(1, 'profileSubType'),(1, 'targetAdapterID'),(1, 'sourceID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileGetDisplayList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.LUID,UInt32,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32))(('ColorProfileGetDisplayList', windll['mscms.dll']), ((1, 'scope'),(1, 'targetAdapterID'),(1, 'sourceID'),(1, 'profileList'),(1, 'profileCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileGetDisplayDefault():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE,win32more.Foundation.LUID,UInt32,win32more.UI.ColorSystem.COLORPROFILETYPE,win32more.UI.ColorSystem.COLORPROFILESUBTYPE,POINTER(win32more.Foundation.PWSTR))(('ColorProfileGetDisplayDefault', windll['mscms.dll']), ((1, 'scope'),(1, 'targetAdapterID'),(1, 'sourceID'),(1, 'profileType'),(1, 'profileSubType'),(1, 'profileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ColorProfileGetDisplayUserScope():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LUID,UInt32,POINTER(win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE))(('ColorProfileGetDisplayUserScope', windll['mscms.dll']), ((1, 'targetAdapterID'),(1, 'sourceID'),(1, 'scope'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BlackInformation_head():
-    class BlackInformation(Structure):
-        pass
-    return BlackInformation
-def _define_BlackInformation():
-    BlackInformation = win32more.UI.ColorSystem.BlackInformation_head
-    BlackInformation._fields_ = [
-        ('fBlackOnly', win32more.Foundation.BOOL),
-        ('blackWeight', Single),
-    ]
-    return BlackInformation
+CATID_WcsPlugin: Guid = Guid('a0b402e0-8240-405f-8a-16-8a-5b-4d-f2-f0-dd')
+MAX_COLOR_CHANNELS: UInt32 = 8
+INTENT_PERCEPTUAL: UInt32 = 0
+INTENT_RELATIVE_COLORIMETRIC: UInt32 = 1
+INTENT_SATURATION: UInt32 = 2
+INTENT_ABSOLUTE_COLORIMETRIC: UInt32 = 3
+FLAG_EMBEDDEDPROFILE: UInt32 = 1
+FLAG_DEPENDENTONDATA: UInt32 = 2
+FLAG_ENABLE_CHROMATIC_ADAPTATION: UInt32 = 33554432
+ATTRIB_TRANSPARENCY: UInt32 = 1
+ATTRIB_MATTE: UInt32 = 2
+PROFILE_FILENAME: UInt32 = 1
+PROFILE_MEMBUFFER: UInt32 = 2
+PROFILE_READ: UInt32 = 1
+PROFILE_READWRITE: UInt32 = 2
+INDEX_DONT_CARE: UInt32 = 0
+CMM_FROM_PROFILE: UInt32 = 0
+ENUM_TYPE_VERSION: UInt32 = 768
+ET_DEVICENAME: UInt32 = 1
+ET_MEDIATYPE: UInt32 = 2
+ET_DITHERMODE: UInt32 = 4
+ET_RESOLUTION: UInt32 = 8
+ET_CMMTYPE: UInt32 = 16
+ET_CLASS: UInt32 = 32
+ET_DATACOLORSPACE: UInt32 = 64
+ET_CONNECTIONSPACE: UInt32 = 128
+ET_SIGNATURE: UInt32 = 256
+ET_PLATFORM: UInt32 = 512
+ET_PROFILEFLAGS: UInt32 = 1024
+ET_MANUFACTURER: UInt32 = 2048
+ET_MODEL: UInt32 = 4096
+ET_ATTRIBUTES: UInt32 = 8192
+ET_RENDERINGINTENT: UInt32 = 16384
+ET_CREATOR: UInt32 = 32768
+ET_DEVICECLASS: UInt32 = 65536
+ET_STANDARDDISPLAYCOLOR: UInt32 = 131072
+ET_EXTENDEDDISPLAYCOLOR: UInt32 = 262144
+PROOF_MODE: UInt32 = 1
+NORMAL_MODE: UInt32 = 2
+BEST_MODE: UInt32 = 3
+ENABLE_GAMUT_CHECKING: UInt32 = 65536
+USE_RELATIVE_COLORIMETRIC: UInt32 = 131072
+FAST_TRANSLATE: UInt32 = 262144
+PRESERVEBLACK: UInt32 = 1048576
+WCS_ALWAYS: UInt32 = 2097152
+SEQUENTIAL_TRANSFORM: UInt32 = 2155872256
+RESERVED: UInt32 = 2147483648
+CSA_A: UInt32 = 1
+CSA_ABC: UInt32 = 2
+CSA_DEF: UInt32 = 3
+CSA_DEFG: UInt32 = 4
+CSA_GRAY: UInt32 = 5
+CSA_RGB: UInt32 = 6
+CSA_CMYK: UInt32 = 7
+CSA_Lab: UInt32 = 8
+CMM_WIN_VERSION: UInt32 = 0
+CMM_IDENT: UInt32 = 1
+CMM_DRIVER_VERSION: UInt32 = 2
+CMM_DLL_VERSION: UInt32 = 3
+CMM_VERSION: UInt32 = 4
+CMM_DESCRIPTION: UInt32 = 5
+CMM_LOGOICON: UInt32 = 6
+CMS_FORWARD: UInt32 = 0
+CMS_BACKWARD: UInt32 = 1
+COLOR_MATCH_VERSION: UInt32 = 512
+CMS_DISABLEICM: UInt32 = 1
+CMS_ENABLEPROOFING: UInt32 = 2
+CMS_SETRENDERINTENT: UInt32 = 4
+CMS_SETPROOFINTENT: UInt32 = 8
+CMS_SETMONITORPROFILE: UInt32 = 16
+CMS_SETPRINTERPROFILE: UInt32 = 32
+CMS_SETTARGETPROFILE: UInt32 = 64
+CMS_USEHOOK: UInt32 = 128
+CMS_USEAPPLYCALLBACK: UInt32 = 256
+CMS_USEDESCRIPTION: UInt32 = 512
+CMS_DISABLEINTENT: UInt32 = 1024
+CMS_DISABLERENDERINTENT: UInt32 = 2048
+CMS_MONITOROVERFLOW: Int32 = -2147483648
+CMS_PRINTEROVERFLOW: Int32 = 1073741824
+CMS_TARGETOVERFLOW: Int32 = 536870912
+DONT_USE_EMBEDDED_WCS_PROFILES: Int32 = 1
+WCS_DEFAULT: Int32 = 0
+WCS_ICCONLY: Int32 = 65536
+@winfunctype('GDI32.dll')
+def SetICMMode(hdc: win32more.Graphics.Gdi.HDC, mode: win32more.UI.ColorSystem.ICM_MODE) -> Int32: ...
+@winfunctype('GDI32.dll')
+def CheckColorsInGamut(hdc: win32more.Graphics.Gdi.HDC, lpRGBTriple: POINTER(win32more.Graphics.Gdi.RGBTRIPLE_head), dlpBuffer: c_void_p, nCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetColorSpace(hdc: win32more.Graphics.Gdi.HDC) -> win32more.UI.ColorSystem.HCOLORSPACE: ...
+@winfunctype('GDI32.dll')
+def GetLogColorSpaceA(hColorSpace: win32more.UI.ColorSystem.HCOLORSPACE, lpBuffer: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), nSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetLogColorSpaceW(hColorSpace: win32more.UI.ColorSystem.HCOLORSPACE, lpBuffer: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), nSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def CreateColorSpaceA(lplcs: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head)) -> win32more.UI.ColorSystem.HCOLORSPACE: ...
+@winfunctype('GDI32.dll')
+def CreateColorSpaceW(lplcs: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head)) -> win32more.UI.ColorSystem.HCOLORSPACE: ...
+@winfunctype('GDI32.dll')
+def SetColorSpace(hdc: win32more.Graphics.Gdi.HDC, hcs: win32more.UI.ColorSystem.HCOLORSPACE) -> win32more.UI.ColorSystem.HCOLORSPACE: ...
+@winfunctype('GDI32.dll')
+def DeleteColorSpace(hcs: win32more.UI.ColorSystem.HCOLORSPACE) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetICMProfileA(hdc: win32more.Graphics.Gdi.HDC, pBufSize: POINTER(UInt32), pszFilename: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetICMProfileW(hdc: win32more.Graphics.Gdi.HDC, pBufSize: POINTER(UInt32), pszFilename: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetICMProfileA(hdc: win32more.Graphics.Gdi.HDC, lpFileName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetICMProfileW(hdc: win32more.Graphics.Gdi.HDC, lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetDeviceGammaRamp(hdc: win32more.Graphics.Gdi.HDC, lpRamp: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SetDeviceGammaRamp(hdc: win32more.Graphics.Gdi.HDC, lpRamp: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ColorMatchToTarget(hdc: win32more.Graphics.Gdi.HDC, hdcTarget: win32more.Graphics.Gdi.HDC, action: win32more.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def EnumICMProfilesA(hdc: win32more.Graphics.Gdi.HDC, proc: win32more.UI.ColorSystem.ICMENUMPROCA, param2: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def EnumICMProfilesW(hdc: win32more.Graphics.Gdi.HDC, proc: win32more.UI.ColorSystem.ICMENUMPROCW, param2: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype('GDI32.dll')
+def UpdateICMRegKeyA(reserved: UInt32, lpszCMID: win32more.Foundation.PSTR, lpszFileName: win32more.Foundation.PSTR, command: win32more.UI.ColorSystem.ICM_COMMAND) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def UpdateICMRegKeyW(reserved: UInt32, lpszCMID: win32more.Foundation.PWSTR, lpszFileName: win32more.Foundation.PWSTR, command: win32more.UI.ColorSystem.ICM_COMMAND) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def ColorCorrectPalette(hdc: win32more.Graphics.Gdi.HDC, hPal: win32more.Graphics.Gdi.HPALETTE, deFirst: UInt32, num: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def OpenColorProfileA(pProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), dwDesiredAccess: UInt32, dwShareMode: UInt32, dwCreationMode: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def OpenColorProfileW(pProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), dwDesiredAccess: UInt32, dwShareMode: UInt32, dwCreationMode: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def CloseColorProfile(hProfile: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorProfileFromHandle(hProfile: IntPtr, pProfile: c_char_p_no, pcbProfile: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def IsColorProfileValid(hProfile: IntPtr, pbValid: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CreateProfileFromLogColorSpaceA(pLogColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), pProfile: POINTER(c_char_p_no)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CreateProfileFromLogColorSpaceW(pLogColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), pProfile: POINTER(c_char_p_no)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetCountColorProfileElements(hProfile: IntPtr, pnElementCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorProfileHeader(hProfile: IntPtr, pHeader: POINTER(win32more.UI.ColorSystem.PROFILEHEADER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorProfileElementTag(hProfile: IntPtr, dwIndex: UInt32, pTag: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def IsColorProfileTagPresent(hProfile: IntPtr, tag: UInt32, pbPresent: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorProfileElement(hProfile: IntPtr, tag: UInt32, dwOffset: UInt32, pcbElement: POINTER(UInt32), pElement: c_void_p, pbReference: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetColorProfileHeader(hProfile: IntPtr, pHeader: POINTER(win32more.UI.ColorSystem.PROFILEHEADER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetColorProfileElementSize(hProfile: IntPtr, tagType: UInt32, pcbElement: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetColorProfileElement(hProfile: IntPtr, tag: UInt32, dwOffset: UInt32, pcbElement: POINTER(UInt32), pElement: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetColorProfileElementReference(hProfile: IntPtr, newTag: UInt32, refTag: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetPS2ColorSpaceArray(hProfile: IntPtr, dwIntent: UInt32, dwCSAType: UInt32, pPS2ColorSpaceArray: c_char_p_no, pcbPS2ColorSpaceArray: POINTER(UInt32), pbBinary: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetPS2ColorRenderingIntent(hProfile: IntPtr, dwIntent: UInt32, pBuffer: c_char_p_no, pcbPS2ColorRenderingIntent: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetPS2ColorRenderingDictionary(hProfile: IntPtr, dwIntent: UInt32, pPS2ColorRenderingDictionary: c_char_p_no, pcbPS2ColorRenderingDictionary: POINTER(UInt32), pbBinary: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetNamedProfileInfo(hProfile: IntPtr, pNamedProfileInfo: POINTER(win32more.UI.ColorSystem.NAMED_PROFILE_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def ConvertColorNameToIndex(hProfile: IntPtr, paColorName: POINTER(POINTER(SByte)), paIndex: POINTER(UInt32), dwCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def ConvertIndexToColorName(hProfile: IntPtr, paIndex: POINTER(UInt32), paColorName: POINTER(POINTER(SByte)), dwCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CreateDeviceLinkProfile(hProfile: POINTER(IntPtr), nProfiles: UInt32, padwIntent: POINTER(UInt32), nIntents: UInt32, dwFlags: UInt32, pProfileData: POINTER(c_char_p_no), indexPreferredCMM: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CreateColorTransformA(pLogColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), hDestProfile: IntPtr, hTargetProfile: IntPtr, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def CreateColorTransformW(pLogColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), hDestProfile: IntPtr, hTargetProfile: IntPtr, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def CreateMultiProfileTransform(pahProfiles: POINTER(IntPtr), nProfiles: UInt32, padwIntent: POINTER(UInt32), nIntents: UInt32, dwFlags: UInt32, indexPreferredCMM: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def DeleteColorTransform(hxform: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def TranslateBitmapBits(hColorTransform: IntPtr, pSrcBits: c_void_p, bmInput: win32more.UI.ColorSystem.BMFORMAT, dwWidth: UInt32, dwHeight: UInt32, dwInputStride: UInt32, pDestBits: c_void_p, bmOutput: win32more.UI.ColorSystem.BMFORMAT, dwOutputStride: UInt32, pfnCallBack: win32more.UI.ColorSystem.LPBMCALLBACKFN, ulCallbackData: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CheckBitmapBits(hColorTransform: IntPtr, pSrcBits: c_void_p, bmInput: win32more.UI.ColorSystem.BMFORMAT, dwWidth: UInt32, dwHeight: UInt32, dwStride: UInt32, paResult: c_char_p_no, pfnCallback: win32more.UI.ColorSystem.LPBMCALLBACKFN, lpCallbackData: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def TranslateColors(hColorTransform: IntPtr, paInputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), nColors: UInt32, ctInput: win32more.UI.ColorSystem.COLORTYPE, paOutputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), ctOutput: win32more.UI.ColorSystem.COLORTYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def CheckColors(hColorTransform: IntPtr, paInputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), nColors: UInt32, ctInput: win32more.UI.ColorSystem.COLORTYPE, paResult: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetCMMInfo(hColorTransform: IntPtr, param1: UInt32) -> UInt32: ...
+@winfunctype('mscms.dll')
+def RegisterCMMA(pMachineName: win32more.Foundation.PSTR, cmmID: UInt32, pCMMdll: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def RegisterCMMW(pMachineName: win32more.Foundation.PWSTR, cmmID: UInt32, pCMMdll: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def UnregisterCMMA(pMachineName: win32more.Foundation.PSTR, cmmID: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def UnregisterCMMW(pMachineName: win32more.Foundation.PWSTR, cmmID: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SelectCMM(dwCMMType: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorDirectoryA(pMachineName: win32more.Foundation.PSTR, pBuffer: win32more.Foundation.PSTR, pdwSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetColorDirectoryW(pMachineName: win32more.Foundation.PWSTR, pBuffer: win32more.Foundation.PWSTR, pdwSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def InstallColorProfileA(pMachineName: win32more.Foundation.PSTR, pProfileName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def InstallColorProfileW(pMachineName: win32more.Foundation.PWSTR, pProfileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def UninstallColorProfileA(pMachineName: win32more.Foundation.PSTR, pProfileName: win32more.Foundation.PSTR, bDelete: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def UninstallColorProfileW(pMachineName: win32more.Foundation.PWSTR, pProfileName: win32more.Foundation.PWSTR, bDelete: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def EnumColorProfilesA(pMachineName: win32more.Foundation.PSTR, pEnumRecord: POINTER(win32more.UI.ColorSystem.ENUMTYPEA_head), pEnumerationBuffer: c_char_p_no, pdwSizeOfEnumerationBuffer: POINTER(UInt32), pnProfiles: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def EnumColorProfilesW(pMachineName: win32more.Foundation.PWSTR, pEnumRecord: POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head), pEnumerationBuffer: c_char_p_no, pdwSizeOfEnumerationBuffer: POINTER(UInt32), pnProfiles: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetStandardColorSpaceProfileA(pMachineName: win32more.Foundation.PSTR, dwProfileID: UInt32, pProfilename: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def SetStandardColorSpaceProfileW(pMachineName: win32more.Foundation.PWSTR, dwProfileID: UInt32, pProfileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetStandardColorSpaceProfileA(pMachineName: win32more.Foundation.PSTR, dwSCS: UInt32, pBuffer: win32more.Foundation.PSTR, pcbSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def GetStandardColorSpaceProfileW(pMachineName: win32more.Foundation.PWSTR, dwSCS: UInt32, pBuffer: win32more.Foundation.PWSTR, pcbSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def AssociateColorProfileWithDeviceA(pMachineName: win32more.Foundation.PSTR, pProfileName: win32more.Foundation.PSTR, pDeviceName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def AssociateColorProfileWithDeviceW(pMachineName: win32more.Foundation.PWSTR, pProfileName: win32more.Foundation.PWSTR, pDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def DisassociateColorProfileFromDeviceA(pMachineName: win32more.Foundation.PSTR, pProfileName: win32more.Foundation.PSTR, pDeviceName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def DisassociateColorProfileFromDeviceW(pMachineName: win32more.Foundation.PWSTR, pProfileName: win32more.Foundation.PWSTR, pDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICMUI.dll')
+def SetupColorMatchingW(pcms: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICMUI.dll')
+def SetupColorMatchingA(pcms: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsAssociateColorProfileWithDevice(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pProfileName: win32more.Foundation.PWSTR, pDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsDisassociateColorProfileFromDevice(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pProfileName: win32more.Foundation.PWSTR, pDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsEnumColorProfilesSize(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pEnumRecord: POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head), pdwSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsEnumColorProfiles(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pEnumRecord: POINTER(win32more.UI.ColorSystem.ENUMTYPEW_head), pBuffer: c_char_p_no, dwSize: UInt32, pnProfiles: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsGetDefaultColorProfileSize(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pDeviceName: win32more.Foundation.PWSTR, cptColorProfileType: win32more.UI.ColorSystem.COLORPROFILETYPE, cpstColorProfileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, dwProfileID: UInt32, pcbProfileName: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsGetDefaultColorProfile(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pDeviceName: win32more.Foundation.PWSTR, cptColorProfileType: win32more.UI.ColorSystem.COLORPROFILETYPE, cpstColorProfileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, dwProfileID: UInt32, cbProfileName: UInt32, pProfileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsSetDefaultColorProfile(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pDeviceName: win32more.Foundation.PWSTR, cptColorProfileType: win32more.UI.ColorSystem.COLORPROFILETYPE, cpstColorProfileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, dwProfileID: UInt32, pProfileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsSetDefaultRenderingIntent(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, dwRenderingIntent: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsGetDefaultRenderingIntent(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, pdwRenderingIntent: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsGetUsePerUserProfiles(pDeviceName: win32more.Foundation.PWSTR, dwDeviceClass: UInt32, pUsePerUserProfiles: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsSetUsePerUserProfiles(pDeviceName: win32more.Foundation.PWSTR, dwDeviceClass: UInt32, usePerUserProfiles: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsTranslateColors(hColorTransform: IntPtr, nColors: UInt32, nInputChannels: UInt32, cdtInput: win32more.UI.ColorSystem.COLORDATATYPE, cbInput: UInt32, pInputData: c_void_p, nOutputChannels: UInt32, cdtOutput: win32more.UI.ColorSystem.COLORDATATYPE, cbOutput: UInt32, pOutputData: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsCheckColors(hColorTransform: IntPtr, nColors: UInt32, nInputChannels: UInt32, cdtInput: win32more.UI.ColorSystem.COLORDATATYPE, cbInput: UInt32, pInputData: c_void_p, paResult: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCheckColors(hcmTransform: IntPtr, lpaInputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), nColors: UInt32, ctInput: win32more.UI.ColorSystem.COLORTYPE, lpaResult: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCheckRGBs(hcmTransform: IntPtr, lpSrcBits: c_void_p, bmInput: win32more.UI.ColorSystem.BMFORMAT, dwWidth: UInt32, dwHeight: UInt32, dwStride: UInt32, lpaResult: c_char_p_no, pfnCallback: win32more.UI.ColorSystem.LPBMCALLBACKFN, ulCallbackData: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMConvertColorNameToIndex(hProfile: IntPtr, paColorName: POINTER(POINTER(SByte)), paIndex: POINTER(UInt32), dwCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMConvertIndexToColorName(hProfile: IntPtr, paIndex: POINTER(UInt32), paColorName: POINTER(POINTER(SByte)), dwCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCreateDeviceLinkProfile(pahProfiles: POINTER(IntPtr), nProfiles: UInt32, padwIntents: POINTER(UInt32), nIntents: UInt32, dwFlags: UInt32, lpProfileData: POINTER(c_char_p_no)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCreateMultiProfileTransform(pahProfiles: POINTER(IntPtr), nProfiles: UInt32, padwIntents: POINTER(UInt32), nIntents: UInt32, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('ICM32.dll')
+def CMCreateProfileW(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), lpProfileData: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCreateTransform(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), lpDevCharacter: c_void_p, lpTargetDevCharacter: c_void_p) -> IntPtr: ...
+@winfunctype('ICM32.dll')
+def CMCreateTransformW(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), lpDevCharacter: c_void_p, lpTargetDevCharacter: c_void_p) -> IntPtr: ...
+@winfunctype('ICM32.dll')
+def CMCreateTransformExt(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), lpDevCharacter: c_void_p, lpTargetDevCharacter: c_void_p, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('ICM32.dll')
+def CMCheckColorsInGamut(hcmTransform: IntPtr, lpaRGBTriple: POINTER(win32more.Graphics.Gdi.RGBTRIPLE_head), lpaResult: c_char_p_no, nCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCreateProfile(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEA_head), lpProfileData: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMTranslateRGB(hcmTransform: IntPtr, ColorRef: win32more.Foundation.COLORREF, lpColorRef: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMTranslateRGBs(hcmTransform: IntPtr, lpSrcBits: c_void_p, bmInput: win32more.UI.ColorSystem.BMFORMAT, dwWidth: UInt32, dwHeight: UInt32, dwStride: UInt32, lpDestBits: c_void_p, bmOutput: win32more.UI.ColorSystem.BMFORMAT, dwTranslateDirection: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMCreateTransformExtW(lpColorSpace: POINTER(win32more.UI.ColorSystem.LOGCOLORSPACEW_head), lpDevCharacter: c_void_p, lpTargetDevCharacter: c_void_p, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('ICM32.dll')
+def CMDeleteTransform(hcmTransform: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMGetInfo(dwInfo: UInt32) -> UInt32: ...
+@winfunctype('ICM32.dll')
+def CMGetNamedProfileInfo(hProfile: IntPtr, pNamedProfileInfo: POINTER(win32more.UI.ColorSystem.NAMED_PROFILE_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMIsProfileValid(hProfile: IntPtr, lpbValid: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMTranslateColors(hcmTransform: IntPtr, lpaInputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), nColors: UInt32, ctInput: win32more.UI.ColorSystem.COLORTYPE, lpaOutputColors: POINTER(win32more.UI.ColorSystem.COLOR_head), ctOutput: win32more.UI.ColorSystem.COLORTYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ICM32.dll')
+def CMTranslateRGBsExt(hcmTransform: IntPtr, lpSrcBits: c_void_p, bmInput: win32more.UI.ColorSystem.BMFORMAT, dwWidth: UInt32, dwHeight: UInt32, dwInputStride: UInt32, lpDestBits: c_void_p, bmOutput: win32more.UI.ColorSystem.BMFORMAT, dwOutputStride: UInt32, lpfnCallback: win32more.UI.ColorSystem.LPBMCALLBACKFN, ulCallbackData: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsOpenColorProfileA(pCDMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), pCAMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), pGMMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), dwDesireAccess: UInt32, dwShareMode: UInt32, dwCreationMode: UInt32, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def WcsOpenColorProfileW(pCDMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), pCAMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), pGMMPProfile: POINTER(win32more.UI.ColorSystem.PROFILE_head), dwDesireAccess: UInt32, dwShareMode: UInt32, dwCreationMode: UInt32, dwFlags: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def WcsCreateIccProfile(hWcsProfile: IntPtr, dwOptions: UInt32) -> IntPtr: ...
+@winfunctype('mscms.dll')
+def WcsGetCalibrationManagementState(pbIsEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def WcsSetCalibrationManagementState(bIsEnabled: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('mscms.dll')
+def ColorProfileAddDisplayAssociation(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, profileName: win32more.Foundation.PWSTR, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, setAsDefault: win32more.Foundation.BOOL, associateAsAdvancedColor: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('mscms.dll')
+def ColorProfileRemoveDisplayAssociation(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, profileName: win32more.Foundation.PWSTR, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, dissociateAdvancedColor: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('mscms.dll')
+def ColorProfileSetDisplayDefaultAssociation(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, profileName: win32more.Foundation.PWSTR, profileType: win32more.UI.ColorSystem.COLORPROFILETYPE, profileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('mscms.dll')
+def ColorProfileGetDisplayList(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, profileList: POINTER(POINTER(win32more.Foundation.PWSTR)), profileCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('mscms.dll')
+def ColorProfileGetDisplayDefault(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, profileType: win32more.UI.ColorSystem.COLORPROFILETYPE, profileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, profileName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('mscms.dll')
+def ColorProfileGetDisplayUserScope(targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, scope: POINTER(win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE)) -> win32more.Foundation.HRESULT: ...
+class BlackInformation(Structure):
+    fBlackOnly: win32more.Foundation.BOOL
+    blackWeight: Single
 BMFORMAT = Int32
-BM_x555RGB = 0
-BM_x555XYZ = 257
-BM_x555Yxy = 258
-BM_x555Lab = 259
-BM_x555G3CH = 260
-BM_RGBTRIPLETS = 2
-BM_BGRTRIPLETS = 4
-BM_XYZTRIPLETS = 513
-BM_YxyTRIPLETS = 514
-BM_LabTRIPLETS = 515
-BM_G3CHTRIPLETS = 516
-BM_5CHANNEL = 517
-BM_6CHANNEL = 518
-BM_7CHANNEL = 519
-BM_8CHANNEL = 520
-BM_GRAY = 521
-BM_xRGBQUADS = 8
-BM_xBGRQUADS = 16
-BM_xG3CHQUADS = 772
-BM_KYMCQUADS = 773
-BM_CMYKQUADS = 32
-BM_10b_RGB = 9
-BM_10b_XYZ = 1025
-BM_10b_Yxy = 1026
-BM_10b_Lab = 1027
-BM_10b_G3CH = 1028
-BM_NAMED_INDEX = 1029
-BM_16b_RGB = 10
-BM_16b_XYZ = 1281
-BM_16b_Yxy = 1282
-BM_16b_Lab = 1283
-BM_16b_G3CH = 1284
-BM_16b_GRAY = 1285
-BM_565RGB = 1
-BM_32b_scRGB = 1537
-BM_32b_scARGB = 1538
-BM_S2DOT13FIXED_scRGB = 1539
-BM_S2DOT13FIXED_scARGB = 1540
-BM_R10G10B10A2 = 1793
-BM_R10G10B10A2_XR = 1794
-BM_R16G16B16A16_FLOAT = 1795
-def _define_CMYKCOLOR_head():
-    class CMYKCOLOR(Structure):
-        pass
-    return CMYKCOLOR
-def _define_CMYKCOLOR():
-    CMYKCOLOR = win32more.UI.ColorSystem.CMYKCOLOR_head
-    CMYKCOLOR._fields_ = [
-        ('cyan', UInt16),
-        ('magenta', UInt16),
-        ('yellow', UInt16),
-        ('black', UInt16),
-    ]
-    return CMYKCOLOR
-def _define_COLOR_head():
-    class COLOR(Union):
-        pass
-    return COLOR
-def _define_COLOR():
-    COLOR = win32more.UI.ColorSystem.COLOR_head
-    class COLOR__Anonymous_e__Struct(Structure):
-        pass
-    COLOR__Anonymous_e__Struct._fields_ = [
-        ('reserved1', UInt32),
-        ('reserved2', c_void_p),
-    ]
-    COLOR._anonymous_ = [
-        'Anonymous',
-    ]
-    COLOR._fields_ = [
-        ('gray', win32more.UI.ColorSystem.GRAYCOLOR),
-        ('rgb', win32more.UI.ColorSystem.RGBCOLOR),
-        ('cmyk', win32more.UI.ColorSystem.CMYKCOLOR),
-        ('XYZ', win32more.UI.ColorSystem.XYZCOLOR),
-        ('Yxy', win32more.UI.ColorSystem.YxyCOLOR),
-        ('Lab', win32more.UI.ColorSystem.LabCOLOR),
-        ('gen3ch', win32more.UI.ColorSystem.GENERIC3CHANNEL),
-        ('named', win32more.UI.ColorSystem.NAMEDCOLOR),
-        ('hifi', win32more.UI.ColorSystem.HiFiCOLOR),
-        ('Anonymous', COLOR__Anonymous_e__Struct),
-    ]
-    return COLOR
+BM_x555RGB: BMFORMAT = 0
+BM_x555XYZ: BMFORMAT = 257
+BM_x555Yxy: BMFORMAT = 258
+BM_x555Lab: BMFORMAT = 259
+BM_x555G3CH: BMFORMAT = 260
+BM_RGBTRIPLETS: BMFORMAT = 2
+BM_BGRTRIPLETS: BMFORMAT = 4
+BM_XYZTRIPLETS: BMFORMAT = 513
+BM_YxyTRIPLETS: BMFORMAT = 514
+BM_LabTRIPLETS: BMFORMAT = 515
+BM_G3CHTRIPLETS: BMFORMAT = 516
+BM_5CHANNEL: BMFORMAT = 517
+BM_6CHANNEL: BMFORMAT = 518
+BM_7CHANNEL: BMFORMAT = 519
+BM_8CHANNEL: BMFORMAT = 520
+BM_GRAY: BMFORMAT = 521
+BM_xRGBQUADS: BMFORMAT = 8
+BM_xBGRQUADS: BMFORMAT = 16
+BM_xG3CHQUADS: BMFORMAT = 772
+BM_KYMCQUADS: BMFORMAT = 773
+BM_CMYKQUADS: BMFORMAT = 32
+BM_10b_RGB: BMFORMAT = 9
+BM_10b_XYZ: BMFORMAT = 1025
+BM_10b_Yxy: BMFORMAT = 1026
+BM_10b_Lab: BMFORMAT = 1027
+BM_10b_G3CH: BMFORMAT = 1028
+BM_NAMED_INDEX: BMFORMAT = 1029
+BM_16b_RGB: BMFORMAT = 10
+BM_16b_XYZ: BMFORMAT = 1281
+BM_16b_Yxy: BMFORMAT = 1282
+BM_16b_Lab: BMFORMAT = 1283
+BM_16b_G3CH: BMFORMAT = 1284
+BM_16b_GRAY: BMFORMAT = 1285
+BM_565RGB: BMFORMAT = 1
+BM_32b_scRGB: BMFORMAT = 1537
+BM_32b_scARGB: BMFORMAT = 1538
+BM_S2DOT13FIXED_scRGB: BMFORMAT = 1539
+BM_S2DOT13FIXED_scARGB: BMFORMAT = 1540
+BM_R10G10B10A2: BMFORMAT = 1793
+BM_R10G10B10A2_XR: BMFORMAT = 1794
+BM_R16G16B16A16_FLOAT: BMFORMAT = 1795
+class CMYKCOLOR(Structure):
+    cyan: UInt16
+    magenta: UInt16
+    yellow: UInt16
+    black: UInt16
+class COLOR(Union):
+    gray: win32more.UI.ColorSystem.GRAYCOLOR
+    rgb: win32more.UI.ColorSystem.RGBCOLOR
+    cmyk: win32more.UI.ColorSystem.CMYKCOLOR
+    XYZ: win32more.UI.ColorSystem.XYZCOLOR
+    Yxy: win32more.UI.ColorSystem.YxyCOLOR
+    Lab: win32more.UI.ColorSystem.LabCOLOR
+    gen3ch: win32more.UI.ColorSystem.GENERIC3CHANNEL
+    named: win32more.UI.ColorSystem.NAMEDCOLOR
+    hifi: win32more.UI.ColorSystem.HiFiCOLOR
+    Anonymous: _Anonymous_e__Struct
+    class _Anonymous_e__Struct(Structure):
+        reserved1: UInt32
+        reserved2: c_void_p
 COLOR_MATCH_TO_TARGET_ACTION = Int32
-CS_ENABLE = 1
-CS_DISABLE = 2
-CS_DELETE_TRANSFORM = 3
+CS_ENABLE: COLOR_MATCH_TO_TARGET_ACTION = 1
+CS_DISABLE: COLOR_MATCH_TO_TARGET_ACTION = 2
+CS_DELETE_TRANSFORM: COLOR_MATCH_TO_TARGET_ACTION = 3
 COLORDATATYPE = Int32
-COLOR_BYTE = 1
-COLOR_WORD = 2
-COLOR_FLOAT = 3
-COLOR_S2DOT13FIXED = 4
-COLOR_10b_R10G10B10A2 = 5
-COLOR_10b_R10G10B10A2_XR = 6
-COLOR_FLOAT16 = 7
-def _define_COLORMATCHSETUPA_head():
-    class COLORMATCHSETUPA(Structure):
-        pass
-    return COLORMATCHSETUPA
-def _define_COLORMATCHSETUPA():
-    COLORMATCHSETUPA = win32more.UI.ColorSystem.COLORMATCHSETUPA_head
-    COLORMATCHSETUPA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pSourceName', win32more.Foundation.PSTR),
-        ('pDisplayName', win32more.Foundation.PSTR),
-        ('pPrinterName', win32more.Foundation.PSTR),
-        ('dwRenderIntent', UInt32),
-        ('dwProofingIntent', UInt32),
-        ('pMonitorProfile', win32more.Foundation.PSTR),
-        ('ccMonitorProfile', UInt32),
-        ('pPrinterProfile', win32more.Foundation.PSTR),
-        ('ccPrinterProfile', UInt32),
-        ('pTargetProfile', win32more.Foundation.PSTR),
-        ('ccTargetProfile', UInt32),
-        ('lpfnHook', win32more.UI.WindowsAndMessaging.DLGPROC),
-        ('lParam', win32more.Foundation.LPARAM),
-        ('lpfnApplyCallback', win32more.UI.ColorSystem.PCMSCALLBACKA),
-        ('lParamApplyCallback', win32more.Foundation.LPARAM),
-    ]
-    return COLORMATCHSETUPA
-def _define_COLORMATCHSETUPW_head():
-    class COLORMATCHSETUPW(Structure):
-        pass
-    return COLORMATCHSETUPW
-def _define_COLORMATCHSETUPW():
-    COLORMATCHSETUPW = win32more.UI.ColorSystem.COLORMATCHSETUPW_head
-    COLORMATCHSETUPW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFlags', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('pSourceName', win32more.Foundation.PWSTR),
-        ('pDisplayName', win32more.Foundation.PWSTR),
-        ('pPrinterName', win32more.Foundation.PWSTR),
-        ('dwRenderIntent', UInt32),
-        ('dwProofingIntent', UInt32),
-        ('pMonitorProfile', win32more.Foundation.PWSTR),
-        ('ccMonitorProfile', UInt32),
-        ('pPrinterProfile', win32more.Foundation.PWSTR),
-        ('ccPrinterProfile', UInt32),
-        ('pTargetProfile', win32more.Foundation.PWSTR),
-        ('ccTargetProfile', UInt32),
-        ('lpfnHook', win32more.UI.WindowsAndMessaging.DLGPROC),
-        ('lParam', win32more.Foundation.LPARAM),
-        ('lpfnApplyCallback', win32more.UI.ColorSystem.PCMSCALLBACKW),
-        ('lParamApplyCallback', win32more.Foundation.LPARAM),
-    ]
-    return COLORMATCHSETUPW
+COLOR_BYTE: COLORDATATYPE = 1
+COLOR_WORD: COLORDATATYPE = 2
+COLOR_FLOAT: COLORDATATYPE = 3
+COLOR_S2DOT13FIXED: COLORDATATYPE = 4
+COLOR_10b_R10G10B10A2: COLORDATATYPE = 5
+COLOR_10b_R10G10B10A2_XR: COLORDATATYPE = 6
+COLOR_FLOAT16: COLORDATATYPE = 7
+class COLORMATCHSETUPA(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    dwFlags: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pSourceName: win32more.Foundation.PSTR
+    pDisplayName: win32more.Foundation.PSTR
+    pPrinterName: win32more.Foundation.PSTR
+    dwRenderIntent: UInt32
+    dwProofingIntent: UInt32
+    pMonitorProfile: win32more.Foundation.PSTR
+    ccMonitorProfile: UInt32
+    pPrinterProfile: win32more.Foundation.PSTR
+    ccPrinterProfile: UInt32
+    pTargetProfile: win32more.Foundation.PSTR
+    ccTargetProfile: UInt32
+    lpfnHook: win32more.UI.WindowsAndMessaging.DLGPROC
+    lParam: win32more.Foundation.LPARAM
+    lpfnApplyCallback: win32more.UI.ColorSystem.PCMSCALLBACKA
+    lParamApplyCallback: win32more.Foundation.LPARAM
+class COLORMATCHSETUPW(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    dwFlags: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    pSourceName: win32more.Foundation.PWSTR
+    pDisplayName: win32more.Foundation.PWSTR
+    pPrinterName: win32more.Foundation.PWSTR
+    dwRenderIntent: UInt32
+    dwProofingIntent: UInt32
+    pMonitorProfile: win32more.Foundation.PWSTR
+    ccMonitorProfile: UInt32
+    pPrinterProfile: win32more.Foundation.PWSTR
+    ccPrinterProfile: UInt32
+    pTargetProfile: win32more.Foundation.PWSTR
+    ccTargetProfile: UInt32
+    lpfnHook: win32more.UI.WindowsAndMessaging.DLGPROC
+    lParam: win32more.Foundation.LPARAM
+    lpfnApplyCallback: win32more.UI.ColorSystem.PCMSCALLBACKW
+    lParamApplyCallback: win32more.Foundation.LPARAM
 COLORPROFILESUBTYPE = Int32
-CPST_PERCEPTUAL = 0
-CPST_RELATIVE_COLORIMETRIC = 1
-CPST_SATURATION = 2
-CPST_ABSOLUTE_COLORIMETRIC = 3
-CPST_NONE = 4
-CPST_RGB_WORKING_SPACE = 5
-CPST_CUSTOM_WORKING_SPACE = 6
-CPST_STANDARD_DISPLAY_COLOR_MODE = 7
-CPST_EXTENDED_DISPLAY_COLOR_MODE = 8
+CPST_PERCEPTUAL: COLORPROFILESUBTYPE = 0
+CPST_RELATIVE_COLORIMETRIC: COLORPROFILESUBTYPE = 1
+CPST_SATURATION: COLORPROFILESUBTYPE = 2
+CPST_ABSOLUTE_COLORIMETRIC: COLORPROFILESUBTYPE = 3
+CPST_NONE: COLORPROFILESUBTYPE = 4
+CPST_RGB_WORKING_SPACE: COLORPROFILESUBTYPE = 5
+CPST_CUSTOM_WORKING_SPACE: COLORPROFILESUBTYPE = 6
+CPST_STANDARD_DISPLAY_COLOR_MODE: COLORPROFILESUBTYPE = 7
+CPST_EXTENDED_DISPLAY_COLOR_MODE: COLORPROFILESUBTYPE = 8
 COLORPROFILETYPE = Int32
-CPT_ICC = 0
-CPT_DMP = 1
-CPT_CAMP = 2
-CPT_GMMP = 3
+CPT_ICC: COLORPROFILETYPE = 0
+CPT_DMP: COLORPROFILETYPE = 1
+CPT_CAMP: COLORPROFILETYPE = 2
+CPT_GMMP: COLORPROFILETYPE = 3
 COLORTYPE = Int32
-COLOR_GRAY = 1
-COLOR_RGB = 2
-COLOR_XYZ = 3
-COLOR_Yxy = 4
-COLOR_Lab = 5
-COLOR_3_CHANNEL = 6
-COLOR_CMYK = 7
-COLOR_5_CHANNEL = 8
-COLOR_6_CHANNEL = 9
-COLOR_7_CHANNEL = 10
-COLOR_8_CHANNEL = 11
-COLOR_NAMED = 12
-def _define_EMRCREATECOLORSPACE_head():
-    class EMRCREATECOLORSPACE(Structure):
-        pass
-    return EMRCREATECOLORSPACE
-def _define_EMRCREATECOLORSPACE():
-    EMRCREATECOLORSPACE = win32more.UI.ColorSystem.EMRCREATECOLORSPACE_head
-    EMRCREATECOLORSPACE._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihCS', UInt32),
-        ('lcs', win32more.UI.ColorSystem.LOGCOLORSPACEA),
-    ]
-    return EMRCREATECOLORSPACE
-def _define_EMRCREATECOLORSPACEW_head():
-    class EMRCREATECOLORSPACEW(Structure):
-        pass
-    return EMRCREATECOLORSPACEW
-def _define_EMRCREATECOLORSPACEW():
-    EMRCREATECOLORSPACEW = win32more.UI.ColorSystem.EMRCREATECOLORSPACEW_head
-    EMRCREATECOLORSPACEW._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('ihCS', UInt32),
-        ('lcs', win32more.UI.ColorSystem.LOGCOLORSPACEW),
-        ('dwFlags', UInt32),
-        ('cbData', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return EMRCREATECOLORSPACEW
-def _define_ENUMTYPEA_head():
-    class ENUMTYPEA(Structure):
-        pass
-    return ENUMTYPEA
-def _define_ENUMTYPEA():
-    ENUMTYPEA = win32more.UI.ColorSystem.ENUMTYPEA_head
-    ENUMTYPEA._fields_ = [
-        ('dwSize', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFields', UInt32),
-        ('pDeviceName', win32more.Foundation.PSTR),
-        ('dwMediaType', UInt32),
-        ('dwDitheringMode', UInt32),
-        ('dwResolution', UInt32 * 2),
-        ('dwCMMType', UInt32),
-        ('dwClass', UInt32),
-        ('dwDataColorSpace', UInt32),
-        ('dwConnectionSpace', UInt32),
-        ('dwSignature', UInt32),
-        ('dwPlatform', UInt32),
-        ('dwProfileFlags', UInt32),
-        ('dwManufacturer', UInt32),
-        ('dwModel', UInt32),
-        ('dwAttributes', UInt32 * 2),
-        ('dwRenderingIntent', UInt32),
-        ('dwCreator', UInt32),
-        ('dwDeviceClass', UInt32),
-    ]
-    return ENUMTYPEA
-def _define_ENUMTYPEW_head():
-    class ENUMTYPEW(Structure):
-        pass
-    return ENUMTYPEW
-def _define_ENUMTYPEW():
-    ENUMTYPEW = win32more.UI.ColorSystem.ENUMTYPEW_head
-    ENUMTYPEW._fields_ = [
-        ('dwSize', UInt32),
-        ('dwVersion', UInt32),
-        ('dwFields', UInt32),
-        ('pDeviceName', win32more.Foundation.PWSTR),
-        ('dwMediaType', UInt32),
-        ('dwDitheringMode', UInt32),
-        ('dwResolution', UInt32 * 2),
-        ('dwCMMType', UInt32),
-        ('dwClass', UInt32),
-        ('dwDataColorSpace', UInt32),
-        ('dwConnectionSpace', UInt32),
-        ('dwSignature', UInt32),
-        ('dwPlatform', UInt32),
-        ('dwProfileFlags', UInt32),
-        ('dwManufacturer', UInt32),
-        ('dwModel', UInt32),
-        ('dwAttributes', UInt32 * 2),
-        ('dwRenderingIntent', UInt32),
-        ('dwCreator', UInt32),
-        ('dwDeviceClass', UInt32),
-    ]
-    return ENUMTYPEW
-def _define_GamutBoundaryDescription_head():
-    class GamutBoundaryDescription(Structure):
-        pass
-    return GamutBoundaryDescription
-def _define_GamutBoundaryDescription():
-    GamutBoundaryDescription = win32more.UI.ColorSystem.GamutBoundaryDescription_head
-    GamutBoundaryDescription._fields_ = [
-        ('pPrimaries', POINTER(win32more.UI.ColorSystem.PrimaryJabColors_head)),
-        ('cNeutralSamples', UInt32),
-        ('pNeutralSamples', POINTER(win32more.UI.ColorSystem.JabColorF_head)),
-        ('pReferenceShell', POINTER(win32more.UI.ColorSystem.GamutShell_head)),
-        ('pPlausibleShell', POINTER(win32more.UI.ColorSystem.GamutShell_head)),
-        ('pPossibleShell', POINTER(win32more.UI.ColorSystem.GamutShell_head)),
-    ]
-    return GamutBoundaryDescription
-def _define_GamutShell_head():
-    class GamutShell(Structure):
-        pass
-    return GamutShell
-def _define_GamutShell():
-    GamutShell = win32more.UI.ColorSystem.GamutShell_head
-    GamutShell._fields_ = [
-        ('JMin', Single),
-        ('JMax', Single),
-        ('cVertices', UInt32),
-        ('cTriangles', UInt32),
-        ('pVertices', POINTER(win32more.UI.ColorSystem.JabColorF_head)),
-        ('pTriangles', POINTER(win32more.UI.ColorSystem.GamutShellTriangle_head)),
-    ]
-    return GamutShell
-def _define_GamutShellTriangle_head():
-    class GamutShellTriangle(Structure):
-        pass
-    return GamutShellTriangle
-def _define_GamutShellTriangle():
-    GamutShellTriangle = win32more.UI.ColorSystem.GamutShellTriangle_head
-    GamutShellTriangle._fields_ = [
-        ('aVertexIndex', UInt32 * 3),
-    ]
-    return GamutShellTriangle
-def _define_GENERIC3CHANNEL_head():
-    class GENERIC3CHANNEL(Structure):
-        pass
-    return GENERIC3CHANNEL
-def _define_GENERIC3CHANNEL():
-    GENERIC3CHANNEL = win32more.UI.ColorSystem.GENERIC3CHANNEL_head
-    GENERIC3CHANNEL._fields_ = [
-        ('ch1', UInt16),
-        ('ch2', UInt16),
-        ('ch3', UInt16),
-    ]
-    return GENERIC3CHANNEL
-def _define_GRAYCOLOR_head():
-    class GRAYCOLOR(Structure):
-        pass
-    return GRAYCOLOR
-def _define_GRAYCOLOR():
-    GRAYCOLOR = win32more.UI.ColorSystem.GRAYCOLOR_head
-    GRAYCOLOR._fields_ = [
-        ('gray', UInt16),
-    ]
-    return GRAYCOLOR
+COLOR_GRAY: COLORTYPE = 1
+COLOR_RGB: COLORTYPE = 2
+COLOR_XYZ: COLORTYPE = 3
+COLOR_Yxy: COLORTYPE = 4
+COLOR_Lab: COLORTYPE = 5
+COLOR_3_CHANNEL: COLORTYPE = 6
+COLOR_CMYK: COLORTYPE = 7
+COLOR_5_CHANNEL: COLORTYPE = 8
+COLOR_6_CHANNEL: COLORTYPE = 9
+COLOR_7_CHANNEL: COLORTYPE = 10
+COLOR_8_CHANNEL: COLORTYPE = 11
+COLOR_NAMED: COLORTYPE = 12
+class EMRCREATECOLORSPACE(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihCS: UInt32
+    lcs: win32more.UI.ColorSystem.LOGCOLORSPACEA
+class EMRCREATECOLORSPACEW(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    ihCS: UInt32
+    lcs: win32more.UI.ColorSystem.LOGCOLORSPACEW
+    dwFlags: UInt32
+    cbData: UInt32
+    Data: Byte * 1
+class ENUMTYPEA(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    dwFields: UInt32
+    pDeviceName: win32more.Foundation.PSTR
+    dwMediaType: UInt32
+    dwDitheringMode: UInt32
+    dwResolution: UInt32 * 2
+    dwCMMType: UInt32
+    dwClass: UInt32
+    dwDataColorSpace: UInt32
+    dwConnectionSpace: UInt32
+    dwSignature: UInt32
+    dwPlatform: UInt32
+    dwProfileFlags: UInt32
+    dwManufacturer: UInt32
+    dwModel: UInt32
+    dwAttributes: UInt32 * 2
+    dwRenderingIntent: UInt32
+    dwCreator: UInt32
+    dwDeviceClass: UInt32
+class ENUMTYPEW(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    dwFields: UInt32
+    pDeviceName: win32more.Foundation.PWSTR
+    dwMediaType: UInt32
+    dwDitheringMode: UInt32
+    dwResolution: UInt32 * 2
+    dwCMMType: UInt32
+    dwClass: UInt32
+    dwDataColorSpace: UInt32
+    dwConnectionSpace: UInt32
+    dwSignature: UInt32
+    dwPlatform: UInt32
+    dwProfileFlags: UInt32
+    dwManufacturer: UInt32
+    dwModel: UInt32
+    dwAttributes: UInt32 * 2
+    dwRenderingIntent: UInt32
+    dwCreator: UInt32
+    dwDeviceClass: UInt32
+class GamutBoundaryDescription(Structure):
+    pPrimaries: POINTER(win32more.UI.ColorSystem.PrimaryJabColors_head)
+    cNeutralSamples: UInt32
+    pNeutralSamples: POINTER(win32more.UI.ColorSystem.JabColorF_head)
+    pReferenceShell: POINTER(win32more.UI.ColorSystem.GamutShell_head)
+    pPlausibleShell: POINTER(win32more.UI.ColorSystem.GamutShell_head)
+    pPossibleShell: POINTER(win32more.UI.ColorSystem.GamutShell_head)
+class GamutShell(Structure):
+    JMin: Single
+    JMax: Single
+    cVertices: UInt32
+    cTriangles: UInt32
+    pVertices: POINTER(win32more.UI.ColorSystem.JabColorF_head)
+    pTriangles: POINTER(win32more.UI.ColorSystem.GamutShellTriangle_head)
+class GamutShellTriangle(Structure):
+    aVertexIndex: UInt32 * 3
+class GENERIC3CHANNEL(Structure):
+    ch1: UInt16
+    ch2: UInt16
+    ch3: UInt16
+class GRAYCOLOR(Structure):
+    gray: UInt16
 HCOLORSPACE = IntPtr
-def _define_HiFiCOLOR_head():
-    class HiFiCOLOR(Structure):
-        pass
-    return HiFiCOLOR
-def _define_HiFiCOLOR():
-    HiFiCOLOR = win32more.UI.ColorSystem.HiFiCOLOR_head
-    HiFiCOLOR._fields_ = [
-        ('channel', Byte * 8),
-    ]
-    return HiFiCOLOR
+class HiFiCOLOR(Structure):
+    channel: Byte * 8
 ICM_COMMAND = UInt32
-ICM_ADDPROFILE = 1
-ICM_DELETEPROFILE = 2
-ICM_QUERYPROFILE = 3
-ICM_SETDEFAULTPROFILE = 4
-ICM_REGISTERICMATCHER = 5
-ICM_UNREGISTERICMATCHER = 6
-ICM_QUERYMATCH = 7
+ICM_ADDPROFILE: ICM_COMMAND = 1
+ICM_DELETEPROFILE: ICM_COMMAND = 2
+ICM_QUERYPROFILE: ICM_COMMAND = 3
+ICM_SETDEFAULTPROFILE: ICM_COMMAND = 4
+ICM_REGISTERICMATCHER: ICM_COMMAND = 5
+ICM_UNREGISTERICMATCHER: ICM_COMMAND = 6
+ICM_QUERYMATCH: ICM_COMMAND = 7
 ICM_MODE = Int32
-ICM_OFF = 1
-ICM_ON = 2
-ICM_QUERY = 3
-ICM_DONE_OUTSIDEDC = 4
-def _define_ICMENUMPROCA():
-    return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,win32more.Foundation.LPARAM)
-def _define_ICMENUMPROCW():
-    return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.LPARAM)
-def _define_IDeviceModelPlugIn_head():
-    class IDeviceModelPlugIn(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
-    return IDeviceModelPlugIn
-def _define_IDeviceModelPlugIn():
-    IDeviceModelPlugIn = win32more.UI.ColorSystem.IDeviceModelPlugIn_head
-    IDeviceModelPlugIn.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,UInt32)(3, 'Initialize', ((1, 'bstrXml'),(1, 'cNumModels'),(1, 'iModelPosition'),)))
-    IDeviceModelPlugIn.GetNumChannels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetNumChannels', ((1, 'pNumChannels'),)))
-    IDeviceModelPlugIn.DeviceToColorimetricColors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Single),POINTER(win32more.UI.ColorSystem.XYZColorF_head))(5, 'DeviceToColorimetricColors', ((1, 'cColors'),(1, 'cChannels'),(1, 'pDeviceValues'),(1, 'pXYZColors'),)))
-    IDeviceModelPlugIn.ColorimetricToDeviceColors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.UI.ColorSystem.XYZColorF_head),POINTER(Single))(6, 'ColorimetricToDeviceColors', ((1, 'cColors'),(1, 'cChannels'),(1, 'pXYZColors'),(1, 'pDeviceValues'),)))
-    IDeviceModelPlugIn.ColorimetricToDeviceColorsWithBlack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.UI.ColorSystem.XYZColorF_head),POINTER(win32more.UI.ColorSystem.BlackInformation_head),POINTER(Single))(7, 'ColorimetricToDeviceColorsWithBlack', ((1, 'cColors'),(1, 'cChannels'),(1, 'pXYZColors'),(1, 'pBlackInformation'),(1, 'pDeviceValues'),)))
-    IDeviceModelPlugIn.SetTransformDeviceModelInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.ColorSystem.IDeviceModelPlugIn_head)(8, 'SetTransformDeviceModelInfo', ((1, 'iModelPosition'),(1, 'pIDeviceModelOther'),)))
-    IDeviceModelPlugIn.GetPrimarySamples = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.ColorSystem.PrimaryXYZColors_head))(9, 'GetPrimarySamples', ((1, 'pPrimaryColor'),)))
-    IDeviceModelPlugIn.GetGamutBoundaryMeshSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(10, 'GetGamutBoundaryMeshSize', ((1, 'pNumVertices'),(1, 'pNumTriangles'),)))
-    IDeviceModelPlugIn.GetGamutBoundaryMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(Single),POINTER(win32more.UI.ColorSystem.GamutShellTriangle_head))(11, 'GetGamutBoundaryMesh', ((1, 'cChannels'),(1, 'cVertices'),(1, 'cTriangles'),(1, 'pVertices'),(1, 'pTriangles'),)))
-    IDeviceModelPlugIn.GetNeutralAxisSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'GetNeutralAxisSize', ((1, 'pcColors'),)))
-    IDeviceModelPlugIn.GetNeutralAxis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.ColorSystem.XYZColorF_head))(13, 'GetNeutralAxis', ((1, 'cColors'),(1, 'pXYZColors'),)))
-    win32more.System.Com.IUnknown
-    return IDeviceModelPlugIn
-def _define_IGamutMapModelPlugIn_head():
-    class IGamutMapModelPlugIn(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2dd80115-ad1e-41f6-a2-19-a4-f4-b5-83-d1-f9')
-    return IGamutMapModelPlugIn
-def _define_IGamutMapModelPlugIn():
-    IGamutMapModelPlugIn = win32more.UI.ColorSystem.IGamutMapModelPlugIn_head
-    IGamutMapModelPlugIn.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.UI.ColorSystem.IDeviceModelPlugIn_head,win32more.UI.ColorSystem.IDeviceModelPlugIn_head,POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head),POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head))(3, 'Initialize', ((1, 'bstrXml'),(1, 'pSrcPlugIn'),(1, 'pDestPlugIn'),(1, 'pSrcGBD'),(1, 'pDestGBD'),)))
-    IGamutMapModelPlugIn.SourceToDestinationAppearanceColors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.ColorSystem.JChColorF_head),POINTER(win32more.UI.ColorSystem.JChColorF_head))(4, 'SourceToDestinationAppearanceColors', ((1, 'cColors'),(1, 'pInputColors'),(1, 'pOutputColors'),)))
-    win32more.System.Com.IUnknown
-    return IGamutMapModelPlugIn
-def _define_JabColorF_head():
-    class JabColorF(Structure):
-        pass
-    return JabColorF
-def _define_JabColorF():
-    JabColorF = win32more.UI.ColorSystem.JabColorF_head
-    JabColorF._fields_ = [
-        ('J', Single),
-        ('a', Single),
-        ('b', Single),
-    ]
-    return JabColorF
-def _define_JChColorF_head():
-    class JChColorF(Structure):
-        pass
-    return JChColorF
-def _define_JChColorF():
-    JChColorF = win32more.UI.ColorSystem.JChColorF_head
-    JChColorF._fields_ = [
-        ('J', Single),
-        ('C', Single),
-        ('h', Single),
-    ]
-    return JChColorF
-def _define_LabCOLOR_head():
-    class LabCOLOR(Structure):
-        pass
-    return LabCOLOR
-def _define_LabCOLOR():
-    LabCOLOR = win32more.UI.ColorSystem.LabCOLOR_head
-    LabCOLOR._fields_ = [
-        ('L', UInt16),
-        ('a', UInt16),
-        ('b', UInt16),
-    ]
-    return LabCOLOR
-def _define_LOGCOLORSPACEA_head():
-    class LOGCOLORSPACEA(Structure):
-        pass
-    return LOGCOLORSPACEA
-def _define_LOGCOLORSPACEA():
-    LOGCOLORSPACEA = win32more.UI.ColorSystem.LOGCOLORSPACEA_head
-    LOGCOLORSPACEA._fields_ = [
-        ('lcsSignature', UInt32),
-        ('lcsVersion', UInt32),
-        ('lcsSize', UInt32),
-        ('lcsCSType', Int32),
-        ('lcsIntent', Int32),
-        ('lcsEndpoints', win32more.Graphics.Gdi.CIEXYZTRIPLE),
-        ('lcsGammaRed', UInt32),
-        ('lcsGammaGreen', UInt32),
-        ('lcsGammaBlue', UInt32),
-        ('lcsFilename', win32more.Foundation.CHAR * 260),
-    ]
-    return LOGCOLORSPACEA
-def _define_LOGCOLORSPACEW_head():
-    class LOGCOLORSPACEW(Structure):
-        pass
-    return LOGCOLORSPACEW
-def _define_LOGCOLORSPACEW():
-    LOGCOLORSPACEW = win32more.UI.ColorSystem.LOGCOLORSPACEW_head
-    LOGCOLORSPACEW._fields_ = [
-        ('lcsSignature', UInt32),
-        ('lcsVersion', UInt32),
-        ('lcsSize', UInt32),
-        ('lcsCSType', Int32),
-        ('lcsIntent', Int32),
-        ('lcsEndpoints', win32more.Graphics.Gdi.CIEXYZTRIPLE),
-        ('lcsGammaRed', UInt32),
-        ('lcsGammaGreen', UInt32),
-        ('lcsGammaBlue', UInt32),
-        ('lcsFilename', Char * 260),
-    ]
-    return LOGCOLORSPACEW
-def _define_LPBMCALLBACKFN():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.LPARAM)
-def _define_NAMED_PROFILE_INFO_head():
-    class NAMED_PROFILE_INFO(Structure):
-        pass
-    return NAMED_PROFILE_INFO
-def _define_NAMED_PROFILE_INFO():
-    NAMED_PROFILE_INFO = win32more.UI.ColorSystem.NAMED_PROFILE_INFO_head
-    NAMED_PROFILE_INFO._fields_ = [
-        ('dwFlags', UInt32),
-        ('dwCount', UInt32),
-        ('dwCountDevCoordinates', UInt32),
-        ('szPrefix', SByte * 32),
-        ('szSuffix', SByte * 32),
-    ]
-    return NAMED_PROFILE_INFO
-def _define_NAMEDCOLOR_head():
-    class NAMEDCOLOR(Structure):
-        pass
-    return NAMEDCOLOR
-def _define_NAMEDCOLOR():
-    NAMEDCOLOR = win32more.UI.ColorSystem.NAMEDCOLOR_head
-    NAMEDCOLOR._fields_ = [
-        ('dwIndex', UInt32),
-    ]
-    return NAMEDCOLOR
-def _define_PCMSCALLBACKA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPA_head),win32more.Foundation.LPARAM)
-def _define_PCMSCALLBACKW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPW_head),win32more.Foundation.LPARAM)
-def _define_PrimaryJabColors_head():
-    class PrimaryJabColors(Structure):
-        pass
-    return PrimaryJabColors
-def _define_PrimaryJabColors():
-    PrimaryJabColors = win32more.UI.ColorSystem.PrimaryJabColors_head
-    PrimaryJabColors._fields_ = [
-        ('red', win32more.UI.ColorSystem.JabColorF),
-        ('yellow', win32more.UI.ColorSystem.JabColorF),
-        ('green', win32more.UI.ColorSystem.JabColorF),
-        ('cyan', win32more.UI.ColorSystem.JabColorF),
-        ('blue', win32more.UI.ColorSystem.JabColorF),
-        ('magenta', win32more.UI.ColorSystem.JabColorF),
-        ('black', win32more.UI.ColorSystem.JabColorF),
-        ('white', win32more.UI.ColorSystem.JabColorF),
-    ]
-    return PrimaryJabColors
-def _define_PrimaryXYZColors_head():
-    class PrimaryXYZColors(Structure):
-        pass
-    return PrimaryXYZColors
-def _define_PrimaryXYZColors():
-    PrimaryXYZColors = win32more.UI.ColorSystem.PrimaryXYZColors_head
-    PrimaryXYZColors._fields_ = [
-        ('red', win32more.UI.ColorSystem.XYZColorF),
-        ('yellow', win32more.UI.ColorSystem.XYZColorF),
-        ('green', win32more.UI.ColorSystem.XYZColorF),
-        ('cyan', win32more.UI.ColorSystem.XYZColorF),
-        ('blue', win32more.UI.ColorSystem.XYZColorF),
-        ('magenta', win32more.UI.ColorSystem.XYZColorF),
-        ('black', win32more.UI.ColorSystem.XYZColorF),
-        ('white', win32more.UI.ColorSystem.XYZColorF),
-    ]
-    return PrimaryXYZColors
-def _define_PROFILE_head():
-    class PROFILE(Structure):
-        pass
-    return PROFILE
-def _define_PROFILE():
-    PROFILE = win32more.UI.ColorSystem.PROFILE_head
-    PROFILE._fields_ = [
-        ('dwType', UInt32),
-        ('pProfileData', c_void_p),
-        ('cbDataSize', UInt32),
-    ]
-    return PROFILE
-def _define_PROFILEHEADER_head():
-    class PROFILEHEADER(Structure):
-        pass
-    return PROFILEHEADER
-def _define_PROFILEHEADER():
-    PROFILEHEADER = win32more.UI.ColorSystem.PROFILEHEADER_head
-    PROFILEHEADER._fields_ = [
-        ('phSize', UInt32),
-        ('phCMMType', UInt32),
-        ('phVersion', UInt32),
-        ('phClass', UInt32),
-        ('phDataColorSpace', UInt32),
-        ('phConnectionSpace', UInt32),
-        ('phDateTime', UInt32 * 3),
-        ('phSignature', UInt32),
-        ('phPlatform', UInt32),
-        ('phProfileFlags', UInt32),
-        ('phManufacturer', UInt32),
-        ('phModel', UInt32),
-        ('phAttributes', UInt32 * 2),
-        ('phRenderingIntent', UInt32),
-        ('phIlluminant', win32more.Graphics.Gdi.CIEXYZ),
-        ('phCreator', UInt32),
-        ('phReserved', Byte * 44),
-    ]
-    return PROFILEHEADER
-def _define_RGBCOLOR_head():
-    class RGBCOLOR(Structure):
-        pass
-    return RGBCOLOR
-def _define_RGBCOLOR():
-    RGBCOLOR = win32more.UI.ColorSystem.RGBCOLOR_head
-    RGBCOLOR._fields_ = [
-        ('red', UInt16),
-        ('green', UInt16),
-        ('blue', UInt16),
-    ]
-    return RGBCOLOR
+ICM_OFF: ICM_MODE = 1
+ICM_ON: ICM_MODE = 2
+ICM_QUERY: ICM_MODE = 3
+ICM_DONE_OUTSIDEDC: ICM_MODE = 4
+@winfunctype_pointer
+def ICMENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype_pointer
+def ICMENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
+class IDeviceModelPlugIn(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
+    @commethod(3)
+    def Initialize(bstrXml: win32more.Foundation.BSTR, cNumModels: UInt32, iModelPosition: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetNumChannels(pNumChannels: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DeviceToColorimetricColors(cColors: UInt32, cChannels: UInt32, pDeviceValues: POINTER(Single), pXYZColors: POINTER(win32more.UI.ColorSystem.XYZColorF_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ColorimetricToDeviceColors(cColors: UInt32, cChannels: UInt32, pXYZColors: POINTER(win32more.UI.ColorSystem.XYZColorF_head), pDeviceValues: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ColorimetricToDeviceColorsWithBlack(cColors: UInt32, cChannels: UInt32, pXYZColors: POINTER(win32more.UI.ColorSystem.XYZColorF_head), pBlackInformation: POINTER(win32more.UI.ColorSystem.BlackInformation_head), pDeviceValues: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetTransformDeviceModelInfo(iModelPosition: UInt32, pIDeviceModelOther: win32more.UI.ColorSystem.IDeviceModelPlugIn_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetPrimarySamples(pPrimaryColor: POINTER(win32more.UI.ColorSystem.PrimaryXYZColors_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetGamutBoundaryMeshSize(pNumVertices: POINTER(UInt32), pNumTriangles: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetGamutBoundaryMesh(cChannels: UInt32, cVertices: UInt32, cTriangles: UInt32, pVertices: POINTER(Single), pTriangles: POINTER(win32more.UI.ColorSystem.GamutShellTriangle_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetNeutralAxisSize(pcColors: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetNeutralAxis(cColors: UInt32, pXYZColors: POINTER(win32more.UI.ColorSystem.XYZColorF_head)) -> win32more.Foundation.HRESULT: ...
+class IGamutMapModelPlugIn(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2dd80115-ad1e-41f6-a2-19-a4-f4-b5-83-d1-f9')
+    @commethod(3)
+    def Initialize(bstrXml: win32more.Foundation.BSTR, pSrcPlugIn: win32more.UI.ColorSystem.IDeviceModelPlugIn_head, pDestPlugIn: win32more.UI.ColorSystem.IDeviceModelPlugIn_head, pSrcGBD: POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head), pDestGBD: POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SourceToDestinationAppearanceColors(cColors: UInt32, pInputColors: POINTER(win32more.UI.ColorSystem.JChColorF_head), pOutputColors: POINTER(win32more.UI.ColorSystem.JChColorF_head)) -> win32more.Foundation.HRESULT: ...
+class JabColorF(Structure):
+    J: Single
+    a: Single
+    b: Single
+class JChColorF(Structure):
+    J: Single
+    C: Single
+    h: Single
+class LabCOLOR(Structure):
+    L: UInt16
+    a: UInt16
+    b: UInt16
+class LOGCOLORSPACEA(Structure):
+    lcsSignature: UInt32
+    lcsVersion: UInt32
+    lcsSize: UInt32
+    lcsCSType: Int32
+    lcsIntent: Int32
+    lcsEndpoints: win32more.Graphics.Gdi.CIEXYZTRIPLE
+    lcsGammaRed: UInt32
+    lcsGammaGreen: UInt32
+    lcsGammaBlue: UInt32
+    lcsFilename: win32more.Foundation.CHAR * 260
+class LOGCOLORSPACEW(Structure):
+    lcsSignature: UInt32
+    lcsVersion: UInt32
+    lcsSize: UInt32
+    lcsCSType: Int32
+    lcsIntent: Int32
+    lcsEndpoints: win32more.Graphics.Gdi.CIEXYZTRIPLE
+    lcsGammaRed: UInt32
+    lcsGammaGreen: UInt32
+    lcsGammaBlue: UInt32
+    lcsFilename: Char * 260
+@winfunctype_pointer
+def LPBMCALLBACKFN(param0: UInt32, param1: UInt32, param2: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+class NAMED_PROFILE_INFO(Structure):
+    dwFlags: UInt32
+    dwCount: UInt32
+    dwCountDevCoordinates: UInt32
+    szPrefix: SByte * 32
+    szSuffix: SByte * 32
+class NAMEDCOLOR(Structure):
+    dwIndex: UInt32
+@winfunctype_pointer
+def PCMSCALLBACKA(param0: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPA_head), param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PCMSCALLBACKW(param0: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPW_head), param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+class PrimaryJabColors(Structure):
+    red: win32more.UI.ColorSystem.JabColorF
+    yellow: win32more.UI.ColorSystem.JabColorF
+    green: win32more.UI.ColorSystem.JabColorF
+    cyan: win32more.UI.ColorSystem.JabColorF
+    blue: win32more.UI.ColorSystem.JabColorF
+    magenta: win32more.UI.ColorSystem.JabColorF
+    black: win32more.UI.ColorSystem.JabColorF
+    white: win32more.UI.ColorSystem.JabColorF
+class PrimaryXYZColors(Structure):
+    red: win32more.UI.ColorSystem.XYZColorF
+    yellow: win32more.UI.ColorSystem.XYZColorF
+    green: win32more.UI.ColorSystem.XYZColorF
+    cyan: win32more.UI.ColorSystem.XYZColorF
+    blue: win32more.UI.ColorSystem.XYZColorF
+    magenta: win32more.UI.ColorSystem.XYZColorF
+    black: win32more.UI.ColorSystem.XYZColorF
+    white: win32more.UI.ColorSystem.XYZColorF
+class PROFILE(Structure):
+    dwType: UInt32
+    pProfileData: c_void_p
+    cbDataSize: UInt32
+class PROFILEHEADER(Structure):
+    phSize: UInt32
+    phCMMType: UInt32
+    phVersion: UInt32
+    phClass: UInt32
+    phDataColorSpace: UInt32
+    phConnectionSpace: UInt32
+    phDateTime: UInt32 * 3
+    phSignature: UInt32
+    phPlatform: UInt32
+    phProfileFlags: UInt32
+    phManufacturer: UInt32
+    phModel: UInt32
+    phAttributes: UInt32 * 2
+    phRenderingIntent: UInt32
+    phIlluminant: win32more.Graphics.Gdi.CIEXYZ
+    phCreator: UInt32
+    phReserved: Byte * 44
+class RGBCOLOR(Structure):
+    red: UInt16
+    green: UInt16
+    blue: UInt16
 WCS_DEVICE_CAPABILITIES_TYPE = Int32
-WCS_DEVICE_CAPABILITIES_TYPE_VideoCardGammaTable = 1
-WCS_DEVICE_CAPABILITIES_TYPE_MicrosoftHardwareColorV2 = 2
-def _define_WCS_DEVICE_MHC2_CAPABILITIES_head():
-    class WCS_DEVICE_MHC2_CAPABILITIES(Structure):
-        pass
-    return WCS_DEVICE_MHC2_CAPABILITIES
-def _define_WCS_DEVICE_MHC2_CAPABILITIES():
-    WCS_DEVICE_MHC2_CAPABILITIES = win32more.UI.ColorSystem.WCS_DEVICE_MHC2_CAPABILITIES_head
-    WCS_DEVICE_MHC2_CAPABILITIES._fields_ = [
-        ('Size', UInt32),
-        ('SupportsMhc2', win32more.Foundation.BOOL),
-        ('RegammaLutEntryCount', UInt32),
-        ('CscXyzMatrixRows', UInt32),
-        ('CscXyzMatrixColumns', UInt32),
-    ]
-    return WCS_DEVICE_MHC2_CAPABILITIES
-def _define_WCS_DEVICE_VCGT_CAPABILITIES_head():
-    class WCS_DEVICE_VCGT_CAPABILITIES(Structure):
-        pass
-    return WCS_DEVICE_VCGT_CAPABILITIES
-def _define_WCS_DEVICE_VCGT_CAPABILITIES():
-    WCS_DEVICE_VCGT_CAPABILITIES = win32more.UI.ColorSystem.WCS_DEVICE_VCGT_CAPABILITIES_head
-    WCS_DEVICE_VCGT_CAPABILITIES._fields_ = [
-        ('Size', UInt32),
-        ('SupportsVcgt', win32more.Foundation.BOOL),
-    ]
-    return WCS_DEVICE_VCGT_CAPABILITIES
+WCS_DEVICE_CAPABILITIES_TYPE_VideoCardGammaTable: WCS_DEVICE_CAPABILITIES_TYPE = 1
+WCS_DEVICE_CAPABILITIES_TYPE_MicrosoftHardwareColorV2: WCS_DEVICE_CAPABILITIES_TYPE = 2
+class WCS_DEVICE_MHC2_CAPABILITIES(Structure):
+    Size: UInt32
+    SupportsMhc2: win32more.Foundation.BOOL
+    RegammaLutEntryCount: UInt32
+    CscXyzMatrixRows: UInt32
+    CscXyzMatrixColumns: UInt32
+class WCS_DEVICE_VCGT_CAPABILITIES(Structure):
+    Size: UInt32
+    SupportsVcgt: win32more.Foundation.BOOL
 WCS_PROFILE_MANAGEMENT_SCOPE = Int32
-WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE = 0
-WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER = 1
-def _define_XYZCOLOR_head():
-    class XYZCOLOR(Structure):
-        pass
-    return XYZCOLOR
-def _define_XYZCOLOR():
-    XYZCOLOR = win32more.UI.ColorSystem.XYZCOLOR_head
-    XYZCOLOR._fields_ = [
-        ('X', UInt16),
-        ('Y', UInt16),
-        ('Z', UInt16),
-    ]
-    return XYZCOLOR
-def _define_XYZColorF_head():
-    class XYZColorF(Structure):
-        pass
-    return XYZColorF
-def _define_XYZColorF():
-    XYZColorF = win32more.UI.ColorSystem.XYZColorF_head
-    XYZColorF._fields_ = [
-        ('X', Single),
-        ('Y', Single),
-        ('Z', Single),
-    ]
-    return XYZColorF
-def _define_YxyCOLOR_head():
-    class YxyCOLOR(Structure):
-        pass
-    return YxyCOLOR
-def _define_YxyCOLOR():
-    YxyCOLOR = win32more.UI.ColorSystem.YxyCOLOR_head
-    YxyCOLOR._fields_ = [
-        ('Y', UInt16),
-        ('x', UInt16),
-        ('y', UInt16),
-    ]
-    return YxyCOLOR
+WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE: WCS_PROFILE_MANAGEMENT_SCOPE = 0
+WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER: WCS_PROFILE_MANAGEMENT_SCOPE = 1
+class XYZCOLOR(Structure):
+    X: UInt16
+    Y: UInt16
+    Z: UInt16
+class XYZColorF(Structure):
+    X: Single
+    Y: Single
+    Z: Single
+class YxyCOLOR(Structure):
+    Y: UInt16
+    x: UInt16
+    y: UInt16
+make_head(_module, 'BlackInformation')
+make_head(_module, 'CMYKCOLOR')
+make_head(_module, 'COLOR')
+make_head(_module, 'COLORMATCHSETUPA')
+make_head(_module, 'COLORMATCHSETUPW')
+make_head(_module, 'EMRCREATECOLORSPACE')
+make_head(_module, 'EMRCREATECOLORSPACEW')
+make_head(_module, 'ENUMTYPEA')
+make_head(_module, 'ENUMTYPEW')
+make_head(_module, 'GamutBoundaryDescription')
+make_head(_module, 'GamutShell')
+make_head(_module, 'GamutShellTriangle')
+make_head(_module, 'GENERIC3CHANNEL')
+make_head(_module, 'GRAYCOLOR')
+make_head(_module, 'HiFiCOLOR')
+make_head(_module, 'ICMENUMPROCA')
+make_head(_module, 'ICMENUMPROCW')
+make_head(_module, 'IDeviceModelPlugIn')
+make_head(_module, 'IGamutMapModelPlugIn')
+make_head(_module, 'JabColorF')
+make_head(_module, 'JChColorF')
+make_head(_module, 'LabCOLOR')
+make_head(_module, 'LOGCOLORSPACEA')
+make_head(_module, 'LOGCOLORSPACEW')
+make_head(_module, 'LPBMCALLBACKFN')
+make_head(_module, 'NAMED_PROFILE_INFO')
+make_head(_module, 'NAMEDCOLOR')
+make_head(_module, 'PCMSCALLBACKA')
+make_head(_module, 'PCMSCALLBACKW')
+make_head(_module, 'PrimaryJabColors')
+make_head(_module, 'PrimaryXYZColors')
+make_head(_module, 'PROFILE')
+make_head(_module, 'PROFILEHEADER')
+make_head(_module, 'RGBCOLOR')
+make_head(_module, 'WCS_DEVICE_MHC2_CAPABILITIES')
+make_head(_module, 'WCS_DEVICE_VCGT_CAPABILITIES')
+make_head(_module, 'XYZCOLOR')
+make_head(_module, 'XYZColorF')
+make_head(_module, 'YxyCOLOR')
 __all__ = [
     "ATTRIB_MATTE",
     "ATTRIB_TRANSPARENCY",

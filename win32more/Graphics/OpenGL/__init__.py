@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Graphics.OpenGL
@@ -7,2991 +8,1739 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-GL_VERSION_1_1 = 1
-GL_ACCUM = 256
-GL_LOAD = 257
-GL_RETURN = 258
-GL_MULT = 259
-GL_ADD = 260
-GL_NEVER = 512
-GL_LESS = 513
-GL_EQUAL = 514
-GL_LEQUAL = 515
-GL_GREATER = 516
-GL_NOTEQUAL = 517
-GL_GEQUAL = 518
-GL_ALWAYS = 519
-GL_CURRENT_BIT = 1
-GL_POINT_BIT = 2
-GL_LINE_BIT = 4
-GL_POLYGON_BIT = 8
-GL_POLYGON_STIPPLE_BIT = 16
-GL_PIXEL_MODE_BIT = 32
-GL_LIGHTING_BIT = 64
-GL_FOG_BIT = 128
-GL_DEPTH_BUFFER_BIT = 256
-GL_ACCUM_BUFFER_BIT = 512
-GL_STENCIL_BUFFER_BIT = 1024
-GL_VIEWPORT_BIT = 2048
-GL_TRANSFORM_BIT = 4096
-GL_ENABLE_BIT = 8192
-GL_COLOR_BUFFER_BIT = 16384
-GL_HINT_BIT = 32768
-GL_EVAL_BIT = 65536
-GL_LIST_BIT = 131072
-GL_TEXTURE_BIT = 262144
-GL_SCISSOR_BIT = 524288
-GL_ALL_ATTRIB_BITS = 1048575
-GL_POINTS = 0
-GL_LINES = 1
-GL_LINE_LOOP = 2
-GL_LINE_STRIP = 3
-GL_TRIANGLES = 4
-GL_TRIANGLE_STRIP = 5
-GL_TRIANGLE_FAN = 6
-GL_QUADS = 7
-GL_QUAD_STRIP = 8
-GL_POLYGON = 9
-GL_ZERO = 0
-GL_ONE = 1
-GL_SRC_COLOR = 768
-GL_ONE_MINUS_SRC_COLOR = 769
-GL_SRC_ALPHA = 770
-GL_ONE_MINUS_SRC_ALPHA = 771
-GL_DST_ALPHA = 772
-GL_ONE_MINUS_DST_ALPHA = 773
-GL_DST_COLOR = 774
-GL_ONE_MINUS_DST_COLOR = 775
-GL_SRC_ALPHA_SATURATE = 776
-GL_TRUE = 1
-GL_FALSE = 0
-GL_CLIP_PLANE0 = 12288
-GL_CLIP_PLANE1 = 12289
-GL_CLIP_PLANE2 = 12290
-GL_CLIP_PLANE3 = 12291
-GL_CLIP_PLANE4 = 12292
-GL_CLIP_PLANE5 = 12293
-GL_BYTE = 5120
-GL_UNSIGNED_BYTE = 5121
-GL_SHORT = 5122
-GL_UNSIGNED_SHORT = 5123
-GL_INT = 5124
-GL_UNSIGNED_INT = 5125
-GL_FLOAT = 5126
-GL_2_BYTES = 5127
-GL_3_BYTES = 5128
-GL_4_BYTES = 5129
-GL_DOUBLE = 5130
-GL_NONE = 0
-GL_FRONT_LEFT = 1024
-GL_FRONT_RIGHT = 1025
-GL_BACK_LEFT = 1026
-GL_BACK_RIGHT = 1027
-GL_FRONT = 1028
-GL_BACK = 1029
-GL_LEFT = 1030
-GL_RIGHT = 1031
-GL_FRONT_AND_BACK = 1032
-GL_AUX0 = 1033
-GL_AUX1 = 1034
-GL_AUX2 = 1035
-GL_AUX3 = 1036
-GL_NO_ERROR = 0
-GL_INVALID_ENUM = 1280
-GL_INVALID_VALUE = 1281
-GL_INVALID_OPERATION = 1282
-GL_STACK_OVERFLOW = 1283
-GL_STACK_UNDERFLOW = 1284
-GL_OUT_OF_MEMORY = 1285
-GL_2D = 1536
-GL_3D = 1537
-GL_3D_COLOR = 1538
-GL_3D_COLOR_TEXTURE = 1539
-GL_4D_COLOR_TEXTURE = 1540
-GL_PASS_THROUGH_TOKEN = 1792
-GL_POINT_TOKEN = 1793
-GL_LINE_TOKEN = 1794
-GL_POLYGON_TOKEN = 1795
-GL_BITMAP_TOKEN = 1796
-GL_DRAW_PIXEL_TOKEN = 1797
-GL_COPY_PIXEL_TOKEN = 1798
-GL_LINE_RESET_TOKEN = 1799
-GL_EXP = 2048
-GL_EXP2 = 2049
-GL_CW = 2304
-GL_CCW = 2305
-GL_COEFF = 2560
-GL_ORDER = 2561
-GL_DOMAIN = 2562
-GL_CURRENT_COLOR = 2816
-GL_CURRENT_INDEX = 2817
-GL_CURRENT_NORMAL = 2818
-GL_CURRENT_TEXTURE_COORDS = 2819
-GL_CURRENT_RASTER_COLOR = 2820
-GL_CURRENT_RASTER_INDEX = 2821
-GL_CURRENT_RASTER_TEXTURE_COORDS = 2822
-GL_CURRENT_RASTER_POSITION = 2823
-GL_CURRENT_RASTER_POSITION_VALID = 2824
-GL_CURRENT_RASTER_DISTANCE = 2825
-GL_POINT_SMOOTH = 2832
-GL_POINT_SIZE = 2833
-GL_POINT_SIZE_RANGE = 2834
-GL_POINT_SIZE_GRANULARITY = 2835
-GL_LINE_SMOOTH = 2848
-GL_LINE_WIDTH = 2849
-GL_LINE_WIDTH_RANGE = 2850
-GL_LINE_WIDTH_GRANULARITY = 2851
-GL_LINE_STIPPLE = 2852
-GL_LINE_STIPPLE_PATTERN = 2853
-GL_LINE_STIPPLE_REPEAT = 2854
-GL_LIST_MODE = 2864
-GL_MAX_LIST_NESTING = 2865
-GL_LIST_BASE = 2866
-GL_LIST_INDEX = 2867
-GL_POLYGON_MODE = 2880
-GL_POLYGON_SMOOTH = 2881
-GL_POLYGON_STIPPLE = 2882
-GL_EDGE_FLAG = 2883
-GL_CULL_FACE = 2884
-GL_CULL_FACE_MODE = 2885
-GL_FRONT_FACE = 2886
-GL_LIGHTING = 2896
-GL_LIGHT_MODEL_LOCAL_VIEWER = 2897
-GL_LIGHT_MODEL_TWO_SIDE = 2898
-GL_LIGHT_MODEL_AMBIENT = 2899
-GL_SHADE_MODEL = 2900
-GL_COLOR_MATERIAL_FACE = 2901
-GL_COLOR_MATERIAL_PARAMETER = 2902
-GL_COLOR_MATERIAL = 2903
-GL_FOG = 2912
-GL_FOG_INDEX = 2913
-GL_FOG_DENSITY = 2914
-GL_FOG_START = 2915
-GL_FOG_END = 2916
-GL_FOG_MODE = 2917
-GL_FOG_COLOR = 2918
-GL_DEPTH_RANGE = 2928
-GL_DEPTH_TEST = 2929
-GL_DEPTH_WRITEMASK = 2930
-GL_DEPTH_CLEAR_VALUE = 2931
-GL_DEPTH_FUNC = 2932
-GL_ACCUM_CLEAR_VALUE = 2944
-GL_STENCIL_TEST = 2960
-GL_STENCIL_CLEAR_VALUE = 2961
-GL_STENCIL_FUNC = 2962
-GL_STENCIL_VALUE_MASK = 2963
-GL_STENCIL_FAIL = 2964
-GL_STENCIL_PASS_DEPTH_FAIL = 2965
-GL_STENCIL_PASS_DEPTH_PASS = 2966
-GL_STENCIL_REF = 2967
-GL_STENCIL_WRITEMASK = 2968
-GL_MATRIX_MODE = 2976
-GL_NORMALIZE = 2977
-GL_VIEWPORT = 2978
-GL_MODELVIEW_STACK_DEPTH = 2979
-GL_PROJECTION_STACK_DEPTH = 2980
-GL_TEXTURE_STACK_DEPTH = 2981
-GL_MODELVIEW_MATRIX = 2982
-GL_PROJECTION_MATRIX = 2983
-GL_TEXTURE_MATRIX = 2984
-GL_ATTRIB_STACK_DEPTH = 2992
-GL_CLIENT_ATTRIB_STACK_DEPTH = 2993
-GL_ALPHA_TEST = 3008
-GL_ALPHA_TEST_FUNC = 3009
-GL_ALPHA_TEST_REF = 3010
-GL_DITHER = 3024
-GL_BLEND_DST = 3040
-GL_BLEND_SRC = 3041
-GL_BLEND = 3042
-GL_LOGIC_OP_MODE = 3056
-GL_INDEX_LOGIC_OP = 3057
-GL_COLOR_LOGIC_OP = 3058
-GL_AUX_BUFFERS = 3072
-GL_DRAW_BUFFER = 3073
-GL_READ_BUFFER = 3074
-GL_SCISSOR_BOX = 3088
-GL_SCISSOR_TEST = 3089
-GL_INDEX_CLEAR_VALUE = 3104
-GL_INDEX_WRITEMASK = 3105
-GL_COLOR_CLEAR_VALUE = 3106
-GL_COLOR_WRITEMASK = 3107
-GL_INDEX_MODE = 3120
-GL_RGBA_MODE = 3121
-GL_DOUBLEBUFFER = 3122
-GL_STEREO = 3123
-GL_RENDER_MODE = 3136
-GL_PERSPECTIVE_CORRECTION_HINT = 3152
-GL_POINT_SMOOTH_HINT = 3153
-GL_LINE_SMOOTH_HINT = 3154
-GL_POLYGON_SMOOTH_HINT = 3155
-GL_FOG_HINT = 3156
-GL_TEXTURE_GEN_S = 3168
-GL_TEXTURE_GEN_T = 3169
-GL_TEXTURE_GEN_R = 3170
-GL_TEXTURE_GEN_Q = 3171
-GL_PIXEL_MAP_I_TO_I = 3184
-GL_PIXEL_MAP_S_TO_S = 3185
-GL_PIXEL_MAP_I_TO_R = 3186
-GL_PIXEL_MAP_I_TO_G = 3187
-GL_PIXEL_MAP_I_TO_B = 3188
-GL_PIXEL_MAP_I_TO_A = 3189
-GL_PIXEL_MAP_R_TO_R = 3190
-GL_PIXEL_MAP_G_TO_G = 3191
-GL_PIXEL_MAP_B_TO_B = 3192
-GL_PIXEL_MAP_A_TO_A = 3193
-GL_PIXEL_MAP_I_TO_I_SIZE = 3248
-GL_PIXEL_MAP_S_TO_S_SIZE = 3249
-GL_PIXEL_MAP_I_TO_R_SIZE = 3250
-GL_PIXEL_MAP_I_TO_G_SIZE = 3251
-GL_PIXEL_MAP_I_TO_B_SIZE = 3252
-GL_PIXEL_MAP_I_TO_A_SIZE = 3253
-GL_PIXEL_MAP_R_TO_R_SIZE = 3254
-GL_PIXEL_MAP_G_TO_G_SIZE = 3255
-GL_PIXEL_MAP_B_TO_B_SIZE = 3256
-GL_PIXEL_MAP_A_TO_A_SIZE = 3257
-GL_UNPACK_SWAP_BYTES = 3312
-GL_UNPACK_LSB_FIRST = 3313
-GL_UNPACK_ROW_LENGTH = 3314
-GL_UNPACK_SKIP_ROWS = 3315
-GL_UNPACK_SKIP_PIXELS = 3316
-GL_UNPACK_ALIGNMENT = 3317
-GL_PACK_SWAP_BYTES = 3328
-GL_PACK_LSB_FIRST = 3329
-GL_PACK_ROW_LENGTH = 3330
-GL_PACK_SKIP_ROWS = 3331
-GL_PACK_SKIP_PIXELS = 3332
-GL_PACK_ALIGNMENT = 3333
-GL_MAP_COLOR = 3344
-GL_MAP_STENCIL = 3345
-GL_INDEX_SHIFT = 3346
-GL_INDEX_OFFSET = 3347
-GL_RED_SCALE = 3348
-GL_RED_BIAS = 3349
-GL_ZOOM_X = 3350
-GL_ZOOM_Y = 3351
-GL_GREEN_SCALE = 3352
-GL_GREEN_BIAS = 3353
-GL_BLUE_SCALE = 3354
-GL_BLUE_BIAS = 3355
-GL_ALPHA_SCALE = 3356
-GL_ALPHA_BIAS = 3357
-GL_DEPTH_SCALE = 3358
-GL_DEPTH_BIAS = 3359
-GL_MAX_EVAL_ORDER = 3376
-GL_MAX_LIGHTS = 3377
-GL_MAX_CLIP_PLANES = 3378
-GL_MAX_TEXTURE_SIZE = 3379
-GL_MAX_PIXEL_MAP_TABLE = 3380
-GL_MAX_ATTRIB_STACK_DEPTH = 3381
-GL_MAX_MODELVIEW_STACK_DEPTH = 3382
-GL_MAX_NAME_STACK_DEPTH = 3383
-GL_MAX_PROJECTION_STACK_DEPTH = 3384
-GL_MAX_TEXTURE_STACK_DEPTH = 3385
-GL_MAX_VIEWPORT_DIMS = 3386
-GL_MAX_CLIENT_ATTRIB_STACK_DEPTH = 3387
-GL_SUBPIXEL_BITS = 3408
-GL_INDEX_BITS = 3409
-GL_RED_BITS = 3410
-GL_GREEN_BITS = 3411
-GL_BLUE_BITS = 3412
-GL_ALPHA_BITS = 3413
-GL_DEPTH_BITS = 3414
-GL_STENCIL_BITS = 3415
-GL_ACCUM_RED_BITS = 3416
-GL_ACCUM_GREEN_BITS = 3417
-GL_ACCUM_BLUE_BITS = 3418
-GL_ACCUM_ALPHA_BITS = 3419
-GL_NAME_STACK_DEPTH = 3440
-GL_AUTO_NORMAL = 3456
-GL_MAP1_COLOR_4 = 3472
-GL_MAP1_INDEX = 3473
-GL_MAP1_NORMAL = 3474
-GL_MAP1_TEXTURE_COORD_1 = 3475
-GL_MAP1_TEXTURE_COORD_2 = 3476
-GL_MAP1_TEXTURE_COORD_3 = 3477
-GL_MAP1_TEXTURE_COORD_4 = 3478
-GL_MAP1_VERTEX_3 = 3479
-GL_MAP1_VERTEX_4 = 3480
-GL_MAP2_COLOR_4 = 3504
-GL_MAP2_INDEX = 3505
-GL_MAP2_NORMAL = 3506
-GL_MAP2_TEXTURE_COORD_1 = 3507
-GL_MAP2_TEXTURE_COORD_2 = 3508
-GL_MAP2_TEXTURE_COORD_3 = 3509
-GL_MAP2_TEXTURE_COORD_4 = 3510
-GL_MAP2_VERTEX_3 = 3511
-GL_MAP2_VERTEX_4 = 3512
-GL_MAP1_GRID_DOMAIN = 3536
-GL_MAP1_GRID_SEGMENTS = 3537
-GL_MAP2_GRID_DOMAIN = 3538
-GL_MAP2_GRID_SEGMENTS = 3539
-GL_TEXTURE_1D = 3552
-GL_TEXTURE_2D = 3553
-GL_FEEDBACK_BUFFER_POINTER = 3568
-GL_FEEDBACK_BUFFER_SIZE = 3569
-GL_FEEDBACK_BUFFER_TYPE = 3570
-GL_SELECTION_BUFFER_POINTER = 3571
-GL_SELECTION_BUFFER_SIZE = 3572
-GL_TEXTURE_WIDTH = 4096
-GL_TEXTURE_HEIGHT = 4097
-GL_TEXTURE_INTERNAL_FORMAT = 4099
-GL_TEXTURE_BORDER_COLOR = 4100
-GL_TEXTURE_BORDER = 4101
-GL_DONT_CARE = 4352
-GL_FASTEST = 4353
-GL_NICEST = 4354
-GL_LIGHT0 = 16384
-GL_LIGHT1 = 16385
-GL_LIGHT2 = 16386
-GL_LIGHT3 = 16387
-GL_LIGHT4 = 16388
-GL_LIGHT5 = 16389
-GL_LIGHT6 = 16390
-GL_LIGHT7 = 16391
-GL_AMBIENT = 4608
-GL_DIFFUSE = 4609
-GL_SPECULAR = 4610
-GL_POSITION = 4611
-GL_SPOT_DIRECTION = 4612
-GL_SPOT_EXPONENT = 4613
-GL_SPOT_CUTOFF = 4614
-GL_CONSTANT_ATTENUATION = 4615
-GL_LINEAR_ATTENUATION = 4616
-GL_QUADRATIC_ATTENUATION = 4617
-GL_COMPILE = 4864
-GL_COMPILE_AND_EXECUTE = 4865
-GL_CLEAR = 5376
-GL_AND = 5377
-GL_AND_REVERSE = 5378
-GL_COPY = 5379
-GL_AND_INVERTED = 5380
-GL_NOOP = 5381
-GL_XOR = 5382
-GL_OR = 5383
-GL_NOR = 5384
-GL_EQUIV = 5385
-GL_INVERT = 5386
-GL_OR_REVERSE = 5387
-GL_COPY_INVERTED = 5388
-GL_OR_INVERTED = 5389
-GL_NAND = 5390
-GL_SET = 5391
-GL_EMISSION = 5632
-GL_SHININESS = 5633
-GL_AMBIENT_AND_DIFFUSE = 5634
-GL_COLOR_INDEXES = 5635
-GL_MODELVIEW = 5888
-GL_PROJECTION = 5889
-GL_TEXTURE = 5890
-GL_COLOR = 6144
-GL_DEPTH = 6145
-GL_STENCIL = 6146
-GL_COLOR_INDEX = 6400
-GL_STENCIL_INDEX = 6401
-GL_DEPTH_COMPONENT = 6402
-GL_RED = 6403
-GL_GREEN = 6404
-GL_BLUE = 6405
-GL_ALPHA = 6406
-GL_RGB = 6407
-GL_RGBA = 6408
-GL_LUMINANCE = 6409
-GL_LUMINANCE_ALPHA = 6410
-GL_BITMAP = 6656
-GL_POINT = 6912
-GL_LINE = 6913
-GL_FILL = 6914
-GL_RENDER = 7168
-GL_FEEDBACK = 7169
-GL_SELECT = 7170
-GL_FLAT = 7424
-GL_SMOOTH = 7425
-GL_KEEP = 7680
-GL_REPLACE = 7681
-GL_INCR = 7682
-GL_DECR = 7683
-GL_VENDOR = 7936
-GL_RENDERER = 7937
-GL_VERSION = 7938
-GL_EXTENSIONS = 7939
-GL_S = 8192
-GL_T = 8193
-GL_R = 8194
-GL_Q = 8195
-GL_MODULATE = 8448
-GL_DECAL = 8449
-GL_TEXTURE_ENV_MODE = 8704
-GL_TEXTURE_ENV_COLOR = 8705
-GL_TEXTURE_ENV = 8960
-GL_EYE_LINEAR = 9216
-GL_OBJECT_LINEAR = 9217
-GL_SPHERE_MAP = 9218
-GL_TEXTURE_GEN_MODE = 9472
-GL_OBJECT_PLANE = 9473
-GL_EYE_PLANE = 9474
-GL_NEAREST = 9728
-GL_LINEAR = 9729
-GL_NEAREST_MIPMAP_NEAREST = 9984
-GL_LINEAR_MIPMAP_NEAREST = 9985
-GL_NEAREST_MIPMAP_LINEAR = 9986
-GL_LINEAR_MIPMAP_LINEAR = 9987
-GL_TEXTURE_MAG_FILTER = 10240
-GL_TEXTURE_MIN_FILTER = 10241
-GL_TEXTURE_WRAP_S = 10242
-GL_TEXTURE_WRAP_T = 10243
-GL_CLAMP = 10496
-GL_REPEAT = 10497
-GL_CLIENT_PIXEL_STORE_BIT = 1
-GL_CLIENT_VERTEX_ARRAY_BIT = 2
-GL_CLIENT_ALL_ATTRIB_BITS = 4294967295
-GL_POLYGON_OFFSET_FACTOR = 32824
-GL_POLYGON_OFFSET_UNITS = 10752
-GL_POLYGON_OFFSET_POINT = 10753
-GL_POLYGON_OFFSET_LINE = 10754
-GL_POLYGON_OFFSET_FILL = 32823
-GL_ALPHA4 = 32827
-GL_ALPHA8 = 32828
-GL_ALPHA12 = 32829
-GL_ALPHA16 = 32830
-GL_LUMINANCE4 = 32831
-GL_LUMINANCE8 = 32832
-GL_LUMINANCE12 = 32833
-GL_LUMINANCE16 = 32834
-GL_LUMINANCE4_ALPHA4 = 32835
-GL_LUMINANCE6_ALPHA2 = 32836
-GL_LUMINANCE8_ALPHA8 = 32837
-GL_LUMINANCE12_ALPHA4 = 32838
-GL_LUMINANCE12_ALPHA12 = 32839
-GL_LUMINANCE16_ALPHA16 = 32840
-GL_INTENSITY = 32841
-GL_INTENSITY4 = 32842
-GL_INTENSITY8 = 32843
-GL_INTENSITY12 = 32844
-GL_INTENSITY16 = 32845
-GL_R3_G3_B2 = 10768
-GL_RGB4 = 32847
-GL_RGB5 = 32848
-GL_RGB8 = 32849
-GL_RGB10 = 32850
-GL_RGB12 = 32851
-GL_RGB16 = 32852
-GL_RGBA2 = 32853
-GL_RGBA4 = 32854
-GL_RGB5_A1 = 32855
-GL_RGBA8 = 32856
-GL_RGB10_A2 = 32857
-GL_RGBA12 = 32858
-GL_RGBA16 = 32859
-GL_TEXTURE_RED_SIZE = 32860
-GL_TEXTURE_GREEN_SIZE = 32861
-GL_TEXTURE_BLUE_SIZE = 32862
-GL_TEXTURE_ALPHA_SIZE = 32863
-GL_TEXTURE_LUMINANCE_SIZE = 32864
-GL_TEXTURE_INTENSITY_SIZE = 32865
-GL_PROXY_TEXTURE_1D = 32867
-GL_PROXY_TEXTURE_2D = 32868
-GL_TEXTURE_PRIORITY = 32870
-GL_TEXTURE_RESIDENT = 32871
-GL_TEXTURE_BINDING_1D = 32872
-GL_TEXTURE_BINDING_2D = 32873
-GL_VERTEX_ARRAY = 32884
-GL_NORMAL_ARRAY = 32885
-GL_COLOR_ARRAY = 32886
-GL_INDEX_ARRAY = 32887
-GL_TEXTURE_COORD_ARRAY = 32888
-GL_EDGE_FLAG_ARRAY = 32889
-GL_VERTEX_ARRAY_SIZE = 32890
-GL_VERTEX_ARRAY_TYPE = 32891
-GL_VERTEX_ARRAY_STRIDE = 32892
-GL_NORMAL_ARRAY_TYPE = 32894
-GL_NORMAL_ARRAY_STRIDE = 32895
-GL_COLOR_ARRAY_SIZE = 32897
-GL_COLOR_ARRAY_TYPE = 32898
-GL_COLOR_ARRAY_STRIDE = 32899
-GL_INDEX_ARRAY_TYPE = 32901
-GL_INDEX_ARRAY_STRIDE = 32902
-GL_TEXTURE_COORD_ARRAY_SIZE = 32904
-GL_TEXTURE_COORD_ARRAY_TYPE = 32905
-GL_TEXTURE_COORD_ARRAY_STRIDE = 32906
-GL_EDGE_FLAG_ARRAY_STRIDE = 32908
-GL_VERTEX_ARRAY_POINTER = 32910
-GL_NORMAL_ARRAY_POINTER = 32911
-GL_COLOR_ARRAY_POINTER = 32912
-GL_INDEX_ARRAY_POINTER = 32913
-GL_TEXTURE_COORD_ARRAY_POINTER = 32914
-GL_EDGE_FLAG_ARRAY_POINTER = 32915
-GL_V2F = 10784
-GL_V3F = 10785
-GL_C4UB_V2F = 10786
-GL_C4UB_V3F = 10787
-GL_C3F_V3F = 10788
-GL_N3F_V3F = 10789
-GL_C4F_N3F_V3F = 10790
-GL_T2F_V3F = 10791
-GL_T4F_V4F = 10792
-GL_T2F_C4UB_V3F = 10793
-GL_T2F_C3F_V3F = 10794
-GL_T2F_N3F_V3F = 10795
-GL_T2F_C4F_N3F_V3F = 10796
-GL_T4F_C4F_N3F_V4F = 10797
-GL_EXT_vertex_array = 1
-GL_EXT_bgra = 1
-GL_EXT_paletted_texture = 1
-GL_WIN_swap_hint = 1
-GL_WIN_draw_range_elements = 1
-GL_VERTEX_ARRAY_EXT = 32884
-GL_NORMAL_ARRAY_EXT = 32885
-GL_COLOR_ARRAY_EXT = 32886
-GL_INDEX_ARRAY_EXT = 32887
-GL_TEXTURE_COORD_ARRAY_EXT = 32888
-GL_EDGE_FLAG_ARRAY_EXT = 32889
-GL_VERTEX_ARRAY_SIZE_EXT = 32890
-GL_VERTEX_ARRAY_TYPE_EXT = 32891
-GL_VERTEX_ARRAY_STRIDE_EXT = 32892
-GL_VERTEX_ARRAY_COUNT_EXT = 32893
-GL_NORMAL_ARRAY_TYPE_EXT = 32894
-GL_NORMAL_ARRAY_STRIDE_EXT = 32895
-GL_NORMAL_ARRAY_COUNT_EXT = 32896
-GL_COLOR_ARRAY_SIZE_EXT = 32897
-GL_COLOR_ARRAY_TYPE_EXT = 32898
-GL_COLOR_ARRAY_STRIDE_EXT = 32899
-GL_COLOR_ARRAY_COUNT_EXT = 32900
-GL_INDEX_ARRAY_TYPE_EXT = 32901
-GL_INDEX_ARRAY_STRIDE_EXT = 32902
-GL_INDEX_ARRAY_COUNT_EXT = 32903
-GL_TEXTURE_COORD_ARRAY_SIZE_EXT = 32904
-GL_TEXTURE_COORD_ARRAY_TYPE_EXT = 32905
-GL_TEXTURE_COORD_ARRAY_STRIDE_EXT = 32906
-GL_TEXTURE_COORD_ARRAY_COUNT_EXT = 32907
-GL_EDGE_FLAG_ARRAY_STRIDE_EXT = 32908
-GL_EDGE_FLAG_ARRAY_COUNT_EXT = 32909
-GL_VERTEX_ARRAY_POINTER_EXT = 32910
-GL_NORMAL_ARRAY_POINTER_EXT = 32911
-GL_COLOR_ARRAY_POINTER_EXT = 32912
-GL_INDEX_ARRAY_POINTER_EXT = 32913
-GL_TEXTURE_COORD_ARRAY_POINTER_EXT = 32914
-GL_EDGE_FLAG_ARRAY_POINTER_EXT = 32915
-GL_DOUBLE_EXT = 5130
-GL_BGR_EXT = 32992
-GL_BGRA_EXT = 32993
-GL_COLOR_TABLE_FORMAT_EXT = 32984
-GL_COLOR_TABLE_WIDTH_EXT = 32985
-GL_COLOR_TABLE_RED_SIZE_EXT = 32986
-GL_COLOR_TABLE_GREEN_SIZE_EXT = 32987
-GL_COLOR_TABLE_BLUE_SIZE_EXT = 32988
-GL_COLOR_TABLE_ALPHA_SIZE_EXT = 32989
-GL_COLOR_TABLE_LUMINANCE_SIZE_EXT = 32990
-GL_COLOR_TABLE_INTENSITY_SIZE_EXT = 32991
-GL_COLOR_INDEX1_EXT = 32994
-GL_COLOR_INDEX2_EXT = 32995
-GL_COLOR_INDEX4_EXT = 32996
-GL_COLOR_INDEX8_EXT = 32997
-GL_COLOR_INDEX12_EXT = 32998
-GL_COLOR_INDEX16_EXT = 32999
-GL_MAX_ELEMENTS_VERTICES_WIN = 33000
-GL_MAX_ELEMENTS_INDICES_WIN = 33001
-GL_PHONG_WIN = 33002
-GL_PHONG_HINT_WIN = 33003
-GL_FOG_SPECULAR_TEXTURE_WIN = 33004
-GL_LOGIC_OP = 3057
-GL_TEXTURE_COMPONENTS = 4099
-GLU_VERSION_1_1 = 1
-GLU_VERSION_1_2 = 1
-GLU_INVALID_ENUM = 100900
-GLU_INVALID_VALUE = 100901
-GLU_OUT_OF_MEMORY = 100902
-GLU_INCOMPATIBLE_GL_VERSION = 100903
-GLU_VERSION = 100800
-GLU_EXTENSIONS = 100801
-GLU_TRUE = 1
-GLU_FALSE = 0
-GLU_SMOOTH = 100000
-GLU_FLAT = 100001
-GLU_NONE = 100002
-GLU_POINT = 100010
-GLU_LINE = 100011
-GLU_FILL = 100012
-GLU_SILHOUETTE = 100013
-GLU_OUTSIDE = 100020
-GLU_INSIDE = 100021
-GLU_TESS_WINDING_RULE = 100140
-GLU_TESS_BOUNDARY_ONLY = 100141
-GLU_TESS_TOLERANCE = 100142
-GLU_TESS_WINDING_ODD = 100130
-GLU_TESS_WINDING_NONZERO = 100131
-GLU_TESS_WINDING_POSITIVE = 100132
-GLU_TESS_WINDING_NEGATIVE = 100133
-GLU_TESS_WINDING_ABS_GEQ_TWO = 100134
-GLU_TESS_BEGIN = 100100
-GLU_TESS_VERTEX = 100101
-GLU_TESS_END = 100102
-GLU_TESS_ERROR = 100103
-GLU_TESS_EDGE_FLAG = 100104
-GLU_TESS_COMBINE = 100105
-GLU_TESS_BEGIN_DATA = 100106
-GLU_TESS_VERTEX_DATA = 100107
-GLU_TESS_END_DATA = 100108
-GLU_TESS_ERROR_DATA = 100109
-GLU_TESS_EDGE_FLAG_DATA = 100110
-GLU_TESS_COMBINE_DATA = 100111
-GLU_TESS_ERROR1 = 100151
-GLU_TESS_ERROR2 = 100152
-GLU_TESS_ERROR3 = 100153
-GLU_TESS_ERROR4 = 100154
-GLU_TESS_ERROR5 = 100155
-GLU_TESS_ERROR6 = 100156
-GLU_TESS_ERROR7 = 100157
-GLU_TESS_ERROR8 = 100158
-GLU_TESS_MISSING_BEGIN_POLYGON = 100151
-GLU_TESS_MISSING_BEGIN_CONTOUR = 100152
-GLU_TESS_MISSING_END_POLYGON = 100153
-GLU_TESS_MISSING_END_CONTOUR = 100154
-GLU_TESS_COORD_TOO_LARGE = 100155
-GLU_TESS_NEED_COMBINE_CALLBACK = 100156
-GLU_AUTO_LOAD_MATRIX = 100200
-GLU_CULLING = 100201
-GLU_SAMPLING_TOLERANCE = 100203
-GLU_DISPLAY_MODE = 100204
-GLU_PARAMETRIC_TOLERANCE = 100202
-GLU_SAMPLING_METHOD = 100205
-GLU_U_STEP = 100206
-GLU_V_STEP = 100207
-GLU_PATH_LENGTH = 100215
-GLU_PARAMETRIC_ERROR = 100216
-GLU_DOMAIN_DISTANCE = 100217
-GLU_MAP1_TRIM_2 = 100210
-GLU_MAP1_TRIM_3 = 100211
-GLU_OUTLINE_POLYGON = 100240
-GLU_OUTLINE_PATCH = 100241
-GLU_NURBS_ERROR1 = 100251
-GLU_NURBS_ERROR2 = 100252
-GLU_NURBS_ERROR3 = 100253
-GLU_NURBS_ERROR4 = 100254
-GLU_NURBS_ERROR5 = 100255
-GLU_NURBS_ERROR6 = 100256
-GLU_NURBS_ERROR7 = 100257
-GLU_NURBS_ERROR8 = 100258
-GLU_NURBS_ERROR9 = 100259
-GLU_NURBS_ERROR10 = 100260
-GLU_NURBS_ERROR11 = 100261
-GLU_NURBS_ERROR12 = 100262
-GLU_NURBS_ERROR13 = 100263
-GLU_NURBS_ERROR14 = 100264
-GLU_NURBS_ERROR15 = 100265
-GLU_NURBS_ERROR16 = 100266
-GLU_NURBS_ERROR17 = 100267
-GLU_NURBS_ERROR18 = 100268
-GLU_NURBS_ERROR19 = 100269
-GLU_NURBS_ERROR20 = 100270
-GLU_NURBS_ERROR21 = 100271
-GLU_NURBS_ERROR22 = 100272
-GLU_NURBS_ERROR23 = 100273
-GLU_NURBS_ERROR24 = 100274
-GLU_NURBS_ERROR25 = 100275
-GLU_NURBS_ERROR26 = 100276
-GLU_NURBS_ERROR27 = 100277
-GLU_NURBS_ERROR28 = 100278
-GLU_NURBS_ERROR29 = 100279
-GLU_NURBS_ERROR30 = 100280
-GLU_NURBS_ERROR31 = 100281
-GLU_NURBS_ERROR32 = 100282
-GLU_NURBS_ERROR33 = 100283
-GLU_NURBS_ERROR34 = 100284
-GLU_NURBS_ERROR35 = 100285
-GLU_NURBS_ERROR36 = 100286
-GLU_NURBS_ERROR37 = 100287
-GLU_CW = 100120
-GLU_CCW = 100121
-GLU_INTERIOR = 100122
-GLU_EXTERIOR = 100123
-GLU_UNKNOWN = 100124
-GLU_BEGIN = 100100
-GLU_VERTEX = 100101
-GLU_END = 100102
-GLU_ERROR = 100103
-GLU_EDGE_FLAG = 100104
-def _define_ChoosePixelFormat():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head))(('ChoosePixelFormat', windll['GDI32.dll']), ((1, 'hdc'),(1, 'ppfd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DescribePixelFormat():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,UInt32,POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head))(('DescribePixelFormat', windll['GDI32.dll']), ((1, 'hdc'),(1, 'iPixelFormat'),(1, 'nBytes'),(1, 'ppfd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPixelFormat():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC)(('GetPixelFormat', windll['GDI32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPixelFormat():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head))(('SetPixelFormat', windll['GDI32.dll']), ((1, 'hdc'),(1, 'format'),(1, 'ppfd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetEnhMetaFilePixelFormat():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HENHMETAFILE,UInt32,POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head))(('GetEnhMetaFilePixelFormat', windll['GDI32.dll']), ((1, 'hemf'),(1, 'cbBuffer'),(1, 'ppfd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglCopyContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.OpenGL.HGLRC,win32more.Graphics.OpenGL.HGLRC,UInt32)(('wglCopyContext', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglCreateContext():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.OpenGL.HGLRC,win32more.Graphics.Gdi.HDC)(('wglCreateContext', windll['OPENGL32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglCreateLayerContext():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.OpenGL.HGLRC,win32more.Graphics.Gdi.HDC,Int32)(('wglCreateLayerContext', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglDeleteContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.OpenGL.HGLRC)(('wglDeleteContext', windll['OPENGL32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglGetCurrentContext():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.OpenGL.HGLRC,)(('wglGetCurrentContext', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglGetCurrentDC():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,)(('wglGetCurrentDC', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglGetProcAddress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PROC,win32more.Foundation.PSTR)(('wglGetProcAddress', windll['OPENGL32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglMakeCurrent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,win32more.Graphics.OpenGL.HGLRC)(('wglMakeCurrent', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglShareLists():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.OpenGL.HGLRC,win32more.Graphics.OpenGL.HGLRC)(('wglShareLists', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglUseFontBitmapsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,UInt32)(('wglUseFontBitmapsA', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglUseFontBitmapsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,UInt32)(('wglUseFontBitmapsW', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwapBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC)(('SwapBuffers', windll['GDI32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglUseFontOutlinesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,UInt32,Single,Single,Int32,POINTER(win32more.Graphics.OpenGL.GLYPHMETRICSFLOAT_head))(('wglUseFontOutlinesA', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglUseFontOutlinesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32,UInt32,UInt32,Single,Single,Int32,POINTER(win32more.Graphics.OpenGL.GLYPHMETRICSFLOAT_head))(('wglUseFontOutlinesW', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),(1, 'param6'),(1, 'param7'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglDescribeLayerPlane():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,Int32,UInt32,POINTER(win32more.Graphics.OpenGL.LAYERPLANEDESCRIPTOR_head))(('wglDescribeLayerPlane', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglSetLayerPaletteEntries():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,POINTER(win32more.Foundation.COLORREF))(('wglSetLayerPaletteEntries', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglGetLayerPaletteEntries():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,Int32,Int32,Int32,POINTER(win32more.Foundation.COLORREF))(('wglGetLayerPaletteEntries', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglRealizeLayerPalette():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,Int32,win32more.Foundation.BOOL)(('wglRealizeLayerPalette', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_wglSwapLayerBuffers():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,UInt32)(('wglSwapLayerBuffers', windll['OPENGL32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glAccum():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glAccum', windll['OPENGL32.dll']), ((1, 'op'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glAlphaFunc():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glAlphaFunc', windll['OPENGL32.dll']), ((1, 'func'),(1, 'ref'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glAreTexturesResident():
-    try:
-        return WINFUNCTYPE(Byte,Int32,POINTER(UInt32),c_char_p_no)(('glAreTexturesResident', windll['OPENGL32.dll']), ((1, 'n'),(1, 'textures'),(1, 'residences'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glArrayElement():
-    try:
-        return WINFUNCTYPE(Void,Int32)(('glArrayElement', windll['OPENGL32.dll']), ((1, 'i'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glBegin():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glBegin', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glBindTexture():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glBindTexture', windll['OPENGL32.dll']), ((1, 'target'),(1, 'texture'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glBitmap():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Single,Single,Single,Single,c_char_p_no)(('glBitmap', windll['OPENGL32.dll']), ((1, 'width'),(1, 'height'),(1, 'xorig'),(1, 'yorig'),(1, 'xmove'),(1, 'ymove'),(1, 'bitmap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glBlendFunc():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glBlendFunc', windll['OPENGL32.dll']), ((1, 'sfactor'),(1, 'dfactor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCallList():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glCallList', windll['OPENGL32.dll']), ((1, 'list'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCallLists():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt32,c_void_p)(('glCallLists', windll['OPENGL32.dll']), ((1, 'n'),(1, 'type'),(1, 'lists'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClear():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glClear', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClearAccum():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glClearAccum', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClearColor():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glClearColor', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClearDepth():
-    try:
-        return WINFUNCTYPE(Void,Double)(('glClearDepth', windll['OPENGL32.dll']), ((1, 'depth'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClearIndex():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glClearIndex', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClearStencil():
-    try:
-        return WINFUNCTYPE(Void,Int32)(('glClearStencil', windll['OPENGL32.dll']), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glClipPlane():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Double))(('glClipPlane', windll['OPENGL32.dll']), ((1, 'plane'),(1, 'equation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3b():
-    try:
-        return WINFUNCTYPE(Void,SByte,SByte,SByte)(('glColor3b', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3bv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(SByte))(('glColor3bv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glColor3d', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glColor3dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glColor3f', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glColor3fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32)(('glColor3i', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glColor3iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16)(('glColor3s', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glColor3sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3ub():
-    try:
-        return WINFUNCTYPE(Void,Byte,Byte,Byte)(('glColor3ub', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3ubv():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glColor3ubv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3ui():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(('glColor3ui', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3uiv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32))(('glColor3uiv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3us():
-    try:
-        return WINFUNCTYPE(Void,UInt16,UInt16,UInt16)(('glColor3us', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor3usv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt16))(('glColor3usv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4b():
-    try:
-        return WINFUNCTYPE(Void,SByte,SByte,SByte,SByte)(('glColor4b', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4bv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(SByte))(('glColor4bv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glColor4d', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glColor4dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glColor4f', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glColor4fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glColor4i', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glColor4iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16,Int16)(('glColor4s', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glColor4sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4ub():
-    try:
-        return WINFUNCTYPE(Void,Byte,Byte,Byte,Byte)(('glColor4ub', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4ubv():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glColor4ubv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4ui():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,UInt32,UInt32)(('glColor4ui', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4uiv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32))(('glColor4uiv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4us():
-    try:
-        return WINFUNCTYPE(Void,UInt16,UInt16,UInt16,UInt16)(('glColor4us', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColor4usv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt16))(('glColor4usv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColorMask():
-    try:
-        return WINFUNCTYPE(Void,Byte,Byte,Byte,Byte)(('glColorMask', windll['OPENGL32.dll']), ((1, 'red'),(1, 'green'),(1, 'blue'),(1, 'alpha'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColorMaterial():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glColorMaterial', windll['OPENGL32.dll']), ((1, 'face'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glColorPointer():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt32,Int32,c_void_p)(('glColorPointer', windll['OPENGL32.dll']), ((1, 'size'),(1, 'type'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCopyPixels():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32,UInt32)(('glCopyPixels', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCopyTexImage1D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,Int32,Int32,Int32,Int32)(('glCopyTexImage1D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'internalFormat'),(1, 'x'),(1, 'y'),(1, 'width'),(1, 'border'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCopyTexImage2D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,Int32,Int32,Int32,Int32,Int32)(('glCopyTexImage2D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'internalFormat'),(1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),(1, 'border'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCopyTexSubImage1D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32,Int32)(('glCopyTexSubImage1D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'xoffset'),(1, 'x'),(1, 'y'),(1, 'width'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCopyTexSubImage2D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)(('glCopyTexSubImage2D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'xoffset'),(1, 'yoffset'),(1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glCullFace():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glCullFace', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDeleteLists():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32)(('glDeleteLists', windll['OPENGL32.dll']), ((1, 'list'),(1, 'range'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDeleteTextures():
-    try:
-        return WINFUNCTYPE(Void,Int32,POINTER(UInt32))(('glDeleteTextures', windll['OPENGL32.dll']), ((1, 'n'),(1, 'textures'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDepthFunc():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glDepthFunc', windll['OPENGL32.dll']), ((1, 'func'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDepthMask():
-    try:
-        return WINFUNCTYPE(Void,Byte)(('glDepthMask', windll['OPENGL32.dll']), ((1, 'flag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDepthRange():
-    try:
-        return WINFUNCTYPE(Void,Double,Double)(('glDepthRange', windll['OPENGL32.dll']), ((1, 'zNear'),(1, 'zFar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDisable():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glDisable', windll['OPENGL32.dll']), ((1, 'cap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDisableClientState():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glDisableClientState', windll['OPENGL32.dll']), ((1, 'array'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDrawArrays():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32)(('glDrawArrays', windll['OPENGL32.dll']), ((1, 'mode'),(1, 'first'),(1, 'count'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDrawBuffer():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glDrawBuffer', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDrawElements():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,c_void_p)(('glDrawElements', windll['OPENGL32.dll']), ((1, 'mode'),(1, 'count'),(1, 'type'),(1, 'indices'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glDrawPixels():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,UInt32,UInt32,c_void_p)(('glDrawPixels', windll['OPENGL32.dll']), ((1, 'width'),(1, 'height'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEdgeFlag():
-    try:
-        return WINFUNCTYPE(Void,Byte)(('glEdgeFlag', windll['OPENGL32.dll']), ((1, 'flag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEdgeFlagPointer():
-    try:
-        return WINFUNCTYPE(Void,Int32,c_void_p)(('glEdgeFlagPointer', windll['OPENGL32.dll']), ((1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEdgeFlagv():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glEdgeFlagv', windll['OPENGL32.dll']), ((1, 'flag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEnable():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glEnable', windll['OPENGL32.dll']), ((1, 'cap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEnableClientState():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glEnableClientState', windll['OPENGL32.dll']), ((1, 'array'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEnd():
-    try:
-        return WINFUNCTYPE(Void,)(('glEnd', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEndList():
-    try:
-        return WINFUNCTYPE(Void,)(('glEndList', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord1d():
-    try:
-        return WINFUNCTYPE(Void,Double)(('glEvalCoord1d', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord1dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glEvalCoord1dv', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord1f():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glEvalCoord1f', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord1fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glEvalCoord1fv', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord2d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double)(('glEvalCoord2d', windll['OPENGL32.dll']), ((1, 'u'),(1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord2dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glEvalCoord2dv', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord2f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glEvalCoord2f', windll['OPENGL32.dll']), ((1, 'u'),(1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalCoord2fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glEvalCoord2fv', windll['OPENGL32.dll']), ((1, 'u'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalMesh1():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32)(('glEvalMesh1', windll['OPENGL32.dll']), ((1, 'mode'),(1, 'i1'),(1, 'i2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalMesh2():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32)(('glEvalMesh2', windll['OPENGL32.dll']), ((1, 'mode'),(1, 'i1'),(1, 'i2'),(1, 'j1'),(1, 'j2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalPoint1():
-    try:
-        return WINFUNCTYPE(Void,Int32)(('glEvalPoint1', windll['OPENGL32.dll']), ((1, 'i'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glEvalPoint2():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32)(('glEvalPoint2', windll['OPENGL32.dll']), ((1, 'i'),(1, 'j'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFeedbackBuffer():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt32,POINTER(Single))(('glFeedbackBuffer', windll['OPENGL32.dll']), ((1, 'size'),(1, 'type'),(1, 'buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFinish():
-    try:
-        return WINFUNCTYPE(Void,)(('glFinish', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFlush():
-    try:
-        return WINFUNCTYPE(Void,)(('glFlush', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFogf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glFogf', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFogfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Single))(('glFogfv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFogi():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32)(('glFogi', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFogiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Int32))(('glFogiv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFrontFace():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glFrontFace', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glFrustum():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double,Double,Double)(('glFrustum', windll['OPENGL32.dll']), ((1, 'left'),(1, 'right'),(1, 'bottom'),(1, 'top'),(1, 'zNear'),(1, 'zFar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGenLists():
-    try:
-        return WINFUNCTYPE(UInt32,Int32)(('glGenLists', windll['OPENGL32.dll']), ((1, 'range'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGenTextures():
-    try:
-        return WINFUNCTYPE(Void,Int32,POINTER(UInt32))(('glGenTextures', windll['OPENGL32.dll']), ((1, 'n'),(1, 'textures'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetBooleanv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,c_char_p_no)(('glGetBooleanv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetClipPlane():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Double))(('glGetClipPlane', windll['OPENGL32.dll']), ((1, 'plane'),(1, 'equation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetDoublev():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Double))(('glGetDoublev', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetError():
-    try:
-        return WINFUNCTYPE(UInt32,)(('glGetError', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetFloatv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Single))(('glGetFloatv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetIntegerv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Int32))(('glGetIntegerv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetLightfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetLightfv', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetLightiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetLightiv', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetMapdv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Double))(('glGetMapdv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'query'),(1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetMapfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetMapfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'query'),(1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetMapiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetMapiv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'query'),(1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetMaterialfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetMaterialfv', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetMaterialiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetMaterialiv', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetPixelMapfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Single))(('glGetPixelMapfv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetPixelMapuiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(UInt32))(('glGetPixelMapuiv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetPixelMapusv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(UInt16))(('glGetPixelMapusv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetPointerv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(c_void_p))(('glGetPointerv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetPolygonStipple():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glGetPolygonStipple', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetString():
-    try:
-        return WINFUNCTYPE(c_char_p_no,UInt32)(('glGetString', windll['OPENGL32.dll']), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexEnvfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetTexEnvfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexEnviv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetTexEnviv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexGendv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Double))(('glGetTexGendv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexGenfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetTexGenfv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexGeniv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetTexGeniv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexImage():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,UInt32,c_void_p)(('glGetTexImage', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexLevelParameterfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,POINTER(Single))(('glGetTexLevelParameterfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexLevelParameteriv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32,POINTER(Int32))(('glGetTexLevelParameteriv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexParameterfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glGetTexParameterfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glGetTexParameteriv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glGetTexParameteriv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glHint():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glHint', windll['OPENGL32.dll']), ((1, 'target'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexMask():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glIndexMask', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexPointer():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,c_void_p)(('glIndexPointer', windll['OPENGL32.dll']), ((1, 'type'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexd():
-    try:
-        return WINFUNCTYPE(Void,Double)(('glIndexd', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexdv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glIndexdv', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexf():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glIndexf', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexfv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glIndexfv', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexi():
-    try:
-        return WINFUNCTYPE(Void,Int32)(('glIndexi', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexiv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glIndexiv', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexs():
-    try:
-        return WINFUNCTYPE(Void,Int16)(('glIndexs', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexsv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glIndexsv', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexub():
-    try:
-        return WINFUNCTYPE(Void,Byte)(('glIndexub', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIndexubv():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glIndexubv', windll['OPENGL32.dll']), ((1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glInitNames():
-    try:
-        return WINFUNCTYPE(Void,)(('glInitNames', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glInterleavedArrays():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,c_void_p)(('glInterleavedArrays', windll['OPENGL32.dll']), ((1, 'format'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIsEnabled():
-    try:
-        return WINFUNCTYPE(Byte,UInt32)(('glIsEnabled', windll['OPENGL32.dll']), ((1, 'cap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIsList():
-    try:
-        return WINFUNCTYPE(Byte,UInt32)(('glIsList', windll['OPENGL32.dll']), ((1, 'list'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glIsTexture():
-    try:
-        return WINFUNCTYPE(Byte,UInt32)(('glIsTexture', windll['OPENGL32.dll']), ((1, 'texture'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightModelf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glLightModelf', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightModelfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Single))(('glLightModelfv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightModeli():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32)(('glLightModeli', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightModeliv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(Int32))(('glLightModeliv', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Single)(('glLightf', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glLightfv', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLighti():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Int32)(('glLighti', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLightiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glLightiv', windll['OPENGL32.dll']), ((1, 'light'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLineStipple():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt16)(('glLineStipple', windll['OPENGL32.dll']), ((1, 'factor'),(1, 'pattern'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLineWidth():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glLineWidth', windll['OPENGL32.dll']), ((1, 'width'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glListBase():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glListBase', windll['OPENGL32.dll']), ((1, 'base'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLoadIdentity():
-    try:
-        return WINFUNCTYPE(Void,)(('glLoadIdentity', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLoadMatrixd():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glLoadMatrixd', windll['OPENGL32.dll']), ((1, 'm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLoadMatrixf():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glLoadMatrixf', windll['OPENGL32.dll']), ((1, 'm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLoadName():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glLoadName', windll['OPENGL32.dll']), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glLogicOp():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glLogicOp', windll['OPENGL32.dll']), ((1, 'opcode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMap1d():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Double,Double,Int32,Int32,POINTER(Double))(('glMap1d', windll['OPENGL32.dll']), ((1, 'target'),(1, 'u1'),(1, 'u2'),(1, 'stride'),(1, 'order'),(1, 'points'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMap1f():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single,Single,Int32,Int32,POINTER(Single))(('glMap1f', windll['OPENGL32.dll']), ((1, 'target'),(1, 'u1'),(1, 'u2'),(1, 'stride'),(1, 'order'),(1, 'points'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMap2d():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Double,Double,Int32,Int32,Double,Double,Int32,Int32,POINTER(Double))(('glMap2d', windll['OPENGL32.dll']), ((1, 'target'),(1, 'u1'),(1, 'u2'),(1, 'ustride'),(1, 'uorder'),(1, 'v1'),(1, 'v2'),(1, 'vstride'),(1, 'vorder'),(1, 'points'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMap2f():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single,Single,Int32,Int32,Single,Single,Int32,Int32,POINTER(Single))(('glMap2f', windll['OPENGL32.dll']), ((1, 'target'),(1, 'u1'),(1, 'u2'),(1, 'ustride'),(1, 'uorder'),(1, 'v1'),(1, 'v2'),(1, 'vstride'),(1, 'vorder'),(1, 'points'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMapGrid1d():
-    try:
-        return WINFUNCTYPE(Void,Int32,Double,Double)(('glMapGrid1d', windll['OPENGL32.dll']), ((1, 'un'),(1, 'u1'),(1, 'u2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMapGrid1f():
-    try:
-        return WINFUNCTYPE(Void,Int32,Single,Single)(('glMapGrid1f', windll['OPENGL32.dll']), ((1, 'un'),(1, 'u1'),(1, 'u2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMapGrid2d():
-    try:
-        return WINFUNCTYPE(Void,Int32,Double,Double,Int32,Double,Double)(('glMapGrid2d', windll['OPENGL32.dll']), ((1, 'un'),(1, 'u1'),(1, 'u2'),(1, 'vn'),(1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMapGrid2f():
-    try:
-        return WINFUNCTYPE(Void,Int32,Single,Single,Int32,Single,Single)(('glMapGrid2f', windll['OPENGL32.dll']), ((1, 'un'),(1, 'u1'),(1, 'u2'),(1, 'vn'),(1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMaterialf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Single)(('glMaterialf', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMaterialfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glMaterialfv', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMateriali():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Int32)(('glMateriali', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMaterialiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glMaterialiv', windll['OPENGL32.dll']), ((1, 'face'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMatrixMode():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glMatrixMode', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMultMatrixd():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glMultMatrixd', windll['OPENGL32.dll']), ((1, 'm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glMultMatrixf():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glMultMatrixf', windll['OPENGL32.dll']), ((1, 'm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNewList():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glNewList', windll['OPENGL32.dll']), ((1, 'list'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3b():
-    try:
-        return WINFUNCTYPE(Void,SByte,SByte,SByte)(('glNormal3b', windll['OPENGL32.dll']), ((1, 'nx'),(1, 'ny'),(1, 'nz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3bv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(SByte))(('glNormal3bv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glNormal3d', windll['OPENGL32.dll']), ((1, 'nx'),(1, 'ny'),(1, 'nz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glNormal3dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glNormal3f', windll['OPENGL32.dll']), ((1, 'nx'),(1, 'ny'),(1, 'nz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glNormal3fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32)(('glNormal3i', windll['OPENGL32.dll']), ((1, 'nx'),(1, 'ny'),(1, 'nz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glNormal3iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16)(('glNormal3s', windll['OPENGL32.dll']), ((1, 'nx'),(1, 'ny'),(1, 'nz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormal3sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glNormal3sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glNormalPointer():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,c_void_p)(('glNormalPointer', windll['OPENGL32.dll']), ((1, 'type'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glOrtho():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double,Double,Double)(('glOrtho', windll['OPENGL32.dll']), ((1, 'left'),(1, 'right'),(1, 'bottom'),(1, 'top'),(1, 'zNear'),(1, 'zFar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPassThrough():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glPassThrough', windll['OPENGL32.dll']), ((1, 'token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelMapfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,POINTER(Single))(('glPixelMapfv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'mapsize'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelMapuiv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,POINTER(UInt32))(('glPixelMapuiv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'mapsize'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelMapusv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,POINTER(UInt16))(('glPixelMapusv', windll['OPENGL32.dll']), ((1, 'map'),(1, 'mapsize'),(1, 'values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelStoref():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glPixelStoref', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelStorei():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32)(('glPixelStorei', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelTransferf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Single)(('glPixelTransferf', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelTransferi():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32)(('glPixelTransferi', windll['OPENGL32.dll']), ((1, 'pname'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPixelZoom():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glPixelZoom', windll['OPENGL32.dll']), ((1, 'xfactor'),(1, 'yfactor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPointSize():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glPointSize', windll['OPENGL32.dll']), ((1, 'size'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPolygonMode():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32)(('glPolygonMode', windll['OPENGL32.dll']), ((1, 'face'),(1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPolygonOffset():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glPolygonOffset', windll['OPENGL32.dll']), ((1, 'factor'),(1, 'units'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPolygonStipple():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no)(('glPolygonStipple', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPopAttrib():
-    try:
-        return WINFUNCTYPE(Void,)(('glPopAttrib', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPopClientAttrib():
-    try:
-        return WINFUNCTYPE(Void,)(('glPopClientAttrib', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPopMatrix():
-    try:
-        return WINFUNCTYPE(Void,)(('glPopMatrix', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPopName():
-    try:
-        return WINFUNCTYPE(Void,)(('glPopName', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPrioritizeTextures():
-    try:
-        return WINFUNCTYPE(Void,Int32,POINTER(UInt32),POINTER(Single))(('glPrioritizeTextures', windll['OPENGL32.dll']), ((1, 'n'),(1, 'textures'),(1, 'priorities'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPushAttrib():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glPushAttrib', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPushClientAttrib():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glPushClientAttrib', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPushMatrix():
-    try:
-        return WINFUNCTYPE(Void,)(('glPushMatrix', windll['OPENGL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glPushName():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glPushName', windll['OPENGL32.dll']), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double)(('glRasterPos2d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glRasterPos2dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glRasterPos2f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glRasterPos2fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32)(('glRasterPos2i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glRasterPos2iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16)(('glRasterPos2s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos2sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glRasterPos2sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glRasterPos3d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glRasterPos3dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glRasterPos3f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glRasterPos3fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32)(('glRasterPos3i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glRasterPos3iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16)(('glRasterPos3s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos3sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glRasterPos3sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glRasterPos4d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glRasterPos4dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glRasterPos4f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glRasterPos4fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glRasterPos4i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glRasterPos4iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16,Int16)(('glRasterPos4s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRasterPos4sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glRasterPos4sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glReadBuffer():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glReadBuffer', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glReadPixels():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('glReadPixels', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectd():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glRectd', windll['OPENGL32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectdv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double),POINTER(Double))(('glRectdv', windll['OPENGL32.dll']), ((1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectf():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glRectf', windll['OPENGL32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectfv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single),POINTER(Single))(('glRectfv', windll['OPENGL32.dll']), ((1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRecti():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glRecti', windll['OPENGL32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectiv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32),POINTER(Int32))(('glRectiv', windll['OPENGL32.dll']), ((1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRects():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16,Int16)(('glRects', windll['OPENGL32.dll']), ((1, 'x1'),(1, 'y1'),(1, 'x2'),(1, 'y2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRectsv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16),POINTER(Int16))(('glRectsv', windll['OPENGL32.dll']), ((1, 'v1'),(1, 'v2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRenderMode():
-    try:
-        return WINFUNCTYPE(Int32,UInt32)(('glRenderMode', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRotated():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glRotated', windll['OPENGL32.dll']), ((1, 'angle'),(1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glRotatef():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glRotatef', windll['OPENGL32.dll']), ((1, 'angle'),(1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glScaled():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glScaled', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glScalef():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glScalef', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glScissor():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glScissor', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glSelectBuffer():
-    try:
-        return WINFUNCTYPE(Void,Int32,POINTER(UInt32))(('glSelectBuffer', windll['OPENGL32.dll']), ((1, 'size'),(1, 'buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glShadeModel():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glShadeModel', windll['OPENGL32.dll']), ((1, 'mode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glStencilFunc():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,UInt32)(('glStencilFunc', windll['OPENGL32.dll']), ((1, 'func'),(1, 'ref'),(1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glStencilMask():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('glStencilMask', windll['OPENGL32.dll']), ((1, 'mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glStencilOp():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,UInt32)(('glStencilOp', windll['OPENGL32.dll']), ((1, 'fail'),(1, 'zfail'),(1, 'zpass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1d():
-    try:
-        return WINFUNCTYPE(Void,Double)(('glTexCoord1d', windll['OPENGL32.dll']), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glTexCoord1dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1f():
-    try:
-        return WINFUNCTYPE(Void,Single)(('glTexCoord1f', windll['OPENGL32.dll']), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glTexCoord1fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1i():
-    try:
-        return WINFUNCTYPE(Void,Int32)(('glTexCoord1i', windll['OPENGL32.dll']), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glTexCoord1iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1s():
-    try:
-        return WINFUNCTYPE(Void,Int16)(('glTexCoord1s', windll['OPENGL32.dll']), ((1, 's'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord1sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glTexCoord1sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double)(('glTexCoord2d', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glTexCoord2dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glTexCoord2f', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glTexCoord2fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32)(('glTexCoord2i', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glTexCoord2iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16)(('glTexCoord2s', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord2sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glTexCoord2sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glTexCoord3d', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glTexCoord3dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glTexCoord3f', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glTexCoord3fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32)(('glTexCoord3i', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glTexCoord3iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16)(('glTexCoord3s', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord3sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glTexCoord3sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glTexCoord4d', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),(1, 'q'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glTexCoord4dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glTexCoord4f', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),(1, 'q'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glTexCoord4fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glTexCoord4i', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),(1, 'q'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glTexCoord4iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16,Int16)(('glTexCoord4s', windll['OPENGL32.dll']), ((1, 's'),(1, 't'),(1, 'r'),(1, 'q'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoord4sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glTexCoord4sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexCoordPointer():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt32,Int32,c_void_p)(('glTexCoordPointer', windll['OPENGL32.dll']), ((1, 'size'),(1, 'type'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexEnvf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Single)(('glTexEnvf', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexEnvfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glTexEnvfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexEnvi():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Int32)(('glTexEnvi', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexEnviv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glTexEnviv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGend():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Double)(('glTexGend', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGendv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Double))(('glTexGendv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGenf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Single)(('glTexGenf', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGenfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glTexGenfv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGeni():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Int32)(('glTexGeni', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexGeniv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glTexGeniv', windll['OPENGL32.dll']), ((1, 'coord'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexImage1D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('glTexImage1D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'internalformat'),(1, 'width'),(1, 'border'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexImage2D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('glTexImage2D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'internalformat'),(1, 'width'),(1, 'height'),(1, 'border'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexParameterf():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Single)(('glTexParameterf', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexParameterfv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))(('glTexParameterfv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexParameteri():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,Int32)(('glTexParameteri', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexParameteriv():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))(('glTexParameteriv', windll['OPENGL32.dll']), ((1, 'target'),(1, 'pname'),(1, 'params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexSubImage1D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('glTexSubImage1D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'xoffset'),(1, 'width'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTexSubImage2D():
-    try:
-        return WINFUNCTYPE(Void,UInt32,Int32,Int32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('glTexSubImage2D', windll['OPENGL32.dll']), ((1, 'target'),(1, 'level'),(1, 'xoffset'),(1, 'yoffset'),(1, 'width'),(1, 'height'),(1, 'format'),(1, 'type'),(1, 'pixels'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTranslated():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glTranslated', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glTranslatef():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glTranslatef', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double)(('glVertex2d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glVertex2dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single)(('glVertex2f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glVertex2fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32)(('glVertex2i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glVertex2iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16)(('glVertex2s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex2sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glVertex2sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double)(('glVertex3d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glVertex3dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single)(('glVertex3f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glVertex3fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32)(('glVertex3i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glVertex3iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16)(('glVertex3s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex3sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glVertex3sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4d():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('glVertex4d', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4dv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Double))(('glVertex4dv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4f():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,Single,Single)(('glVertex4f', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4fv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Single))(('glVertex4fv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4i():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glVertex4i', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4iv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int32))(('glVertex4iv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4s():
-    try:
-        return WINFUNCTYPE(Void,Int16,Int16,Int16,Int16)(('glVertex4s', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'w'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertex4sv():
-    try:
-        return WINFUNCTYPE(Void,POINTER(Int16))(('glVertex4sv', windll['OPENGL32.dll']), ((1, 'v'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glVertexPointer():
-    try:
-        return WINFUNCTYPE(Void,Int32,UInt32,Int32,c_void_p)(('glVertexPointer', windll['OPENGL32.dll']), ((1, 'size'),(1, 'type'),(1, 'stride'),(1, 'pointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_glViewport():
-    try:
-        return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)(('glViewport', windll['OPENGL32.dll']), ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluErrorString():
-    try:
-        return WINFUNCTYPE(c_char_p_no,UInt32)(('gluErrorString', windll['GLU32.dll']), ((1, 'errCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluErrorUnicodeStringEXT():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PWSTR,UInt32)(('gluErrorUnicodeStringEXT', windll['GLU32.dll']), ((1, 'errCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluGetString():
-    try:
-        return WINFUNCTYPE(c_char_p_no,UInt32)(('gluGetString', windll['GLU32.dll']), ((1, 'name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluOrtho2D():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('gluOrtho2D', windll['GLU32.dll']), ((1, 'left'),(1, 'right'),(1, 'bottom'),(1, 'top'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluPerspective():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double)(('gluPerspective', windll['GLU32.dll']), ((1, 'fovy'),(1, 'aspect'),(1, 'zNear'),(1, 'zFar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluPickMatrix():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double,POINTER(Int32))(('gluPickMatrix', windll['GLU32.dll']), ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),(1, 'viewport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluLookAt():
-    try:
-        return WINFUNCTYPE(Void,Double,Double,Double,Double,Double,Double,Double,Double,Double)(('gluLookAt', windll['GLU32.dll']), ((1, 'eyex'),(1, 'eyey'),(1, 'eyez'),(1, 'centerx'),(1, 'centery'),(1, 'centerz'),(1, 'upx'),(1, 'upy'),(1, 'upz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluProject():
-    try:
-        return WINFUNCTYPE(Int32,Double,Double,Double,POINTER(Double),POINTER(Double),POINTER(Int32),POINTER(Double),POINTER(Double),POINTER(Double))(('gluProject', windll['GLU32.dll']), ((1, 'objx'),(1, 'objy'),(1, 'objz'),(1, 'modelMatrix'),(1, 'projMatrix'),(1, 'viewport'),(1, 'winx'),(1, 'winy'),(1, 'winz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluUnProject():
-    try:
-        return WINFUNCTYPE(Int32,Double,Double,Double,POINTER(Double),POINTER(Double),POINTER(Int32),POINTER(Double),POINTER(Double),POINTER(Double))(('gluUnProject', windll['GLU32.dll']), ((1, 'winx'),(1, 'winy'),(1, 'winz'),(1, 'modelMatrix'),(1, 'projMatrix'),(1, 'viewport'),(1, 'objx'),(1, 'objy'),(1, 'objz'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluScaleImage():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,Int32,Int32,UInt32,c_void_p,Int32,Int32,UInt32,c_void_p)(('gluScaleImage', windll['GLU32.dll']), ((1, 'format'),(1, 'widthin'),(1, 'heightin'),(1, 'typein'),(1, 'datain'),(1, 'widthout'),(1, 'heightout'),(1, 'typeout'),(1, 'dataout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBuild1DMipmaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,Int32,Int32,UInt32,UInt32,c_void_p)(('gluBuild1DMipmaps', windll['GLU32.dll']), ((1, 'target'),(1, 'components'),(1, 'width'),(1, 'format'),(1, 'type'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBuild2DMipmaps():
-    try:
-        return WINFUNCTYPE(Int32,UInt32,Int32,Int32,Int32,UInt32,UInt32,c_void_p)(('gluBuild2DMipmaps', windll['GLU32.dll']), ((1, 'target'),(1, 'components'),(1, 'width'),(1, 'height'),(1, 'format'),(1, 'type'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNewQuadric():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Graphics.OpenGL.GLUquadric_head),)(('gluNewQuadric', windll['GLU32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluDeleteQuadric():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head))(('gluDeleteQuadric', windll['GLU32.dll']), ((1, 'state'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluQuadricNormals():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),UInt32)(('gluQuadricNormals', windll['GLU32.dll']), ((1, 'quadObject'),(1, 'normals'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluQuadricTexture():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),Byte)(('gluQuadricTexture', windll['GLU32.dll']), ((1, 'quadObject'),(1, 'textureCoords'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluQuadricOrientation():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),UInt32)(('gluQuadricOrientation', windll['GLU32.dll']), ((1, 'quadObject'),(1, 'orientation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluQuadricDrawStyle():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),UInt32)(('gluQuadricDrawStyle', windll['GLU32.dll']), ((1, 'quadObject'),(1, 'drawStyle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluCylinder():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),Double,Double,Double,Int32,Int32)(('gluCylinder', windll['GLU32.dll']), ((1, 'qobj'),(1, 'baseRadius'),(1, 'topRadius'),(1, 'height'),(1, 'slices'),(1, 'stacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluDisk():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),Double,Double,Int32,Int32)(('gluDisk', windll['GLU32.dll']), ((1, 'qobj'),(1, 'innerRadius'),(1, 'outerRadius'),(1, 'slices'),(1, 'loops'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluPartialDisk():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),Double,Double,Int32,Int32,Double,Double)(('gluPartialDisk', windll['GLU32.dll']), ((1, 'qobj'),(1, 'innerRadius'),(1, 'outerRadius'),(1, 'slices'),(1, 'loops'),(1, 'startAngle'),(1, 'sweepAngle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluSphere():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),Double,Int32,Int32)(('gluSphere', windll['GLU32.dll']), ((1, 'qobj'),(1, 'radius'),(1, 'slices'),(1, 'stacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluQuadricCallback():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUquadric_head),UInt32,IntPtr)(('gluQuadricCallback', windll['GLU32.dll']), ((1, 'qobj'),(1, 'which'),(1, 'fn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNewTess():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),)(('gluNewTess', windll['GLU32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluDeleteTess():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluDeleteTess', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessBeginPolygon():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),c_void_p)(('gluTessBeginPolygon', windll['GLU32.dll']), ((1, 'tess'),(1, 'polygon_data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessBeginContour():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluTessBeginContour', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessVertex():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),POINTER(Double),c_void_p)(('gluTessVertex', windll['GLU32.dll']), ((1, 'tess'),(1, 'coords'),(1, 'data'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessEndContour():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluTessEndContour', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessEndPolygon():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluTessEndPolygon', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessProperty():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),UInt32,Double)(('gluTessProperty', windll['GLU32.dll']), ((1, 'tess'),(1, 'which'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessNormal():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),Double,Double,Double)(('gluTessNormal', windll['GLU32.dll']), ((1, 'tess'),(1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluTessCallback():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),UInt32,IntPtr)(('gluTessCallback', windll['GLU32.dll']), ((1, 'tess'),(1, 'which'),(1, 'fn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluGetTessProperty():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),UInt32,POINTER(Double))(('gluGetTessProperty', windll['GLU32.dll']), ((1, 'tess'),(1, 'which'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNewNurbsRenderer():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),)(('gluNewNurbsRenderer', windll['GLU32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluDeleteNurbsRenderer():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluDeleteNurbsRenderer', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBeginSurface():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluBeginSurface', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBeginCurve():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluBeginCurve', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluEndCurve():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluEndCurve', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluEndSurface():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluEndSurface', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBeginTrim():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluBeginTrim', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluEndTrim():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head))(('gluEndTrim', windll['GLU32.dll']), ((1, 'nobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluPwlCurve():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),Int32,POINTER(Single),Int32,UInt32)(('gluPwlCurve', windll['GLU32.dll']), ((1, 'nobj'),(1, 'count'),(1, 'array'),(1, 'stride'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNurbsCurve():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),Int32,POINTER(Single),Int32,POINTER(Single),Int32,UInt32)(('gluNurbsCurve', windll['GLU32.dll']), ((1, 'nobj'),(1, 'nknots'),(1, 'knot'),(1, 'stride'),(1, 'ctlarray'),(1, 'order'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNurbsSurface():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),Int32,POINTER(Single),Int32,POINTER(Single),Int32,Int32,POINTER(Single),Int32,Int32,UInt32)(('gluNurbsSurface', windll['GLU32.dll']), ((1, 'nobj'),(1, 'sknot_count'),(1, 'sknot'),(1, 'tknot_count'),(1, 'tknot'),(1, 's_stride'),(1, 't_stride'),(1, 'ctlarray'),(1, 'sorder'),(1, 'torder'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluLoadSamplingMatrices():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),POINTER(Single),POINTER(Single),POINTER(Int32))(('gluLoadSamplingMatrices', windll['GLU32.dll']), ((1, 'nobj'),(1, 'modelMatrix'),(1, 'projMatrix'),(1, 'viewport'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNurbsProperty():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),UInt32,Single)(('gluNurbsProperty', windll['GLU32.dll']), ((1, 'nobj'),(1, 'property'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluGetNurbsProperty():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),UInt32,POINTER(Single))(('gluGetNurbsProperty', windll['GLU32.dll']), ((1, 'nobj'),(1, 'property'),(1, 'value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNurbsCallback():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUnurbs_head),UInt32,IntPtr)(('gluNurbsCallback', windll['GLU32.dll']), ((1, 'nobj'),(1, 'which'),(1, 'fn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluBeginPolygon():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluBeginPolygon', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluNextContour():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head),UInt32)(('gluNextContour', windll['GLU32.dll']), ((1, 'tess'),(1, 'type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_gluEndPolygon():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.OpenGL.GLUtesselator_head))(('gluEndPolygon', windll['GLU32.dll']), ((1, 'tess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EMRPIXELFORMAT_head():
-    class EMRPIXELFORMAT(Structure):
-        pass
-    return EMRPIXELFORMAT
-def _define_EMRPIXELFORMAT():
-    EMRPIXELFORMAT = win32more.Graphics.OpenGL.EMRPIXELFORMAT_head
-    EMRPIXELFORMAT._fields_ = [
-        ('emr', win32more.Graphics.Gdi.EMR),
-        ('pfd', win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR),
-    ]
-    return EMRPIXELFORMAT
-def _define_GLUnurbs_head():
-    class GLUnurbs(Structure):
-        pass
-    return GLUnurbs
-def _define_GLUnurbs():
-    GLUnurbs = win32more.Graphics.OpenGL.GLUnurbs_head
-    return GLUnurbs
-def _define_GLUnurbsErrorProc():
-    return WINFUNCTYPE(Void,UInt32)
-def _define_GLUquadric_head():
-    class GLUquadric(Structure):
-        pass
-    return GLUquadric
-def _define_GLUquadric():
-    GLUquadric = win32more.Graphics.OpenGL.GLUquadric_head
-    return GLUquadric
-def _define_GLUquadricErrorProc():
-    return WINFUNCTYPE(Void,UInt32)
-def _define_GLUtessBeginDataProc():
-    return WINFUNCTYPE(Void,UInt32,c_void_p)
-def _define_GLUtessBeginProc():
-    return WINFUNCTYPE(Void,UInt32)
-def _define_GLUtessCombineDataProc():
-    return WINFUNCTYPE(Void,POINTER(Double),POINTER(c_void_p),POINTER(Single),POINTER(c_void_p),c_void_p)
-def _define_GLUtessCombineProc():
-    return WINFUNCTYPE(Void,POINTER(Double),POINTER(c_void_p),POINTER(Single),POINTER(c_void_p))
-def _define_GLUtessEdgeFlagDataProc():
-    return WINFUNCTYPE(Void,Byte,c_void_p)
-def _define_GLUtessEdgeFlagProc():
-    return WINFUNCTYPE(Void,Byte)
-def _define_GLUtesselator_head():
-    class GLUtesselator(Structure):
-        pass
-    return GLUtesselator
-def _define_GLUtesselator():
-    GLUtesselator = win32more.Graphics.OpenGL.GLUtesselator_head
-    return GLUtesselator
-def _define_GLUtessEndDataProc():
-    return WINFUNCTYPE(Void,c_void_p)
-def _define_GLUtessEndProc():
-    return WINFUNCTYPE(Void,)
-def _define_GLUtessErrorDataProc():
-    return WINFUNCTYPE(Void,UInt32,c_void_p)
-def _define_GLUtessErrorProc():
-    return WINFUNCTYPE(Void,UInt32)
-def _define_GLUtessVertexDataProc():
-    return WINFUNCTYPE(Void,c_void_p,c_void_p)
-def _define_GLUtessVertexProc():
-    return WINFUNCTYPE(Void,c_void_p)
-def _define_GLYPHMETRICSFLOAT_head():
-    class GLYPHMETRICSFLOAT(Structure):
-        pass
-    return GLYPHMETRICSFLOAT
-def _define_GLYPHMETRICSFLOAT():
-    GLYPHMETRICSFLOAT = win32more.Graphics.OpenGL.GLYPHMETRICSFLOAT_head
-    GLYPHMETRICSFLOAT._fields_ = [
-        ('gmfBlackBoxX', Single),
-        ('gmfBlackBoxY', Single),
-        ('gmfptGlyphOrigin', win32more.Graphics.OpenGL.POINTFLOAT),
-        ('gmfCellIncX', Single),
-        ('gmfCellIncY', Single),
-    ]
-    return GLYPHMETRICSFLOAT
+GL_VERSION_1_1: UInt32 = 1
+GL_ACCUM: UInt32 = 256
+GL_LOAD: UInt32 = 257
+GL_RETURN: UInt32 = 258
+GL_MULT: UInt32 = 259
+GL_ADD: UInt32 = 260
+GL_NEVER: UInt32 = 512
+GL_LESS: UInt32 = 513
+GL_EQUAL: UInt32 = 514
+GL_LEQUAL: UInt32 = 515
+GL_GREATER: UInt32 = 516
+GL_NOTEQUAL: UInt32 = 517
+GL_GEQUAL: UInt32 = 518
+GL_ALWAYS: UInt32 = 519
+GL_CURRENT_BIT: UInt32 = 1
+GL_POINT_BIT: UInt32 = 2
+GL_LINE_BIT: UInt32 = 4
+GL_POLYGON_BIT: UInt32 = 8
+GL_POLYGON_STIPPLE_BIT: UInt32 = 16
+GL_PIXEL_MODE_BIT: UInt32 = 32
+GL_LIGHTING_BIT: UInt32 = 64
+GL_FOG_BIT: UInt32 = 128
+GL_DEPTH_BUFFER_BIT: UInt32 = 256
+GL_ACCUM_BUFFER_BIT: UInt32 = 512
+GL_STENCIL_BUFFER_BIT: UInt32 = 1024
+GL_VIEWPORT_BIT: UInt32 = 2048
+GL_TRANSFORM_BIT: UInt32 = 4096
+GL_ENABLE_BIT: UInt32 = 8192
+GL_COLOR_BUFFER_BIT: UInt32 = 16384
+GL_HINT_BIT: UInt32 = 32768
+GL_EVAL_BIT: UInt32 = 65536
+GL_LIST_BIT: UInt32 = 131072
+GL_TEXTURE_BIT: UInt32 = 262144
+GL_SCISSOR_BIT: UInt32 = 524288
+GL_ALL_ATTRIB_BITS: UInt32 = 1048575
+GL_POINTS: UInt32 = 0
+GL_LINES: UInt32 = 1
+GL_LINE_LOOP: UInt32 = 2
+GL_LINE_STRIP: UInt32 = 3
+GL_TRIANGLES: UInt32 = 4
+GL_TRIANGLE_STRIP: UInt32 = 5
+GL_TRIANGLE_FAN: UInt32 = 6
+GL_QUADS: UInt32 = 7
+GL_QUAD_STRIP: UInt32 = 8
+GL_POLYGON: UInt32 = 9
+GL_ZERO: UInt32 = 0
+GL_ONE: UInt32 = 1
+GL_SRC_COLOR: UInt32 = 768
+GL_ONE_MINUS_SRC_COLOR: UInt32 = 769
+GL_SRC_ALPHA: UInt32 = 770
+GL_ONE_MINUS_SRC_ALPHA: UInt32 = 771
+GL_DST_ALPHA: UInt32 = 772
+GL_ONE_MINUS_DST_ALPHA: UInt32 = 773
+GL_DST_COLOR: UInt32 = 774
+GL_ONE_MINUS_DST_COLOR: UInt32 = 775
+GL_SRC_ALPHA_SATURATE: UInt32 = 776
+GL_TRUE: UInt32 = 1
+GL_FALSE: UInt32 = 0
+GL_CLIP_PLANE0: UInt32 = 12288
+GL_CLIP_PLANE1: UInt32 = 12289
+GL_CLIP_PLANE2: UInt32 = 12290
+GL_CLIP_PLANE3: UInt32 = 12291
+GL_CLIP_PLANE4: UInt32 = 12292
+GL_CLIP_PLANE5: UInt32 = 12293
+GL_BYTE: UInt32 = 5120
+GL_UNSIGNED_BYTE: UInt32 = 5121
+GL_SHORT: UInt32 = 5122
+GL_UNSIGNED_SHORT: UInt32 = 5123
+GL_INT: UInt32 = 5124
+GL_UNSIGNED_INT: UInt32 = 5125
+GL_FLOAT: UInt32 = 5126
+GL_2_BYTES: UInt32 = 5127
+GL_3_BYTES: UInt32 = 5128
+GL_4_BYTES: UInt32 = 5129
+GL_DOUBLE: UInt32 = 5130
+GL_NONE: UInt32 = 0
+GL_FRONT_LEFT: UInt32 = 1024
+GL_FRONT_RIGHT: UInt32 = 1025
+GL_BACK_LEFT: UInt32 = 1026
+GL_BACK_RIGHT: UInt32 = 1027
+GL_FRONT: UInt32 = 1028
+GL_BACK: UInt32 = 1029
+GL_LEFT: UInt32 = 1030
+GL_RIGHT: UInt32 = 1031
+GL_FRONT_AND_BACK: UInt32 = 1032
+GL_AUX0: UInt32 = 1033
+GL_AUX1: UInt32 = 1034
+GL_AUX2: UInt32 = 1035
+GL_AUX3: UInt32 = 1036
+GL_NO_ERROR: UInt32 = 0
+GL_INVALID_ENUM: UInt32 = 1280
+GL_INVALID_VALUE: UInt32 = 1281
+GL_INVALID_OPERATION: UInt32 = 1282
+GL_STACK_OVERFLOW: UInt32 = 1283
+GL_STACK_UNDERFLOW: UInt32 = 1284
+GL_OUT_OF_MEMORY: UInt32 = 1285
+GL_2D: UInt32 = 1536
+GL_3D: UInt32 = 1537
+GL_3D_COLOR: UInt32 = 1538
+GL_3D_COLOR_TEXTURE: UInt32 = 1539
+GL_4D_COLOR_TEXTURE: UInt32 = 1540
+GL_PASS_THROUGH_TOKEN: UInt32 = 1792
+GL_POINT_TOKEN: UInt32 = 1793
+GL_LINE_TOKEN: UInt32 = 1794
+GL_POLYGON_TOKEN: UInt32 = 1795
+GL_BITMAP_TOKEN: UInt32 = 1796
+GL_DRAW_PIXEL_TOKEN: UInt32 = 1797
+GL_COPY_PIXEL_TOKEN: UInt32 = 1798
+GL_LINE_RESET_TOKEN: UInt32 = 1799
+GL_EXP: UInt32 = 2048
+GL_EXP2: UInt32 = 2049
+GL_CW: UInt32 = 2304
+GL_CCW: UInt32 = 2305
+GL_COEFF: UInt32 = 2560
+GL_ORDER: UInt32 = 2561
+GL_DOMAIN: UInt32 = 2562
+GL_CURRENT_COLOR: UInt32 = 2816
+GL_CURRENT_INDEX: UInt32 = 2817
+GL_CURRENT_NORMAL: UInt32 = 2818
+GL_CURRENT_TEXTURE_COORDS: UInt32 = 2819
+GL_CURRENT_RASTER_COLOR: UInt32 = 2820
+GL_CURRENT_RASTER_INDEX: UInt32 = 2821
+GL_CURRENT_RASTER_TEXTURE_COORDS: UInt32 = 2822
+GL_CURRENT_RASTER_POSITION: UInt32 = 2823
+GL_CURRENT_RASTER_POSITION_VALID: UInt32 = 2824
+GL_CURRENT_RASTER_DISTANCE: UInt32 = 2825
+GL_POINT_SMOOTH: UInt32 = 2832
+GL_POINT_SIZE: UInt32 = 2833
+GL_POINT_SIZE_RANGE: UInt32 = 2834
+GL_POINT_SIZE_GRANULARITY: UInt32 = 2835
+GL_LINE_SMOOTH: UInt32 = 2848
+GL_LINE_WIDTH: UInt32 = 2849
+GL_LINE_WIDTH_RANGE: UInt32 = 2850
+GL_LINE_WIDTH_GRANULARITY: UInt32 = 2851
+GL_LINE_STIPPLE: UInt32 = 2852
+GL_LINE_STIPPLE_PATTERN: UInt32 = 2853
+GL_LINE_STIPPLE_REPEAT: UInt32 = 2854
+GL_LIST_MODE: UInt32 = 2864
+GL_MAX_LIST_NESTING: UInt32 = 2865
+GL_LIST_BASE: UInt32 = 2866
+GL_LIST_INDEX: UInt32 = 2867
+GL_POLYGON_MODE: UInt32 = 2880
+GL_POLYGON_SMOOTH: UInt32 = 2881
+GL_POLYGON_STIPPLE: UInt32 = 2882
+GL_EDGE_FLAG: UInt32 = 2883
+GL_CULL_FACE: UInt32 = 2884
+GL_CULL_FACE_MODE: UInt32 = 2885
+GL_FRONT_FACE: UInt32 = 2886
+GL_LIGHTING: UInt32 = 2896
+GL_LIGHT_MODEL_LOCAL_VIEWER: UInt32 = 2897
+GL_LIGHT_MODEL_TWO_SIDE: UInt32 = 2898
+GL_LIGHT_MODEL_AMBIENT: UInt32 = 2899
+GL_SHADE_MODEL: UInt32 = 2900
+GL_COLOR_MATERIAL_FACE: UInt32 = 2901
+GL_COLOR_MATERIAL_PARAMETER: UInt32 = 2902
+GL_COLOR_MATERIAL: UInt32 = 2903
+GL_FOG: UInt32 = 2912
+GL_FOG_INDEX: UInt32 = 2913
+GL_FOG_DENSITY: UInt32 = 2914
+GL_FOG_START: UInt32 = 2915
+GL_FOG_END: UInt32 = 2916
+GL_FOG_MODE: UInt32 = 2917
+GL_FOG_COLOR: UInt32 = 2918
+GL_DEPTH_RANGE: UInt32 = 2928
+GL_DEPTH_TEST: UInt32 = 2929
+GL_DEPTH_WRITEMASK: UInt32 = 2930
+GL_DEPTH_CLEAR_VALUE: UInt32 = 2931
+GL_DEPTH_FUNC: UInt32 = 2932
+GL_ACCUM_CLEAR_VALUE: UInt32 = 2944
+GL_STENCIL_TEST: UInt32 = 2960
+GL_STENCIL_CLEAR_VALUE: UInt32 = 2961
+GL_STENCIL_FUNC: UInt32 = 2962
+GL_STENCIL_VALUE_MASK: UInt32 = 2963
+GL_STENCIL_FAIL: UInt32 = 2964
+GL_STENCIL_PASS_DEPTH_FAIL: UInt32 = 2965
+GL_STENCIL_PASS_DEPTH_PASS: UInt32 = 2966
+GL_STENCIL_REF: UInt32 = 2967
+GL_STENCIL_WRITEMASK: UInt32 = 2968
+GL_MATRIX_MODE: UInt32 = 2976
+GL_NORMALIZE: UInt32 = 2977
+GL_VIEWPORT: UInt32 = 2978
+GL_MODELVIEW_STACK_DEPTH: UInt32 = 2979
+GL_PROJECTION_STACK_DEPTH: UInt32 = 2980
+GL_TEXTURE_STACK_DEPTH: UInt32 = 2981
+GL_MODELVIEW_MATRIX: UInt32 = 2982
+GL_PROJECTION_MATRIX: UInt32 = 2983
+GL_TEXTURE_MATRIX: UInt32 = 2984
+GL_ATTRIB_STACK_DEPTH: UInt32 = 2992
+GL_CLIENT_ATTRIB_STACK_DEPTH: UInt32 = 2993
+GL_ALPHA_TEST: UInt32 = 3008
+GL_ALPHA_TEST_FUNC: UInt32 = 3009
+GL_ALPHA_TEST_REF: UInt32 = 3010
+GL_DITHER: UInt32 = 3024
+GL_BLEND_DST: UInt32 = 3040
+GL_BLEND_SRC: UInt32 = 3041
+GL_BLEND: UInt32 = 3042
+GL_LOGIC_OP_MODE: UInt32 = 3056
+GL_INDEX_LOGIC_OP: UInt32 = 3057
+GL_COLOR_LOGIC_OP: UInt32 = 3058
+GL_AUX_BUFFERS: UInt32 = 3072
+GL_DRAW_BUFFER: UInt32 = 3073
+GL_READ_BUFFER: UInt32 = 3074
+GL_SCISSOR_BOX: UInt32 = 3088
+GL_SCISSOR_TEST: UInt32 = 3089
+GL_INDEX_CLEAR_VALUE: UInt32 = 3104
+GL_INDEX_WRITEMASK: UInt32 = 3105
+GL_COLOR_CLEAR_VALUE: UInt32 = 3106
+GL_COLOR_WRITEMASK: UInt32 = 3107
+GL_INDEX_MODE: UInt32 = 3120
+GL_RGBA_MODE: UInt32 = 3121
+GL_DOUBLEBUFFER: UInt32 = 3122
+GL_STEREO: UInt32 = 3123
+GL_RENDER_MODE: UInt32 = 3136
+GL_PERSPECTIVE_CORRECTION_HINT: UInt32 = 3152
+GL_POINT_SMOOTH_HINT: UInt32 = 3153
+GL_LINE_SMOOTH_HINT: UInt32 = 3154
+GL_POLYGON_SMOOTH_HINT: UInt32 = 3155
+GL_FOG_HINT: UInt32 = 3156
+GL_TEXTURE_GEN_S: UInt32 = 3168
+GL_TEXTURE_GEN_T: UInt32 = 3169
+GL_TEXTURE_GEN_R: UInt32 = 3170
+GL_TEXTURE_GEN_Q: UInt32 = 3171
+GL_PIXEL_MAP_I_TO_I: UInt32 = 3184
+GL_PIXEL_MAP_S_TO_S: UInt32 = 3185
+GL_PIXEL_MAP_I_TO_R: UInt32 = 3186
+GL_PIXEL_MAP_I_TO_G: UInt32 = 3187
+GL_PIXEL_MAP_I_TO_B: UInt32 = 3188
+GL_PIXEL_MAP_I_TO_A: UInt32 = 3189
+GL_PIXEL_MAP_R_TO_R: UInt32 = 3190
+GL_PIXEL_MAP_G_TO_G: UInt32 = 3191
+GL_PIXEL_MAP_B_TO_B: UInt32 = 3192
+GL_PIXEL_MAP_A_TO_A: UInt32 = 3193
+GL_PIXEL_MAP_I_TO_I_SIZE: UInt32 = 3248
+GL_PIXEL_MAP_S_TO_S_SIZE: UInt32 = 3249
+GL_PIXEL_MAP_I_TO_R_SIZE: UInt32 = 3250
+GL_PIXEL_MAP_I_TO_G_SIZE: UInt32 = 3251
+GL_PIXEL_MAP_I_TO_B_SIZE: UInt32 = 3252
+GL_PIXEL_MAP_I_TO_A_SIZE: UInt32 = 3253
+GL_PIXEL_MAP_R_TO_R_SIZE: UInt32 = 3254
+GL_PIXEL_MAP_G_TO_G_SIZE: UInt32 = 3255
+GL_PIXEL_MAP_B_TO_B_SIZE: UInt32 = 3256
+GL_PIXEL_MAP_A_TO_A_SIZE: UInt32 = 3257
+GL_UNPACK_SWAP_BYTES: UInt32 = 3312
+GL_UNPACK_LSB_FIRST: UInt32 = 3313
+GL_UNPACK_ROW_LENGTH: UInt32 = 3314
+GL_UNPACK_SKIP_ROWS: UInt32 = 3315
+GL_UNPACK_SKIP_PIXELS: UInt32 = 3316
+GL_UNPACK_ALIGNMENT: UInt32 = 3317
+GL_PACK_SWAP_BYTES: UInt32 = 3328
+GL_PACK_LSB_FIRST: UInt32 = 3329
+GL_PACK_ROW_LENGTH: UInt32 = 3330
+GL_PACK_SKIP_ROWS: UInt32 = 3331
+GL_PACK_SKIP_PIXELS: UInt32 = 3332
+GL_PACK_ALIGNMENT: UInt32 = 3333
+GL_MAP_COLOR: UInt32 = 3344
+GL_MAP_STENCIL: UInt32 = 3345
+GL_INDEX_SHIFT: UInt32 = 3346
+GL_INDEX_OFFSET: UInt32 = 3347
+GL_RED_SCALE: UInt32 = 3348
+GL_RED_BIAS: UInt32 = 3349
+GL_ZOOM_X: UInt32 = 3350
+GL_ZOOM_Y: UInt32 = 3351
+GL_GREEN_SCALE: UInt32 = 3352
+GL_GREEN_BIAS: UInt32 = 3353
+GL_BLUE_SCALE: UInt32 = 3354
+GL_BLUE_BIAS: UInt32 = 3355
+GL_ALPHA_SCALE: UInt32 = 3356
+GL_ALPHA_BIAS: UInt32 = 3357
+GL_DEPTH_SCALE: UInt32 = 3358
+GL_DEPTH_BIAS: UInt32 = 3359
+GL_MAX_EVAL_ORDER: UInt32 = 3376
+GL_MAX_LIGHTS: UInt32 = 3377
+GL_MAX_CLIP_PLANES: UInt32 = 3378
+GL_MAX_TEXTURE_SIZE: UInt32 = 3379
+GL_MAX_PIXEL_MAP_TABLE: UInt32 = 3380
+GL_MAX_ATTRIB_STACK_DEPTH: UInt32 = 3381
+GL_MAX_MODELVIEW_STACK_DEPTH: UInt32 = 3382
+GL_MAX_NAME_STACK_DEPTH: UInt32 = 3383
+GL_MAX_PROJECTION_STACK_DEPTH: UInt32 = 3384
+GL_MAX_TEXTURE_STACK_DEPTH: UInt32 = 3385
+GL_MAX_VIEWPORT_DIMS: UInt32 = 3386
+GL_MAX_CLIENT_ATTRIB_STACK_DEPTH: UInt32 = 3387
+GL_SUBPIXEL_BITS: UInt32 = 3408
+GL_INDEX_BITS: UInt32 = 3409
+GL_RED_BITS: UInt32 = 3410
+GL_GREEN_BITS: UInt32 = 3411
+GL_BLUE_BITS: UInt32 = 3412
+GL_ALPHA_BITS: UInt32 = 3413
+GL_DEPTH_BITS: UInt32 = 3414
+GL_STENCIL_BITS: UInt32 = 3415
+GL_ACCUM_RED_BITS: UInt32 = 3416
+GL_ACCUM_GREEN_BITS: UInt32 = 3417
+GL_ACCUM_BLUE_BITS: UInt32 = 3418
+GL_ACCUM_ALPHA_BITS: UInt32 = 3419
+GL_NAME_STACK_DEPTH: UInt32 = 3440
+GL_AUTO_NORMAL: UInt32 = 3456
+GL_MAP1_COLOR_4: UInt32 = 3472
+GL_MAP1_INDEX: UInt32 = 3473
+GL_MAP1_NORMAL: UInt32 = 3474
+GL_MAP1_TEXTURE_COORD_1: UInt32 = 3475
+GL_MAP1_TEXTURE_COORD_2: UInt32 = 3476
+GL_MAP1_TEXTURE_COORD_3: UInt32 = 3477
+GL_MAP1_TEXTURE_COORD_4: UInt32 = 3478
+GL_MAP1_VERTEX_3: UInt32 = 3479
+GL_MAP1_VERTEX_4: UInt32 = 3480
+GL_MAP2_COLOR_4: UInt32 = 3504
+GL_MAP2_INDEX: UInt32 = 3505
+GL_MAP2_NORMAL: UInt32 = 3506
+GL_MAP2_TEXTURE_COORD_1: UInt32 = 3507
+GL_MAP2_TEXTURE_COORD_2: UInt32 = 3508
+GL_MAP2_TEXTURE_COORD_3: UInt32 = 3509
+GL_MAP2_TEXTURE_COORD_4: UInt32 = 3510
+GL_MAP2_VERTEX_3: UInt32 = 3511
+GL_MAP2_VERTEX_4: UInt32 = 3512
+GL_MAP1_GRID_DOMAIN: UInt32 = 3536
+GL_MAP1_GRID_SEGMENTS: UInt32 = 3537
+GL_MAP2_GRID_DOMAIN: UInt32 = 3538
+GL_MAP2_GRID_SEGMENTS: UInt32 = 3539
+GL_TEXTURE_1D: UInt32 = 3552
+GL_TEXTURE_2D: UInt32 = 3553
+GL_FEEDBACK_BUFFER_POINTER: UInt32 = 3568
+GL_FEEDBACK_BUFFER_SIZE: UInt32 = 3569
+GL_FEEDBACK_BUFFER_TYPE: UInt32 = 3570
+GL_SELECTION_BUFFER_POINTER: UInt32 = 3571
+GL_SELECTION_BUFFER_SIZE: UInt32 = 3572
+GL_TEXTURE_WIDTH: UInt32 = 4096
+GL_TEXTURE_HEIGHT: UInt32 = 4097
+GL_TEXTURE_INTERNAL_FORMAT: UInt32 = 4099
+GL_TEXTURE_BORDER_COLOR: UInt32 = 4100
+GL_TEXTURE_BORDER: UInt32 = 4101
+GL_DONT_CARE: UInt32 = 4352
+GL_FASTEST: UInt32 = 4353
+GL_NICEST: UInt32 = 4354
+GL_LIGHT0: UInt32 = 16384
+GL_LIGHT1: UInt32 = 16385
+GL_LIGHT2: UInt32 = 16386
+GL_LIGHT3: UInt32 = 16387
+GL_LIGHT4: UInt32 = 16388
+GL_LIGHT5: UInt32 = 16389
+GL_LIGHT6: UInt32 = 16390
+GL_LIGHT7: UInt32 = 16391
+GL_AMBIENT: UInt32 = 4608
+GL_DIFFUSE: UInt32 = 4609
+GL_SPECULAR: UInt32 = 4610
+GL_POSITION: UInt32 = 4611
+GL_SPOT_DIRECTION: UInt32 = 4612
+GL_SPOT_EXPONENT: UInt32 = 4613
+GL_SPOT_CUTOFF: UInt32 = 4614
+GL_CONSTANT_ATTENUATION: UInt32 = 4615
+GL_LINEAR_ATTENUATION: UInt32 = 4616
+GL_QUADRATIC_ATTENUATION: UInt32 = 4617
+GL_COMPILE: UInt32 = 4864
+GL_COMPILE_AND_EXECUTE: UInt32 = 4865
+GL_CLEAR: UInt32 = 5376
+GL_AND: UInt32 = 5377
+GL_AND_REVERSE: UInt32 = 5378
+GL_COPY: UInt32 = 5379
+GL_AND_INVERTED: UInt32 = 5380
+GL_NOOP: UInt32 = 5381
+GL_XOR: UInt32 = 5382
+GL_OR: UInt32 = 5383
+GL_NOR: UInt32 = 5384
+GL_EQUIV: UInt32 = 5385
+GL_INVERT: UInt32 = 5386
+GL_OR_REVERSE: UInt32 = 5387
+GL_COPY_INVERTED: UInt32 = 5388
+GL_OR_INVERTED: UInt32 = 5389
+GL_NAND: UInt32 = 5390
+GL_SET: UInt32 = 5391
+GL_EMISSION: UInt32 = 5632
+GL_SHININESS: UInt32 = 5633
+GL_AMBIENT_AND_DIFFUSE: UInt32 = 5634
+GL_COLOR_INDEXES: UInt32 = 5635
+GL_MODELVIEW: UInt32 = 5888
+GL_PROJECTION: UInt32 = 5889
+GL_TEXTURE: UInt32 = 5890
+GL_COLOR: UInt32 = 6144
+GL_DEPTH: UInt32 = 6145
+GL_STENCIL: UInt32 = 6146
+GL_COLOR_INDEX: UInt32 = 6400
+GL_STENCIL_INDEX: UInt32 = 6401
+GL_DEPTH_COMPONENT: UInt32 = 6402
+GL_RED: UInt32 = 6403
+GL_GREEN: UInt32 = 6404
+GL_BLUE: UInt32 = 6405
+GL_ALPHA: UInt32 = 6406
+GL_RGB: UInt32 = 6407
+GL_RGBA: UInt32 = 6408
+GL_LUMINANCE: UInt32 = 6409
+GL_LUMINANCE_ALPHA: UInt32 = 6410
+GL_BITMAP: UInt32 = 6656
+GL_POINT: UInt32 = 6912
+GL_LINE: UInt32 = 6913
+GL_FILL: UInt32 = 6914
+GL_RENDER: UInt32 = 7168
+GL_FEEDBACK: UInt32 = 7169
+GL_SELECT: UInt32 = 7170
+GL_FLAT: UInt32 = 7424
+GL_SMOOTH: UInt32 = 7425
+GL_KEEP: UInt32 = 7680
+GL_REPLACE: UInt32 = 7681
+GL_INCR: UInt32 = 7682
+GL_DECR: UInt32 = 7683
+GL_VENDOR: UInt32 = 7936
+GL_RENDERER: UInt32 = 7937
+GL_VERSION: UInt32 = 7938
+GL_EXTENSIONS: UInt32 = 7939
+GL_S: UInt32 = 8192
+GL_T: UInt32 = 8193
+GL_R: UInt32 = 8194
+GL_Q: UInt32 = 8195
+GL_MODULATE: UInt32 = 8448
+GL_DECAL: UInt32 = 8449
+GL_TEXTURE_ENV_MODE: UInt32 = 8704
+GL_TEXTURE_ENV_COLOR: UInt32 = 8705
+GL_TEXTURE_ENV: UInt32 = 8960
+GL_EYE_LINEAR: UInt32 = 9216
+GL_OBJECT_LINEAR: UInt32 = 9217
+GL_SPHERE_MAP: UInt32 = 9218
+GL_TEXTURE_GEN_MODE: UInt32 = 9472
+GL_OBJECT_PLANE: UInt32 = 9473
+GL_EYE_PLANE: UInt32 = 9474
+GL_NEAREST: UInt32 = 9728
+GL_LINEAR: UInt32 = 9729
+GL_NEAREST_MIPMAP_NEAREST: UInt32 = 9984
+GL_LINEAR_MIPMAP_NEAREST: UInt32 = 9985
+GL_NEAREST_MIPMAP_LINEAR: UInt32 = 9986
+GL_LINEAR_MIPMAP_LINEAR: UInt32 = 9987
+GL_TEXTURE_MAG_FILTER: UInt32 = 10240
+GL_TEXTURE_MIN_FILTER: UInt32 = 10241
+GL_TEXTURE_WRAP_S: UInt32 = 10242
+GL_TEXTURE_WRAP_T: UInt32 = 10243
+GL_CLAMP: UInt32 = 10496
+GL_REPEAT: UInt32 = 10497
+GL_CLIENT_PIXEL_STORE_BIT: UInt32 = 1
+GL_CLIENT_VERTEX_ARRAY_BIT: UInt32 = 2
+GL_CLIENT_ALL_ATTRIB_BITS: UInt32 = 4294967295
+GL_POLYGON_OFFSET_FACTOR: UInt32 = 32824
+GL_POLYGON_OFFSET_UNITS: UInt32 = 10752
+GL_POLYGON_OFFSET_POINT: UInt32 = 10753
+GL_POLYGON_OFFSET_LINE: UInt32 = 10754
+GL_POLYGON_OFFSET_FILL: UInt32 = 32823
+GL_ALPHA4: UInt32 = 32827
+GL_ALPHA8: UInt32 = 32828
+GL_ALPHA12: UInt32 = 32829
+GL_ALPHA16: UInt32 = 32830
+GL_LUMINANCE4: UInt32 = 32831
+GL_LUMINANCE8: UInt32 = 32832
+GL_LUMINANCE12: UInt32 = 32833
+GL_LUMINANCE16: UInt32 = 32834
+GL_LUMINANCE4_ALPHA4: UInt32 = 32835
+GL_LUMINANCE6_ALPHA2: UInt32 = 32836
+GL_LUMINANCE8_ALPHA8: UInt32 = 32837
+GL_LUMINANCE12_ALPHA4: UInt32 = 32838
+GL_LUMINANCE12_ALPHA12: UInt32 = 32839
+GL_LUMINANCE16_ALPHA16: UInt32 = 32840
+GL_INTENSITY: UInt32 = 32841
+GL_INTENSITY4: UInt32 = 32842
+GL_INTENSITY8: UInt32 = 32843
+GL_INTENSITY12: UInt32 = 32844
+GL_INTENSITY16: UInt32 = 32845
+GL_R3_G3_B2: UInt32 = 10768
+GL_RGB4: UInt32 = 32847
+GL_RGB5: UInt32 = 32848
+GL_RGB8: UInt32 = 32849
+GL_RGB10: UInt32 = 32850
+GL_RGB12: UInt32 = 32851
+GL_RGB16: UInt32 = 32852
+GL_RGBA2: UInt32 = 32853
+GL_RGBA4: UInt32 = 32854
+GL_RGB5_A1: UInt32 = 32855
+GL_RGBA8: UInt32 = 32856
+GL_RGB10_A2: UInt32 = 32857
+GL_RGBA12: UInt32 = 32858
+GL_RGBA16: UInt32 = 32859
+GL_TEXTURE_RED_SIZE: UInt32 = 32860
+GL_TEXTURE_GREEN_SIZE: UInt32 = 32861
+GL_TEXTURE_BLUE_SIZE: UInt32 = 32862
+GL_TEXTURE_ALPHA_SIZE: UInt32 = 32863
+GL_TEXTURE_LUMINANCE_SIZE: UInt32 = 32864
+GL_TEXTURE_INTENSITY_SIZE: UInt32 = 32865
+GL_PROXY_TEXTURE_1D: UInt32 = 32867
+GL_PROXY_TEXTURE_2D: UInt32 = 32868
+GL_TEXTURE_PRIORITY: UInt32 = 32870
+GL_TEXTURE_RESIDENT: UInt32 = 32871
+GL_TEXTURE_BINDING_1D: UInt32 = 32872
+GL_TEXTURE_BINDING_2D: UInt32 = 32873
+GL_VERTEX_ARRAY: UInt32 = 32884
+GL_NORMAL_ARRAY: UInt32 = 32885
+GL_COLOR_ARRAY: UInt32 = 32886
+GL_INDEX_ARRAY: UInt32 = 32887
+GL_TEXTURE_COORD_ARRAY: UInt32 = 32888
+GL_EDGE_FLAG_ARRAY: UInt32 = 32889
+GL_VERTEX_ARRAY_SIZE: UInt32 = 32890
+GL_VERTEX_ARRAY_TYPE: UInt32 = 32891
+GL_VERTEX_ARRAY_STRIDE: UInt32 = 32892
+GL_NORMAL_ARRAY_TYPE: UInt32 = 32894
+GL_NORMAL_ARRAY_STRIDE: UInt32 = 32895
+GL_COLOR_ARRAY_SIZE: UInt32 = 32897
+GL_COLOR_ARRAY_TYPE: UInt32 = 32898
+GL_COLOR_ARRAY_STRIDE: UInt32 = 32899
+GL_INDEX_ARRAY_TYPE: UInt32 = 32901
+GL_INDEX_ARRAY_STRIDE: UInt32 = 32902
+GL_TEXTURE_COORD_ARRAY_SIZE: UInt32 = 32904
+GL_TEXTURE_COORD_ARRAY_TYPE: UInt32 = 32905
+GL_TEXTURE_COORD_ARRAY_STRIDE: UInt32 = 32906
+GL_EDGE_FLAG_ARRAY_STRIDE: UInt32 = 32908
+GL_VERTEX_ARRAY_POINTER: UInt32 = 32910
+GL_NORMAL_ARRAY_POINTER: UInt32 = 32911
+GL_COLOR_ARRAY_POINTER: UInt32 = 32912
+GL_INDEX_ARRAY_POINTER: UInt32 = 32913
+GL_TEXTURE_COORD_ARRAY_POINTER: UInt32 = 32914
+GL_EDGE_FLAG_ARRAY_POINTER: UInt32 = 32915
+GL_V2F: UInt32 = 10784
+GL_V3F: UInt32 = 10785
+GL_C4UB_V2F: UInt32 = 10786
+GL_C4UB_V3F: UInt32 = 10787
+GL_C3F_V3F: UInt32 = 10788
+GL_N3F_V3F: UInt32 = 10789
+GL_C4F_N3F_V3F: UInt32 = 10790
+GL_T2F_V3F: UInt32 = 10791
+GL_T4F_V4F: UInt32 = 10792
+GL_T2F_C4UB_V3F: UInt32 = 10793
+GL_T2F_C3F_V3F: UInt32 = 10794
+GL_T2F_N3F_V3F: UInt32 = 10795
+GL_T2F_C4F_N3F_V3F: UInt32 = 10796
+GL_T4F_C4F_N3F_V4F: UInt32 = 10797
+GL_EXT_vertex_array: UInt32 = 1
+GL_EXT_bgra: UInt32 = 1
+GL_EXT_paletted_texture: UInt32 = 1
+GL_WIN_swap_hint: UInt32 = 1
+GL_WIN_draw_range_elements: UInt32 = 1
+GL_VERTEX_ARRAY_EXT: UInt32 = 32884
+GL_NORMAL_ARRAY_EXT: UInt32 = 32885
+GL_COLOR_ARRAY_EXT: UInt32 = 32886
+GL_INDEX_ARRAY_EXT: UInt32 = 32887
+GL_TEXTURE_COORD_ARRAY_EXT: UInt32 = 32888
+GL_EDGE_FLAG_ARRAY_EXT: UInt32 = 32889
+GL_VERTEX_ARRAY_SIZE_EXT: UInt32 = 32890
+GL_VERTEX_ARRAY_TYPE_EXT: UInt32 = 32891
+GL_VERTEX_ARRAY_STRIDE_EXT: UInt32 = 32892
+GL_VERTEX_ARRAY_COUNT_EXT: UInt32 = 32893
+GL_NORMAL_ARRAY_TYPE_EXT: UInt32 = 32894
+GL_NORMAL_ARRAY_STRIDE_EXT: UInt32 = 32895
+GL_NORMAL_ARRAY_COUNT_EXT: UInt32 = 32896
+GL_COLOR_ARRAY_SIZE_EXT: UInt32 = 32897
+GL_COLOR_ARRAY_TYPE_EXT: UInt32 = 32898
+GL_COLOR_ARRAY_STRIDE_EXT: UInt32 = 32899
+GL_COLOR_ARRAY_COUNT_EXT: UInt32 = 32900
+GL_INDEX_ARRAY_TYPE_EXT: UInt32 = 32901
+GL_INDEX_ARRAY_STRIDE_EXT: UInt32 = 32902
+GL_INDEX_ARRAY_COUNT_EXT: UInt32 = 32903
+GL_TEXTURE_COORD_ARRAY_SIZE_EXT: UInt32 = 32904
+GL_TEXTURE_COORD_ARRAY_TYPE_EXT: UInt32 = 32905
+GL_TEXTURE_COORD_ARRAY_STRIDE_EXT: UInt32 = 32906
+GL_TEXTURE_COORD_ARRAY_COUNT_EXT: UInt32 = 32907
+GL_EDGE_FLAG_ARRAY_STRIDE_EXT: UInt32 = 32908
+GL_EDGE_FLAG_ARRAY_COUNT_EXT: UInt32 = 32909
+GL_VERTEX_ARRAY_POINTER_EXT: UInt32 = 32910
+GL_NORMAL_ARRAY_POINTER_EXT: UInt32 = 32911
+GL_COLOR_ARRAY_POINTER_EXT: UInt32 = 32912
+GL_INDEX_ARRAY_POINTER_EXT: UInt32 = 32913
+GL_TEXTURE_COORD_ARRAY_POINTER_EXT: UInt32 = 32914
+GL_EDGE_FLAG_ARRAY_POINTER_EXT: UInt32 = 32915
+GL_DOUBLE_EXT: UInt32 = 5130
+GL_BGR_EXT: UInt32 = 32992
+GL_BGRA_EXT: UInt32 = 32993
+GL_COLOR_TABLE_FORMAT_EXT: UInt32 = 32984
+GL_COLOR_TABLE_WIDTH_EXT: UInt32 = 32985
+GL_COLOR_TABLE_RED_SIZE_EXT: UInt32 = 32986
+GL_COLOR_TABLE_GREEN_SIZE_EXT: UInt32 = 32987
+GL_COLOR_TABLE_BLUE_SIZE_EXT: UInt32 = 32988
+GL_COLOR_TABLE_ALPHA_SIZE_EXT: UInt32 = 32989
+GL_COLOR_TABLE_LUMINANCE_SIZE_EXT: UInt32 = 32990
+GL_COLOR_TABLE_INTENSITY_SIZE_EXT: UInt32 = 32991
+GL_COLOR_INDEX1_EXT: UInt32 = 32994
+GL_COLOR_INDEX2_EXT: UInt32 = 32995
+GL_COLOR_INDEX4_EXT: UInt32 = 32996
+GL_COLOR_INDEX8_EXT: UInt32 = 32997
+GL_COLOR_INDEX12_EXT: UInt32 = 32998
+GL_COLOR_INDEX16_EXT: UInt32 = 32999
+GL_MAX_ELEMENTS_VERTICES_WIN: UInt32 = 33000
+GL_MAX_ELEMENTS_INDICES_WIN: UInt32 = 33001
+GL_PHONG_WIN: UInt32 = 33002
+GL_PHONG_HINT_WIN: UInt32 = 33003
+GL_FOG_SPECULAR_TEXTURE_WIN: UInt32 = 33004
+GL_LOGIC_OP: UInt32 = 3057
+GL_TEXTURE_COMPONENTS: UInt32 = 4099
+GLU_VERSION_1_1: UInt32 = 1
+GLU_VERSION_1_2: UInt32 = 1
+GLU_INVALID_ENUM: UInt32 = 100900
+GLU_INVALID_VALUE: UInt32 = 100901
+GLU_OUT_OF_MEMORY: UInt32 = 100902
+GLU_INCOMPATIBLE_GL_VERSION: UInt32 = 100903
+GLU_VERSION: UInt32 = 100800
+GLU_EXTENSIONS: UInt32 = 100801
+GLU_TRUE: UInt32 = 1
+GLU_FALSE: UInt32 = 0
+GLU_SMOOTH: UInt32 = 100000
+GLU_FLAT: UInt32 = 100001
+GLU_NONE: UInt32 = 100002
+GLU_POINT: UInt32 = 100010
+GLU_LINE: UInt32 = 100011
+GLU_FILL: UInt32 = 100012
+GLU_SILHOUETTE: UInt32 = 100013
+GLU_OUTSIDE: UInt32 = 100020
+GLU_INSIDE: UInt32 = 100021
+GLU_TESS_WINDING_RULE: UInt32 = 100140
+GLU_TESS_BOUNDARY_ONLY: UInt32 = 100141
+GLU_TESS_TOLERANCE: UInt32 = 100142
+GLU_TESS_WINDING_ODD: UInt32 = 100130
+GLU_TESS_WINDING_NONZERO: UInt32 = 100131
+GLU_TESS_WINDING_POSITIVE: UInt32 = 100132
+GLU_TESS_WINDING_NEGATIVE: UInt32 = 100133
+GLU_TESS_WINDING_ABS_GEQ_TWO: UInt32 = 100134
+GLU_TESS_BEGIN: UInt32 = 100100
+GLU_TESS_VERTEX: UInt32 = 100101
+GLU_TESS_END: UInt32 = 100102
+GLU_TESS_ERROR: UInt32 = 100103
+GLU_TESS_EDGE_FLAG: UInt32 = 100104
+GLU_TESS_COMBINE: UInt32 = 100105
+GLU_TESS_BEGIN_DATA: UInt32 = 100106
+GLU_TESS_VERTEX_DATA: UInt32 = 100107
+GLU_TESS_END_DATA: UInt32 = 100108
+GLU_TESS_ERROR_DATA: UInt32 = 100109
+GLU_TESS_EDGE_FLAG_DATA: UInt32 = 100110
+GLU_TESS_COMBINE_DATA: UInt32 = 100111
+GLU_TESS_ERROR1: UInt32 = 100151
+GLU_TESS_ERROR2: UInt32 = 100152
+GLU_TESS_ERROR3: UInt32 = 100153
+GLU_TESS_ERROR4: UInt32 = 100154
+GLU_TESS_ERROR5: UInt32 = 100155
+GLU_TESS_ERROR6: UInt32 = 100156
+GLU_TESS_ERROR7: UInt32 = 100157
+GLU_TESS_ERROR8: UInt32 = 100158
+GLU_TESS_MISSING_BEGIN_POLYGON: UInt32 = 100151
+GLU_TESS_MISSING_BEGIN_CONTOUR: UInt32 = 100152
+GLU_TESS_MISSING_END_POLYGON: UInt32 = 100153
+GLU_TESS_MISSING_END_CONTOUR: UInt32 = 100154
+GLU_TESS_COORD_TOO_LARGE: UInt32 = 100155
+GLU_TESS_NEED_COMBINE_CALLBACK: UInt32 = 100156
+GLU_AUTO_LOAD_MATRIX: UInt32 = 100200
+GLU_CULLING: UInt32 = 100201
+GLU_SAMPLING_TOLERANCE: UInt32 = 100203
+GLU_DISPLAY_MODE: UInt32 = 100204
+GLU_PARAMETRIC_TOLERANCE: UInt32 = 100202
+GLU_SAMPLING_METHOD: UInt32 = 100205
+GLU_U_STEP: UInt32 = 100206
+GLU_V_STEP: UInt32 = 100207
+GLU_PATH_LENGTH: UInt32 = 100215
+GLU_PARAMETRIC_ERROR: UInt32 = 100216
+GLU_DOMAIN_DISTANCE: UInt32 = 100217
+GLU_MAP1_TRIM_2: UInt32 = 100210
+GLU_MAP1_TRIM_3: UInt32 = 100211
+GLU_OUTLINE_POLYGON: UInt32 = 100240
+GLU_OUTLINE_PATCH: UInt32 = 100241
+GLU_NURBS_ERROR1: UInt32 = 100251
+GLU_NURBS_ERROR2: UInt32 = 100252
+GLU_NURBS_ERROR3: UInt32 = 100253
+GLU_NURBS_ERROR4: UInt32 = 100254
+GLU_NURBS_ERROR5: UInt32 = 100255
+GLU_NURBS_ERROR6: UInt32 = 100256
+GLU_NURBS_ERROR7: UInt32 = 100257
+GLU_NURBS_ERROR8: UInt32 = 100258
+GLU_NURBS_ERROR9: UInt32 = 100259
+GLU_NURBS_ERROR10: UInt32 = 100260
+GLU_NURBS_ERROR11: UInt32 = 100261
+GLU_NURBS_ERROR12: UInt32 = 100262
+GLU_NURBS_ERROR13: UInt32 = 100263
+GLU_NURBS_ERROR14: UInt32 = 100264
+GLU_NURBS_ERROR15: UInt32 = 100265
+GLU_NURBS_ERROR16: UInt32 = 100266
+GLU_NURBS_ERROR17: UInt32 = 100267
+GLU_NURBS_ERROR18: UInt32 = 100268
+GLU_NURBS_ERROR19: UInt32 = 100269
+GLU_NURBS_ERROR20: UInt32 = 100270
+GLU_NURBS_ERROR21: UInt32 = 100271
+GLU_NURBS_ERROR22: UInt32 = 100272
+GLU_NURBS_ERROR23: UInt32 = 100273
+GLU_NURBS_ERROR24: UInt32 = 100274
+GLU_NURBS_ERROR25: UInt32 = 100275
+GLU_NURBS_ERROR26: UInt32 = 100276
+GLU_NURBS_ERROR27: UInt32 = 100277
+GLU_NURBS_ERROR28: UInt32 = 100278
+GLU_NURBS_ERROR29: UInt32 = 100279
+GLU_NURBS_ERROR30: UInt32 = 100280
+GLU_NURBS_ERROR31: UInt32 = 100281
+GLU_NURBS_ERROR32: UInt32 = 100282
+GLU_NURBS_ERROR33: UInt32 = 100283
+GLU_NURBS_ERROR34: UInt32 = 100284
+GLU_NURBS_ERROR35: UInt32 = 100285
+GLU_NURBS_ERROR36: UInt32 = 100286
+GLU_NURBS_ERROR37: UInt32 = 100287
+GLU_CW: UInt32 = 100120
+GLU_CCW: UInt32 = 100121
+GLU_INTERIOR: UInt32 = 100122
+GLU_EXTERIOR: UInt32 = 100123
+GLU_UNKNOWN: UInt32 = 100124
+GLU_BEGIN: UInt32 = 100100
+GLU_VERTEX: UInt32 = 100101
+GLU_END: UInt32 = 100102
+GLU_ERROR: UInt32 = 100103
+GLU_EDGE_FLAG: UInt32 = 100104
+@winfunctype('GDI32.dll')
+def ChoosePixelFormat(hdc: win32more.Graphics.Gdi.HDC, ppfd: POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> Int32: ...
+@winfunctype('GDI32.dll')
+def DescribePixelFormat(hdc: win32more.Graphics.Gdi.HDC, iPixelFormat: Int32, nBytes: UInt32, ppfd: POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> Int32: ...
+@winfunctype('GDI32.dll')
+def GetPixelFormat(hdc: win32more.Graphics.Gdi.HDC) -> Int32: ...
+@winfunctype('GDI32.dll')
+def SetPixelFormat(hdc: win32more.Graphics.Gdi.HDC, format: Int32, ppfd: POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def GetEnhMetaFilePixelFormat(hemf: win32more.Graphics.Gdi.HENHMETAFILE, cbBuffer: UInt32, ppfd: POINTER(win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head)) -> UInt32: ...
+@winfunctype('OPENGL32.dll')
+def wglCopyContext(param0: win32more.Graphics.OpenGL.HGLRC, param1: win32more.Graphics.OpenGL.HGLRC, param2: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglCreateContext(param0: win32more.Graphics.Gdi.HDC) -> win32more.Graphics.OpenGL.HGLRC: ...
+@winfunctype('OPENGL32.dll')
+def wglCreateLayerContext(param0: win32more.Graphics.Gdi.HDC, param1: Int32) -> win32more.Graphics.OpenGL.HGLRC: ...
+@winfunctype('OPENGL32.dll')
+def wglDeleteContext(param0: win32more.Graphics.OpenGL.HGLRC) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglGetCurrentContext() -> win32more.Graphics.OpenGL.HGLRC: ...
+@winfunctype('OPENGL32.dll')
+def wglGetCurrentDC() -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('OPENGL32.dll')
+def wglGetProcAddress(param0: win32more.Foundation.PSTR) -> win32more.Foundation.PROC: ...
+@winfunctype('OPENGL32.dll')
+def wglMakeCurrent(param0: win32more.Graphics.Gdi.HDC, param1: win32more.Graphics.OpenGL.HGLRC) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglShareLists(param0: win32more.Graphics.OpenGL.HGLRC, param1: win32more.Graphics.OpenGL.HGLRC) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglUseFontBitmapsA(param0: win32more.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglUseFontBitmapsW(param0: win32more.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('GDI32.dll')
+def SwapBuffers(param0: win32more.Graphics.Gdi.HDC) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglUseFontOutlinesA(param0: win32more.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Graphics.OpenGL.GLYPHMETRICSFLOAT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglUseFontOutlinesW(param0: win32more.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Graphics.OpenGL.GLYPHMETRICSFLOAT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglDescribeLayerPlane(param0: win32more.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: UInt32, param4: POINTER(win32more.Graphics.OpenGL.LAYERPLANEDESCRIPTOR_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglSetLayerPaletteEntries(param0: win32more.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: Int32, param4: POINTER(win32more.Foundation.COLORREF)) -> Int32: ...
+@winfunctype('OPENGL32.dll')
+def wglGetLayerPaletteEntries(param0: win32more.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: Int32, param4: POINTER(win32more.Foundation.COLORREF)) -> Int32: ...
+@winfunctype('OPENGL32.dll')
+def wglRealizeLayerPalette(param0: win32more.Graphics.Gdi.HDC, param1: Int32, param2: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def wglSwapLayerBuffers(param0: win32more.Graphics.Gdi.HDC, param1: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('OPENGL32.dll')
+def glAccum(op: UInt32, value: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glAlphaFunc(func: UInt32, ref: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glAreTexturesResident(n: Int32, textures: POINTER(UInt32), residences: c_char_p_no) -> Byte: ...
+@winfunctype('OPENGL32.dll')
+def glArrayElement(i: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glBegin(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glBindTexture(target: UInt32, texture: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glBitmap(width: Int32, height: Int32, xorig: Single, yorig: Single, xmove: Single, ymove: Single, bitmap: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glBlendFunc(sfactor: UInt32, dfactor: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCallList(list: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCallLists(n: Int32, type: UInt32, lists: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClear(mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClearAccum(red: Single, green: Single, blue: Single, alpha: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClearColor(red: Single, green: Single, blue: Single, alpha: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClearDepth(depth: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClearIndex(c: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClearStencil(s: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glClipPlane(plane: UInt32, equation: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3b(red: SByte, green: SByte, blue: SByte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3bv(v: POINTER(SByte)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3d(red: Double, green: Double, blue: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3f(red: Single, green: Single, blue: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3i(red: Int32, green: Int32, blue: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3s(red: Int16, green: Int16, blue: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3ub(red: Byte, green: Byte, blue: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3ubv(v: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3ui(red: UInt32, green: UInt32, blue: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3uiv(v: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3us(red: UInt16, green: UInt16, blue: UInt16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor3usv(v: POINTER(UInt16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4b(red: SByte, green: SByte, blue: SByte, alpha: SByte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4bv(v: POINTER(SByte)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4d(red: Double, green: Double, blue: Double, alpha: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4f(red: Single, green: Single, blue: Single, alpha: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4i(red: Int32, green: Int32, blue: Int32, alpha: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4s(red: Int16, green: Int16, blue: Int16, alpha: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4ub(red: Byte, green: Byte, blue: Byte, alpha: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4ubv(v: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4ui(red: UInt32, green: UInt32, blue: UInt32, alpha: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4uiv(v: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4us(red: UInt16, green: UInt16, blue: UInt16, alpha: UInt16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColor4usv(v: POINTER(UInt16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColorMask(red: Byte, green: Byte, blue: Byte, alpha: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColorMaterial(face: UInt32, mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glColorPointer(size: Int32, type: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCopyPixels(x: Int32, y: Int32, width: Int32, height: Int32, type: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCopyTexImage1D(target: UInt32, level: Int32, internalFormat: UInt32, x: Int32, y: Int32, width: Int32, border: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCopyTexImage2D(target: UInt32, level: Int32, internalFormat: UInt32, x: Int32, y: Int32, width: Int32, height: Int32, border: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCopyTexSubImage1D(target: UInt32, level: Int32, xoffset: Int32, x: Int32, y: Int32, width: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCopyTexSubImage2D(target: UInt32, level: Int32, xoffset: Int32, yoffset: Int32, x: Int32, y: Int32, width: Int32, height: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glCullFace(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDeleteLists(list: UInt32, range: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDeleteTextures(n: Int32, textures: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDepthFunc(func: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDepthMask(flag: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDepthRange(zNear: Double, zFar: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDisable(cap: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDisableClientState(array: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDrawArrays(mode: UInt32, first: Int32, count: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDrawBuffer(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDrawElements(mode: UInt32, count: Int32, type: UInt32, indices: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glDrawPixels(width: Int32, height: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEdgeFlag(flag: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEdgeFlagPointer(stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEdgeFlagv(flag: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEnable(cap: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEnableClientState(array: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEnd() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEndList() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord1d(u: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord1dv(u: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord1f(u: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord1fv(u: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord2d(u: Double, v: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord2dv(u: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord2f(u: Single, v: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalCoord2fv(u: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalMesh1(mode: UInt32, i1: Int32, i2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalMesh2(mode: UInt32, i1: Int32, i2: Int32, j1: Int32, j2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalPoint1(i: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glEvalPoint2(i: Int32, j: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFeedbackBuffer(size: Int32, type: UInt32, buffer: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFinish() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFlush() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFogf(pname: UInt32, param1: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFogfv(pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFogi(pname: UInt32, param1: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFogiv(pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFrontFace(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glFrustum(left: Double, right: Double, bottom: Double, top: Double, zNear: Double, zFar: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGenLists(range: Int32) -> UInt32: ...
+@winfunctype('OPENGL32.dll')
+def glGenTextures(n: Int32, textures: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetBooleanv(pname: UInt32, params: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetClipPlane(plane: UInt32, equation: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetDoublev(pname: UInt32, params: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetError() -> UInt32: ...
+@winfunctype('OPENGL32.dll')
+def glGetFloatv(pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetIntegerv(pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetLightfv(light: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetLightiv(light: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetMapdv(target: UInt32, query: UInt32, v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetMapfv(target: UInt32, query: UInt32, v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetMapiv(target: UInt32, query: UInt32, v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetMaterialfv(face: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetMaterialiv(face: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetPixelMapfv(map: UInt32, values: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetPixelMapuiv(map: UInt32, values: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetPixelMapusv(map: UInt32, values: POINTER(UInt16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetPointerv(pname: UInt32, params: POINTER(c_void_p)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetPolygonStipple(mask: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetString(name: UInt32) -> c_char_p_no: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexEnvfv(target: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexEnviv(target: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexGendv(coord: UInt32, pname: UInt32, params: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexGenfv(coord: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexGeniv(coord: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexImage(target: UInt32, level: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexLevelParameterfv(target: UInt32, level: Int32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexLevelParameteriv(target: UInt32, level: Int32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexParameterfv(target: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glGetTexParameteriv(target: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glHint(target: UInt32, mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexMask(mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexPointer(type: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexd(c: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexdv(c: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexf(c: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexfv(c: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexi(c: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexiv(c: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexs(c: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexsv(c: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexub(c: Byte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIndexubv(c: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glInitNames() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glInterleavedArrays(format: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glIsEnabled(cap: UInt32) -> Byte: ...
+@winfunctype('OPENGL32.dll')
+def glIsList(list: UInt32) -> Byte: ...
+@winfunctype('OPENGL32.dll')
+def glIsTexture(texture: UInt32) -> Byte: ...
+@winfunctype('OPENGL32.dll')
+def glLightModelf(pname: UInt32, param1: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightModelfv(pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightModeli(pname: UInt32, param1: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightModeliv(pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightf(light: UInt32, pname: UInt32, param2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightfv(light: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLighti(light: UInt32, pname: UInt32, param2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLightiv(light: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLineStipple(factor: Int32, pattern: UInt16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLineWidth(width: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glListBase(base: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLoadIdentity() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLoadMatrixd(m: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLoadMatrixf(m: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLoadName(name: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glLogicOp(opcode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMap1d(target: UInt32, u1: Double, u2: Double, stride: Int32, order: Int32, points: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMap1f(target: UInt32, u1: Single, u2: Single, stride: Int32, order: Int32, points: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMap2d(target: UInt32, u1: Double, u2: Double, ustride: Int32, uorder: Int32, v1: Double, v2: Double, vstride: Int32, vorder: Int32, points: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMap2f(target: UInt32, u1: Single, u2: Single, ustride: Int32, uorder: Int32, v1: Single, v2: Single, vstride: Int32, vorder: Int32, points: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMapGrid1d(un: Int32, u1: Double, u2: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMapGrid1f(un: Int32, u1: Single, u2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMapGrid2d(un: Int32, u1: Double, u2: Double, vn: Int32, v1: Double, v2: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMapGrid2f(un: Int32, u1: Single, u2: Single, vn: Int32, v1: Single, v2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMaterialf(face: UInt32, pname: UInt32, param2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMaterialfv(face: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMateriali(face: UInt32, pname: UInt32, param2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMaterialiv(face: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMatrixMode(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMultMatrixd(m: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glMultMatrixf(m: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNewList(list: UInt32, mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3b(nx: SByte, ny: SByte, nz: SByte) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3bv(v: POINTER(SByte)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3d(nx: Double, ny: Double, nz: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3f(nx: Single, ny: Single, nz: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3i(nx: Int32, ny: Int32, nz: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3s(nx: Int16, ny: Int16, nz: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormal3sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glNormalPointer(type: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glOrtho(left: Double, right: Double, bottom: Double, top: Double, zNear: Double, zFar: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPassThrough(token: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelMapfv(map: UInt32, mapsize: Int32, values: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelMapuiv(map: UInt32, mapsize: Int32, values: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelMapusv(map: UInt32, mapsize: Int32, values: POINTER(UInt16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelStoref(pname: UInt32, param1: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelStorei(pname: UInt32, param1: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelTransferf(pname: UInt32, param1: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelTransferi(pname: UInt32, param1: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPixelZoom(xfactor: Single, yfactor: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPointSize(size: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPolygonMode(face: UInt32, mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPolygonOffset(factor: Single, units: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPolygonStipple(mask: c_char_p_no) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPopAttrib() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPopClientAttrib() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPopMatrix() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPopName() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPrioritizeTextures(n: Int32, textures: POINTER(UInt32), priorities: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPushAttrib(mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPushClientAttrib(mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPushMatrix() -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glPushName(name: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2d(x: Double, y: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2f(x: Single, y: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2i(x: Int32, y: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2s(x: Int16, y: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos2sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3d(x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3f(x: Single, y: Single, z: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3i(x: Int32, y: Int32, z: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3s(x: Int16, y: Int16, z: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos3sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4d(x: Double, y: Double, z: Double, w: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4f(x: Single, y: Single, z: Single, w: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4i(x: Int32, y: Int32, z: Int32, w: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4s(x: Int16, y: Int16, z: Int16, w: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRasterPos4sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glReadBuffer(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glReadPixels(x: Int32, y: Int32, width: Int32, height: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectd(x1: Double, y1: Double, x2: Double, y2: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectdv(v1: POINTER(Double), v2: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectf(x1: Single, y1: Single, x2: Single, y2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectfv(v1: POINTER(Single), v2: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRecti(x1: Int32, y1: Int32, x2: Int32, y2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectiv(v1: POINTER(Int32), v2: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRects(x1: Int16, y1: Int16, x2: Int16, y2: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRectsv(v1: POINTER(Int16), v2: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRenderMode(mode: UInt32) -> Int32: ...
+@winfunctype('OPENGL32.dll')
+def glRotated(angle: Double, x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glRotatef(angle: Single, x: Single, y: Single, z: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glScaled(x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glScalef(x: Single, y: Single, z: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glScissor(x: Int32, y: Int32, width: Int32, height: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glSelectBuffer(size: Int32, buffer: POINTER(UInt32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glShadeModel(mode: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glStencilFunc(func: UInt32, ref: Int32, mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glStencilMask(mask: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glStencilOp(fail: UInt32, zfail: UInt32, zpass: UInt32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1d(s: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1f(s: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1i(s: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1s(s: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord1sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2d(s: Double, t: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2f(s: Single, t: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2i(s: Int32, t: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2s(s: Int16, t: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord2sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3d(s: Double, t: Double, r: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3f(s: Single, t: Single, r: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3i(s: Int32, t: Int32, r: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3s(s: Int16, t: Int16, r: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord3sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4d(s: Double, t: Double, r: Double, q: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4f(s: Single, t: Single, r: Single, q: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4i(s: Int32, t: Int32, r: Int32, q: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4s(s: Int16, t: Int16, r: Int16, q: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoord4sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexCoordPointer(size: Int32, type: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexEnvf(target: UInt32, pname: UInt32, param2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexEnvfv(target: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexEnvi(target: UInt32, pname: UInt32, param2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexEnviv(target: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGend(coord: UInt32, pname: UInt32, param2: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGendv(coord: UInt32, pname: UInt32, params: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGenf(coord: UInt32, pname: UInt32, param2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGenfv(coord: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGeni(coord: UInt32, pname: UInt32, param2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexGeniv(coord: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexImage1D(target: UInt32, level: Int32, internalformat: Int32, width: Int32, border: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexImage2D(target: UInt32, level: Int32, internalformat: Int32, width: Int32, height: Int32, border: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexParameterf(target: UInt32, pname: UInt32, param2: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexParameterfv(target: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexParameteri(target: UInt32, pname: UInt32, param2: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexParameteriv(target: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexSubImage1D(target: UInt32, level: Int32, xoffset: Int32, width: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTexSubImage2D(target: UInt32, level: Int32, xoffset: Int32, yoffset: Int32, width: Int32, height: Int32, format: UInt32, type: UInt32, pixels: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTranslated(x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glTranslatef(x: Single, y: Single, z: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2d(x: Double, y: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2f(x: Single, y: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2i(x: Int32, y: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2s(x: Int16, y: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex2sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3d(x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3f(x: Single, y: Single, z: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3i(x: Int32, y: Int32, z: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3s(x: Int16, y: Int16, z: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex3sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4d(x: Double, y: Double, z: Double, w: Double) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4dv(v: POINTER(Double)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4f(x: Single, y: Single, z: Single, w: Single) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4fv(v: POINTER(Single)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4i(x: Int32, y: Int32, z: Int32, w: Int32) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4iv(v: POINTER(Int32)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4s(x: Int16, y: Int16, z: Int16, w: Int16) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertex4sv(v: POINTER(Int16)) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glVertexPointer(size: Int32, type: UInt32, stride: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype('OPENGL32.dll')
+def glViewport(x: Int32, y: Int32, width: Int32, height: Int32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluErrorString(errCode: UInt32) -> c_char_p_no: ...
+@winfunctype('GLU32.dll')
+def gluErrorUnicodeStringEXT(errCode: UInt32) -> win32more.Foundation.PWSTR: ...
+@winfunctype('GLU32.dll')
+def gluGetString(name: UInt32) -> c_char_p_no: ...
+@winfunctype('GLU32.dll')
+def gluOrtho2D(left: Double, right: Double, bottom: Double, top: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluPerspective(fovy: Double, aspect: Double, zNear: Double, zFar: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport: POINTER(Int32)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluLookAt(eyex: Double, eyey: Double, eyez: Double, centerx: Double, centery: Double, centerz: Double, upx: Double, upy: Double, upz: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluProject(objx: Double, objy: Double, objz: Double, modelMatrix: POINTER(Double), projMatrix: POINTER(Double), viewport: POINTER(Int32), winx: POINTER(Double), winy: POINTER(Double), winz: POINTER(Double)) -> Int32: ...
+@winfunctype('GLU32.dll')
+def gluUnProject(winx: Double, winy: Double, winz: Double, modelMatrix: POINTER(Double), projMatrix: POINTER(Double), viewport: POINTER(Int32), objx: POINTER(Double), objy: POINTER(Double), objz: POINTER(Double)) -> Int32: ...
+@winfunctype('GLU32.dll')
+def gluScaleImage(format: UInt32, widthin: Int32, heightin: Int32, typein: UInt32, datain: c_void_p, widthout: Int32, heightout: Int32, typeout: UInt32, dataout: c_void_p) -> Int32: ...
+@winfunctype('GLU32.dll')
+def gluBuild1DMipmaps(target: UInt32, components: Int32, width: Int32, format: UInt32, type: UInt32, data: c_void_p) -> Int32: ...
+@winfunctype('GLU32.dll')
+def gluBuild2DMipmaps(target: UInt32, components: Int32, width: Int32, height: Int32, format: UInt32, type: UInt32, data: c_void_p) -> Int32: ...
+@winfunctype('GLU32.dll')
+def gluNewQuadric() -> POINTER(win32more.Graphics.OpenGL.GLUquadric_head): ...
+@winfunctype('GLU32.dll')
+def gluDeleteQuadric(state: POINTER(win32more.Graphics.OpenGL.GLUquadric_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluQuadricNormals(quadObject: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), normals: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluQuadricTexture(quadObject: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), textureCoords: Byte) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluQuadricOrientation(quadObject: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), orientation: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluQuadricDrawStyle(quadObject: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), drawStyle: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluCylinder(qobj: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), baseRadius: Double, topRadius: Double, height: Double, slices: Int32, stacks: Int32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluDisk(qobj: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), innerRadius: Double, outerRadius: Double, slices: Int32, loops: Int32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluPartialDisk(qobj: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), innerRadius: Double, outerRadius: Double, slices: Int32, loops: Int32, startAngle: Double, sweepAngle: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluSphere(qobj: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), radius: Double, slices: Int32, stacks: Int32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluQuadricCallback(qobj: POINTER(win32more.Graphics.OpenGL.GLUquadric_head), which: UInt32, fn: IntPtr) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNewTess() -> POINTER(win32more.Graphics.OpenGL.GLUtesselator_head): ...
+@winfunctype('GLU32.dll')
+def gluDeleteTess(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessBeginPolygon(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), polygon_data: c_void_p) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessBeginContour(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessVertex(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), coords: POINTER(Double), data: c_void_p) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessEndContour(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessEndPolygon(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessProperty(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), which: UInt32, value: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessNormal(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), x: Double, y: Double, z: Double) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluTessCallback(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), which: UInt32, fn: IntPtr) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluGetTessProperty(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), which: UInt32, value: POINTER(Double)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNewNurbsRenderer() -> POINTER(win32more.Graphics.OpenGL.GLUnurbs_head): ...
+@winfunctype('GLU32.dll')
+def gluDeleteNurbsRenderer(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluBeginSurface(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluBeginCurve(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluEndCurve(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluEndSurface(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluBeginTrim(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluEndTrim(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluPwlCurve(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), count: Int32, array: POINTER(Single), stride: Int32, type: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNurbsCurve(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), nknots: Int32, knot: POINTER(Single), stride: Int32, ctlarray: POINTER(Single), order: Int32, type: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNurbsSurface(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), sknot_count: Int32, sknot: POINTER(Single), tknot_count: Int32, tknot: POINTER(Single), s_stride: Int32, t_stride: Int32, ctlarray: POINTER(Single), sorder: Int32, torder: Int32, type: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluLoadSamplingMatrices(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), modelMatrix: POINTER(Single), projMatrix: POINTER(Single), viewport: POINTER(Int32)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNurbsProperty(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), property: UInt32, value: Single) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluGetNurbsProperty(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), property: UInt32, value: POINTER(Single)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNurbsCallback(nobj: POINTER(win32more.Graphics.OpenGL.GLUnurbs_head), which: UInt32, fn: IntPtr) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluBeginPolygon(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluNextContour(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head), type: UInt32) -> Void: ...
+@winfunctype('GLU32.dll')
+def gluEndPolygon(tess: POINTER(win32more.Graphics.OpenGL.GLUtesselator_head)) -> Void: ...
+class EMRPIXELFORMAT(Structure):
+    emr: win32more.Graphics.Gdi.EMR
+    pfd: win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR
+class GLUnurbs(Structure):
+    pass
+@winfunctype_pointer
+def GLUnurbsErrorProc(param0: UInt32) -> Void: ...
+class GLUquadric(Structure):
+    pass
+@winfunctype_pointer
+def GLUquadricErrorProc(param0: UInt32) -> Void: ...
+@winfunctype_pointer
+def GLUtessBeginDataProc(param0: UInt32, param1: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessBeginProc(param0: UInt32) -> Void: ...
+@winfunctype_pointer
+def GLUtessCombineDataProc(param0: POINTER(Double), param1: POINTER(c_void_p), param2: POINTER(Single), param3: POINTER(c_void_p), param4: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessCombineProc(param0: POINTER(Double), param1: POINTER(c_void_p), param2: POINTER(Single), param3: POINTER(c_void_p)) -> Void: ...
+@winfunctype_pointer
+def GLUtessEdgeFlagDataProc(param0: Byte, param1: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessEdgeFlagProc(param0: Byte) -> Void: ...
+class GLUtesselator(Structure):
+    pass
+@winfunctype_pointer
+def GLUtessEndDataProc(param0: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessEndProc() -> Void: ...
+@winfunctype_pointer
+def GLUtessErrorDataProc(param0: UInt32, param1: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessErrorProc(param0: UInt32) -> Void: ...
+@winfunctype_pointer
+def GLUtessVertexDataProc(param0: c_void_p, param1: c_void_p) -> Void: ...
+@winfunctype_pointer
+def GLUtessVertexProc(param0: c_void_p) -> Void: ...
+class GLYPHMETRICSFLOAT(Structure):
+    gmfBlackBoxX: Single
+    gmfBlackBoxY: Single
+    gmfptGlyphOrigin: win32more.Graphics.OpenGL.POINTFLOAT
+    gmfCellIncX: Single
+    gmfCellIncY: Single
 HGLRC = IntPtr
-def _define_LAYERPLANEDESCRIPTOR_head():
-    class LAYERPLANEDESCRIPTOR(Structure):
-        pass
-    return LAYERPLANEDESCRIPTOR
-def _define_LAYERPLANEDESCRIPTOR():
-    LAYERPLANEDESCRIPTOR = win32more.Graphics.OpenGL.LAYERPLANEDESCRIPTOR_head
-    LAYERPLANEDESCRIPTOR._fields_ = [
-        ('nSize', UInt16),
-        ('nVersion', UInt16),
-        ('dwFlags', UInt32),
-        ('iPixelType', Byte),
-        ('cColorBits', Byte),
-        ('cRedBits', Byte),
-        ('cRedShift', Byte),
-        ('cGreenBits', Byte),
-        ('cGreenShift', Byte),
-        ('cBlueBits', Byte),
-        ('cBlueShift', Byte),
-        ('cAlphaBits', Byte),
-        ('cAlphaShift', Byte),
-        ('cAccumBits', Byte),
-        ('cAccumRedBits', Byte),
-        ('cAccumGreenBits', Byte),
-        ('cAccumBlueBits', Byte),
-        ('cAccumAlphaBits', Byte),
-        ('cDepthBits', Byte),
-        ('cStencilBits', Byte),
-        ('cAuxBuffers', Byte),
-        ('iLayerPlane', Byte),
-        ('bReserved', Byte),
-        ('crTransparent', win32more.Foundation.COLORREF),
-    ]
-    return LAYERPLANEDESCRIPTOR
+class LAYERPLANEDESCRIPTOR(Structure):
+    nSize: UInt16
+    nVersion: UInt16
+    dwFlags: UInt32
+    iPixelType: Byte
+    cColorBits: Byte
+    cRedBits: Byte
+    cRedShift: Byte
+    cGreenBits: Byte
+    cGreenShift: Byte
+    cBlueBits: Byte
+    cBlueShift: Byte
+    cAlphaBits: Byte
+    cAlphaShift: Byte
+    cAccumBits: Byte
+    cAccumRedBits: Byte
+    cAccumGreenBits: Byte
+    cAccumBlueBits: Byte
+    cAccumAlphaBits: Byte
+    cDepthBits: Byte
+    cStencilBits: Byte
+    cAuxBuffers: Byte
+    iLayerPlane: Byte
+    bReserved: Byte
+    crTransparent: win32more.Foundation.COLORREF
 PFD_FLAGS = UInt32
-PFD_DOUBLEBUFFER = 1
-PFD_STEREO = 2
-PFD_DRAW_TO_WINDOW = 4
-PFD_DRAW_TO_BITMAP = 8
-PFD_SUPPORT_GDI = 16
-PFD_SUPPORT_OPENGL = 32
-PFD_GENERIC_FORMAT = 64
-PFD_NEED_PALETTE = 128
-PFD_NEED_SYSTEM_PALETTE = 256
-PFD_SWAP_EXCHANGE = 512
-PFD_SWAP_COPY = 1024
-PFD_SWAP_LAYER_BUFFERS = 2048
-PFD_GENERIC_ACCELERATED = 4096
-PFD_SUPPORT_DIRECTDRAW = 8192
-PFD_DIRECT3D_ACCELERATED = 16384
-PFD_SUPPORT_COMPOSITION = 32768
-PFD_DEPTH_DONTCARE = 536870912
-PFD_DOUBLEBUFFER_DONTCARE = 1073741824
-PFD_STEREO_DONTCARE = 2147483648
+PFD_DOUBLEBUFFER: PFD_FLAGS = 1
+PFD_STEREO: PFD_FLAGS = 2
+PFD_DRAW_TO_WINDOW: PFD_FLAGS = 4
+PFD_DRAW_TO_BITMAP: PFD_FLAGS = 8
+PFD_SUPPORT_GDI: PFD_FLAGS = 16
+PFD_SUPPORT_OPENGL: PFD_FLAGS = 32
+PFD_GENERIC_FORMAT: PFD_FLAGS = 64
+PFD_NEED_PALETTE: PFD_FLAGS = 128
+PFD_NEED_SYSTEM_PALETTE: PFD_FLAGS = 256
+PFD_SWAP_EXCHANGE: PFD_FLAGS = 512
+PFD_SWAP_COPY: PFD_FLAGS = 1024
+PFD_SWAP_LAYER_BUFFERS: PFD_FLAGS = 2048
+PFD_GENERIC_ACCELERATED: PFD_FLAGS = 4096
+PFD_SUPPORT_DIRECTDRAW: PFD_FLAGS = 8192
+PFD_DIRECT3D_ACCELERATED: PFD_FLAGS = 16384
+PFD_SUPPORT_COMPOSITION: PFD_FLAGS = 32768
+PFD_DEPTH_DONTCARE: PFD_FLAGS = 536870912
+PFD_DOUBLEBUFFER_DONTCARE: PFD_FLAGS = 1073741824
+PFD_STEREO_DONTCARE: PFD_FLAGS = 2147483648
 PFD_LAYER_TYPE = SByte
-PFD_UNDERLAY_PLANE = -1
-PFD_MAIN_PLANE = 0
-PFD_OVERLAY_PLANE = 1
+PFD_UNDERLAY_PLANE: PFD_LAYER_TYPE = -1
+PFD_MAIN_PLANE: PFD_LAYER_TYPE = 0
+PFD_OVERLAY_PLANE: PFD_LAYER_TYPE = 1
 PFD_PIXEL_TYPE = SByte
-PFD_TYPE_RGBA = 0
-PFD_TYPE_COLORINDEX = 1
-def _define_PFNGLADDSWAPHINTRECTWINPROC():
-    return WINFUNCTYPE(Void,Int32,Int32,Int32,Int32)
-def _define_PFNGLARRAYELEMENTARRAYEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,Int32,c_void_p)
-def _define_PFNGLARRAYELEMENTEXTPROC():
-    return WINFUNCTYPE(Void,Int32)
-def _define_PFNGLCOLORPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,Int32,UInt32,Int32,Int32,c_void_p)
-def _define_PFNGLCOLORSUBTABLEEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,Int32,Int32,UInt32,UInt32,c_void_p)
-def _define_PFNGLCOLORTABLEEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,UInt32,Int32,UInt32,UInt32,c_void_p)
-def _define_PFNGLDRAWARRAYSEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,Int32,Int32)
-def _define_PFNGLDRAWRANGEELEMENTSWINPROC():
-    return WINFUNCTYPE(Void,UInt32,UInt32,UInt32,Int32,UInt32,c_void_p)
-def _define_PFNGLEDGEFLAGPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,Int32,Int32,c_char_p_no)
-def _define_PFNGLGETCOLORTABLEEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,UInt32,UInt32,c_void_p)
-def _define_PFNGLGETCOLORTABLEPARAMETERFVEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Single))
-def _define_PFNGLGETCOLORTABLEPARAMETERIVEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,UInt32,POINTER(Int32))
-def _define_PFNGLGETPOINTERVEXTPROC():
-    return WINFUNCTYPE(Void,UInt32,POINTER(c_void_p))
-def _define_PFNGLINDEXPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,UInt32,Int32,Int32,c_void_p)
-def _define_PFNGLNORMALPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,UInt32,Int32,Int32,c_void_p)
-def _define_PFNGLTEXCOORDPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,Int32,UInt32,Int32,Int32,c_void_p)
-def _define_PFNGLVERTEXPOINTEREXTPROC():
-    return WINFUNCTYPE(Void,Int32,UInt32,Int32,Int32,c_void_p)
-def _define_PIXELFORMATDESCRIPTOR_head():
-    class PIXELFORMATDESCRIPTOR(Structure):
-        pass
-    return PIXELFORMATDESCRIPTOR
-def _define_PIXELFORMATDESCRIPTOR():
-    PIXELFORMATDESCRIPTOR = win32more.Graphics.OpenGL.PIXELFORMATDESCRIPTOR_head
-    PIXELFORMATDESCRIPTOR._fields_ = [
-        ('nSize', UInt16),
-        ('nVersion', UInt16),
-        ('dwFlags', win32more.Graphics.OpenGL.PFD_FLAGS),
-        ('iPixelType', win32more.Graphics.OpenGL.PFD_PIXEL_TYPE),
-        ('cColorBits', Byte),
-        ('cRedBits', Byte),
-        ('cRedShift', Byte),
-        ('cGreenBits', Byte),
-        ('cGreenShift', Byte),
-        ('cBlueBits', Byte),
-        ('cBlueShift', Byte),
-        ('cAlphaBits', Byte),
-        ('cAlphaShift', Byte),
-        ('cAccumBits', Byte),
-        ('cAccumRedBits', Byte),
-        ('cAccumGreenBits', Byte),
-        ('cAccumBlueBits', Byte),
-        ('cAccumAlphaBits', Byte),
-        ('cDepthBits', Byte),
-        ('cStencilBits', Byte),
-        ('cAuxBuffers', Byte),
-        ('iLayerType', win32more.Graphics.OpenGL.PFD_LAYER_TYPE),
-        ('bReserved', Byte),
-        ('dwLayerMask', UInt32),
-        ('dwVisibleMask', UInt32),
-        ('dwDamageMask', UInt32),
-    ]
-    return PIXELFORMATDESCRIPTOR
-def _define_POINTFLOAT_head():
-    class POINTFLOAT(Structure):
-        pass
-    return POINTFLOAT
-def _define_POINTFLOAT():
-    POINTFLOAT = win32more.Graphics.OpenGL.POINTFLOAT_head
-    POINTFLOAT._fields_ = [
-        ('x', Single),
-        ('y', Single),
-    ]
-    return POINTFLOAT
+PFD_TYPE_RGBA: PFD_PIXEL_TYPE = 0
+PFD_TYPE_COLORINDEX: PFD_PIXEL_TYPE = 1
+@winfunctype_pointer
+def PFNGLADDSWAPHINTRECTWINPROC(x: Int32, y: Int32, width: Int32, height: Int32) -> Void: ...
+@winfunctype_pointer
+def PFNGLARRAYELEMENTARRAYEXTPROC(mode: UInt32, count: Int32, pi: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLARRAYELEMENTEXTPROC(i: Int32) -> Void: ...
+@winfunctype_pointer
+def PFNGLCOLORPOINTEREXTPROC(size: Int32, type: UInt32, stride: Int32, count: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLCOLORSUBTABLEEXTPROC(target: UInt32, start: Int32, count: Int32, format: UInt32, type: UInt32, data: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLCOLORTABLEEXTPROC(target: UInt32, internalFormat: UInt32, width: Int32, format: UInt32, type: UInt32, data: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLDRAWARRAYSEXTPROC(mode: UInt32, first: Int32, count: Int32) -> Void: ...
+@winfunctype_pointer
+def PFNGLDRAWRANGEELEMENTSWINPROC(mode: UInt32, start: UInt32, end: UInt32, count: Int32, type: UInt32, indices: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLEDGEFLAGPOINTEREXTPROC(stride: Int32, count: Int32, pointer: c_char_p_no) -> Void: ...
+@winfunctype_pointer
+def PFNGLGETCOLORTABLEEXTPROC(target: UInt32, format: UInt32, type: UInt32, data: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLGETCOLORTABLEPARAMETERFVEXTPROC(target: UInt32, pname: UInt32, params: POINTER(Single)) -> Void: ...
+@winfunctype_pointer
+def PFNGLGETCOLORTABLEPARAMETERIVEXTPROC(target: UInt32, pname: UInt32, params: POINTER(Int32)) -> Void: ...
+@winfunctype_pointer
+def PFNGLGETPOINTERVEXTPROC(pname: UInt32, params: POINTER(c_void_p)) -> Void: ...
+@winfunctype_pointer
+def PFNGLINDEXPOINTEREXTPROC(type: UInt32, stride: Int32, count: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLNORMALPOINTEREXTPROC(type: UInt32, stride: Int32, count: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLTEXCOORDPOINTEREXTPROC(size: Int32, type: UInt32, stride: Int32, count: Int32, pointer: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFNGLVERTEXPOINTEREXTPROC(size: Int32, type: UInt32, stride: Int32, count: Int32, pointer: c_void_p) -> Void: ...
+class PIXELFORMATDESCRIPTOR(Structure):
+    nSize: UInt16
+    nVersion: UInt16
+    dwFlags: win32more.Graphics.OpenGL.PFD_FLAGS
+    iPixelType: win32more.Graphics.OpenGL.PFD_PIXEL_TYPE
+    cColorBits: Byte
+    cRedBits: Byte
+    cRedShift: Byte
+    cGreenBits: Byte
+    cGreenShift: Byte
+    cBlueBits: Byte
+    cBlueShift: Byte
+    cAlphaBits: Byte
+    cAlphaShift: Byte
+    cAccumBits: Byte
+    cAccumRedBits: Byte
+    cAccumGreenBits: Byte
+    cAccumBlueBits: Byte
+    cAccumAlphaBits: Byte
+    cDepthBits: Byte
+    cStencilBits: Byte
+    cAuxBuffers: Byte
+    iLayerType: win32more.Graphics.OpenGL.PFD_LAYER_TYPE
+    bReserved: Byte
+    dwLayerMask: UInt32
+    dwVisibleMask: UInt32
+    dwDamageMask: UInt32
+class POINTFLOAT(Structure):
+    x: Single
+    y: Single
+make_head(_module, 'EMRPIXELFORMAT')
+make_head(_module, 'GLUnurbs')
+make_head(_module, 'GLUnurbsErrorProc')
+make_head(_module, 'GLUquadric')
+make_head(_module, 'GLUquadricErrorProc')
+make_head(_module, 'GLUtessBeginDataProc')
+make_head(_module, 'GLUtessBeginProc')
+make_head(_module, 'GLUtessCombineDataProc')
+make_head(_module, 'GLUtessCombineProc')
+make_head(_module, 'GLUtessEdgeFlagDataProc')
+make_head(_module, 'GLUtessEdgeFlagProc')
+make_head(_module, 'GLUtesselator')
+make_head(_module, 'GLUtessEndDataProc')
+make_head(_module, 'GLUtessEndProc')
+make_head(_module, 'GLUtessErrorDataProc')
+make_head(_module, 'GLUtessErrorProc')
+make_head(_module, 'GLUtessVertexDataProc')
+make_head(_module, 'GLUtessVertexProc')
+make_head(_module, 'GLYPHMETRICSFLOAT')
+make_head(_module, 'LAYERPLANEDESCRIPTOR')
+make_head(_module, 'PFNGLADDSWAPHINTRECTWINPROC')
+make_head(_module, 'PFNGLARRAYELEMENTARRAYEXTPROC')
+make_head(_module, 'PFNGLARRAYELEMENTEXTPROC')
+make_head(_module, 'PFNGLCOLORPOINTEREXTPROC')
+make_head(_module, 'PFNGLCOLORSUBTABLEEXTPROC')
+make_head(_module, 'PFNGLCOLORTABLEEXTPROC')
+make_head(_module, 'PFNGLDRAWARRAYSEXTPROC')
+make_head(_module, 'PFNGLDRAWRANGEELEMENTSWINPROC')
+make_head(_module, 'PFNGLEDGEFLAGPOINTEREXTPROC')
+make_head(_module, 'PFNGLGETCOLORTABLEEXTPROC')
+make_head(_module, 'PFNGLGETCOLORTABLEPARAMETERFVEXTPROC')
+make_head(_module, 'PFNGLGETCOLORTABLEPARAMETERIVEXTPROC')
+make_head(_module, 'PFNGLGETPOINTERVEXTPROC')
+make_head(_module, 'PFNGLINDEXPOINTEREXTPROC')
+make_head(_module, 'PFNGLNORMALPOINTEREXTPROC')
+make_head(_module, 'PFNGLTEXCOORDPOINTEREXTPROC')
+make_head(_module, 'PFNGLVERTEXPOINTEREXTPROC')
+make_head(_module, 'PIXELFORMATDESCRIPTOR')
+make_head(_module, 'POINTFLOAT')
 __all__ = [
     "ChoosePixelFormat",
     "DescribePixelFormat",

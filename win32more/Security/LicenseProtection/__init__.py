@@ -1,34 +1,29 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security.LicenseProtection
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_RegisterLicenseKeyWithExpiration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Security.LicenseProtection.LicenseProtectionStatus))(('RegisterLicenseKeyWithExpiration', windll['licenseprotection.dll']), ((1, 'licenseKey'),(1, 'validityInDays'),(1, 'status'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ValidateLicenseKeyProtection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Security.LicenseProtection.LicenseProtectionStatus))(('ValidateLicenseKeyProtection', windll['licenseprotection.dll']), ((1, 'licenseKey'),(1, 'notValidBefore'),(1, 'notValidAfter'),(1, 'status'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+@winfunctype('licenseprotection.dll')
+def RegisterLicenseKeyWithExpiration(licenseKey: win32more.Foundation.PWSTR, validityInDays: UInt32, status: POINTER(win32more.Security.LicenseProtection.LicenseProtectionStatus)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('licenseprotection.dll')
+def ValidateLicenseKeyProtection(licenseKey: win32more.Foundation.PWSTR, notValidBefore: POINTER(win32more.Foundation.FILETIME_head), notValidAfter: POINTER(win32more.Foundation.FILETIME_head), status: POINTER(win32more.Security.LicenseProtection.LicenseProtectionStatus)) -> win32more.Foundation.HRESULT: ...
 LicenseProtectionStatus = Int32
-LicenseProtectionStatus_Success = 0
-LicenseProtectionStatus_LicenseKeyNotFound = 1
-LicenseProtectionStatus_LicenseKeyUnprotected = 2
-LicenseProtectionStatus_LicenseKeyCorrupted = 3
-LicenseProtectionStatus_LicenseKeyAlreadyExists = 4
+LicenseProtectionStatus_Success: LicenseProtectionStatus = 0
+LicenseProtectionStatus_LicenseKeyNotFound: LicenseProtectionStatus = 1
+LicenseProtectionStatus_LicenseKeyUnprotected: LicenseProtectionStatus = 2
+LicenseProtectionStatus_LicenseKeyCorrupted: LicenseProtectionStatus = 3
+LicenseProtectionStatus_LicenseKeyAlreadyExists: LicenseProtectionStatus = 4
 __all__ = [
     "LicenseProtectionStatus",
     "LicenseProtectionStatus_LicenseKeyAlreadyExists",

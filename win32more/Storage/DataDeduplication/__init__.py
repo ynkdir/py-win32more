@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.DataDeduplication
 import win32more.System.Com
@@ -7,215 +8,169 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-DEDUP_CHUNKLIB_MAX_CHUNKS_ENUM = 1024
-def _define_DDP_FILE_EXTENT_head():
-    class DDP_FILE_EXTENT(Structure):
-        pass
-    return DDP_FILE_EXTENT
-def _define_DDP_FILE_EXTENT():
-    DDP_FILE_EXTENT = win32more.Storage.DataDeduplication.DDP_FILE_EXTENT_head
-    DDP_FILE_EXTENT._fields_ = [
-        ('Length', Int64),
-        ('Offset', Int64),
-    ]
-    return DDP_FILE_EXTENT
+DEDUP_CHUNKLIB_MAX_CHUNKS_ENUM: UInt32 = 1024
+class DDP_FILE_EXTENT(Structure):
+    Length: Int64
+    Offset: Int64
 DEDUP_BACKUP_SUPPORT_PARAM_TYPE = Int32
-DEDUP_RECONSTRUCT_UNOPTIMIZED = 1
-DEDUP_RECONSTRUCT_OPTIMIZED = 2
-def _define_DEDUP_CHUNK_INFO_HASH32_head():
-    class DEDUP_CHUNK_INFO_HASH32(Structure):
-        pass
-    return DEDUP_CHUNK_INFO_HASH32
-def _define_DEDUP_CHUNK_INFO_HASH32():
-    DEDUP_CHUNK_INFO_HASH32 = win32more.Storage.DataDeduplication.DEDUP_CHUNK_INFO_HASH32_head
-    DEDUP_CHUNK_INFO_HASH32._fields_ = [
-        ('ChunkFlags', UInt32),
-        ('ChunkOffsetInStream', UInt64),
-        ('ChunkSize', UInt64),
-        ('HashVal', Byte * 32),
-    ]
-    return DEDUP_CHUNK_INFO_HASH32
-def _define_DEDUP_CONTAINER_EXTENT_head():
-    class DEDUP_CONTAINER_EXTENT(Structure):
-        pass
-    return DEDUP_CONTAINER_EXTENT
-def _define_DEDUP_CONTAINER_EXTENT():
-    DEDUP_CONTAINER_EXTENT = win32more.Storage.DataDeduplication.DEDUP_CONTAINER_EXTENT_head
-    DEDUP_CONTAINER_EXTENT._fields_ = [
-        ('ContainerIndex', UInt32),
-        ('StartOffset', Int64),
-        ('Length', Int64),
-    ]
-    return DEDUP_CONTAINER_EXTENT
+DEDUP_RECONSTRUCT_UNOPTIMIZED: DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 1
+DEDUP_RECONSTRUCT_OPTIMIZED: DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 2
+class DEDUP_CHUNK_INFO_HASH32(Structure):
+    ChunkFlags: UInt32
+    ChunkOffsetInStream: UInt64
+    ChunkSize: UInt64
+    HashVal: Byte * 32
+class DEDUP_CONTAINER_EXTENT(Structure):
+    ContainerIndex: UInt32
+    StartOffset: Int64
+    Length: Int64
 DEDUP_SET_PARAM_TYPE = Int32
-DEDUP_PT_MinChunkSizeBytes = 1
-DEDUP_PT_MaxChunkSizeBytes = 2
-DEDUP_PT_AvgChunkSizeBytes = 3
-DEDUP_PT_InvariantChunking = 4
-DEDUP_PT_DisableStrongHashComputation = 5
+DEDUP_PT_MinChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 1
+DEDUP_PT_MaxChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 2
+DEDUP_PT_AvgChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 3
+DEDUP_PT_InvariantChunking: DEDUP_SET_PARAM_TYPE = 4
+DEDUP_PT_DisableStrongHashComputation: DEDUP_SET_PARAM_TYPE = 5
 DedupBackupSupport = Guid('73d6b2ad-2984-4715-b2-e3-92-4c-14-97-44-dd')
-def _define_DedupChunk_head():
-    class DedupChunk(Structure):
-        pass
-    return DedupChunk
-def _define_DedupChunk():
-    DedupChunk = win32more.Storage.DataDeduplication.DedupChunk_head
-    DedupChunk._fields_ = [
-        ('Hash', win32more.Storage.DataDeduplication.DedupHash),
-        ('Flags', win32more.Storage.DataDeduplication.DedupChunkFlags),
-        ('LogicalSize', UInt32),
-        ('DataSize', UInt32),
-    ]
-    return DedupChunk
+class DedupChunk(Structure):
+    Hash: win32more.Storage.DataDeduplication.DedupHash
+    Flags: win32more.Storage.DataDeduplication.DedupChunkFlags
+    LogicalSize: UInt32
+    DataSize: UInt32
 DedupChunkFlags = Int32
-DedupChunkFlags_None = 0
-DedupChunkFlags_Compressed = 1
+DedupChunkFlags_None: DedupChunkFlags = 0
+DedupChunkFlags_Compressed: DedupChunkFlags = 1
 DedupChunkingAlgorithm = Int32
-DedupChunkingAlgorithm_Unknonwn = 0
-DedupChunkingAlgorithm_V1 = 1
+DedupChunkingAlgorithm_Unknonwn: DedupChunkingAlgorithm = 0
+DedupChunkingAlgorithm_V1: DedupChunkingAlgorithm = 1
 DedupCompressionAlgorithm = Int32
-DedupCompressionAlgorithm_Unknonwn = 0
-DedupCompressionAlgorithm_Xpress = 1
+DedupCompressionAlgorithm_Unknonwn: DedupCompressionAlgorithm = 0
+DedupCompressionAlgorithm_Xpress: DedupCompressionAlgorithm = 1
 DedupDataPort = Guid('8f107207-1829-48b2-a6-4b-e6-1f-8e-0d-9a-cb')
 DedupDataPortManagerOption = Int32
-DedupDataPortManagerOption_None = 0
-DedupDataPortManagerOption_AutoStart = 1
-DedupDataPortManagerOption_SkipReconciliation = 2
+DedupDataPortManagerOption_None: DedupDataPortManagerOption = 0
+DedupDataPortManagerOption_AutoStart: DedupDataPortManagerOption = 1
+DedupDataPortManagerOption_SkipReconciliation: DedupDataPortManagerOption = 2
 DedupDataPortRequestStatus = Int32
-DedupDataPortRequestStatus_Unknown = 0
-DedupDataPortRequestStatus_Queued = 1
-DedupDataPortRequestStatus_Processing = 2
-DedupDataPortRequestStatus_Partial = 3
-DedupDataPortRequestStatus_Complete = 4
-DedupDataPortRequestStatus_Failed = 5
+DedupDataPortRequestStatus_Unknown: DedupDataPortRequestStatus = 0
+DedupDataPortRequestStatus_Queued: DedupDataPortRequestStatus = 1
+DedupDataPortRequestStatus_Processing: DedupDataPortRequestStatus = 2
+DedupDataPortRequestStatus_Partial: DedupDataPortRequestStatus = 3
+DedupDataPortRequestStatus_Complete: DedupDataPortRequestStatus = 4
+DedupDataPortRequestStatus_Failed: DedupDataPortRequestStatus = 5
 DedupDataPortVolumeStatus = Int32
-DedupDataPortVolumeStatus_Unknown = 0
-DedupDataPortVolumeStatus_NotEnabled = 1
-DedupDataPortVolumeStatus_NotAvailable = 2
-DedupDataPortVolumeStatus_Initializing = 3
-DedupDataPortVolumeStatus_Ready = 4
-DedupDataPortVolumeStatus_Maintenance = 5
-DedupDataPortVolumeStatus_Shutdown = 6
-def _define_DedupHash_head():
-    class DedupHash(Structure):
-        pass
-    return DedupHash
-def _define_DedupHash():
-    DedupHash = win32more.Storage.DataDeduplication.DedupHash_head
-    DedupHash._fields_ = [
-        ('Hash', Byte * 32),
-    ]
-    return DedupHash
+DedupDataPortVolumeStatus_Unknown: DedupDataPortVolumeStatus = 0
+DedupDataPortVolumeStatus_NotEnabled: DedupDataPortVolumeStatus = 1
+DedupDataPortVolumeStatus_NotAvailable: DedupDataPortVolumeStatus = 2
+DedupDataPortVolumeStatus_Initializing: DedupDataPortVolumeStatus = 3
+DedupDataPortVolumeStatus_Ready: DedupDataPortVolumeStatus = 4
+DedupDataPortVolumeStatus_Maintenance: DedupDataPortVolumeStatus = 5
+DedupDataPortVolumeStatus_Shutdown: DedupDataPortVolumeStatus = 6
+class DedupHash(Structure):
+    Hash: Byte * 32
 DedupHashingAlgorithm = Int32
-DedupHashingAlgorithm_Unknonwn = 0
-DedupHashingAlgorithm_V1 = 1
-def _define_DedupStream_head():
-    class DedupStream(Structure):
-        pass
-    return DedupStream
-def _define_DedupStream():
-    DedupStream = win32more.Storage.DataDeduplication.DedupStream_head
-    DedupStream._fields_ = [
-        ('Path', win32more.Foundation.BSTR),
-        ('Offset', UInt64),
-        ('Length', UInt64),
-        ('ChunkCount', UInt32),
-    ]
-    return DedupStream
-def _define_DedupStreamEntry_head():
-    class DedupStreamEntry(Structure):
-        pass
-    return DedupStreamEntry
-def _define_DedupStreamEntry():
-    DedupStreamEntry = win32more.Storage.DataDeduplication.DedupStreamEntry_head
-    DedupStreamEntry._fields_ = [
-        ('Hash', win32more.Storage.DataDeduplication.DedupHash),
-        ('LogicalSize', UInt32),
-        ('Offset', UInt64),
-    ]
-    return DedupStreamEntry
-def _define_IDedupBackupSupport_head():
-    class IDedupBackupSupport(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c719d963-2b2d-415e-ac-f7-7e-b7-ca-59-6f-f4')
-    return IDedupBackupSupport
-def _define_IDedupBackupSupport():
-    IDedupBackupSupport = win32more.Storage.DataDeduplication.IDedupBackupSupport_head
-    IDedupBackupSupport.RestoreFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),win32more.Storage.DataDeduplication.IDedupReadFileCallback_head,UInt32,POINTER(win32more.Foundation.HRESULT))(3, 'RestoreFiles', ((1, 'NumberOfFiles'),(1, 'FileFullPaths'),(1, 'Store'),(1, 'Flags'),(1, 'FileResults'),)))
-    win32more.System.Com.IUnknown
-    return IDedupBackupSupport
-def _define_IDedupChunkLibrary_head():
-    class IDedupChunkLibrary(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bb5144d7-2720-4dcc-87-77-78-59-74-16-ec-23')
-    return IDedupChunkLibrary
-def _define_IDedupChunkLibrary():
-    IDedupChunkLibrary = win32more.Storage.DataDeduplication.IDedupChunkLibrary_head
-    IDedupChunkLibrary.InitializeForPushBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'InitializeForPushBuffers', ()))
-    IDedupChunkLibrary.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Uninitialize', ()))
-    IDedupChunkLibrary.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.VARIANT)(5, 'SetParameter', ((1, 'dwParamType'),(1, 'vParamValue'),)))
-    IDedupChunkLibrary.StartChunking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.IUnknown_head))(6, 'StartChunking', ((1, 'iidIteratorInterfaceID'),(1, 'ppChunksEnum'),)))
-    win32more.System.Com.IUnknown
-    return IDedupChunkLibrary
-def _define_IDedupDataPort_head():
-    class IDedupDataPort(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7963d734-40a9-4ea3-bb-f6-5a-89-d2-6f-7a-e8')
-    return IDedupDataPort
-def _define_IDedupDataPort():
-    IDedupDataPort = win32more.Storage.DataDeduplication.IDedupDataPort_head
-    IDedupDataPort.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.DataDeduplication.DedupDataPortVolumeStatus),POINTER(UInt32))(3, 'GetStatus', ((1, 'pStatus'),(1, 'pDataHeadroomMb'),)))
-    IDedupDataPort.LookupChunks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupHash_head),POINTER(Guid))(4, 'LookupChunks', ((1, 'Count'),(1, 'pHashes'),(1, 'pRequestId'),)))
-    IDedupDataPort.InsertChunks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupChunk_head),UInt32,c_char_p_no,POINTER(Guid))(5, 'InsertChunks', ((1, 'ChunkCount'),(1, 'pChunkMetadata'),(1, 'DataByteCount'),(1, 'pChunkData'),(1, 'pRequestId'),)))
-    IDedupDataPort.InsertChunksWithStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupChunk_head),UInt32,win32more.System.Com.IStream_head,POINTER(Guid))(6, 'InsertChunksWithStream', ((1, 'ChunkCount'),(1, 'pChunkMetadata'),(1, 'DataByteCount'),(1, 'pChunkDataStream'),(1, 'pRequestId'),)))
-    IDedupDataPort.CommitStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupStream_head),UInt32,POINTER(win32more.Storage.DataDeduplication.DedupStreamEntry_head),POINTER(Guid))(7, 'CommitStreams', ((1, 'StreamCount'),(1, 'pStreams'),(1, 'EntryCount'),(1, 'pEntries'),(1, 'pRequestId'),)))
-    IDedupDataPort.CommitStreamsWithStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupStream_head),UInt32,win32more.System.Com.IStream_head,POINTER(Guid))(8, 'CommitStreamsWithStream', ((1, 'StreamCount'),(1, 'pStreams'),(1, 'EntryCount'),(1, 'pEntriesStream'),(1, 'pRequestId'),)))
-    IDedupDataPort.GetStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(Guid))(9, 'GetStreams', ((1, 'StreamCount'),(1, 'pStreamPaths'),(1, 'pRequestId'),)))
-    IDedupDataPort.GetStreamsResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DedupStream_head)),POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DedupStreamEntry_head)),POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus),POINTER(POINTER(win32more.Foundation.HRESULT)))(10, 'GetStreamsResults', ((1, 'RequestId'),(1, 'MaxWaitMs'),(1, 'StreamEntryIndex'),(1, 'pStreamCount'),(1, 'ppStreams'),(1, 'pEntryCount'),(1, 'ppEntries'),(1, 'pStatus'),(1, 'ppItemResults'),)))
-    IDedupDataPort.GetChunks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DedupHash_head),POINTER(Guid))(11, 'GetChunks', ((1, 'Count'),(1, 'pHashes'),(1, 'pRequestId'),)))
-    IDedupDataPort.GetChunksResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DedupChunk_head)),POINTER(UInt32),POINTER(c_char_p_no),POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus),POINTER(POINTER(win32more.Foundation.HRESULT)))(12, 'GetChunksResults', ((1, 'RequestId'),(1, 'MaxWaitMs'),(1, 'ChunkIndex'),(1, 'pChunkCount'),(1, 'ppChunkMetadata'),(1, 'pDataByteCount'),(1, 'ppChunkData'),(1, 'pStatus'),(1, 'ppItemResults'),)))
-    IDedupDataPort.GetRequestStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus))(13, 'GetRequestStatus', ((1, 'RequestId'),(1, 'pStatus'),)))
-    IDedupDataPort.GetRequestResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,POINTER(win32more.Foundation.HRESULT),POINTER(UInt32),POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus),POINTER(POINTER(win32more.Foundation.HRESULT)))(14, 'GetRequestResults', ((1, 'RequestId'),(1, 'MaxWaitMs'),(1, 'pBatchResult'),(1, 'pBatchCount'),(1, 'pStatus'),(1, 'ppItemResults'),)))
-    win32more.System.Com.IUnknown
-    return IDedupDataPort
-def _define_IDedupDataPortManager_head():
-    class IDedupDataPortManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('44677452-b90a-445e-81-92-cd-cf-e8-15-11-fb')
-    return IDedupDataPortManager
-def _define_IDedupDataPortManager():
-    IDedupDataPortManager = win32more.Storage.DataDeduplication.IDedupDataPortManager_head
-    IDedupDataPortManager.GetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Storage.DataDeduplication.DedupChunkingAlgorithm),POINTER(win32more.Storage.DataDeduplication.DedupHashingAlgorithm),POINTER(win32more.Storage.DataDeduplication.DedupCompressionAlgorithm))(3, 'GetConfiguration', ((1, 'pMinChunkSize'),(1, 'pMaxChunkSize'),(1, 'pChunkingAlgorithm'),(1, 'pHashingAlgorithm'),(1, 'pCompressionAlgorithm'),)))
-    IDedupDataPortManager.GetVolumeStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.Storage.DataDeduplication.DedupDataPortVolumeStatus))(4, 'GetVolumeStatus', ((1, 'Options'),(1, 'Path'),(1, 'pStatus'),)))
-    IDedupDataPortManager.GetVolumeDataPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.Storage.DataDeduplication.IDedupDataPort_head))(5, 'GetVolumeDataPort', ((1, 'Options'),(1, 'Path'),(1, 'ppDataPort'),)))
-    win32more.System.Com.IUnknown
-    return IDedupDataPortManager
-def _define_IDedupIterateChunksHash32_head():
-    class IDedupIterateChunksHash32(win32more.System.Com.IUnknown_head):
-        Guid = Guid('90b584d3-72aa-400f-97-67-ca-d8-66-a5-a2-d8')
-    return IDedupIterateChunksHash32
-def _define_IDedupIterateChunksHash32():
-    IDedupIterateChunksHash32 = win32more.Storage.DataDeduplication.IDedupIterateChunksHash32_head
-    IDedupIterateChunksHash32.PushBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(3, 'PushBuffer', ((1, 'pBuffer'),(1, 'ulBufferLength'),)))
-    IDedupIterateChunksHash32.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DEDUP_CHUNK_INFO_HASH32_head),POINTER(UInt32))(4, 'Next', ((1, 'ulMaxChunks'),(1, 'pArrChunks'),(1, 'pulFetched'),)))
-    IDedupIterateChunksHash32.Drain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Drain', ()))
-    IDedupIterateChunksHash32.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Reset', ()))
-    win32more.System.Com.IUnknown
-    return IDedupIterateChunksHash32
-def _define_IDedupReadFileCallback_head():
-    class IDedupReadFileCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7bacc67a-2f1d-42d0-89-7e-6f-f6-2d-d5-33-bb')
-    return IDedupReadFileCallback
-def _define_IDedupReadFileCallback():
-    IDedupReadFileCallback = win32more.Storage.DataDeduplication.IDedupReadFileCallback_head
-    IDedupReadFileCallback.ReadBackupFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int64,UInt32,c_char_p_no,POINTER(UInt32),UInt32)(3, 'ReadBackupFile', ((1, 'FileFullPath'),(1, 'FileOffset'),(1, 'SizeToRead'),(1, 'FileBuffer'),(1, 'ReturnedSize'),(1, 'Flags'),)))
-    IDedupReadFileCallback.OrderContainersRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DEDUP_CONTAINER_EXTENT_head)))(4, 'OrderContainersRestore', ((1, 'NumberOfContainers'),(1, 'ContainerPaths'),(1, 'ReadPlanEntries'),(1, 'ReadPlan'),)))
-    IDedupReadFileCallback.PreviewContainerRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.Storage.DataDeduplication.DDP_FILE_EXTENT_head))(5, 'PreviewContainerRead', ((1, 'FileFullPath'),(1, 'NumberOfReads'),(1, 'ReadOffsets'),)))
-    win32more.System.Com.IUnknown
-    return IDedupReadFileCallback
+DedupHashingAlgorithm_Unknonwn: DedupHashingAlgorithm = 0
+DedupHashingAlgorithm_V1: DedupHashingAlgorithm = 1
+class DedupStream(Structure):
+    Path: win32more.Foundation.BSTR
+    Offset: UInt64
+    Length: UInt64
+    ChunkCount: UInt32
+class DedupStreamEntry(Structure):
+    Hash: win32more.Storage.DataDeduplication.DedupHash
+    LogicalSize: UInt32
+    Offset: UInt64
+class IDedupBackupSupport(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c719d963-2b2d-415e-ac-f7-7e-b7-ca-59-6f-f4')
+    @commethod(3)
+    def RestoreFiles(NumberOfFiles: UInt32, FileFullPaths: POINTER(win32more.Foundation.BSTR), Store: win32more.Storage.DataDeduplication.IDedupReadFileCallback_head, Flags: UInt32, FileResults: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+class IDedupChunkLibrary(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bb5144d7-2720-4dcc-87-77-78-59-74-16-ec-23')
+    @commethod(3)
+    def InitializeForPushBuffers() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Uninitialize() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetParameter(dwParamType: UInt32, vParamValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def StartChunking(iidIteratorInterfaceID: Guid, ppChunksEnum: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IDedupDataPort(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7963d734-40a9-4ea3-bb-f6-5a-89-d2-6f-7a-e8')
+    @commethod(3)
+    def GetStatus(pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortVolumeStatus), pDataHeadroomMb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def LookupChunks(Count: UInt32, pHashes: POINTER(win32more.Storage.DataDeduplication.DedupHash_head), pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def InsertChunks(ChunkCount: UInt32, pChunkMetadata: POINTER(win32more.Storage.DataDeduplication.DedupChunk_head), DataByteCount: UInt32, pChunkData: c_char_p_no, pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def InsertChunksWithStream(ChunkCount: UInt32, pChunkMetadata: POINTER(win32more.Storage.DataDeduplication.DedupChunk_head), DataByteCount: UInt32, pChunkDataStream: win32more.System.Com.IStream_head, pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CommitStreams(StreamCount: UInt32, pStreams: POINTER(win32more.Storage.DataDeduplication.DedupStream_head), EntryCount: UInt32, pEntries: POINTER(win32more.Storage.DataDeduplication.DedupStreamEntry_head), pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CommitStreamsWithStream(StreamCount: UInt32, pStreams: POINTER(win32more.Storage.DataDeduplication.DedupStream_head), EntryCount: UInt32, pEntriesStream: win32more.System.Com.IStream_head, pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetStreams(StreamCount: UInt32, pStreamPaths: POINTER(win32more.Foundation.BSTR), pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetStreamsResults(RequestId: Guid, MaxWaitMs: UInt32, StreamEntryIndex: UInt32, pStreamCount: POINTER(UInt32), ppStreams: POINTER(POINTER(win32more.Storage.DataDeduplication.DedupStream_head)), pEntryCount: POINTER(UInt32), ppEntries: POINTER(POINTER(win32more.Storage.DataDeduplication.DedupStreamEntry_head)), pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus), ppItemResults: POINTER(POINTER(win32more.Foundation.HRESULT))) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetChunks(Count: UInt32, pHashes: POINTER(win32more.Storage.DataDeduplication.DedupHash_head), pRequestId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetChunksResults(RequestId: Guid, MaxWaitMs: UInt32, ChunkIndex: UInt32, pChunkCount: POINTER(UInt32), ppChunkMetadata: POINTER(POINTER(win32more.Storage.DataDeduplication.DedupChunk_head)), pDataByteCount: POINTER(UInt32), ppChunkData: POINTER(c_char_p_no), pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus), ppItemResults: POINTER(POINTER(win32more.Foundation.HRESULT))) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetRequestStatus(RequestId: Guid, pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetRequestResults(RequestId: Guid, MaxWaitMs: UInt32, pBatchResult: POINTER(win32more.Foundation.HRESULT), pBatchCount: POINTER(UInt32), pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus), ppItemResults: POINTER(POINTER(win32more.Foundation.HRESULT))) -> win32more.Foundation.HRESULT: ...
+class IDedupDataPortManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('44677452-b90a-445e-81-92-cd-cf-e8-15-11-fb')
+    @commethod(3)
+    def GetConfiguration(pMinChunkSize: POINTER(UInt32), pMaxChunkSize: POINTER(UInt32), pChunkingAlgorithm: POINTER(win32more.Storage.DataDeduplication.DedupChunkingAlgorithm), pHashingAlgorithm: POINTER(win32more.Storage.DataDeduplication.DedupHashingAlgorithm), pCompressionAlgorithm: POINTER(win32more.Storage.DataDeduplication.DedupCompressionAlgorithm)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetVolumeStatus(Options: UInt32, Path: win32more.Foundation.BSTR, pStatus: POINTER(win32more.Storage.DataDeduplication.DedupDataPortVolumeStatus)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetVolumeDataPort(Options: UInt32, Path: win32more.Foundation.BSTR, ppDataPort: POINTER(win32more.Storage.DataDeduplication.IDedupDataPort_head)) -> win32more.Foundation.HRESULT: ...
+class IDedupIterateChunksHash32(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('90b584d3-72aa-400f-97-67-ca-d8-66-a5-a2-d8')
+    @commethod(3)
+    def PushBuffer(pBuffer: c_char_p_no, ulBufferLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next(ulMaxChunks: UInt32, pArrChunks: POINTER(win32more.Storage.DataDeduplication.DEDUP_CHUNK_INFO_HASH32_head), pulFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Drain() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+class IDedupReadFileCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7bacc67a-2f1d-42d0-89-7e-6f-f6-2d-d5-33-bb')
+    @commethod(3)
+    def ReadBackupFile(FileFullPath: win32more.Foundation.BSTR, FileOffset: Int64, SizeToRead: UInt32, FileBuffer: c_char_p_no, ReturnedSize: POINTER(UInt32), Flags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OrderContainersRestore(NumberOfContainers: UInt32, ContainerPaths: POINTER(win32more.Foundation.BSTR), ReadPlanEntries: POINTER(UInt32), ReadPlan: POINTER(POINTER(win32more.Storage.DataDeduplication.DEDUP_CONTAINER_EXTENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def PreviewContainerRead(FileFullPath: win32more.Foundation.BSTR, NumberOfReads: UInt32, ReadOffsets: POINTER(win32more.Storage.DataDeduplication.DDP_FILE_EXTENT_head)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'DDP_FILE_EXTENT')
+make_head(_module, 'DEDUP_CHUNK_INFO_HASH32')
+make_head(_module, 'DEDUP_CONTAINER_EXTENT')
+make_head(_module, 'DedupChunk')
+make_head(_module, 'DedupHash')
+make_head(_module, 'DedupStream')
+make_head(_module, 'DedupStreamEntry')
+make_head(_module, 'IDedupBackupSupport')
+make_head(_module, 'IDedupChunkLibrary')
+make_head(_module, 'IDedupDataPort')
+make_head(_module, 'IDedupDataPortManager')
+make_head(_module, 'IDedupIterateChunksHash32')
+make_head(_module, 'IDedupReadFileCallback')
 __all__ = [
     "DDP_FILE_EXTENT",
     "DEDUP_BACKUP_SUPPORT_PARAM_TYPE",

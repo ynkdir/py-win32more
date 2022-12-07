@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Direct2D
 import win32more.Graphics.Direct2D.Common
@@ -15,3273 +16,2917 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-D2D1_DEFAULT_FLATTENING_TOLERANCE = 0.25
-def _define_CLSID_D2D12DAffineTransform():
-    return Guid('6aa97485-6354-4cfc-90-8c-e4-a7-4f-62-c9-6c')
-def _define_CLSID_D2D13DPerspectiveTransform():
-    return Guid('c2844d0b-3d86-46e7-85-ba-52-6c-92-40-f3-fb')
-def _define_CLSID_D2D13DTransform():
-    return Guid('e8467b04-ec61-4b8a-b5-de-d4-d7-3d-eb-ea-5a')
-def _define_CLSID_D2D1ArithmeticComposite():
-    return Guid('fc151437-049a-4784-a2-4a-f1-c4-da-f2-09-87')
-def _define_CLSID_D2D1Atlas():
-    return Guid('913e2be4-fdcf-4fe2-a5-f0-24-54-f1-4f-f4-08')
-def _define_CLSID_D2D1BitmapSource():
-    return Guid('5fb6c24d-c6dd-4231-94-04-50-f4-d5-c3-25-2d')
-def _define_CLSID_D2D1Blend():
-    return Guid('81c5b77b-13f8-4cdd-ad-20-c8-90-54-7a-c6-5d')
-def _define_CLSID_D2D1Border():
-    return Guid('2a2d49c0-4acf-43c7-8c-6a-7c-4a-27-87-4d-27')
-def _define_CLSID_D2D1Brightness():
-    return Guid('8cea8d1e-77b0-4986-b3-b9-2f-0c-0e-ae-78-87')
-def _define_CLSID_D2D1ColorManagement():
-    return Guid('1a28524c-fdd6-4aa4-ae-8f-83-7e-b8-26-7b-37')
-def _define_CLSID_D2D1ColorMatrix():
-    return Guid('921f03d6-641c-47df-85-2d-b4-bb-61-53-ae-11')
-def _define_CLSID_D2D1Composite():
-    return Guid('48fc9f51-f6ac-48f1-8b-58-3b-28-ac-46-f7-6d')
-def _define_CLSID_D2D1ConvolveMatrix():
-    return Guid('407f8c08-5533-4331-a3-41-23-cc-38-77-84-3e')
-def _define_CLSID_D2D1Crop():
-    return Guid('e23f7110-0e9a-4324-af-47-6a-2c-0c-46-f3-5b')
-def _define_CLSID_D2D1DirectionalBlur():
-    return Guid('174319a6-58e9-49b2-bb-63-ca-f2-c8-11-a3-db')
-def _define_CLSID_D2D1DiscreteTransfer():
-    return Guid('90866fcd-488e-454b-af-06-e5-04-1b-66-c3-6c')
-def _define_CLSID_D2D1DisplacementMap():
-    return Guid('edc48364-0417-4111-94-50-43-84-5f-a9-f8-90')
-def _define_CLSID_D2D1DistantDiffuse():
-    return Guid('3e7efd62-a32d-46d4-a8-3c-52-78-88-9a-c9-54')
-def _define_CLSID_D2D1DistantSpecular():
-    return Guid('428c1ee5-77b8-4450-8a-b5-72-21-9c-21-ab-da')
-def _define_CLSID_D2D1DpiCompensation():
-    return Guid('6c26c5c7-34e0-46fc-9c-fd-e5-82-37-06-e2-28')
-def _define_CLSID_D2D1Flood():
-    return Guid('61c23c20-ae69-4d8e-94-cf-50-07-8d-f6-38-f2')
-def _define_CLSID_D2D1GammaTransfer():
-    return Guid('409444c4-c419-41a0-b0-c1-8c-d0-c0-a1-8e-42')
-def _define_CLSID_D2D1GaussianBlur():
-    return Guid('1feb6d69-2fe6-4ac9-8c-58-1d-7f-93-e7-a6-a5')
-def _define_CLSID_D2D1Scale():
-    return Guid('9daf9369-3846-4d0e-a4-4e-0c-60-79-34-a5-d7')
-def _define_CLSID_D2D1Histogram():
-    return Guid('881db7d0-f7ee-4d4d-a6-d2-46-97-ac-c6-6e-e8')
-def _define_CLSID_D2D1HueRotation():
-    return Guid('0f4458ec-4b32-491b-9e-85-bd-73-f4-4d-3e-b6')
-def _define_CLSID_D2D1LinearTransfer():
-    return Guid('ad47c8fd-63ef-4acc-9b-51-67-97-9c-03-6c-06')
-def _define_CLSID_D2D1LuminanceToAlpha():
-    return Guid('41251ab7-0beb-46f8-9d-a7-59-e9-3f-cc-e5-de')
-def _define_CLSID_D2D1Morphology():
-    return Guid('eae6c40d-626a-4c2d-bf-cb-39-10-01-ab-e2-02')
-def _define_CLSID_D2D1OpacityMetadata():
-    return Guid('6c53006a-4450-4199-aa-5b-ad-16-56-fe-ce-5e')
-def _define_CLSID_D2D1PointDiffuse():
-    return Guid('b9e303c3-c08c-4f91-8b-7b-38-65-6b-c4-8c-20')
-def _define_CLSID_D2D1PointSpecular():
-    return Guid('09c3ca26-3ae2-4f09-9e-bc-ed-38-65-d5-3f-22')
-def _define_CLSID_D2D1Premultiply():
-    return Guid('06eab419-deed-4018-80-d2-3e-1d-47-1a-de-b2')
-def _define_CLSID_D2D1Saturation():
-    return Guid('5cb2d9cf-327d-459f-a0-ce-40-c0-b2-08-6b-f7')
-def _define_CLSID_D2D1Shadow():
-    return Guid('c67ea361-1863-4e69-89-db-69-5d-3e-9a-5b-6b')
-def _define_CLSID_D2D1SpotDiffuse():
-    return Guid('818a1105-7932-44f4-aa-86-08-ae-7b-2f-2c-93')
-def _define_CLSID_D2D1SpotSpecular():
-    return Guid('edae421e-7654-4a37-9d-b8-71-ac-c1-be-b3-c1')
-def _define_CLSID_D2D1TableTransfer():
-    return Guid('5bf818c3-5e43-48cb-b6-31-86-83-96-d6-a1-d4')
-def _define_CLSID_D2D1Tile():
-    return Guid('b0784138-3b76-4bc5-b1-3b-0f-a2-ad-02-65-9f')
-def _define_CLSID_D2D1Turbulence():
-    return Guid('cf2bb6ae-889a-4ad7-ba-29-a2-fd-73-2c-9f-c9')
-def _define_CLSID_D2D1UnPremultiply():
-    return Guid('fb9ac489-ad8d-41ed-99-99-bb-63-47-d1-10-f7')
-def _define_CLSID_D2D1YCbCr():
-    return Guid('99503cc1-66c7-45c9-a8-75-8a-d8-a7-91-44-01')
-def _define_CLSID_D2D1Contrast():
-    return Guid('b648a78a-0ed5-4f80-a9-4a-8e-82-5a-ca-6b-77')
-def _define_CLSID_D2D1RgbToHue():
-    return Guid('23f3e5ec-91e8-4d3d-ad-0a-af-ad-c1-00-4a-a1')
-def _define_CLSID_D2D1HueToRgb():
-    return Guid('7b78a6bd-0141-4def-8a-52-63-56-ee-0c-bd-d5')
-def _define_CLSID_D2D1ChromaKey():
-    return Guid('74c01f5b-2a0d-408c-88-e2-c7-a3-c7-19-77-42')
-def _define_CLSID_D2D1Emboss():
-    return Guid('b1c5eb2b-0348-43f0-81-07-49-57-ca-cb-a2-ae')
-def _define_CLSID_D2D1Exposure():
-    return Guid('b56c8cfa-f634-41ee-be-e0-ff-a6-17-10-60-04')
-def _define_CLSID_D2D1Grayscale():
-    return Guid('36dde0eb-3725-42e0-83-6d-52-fb-20-ae-e6-44')
-def _define_CLSID_D2D1Invert():
-    return Guid('e0c3784d-cb39-4e84-b6-fd-6b-72-f0-81-02-63')
-def _define_CLSID_D2D1Posterize():
-    return Guid('2188945e-33a3-4366-b7-bc-08-6b-d0-2d-08-84')
-def _define_CLSID_D2D1Sepia():
-    return Guid('3a1af410-5f1d-4dbe-84-df-91-5d-a7-9b-71-53')
-def _define_CLSID_D2D1Sharpen():
-    return Guid('c9b887cb-c5ff-4dc5-97-79-27-3d-cf-41-7c-7d')
-def _define_CLSID_D2D1Straighten():
-    return Guid('4da47b12-79a3-4fb0-82-37-bb-c3-b2-a4-de-08')
-def _define_CLSID_D2D1TemperatureTint():
-    return Guid('89176087-8af9-4a08-ae-b1-89-5f-38-db-17-66')
-def _define_CLSID_D2D1Vignette():
-    return Guid('c00c40be-5e67-4ca3-95-b4-f4-b0-2c-11-51-35')
-def _define_CLSID_D2D1EdgeDetection():
-    return Guid('eff583ca-cb07-4aa9-ac-5d-2c-c4-4c-76-46-0f')
-def _define_CLSID_D2D1HighlightsShadows():
-    return Guid('cadc8384-323f-4c7e-a3-61-2e-2b-24-df-6e-e4')
-def _define_CLSID_D2D1LookupTable3D():
-    return Guid('349e0eda-0088-4a79-9c-a3-c7-e3-00-20-20-20')
-def _define_CLSID_D2D1Opacity():
-    return Guid('811d79a4-de28-4454-80-94-c6-46-85-f8-bd-4c')
-def _define_CLSID_D2D1AlphaMask():
-    return Guid('c80ecff0-3fd5-4f05-83-28-c5-d1-72-4b-4f-0a')
-def _define_CLSID_D2D1CrossFade():
-    return Guid('12f575e8-4db1-485f-9a-84-03-a0-7d-d3-82-9f')
-def _define_CLSID_D2D1Tint():
-    return Guid('36312b17-f7dd-4014-91-5d-ff-ca-76-8c-f2-11')
-D2D1_SCENE_REFERRED_SDR_WHITE_LEVEL = 80
-def _define_CLSID_D2D1WhiteLevelAdjustment():
-    return Guid('44a1cadb-6cdd-4818-8f-f4-26-c1-cf-e9-5b-db')
-def _define_CLSID_D2D1HdrToneMap():
-    return Guid('7b0b748d-4610-4486-a9-0c-99-9d-9a-2e-2b-11')
-D2D1_APPEND_ALIGNED_ELEMENT = 4294967295
-FACILITY_D2D = 2201
-def _define_D2D1CreateFactory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_FACTORY_TYPE,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.D2D1_FACTORY_OPTIONS_head),POINTER(c_void_p))(('D2D1CreateFactory', windll['d2d1.dll']), ((1, 'factoryType'),(1, 'riid'),(1, 'pFactoryOptions'),(1, 'ppIFactory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1MakeRotateMatrix():
-    try:
-        return WINFUNCTYPE(Void,Single,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(('D2D1MakeRotateMatrix', windll['d2d1.dll']), ((1, 'angle'),(1, 'center'),(1, 'matrix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1MakeSkewMatrix():
-    try:
-        return WINFUNCTYPE(Void,Single,Single,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(('D2D1MakeSkewMatrix', windll['d2d1.dll']), ((1, 'angleX'),(1, 'angleY'),(1, 'center'),(1, 'matrix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1IsMatrixInvertible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(('D2D1IsMatrixInvertible', windll['d2d1.dll']), ((1, 'matrix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1InvertMatrix():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(('D2D1InvertMatrix', windll['d2d1.dll']), ((1, 'matrix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1CreateDevice():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.D2D1_CREATION_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1Device_head))(('D2D1CreateDevice', windll['d2d1.dll']), ((1, 'dxgiDevice'),(1, 'creationProperties'),(1, 'd2dDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1CreateDeviceContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head,POINTER(win32more.Graphics.Direct2D.D2D1_CREATION_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext_head))(('D2D1CreateDeviceContext', windll['d2d1.dll']), ((1, 'dxgiSurface'),(1, 'creationProperties'),(1, 'd2dDeviceContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1ConvertColorSpace():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(('D2D1ConvertColorSpace', windll['d2d1.dll']), ((1, 'sourceColorSpace'),(1, 'destinationColorSpace'),(1, 'color'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1SinCos():
-    try:
-        return WINFUNCTYPE(Void,Single,POINTER(Single),POINTER(Single))(('D2D1SinCos', windll['d2d1.dll']), ((1, 'angle'),(1, 's'),(1, 'c'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1Tan():
-    try:
-        return WINFUNCTYPE(Single,Single)(('D2D1Tan', windll['d2d1.dll']), ((1, 'angle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1Vec3Length():
-    try:
-        return WINFUNCTYPE(Single,Single,Single,Single)(('D2D1Vec3Length', windll['d2d1.dll']), ((1, 'x'),(1, 'y'),(1, 'z'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1ComputeMaximumScaleFactor():
-    try:
-        return WINFUNCTYPE(Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(('D2D1ComputeMaximumScaleFactor', windll['d2d1.dll']), ((1, 'matrix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_D2D1GetGradientMeshInteriorPointsFromCoonsPatch():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head))(('D2D1GetGradientMeshInteriorPointsFromCoonsPatch', windll['d2d1.dll']), ((1, 'pPoint0'),(1, 'pPoint1'),(1, 'pPoint2'),(1, 'pPoint3'),(1, 'pPoint4'),(1, 'pPoint5'),(1, 'pPoint6'),(1, 'pPoint7'),(1, 'pPoint8'),(1, 'pPoint9'),(1, 'pPoint10'),(1, 'pPoint11'),(1, 'pTensorPoint11'),(1, 'pTensorPoint12'),(1, 'pTensorPoint21'),(1, 'pTensorPoint22'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+D2D1_DEFAULT_FLATTENING_TOLERANCE: Single = 0.25
+CLSID_D2D12DAffineTransform: Guid = Guid('6aa97485-6354-4cfc-90-8c-e4-a7-4f-62-c9-6c')
+CLSID_D2D13DPerspectiveTransform: Guid = Guid('c2844d0b-3d86-46e7-85-ba-52-6c-92-40-f3-fb')
+CLSID_D2D13DTransform: Guid = Guid('e8467b04-ec61-4b8a-b5-de-d4-d7-3d-eb-ea-5a')
+CLSID_D2D1ArithmeticComposite: Guid = Guid('fc151437-049a-4784-a2-4a-f1-c4-da-f2-09-87')
+CLSID_D2D1Atlas: Guid = Guid('913e2be4-fdcf-4fe2-a5-f0-24-54-f1-4f-f4-08')
+CLSID_D2D1BitmapSource: Guid = Guid('5fb6c24d-c6dd-4231-94-04-50-f4-d5-c3-25-2d')
+CLSID_D2D1Blend: Guid = Guid('81c5b77b-13f8-4cdd-ad-20-c8-90-54-7a-c6-5d')
+CLSID_D2D1Border: Guid = Guid('2a2d49c0-4acf-43c7-8c-6a-7c-4a-27-87-4d-27')
+CLSID_D2D1Brightness: Guid = Guid('8cea8d1e-77b0-4986-b3-b9-2f-0c-0e-ae-78-87')
+CLSID_D2D1ColorManagement: Guid = Guid('1a28524c-fdd6-4aa4-ae-8f-83-7e-b8-26-7b-37')
+CLSID_D2D1ColorMatrix: Guid = Guid('921f03d6-641c-47df-85-2d-b4-bb-61-53-ae-11')
+CLSID_D2D1Composite: Guid = Guid('48fc9f51-f6ac-48f1-8b-58-3b-28-ac-46-f7-6d')
+CLSID_D2D1ConvolveMatrix: Guid = Guid('407f8c08-5533-4331-a3-41-23-cc-38-77-84-3e')
+CLSID_D2D1Crop: Guid = Guid('e23f7110-0e9a-4324-af-47-6a-2c-0c-46-f3-5b')
+CLSID_D2D1DirectionalBlur: Guid = Guid('174319a6-58e9-49b2-bb-63-ca-f2-c8-11-a3-db')
+CLSID_D2D1DiscreteTransfer: Guid = Guid('90866fcd-488e-454b-af-06-e5-04-1b-66-c3-6c')
+CLSID_D2D1DisplacementMap: Guid = Guid('edc48364-0417-4111-94-50-43-84-5f-a9-f8-90')
+CLSID_D2D1DistantDiffuse: Guid = Guid('3e7efd62-a32d-46d4-a8-3c-52-78-88-9a-c9-54')
+CLSID_D2D1DistantSpecular: Guid = Guid('428c1ee5-77b8-4450-8a-b5-72-21-9c-21-ab-da')
+CLSID_D2D1DpiCompensation: Guid = Guid('6c26c5c7-34e0-46fc-9c-fd-e5-82-37-06-e2-28')
+CLSID_D2D1Flood: Guid = Guid('61c23c20-ae69-4d8e-94-cf-50-07-8d-f6-38-f2')
+CLSID_D2D1GammaTransfer: Guid = Guid('409444c4-c419-41a0-b0-c1-8c-d0-c0-a1-8e-42')
+CLSID_D2D1GaussianBlur: Guid = Guid('1feb6d69-2fe6-4ac9-8c-58-1d-7f-93-e7-a6-a5')
+CLSID_D2D1Scale: Guid = Guid('9daf9369-3846-4d0e-a4-4e-0c-60-79-34-a5-d7')
+CLSID_D2D1Histogram: Guid = Guid('881db7d0-f7ee-4d4d-a6-d2-46-97-ac-c6-6e-e8')
+CLSID_D2D1HueRotation: Guid = Guid('0f4458ec-4b32-491b-9e-85-bd-73-f4-4d-3e-b6')
+CLSID_D2D1LinearTransfer: Guid = Guid('ad47c8fd-63ef-4acc-9b-51-67-97-9c-03-6c-06')
+CLSID_D2D1LuminanceToAlpha: Guid = Guid('41251ab7-0beb-46f8-9d-a7-59-e9-3f-cc-e5-de')
+CLSID_D2D1Morphology: Guid = Guid('eae6c40d-626a-4c2d-bf-cb-39-10-01-ab-e2-02')
+CLSID_D2D1OpacityMetadata: Guid = Guid('6c53006a-4450-4199-aa-5b-ad-16-56-fe-ce-5e')
+CLSID_D2D1PointDiffuse: Guid = Guid('b9e303c3-c08c-4f91-8b-7b-38-65-6b-c4-8c-20')
+CLSID_D2D1PointSpecular: Guid = Guid('09c3ca26-3ae2-4f09-9e-bc-ed-38-65-d5-3f-22')
+CLSID_D2D1Premultiply: Guid = Guid('06eab419-deed-4018-80-d2-3e-1d-47-1a-de-b2')
+CLSID_D2D1Saturation: Guid = Guid('5cb2d9cf-327d-459f-a0-ce-40-c0-b2-08-6b-f7')
+CLSID_D2D1Shadow: Guid = Guid('c67ea361-1863-4e69-89-db-69-5d-3e-9a-5b-6b')
+CLSID_D2D1SpotDiffuse: Guid = Guid('818a1105-7932-44f4-aa-86-08-ae-7b-2f-2c-93')
+CLSID_D2D1SpotSpecular: Guid = Guid('edae421e-7654-4a37-9d-b8-71-ac-c1-be-b3-c1')
+CLSID_D2D1TableTransfer: Guid = Guid('5bf818c3-5e43-48cb-b6-31-86-83-96-d6-a1-d4')
+CLSID_D2D1Tile: Guid = Guid('b0784138-3b76-4bc5-b1-3b-0f-a2-ad-02-65-9f')
+CLSID_D2D1Turbulence: Guid = Guid('cf2bb6ae-889a-4ad7-ba-29-a2-fd-73-2c-9f-c9')
+CLSID_D2D1UnPremultiply: Guid = Guid('fb9ac489-ad8d-41ed-99-99-bb-63-47-d1-10-f7')
+CLSID_D2D1YCbCr: Guid = Guid('99503cc1-66c7-45c9-a8-75-8a-d8-a7-91-44-01')
+CLSID_D2D1Contrast: Guid = Guid('b648a78a-0ed5-4f80-a9-4a-8e-82-5a-ca-6b-77')
+CLSID_D2D1RgbToHue: Guid = Guid('23f3e5ec-91e8-4d3d-ad-0a-af-ad-c1-00-4a-a1')
+CLSID_D2D1HueToRgb: Guid = Guid('7b78a6bd-0141-4def-8a-52-63-56-ee-0c-bd-d5')
+CLSID_D2D1ChromaKey: Guid = Guid('74c01f5b-2a0d-408c-88-e2-c7-a3-c7-19-77-42')
+CLSID_D2D1Emboss: Guid = Guid('b1c5eb2b-0348-43f0-81-07-49-57-ca-cb-a2-ae')
+CLSID_D2D1Exposure: Guid = Guid('b56c8cfa-f634-41ee-be-e0-ff-a6-17-10-60-04')
+CLSID_D2D1Grayscale: Guid = Guid('36dde0eb-3725-42e0-83-6d-52-fb-20-ae-e6-44')
+CLSID_D2D1Invert: Guid = Guid('e0c3784d-cb39-4e84-b6-fd-6b-72-f0-81-02-63')
+CLSID_D2D1Posterize: Guid = Guid('2188945e-33a3-4366-b7-bc-08-6b-d0-2d-08-84')
+CLSID_D2D1Sepia: Guid = Guid('3a1af410-5f1d-4dbe-84-df-91-5d-a7-9b-71-53')
+CLSID_D2D1Sharpen: Guid = Guid('c9b887cb-c5ff-4dc5-97-79-27-3d-cf-41-7c-7d')
+CLSID_D2D1Straighten: Guid = Guid('4da47b12-79a3-4fb0-82-37-bb-c3-b2-a4-de-08')
+CLSID_D2D1TemperatureTint: Guid = Guid('89176087-8af9-4a08-ae-b1-89-5f-38-db-17-66')
+CLSID_D2D1Vignette: Guid = Guid('c00c40be-5e67-4ca3-95-b4-f4-b0-2c-11-51-35')
+CLSID_D2D1EdgeDetection: Guid = Guid('eff583ca-cb07-4aa9-ac-5d-2c-c4-4c-76-46-0f')
+CLSID_D2D1HighlightsShadows: Guid = Guid('cadc8384-323f-4c7e-a3-61-2e-2b-24-df-6e-e4')
+CLSID_D2D1LookupTable3D: Guid = Guid('349e0eda-0088-4a79-9c-a3-c7-e3-00-20-20-20')
+CLSID_D2D1Opacity: Guid = Guid('811d79a4-de28-4454-80-94-c6-46-85-f8-bd-4c')
+CLSID_D2D1AlphaMask: Guid = Guid('c80ecff0-3fd5-4f05-83-28-c5-d1-72-4b-4f-0a')
+CLSID_D2D1CrossFade: Guid = Guid('12f575e8-4db1-485f-9a-84-03-a0-7d-d3-82-9f')
+CLSID_D2D1Tint: Guid = Guid('36312b17-f7dd-4014-91-5d-ff-ca-76-8c-f2-11')
+D2D1_SCENE_REFERRED_SDR_WHITE_LEVEL: Single = 80
+CLSID_D2D1WhiteLevelAdjustment: Guid = Guid('44a1cadb-6cdd-4818-8f-f4-26-c1-cf-e9-5b-db')
+CLSID_D2D1HdrToneMap: Guid = Guid('7b0b748d-4610-4486-a9-0c-99-9d-9a-2e-2b-11')
+D2D1_APPEND_ALIGNED_ELEMENT: UInt32 = 4294967295
+FACILITY_D2D: UInt32 = 2201
+@winfunctype('d2d1.dll')
+def D2D1CreateFactory(factoryType: win32more.Graphics.Direct2D.D2D1_FACTORY_TYPE, riid: POINTER(Guid), pFactoryOptions: POINTER(win32more.Graphics.Direct2D.D2D1_FACTORY_OPTIONS_head), ppIFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('d2d1.dll')
+def D2D1MakeRotateMatrix(angle: Single, center: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, matrix: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+@winfunctype('d2d1.dll')
+def D2D1MakeSkewMatrix(angleX: Single, angleY: Single, center: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, matrix: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+@winfunctype('d2d1.dll')
+def D2D1IsMatrixInvertible(matrix: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('d2d1.dll')
+def D2D1InvertMatrix(matrix: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('d2d1.dll')
+def D2D1CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, creationProperties: POINTER(win32more.Graphics.Direct2D.D2D1_CREATION_PROPERTIES_head), d2dDevice: POINTER(win32more.Graphics.Direct2D.ID2D1Device_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('d2d1.dll')
+def D2D1CreateDeviceContext(dxgiSurface: win32more.Graphics.Dxgi.IDXGISurface_head, creationProperties: POINTER(win32more.Graphics.Direct2D.D2D1_CREATION_PROPERTIES_head), d2dDeviceContext: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('d2d1.dll')
+def D2D1ConvertColorSpace(sourceColorSpace: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, destinationColorSpace: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> win32more.Graphics.Direct2D.Common.D2D1_COLOR_F: ...
+@winfunctype('d2d1.dll')
+def D2D1SinCos(angle: Single, s: POINTER(Single), c: POINTER(Single)) -> Void: ...
+@winfunctype('d2d1.dll')
+def D2D1Tan(angle: Single) -> Single: ...
+@winfunctype('d2d1.dll')
+def D2D1Vec3Length(x: Single, y: Single, z: Single) -> Single: ...
+@winfunctype('d2d1.dll')
+def D2D1ComputeMaximumScaleFactor(matrix: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Single: ...
+@winfunctype('d2d1.dll')
+def D2D1GetGradientMeshInteriorPointsFromCoonsPatch(pPoint0: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint1: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint2: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint3: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint4: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint5: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint6: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint7: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint8: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint9: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint10: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pPoint11: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pTensorPoint11: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pTensorPoint12: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pTensorPoint21: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pTensorPoint22: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> Void: ...
 D2D1_2DAFFINETRANSFORM_PROP = UInt32
-D2D1_2DAFFINETRANSFORM_PROP_INTERPOLATION_MODE = 0
-D2D1_2DAFFINETRANSFORM_PROP_BORDER_MODE = 1
-D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX = 2
-D2D1_2DAFFINETRANSFORM_PROP_SHARPNESS = 3
-D2D1_2DAFFINETRANSFORM_PROP_FORCE_DWORD = 4294967295
+D2D1_2DAFFINETRANSFORM_PROP_INTERPOLATION_MODE: D2D1_2DAFFINETRANSFORM_PROP = 0
+D2D1_2DAFFINETRANSFORM_PROP_BORDER_MODE: D2D1_2DAFFINETRANSFORM_PROP = 1
+D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX: D2D1_2DAFFINETRANSFORM_PROP = 2
+D2D1_2DAFFINETRANSFORM_PROP_SHARPNESS: D2D1_2DAFFINETRANSFORM_PROP = 3
+D2D1_2DAFFINETRANSFORM_PROP_FORCE_DWORD: D2D1_2DAFFINETRANSFORM_PROP = 4294967295
 D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = UInt32
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_LINEAR = 1
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_CUBIC = 2
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 0
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_LINEAR: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 1
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_CUBIC: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 2
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 3
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_ANISOTROPIC: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 4
+D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE_FORCE_DWORD: D2D1_3DPERSPECTIVETRANSFORM_INTERPOLATION_MODE = 4294967295
 D2D1_3DPERSPECTIVETRANSFORM_PROP = UInt32
-D2D1_3DPERSPECTIVETRANSFORM_PROP_INTERPOLATION_MODE = 0
-D2D1_3DPERSPECTIVETRANSFORM_PROP_BORDER_MODE = 1
-D2D1_3DPERSPECTIVETRANSFORM_PROP_DEPTH = 2
-D2D1_3DPERSPECTIVETRANSFORM_PROP_PERSPECTIVE_ORIGIN = 3
-D2D1_3DPERSPECTIVETRANSFORM_PROP_LOCAL_OFFSET = 4
-D2D1_3DPERSPECTIVETRANSFORM_PROP_GLOBAL_OFFSET = 5
-D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION_ORIGIN = 6
-D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION = 7
-D2D1_3DPERSPECTIVETRANSFORM_PROP_FORCE_DWORD = 4294967295
+D2D1_3DPERSPECTIVETRANSFORM_PROP_INTERPOLATION_MODE: D2D1_3DPERSPECTIVETRANSFORM_PROP = 0
+D2D1_3DPERSPECTIVETRANSFORM_PROP_BORDER_MODE: D2D1_3DPERSPECTIVETRANSFORM_PROP = 1
+D2D1_3DPERSPECTIVETRANSFORM_PROP_DEPTH: D2D1_3DPERSPECTIVETRANSFORM_PROP = 2
+D2D1_3DPERSPECTIVETRANSFORM_PROP_PERSPECTIVE_ORIGIN: D2D1_3DPERSPECTIVETRANSFORM_PROP = 3
+D2D1_3DPERSPECTIVETRANSFORM_PROP_LOCAL_OFFSET: D2D1_3DPERSPECTIVETRANSFORM_PROP = 4
+D2D1_3DPERSPECTIVETRANSFORM_PROP_GLOBAL_OFFSET: D2D1_3DPERSPECTIVETRANSFORM_PROP = 5
+D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION_ORIGIN: D2D1_3DPERSPECTIVETRANSFORM_PROP = 6
+D2D1_3DPERSPECTIVETRANSFORM_PROP_ROTATION: D2D1_3DPERSPECTIVETRANSFORM_PROP = 7
+D2D1_3DPERSPECTIVETRANSFORM_PROP_FORCE_DWORD: D2D1_3DPERSPECTIVETRANSFORM_PROP = 4294967295
 D2D1_3DTRANSFORM_INTERPOLATION_MODE = UInt32
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_LINEAR = 1
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_CUBIC = 2
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_3DTRANSFORM_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 0
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_LINEAR: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 1
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_CUBIC: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 2
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 3
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_ANISOTROPIC: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 4
+D2D1_3DTRANSFORM_INTERPOLATION_MODE_FORCE_DWORD: D2D1_3DTRANSFORM_INTERPOLATION_MODE = 4294967295
 D2D1_3DTRANSFORM_PROP = UInt32
-D2D1_3DTRANSFORM_PROP_INTERPOLATION_MODE = 0
-D2D1_3DTRANSFORM_PROP_BORDER_MODE = 1
-D2D1_3DTRANSFORM_PROP_TRANSFORM_MATRIX = 2
-D2D1_3DTRANSFORM_PROP_FORCE_DWORD = 4294967295
+D2D1_3DTRANSFORM_PROP_INTERPOLATION_MODE: D2D1_3DTRANSFORM_PROP = 0
+D2D1_3DTRANSFORM_PROP_BORDER_MODE: D2D1_3DTRANSFORM_PROP = 1
+D2D1_3DTRANSFORM_PROP_TRANSFORM_MATRIX: D2D1_3DTRANSFORM_PROP = 2
+D2D1_3DTRANSFORM_PROP_FORCE_DWORD: D2D1_3DTRANSFORM_PROP = 4294967295
 D2D1_ANTIALIAS_MODE = UInt32
-D2D1_ANTIALIAS_MODE_PER_PRIMITIVE = 0
-D2D1_ANTIALIAS_MODE_ALIASED = 1
-D2D1_ANTIALIAS_MODE_FORCE_DWORD = 4294967295
-def _define_D2D1_ARC_SEGMENT_head():
-    class D2D1_ARC_SEGMENT(Structure):
-        pass
-    return D2D1_ARC_SEGMENT
-def _define_D2D1_ARC_SEGMENT():
-    D2D1_ARC_SEGMENT = win32more.Graphics.Direct2D.D2D1_ARC_SEGMENT_head
-    D2D1_ARC_SEGMENT._fields_ = [
-        ('point', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('size', win32more.Graphics.Direct2D.Common.D2D_SIZE_F),
-        ('rotationAngle', Single),
-        ('sweepDirection', win32more.Graphics.Direct2D.D2D1_SWEEP_DIRECTION),
-        ('arcSize', win32more.Graphics.Direct2D.D2D1_ARC_SIZE),
-    ]
-    return D2D1_ARC_SEGMENT
+D2D1_ANTIALIAS_MODE_PER_PRIMITIVE: D2D1_ANTIALIAS_MODE = 0
+D2D1_ANTIALIAS_MODE_ALIASED: D2D1_ANTIALIAS_MODE = 1
+D2D1_ANTIALIAS_MODE_FORCE_DWORD: D2D1_ANTIALIAS_MODE = 4294967295
+class D2D1_ARC_SEGMENT(Structure):
+    point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    size: win32more.Graphics.Direct2D.Common.D2D_SIZE_F
+    rotationAngle: Single
+    sweepDirection: win32more.Graphics.Direct2D.D2D1_SWEEP_DIRECTION
+    arcSize: win32more.Graphics.Direct2D.D2D1_ARC_SIZE
 D2D1_ARC_SIZE = UInt32
-D2D1_ARC_SIZE_SMALL = 0
-D2D1_ARC_SIZE_LARGE = 1
-D2D1_ARC_SIZE_FORCE_DWORD = 4294967295
+D2D1_ARC_SIZE_SMALL: D2D1_ARC_SIZE = 0
+D2D1_ARC_SIZE_LARGE: D2D1_ARC_SIZE = 1
+D2D1_ARC_SIZE_FORCE_DWORD: D2D1_ARC_SIZE = 4294967295
 D2D1_ARITHMETICCOMPOSITE_PROP = UInt32
-D2D1_ARITHMETICCOMPOSITE_PROP_COEFFICIENTS = 0
-D2D1_ARITHMETICCOMPOSITE_PROP_CLAMP_OUTPUT = 1
-D2D1_ARITHMETICCOMPOSITE_PROP_FORCE_DWORD = 4294967295
+D2D1_ARITHMETICCOMPOSITE_PROP_COEFFICIENTS: D2D1_ARITHMETICCOMPOSITE_PROP = 0
+D2D1_ARITHMETICCOMPOSITE_PROP_CLAMP_OUTPUT: D2D1_ARITHMETICCOMPOSITE_PROP = 1
+D2D1_ARITHMETICCOMPOSITE_PROP_FORCE_DWORD: D2D1_ARITHMETICCOMPOSITE_PROP = 4294967295
 D2D1_ATLAS_PROP = UInt32
-D2D1_ATLAS_PROP_INPUT_RECT = 0
-D2D1_ATLAS_PROP_INPUT_PADDING_RECT = 1
-D2D1_ATLAS_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_BITMAP_BRUSH_PROPERTIES_head():
-    class D2D1_BITMAP_BRUSH_PROPERTIES(Structure):
-        pass
-    return D2D1_BITMAP_BRUSH_PROPERTIES
-def _define_D2D1_BITMAP_BRUSH_PROPERTIES():
-    D2D1_BITMAP_BRUSH_PROPERTIES = win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES_head
-    D2D1_BITMAP_BRUSH_PROPERTIES._fields_ = [
-        ('extendModeX', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('extendModeY', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('interpolationMode', win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE),
-    ]
-    return D2D1_BITMAP_BRUSH_PROPERTIES
-def _define_D2D1_BITMAP_BRUSH_PROPERTIES1_head():
-    class D2D1_BITMAP_BRUSH_PROPERTIES1(Structure):
-        pass
-    return D2D1_BITMAP_BRUSH_PROPERTIES1
-def _define_D2D1_BITMAP_BRUSH_PROPERTIES1():
-    D2D1_BITMAP_BRUSH_PROPERTIES1 = win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES1_head
-    D2D1_BITMAP_BRUSH_PROPERTIES1._fields_ = [
-        ('extendModeX', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('extendModeY', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('interpolationMode', win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE),
-    ]
-    return D2D1_BITMAP_BRUSH_PROPERTIES1
+D2D1_ATLAS_PROP_INPUT_RECT: D2D1_ATLAS_PROP = 0
+D2D1_ATLAS_PROP_INPUT_PADDING_RECT: D2D1_ATLAS_PROP = 1
+D2D1_ATLAS_PROP_FORCE_DWORD: D2D1_ATLAS_PROP = 4294967295
+class D2D1_BITMAP_BRUSH_PROPERTIES(Structure):
+    extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    interpolationMode: win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE
+class D2D1_BITMAP_BRUSH_PROPERTIES1(Structure):
+    extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE
 D2D1_BITMAP_INTERPOLATION_MODE = UInt32
-D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_BITMAP_INTERPOLATION_MODE_LINEAR = 1
-D2D1_BITMAP_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_BITMAP_INTERPOLATION_MODE = 0
+D2D1_BITMAP_INTERPOLATION_MODE_LINEAR: D2D1_BITMAP_INTERPOLATION_MODE = 1
+D2D1_BITMAP_INTERPOLATION_MODE_FORCE_DWORD: D2D1_BITMAP_INTERPOLATION_MODE = 4294967295
 D2D1_BITMAP_OPTIONS = UInt32
-D2D1_BITMAP_OPTIONS_NONE = 0
-D2D1_BITMAP_OPTIONS_TARGET = 1
-D2D1_BITMAP_OPTIONS_CANNOT_DRAW = 2
-D2D1_BITMAP_OPTIONS_CPU_READ = 4
-D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE = 8
-D2D1_BITMAP_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_BITMAP_PROPERTIES_head():
-    class D2D1_BITMAP_PROPERTIES(Structure):
-        pass
-    return D2D1_BITMAP_PROPERTIES
-def _define_D2D1_BITMAP_PROPERTIES():
-    D2D1_BITMAP_PROPERTIES = win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head
-    D2D1_BITMAP_PROPERTIES._fields_ = [
-        ('pixelFormat', win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT),
-        ('dpiX', Single),
-        ('dpiY', Single),
-    ]
-    return D2D1_BITMAP_PROPERTIES
-def _define_D2D1_BITMAP_PROPERTIES1_head():
-    class D2D1_BITMAP_PROPERTIES1(Structure):
-        pass
-    return D2D1_BITMAP_PROPERTIES1
-def _define_D2D1_BITMAP_PROPERTIES1():
-    D2D1_BITMAP_PROPERTIES1 = win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head
-    D2D1_BITMAP_PROPERTIES1._fields_ = [
-        ('pixelFormat', win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT),
-        ('dpiX', Single),
-        ('dpiY', Single),
-        ('bitmapOptions', win32more.Graphics.Direct2D.D2D1_BITMAP_OPTIONS),
-        ('colorContext', win32more.Graphics.Direct2D.ID2D1ColorContext_head),
-    ]
-    return D2D1_BITMAP_PROPERTIES1
+D2D1_BITMAP_OPTIONS_NONE: D2D1_BITMAP_OPTIONS = 0
+D2D1_BITMAP_OPTIONS_TARGET: D2D1_BITMAP_OPTIONS = 1
+D2D1_BITMAP_OPTIONS_CANNOT_DRAW: D2D1_BITMAP_OPTIONS = 2
+D2D1_BITMAP_OPTIONS_CPU_READ: D2D1_BITMAP_OPTIONS = 4
+D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE: D2D1_BITMAP_OPTIONS = 8
+D2D1_BITMAP_OPTIONS_FORCE_DWORD: D2D1_BITMAP_OPTIONS = 4294967295
+class D2D1_BITMAP_PROPERTIES(Structure):
+    pixelFormat: win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
+    dpiX: Single
+    dpiY: Single
+class D2D1_BITMAP_PROPERTIES1(Structure):
+    pixelFormat: win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
+    dpiX: Single
+    dpiY: Single
+    bitmapOptions: win32more.Graphics.Direct2D.D2D1_BITMAP_OPTIONS
+    colorContext: win32more.Graphics.Direct2D.ID2D1ColorContext_head
 D2D1_BITMAPSOURCE_ALPHA_MODE = UInt32
-D2D1_BITMAPSOURCE_ALPHA_MODE_PREMULTIPLIED = 1
-D2D1_BITMAPSOURCE_ALPHA_MODE_STRAIGHT = 2
-D2D1_BITMAPSOURCE_ALPHA_MODE_FORCE_DWORD = 4294967295
+D2D1_BITMAPSOURCE_ALPHA_MODE_PREMULTIPLIED: D2D1_BITMAPSOURCE_ALPHA_MODE = 1
+D2D1_BITMAPSOURCE_ALPHA_MODE_STRAIGHT: D2D1_BITMAPSOURCE_ALPHA_MODE = 2
+D2D1_BITMAPSOURCE_ALPHA_MODE_FORCE_DWORD: D2D1_BITMAPSOURCE_ALPHA_MODE = 4294967295
 D2D1_BITMAPSOURCE_INTERPOLATION_MODE = UInt32
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_LINEAR = 1
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_CUBIC = 2
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FANT = 6
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_MIPMAP_LINEAR = 7
-D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 0
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_LINEAR: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 1
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_CUBIC: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 2
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FANT: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 6
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_MIPMAP_LINEAR: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 7
+D2D1_BITMAPSOURCE_INTERPOLATION_MODE_FORCE_DWORD: D2D1_BITMAPSOURCE_INTERPOLATION_MODE = 4294967295
 D2D1_BITMAPSOURCE_ORIENTATION = UInt32
-D2D1_BITMAPSOURCE_ORIENTATION_DEFAULT = 1
-D2D1_BITMAPSOURCE_ORIENTATION_FLIP_HORIZONTAL = 2
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180 = 3
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL = 4
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL = 5
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90 = 6
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL = 7
-D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270 = 8
-D2D1_BITMAPSOURCE_ORIENTATION_FORCE_DWORD = 4294967295
+D2D1_BITMAPSOURCE_ORIENTATION_DEFAULT: D2D1_BITMAPSOURCE_ORIENTATION = 1
+D2D1_BITMAPSOURCE_ORIENTATION_FLIP_HORIZONTAL: D2D1_BITMAPSOURCE_ORIENTATION = 2
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180: D2D1_BITMAPSOURCE_ORIENTATION = 3
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL: D2D1_BITMAPSOURCE_ORIENTATION = 4
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL: D2D1_BITMAPSOURCE_ORIENTATION = 5
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90: D2D1_BITMAPSOURCE_ORIENTATION = 6
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL: D2D1_BITMAPSOURCE_ORIENTATION = 7
+D2D1_BITMAPSOURCE_ORIENTATION_ROTATE_CLOCKWISE270: D2D1_BITMAPSOURCE_ORIENTATION = 8
+D2D1_BITMAPSOURCE_ORIENTATION_FORCE_DWORD: D2D1_BITMAPSOURCE_ORIENTATION = 4294967295
 D2D1_BITMAPSOURCE_PROP = UInt32
-D2D1_BITMAPSOURCE_PROP_WIC_BITMAP_SOURCE = 0
-D2D1_BITMAPSOURCE_PROP_SCALE = 1
-D2D1_BITMAPSOURCE_PROP_INTERPOLATION_MODE = 2
-D2D1_BITMAPSOURCE_PROP_ENABLE_DPI_CORRECTION = 3
-D2D1_BITMAPSOURCE_PROP_ALPHA_MODE = 4
-D2D1_BITMAPSOURCE_PROP_ORIENTATION = 5
-D2D1_BITMAPSOURCE_PROP_FORCE_DWORD = 4294967295
+D2D1_BITMAPSOURCE_PROP_WIC_BITMAP_SOURCE: D2D1_BITMAPSOURCE_PROP = 0
+D2D1_BITMAPSOURCE_PROP_SCALE: D2D1_BITMAPSOURCE_PROP = 1
+D2D1_BITMAPSOURCE_PROP_INTERPOLATION_MODE: D2D1_BITMAPSOURCE_PROP = 2
+D2D1_BITMAPSOURCE_PROP_ENABLE_DPI_CORRECTION: D2D1_BITMAPSOURCE_PROP = 3
+D2D1_BITMAPSOURCE_PROP_ALPHA_MODE: D2D1_BITMAPSOURCE_PROP = 4
+D2D1_BITMAPSOURCE_PROP_ORIENTATION: D2D1_BITMAPSOURCE_PROP = 5
+D2D1_BITMAPSOURCE_PROP_FORCE_DWORD: D2D1_BITMAPSOURCE_PROP = 4294967295
 D2D1_BLEND = UInt32
-D2D1_BLEND_ZERO = 1
-D2D1_BLEND_ONE = 2
-D2D1_BLEND_SRC_COLOR = 3
-D2D1_BLEND_INV_SRC_COLOR = 4
-D2D1_BLEND_SRC_ALPHA = 5
-D2D1_BLEND_INV_SRC_ALPHA = 6
-D2D1_BLEND_DEST_ALPHA = 7
-D2D1_BLEND_INV_DEST_ALPHA = 8
-D2D1_BLEND_DEST_COLOR = 9
-D2D1_BLEND_INV_DEST_COLOR = 10
-D2D1_BLEND_SRC_ALPHA_SAT = 11
-D2D1_BLEND_BLEND_FACTOR = 14
-D2D1_BLEND_INV_BLEND_FACTOR = 15
-D2D1_BLEND_FORCE_DWORD = 4294967295
-def _define_D2D1_BLEND_DESCRIPTION_head():
-    class D2D1_BLEND_DESCRIPTION(Structure):
-        pass
-    return D2D1_BLEND_DESCRIPTION
-def _define_D2D1_BLEND_DESCRIPTION():
-    D2D1_BLEND_DESCRIPTION = win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head
-    D2D1_BLEND_DESCRIPTION._fields_ = [
-        ('sourceBlend', win32more.Graphics.Direct2D.D2D1_BLEND),
-        ('destinationBlend', win32more.Graphics.Direct2D.D2D1_BLEND),
-        ('blendOperation', win32more.Graphics.Direct2D.D2D1_BLEND_OPERATION),
-        ('sourceBlendAlpha', win32more.Graphics.Direct2D.D2D1_BLEND),
-        ('destinationBlendAlpha', win32more.Graphics.Direct2D.D2D1_BLEND),
-        ('blendOperationAlpha', win32more.Graphics.Direct2D.D2D1_BLEND_OPERATION),
-        ('blendFactor', Single * 4),
-    ]
-    return D2D1_BLEND_DESCRIPTION
+D2D1_BLEND_ZERO: D2D1_BLEND = 1
+D2D1_BLEND_ONE: D2D1_BLEND = 2
+D2D1_BLEND_SRC_COLOR: D2D1_BLEND = 3
+D2D1_BLEND_INV_SRC_COLOR: D2D1_BLEND = 4
+D2D1_BLEND_SRC_ALPHA: D2D1_BLEND = 5
+D2D1_BLEND_INV_SRC_ALPHA: D2D1_BLEND = 6
+D2D1_BLEND_DEST_ALPHA: D2D1_BLEND = 7
+D2D1_BLEND_INV_DEST_ALPHA: D2D1_BLEND = 8
+D2D1_BLEND_DEST_COLOR: D2D1_BLEND = 9
+D2D1_BLEND_INV_DEST_COLOR: D2D1_BLEND = 10
+D2D1_BLEND_SRC_ALPHA_SAT: D2D1_BLEND = 11
+D2D1_BLEND_BLEND_FACTOR: D2D1_BLEND = 14
+D2D1_BLEND_INV_BLEND_FACTOR: D2D1_BLEND = 15
+D2D1_BLEND_FORCE_DWORD: D2D1_BLEND = 4294967295
+class D2D1_BLEND_DESCRIPTION(Structure):
+    sourceBlend: win32more.Graphics.Direct2D.D2D1_BLEND
+    destinationBlend: win32more.Graphics.Direct2D.D2D1_BLEND
+    blendOperation: win32more.Graphics.Direct2D.D2D1_BLEND_OPERATION
+    sourceBlendAlpha: win32more.Graphics.Direct2D.D2D1_BLEND
+    destinationBlendAlpha: win32more.Graphics.Direct2D.D2D1_BLEND
+    blendOperationAlpha: win32more.Graphics.Direct2D.D2D1_BLEND_OPERATION
+    blendFactor: Single * 4
 D2D1_BLEND_OPERATION = UInt32
-D2D1_BLEND_OPERATION_ADD = 1
-D2D1_BLEND_OPERATION_SUBTRACT = 2
-D2D1_BLEND_OPERATION_REV_SUBTRACT = 3
-D2D1_BLEND_OPERATION_MIN = 4
-D2D1_BLEND_OPERATION_MAX = 5
-D2D1_BLEND_OPERATION_FORCE_DWORD = 4294967295
+D2D1_BLEND_OPERATION_ADD: D2D1_BLEND_OPERATION = 1
+D2D1_BLEND_OPERATION_SUBTRACT: D2D1_BLEND_OPERATION = 2
+D2D1_BLEND_OPERATION_REV_SUBTRACT: D2D1_BLEND_OPERATION = 3
+D2D1_BLEND_OPERATION_MIN: D2D1_BLEND_OPERATION = 4
+D2D1_BLEND_OPERATION_MAX: D2D1_BLEND_OPERATION = 5
+D2D1_BLEND_OPERATION_FORCE_DWORD: D2D1_BLEND_OPERATION = 4294967295
 D2D1_BLEND_PROP = UInt32
-D2D1_BLEND_PROP_MODE = 0
-D2D1_BLEND_PROP_FORCE_DWORD = 4294967295
+D2D1_BLEND_PROP_MODE: D2D1_BLEND_PROP = 0
+D2D1_BLEND_PROP_FORCE_DWORD: D2D1_BLEND_PROP = 4294967295
 D2D1_BORDER_EDGE_MODE = UInt32
-D2D1_BORDER_EDGE_MODE_CLAMP = 0
-D2D1_BORDER_EDGE_MODE_WRAP = 1
-D2D1_BORDER_EDGE_MODE_MIRROR = 2
-D2D1_BORDER_EDGE_MODE_FORCE_DWORD = 4294967295
+D2D1_BORDER_EDGE_MODE_CLAMP: D2D1_BORDER_EDGE_MODE = 0
+D2D1_BORDER_EDGE_MODE_WRAP: D2D1_BORDER_EDGE_MODE = 1
+D2D1_BORDER_EDGE_MODE_MIRROR: D2D1_BORDER_EDGE_MODE = 2
+D2D1_BORDER_EDGE_MODE_FORCE_DWORD: D2D1_BORDER_EDGE_MODE = 4294967295
 D2D1_BORDER_PROP = UInt32
-D2D1_BORDER_PROP_EDGE_MODE_X = 0
-D2D1_BORDER_PROP_EDGE_MODE_Y = 1
-D2D1_BORDER_PROP_FORCE_DWORD = 4294967295
+D2D1_BORDER_PROP_EDGE_MODE_X: D2D1_BORDER_PROP = 0
+D2D1_BORDER_PROP_EDGE_MODE_Y: D2D1_BORDER_PROP = 1
+D2D1_BORDER_PROP_FORCE_DWORD: D2D1_BORDER_PROP = 4294967295
 D2D1_BRIGHTNESS_PROP = UInt32
-D2D1_BRIGHTNESS_PROP_WHITE_POINT = 0
-D2D1_BRIGHTNESS_PROP_BLACK_POINT = 1
-D2D1_BRIGHTNESS_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_BRUSH_PROPERTIES_head():
-    class D2D1_BRUSH_PROPERTIES(Structure):
-        pass
-    return D2D1_BRUSH_PROPERTIES
-def _define_D2D1_BRUSH_PROPERTIES():
-    D2D1_BRUSH_PROPERTIES = win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head
-    D2D1_BRUSH_PROPERTIES._fields_ = [
-        ('opacity', Single),
-        ('transform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-    ]
-    return D2D1_BRUSH_PROPERTIES
+D2D1_BRIGHTNESS_PROP_WHITE_POINT: D2D1_BRIGHTNESS_PROP = 0
+D2D1_BRIGHTNESS_PROP_BLACK_POINT: D2D1_BRIGHTNESS_PROP = 1
+D2D1_BRIGHTNESS_PROP_FORCE_DWORD: D2D1_BRIGHTNESS_PROP = 4294967295
+class D2D1_BRUSH_PROPERTIES(Structure):
+    opacity: Single
+    transform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
 D2D1_BUFFER_PRECISION = UInt32
-D2D1_BUFFER_PRECISION_UNKNOWN = 0
-D2D1_BUFFER_PRECISION_8BPC_UNORM = 1
-D2D1_BUFFER_PRECISION_8BPC_UNORM_SRGB = 2
-D2D1_BUFFER_PRECISION_16BPC_UNORM = 3
-D2D1_BUFFER_PRECISION_16BPC_FLOAT = 4
-D2D1_BUFFER_PRECISION_32BPC_FLOAT = 5
-D2D1_BUFFER_PRECISION_FORCE_DWORD = 4294967295
+D2D1_BUFFER_PRECISION_UNKNOWN: D2D1_BUFFER_PRECISION = 0
+D2D1_BUFFER_PRECISION_8BPC_UNORM: D2D1_BUFFER_PRECISION = 1
+D2D1_BUFFER_PRECISION_8BPC_UNORM_SRGB: D2D1_BUFFER_PRECISION = 2
+D2D1_BUFFER_PRECISION_16BPC_UNORM: D2D1_BUFFER_PRECISION = 3
+D2D1_BUFFER_PRECISION_16BPC_FLOAT: D2D1_BUFFER_PRECISION = 4
+D2D1_BUFFER_PRECISION_32BPC_FLOAT: D2D1_BUFFER_PRECISION = 5
+D2D1_BUFFER_PRECISION_FORCE_DWORD: D2D1_BUFFER_PRECISION = 4294967295
 D2D1_CAP_STYLE = UInt32
-D2D1_CAP_STYLE_FLAT = 0
-D2D1_CAP_STYLE_SQUARE = 1
-D2D1_CAP_STYLE_ROUND = 2
-D2D1_CAP_STYLE_TRIANGLE = 3
-D2D1_CAP_STYLE_FORCE_DWORD = 4294967295
+D2D1_CAP_STYLE_FLAT: D2D1_CAP_STYLE = 0
+D2D1_CAP_STYLE_SQUARE: D2D1_CAP_STYLE = 1
+D2D1_CAP_STYLE_ROUND: D2D1_CAP_STYLE = 2
+D2D1_CAP_STYLE_TRIANGLE: D2D1_CAP_STYLE = 3
+D2D1_CAP_STYLE_FORCE_DWORD: D2D1_CAP_STYLE = 4294967295
 D2D1_CHANGE_TYPE = UInt32
-D2D1_CHANGE_TYPE_NONE = 0
-D2D1_CHANGE_TYPE_PROPERTIES = 1
-D2D1_CHANGE_TYPE_CONTEXT = 2
-D2D1_CHANGE_TYPE_GRAPH = 3
-D2D1_CHANGE_TYPE_FORCE_DWORD = 4294967295
+D2D1_CHANGE_TYPE_NONE: D2D1_CHANGE_TYPE = 0
+D2D1_CHANGE_TYPE_PROPERTIES: D2D1_CHANGE_TYPE = 1
+D2D1_CHANGE_TYPE_CONTEXT: D2D1_CHANGE_TYPE = 2
+D2D1_CHANGE_TYPE_GRAPH: D2D1_CHANGE_TYPE = 3
+D2D1_CHANGE_TYPE_FORCE_DWORD: D2D1_CHANGE_TYPE = 4294967295
 D2D1_CHANNEL_DEPTH = UInt32
-D2D1_CHANNEL_DEPTH_DEFAULT = 0
-D2D1_CHANNEL_DEPTH_1 = 1
-D2D1_CHANNEL_DEPTH_4 = 4
-D2D1_CHANNEL_DEPTH_FORCE_DWORD = 4294967295
+D2D1_CHANNEL_DEPTH_DEFAULT: D2D1_CHANNEL_DEPTH = 0
+D2D1_CHANNEL_DEPTH_1: D2D1_CHANNEL_DEPTH = 1
+D2D1_CHANNEL_DEPTH_4: D2D1_CHANNEL_DEPTH = 4
+D2D1_CHANNEL_DEPTH_FORCE_DWORD: D2D1_CHANNEL_DEPTH = 4294967295
 D2D1_CHANNEL_SELECTOR = UInt32
-D2D1_CHANNEL_SELECTOR_R = 0
-D2D1_CHANNEL_SELECTOR_G = 1
-D2D1_CHANNEL_SELECTOR_B = 2
-D2D1_CHANNEL_SELECTOR_A = 3
-D2D1_CHANNEL_SELECTOR_FORCE_DWORD = 4294967295
+D2D1_CHANNEL_SELECTOR_R: D2D1_CHANNEL_SELECTOR = 0
+D2D1_CHANNEL_SELECTOR_G: D2D1_CHANNEL_SELECTOR = 1
+D2D1_CHANNEL_SELECTOR_B: D2D1_CHANNEL_SELECTOR = 2
+D2D1_CHANNEL_SELECTOR_A: D2D1_CHANNEL_SELECTOR = 3
+D2D1_CHANNEL_SELECTOR_FORCE_DWORD: D2D1_CHANNEL_SELECTOR = 4294967295
 D2D1_CHROMAKEY_PROP = UInt32
-D2D1_CHROMAKEY_PROP_COLOR = 0
-D2D1_CHROMAKEY_PROP_TOLERANCE = 1
-D2D1_CHROMAKEY_PROP_INVERT_ALPHA = 2
-D2D1_CHROMAKEY_PROP_FEATHER = 3
-D2D1_CHROMAKEY_PROP_FORCE_DWORD = 4294967295
+D2D1_CHROMAKEY_PROP_COLOR: D2D1_CHROMAKEY_PROP = 0
+D2D1_CHROMAKEY_PROP_TOLERANCE: D2D1_CHROMAKEY_PROP = 1
+D2D1_CHROMAKEY_PROP_INVERT_ALPHA: D2D1_CHROMAKEY_PROP = 2
+D2D1_CHROMAKEY_PROP_FEATHER: D2D1_CHROMAKEY_PROP = 3
+D2D1_CHROMAKEY_PROP_FORCE_DWORD: D2D1_CHROMAKEY_PROP = 4294967295
 D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION = UInt32
-D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DEFAULT = 0
-D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DISABLE = 1
-D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_FORCE_DWORD = 4294967295
+D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DEFAULT: D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION = 0
+D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DISABLE: D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION = 1
+D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_FORCE_DWORD: D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION = 4294967295
 D2D1_COLOR_CONTEXT_TYPE = UInt32
-D2D1_COLOR_CONTEXT_TYPE_ICC = 0
-D2D1_COLOR_CONTEXT_TYPE_SIMPLE = 1
-D2D1_COLOR_CONTEXT_TYPE_DXGI = 2
-D2D1_COLOR_CONTEXT_TYPE_FORCE_DWORD = 4294967295
+D2D1_COLOR_CONTEXT_TYPE_ICC: D2D1_COLOR_CONTEXT_TYPE = 0
+D2D1_COLOR_CONTEXT_TYPE_SIMPLE: D2D1_COLOR_CONTEXT_TYPE = 1
+D2D1_COLOR_CONTEXT_TYPE_DXGI: D2D1_COLOR_CONTEXT_TYPE = 2
+D2D1_COLOR_CONTEXT_TYPE_FORCE_DWORD: D2D1_COLOR_CONTEXT_TYPE = 4294967295
 D2D1_COLOR_INTERPOLATION_MODE = UInt32
-D2D1_COLOR_INTERPOLATION_MODE_STRAIGHT = 0
-D2D1_COLOR_INTERPOLATION_MODE_PREMULTIPLIED = 1
-D2D1_COLOR_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_COLOR_INTERPOLATION_MODE_STRAIGHT: D2D1_COLOR_INTERPOLATION_MODE = 0
+D2D1_COLOR_INTERPOLATION_MODE_PREMULTIPLIED: D2D1_COLOR_INTERPOLATION_MODE = 1
+D2D1_COLOR_INTERPOLATION_MODE_FORCE_DWORD: D2D1_COLOR_INTERPOLATION_MODE = 4294967295
 D2D1_COLOR_SPACE = UInt32
-D2D1_COLOR_SPACE_CUSTOM = 0
-D2D1_COLOR_SPACE_SRGB = 1
-D2D1_COLOR_SPACE_SCRGB = 2
-D2D1_COLOR_SPACE_FORCE_DWORD = 4294967295
+D2D1_COLOR_SPACE_CUSTOM: D2D1_COLOR_SPACE = 0
+D2D1_COLOR_SPACE_SRGB: D2D1_COLOR_SPACE = 1
+D2D1_COLOR_SPACE_SCRGB: D2D1_COLOR_SPACE = 2
+D2D1_COLOR_SPACE_FORCE_DWORD: D2D1_COLOR_SPACE = 4294967295
 D2D1_COLORMANAGEMENT_ALPHA_MODE = UInt32
-D2D1_COLORMANAGEMENT_ALPHA_MODE_PREMULTIPLIED = 1
-D2D1_COLORMANAGEMENT_ALPHA_MODE_STRAIGHT = 2
-D2D1_COLORMANAGEMENT_ALPHA_MODE_FORCE_DWORD = 4294967295
+D2D1_COLORMANAGEMENT_ALPHA_MODE_PREMULTIPLIED: D2D1_COLORMANAGEMENT_ALPHA_MODE = 1
+D2D1_COLORMANAGEMENT_ALPHA_MODE_STRAIGHT: D2D1_COLORMANAGEMENT_ALPHA_MODE = 2
+D2D1_COLORMANAGEMENT_ALPHA_MODE_FORCE_DWORD: D2D1_COLORMANAGEMENT_ALPHA_MODE = 4294967295
 D2D1_COLORMANAGEMENT_PROP = UInt32
-D2D1_COLORMANAGEMENT_PROP_SOURCE_COLOR_CONTEXT = 0
-D2D1_COLORMANAGEMENT_PROP_SOURCE_RENDERING_INTENT = 1
-D2D1_COLORMANAGEMENT_PROP_DESTINATION_COLOR_CONTEXT = 2
-D2D1_COLORMANAGEMENT_PROP_DESTINATION_RENDERING_INTENT = 3
-D2D1_COLORMANAGEMENT_PROP_ALPHA_MODE = 4
-D2D1_COLORMANAGEMENT_PROP_QUALITY = 5
-D2D1_COLORMANAGEMENT_PROP_FORCE_DWORD = 4294967295
+D2D1_COLORMANAGEMENT_PROP_SOURCE_COLOR_CONTEXT: D2D1_COLORMANAGEMENT_PROP = 0
+D2D1_COLORMANAGEMENT_PROP_SOURCE_RENDERING_INTENT: D2D1_COLORMANAGEMENT_PROP = 1
+D2D1_COLORMANAGEMENT_PROP_DESTINATION_COLOR_CONTEXT: D2D1_COLORMANAGEMENT_PROP = 2
+D2D1_COLORMANAGEMENT_PROP_DESTINATION_RENDERING_INTENT: D2D1_COLORMANAGEMENT_PROP = 3
+D2D1_COLORMANAGEMENT_PROP_ALPHA_MODE: D2D1_COLORMANAGEMENT_PROP = 4
+D2D1_COLORMANAGEMENT_PROP_QUALITY: D2D1_COLORMANAGEMENT_PROP = 5
+D2D1_COLORMANAGEMENT_PROP_FORCE_DWORD: D2D1_COLORMANAGEMENT_PROP = 4294967295
 D2D1_COLORMANAGEMENT_QUALITY = UInt32
-D2D1_COLORMANAGEMENT_QUALITY_PROOF = 0
-D2D1_COLORMANAGEMENT_QUALITY_NORMAL = 1
-D2D1_COLORMANAGEMENT_QUALITY_BEST = 2
-D2D1_COLORMANAGEMENT_QUALITY_FORCE_DWORD = 4294967295
+D2D1_COLORMANAGEMENT_QUALITY_PROOF: D2D1_COLORMANAGEMENT_QUALITY = 0
+D2D1_COLORMANAGEMENT_QUALITY_NORMAL: D2D1_COLORMANAGEMENT_QUALITY = 1
+D2D1_COLORMANAGEMENT_QUALITY_BEST: D2D1_COLORMANAGEMENT_QUALITY = 2
+D2D1_COLORMANAGEMENT_QUALITY_FORCE_DWORD: D2D1_COLORMANAGEMENT_QUALITY = 4294967295
 D2D1_COLORMANAGEMENT_RENDERING_INTENT = UInt32
-D2D1_COLORMANAGEMENT_RENDERING_INTENT_PERCEPTUAL = 0
-D2D1_COLORMANAGEMENT_RENDERING_INTENT_RELATIVE_COLORIMETRIC = 1
-D2D1_COLORMANAGEMENT_RENDERING_INTENT_SATURATION = 2
-D2D1_COLORMANAGEMENT_RENDERING_INTENT_ABSOLUTE_COLORIMETRIC = 3
-D2D1_COLORMANAGEMENT_RENDERING_INTENT_FORCE_DWORD = 4294967295
+D2D1_COLORMANAGEMENT_RENDERING_INTENT_PERCEPTUAL: D2D1_COLORMANAGEMENT_RENDERING_INTENT = 0
+D2D1_COLORMANAGEMENT_RENDERING_INTENT_RELATIVE_COLORIMETRIC: D2D1_COLORMANAGEMENT_RENDERING_INTENT = 1
+D2D1_COLORMANAGEMENT_RENDERING_INTENT_SATURATION: D2D1_COLORMANAGEMENT_RENDERING_INTENT = 2
+D2D1_COLORMANAGEMENT_RENDERING_INTENT_ABSOLUTE_COLORIMETRIC: D2D1_COLORMANAGEMENT_RENDERING_INTENT = 3
+D2D1_COLORMANAGEMENT_RENDERING_INTENT_FORCE_DWORD: D2D1_COLORMANAGEMENT_RENDERING_INTENT = 4294967295
 D2D1_COLORMATRIX_PROP = UInt32
-D2D1_COLORMATRIX_PROP_COLOR_MATRIX = 0
-D2D1_COLORMATRIX_PROP_ALPHA_MODE = 1
-D2D1_COLORMATRIX_PROP_CLAMP_OUTPUT = 2
-D2D1_COLORMATRIX_PROP_FORCE_DWORD = 4294967295
+D2D1_COLORMATRIX_PROP_COLOR_MATRIX: D2D1_COLORMATRIX_PROP = 0
+D2D1_COLORMATRIX_PROP_ALPHA_MODE: D2D1_COLORMATRIX_PROP = 1
+D2D1_COLORMATRIX_PROP_CLAMP_OUTPUT: D2D1_COLORMATRIX_PROP = 2
+D2D1_COLORMATRIX_PROP_FORCE_DWORD: D2D1_COLORMATRIX_PROP = 4294967295
 D2D1_COMBINE_MODE = UInt32
-D2D1_COMBINE_MODE_UNION = 0
-D2D1_COMBINE_MODE_INTERSECT = 1
-D2D1_COMBINE_MODE_XOR = 2
-D2D1_COMBINE_MODE_EXCLUDE = 3
-D2D1_COMBINE_MODE_FORCE_DWORD = 4294967295
+D2D1_COMBINE_MODE_UNION: D2D1_COMBINE_MODE = 0
+D2D1_COMBINE_MODE_INTERSECT: D2D1_COMBINE_MODE = 1
+D2D1_COMBINE_MODE_XOR: D2D1_COMBINE_MODE = 2
+D2D1_COMBINE_MODE_EXCLUDE: D2D1_COMBINE_MODE = 3
+D2D1_COMBINE_MODE_FORCE_DWORD: D2D1_COMBINE_MODE = 4294967295
 D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS = UInt32
-D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_NONE = 0
-D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_GDI_COMPATIBLE = 1
-D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_NONE: D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS = 0
+D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_GDI_COMPATIBLE: D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS = 1
+D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS_FORCE_DWORD: D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS = 4294967295
 D2D1_COMPOSITE_PROP = UInt32
-D2D1_COMPOSITE_PROP_MODE = 0
-D2D1_COMPOSITE_PROP_FORCE_DWORD = 4294967295
+D2D1_COMPOSITE_PROP_MODE: D2D1_COMPOSITE_PROP = 0
+D2D1_COMPOSITE_PROP_FORCE_DWORD: D2D1_COMPOSITE_PROP = 4294967295
 D2D1_CONTRAST_PROP = UInt32
-D2D1_CONTRAST_PROP_CONTRAST = 0
-D2D1_CONTRAST_PROP_CLAMP_INPUT = 1
-D2D1_CONTRAST_PROP_FORCE_DWORD = 4294967295
+D2D1_CONTRAST_PROP_CONTRAST: D2D1_CONTRAST_PROP = 0
+D2D1_CONTRAST_PROP_CLAMP_INPUT: D2D1_CONTRAST_PROP = 1
+D2D1_CONTRAST_PROP_FORCE_DWORD: D2D1_CONTRAST_PROP = 4294967295
 D2D1_CONVOLVEMATRIX_PROP = UInt32
-D2D1_CONVOLVEMATRIX_PROP_KERNEL_UNIT_LENGTH = 0
-D2D1_CONVOLVEMATRIX_PROP_SCALE_MODE = 1
-D2D1_CONVOLVEMATRIX_PROP_KERNEL_SIZE_X = 2
-D2D1_CONVOLVEMATRIX_PROP_KERNEL_SIZE_Y = 3
-D2D1_CONVOLVEMATRIX_PROP_KERNEL_MATRIX = 4
-D2D1_CONVOLVEMATRIX_PROP_DIVISOR = 5
-D2D1_CONVOLVEMATRIX_PROP_BIAS = 6
-D2D1_CONVOLVEMATRIX_PROP_KERNEL_OFFSET = 7
-D2D1_CONVOLVEMATRIX_PROP_PRESERVE_ALPHA = 8
-D2D1_CONVOLVEMATRIX_PROP_BORDER_MODE = 9
-D2D1_CONVOLVEMATRIX_PROP_CLAMP_OUTPUT = 10
-D2D1_CONVOLVEMATRIX_PROP_FORCE_DWORD = 4294967295
+D2D1_CONVOLVEMATRIX_PROP_KERNEL_UNIT_LENGTH: D2D1_CONVOLVEMATRIX_PROP = 0
+D2D1_CONVOLVEMATRIX_PROP_SCALE_MODE: D2D1_CONVOLVEMATRIX_PROP = 1
+D2D1_CONVOLVEMATRIX_PROP_KERNEL_SIZE_X: D2D1_CONVOLVEMATRIX_PROP = 2
+D2D1_CONVOLVEMATRIX_PROP_KERNEL_SIZE_Y: D2D1_CONVOLVEMATRIX_PROP = 3
+D2D1_CONVOLVEMATRIX_PROP_KERNEL_MATRIX: D2D1_CONVOLVEMATRIX_PROP = 4
+D2D1_CONVOLVEMATRIX_PROP_DIVISOR: D2D1_CONVOLVEMATRIX_PROP = 5
+D2D1_CONVOLVEMATRIX_PROP_BIAS: D2D1_CONVOLVEMATRIX_PROP = 6
+D2D1_CONVOLVEMATRIX_PROP_KERNEL_OFFSET: D2D1_CONVOLVEMATRIX_PROP = 7
+D2D1_CONVOLVEMATRIX_PROP_PRESERVE_ALPHA: D2D1_CONVOLVEMATRIX_PROP = 8
+D2D1_CONVOLVEMATRIX_PROP_BORDER_MODE: D2D1_CONVOLVEMATRIX_PROP = 9
+D2D1_CONVOLVEMATRIX_PROP_CLAMP_OUTPUT: D2D1_CONVOLVEMATRIX_PROP = 10
+D2D1_CONVOLVEMATRIX_PROP_FORCE_DWORD: D2D1_CONVOLVEMATRIX_PROP = 4294967295
 D2D1_CONVOLVEMATRIX_SCALE_MODE = UInt32
-D2D1_CONVOLVEMATRIX_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_CONVOLVEMATRIX_SCALE_MODE_LINEAR = 1
-D2D1_CONVOLVEMATRIX_SCALE_MODE_CUBIC = 2
-D2D1_CONVOLVEMATRIX_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_CONVOLVEMATRIX_SCALE_MODE_ANISOTROPIC = 4
-D2D1_CONVOLVEMATRIX_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_CONVOLVEMATRIX_SCALE_MODE_FORCE_DWORD = 4294967295
-def _define_D2D1_CREATION_PROPERTIES_head():
-    class D2D1_CREATION_PROPERTIES(Structure):
-        pass
-    return D2D1_CREATION_PROPERTIES
-def _define_D2D1_CREATION_PROPERTIES():
-    D2D1_CREATION_PROPERTIES = win32more.Graphics.Direct2D.D2D1_CREATION_PROPERTIES_head
-    D2D1_CREATION_PROPERTIES._fields_ = [
-        ('threadingMode', win32more.Graphics.Direct2D.D2D1_THREADING_MODE),
-        ('debugLevel', win32more.Graphics.Direct2D.D2D1_DEBUG_LEVEL),
-        ('options', win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS),
-    ]
-    return D2D1_CREATION_PROPERTIES
+D2D1_CONVOLVEMATRIX_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_CONVOLVEMATRIX_SCALE_MODE = 0
+D2D1_CONVOLVEMATRIX_SCALE_MODE_LINEAR: D2D1_CONVOLVEMATRIX_SCALE_MODE = 1
+D2D1_CONVOLVEMATRIX_SCALE_MODE_CUBIC: D2D1_CONVOLVEMATRIX_SCALE_MODE = 2
+D2D1_CONVOLVEMATRIX_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_CONVOLVEMATRIX_SCALE_MODE = 3
+D2D1_CONVOLVEMATRIX_SCALE_MODE_ANISOTROPIC: D2D1_CONVOLVEMATRIX_SCALE_MODE = 4
+D2D1_CONVOLVEMATRIX_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_CONVOLVEMATRIX_SCALE_MODE = 5
+D2D1_CONVOLVEMATRIX_SCALE_MODE_FORCE_DWORD: D2D1_CONVOLVEMATRIX_SCALE_MODE = 4294967295
+class D2D1_CREATION_PROPERTIES(Structure):
+    threadingMode: win32more.Graphics.Direct2D.D2D1_THREADING_MODE
+    debugLevel: win32more.Graphics.Direct2D.D2D1_DEBUG_LEVEL
+    options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS
 D2D1_CROP_PROP = UInt32
-D2D1_CROP_PROP_RECT = 0
-D2D1_CROP_PROP_BORDER_MODE = 1
-D2D1_CROP_PROP_FORCE_DWORD = 4294967295
+D2D1_CROP_PROP_RECT: D2D1_CROP_PROP = 0
+D2D1_CROP_PROP_BORDER_MODE: D2D1_CROP_PROP = 1
+D2D1_CROP_PROP_FORCE_DWORD: D2D1_CROP_PROP = 4294967295
 D2D1_CROSSFADE_PROP = UInt32
-D2D1_CROSSFADE_PROP_WEIGHT = 0
-D2D1_CROSSFADE_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES_head():
-    class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES(Structure):
-        pass
-    return D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES
-def _define_D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES():
-    D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES = win32more.Graphics.Direct2D.D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES_head
-    D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES._fields_ = [
-        ('shaderBufferWithInputSignature', c_char_p_no),
-        ('shaderBufferSize', UInt32),
-        ('inputElements', POINTER(win32more.Graphics.Direct2D.D2D1_INPUT_ELEMENT_DESC_head)),
-        ('elementCount', UInt32),
-        ('stride', UInt32),
-    ]
-    return D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES
+D2D1_CROSSFADE_PROP_WEIGHT: D2D1_CROSSFADE_PROP = 0
+D2D1_CROSSFADE_PROP_FORCE_DWORD: D2D1_CROSSFADE_PROP = 4294967295
+class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES(Structure):
+    shaderBufferWithInputSignature: c_char_p_no
+    shaderBufferSize: UInt32
+    inputElements: POINTER(win32more.Graphics.Direct2D.D2D1_INPUT_ELEMENT_DESC_head)
+    elementCount: UInt32
+    stride: UInt32
 D2D1_DASH_STYLE = UInt32
-D2D1_DASH_STYLE_SOLID = 0
-D2D1_DASH_STYLE_DASH = 1
-D2D1_DASH_STYLE_DOT = 2
-D2D1_DASH_STYLE_DASH_DOT = 3
-D2D1_DASH_STYLE_DASH_DOT_DOT = 4
-D2D1_DASH_STYLE_CUSTOM = 5
-D2D1_DASH_STYLE_FORCE_DWORD = 4294967295
+D2D1_DASH_STYLE_SOLID: D2D1_DASH_STYLE = 0
+D2D1_DASH_STYLE_DASH: D2D1_DASH_STYLE = 1
+D2D1_DASH_STYLE_DOT: D2D1_DASH_STYLE = 2
+D2D1_DASH_STYLE_DASH_DOT: D2D1_DASH_STYLE = 3
+D2D1_DASH_STYLE_DASH_DOT_DOT: D2D1_DASH_STYLE = 4
+D2D1_DASH_STYLE_CUSTOM: D2D1_DASH_STYLE = 5
+D2D1_DASH_STYLE_FORCE_DWORD: D2D1_DASH_STYLE = 4294967295
 D2D1_DC_INITIALIZE_MODE = UInt32
-D2D1_DC_INITIALIZE_MODE_COPY = 0
-D2D1_DC_INITIALIZE_MODE_CLEAR = 1
-D2D1_DC_INITIALIZE_MODE_FORCE_DWORD = 4294967295
+D2D1_DC_INITIALIZE_MODE_COPY: D2D1_DC_INITIALIZE_MODE = 0
+D2D1_DC_INITIALIZE_MODE_CLEAR: D2D1_DC_INITIALIZE_MODE = 1
+D2D1_DC_INITIALIZE_MODE_FORCE_DWORD: D2D1_DC_INITIALIZE_MODE = 4294967295
 D2D1_DEBUG_LEVEL = UInt32
-D2D1_DEBUG_LEVEL_NONE = 0
-D2D1_DEBUG_LEVEL_ERROR = 1
-D2D1_DEBUG_LEVEL_WARNING = 2
-D2D1_DEBUG_LEVEL_INFORMATION = 3
-D2D1_DEBUG_LEVEL_FORCE_DWORD = 4294967295
+D2D1_DEBUG_LEVEL_NONE: D2D1_DEBUG_LEVEL = 0
+D2D1_DEBUG_LEVEL_ERROR: D2D1_DEBUG_LEVEL = 1
+D2D1_DEBUG_LEVEL_WARNING: D2D1_DEBUG_LEVEL = 2
+D2D1_DEBUG_LEVEL_INFORMATION: D2D1_DEBUG_LEVEL = 3
+D2D1_DEBUG_LEVEL_FORCE_DWORD: D2D1_DEBUG_LEVEL = 4294967295
 D2D1_DEVICE_CONTEXT_OPTIONS = UInt32
-D2D1_DEVICE_CONTEXT_OPTIONS_NONE = 0
-D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS = 1
-D2D1_DEVICE_CONTEXT_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_DEVICE_CONTEXT_OPTIONS_NONE: D2D1_DEVICE_CONTEXT_OPTIONS = 0
+D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS: D2D1_DEVICE_CONTEXT_OPTIONS = 1
+D2D1_DEVICE_CONTEXT_OPTIONS_FORCE_DWORD: D2D1_DEVICE_CONTEXT_OPTIONS = 4294967295
 D2D1_DIRECTIONALBLUR_OPTIMIZATION = UInt32
-D2D1_DIRECTIONALBLUR_OPTIMIZATION_SPEED = 0
-D2D1_DIRECTIONALBLUR_OPTIMIZATION_BALANCED = 1
-D2D1_DIRECTIONALBLUR_OPTIMIZATION_QUALITY = 2
-D2D1_DIRECTIONALBLUR_OPTIMIZATION_FORCE_DWORD = 4294967295
+D2D1_DIRECTIONALBLUR_OPTIMIZATION_SPEED: D2D1_DIRECTIONALBLUR_OPTIMIZATION = 0
+D2D1_DIRECTIONALBLUR_OPTIMIZATION_BALANCED: D2D1_DIRECTIONALBLUR_OPTIMIZATION = 1
+D2D1_DIRECTIONALBLUR_OPTIMIZATION_QUALITY: D2D1_DIRECTIONALBLUR_OPTIMIZATION = 2
+D2D1_DIRECTIONALBLUR_OPTIMIZATION_FORCE_DWORD: D2D1_DIRECTIONALBLUR_OPTIMIZATION = 4294967295
 D2D1_DIRECTIONALBLUR_PROP = UInt32
-D2D1_DIRECTIONALBLUR_PROP_STANDARD_DEVIATION = 0
-D2D1_DIRECTIONALBLUR_PROP_ANGLE = 1
-D2D1_DIRECTIONALBLUR_PROP_OPTIMIZATION = 2
-D2D1_DIRECTIONALBLUR_PROP_BORDER_MODE = 3
-D2D1_DIRECTIONALBLUR_PROP_FORCE_DWORD = 4294967295
+D2D1_DIRECTIONALBLUR_PROP_STANDARD_DEVIATION: D2D1_DIRECTIONALBLUR_PROP = 0
+D2D1_DIRECTIONALBLUR_PROP_ANGLE: D2D1_DIRECTIONALBLUR_PROP = 1
+D2D1_DIRECTIONALBLUR_PROP_OPTIMIZATION: D2D1_DIRECTIONALBLUR_PROP = 2
+D2D1_DIRECTIONALBLUR_PROP_BORDER_MODE: D2D1_DIRECTIONALBLUR_PROP = 3
+D2D1_DIRECTIONALBLUR_PROP_FORCE_DWORD: D2D1_DIRECTIONALBLUR_PROP = 4294967295
 D2D1_DISCRETETRANSFER_PROP = UInt32
-D2D1_DISCRETETRANSFER_PROP_RED_TABLE = 0
-D2D1_DISCRETETRANSFER_PROP_RED_DISABLE = 1
-D2D1_DISCRETETRANSFER_PROP_GREEN_TABLE = 2
-D2D1_DISCRETETRANSFER_PROP_GREEN_DISABLE = 3
-D2D1_DISCRETETRANSFER_PROP_BLUE_TABLE = 4
-D2D1_DISCRETETRANSFER_PROP_BLUE_DISABLE = 5
-D2D1_DISCRETETRANSFER_PROP_ALPHA_TABLE = 6
-D2D1_DISCRETETRANSFER_PROP_ALPHA_DISABLE = 7
-D2D1_DISCRETETRANSFER_PROP_CLAMP_OUTPUT = 8
-D2D1_DISCRETETRANSFER_PROP_FORCE_DWORD = 4294967295
+D2D1_DISCRETETRANSFER_PROP_RED_TABLE: D2D1_DISCRETETRANSFER_PROP = 0
+D2D1_DISCRETETRANSFER_PROP_RED_DISABLE: D2D1_DISCRETETRANSFER_PROP = 1
+D2D1_DISCRETETRANSFER_PROP_GREEN_TABLE: D2D1_DISCRETETRANSFER_PROP = 2
+D2D1_DISCRETETRANSFER_PROP_GREEN_DISABLE: D2D1_DISCRETETRANSFER_PROP = 3
+D2D1_DISCRETETRANSFER_PROP_BLUE_TABLE: D2D1_DISCRETETRANSFER_PROP = 4
+D2D1_DISCRETETRANSFER_PROP_BLUE_DISABLE: D2D1_DISCRETETRANSFER_PROP = 5
+D2D1_DISCRETETRANSFER_PROP_ALPHA_TABLE: D2D1_DISCRETETRANSFER_PROP = 6
+D2D1_DISCRETETRANSFER_PROP_ALPHA_DISABLE: D2D1_DISCRETETRANSFER_PROP = 7
+D2D1_DISCRETETRANSFER_PROP_CLAMP_OUTPUT: D2D1_DISCRETETRANSFER_PROP = 8
+D2D1_DISCRETETRANSFER_PROP_FORCE_DWORD: D2D1_DISCRETETRANSFER_PROP = 4294967295
 D2D1_DISPLACEMENTMAP_PROP = UInt32
-D2D1_DISPLACEMENTMAP_PROP_SCALE = 0
-D2D1_DISPLACEMENTMAP_PROP_X_CHANNEL_SELECT = 1
-D2D1_DISPLACEMENTMAP_PROP_Y_CHANNEL_SELECT = 2
-D2D1_DISPLACEMENTMAP_PROP_FORCE_DWORD = 4294967295
+D2D1_DISPLACEMENTMAP_PROP_SCALE: D2D1_DISPLACEMENTMAP_PROP = 0
+D2D1_DISPLACEMENTMAP_PROP_X_CHANNEL_SELECT: D2D1_DISPLACEMENTMAP_PROP = 1
+D2D1_DISPLACEMENTMAP_PROP_Y_CHANNEL_SELECT: D2D1_DISPLACEMENTMAP_PROP = 2
+D2D1_DISPLACEMENTMAP_PROP_FORCE_DWORD: D2D1_DISPLACEMENTMAP_PROP = 4294967295
 D2D1_DISTANTDIFFUSE_PROP = UInt32
-D2D1_DISTANTDIFFUSE_PROP_AZIMUTH = 0
-D2D1_DISTANTDIFFUSE_PROP_ELEVATION = 1
-D2D1_DISTANTDIFFUSE_PROP_DIFFUSE_CONSTANT = 2
-D2D1_DISTANTDIFFUSE_PROP_SURFACE_SCALE = 3
-D2D1_DISTANTDIFFUSE_PROP_COLOR = 4
-D2D1_DISTANTDIFFUSE_PROP_KERNEL_UNIT_LENGTH = 5
-D2D1_DISTANTDIFFUSE_PROP_SCALE_MODE = 6
-D2D1_DISTANTDIFFUSE_PROP_FORCE_DWORD = 4294967295
+D2D1_DISTANTDIFFUSE_PROP_AZIMUTH: D2D1_DISTANTDIFFUSE_PROP = 0
+D2D1_DISTANTDIFFUSE_PROP_ELEVATION: D2D1_DISTANTDIFFUSE_PROP = 1
+D2D1_DISTANTDIFFUSE_PROP_DIFFUSE_CONSTANT: D2D1_DISTANTDIFFUSE_PROP = 2
+D2D1_DISTANTDIFFUSE_PROP_SURFACE_SCALE: D2D1_DISTANTDIFFUSE_PROP = 3
+D2D1_DISTANTDIFFUSE_PROP_COLOR: D2D1_DISTANTDIFFUSE_PROP = 4
+D2D1_DISTANTDIFFUSE_PROP_KERNEL_UNIT_LENGTH: D2D1_DISTANTDIFFUSE_PROP = 5
+D2D1_DISTANTDIFFUSE_PROP_SCALE_MODE: D2D1_DISTANTDIFFUSE_PROP = 6
+D2D1_DISTANTDIFFUSE_PROP_FORCE_DWORD: D2D1_DISTANTDIFFUSE_PROP = 4294967295
 D2D1_DISTANTDIFFUSE_SCALE_MODE = UInt32
-D2D1_DISTANTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_DISTANTDIFFUSE_SCALE_MODE_LINEAR = 1
-D2D1_DISTANTDIFFUSE_SCALE_MODE_CUBIC = 2
-D2D1_DISTANTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_DISTANTDIFFUSE_SCALE_MODE_ANISOTROPIC = 4
-D2D1_DISTANTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_DISTANTDIFFUSE_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_DISTANTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_DISTANTDIFFUSE_SCALE_MODE = 0
+D2D1_DISTANTDIFFUSE_SCALE_MODE_LINEAR: D2D1_DISTANTDIFFUSE_SCALE_MODE = 1
+D2D1_DISTANTDIFFUSE_SCALE_MODE_CUBIC: D2D1_DISTANTDIFFUSE_SCALE_MODE = 2
+D2D1_DISTANTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_DISTANTDIFFUSE_SCALE_MODE = 3
+D2D1_DISTANTDIFFUSE_SCALE_MODE_ANISOTROPIC: D2D1_DISTANTDIFFUSE_SCALE_MODE = 4
+D2D1_DISTANTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_DISTANTDIFFUSE_SCALE_MODE = 5
+D2D1_DISTANTDIFFUSE_SCALE_MODE_FORCE_DWORD: D2D1_DISTANTDIFFUSE_SCALE_MODE = 4294967295
 D2D1_DISTANTSPECULAR_PROP = UInt32
-D2D1_DISTANTSPECULAR_PROP_AZIMUTH = 0
-D2D1_DISTANTSPECULAR_PROP_ELEVATION = 1
-D2D1_DISTANTSPECULAR_PROP_SPECULAR_EXPONENT = 2
-D2D1_DISTANTSPECULAR_PROP_SPECULAR_CONSTANT = 3
-D2D1_DISTANTSPECULAR_PROP_SURFACE_SCALE = 4
-D2D1_DISTANTSPECULAR_PROP_COLOR = 5
-D2D1_DISTANTSPECULAR_PROP_KERNEL_UNIT_LENGTH = 6
-D2D1_DISTANTSPECULAR_PROP_SCALE_MODE = 7
-D2D1_DISTANTSPECULAR_PROP_FORCE_DWORD = 4294967295
+D2D1_DISTANTSPECULAR_PROP_AZIMUTH: D2D1_DISTANTSPECULAR_PROP = 0
+D2D1_DISTANTSPECULAR_PROP_ELEVATION: D2D1_DISTANTSPECULAR_PROP = 1
+D2D1_DISTANTSPECULAR_PROP_SPECULAR_EXPONENT: D2D1_DISTANTSPECULAR_PROP = 2
+D2D1_DISTANTSPECULAR_PROP_SPECULAR_CONSTANT: D2D1_DISTANTSPECULAR_PROP = 3
+D2D1_DISTANTSPECULAR_PROP_SURFACE_SCALE: D2D1_DISTANTSPECULAR_PROP = 4
+D2D1_DISTANTSPECULAR_PROP_COLOR: D2D1_DISTANTSPECULAR_PROP = 5
+D2D1_DISTANTSPECULAR_PROP_KERNEL_UNIT_LENGTH: D2D1_DISTANTSPECULAR_PROP = 6
+D2D1_DISTANTSPECULAR_PROP_SCALE_MODE: D2D1_DISTANTSPECULAR_PROP = 7
+D2D1_DISTANTSPECULAR_PROP_FORCE_DWORD: D2D1_DISTANTSPECULAR_PROP = 4294967295
 D2D1_DISTANTSPECULAR_SCALE_MODE = UInt32
-D2D1_DISTANTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_DISTANTSPECULAR_SCALE_MODE_LINEAR = 1
-D2D1_DISTANTSPECULAR_SCALE_MODE_CUBIC = 2
-D2D1_DISTANTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_DISTANTSPECULAR_SCALE_MODE_ANISOTROPIC = 4
-D2D1_DISTANTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_DISTANTSPECULAR_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_DISTANTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_DISTANTSPECULAR_SCALE_MODE = 0
+D2D1_DISTANTSPECULAR_SCALE_MODE_LINEAR: D2D1_DISTANTSPECULAR_SCALE_MODE = 1
+D2D1_DISTANTSPECULAR_SCALE_MODE_CUBIC: D2D1_DISTANTSPECULAR_SCALE_MODE = 2
+D2D1_DISTANTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_DISTANTSPECULAR_SCALE_MODE = 3
+D2D1_DISTANTSPECULAR_SCALE_MODE_ANISOTROPIC: D2D1_DISTANTSPECULAR_SCALE_MODE = 4
+D2D1_DISTANTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_DISTANTSPECULAR_SCALE_MODE = 5
+D2D1_DISTANTSPECULAR_SCALE_MODE_FORCE_DWORD: D2D1_DISTANTSPECULAR_SCALE_MODE = 4294967295
 D2D1_DPICOMPENSATION_INTERPOLATION_MODE = UInt32
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_LINEAR = 1
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_CUBIC = 2
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_DPICOMPENSATION_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 0
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_LINEAR: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 1
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_CUBIC: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 2
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 3
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_ANISOTROPIC: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 4
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 5
+D2D1_DPICOMPENSATION_INTERPOLATION_MODE_FORCE_DWORD: D2D1_DPICOMPENSATION_INTERPOLATION_MODE = 4294967295
 D2D1_DPICOMPENSATION_PROP = UInt32
-D2D1_DPICOMPENSATION_PROP_INTERPOLATION_MODE = 0
-D2D1_DPICOMPENSATION_PROP_BORDER_MODE = 1
-D2D1_DPICOMPENSATION_PROP_INPUT_DPI = 2
-D2D1_DPICOMPENSATION_PROP_FORCE_DWORD = 4294967295
+D2D1_DPICOMPENSATION_PROP_INTERPOLATION_MODE: D2D1_DPICOMPENSATION_PROP = 0
+D2D1_DPICOMPENSATION_PROP_BORDER_MODE: D2D1_DPICOMPENSATION_PROP = 1
+D2D1_DPICOMPENSATION_PROP_INPUT_DPI: D2D1_DPICOMPENSATION_PROP = 2
+D2D1_DPICOMPENSATION_PROP_FORCE_DWORD: D2D1_DPICOMPENSATION_PROP = 4294967295
 D2D1_DRAW_TEXT_OPTIONS = UInt32
-D2D1_DRAW_TEXT_OPTIONS_NO_SNAP = 1
-D2D1_DRAW_TEXT_OPTIONS_CLIP = 2
-D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT = 4
-D2D1_DRAW_TEXT_OPTIONS_DISABLE_COLOR_BITMAP_SNAPPING = 8
-D2D1_DRAW_TEXT_OPTIONS_NONE = 0
-D2D1_DRAW_TEXT_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_DRAWING_STATE_DESCRIPTION_head():
-    class D2D1_DRAWING_STATE_DESCRIPTION(Structure):
-        pass
-    return D2D1_DRAWING_STATE_DESCRIPTION
-def _define_D2D1_DRAWING_STATE_DESCRIPTION():
-    D2D1_DRAWING_STATE_DESCRIPTION = win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head
-    D2D1_DRAWING_STATE_DESCRIPTION._fields_ = [
-        ('antialiasMode', win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE),
-        ('textAntialiasMode', win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE),
-        ('tag1', UInt64),
-        ('tag2', UInt64),
-        ('transform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-    ]
-    return D2D1_DRAWING_STATE_DESCRIPTION
-def _define_D2D1_DRAWING_STATE_DESCRIPTION1_head():
-    class D2D1_DRAWING_STATE_DESCRIPTION1(Structure):
-        pass
-    return D2D1_DRAWING_STATE_DESCRIPTION1
-def _define_D2D1_DRAWING_STATE_DESCRIPTION1():
-    D2D1_DRAWING_STATE_DESCRIPTION1 = win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head
-    D2D1_DRAWING_STATE_DESCRIPTION1._fields_ = [
-        ('antialiasMode', win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE),
-        ('textAntialiasMode', win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE),
-        ('tag1', UInt64),
-        ('tag2', UInt64),
-        ('transform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-        ('primitiveBlend', win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND),
-        ('unitMode', win32more.Graphics.Direct2D.D2D1_UNIT_MODE),
-    ]
-    return D2D1_DRAWING_STATE_DESCRIPTION1
+D2D1_DRAW_TEXT_OPTIONS_NO_SNAP: D2D1_DRAW_TEXT_OPTIONS = 1
+D2D1_DRAW_TEXT_OPTIONS_CLIP: D2D1_DRAW_TEXT_OPTIONS = 2
+D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT: D2D1_DRAW_TEXT_OPTIONS = 4
+D2D1_DRAW_TEXT_OPTIONS_DISABLE_COLOR_BITMAP_SNAPPING: D2D1_DRAW_TEXT_OPTIONS = 8
+D2D1_DRAW_TEXT_OPTIONS_NONE: D2D1_DRAW_TEXT_OPTIONS = 0
+D2D1_DRAW_TEXT_OPTIONS_FORCE_DWORD: D2D1_DRAW_TEXT_OPTIONS = 4294967295
+class D2D1_DRAWING_STATE_DESCRIPTION(Structure):
+    antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
+    textAntialiasMode: win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE
+    tag1: UInt64
+    tag2: UInt64
+    transform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
+class D2D1_DRAWING_STATE_DESCRIPTION1(Structure):
+    antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
+    textAntialiasMode: win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE
+    tag1: UInt64
+    tag2: UInt64
+    transform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
+    primitiveBlend: win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND
+    unitMode: win32more.Graphics.Direct2D.D2D1_UNIT_MODE
 D2D1_EDGEDETECTION_MODE = UInt32
-D2D1_EDGEDETECTION_MODE_SOBEL = 0
-D2D1_EDGEDETECTION_MODE_PREWITT = 1
-D2D1_EDGEDETECTION_MODE_FORCE_DWORD = 4294967295
+D2D1_EDGEDETECTION_MODE_SOBEL: D2D1_EDGEDETECTION_MODE = 0
+D2D1_EDGEDETECTION_MODE_PREWITT: D2D1_EDGEDETECTION_MODE = 1
+D2D1_EDGEDETECTION_MODE_FORCE_DWORD: D2D1_EDGEDETECTION_MODE = 4294967295
 D2D1_EDGEDETECTION_PROP = UInt32
-D2D1_EDGEDETECTION_PROP_STRENGTH = 0
-D2D1_EDGEDETECTION_PROP_BLUR_RADIUS = 1
-D2D1_EDGEDETECTION_PROP_MODE = 2
-D2D1_EDGEDETECTION_PROP_OVERLAY_EDGES = 3
-D2D1_EDGEDETECTION_PROP_ALPHA_MODE = 4
-D2D1_EDGEDETECTION_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_EFFECT_INPUT_DESCRIPTION_head():
-    class D2D1_EFFECT_INPUT_DESCRIPTION(Structure):
-        pass
-    return D2D1_EFFECT_INPUT_DESCRIPTION
-def _define_D2D1_EFFECT_INPUT_DESCRIPTION():
-    D2D1_EFFECT_INPUT_DESCRIPTION = win32more.Graphics.Direct2D.D2D1_EFFECT_INPUT_DESCRIPTION_head
-    D2D1_EFFECT_INPUT_DESCRIPTION._fields_ = [
-        ('effect', win32more.Graphics.Direct2D.ID2D1Effect_head),
-        ('inputIndex', UInt32),
-        ('inputRectangle', win32more.Graphics.Direct2D.Common.D2D_RECT_F),
-    ]
-    return D2D1_EFFECT_INPUT_DESCRIPTION
-def _define_D2D1_ELLIPSE_head():
-    class D2D1_ELLIPSE(Structure):
-        pass
-    return D2D1_ELLIPSE
-def _define_D2D1_ELLIPSE():
-    D2D1_ELLIPSE = win32more.Graphics.Direct2D.D2D1_ELLIPSE_head
-    D2D1_ELLIPSE._fields_ = [
-        ('point', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('radiusX', Single),
-        ('radiusY', Single),
-    ]
-    return D2D1_ELLIPSE
+D2D1_EDGEDETECTION_PROP_STRENGTH: D2D1_EDGEDETECTION_PROP = 0
+D2D1_EDGEDETECTION_PROP_BLUR_RADIUS: D2D1_EDGEDETECTION_PROP = 1
+D2D1_EDGEDETECTION_PROP_MODE: D2D1_EDGEDETECTION_PROP = 2
+D2D1_EDGEDETECTION_PROP_OVERLAY_EDGES: D2D1_EDGEDETECTION_PROP = 3
+D2D1_EDGEDETECTION_PROP_ALPHA_MODE: D2D1_EDGEDETECTION_PROP = 4
+D2D1_EDGEDETECTION_PROP_FORCE_DWORD: D2D1_EDGEDETECTION_PROP = 4294967295
+class D2D1_EFFECT_INPUT_DESCRIPTION(Structure):
+    effect: win32more.Graphics.Direct2D.ID2D1Effect_head
+    inputIndex: UInt32
+    inputRectangle: win32more.Graphics.Direct2D.Common.D2D_RECT_F
+class D2D1_ELLIPSE(Structure):
+    point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    radiusX: Single
+    radiusY: Single
 D2D1_EMBOSS_PROP = UInt32
-D2D1_EMBOSS_PROP_HEIGHT = 0
-D2D1_EMBOSS_PROP_DIRECTION = 1
-D2D1_EMBOSS_PROP_FORCE_DWORD = 4294967295
+D2D1_EMBOSS_PROP_HEIGHT: D2D1_EMBOSS_PROP = 0
+D2D1_EMBOSS_PROP_DIRECTION: D2D1_EMBOSS_PROP = 1
+D2D1_EMBOSS_PROP_FORCE_DWORD: D2D1_EMBOSS_PROP = 4294967295
 D2D1_EXPOSURE_PROP = UInt32
-D2D1_EXPOSURE_PROP_EXPOSURE_VALUE = 0
-D2D1_EXPOSURE_PROP_FORCE_DWORD = 4294967295
+D2D1_EXPOSURE_PROP_EXPOSURE_VALUE: D2D1_EXPOSURE_PROP = 0
+D2D1_EXPOSURE_PROP_FORCE_DWORD: D2D1_EXPOSURE_PROP = 4294967295
 D2D1_EXTEND_MODE = UInt32
-D2D1_EXTEND_MODE_CLAMP = 0
-D2D1_EXTEND_MODE_WRAP = 1
-D2D1_EXTEND_MODE_MIRROR = 2
-D2D1_EXTEND_MODE_FORCE_DWORD = 4294967295
-def _define_D2D1_FACTORY_OPTIONS_head():
-    class D2D1_FACTORY_OPTIONS(Structure):
-        pass
-    return D2D1_FACTORY_OPTIONS
-def _define_D2D1_FACTORY_OPTIONS():
-    D2D1_FACTORY_OPTIONS = win32more.Graphics.Direct2D.D2D1_FACTORY_OPTIONS_head
-    D2D1_FACTORY_OPTIONS._fields_ = [
-        ('debugLevel', win32more.Graphics.Direct2D.D2D1_DEBUG_LEVEL),
-    ]
-    return D2D1_FACTORY_OPTIONS
+D2D1_EXTEND_MODE_CLAMP: D2D1_EXTEND_MODE = 0
+D2D1_EXTEND_MODE_WRAP: D2D1_EXTEND_MODE = 1
+D2D1_EXTEND_MODE_MIRROR: D2D1_EXTEND_MODE = 2
+D2D1_EXTEND_MODE_FORCE_DWORD: D2D1_EXTEND_MODE = 4294967295
+class D2D1_FACTORY_OPTIONS(Structure):
+    debugLevel: win32more.Graphics.Direct2D.D2D1_DEBUG_LEVEL
 D2D1_FACTORY_TYPE = UInt32
-D2D1_FACTORY_TYPE_SINGLE_THREADED = 0
-D2D1_FACTORY_TYPE_MULTI_THREADED = 1
-D2D1_FACTORY_TYPE_FORCE_DWORD = 4294967295
+D2D1_FACTORY_TYPE_SINGLE_THREADED: D2D1_FACTORY_TYPE = 0
+D2D1_FACTORY_TYPE_MULTI_THREADED: D2D1_FACTORY_TYPE = 1
+D2D1_FACTORY_TYPE_FORCE_DWORD: D2D1_FACTORY_TYPE = 4294967295
 D2D1_FEATURE = UInt32
-D2D1_FEATURE_DOUBLES = 0
-D2D1_FEATURE_D3D10_X_HARDWARE_OPTIONS = 1
-D2D1_FEATURE_FORCE_DWORD = 4294967295
-def _define_D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS_head():
-    class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS(Structure):
-        pass
-    return D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS
-def _define_D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS():
-    D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS = win32more.Graphics.Direct2D.D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS_head
-    D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS._fields_ = [
-        ('computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x', win32more.Foundation.BOOL),
-    ]
-    return D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS
-def _define_D2D1_FEATURE_DATA_DOUBLES_head():
-    class D2D1_FEATURE_DATA_DOUBLES(Structure):
-        pass
-    return D2D1_FEATURE_DATA_DOUBLES
-def _define_D2D1_FEATURE_DATA_DOUBLES():
-    D2D1_FEATURE_DATA_DOUBLES = win32more.Graphics.Direct2D.D2D1_FEATURE_DATA_DOUBLES_head
-    D2D1_FEATURE_DATA_DOUBLES._fields_ = [
-        ('doublePrecisionFloatShaderOps', win32more.Foundation.BOOL),
-    ]
-    return D2D1_FEATURE_DATA_DOUBLES
+D2D1_FEATURE_DOUBLES: D2D1_FEATURE = 0
+D2D1_FEATURE_D3D10_X_HARDWARE_OPTIONS: D2D1_FEATURE = 1
+D2D1_FEATURE_FORCE_DWORD: D2D1_FEATURE = 4294967295
+class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS(Structure):
+    computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x: win32more.Foundation.BOOL
+class D2D1_FEATURE_DATA_DOUBLES(Structure):
+    doublePrecisionFloatShaderOps: win32more.Foundation.BOOL
 D2D1_FEATURE_LEVEL = UInt32
-D2D1_FEATURE_LEVEL_DEFAULT = 0
-D2D1_FEATURE_LEVEL_9 = 37120
-D2D1_FEATURE_LEVEL_10 = 40960
-D2D1_FEATURE_LEVEL_FORCE_DWORD = 4294967295
+D2D1_FEATURE_LEVEL_DEFAULT: D2D1_FEATURE_LEVEL = 0
+D2D1_FEATURE_LEVEL_9: D2D1_FEATURE_LEVEL = 37120
+D2D1_FEATURE_LEVEL_10: D2D1_FEATURE_LEVEL = 40960
+D2D1_FEATURE_LEVEL_FORCE_DWORD: D2D1_FEATURE_LEVEL = 4294967295
 D2D1_FILTER = UInt32
-D2D1_FILTER_MIN_MAG_MIP_POINT = 0
-D2D1_FILTER_MIN_MAG_POINT_MIP_LINEAR = 1
-D2D1_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT = 4
-D2D1_FILTER_MIN_POINT_MAG_MIP_LINEAR = 5
-D2D1_FILTER_MIN_LINEAR_MAG_MIP_POINT = 16
-D2D1_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR = 17
-D2D1_FILTER_MIN_MAG_LINEAR_MIP_POINT = 20
-D2D1_FILTER_MIN_MAG_MIP_LINEAR = 21
-D2D1_FILTER_ANISOTROPIC = 85
-D2D1_FILTER_FORCE_DWORD = 4294967295
+D2D1_FILTER_MIN_MAG_MIP_POINT: D2D1_FILTER = 0
+D2D1_FILTER_MIN_MAG_POINT_MIP_LINEAR: D2D1_FILTER = 1
+D2D1_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT: D2D1_FILTER = 4
+D2D1_FILTER_MIN_POINT_MAG_MIP_LINEAR: D2D1_FILTER = 5
+D2D1_FILTER_MIN_LINEAR_MAG_MIP_POINT: D2D1_FILTER = 16
+D2D1_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR: D2D1_FILTER = 17
+D2D1_FILTER_MIN_MAG_LINEAR_MIP_POINT: D2D1_FILTER = 20
+D2D1_FILTER_MIN_MAG_MIP_LINEAR: D2D1_FILTER = 21
+D2D1_FILTER_ANISOTROPIC: D2D1_FILTER = 85
+D2D1_FILTER_FORCE_DWORD: D2D1_FILTER = 4294967295
 D2D1_FLOOD_PROP = UInt32
-D2D1_FLOOD_PROP_COLOR = 0
-D2D1_FLOOD_PROP_FORCE_DWORD = 4294967295
+D2D1_FLOOD_PROP_COLOR: D2D1_FLOOD_PROP = 0
+D2D1_FLOOD_PROP_FORCE_DWORD: D2D1_FLOOD_PROP = 4294967295
 D2D1_GAMMA = UInt32
-D2D1_GAMMA_2_2 = 0
-D2D1_GAMMA_1_0 = 1
-D2D1_GAMMA_FORCE_DWORD = 4294967295
+D2D1_GAMMA_2_2: D2D1_GAMMA = 0
+D2D1_GAMMA_1_0: D2D1_GAMMA = 1
+D2D1_GAMMA_FORCE_DWORD: D2D1_GAMMA = 4294967295
 D2D1_GAMMA1 = UInt32
-D2D1_GAMMA1_G22 = 0
-D2D1_GAMMA1_G10 = 1
-D2D1_GAMMA1_G2084 = 2
-D2D1_GAMMA1_FORCE_DWORD = 4294967295
+D2D1_GAMMA1_G22: D2D1_GAMMA1 = 0
+D2D1_GAMMA1_G10: D2D1_GAMMA1 = 1
+D2D1_GAMMA1_G2084: D2D1_GAMMA1 = 2
+D2D1_GAMMA1_FORCE_DWORD: D2D1_GAMMA1 = 4294967295
 D2D1_GAMMATRANSFER_PROP = UInt32
-D2D1_GAMMATRANSFER_PROP_RED_AMPLITUDE = 0
-D2D1_GAMMATRANSFER_PROP_RED_EXPONENT = 1
-D2D1_GAMMATRANSFER_PROP_RED_OFFSET = 2
-D2D1_GAMMATRANSFER_PROP_RED_DISABLE = 3
-D2D1_GAMMATRANSFER_PROP_GREEN_AMPLITUDE = 4
-D2D1_GAMMATRANSFER_PROP_GREEN_EXPONENT = 5
-D2D1_GAMMATRANSFER_PROP_GREEN_OFFSET = 6
-D2D1_GAMMATRANSFER_PROP_GREEN_DISABLE = 7
-D2D1_GAMMATRANSFER_PROP_BLUE_AMPLITUDE = 8
-D2D1_GAMMATRANSFER_PROP_BLUE_EXPONENT = 9
-D2D1_GAMMATRANSFER_PROP_BLUE_OFFSET = 10
-D2D1_GAMMATRANSFER_PROP_BLUE_DISABLE = 11
-D2D1_GAMMATRANSFER_PROP_ALPHA_AMPLITUDE = 12
-D2D1_GAMMATRANSFER_PROP_ALPHA_EXPONENT = 13
-D2D1_GAMMATRANSFER_PROP_ALPHA_OFFSET = 14
-D2D1_GAMMATRANSFER_PROP_ALPHA_DISABLE = 15
-D2D1_GAMMATRANSFER_PROP_CLAMP_OUTPUT = 16
-D2D1_GAMMATRANSFER_PROP_FORCE_DWORD = 4294967295
+D2D1_GAMMATRANSFER_PROP_RED_AMPLITUDE: D2D1_GAMMATRANSFER_PROP = 0
+D2D1_GAMMATRANSFER_PROP_RED_EXPONENT: D2D1_GAMMATRANSFER_PROP = 1
+D2D1_GAMMATRANSFER_PROP_RED_OFFSET: D2D1_GAMMATRANSFER_PROP = 2
+D2D1_GAMMATRANSFER_PROP_RED_DISABLE: D2D1_GAMMATRANSFER_PROP = 3
+D2D1_GAMMATRANSFER_PROP_GREEN_AMPLITUDE: D2D1_GAMMATRANSFER_PROP = 4
+D2D1_GAMMATRANSFER_PROP_GREEN_EXPONENT: D2D1_GAMMATRANSFER_PROP = 5
+D2D1_GAMMATRANSFER_PROP_GREEN_OFFSET: D2D1_GAMMATRANSFER_PROP = 6
+D2D1_GAMMATRANSFER_PROP_GREEN_DISABLE: D2D1_GAMMATRANSFER_PROP = 7
+D2D1_GAMMATRANSFER_PROP_BLUE_AMPLITUDE: D2D1_GAMMATRANSFER_PROP = 8
+D2D1_GAMMATRANSFER_PROP_BLUE_EXPONENT: D2D1_GAMMATRANSFER_PROP = 9
+D2D1_GAMMATRANSFER_PROP_BLUE_OFFSET: D2D1_GAMMATRANSFER_PROP = 10
+D2D1_GAMMATRANSFER_PROP_BLUE_DISABLE: D2D1_GAMMATRANSFER_PROP = 11
+D2D1_GAMMATRANSFER_PROP_ALPHA_AMPLITUDE: D2D1_GAMMATRANSFER_PROP = 12
+D2D1_GAMMATRANSFER_PROP_ALPHA_EXPONENT: D2D1_GAMMATRANSFER_PROP = 13
+D2D1_GAMMATRANSFER_PROP_ALPHA_OFFSET: D2D1_GAMMATRANSFER_PROP = 14
+D2D1_GAMMATRANSFER_PROP_ALPHA_DISABLE: D2D1_GAMMATRANSFER_PROP = 15
+D2D1_GAMMATRANSFER_PROP_CLAMP_OUTPUT: D2D1_GAMMATRANSFER_PROP = 16
+D2D1_GAMMATRANSFER_PROP_FORCE_DWORD: D2D1_GAMMATRANSFER_PROP = 4294967295
 D2D1_GAUSSIANBLUR_OPTIMIZATION = UInt32
-D2D1_GAUSSIANBLUR_OPTIMIZATION_SPEED = 0
-D2D1_GAUSSIANBLUR_OPTIMIZATION_BALANCED = 1
-D2D1_GAUSSIANBLUR_OPTIMIZATION_QUALITY = 2
-D2D1_GAUSSIANBLUR_OPTIMIZATION_FORCE_DWORD = 4294967295
+D2D1_GAUSSIANBLUR_OPTIMIZATION_SPEED: D2D1_GAUSSIANBLUR_OPTIMIZATION = 0
+D2D1_GAUSSIANBLUR_OPTIMIZATION_BALANCED: D2D1_GAUSSIANBLUR_OPTIMIZATION = 1
+D2D1_GAUSSIANBLUR_OPTIMIZATION_QUALITY: D2D1_GAUSSIANBLUR_OPTIMIZATION = 2
+D2D1_GAUSSIANBLUR_OPTIMIZATION_FORCE_DWORD: D2D1_GAUSSIANBLUR_OPTIMIZATION = 4294967295
 D2D1_GAUSSIANBLUR_PROP = UInt32
-D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION = 0
-D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION = 1
-D2D1_GAUSSIANBLUR_PROP_BORDER_MODE = 2
-D2D1_GAUSSIANBLUR_PROP_FORCE_DWORD = 4294967295
+D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION: D2D1_GAUSSIANBLUR_PROP = 0
+D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION: D2D1_GAUSSIANBLUR_PROP = 1
+D2D1_GAUSSIANBLUR_PROP_BORDER_MODE: D2D1_GAUSSIANBLUR_PROP = 2
+D2D1_GAUSSIANBLUR_PROP_FORCE_DWORD: D2D1_GAUSSIANBLUR_PROP = 4294967295
 D2D1_GEOMETRY_RELATION = UInt32
-D2D1_GEOMETRY_RELATION_UNKNOWN = 0
-D2D1_GEOMETRY_RELATION_DISJOINT = 1
-D2D1_GEOMETRY_RELATION_IS_CONTAINED = 2
-D2D1_GEOMETRY_RELATION_CONTAINS = 3
-D2D1_GEOMETRY_RELATION_OVERLAP = 4
-D2D1_GEOMETRY_RELATION_FORCE_DWORD = 4294967295
+D2D1_GEOMETRY_RELATION_UNKNOWN: D2D1_GEOMETRY_RELATION = 0
+D2D1_GEOMETRY_RELATION_DISJOINT: D2D1_GEOMETRY_RELATION = 1
+D2D1_GEOMETRY_RELATION_IS_CONTAINED: D2D1_GEOMETRY_RELATION = 2
+D2D1_GEOMETRY_RELATION_CONTAINS: D2D1_GEOMETRY_RELATION = 3
+D2D1_GEOMETRY_RELATION_OVERLAP: D2D1_GEOMETRY_RELATION = 4
+D2D1_GEOMETRY_RELATION_FORCE_DWORD: D2D1_GEOMETRY_RELATION = 4294967295
 D2D1_GEOMETRY_SIMPLIFICATION_OPTION = UInt32
-D2D1_GEOMETRY_SIMPLIFICATION_OPTION_CUBICS_AND_LINES = 0
-D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES = 1
-D2D1_GEOMETRY_SIMPLIFICATION_OPTION_FORCE_DWORD = 4294967295
-def _define_D2D1_GRADIENT_MESH_PATCH_head():
-    class D2D1_GRADIENT_MESH_PATCH(Structure):
-        pass
-    return D2D1_GRADIENT_MESH_PATCH
-def _define_D2D1_GRADIENT_MESH_PATCH():
-    D2D1_GRADIENT_MESH_PATCH = win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head
-    D2D1_GRADIENT_MESH_PATCH._fields_ = [
-        ('point00', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point01', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point02', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point03', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point10', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point11', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point12', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point13', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point20', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point21', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point22', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point23', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point30', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point31', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point32', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point33', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('color00', win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),
-        ('color03', win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),
-        ('color30', win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),
-        ('color33', win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),
-        ('topEdgeMode', win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE),
-        ('leftEdgeMode', win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE),
-        ('bottomEdgeMode', win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE),
-        ('rightEdgeMode', win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE),
-    ]
-    return D2D1_GRADIENT_MESH_PATCH
-def _define_D2D1_GRADIENT_STOP_head():
-    class D2D1_GRADIENT_STOP(Structure):
-        pass
-    return D2D1_GRADIENT_STOP
-def _define_D2D1_GRADIENT_STOP():
-    D2D1_GRADIENT_STOP = win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head
-    D2D1_GRADIENT_STOP._fields_ = [
-        ('position', Single),
-        ('color', win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),
-    ]
-    return D2D1_GRADIENT_STOP
+D2D1_GEOMETRY_SIMPLIFICATION_OPTION_CUBICS_AND_LINES: D2D1_GEOMETRY_SIMPLIFICATION_OPTION = 0
+D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES: D2D1_GEOMETRY_SIMPLIFICATION_OPTION = 1
+D2D1_GEOMETRY_SIMPLIFICATION_OPTION_FORCE_DWORD: D2D1_GEOMETRY_SIMPLIFICATION_OPTION = 4294967295
+class D2D1_GRADIENT_MESH_PATCH(Structure):
+    point00: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point01: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point02: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point03: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point10: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point11: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point12: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point13: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point20: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point21: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point22: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point23: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point30: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point31: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point32: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point33: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    color00: win32more.Graphics.Direct2D.Common.D2D1_COLOR_F
+    color03: win32more.Graphics.Direct2D.Common.D2D1_COLOR_F
+    color30: win32more.Graphics.Direct2D.Common.D2D1_COLOR_F
+    color33: win32more.Graphics.Direct2D.Common.D2D1_COLOR_F
+    topEdgeMode: win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
+    leftEdgeMode: win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
+    bottomEdgeMode: win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
+    rightEdgeMode: win32more.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
+class D2D1_GRADIENT_STOP(Structure):
+    position: Single
+    color: win32more.Graphics.Direct2D.Common.D2D1_COLOR_F
 D2D1_HDRTONEMAP_DISPLAY_MODE = UInt32
-D2D1_HDRTONEMAP_DISPLAY_MODE_SDR = 0
-D2D1_HDRTONEMAP_DISPLAY_MODE_HDR = 1
-D2D1_HDRTONEMAP_DISPLAY_MODE_FORCE_DWORD = 4294967295
+D2D1_HDRTONEMAP_DISPLAY_MODE_SDR: D2D1_HDRTONEMAP_DISPLAY_MODE = 0
+D2D1_HDRTONEMAP_DISPLAY_MODE_HDR: D2D1_HDRTONEMAP_DISPLAY_MODE = 1
+D2D1_HDRTONEMAP_DISPLAY_MODE_FORCE_DWORD: D2D1_HDRTONEMAP_DISPLAY_MODE = 4294967295
 D2D1_HDRTONEMAP_PROP = UInt32
-D2D1_HDRTONEMAP_PROP_INPUT_MAX_LUMINANCE = 0
-D2D1_HDRTONEMAP_PROP_OUTPUT_MAX_LUMINANCE = 1
-D2D1_HDRTONEMAP_PROP_DISPLAY_MODE = 2
-D2D1_HDRTONEMAP_PROP_FORCE_DWORD = 4294967295
+D2D1_HDRTONEMAP_PROP_INPUT_MAX_LUMINANCE: D2D1_HDRTONEMAP_PROP = 0
+D2D1_HDRTONEMAP_PROP_OUTPUT_MAX_LUMINANCE: D2D1_HDRTONEMAP_PROP = 1
+D2D1_HDRTONEMAP_PROP_DISPLAY_MODE: D2D1_HDRTONEMAP_PROP = 2
+D2D1_HDRTONEMAP_PROP_FORCE_DWORD: D2D1_HDRTONEMAP_PROP = 4294967295
 D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA = UInt32
-D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR = 0
-D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_SRGB = 1
-D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_FORCE_DWORD = 4294967295
+D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR: D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA = 0
+D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_SRGB: D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA = 1
+D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_FORCE_DWORD: D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA = 4294967295
 D2D1_HIGHLIGHTSANDSHADOWS_PROP = UInt32
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_HIGHLIGHTS = 0
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_SHADOWS = 1
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_CLARITY = 2
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_INPUT_GAMMA = 3
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_MASK_BLUR_RADIUS = 4
-D2D1_HIGHLIGHTSANDSHADOWS_PROP_FORCE_DWORD = 4294967295
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_HIGHLIGHTS: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 0
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_SHADOWS: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 1
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_CLARITY: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 2
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_INPUT_GAMMA: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 3
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_MASK_BLUR_RADIUS: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 4
+D2D1_HIGHLIGHTSANDSHADOWS_PROP_FORCE_DWORD: D2D1_HIGHLIGHTSANDSHADOWS_PROP = 4294967295
 D2D1_HISTOGRAM_PROP = UInt32
-D2D1_HISTOGRAM_PROP_NUM_BINS = 0
-D2D1_HISTOGRAM_PROP_CHANNEL_SELECT = 1
-D2D1_HISTOGRAM_PROP_HISTOGRAM_OUTPUT = 2
-D2D1_HISTOGRAM_PROP_FORCE_DWORD = 4294967295
+D2D1_HISTOGRAM_PROP_NUM_BINS: D2D1_HISTOGRAM_PROP = 0
+D2D1_HISTOGRAM_PROP_CHANNEL_SELECT: D2D1_HISTOGRAM_PROP = 1
+D2D1_HISTOGRAM_PROP_HISTOGRAM_OUTPUT: D2D1_HISTOGRAM_PROP = 2
+D2D1_HISTOGRAM_PROP_FORCE_DWORD: D2D1_HISTOGRAM_PROP = 4294967295
 D2D1_HUEROTATION_PROP = UInt32
-D2D1_HUEROTATION_PROP_ANGLE = 0
-D2D1_HUEROTATION_PROP_FORCE_DWORD = 4294967295
+D2D1_HUEROTATION_PROP_ANGLE: D2D1_HUEROTATION_PROP = 0
+D2D1_HUEROTATION_PROP_FORCE_DWORD: D2D1_HUEROTATION_PROP = 4294967295
 D2D1_HUETORGB_INPUT_COLOR_SPACE = UInt32
-D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_VALUE = 0
-D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS = 1
-D2D1_HUETORGB_INPUT_COLOR_SPACE_FORCE_DWORD = 4294967295
+D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_VALUE: D2D1_HUETORGB_INPUT_COLOR_SPACE = 0
+D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS: D2D1_HUETORGB_INPUT_COLOR_SPACE = 1
+D2D1_HUETORGB_INPUT_COLOR_SPACE_FORCE_DWORD: D2D1_HUETORGB_INPUT_COLOR_SPACE = 4294967295
 D2D1_HUETORGB_PROP = UInt32
-D2D1_HUETORGB_PROP_INPUT_COLOR_SPACE = 0
-D2D1_HUETORGB_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_HWND_RENDER_TARGET_PROPERTIES_head():
-    class D2D1_HWND_RENDER_TARGET_PROPERTIES(Structure):
-        pass
-    return D2D1_HWND_RENDER_TARGET_PROPERTIES
-def _define_D2D1_HWND_RENDER_TARGET_PROPERTIES():
-    D2D1_HWND_RENDER_TARGET_PROPERTIES = win32more.Graphics.Direct2D.D2D1_HWND_RENDER_TARGET_PROPERTIES_head
-    D2D1_HWND_RENDER_TARGET_PROPERTIES._fields_ = [
-        ('hwnd', win32more.Foundation.HWND),
-        ('pixelSize', win32more.Graphics.Direct2D.Common.D2D_SIZE_U),
-        ('presentOptions', win32more.Graphics.Direct2D.D2D1_PRESENT_OPTIONS),
-    ]
-    return D2D1_HWND_RENDER_TARGET_PROPERTIES
-def _define_D2D1_IMAGE_BRUSH_PROPERTIES_head():
-    class D2D1_IMAGE_BRUSH_PROPERTIES(Structure):
-        pass
-    return D2D1_IMAGE_BRUSH_PROPERTIES
-def _define_D2D1_IMAGE_BRUSH_PROPERTIES():
-    D2D1_IMAGE_BRUSH_PROPERTIES = win32more.Graphics.Direct2D.D2D1_IMAGE_BRUSH_PROPERTIES_head
-    D2D1_IMAGE_BRUSH_PROPERTIES._fields_ = [
-        ('sourceRectangle', win32more.Graphics.Direct2D.Common.D2D_RECT_F),
-        ('extendModeX', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('extendModeY', win32more.Graphics.Direct2D.D2D1_EXTEND_MODE),
-        ('interpolationMode', win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE),
-    ]
-    return D2D1_IMAGE_BRUSH_PROPERTIES
+D2D1_HUETORGB_PROP_INPUT_COLOR_SPACE: D2D1_HUETORGB_PROP = 0
+D2D1_HUETORGB_PROP_FORCE_DWORD: D2D1_HUETORGB_PROP = 4294967295
+class D2D1_HWND_RENDER_TARGET_PROPERTIES(Structure):
+    hwnd: win32more.Foundation.HWND
+    pixelSize: win32more.Graphics.Direct2D.Common.D2D_SIZE_U
+    presentOptions: win32more.Graphics.Direct2D.D2D1_PRESENT_OPTIONS
+class D2D1_IMAGE_BRUSH_PROPERTIES(Structure):
+    sourceRectangle: win32more.Graphics.Direct2D.Common.D2D_RECT_F
+    extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE
+    interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE
 D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS = UInt32
-D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_NONE = 0
-D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_LOW_QUALITY_PRIMARY_CONVERSION = 1
-D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_NONE: D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS = 0
+D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_LOW_QUALITY_PRIMARY_CONVERSION: D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS = 1
+D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS_FORCE_DWORD: D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS = 4294967295
 D2D1_IMAGE_SOURCE_LOADING_OPTIONS = UInt32
-D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE = 0
-D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE = 1
-D2D1_IMAGE_SOURCE_LOADING_OPTIONS_CACHE_ON_DEMAND = 2
-D2D1_IMAGE_SOURCE_LOADING_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_INK_BEZIER_SEGMENT_head():
-    class D2D1_INK_BEZIER_SEGMENT(Structure):
-        pass
-    return D2D1_INK_BEZIER_SEGMENT
-def _define_D2D1_INK_BEZIER_SEGMENT():
-    D2D1_INK_BEZIER_SEGMENT = win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head
-    D2D1_INK_BEZIER_SEGMENT._fields_ = [
-        ('point1', win32more.Graphics.Direct2D.D2D1_INK_POINT),
-        ('point2', win32more.Graphics.Direct2D.D2D1_INK_POINT),
-        ('point3', win32more.Graphics.Direct2D.D2D1_INK_POINT),
-    ]
-    return D2D1_INK_BEZIER_SEGMENT
+D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE: D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 0
+D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE: D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 1
+D2D1_IMAGE_SOURCE_LOADING_OPTIONS_CACHE_ON_DEMAND: D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 2
+D2D1_IMAGE_SOURCE_LOADING_OPTIONS_FORCE_DWORD: D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 4294967295
+class D2D1_INK_BEZIER_SEGMENT(Structure):
+    point1: win32more.Graphics.Direct2D.D2D1_INK_POINT
+    point2: win32more.Graphics.Direct2D.D2D1_INK_POINT
+    point3: win32more.Graphics.Direct2D.D2D1_INK_POINT
 D2D1_INK_NIB_SHAPE = UInt32
-D2D1_INK_NIB_SHAPE_ROUND = 0
-D2D1_INK_NIB_SHAPE_SQUARE = 1
-D2D1_INK_NIB_SHAPE_FORCE_DWORD = 4294967295
-def _define_D2D1_INK_POINT_head():
-    class D2D1_INK_POINT(Structure):
-        pass
-    return D2D1_INK_POINT
-def _define_D2D1_INK_POINT():
-    D2D1_INK_POINT = win32more.Graphics.Direct2D.D2D1_INK_POINT_head
-    D2D1_INK_POINT._fields_ = [
-        ('x', Single),
-        ('y', Single),
-        ('radius', Single),
-    ]
-    return D2D1_INK_POINT
-def _define_D2D1_INK_STYLE_PROPERTIES_head():
-    class D2D1_INK_STYLE_PROPERTIES(Structure):
-        pass
-    return D2D1_INK_STYLE_PROPERTIES
-def _define_D2D1_INK_STYLE_PROPERTIES():
-    D2D1_INK_STYLE_PROPERTIES = win32more.Graphics.Direct2D.D2D1_INK_STYLE_PROPERTIES_head
-    D2D1_INK_STYLE_PROPERTIES._fields_ = [
-        ('nibShape', win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE),
-        ('nibTransform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-    ]
-    return D2D1_INK_STYLE_PROPERTIES
-def _define_D2D1_INPUT_DESCRIPTION_head():
-    class D2D1_INPUT_DESCRIPTION(Structure):
-        pass
-    return D2D1_INPUT_DESCRIPTION
-def _define_D2D1_INPUT_DESCRIPTION():
-    D2D1_INPUT_DESCRIPTION = win32more.Graphics.Direct2D.D2D1_INPUT_DESCRIPTION_head
-    D2D1_INPUT_DESCRIPTION._fields_ = [
-        ('filter', win32more.Graphics.Direct2D.D2D1_FILTER),
-        ('levelOfDetailCount', UInt32),
-    ]
-    return D2D1_INPUT_DESCRIPTION
-def _define_D2D1_INPUT_ELEMENT_DESC_head():
-    class D2D1_INPUT_ELEMENT_DESC(Structure):
-        pass
-    return D2D1_INPUT_ELEMENT_DESC
-def _define_D2D1_INPUT_ELEMENT_DESC():
-    D2D1_INPUT_ELEMENT_DESC = win32more.Graphics.Direct2D.D2D1_INPUT_ELEMENT_DESC_head
-    D2D1_INPUT_ELEMENT_DESC._fields_ = [
-        ('semanticName', win32more.Foundation.PSTR),
-        ('semanticIndex', UInt32),
-        ('format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ('inputSlot', UInt32),
-        ('alignedByteOffset', UInt32),
-    ]
-    return D2D1_INPUT_ELEMENT_DESC
+D2D1_INK_NIB_SHAPE_ROUND: D2D1_INK_NIB_SHAPE = 0
+D2D1_INK_NIB_SHAPE_SQUARE: D2D1_INK_NIB_SHAPE = 1
+D2D1_INK_NIB_SHAPE_FORCE_DWORD: D2D1_INK_NIB_SHAPE = 4294967295
+class D2D1_INK_POINT(Structure):
+    x: Single
+    y: Single
+    radius: Single
+class D2D1_INK_STYLE_PROPERTIES(Structure):
+    nibShape: win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE
+    nibTransform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
+class D2D1_INPUT_DESCRIPTION(Structure):
+    filter: win32more.Graphics.Direct2D.D2D1_FILTER
+    levelOfDetailCount: UInt32
+class D2D1_INPUT_ELEMENT_DESC(Structure):
+    semanticName: win32more.Foundation.PSTR
+    semanticIndex: UInt32
+    format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
+    inputSlot: UInt32
+    alignedByteOffset: UInt32
 D2D1_INTERPOLATION_MODE = UInt32
-D2D1_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_INTERPOLATION_MODE_LINEAR = 1
-D2D1_INTERPOLATION_MODE_CUBIC = 2
-D2D1_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_INTERPOLATION_MODE = 0
+D2D1_INTERPOLATION_MODE_LINEAR: D2D1_INTERPOLATION_MODE = 1
+D2D1_INTERPOLATION_MODE_CUBIC: D2D1_INTERPOLATION_MODE = 2
+D2D1_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_INTERPOLATION_MODE = 3
+D2D1_INTERPOLATION_MODE_ANISOTROPIC: D2D1_INTERPOLATION_MODE = 4
+D2D1_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC: D2D1_INTERPOLATION_MODE = 5
+D2D1_INTERPOLATION_MODE_FORCE_DWORD: D2D1_INTERPOLATION_MODE = 4294967295
 D2D1_INTERPOLATION_MODE_DEFINITION = Int32
-D2D1_INTERPOLATION_MODE_DEFINITION_NEAREST_NEIGHBOR = 0
-D2D1_INTERPOLATION_MODE_DEFINITION_LINEAR = 1
-D2D1_INTERPOLATION_MODE_DEFINITION_CUBIC = 2
-D2D1_INTERPOLATION_MODE_DEFINITION_MULTI_SAMPLE_LINEAR = 3
-D2D1_INTERPOLATION_MODE_DEFINITION_ANISOTROPIC = 4
-D2D1_INTERPOLATION_MODE_DEFINITION_HIGH_QUALITY_CUBIC = 5
-D2D1_INTERPOLATION_MODE_DEFINITION_FANT = 6
-D2D1_INTERPOLATION_MODE_DEFINITION_MIPMAP_LINEAR = 7
+D2D1_INTERPOLATION_MODE_DEFINITION_NEAREST_NEIGHBOR: D2D1_INTERPOLATION_MODE_DEFINITION = 0
+D2D1_INTERPOLATION_MODE_DEFINITION_LINEAR: D2D1_INTERPOLATION_MODE_DEFINITION = 1
+D2D1_INTERPOLATION_MODE_DEFINITION_CUBIC: D2D1_INTERPOLATION_MODE_DEFINITION = 2
+D2D1_INTERPOLATION_MODE_DEFINITION_MULTI_SAMPLE_LINEAR: D2D1_INTERPOLATION_MODE_DEFINITION = 3
+D2D1_INTERPOLATION_MODE_DEFINITION_ANISOTROPIC: D2D1_INTERPOLATION_MODE_DEFINITION = 4
+D2D1_INTERPOLATION_MODE_DEFINITION_HIGH_QUALITY_CUBIC: D2D1_INTERPOLATION_MODE_DEFINITION = 5
+D2D1_INTERPOLATION_MODE_DEFINITION_FANT: D2D1_INTERPOLATION_MODE_DEFINITION = 6
+D2D1_INTERPOLATION_MODE_DEFINITION_MIPMAP_LINEAR: D2D1_INTERPOLATION_MODE_DEFINITION = 7
 D2D1_LAYER_OPTIONS = UInt32
-D2D1_LAYER_OPTIONS_NONE = 0
-D2D1_LAYER_OPTIONS_INITIALIZE_FOR_CLEARTYPE = 1
-D2D1_LAYER_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_LAYER_OPTIONS_NONE: D2D1_LAYER_OPTIONS = 0
+D2D1_LAYER_OPTIONS_INITIALIZE_FOR_CLEARTYPE: D2D1_LAYER_OPTIONS = 1
+D2D1_LAYER_OPTIONS_FORCE_DWORD: D2D1_LAYER_OPTIONS = 4294967295
 D2D1_LAYER_OPTIONS1 = UInt32
-D2D1_LAYER_OPTIONS1_NONE = 0
-D2D1_LAYER_OPTIONS1_INITIALIZE_FROM_BACKGROUND = 1
-D2D1_LAYER_OPTIONS1_IGNORE_ALPHA = 2
-D2D1_LAYER_OPTIONS1_FORCE_DWORD = 4294967295
-def _define_D2D1_LAYER_PARAMETERS_head():
-    class D2D1_LAYER_PARAMETERS(Structure):
-        pass
-    return D2D1_LAYER_PARAMETERS
-def _define_D2D1_LAYER_PARAMETERS():
-    D2D1_LAYER_PARAMETERS = win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS_head
-    D2D1_LAYER_PARAMETERS._fields_ = [
-        ('contentBounds', win32more.Graphics.Direct2D.Common.D2D_RECT_F),
-        ('geometricMask', win32more.Graphics.Direct2D.ID2D1Geometry_head),
-        ('maskAntialiasMode', win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE),
-        ('maskTransform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-        ('opacity', Single),
-        ('opacityBrush', win32more.Graphics.Direct2D.ID2D1Brush_head),
-        ('layerOptions', win32more.Graphics.Direct2D.D2D1_LAYER_OPTIONS),
-    ]
-    return D2D1_LAYER_PARAMETERS
-def _define_D2D1_LAYER_PARAMETERS1_head():
-    class D2D1_LAYER_PARAMETERS1(Structure):
-        pass
-    return D2D1_LAYER_PARAMETERS1
-def _define_D2D1_LAYER_PARAMETERS1():
-    D2D1_LAYER_PARAMETERS1 = win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head
-    D2D1_LAYER_PARAMETERS1._fields_ = [
-        ('contentBounds', win32more.Graphics.Direct2D.Common.D2D_RECT_F),
-        ('geometricMask', win32more.Graphics.Direct2D.ID2D1Geometry_head),
-        ('maskAntialiasMode', win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE),
-        ('maskTransform', win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F),
-        ('opacity', Single),
-        ('opacityBrush', win32more.Graphics.Direct2D.ID2D1Brush_head),
-        ('layerOptions', win32more.Graphics.Direct2D.D2D1_LAYER_OPTIONS1),
-    ]
-    return D2D1_LAYER_PARAMETERS1
+D2D1_LAYER_OPTIONS1_NONE: D2D1_LAYER_OPTIONS1 = 0
+D2D1_LAYER_OPTIONS1_INITIALIZE_FROM_BACKGROUND: D2D1_LAYER_OPTIONS1 = 1
+D2D1_LAYER_OPTIONS1_IGNORE_ALPHA: D2D1_LAYER_OPTIONS1 = 2
+D2D1_LAYER_OPTIONS1_FORCE_DWORD: D2D1_LAYER_OPTIONS1 = 4294967295
+class D2D1_LAYER_PARAMETERS(Structure):
+    contentBounds: win32more.Graphics.Direct2D.Common.D2D_RECT_F
+    geometricMask: win32more.Graphics.Direct2D.ID2D1Geometry_head
+    maskAntialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
+    maskTransform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
+    opacity: Single
+    opacityBrush: win32more.Graphics.Direct2D.ID2D1Brush_head
+    layerOptions: win32more.Graphics.Direct2D.D2D1_LAYER_OPTIONS
+class D2D1_LAYER_PARAMETERS1(Structure):
+    contentBounds: win32more.Graphics.Direct2D.Common.D2D_RECT_F
+    geometricMask: win32more.Graphics.Direct2D.ID2D1Geometry_head
+    maskAntialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
+    maskTransform: win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
+    opacity: Single
+    opacityBrush: win32more.Graphics.Direct2D.ID2D1Brush_head
+    layerOptions: win32more.Graphics.Direct2D.D2D1_LAYER_OPTIONS1
 D2D1_LINE_JOIN = UInt32
-D2D1_LINE_JOIN_MITER = 0
-D2D1_LINE_JOIN_BEVEL = 1
-D2D1_LINE_JOIN_ROUND = 2
-D2D1_LINE_JOIN_MITER_OR_BEVEL = 3
-D2D1_LINE_JOIN_FORCE_DWORD = 4294967295
-def _define_D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES_head():
-    class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(Structure):
-        pass
-    return D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES
-def _define_D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES():
-    D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES = win32more.Graphics.Direct2D.D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES_head
-    D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES._fields_ = [
-        ('startPoint', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('endPoint', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-    ]
-    return D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES
+D2D1_LINE_JOIN_MITER: D2D1_LINE_JOIN = 0
+D2D1_LINE_JOIN_BEVEL: D2D1_LINE_JOIN = 1
+D2D1_LINE_JOIN_ROUND: D2D1_LINE_JOIN = 2
+D2D1_LINE_JOIN_MITER_OR_BEVEL: D2D1_LINE_JOIN = 3
+D2D1_LINE_JOIN_FORCE_DWORD: D2D1_LINE_JOIN = 4294967295
+class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(Structure):
+    startPoint: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    endPoint: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
 D2D1_LINEARTRANSFER_PROP = UInt32
-D2D1_LINEARTRANSFER_PROP_RED_Y_INTERCEPT = 0
-D2D1_LINEARTRANSFER_PROP_RED_SLOPE = 1
-D2D1_LINEARTRANSFER_PROP_RED_DISABLE = 2
-D2D1_LINEARTRANSFER_PROP_GREEN_Y_INTERCEPT = 3
-D2D1_LINEARTRANSFER_PROP_GREEN_SLOPE = 4
-D2D1_LINEARTRANSFER_PROP_GREEN_DISABLE = 5
-D2D1_LINEARTRANSFER_PROP_BLUE_Y_INTERCEPT = 6
-D2D1_LINEARTRANSFER_PROP_BLUE_SLOPE = 7
-D2D1_LINEARTRANSFER_PROP_BLUE_DISABLE = 8
-D2D1_LINEARTRANSFER_PROP_ALPHA_Y_INTERCEPT = 9
-D2D1_LINEARTRANSFER_PROP_ALPHA_SLOPE = 10
-D2D1_LINEARTRANSFER_PROP_ALPHA_DISABLE = 11
-D2D1_LINEARTRANSFER_PROP_CLAMP_OUTPUT = 12
-D2D1_LINEARTRANSFER_PROP_FORCE_DWORD = 4294967295
+D2D1_LINEARTRANSFER_PROP_RED_Y_INTERCEPT: D2D1_LINEARTRANSFER_PROP = 0
+D2D1_LINEARTRANSFER_PROP_RED_SLOPE: D2D1_LINEARTRANSFER_PROP = 1
+D2D1_LINEARTRANSFER_PROP_RED_DISABLE: D2D1_LINEARTRANSFER_PROP = 2
+D2D1_LINEARTRANSFER_PROP_GREEN_Y_INTERCEPT: D2D1_LINEARTRANSFER_PROP = 3
+D2D1_LINEARTRANSFER_PROP_GREEN_SLOPE: D2D1_LINEARTRANSFER_PROP = 4
+D2D1_LINEARTRANSFER_PROP_GREEN_DISABLE: D2D1_LINEARTRANSFER_PROP = 5
+D2D1_LINEARTRANSFER_PROP_BLUE_Y_INTERCEPT: D2D1_LINEARTRANSFER_PROP = 6
+D2D1_LINEARTRANSFER_PROP_BLUE_SLOPE: D2D1_LINEARTRANSFER_PROP = 7
+D2D1_LINEARTRANSFER_PROP_BLUE_DISABLE: D2D1_LINEARTRANSFER_PROP = 8
+D2D1_LINEARTRANSFER_PROP_ALPHA_Y_INTERCEPT: D2D1_LINEARTRANSFER_PROP = 9
+D2D1_LINEARTRANSFER_PROP_ALPHA_SLOPE: D2D1_LINEARTRANSFER_PROP = 10
+D2D1_LINEARTRANSFER_PROP_ALPHA_DISABLE: D2D1_LINEARTRANSFER_PROP = 11
+D2D1_LINEARTRANSFER_PROP_CLAMP_OUTPUT: D2D1_LINEARTRANSFER_PROP = 12
+D2D1_LINEARTRANSFER_PROP_FORCE_DWORD: D2D1_LINEARTRANSFER_PROP = 4294967295
 D2D1_LOOKUPTABLE3D_PROP = UInt32
-D2D1_LOOKUPTABLE3D_PROP_LUT = 0
-D2D1_LOOKUPTABLE3D_PROP_ALPHA_MODE = 1
-D2D1_LOOKUPTABLE3D_PROP_FORCE_DWORD = 4294967295
+D2D1_LOOKUPTABLE3D_PROP_LUT: D2D1_LOOKUPTABLE3D_PROP = 0
+D2D1_LOOKUPTABLE3D_PROP_ALPHA_MODE: D2D1_LOOKUPTABLE3D_PROP = 1
+D2D1_LOOKUPTABLE3D_PROP_FORCE_DWORD: D2D1_LOOKUPTABLE3D_PROP = 4294967295
 D2D1_MAP_OPTIONS = UInt32
-D2D1_MAP_OPTIONS_NONE = 0
-D2D1_MAP_OPTIONS_READ = 1
-D2D1_MAP_OPTIONS_WRITE = 2
-D2D1_MAP_OPTIONS_DISCARD = 4
-D2D1_MAP_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_MAPPED_RECT_head():
-    class D2D1_MAPPED_RECT(Structure):
-        pass
-    return D2D1_MAPPED_RECT
-def _define_D2D1_MAPPED_RECT():
-    D2D1_MAPPED_RECT = win32more.Graphics.Direct2D.D2D1_MAPPED_RECT_head
-    D2D1_MAPPED_RECT._fields_ = [
-        ('pitch', UInt32),
-        ('bits', c_char_p_no),
-    ]
-    return D2D1_MAPPED_RECT
+D2D1_MAP_OPTIONS_NONE: D2D1_MAP_OPTIONS = 0
+D2D1_MAP_OPTIONS_READ: D2D1_MAP_OPTIONS = 1
+D2D1_MAP_OPTIONS_WRITE: D2D1_MAP_OPTIONS = 2
+D2D1_MAP_OPTIONS_DISCARD: D2D1_MAP_OPTIONS = 4
+D2D1_MAP_OPTIONS_FORCE_DWORD: D2D1_MAP_OPTIONS = 4294967295
+class D2D1_MAPPED_RECT(Structure):
+    pitch: UInt32
+    bits: c_char_p_no
 D2D1_MORPHOLOGY_MODE = UInt32
-D2D1_MORPHOLOGY_MODE_ERODE = 0
-D2D1_MORPHOLOGY_MODE_DILATE = 1
-D2D1_MORPHOLOGY_MODE_FORCE_DWORD = 4294967295
+D2D1_MORPHOLOGY_MODE_ERODE: D2D1_MORPHOLOGY_MODE = 0
+D2D1_MORPHOLOGY_MODE_DILATE: D2D1_MORPHOLOGY_MODE = 1
+D2D1_MORPHOLOGY_MODE_FORCE_DWORD: D2D1_MORPHOLOGY_MODE = 4294967295
 D2D1_MORPHOLOGY_PROP = UInt32
-D2D1_MORPHOLOGY_PROP_MODE = 0
-D2D1_MORPHOLOGY_PROP_WIDTH = 1
-D2D1_MORPHOLOGY_PROP_HEIGHT = 2
-D2D1_MORPHOLOGY_PROP_FORCE_DWORD = 4294967295
+D2D1_MORPHOLOGY_PROP_MODE: D2D1_MORPHOLOGY_PROP = 0
+D2D1_MORPHOLOGY_PROP_WIDTH: D2D1_MORPHOLOGY_PROP = 1
+D2D1_MORPHOLOGY_PROP_HEIGHT: D2D1_MORPHOLOGY_PROP = 2
+D2D1_MORPHOLOGY_PROP_FORCE_DWORD: D2D1_MORPHOLOGY_PROP = 4294967295
 D2D1_OPACITY_MASK_CONTENT = UInt32
-D2D1_OPACITY_MASK_CONTENT_GRAPHICS = 0
-D2D1_OPACITY_MASK_CONTENT_TEXT_NATURAL = 1
-D2D1_OPACITY_MASK_CONTENT_TEXT_GDI_COMPATIBLE = 2
-D2D1_OPACITY_MASK_CONTENT_FORCE_DWORD = 4294967295
+D2D1_OPACITY_MASK_CONTENT_GRAPHICS: D2D1_OPACITY_MASK_CONTENT = 0
+D2D1_OPACITY_MASK_CONTENT_TEXT_NATURAL: D2D1_OPACITY_MASK_CONTENT = 1
+D2D1_OPACITY_MASK_CONTENT_TEXT_GDI_COMPATIBLE: D2D1_OPACITY_MASK_CONTENT = 2
+D2D1_OPACITY_MASK_CONTENT_FORCE_DWORD: D2D1_OPACITY_MASK_CONTENT = 4294967295
 D2D1_OPACITY_PROP = UInt32
-D2D1_OPACITY_PROP_OPACITY = 0
-D2D1_OPACITY_PROP_FORCE_DWORD = 4294967295
+D2D1_OPACITY_PROP_OPACITY: D2D1_OPACITY_PROP = 0
+D2D1_OPACITY_PROP_FORCE_DWORD: D2D1_OPACITY_PROP = 4294967295
 D2D1_OPACITYMETADATA_PROP = UInt32
-D2D1_OPACITYMETADATA_PROP_INPUT_OPAQUE_RECT = 0
-D2D1_OPACITYMETADATA_PROP_FORCE_DWORD = 4294967295
+D2D1_OPACITYMETADATA_PROP_INPUT_OPAQUE_RECT: D2D1_OPACITYMETADATA_PROP = 0
+D2D1_OPACITYMETADATA_PROP_FORCE_DWORD: D2D1_OPACITYMETADATA_PROP = 4294967295
 D2D1_ORIENTATION = UInt32
-D2D1_ORIENTATION_DEFAULT = 1
-D2D1_ORIENTATION_FLIP_HORIZONTAL = 2
-D2D1_ORIENTATION_ROTATE_CLOCKWISE180 = 3
-D2D1_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL = 4
-D2D1_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL = 5
-D2D1_ORIENTATION_ROTATE_CLOCKWISE270 = 6
-D2D1_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL = 7
-D2D1_ORIENTATION_ROTATE_CLOCKWISE90 = 8
-D2D1_ORIENTATION_FORCE_DWORD = 4294967295
+D2D1_ORIENTATION_DEFAULT: D2D1_ORIENTATION = 1
+D2D1_ORIENTATION_FLIP_HORIZONTAL: D2D1_ORIENTATION = 2
+D2D1_ORIENTATION_ROTATE_CLOCKWISE180: D2D1_ORIENTATION = 3
+D2D1_ORIENTATION_ROTATE_CLOCKWISE180_FLIP_HORIZONTAL: D2D1_ORIENTATION = 4
+D2D1_ORIENTATION_ROTATE_CLOCKWISE90_FLIP_HORIZONTAL: D2D1_ORIENTATION = 5
+D2D1_ORIENTATION_ROTATE_CLOCKWISE270: D2D1_ORIENTATION = 6
+D2D1_ORIENTATION_ROTATE_CLOCKWISE270_FLIP_HORIZONTAL: D2D1_ORIENTATION = 7
+D2D1_ORIENTATION_ROTATE_CLOCKWISE90: D2D1_ORIENTATION = 8
+D2D1_ORIENTATION_FORCE_DWORD: D2D1_ORIENTATION = 4294967295
 D2D1_PATCH_EDGE_MODE = UInt32
-D2D1_PATCH_EDGE_MODE_ALIASED = 0
-D2D1_PATCH_EDGE_MODE_ANTIALIASED = 1
-D2D1_PATCH_EDGE_MODE_ALIASED_INFLATED = 2
-D2D1_PATCH_EDGE_MODE_FORCE_DWORD = 4294967295
+D2D1_PATCH_EDGE_MODE_ALIASED: D2D1_PATCH_EDGE_MODE = 0
+D2D1_PATCH_EDGE_MODE_ANTIALIASED: D2D1_PATCH_EDGE_MODE = 1
+D2D1_PATCH_EDGE_MODE_ALIASED_INFLATED: D2D1_PATCH_EDGE_MODE = 2
+D2D1_PATCH_EDGE_MODE_FORCE_DWORD: D2D1_PATCH_EDGE_MODE = 4294967295
 D2D1_PIXEL_OPTIONS = UInt32
-D2D1_PIXEL_OPTIONS_NONE = 0
-D2D1_PIXEL_OPTIONS_TRIVIAL_SAMPLING = 1
-D2D1_PIXEL_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_POINT_DESCRIPTION_head():
-    class D2D1_POINT_DESCRIPTION(Structure):
-        pass
-    return D2D1_POINT_DESCRIPTION
-def _define_D2D1_POINT_DESCRIPTION():
-    D2D1_POINT_DESCRIPTION = win32more.Graphics.Direct2D.D2D1_POINT_DESCRIPTION_head
-    D2D1_POINT_DESCRIPTION._fields_ = [
-        ('point', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('unitTangentVector', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('endSegment', UInt32),
-        ('endFigure', UInt32),
-        ('lengthToEndSegment', Single),
-    ]
-    return D2D1_POINT_DESCRIPTION
+D2D1_PIXEL_OPTIONS_NONE: D2D1_PIXEL_OPTIONS = 0
+D2D1_PIXEL_OPTIONS_TRIVIAL_SAMPLING: D2D1_PIXEL_OPTIONS = 1
+D2D1_PIXEL_OPTIONS_FORCE_DWORD: D2D1_PIXEL_OPTIONS = 4294967295
+class D2D1_POINT_DESCRIPTION(Structure):
+    point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    unitTangentVector: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    endSegment: UInt32
+    endFigure: UInt32
+    lengthToEndSegment: Single
 D2D1_POINTDIFFUSE_PROP = UInt32
-D2D1_POINTDIFFUSE_PROP_LIGHT_POSITION = 0
-D2D1_POINTDIFFUSE_PROP_DIFFUSE_CONSTANT = 1
-D2D1_POINTDIFFUSE_PROP_SURFACE_SCALE = 2
-D2D1_POINTDIFFUSE_PROP_COLOR = 3
-D2D1_POINTDIFFUSE_PROP_KERNEL_UNIT_LENGTH = 4
-D2D1_POINTDIFFUSE_PROP_SCALE_MODE = 5
-D2D1_POINTDIFFUSE_PROP_FORCE_DWORD = 4294967295
+D2D1_POINTDIFFUSE_PROP_LIGHT_POSITION: D2D1_POINTDIFFUSE_PROP = 0
+D2D1_POINTDIFFUSE_PROP_DIFFUSE_CONSTANT: D2D1_POINTDIFFUSE_PROP = 1
+D2D1_POINTDIFFUSE_PROP_SURFACE_SCALE: D2D1_POINTDIFFUSE_PROP = 2
+D2D1_POINTDIFFUSE_PROP_COLOR: D2D1_POINTDIFFUSE_PROP = 3
+D2D1_POINTDIFFUSE_PROP_KERNEL_UNIT_LENGTH: D2D1_POINTDIFFUSE_PROP = 4
+D2D1_POINTDIFFUSE_PROP_SCALE_MODE: D2D1_POINTDIFFUSE_PROP = 5
+D2D1_POINTDIFFUSE_PROP_FORCE_DWORD: D2D1_POINTDIFFUSE_PROP = 4294967295
 D2D1_POINTDIFFUSE_SCALE_MODE = UInt32
-D2D1_POINTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_POINTDIFFUSE_SCALE_MODE_LINEAR = 1
-D2D1_POINTDIFFUSE_SCALE_MODE_CUBIC = 2
-D2D1_POINTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_POINTDIFFUSE_SCALE_MODE_ANISOTROPIC = 4
-D2D1_POINTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_POINTDIFFUSE_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_POINTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_POINTDIFFUSE_SCALE_MODE = 0
+D2D1_POINTDIFFUSE_SCALE_MODE_LINEAR: D2D1_POINTDIFFUSE_SCALE_MODE = 1
+D2D1_POINTDIFFUSE_SCALE_MODE_CUBIC: D2D1_POINTDIFFUSE_SCALE_MODE = 2
+D2D1_POINTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_POINTDIFFUSE_SCALE_MODE = 3
+D2D1_POINTDIFFUSE_SCALE_MODE_ANISOTROPIC: D2D1_POINTDIFFUSE_SCALE_MODE = 4
+D2D1_POINTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_POINTDIFFUSE_SCALE_MODE = 5
+D2D1_POINTDIFFUSE_SCALE_MODE_FORCE_DWORD: D2D1_POINTDIFFUSE_SCALE_MODE = 4294967295
 D2D1_POINTSPECULAR_PROP = UInt32
-D2D1_POINTSPECULAR_PROP_LIGHT_POSITION = 0
-D2D1_POINTSPECULAR_PROP_SPECULAR_EXPONENT = 1
-D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT = 2
-D2D1_POINTSPECULAR_PROP_SURFACE_SCALE = 3
-D2D1_POINTSPECULAR_PROP_COLOR = 4
-D2D1_POINTSPECULAR_PROP_KERNEL_UNIT_LENGTH = 5
-D2D1_POINTSPECULAR_PROP_SCALE_MODE = 6
-D2D1_POINTSPECULAR_PROP_FORCE_DWORD = 4294967295
+D2D1_POINTSPECULAR_PROP_LIGHT_POSITION: D2D1_POINTSPECULAR_PROP = 0
+D2D1_POINTSPECULAR_PROP_SPECULAR_EXPONENT: D2D1_POINTSPECULAR_PROP = 1
+D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT: D2D1_POINTSPECULAR_PROP = 2
+D2D1_POINTSPECULAR_PROP_SURFACE_SCALE: D2D1_POINTSPECULAR_PROP = 3
+D2D1_POINTSPECULAR_PROP_COLOR: D2D1_POINTSPECULAR_PROP = 4
+D2D1_POINTSPECULAR_PROP_KERNEL_UNIT_LENGTH: D2D1_POINTSPECULAR_PROP = 5
+D2D1_POINTSPECULAR_PROP_SCALE_MODE: D2D1_POINTSPECULAR_PROP = 6
+D2D1_POINTSPECULAR_PROP_FORCE_DWORD: D2D1_POINTSPECULAR_PROP = 4294967295
 D2D1_POINTSPECULAR_SCALE_MODE = UInt32
-D2D1_POINTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_POINTSPECULAR_SCALE_MODE_LINEAR = 1
-D2D1_POINTSPECULAR_SCALE_MODE_CUBIC = 2
-D2D1_POINTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_POINTSPECULAR_SCALE_MODE_ANISOTROPIC = 4
-D2D1_POINTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_POINTSPECULAR_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_POINTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_POINTSPECULAR_SCALE_MODE = 0
+D2D1_POINTSPECULAR_SCALE_MODE_LINEAR: D2D1_POINTSPECULAR_SCALE_MODE = 1
+D2D1_POINTSPECULAR_SCALE_MODE_CUBIC: D2D1_POINTSPECULAR_SCALE_MODE = 2
+D2D1_POINTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_POINTSPECULAR_SCALE_MODE = 3
+D2D1_POINTSPECULAR_SCALE_MODE_ANISOTROPIC: D2D1_POINTSPECULAR_SCALE_MODE = 4
+D2D1_POINTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_POINTSPECULAR_SCALE_MODE = 5
+D2D1_POINTSPECULAR_SCALE_MODE_FORCE_DWORD: D2D1_POINTSPECULAR_SCALE_MODE = 4294967295
 D2D1_POSTERIZE_PROP = UInt32
-D2D1_POSTERIZE_PROP_RED_VALUE_COUNT = 0
-D2D1_POSTERIZE_PROP_GREEN_VALUE_COUNT = 1
-D2D1_POSTERIZE_PROP_BLUE_VALUE_COUNT = 2
-D2D1_POSTERIZE_PROP_FORCE_DWORD = 4294967295
+D2D1_POSTERIZE_PROP_RED_VALUE_COUNT: D2D1_POSTERIZE_PROP = 0
+D2D1_POSTERIZE_PROP_GREEN_VALUE_COUNT: D2D1_POSTERIZE_PROP = 1
+D2D1_POSTERIZE_PROP_BLUE_VALUE_COUNT: D2D1_POSTERIZE_PROP = 2
+D2D1_POSTERIZE_PROP_FORCE_DWORD: D2D1_POSTERIZE_PROP = 4294967295
 D2D1_PRESENT_OPTIONS = UInt32
-D2D1_PRESENT_OPTIONS_NONE = 0
-D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS = 1
-D2D1_PRESENT_OPTIONS_IMMEDIATELY = 2
-D2D1_PRESENT_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_PRESENT_OPTIONS_NONE: D2D1_PRESENT_OPTIONS = 0
+D2D1_PRESENT_OPTIONS_RETAIN_CONTENTS: D2D1_PRESENT_OPTIONS = 1
+D2D1_PRESENT_OPTIONS_IMMEDIATELY: D2D1_PRESENT_OPTIONS = 2
+D2D1_PRESENT_OPTIONS_FORCE_DWORD: D2D1_PRESENT_OPTIONS = 4294967295
 D2D1_PRIMITIVE_BLEND = UInt32
-D2D1_PRIMITIVE_BLEND_SOURCE_OVER = 0
-D2D1_PRIMITIVE_BLEND_COPY = 1
-D2D1_PRIMITIVE_BLEND_MIN = 2
-D2D1_PRIMITIVE_BLEND_ADD = 3
-D2D1_PRIMITIVE_BLEND_MAX = 4
-D2D1_PRIMITIVE_BLEND_FORCE_DWORD = 4294967295
-def _define_D2D1_PRINT_CONTROL_PROPERTIES_head():
-    class D2D1_PRINT_CONTROL_PROPERTIES(Structure):
-        pass
-    return D2D1_PRINT_CONTROL_PROPERTIES
-def _define_D2D1_PRINT_CONTROL_PROPERTIES():
-    D2D1_PRINT_CONTROL_PROPERTIES = win32more.Graphics.Direct2D.D2D1_PRINT_CONTROL_PROPERTIES_head
-    D2D1_PRINT_CONTROL_PROPERTIES._fields_ = [
-        ('fontSubset', win32more.Graphics.Direct2D.D2D1_PRINT_FONT_SUBSET_MODE),
-        ('rasterDPI', Single),
-        ('colorSpace', win32more.Graphics.Direct2D.D2D1_COLOR_SPACE),
-    ]
-    return D2D1_PRINT_CONTROL_PROPERTIES
+D2D1_PRIMITIVE_BLEND_SOURCE_OVER: D2D1_PRIMITIVE_BLEND = 0
+D2D1_PRIMITIVE_BLEND_COPY: D2D1_PRIMITIVE_BLEND = 1
+D2D1_PRIMITIVE_BLEND_MIN: D2D1_PRIMITIVE_BLEND = 2
+D2D1_PRIMITIVE_BLEND_ADD: D2D1_PRIMITIVE_BLEND = 3
+D2D1_PRIMITIVE_BLEND_MAX: D2D1_PRIMITIVE_BLEND = 4
+D2D1_PRIMITIVE_BLEND_FORCE_DWORD: D2D1_PRIMITIVE_BLEND = 4294967295
+class D2D1_PRINT_CONTROL_PROPERTIES(Structure):
+    fontSubset: win32more.Graphics.Direct2D.D2D1_PRINT_FONT_SUBSET_MODE
+    rasterDPI: Single
+    colorSpace: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE
 D2D1_PRINT_FONT_SUBSET_MODE = UInt32
-D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT = 0
-D2D1_PRINT_FONT_SUBSET_MODE_EACHPAGE = 1
-D2D1_PRINT_FONT_SUBSET_MODE_NONE = 2
-D2D1_PRINT_FONT_SUBSET_MODE_FORCE_DWORD = 4294967295
+D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT: D2D1_PRINT_FONT_SUBSET_MODE = 0
+D2D1_PRINT_FONT_SUBSET_MODE_EACHPAGE: D2D1_PRINT_FONT_SUBSET_MODE = 1
+D2D1_PRINT_FONT_SUBSET_MODE_NONE: D2D1_PRINT_FONT_SUBSET_MODE = 2
+D2D1_PRINT_FONT_SUBSET_MODE_FORCE_DWORD: D2D1_PRINT_FONT_SUBSET_MODE = 4294967295
 D2D1_PROPERTY = UInt32
-D2D1_PROPERTY_CLSID = 2147483648
-D2D1_PROPERTY_DISPLAYNAME = 2147483649
-D2D1_PROPERTY_AUTHOR = 2147483650
-D2D1_PROPERTY_CATEGORY = 2147483651
-D2D1_PROPERTY_DESCRIPTION = 2147483652
-D2D1_PROPERTY_INPUTS = 2147483653
-D2D1_PROPERTY_CACHED = 2147483654
-D2D1_PROPERTY_PRECISION = 2147483655
-D2D1_PROPERTY_MIN_INPUTS = 2147483656
-D2D1_PROPERTY_MAX_INPUTS = 2147483657
-D2D1_PROPERTY_FORCE_DWORD = 4294967295
-def _define_D2D1_PROPERTY_BINDING_head():
-    class D2D1_PROPERTY_BINDING(Structure):
-        pass
-    return D2D1_PROPERTY_BINDING
-def _define_D2D1_PROPERTY_BINDING():
-    D2D1_PROPERTY_BINDING = win32more.Graphics.Direct2D.D2D1_PROPERTY_BINDING_head
-    D2D1_PROPERTY_BINDING._fields_ = [
-        ('propertyName', win32more.Foundation.PWSTR),
-        ('setFunction', win32more.Graphics.Direct2D.PD2D1_PROPERTY_SET_FUNCTION),
-        ('getFunction', win32more.Graphics.Direct2D.PD2D1_PROPERTY_GET_FUNCTION),
-    ]
-    return D2D1_PROPERTY_BINDING
+D2D1_PROPERTY_CLSID: D2D1_PROPERTY = 2147483648
+D2D1_PROPERTY_DISPLAYNAME: D2D1_PROPERTY = 2147483649
+D2D1_PROPERTY_AUTHOR: D2D1_PROPERTY = 2147483650
+D2D1_PROPERTY_CATEGORY: D2D1_PROPERTY = 2147483651
+D2D1_PROPERTY_DESCRIPTION: D2D1_PROPERTY = 2147483652
+D2D1_PROPERTY_INPUTS: D2D1_PROPERTY = 2147483653
+D2D1_PROPERTY_CACHED: D2D1_PROPERTY = 2147483654
+D2D1_PROPERTY_PRECISION: D2D1_PROPERTY = 2147483655
+D2D1_PROPERTY_MIN_INPUTS: D2D1_PROPERTY = 2147483656
+D2D1_PROPERTY_MAX_INPUTS: D2D1_PROPERTY = 2147483657
+D2D1_PROPERTY_FORCE_DWORD: D2D1_PROPERTY = 4294967295
+class D2D1_PROPERTY_BINDING(Structure):
+    propertyName: win32more.Foundation.PWSTR
+    setFunction: win32more.Graphics.Direct2D.PD2D1_PROPERTY_SET_FUNCTION
+    getFunction: win32more.Graphics.Direct2D.PD2D1_PROPERTY_GET_FUNCTION
 D2D1_PROPERTY_TYPE = UInt32
-D2D1_PROPERTY_TYPE_UNKNOWN = 0
-D2D1_PROPERTY_TYPE_STRING = 1
-D2D1_PROPERTY_TYPE_BOOL = 2
-D2D1_PROPERTY_TYPE_UINT32 = 3
-D2D1_PROPERTY_TYPE_INT32 = 4
-D2D1_PROPERTY_TYPE_FLOAT = 5
-D2D1_PROPERTY_TYPE_VECTOR2 = 6
-D2D1_PROPERTY_TYPE_VECTOR3 = 7
-D2D1_PROPERTY_TYPE_VECTOR4 = 8
-D2D1_PROPERTY_TYPE_BLOB = 9
-D2D1_PROPERTY_TYPE_IUNKNOWN = 10
-D2D1_PROPERTY_TYPE_ENUM = 11
-D2D1_PROPERTY_TYPE_ARRAY = 12
-D2D1_PROPERTY_TYPE_CLSID = 13
-D2D1_PROPERTY_TYPE_MATRIX_3X2 = 14
-D2D1_PROPERTY_TYPE_MATRIX_4X3 = 15
-D2D1_PROPERTY_TYPE_MATRIX_4X4 = 16
-D2D1_PROPERTY_TYPE_MATRIX_5X4 = 17
-D2D1_PROPERTY_TYPE_COLOR_CONTEXT = 18
-D2D1_PROPERTY_TYPE_FORCE_DWORD = 4294967295
-def _define_D2D1_QUADRATIC_BEZIER_SEGMENT_head():
-    class D2D1_QUADRATIC_BEZIER_SEGMENT(Structure):
-        pass
-    return D2D1_QUADRATIC_BEZIER_SEGMENT
-def _define_D2D1_QUADRATIC_BEZIER_SEGMENT():
-    D2D1_QUADRATIC_BEZIER_SEGMENT = win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head
-    D2D1_QUADRATIC_BEZIER_SEGMENT._fields_ = [
-        ('point1', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point2', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-    ]
-    return D2D1_QUADRATIC_BEZIER_SEGMENT
-def _define_D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES_head():
-    class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES(Structure):
-        pass
-    return D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES
-def _define_D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES():
-    D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES = win32more.Graphics.Direct2D.D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES_head
-    D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES._fields_ = [
-        ('center', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('gradientOriginOffset', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('radiusX', Single),
-        ('radiusY', Single),
-    ]
-    return D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES
-def _define_D2D1_RENDER_TARGET_PROPERTIES_head():
-    class D2D1_RENDER_TARGET_PROPERTIES(Structure):
-        pass
-    return D2D1_RENDER_TARGET_PROPERTIES
-def _define_D2D1_RENDER_TARGET_PROPERTIES():
-    D2D1_RENDER_TARGET_PROPERTIES = win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head
-    D2D1_RENDER_TARGET_PROPERTIES._fields_ = [
-        ('type', win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_TYPE),
-        ('pixelFormat', win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT),
-        ('dpiX', Single),
-        ('dpiY', Single),
-        ('usage', win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_USAGE),
-        ('minLevel', win32more.Graphics.Direct2D.D2D1_FEATURE_LEVEL),
-    ]
-    return D2D1_RENDER_TARGET_PROPERTIES
+D2D1_PROPERTY_TYPE_UNKNOWN: D2D1_PROPERTY_TYPE = 0
+D2D1_PROPERTY_TYPE_STRING: D2D1_PROPERTY_TYPE = 1
+D2D1_PROPERTY_TYPE_BOOL: D2D1_PROPERTY_TYPE = 2
+D2D1_PROPERTY_TYPE_UINT32: D2D1_PROPERTY_TYPE = 3
+D2D1_PROPERTY_TYPE_INT32: D2D1_PROPERTY_TYPE = 4
+D2D1_PROPERTY_TYPE_FLOAT: D2D1_PROPERTY_TYPE = 5
+D2D1_PROPERTY_TYPE_VECTOR2: D2D1_PROPERTY_TYPE = 6
+D2D1_PROPERTY_TYPE_VECTOR3: D2D1_PROPERTY_TYPE = 7
+D2D1_PROPERTY_TYPE_VECTOR4: D2D1_PROPERTY_TYPE = 8
+D2D1_PROPERTY_TYPE_BLOB: D2D1_PROPERTY_TYPE = 9
+D2D1_PROPERTY_TYPE_IUNKNOWN: D2D1_PROPERTY_TYPE = 10
+D2D1_PROPERTY_TYPE_ENUM: D2D1_PROPERTY_TYPE = 11
+D2D1_PROPERTY_TYPE_ARRAY: D2D1_PROPERTY_TYPE = 12
+D2D1_PROPERTY_TYPE_CLSID: D2D1_PROPERTY_TYPE = 13
+D2D1_PROPERTY_TYPE_MATRIX_3X2: D2D1_PROPERTY_TYPE = 14
+D2D1_PROPERTY_TYPE_MATRIX_4X3: D2D1_PROPERTY_TYPE = 15
+D2D1_PROPERTY_TYPE_MATRIX_4X4: D2D1_PROPERTY_TYPE = 16
+D2D1_PROPERTY_TYPE_MATRIX_5X4: D2D1_PROPERTY_TYPE = 17
+D2D1_PROPERTY_TYPE_COLOR_CONTEXT: D2D1_PROPERTY_TYPE = 18
+D2D1_PROPERTY_TYPE_FORCE_DWORD: D2D1_PROPERTY_TYPE = 4294967295
+class D2D1_QUADRATIC_BEZIER_SEGMENT(Structure):
+    point1: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point2: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES(Structure):
+    center: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    gradientOriginOffset: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    radiusX: Single
+    radiusY: Single
+class D2D1_RENDER_TARGET_PROPERTIES(Structure):
+    type: win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_TYPE
+    pixelFormat: win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
+    dpiX: Single
+    dpiY: Single
+    usage: win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_USAGE
+    minLevel: win32more.Graphics.Direct2D.D2D1_FEATURE_LEVEL
 D2D1_RENDER_TARGET_TYPE = UInt32
-D2D1_RENDER_TARGET_TYPE_DEFAULT = 0
-D2D1_RENDER_TARGET_TYPE_SOFTWARE = 1
-D2D1_RENDER_TARGET_TYPE_HARDWARE = 2
-D2D1_RENDER_TARGET_TYPE_FORCE_DWORD = 4294967295
+D2D1_RENDER_TARGET_TYPE_DEFAULT: D2D1_RENDER_TARGET_TYPE = 0
+D2D1_RENDER_TARGET_TYPE_SOFTWARE: D2D1_RENDER_TARGET_TYPE = 1
+D2D1_RENDER_TARGET_TYPE_HARDWARE: D2D1_RENDER_TARGET_TYPE = 2
+D2D1_RENDER_TARGET_TYPE_FORCE_DWORD: D2D1_RENDER_TARGET_TYPE = 4294967295
 D2D1_RENDER_TARGET_USAGE = UInt32
-D2D1_RENDER_TARGET_USAGE_NONE = 0
-D2D1_RENDER_TARGET_USAGE_FORCE_BITMAP_REMOTING = 1
-D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE = 2
-D2D1_RENDER_TARGET_USAGE_FORCE_DWORD = 4294967295
-def _define_D2D1_RENDERING_CONTROLS_head():
-    class D2D1_RENDERING_CONTROLS(Structure):
-        pass
-    return D2D1_RENDERING_CONTROLS
-def _define_D2D1_RENDERING_CONTROLS():
-    D2D1_RENDERING_CONTROLS = win32more.Graphics.Direct2D.D2D1_RENDERING_CONTROLS_head
-    D2D1_RENDERING_CONTROLS._fields_ = [
-        ('bufferPrecision', win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION),
-        ('tileSize', win32more.Graphics.Direct2D.Common.D2D_SIZE_U),
-    ]
-    return D2D1_RENDERING_CONTROLS
+D2D1_RENDER_TARGET_USAGE_NONE: D2D1_RENDER_TARGET_USAGE = 0
+D2D1_RENDER_TARGET_USAGE_FORCE_BITMAP_REMOTING: D2D1_RENDER_TARGET_USAGE = 1
+D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE: D2D1_RENDER_TARGET_USAGE = 2
+D2D1_RENDER_TARGET_USAGE_FORCE_DWORD: D2D1_RENDER_TARGET_USAGE = 4294967295
+class D2D1_RENDERING_CONTROLS(Structure):
+    bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION
+    tileSize: win32more.Graphics.Direct2D.Common.D2D_SIZE_U
 D2D1_RENDERING_PRIORITY = UInt32
-D2D1_RENDERING_PRIORITY_NORMAL = 0
-D2D1_RENDERING_PRIORITY_LOW = 1
-D2D1_RENDERING_PRIORITY_FORCE_DWORD = 4294967295
-def _define_D2D1_RESOURCE_TEXTURE_PROPERTIES_head():
-    class D2D1_RESOURCE_TEXTURE_PROPERTIES(Structure):
-        pass
-    return D2D1_RESOURCE_TEXTURE_PROPERTIES
-def _define_D2D1_RESOURCE_TEXTURE_PROPERTIES():
-    D2D1_RESOURCE_TEXTURE_PROPERTIES = win32more.Graphics.Direct2D.D2D1_RESOURCE_TEXTURE_PROPERTIES_head
-    D2D1_RESOURCE_TEXTURE_PROPERTIES._fields_ = [
-        ('extents', POINTER(UInt32)),
-        ('dimensions', UInt32),
-        ('bufferPrecision', win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION),
-        ('channelDepth', win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH),
-        ('filter', win32more.Graphics.Direct2D.D2D1_FILTER),
-        ('extendModes', POINTER(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)),
-    ]
-    return D2D1_RESOURCE_TEXTURE_PROPERTIES
+D2D1_RENDERING_PRIORITY_NORMAL: D2D1_RENDERING_PRIORITY = 0
+D2D1_RENDERING_PRIORITY_LOW: D2D1_RENDERING_PRIORITY = 1
+D2D1_RENDERING_PRIORITY_FORCE_DWORD: D2D1_RENDERING_PRIORITY = 4294967295
+class D2D1_RESOURCE_TEXTURE_PROPERTIES(Structure):
+    extents: POINTER(UInt32)
+    dimensions: UInt32
+    bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION
+    channelDepth: win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH
+    filter: win32more.Graphics.Direct2D.D2D1_FILTER
+    extendModes: POINTER(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)
 D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE = UInt32
-D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_VALUE = 0
-D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS = 1
-D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_FORCE_DWORD = 4294967295
+D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_VALUE: D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE = 0
+D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS: D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE = 1
+D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_FORCE_DWORD: D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE = 4294967295
 D2D1_RGBTOHUE_PROP = UInt32
-D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE = 0
-D2D1_RGBTOHUE_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_ROUNDED_RECT_head():
-    class D2D1_ROUNDED_RECT(Structure):
-        pass
-    return D2D1_ROUNDED_RECT
-def _define_D2D1_ROUNDED_RECT():
-    D2D1_ROUNDED_RECT = win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head
-    D2D1_ROUNDED_RECT._fields_ = [
-        ('rect', win32more.Graphics.Direct2D.Common.D2D_RECT_F),
-        ('radiusX', Single),
-        ('radiusY', Single),
-    ]
-    return D2D1_ROUNDED_RECT
+D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE: D2D1_RGBTOHUE_PROP = 0
+D2D1_RGBTOHUE_PROP_FORCE_DWORD: D2D1_RGBTOHUE_PROP = 4294967295
+class D2D1_ROUNDED_RECT(Structure):
+    rect: win32more.Graphics.Direct2D.Common.D2D_RECT_F
+    radiusX: Single
+    radiusY: Single
 D2D1_SATURATION_PROP = UInt32
-D2D1_SATURATION_PROP_SATURATION = 0
-D2D1_SATURATION_PROP_FORCE_DWORD = 4294967295
+D2D1_SATURATION_PROP_SATURATION: D2D1_SATURATION_PROP = 0
+D2D1_SATURATION_PROP_FORCE_DWORD: D2D1_SATURATION_PROP = 4294967295
 D2D1_SCALE_INTERPOLATION_MODE = UInt32
-D2D1_SCALE_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_SCALE_INTERPOLATION_MODE_LINEAR = 1
-D2D1_SCALE_INTERPOLATION_MODE_CUBIC = 2
-D2D1_SCALE_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_SCALE_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_SCALE_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_SCALE_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_SCALE_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_SCALE_INTERPOLATION_MODE = 0
+D2D1_SCALE_INTERPOLATION_MODE_LINEAR: D2D1_SCALE_INTERPOLATION_MODE = 1
+D2D1_SCALE_INTERPOLATION_MODE_CUBIC: D2D1_SCALE_INTERPOLATION_MODE = 2
+D2D1_SCALE_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_SCALE_INTERPOLATION_MODE = 3
+D2D1_SCALE_INTERPOLATION_MODE_ANISOTROPIC: D2D1_SCALE_INTERPOLATION_MODE = 4
+D2D1_SCALE_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC: D2D1_SCALE_INTERPOLATION_MODE = 5
+D2D1_SCALE_INTERPOLATION_MODE_FORCE_DWORD: D2D1_SCALE_INTERPOLATION_MODE = 4294967295
 D2D1_SCALE_PROP = UInt32
-D2D1_SCALE_PROP_SCALE = 0
-D2D1_SCALE_PROP_CENTER_POINT = 1
-D2D1_SCALE_PROP_INTERPOLATION_MODE = 2
-D2D1_SCALE_PROP_BORDER_MODE = 3
-D2D1_SCALE_PROP_SHARPNESS = 4
-D2D1_SCALE_PROP_FORCE_DWORD = 4294967295
+D2D1_SCALE_PROP_SCALE: D2D1_SCALE_PROP = 0
+D2D1_SCALE_PROP_CENTER_POINT: D2D1_SCALE_PROP = 1
+D2D1_SCALE_PROP_INTERPOLATION_MODE: D2D1_SCALE_PROP = 2
+D2D1_SCALE_PROP_BORDER_MODE: D2D1_SCALE_PROP = 3
+D2D1_SCALE_PROP_SHARPNESS: D2D1_SCALE_PROP = 4
+D2D1_SCALE_PROP_FORCE_DWORD: D2D1_SCALE_PROP = 4294967295
 D2D1_SEPIA_PROP = UInt32
-D2D1_SEPIA_PROP_INTENSITY = 0
-D2D1_SEPIA_PROP_ALPHA_MODE = 1
-D2D1_SEPIA_PROP_FORCE_DWORD = 4294967295
+D2D1_SEPIA_PROP_INTENSITY: D2D1_SEPIA_PROP = 0
+D2D1_SEPIA_PROP_ALPHA_MODE: D2D1_SEPIA_PROP = 1
+D2D1_SEPIA_PROP_FORCE_DWORD: D2D1_SEPIA_PROP = 4294967295
 D2D1_SHADOW_OPTIMIZATION = UInt32
-D2D1_SHADOW_OPTIMIZATION_SPEED = 0
-D2D1_SHADOW_OPTIMIZATION_BALANCED = 1
-D2D1_SHADOW_OPTIMIZATION_QUALITY = 2
-D2D1_SHADOW_OPTIMIZATION_FORCE_DWORD = 4294967295
+D2D1_SHADOW_OPTIMIZATION_SPEED: D2D1_SHADOW_OPTIMIZATION = 0
+D2D1_SHADOW_OPTIMIZATION_BALANCED: D2D1_SHADOW_OPTIMIZATION = 1
+D2D1_SHADOW_OPTIMIZATION_QUALITY: D2D1_SHADOW_OPTIMIZATION = 2
+D2D1_SHADOW_OPTIMIZATION_FORCE_DWORD: D2D1_SHADOW_OPTIMIZATION = 4294967295
 D2D1_SHADOW_PROP = UInt32
-D2D1_SHADOW_PROP_BLUR_STANDARD_DEVIATION = 0
-D2D1_SHADOW_PROP_COLOR = 1
-D2D1_SHADOW_PROP_OPTIMIZATION = 2
-D2D1_SHADOW_PROP_FORCE_DWORD = 4294967295
+D2D1_SHADOW_PROP_BLUR_STANDARD_DEVIATION: D2D1_SHADOW_PROP = 0
+D2D1_SHADOW_PROP_COLOR: D2D1_SHADOW_PROP = 1
+D2D1_SHADOW_PROP_OPTIMIZATION: D2D1_SHADOW_PROP = 2
+D2D1_SHADOW_PROP_FORCE_DWORD: D2D1_SHADOW_PROP = 4294967295
 D2D1_SHARPEN_PROP = UInt32
-D2D1_SHARPEN_PROP_SHARPNESS = 0
-D2D1_SHARPEN_PROP_THRESHOLD = 1
-D2D1_SHARPEN_PROP_FORCE_DWORD = 4294967295
-def _define_D2D1_SIMPLE_COLOR_PROFILE_head():
-    class D2D1_SIMPLE_COLOR_PROFILE(Structure):
-        pass
-    return D2D1_SIMPLE_COLOR_PROFILE
-def _define_D2D1_SIMPLE_COLOR_PROFILE():
-    D2D1_SIMPLE_COLOR_PROFILE = win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head
-    D2D1_SIMPLE_COLOR_PROFILE._fields_ = [
-        ('redPrimary', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('greenPrimary', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('bluePrimary', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('whitePointXZ', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('gamma', win32more.Graphics.Direct2D.D2D1_GAMMA1),
-    ]
-    return D2D1_SIMPLE_COLOR_PROFILE
+D2D1_SHARPEN_PROP_SHARPNESS: D2D1_SHARPEN_PROP = 0
+D2D1_SHARPEN_PROP_THRESHOLD: D2D1_SHARPEN_PROP = 1
+D2D1_SHARPEN_PROP_FORCE_DWORD: D2D1_SHARPEN_PROP = 4294967295
+class D2D1_SIMPLE_COLOR_PROFILE(Structure):
+    redPrimary: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    greenPrimary: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    bluePrimary: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    whitePointXZ: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    gamma: win32more.Graphics.Direct2D.D2D1_GAMMA1
 D2D1_SPOTDIFFUSE_PROP = UInt32
-D2D1_SPOTDIFFUSE_PROP_LIGHT_POSITION = 0
-D2D1_SPOTDIFFUSE_PROP_POINTS_AT = 1
-D2D1_SPOTDIFFUSE_PROP_FOCUS = 2
-D2D1_SPOTDIFFUSE_PROP_LIMITING_CONE_ANGLE = 3
-D2D1_SPOTDIFFUSE_PROP_DIFFUSE_CONSTANT = 4
-D2D1_SPOTDIFFUSE_PROP_SURFACE_SCALE = 5
-D2D1_SPOTDIFFUSE_PROP_COLOR = 6
-D2D1_SPOTDIFFUSE_PROP_KERNEL_UNIT_LENGTH = 7
-D2D1_SPOTDIFFUSE_PROP_SCALE_MODE = 8
-D2D1_SPOTDIFFUSE_PROP_FORCE_DWORD = 4294967295
+D2D1_SPOTDIFFUSE_PROP_LIGHT_POSITION: D2D1_SPOTDIFFUSE_PROP = 0
+D2D1_SPOTDIFFUSE_PROP_POINTS_AT: D2D1_SPOTDIFFUSE_PROP = 1
+D2D1_SPOTDIFFUSE_PROP_FOCUS: D2D1_SPOTDIFFUSE_PROP = 2
+D2D1_SPOTDIFFUSE_PROP_LIMITING_CONE_ANGLE: D2D1_SPOTDIFFUSE_PROP = 3
+D2D1_SPOTDIFFUSE_PROP_DIFFUSE_CONSTANT: D2D1_SPOTDIFFUSE_PROP = 4
+D2D1_SPOTDIFFUSE_PROP_SURFACE_SCALE: D2D1_SPOTDIFFUSE_PROP = 5
+D2D1_SPOTDIFFUSE_PROP_COLOR: D2D1_SPOTDIFFUSE_PROP = 6
+D2D1_SPOTDIFFUSE_PROP_KERNEL_UNIT_LENGTH: D2D1_SPOTDIFFUSE_PROP = 7
+D2D1_SPOTDIFFUSE_PROP_SCALE_MODE: D2D1_SPOTDIFFUSE_PROP = 8
+D2D1_SPOTDIFFUSE_PROP_FORCE_DWORD: D2D1_SPOTDIFFUSE_PROP = 4294967295
 D2D1_SPOTDIFFUSE_SCALE_MODE = UInt32
-D2D1_SPOTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_SPOTDIFFUSE_SCALE_MODE_LINEAR = 1
-D2D1_SPOTDIFFUSE_SCALE_MODE_CUBIC = 2
-D2D1_SPOTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_SPOTDIFFUSE_SCALE_MODE_ANISOTROPIC = 4
-D2D1_SPOTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_SPOTDIFFUSE_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_SPOTDIFFUSE_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_SPOTDIFFUSE_SCALE_MODE = 0
+D2D1_SPOTDIFFUSE_SCALE_MODE_LINEAR: D2D1_SPOTDIFFUSE_SCALE_MODE = 1
+D2D1_SPOTDIFFUSE_SCALE_MODE_CUBIC: D2D1_SPOTDIFFUSE_SCALE_MODE = 2
+D2D1_SPOTDIFFUSE_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_SPOTDIFFUSE_SCALE_MODE = 3
+D2D1_SPOTDIFFUSE_SCALE_MODE_ANISOTROPIC: D2D1_SPOTDIFFUSE_SCALE_MODE = 4
+D2D1_SPOTDIFFUSE_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_SPOTDIFFUSE_SCALE_MODE = 5
+D2D1_SPOTDIFFUSE_SCALE_MODE_FORCE_DWORD: D2D1_SPOTDIFFUSE_SCALE_MODE = 4294967295
 D2D1_SPOTSPECULAR_PROP = UInt32
-D2D1_SPOTSPECULAR_PROP_LIGHT_POSITION = 0
-D2D1_SPOTSPECULAR_PROP_POINTS_AT = 1
-D2D1_SPOTSPECULAR_PROP_FOCUS = 2
-D2D1_SPOTSPECULAR_PROP_LIMITING_CONE_ANGLE = 3
-D2D1_SPOTSPECULAR_PROP_SPECULAR_EXPONENT = 4
-D2D1_SPOTSPECULAR_PROP_SPECULAR_CONSTANT = 5
-D2D1_SPOTSPECULAR_PROP_SURFACE_SCALE = 6
-D2D1_SPOTSPECULAR_PROP_COLOR = 7
-D2D1_SPOTSPECULAR_PROP_KERNEL_UNIT_LENGTH = 8
-D2D1_SPOTSPECULAR_PROP_SCALE_MODE = 9
-D2D1_SPOTSPECULAR_PROP_FORCE_DWORD = 4294967295
+D2D1_SPOTSPECULAR_PROP_LIGHT_POSITION: D2D1_SPOTSPECULAR_PROP = 0
+D2D1_SPOTSPECULAR_PROP_POINTS_AT: D2D1_SPOTSPECULAR_PROP = 1
+D2D1_SPOTSPECULAR_PROP_FOCUS: D2D1_SPOTSPECULAR_PROP = 2
+D2D1_SPOTSPECULAR_PROP_LIMITING_CONE_ANGLE: D2D1_SPOTSPECULAR_PROP = 3
+D2D1_SPOTSPECULAR_PROP_SPECULAR_EXPONENT: D2D1_SPOTSPECULAR_PROP = 4
+D2D1_SPOTSPECULAR_PROP_SPECULAR_CONSTANT: D2D1_SPOTSPECULAR_PROP = 5
+D2D1_SPOTSPECULAR_PROP_SURFACE_SCALE: D2D1_SPOTSPECULAR_PROP = 6
+D2D1_SPOTSPECULAR_PROP_COLOR: D2D1_SPOTSPECULAR_PROP = 7
+D2D1_SPOTSPECULAR_PROP_KERNEL_UNIT_LENGTH: D2D1_SPOTSPECULAR_PROP = 8
+D2D1_SPOTSPECULAR_PROP_SCALE_MODE: D2D1_SPOTSPECULAR_PROP = 9
+D2D1_SPOTSPECULAR_PROP_FORCE_DWORD: D2D1_SPOTSPECULAR_PROP = 4294967295
 D2D1_SPOTSPECULAR_SCALE_MODE = UInt32
-D2D1_SPOTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_SPOTSPECULAR_SCALE_MODE_LINEAR = 1
-D2D1_SPOTSPECULAR_SCALE_MODE_CUBIC = 2
-D2D1_SPOTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_SPOTSPECULAR_SCALE_MODE_ANISOTROPIC = 4
-D2D1_SPOTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_SPOTSPECULAR_SCALE_MODE_FORCE_DWORD = 4294967295
+D2D1_SPOTSPECULAR_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_SPOTSPECULAR_SCALE_MODE = 0
+D2D1_SPOTSPECULAR_SCALE_MODE_LINEAR: D2D1_SPOTSPECULAR_SCALE_MODE = 1
+D2D1_SPOTSPECULAR_SCALE_MODE_CUBIC: D2D1_SPOTSPECULAR_SCALE_MODE = 2
+D2D1_SPOTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_SPOTSPECULAR_SCALE_MODE = 3
+D2D1_SPOTSPECULAR_SCALE_MODE_ANISOTROPIC: D2D1_SPOTSPECULAR_SCALE_MODE = 4
+D2D1_SPOTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC: D2D1_SPOTSPECULAR_SCALE_MODE = 5
+D2D1_SPOTSPECULAR_SCALE_MODE_FORCE_DWORD: D2D1_SPOTSPECULAR_SCALE_MODE = 4294967295
 D2D1_SPRITE_OPTIONS = UInt32
-D2D1_SPRITE_OPTIONS_NONE = 0
-D2D1_SPRITE_OPTIONS_CLAMP_TO_SOURCE_RECTANGLE = 1
-D2D1_SPRITE_OPTIONS_FORCE_DWORD = 4294967295
+D2D1_SPRITE_OPTIONS_NONE: D2D1_SPRITE_OPTIONS = 0
+D2D1_SPRITE_OPTIONS_CLAMP_TO_SOURCE_RECTANGLE: D2D1_SPRITE_OPTIONS = 1
+D2D1_SPRITE_OPTIONS_FORCE_DWORD: D2D1_SPRITE_OPTIONS = 4294967295
 D2D1_STRAIGHTEN_PROP = UInt32
-D2D1_STRAIGHTEN_PROP_ANGLE = 0
-D2D1_STRAIGHTEN_PROP_MAINTAIN_SIZE = 1
-D2D1_STRAIGHTEN_PROP_SCALE_MODE = 2
-D2D1_STRAIGHTEN_PROP_FORCE_DWORD = 4294967295
+D2D1_STRAIGHTEN_PROP_ANGLE: D2D1_STRAIGHTEN_PROP = 0
+D2D1_STRAIGHTEN_PROP_MAINTAIN_SIZE: D2D1_STRAIGHTEN_PROP = 1
+D2D1_STRAIGHTEN_PROP_SCALE_MODE: D2D1_STRAIGHTEN_PROP = 2
+D2D1_STRAIGHTEN_PROP_FORCE_DWORD: D2D1_STRAIGHTEN_PROP = 4294967295
 D2D1_STRAIGHTEN_SCALE_MODE = UInt32
-D2D1_STRAIGHTEN_SCALE_MODE_NEAREST_NEIGHBOR = 0
-D2D1_STRAIGHTEN_SCALE_MODE_LINEAR = 1
-D2D1_STRAIGHTEN_SCALE_MODE_CUBIC = 2
-D2D1_STRAIGHTEN_SCALE_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_STRAIGHTEN_SCALE_MODE_ANISOTROPIC = 4
-D2D1_STRAIGHTEN_SCALE_MODE_FORCE_DWORD = 4294967295
-def _define_D2D1_STROKE_STYLE_PROPERTIES_head():
-    class D2D1_STROKE_STYLE_PROPERTIES(Structure):
-        pass
-    return D2D1_STROKE_STYLE_PROPERTIES
-def _define_D2D1_STROKE_STYLE_PROPERTIES():
-    D2D1_STROKE_STYLE_PROPERTIES = win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES_head
-    D2D1_STROKE_STYLE_PROPERTIES._fields_ = [
-        ('startCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('endCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('dashCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('lineJoin', win32more.Graphics.Direct2D.D2D1_LINE_JOIN),
-        ('miterLimit', Single),
-        ('dashStyle', win32more.Graphics.Direct2D.D2D1_DASH_STYLE),
-        ('dashOffset', Single),
-    ]
-    return D2D1_STROKE_STYLE_PROPERTIES
-def _define_D2D1_STROKE_STYLE_PROPERTIES1_head():
-    class D2D1_STROKE_STYLE_PROPERTIES1(Structure):
-        pass
-    return D2D1_STROKE_STYLE_PROPERTIES1
-def _define_D2D1_STROKE_STYLE_PROPERTIES1():
-    D2D1_STROKE_STYLE_PROPERTIES1 = win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES1_head
-    D2D1_STROKE_STYLE_PROPERTIES1._fields_ = [
-        ('startCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('endCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('dashCap', win32more.Graphics.Direct2D.D2D1_CAP_STYLE),
-        ('lineJoin', win32more.Graphics.Direct2D.D2D1_LINE_JOIN),
-        ('miterLimit', Single),
-        ('dashStyle', win32more.Graphics.Direct2D.D2D1_DASH_STYLE),
-        ('dashOffset', Single),
-        ('transformType', win32more.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE),
-    ]
-    return D2D1_STROKE_STYLE_PROPERTIES1
+D2D1_STRAIGHTEN_SCALE_MODE_NEAREST_NEIGHBOR: D2D1_STRAIGHTEN_SCALE_MODE = 0
+D2D1_STRAIGHTEN_SCALE_MODE_LINEAR: D2D1_STRAIGHTEN_SCALE_MODE = 1
+D2D1_STRAIGHTEN_SCALE_MODE_CUBIC: D2D1_STRAIGHTEN_SCALE_MODE = 2
+D2D1_STRAIGHTEN_SCALE_MODE_MULTI_SAMPLE_LINEAR: D2D1_STRAIGHTEN_SCALE_MODE = 3
+D2D1_STRAIGHTEN_SCALE_MODE_ANISOTROPIC: D2D1_STRAIGHTEN_SCALE_MODE = 4
+D2D1_STRAIGHTEN_SCALE_MODE_FORCE_DWORD: D2D1_STRAIGHTEN_SCALE_MODE = 4294967295
+class D2D1_STROKE_STYLE_PROPERTIES(Structure):
+    startCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    endCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    dashCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    lineJoin: win32more.Graphics.Direct2D.D2D1_LINE_JOIN
+    miterLimit: Single
+    dashStyle: win32more.Graphics.Direct2D.D2D1_DASH_STYLE
+    dashOffset: Single
+class D2D1_STROKE_STYLE_PROPERTIES1(Structure):
+    startCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    endCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    dashCap: win32more.Graphics.Direct2D.D2D1_CAP_STYLE
+    lineJoin: win32more.Graphics.Direct2D.D2D1_LINE_JOIN
+    miterLimit: Single
+    dashStyle: win32more.Graphics.Direct2D.D2D1_DASH_STYLE
+    dashOffset: Single
+    transformType: win32more.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE
 D2D1_STROKE_TRANSFORM_TYPE = UInt32
-D2D1_STROKE_TRANSFORM_TYPE_NORMAL = 0
-D2D1_STROKE_TRANSFORM_TYPE_FIXED = 1
-D2D1_STROKE_TRANSFORM_TYPE_HAIRLINE = 2
-D2D1_STROKE_TRANSFORM_TYPE_FORCE_DWORD = 4294967295
+D2D1_STROKE_TRANSFORM_TYPE_NORMAL: D2D1_STROKE_TRANSFORM_TYPE = 0
+D2D1_STROKE_TRANSFORM_TYPE_FIXED: D2D1_STROKE_TRANSFORM_TYPE = 1
+D2D1_STROKE_TRANSFORM_TYPE_HAIRLINE: D2D1_STROKE_TRANSFORM_TYPE = 2
+D2D1_STROKE_TRANSFORM_TYPE_FORCE_DWORD: D2D1_STROKE_TRANSFORM_TYPE = 4294967295
 D2D1_SUBPROPERTY = UInt32
-D2D1_SUBPROPERTY_DISPLAYNAME = 2147483648
-D2D1_SUBPROPERTY_ISREADONLY = 2147483649
-D2D1_SUBPROPERTY_MIN = 2147483650
-D2D1_SUBPROPERTY_MAX = 2147483651
-D2D1_SUBPROPERTY_DEFAULT = 2147483652
-D2D1_SUBPROPERTY_FIELDS = 2147483653
-D2D1_SUBPROPERTY_INDEX = 2147483654
-D2D1_SUBPROPERTY_FORCE_DWORD = 4294967295
+D2D1_SUBPROPERTY_DISPLAYNAME: D2D1_SUBPROPERTY = 2147483648
+D2D1_SUBPROPERTY_ISREADONLY: D2D1_SUBPROPERTY = 2147483649
+D2D1_SUBPROPERTY_MIN: D2D1_SUBPROPERTY = 2147483650
+D2D1_SUBPROPERTY_MAX: D2D1_SUBPROPERTY = 2147483651
+D2D1_SUBPROPERTY_DEFAULT: D2D1_SUBPROPERTY = 2147483652
+D2D1_SUBPROPERTY_FIELDS: D2D1_SUBPROPERTY = 2147483653
+D2D1_SUBPROPERTY_INDEX: D2D1_SUBPROPERTY = 2147483654
+D2D1_SUBPROPERTY_FORCE_DWORD: D2D1_SUBPROPERTY = 4294967295
 D2D1_SVG_ASPECT_ALIGN = UInt32
-D2D1_SVG_ASPECT_ALIGN_NONE = 0
-D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MIN = 1
-D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MIN = 2
-D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MIN = 3
-D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MID = 4
-D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MID = 5
-D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MID = 6
-D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MAX = 7
-D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MAX = 8
-D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MAX = 9
-D2D1_SVG_ASPECT_ALIGN_FORCE_DWORD = 4294967295
+D2D1_SVG_ASPECT_ALIGN_NONE: D2D1_SVG_ASPECT_ALIGN = 0
+D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MIN: D2D1_SVG_ASPECT_ALIGN = 1
+D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MIN: D2D1_SVG_ASPECT_ALIGN = 2
+D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MIN: D2D1_SVG_ASPECT_ALIGN = 3
+D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MID: D2D1_SVG_ASPECT_ALIGN = 4
+D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MID: D2D1_SVG_ASPECT_ALIGN = 5
+D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MID: D2D1_SVG_ASPECT_ALIGN = 6
+D2D1_SVG_ASPECT_ALIGN_X_MIN_Y_MAX: D2D1_SVG_ASPECT_ALIGN = 7
+D2D1_SVG_ASPECT_ALIGN_X_MID_Y_MAX: D2D1_SVG_ASPECT_ALIGN = 8
+D2D1_SVG_ASPECT_ALIGN_X_MAX_Y_MAX: D2D1_SVG_ASPECT_ALIGN = 9
+D2D1_SVG_ASPECT_ALIGN_FORCE_DWORD: D2D1_SVG_ASPECT_ALIGN = 4294967295
 D2D1_SVG_ASPECT_SCALING = UInt32
-D2D1_SVG_ASPECT_SCALING_MEET = 0
-D2D1_SVG_ASPECT_SCALING_SLICE = 1
-D2D1_SVG_ASPECT_SCALING_FORCE_DWORD = 4294967295
+D2D1_SVG_ASPECT_SCALING_MEET: D2D1_SVG_ASPECT_SCALING = 0
+D2D1_SVG_ASPECT_SCALING_SLICE: D2D1_SVG_ASPECT_SCALING = 1
+D2D1_SVG_ASPECT_SCALING_FORCE_DWORD: D2D1_SVG_ASPECT_SCALING = 4294967295
 D2D1_SVG_ATTRIBUTE_POD_TYPE = UInt32
-D2D1_SVG_ATTRIBUTE_POD_TYPE_FLOAT = 0
-D2D1_SVG_ATTRIBUTE_POD_TYPE_COLOR = 1
-D2D1_SVG_ATTRIBUTE_POD_TYPE_FILL_MODE = 2
-D2D1_SVG_ATTRIBUTE_POD_TYPE_DISPLAY = 3
-D2D1_SVG_ATTRIBUTE_POD_TYPE_OVERFLOW = 4
-D2D1_SVG_ATTRIBUTE_POD_TYPE_LINE_CAP = 5
-D2D1_SVG_ATTRIBUTE_POD_TYPE_LINE_JOIN = 6
-D2D1_SVG_ATTRIBUTE_POD_TYPE_VISIBILITY = 7
-D2D1_SVG_ATTRIBUTE_POD_TYPE_MATRIX = 8
-D2D1_SVG_ATTRIBUTE_POD_TYPE_UNIT_TYPE = 9
-D2D1_SVG_ATTRIBUTE_POD_TYPE_EXTEND_MODE = 10
-D2D1_SVG_ATTRIBUTE_POD_TYPE_PRESERVE_ASPECT_RATIO = 11
-D2D1_SVG_ATTRIBUTE_POD_TYPE_VIEWBOX = 12
-D2D1_SVG_ATTRIBUTE_POD_TYPE_LENGTH = 13
-D2D1_SVG_ATTRIBUTE_POD_TYPE_FORCE_DWORD = 4294967295
+D2D1_SVG_ATTRIBUTE_POD_TYPE_FLOAT: D2D1_SVG_ATTRIBUTE_POD_TYPE = 0
+D2D1_SVG_ATTRIBUTE_POD_TYPE_COLOR: D2D1_SVG_ATTRIBUTE_POD_TYPE = 1
+D2D1_SVG_ATTRIBUTE_POD_TYPE_FILL_MODE: D2D1_SVG_ATTRIBUTE_POD_TYPE = 2
+D2D1_SVG_ATTRIBUTE_POD_TYPE_DISPLAY: D2D1_SVG_ATTRIBUTE_POD_TYPE = 3
+D2D1_SVG_ATTRIBUTE_POD_TYPE_OVERFLOW: D2D1_SVG_ATTRIBUTE_POD_TYPE = 4
+D2D1_SVG_ATTRIBUTE_POD_TYPE_LINE_CAP: D2D1_SVG_ATTRIBUTE_POD_TYPE = 5
+D2D1_SVG_ATTRIBUTE_POD_TYPE_LINE_JOIN: D2D1_SVG_ATTRIBUTE_POD_TYPE = 6
+D2D1_SVG_ATTRIBUTE_POD_TYPE_VISIBILITY: D2D1_SVG_ATTRIBUTE_POD_TYPE = 7
+D2D1_SVG_ATTRIBUTE_POD_TYPE_MATRIX: D2D1_SVG_ATTRIBUTE_POD_TYPE = 8
+D2D1_SVG_ATTRIBUTE_POD_TYPE_UNIT_TYPE: D2D1_SVG_ATTRIBUTE_POD_TYPE = 9
+D2D1_SVG_ATTRIBUTE_POD_TYPE_EXTEND_MODE: D2D1_SVG_ATTRIBUTE_POD_TYPE = 10
+D2D1_SVG_ATTRIBUTE_POD_TYPE_PRESERVE_ASPECT_RATIO: D2D1_SVG_ATTRIBUTE_POD_TYPE = 11
+D2D1_SVG_ATTRIBUTE_POD_TYPE_VIEWBOX: D2D1_SVG_ATTRIBUTE_POD_TYPE = 12
+D2D1_SVG_ATTRIBUTE_POD_TYPE_LENGTH: D2D1_SVG_ATTRIBUTE_POD_TYPE = 13
+D2D1_SVG_ATTRIBUTE_POD_TYPE_FORCE_DWORD: D2D1_SVG_ATTRIBUTE_POD_TYPE = 4294967295
 D2D1_SVG_ATTRIBUTE_STRING_TYPE = UInt32
-D2D1_SVG_ATTRIBUTE_STRING_TYPE_SVG = 0
-D2D1_SVG_ATTRIBUTE_STRING_TYPE_ID = 1
-D2D1_SVG_ATTRIBUTE_STRING_TYPE_FORCE_DWORD = 4294967295
+D2D1_SVG_ATTRIBUTE_STRING_TYPE_SVG: D2D1_SVG_ATTRIBUTE_STRING_TYPE = 0
+D2D1_SVG_ATTRIBUTE_STRING_TYPE_ID: D2D1_SVG_ATTRIBUTE_STRING_TYPE = 1
+D2D1_SVG_ATTRIBUTE_STRING_TYPE_FORCE_DWORD: D2D1_SVG_ATTRIBUTE_STRING_TYPE = 4294967295
 D2D1_SVG_DISPLAY = UInt32
-D2D1_SVG_DISPLAY_INLINE = 0
-D2D1_SVG_DISPLAY_NONE = 1
-D2D1_SVG_DISPLAY_FORCE_DWORD = 4294967295
-def _define_D2D1_SVG_LENGTH_head():
-    class D2D1_SVG_LENGTH(Structure):
-        pass
-    return D2D1_SVG_LENGTH
-def _define_D2D1_SVG_LENGTH():
-    D2D1_SVG_LENGTH = win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head
-    D2D1_SVG_LENGTH._fields_ = [
-        ('value', Single),
-        ('units', win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_UNITS),
-    ]
-    return D2D1_SVG_LENGTH
+D2D1_SVG_DISPLAY_INLINE: D2D1_SVG_DISPLAY = 0
+D2D1_SVG_DISPLAY_NONE: D2D1_SVG_DISPLAY = 1
+D2D1_SVG_DISPLAY_FORCE_DWORD: D2D1_SVG_DISPLAY = 4294967295
+class D2D1_SVG_LENGTH(Structure):
+    value: Single
+    units: win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_UNITS
 D2D1_SVG_LENGTH_UNITS = UInt32
-D2D1_SVG_LENGTH_UNITS_NUMBER = 0
-D2D1_SVG_LENGTH_UNITS_PERCENTAGE = 1
-D2D1_SVG_LENGTH_UNITS_FORCE_DWORD = 4294967295
+D2D1_SVG_LENGTH_UNITS_NUMBER: D2D1_SVG_LENGTH_UNITS = 0
+D2D1_SVG_LENGTH_UNITS_PERCENTAGE: D2D1_SVG_LENGTH_UNITS = 1
+D2D1_SVG_LENGTH_UNITS_FORCE_DWORD: D2D1_SVG_LENGTH_UNITS = 4294967295
 D2D1_SVG_LINE_CAP = UInt32
-D2D1_SVG_LINE_CAP_BUTT = 0
-D2D1_SVG_LINE_CAP_SQUARE = 1
-D2D1_SVG_LINE_CAP_ROUND = 2
-D2D1_SVG_LINE_CAP_FORCE_DWORD = 4294967295
+D2D1_SVG_LINE_CAP_BUTT: D2D1_SVG_LINE_CAP = 0
+D2D1_SVG_LINE_CAP_SQUARE: D2D1_SVG_LINE_CAP = 1
+D2D1_SVG_LINE_CAP_ROUND: D2D1_SVG_LINE_CAP = 2
+D2D1_SVG_LINE_CAP_FORCE_DWORD: D2D1_SVG_LINE_CAP = 4294967295
 D2D1_SVG_LINE_JOIN = UInt32
-D2D1_SVG_LINE_JOIN_BEVEL = 1
-D2D1_SVG_LINE_JOIN_MITER = 3
-D2D1_SVG_LINE_JOIN_ROUND = 2
-D2D1_SVG_LINE_JOIN_FORCE_DWORD = 4294967295
+D2D1_SVG_LINE_JOIN_BEVEL: D2D1_SVG_LINE_JOIN = 1
+D2D1_SVG_LINE_JOIN_MITER: D2D1_SVG_LINE_JOIN = 3
+D2D1_SVG_LINE_JOIN_ROUND: D2D1_SVG_LINE_JOIN = 2
+D2D1_SVG_LINE_JOIN_FORCE_DWORD: D2D1_SVG_LINE_JOIN = 4294967295
 D2D1_SVG_OVERFLOW = UInt32
-D2D1_SVG_OVERFLOW_VISIBLE = 0
-D2D1_SVG_OVERFLOW_HIDDEN = 1
-D2D1_SVG_OVERFLOW_FORCE_DWORD = 4294967295
+D2D1_SVG_OVERFLOW_VISIBLE: D2D1_SVG_OVERFLOW = 0
+D2D1_SVG_OVERFLOW_HIDDEN: D2D1_SVG_OVERFLOW = 1
+D2D1_SVG_OVERFLOW_FORCE_DWORD: D2D1_SVG_OVERFLOW = 4294967295
 D2D1_SVG_PAINT_TYPE = UInt32
-D2D1_SVG_PAINT_TYPE_NONE = 0
-D2D1_SVG_PAINT_TYPE_COLOR = 1
-D2D1_SVG_PAINT_TYPE_CURRENT_COLOR = 2
-D2D1_SVG_PAINT_TYPE_URI = 3
-D2D1_SVG_PAINT_TYPE_URI_NONE = 4
-D2D1_SVG_PAINT_TYPE_URI_COLOR = 5
-D2D1_SVG_PAINT_TYPE_URI_CURRENT_COLOR = 6
-D2D1_SVG_PAINT_TYPE_FORCE_DWORD = 4294967295
+D2D1_SVG_PAINT_TYPE_NONE: D2D1_SVG_PAINT_TYPE = 0
+D2D1_SVG_PAINT_TYPE_COLOR: D2D1_SVG_PAINT_TYPE = 1
+D2D1_SVG_PAINT_TYPE_CURRENT_COLOR: D2D1_SVG_PAINT_TYPE = 2
+D2D1_SVG_PAINT_TYPE_URI: D2D1_SVG_PAINT_TYPE = 3
+D2D1_SVG_PAINT_TYPE_URI_NONE: D2D1_SVG_PAINT_TYPE = 4
+D2D1_SVG_PAINT_TYPE_URI_COLOR: D2D1_SVG_PAINT_TYPE = 5
+D2D1_SVG_PAINT_TYPE_URI_CURRENT_COLOR: D2D1_SVG_PAINT_TYPE = 6
+D2D1_SVG_PAINT_TYPE_FORCE_DWORD: D2D1_SVG_PAINT_TYPE = 4294967295
 D2D1_SVG_PATH_COMMAND = UInt32
-D2D1_SVG_PATH_COMMAND_CLOSE_PATH = 0
-D2D1_SVG_PATH_COMMAND_MOVE_ABSOLUTE = 1
-D2D1_SVG_PATH_COMMAND_MOVE_RELATIVE = 2
-D2D1_SVG_PATH_COMMAND_LINE_ABSOLUTE = 3
-D2D1_SVG_PATH_COMMAND_LINE_RELATIVE = 4
-D2D1_SVG_PATH_COMMAND_CUBIC_ABSOLUTE = 5
-D2D1_SVG_PATH_COMMAND_CUBIC_RELATIVE = 6
-D2D1_SVG_PATH_COMMAND_QUADRADIC_ABSOLUTE = 7
-D2D1_SVG_PATH_COMMAND_QUADRADIC_RELATIVE = 8
-D2D1_SVG_PATH_COMMAND_ARC_ABSOLUTE = 9
-D2D1_SVG_PATH_COMMAND_ARC_RELATIVE = 10
-D2D1_SVG_PATH_COMMAND_HORIZONTAL_ABSOLUTE = 11
-D2D1_SVG_PATH_COMMAND_HORIZONTAL_RELATIVE = 12
-D2D1_SVG_PATH_COMMAND_VERTICAL_ABSOLUTE = 13
-D2D1_SVG_PATH_COMMAND_VERTICAL_RELATIVE = 14
-D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_ABSOLUTE = 15
-D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_RELATIVE = 16
-D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_ABSOLUTE = 17
-D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_RELATIVE = 18
-D2D1_SVG_PATH_COMMAND_FORCE_DWORD = 4294967295
-def _define_D2D1_SVG_PRESERVE_ASPECT_RATIO_head():
-    class D2D1_SVG_PRESERVE_ASPECT_RATIO(Structure):
-        pass
-    return D2D1_SVG_PRESERVE_ASPECT_RATIO
-def _define_D2D1_SVG_PRESERVE_ASPECT_RATIO():
-    D2D1_SVG_PRESERVE_ASPECT_RATIO = win32more.Graphics.Direct2D.D2D1_SVG_PRESERVE_ASPECT_RATIO_head
-    D2D1_SVG_PRESERVE_ASPECT_RATIO._fields_ = [
-        ('defer', win32more.Foundation.BOOL),
-        ('align', win32more.Graphics.Direct2D.D2D1_SVG_ASPECT_ALIGN),
-        ('meetOrSlice', win32more.Graphics.Direct2D.D2D1_SVG_ASPECT_SCALING),
-    ]
-    return D2D1_SVG_PRESERVE_ASPECT_RATIO
+D2D1_SVG_PATH_COMMAND_CLOSE_PATH: D2D1_SVG_PATH_COMMAND = 0
+D2D1_SVG_PATH_COMMAND_MOVE_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 1
+D2D1_SVG_PATH_COMMAND_MOVE_RELATIVE: D2D1_SVG_PATH_COMMAND = 2
+D2D1_SVG_PATH_COMMAND_LINE_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 3
+D2D1_SVG_PATH_COMMAND_LINE_RELATIVE: D2D1_SVG_PATH_COMMAND = 4
+D2D1_SVG_PATH_COMMAND_CUBIC_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 5
+D2D1_SVG_PATH_COMMAND_CUBIC_RELATIVE: D2D1_SVG_PATH_COMMAND = 6
+D2D1_SVG_PATH_COMMAND_QUADRADIC_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 7
+D2D1_SVG_PATH_COMMAND_QUADRADIC_RELATIVE: D2D1_SVG_PATH_COMMAND = 8
+D2D1_SVG_PATH_COMMAND_ARC_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 9
+D2D1_SVG_PATH_COMMAND_ARC_RELATIVE: D2D1_SVG_PATH_COMMAND = 10
+D2D1_SVG_PATH_COMMAND_HORIZONTAL_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 11
+D2D1_SVG_PATH_COMMAND_HORIZONTAL_RELATIVE: D2D1_SVG_PATH_COMMAND = 12
+D2D1_SVG_PATH_COMMAND_VERTICAL_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 13
+D2D1_SVG_PATH_COMMAND_VERTICAL_RELATIVE: D2D1_SVG_PATH_COMMAND = 14
+D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 15
+D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_RELATIVE: D2D1_SVG_PATH_COMMAND = 16
+D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_ABSOLUTE: D2D1_SVG_PATH_COMMAND = 17
+D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_RELATIVE: D2D1_SVG_PATH_COMMAND = 18
+D2D1_SVG_PATH_COMMAND_FORCE_DWORD: D2D1_SVG_PATH_COMMAND = 4294967295
+class D2D1_SVG_PRESERVE_ASPECT_RATIO(Structure):
+    defer: win32more.Foundation.BOOL
+    align: win32more.Graphics.Direct2D.D2D1_SVG_ASPECT_ALIGN
+    meetOrSlice: win32more.Graphics.Direct2D.D2D1_SVG_ASPECT_SCALING
 D2D1_SVG_UNIT_TYPE = UInt32
-D2D1_SVG_UNIT_TYPE_USER_SPACE_ON_USE = 0
-D2D1_SVG_UNIT_TYPE_OBJECT_BOUNDING_BOX = 1
-D2D1_SVG_UNIT_TYPE_FORCE_DWORD = 4294967295
-def _define_D2D1_SVG_VIEWBOX_head():
-    class D2D1_SVG_VIEWBOX(Structure):
-        pass
-    return D2D1_SVG_VIEWBOX
-def _define_D2D1_SVG_VIEWBOX():
-    D2D1_SVG_VIEWBOX = win32more.Graphics.Direct2D.D2D1_SVG_VIEWBOX_head
-    D2D1_SVG_VIEWBOX._fields_ = [
-        ('x', Single),
-        ('y', Single),
-        ('width', Single),
-        ('height', Single),
-    ]
-    return D2D1_SVG_VIEWBOX
+D2D1_SVG_UNIT_TYPE_USER_SPACE_ON_USE: D2D1_SVG_UNIT_TYPE = 0
+D2D1_SVG_UNIT_TYPE_OBJECT_BOUNDING_BOX: D2D1_SVG_UNIT_TYPE = 1
+D2D1_SVG_UNIT_TYPE_FORCE_DWORD: D2D1_SVG_UNIT_TYPE = 4294967295
+class D2D1_SVG_VIEWBOX(Structure):
+    x: Single
+    y: Single
+    width: Single
+    height: Single
 D2D1_SVG_VISIBILITY = UInt32
-D2D1_SVG_VISIBILITY_VISIBLE = 0
-D2D1_SVG_VISIBILITY_HIDDEN = 1
-D2D1_SVG_VISIBILITY_FORCE_DWORD = 4294967295
+D2D1_SVG_VISIBILITY_VISIBLE: D2D1_SVG_VISIBILITY = 0
+D2D1_SVG_VISIBILITY_HIDDEN: D2D1_SVG_VISIBILITY = 1
+D2D1_SVG_VISIBILITY_FORCE_DWORD: D2D1_SVG_VISIBILITY = 4294967295
 D2D1_SWEEP_DIRECTION = UInt32
-D2D1_SWEEP_DIRECTION_COUNTER_CLOCKWISE = 0
-D2D1_SWEEP_DIRECTION_CLOCKWISE = 1
-D2D1_SWEEP_DIRECTION_FORCE_DWORD = 4294967295
+D2D1_SWEEP_DIRECTION_COUNTER_CLOCKWISE: D2D1_SWEEP_DIRECTION = 0
+D2D1_SWEEP_DIRECTION_CLOCKWISE: D2D1_SWEEP_DIRECTION = 1
+D2D1_SWEEP_DIRECTION_FORCE_DWORD: D2D1_SWEEP_DIRECTION = 4294967295
 D2D1_TABLETRANSFER_PROP = UInt32
-D2D1_TABLETRANSFER_PROP_RED_TABLE = 0
-D2D1_TABLETRANSFER_PROP_RED_DISABLE = 1
-D2D1_TABLETRANSFER_PROP_GREEN_TABLE = 2
-D2D1_TABLETRANSFER_PROP_GREEN_DISABLE = 3
-D2D1_TABLETRANSFER_PROP_BLUE_TABLE = 4
-D2D1_TABLETRANSFER_PROP_BLUE_DISABLE = 5
-D2D1_TABLETRANSFER_PROP_ALPHA_TABLE = 6
-D2D1_TABLETRANSFER_PROP_ALPHA_DISABLE = 7
-D2D1_TABLETRANSFER_PROP_CLAMP_OUTPUT = 8
-D2D1_TABLETRANSFER_PROP_FORCE_DWORD = 4294967295
+D2D1_TABLETRANSFER_PROP_RED_TABLE: D2D1_TABLETRANSFER_PROP = 0
+D2D1_TABLETRANSFER_PROP_RED_DISABLE: D2D1_TABLETRANSFER_PROP = 1
+D2D1_TABLETRANSFER_PROP_GREEN_TABLE: D2D1_TABLETRANSFER_PROP = 2
+D2D1_TABLETRANSFER_PROP_GREEN_DISABLE: D2D1_TABLETRANSFER_PROP = 3
+D2D1_TABLETRANSFER_PROP_BLUE_TABLE: D2D1_TABLETRANSFER_PROP = 4
+D2D1_TABLETRANSFER_PROP_BLUE_DISABLE: D2D1_TABLETRANSFER_PROP = 5
+D2D1_TABLETRANSFER_PROP_ALPHA_TABLE: D2D1_TABLETRANSFER_PROP = 6
+D2D1_TABLETRANSFER_PROP_ALPHA_DISABLE: D2D1_TABLETRANSFER_PROP = 7
+D2D1_TABLETRANSFER_PROP_CLAMP_OUTPUT: D2D1_TABLETRANSFER_PROP = 8
+D2D1_TABLETRANSFER_PROP_FORCE_DWORD: D2D1_TABLETRANSFER_PROP = 4294967295
 D2D1_TEMPERATUREANDTINT_PROP = UInt32
-D2D1_TEMPERATUREANDTINT_PROP_TEMPERATURE = 0
-D2D1_TEMPERATUREANDTINT_PROP_TINT = 1
-D2D1_TEMPERATUREANDTINT_PROP_FORCE_DWORD = 4294967295
+D2D1_TEMPERATUREANDTINT_PROP_TEMPERATURE: D2D1_TEMPERATUREANDTINT_PROP = 0
+D2D1_TEMPERATUREANDTINT_PROP_TINT: D2D1_TEMPERATUREANDTINT_PROP = 1
+D2D1_TEMPERATUREANDTINT_PROP_FORCE_DWORD: D2D1_TEMPERATUREANDTINT_PROP = 4294967295
 D2D1_TEXT_ANTIALIAS_MODE = UInt32
-D2D1_TEXT_ANTIALIAS_MODE_DEFAULT = 0
-D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE = 1
-D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE = 2
-D2D1_TEXT_ANTIALIAS_MODE_ALIASED = 3
-D2D1_TEXT_ANTIALIAS_MODE_FORCE_DWORD = 4294967295
+D2D1_TEXT_ANTIALIAS_MODE_DEFAULT: D2D1_TEXT_ANTIALIAS_MODE = 0
+D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE: D2D1_TEXT_ANTIALIAS_MODE = 1
+D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE: D2D1_TEXT_ANTIALIAS_MODE = 2
+D2D1_TEXT_ANTIALIAS_MODE_ALIASED: D2D1_TEXT_ANTIALIAS_MODE = 3
+D2D1_TEXT_ANTIALIAS_MODE_FORCE_DWORD: D2D1_TEXT_ANTIALIAS_MODE = 4294967295
 D2D1_THREADING_MODE = UInt32
-D2D1_THREADING_MODE_SINGLE_THREADED = 0
-D2D1_THREADING_MODE_MULTI_THREADED = 1
-D2D1_THREADING_MODE_FORCE_DWORD = 4294967295
+D2D1_THREADING_MODE_SINGLE_THREADED: D2D1_THREADING_MODE = 0
+D2D1_THREADING_MODE_MULTI_THREADED: D2D1_THREADING_MODE = 1
+D2D1_THREADING_MODE_FORCE_DWORD: D2D1_THREADING_MODE = 4294967295
 D2D1_TILE_PROP = UInt32
-D2D1_TILE_PROP_RECT = 0
-D2D1_TILE_PROP_FORCE_DWORD = 4294967295
+D2D1_TILE_PROP_RECT: D2D1_TILE_PROP = 0
+D2D1_TILE_PROP_FORCE_DWORD: D2D1_TILE_PROP = 4294967295
 D2D1_TINT_PROP = UInt32
-D2D1_TINT_PROP_COLOR = 0
-D2D1_TINT_PROP_CLAMP_OUTPUT = 1
-D2D1_TINT_PROP_FORCE_DWORD = 4294967295
+D2D1_TINT_PROP_COLOR: D2D1_TINT_PROP = 0
+D2D1_TINT_PROP_CLAMP_OUTPUT: D2D1_TINT_PROP = 1
+D2D1_TINT_PROP_FORCE_DWORD: D2D1_TINT_PROP = 4294967295
 D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = UInt32
-D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_NONE = 0
-D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_DISABLE_DPI_SCALE = 1
-D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head():
-    class D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES(Structure):
-        pass
-    return D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES
-def _define_D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES():
-    D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES = win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head
-    D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES._fields_ = [
-        ('orientation', win32more.Graphics.Direct2D.D2D1_ORIENTATION),
-        ('scaleX', Single),
-        ('scaleY', Single),
-        ('interpolationMode', win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE),
-        ('options', win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS),
-    ]
-    return D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES
-def _define_D2D1_TRIANGLE_head():
-    class D2D1_TRIANGLE(Structure):
-        pass
-    return D2D1_TRIANGLE
-def _define_D2D1_TRIANGLE():
-    D2D1_TRIANGLE = win32more.Graphics.Direct2D.D2D1_TRIANGLE_head
-    D2D1_TRIANGLE._fields_ = [
-        ('point1', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point2', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-        ('point3', win32more.Graphics.Direct2D.Common.D2D_POINT_2F),
-    ]
-    return D2D1_TRIANGLE
+D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_NONE: D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = 0
+D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_DISABLE_DPI_SCALE: D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = 1
+D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_FORCE_DWORD: D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = 4294967295
+class D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES(Structure):
+    orientation: win32more.Graphics.Direct2D.D2D1_ORIENTATION
+    scaleX: Single
+    scaleY: Single
+    interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE
+    options: win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS
+class D2D1_TRIANGLE(Structure):
+    point1: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point2: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
+    point3: win32more.Graphics.Direct2D.Common.D2D_POINT_2F
 D2D1_TURBULENCE_PROP = UInt32
-D2D1_TURBULENCE_PROP_OFFSET = 0
-D2D1_TURBULENCE_PROP_SIZE = 1
-D2D1_TURBULENCE_PROP_BASE_FREQUENCY = 2
-D2D1_TURBULENCE_PROP_NUM_OCTAVES = 3
-D2D1_TURBULENCE_PROP_SEED = 4
-D2D1_TURBULENCE_PROP_NOISE = 5
-D2D1_TURBULENCE_PROP_STITCHABLE = 6
-D2D1_TURBULENCE_PROP_FORCE_DWORD = 4294967295
+D2D1_TURBULENCE_PROP_OFFSET: D2D1_TURBULENCE_PROP = 0
+D2D1_TURBULENCE_PROP_SIZE: D2D1_TURBULENCE_PROP = 1
+D2D1_TURBULENCE_PROP_BASE_FREQUENCY: D2D1_TURBULENCE_PROP = 2
+D2D1_TURBULENCE_PROP_NUM_OCTAVES: D2D1_TURBULENCE_PROP = 3
+D2D1_TURBULENCE_PROP_SEED: D2D1_TURBULENCE_PROP = 4
+D2D1_TURBULENCE_PROP_NOISE: D2D1_TURBULENCE_PROP = 5
+D2D1_TURBULENCE_PROP_STITCHABLE: D2D1_TURBULENCE_PROP = 6
+D2D1_TURBULENCE_PROP_FORCE_DWORD: D2D1_TURBULENCE_PROP = 4294967295
 D2D1_UNIT_MODE = UInt32
-D2D1_UNIT_MODE_DIPS = 0
-D2D1_UNIT_MODE_PIXELS = 1
-D2D1_UNIT_MODE_FORCE_DWORD = 4294967295
-def _define_D2D1_VERTEX_BUFFER_PROPERTIES_head():
-    class D2D1_VERTEX_BUFFER_PROPERTIES(Structure):
-        pass
-    return D2D1_VERTEX_BUFFER_PROPERTIES
-def _define_D2D1_VERTEX_BUFFER_PROPERTIES():
-    D2D1_VERTEX_BUFFER_PROPERTIES = win32more.Graphics.Direct2D.D2D1_VERTEX_BUFFER_PROPERTIES_head
-    D2D1_VERTEX_BUFFER_PROPERTIES._fields_ = [
-        ('inputCount', UInt32),
-        ('usage', win32more.Graphics.Direct2D.D2D1_VERTEX_USAGE),
-        ('data', c_char_p_no),
-        ('byteWidth', UInt32),
-    ]
-    return D2D1_VERTEX_BUFFER_PROPERTIES
+D2D1_UNIT_MODE_DIPS: D2D1_UNIT_MODE = 0
+D2D1_UNIT_MODE_PIXELS: D2D1_UNIT_MODE = 1
+D2D1_UNIT_MODE_FORCE_DWORD: D2D1_UNIT_MODE = 4294967295
+class D2D1_VERTEX_BUFFER_PROPERTIES(Structure):
+    inputCount: UInt32
+    usage: win32more.Graphics.Direct2D.D2D1_VERTEX_USAGE
+    data: c_char_p_no
+    byteWidth: UInt32
 D2D1_VERTEX_OPTIONS = UInt32
-D2D1_VERTEX_OPTIONS_NONE = 0
-D2D1_VERTEX_OPTIONS_DO_NOT_CLEAR = 1
-D2D1_VERTEX_OPTIONS_USE_DEPTH_BUFFER = 2
-D2D1_VERTEX_OPTIONS_ASSUME_NO_OVERLAP = 4
-D2D1_VERTEX_OPTIONS_FORCE_DWORD = 4294967295
-def _define_D2D1_VERTEX_RANGE_head():
-    class D2D1_VERTEX_RANGE(Structure):
-        pass
-    return D2D1_VERTEX_RANGE
-def _define_D2D1_VERTEX_RANGE():
-    D2D1_VERTEX_RANGE = win32more.Graphics.Direct2D.D2D1_VERTEX_RANGE_head
-    D2D1_VERTEX_RANGE._fields_ = [
-        ('startVertex', UInt32),
-        ('vertexCount', UInt32),
-    ]
-    return D2D1_VERTEX_RANGE
+D2D1_VERTEX_OPTIONS_NONE: D2D1_VERTEX_OPTIONS = 0
+D2D1_VERTEX_OPTIONS_DO_NOT_CLEAR: D2D1_VERTEX_OPTIONS = 1
+D2D1_VERTEX_OPTIONS_USE_DEPTH_BUFFER: D2D1_VERTEX_OPTIONS = 2
+D2D1_VERTEX_OPTIONS_ASSUME_NO_OVERLAP: D2D1_VERTEX_OPTIONS = 4
+D2D1_VERTEX_OPTIONS_FORCE_DWORD: D2D1_VERTEX_OPTIONS = 4294967295
+class D2D1_VERTEX_RANGE(Structure):
+    startVertex: UInt32
+    vertexCount: UInt32
 D2D1_VERTEX_USAGE = UInt32
-D2D1_VERTEX_USAGE_STATIC = 0
-D2D1_VERTEX_USAGE_DYNAMIC = 1
-D2D1_VERTEX_USAGE_FORCE_DWORD = 4294967295
+D2D1_VERTEX_USAGE_STATIC: D2D1_VERTEX_USAGE = 0
+D2D1_VERTEX_USAGE_DYNAMIC: D2D1_VERTEX_USAGE = 1
+D2D1_VERTEX_USAGE_FORCE_DWORD: D2D1_VERTEX_USAGE = 4294967295
 D2D1_VIGNETTE_PROP = UInt32
-D2D1_VIGNETTE_PROP_COLOR = 0
-D2D1_VIGNETTE_PROP_TRANSITION_SIZE = 1
-D2D1_VIGNETTE_PROP_STRENGTH = 2
-D2D1_VIGNETTE_PROP_FORCE_DWORD = 4294967295
+D2D1_VIGNETTE_PROP_COLOR: D2D1_VIGNETTE_PROP = 0
+D2D1_VIGNETTE_PROP_TRANSITION_SIZE: D2D1_VIGNETTE_PROP = 1
+D2D1_VIGNETTE_PROP_STRENGTH: D2D1_VIGNETTE_PROP = 2
+D2D1_VIGNETTE_PROP_FORCE_DWORD: D2D1_VIGNETTE_PROP = 4294967295
 D2D1_WHITELEVELADJUSTMENT_PROP = UInt32
-D2D1_WHITELEVELADJUSTMENT_PROP_INPUT_WHITE_LEVEL = 0
-D2D1_WHITELEVELADJUSTMENT_PROP_OUTPUT_WHITE_LEVEL = 1
-D2D1_WHITELEVELADJUSTMENT_PROP_FORCE_DWORD = 4294967295
+D2D1_WHITELEVELADJUSTMENT_PROP_INPUT_WHITE_LEVEL: D2D1_WHITELEVELADJUSTMENT_PROP = 0
+D2D1_WHITELEVELADJUSTMENT_PROP_OUTPUT_WHITE_LEVEL: D2D1_WHITELEVELADJUSTMENT_PROP = 1
+D2D1_WHITELEVELADJUSTMENT_PROP_FORCE_DWORD: D2D1_WHITELEVELADJUSTMENT_PROP = 4294967295
 D2D1_WINDOW_STATE = UInt32
-D2D1_WINDOW_STATE_NONE = 0
-D2D1_WINDOW_STATE_OCCLUDED = 1
-D2D1_WINDOW_STATE_FORCE_DWORD = 4294967295
+D2D1_WINDOW_STATE_NONE: D2D1_WINDOW_STATE = 0
+D2D1_WINDOW_STATE_OCCLUDED: D2D1_WINDOW_STATE = 1
+D2D1_WINDOW_STATE_FORCE_DWORD: D2D1_WINDOW_STATE = 4294967295
 D2D1_YCBCR_CHROMA_SUBSAMPLING = UInt32
-D2D1_YCBCR_CHROMA_SUBSAMPLING_AUTO = 0
-D2D1_YCBCR_CHROMA_SUBSAMPLING_420 = 1
-D2D1_YCBCR_CHROMA_SUBSAMPLING_422 = 2
-D2D1_YCBCR_CHROMA_SUBSAMPLING_444 = 3
-D2D1_YCBCR_CHROMA_SUBSAMPLING_440 = 4
-D2D1_YCBCR_CHROMA_SUBSAMPLING_FORCE_DWORD = 4294967295
+D2D1_YCBCR_CHROMA_SUBSAMPLING_AUTO: D2D1_YCBCR_CHROMA_SUBSAMPLING = 0
+D2D1_YCBCR_CHROMA_SUBSAMPLING_420: D2D1_YCBCR_CHROMA_SUBSAMPLING = 1
+D2D1_YCBCR_CHROMA_SUBSAMPLING_422: D2D1_YCBCR_CHROMA_SUBSAMPLING = 2
+D2D1_YCBCR_CHROMA_SUBSAMPLING_444: D2D1_YCBCR_CHROMA_SUBSAMPLING = 3
+D2D1_YCBCR_CHROMA_SUBSAMPLING_440: D2D1_YCBCR_CHROMA_SUBSAMPLING = 4
+D2D1_YCBCR_CHROMA_SUBSAMPLING_FORCE_DWORD: D2D1_YCBCR_CHROMA_SUBSAMPLING = 4294967295
 D2D1_YCBCR_INTERPOLATION_MODE = UInt32
-D2D1_YCBCR_INTERPOLATION_MODE_NEAREST_NEIGHBOR = 0
-D2D1_YCBCR_INTERPOLATION_MODE_LINEAR = 1
-D2D1_YCBCR_INTERPOLATION_MODE_CUBIC = 2
-D2D1_YCBCR_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR = 3
-D2D1_YCBCR_INTERPOLATION_MODE_ANISOTROPIC = 4
-D2D1_YCBCR_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC = 5
-D2D1_YCBCR_INTERPOLATION_MODE_FORCE_DWORD = 4294967295
+D2D1_YCBCR_INTERPOLATION_MODE_NEAREST_NEIGHBOR: D2D1_YCBCR_INTERPOLATION_MODE = 0
+D2D1_YCBCR_INTERPOLATION_MODE_LINEAR: D2D1_YCBCR_INTERPOLATION_MODE = 1
+D2D1_YCBCR_INTERPOLATION_MODE_CUBIC: D2D1_YCBCR_INTERPOLATION_MODE = 2
+D2D1_YCBCR_INTERPOLATION_MODE_MULTI_SAMPLE_LINEAR: D2D1_YCBCR_INTERPOLATION_MODE = 3
+D2D1_YCBCR_INTERPOLATION_MODE_ANISOTROPIC: D2D1_YCBCR_INTERPOLATION_MODE = 4
+D2D1_YCBCR_INTERPOLATION_MODE_HIGH_QUALITY_CUBIC: D2D1_YCBCR_INTERPOLATION_MODE = 5
+D2D1_YCBCR_INTERPOLATION_MODE_FORCE_DWORD: D2D1_YCBCR_INTERPOLATION_MODE = 4294967295
 D2D1_YCBCR_PROP = UInt32
-D2D1_YCBCR_PROP_CHROMA_SUBSAMPLING = 0
-D2D1_YCBCR_PROP_TRANSFORM_MATRIX = 1
-D2D1_YCBCR_PROP_INTERPOLATION_MODE = 2
-D2D1_YCBCR_PROP_FORCE_DWORD = 4294967295
-def _define_ID2D1AnalysisTransform_head():
-    class ID2D1AnalysisTransform(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0359dc30-95e6-4568-90-55-27-72-0d-13-0e-93')
-    return ID2D1AnalysisTransform
-def _define_ID2D1AnalysisTransform():
-    ID2D1AnalysisTransform = win32more.Graphics.Direct2D.ID2D1AnalysisTransform_head
-    ID2D1AnalysisTransform.ProcessAnalysisResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(3, 'ProcessAnalysisResults', ((1, 'analysisData'),(1, 'analysisDataCount'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1AnalysisTransform
-def _define_ID2D1Bitmap_head():
-    class ID2D1Bitmap(win32more.Graphics.Direct2D.ID2D1Image_head):
-        Guid = Guid('a2296057-ea42-4099-98-3b-53-9f-b6-50-54-26')
-    return ID2D1Bitmap
-def _define_ID2D1Bitmap():
-    ID2D1Bitmap = win32more.Graphics.Direct2D.ID2D1Bitmap_head
-    ID2D1Bitmap.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_F,)(4, 'GetSize', ()))
-    ID2D1Bitmap.GetPixelSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_U,)(5, 'GetPixelSize', ()))
-    ID2D1Bitmap.GetPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT,)(6, 'GetPixelFormat', ()))
-    ID2D1Bitmap.GetDpi = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),POINTER(Single))(7, 'GetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1Bitmap.CopyFromBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head),win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head))(8, 'CopyFromBitmap', ((1, 'destPoint'),(1, 'bitmap'),(1, 'srcRect'),)))
-    ID2D1Bitmap.CopyFromRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head),win32more.Graphics.Direct2D.ID2D1RenderTarget_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head))(9, 'CopyFromRenderTarget', ((1, 'destPoint'),(1, 'renderTarget'),(1, 'srcRect'),)))
-    ID2D1Bitmap.CopyFromMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head),c_void_p,UInt32)(10, 'CopyFromMemory', ((1, 'dstRect'),(1, 'srcData'),(1, 'pitch'),)))
-    win32more.Graphics.Direct2D.ID2D1Image
-    return ID2D1Bitmap
-def _define_ID2D1Bitmap1_head():
-    class ID2D1Bitmap1(win32more.Graphics.Direct2D.ID2D1Bitmap_head):
-        Guid = Guid('a898a84c-3873-4588-b0-8b-eb-bf-97-8d-f0-41')
-    return ID2D1Bitmap1
-def _define_ID2D1Bitmap1():
-    ID2D1Bitmap1 = win32more.Graphics.Direct2D.ID2D1Bitmap1_head
-    ID2D1Bitmap1.GetColorContext = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(11, 'GetColorContext', ((1, 'colorContext'),)))
-    ID2D1Bitmap1.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_BITMAP_OPTIONS,)(12, 'GetOptions', ()))
-    ID2D1Bitmap1.GetSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGISurface_head))(13, 'GetSurface', ((1, 'dxgiSurface'),)))
-    ID2D1Bitmap1.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_MAP_OPTIONS,POINTER(win32more.Graphics.Direct2D.D2D1_MAPPED_RECT_head))(14, 'Map', ((1, 'options'),(1, 'mappedRect'),)))
-    ID2D1Bitmap1.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Unmap', ()))
-    win32more.Graphics.Direct2D.ID2D1Bitmap
-    return ID2D1Bitmap1
-def _define_ID2D1BitmapBrush_head():
-    class ID2D1BitmapBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
-        Guid = Guid('2cd906aa-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1BitmapBrush
-def _define_ID2D1BitmapBrush():
-    ID2D1BitmapBrush = win32more.Graphics.Direct2D.ID2D1BitmapBrush_head
-    ID2D1BitmapBrush.SetExtendModeX = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(8, 'SetExtendModeX', ((1, 'extendModeX'),)))
-    ID2D1BitmapBrush.SetExtendModeY = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(9, 'SetExtendModeY', ((1, 'extendModeY'),)))
-    ID2D1BitmapBrush.SetInterpolationMode = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE)(10, 'SetInterpolationMode', ((1, 'interpolationMode'),)))
-    ID2D1BitmapBrush.SetBitmap = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head)(11, 'SetBitmap', ((1, 'bitmap'),)))
-    ID2D1BitmapBrush.GetExtendModeX = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(12, 'GetExtendModeX', ()))
-    ID2D1BitmapBrush.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(13, 'GetExtendModeY', ()))
-    ID2D1BitmapBrush.GetInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,)(14, 'GetInterpolationMode', ()))
-    ID2D1BitmapBrush.GetBitmap = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head))(15, 'GetBitmap', ((1, 'bitmap'),)))
-    win32more.Graphics.Direct2D.ID2D1Brush
-    return ID2D1BitmapBrush
-def _define_ID2D1BitmapBrush1_head():
-    class ID2D1BitmapBrush1(win32more.Graphics.Direct2D.ID2D1BitmapBrush_head):
-        Guid = Guid('41343a53-e41a-49a2-91-cd-21-79-3b-bb-62-e5')
-    return ID2D1BitmapBrush1
-def _define_ID2D1BitmapBrush1():
-    ID2D1BitmapBrush1 = win32more.Graphics.Direct2D.ID2D1BitmapBrush1_head
-    ID2D1BitmapBrush1.SetInterpolationMode1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE)(16, 'SetInterpolationMode1', ((1, 'interpolationMode'),)))
-    ID2D1BitmapBrush1.GetInterpolationMode1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,)(17, 'GetInterpolationMode1', ()))
-    win32more.Graphics.Direct2D.ID2D1BitmapBrush
-    return ID2D1BitmapBrush1
-def _define_ID2D1BitmapRenderTarget_head():
-    class ID2D1BitmapRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
-        Guid = Guid('2cd90695-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1BitmapRenderTarget
-def _define_ID2D1BitmapRenderTarget():
-    ID2D1BitmapRenderTarget = win32more.Graphics.Direct2D.ID2D1BitmapRenderTarget_head
-    ID2D1BitmapRenderTarget.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head))(57, 'GetBitmap', ((1, 'bitmap'),)))
-    win32more.Graphics.Direct2D.ID2D1RenderTarget
-    return ID2D1BitmapRenderTarget
-def _define_ID2D1BlendTransform_head():
-    class ID2D1BlendTransform(win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head):
-        Guid = Guid('63ac0b32-ba44-450f-88-06-7f-4c-a1-ff-2f-1b')
-    return ID2D1BlendTransform
-def _define_ID2D1BlendTransform():
-    ID2D1BlendTransform = win32more.Graphics.Direct2D.ID2D1BlendTransform_head
-    ID2D1BlendTransform.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head))(6, 'SetDescription', ((1, 'description'),)))
-    ID2D1BlendTransform.GetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head))(7, 'GetDescription', ((1, 'description'),)))
-    win32more.Graphics.Direct2D.ID2D1ConcreteTransform
-    return ID2D1BlendTransform
-def _define_ID2D1BorderTransform_head():
-    class ID2D1BorderTransform(win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head):
-        Guid = Guid('4998735c-3a19-473c-97-81-65-68-47-e3-a3-47')
-    return ID2D1BorderTransform
-def _define_ID2D1BorderTransform():
-    ID2D1BorderTransform = win32more.Graphics.Direct2D.ID2D1BorderTransform_head
-    ID2D1BorderTransform.SetExtendModeX = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(6, 'SetExtendModeX', ((1, 'extendMode'),)))
-    ID2D1BorderTransform.SetExtendModeY = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(7, 'SetExtendModeY', ((1, 'extendMode'),)))
-    ID2D1BorderTransform.GetExtendModeX = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(8, 'GetExtendModeX', ()))
-    ID2D1BorderTransform.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(9, 'GetExtendModeY', ()))
-    win32more.Graphics.Direct2D.ID2D1ConcreteTransform
-    return ID2D1BorderTransform
-def _define_ID2D1BoundsAdjustmentTransform_head():
-    class ID2D1BoundsAdjustmentTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
-        Guid = Guid('90f732e2-5092-4606-a8-19-86-51-97-0b-ac-cd')
-    return ID2D1BoundsAdjustmentTransform
-def _define_ID2D1BoundsAdjustmentTransform():
-    ID2D1BoundsAdjustmentTransform = win32more.Graphics.Direct2D.ID2D1BoundsAdjustmentTransform_head
-    ID2D1BoundsAdjustmentTransform.SetOutputBounds = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.RECT_head))(4, 'SetOutputBounds', ((1, 'outputBounds'),)))
-    ID2D1BoundsAdjustmentTransform.GetOutputBounds = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.RECT_head))(5, 'GetOutputBounds', ((1, 'outputBounds'),)))
-    win32more.Graphics.Direct2D.ID2D1TransformNode
-    return ID2D1BoundsAdjustmentTransform
-def _define_ID2D1Brush_head():
-    class ID2D1Brush(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd906a8-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1Brush
-def _define_ID2D1Brush():
-    ID2D1Brush = win32more.Graphics.Direct2D.ID2D1Brush_head
-    ID2D1Brush.SetOpacity = COMMETHOD(WINFUNCTYPE(Void,Single)(4, 'SetOpacity', ((1, 'opacity'),)))
-    ID2D1Brush.SetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(5, 'SetTransform', ((1, 'transform'),)))
-    ID2D1Brush.GetOpacity = COMMETHOD(WINFUNCTYPE(Single,)(6, 'GetOpacity', ()))
-    ID2D1Brush.GetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(7, 'GetTransform', ((1, 'transform'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Brush
-def _define_ID2D1ColorContext_head():
-    class ID2D1ColorContext(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('1c4820bb-5771-4518-a5-81-2f-e4-dd-0e-c6-57')
-    return ID2D1ColorContext
-def _define_ID2D1ColorContext():
-    ID2D1ColorContext = win32more.Graphics.Direct2D.ID2D1ColorContext_head
-    ID2D1ColorContext.GetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,)(4, 'GetColorSpace', ()))
-    ID2D1ColorContext.GetProfileSize = COMMETHOD(WINFUNCTYPE(UInt32,)(5, 'GetProfileSize', ()))
-    ID2D1ColorContext.GetProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(6, 'GetProfile', ((1, 'profile'),(1, 'profileSize'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1ColorContext
-def _define_ID2D1ColorContext1_head():
-    class ID2D1ColorContext1(win32more.Graphics.Direct2D.ID2D1ColorContext_head):
-        Guid = Guid('1ab42875-c57f-4be9-bd-85-9c-d7-8d-6f-55-ee')
-    return ID2D1ColorContext1
-def _define_ID2D1ColorContext1():
-    ID2D1ColorContext1 = win32more.Graphics.Direct2D.ID2D1ColorContext1_head
-    ID2D1ColorContext1.GetColorContextType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_CONTEXT_TYPE,)(7, 'GetColorContextType', ()))
-    ID2D1ColorContext1.GetDXGIColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,)(8, 'GetDXGIColorSpace', ()))
-    ID2D1ColorContext1.GetSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head))(9, 'GetSimpleColorProfile', ((1, 'simpleProfile'),)))
-    win32more.Graphics.Direct2D.ID2D1ColorContext
-    return ID2D1ColorContext1
-def _define_ID2D1CommandList_head():
-    class ID2D1CommandList(win32more.Graphics.Direct2D.ID2D1Image_head):
-        Guid = Guid('b4f34a19-2383-4d76-94-f6-ec-34-36-57-c3-dc')
-    return ID2D1CommandList
-def _define_ID2D1CommandList():
-    ID2D1CommandList = win32more.Graphics.Direct2D.ID2D1CommandList_head
-    ID2D1CommandList.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1CommandSink_head)(4, 'Stream', ((1, 'sink'),)))
-    ID2D1CommandList.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Close', ()))
-    win32more.Graphics.Direct2D.ID2D1Image
-    return ID2D1CommandList
-def _define_ID2D1CommandSink_head():
-    class ID2D1CommandSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('54d7898a-a061-40a7-be-c7-e4-65-bc-ba-2c-4f')
-    return ID2D1CommandSink
-def _define_ID2D1CommandSink():
-    ID2D1CommandSink = win32more.Graphics.Direct2D.ID2D1CommandSink_head
-    ID2D1CommandSink.BeginDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'BeginDraw', ()))
-    ID2D1CommandSink.EndDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'EndDraw', ()))
-    ID2D1CommandSink.SetAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE)(5, 'SetAntialiasMode', ((1, 'antialiasMode'),)))
-    ID2D1CommandSink.SetTags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64)(6, 'SetTags', ((1, 'tag1'),(1, 'tag2'),)))
-    ID2D1CommandSink.SetTextAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE)(7, 'SetTextAntialiasMode', ((1, 'textAntialiasMode'),)))
-    ID2D1CommandSink.SetTextRenderingParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head)(8, 'SetTextRenderingParams', ((1, 'textRenderingParams'),)))
-    ID2D1CommandSink.SetTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(9, 'SetTransform', ((1, 'transform'),)))
-    ID2D1CommandSink.SetPrimitiveBlend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND)(10, 'SetPrimitiveBlend', ((1, 'primitiveBlend'),)))
-    ID2D1CommandSink.SetUnitMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_UNIT_MODE)(11, 'SetUnitMode', ((1, 'unitMode'),)))
-    ID2D1CommandSink.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(12, 'Clear', ((1, 'color'),)))
-    ID2D1CommandSink.DrawGlyphRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(13, 'DrawGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'glyphRunDescription'),(1, 'foregroundBrush'),(1, 'measuringMode'),)))
-    ID2D1CommandSink.DrawLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(14, 'DrawLine', ((1, 'point0'),(1, 'point1'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1CommandSink.DrawGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(15, 'DrawGeometry', ((1, 'geometry'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1CommandSink.DrawRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(16, 'DrawRectangle', ((1, 'rect'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1CommandSink.DrawBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),Single,win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head))(17, 'DrawBitmap', ((1, 'bitmap'),(1, 'destinationRectangle'),(1, 'opacity'),(1, 'interpolationMode'),(1, 'sourceRectangle'),(1, 'perspectiveTransform'),)))
-    ID2D1CommandSink.DrawImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,win32more.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE)(18, 'DrawImage', ((1, 'image'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),(1, 'compositeMode'),)))
-    ID2D1CommandSink.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head))(19, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'targetOffset'),)))
-    ID2D1CommandSink.FillMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Mesh_head,win32more.Graphics.Direct2D.ID2D1Brush_head)(20, 'FillMesh', ((1, 'mesh'),(1, 'brush'),)))
-    ID2D1CommandSink.FillOpacityMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.ID2D1Brush_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(21, 'FillOpacityMask', ((1, 'opacityMask'),(1, 'brush'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
-    ID2D1CommandSink.FillGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1Brush_head)(22, 'FillGeometry', ((1, 'geometry'),(1, 'brush'),(1, 'opacityBrush'),)))
-    ID2D1CommandSink.FillRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head)(23, 'FillRectangle', ((1, 'rect'),(1, 'brush'),)))
-    ID2D1CommandSink.PushAxisAlignedClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE)(24, 'PushAxisAlignedClip', ((1, 'clipRect'),(1, 'antialiasMode'),)))
-    ID2D1CommandSink.PushLayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head),win32more.Graphics.Direct2D.ID2D1Layer_head)(25, 'PushLayer', ((1, 'layerParameters1'),(1, 'layer'),)))
-    ID2D1CommandSink.PopAxisAlignedClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(26, 'PopAxisAlignedClip', ()))
-    ID2D1CommandSink.PopLayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(27, 'PopLayer', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1CommandSink
-def _define_ID2D1CommandSink1_head():
-    class ID2D1CommandSink1(win32more.Graphics.Direct2D.ID2D1CommandSink_head):
-        Guid = Guid('9eb767fd-4269-4467-b8-c2-eb-30-cb-30-57-43')
-    return ID2D1CommandSink1
-def _define_ID2D1CommandSink1():
-    ID2D1CommandSink1 = win32more.Graphics.Direct2D.ID2D1CommandSink1_head
-    ID2D1CommandSink1.SetPrimitiveBlend1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND)(28, 'SetPrimitiveBlend1', ((1, 'primitiveBlend'),)))
-    win32more.Graphics.Direct2D.ID2D1CommandSink
-    return ID2D1CommandSink1
-def _define_ID2D1CommandSink2_head():
-    class ID2D1CommandSink2(win32more.Graphics.Direct2D.ID2D1CommandSink1_head):
-        Guid = Guid('3bab440e-417e-47df-a2-e2-bc-0b-e6-a0-09-16')
-    return ID2D1CommandSink2
-def _define_ID2D1CommandSink2():
-    ID2D1CommandSink2 = win32more.Graphics.Direct2D.ID2D1CommandSink2_head
-    ID2D1CommandSink2.DrawInk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Ink_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1InkStyle_head)(29, 'DrawInk', ((1, 'ink'),(1, 'brush'),(1, 'inkStyle'),)))
-    ID2D1CommandSink2.DrawGradientMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GradientMesh_head)(30, 'DrawGradientMesh', ((1, 'gradientMesh'),)))
-    ID2D1CommandSink2.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(31, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
-    win32more.Graphics.Direct2D.ID2D1CommandSink1
-    return ID2D1CommandSink2
-def _define_ID2D1CommandSink3_head():
-    class ID2D1CommandSink3(win32more.Graphics.Direct2D.ID2D1CommandSink2_head):
-        Guid = Guid('18079135-4cf3-4868-bc-8e-06-06-7e-6d-24-2d')
-    return ID2D1CommandSink3
-def _define_ID2D1CommandSink3():
-    ID2D1CommandSink3 = win32more.Graphics.Direct2D.ID2D1CommandSink3_head
-    ID2D1CommandSink3.DrawSpriteBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SpriteBatch_head,UInt32,UInt32,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS)(32, 'DrawSpriteBatch', ((1, 'spriteBatch'),(1, 'startIndex'),(1, 'spriteCount'),(1, 'bitmap'),(1, 'interpolationMode'),(1, 'spriteOptions'),)))
-    win32more.Graphics.Direct2D.ID2D1CommandSink2
-    return ID2D1CommandSink3
-def _define_ID2D1CommandSink4_head():
-    class ID2D1CommandSink4(win32more.Graphics.Direct2D.ID2D1CommandSink3_head):
-        Guid = Guid('c78a6519-40d6-4218-b2-de-be-ee-b7-44-bb-3e')
-    return ID2D1CommandSink4
-def _define_ID2D1CommandSink4():
-    ID2D1CommandSink4 = win32more.Graphics.Direct2D.ID2D1CommandSink4_head
-    ID2D1CommandSink4.SetPrimitiveBlend2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND)(33, 'SetPrimitiveBlend2', ((1, 'primitiveBlend'),)))
-    win32more.Graphics.Direct2D.ID2D1CommandSink3
-    return ID2D1CommandSink4
-def _define_ID2D1CommandSink5_head():
-    class ID2D1CommandSink5(win32more.Graphics.Direct2D.ID2D1CommandSink4_head):
-        Guid = Guid('7047dd26-b1e7-44a7-95-9a-83-49-e2-14-4f-a8')
-    return ID2D1CommandSink5
-def _define_ID2D1CommandSink5():
-    ID2D1CommandSink5 = win32more.Graphics.Direct2D.ID2D1CommandSink5_head
-    ID2D1CommandSink5.BlendImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE)(34, 'BlendImage', ((1, 'image'),(1, 'blendMode'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),)))
-    win32more.Graphics.Direct2D.ID2D1CommandSink4
-    return ID2D1CommandSink5
-def _define_ID2D1ComputeInfo_head():
-    class ID2D1ComputeInfo(win32more.Graphics.Direct2D.ID2D1RenderInfo_head):
-        Guid = Guid('5598b14b-9fd7-48b7-9b-db-8f-09-64-eb-38-bc')
-    return ID2D1ComputeInfo
-def _define_ID2D1ComputeInfo():
-    ID2D1ComputeInfo = win32more.Graphics.Direct2D.ID2D1ComputeInfo_head
-    ID2D1ComputeInfo.SetComputeShaderConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(7, 'SetComputeShaderConstantBuffer', ((1, 'buffer'),(1, 'bufferCount'),)))
-    ID2D1ComputeInfo.SetComputeShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'SetComputeShader', ((1, 'shaderId'),)))
-    ID2D1ComputeInfo.SetResourceTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.ID2D1ResourceTexture_head)(9, 'SetResourceTexture', ((1, 'textureIndex'),(1, 'resourceTexture'),)))
-    win32more.Graphics.Direct2D.ID2D1RenderInfo
-    return ID2D1ComputeInfo
-def _define_ID2D1ComputeTransform_head():
-    class ID2D1ComputeTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
-        Guid = Guid('0d85573c-01e3-4f7d-bf-d9-0d-60-60-8b-f3-c3')
-    return ID2D1ComputeTransform
-def _define_ID2D1ComputeTransform():
-    ID2D1ComputeTransform = win32more.Graphics.Direct2D.ID2D1ComputeTransform_head
-    ID2D1ComputeTransform.SetComputeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1ComputeInfo_head)(7, 'SetComputeInfo', ((1, 'computeInfo'),)))
-    ID2D1ComputeTransform.CalculateThreadgroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(8, 'CalculateThreadgroups', ((1, 'outputRect'),(1, 'dimensionX'),(1, 'dimensionY'),(1, 'dimensionZ'),)))
-    win32more.Graphics.Direct2D.ID2D1Transform
-    return ID2D1ComputeTransform
-def _define_ID2D1ConcreteTransform_head():
-    class ID2D1ConcreteTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
-        Guid = Guid('1a799d8a-69f7-4e4c-9f-ed-43-7c-cc-66-84-cc')
-    return ID2D1ConcreteTransform
-def _define_ID2D1ConcreteTransform():
-    ID2D1ConcreteTransform = win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head
-    ID2D1ConcreteTransform.SetOutputBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH)(4, 'SetOutputBuffer', ((1, 'bufferPrecision'),(1, 'channelDepth'),)))
-    ID2D1ConcreteTransform.SetCached = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(5, 'SetCached', ((1, 'isCached'),)))
-    win32more.Graphics.Direct2D.ID2D1TransformNode
-    return ID2D1ConcreteTransform
-def _define_ID2D1DCRenderTarget_head():
-    class ID2D1DCRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
-        Guid = Guid('1c51bc64-de61-46fd-98-99-63-a5-d8-f0-39-50')
-    return ID2D1DCRenderTarget
-def _define_ID2D1DCRenderTarget():
-    ID2D1DCRenderTarget = win32more.Graphics.Direct2D.ID2D1DCRenderTarget_head
-    ID2D1DCRenderTarget.BindDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head))(57, 'BindDC', ((1, 'hDC'),(1, 'pSubRect'),)))
-    win32more.Graphics.Direct2D.ID2D1RenderTarget
-    return ID2D1DCRenderTarget
-def _define_ID2D1Device_head():
-    class ID2D1Device(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('47dd575d-ac05-4cdd-80-49-9b-02-cd-16-f4-4c')
-    return ID2D1Device
-def _define_ID2D1Device():
-    ID2D1Device = win32more.Graphics.Direct2D.ID2D1Device_head
-    ID2D1Device.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext_head))(4, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext'),)))
-    ID2D1Device.CreatePrintControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICImagingFactory_head,win32more.Storage.Xps.Printing.IPrintDocumentPackageTarget_head,POINTER(win32more.Graphics.Direct2D.D2D1_PRINT_CONTROL_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1PrintControl_head))(5, 'CreatePrintControl', ((1, 'wicFactory'),(1, 'documentTarget'),(1, 'printControlProperties'),(1, 'printControl'),)))
-    ID2D1Device.SetMaximumTextureMemory = COMMETHOD(WINFUNCTYPE(Void,UInt64)(6, 'SetMaximumTextureMemory', ((1, 'maximumInBytes'),)))
-    ID2D1Device.GetMaximumTextureMemory = COMMETHOD(WINFUNCTYPE(UInt64,)(7, 'GetMaximumTextureMemory', ()))
-    ID2D1Device.ClearResources = COMMETHOD(WINFUNCTYPE(Void,UInt32)(8, 'ClearResources', ((1, 'millisecondsSinceUse'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Device
-def _define_ID2D1Device1_head():
-    class ID2D1Device1(win32more.Graphics.Direct2D.ID2D1Device_head):
-        Guid = Guid('d21768e1-23a4-4823-a1-4b-7c-3e-ba-85-d6-58')
-    return ID2D1Device1
-def _define_ID2D1Device1():
-    ID2D1Device1 = win32more.Graphics.Direct2D.ID2D1Device1_head
-    ID2D1Device1.GetRenderingPriority = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY,)(9, 'GetRenderingPriority', ()))
-    ID2D1Device1.SetRenderingPriority = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY)(10, 'SetRenderingPriority', ((1, 'renderingPriority'),)))
-    ID2D1Device1.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext1_head))(11, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext1'),)))
-    win32more.Graphics.Direct2D.ID2D1Device
-    return ID2D1Device1
-def _define_ID2D1Device2_head():
-    class ID2D1Device2(win32more.Graphics.Direct2D.ID2D1Device1_head):
-        Guid = Guid('a44472e1-8dfb-4e60-84-92-6e-28-61-c9-ca-8b')
-    return ID2D1Device2
-def _define_ID2D1Device2():
-    ID2D1Device2 = win32more.Graphics.Direct2D.ID2D1Device2_head
-    ID2D1Device2.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext2_head))(12, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext2'),)))
-    ID2D1Device2.FlushDeviceContexts = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head)(13, 'FlushDeviceContexts', ((1, 'bitmap'),)))
-    ID2D1Device2.GetDxgiDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIDevice_head))(14, 'GetDxgiDevice', ((1, 'dxgiDevice'),)))
-    win32more.Graphics.Direct2D.ID2D1Device1
-    return ID2D1Device2
-def _define_ID2D1Device3_head():
-    class ID2D1Device3(win32more.Graphics.Direct2D.ID2D1Device2_head):
-        Guid = Guid('852f2087-802c-4037-ab-60-ff-2e-7e-e6-fc-01')
-    return ID2D1Device3
-def _define_ID2D1Device3():
-    ID2D1Device3 = win32more.Graphics.Direct2D.ID2D1Device3_head
-    ID2D1Device3.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext3_head))(15, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext3'),)))
-    win32more.Graphics.Direct2D.ID2D1Device2
-    return ID2D1Device3
-def _define_ID2D1Device4_head():
-    class ID2D1Device4(win32more.Graphics.Direct2D.ID2D1Device3_head):
-        Guid = Guid('d7bdb159-5683-4a46-bc-9c-72-dc-72-0b-85-8b')
-    return ID2D1Device4
-def _define_ID2D1Device4():
-    ID2D1Device4 = win32more.Graphics.Direct2D.ID2D1Device4_head
-    ID2D1Device4.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext4_head))(16, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext4'),)))
-    ID2D1Device4.SetMaximumColorGlyphCacheMemory = COMMETHOD(WINFUNCTYPE(Void,UInt64)(17, 'SetMaximumColorGlyphCacheMemory', ((1, 'maximumInBytes'),)))
-    ID2D1Device4.GetMaximumColorGlyphCacheMemory = COMMETHOD(WINFUNCTYPE(UInt64,)(18, 'GetMaximumColorGlyphCacheMemory', ()))
-    win32more.Graphics.Direct2D.ID2D1Device3
-    return ID2D1Device4
-def _define_ID2D1Device5_head():
-    class ID2D1Device5(win32more.Graphics.Direct2D.ID2D1Device4_head):
-        Guid = Guid('d55ba0a4-6405-4694-ae-f5-08-ee-1a-43-58-b4')
-    return ID2D1Device5
-def _define_ID2D1Device5():
-    ID2D1Device5 = win32more.Graphics.Direct2D.ID2D1Device5_head
-    ID2D1Device5.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext5_head))(19, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext5'),)))
-    win32more.Graphics.Direct2D.ID2D1Device4
-    return ID2D1Device5
-def _define_ID2D1Device6_head():
-    class ID2D1Device6(win32more.Graphics.Direct2D.ID2D1Device5_head):
-        Guid = Guid('7bfef914-2d75-4bad-be-87-e1-8d-db-07-7b-6d')
-    return ID2D1Device6
-def _define_ID2D1Device6():
-    ID2D1Device6 = win32more.Graphics.Direct2D.ID2D1Device6_head
-    ID2D1Device6.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext6_head))(20, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext6'),)))
-    win32more.Graphics.Direct2D.ID2D1Device5
-    return ID2D1Device6
-def _define_ID2D1DeviceContext_head():
-    class ID2D1DeviceContext(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
-        Guid = Guid('e8f7fe7a-191c-466d-ad-95-97-56-78-bd-a9-98')
-    return ID2D1DeviceContext
-def _define_ID2D1DeviceContext():
-    ID2D1DeviceContext = win32more.Graphics.Direct2D.ID2D1DeviceContext_head
-    ID2D1DeviceContext.CreateBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_SIZE_U,c_void_p,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head))(57, 'CreateBitmap', ((1, 'size'),(1, 'sourceData'),(1, 'pitch'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1DeviceContext.CreateBitmapFromWicBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head))(58, 'CreateBitmapFromWicBitmap', ((1, 'wicBitmapSource'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1DeviceContext.CreateColorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,c_char_p_no,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(59, 'CreateColorContext', ((1, 'space'),(1, 'profile'),(1, 'profileSize'),(1, 'colorContext'),)))
-    ID2D1DeviceContext.CreateColorContextFromFilename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(60, 'CreateColorContextFromFilename', ((1, 'filename'),(1, 'colorContext'),)))
-    ID2D1DeviceContext.CreateColorContextFromWicColorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICColorContext_head,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(61, 'CreateColorContextFromWicColorContext', ((1, 'wicColorContext'),(1, 'colorContext'),)))
-    ID2D1DeviceContext.CreateBitmapFromDxgiSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head))(62, 'CreateBitmapFromDxgiSurface', ((1, 'surface'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1DeviceContext.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1Effect_head))(63, 'CreateEffect', ((1, 'effectId'),(1, 'effect'),)))
-    ID2D1DeviceContext.CreateGradientStopCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head),UInt32,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,win32more.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection1_head))(64, 'CreateGradientStopCollection', ((1, 'straightAlphaGradientStops'),(1, 'straightAlphaGradientStopsCount'),(1, 'preInterpolationSpace'),(1, 'postInterpolationSpace'),(1, 'bufferPrecision'),(1, 'extendMode'),(1, 'colorInterpolationMode'),(1, 'gradientStopCollection1'),)))
-    ID2D1DeviceContext.CreateImageBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,POINTER(win32more.Graphics.Direct2D.D2D1_IMAGE_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1ImageBrush_head))(65, 'CreateImageBrush', ((1, 'image'),(1, 'imageBrushProperties'),(1, 'brushProperties'),(1, 'imageBrush'),)))
-    ID2D1DeviceContext.CreateBitmapBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES1_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1BitmapBrush1_head))(66, 'CreateBitmapBrush', ((1, 'bitmap'),(1, 'bitmapBrushProperties'),(1, 'brushProperties'),(1, 'bitmapBrush'),)))
-    ID2D1DeviceContext.CreateCommandList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1CommandList_head))(67, 'CreateCommandList', ((1, 'commandList'),)))
-    ID2D1DeviceContext.IsDxgiFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Dxgi.Common.DXGI_FORMAT)(68, 'IsDxgiFormatSupported', ((1, 'format'),)))
-    ID2D1DeviceContext.IsBufferPrecisionSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION)(69, 'IsBufferPrecisionSupported', ((1, 'bufferPrecision'),)))
-    ID2D1DeviceContext.GetImageLocalBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(70, 'GetImageLocalBounds', ((1, 'image'),(1, 'localBounds'),)))
-    ID2D1DeviceContext.GetImageWorldBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(71, 'GetImageWorldBounds', ((1, 'image'),(1, 'worldBounds'),)))
-    ID2D1DeviceContext.GetGlyphRunWorldBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(72, 'GetGlyphRunWorldBounds', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'measuringMode'),(1, 'bounds'),)))
-    ID2D1DeviceContext.GetDevice = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Device_head))(73, 'GetDevice', ((1, 'device'),)))
-    ID2D1DeviceContext.SetTarget = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Image_head)(74, 'SetTarget', ((1, 'image'),)))
-    ID2D1DeviceContext.GetTarget = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head))(75, 'GetTarget', ((1, 'image'),)))
-    ID2D1DeviceContext.SetRenderingControls = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_RENDERING_CONTROLS_head))(76, 'SetRenderingControls', ((1, 'renderingControls'),)))
-    ID2D1DeviceContext.GetRenderingControls = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_RENDERING_CONTROLS_head))(77, 'GetRenderingControls', ((1, 'renderingControls'),)))
-    ID2D1DeviceContext.SetPrimitiveBlend = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND)(78, 'SetPrimitiveBlend', ((1, 'primitiveBlend'),)))
-    ID2D1DeviceContext.GetPrimitiveBlend = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND,)(79, 'GetPrimitiveBlend', ()))
-    ID2D1DeviceContext.SetUnitMode = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_UNIT_MODE)(80, 'SetUnitMode', ((1, 'unitMode'),)))
-    ID2D1DeviceContext.GetUnitMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_UNIT_MODE,)(81, 'GetUnitMode', ()))
-    ID2D1DeviceContext.DrawGlyphRun = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(82, 'DrawGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'glyphRunDescription'),(1, 'foregroundBrush'),(1, 'measuringMode'),)))
-    ID2D1DeviceContext.DrawImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Image_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,win32more.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE)(83, 'DrawImage', ((1, 'image'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),(1, 'compositeMode'),)))
-    ID2D1DeviceContext.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head))(84, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'targetOffset'),)))
-    ID2D1DeviceContext.DrawBitmap = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),Single,win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head))(85, 'DrawBitmap', ((1, 'bitmap'),(1, 'destinationRectangle'),(1, 'opacity'),(1, 'interpolationMode'),(1, 'sourceRectangle'),(1, 'perspectiveTransform'),)))
-    ID2D1DeviceContext.PushLayer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head),win32more.Graphics.Direct2D.ID2D1Layer_head)(86, 'PushLayer', ((1, 'layerParameters'),(1, 'layer'),)))
-    ID2D1DeviceContext.InvalidateEffectInputRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(87, 'InvalidateEffectInputRectangle', ((1, 'effect'),(1, 'input'),(1, 'inputRectangle'),)))
-    ID2D1DeviceContext.GetEffectInvalidRectangleCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(UInt32))(88, 'GetEffectInvalidRectangleCount', ((1, 'effect'),(1, 'rectangleCount'),)))
-    ID2D1DeviceContext.GetEffectInvalidRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),UInt32)(89, 'GetEffectInvalidRectangles', ((1, 'effect'),(1, 'rectangles'),(1, 'rectanglesCount'),)))
-    ID2D1DeviceContext.GetEffectRequiredInputRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.D2D1_EFFECT_INPUT_DESCRIPTION_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),UInt32)(90, 'GetEffectRequiredInputRectangles', ((1, 'renderEffect'),(1, 'renderImageRectangle'),(1, 'inputDescriptions'),(1, 'requiredInputRects'),(1, 'inputCount'),)))
-    ID2D1DeviceContext.FillOpacityMask = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.ID2D1Brush_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(91, 'FillOpacityMask', ((1, 'opacityMask'),(1, 'brush'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
-    win32more.Graphics.Direct2D.ID2D1RenderTarget
-    return ID2D1DeviceContext
-def _define_ID2D1DeviceContext1_head():
-    class ID2D1DeviceContext1(win32more.Graphics.Direct2D.ID2D1DeviceContext_head):
-        Guid = Guid('d37f57e4-6908-459f-a1-99-e7-2f-24-f7-99-87')
-    return ID2D1DeviceContext1
-def _define_ID2D1DeviceContext1():
-    ID2D1DeviceContext1 = win32more.Graphics.Direct2D.ID2D1DeviceContext1_head
-    ID2D1DeviceContext1.CreateFilledGeometryRealization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,Single,POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head))(92, 'CreateFilledGeometryRealization', ((1, 'geometry'),(1, 'flatteningTolerance'),(1, 'geometryRealization'),)))
-    ID2D1DeviceContext1.CreateStrokedGeometryRealization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,Single,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head))(93, 'CreateStrokedGeometryRealization', ((1, 'geometry'),(1, 'flatteningTolerance'),(1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'geometryRealization'),)))
-    ID2D1DeviceContext1.DrawGeometryRealization = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GeometryRealization_head,win32more.Graphics.Direct2D.ID2D1Brush_head)(94, 'DrawGeometryRealization', ((1, 'geometryRealization'),(1, 'brush'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext
-    return ID2D1DeviceContext1
-def _define_ID2D1DeviceContext2_head():
-    class ID2D1DeviceContext2(win32more.Graphics.Direct2D.ID2D1DeviceContext1_head):
-        Guid = Guid('394ea6a3-0c34-4321-95-0b-6c-a2-0f-0b-e6-c7')
-    return ID2D1DeviceContext2
-def _define_ID2D1DeviceContext2():
-    ID2D1DeviceContext2 = win32more.Graphics.Direct2D.ID2D1DeviceContext2_head
-    ID2D1DeviceContext2.CreateInk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_INK_POINT_head),POINTER(win32more.Graphics.Direct2D.ID2D1Ink_head))(95, 'CreateInk', ((1, 'startPoint'),(1, 'ink'),)))
-    ID2D1DeviceContext2.CreateInkStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_INK_STYLE_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1InkStyle_head))(96, 'CreateInkStyle', ((1, 'inkStyleProperties'),(1, 'inkStyle'),)))
-    ID2D1DeviceContext2.CreateGradientMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1GradientMesh_head))(97, 'CreateGradientMesh', ((1, 'patches'),(1, 'patchesCount'),(1, 'gradientMesh'),)))
-    ID2D1DeviceContext2.CreateImageSourceFromWic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,win32more.Graphics.Direct2D.D2D1_IMAGE_SOURCE_LOADING_OPTIONS,win32more.Graphics.Direct2D.Common.D2D1_ALPHA_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1ImageSourceFromWic_head))(98, 'CreateImageSourceFromWic', ((1, 'wicBitmapSource'),(1, 'loadingOptions'),(1, 'alphaMode'),(1, 'imageSource'),)))
-    ID2D1DeviceContext2.CreateLookupTable3D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,POINTER(UInt32),c_char_p_no,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Direct2D.ID2D1LookupTable3D_head))(99, 'CreateLookupTable3D', ((1, 'precision'),(1, 'extents'),(1, 'data'),(1, 'dataCount'),(1, 'strides'),(1, 'lookupTable'),)))
-    ID2D1DeviceContext2.CreateImageSourceFromDxgi = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGISurface_head),UInt32,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,win32more.Graphics.Direct2D.D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1ImageSource_head))(100, 'CreateImageSourceFromDxgi', ((1, 'surfaces'),(1, 'surfaceCount'),(1, 'colorSpace'),(1, 'options'),(1, 'imageSource'),)))
-    ID2D1DeviceContext2.GetGradientMeshWorldBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GradientMesh_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(101, 'GetGradientMeshWorldBounds', ((1, 'gradientMesh'),(1, 'pBounds'),)))
-    ID2D1DeviceContext2.DrawInk = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Ink_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1InkStyle_head)(102, 'DrawInk', ((1, 'ink'),(1, 'brush'),(1, 'inkStyle'),)))
-    ID2D1DeviceContext2.DrawGradientMesh = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GradientMesh_head)(103, 'DrawGradientMesh', ((1, 'gradientMesh'),)))
-    ID2D1DeviceContext2.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(104, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
-    ID2D1DeviceContext2.CreateTransformedImageSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1ImageSource_head,POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1TransformedImageSource_head))(105, 'CreateTransformedImageSource', ((1, 'imageSource'),(1, 'properties'),(1, 'transformedImageSource'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext1
-    return ID2D1DeviceContext2
-def _define_ID2D1DeviceContext3_head():
-    class ID2D1DeviceContext3(win32more.Graphics.Direct2D.ID2D1DeviceContext2_head):
-        Guid = Guid('235a7496-8351-414c-bc-d4-66-72-ab-2d-8e-00')
-    return ID2D1DeviceContext3
-def _define_ID2D1DeviceContext3():
-    ID2D1DeviceContext3 = win32more.Graphics.Direct2D.ID2D1DeviceContext3_head
-    ID2D1DeviceContext3.CreateSpriteBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1SpriteBatch_head))(106, 'CreateSpriteBatch', ((1, 'spriteBatch'),)))
-    ID2D1DeviceContext3.DrawSpriteBatch = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1SpriteBatch_head,UInt32,UInt32,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS)(107, 'DrawSpriteBatch', ((1, 'spriteBatch'),(1, 'startIndex'),(1, 'spriteCount'),(1, 'bitmap'),(1, 'interpolationMode'),(1, 'spriteOptions'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext2
-    return ID2D1DeviceContext3
-def _define_ID2D1DeviceContext4_head():
-    class ID2D1DeviceContext4(win32more.Graphics.Direct2D.ID2D1DeviceContext3_head):
-        Guid = Guid('8c427831-3d90-4476-b6-47-c4-fa-e3-49-e4-db')
-    return ID2D1DeviceContext4
-def _define_ID2D1DeviceContext4():
-    ID2D1DeviceContext4 = win32more.Graphics.Direct2D.ID2D1DeviceContext4_head
-    ID2D1DeviceContext4.CreateSvgGlyphStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head))(108, 'CreateSvgGlyphStyle', ((1, 'svgGlyphStyle'),)))
-    ID2D1DeviceContext4.DrawText = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR,UInt32,win32more.Graphics.DirectWrite.IDWriteTextFormat_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(109, 'DrawText', ((1, 'string'),(1, 'stringLength'),(1, 'textFormat'),(1, 'layoutRect'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'options'),(1, 'measuringMode'),)))
-    ID2D1DeviceContext4.DrawTextLayout = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteTextLayout_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS)(110, 'DrawTextLayout', ((1, 'origin'),(1, 'textLayout'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'options'),)))
-    ID2D1DeviceContext4.DrawColorBitmapGlyphRun = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,win32more.Graphics.Direct2D.D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION)(111, 'DrawColorBitmapGlyphRun', ((1, 'glyphImageFormat'),(1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'measuringMode'),(1, 'bitmapSnapOption'),)))
-    ID2D1DeviceContext4.DrawSvgGlyphRun = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(112, 'DrawSvgGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'measuringMode'),)))
-    ID2D1DeviceContext4.GetColorBitmapGlyphImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,UInt16,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1Image_head))(113, 'GetColorBitmapGlyphImage', ((1, 'glyphImageFormat'),(1, 'glyphOrigin'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'glyphIndex'),(1, 'isSideways'),(1, 'worldTransform'),(1, 'dpiX'),(1, 'dpiY'),(1, 'glyphTransform'),(1, 'glyphImage'),)))
-    ID2D1DeviceContext4.GetSvgGlyphImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,UInt16,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1CommandList_head))(114, 'GetSvgGlyphImage', ((1, 'glyphOrigin'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'glyphIndex'),(1, 'isSideways'),(1, 'worldTransform'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'glyphTransform'),(1, 'glyphImage'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext3
-    return ID2D1DeviceContext4
-def _define_ID2D1DeviceContext5_head():
-    class ID2D1DeviceContext5(win32more.Graphics.Direct2D.ID2D1DeviceContext4_head):
-        Guid = Guid('7836d248-68cc-4df6-b9-e8-de-99-1b-f6-2e-b7')
-    return ID2D1DeviceContext5
-def _define_ID2D1DeviceContext5():
-    ID2D1DeviceContext5 = win32more.Graphics.Direct2D.ID2D1DeviceContext5_head
-    ID2D1DeviceContext5.CreateSvgDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Graphics.Direct2D.Common.D2D_SIZE_F,POINTER(win32more.Graphics.Direct2D.ID2D1SvgDocument_head))(115, 'CreateSvgDocument', ((1, 'inputXmlStream'),(1, 'viewportSize'),(1, 'svgDocument'),)))
-    ID2D1DeviceContext5.DrawSvgDocument = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1SvgDocument_head)(116, 'DrawSvgDocument', ((1, 'svgDocument'),)))
-    ID2D1DeviceContext5.CreateColorContextFromDxgiColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head))(117, 'CreateColorContextFromDxgiColorSpace', ((1, 'colorSpace'),(1, 'colorContext'),)))
-    ID2D1DeviceContext5.CreateColorContextFromSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head),POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head))(118, 'CreateColorContextFromSimpleColorProfile', ((1, 'simpleProfile'),(1, 'colorContext'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext4
-    return ID2D1DeviceContext5
-def _define_ID2D1DeviceContext6_head():
-    class ID2D1DeviceContext6(win32more.Graphics.Direct2D.ID2D1DeviceContext5_head):
-        Guid = Guid('985f7e37-4ed0-4a19-98-a3-15-b0-ed-fd-e3-06')
-    return ID2D1DeviceContext6
-def _define_ID2D1DeviceContext6():
-    ID2D1DeviceContext6 = win32more.Graphics.Direct2D.ID2D1DeviceContext6_head
-    ID2D1DeviceContext6.BlendImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE)(119, 'BlendImage', ((1, 'image'),(1, 'blendMode'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),)))
-    win32more.Graphics.Direct2D.ID2D1DeviceContext5
-    return ID2D1DeviceContext6
-def _define_ID2D1DrawInfo_head():
-    class ID2D1DrawInfo(win32more.Graphics.Direct2D.ID2D1RenderInfo_head):
-        Guid = Guid('693ce632-7f2f-45de-93-fe-18-d8-8b-37-aa-21')
-    return ID2D1DrawInfo
-def _define_ID2D1DrawInfo():
-    ID2D1DrawInfo = win32more.Graphics.Direct2D.ID2D1DrawInfo_head
-    ID2D1DrawInfo.SetPixelShaderConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(7, 'SetPixelShaderConstantBuffer', ((1, 'buffer'),(1, 'bufferCount'),)))
-    ID2D1DrawInfo.SetResourceTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.ID2D1ResourceTexture_head)(8, 'SetResourceTexture', ((1, 'textureIndex'),(1, 'resourceTexture'),)))
-    ID2D1DrawInfo.SetVertexShaderConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(9, 'SetVertexShaderConstantBuffer', ((1, 'buffer'),(1, 'bufferCount'),)))
-    ID2D1DrawInfo.SetPixelShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Graphics.Direct2D.D2D1_PIXEL_OPTIONS)(10, 'SetPixelShader', ((1, 'shaderId'),(1, 'pixelOptions'),)))
-    ID2D1DrawInfo.SetVertexProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1VertexBuffer_head,win32more.Graphics.Direct2D.D2D1_VERTEX_OPTIONS,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head),POINTER(win32more.Graphics.Direct2D.D2D1_VERTEX_RANGE_head),POINTER(Guid))(11, 'SetVertexProcessing', ((1, 'vertexBuffer'),(1, 'vertexOptions'),(1, 'blendDescription'),(1, 'vertexRange'),(1, 'vertexShader'),)))
-    win32more.Graphics.Direct2D.ID2D1RenderInfo
-    return ID2D1DrawInfo
-def _define_ID2D1DrawingStateBlock_head():
-    class ID2D1DrawingStateBlock(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('28506e39-ebf6-46a1-bb-47-fd-85-56-5a-b9-57')
-    return ID2D1DrawingStateBlock
-def _define_ID2D1DrawingStateBlock():
-    ID2D1DrawingStateBlock = win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head
-    ID2D1DrawingStateBlock.GetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head))(4, 'GetDescription', ((1, 'stateDescription'),)))
-    ID2D1DrawingStateBlock.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head))(5, 'SetDescription', ((1, 'stateDescription'),)))
-    ID2D1DrawingStateBlock.SetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head)(6, 'SetTextRenderingParams', ((1, 'textRenderingParams'),)))
-    ID2D1DrawingStateBlock.GetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head))(7, 'GetTextRenderingParams', ((1, 'textRenderingParams'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1DrawingStateBlock
-def _define_ID2D1DrawingStateBlock1_head():
-    class ID2D1DrawingStateBlock1(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head):
-        Guid = Guid('689f1f85-c72e-4e33-8f-19-85-75-4e-fd-5a-ce')
-    return ID2D1DrawingStateBlock1
-def _define_ID2D1DrawingStateBlock1():
-    ID2D1DrawingStateBlock1 = win32more.Graphics.Direct2D.ID2D1DrawingStateBlock1_head
-    ID2D1DrawingStateBlock1.GetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head))(8, 'GetDescription', ((1, 'stateDescription'),)))
-    ID2D1DrawingStateBlock1.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head))(9, 'SetDescription', ((1, 'stateDescription'),)))
-    win32more.Graphics.Direct2D.ID2D1DrawingStateBlock
-    return ID2D1DrawingStateBlock1
-def _define_ID2D1DrawTransform_head():
-    class ID2D1DrawTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
-        Guid = Guid('36bfdcb6-9739-435d-a3-0d-a6-53-be-ff-6a-6f')
-    return ID2D1DrawTransform
-def _define_ID2D1DrawTransform():
-    ID2D1DrawTransform = win32more.Graphics.Direct2D.ID2D1DrawTransform_head
-    ID2D1DrawTransform.SetDrawInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1DrawInfo_head)(7, 'SetDrawInfo', ((1, 'drawInfo'),)))
-    win32more.Graphics.Direct2D.ID2D1Transform
-    return ID2D1DrawTransform
-def _define_ID2D1Effect_head():
-    class ID2D1Effect(win32more.Graphics.Direct2D.ID2D1Properties_head):
-        Guid = Guid('28211a43-7d89-476f-81-81-2d-61-59-b2-20-ad')
-    return ID2D1Effect
-def _define_ID2D1Effect():
-    ID2D1Effect = win32more.Graphics.Direct2D.ID2D1Effect_head
-    ID2D1Effect.SetInput = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Foundation.BOOL)(14, 'SetInput', ((1, 'index'),(1, 'input'),(1, 'invalidate'),)))
-    ID2D1Effect.SetInputCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(15, 'SetInputCount', ((1, 'inputCount'),)))
-    ID2D1Effect.GetInput = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head))(16, 'GetInput', ((1, 'index'),(1, 'input'),)))
-    ID2D1Effect.GetInputCount = COMMETHOD(WINFUNCTYPE(UInt32,)(17, 'GetInputCount', ()))
-    ID2D1Effect.GetOutput = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head))(18, 'GetOutput', ((1, 'outputImage'),)))
-    win32more.Graphics.Direct2D.ID2D1Properties
-    return ID2D1Effect
-def _define_ID2D1EffectContext_head():
-    class ID2D1EffectContext(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3d9f916b-27dc-4ad7-b4-f1-64-94-53-40-f5-63')
-    return ID2D1EffectContext
-def _define_ID2D1EffectContext():
-    ID2D1EffectContext = win32more.Graphics.Direct2D.ID2D1EffectContext_head
-    ID2D1EffectContext.GetDpi = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),POINTER(Single))(3, 'GetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1EffectContext.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1Effect_head))(4, 'CreateEffect', ((1, 'effectId'),(1, 'effect'),)))
-    ID2D1EffectContext.GetMaximumSupportedFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),UInt32,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL))(5, 'GetMaximumSupportedFeatureLevel', ((1, 'featureLevels'),(1, 'featureLevelsCount'),(1, 'maximumSupportedFeatureLevel'),)))
-    ID2D1EffectContext.CreateTransformNodeFromEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(win32more.Graphics.Direct2D.ID2D1TransformNode_head))(6, 'CreateTransformNodeFromEffect', ((1, 'effect'),(1, 'transformNode'),)))
-    ID2D1EffectContext.CreateBlendTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head),POINTER(win32more.Graphics.Direct2D.ID2D1BlendTransform_head))(7, 'CreateBlendTransform', ((1, 'numInputs'),(1, 'blendDescription'),(1, 'transform'),)))
-    ID2D1EffectContext.CreateBorderTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1BorderTransform_head))(8, 'CreateBorderTransform', ((1, 'extendModeX'),(1, 'extendModeY'),(1, 'transform'),)))
-    ID2D1EffectContext.CreateOffsetTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.Graphics.Direct2D.ID2D1OffsetTransform_head))(9, 'CreateOffsetTransform', ((1, 'offset'),(1, 'transform'),)))
-    ID2D1EffectContext.CreateBoundsAdjustmentTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Graphics.Direct2D.ID2D1BoundsAdjustmentTransform_head))(10, 'CreateBoundsAdjustmentTransform', ((1, 'outputRectangle'),(1, 'transform'),)))
-    ID2D1EffectContext.LoadPixelShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_char_p_no,UInt32)(11, 'LoadPixelShader', ((1, 'shaderId'),(1, 'shaderBuffer'),(1, 'shaderBufferCount'),)))
-    ID2D1EffectContext.LoadVertexShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_char_p_no,UInt32)(12, 'LoadVertexShader', ((1, 'resourceId'),(1, 'shaderBuffer'),(1, 'shaderBufferCount'),)))
-    ID2D1EffectContext.LoadComputeShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_char_p_no,UInt32)(13, 'LoadComputeShader', ((1, 'resourceId'),(1, 'shaderBuffer'),(1, 'shaderBufferCount'),)))
-    ID2D1EffectContext.IsShaderLoaded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Guid))(14, 'IsShaderLoaded', ((1, 'shaderId'),)))
-    ID2D1EffectContext.CreateResourceTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.D2D1_RESOURCE_TEXTURE_PROPERTIES_head),c_char_p_no,POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1ResourceTexture_head))(15, 'CreateResourceTexture', ((1, 'resourceId'),(1, 'resourceTextureProperties'),(1, 'data'),(1, 'strides'),(1, 'dataSize'),(1, 'resourceTexture'),)))
-    ID2D1EffectContext.FindResourceTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1ResourceTexture_head))(16, 'FindResourceTexture', ((1, 'resourceId'),(1, 'resourceTexture'),)))
-    ID2D1EffectContext.CreateVertexBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_VERTEX_BUFFER_PROPERTIES_head),POINTER(Guid),POINTER(win32more.Graphics.Direct2D.D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1VertexBuffer_head))(17, 'CreateVertexBuffer', ((1, 'vertexBufferProperties'),(1, 'resourceId'),(1, 'customVertexBufferProperties'),(1, 'buffer'),)))
-    ID2D1EffectContext.FindVertexBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1VertexBuffer_head))(18, 'FindVertexBuffer', ((1, 'resourceId'),(1, 'buffer'),)))
-    ID2D1EffectContext.CreateColorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,c_char_p_no,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(19, 'CreateColorContext', ((1, 'space'),(1, 'profile'),(1, 'profileSize'),(1, 'colorContext'),)))
-    ID2D1EffectContext.CreateColorContextFromFilename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(20, 'CreateColorContextFromFilename', ((1, 'filename'),(1, 'colorContext'),)))
-    ID2D1EffectContext.CreateColorContextFromWicColorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICColorContext_head,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head))(21, 'CreateColorContextFromWicColorContext', ((1, 'wicColorContext'),(1, 'colorContext'),)))
-    ID2D1EffectContext.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_FEATURE,c_void_p,UInt32)(22, 'CheckFeatureSupport', ((1, 'feature'),(1, 'featureSupportData'),(1, 'featureSupportDataSize'),)))
-    ID2D1EffectContext.IsBufferPrecisionSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION)(23, 'IsBufferPrecisionSupported', ((1, 'bufferPrecision'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1EffectContext
-def _define_ID2D1EffectContext1_head():
-    class ID2D1EffectContext1(win32more.Graphics.Direct2D.ID2D1EffectContext_head):
-        Guid = Guid('84ab595a-fc81-4546-ba-cd-e8-ef-4d-8a-be-7a')
-    return ID2D1EffectContext1
-def _define_ID2D1EffectContext1():
-    ID2D1EffectContext1 = win32more.Graphics.Direct2D.ID2D1EffectContext1_head
-    ID2D1EffectContext1.CreateLookupTable3D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,POINTER(UInt32),c_char_p_no,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Direct2D.ID2D1LookupTable3D_head))(24, 'CreateLookupTable3D', ((1, 'precision'),(1, 'extents'),(1, 'data'),(1, 'dataCount'),(1, 'strides'),(1, 'lookupTable'),)))
-    win32more.Graphics.Direct2D.ID2D1EffectContext
-    return ID2D1EffectContext1
-def _define_ID2D1EffectContext2_head():
-    class ID2D1EffectContext2(win32more.Graphics.Direct2D.ID2D1EffectContext1_head):
-        Guid = Guid('577ad2a0-9fc7-4dda-8b-18-da-b8-10-14-00-52')
-    return ID2D1EffectContext2
-def _define_ID2D1EffectContext2():
-    ID2D1EffectContext2 = win32more.Graphics.Direct2D.ID2D1EffectContext2_head
-    ID2D1EffectContext2.CreateColorContextFromDxgiColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head))(25, 'CreateColorContextFromDxgiColorSpace', ((1, 'colorSpace'),(1, 'colorContext'),)))
-    ID2D1EffectContext2.CreateColorContextFromSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head),POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head))(26, 'CreateColorContextFromSimpleColorProfile', ((1, 'simpleProfile'),(1, 'colorContext'),)))
-    win32more.Graphics.Direct2D.ID2D1EffectContext1
-    return ID2D1EffectContext2
-def _define_ID2D1EffectImpl_head():
-    class ID2D1EffectImpl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a248fd3f-3e6c-4e63-9f-03-7f-68-ec-c9-1d-b9')
-    return ID2D1EffectImpl
-def _define_ID2D1EffectImpl():
-    ID2D1EffectImpl = win32more.Graphics.Direct2D.ID2D1EffectImpl_head
-    ID2D1EffectImpl.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1EffectContext_head,win32more.Graphics.Direct2D.ID2D1TransformGraph_head)(3, 'Initialize', ((1, 'effectContext'),(1, 'transformGraph'),)))
-    ID2D1EffectImpl.PrepareForRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_CHANGE_TYPE)(4, 'PrepareForRender', ((1, 'changeType'),)))
-    ID2D1EffectImpl.SetGraph = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformGraph_head)(5, 'SetGraph', ((1, 'transformGraph'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1EffectImpl
-def _define_ID2D1EllipseGeometry_head():
-    class ID2D1EllipseGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906a4-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1EllipseGeometry
-def _define_ID2D1EllipseGeometry():
-    ID2D1EllipseGeometry = win32more.Graphics.Direct2D.ID2D1EllipseGeometry_head
-    ID2D1EllipseGeometry.GetEllipse = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head))(17, 'GetEllipse', ((1, 'ellipse'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1EllipseGeometry
-def _define_ID2D1Factory_head():
-    class ID2D1Factory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('06152247-6f50-465a-92-45-11-8b-fd-3b-60-07')
-    return ID2D1Factory
-def _define_ID2D1Factory():
-    ID2D1Factory = win32more.Graphics.Direct2D.ID2D1Factory_head
-    ID2D1Factory.ReloadSystemMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ReloadSystemMetrics', ()))
-    ID2D1Factory.GetDesktopDpi = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),POINTER(Single))(4, 'GetDesktopDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1Factory.CreateRectangleGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1RectangleGeometry_head))(5, 'CreateRectangleGeometry', ((1, 'rectangle'),(1, 'rectangleGeometry'),)))
-    ID2D1Factory.CreateRoundedRectangleGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head),POINTER(win32more.Graphics.Direct2D.ID2D1RoundedRectangleGeometry_head))(6, 'CreateRoundedRectangleGeometry', ((1, 'roundedRectangle'),(1, 'roundedRectangleGeometry'),)))
-    ID2D1Factory.CreateEllipseGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head),POINTER(win32more.Graphics.Direct2D.ID2D1EllipseGeometry_head))(7, 'CreateEllipseGeometry', ((1, 'ellipse'),(1, 'ellipseGeometry'),)))
-    ID2D1Factory.CreateGeometryGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1GeometryGroup_head))(8, 'CreateGeometryGroup', ((1, 'fillMode'),(1, 'geometries'),(1, 'geometriesCount'),(1, 'geometryGroup'),)))
-    ID2D1Factory.CreateTransformedGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1TransformedGeometry_head))(9, 'CreateTransformedGeometry', ((1, 'sourceGeometry'),(1, 'transform'),(1, 'transformedGeometry'),)))
-    ID2D1Factory.CreatePathGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry_head))(10, 'CreatePathGeometry', ((1, 'pathGeometry'),)))
-    ID2D1Factory.CreateStrokeStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES_head),POINTER(Single),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1StrokeStyle_head))(11, 'CreateStrokeStyle', ((1, 'strokeStyleProperties'),(1, 'dashes'),(1, 'dashesCount'),(1, 'strokeStyle'),)))
-    ID2D1Factory.CreateDrawingStateBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head),win32more.Graphics.DirectWrite.IDWriteRenderingParams_head,POINTER(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head))(12, 'CreateDrawingStateBlock', ((1, 'drawingStateDescription'),(1, 'textRenderingParams'),(1, 'drawingStateBlock'),)))
-    ID2D1Factory.CreateWicBitmapRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmap_head,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1RenderTarget_head))(13, 'CreateWicBitmapRenderTarget', ((1, 'target'),(1, 'renderTargetProperties'),(1, 'renderTarget'),)))
-    ID2D1Factory.CreateHwndRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_HWND_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1HwndRenderTarget_head))(14, 'CreateHwndRenderTarget', ((1, 'renderTargetProperties'),(1, 'hwndRenderTargetProperties'),(1, 'hwndRenderTarget'),)))
-    ID2D1Factory.CreateDxgiSurfaceRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1RenderTarget_head))(15, 'CreateDxgiSurfaceRenderTarget', ((1, 'dxgiSurface'),(1, 'renderTargetProperties'),(1, 'renderTarget'),)))
-    ID2D1Factory.CreateDCRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1DCRenderTarget_head))(16, 'CreateDCRenderTarget', ((1, 'renderTargetProperties'),(1, 'dcRenderTarget'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1Factory
-def _define_ID2D1Factory1_head():
-    class ID2D1Factory1(win32more.Graphics.Direct2D.ID2D1Factory_head):
-        Guid = Guid('bb12d362-daee-4b9a-aa-1d-14-ba-40-1c-fa-1f')
-    return ID2D1Factory1
-def _define_ID2D1Factory1():
-    ID2D1Factory1 = win32more.Graphics.Direct2D.ID2D1Factory1_head
-    ID2D1Factory1.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device_head))(17, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice'),)))
-    ID2D1Factory1.CreateStrokeStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES1_head),POINTER(Single),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1StrokeStyle1_head))(18, 'CreateStrokeStyle', ((1, 'strokeStyleProperties'),(1, 'dashes'),(1, 'dashesCount'),(1, 'strokeStyle'),)))
-    ID2D1Factory1.CreatePathGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry1_head))(19, 'CreatePathGeometry', ((1, 'pathGeometry'),)))
-    ID2D1Factory1.CreateDrawingStateBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head),win32more.Graphics.DirectWrite.IDWriteRenderingParams_head,POINTER(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock1_head))(20, 'CreateDrawingStateBlock', ((1, 'drawingStateDescription'),(1, 'textRenderingParams'),(1, 'drawingStateBlock'),)))
-    ID2D1Factory1.CreateGdiMetafile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Graphics.Direct2D.ID2D1GdiMetafile_head))(21, 'CreateGdiMetafile', ((1, 'metafileStream'),(1, 'metafile'),)))
-    ID2D1Factory1.RegisterEffectFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IStream_head,POINTER(win32more.Graphics.Direct2D.D2D1_PROPERTY_BINDING_head),UInt32,win32more.Graphics.Direct2D.PD2D1_EFFECT_FACTORY)(22, 'RegisterEffectFromStream', ((1, 'classId'),(1, 'propertyXml'),(1, 'bindings'),(1, 'bindingsCount'),(1, 'effectFactory'),)))
-    ID2D1Factory1.RegisterEffectFromString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.D2D1_PROPERTY_BINDING_head),UInt32,win32more.Graphics.Direct2D.PD2D1_EFFECT_FACTORY)(23, 'RegisterEffectFromString', ((1, 'classId'),(1, 'propertyXml'),(1, 'bindings'),(1, 'bindingsCount'),(1, 'effectFactory'),)))
-    ID2D1Factory1.UnregisterEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(24, 'UnregisterEffect', ((1, 'classId'),)))
-    ID2D1Factory1.GetRegisteredEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(UInt32),POINTER(UInt32))(25, 'GetRegisteredEffects', ((1, 'effects'),(1, 'effectsCount'),(1, 'effectsReturned'),(1, 'effectsRegistered'),)))
-    ID2D1Factory1.GetEffectProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head))(26, 'GetEffectProperties', ((1, 'effectId'),(1, 'properties'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory
-    return ID2D1Factory1
-def _define_ID2D1Factory2_head():
-    class ID2D1Factory2(win32more.Graphics.Direct2D.ID2D1Factory1_head):
-        Guid = Guid('94f81a73-9212-4376-9c-58-b1-6a-3a-0d-39-92')
-    return ID2D1Factory2
-def _define_ID2D1Factory2():
-    ID2D1Factory2 = win32more.Graphics.Direct2D.ID2D1Factory2_head
-    ID2D1Factory2.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device1_head))(27, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice1'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory1
-    return ID2D1Factory2
-def _define_ID2D1Factory3_head():
-    class ID2D1Factory3(win32more.Graphics.Direct2D.ID2D1Factory2_head):
-        Guid = Guid('0869759f-4f00-413f-b0-3e-2b-da-45-40-4d-0f')
-    return ID2D1Factory3
-def _define_ID2D1Factory3():
-    ID2D1Factory3 = win32more.Graphics.Direct2D.ID2D1Factory3_head
-    ID2D1Factory3.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device2_head))(28, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice2'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory2
-    return ID2D1Factory3
-def _define_ID2D1Factory4_head():
-    class ID2D1Factory4(win32more.Graphics.Direct2D.ID2D1Factory3_head):
-        Guid = Guid('bd4ec2d2-0662-4bee-ba-8e-6f-29-f0-32-e0-96')
-    return ID2D1Factory4
-def _define_ID2D1Factory4():
-    ID2D1Factory4 = win32more.Graphics.Direct2D.ID2D1Factory4_head
-    ID2D1Factory4.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device3_head))(29, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice3'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory3
-    return ID2D1Factory4
-def _define_ID2D1Factory5_head():
-    class ID2D1Factory5(win32more.Graphics.Direct2D.ID2D1Factory4_head):
-        Guid = Guid('c4349994-838e-4b0f-8c-ab-44-99-7d-9e-ea-cc')
-    return ID2D1Factory5
-def _define_ID2D1Factory5():
-    ID2D1Factory5 = win32more.Graphics.Direct2D.ID2D1Factory5_head
-    ID2D1Factory5.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device4_head))(30, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice4'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory4
-    return ID2D1Factory5
-def _define_ID2D1Factory6_head():
-    class ID2D1Factory6(win32more.Graphics.Direct2D.ID2D1Factory5_head):
-        Guid = Guid('f9976f46-f642-44c1-97-ca-da-32-ea-2a-26-35')
-    return ID2D1Factory6
-def _define_ID2D1Factory6():
-    ID2D1Factory6 = win32more.Graphics.Direct2D.ID2D1Factory6_head
-    ID2D1Factory6.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device5_head))(31, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice5'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory5
-    return ID2D1Factory6
-def _define_ID2D1Factory7_head():
-    class ID2D1Factory7(win32more.Graphics.Direct2D.ID2D1Factory6_head):
-        Guid = Guid('bdc2bdd3-b96c-4de6-bd-f7-99-d4-74-54-54-de')
-    return ID2D1Factory7
-def _define_ID2D1Factory7():
-    ID2D1Factory7 = win32more.Graphics.Direct2D.ID2D1Factory7_head
-    ID2D1Factory7.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device6_head))(32, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice6'),)))
-    win32more.Graphics.Direct2D.ID2D1Factory6
-    return ID2D1Factory7
-def _define_ID2D1GdiInteropRenderTarget_head():
-    class ID2D1GdiInteropRenderTarget(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e0db51c3-6f77-4bae-b3-d5-e4-75-09-b3-58-38')
-    return ID2D1GdiInteropRenderTarget
-def _define_ID2D1GdiInteropRenderTarget():
-    ID2D1GdiInteropRenderTarget = win32more.Graphics.Direct2D.ID2D1GdiInteropRenderTarget_head
-    ID2D1GdiInteropRenderTarget.GetDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DC_INITIALIZE_MODE,POINTER(win32more.Graphics.Gdi.HDC))(3, 'GetDC', ((1, 'mode'),(1, 'hdc'),)))
-    ID2D1GdiInteropRenderTarget.ReleaseDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(4, 'ReleaseDC', ((1, 'update'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1GdiInteropRenderTarget
-def _define_ID2D1GdiMetafile_head():
-    class ID2D1GdiMetafile(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2f543dc3-cfc1-4211-86-4f-cf-d9-1c-6f-33-95')
-    return ID2D1GdiMetafile
-def _define_ID2D1GdiMetafile():
-    ID2D1GdiMetafile = win32more.Graphics.Direct2D.ID2D1GdiMetafile_head
-    ID2D1GdiMetafile.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head)(4, 'Stream', ((1, 'sink'),)))
-    ID2D1GdiMetafile.GetBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(5, 'GetBounds', ((1, 'bounds'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1GdiMetafile
-def _define_ID2D1GdiMetafile1_head():
-    class ID2D1GdiMetafile1(win32more.Graphics.Direct2D.ID2D1GdiMetafile_head):
-        Guid = Guid('2e69f9e8-dd3f-4bf9-95-ba-c0-4f-49-d7-88-df')
-    return ID2D1GdiMetafile1
-def _define_ID2D1GdiMetafile1():
-    ID2D1GdiMetafile1 = win32more.Graphics.Direct2D.ID2D1GdiMetafile1_head
-    ID2D1GdiMetafile1.GetDpi = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),POINTER(Single))(6, 'GetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1GdiMetafile1.GetSourceBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(7, 'GetSourceBounds', ((1, 'bounds'),)))
-    win32more.Graphics.Direct2D.ID2D1GdiMetafile
-    return ID2D1GdiMetafile1
-def _define_ID2D1GdiMetafileSink_head():
-    class ID2D1GdiMetafileSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('82237326-8111-4f7c-bc-f4-b5-c1-17-55-64-fe')
-    return ID2D1GdiMetafileSink
-def _define_ID2D1GdiMetafileSink():
-    ID2D1GdiMetafileSink = win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head
-    ID2D1GdiMetafileSink.ProcessRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32)(3, 'ProcessRecord', ((1, 'recordType'),(1, 'recordData'),(1, 'recordDataSize'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1GdiMetafileSink
-def _define_ID2D1GdiMetafileSink1_head():
-    class ID2D1GdiMetafileSink1(win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head):
-        Guid = Guid('fd0ecb6b-91e6-411e-86-55-39-5e-76-0f-91-b4')
-    return ID2D1GdiMetafileSink1
-def _define_ID2D1GdiMetafileSink1():
-    ID2D1GdiMetafileSink1 = win32more.Graphics.Direct2D.ID2D1GdiMetafileSink1_head
-    ID2D1GdiMetafileSink1.ProcessRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32)(4, 'ProcessRecord', ((1, 'recordType'),(1, 'recordData'),(1, 'recordDataSize'),(1, 'flags'),)))
-    win32more.Graphics.Direct2D.ID2D1GdiMetafileSink
-    return ID2D1GdiMetafileSink1
-def _define_ID2D1Geometry_head():
-    class ID2D1Geometry(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd906a1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1Geometry
-def _define_ID2D1Geometry():
-    ID2D1Geometry = win32more.Graphics.Direct2D.ID2D1Geometry_head
-    ID2D1Geometry.GetBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(4, 'GetBounds', ((1, 'worldTransform'),(1, 'bounds'),)))
-    ID2D1Geometry.GetWidenedBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(5, 'GetWidenedBounds', ((1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'bounds'),)))
-    ID2D1Geometry.StrokeContainsPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Foundation.BOOL))(6, 'StrokeContainsPoint', ((1, 'point'),(1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'contains'),)))
-    ID2D1Geometry.FillContainsPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Foundation.BOOL))(7, 'FillContainsPoint', ((1, 'point'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'contains'),)))
-    ID2D1Geometry.CompareWithGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.D2D1_GEOMETRY_RELATION))(8, 'CompareWithGeometry', ((1, 'inputGeometry'),(1, 'inputGeometryTransform'),(1, 'flatteningTolerance'),(1, 'relation'),)))
-    ID2D1Geometry.Simplify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_GEOMETRY_SIMPLIFICATION_OPTION,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head)(9, 'Simplify', ((1, 'simplificationOption'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
-    ID2D1Geometry.Tessellate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.ID2D1TessellationSink_head)(10, 'Tessellate', ((1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'tessellationSink'),)))
-    ID2D1Geometry.CombineWithGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,win32more.Graphics.Direct2D.D2D1_COMBINE_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head)(11, 'CombineWithGeometry', ((1, 'inputGeometry'),(1, 'combineMode'),(1, 'inputGeometryTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
-    ID2D1Geometry.Outline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head)(12, 'Outline', ((1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
-    ID2D1Geometry.ComputeArea = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(Single))(13, 'ComputeArea', ((1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'area'),)))
-    ID2D1Geometry.ComputeLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(Single))(14, 'ComputeLength', ((1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'length'),)))
-    ID2D1Geometry.ComputePointAtLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head))(15, 'ComputePointAtLength', ((1, 'length'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'point'),(1, 'unitTangentVector'),)))
-    ID2D1Geometry.Widen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head)(16, 'Widen', ((1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Geometry
-def _define_ID2D1GeometryGroup_head():
-    class ID2D1GeometryGroup(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906a6-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1GeometryGroup
-def _define_ID2D1GeometryGroup():
-    ID2D1GeometryGroup = win32more.Graphics.Direct2D.ID2D1GeometryGroup_head
-    ID2D1GeometryGroup.GetFillMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE,)(17, 'GetFillMode', ()))
-    ID2D1GeometryGroup.GetSourceGeometryCount = COMMETHOD(WINFUNCTYPE(UInt32,)(18, 'GetSourceGeometryCount', ()))
-    ID2D1GeometryGroup.GetSourceGeometries = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head),UInt32)(19, 'GetSourceGeometries', ((1, 'geometries'),(1, 'geometriesCount'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1GeometryGroup
-def _define_ID2D1GeometryRealization_head():
-    class ID2D1GeometryRealization(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('a16907d7-bc02-4801-99-e8-8c-f7-f4-85-f7-74')
-    return ID2D1GeometryRealization
-def _define_ID2D1GeometryRealization():
-    ID2D1GeometryRealization = win32more.Graphics.Direct2D.ID2D1GeometryRealization_head
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1GeometryRealization
-def _define_ID2D1GeometrySink_head():
-    class ID2D1GeometrySink(win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head):
-        Guid = Guid('2cd9069f-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1GeometrySink
-def _define_ID2D1GeometrySink():
-    ID2D1GeometrySink = win32more.Graphics.Direct2D.ID2D1GeometrySink_head
-    ID2D1GeometrySink.AddLine = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F)(10, 'AddLine', ((1, 'point'),)))
-    ID2D1GeometrySink.AddBezier = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_BEZIER_SEGMENT_head))(11, 'AddBezier', ((1, 'bezier'),)))
-    ID2D1GeometrySink.AddQuadraticBezier = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head))(12, 'AddQuadraticBezier', ((1, 'bezier'),)))
-    ID2D1GeometrySink.AddQuadraticBeziers = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head),UInt32)(13, 'AddQuadraticBeziers', ((1, 'beziers'),(1, 'beziersCount'),)))
-    ID2D1GeometrySink.AddArc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ARC_SEGMENT_head))(14, 'AddArc', ((1, 'arc'),)))
-    win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink
-    return ID2D1GeometrySink
-def _define_ID2D1GradientMesh_head():
-    class ID2D1GradientMesh(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('f292e401-c050-4cde-83-d7-04-96-2d-3b-23-c2')
-    return ID2D1GradientMesh
-def _define_ID2D1GradientMesh():
-    ID2D1GradientMesh = win32more.Graphics.Direct2D.ID2D1GradientMesh_head
-    ID2D1GradientMesh.GetPatchCount = COMMETHOD(WINFUNCTYPE(UInt32,)(4, 'GetPatchCount', ()))
-    ID2D1GradientMesh.GetPatches = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head),UInt32)(5, 'GetPatches', ((1, 'startIndex'),(1, 'patches'),(1, 'patchesCount'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1GradientMesh
-def _define_ID2D1GradientStopCollection_head():
-    class ID2D1GradientStopCollection(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd906a7-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1GradientStopCollection
-def _define_ID2D1GradientStopCollection():
-    ID2D1GradientStopCollection = win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head
-    ID2D1GradientStopCollection.GetGradientStopCount = COMMETHOD(WINFUNCTYPE(UInt32,)(4, 'GetGradientStopCount', ()))
-    ID2D1GradientStopCollection.GetGradientStops = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head),UInt32)(5, 'GetGradientStops', ((1, 'gradientStops'),(1, 'gradientStopsCount'),)))
-    ID2D1GradientStopCollection.GetColorInterpolationGamma = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_GAMMA,)(6, 'GetColorInterpolationGamma', ()))
-    ID2D1GradientStopCollection.GetExtendMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(7, 'GetExtendMode', ()))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1GradientStopCollection
-def _define_ID2D1GradientStopCollection1_head():
-    class ID2D1GradientStopCollection1(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head):
-        Guid = Guid('ae1572f4-5dd0-4777-99-8b-92-79-47-2a-e6-3b')
-    return ID2D1GradientStopCollection1
-def _define_ID2D1GradientStopCollection1():
-    ID2D1GradientStopCollection1 = win32more.Graphics.Direct2D.ID2D1GradientStopCollection1_head
-    ID2D1GradientStopCollection1.GetGradientStops1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head),UInt32)(8, 'GetGradientStops1', ((1, 'gradientStops'),(1, 'gradientStopsCount'),)))
-    ID2D1GradientStopCollection1.GetPreInterpolationSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,)(9, 'GetPreInterpolationSpace', ()))
-    ID2D1GradientStopCollection1.GetPostInterpolationSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_SPACE,)(10, 'GetPostInterpolationSpace', ()))
-    ID2D1GradientStopCollection1.GetBufferPrecision = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,)(11, 'GetBufferPrecision', ()))
-    ID2D1GradientStopCollection1.GetColorInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE,)(12, 'GetColorInterpolationMode', ()))
-    win32more.Graphics.Direct2D.ID2D1GradientStopCollection
-    return ID2D1GradientStopCollection1
-def _define_ID2D1HwndRenderTarget_head():
-    class ID2D1HwndRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
-        Guid = Guid('2cd90698-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1HwndRenderTarget
-def _define_ID2D1HwndRenderTarget():
-    ID2D1HwndRenderTarget = win32more.Graphics.Direct2D.ID2D1HwndRenderTarget_head
-    ID2D1HwndRenderTarget.CheckWindowState = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_WINDOW_STATE,)(57, 'CheckWindowState', ()))
-    ID2D1HwndRenderTarget.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_U_head))(58, 'Resize', ((1, 'pixelSize'),)))
-    ID2D1HwndRenderTarget.GetHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HWND,)(59, 'GetHwnd', ()))
-    win32more.Graphics.Direct2D.ID2D1RenderTarget
-    return ID2D1HwndRenderTarget
-def _define_ID2D1Image_head():
-    class ID2D1Image(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('65019f75-8da2-497c-b3-2c-df-a3-4e-48-ed-e6')
-    return ID2D1Image
-def _define_ID2D1Image():
-    ID2D1Image = win32more.Graphics.Direct2D.ID2D1Image_head
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Image
-def _define_ID2D1ImageBrush_head():
-    class ID2D1ImageBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
-        Guid = Guid('fe9e984d-3f95-407c-b5-db-cb-94-d4-e8-f8-7c')
-    return ID2D1ImageBrush
-def _define_ID2D1ImageBrush():
-    ID2D1ImageBrush = win32more.Graphics.Direct2D.ID2D1ImageBrush_head
-    ID2D1ImageBrush.SetImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Image_head)(8, 'SetImage', ((1, 'image'),)))
-    ID2D1ImageBrush.SetExtendModeX = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(9, 'SetExtendModeX', ((1, 'extendModeX'),)))
-    ID2D1ImageBrush.SetExtendModeY = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE)(10, 'SetExtendModeY', ((1, 'extendModeY'),)))
-    ID2D1ImageBrush.SetInterpolationMode = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE)(11, 'SetInterpolationMode', ((1, 'interpolationMode'),)))
-    ID2D1ImageBrush.SetSourceRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(12, 'SetSourceRectangle', ((1, 'sourceRectangle'),)))
-    ID2D1ImageBrush.GetImage = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head))(13, 'GetImage', ((1, 'image'),)))
-    ID2D1ImageBrush.GetExtendModeX = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(14, 'GetExtendModeX', ()))
-    ID2D1ImageBrush.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,)(15, 'GetExtendModeY', ()))
-    ID2D1ImageBrush.GetInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE,)(16, 'GetInterpolationMode', ()))
-    ID2D1ImageBrush.GetSourceRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(17, 'GetSourceRectangle', ((1, 'sourceRectangle'),)))
-    win32more.Graphics.Direct2D.ID2D1Brush
-    return ID2D1ImageBrush
-def _define_ID2D1ImageSource_head():
-    class ID2D1ImageSource(win32more.Graphics.Direct2D.ID2D1Image_head):
-        Guid = Guid('c9b664e5-74a1-4378-9a-c2-ee-fc-37-a3-f4-d8')
-    return ID2D1ImageSource
-def _define_ID2D1ImageSource():
-    ID2D1ImageSource = win32more.Graphics.Direct2D.ID2D1ImageSource_head
-    ID2D1ImageSource.OfferResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'OfferResources', ()))
-    ID2D1ImageSource.TryReclaimResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'TryReclaimResources', ((1, 'resourcesDiscarded'),)))
-    win32more.Graphics.Direct2D.ID2D1Image
-    return ID2D1ImageSource
-def _define_ID2D1ImageSourceFromWic_head():
-    class ID2D1ImageSourceFromWic(win32more.Graphics.Direct2D.ID2D1ImageSource_head):
-        Guid = Guid('77395441-1c8f-4555-86-83-f5-0d-ab-0f-e7-92')
-    return ID2D1ImageSourceFromWic
-def _define_ID2D1ImageSourceFromWic():
-    ID2D1ImageSourceFromWic = win32more.Graphics.Direct2D.ID2D1ImageSourceFromWic_head
-    ID2D1ImageSourceFromWic.EnsureCached = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head))(6, 'EnsureCached', ((1, 'rectangleToFill'),)))
-    ID2D1ImageSourceFromWic.TrimCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head))(7, 'TrimCache', ((1, 'rectangleToPreserve'),)))
-    ID2D1ImageSourceFromWic.GetSource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head))(8, 'GetSource', ((1, 'wicBitmapSource'),)))
-    win32more.Graphics.Direct2D.ID2D1ImageSource
-    return ID2D1ImageSourceFromWic
-def _define_ID2D1Ink_head():
-    class ID2D1Ink(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('b499923b-7029-478f-a8-b3-43-2c-7c-5f-53-12')
-    return ID2D1Ink
-def _define_ID2D1Ink():
-    ID2D1Ink = win32more.Graphics.Direct2D.ID2D1Ink_head
-    ID2D1Ink.SetStartPoint = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_INK_POINT_head))(4, 'SetStartPoint', ((1, 'startPoint'),)))
-    ID2D1Ink.GetStartPoint = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INK_POINT,)(5, 'GetStartPoint', ()))
-    ID2D1Ink.AddSegments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head),UInt32)(6, 'AddSegments', ((1, 'segments'),(1, 'segmentsCount'),)))
-    ID2D1Ink.RemoveSegmentsAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(7, 'RemoveSegmentsAtEnd', ((1, 'segmentsCount'),)))
-    ID2D1Ink.SetSegments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head),UInt32)(8, 'SetSegments', ((1, 'startSegment'),(1, 'segments'),(1, 'segmentsCount'),)))
-    ID2D1Ink.SetSegmentAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head))(9, 'SetSegmentAtEnd', ((1, 'segment'),)))
-    ID2D1Ink.GetSegmentCount = COMMETHOD(WINFUNCTYPE(UInt32,)(10, 'GetSegmentCount', ()))
-    ID2D1Ink.GetSegments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head),UInt32)(11, 'GetSegments', ((1, 'startSegment'),(1, 'segments'),(1, 'segmentsCount'),)))
-    ID2D1Ink.StreamAsGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1InkStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head)(12, 'StreamAsGeometry', ((1, 'inkStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
-    ID2D1Ink.GetBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1InkStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(13, 'GetBounds', ((1, 'inkStyle'),(1, 'worldTransform'),(1, 'bounds'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Ink
-def _define_ID2D1InkStyle_head():
-    class ID2D1InkStyle(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('bae8b344-23fc-4071-8c-b5-d0-5d-6f-07-38-48')
-    return ID2D1InkStyle
-def _define_ID2D1InkStyle():
-    ID2D1InkStyle = win32more.Graphics.Direct2D.ID2D1InkStyle_head
-    ID2D1InkStyle.SetNibTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(4, 'SetNibTransform', ((1, 'transform'),)))
-    ID2D1InkStyle.GetNibTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(5, 'GetNibTransform', ((1, 'transform'),)))
-    ID2D1InkStyle.SetNibShape = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE)(6, 'SetNibShape', ((1, 'nibShape'),)))
-    ID2D1InkStyle.GetNibShape = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE,)(7, 'GetNibShape', ()))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1InkStyle
-def _define_ID2D1Layer_head():
-    class ID2D1Layer(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd9069b-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1Layer
-def _define_ID2D1Layer():
-    ID2D1Layer = win32more.Graphics.Direct2D.ID2D1Layer_head
-    ID2D1Layer.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_F,)(4, 'GetSize', ()))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Layer
-def _define_ID2D1LinearGradientBrush_head():
-    class ID2D1LinearGradientBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
-        Guid = Guid('2cd906ab-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1LinearGradientBrush
-def _define_ID2D1LinearGradientBrush():
-    ID2D1LinearGradientBrush = win32more.Graphics.Direct2D.ID2D1LinearGradientBrush_head
-    ID2D1LinearGradientBrush.SetStartPoint = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F)(8, 'SetStartPoint', ((1, 'startPoint'),)))
-    ID2D1LinearGradientBrush.SetEndPoint = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F)(9, 'SetEndPoint', ((1, 'endPoint'),)))
-    ID2D1LinearGradientBrush.GetStartPoint = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F,)(10, 'GetStartPoint', ()))
-    ID2D1LinearGradientBrush.GetEndPoint = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F,)(11, 'GetEndPoint', ()))
-    ID2D1LinearGradientBrush.GetGradientStopCollection = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head))(12, 'GetGradientStopCollection', ((1, 'gradientStopCollection'),)))
-    win32more.Graphics.Direct2D.ID2D1Brush
-    return ID2D1LinearGradientBrush
-def _define_ID2D1LookupTable3D_head():
-    class ID2D1LookupTable3D(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('53dd9855-a3b0-4d5b-82-e1-26-e2-5c-5e-57-97')
-    return ID2D1LookupTable3D
-def _define_ID2D1LookupTable3D():
-    ID2D1LookupTable3D = win32more.Graphics.Direct2D.ID2D1LookupTable3D_head
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1LookupTable3D
-def _define_ID2D1Mesh_head():
-    class ID2D1Mesh(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd906c2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1Mesh
-def _define_ID2D1Mesh():
-    ID2D1Mesh = win32more.Graphics.Direct2D.ID2D1Mesh_head
-    ID2D1Mesh.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1TessellationSink_head))(4, 'Open', ((1, 'tessellationSink'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1Mesh
-def _define_ID2D1Multithread_head():
-    class ID2D1Multithread(win32more.System.Com.IUnknown_head):
-        Guid = Guid('31e6e7bc-e0ff-4d46-8c-64-a0-a8-c4-1c-15-d3')
-    return ID2D1Multithread
-def _define_ID2D1Multithread():
-    ID2D1Multithread = win32more.Graphics.Direct2D.ID2D1Multithread_head
-    ID2D1Multithread.GetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(3, 'GetMultithreadProtected', ()))
-    ID2D1Multithread.Enter = COMMETHOD(WINFUNCTYPE(Void,)(4, 'Enter', ()))
-    ID2D1Multithread.Leave = COMMETHOD(WINFUNCTYPE(Void,)(5, 'Leave', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1Multithread
-def _define_ID2D1OffsetTransform_head():
-    class ID2D1OffsetTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
-        Guid = Guid('3fe6adea-7643-4f53-bd-14-a0-ce-63-f2-40-42')
-    return ID2D1OffsetTransform
-def _define_ID2D1OffsetTransform():
-    ID2D1OffsetTransform = win32more.Graphics.Direct2D.ID2D1OffsetTransform_head
-    ID2D1OffsetTransform.SetOffset = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.POINT)(4, 'SetOffset', ((1, 'offset'),)))
-    ID2D1OffsetTransform.GetOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.POINT,)(5, 'GetOffset', ()))
-    win32more.Graphics.Direct2D.ID2D1TransformNode
-    return ID2D1OffsetTransform
-def _define_ID2D1PathGeometry_head():
-    class ID2D1PathGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906a5-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1PathGeometry
-def _define_ID2D1PathGeometry():
-    ID2D1PathGeometry = win32more.Graphics.Direct2D.ID2D1PathGeometry_head
-    ID2D1PathGeometry.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1GeometrySink_head))(17, 'Open', ((1, 'geometrySink'),)))
-    ID2D1PathGeometry.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GeometrySink_head)(18, 'Stream', ((1, 'geometrySink'),)))
-    ID2D1PathGeometry.GetSegmentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'GetSegmentCount', ((1, 'count'),)))
-    ID2D1PathGeometry.GetFigureCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(20, 'GetFigureCount', ((1, 'count'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1PathGeometry
-def _define_ID2D1PathGeometry1_head():
-    class ID2D1PathGeometry1(win32more.Graphics.Direct2D.ID2D1PathGeometry_head):
-        Guid = Guid('62baa2d2-ab54-41b7-b8-72-78-7e-01-06-a4-21')
-    return ID2D1PathGeometry1
-def _define_ID2D1PathGeometry1():
-    ID2D1PathGeometry1 = win32more.Graphics.Direct2D.ID2D1PathGeometry1_head
-    ID2D1PathGeometry1.ComputePointAndSegmentAtLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.D2D1_POINT_DESCRIPTION_head))(21, 'ComputePointAndSegmentAtLength', ((1, 'length'),(1, 'startSegment'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'pointDescription'),)))
-    win32more.Graphics.Direct2D.ID2D1PathGeometry
-    return ID2D1PathGeometry1
-def _define_ID2D1PrintControl_head():
-    class ID2D1PrintControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2c1d867d-c290-41c8-ae-7e-34-a9-87-02-e9-a5')
-    return ID2D1PrintControl
-def _define_ID2D1PrintControl():
-    ID2D1PrintControl = win32more.Graphics.Direct2D.ID2D1PrintControl_head
-    ID2D1PrintControl.AddPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1CommandList_head,win32more.Graphics.Direct2D.Common.D2D_SIZE_F,win32more.System.Com.IStream_head,POINTER(UInt64),POINTER(UInt64))(3, 'AddPage', ((1, 'commandList'),(1, 'pageSize'),(1, 'pagePrintTicketStream'),(1, 'tag1'),(1, 'tag2'),)))
-    ID2D1PrintControl.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1PrintControl
-def _define_ID2D1Properties_head():
-    class ID2D1Properties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('483473d7-cd46-4f9d-9d-3a-31-12-aa-80-15-9d')
-    return ID2D1Properties
-def _define_ID2D1Properties():
-    ID2D1Properties = win32more.Graphics.Direct2D.ID2D1Properties_head
-    ID2D1Properties.GetPropertyCount = COMMETHOD(WINFUNCTYPE(UInt32,)(3, 'GetPropertyCount', ()))
-    ID2D1Properties.GetPropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32)(4, 'GetPropertyName', ((1, 'index'),(1, 'name'),(1, 'nameCount'),)))
-    ID2D1Properties.GetPropertyNameLength = COMMETHOD(WINFUNCTYPE(UInt32,UInt32)(5, 'GetPropertyNameLength', ((1, 'index'),)))
-    ID2D1Properties.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,UInt32)(6, 'GetType', ((1, 'index'),)))
-    ID2D1Properties.GetPropertyIndex = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(7, 'GetPropertyIndex', ((1, 'name'),)))
-    ID2D1Properties.SetValueByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,c_char_p_no,UInt32)(8, 'SetValueByName', ((1, 'name'),(1, 'type'),(1, 'data'),(1, 'dataSize'),)))
-    ID2D1Properties.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,c_char_p_no,UInt32)(9, 'SetValue', ((1, 'index'),(1, 'type'),(1, 'data'),(1, 'dataSize'),)))
-    ID2D1Properties.GetValueByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,c_char_p_no,UInt32)(10, 'GetValueByName', ((1, 'name'),(1, 'type'),(1, 'data'),(1, 'dataSize'),)))
-    ID2D1Properties.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,c_char_p_no,UInt32)(11, 'GetValue', ((1, 'index'),(1, 'type'),(1, 'data'),(1, 'dataSize'),)))
-    ID2D1Properties.GetValueSize = COMMETHOD(WINFUNCTYPE(UInt32,UInt32)(12, 'GetValueSize', ((1, 'index'),)))
-    ID2D1Properties.GetSubProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head))(13, 'GetSubProperties', ((1, 'index'),(1, 'subProperties'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1Properties
-def _define_ID2D1RadialGradientBrush_head():
-    class ID2D1RadialGradientBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
-        Guid = Guid('2cd906ac-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1RadialGradientBrush
-def _define_ID2D1RadialGradientBrush():
-    ID2D1RadialGradientBrush = win32more.Graphics.Direct2D.ID2D1RadialGradientBrush_head
-    ID2D1RadialGradientBrush.SetCenter = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F)(8, 'SetCenter', ((1, 'center'),)))
-    ID2D1RadialGradientBrush.SetGradientOriginOffset = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F)(9, 'SetGradientOriginOffset', ((1, 'gradientOriginOffset'),)))
-    ID2D1RadialGradientBrush.SetRadiusX = COMMETHOD(WINFUNCTYPE(Void,Single)(10, 'SetRadiusX', ((1, 'radiusX'),)))
-    ID2D1RadialGradientBrush.SetRadiusY = COMMETHOD(WINFUNCTYPE(Void,Single)(11, 'SetRadiusY', ((1, 'radiusY'),)))
-    ID2D1RadialGradientBrush.GetCenter = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F,)(12, 'GetCenter', ()))
-    ID2D1RadialGradientBrush.GetGradientOriginOffset = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F,)(13, 'GetGradientOriginOffset', ()))
-    ID2D1RadialGradientBrush.GetRadiusX = COMMETHOD(WINFUNCTYPE(Single,)(14, 'GetRadiusX', ()))
-    ID2D1RadialGradientBrush.GetRadiusY = COMMETHOD(WINFUNCTYPE(Single,)(15, 'GetRadiusY', ()))
-    ID2D1RadialGradientBrush.GetGradientStopCollection = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head))(16, 'GetGradientStopCollection', ((1, 'gradientStopCollection'),)))
-    win32more.Graphics.Direct2D.ID2D1Brush
-    return ID2D1RadialGradientBrush
-def _define_ID2D1RectangleGeometry_head():
-    class ID2D1RectangleGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906a2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1RectangleGeometry
-def _define_ID2D1RectangleGeometry():
-    ID2D1RectangleGeometry = win32more.Graphics.Direct2D.ID2D1RectangleGeometry_head
-    ID2D1RectangleGeometry.GetRect = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(17, 'GetRect', ((1, 'rect'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1RectangleGeometry
-def _define_ID2D1RenderInfo_head():
-    class ID2D1RenderInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('519ae1bd-d19a-420d-b8-49-36-4f-59-47-76-b7')
-    return ID2D1RenderInfo
-def _define_ID2D1RenderInfo():
-    ID2D1RenderInfo = win32more.Graphics.Direct2D.ID2D1RenderInfo_head
-    ID2D1RenderInfo.SetInputDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.D2D1_INPUT_DESCRIPTION)(3, 'SetInputDescription', ((1, 'inputIndex'),(1, 'inputDescription'),)))
-    ID2D1RenderInfo.SetOutputBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH)(4, 'SetOutputBuffer', ((1, 'bufferPrecision'),(1, 'channelDepth'),)))
-    ID2D1RenderInfo.SetCached = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(5, 'SetCached', ((1, 'isCached'),)))
-    ID2D1RenderInfo.SetInstructionCountHint = COMMETHOD(WINFUNCTYPE(Void,UInt32)(6, 'SetInstructionCountHint', ((1, 'instructionCount'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1RenderInfo
-def _define_ID2D1RenderTarget_head():
-    class ID2D1RenderTarget(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd90694-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1RenderTarget
-def _define_ID2D1RenderTarget():
-    ID2D1RenderTarget = win32more.Graphics.Direct2D.ID2D1RenderTarget_head
-    ID2D1RenderTarget.CreateBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_SIZE_U,c_void_p,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head))(4, 'CreateBitmap', ((1, 'size'),(1, 'srcData'),(1, 'pitch'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1RenderTarget.CreateBitmapFromWicBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head))(5, 'CreateBitmapFromWicBitmap', ((1, 'wicBitmapSource'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1RenderTarget.CreateSharedBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_void_p,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head))(6, 'CreateSharedBitmap', ((1, 'riid'),(1, 'data'),(1, 'bitmapProperties'),(1, 'bitmap'),)))
-    ID2D1RenderTarget.CreateBitmapBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1BitmapBrush_head))(7, 'CreateBitmapBrush', ((1, 'bitmap'),(1, 'bitmapBrushProperties'),(1, 'brushProperties'),(1, 'bitmapBrush'),)))
-    ID2D1RenderTarget.CreateSolidColorBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1SolidColorBrush_head))(8, 'CreateSolidColorBrush', ((1, 'color'),(1, 'brushProperties'),(1, 'solidColorBrush'),)))
-    ID2D1RenderTarget.CreateGradientStopCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head),UInt32,win32more.Graphics.Direct2D.D2D1_GAMMA,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head))(9, 'CreateGradientStopCollection', ((1, 'gradientStops'),(1, 'gradientStopsCount'),(1, 'colorInterpolationGamma'),(1, 'extendMode'),(1, 'gradientStopCollection'),)))
-    ID2D1RenderTarget.CreateLinearGradientBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head,POINTER(win32more.Graphics.Direct2D.ID2D1LinearGradientBrush_head))(10, 'CreateLinearGradientBrush', ((1, 'linearGradientBrushProperties'),(1, 'brushProperties'),(1, 'gradientStopCollection'),(1, 'linearGradientBrush'),)))
-    ID2D1RenderTarget.CreateRadialGradientBrush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head),win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head,POINTER(win32more.Graphics.Direct2D.ID2D1RadialGradientBrush_head))(11, 'CreateRadialGradientBrush', ((1, 'radialGradientBrushProperties'),(1, 'brushProperties'),(1, 'gradientStopCollection'),(1, 'radialGradientBrush'),)))
-    ID2D1RenderTarget.CreateCompatibleRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_U_head),POINTER(win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT_head),win32more.Graphics.Direct2D.D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1BitmapRenderTarget_head))(12, 'CreateCompatibleRenderTarget', ((1, 'desiredSize'),(1, 'desiredPixelSize'),(1, 'desiredFormat'),(1, 'options'),(1, 'bitmapRenderTarget'),)))
-    ID2D1RenderTarget.CreateLayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1Layer_head))(13, 'CreateLayer', ((1, 'size'),(1, 'layer'),)))
-    ID2D1RenderTarget.CreateMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1Mesh_head))(14, 'CreateMesh', ((1, 'mesh'),)))
-    ID2D1RenderTarget.DrawLine = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(15, 'DrawLine', ((1, 'point0'),(1, 'point1'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1RenderTarget.DrawRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(16, 'DrawRectangle', ((1, 'rect'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1RenderTarget.FillRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head)(17, 'FillRectangle', ((1, 'rect'),(1, 'brush'),)))
-    ID2D1RenderTarget.DrawRoundedRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head),win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(18, 'DrawRoundedRectangle', ((1, 'roundedRect'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1RenderTarget.FillRoundedRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head),win32more.Graphics.Direct2D.ID2D1Brush_head)(19, 'FillRoundedRectangle', ((1, 'roundedRect'),(1, 'brush'),)))
-    ID2D1RenderTarget.DrawEllipse = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head),win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(20, 'DrawEllipse', ((1, 'ellipse'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1RenderTarget.FillEllipse = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head),win32more.Graphics.Direct2D.ID2D1Brush_head)(21, 'FillEllipse', ((1, 'ellipse'),(1, 'brush'),)))
-    ID2D1RenderTarget.DrawGeometry = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Geometry_head,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)(22, 'DrawGeometry', ((1, 'geometry'),(1, 'brush'),(1, 'strokeWidth'),(1, 'strokeStyle'),)))
-    ID2D1RenderTarget.FillGeometry = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Geometry_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1Brush_head)(23, 'FillGeometry', ((1, 'geometry'),(1, 'brush'),(1, 'opacityBrush'),)))
-    ID2D1RenderTarget.FillMesh = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Mesh_head,win32more.Graphics.Direct2D.ID2D1Brush_head)(24, 'FillMesh', ((1, 'mesh'),(1, 'brush'),)))
-    ID2D1RenderTarget.FillOpacityMask = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.D2D1_OPACITY_MASK_CONTENT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(25, 'FillOpacityMask', ((1, 'opacityMask'),(1, 'brush'),(1, 'content'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
-    ID2D1RenderTarget.DrawBitmap = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),Single,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head))(26, 'DrawBitmap', ((1, 'bitmap'),(1, 'destinationRectangle'),(1, 'opacity'),(1, 'interpolationMode'),(1, 'sourceRectangle'),)))
-    ID2D1RenderTarget.DrawText = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR,UInt32,win32more.Graphics.DirectWrite.IDWriteTextFormat_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(27, 'DrawText', ((1, 'string'),(1, 'stringLength'),(1, 'textFormat'),(1, 'layoutRect'),(1, 'defaultFillBrush'),(1, 'options'),(1, 'measuringMode'),)))
-    ID2D1RenderTarget.DrawTextLayout = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteTextLayout_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS)(28, 'DrawTextLayout', ((1, 'origin'),(1, 'textLayout'),(1, 'defaultFillBrush'),(1, 'options'),)))
-    ID2D1RenderTarget.DrawGlyphRun = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE)(29, 'DrawGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'foregroundBrush'),(1, 'measuringMode'),)))
-    ID2D1RenderTarget.SetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(30, 'SetTransform', ((1, 'transform'),)))
-    ID2D1RenderTarget.GetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(31, 'GetTransform', ((1, 'transform'),)))
-    ID2D1RenderTarget.SetAntialiasMode = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE)(32, 'SetAntialiasMode', ((1, 'antialiasMode'),)))
-    ID2D1RenderTarget.GetAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE,)(33, 'GetAntialiasMode', ()))
-    ID2D1RenderTarget.SetTextAntialiasMode = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE)(34, 'SetTextAntialiasMode', ((1, 'textAntialiasMode'),)))
-    ID2D1RenderTarget.GetTextAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE,)(35, 'GetTextAntialiasMode', ()))
-    ID2D1RenderTarget.SetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head)(36, 'SetTextRenderingParams', ((1, 'textRenderingParams'),)))
-    ID2D1RenderTarget.GetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head))(37, 'GetTextRenderingParams', ((1, 'textRenderingParams'),)))
-    ID2D1RenderTarget.SetTags = COMMETHOD(WINFUNCTYPE(Void,UInt64,UInt64)(38, 'SetTags', ((1, 'tag1'),(1, 'tag2'),)))
-    ID2D1RenderTarget.GetTags = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt64),POINTER(UInt64))(39, 'GetTags', ((1, 'tag1'),(1, 'tag2'),)))
-    ID2D1RenderTarget.PushLayer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS_head),win32more.Graphics.Direct2D.ID2D1Layer_head)(40, 'PushLayer', ((1, 'layerParameters'),(1, 'layer'),)))
-    ID2D1RenderTarget.PopLayer = COMMETHOD(WINFUNCTYPE(Void,)(41, 'PopLayer', ()))
-    ID2D1RenderTarget.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64))(42, 'Flush', ((1, 'tag1'),(1, 'tag2'),)))
-    ID2D1RenderTarget.SaveDrawingState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head)(43, 'SaveDrawingState', ((1, 'drawingStateBlock'),)))
-    ID2D1RenderTarget.RestoreDrawingState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head)(44, 'RestoreDrawingState', ((1, 'drawingStateBlock'),)))
-    ID2D1RenderTarget.PushAxisAlignedClip = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE)(45, 'PushAxisAlignedClip', ((1, 'clipRect'),(1, 'antialiasMode'),)))
-    ID2D1RenderTarget.PopAxisAlignedClip = COMMETHOD(WINFUNCTYPE(Void,)(46, 'PopAxisAlignedClip', ()))
-    ID2D1RenderTarget.Clear = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(47, 'Clear', ((1, 'clearColor'),)))
-    ID2D1RenderTarget.BeginDraw = COMMETHOD(WINFUNCTYPE(Void,)(48, 'BeginDraw', ()))
-    ID2D1RenderTarget.EndDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64))(49, 'EndDraw', ((1, 'tag1'),(1, 'tag2'),)))
-    ID2D1RenderTarget.GetPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT,)(50, 'GetPixelFormat', ()))
-    ID2D1RenderTarget.SetDpi = COMMETHOD(WINFUNCTYPE(Void,Single,Single)(51, 'SetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1RenderTarget.GetDpi = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),POINTER(Single))(52, 'GetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
-    ID2D1RenderTarget.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_F,)(53, 'GetSize', ()))
-    ID2D1RenderTarget.GetPixelSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_U,)(54, 'GetPixelSize', ()))
-    ID2D1RenderTarget.GetMaximumBitmapSize = COMMETHOD(WINFUNCTYPE(UInt32,)(55, 'GetMaximumBitmapSize', ()))
-    ID2D1RenderTarget.IsSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head))(56, 'IsSupported', ((1, 'renderTargetProperties'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1RenderTarget
-def _define_ID2D1Resource_head():
-    class ID2D1Resource(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2cd90691-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1Resource
-def _define_ID2D1Resource():
-    ID2D1Resource = win32more.Graphics.Direct2D.ID2D1Resource_head
-    ID2D1Resource.GetFactory = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Factory_head))(3, 'GetFactory', ((1, 'factory'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1Resource
-def _define_ID2D1ResourceTexture_head():
-    class ID2D1ResourceTexture(win32more.System.Com.IUnknown_head):
-        Guid = Guid('688d15c3-02b0-438d-b1-3a-d1-b4-4c-32-c3-9a')
-    return ID2D1ResourceTexture
-def _define_ID2D1ResourceTexture():
-    ID2D1ResourceTexture = win32more.Graphics.Direct2D.ID2D1ResourceTexture_head
-    ID2D1ResourceTexture.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),UInt32,c_char_p_no,UInt32)(3, 'Update', ((1, 'minimumExtents'),(1, 'maximimumExtents'),(1, 'strides'),(1, 'dimensions'),(1, 'data'),(1, 'dataCount'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1ResourceTexture
-def _define_ID2D1RoundedRectangleGeometry_head():
-    class ID2D1RoundedRectangleGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906a3-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1RoundedRectangleGeometry
-def _define_ID2D1RoundedRectangleGeometry():
-    ID2D1RoundedRectangleGeometry = win32more.Graphics.Direct2D.ID2D1RoundedRectangleGeometry_head
-    ID2D1RoundedRectangleGeometry.GetRoundedRect = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head))(17, 'GetRoundedRect', ((1, 'roundedRect'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1RoundedRectangleGeometry
-def _define_ID2D1SolidColorBrush_head():
-    class ID2D1SolidColorBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
-        Guid = Guid('2cd906a9-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1SolidColorBrush
-def _define_ID2D1SolidColorBrush():
-    ID2D1SolidColorBrush = win32more.Graphics.Direct2D.ID2D1SolidColorBrush_head
-    ID2D1SolidColorBrush.SetColor = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(8, 'SetColor', ((1, 'color'),)))
-    ID2D1SolidColorBrush.GetColor = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F,)(9, 'GetColor', ()))
-    win32more.Graphics.Direct2D.ID2D1Brush
-    return ID2D1SolidColorBrush
-def _define_ID2D1SourceTransform_head():
-    class ID2D1SourceTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
-        Guid = Guid('db1800dd-0c34-4cf9-be-90-31-cc-0a-56-53-e1')
-    return ID2D1SourceTransform
-def _define_ID2D1SourceTransform():
-    ID2D1SourceTransform = win32more.Graphics.Direct2D.ID2D1SourceTransform_head
-    ID2D1SourceTransform.SetRenderInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1RenderInfo_head)(7, 'SetRenderInfo', ((1, 'renderInfo'),)))
-    ID2D1SourceTransform.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap1_head,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Direct2D.Common.D2D_POINT_2U)(8, 'Draw', ((1, 'target'),(1, 'drawRect'),(1, 'targetOrigin'),)))
-    win32more.Graphics.Direct2D.ID2D1Transform
-    return ID2D1SourceTransform
-def _define_ID2D1SpriteBatch_head():
-    class ID2D1SpriteBatch(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('4dc583bf-3a10-438a-87-22-e9-76-52-24-f1-f1')
-    return ID2D1SpriteBatch
-def _define_ID2D1SpriteBatch():
-    ID2D1SpriteBatch = win32more.Graphics.Direct2D.ID2D1SpriteBatch_head
-    ID2D1SpriteBatch.AddSprites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head),POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),UInt32,UInt32,UInt32,UInt32)(4, 'AddSprites', ((1, 'spriteCount'),(1, 'destinationRectangles'),(1, 'sourceRectangles'),(1, 'colors'),(1, 'transforms'),(1, 'destinationRectanglesStride'),(1, 'sourceRectanglesStride'),(1, 'colorsStride'),(1, 'transformsStride'),)))
-    ID2D1SpriteBatch.SetSprites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head),POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),UInt32,UInt32,UInt32,UInt32)(5, 'SetSprites', ((1, 'startIndex'),(1, 'spriteCount'),(1, 'destinationRectangles'),(1, 'sourceRectangles'),(1, 'colors'),(1, 'transforms'),(1, 'destinationRectanglesStride'),(1, 'sourceRectanglesStride'),(1, 'colorsStride'),(1, 'transformsStride'),)))
-    ID2D1SpriteBatch.GetSprites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head),POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(6, 'GetSprites', ((1, 'startIndex'),(1, 'spriteCount'),(1, 'destinationRectangles'),(1, 'sourceRectangles'),(1, 'colors'),(1, 'transforms'),)))
-    ID2D1SpriteBatch.GetSpriteCount = COMMETHOD(WINFUNCTYPE(UInt32,)(7, 'GetSpriteCount', ()))
-    ID2D1SpriteBatch.Clear = COMMETHOD(WINFUNCTYPE(Void,)(8, 'Clear', ()))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1SpriteBatch
-def _define_ID2D1StrokeStyle_head():
-    class ID2D1StrokeStyle(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('2cd9069d-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1StrokeStyle
-def _define_ID2D1StrokeStyle():
-    ID2D1StrokeStyle = win32more.Graphics.Direct2D.ID2D1StrokeStyle_head
-    ID2D1StrokeStyle.GetStartCap = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_CAP_STYLE,)(4, 'GetStartCap', ()))
-    ID2D1StrokeStyle.GetEndCap = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_CAP_STYLE,)(5, 'GetEndCap', ()))
-    ID2D1StrokeStyle.GetDashCap = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_CAP_STYLE,)(6, 'GetDashCap', ()))
-    ID2D1StrokeStyle.GetMiterLimit = COMMETHOD(WINFUNCTYPE(Single,)(7, 'GetMiterLimit', ()))
-    ID2D1StrokeStyle.GetLineJoin = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_LINE_JOIN,)(8, 'GetLineJoin', ()))
-    ID2D1StrokeStyle.GetDashOffset = COMMETHOD(WINFUNCTYPE(Single,)(9, 'GetDashOffset', ()))
-    ID2D1StrokeStyle.GetDashStyle = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_DASH_STYLE,)(10, 'GetDashStyle', ()))
-    ID2D1StrokeStyle.GetDashesCount = COMMETHOD(WINFUNCTYPE(UInt32,)(11, 'GetDashesCount', ()))
-    ID2D1StrokeStyle.GetDashes = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),UInt32)(12, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1StrokeStyle
-def _define_ID2D1StrokeStyle1_head():
-    class ID2D1StrokeStyle1(win32more.Graphics.Direct2D.ID2D1StrokeStyle_head):
-        Guid = Guid('10a72a66-e91c-43f4-99-3f-dd-f4-b8-2b-0b-4a')
-    return ID2D1StrokeStyle1
-def _define_ID2D1StrokeStyle1():
-    ID2D1StrokeStyle1 = win32more.Graphics.Direct2D.ID2D1StrokeStyle1_head
-    ID2D1StrokeStyle1.GetStrokeTransformType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE,)(13, 'GetStrokeTransformType', ()))
-    win32more.Graphics.Direct2D.ID2D1StrokeStyle
-    return ID2D1StrokeStyle1
-def _define_ID2D1SvgAttribute_head():
-    class ID2D1SvgAttribute(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('c9cdb0dd-f8c9-4e70-b7-c2-30-1c-80-29-2c-5e')
-    return ID2D1SvgAttribute
-def _define_ID2D1SvgAttribute():
-    ID2D1SvgAttribute = win32more.Graphics.Direct2D.ID2D1SvgAttribute_head
-    ID2D1SvgAttribute.GetElement = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(4, 'GetElement', ((1, 'element'),)))
-    ID2D1SvgAttribute.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head))(5, 'Clone', ((1, 'attribute'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1SvgAttribute
-def _define_ID2D1SvgDocument_head():
-    class ID2D1SvgDocument(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('86b88e4d-afa4-4d7b-88-e4-68-a5-1c-4a-0a-ec')
-    return ID2D1SvgDocument
-def _define_ID2D1SvgDocument():
-    ID2D1SvgDocument = win32more.Graphics.Direct2D.ID2D1SvgDocument_head
-    ID2D1SvgDocument.SetViewportSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_SIZE_F)(4, 'SetViewportSize', ((1, 'viewportSize'),)))
-    ID2D1SvgDocument.GetViewportSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_F,)(5, 'GetViewportSize', ()))
-    ID2D1SvgDocument.SetRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(6, 'SetRoot', ((1, 'root'),)))
-    ID2D1SvgDocument.GetRoot = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(7, 'GetRoot', ((1, 'root'),)))
-    ID2D1SvgDocument.FindElementById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(8, 'FindElementById', ((1, 'id'),(1, 'svgElement'),)))
-    ID2D1SvgDocument.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(9, 'Serialize', ((1, 'outputXmlStream'),(1, 'subtree'),)))
-    ID2D1SvgDocument.Deserialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(10, 'Deserialize', ((1, 'inputXmlStream'),(1, 'subtree'),)))
-    ID2D1SvgDocument.CreatePaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head),win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.ID2D1SvgPaint_head))(11, 'CreatePaint', ((1, 'paintType'),(1, 'color'),(1, 'id'),(1, 'paint'),)))
-    ID2D1SvgDocument.CreateStrokeDashArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgStrokeDashArray_head))(12, 'CreateStrokeDashArray', ((1, 'dashes'),(1, 'dashesCount'),(1, 'strokeDashArray'),)))
-    ID2D1SvgDocument.CreatePointCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgPointCollection_head))(13, 'CreatePointCollection', ((1, 'points'),(1, 'pointsCount'),(1, 'pointCollection'),)))
-    ID2D1SvgDocument.CreatePathData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgPathData_head))(14, 'CreatePathData', ((1, 'segmentData'),(1, 'segmentDataCount'),(1, 'commands'),(1, 'commandsCount'),(1, 'pathData'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1SvgDocument
-def _define_ID2D1SvgElement_head():
-    class ID2D1SvgElement(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('ac7b67a6-183e-49c1-a8-23-0e-be-40-b0-db-29')
-    return ID2D1SvgElement
-def _define_ID2D1SvgElement():
-    ID2D1SvgElement = win32more.Graphics.Direct2D.ID2D1SvgElement_head
-    ID2D1SvgElement.GetDocument = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgDocument_head))(4, 'GetDocument', ((1, 'document'),)))
-    ID2D1SvgElement.GetTagName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(5, 'GetTagName', ((1, 'name'),(1, 'nameCount'),)))
-    ID2D1SvgElement.GetTagNameLength = COMMETHOD(WINFUNCTYPE(UInt32,)(6, 'GetTagNameLength', ()))
-    ID2D1SvgElement.IsTextContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(7, 'IsTextContent', ()))
-    ID2D1SvgElement.GetParent = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(8, 'GetParent', ((1, 'parent'),)))
-    ID2D1SvgElement.HasChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(9, 'HasChildren', ()))
-    ID2D1SvgElement.GetFirstChild = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(10, 'GetFirstChild', ((1, 'child'),)))
-    ID2D1SvgElement.GetLastChild = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(11, 'GetLastChild', ((1, 'child'),)))
-    ID2D1SvgElement.GetPreviousChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(12, 'GetPreviousChild', ((1, 'referenceChild'),(1, 'previousChild'),)))
-    ID2D1SvgElement.GetNextChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(13, 'GetNextChild', ((1, 'referenceChild'),(1, 'nextChild'),)))
-    ID2D1SvgElement.InsertChildBefore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(14, 'InsertChildBefore', ((1, 'newChild'),(1, 'referenceChild'),)))
-    ID2D1SvgElement.AppendChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(15, 'AppendChild', ((1, 'newChild'),)))
-    ID2D1SvgElement.ReplaceChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(16, 'ReplaceChild', ((1, 'newChild'),(1, 'oldChild'),)))
-    ID2D1SvgElement.RemoveChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SvgElement_head)(17, 'RemoveChild', ((1, 'oldChild'),)))
-    ID2D1SvgElement.CreateChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head))(18, 'CreateChild', ((1, 'tagName'),(1, 'newChild'),)))
-    ID2D1SvgElement.IsAttributeSpecified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))(19, 'IsAttributeSpecified', ((1, 'name'),(1, 'inherited'),)))
-    ID2D1SvgElement.GetSpecifiedAttributeCount = COMMETHOD(WINFUNCTYPE(UInt32,)(20, 'GetSpecifiedAttributeCount', ()))
-    ID2D1SvgElement.GetSpecifiedAttributeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.BOOL))(21, 'GetSpecifiedAttributeName', ((1, 'index'),(1, 'name'),(1, 'nameCount'),(1, 'inherited'),)))
-    ID2D1SvgElement.GetSpecifiedAttributeNameLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(22, 'GetSpecifiedAttributeNameLength', ((1, 'index'),(1, 'nameLength'),(1, 'inherited'),)))
-    ID2D1SvgElement.RemoveAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(23, 'RemoveAttribute', ((1, 'name'),)))
-    ID2D1SvgElement.SetTextValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(24, 'SetTextValue', ((1, 'name'),(1, 'nameCount'),)))
-    ID2D1SvgElement.GetTextValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(25, 'GetTextValue', ((1, 'name'),(1, 'nameCount'),)))
-    ID2D1SvgElement.GetTextValueLength = COMMETHOD(WINFUNCTYPE(UInt32,)(26, 'GetTextValueLength', ()))
-    ID2D1SvgElement.SetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.ID2D1SvgAttribute_head)(27, 'SetAttributeValue', ((1, 'name'),(1, 'value'),)))
-    ID2D1SvgElement.SetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_POD_TYPE,c_void_p,UInt32)(28, 'SetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),(1, 'valueSizeInBytes'),)))
-    ID2D1SvgElement.SetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE,win32more.Foundation.PWSTR)(29, 'SetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),)))
-    ID2D1SvgElement.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p))(30, 'GetAttributeValue', ((1, 'name'),(1, 'riid'),(1, 'value'),)))
-    ID2D1SvgElement.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_POD_TYPE,c_void_p,UInt32)(31, 'GetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),(1, 'valueSizeInBytes'),)))
-    ID2D1SvgElement.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE,win32more.Foundation.PWSTR,UInt32)(32, 'GetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),(1, 'valueCount'),)))
-    ID2D1SvgElement.GetAttributeValueLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE,POINTER(UInt32))(33, 'GetAttributeValueLength', ((1, 'name'),(1, 'type'),(1, 'valueLength'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1SvgElement
-def _define_ID2D1SvgGlyphStyle_head():
-    class ID2D1SvgGlyphStyle(win32more.Graphics.Direct2D.ID2D1Resource_head):
-        Guid = Guid('af671749-d241-4db8-8e-41-dc-c2-e5-c1-a4-38')
-    return ID2D1SvgGlyphStyle
-def _define_ID2D1SvgGlyphStyle():
-    ID2D1SvgGlyphStyle = win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head
-    ID2D1SvgGlyphStyle.SetFill = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Brush_head)(4, 'SetFill', ((1, 'brush'),)))
-    ID2D1SvgGlyphStyle.GetFill = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Brush_head))(5, 'GetFill', ((1, 'brush'),)))
-    ID2D1SvgGlyphStyle.SetStroke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,POINTER(Single),UInt32,Single)(6, 'SetStroke', ((1, 'brush'),(1, 'strokeWidth'),(1, 'dashes'),(1, 'dashesCount'),(1, 'dashOffset'),)))
-    ID2D1SvgGlyphStyle.GetStrokeDashesCount = COMMETHOD(WINFUNCTYPE(UInt32,)(7, 'GetStrokeDashesCount', ()))
-    ID2D1SvgGlyphStyle.GetStroke = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Brush_head),POINTER(Single),POINTER(Single),UInt32,POINTER(Single))(8, 'GetStroke', ((1, 'brush'),(1, 'strokeWidth'),(1, 'dashes'),(1, 'dashesCount'),(1, 'dashOffset'),)))
-    win32more.Graphics.Direct2D.ID2D1Resource
-    return ID2D1SvgGlyphStyle
-def _define_ID2D1SvgPaint_head():
-    class ID2D1SvgPaint(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
-        Guid = Guid('d59bab0a-68a2-455b-a5-dc-9e-b2-85-4e-24-90')
-    return ID2D1SvgPaint
-def _define_ID2D1SvgPaint():
-    ID2D1SvgPaint = win32more.Graphics.Direct2D.ID2D1SvgPaint_head
-    ID2D1SvgPaint.SetPaintType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE)(6, 'SetPaintType', ((1, 'paintType'),)))
-    ID2D1SvgPaint.GetPaintType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE,)(7, 'GetPaintType', ()))
-    ID2D1SvgPaint.SetColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(8, 'SetColor', ((1, 'color'),)))
-    ID2D1SvgPaint.GetColor = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head))(9, 'GetColor', ((1, 'color'),)))
-    ID2D1SvgPaint.SetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'SetId', ((1, 'id'),)))
-    ID2D1SvgPaint.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(11, 'GetId', ((1, 'id'),(1, 'idCount'),)))
-    ID2D1SvgPaint.GetIdLength = COMMETHOD(WINFUNCTYPE(UInt32,)(12, 'GetIdLength', ()))
-    win32more.Graphics.Direct2D.ID2D1SvgAttribute
-    return ID2D1SvgPaint
-def _define_ID2D1SvgPathData_head():
-    class ID2D1SvgPathData(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
-        Guid = Guid('c095e4f4-bb98-43d6-97-45-4d-1b-84-ec-98-88')
-    return ID2D1SvgPathData
-def _define_ID2D1SvgPathData():
-    ID2D1SvgPathData = win32more.Graphics.Direct2D.ID2D1SvgPathData_head
-    ID2D1SvgPathData.RemoveSegmentDataAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'RemoveSegmentDataAtEnd', ((1, 'dataCount'),)))
-    ID2D1SvgPathData.UpdateSegmentData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32)(7, 'UpdateSegmentData', ((1, 'data'),(1, 'dataCount'),(1, 'startIndex'),)))
-    ID2D1SvgPathData.GetSegmentData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32)(8, 'GetSegmentData', ((1, 'data'),(1, 'dataCount'),(1, 'startIndex'),)))
-    ID2D1SvgPathData.GetSegmentDataCount = COMMETHOD(WINFUNCTYPE(UInt32,)(9, 'GetSegmentDataCount', ()))
-    ID2D1SvgPathData.RemoveCommandsAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(10, 'RemoveCommandsAtEnd', ((1, 'commandsCount'),)))
-    ID2D1SvgPathData.UpdateCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND),UInt32,UInt32)(11, 'UpdateCommands', ((1, 'commands'),(1, 'commandsCount'),(1, 'startIndex'),)))
-    ID2D1SvgPathData.GetCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND),UInt32,UInt32)(12, 'GetCommands', ((1, 'commands'),(1, 'commandsCount'),(1, 'startIndex'),)))
-    ID2D1SvgPathData.GetCommandsCount = COMMETHOD(WINFUNCTYPE(UInt32,)(13, 'GetCommandsCount', ()))
-    ID2D1SvgPathData.CreatePathGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry1_head))(14, 'CreatePathGeometry', ((1, 'fillMode'),(1, 'pathGeometry'),)))
-    win32more.Graphics.Direct2D.ID2D1SvgAttribute
-    return ID2D1SvgPathData
-def _define_ID2D1SvgPointCollection_head():
-    class ID2D1SvgPointCollection(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
-        Guid = Guid('9dbe4c0d-3572-4dd9-98-25-55-30-81-3b-b7-12')
-    return ID2D1SvgPointCollection
-def _define_ID2D1SvgPointCollection():
-    ID2D1SvgPointCollection = win32more.Graphics.Direct2D.ID2D1SvgPointCollection_head
-    ID2D1SvgPointCollection.RemovePointsAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'RemovePointsAtEnd', ((1, 'pointsCount'),)))
-    ID2D1SvgPointCollection.UpdatePoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),UInt32,UInt32)(7, 'UpdatePoints', ((1, 'points'),(1, 'pointsCount'),(1, 'startIndex'),)))
-    ID2D1SvgPointCollection.GetPoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),UInt32,UInt32)(8, 'GetPoints', ((1, 'points'),(1, 'pointsCount'),(1, 'startIndex'),)))
-    ID2D1SvgPointCollection.GetPointsCount = COMMETHOD(WINFUNCTYPE(UInt32,)(9, 'GetPointsCount', ()))
-    win32more.Graphics.Direct2D.ID2D1SvgAttribute
-    return ID2D1SvgPointCollection
-def _define_ID2D1SvgStrokeDashArray_head():
-    class ID2D1SvgStrokeDashArray(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
-        Guid = Guid('f1c0ca52-92a3-4f00-b4-ce-f3-56-91-ef-d9-d9')
-    return ID2D1SvgStrokeDashArray
-def _define_ID2D1SvgStrokeDashArray():
-    ID2D1SvgStrokeDashArray = win32more.Graphics.Direct2D.ID2D1SvgStrokeDashArray_head
-    ID2D1SvgStrokeDashArray.RemoveDashesAtEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'RemoveDashesAtEnd', ((1, 'dashesCount'),)))
-    ID2D1SvgStrokeDashArray.UpdateDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head),UInt32,UInt32)(7, 'UpdateDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
-    ID2D1SvgStrokeDashArray.UpdateDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32)(8, 'UpdateDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
-    ID2D1SvgStrokeDashArray.GetDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head),UInt32,UInt32)(9, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
-    ID2D1SvgStrokeDashArray.GetDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32)(10, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
-    ID2D1SvgStrokeDashArray.GetDashesCount = COMMETHOD(WINFUNCTYPE(UInt32,)(11, 'GetDashesCount', ()))
-    win32more.Graphics.Direct2D.ID2D1SvgAttribute
-    return ID2D1SvgStrokeDashArray
-def _define_ID2D1TessellationSink_head():
-    class ID2D1TessellationSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2cd906c1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1TessellationSink
-def _define_ID2D1TessellationSink():
-    ID2D1TessellationSink = win32more.Graphics.Direct2D.ID2D1TessellationSink_head
-    ID2D1TessellationSink.AddTriangles = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_TRIANGLE_head),UInt32)(3, 'AddTriangles', ((1, 'triangles'),(1, 'trianglesCount'),)))
-    ID2D1TessellationSink.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1TessellationSink
-def _define_ID2D1Transform_head():
-    class ID2D1Transform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
-        Guid = Guid('ef1a287d-342a-4f76-8f-db-da-0d-6e-a9-f9-2b')
-    return ID2D1Transform
-def _define_ID2D1Transform():
-    ID2D1Transform = win32more.Graphics.Direct2D.ID2D1Transform_head
-    ID2D1Transform.MapOutputRectToInputRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),UInt32)(4, 'MapOutputRectToInputRects', ((1, 'outputRect'),(1, 'inputRects'),(1, 'inputRectsCount'),)))
-    ID2D1Transform.MapInputRectsToOutputRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(5, 'MapInputRectsToOutputRect', ((1, 'inputRects'),(1, 'inputOpaqueSubRects'),(1, 'inputRectCount'),(1, 'outputRect'),(1, 'outputOpaqueSubRect'),)))
-    ID2D1Transform.MapInvalidRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.RECT,POINTER(win32more.Foundation.RECT_head))(6, 'MapInvalidRect', ((1, 'inputIndex'),(1, 'invalidInputRect'),(1, 'invalidOutputRect'),)))
-    win32more.Graphics.Direct2D.ID2D1TransformNode
-    return ID2D1Transform
-def _define_ID2D1TransformedGeometry_head():
-    class ID2D1TransformedGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
-        Guid = Guid('2cd906bb-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
-    return ID2D1TransformedGeometry
-def _define_ID2D1TransformedGeometry():
-    ID2D1TransformedGeometry = win32more.Graphics.Direct2D.ID2D1TransformedGeometry_head
-    ID2D1TransformedGeometry.GetSourceGeometry = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head))(17, 'GetSourceGeometry', ((1, 'sourceGeometry'),)))
-    ID2D1TransformedGeometry.GetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head))(18, 'GetTransform', ((1, 'transform'),)))
-    win32more.Graphics.Direct2D.ID2D1Geometry
-    return ID2D1TransformedGeometry
-def _define_ID2D1TransformedImageSource_head():
-    class ID2D1TransformedImageSource(win32more.Graphics.Direct2D.ID2D1Image_head):
-        Guid = Guid('7f1f79e5-2796-416c-8f-55-70-0f-91-14-45-e5')
-    return ID2D1TransformedImageSource
-def _define_ID2D1TransformedImageSource():
-    ID2D1TransformedImageSource = win32more.Graphics.Direct2D.ID2D1TransformedImageSource_head
-    ID2D1TransformedImageSource.GetSource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1ImageSource_head))(4, 'GetSource', ((1, 'imageSource'),)))
-    ID2D1TransformedImageSource.GetProperties = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head))(5, 'GetProperties', ((1, 'properties'),)))
-    win32more.Graphics.Direct2D.ID2D1Image
-    return ID2D1TransformedImageSource
-def _define_ID2D1TransformGraph_head():
-    class ID2D1TransformGraph(win32more.System.Com.IUnknown_head):
-        Guid = Guid('13d29038-c3e6-4034-90-81-13-b5-3a-41-79-92')
-    return ID2D1TransformGraph
-def _define_ID2D1TransformGraph():
-    ID2D1TransformGraph = win32more.Graphics.Direct2D.ID2D1TransformGraph_head
-    ID2D1TransformGraph.GetInputCount = COMMETHOD(WINFUNCTYPE(UInt32,)(3, 'GetInputCount', ()))
-    ID2D1TransformGraph.SetSingleTransformNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformNode_head)(4, 'SetSingleTransformNode', ((1, 'node'),)))
-    ID2D1TransformGraph.AddNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformNode_head)(5, 'AddNode', ((1, 'node'),)))
-    ID2D1TransformGraph.RemoveNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformNode_head)(6, 'RemoveNode', ((1, 'node'),)))
-    ID2D1TransformGraph.SetOutputNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformNode_head)(7, 'SetOutputNode', ((1, 'node'),)))
-    ID2D1TransformGraph.ConnectNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformNode_head,win32more.Graphics.Direct2D.ID2D1TransformNode_head,UInt32)(8, 'ConnectNode', ((1, 'fromNode'),(1, 'toNode'),(1, 'toNodeInputIndex'),)))
-    ID2D1TransformGraph.ConnectToEffectInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.ID2D1TransformNode_head,UInt32)(9, 'ConnectToEffectInput', ((1, 'toEffectInputIndex'),(1, 'node'),(1, 'toNodeInputIndex'),)))
-    ID2D1TransformGraph.Clear = COMMETHOD(WINFUNCTYPE(Void,)(10, 'Clear', ()))
-    ID2D1TransformGraph.SetPassthroughGraph = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(11, 'SetPassthroughGraph', ((1, 'effectInputIndex'),)))
-    win32more.System.Com.IUnknown
-    return ID2D1TransformGraph
-def _define_ID2D1TransformNode_head():
-    class ID2D1TransformNode(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b2efe1e7-729f-4102-94-9f-50-5f-a2-1b-f6-66')
-    return ID2D1TransformNode
-def _define_ID2D1TransformNode():
-    ID2D1TransformNode = win32more.Graphics.Direct2D.ID2D1TransformNode_head
-    ID2D1TransformNode.GetInputCount = COMMETHOD(WINFUNCTYPE(UInt32,)(3, 'GetInputCount', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1TransformNode
-def _define_ID2D1VertexBuffer_head():
-    class ID2D1VertexBuffer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9b8b1336-00a5-4668-92-b7-ce-d5-d8-bf-9b-7b')
-    return ID2D1VertexBuffer
-def _define_ID2D1VertexBuffer():
-    ID2D1VertexBuffer = win32more.Graphics.Direct2D.ID2D1VertexBuffer_head
-    ID2D1VertexBuffer.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),UInt32)(3, 'Map', ((1, 'data'),(1, 'bufferSize'),)))
-    ID2D1VertexBuffer.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Unmap', ()))
-    win32more.System.Com.IUnknown
-    return ID2D1VertexBuffer
-def _define_PD2D1_EFFECT_FACTORY():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))
-def _define_PD2D1_PROPERTY_GET_FUNCTION():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,c_char_p_no,UInt32,POINTER(UInt32))
-def _define_PD2D1_PROPERTY_SET_FUNCTION():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,c_char_p_no,UInt32)
+D2D1_YCBCR_PROP_CHROMA_SUBSAMPLING: D2D1_YCBCR_PROP = 0
+D2D1_YCBCR_PROP_TRANSFORM_MATRIX: D2D1_YCBCR_PROP = 1
+D2D1_YCBCR_PROP_INTERPOLATION_MODE: D2D1_YCBCR_PROP = 2
+D2D1_YCBCR_PROP_FORCE_DWORD: D2D1_YCBCR_PROP = 4294967295
+class ID2D1AnalysisTransform(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0359dc30-95e6-4568-90-55-27-72-0d-13-0e-93')
+    @commethod(3)
+    def ProcessAnalysisResults(analysisData: c_char_p_no, analysisDataCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1Bitmap(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Image
+    Guid = Guid('a2296057-ea42-4099-98-3b-53-9f-b6-50-54-26')
+    @commethod(4)
+    def GetSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_F: ...
+    @commethod(5)
+    def GetPixelSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_U: ...
+    @commethod(6)
+    def GetPixelFormat() -> win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT: ...
+    @commethod(7)
+    def GetDpi(dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Void: ...
+    @commethod(8)
+    def CopyFromBitmap(destPoint: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head), bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, srcRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CopyFromRenderTarget(destPoint: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head), renderTarget: win32more.Graphics.Direct2D.ID2D1RenderTarget_head, srcRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CopyFromMemory(dstRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), srcData: c_void_p, pitch: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1Bitmap1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Bitmap
+    Guid = Guid('a898a84c-3873-4588-b0-8b-eb-bf-97-8d-f0-41')
+    @commethod(11)
+    def GetColorContext(colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> Void: ...
+    @commethod(12)
+    def GetOptions() -> win32more.Graphics.Direct2D.D2D1_BITMAP_OPTIONS: ...
+    @commethod(13)
+    def GetSurface(dxgiSurface: POINTER(win32more.Graphics.Dxgi.IDXGISurface_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Map(options: win32more.Graphics.Direct2D.D2D1_MAP_OPTIONS, mappedRect: POINTER(win32more.Graphics.Direct2D.D2D1_MAPPED_RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Unmap() -> win32more.Foundation.HRESULT: ...
+class ID2D1BitmapBrush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Brush
+    Guid = Guid('2cd906aa-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(8)
+    def SetExtendModeX(extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(9)
+    def SetExtendModeY(extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(10)
+    def SetInterpolationMode(interpolationMode: win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE) -> Void: ...
+    @commethod(11)
+    def SetBitmap(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head) -> Void: ...
+    @commethod(12)
+    def GetExtendModeX() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+    @commethod(13)
+    def GetExtendModeY() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+    @commethod(14)
+    def GetInterpolationMode() -> win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE: ...
+    @commethod(15)
+    def GetBitmap(bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head)) -> Void: ...
+class ID2D1BitmapBrush1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1BitmapBrush
+    Guid = Guid('41343a53-e41a-49a2-91-cd-21-79-3b-bb-62-e5')
+    @commethod(16)
+    def SetInterpolationMode1(interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
+    @commethod(17)
+    def GetInterpolationMode1() -> win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE: ...
+class ID2D1BitmapRenderTarget(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderTarget
+    Guid = Guid('2cd90695-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(57)
+    def GetBitmap(bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1BlendTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1ConcreteTransform
+    Guid = Guid('63ac0b32-ba44-450f-88-06-7f-4c-a1-ff-2f-1b')
+    @commethod(6)
+    def SetDescription(description: POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head)) -> Void: ...
+    @commethod(7)
+    def GetDescription(description: POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head)) -> Void: ...
+class ID2D1BorderTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1ConcreteTransform
+    Guid = Guid('4998735c-3a19-473c-97-81-65-68-47-e3-a3-47')
+    @commethod(6)
+    def SetExtendModeX(extendMode: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(7)
+    def SetExtendModeY(extendMode: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(8)
+    def GetExtendModeX() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+    @commethod(9)
+    def GetExtendModeY() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+class ID2D1BoundsAdjustmentTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1TransformNode
+    Guid = Guid('90f732e2-5092-4606-a8-19-86-51-97-0b-ac-cd')
+    @commethod(4)
+    def SetOutputBounds(outputBounds: POINTER(win32more.Foundation.RECT_head)) -> Void: ...
+    @commethod(5)
+    def GetOutputBounds(outputBounds: POINTER(win32more.Foundation.RECT_head)) -> Void: ...
+class ID2D1Brush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd906a8-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def SetOpacity(opacity: Single) -> Void: ...
+    @commethod(5)
+    def SetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+    @commethod(6)
+    def GetOpacity() -> Single: ...
+    @commethod(7)
+    def GetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+class ID2D1ColorContext(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('1c4820bb-5771-4518-a5-81-2f-e4-dd-0e-c6-57')
+    @commethod(4)
+    def GetColorSpace() -> win32more.Graphics.Direct2D.D2D1_COLOR_SPACE: ...
+    @commethod(5)
+    def GetProfileSize() -> UInt32: ...
+    @commethod(6)
+    def GetProfile(profile: c_char_p_no, profileSize: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1ColorContext1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1ColorContext
+    Guid = Guid('1ab42875-c57f-4be9-bd-85-9c-d7-8d-6f-55-ee')
+    @commethod(7)
+    def GetColorContextType() -> win32more.Graphics.Direct2D.D2D1_COLOR_CONTEXT_TYPE: ...
+    @commethod(8)
+    def GetDXGIColorSpace() -> win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE: ...
+    @commethod(9)
+    def GetSimpleColorProfile(simpleProfile: POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandList(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Image
+    Guid = Guid('b4f34a19-2383-4d76-94-f6-ec-34-36-57-c3-dc')
+    @commethod(4)
+    def Stream(sink: win32more.Graphics.Direct2D.ID2D1CommandSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('54d7898a-a061-40a7-be-c7-e4-65-bc-ba-2c-4f')
+    @commethod(3)
+    def BeginDraw() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EndDraw() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetAntialiasMode(antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetTags(tag1: UInt64, tag2: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetTextAntialiasMode(textAntialiasMode: win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetTextRenderingParams(textRenderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetPrimitiveBlend(primitiveBlend: win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetUnitMode(unitMode: win32more.Graphics.Direct2D.D2D1_UNIT_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clear(color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DrawGlyphRun(baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), glyphRunDescription: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head), foregroundBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def DrawLine(point0: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, point1: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def DrawGeometry(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def DrawRectangle(rect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def DrawBitmap(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), opacity: Single, interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), perspectiveTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def DrawImage(image: win32more.Graphics.Direct2D.ID2D1Image_head, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, compositeMode: win32more.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def DrawGdiMetafile(gdiMetafile: win32more.Graphics.Direct2D.ID2D1GdiMetafile_head, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def FillMesh(mesh: win32more.Graphics.Direct2D.ID2D1Mesh_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def FillOpacityMask(opacityMask: win32more.Graphics.Direct2D.ID2D1Bitmap_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def FillGeometry(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, opacityBrush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def FillRectangle(rect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def PushAxisAlignedClip(clipRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def PushLayer(layerParameters1: POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head), layer: win32more.Graphics.Direct2D.ID2D1Layer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def PopAxisAlignedClip() -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def PopLayer() -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1CommandSink
+    Guid = Guid('9eb767fd-4269-4467-b8-c2-eb-30-cb-30-57-43')
+    @commethod(28)
+    def SetPrimitiveBlend1(primitiveBlend: win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink2(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1CommandSink1
+    Guid = Guid('3bab440e-417e-47df-a2-e2-bc-0b-e6-a0-09-16')
+    @commethod(29)
+    def DrawInk(ink: win32more.Graphics.Direct2D.ID2D1Ink_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, inkStyle: win32more.Graphics.Direct2D.ID2D1InkStyle_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def DrawGradientMesh(gradientMesh: win32more.Graphics.Direct2D.ID2D1GradientMesh_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def DrawGdiMetafile(gdiMetafile: win32more.Graphics.Direct2D.ID2D1GdiMetafile_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink3(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1CommandSink2
+    Guid = Guid('18079135-4cf3-4868-bc-8e-06-06-7e-6d-24-2d')
+    @commethod(32)
+    def DrawSpriteBatch(spriteBatch: win32more.Graphics.Direct2D.ID2D1SpriteBatch_head, startIndex: UInt32, spriteCount: UInt32, bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, interpolationMode: win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, spriteOptions: win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS) -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink4(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1CommandSink3
+    Guid = Guid('c78a6519-40d6-4218-b2-de-be-ee-b7-44-bb-3e')
+    @commethod(33)
+    def SetPrimitiveBlend2(primitiveBlend: win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> win32more.Foundation.HRESULT: ...
+class ID2D1CommandSink5(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1CommandSink4
+    Guid = Guid('7047dd26-b1e7-44a7-95-9a-83-49-e2-14-4f-a8')
+    @commethod(34)
+    def BlendImage(image: win32more.Graphics.Direct2D.ID2D1Image_head, blendMode: win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> win32more.Foundation.HRESULT: ...
+class ID2D1ComputeInfo(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderInfo
+    Guid = Guid('5598b14b-9fd7-48b7-9b-db-8f-09-64-eb-38-bc')
+    @commethod(7)
+    def SetComputeShaderConstantBuffer(buffer: c_char_p_no, bufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetComputeShader(shaderId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetResourceTexture(textureIndex: UInt32, resourceTexture: win32more.Graphics.Direct2D.ID2D1ResourceTexture_head) -> win32more.Foundation.HRESULT: ...
+class ID2D1ComputeTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Transform
+    Guid = Guid('0d85573c-01e3-4f7d-bf-d9-0d-60-60-8b-f3-c3')
+    @commethod(7)
+    def SetComputeInfo(computeInfo: win32more.Graphics.Direct2D.ID2D1ComputeInfo_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CalculateThreadgroups(outputRect: POINTER(win32more.Foundation.RECT_head), dimensionX: POINTER(UInt32), dimensionY: POINTER(UInt32), dimensionZ: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ID2D1ConcreteTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1TransformNode
+    Guid = Guid('1a799d8a-69f7-4e4c-9f-ed-43-7c-cc-66-84-cc')
+    @commethod(4)
+    def SetOutputBuffer(bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, channelDepth: win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetCached(isCached: win32more.Foundation.BOOL) -> Void: ...
+class ID2D1DCRenderTarget(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderTarget
+    Guid = Guid('1c51bc64-de61-46fd-98-99-63-a5-d8-f0-39-50')
+    @commethod(57)
+    def BindDC(hDC: win32more.Graphics.Gdi.HDC, pSubRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Device(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('47dd575d-ac05-4cdd-80-49-9b-02-cd-16-f4-4c')
+    @commethod(4)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreatePrintControl(wicFactory: win32more.Graphics.Imaging.IWICImagingFactory_head, documentTarget: win32more.Storage.Xps.Printing.IPrintDocumentPackageTarget_head, printControlProperties: POINTER(win32more.Graphics.Direct2D.D2D1_PRINT_CONTROL_PROPERTIES_head), printControl: POINTER(win32more.Graphics.Direct2D.ID2D1PrintControl_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetMaximumTextureMemory(maximumInBytes: UInt64) -> Void: ...
+    @commethod(7)
+    def GetMaximumTextureMemory() -> UInt64: ...
+    @commethod(8)
+    def ClearResources(millisecondsSinceUse: UInt32) -> Void: ...
+class ID2D1Device1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device
+    Guid = Guid('d21768e1-23a4-4823-a1-4b-7c-3e-ba-85-d6-58')
+    @commethod(9)
+    def GetRenderingPriority() -> win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY: ...
+    @commethod(10)
+    def SetRenderingPriority(renderingPriority: win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY) -> Void: ...
+    @commethod(11)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext1: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext1_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Device2(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device1
+    Guid = Guid('a44472e1-8dfb-4e60-84-92-6e-28-61-c9-ca-8b')
+    @commethod(12)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext2: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def FlushDeviceContexts(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head) -> Void: ...
+    @commethod(14)
+    def GetDxgiDevice(dxgiDevice: POINTER(win32more.Graphics.Dxgi.IDXGIDevice_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Device3(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device2
+    Guid = Guid('852f2087-802c-4037-ab-60-ff-2e-7e-e6-fc-01')
+    @commethod(15)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext3: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext3_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Device4(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device3
+    Guid = Guid('d7bdb159-5683-4a46-bc-9c-72-dc-72-0b-85-8b')
+    @commethod(16)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext4: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext4_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetMaximumColorGlyphCacheMemory(maximumInBytes: UInt64) -> Void: ...
+    @commethod(18)
+    def GetMaximumColorGlyphCacheMemory() -> UInt64: ...
+class ID2D1Device5(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device4
+    Guid = Guid('d55ba0a4-6405-4694-ae-f5-08-ee-1a-43-58-b4')
+    @commethod(19)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext5: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext5_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Device6(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Device5
+    Guid = Guid('7bfef914-2d75-4bad-be-87-e1-8d-db-07-7b-6d')
+    @commethod(20)
+    def CreateDeviceContext(options: win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext6: POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext6_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1DeviceContext(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderTarget
+    Guid = Guid('e8f7fe7a-191c-466d-ad-95-97-56-78-bd-a9-98')
+    @commethod(57)
+    def CreateBitmap(size: win32more.Graphics.Direct2D.Common.D2D_SIZE_U, sourceData: c_void_p, pitch: UInt32, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def CreateBitmapFromWicBitmap(wicBitmapSource: win32more.Graphics.Imaging.IWICBitmapSource_head, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def CreateColorContext(space: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, profile: c_char_p_no, profileSize: UInt32, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def CreateColorContextFromFilename(filename: win32more.Foundation.PWSTR, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def CreateColorContextFromWicColorContext(wicColorContext: win32more.Graphics.Imaging.IWICColorContext_head, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def CreateBitmapFromDxgiSurface(surface: win32more.Graphics.Dxgi.IDXGISurface_head, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES1_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def CreateEffect(effectId: POINTER(Guid), effect: POINTER(win32more.Graphics.Direct2D.ID2D1Effect_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(64)
+    def CreateGradientStopCollection(straightAlphaGradientStops: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head), straightAlphaGradientStopsCount: UInt32, preInterpolationSpace: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, postInterpolationSpace: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extendMode: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, colorInterpolationMode: win32more.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE, gradientStopCollection1: POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def CreateImageBrush(image: win32more.Graphics.Direct2D.ID2D1Image_head, imageBrushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_IMAGE_BRUSH_PROPERTIES_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), imageBrush: POINTER(win32more.Graphics.Direct2D.ID2D1ImageBrush_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(66)
+    def CreateBitmapBrush(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, bitmapBrushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES1_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), bitmapBrush: POINTER(win32more.Graphics.Direct2D.ID2D1BitmapBrush1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(67)
+    def CreateCommandList(commandList: POINTER(win32more.Graphics.Direct2D.ID2D1CommandList_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(68)
+    def IsDxgiFormatSupported(format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT) -> win32more.Foundation.BOOL: ...
+    @commethod(69)
+    def IsBufferPrecisionSupported(bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION) -> win32more.Foundation.BOOL: ...
+    @commethod(70)
+    def GetImageLocalBounds(image: win32more.Graphics.Direct2D.ID2D1Image_head, localBounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(71)
+    def GetImageWorldBounds(image: win32more.Graphics.Direct2D.ID2D1Image_head, worldBounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(72)
+    def GetGlyphRunWorldBounds(baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE, bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(73)
+    def GetDevice(device: POINTER(win32more.Graphics.Direct2D.ID2D1Device_head)) -> Void: ...
+    @commethod(74)
+    def SetTarget(image: win32more.Graphics.Direct2D.ID2D1Image_head) -> Void: ...
+    @commethod(75)
+    def GetTarget(image: POINTER(win32more.Graphics.Direct2D.ID2D1Image_head)) -> Void: ...
+    @commethod(76)
+    def SetRenderingControls(renderingControls: POINTER(win32more.Graphics.Direct2D.D2D1_RENDERING_CONTROLS_head)) -> Void: ...
+    @commethod(77)
+    def GetRenderingControls(renderingControls: POINTER(win32more.Graphics.Direct2D.D2D1_RENDERING_CONTROLS_head)) -> Void: ...
+    @commethod(78)
+    def SetPrimitiveBlend(primitiveBlend: win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND) -> Void: ...
+    @commethod(79)
+    def GetPrimitiveBlend() -> win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND: ...
+    @commethod(80)
+    def SetUnitMode(unitMode: win32more.Graphics.Direct2D.D2D1_UNIT_MODE) -> Void: ...
+    @commethod(81)
+    def GetUnitMode() -> win32more.Graphics.Direct2D.D2D1_UNIT_MODE: ...
+    @commethod(82)
+    def DrawGlyphRun(baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), glyphRunDescription: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head), foregroundBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(83)
+    def DrawImage(image: win32more.Graphics.Direct2D.ID2D1Image_head, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, compositeMode: win32more.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE) -> Void: ...
+    @commethod(84)
+    def DrawGdiMetafile(gdiMetafile: win32more.Graphics.Direct2D.ID2D1GdiMetafile_head, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> Void: ...
+    @commethod(85)
+    def DrawBitmap(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), opacity: Single, interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), perspectiveTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head)) -> Void: ...
+    @commethod(86)
+    def PushLayer(layerParameters: POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head), layer: win32more.Graphics.Direct2D.ID2D1Layer_head) -> Void: ...
+    @commethod(87)
+    def InvalidateEffectInputRectangle(effect: win32more.Graphics.Direct2D.ID2D1Effect_head, input: UInt32, inputRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(88)
+    def GetEffectInvalidRectangleCount(effect: win32more.Graphics.Direct2D.ID2D1Effect_head, rectangleCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(89)
+    def GetEffectInvalidRectangles(effect: win32more.Graphics.Direct2D.ID2D1Effect_head, rectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), rectanglesCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(90)
+    def GetEffectRequiredInputRectangles(renderEffect: win32more.Graphics.Direct2D.ID2D1Effect_head, renderImageRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), inputDescriptions: POINTER(win32more.Graphics.Direct2D.D2D1_EFFECT_INPUT_DESCRIPTION_head), requiredInputRects: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), inputCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(91)
+    def FillOpacityMask(opacityMask: win32more.Graphics.Direct2D.ID2D1Bitmap_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+class ID2D1DeviceContext1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext
+    Guid = Guid('d37f57e4-6908-459f-a1-99-e7-2f-24-f7-99-87')
+    @commethod(92)
+    def CreateFilledGeometryRealization(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, flatteningTolerance: Single, geometryRealization: POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(93)
+    def CreateStrokedGeometryRealization(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, flatteningTolerance: Single, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head, geometryRealization: POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(94)
+    def DrawGeometryRealization(geometryRealization: win32more.Graphics.Direct2D.ID2D1GeometryRealization_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+class ID2D1DeviceContext2(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext1
+    Guid = Guid('394ea6a3-0c34-4321-95-0b-6c-a2-0f-0b-e6-c7')
+    @commethod(95)
+    def CreateInk(startPoint: POINTER(win32more.Graphics.Direct2D.D2D1_INK_POINT_head), ink: POINTER(win32more.Graphics.Direct2D.ID2D1Ink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(96)
+    def CreateInkStyle(inkStyleProperties: POINTER(win32more.Graphics.Direct2D.D2D1_INK_STYLE_PROPERTIES_head), inkStyle: POINTER(win32more.Graphics.Direct2D.ID2D1InkStyle_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(97)
+    def CreateGradientMesh(patches: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head), patchesCount: UInt32, gradientMesh: POINTER(win32more.Graphics.Direct2D.ID2D1GradientMesh_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(98)
+    def CreateImageSourceFromWic(wicBitmapSource: win32more.Graphics.Imaging.IWICBitmapSource_head, loadingOptions: win32more.Graphics.Direct2D.D2D1_IMAGE_SOURCE_LOADING_OPTIONS, alphaMode: win32more.Graphics.Direct2D.Common.D2D1_ALPHA_MODE, imageSource: POINTER(win32more.Graphics.Direct2D.ID2D1ImageSourceFromWic_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(99)
+    def CreateLookupTable3D(precision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extents: POINTER(UInt32), data: c_char_p_no, dataCount: UInt32, strides: POINTER(UInt32), lookupTable: POINTER(win32more.Graphics.Direct2D.ID2D1LookupTable3D_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(100)
+    def CreateImageSourceFromDxgi(surfaces: POINTER(win32more.Graphics.Dxgi.IDXGISurface_head), surfaceCount: UInt32, colorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, options: win32more.Graphics.Direct2D.D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS, imageSource: POINTER(win32more.Graphics.Direct2D.ID2D1ImageSource_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(101)
+    def GetGradientMeshWorldBounds(gradientMesh: win32more.Graphics.Direct2D.ID2D1GradientMesh_head, pBounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(102)
+    def DrawInk(ink: win32more.Graphics.Direct2D.ID2D1Ink_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, inkStyle: win32more.Graphics.Direct2D.ID2D1InkStyle_head) -> Void: ...
+    @commethod(103)
+    def DrawGradientMesh(gradientMesh: win32more.Graphics.Direct2D.ID2D1GradientMesh_head) -> Void: ...
+    @commethod(104)
+    def DrawGdiMetafile(gdiMetafile: win32more.Graphics.Direct2D.ID2D1GdiMetafile_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+    @commethod(105)
+    def CreateTransformedImageSource(imageSource: win32more.Graphics.Direct2D.ID2D1ImageSource_head, properties: POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head), transformedImageSource: POINTER(win32more.Graphics.Direct2D.ID2D1TransformedImageSource_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1DeviceContext3(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext2
+    Guid = Guid('235a7496-8351-414c-bc-d4-66-72-ab-2d-8e-00')
+    @commethod(106)
+    def CreateSpriteBatch(spriteBatch: POINTER(win32more.Graphics.Direct2D.ID2D1SpriteBatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(107)
+    def DrawSpriteBatch(spriteBatch: win32more.Graphics.Direct2D.ID2D1SpriteBatch_head, startIndex: UInt32, spriteCount: UInt32, bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, interpolationMode: win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, spriteOptions: win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS) -> Void: ...
+class ID2D1DeviceContext4(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext3
+    Guid = Guid('8c427831-3d90-4476-b6-47-c4-fa-e3-49-e4-db')
+    @commethod(108)
+    def CreateSvgGlyphStyle(svgGlyphStyle: POINTER(win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(109)
+    def DrawText(string: win32more.Foundation.PWSTR, stringLength: UInt32, textFormat: win32more.Graphics.DirectWrite.IDWriteTextFormat_head, layoutRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, svgGlyphStyle: win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head, colorPaletteIndex: UInt32, options: win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(110)
+    def DrawTextLayout(origin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, textLayout: win32more.Graphics.DirectWrite.IDWriteTextLayout_head, defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, svgGlyphStyle: win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head, colorPaletteIndex: UInt32, options: win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS) -> Void: ...
+    @commethod(111)
+    def DrawColorBitmapGlyphRun(glyphImageFormat: win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE, bitmapSnapOption: win32more.Graphics.Direct2D.D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION) -> Void: ...
+    @commethod(112)
+    def DrawSvgGlyphRun(baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, svgGlyphStyle: win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head, colorPaletteIndex: UInt32, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(113)
+    def GetColorBitmapGlyphImage(glyphImageFormat: win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, glyphOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, fontFace: win32more.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, glyphIndex: UInt16, isSideways: win32more.Foundation.BOOL, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), dpiX: Single, dpiY: Single, glyphTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), glyphImage: POINTER(win32more.Graphics.Direct2D.ID2D1Image_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(114)
+    def GetSvgGlyphImage(glyphOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, fontFace: win32more.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, glyphIndex: UInt16, isSideways: win32more.Foundation.BOOL, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, svgGlyphStyle: win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head, colorPaletteIndex: UInt32, glyphTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), glyphImage: POINTER(win32more.Graphics.Direct2D.ID2D1CommandList_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1DeviceContext5(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext4
+    Guid = Guid('7836d248-68cc-4df6-b9-e8-de-99-1b-f6-2e-b7')
+    @commethod(115)
+    def CreateSvgDocument(inputXmlStream: win32more.System.Com.IStream_head, viewportSize: win32more.Graphics.Direct2D.Common.D2D_SIZE_F, svgDocument: POINTER(win32more.Graphics.Direct2D.ID2D1SvgDocument_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(116)
+    def DrawSvgDocument(svgDocument: win32more.Graphics.Direct2D.ID2D1SvgDocument_head) -> Void: ...
+    @commethod(117)
+    def CreateColorContextFromDxgiColorSpace(colorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(118)
+    def CreateColorContextFromSimpleColorProfile(simpleProfile: POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head), colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1DeviceContext6(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DeviceContext5
+    Guid = Guid('985f7e37-4ed0-4a19-98-a3-15-b0-ed-fd-e3-06')
+    @commethod(119)
+    def BlendImage(image: win32more.Graphics.Direct2D.ID2D1Image_head, blendMode: win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE, targetOffset: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), imageRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
+class ID2D1DrawInfo(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderInfo
+    Guid = Guid('693ce632-7f2f-45de-93-fe-18-d8-8b-37-aa-21')
+    @commethod(7)
+    def SetPixelShaderConstantBuffer(buffer: c_char_p_no, bufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetResourceTexture(textureIndex: UInt32, resourceTexture: win32more.Graphics.Direct2D.ID2D1ResourceTexture_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetVertexShaderConstantBuffer(buffer: c_char_p_no, bufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetPixelShader(shaderId: POINTER(Guid), pixelOptions: win32more.Graphics.Direct2D.D2D1_PIXEL_OPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetVertexProcessing(vertexBuffer: win32more.Graphics.Direct2D.ID2D1VertexBuffer_head, vertexOptions: win32more.Graphics.Direct2D.D2D1_VERTEX_OPTIONS, blendDescription: POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head), vertexRange: POINTER(win32more.Graphics.Direct2D.D2D1_VERTEX_RANGE_head), vertexShader: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class ID2D1DrawingStateBlock(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('28506e39-ebf6-46a1-bb-47-fd-85-56-5a-b9-57')
+    @commethod(4)
+    def GetDescription(stateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head)) -> Void: ...
+    @commethod(5)
+    def SetDescription(stateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head)) -> Void: ...
+    @commethod(6)
+    def SetTextRenderingParams(textRenderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head) -> Void: ...
+    @commethod(7)
+    def GetTextRenderingParams(textRenderingParams: POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head)) -> Void: ...
+class ID2D1DrawingStateBlock1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1DrawingStateBlock
+    Guid = Guid('689f1f85-c72e-4e33-8f-19-85-75-4e-fd-5a-ce')
+    @commethod(8)
+    def GetDescription(stateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head)) -> Void: ...
+    @commethod(9)
+    def SetDescription(stateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head)) -> Void: ...
+class ID2D1DrawTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Transform
+    Guid = Guid('36bfdcb6-9739-435d-a3-0d-a6-53-be-ff-6a-6f')
+    @commethod(7)
+    def SetDrawInfo(drawInfo: win32more.Graphics.Direct2D.ID2D1DrawInfo_head) -> win32more.Foundation.HRESULT: ...
+class ID2D1Effect(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Properties
+    Guid = Guid('28211a43-7d89-476f-81-81-2d-61-59-b2-20-ad')
+    @commethod(14)
+    def SetInput(index: UInt32, input: win32more.Graphics.Direct2D.ID2D1Image_head, invalidate: win32more.Foundation.BOOL) -> Void: ...
+    @commethod(15)
+    def SetInputCount(inputCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetInput(index: UInt32, input: POINTER(win32more.Graphics.Direct2D.ID2D1Image_head)) -> Void: ...
+    @commethod(17)
+    def GetInputCount() -> UInt32: ...
+    @commethod(18)
+    def GetOutput(outputImage: POINTER(win32more.Graphics.Direct2D.ID2D1Image_head)) -> Void: ...
+class ID2D1EffectContext(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3d9f916b-27dc-4ad7-b4-f1-64-94-53-40-f5-63')
+    @commethod(3)
+    def GetDpi(dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Void: ...
+    @commethod(4)
+    def CreateEffect(effectId: POINTER(Guid), effect: POINTER(win32more.Graphics.Direct2D.ID2D1Effect_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetMaximumSupportedFeatureLevel(featureLevels: POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL), featureLevelsCount: UInt32, maximumSupportedFeatureLevel: POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateTransformNodeFromEffect(effect: win32more.Graphics.Direct2D.ID2D1Effect_head, transformNode: POINTER(win32more.Graphics.Direct2D.ID2D1TransformNode_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateBlendTransform(numInputs: UInt32, blendDescription: POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head), transform: POINTER(win32more.Graphics.Direct2D.ID2D1BlendTransform_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateBorderTransform(extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, transform: POINTER(win32more.Graphics.Direct2D.ID2D1BorderTransform_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateOffsetTransform(offset: win32more.Foundation.POINT, transform: POINTER(win32more.Graphics.Direct2D.ID2D1OffsetTransform_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateBoundsAdjustmentTransform(outputRectangle: POINTER(win32more.Foundation.RECT_head), transform: POINTER(win32more.Graphics.Direct2D.ID2D1BoundsAdjustmentTransform_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def LoadPixelShader(shaderId: POINTER(Guid), shaderBuffer: c_char_p_no, shaderBufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def LoadVertexShader(resourceId: POINTER(Guid), shaderBuffer: c_char_p_no, shaderBufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def LoadComputeShader(resourceId: POINTER(Guid), shaderBuffer: c_char_p_no, shaderBufferCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def IsShaderLoaded(shaderId: POINTER(Guid)) -> win32more.Foundation.BOOL: ...
+    @commethod(15)
+    def CreateResourceTexture(resourceId: POINTER(Guid), resourceTextureProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RESOURCE_TEXTURE_PROPERTIES_head), data: c_char_p_no, strides: POINTER(UInt32), dataSize: UInt32, resourceTexture: POINTER(win32more.Graphics.Direct2D.ID2D1ResourceTexture_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def FindResourceTexture(resourceId: POINTER(Guid), resourceTexture: POINTER(win32more.Graphics.Direct2D.ID2D1ResourceTexture_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def CreateVertexBuffer(vertexBufferProperties: POINTER(win32more.Graphics.Direct2D.D2D1_VERTEX_BUFFER_PROPERTIES_head), resourceId: POINTER(Guid), customVertexBufferProperties: POINTER(win32more.Graphics.Direct2D.D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES_head), buffer: POINTER(win32more.Graphics.Direct2D.ID2D1VertexBuffer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def FindVertexBuffer(resourceId: POINTER(Guid), buffer: POINTER(win32more.Graphics.Direct2D.ID2D1VertexBuffer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def CreateColorContext(space: win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, profile: c_char_p_no, profileSize: UInt32, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CreateColorContextFromFilename(filename: win32more.Foundation.PWSTR, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CreateColorContextFromWicColorContext(wicColorContext: win32more.Graphics.Imaging.IWICColorContext_head, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def CheckFeatureSupport(feature: win32more.Graphics.Direct2D.D2D1_FEATURE, featureSupportData: c_void_p, featureSupportDataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def IsBufferPrecisionSupported(bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION) -> win32more.Foundation.BOOL: ...
+class ID2D1EffectContext1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1EffectContext
+    Guid = Guid('84ab595a-fc81-4546-ba-cd-e8-ef-4d-8a-be-7a')
+    @commethod(24)
+    def CreateLookupTable3D(precision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extents: POINTER(UInt32), data: c_char_p_no, dataCount: UInt32, strides: POINTER(UInt32), lookupTable: POINTER(win32more.Graphics.Direct2D.ID2D1LookupTable3D_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1EffectContext2(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1EffectContext1
+    Guid = Guid('577ad2a0-9fc7-4dda-8b-18-da-b8-10-14-00-52')
+    @commethod(25)
+    def CreateColorContextFromDxgiColorSpace(colorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def CreateColorContextFromSimpleColorProfile(simpleProfile: POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head), colorContext: POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1EffectImpl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a248fd3f-3e6c-4e63-9f-03-7f-68-ec-c9-1d-b9')
+    @commethod(3)
+    def Initialize(effectContext: win32more.Graphics.Direct2D.ID2D1EffectContext_head, transformGraph: win32more.Graphics.Direct2D.ID2D1TransformGraph_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def PrepareForRender(changeType: win32more.Graphics.Direct2D.D2D1_CHANGE_TYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetGraph(transformGraph: win32more.Graphics.Direct2D.ID2D1TransformGraph_head) -> win32more.Foundation.HRESULT: ...
+class ID2D1EllipseGeometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906a4-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def GetEllipse(ellipse: POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head)) -> Void: ...
+class ID2D1Factory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('06152247-6f50-465a-92-45-11-8b-fd-3b-60-07')
+    @commethod(3)
+    def ReloadSystemMetrics() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDesktopDpi(dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Void: ...
+    @commethod(5)
+    def CreateRectangleGeometry(rectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), rectangleGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1RectangleGeometry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateRoundedRectangleGeometry(roundedRectangle: POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head), roundedRectangleGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1RoundedRectangleGeometry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateEllipseGeometry(ellipse: POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head), ellipseGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1EllipseGeometry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateGeometryGroup(fillMode: win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE, geometries: POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head), geometriesCount: UInt32, geometryGroup: POINTER(win32more.Graphics.Direct2D.ID2D1GeometryGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateTransformedGeometry(sourceGeometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), transformedGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1TransformedGeometry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreatePathGeometry(pathGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateStrokeStyle(strokeStyleProperties: POINTER(win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES_head), dashes: POINTER(Single), dashesCount: UInt32, strokeStyle: POINTER(win32more.Graphics.Direct2D.ID2D1StrokeStyle_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateDrawingStateBlock(drawingStateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head), textRenderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head, drawingStateBlock: POINTER(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateWicBitmapRenderTarget(target: win32more.Graphics.Imaging.IWICBitmap_head, renderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), renderTarget: POINTER(win32more.Graphics.Direct2D.ID2D1RenderTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateHwndRenderTarget(renderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), hwndRenderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_HWND_RENDER_TARGET_PROPERTIES_head), hwndRenderTarget: POINTER(win32more.Graphics.Direct2D.ID2D1HwndRenderTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def CreateDxgiSurfaceRenderTarget(dxgiSurface: win32more.Graphics.Dxgi.IDXGISurface_head, renderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), renderTarget: POINTER(win32more.Graphics.Direct2D.ID2D1RenderTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def CreateDCRenderTarget(renderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), dcRenderTarget: POINTER(win32more.Graphics.Direct2D.ID2D1DCRenderTarget_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory
+    Guid = Guid('bb12d362-daee-4b9a-aa-1d-14-ba-40-1c-fa-1f')
+    @commethod(17)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice: POINTER(win32more.Graphics.Direct2D.ID2D1Device_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateStrokeStyle(strokeStyleProperties: POINTER(win32more.Graphics.Direct2D.D2D1_STROKE_STYLE_PROPERTIES1_head), dashes: POINTER(Single), dashesCount: UInt32, strokeStyle: POINTER(win32more.Graphics.Direct2D.ID2D1StrokeStyle1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def CreatePathGeometry(pathGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CreateDrawingStateBlock(drawingStateDescription: POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head), textRenderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head, drawingStateBlock: POINTER(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CreateGdiMetafile(metafileStream: win32more.System.Com.IStream_head, metafile: POINTER(win32more.Graphics.Direct2D.ID2D1GdiMetafile_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def RegisterEffectFromStream(classId: POINTER(Guid), propertyXml: win32more.System.Com.IStream_head, bindings: POINTER(win32more.Graphics.Direct2D.D2D1_PROPERTY_BINDING_head), bindingsCount: UInt32, effectFactory: win32more.Graphics.Direct2D.PD2D1_EFFECT_FACTORY) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def RegisterEffectFromString(classId: POINTER(Guid), propertyXml: win32more.Foundation.PWSTR, bindings: POINTER(win32more.Graphics.Direct2D.D2D1_PROPERTY_BINDING_head), bindingsCount: UInt32, effectFactory: win32more.Graphics.Direct2D.PD2D1_EFFECT_FACTORY) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def UnregisterEffect(classId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetRegisteredEffects(effects: POINTER(Guid), effectsCount: UInt32, effectsReturned: POINTER(UInt32), effectsRegistered: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetEffectProperties(effectId: POINTER(Guid), properties: POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory2(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory1
+    Guid = Guid('94f81a73-9212-4376-9c-58-b1-6a-3a-0d-39-92')
+    @commethod(27)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice1: POINTER(win32more.Graphics.Direct2D.ID2D1Device1_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory3(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory2
+    Guid = Guid('0869759f-4f00-413f-b0-3e-2b-da-45-40-4d-0f')
+    @commethod(28)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice2: POINTER(win32more.Graphics.Direct2D.ID2D1Device2_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory4(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory3
+    Guid = Guid('bd4ec2d2-0662-4bee-ba-8e-6f-29-f0-32-e0-96')
+    @commethod(29)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice3: POINTER(win32more.Graphics.Direct2D.ID2D1Device3_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory5(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory4
+    Guid = Guid('c4349994-838e-4b0f-8c-ab-44-99-7d-9e-ea-cc')
+    @commethod(30)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice4: POINTER(win32more.Graphics.Direct2D.ID2D1Device4_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory6(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory5
+    Guid = Guid('f9976f46-f642-44c1-97-ca-da-32-ea-2a-26-35')
+    @commethod(31)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice5: POINTER(win32more.Graphics.Direct2D.ID2D1Device5_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Factory7(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Factory6
+    Guid = Guid('bdc2bdd3-b96c-4de6-bd-f7-99-d4-74-54-54-de')
+    @commethod(32)
+    def CreateDevice(dxgiDevice: win32more.Graphics.Dxgi.IDXGIDevice_head, d2dDevice6: POINTER(win32more.Graphics.Direct2D.ID2D1Device6_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1GdiInteropRenderTarget(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e0db51c3-6f77-4bae-b3-d5-e4-75-09-b3-58-38')
+    @commethod(3)
+    def GetDC(mode: win32more.Graphics.Direct2D.D2D1_DC_INITIALIZE_MODE, hdc: POINTER(win32more.Graphics.Gdi.HDC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReleaseDC(update: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1GdiMetafile(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2f543dc3-cfc1-4211-86-4f-cf-d9-1c-6f-33-95')
+    @commethod(4)
+    def Stream(sink: win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetBounds(bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1GdiMetafile1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1GdiMetafile
+    Guid = Guid('2e69f9e8-dd3f-4bf9-95-ba-c0-4f-49-d7-88-df')
+    @commethod(6)
+    def GetDpi(dpiX: POINTER(Single), dpiY: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetSourceBounds(bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1GdiMetafileSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('82237326-8111-4f7c-bc-f4-b5-c1-17-55-64-fe')
+    @commethod(3)
+    def ProcessRecord(recordType: UInt32, recordData: c_void_p, recordDataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1GdiMetafileSink1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1GdiMetafileSink
+    Guid = Guid('fd0ecb6b-91e6-411e-86-55-39-5e-76-0f-91-b4')
+    @commethod(4)
+    def ProcessRecord(recordType: UInt32, recordData: c_void_p, recordDataSize: UInt32, flags: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1Geometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd906a1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def GetBounds(worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetWidenedBounds(strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def StrokeContainsPoint(point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, contains: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FillContainsPoint(point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, contains: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CompareWithGeometry(inputGeometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, inputGeometryTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, relation: POINTER(win32more.Graphics.Direct2D.D2D1_GEOMETRY_RELATION)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Simplify(simplificationOption: win32more.Graphics.Direct2D.D2D1_GEOMETRY_SIMPLIFICATION_OPTION, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Tessellate(worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, tessellationSink: win32more.Graphics.Direct2D.ID2D1TessellationSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CombineWithGeometry(inputGeometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, combineMode: win32more.Graphics.Direct2D.D2D1_COMBINE_MODE, inputGeometryTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Outline(worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ComputeArea(worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, area: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def ComputeLength(worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, length: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ComputePointAtLength(length: Single, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, point: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), unitTangentVector: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def Widen(strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> win32more.Foundation.HRESULT: ...
+class ID2D1GeometryGroup(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906a6-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def GetFillMode() -> win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE: ...
+    @commethod(18)
+    def GetSourceGeometryCount() -> UInt32: ...
+    @commethod(19)
+    def GetSourceGeometries(geometries: POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head), geometriesCount: UInt32) -> Void: ...
+class ID2D1GeometryRealization(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('a16907d7-bc02-4801-99-e8-8c-f7-f4-85-f7-74')
+class ID2D1GeometrySink(c_void_p):
+    extends: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink
+    Guid = Guid('2cd9069f-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(10)
+    def AddLine(point: win32more.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
+    @commethod(11)
+    def AddBezier(bezier: POINTER(win32more.Graphics.Direct2D.Common.D2D1_BEZIER_SEGMENT_head)) -> Void: ...
+    @commethod(12)
+    def AddQuadraticBezier(bezier: POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head)) -> Void: ...
+    @commethod(13)
+    def AddQuadraticBeziers(beziers: POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head), beziersCount: UInt32) -> Void: ...
+    @commethod(14)
+    def AddArc(arc: POINTER(win32more.Graphics.Direct2D.D2D1_ARC_SEGMENT_head)) -> Void: ...
+class ID2D1GradientMesh(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('f292e401-c050-4cde-83-d7-04-96-2d-3b-23-c2')
+    @commethod(4)
+    def GetPatchCount() -> UInt32: ...
+    @commethod(5)
+    def GetPatches(startIndex: UInt32, patches: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH_head), patchesCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1GradientStopCollection(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd906a7-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def GetGradientStopCount() -> UInt32: ...
+    @commethod(5)
+    def GetGradientStops(gradientStops: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head), gradientStopsCount: UInt32) -> Void: ...
+    @commethod(6)
+    def GetColorInterpolationGamma() -> win32more.Graphics.Direct2D.D2D1_GAMMA: ...
+    @commethod(7)
+    def GetExtendMode() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+class ID2D1GradientStopCollection1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1GradientStopCollection
+    Guid = Guid('ae1572f4-5dd0-4777-99-8b-92-79-47-2a-e6-3b')
+    @commethod(8)
+    def GetGradientStops1(gradientStops: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head), gradientStopsCount: UInt32) -> Void: ...
+    @commethod(9)
+    def GetPreInterpolationSpace() -> win32more.Graphics.Direct2D.D2D1_COLOR_SPACE: ...
+    @commethod(10)
+    def GetPostInterpolationSpace() -> win32more.Graphics.Direct2D.D2D1_COLOR_SPACE: ...
+    @commethod(11)
+    def GetBufferPrecision() -> win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION: ...
+    @commethod(12)
+    def GetColorInterpolationMode() -> win32more.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE: ...
+class ID2D1HwndRenderTarget(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1RenderTarget
+    Guid = Guid('2cd90698-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(57)
+    def CheckWindowState() -> win32more.Graphics.Direct2D.D2D1_WINDOW_STATE: ...
+    @commethod(58)
+    def Resize(pixelSize: POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_U_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def GetHwnd() -> win32more.Foundation.HWND: ...
+class ID2D1Image(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('65019f75-8da2-497c-b3-2c-df-a3-4e-48-ed-e6')
+class ID2D1ImageBrush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Brush
+    Guid = Guid('fe9e984d-3f95-407c-b5-db-cb-94-d4-e8-f8-7c')
+    @commethod(8)
+    def SetImage(image: win32more.Graphics.Direct2D.ID2D1Image_head) -> Void: ...
+    @commethod(9)
+    def SetExtendModeX(extendModeX: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(10)
+    def SetExtendModeY(extendModeY: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE) -> Void: ...
+    @commethod(11)
+    def SetInterpolationMode(interpolationMode: win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
+    @commethod(12)
+    def SetSourceRectangle(sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+    @commethod(13)
+    def GetImage(image: POINTER(win32more.Graphics.Direct2D.ID2D1Image_head)) -> Void: ...
+    @commethod(14)
+    def GetExtendModeX() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+    @commethod(15)
+    def GetExtendModeY() -> win32more.Graphics.Direct2D.D2D1_EXTEND_MODE: ...
+    @commethod(16)
+    def GetInterpolationMode() -> win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE: ...
+    @commethod(17)
+    def GetSourceRectangle(sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+class ID2D1ImageSource(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Image
+    Guid = Guid('c9b664e5-74a1-4378-9a-c2-ee-fc-37-a3-f4-d8')
+    @commethod(4)
+    def OfferResources() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def TryReclaimResources(resourcesDiscarded: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ID2D1ImageSourceFromWic(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1ImageSource
+    Guid = Guid('77395441-1c8f-4555-86-83-f5-0d-ab-0f-e7-92')
+    @commethod(6)
+    def EnsureCached(rectangleToFill: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def TrimCache(rectangleToPreserve: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetSource(wicBitmapSource: POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head)) -> Void: ...
+class ID2D1Ink(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('b499923b-7029-478f-a8-b3-43-2c-7c-5f-53-12')
+    @commethod(4)
+    def SetStartPoint(startPoint: POINTER(win32more.Graphics.Direct2D.D2D1_INK_POINT_head)) -> Void: ...
+    @commethod(5)
+    def GetStartPoint() -> win32more.Graphics.Direct2D.D2D1_INK_POINT: ...
+    @commethod(6)
+    def AddSegments(segments: POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head), segmentsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def RemoveSegmentsAtEnd(segmentsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetSegments(startSegment: UInt32, segments: POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head), segmentsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetSegmentAtEnd(segment: POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetSegmentCount() -> UInt32: ...
+    @commethod(11)
+    def GetSegments(startSegment: UInt32, segments: POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT_head), segmentsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def StreamAsGeometry(inkStyle: win32more.Graphics.Direct2D.ID2D1InkStyle_head, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, geometrySink: win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetBounds(inkStyle: win32more.Graphics.Direct2D.ID2D1InkStyle_head, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), bounds: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1InkStyle(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('bae8b344-23fc-4071-8c-b5-d0-5d-6f-07-38-48')
+    @commethod(4)
+    def SetNibTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+    @commethod(5)
+    def GetNibTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+    @commethod(6)
+    def SetNibShape(nibShape: win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE) -> Void: ...
+    @commethod(7)
+    def GetNibShape() -> win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE: ...
+class ID2D1Layer(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd9069b-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def GetSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_F: ...
+class ID2D1LinearGradientBrush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Brush
+    Guid = Guid('2cd906ab-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(8)
+    def SetStartPoint(startPoint: win32more.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
+    @commethod(9)
+    def SetEndPoint(endPoint: win32more.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
+    @commethod(10)
+    def GetStartPoint() -> win32more.Graphics.Direct2D.Common.D2D_POINT_2F: ...
+    @commethod(11)
+    def GetEndPoint() -> win32more.Graphics.Direct2D.Common.D2D_POINT_2F: ...
+    @commethod(12)
+    def GetGradientStopCollection(gradientStopCollection: POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head)) -> Void: ...
+class ID2D1LookupTable3D(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('53dd9855-a3b0-4d5b-82-e1-26-e2-5c-5e-57-97')
+class ID2D1Mesh(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd906c2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def Open(tessellationSink: POINTER(win32more.Graphics.Direct2D.ID2D1TessellationSink_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1Multithread(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('31e6e7bc-e0ff-4d46-8c-64-a0-a8-c4-1c-15-d3')
+    @commethod(3)
+    def GetMultithreadProtected() -> win32more.Foundation.BOOL: ...
+    @commethod(4)
+    def Enter() -> Void: ...
+    @commethod(5)
+    def Leave() -> Void: ...
+class ID2D1OffsetTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1TransformNode
+    Guid = Guid('3fe6adea-7643-4f53-bd-14-a0-ce-63-f2-40-42')
+    @commethod(4)
+    def SetOffset(offset: win32more.Foundation.POINT) -> Void: ...
+    @commethod(5)
+    def GetOffset() -> win32more.Foundation.POINT: ...
+class ID2D1PathGeometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906a5-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def Open(geometrySink: POINTER(win32more.Graphics.Direct2D.ID2D1GeometrySink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def Stream(geometrySink: win32more.Graphics.Direct2D.ID2D1GeometrySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetSegmentCount(count: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetFigureCount(count: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ID2D1PathGeometry1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1PathGeometry
+    Guid = Guid('62baa2d2-ab54-41b7-b8-72-78-7e-01-06-a4-21')
+    @commethod(21)
+    def ComputePointAndSegmentAtLength(length: Single, startSegment: UInt32, worldTransform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), flatteningTolerance: Single, pointDescription: POINTER(win32more.Graphics.Direct2D.D2D1_POINT_DESCRIPTION_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1PrintControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2c1d867d-c290-41c8-ae-7e-34-a9-87-02-e9-a5')
+    @commethod(3)
+    def AddPage(commandList: win32more.Graphics.Direct2D.ID2D1CommandList_head, pageSize: win32more.Graphics.Direct2D.Common.D2D_SIZE_F, pagePrintTicketStream: win32more.System.Com.IStream_head, tag1: POINTER(UInt64), tag2: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ID2D1Properties(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('483473d7-cd46-4f9d-9d-3a-31-12-aa-80-15-9d')
+    @commethod(3)
+    def GetPropertyCount() -> UInt32: ...
+    @commethod(4)
+    def GetPropertyName(index: UInt32, name: win32more.Foundation.PWSTR, nameCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyNameLength(index: UInt32) -> UInt32: ...
+    @commethod(6)
+    def GetType(index: UInt32) -> win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE: ...
+    @commethod(7)
+    def GetPropertyIndex(name: win32more.Foundation.PWSTR) -> UInt32: ...
+    @commethod(8)
+    def SetValueByName(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE, data: c_char_p_no, dataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetValue(index: UInt32, type: win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE, data: c_char_p_no, dataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetValueByName(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE, data: c_char_p_no, dataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetValue(index: UInt32, type: win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE, data: c_char_p_no, dataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetValueSize(index: UInt32) -> UInt32: ...
+    @commethod(13)
+    def GetSubProperties(index: UInt32, subProperties: POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1RadialGradientBrush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Brush
+    Guid = Guid('2cd906ac-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(8)
+    def SetCenter(center: win32more.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
+    @commethod(9)
+    def SetGradientOriginOffset(gradientOriginOffset: win32more.Graphics.Direct2D.Common.D2D_POINT_2F) -> Void: ...
+    @commethod(10)
+    def SetRadiusX(radiusX: Single) -> Void: ...
+    @commethod(11)
+    def SetRadiusY(radiusY: Single) -> Void: ...
+    @commethod(12)
+    def GetCenter() -> win32more.Graphics.Direct2D.Common.D2D_POINT_2F: ...
+    @commethod(13)
+    def GetGradientOriginOffset() -> win32more.Graphics.Direct2D.Common.D2D_POINT_2F: ...
+    @commethod(14)
+    def GetRadiusX() -> Single: ...
+    @commethod(15)
+    def GetRadiusY() -> Single: ...
+    @commethod(16)
+    def GetGradientStopCollection(gradientStopCollection: POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head)) -> Void: ...
+class ID2D1RectangleGeometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906a2-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def GetRect(rect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+class ID2D1RenderInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('519ae1bd-d19a-420d-b8-49-36-4f-59-47-76-b7')
+    @commethod(3)
+    def SetInputDescription(inputIndex: UInt32, inputDescription: win32more.Graphics.Direct2D.D2D1_INPUT_DESCRIPTION) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetOutputBuffer(bufferPrecision: win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, channelDepth: win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetCached(isCached: win32more.Foundation.BOOL) -> Void: ...
+    @commethod(6)
+    def SetInstructionCountHint(instructionCount: UInt32) -> Void: ...
+class ID2D1RenderTarget(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd90694-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def CreateBitmap(size: win32more.Graphics.Direct2D.Common.D2D_SIZE_U, srcData: c_void_p, pitch: UInt32, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateBitmapFromWicBitmap(wicBitmapSource: win32more.Graphics.Imaging.IWICBitmapSource_head, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateSharedBitmap(riid: POINTER(Guid), data: c_void_p, bitmapProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_PROPERTIES_head), bitmap: POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateBitmapBrush(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, bitmapBrushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BITMAP_BRUSH_PROPERTIES_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), bitmapBrush: POINTER(win32more.Graphics.Direct2D.ID2D1BitmapBrush_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateSolidColorBrush(color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), solidColorBrush: POINTER(win32more.Graphics.Direct2D.ID2D1SolidColorBrush_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateGradientStopCollection(gradientStops: POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP_head), gradientStopsCount: UInt32, colorInterpolationGamma: win32more.Graphics.Direct2D.D2D1_GAMMA, extendMode: win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, gradientStopCollection: POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateLinearGradientBrush(linearGradientBrushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), gradientStopCollection: win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head, linearGradientBrush: POINTER(win32more.Graphics.Direct2D.ID2D1LinearGradientBrush_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateRadialGradientBrush(radialGradientBrushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES_head), brushProperties: POINTER(win32more.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES_head), gradientStopCollection: win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head, radialGradientBrush: POINTER(win32more.Graphics.Direct2D.ID2D1RadialGradientBrush_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateCompatibleRenderTarget(desiredSize: POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_F_head), desiredPixelSize: POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_U_head), desiredFormat: POINTER(win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT_head), options: win32more.Graphics.Direct2D.D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS, bitmapRenderTarget: POINTER(win32more.Graphics.Direct2D.ID2D1BitmapRenderTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateLayer(size: POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_F_head), layer: POINTER(win32more.Graphics.Direct2D.ID2D1Layer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateMesh(mesh: POINTER(win32more.Graphics.Direct2D.ID2D1Mesh_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def DrawLine(point0: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, point1: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> Void: ...
+    @commethod(16)
+    def DrawRectangle(rect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> Void: ...
+    @commethod(17)
+    def FillRectangle(rect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+    @commethod(18)
+    def DrawRoundedRectangle(roundedRect: POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> Void: ...
+    @commethod(19)
+    def FillRoundedRectangle(roundedRect: POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+    @commethod(20)
+    def DrawEllipse(ellipse: POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> Void: ...
+    @commethod(21)
+    def FillEllipse(ellipse: POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head), brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+    @commethod(22)
+    def DrawGeometry(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, strokeStyle: win32more.Graphics.Direct2D.ID2D1StrokeStyle_head) -> Void: ...
+    @commethod(23)
+    def FillGeometry(geometry: win32more.Graphics.Direct2D.ID2D1Geometry_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, opacityBrush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+    @commethod(24)
+    def FillMesh(mesh: win32more.Graphics.Direct2D.ID2D1Mesh_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> Void: ...
+    @commethod(25)
+    def FillOpacityMask(opacityMask: win32more.Graphics.Direct2D.ID2D1Bitmap_head, brush: win32more.Graphics.Direct2D.ID2D1Brush_head, content: win32more.Graphics.Direct2D.D2D1_OPACITY_MASK_CONTENT, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+    @commethod(26)
+    def DrawBitmap(bitmap: win32more.Graphics.Direct2D.ID2D1Bitmap_head, destinationRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), opacity: Single, interpolationMode: win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, sourceRectangle: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head)) -> Void: ...
+    @commethod(27)
+    def DrawText(string: win32more.Foundation.PWSTR, stringLength: UInt32, textFormat: win32more.Graphics.DirectWrite.IDWriteTextFormat_head, layoutRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, options: win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(28)
+    def DrawTextLayout(origin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, textLayout: win32more.Graphics.DirectWrite.IDWriteTextLayout_head, defaultFillBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, options: win32more.Graphics.Direct2D.D2D1_DRAW_TEXT_OPTIONS) -> Void: ...
+    @commethod(29)
+    def DrawGlyphRun(baselineOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), foregroundBrush: win32more.Graphics.Direct2D.ID2D1Brush_head, measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(30)
+    def SetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+    @commethod(31)
+    def GetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+    @commethod(32)
+    def SetAntialiasMode(antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE) -> Void: ...
+    @commethod(33)
+    def GetAntialiasMode() -> win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE: ...
+    @commethod(34)
+    def SetTextAntialiasMode(textAntialiasMode: win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE) -> Void: ...
+    @commethod(35)
+    def GetTextAntialiasMode() -> win32more.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE: ...
+    @commethod(36)
+    def SetTextRenderingParams(textRenderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head) -> Void: ...
+    @commethod(37)
+    def GetTextRenderingParams(textRenderingParams: POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head)) -> Void: ...
+    @commethod(38)
+    def SetTags(tag1: UInt64, tag2: UInt64) -> Void: ...
+    @commethod(39)
+    def GetTags(tag1: POINTER(UInt64), tag2: POINTER(UInt64)) -> Void: ...
+    @commethod(40)
+    def PushLayer(layerParameters: POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS_head), layer: win32more.Graphics.Direct2D.ID2D1Layer_head) -> Void: ...
+    @commethod(41)
+    def PopLayer() -> Void: ...
+    @commethod(42)
+    def Flush(tag1: POINTER(UInt64), tag2: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def SaveDrawingState(drawingStateBlock: win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head) -> Void: ...
+    @commethod(44)
+    def RestoreDrawingState(drawingStateBlock: win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head) -> Void: ...
+    @commethod(45)
+    def PushAxisAlignedClip(clipRect: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), antialiasMode: win32more.Graphics.Direct2D.D2D1_ANTIALIAS_MODE) -> Void: ...
+    @commethod(46)
+    def PopAxisAlignedClip() -> Void: ...
+    @commethod(47)
+    def Clear(clearColor: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> Void: ...
+    @commethod(48)
+    def BeginDraw() -> Void: ...
+    @commethod(49)
+    def EndDraw(tag1: POINTER(UInt64), tag2: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def GetPixelFormat() -> win32more.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT: ...
+    @commethod(51)
+    def SetDpi(dpiX: Single, dpiY: Single) -> Void: ...
+    @commethod(52)
+    def GetDpi(dpiX: POINTER(Single), dpiY: POINTER(Single)) -> Void: ...
+    @commethod(53)
+    def GetSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_F: ...
+    @commethod(54)
+    def GetPixelSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_U: ...
+    @commethod(55)
+    def GetMaximumBitmapSize() -> UInt32: ...
+    @commethod(56)
+    def IsSupported(renderTargetProperties: POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head)) -> win32more.Foundation.BOOL: ...
+class ID2D1Resource(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2cd90691-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(3)
+    def GetFactory(factory: POINTER(win32more.Graphics.Direct2D.ID2D1Factory_head)) -> Void: ...
+class ID2D1ResourceTexture(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('688d15c3-02b0-438d-b1-3a-d1-b4-4c-32-c3-9a')
+    @commethod(3)
+    def Update(minimumExtents: POINTER(UInt32), maximimumExtents: POINTER(UInt32), strides: POINTER(UInt32), dimensions: UInt32, data: c_char_p_no, dataCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1RoundedRectangleGeometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906a3-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def GetRoundedRect(roundedRect: POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head)) -> Void: ...
+class ID2D1SolidColorBrush(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Brush
+    Guid = Guid('2cd906a9-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(8)
+    def SetColor(color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> Void: ...
+    @commethod(9)
+    def GetColor() -> win32more.Graphics.Direct2D.Common.D2D1_COLOR_F: ...
+class ID2D1SourceTransform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Transform
+    Guid = Guid('db1800dd-0c34-4cf9-be-90-31-cc-0a-56-53-e1')
+    @commethod(7)
+    def SetRenderInfo(renderInfo: win32more.Graphics.Direct2D.ID2D1RenderInfo_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Draw(target: win32more.Graphics.Direct2D.ID2D1Bitmap1_head, drawRect: POINTER(win32more.Foundation.RECT_head), targetOrigin: win32more.Graphics.Direct2D.Common.D2D_POINT_2U) -> win32more.Foundation.HRESULT: ...
+class ID2D1SpriteBatch(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('4dc583bf-3a10-438a-87-22-e9-76-52-24-f1-f1')
+    @commethod(4)
+    def AddSprites(spriteCount: UInt32, destinationRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), colors: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), transforms: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), destinationRectanglesStride: UInt32, sourceRectanglesStride: UInt32, colorsStride: UInt32, transformsStride: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetSprites(startIndex: UInt32, spriteCount: UInt32, destinationRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), colors: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), transforms: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), destinationRectanglesStride: UInt32, sourceRectanglesStride: UInt32, colorsStride: UInt32, transformsStride: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSprites(startIndex: UInt32, spriteCount: UInt32, destinationRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), sourceRectangles: POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), colors: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), transforms: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetSpriteCount() -> UInt32: ...
+    @commethod(8)
+    def Clear() -> Void: ...
+class ID2D1StrokeStyle(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('2cd9069d-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(4)
+    def GetStartCap() -> win32more.Graphics.Direct2D.D2D1_CAP_STYLE: ...
+    @commethod(5)
+    def GetEndCap() -> win32more.Graphics.Direct2D.D2D1_CAP_STYLE: ...
+    @commethod(6)
+    def GetDashCap() -> win32more.Graphics.Direct2D.D2D1_CAP_STYLE: ...
+    @commethod(7)
+    def GetMiterLimit() -> Single: ...
+    @commethod(8)
+    def GetLineJoin() -> win32more.Graphics.Direct2D.D2D1_LINE_JOIN: ...
+    @commethod(9)
+    def GetDashOffset() -> Single: ...
+    @commethod(10)
+    def GetDashStyle() -> win32more.Graphics.Direct2D.D2D1_DASH_STYLE: ...
+    @commethod(11)
+    def GetDashesCount() -> UInt32: ...
+    @commethod(12)
+    def GetDashes(dashes: POINTER(Single), dashesCount: UInt32) -> Void: ...
+class ID2D1StrokeStyle1(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1StrokeStyle
+    Guid = Guid('10a72a66-e91c-43f4-99-3f-dd-f4-b8-2b-0b-4a')
+    @commethod(13)
+    def GetStrokeTransformType() -> win32more.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE: ...
+class ID2D1SvgAttribute(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('c9cdb0dd-f8c9-4e70-b7-c2-30-1c-80-29-2c-5e')
+    @commethod(4)
+    def GetElement(element: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
+    @commethod(5)
+    def Clone(attribute: POINTER(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1SvgDocument(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('86b88e4d-afa4-4d7b-88-e4-68-a5-1c-4a-0a-ec')
+    @commethod(4)
+    def SetViewportSize(viewportSize: win32more.Graphics.Direct2D.Common.D2D_SIZE_F) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetViewportSize() -> win32more.Graphics.Direct2D.Common.D2D_SIZE_F: ...
+    @commethod(6)
+    def SetRoot(root: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetRoot(root: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
+    @commethod(8)
+    def FindElementById(id: win32more.Foundation.PWSTR, svgElement: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Serialize(outputXmlStream: win32more.System.Com.IStream_head, subtree: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Deserialize(inputXmlStream: win32more.System.Com.IStream_head, subtree: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreatePaint(paintType: win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE, color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), id: win32more.Foundation.PWSTR, paint: POINTER(win32more.Graphics.Direct2D.ID2D1SvgPaint_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateStrokeDashArray(dashes: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head), dashesCount: UInt32, strokeDashArray: POINTER(win32more.Graphics.Direct2D.ID2D1SvgStrokeDashArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreatePointCollection(points: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pointsCount: UInt32, pointCollection: POINTER(win32more.Graphics.Direct2D.ID2D1SvgPointCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreatePathData(segmentData: POINTER(Single), segmentDataCount: UInt32, commands: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND), commandsCount: UInt32, pathData: POINTER(win32more.Graphics.Direct2D.ID2D1SvgPathData_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1SvgElement(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('ac7b67a6-183e-49c1-a8-23-0e-be-40-b0-db-29')
+    @commethod(4)
+    def GetDocument(document: POINTER(win32more.Graphics.Direct2D.ID2D1SvgDocument_head)) -> Void: ...
+    @commethod(5)
+    def GetTagName(name: win32more.Foundation.PWSTR, nameCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetTagNameLength() -> UInt32: ...
+    @commethod(7)
+    def IsTextContent() -> win32more.Foundation.BOOL: ...
+    @commethod(8)
+    def GetParent(parent: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
+    @commethod(9)
+    def HasChildren() -> win32more.Foundation.BOOL: ...
+    @commethod(10)
+    def GetFirstChild(child: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
+    @commethod(11)
+    def GetLastChild(child: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> Void: ...
+    @commethod(12)
+    def GetPreviousChild(referenceChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head, previousChild: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetNextChild(referenceChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head, nextChild: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def InsertChildBefore(newChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head, referenceChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def AppendChild(newChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def ReplaceChild(newChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head, oldChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def RemoveChild(oldChild: win32more.Graphics.Direct2D.ID2D1SvgElement_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateChild(tagName: win32more.Foundation.PWSTR, newChild: POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def IsAttributeSpecified(name: win32more.Foundation.PWSTR, inherited: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+    @commethod(20)
+    def GetSpecifiedAttributeCount() -> UInt32: ...
+    @commethod(21)
+    def GetSpecifiedAttributeName(index: UInt32, name: win32more.Foundation.PWSTR, nameCount: UInt32, inherited: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetSpecifiedAttributeNameLength(index: UInt32, nameLength: POINTER(UInt32), inherited: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def RemoveAttribute(name: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetTextValue(name: win32more.Foundation.PWSTR, nameCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetTextValue(name: win32more.Foundation.PWSTR, nameCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetTextValueLength() -> UInt32: ...
+    @commethod(27)
+    def SetAttributeValue(name: win32more.Foundation.PWSTR, value: win32more.Graphics.Direct2D.ID2D1SvgAttribute_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def SetAttributeValue(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_POD_TYPE, value: c_void_p, valueSizeInBytes: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def SetAttributeValue(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE, value: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetAttributeValue(name: win32more.Foundation.PWSTR, riid: POINTER(Guid), value: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetAttributeValue(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_POD_TYPE, value: c_void_p, valueSizeInBytes: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def GetAttributeValue(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE, value: win32more.Foundation.PWSTR, valueCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def GetAttributeValueLength(name: win32more.Foundation.PWSTR, type: win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE, valueLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ID2D1SvgGlyphStyle(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Resource
+    Guid = Guid('af671749-d241-4db8-8e-41-dc-c2-e5-c1-a4-38')
+    @commethod(4)
+    def SetFill(brush: win32more.Graphics.Direct2D.ID2D1Brush_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetFill(brush: POINTER(win32more.Graphics.Direct2D.ID2D1Brush_head)) -> Void: ...
+    @commethod(6)
+    def SetStroke(brush: win32more.Graphics.Direct2D.ID2D1Brush_head, strokeWidth: Single, dashes: POINTER(Single), dashesCount: UInt32, dashOffset: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetStrokeDashesCount() -> UInt32: ...
+    @commethod(8)
+    def GetStroke(brush: POINTER(win32more.Graphics.Direct2D.ID2D1Brush_head), strokeWidth: POINTER(Single), dashes: POINTER(Single), dashesCount: UInt32, dashOffset: POINTER(Single)) -> Void: ...
+class ID2D1SvgPaint(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1SvgAttribute
+    Guid = Guid('d59bab0a-68a2-455b-a5-dc-9e-b2-85-4e-24-90')
+    @commethod(6)
+    def SetPaintType(paintType: win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPaintType() -> win32more.Graphics.Direct2D.D2D1_SVG_PAINT_TYPE: ...
+    @commethod(8)
+    def SetColor(color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetColor(color: POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> Void: ...
+    @commethod(10)
+    def SetId(id: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetId(id: win32more.Foundation.PWSTR, idCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetIdLength() -> UInt32: ...
+class ID2D1SvgPathData(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1SvgAttribute
+    Guid = Guid('c095e4f4-bb98-43d6-97-45-4d-1b-84-ec-98-88')
+    @commethod(6)
+    def RemoveSegmentDataAtEnd(dataCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UpdateSegmentData(data: POINTER(Single), dataCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetSegmentData(data: POINTER(Single), dataCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSegmentDataCount() -> UInt32: ...
+    @commethod(10)
+    def RemoveCommandsAtEnd(commandsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def UpdateCommands(commands: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND), commandsCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetCommands(commands: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND), commandsCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetCommandsCount() -> UInt32: ...
+    @commethod(14)
+    def CreatePathGeometry(fillMode: win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE, pathGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry1_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1SvgPointCollection(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1SvgAttribute
+    Guid = Guid('9dbe4c0d-3572-4dd9-98-25-55-30-81-3b-b7-12')
+    @commethod(6)
+    def RemovePointsAtEnd(pointsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UpdatePoints(points: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pointsCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetPoints(points: POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), pointsCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetPointsCount() -> UInt32: ...
+class ID2D1SvgStrokeDashArray(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1SvgAttribute
+    Guid = Guid('f1c0ca52-92a3-4f00-b4-ce-f3-56-91-ef-d9-d9')
+    @commethod(6)
+    def RemoveDashesAtEnd(dashesCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UpdateDashes(dashes: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head), dashesCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def UpdateDashes(dashes: POINTER(Single), dashesCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDashes(dashes: POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH_head), dashesCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDashes(dashes: POINTER(Single), dashesCount: UInt32, startIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetDashesCount() -> UInt32: ...
+class ID2D1TessellationSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2cd906c1-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(3)
+    def AddTriangles(triangles: POINTER(win32more.Graphics.Direct2D.D2D1_TRIANGLE_head), trianglesCount: UInt32) -> Void: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ID2D1Transform(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1TransformNode
+    Guid = Guid('ef1a287d-342a-4f76-8f-db-da-0d-6e-a9-f9-2b')
+    @commethod(4)
+    def MapOutputRectToInputRects(outputRect: POINTER(win32more.Foundation.RECT_head), inputRects: POINTER(win32more.Foundation.RECT_head), inputRectsCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def MapInputRectsToOutputRect(inputRects: POINTER(win32more.Foundation.RECT_head), inputOpaqueSubRects: POINTER(win32more.Foundation.RECT_head), inputRectCount: UInt32, outputRect: POINTER(win32more.Foundation.RECT_head), outputOpaqueSubRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def MapInvalidRect(inputIndex: UInt32, invalidInputRect: win32more.Foundation.RECT, invalidOutputRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+class ID2D1TransformedGeometry(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Geometry
+    Guid = Guid('2cd906bb-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    @commethod(17)
+    def GetSourceGeometry(sourceGeometry: POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head)) -> Void: ...
+    @commethod(18)
+    def GetTransform(transform: POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head)) -> Void: ...
+class ID2D1TransformedImageSource(c_void_p):
+    extends: win32more.Graphics.Direct2D.ID2D1Image
+    Guid = Guid('7f1f79e5-2796-416c-8f-55-70-0f-91-14-45-e5')
+    @commethod(4)
+    def GetSource(imageSource: POINTER(win32more.Graphics.Direct2D.ID2D1ImageSource_head)) -> Void: ...
+    @commethod(5)
+    def GetProperties(properties: POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head)) -> Void: ...
+class ID2D1TransformGraph(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('13d29038-c3e6-4034-90-81-13-b5-3a-41-79-92')
+    @commethod(3)
+    def GetInputCount() -> UInt32: ...
+    @commethod(4)
+    def SetSingleTransformNode(node: win32more.Graphics.Direct2D.ID2D1TransformNode_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddNode(node: win32more.Graphics.Direct2D.ID2D1TransformNode_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RemoveNode(node: win32more.Graphics.Direct2D.ID2D1TransformNode_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetOutputNode(node: win32more.Graphics.Direct2D.ID2D1TransformNode_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ConnectNode(fromNode: win32more.Graphics.Direct2D.ID2D1TransformNode_head, toNode: win32more.Graphics.Direct2D.ID2D1TransformNode_head, toNodeInputIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ConnectToEffectInput(toEffectInputIndex: UInt32, node: win32more.Graphics.Direct2D.ID2D1TransformNode_head, toNodeInputIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Clear() -> Void: ...
+    @commethod(11)
+    def SetPassthroughGraph(effectInputIndex: UInt32) -> win32more.Foundation.HRESULT: ...
+class ID2D1TransformNode(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b2efe1e7-729f-4102-94-9f-50-5f-a2-1b-f6-66')
+    @commethod(3)
+    def GetInputCount() -> UInt32: ...
+class ID2D1VertexBuffer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9b8b1336-00a5-4668-92-b7-ce-d5-d8-bf-9b-7b')
+    @commethod(3)
+    def Map(data: POINTER(c_char_p_no), bufferSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Unmap() -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PD2D1_EFFECT_FACTORY(effectImpl: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PD2D1_PROPERTY_GET_FUNCTION(effect: win32more.System.Com.IUnknown_head, data: c_char_p_no, dataSize: UInt32, actualSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PD2D1_PROPERTY_SET_FUNCTION(effect: win32more.System.Com.IUnknown_head, data: c_char_p_no, dataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'D2D1_ARC_SEGMENT')
+make_head(_module, 'D2D1_BITMAP_BRUSH_PROPERTIES')
+make_head(_module, 'D2D1_BITMAP_BRUSH_PROPERTIES1')
+make_head(_module, 'D2D1_BITMAP_PROPERTIES')
+make_head(_module, 'D2D1_BITMAP_PROPERTIES1')
+make_head(_module, 'D2D1_BLEND_DESCRIPTION')
+make_head(_module, 'D2D1_BRUSH_PROPERTIES')
+make_head(_module, 'D2D1_CREATION_PROPERTIES')
+make_head(_module, 'D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES')
+make_head(_module, 'D2D1_DRAWING_STATE_DESCRIPTION')
+make_head(_module, 'D2D1_DRAWING_STATE_DESCRIPTION1')
+make_head(_module, 'D2D1_EFFECT_INPUT_DESCRIPTION')
+make_head(_module, 'D2D1_ELLIPSE')
+make_head(_module, 'D2D1_FACTORY_OPTIONS')
+make_head(_module, 'D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS')
+make_head(_module, 'D2D1_FEATURE_DATA_DOUBLES')
+make_head(_module, 'D2D1_GRADIENT_MESH_PATCH')
+make_head(_module, 'D2D1_GRADIENT_STOP')
+make_head(_module, 'D2D1_HWND_RENDER_TARGET_PROPERTIES')
+make_head(_module, 'D2D1_IMAGE_BRUSH_PROPERTIES')
+make_head(_module, 'D2D1_INK_BEZIER_SEGMENT')
+make_head(_module, 'D2D1_INK_POINT')
+make_head(_module, 'D2D1_INK_STYLE_PROPERTIES')
+make_head(_module, 'D2D1_INPUT_DESCRIPTION')
+make_head(_module, 'D2D1_INPUT_ELEMENT_DESC')
+make_head(_module, 'D2D1_LAYER_PARAMETERS')
+make_head(_module, 'D2D1_LAYER_PARAMETERS1')
+make_head(_module, 'D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES')
+make_head(_module, 'D2D1_MAPPED_RECT')
+make_head(_module, 'D2D1_POINT_DESCRIPTION')
+make_head(_module, 'D2D1_PRINT_CONTROL_PROPERTIES')
+make_head(_module, 'D2D1_PROPERTY_BINDING')
+make_head(_module, 'D2D1_QUADRATIC_BEZIER_SEGMENT')
+make_head(_module, 'D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES')
+make_head(_module, 'D2D1_RENDER_TARGET_PROPERTIES')
+make_head(_module, 'D2D1_RENDERING_CONTROLS')
+make_head(_module, 'D2D1_RESOURCE_TEXTURE_PROPERTIES')
+make_head(_module, 'D2D1_ROUNDED_RECT')
+make_head(_module, 'D2D1_SIMPLE_COLOR_PROFILE')
+make_head(_module, 'D2D1_STROKE_STYLE_PROPERTIES')
+make_head(_module, 'D2D1_STROKE_STYLE_PROPERTIES1')
+make_head(_module, 'D2D1_SVG_LENGTH')
+make_head(_module, 'D2D1_SVG_PRESERVE_ASPECT_RATIO')
+make_head(_module, 'D2D1_SVG_VIEWBOX')
+make_head(_module, 'D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES')
+make_head(_module, 'D2D1_TRIANGLE')
+make_head(_module, 'D2D1_VERTEX_BUFFER_PROPERTIES')
+make_head(_module, 'D2D1_VERTEX_RANGE')
+make_head(_module, 'ID2D1AnalysisTransform')
+make_head(_module, 'ID2D1Bitmap')
+make_head(_module, 'ID2D1Bitmap1')
+make_head(_module, 'ID2D1BitmapBrush')
+make_head(_module, 'ID2D1BitmapBrush1')
+make_head(_module, 'ID2D1BitmapRenderTarget')
+make_head(_module, 'ID2D1BlendTransform')
+make_head(_module, 'ID2D1BorderTransform')
+make_head(_module, 'ID2D1BoundsAdjustmentTransform')
+make_head(_module, 'ID2D1Brush')
+make_head(_module, 'ID2D1ColorContext')
+make_head(_module, 'ID2D1ColorContext1')
+make_head(_module, 'ID2D1CommandList')
+make_head(_module, 'ID2D1CommandSink')
+make_head(_module, 'ID2D1CommandSink1')
+make_head(_module, 'ID2D1CommandSink2')
+make_head(_module, 'ID2D1CommandSink3')
+make_head(_module, 'ID2D1CommandSink4')
+make_head(_module, 'ID2D1CommandSink5')
+make_head(_module, 'ID2D1ComputeInfo')
+make_head(_module, 'ID2D1ComputeTransform')
+make_head(_module, 'ID2D1ConcreteTransform')
+make_head(_module, 'ID2D1DCRenderTarget')
+make_head(_module, 'ID2D1Device')
+make_head(_module, 'ID2D1Device1')
+make_head(_module, 'ID2D1Device2')
+make_head(_module, 'ID2D1Device3')
+make_head(_module, 'ID2D1Device4')
+make_head(_module, 'ID2D1Device5')
+make_head(_module, 'ID2D1Device6')
+make_head(_module, 'ID2D1DeviceContext')
+make_head(_module, 'ID2D1DeviceContext1')
+make_head(_module, 'ID2D1DeviceContext2')
+make_head(_module, 'ID2D1DeviceContext3')
+make_head(_module, 'ID2D1DeviceContext4')
+make_head(_module, 'ID2D1DeviceContext5')
+make_head(_module, 'ID2D1DeviceContext6')
+make_head(_module, 'ID2D1DrawInfo')
+make_head(_module, 'ID2D1DrawingStateBlock')
+make_head(_module, 'ID2D1DrawingStateBlock1')
+make_head(_module, 'ID2D1DrawTransform')
+make_head(_module, 'ID2D1Effect')
+make_head(_module, 'ID2D1EffectContext')
+make_head(_module, 'ID2D1EffectContext1')
+make_head(_module, 'ID2D1EffectContext2')
+make_head(_module, 'ID2D1EffectImpl')
+make_head(_module, 'ID2D1EllipseGeometry')
+make_head(_module, 'ID2D1Factory')
+make_head(_module, 'ID2D1Factory1')
+make_head(_module, 'ID2D1Factory2')
+make_head(_module, 'ID2D1Factory3')
+make_head(_module, 'ID2D1Factory4')
+make_head(_module, 'ID2D1Factory5')
+make_head(_module, 'ID2D1Factory6')
+make_head(_module, 'ID2D1Factory7')
+make_head(_module, 'ID2D1GdiInteropRenderTarget')
+make_head(_module, 'ID2D1GdiMetafile')
+make_head(_module, 'ID2D1GdiMetafile1')
+make_head(_module, 'ID2D1GdiMetafileSink')
+make_head(_module, 'ID2D1GdiMetafileSink1')
+make_head(_module, 'ID2D1Geometry')
+make_head(_module, 'ID2D1GeometryGroup')
+make_head(_module, 'ID2D1GeometryRealization')
+make_head(_module, 'ID2D1GeometrySink')
+make_head(_module, 'ID2D1GradientMesh')
+make_head(_module, 'ID2D1GradientStopCollection')
+make_head(_module, 'ID2D1GradientStopCollection1')
+make_head(_module, 'ID2D1HwndRenderTarget')
+make_head(_module, 'ID2D1Image')
+make_head(_module, 'ID2D1ImageBrush')
+make_head(_module, 'ID2D1ImageSource')
+make_head(_module, 'ID2D1ImageSourceFromWic')
+make_head(_module, 'ID2D1Ink')
+make_head(_module, 'ID2D1InkStyle')
+make_head(_module, 'ID2D1Layer')
+make_head(_module, 'ID2D1LinearGradientBrush')
+make_head(_module, 'ID2D1LookupTable3D')
+make_head(_module, 'ID2D1Mesh')
+make_head(_module, 'ID2D1Multithread')
+make_head(_module, 'ID2D1OffsetTransform')
+make_head(_module, 'ID2D1PathGeometry')
+make_head(_module, 'ID2D1PathGeometry1')
+make_head(_module, 'ID2D1PrintControl')
+make_head(_module, 'ID2D1Properties')
+make_head(_module, 'ID2D1RadialGradientBrush')
+make_head(_module, 'ID2D1RectangleGeometry')
+make_head(_module, 'ID2D1RenderInfo')
+make_head(_module, 'ID2D1RenderTarget')
+make_head(_module, 'ID2D1Resource')
+make_head(_module, 'ID2D1ResourceTexture')
+make_head(_module, 'ID2D1RoundedRectangleGeometry')
+make_head(_module, 'ID2D1SolidColorBrush')
+make_head(_module, 'ID2D1SourceTransform')
+make_head(_module, 'ID2D1SpriteBatch')
+make_head(_module, 'ID2D1StrokeStyle')
+make_head(_module, 'ID2D1StrokeStyle1')
+make_head(_module, 'ID2D1SvgAttribute')
+make_head(_module, 'ID2D1SvgDocument')
+make_head(_module, 'ID2D1SvgElement')
+make_head(_module, 'ID2D1SvgGlyphStyle')
+make_head(_module, 'ID2D1SvgPaint')
+make_head(_module, 'ID2D1SvgPathData')
+make_head(_module, 'ID2D1SvgPointCollection')
+make_head(_module, 'ID2D1SvgStrokeDashArray')
+make_head(_module, 'ID2D1TessellationSink')
+make_head(_module, 'ID2D1Transform')
+make_head(_module, 'ID2D1TransformedGeometry')
+make_head(_module, 'ID2D1TransformedImageSource')
+make_head(_module, 'ID2D1TransformGraph')
+make_head(_module, 'ID2D1TransformNode')
+make_head(_module, 'ID2D1VertexBuffer')
+make_head(_module, 'PD2D1_EFFECT_FACTORY')
+make_head(_module, 'PD2D1_PROPERTY_GET_FUNCTION')
+make_head(_module, 'PD2D1_PROPERTY_SET_FUNCTION')
 __all__ = [
     "CLSID_D2D12DAffineTransform",
     "CLSID_D2D13DPerspectiveTransform",

@@ -1,126 +1,75 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.WebDav
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-DAV_AUTHN_SCHEME_BASIC = 1
-DAV_AUTHN_SCHEME_NTLM = 2
-DAV_AUTHN_SCHEME_PASSPORT = 4
-DAV_AUTHN_SCHEME_DIGEST = 8
-DAV_AUTHN_SCHEME_NEGOTIATE = 16
-DAV_AUTHN_SCHEME_CERT = 65536
-DAV_AUTHN_SCHEME_FBA = 1048576
-def _define_DavAddConnection():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,UInt32)(('DavAddConnection', windll['NETAPI32.dll']), ((1, 'ConnectionHandle'),(1, 'RemoteName'),(1, 'UserName'),(1, 'Password'),(1, 'ClientCert'),(1, 'CertSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavDeleteConnection():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('DavDeleteConnection', windll['NETAPI32.dll']), ((1, 'ConnectionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavGetUNCFromHTTPPath():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('DavGetUNCFromHTTPPath', windll['NETAPI32.dll']), ((1, 'Url'),(1, 'UncPath'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavGetHTTPFromUNCPath():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('DavGetHTTPFromUNCPath', windll['NETAPI32.dll']), ((1, 'UncPath'),(1, 'Url'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavGetTheLockOwnerOfTheFile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('DavGetTheLockOwnerOfTheFile', windll['davclnt.dll']), ((1, 'FileName'),(1, 'LockOwnerName'),(1, 'LockOwnerNameLengthInBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavGetExtendedError():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('DavGetExtendedError', windll['NETAPI32.dll']), ((1, 'hFile'),(1, 'ExtError'),(1, 'ExtErrorString'),(1, 'cChSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavFlushFile():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('DavFlushFile', windll['NETAPI32.dll']), ((1, 'hFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavInvalidateCache():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('DavInvalidateCache', windll['davclnt.dll']), ((1, 'URLName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavCancelConnectionsToServer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('DavCancelConnectionsToServer', windll['davclnt.dll']), ((1, 'lpName'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavRegisterAuthCallback():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK,UInt32)(('DavRegisterAuthCallback', windll['davclnt.dll']), ((1, 'CallBack'),(1, 'Version'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DavUnregisterAuthCallback():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('DavUnregisterAuthCallback', windll['davclnt.dll']), ((1, 'hCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+DAV_AUTHN_SCHEME_BASIC: UInt32 = 1
+DAV_AUTHN_SCHEME_NTLM: UInt32 = 2
+DAV_AUTHN_SCHEME_PASSPORT: UInt32 = 4
+DAV_AUTHN_SCHEME_DIGEST: UInt32 = 8
+DAV_AUTHN_SCHEME_NEGOTIATE: UInt32 = 16
+DAV_AUTHN_SCHEME_CERT: UInt32 = 65536
+DAV_AUTHN_SCHEME_FBA: UInt32 = 1048576
+@winfunctype('NETAPI32.dll')
+def DavAddConnection(ConnectionHandle: POINTER(win32more.Foundation.HANDLE), RemoteName: win32more.Foundation.PWSTR, UserName: win32more.Foundation.PWSTR, Password: win32more.Foundation.PWSTR, ClientCert: c_char_p_no, CertSize: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def DavDeleteConnection(ConnectionHandle: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def DavGetUNCFromHTTPPath(Url: win32more.Foundation.PWSTR, UncPath: win32more.Foundation.PWSTR, lpSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def DavGetHTTPFromUNCPath(UncPath: win32more.Foundation.PWSTR, Url: win32more.Foundation.PWSTR, lpSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def DavGetTheLockOwnerOfTheFile(FileName: win32more.Foundation.PWSTR, LockOwnerName: win32more.Foundation.PWSTR, LockOwnerNameLengthInBytes: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def DavGetExtendedError(hFile: win32more.Foundation.HANDLE, ExtError: POINTER(UInt32), ExtErrorString: win32more.Foundation.PWSTR, cChSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def DavFlushFile(hFile: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def DavInvalidateCache(URLName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def DavCancelConnectionsToServer(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def DavRegisterAuthCallback(CallBack: win32more.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK, Version: UInt32) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def DavUnregisterAuthCallback(hCallback: UInt32) -> Void: ...
 AUTHNEXTSTEP = Int32
-AUTHNEXTSTEP_DefaultBehavior = 0
-AUTHNEXTSTEP_RetryRequest = 1
-AUTHNEXTSTEP_CancelRequest = 2
-def _define_DAV_CALLBACK_AUTH_BLOB_head():
-    class DAV_CALLBACK_AUTH_BLOB(Structure):
-        pass
-    return DAV_CALLBACK_AUTH_BLOB
-def _define_DAV_CALLBACK_AUTH_BLOB():
-    DAV_CALLBACK_AUTH_BLOB = win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_BLOB_head
-    DAV_CALLBACK_AUTH_BLOB._fields_ = [
-        ('pBuffer', c_void_p),
-        ('ulSize', UInt32),
-        ('ulType', UInt32),
-    ]
-    return DAV_CALLBACK_AUTH_BLOB
-def _define_DAV_CALLBACK_AUTH_UNP_head():
-    class DAV_CALLBACK_AUTH_UNP(Structure):
-        pass
-    return DAV_CALLBACK_AUTH_UNP
-def _define_DAV_CALLBACK_AUTH_UNP():
-    DAV_CALLBACK_AUTH_UNP = win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_UNP_head
-    DAV_CALLBACK_AUTH_UNP._fields_ = [
-        ('pszUserName', win32more.Foundation.PWSTR),
-        ('ulUserNameLength', UInt32),
-        ('pszPassword', win32more.Foundation.PWSTR),
-        ('ulPasswordLength', UInt32),
-    ]
-    return DAV_CALLBACK_AUTH_UNP
-def _define_DAV_CALLBACK_CRED_head():
-    class DAV_CALLBACK_CRED(Structure):
-        pass
-    return DAV_CALLBACK_CRED
-def _define_DAV_CALLBACK_CRED():
-    DAV_CALLBACK_CRED = win32more.NetworkManagement.WebDav.DAV_CALLBACK_CRED_head
-    DAV_CALLBACK_CRED._fields_ = [
-        ('AuthBlob', win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_BLOB),
-        ('UNPBlob', win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_UNP),
-        ('bAuthBlobValid', win32more.Foundation.BOOL),
-        ('bSave', win32more.Foundation.BOOL),
-    ]
-    return DAV_CALLBACK_CRED
-def _define_PFNDAVAUTHCALLBACK():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.NetworkManagement.WebDav.DAV_CALLBACK_CRED_head),POINTER(win32more.NetworkManagement.WebDav.AUTHNEXTSTEP),POINTER(win32more.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED))
-def _define_PFNDAVAUTHCALLBACK_FREECRED():
-    return WINFUNCTYPE(UInt32,c_void_p)
+AUTHNEXTSTEP_DefaultBehavior: AUTHNEXTSTEP = 0
+AUTHNEXTSTEP_RetryRequest: AUTHNEXTSTEP = 1
+AUTHNEXTSTEP_CancelRequest: AUTHNEXTSTEP = 2
+class DAV_CALLBACK_AUTH_BLOB(Structure):
+    pBuffer: c_void_p
+    ulSize: UInt32
+    ulType: UInt32
+class DAV_CALLBACK_AUTH_UNP(Structure):
+    pszUserName: win32more.Foundation.PWSTR
+    ulUserNameLength: UInt32
+    pszPassword: win32more.Foundation.PWSTR
+    ulPasswordLength: UInt32
+class DAV_CALLBACK_CRED(Structure):
+    AuthBlob: win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_BLOB
+    UNPBlob: win32more.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_UNP
+    bAuthBlobValid: win32more.Foundation.BOOL
+    bSave: win32more.Foundation.BOOL
+@winfunctype_pointer
+def PFNDAVAUTHCALLBACK(lpwzServerName: win32more.Foundation.PWSTR, lpwzRemoteName: win32more.Foundation.PWSTR, dwAuthScheme: UInt32, dwFlags: UInt32, pCallbackCred: POINTER(win32more.NetworkManagement.WebDav.DAV_CALLBACK_CRED_head), NextStep: POINTER(win32more.NetworkManagement.WebDav.AUTHNEXTSTEP), pFreeCred: POINTER(win32more.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED)) -> UInt32: ...
+@winfunctype_pointer
+def PFNDAVAUTHCALLBACK_FREECRED(pbuffer: c_void_p) -> UInt32: ...
+make_head(_module, 'DAV_CALLBACK_AUTH_BLOB')
+make_head(_module, 'DAV_CALLBACK_AUTH_UNP')
+make_head(_module, 'DAV_CALLBACK_CRED')
+make_head(_module, 'PFNDAVAUTHCALLBACK')
+make_head(_module, 'PFNDAVAUTHCALLBACK_FREECRED')
 __all__ = [
     "AUTHNEXTSTEP",
     "AUTHNEXTSTEP_CancelRequest",

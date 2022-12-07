@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Media
 import win32more.Media.Audio
@@ -12,1215 +13,834 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-DMUS_MAX_DESCRIPTION = 128
-DMUS_MAX_DRIVER = 128
-DMUS_EFFECT_NONE = 0
-DMUS_EFFECT_REVERB = 1
-DMUS_EFFECT_CHORUS = 2
-DMUS_EFFECT_DELAY = 4
-DMUS_PC_INPUTCLASS = 0
-DMUS_PC_OUTPUTCLASS = 1
-DMUS_PC_DLS = 1
-DMUS_PC_EXTERNAL = 2
-DMUS_PC_SOFTWARESYNTH = 4
-DMUS_PC_MEMORYSIZEFIXED = 8
-DMUS_PC_GMINHARDWARE = 16
-DMUS_PC_GSINHARDWARE = 32
-DMUS_PC_XGINHARDWARE = 64
-DMUS_PC_DIRECTSOUND = 128
-DMUS_PC_SHAREABLE = 256
-DMUS_PC_DLS2 = 512
-DMUS_PC_AUDIOPATH = 1024
-DMUS_PC_WAVE = 2048
-DMUS_PC_SYSTEMMEMORY = 2147483647
-DMUS_PORT_WINMM_DRIVER = 0
-DMUS_PORT_USER_MODE_SYNTH = 1
-DMUS_PORT_KERNEL_MODE = 2
-DMUS_PORTPARAMS_VOICES = 1
-DMUS_PORTPARAMS_CHANNELGROUPS = 2
-DMUS_PORTPARAMS_AUDIOCHANNELS = 4
-DMUS_PORTPARAMS_SAMPLERATE = 8
-DMUS_PORTPARAMS_EFFECTS = 32
-DMUS_PORTPARAMS_SHARE = 64
-DMUS_PORTPARAMS_FEATURES = 128
-DMUS_PORT_FEATURE_AUDIOPATH = 1
-DMUS_PORT_FEATURE_STREAMING = 2
-DMUS_SYNTHSTATS_VOICES = 1
-DMUS_SYNTHSTATS_TOTAL_CPU = 2
-DMUS_SYNTHSTATS_CPU_PER_VOICE = 4
-DMUS_SYNTHSTATS_LOST_NOTES = 8
-DMUS_SYNTHSTATS_PEAK_VOLUME = 16
-DMUS_SYNTHSTATS_FREE_MEMORY = 32
-DMUS_SYNTHSTATS_SYSTEMMEMORY = 2147483647
-DMUS_CLOCKF_GLOBAL = 1
-DSBUSID_FIRST_SPKR_LOC = 0
-DSBUSID_FRONT_LEFT = 0
-DSBUSID_LEFT = 0
-DSBUSID_FRONT_RIGHT = 1
-DSBUSID_RIGHT = 1
-DSBUSID_FRONT_CENTER = 2
-DSBUSID_LOW_FREQUENCY = 3
-DSBUSID_BACK_LEFT = 4
-DSBUSID_BACK_RIGHT = 5
-DSBUSID_FRONT_LEFT_OF_CENTER = 6
-DSBUSID_FRONT_RIGHT_OF_CENTER = 7
-DSBUSID_BACK_CENTER = 8
-DSBUSID_SIDE_LEFT = 9
-DSBUSID_SIDE_RIGHT = 10
-DSBUSID_TOP_CENTER = 11
-DSBUSID_TOP_FRONT_LEFT = 12
-DSBUSID_TOP_FRONT_CENTER = 13
-DSBUSID_TOP_FRONT_RIGHT = 14
-DSBUSID_TOP_BACK_LEFT = 15
-DSBUSID_TOP_BACK_CENTER = 16
-DSBUSID_TOP_BACK_RIGHT = 17
-DSBUSID_LAST_SPKR_LOC = 17
-DSBUSID_REVERB_SEND = 64
-DSBUSID_CHORUS_SEND = 65
-DSBUSID_DYNAMIC_0 = 512
-DSBUSID_NULL = 4294967295
-DAUD_CRITICAL_VOICE_PRIORITY = 4026531840
-DAUD_HIGH_VOICE_PRIORITY = 3221225472
-DAUD_STANDARD_VOICE_PRIORITY = 2147483648
-DAUD_LOW_VOICE_PRIORITY = 1073741824
-DAUD_PERSIST_VOICE_PRIORITY = 268435456
-DAUD_CHAN1_VOICE_PRIORITY_OFFSET = 14
-DAUD_CHAN2_VOICE_PRIORITY_OFFSET = 13
-DAUD_CHAN3_VOICE_PRIORITY_OFFSET = 12
-DAUD_CHAN4_VOICE_PRIORITY_OFFSET = 11
-DAUD_CHAN5_VOICE_PRIORITY_OFFSET = 10
-DAUD_CHAN6_VOICE_PRIORITY_OFFSET = 9
-DAUD_CHAN7_VOICE_PRIORITY_OFFSET = 8
-DAUD_CHAN8_VOICE_PRIORITY_OFFSET = 7
-DAUD_CHAN9_VOICE_PRIORITY_OFFSET = 6
-DAUD_CHAN10_VOICE_PRIORITY_OFFSET = 15
-DAUD_CHAN11_VOICE_PRIORITY_OFFSET = 5
-DAUD_CHAN12_VOICE_PRIORITY_OFFSET = 4
-DAUD_CHAN13_VOICE_PRIORITY_OFFSET = 3
-DAUD_CHAN14_VOICE_PRIORITY_OFFSET = 2
-DAUD_CHAN15_VOICE_PRIORITY_OFFSET = 1
-DAUD_CHAN16_VOICE_PRIORITY_OFFSET = 0
-def _define_CLSID_DirectMusic():
-    return Guid('636b9f10-0c7d-11d1-95-b2-00-20-af-dc-74-21')
-def _define_CLSID_DirectMusicCollection():
-    return Guid('480ff4b0-28b2-11d1-be-f7-00-c0-4f-bf-8f-ef')
-def _define_CLSID_DirectMusicSynth():
-    return Guid('58c2b4d0-46e7-11d1-89-ac-00-a0-c9-05-41-29')
-def _define_GUID_DMUS_PROP_GM_Hardware():
-    return Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_GS_Hardware():
-    return Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_XG_Hardware():
-    return Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_XG_Capable():
-    return Guid('6496aba1-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_GS_Capable():
-    return Guid('6496aba2-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_DLS1():
-    return Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_DLS2():
-    return Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_INSTRUMENT2():
-    return Guid('865fd372-9f67-11d2-87-2a-00-60-08-93-b1-bd')
-def _define_GUID_DMUS_PROP_SynthSink_DSOUND():
-    return Guid('0aa97844-c877-11d1-87-0c-00-60-08-93-b1-bd')
-def _define_GUID_DMUS_PROP_SynthSink_WAVE():
-    return Guid('0aa97845-c877-11d1-87-0c-00-60-08-93-b1-bd')
-def _define_GUID_DMUS_PROP_SampleMemorySize():
-    return Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_SamplePlaybackRate():
-    return Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
-def _define_GUID_DMUS_PROP_WriteLatency():
-    return Guid('268a0fa0-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_WritePeriod():
-    return Guid('268a0fa1-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_MemorySize():
-    return Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_WavesReverb():
-    return Guid('04cb5622-32e5-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_Effects():
-    return Guid('cda8d611-684a-11d2-87-1e-00-60-08-93-b1-bd')
-def _define_GUID_DMUS_PROP_LegacyCaps():
-    return Guid('cfa7cdc2-00a1-11d2-aa-d5-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_Volume():
-    return Guid('fedfae25-e46e-11d1-aa-ce-00-00-f8-75-ac-12')
-DMUS_VOLUME_MAX = 2000
-DMUS_VOLUME_MIN = -20000
-DMUS_EVENT_STRUCTURED = 1
-DMUS_DOWNLOADINFO_INSTRUMENT = 1
-DMUS_DOWNLOADINFO_WAVE = 2
-DMUS_DOWNLOADINFO_INSTRUMENT2 = 3
-DMUS_DOWNLOADINFO_WAVEARTICULATION = 4
-DMUS_DOWNLOADINFO_STREAMINGWAVE = 5
-DMUS_DOWNLOADINFO_ONESHOTWAVE = 6
-DMUS_DEFAULT_SIZE_OFFSETTABLE = 1
-DMUS_INSTRUMENT_GM_INSTRUMENT = 1
-DMUS_MIN_DATA_SIZE = 4
-CONN_SRC_NONE = 0
-CONN_SRC_LFO = 1
-CONN_SRC_KEYONVELOCITY = 2
-CONN_SRC_KEYNUMBER = 3
-CONN_SRC_EG1 = 4
-CONN_SRC_EG2 = 5
-CONN_SRC_PITCHWHEEL = 6
-CONN_SRC_CC1 = 129
-CONN_SRC_CC7 = 135
-CONN_SRC_CC10 = 138
-CONN_SRC_CC11 = 139
-CONN_DST_NONE = 0
-CONN_DST_ATTENUATION = 1
-CONN_DST_PITCH = 3
-CONN_DST_PAN = 4
-CONN_DST_LFO_FREQUENCY = 260
-CONN_DST_LFO_STARTDELAY = 261
-CONN_DST_EG1_ATTACKTIME = 518
-CONN_DST_EG1_DECAYTIME = 519
-CONN_DST_EG1_RELEASETIME = 521
-CONN_DST_EG1_SUSTAINLEVEL = 522
-CONN_DST_EG2_ATTACKTIME = 778
-CONN_DST_EG2_DECAYTIME = 779
-CONN_DST_EG2_RELEASETIME = 781
-CONN_DST_EG2_SUSTAINLEVEL = 782
-CONN_TRN_NONE = 0
-CONN_TRN_CONCAVE = 1
-F_INSTRUMENT_DRUMS = 2147483648
-F_RGN_OPTION_SELFNONEXCLUSIVE = 1
-WAVELINK_CHANNEL_LEFT = 1
-WAVELINK_CHANNEL_RIGHT = 2
-F_WAVELINK_PHASE_MASTER = 1
-POOL_CUE_NULL = -1
-F_WSMP_NO_TRUNCATION = 1
-F_WSMP_NO_COMPRESSION = 2
-WLOOP_TYPE_FORWARD = 0
-CONN_SRC_POLYPRESSURE = 7
-CONN_SRC_CHANNELPRESSURE = 8
-CONN_SRC_VIBRATO = 9
-CONN_SRC_MONOPRESSURE = 10
-CONN_SRC_CC91 = 219
-CONN_SRC_CC93 = 221
-CONN_DST_GAIN = 1
-CONN_DST_KEYNUMBER = 5
-CONN_DST_LEFT = 16
-CONN_DST_RIGHT = 17
-CONN_DST_CENTER = 18
-CONN_DST_LEFTREAR = 19
-CONN_DST_RIGHTREAR = 20
-CONN_DST_LFE_CHANNEL = 21
-CONN_DST_CHORUS = 128
-CONN_DST_REVERB = 129
-CONN_DST_VIB_FREQUENCY = 276
-CONN_DST_VIB_STARTDELAY = 277
-CONN_DST_EG1_DELAYTIME = 523
-CONN_DST_EG1_HOLDTIME = 524
-CONN_DST_EG1_SHUTDOWNTIME = 525
-CONN_DST_EG2_DELAYTIME = 783
-CONN_DST_EG2_HOLDTIME = 784
-CONN_DST_FILTER_CUTOFF = 1280
-CONN_DST_FILTER_Q = 1281
-CONN_TRN_CONVEX = 2
-CONN_TRN_SWITCH = 3
-DLS_CDL_AND = 1
-DLS_CDL_OR = 2
-DLS_CDL_XOR = 3
-DLS_CDL_ADD = 4
-DLS_CDL_SUBTRACT = 5
-DLS_CDL_MULTIPLY = 6
-DLS_CDL_DIVIDE = 7
-DLS_CDL_LOGICAL_AND = 8
-DLS_CDL_LOGICAL_OR = 9
-DLS_CDL_LT = 10
-DLS_CDL_LE = 11
-DLS_CDL_GT = 12
-DLS_CDL_GE = 13
-DLS_CDL_EQ = 14
-DLS_CDL_NOT = 15
-DLS_CDL_CONST = 16
-DLS_CDL_QUERY = 17
-DLS_CDL_QUERYSUPPORTED = 18
-WLOOP_TYPE_RELEASE = 2
-F_WAVELINK_MULTICHANNEL = 2
-def _define_DLSID_GMInHardware():
-    return Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_DLSID_GSInHardware():
-    return Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_DLSID_XGInHardware():
-    return Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_DLSID_SupportsDLS1():
-    return Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_DLSID_SupportsDLS2():
-    return Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
-def _define_DLSID_SampleMemorySize():
-    return Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
-def _define_DLSID_ManufacturersID():
-    return Guid('b03e1181-8095-11d2-a1-ef-00-60-08-33-db-d8')
-def _define_DLSID_ProductID():
-    return Guid('b03e1182-8095-11d2-a1-ef-00-60-08-33-db-d8')
-def _define_DLSID_SamplePlaybackRate():
-    return Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
-REGSTR_PATH_SOFTWARESYNTHS = 'Software\\Microsoft\\DirectMusic\\SoftwareSynths'
-REFRESH_F_LASTBUFFER = 1
-def _define_CLSID_DirectMusicSynthSink():
-    return Guid('aec17ce3-a514-11d1-af-a6-00-aa-00-24-d8-b6')
-def _define_GUID_DMUS_PROP_SetSynthSink():
-    return Guid('0a3a5ba5-37b6-11d2-b9-f9-00-00-f8-75-ac-12')
-def _define_GUID_DMUS_PROP_SinkUsesDSound():
-    return Guid('be208857-8952-11d2-ba-1c-00-00-f8-75-ac-12')
-def _define_CLSID_DirectSoundPrivate():
-    return Guid('11ab3ec0-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
-def _define_DSPROPSETID_DirectSoundDevice():
-    return Guid('84624f82-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
-DV_DVSD_NTSC_FRAMESIZE = 120000
-DV_DVSD_PAL_FRAMESIZE = 144000
-DV_SMCHN = 57344
-DV_AUDIOMODE = 3840
-DV_AUDIOSMP = 939524096
-DV_AUDIOQU = 117440512
-DV_NTSCPAL = 2097152
-DV_STYPE = 2031616
-DV_NTSC = 0
-DV_PAL = 1
-DV_SD = 0
-DV_HD = 1
-DV_SL = 2
-DV_CAP_AUD16Bits = 0
-DV_CAP_AUD12Bits = 1
-SIZE_DVINFO = 32
-def _define_CONNECTION_head():
-    class CONNECTION(Structure):
-        pass
-    return CONNECTION
-def _define_CONNECTION():
-    CONNECTION = win32more.Media.Audio.DirectMusic.CONNECTION_head
-    CONNECTION._fields_ = [
-        ('usSource', UInt16),
-        ('usControl', UInt16),
-        ('usDestination', UInt16),
-        ('usTransform', UInt16),
-        ('lScale', Int32),
-    ]
-    return CONNECTION
-def _define_CONNECTIONLIST_head():
-    class CONNECTIONLIST(Structure):
-        pass
-    return CONNECTIONLIST
-def _define_CONNECTIONLIST():
-    CONNECTIONLIST = win32more.Media.Audio.DirectMusic.CONNECTIONLIST_head
-    CONNECTIONLIST._fields_ = [
-        ('cbSize', UInt32),
-        ('cConnections', UInt32),
-    ]
-    return CONNECTIONLIST
+DMUS_MAX_DESCRIPTION: UInt32 = 128
+DMUS_MAX_DRIVER: UInt32 = 128
+DMUS_EFFECT_NONE: UInt32 = 0
+DMUS_EFFECT_REVERB: UInt32 = 1
+DMUS_EFFECT_CHORUS: UInt32 = 2
+DMUS_EFFECT_DELAY: UInt32 = 4
+DMUS_PC_INPUTCLASS: UInt32 = 0
+DMUS_PC_OUTPUTCLASS: UInt32 = 1
+DMUS_PC_DLS: UInt32 = 1
+DMUS_PC_EXTERNAL: UInt32 = 2
+DMUS_PC_SOFTWARESYNTH: UInt32 = 4
+DMUS_PC_MEMORYSIZEFIXED: UInt32 = 8
+DMUS_PC_GMINHARDWARE: UInt32 = 16
+DMUS_PC_GSINHARDWARE: UInt32 = 32
+DMUS_PC_XGINHARDWARE: UInt32 = 64
+DMUS_PC_DIRECTSOUND: UInt32 = 128
+DMUS_PC_SHAREABLE: UInt32 = 256
+DMUS_PC_DLS2: UInt32 = 512
+DMUS_PC_AUDIOPATH: UInt32 = 1024
+DMUS_PC_WAVE: UInt32 = 2048
+DMUS_PC_SYSTEMMEMORY: UInt32 = 2147483647
+DMUS_PORT_WINMM_DRIVER: UInt32 = 0
+DMUS_PORT_USER_MODE_SYNTH: UInt32 = 1
+DMUS_PORT_KERNEL_MODE: UInt32 = 2
+DMUS_PORTPARAMS_VOICES: UInt32 = 1
+DMUS_PORTPARAMS_CHANNELGROUPS: UInt32 = 2
+DMUS_PORTPARAMS_AUDIOCHANNELS: UInt32 = 4
+DMUS_PORTPARAMS_SAMPLERATE: UInt32 = 8
+DMUS_PORTPARAMS_EFFECTS: UInt32 = 32
+DMUS_PORTPARAMS_SHARE: UInt32 = 64
+DMUS_PORTPARAMS_FEATURES: UInt32 = 128
+DMUS_PORT_FEATURE_AUDIOPATH: UInt32 = 1
+DMUS_PORT_FEATURE_STREAMING: UInt32 = 2
+DMUS_SYNTHSTATS_VOICES: UInt32 = 1
+DMUS_SYNTHSTATS_TOTAL_CPU: UInt32 = 2
+DMUS_SYNTHSTATS_CPU_PER_VOICE: UInt32 = 4
+DMUS_SYNTHSTATS_LOST_NOTES: UInt32 = 8
+DMUS_SYNTHSTATS_PEAK_VOLUME: UInt32 = 16
+DMUS_SYNTHSTATS_FREE_MEMORY: UInt32 = 32
+DMUS_SYNTHSTATS_SYSTEMMEMORY: UInt32 = 2147483647
+DMUS_CLOCKF_GLOBAL: UInt32 = 1
+DSBUSID_FIRST_SPKR_LOC: UInt32 = 0
+DSBUSID_FRONT_LEFT: UInt32 = 0
+DSBUSID_LEFT: UInt32 = 0
+DSBUSID_FRONT_RIGHT: UInt32 = 1
+DSBUSID_RIGHT: UInt32 = 1
+DSBUSID_FRONT_CENTER: UInt32 = 2
+DSBUSID_LOW_FREQUENCY: UInt32 = 3
+DSBUSID_BACK_LEFT: UInt32 = 4
+DSBUSID_BACK_RIGHT: UInt32 = 5
+DSBUSID_FRONT_LEFT_OF_CENTER: UInt32 = 6
+DSBUSID_FRONT_RIGHT_OF_CENTER: UInt32 = 7
+DSBUSID_BACK_CENTER: UInt32 = 8
+DSBUSID_SIDE_LEFT: UInt32 = 9
+DSBUSID_SIDE_RIGHT: UInt32 = 10
+DSBUSID_TOP_CENTER: UInt32 = 11
+DSBUSID_TOP_FRONT_LEFT: UInt32 = 12
+DSBUSID_TOP_FRONT_CENTER: UInt32 = 13
+DSBUSID_TOP_FRONT_RIGHT: UInt32 = 14
+DSBUSID_TOP_BACK_LEFT: UInt32 = 15
+DSBUSID_TOP_BACK_CENTER: UInt32 = 16
+DSBUSID_TOP_BACK_RIGHT: UInt32 = 17
+DSBUSID_LAST_SPKR_LOC: UInt32 = 17
+DSBUSID_REVERB_SEND: UInt32 = 64
+DSBUSID_CHORUS_SEND: UInt32 = 65
+DSBUSID_DYNAMIC_0: UInt32 = 512
+DSBUSID_NULL: UInt32 = 4294967295
+DAUD_CRITICAL_VOICE_PRIORITY: UInt32 = 4026531840
+DAUD_HIGH_VOICE_PRIORITY: UInt32 = 3221225472
+DAUD_STANDARD_VOICE_PRIORITY: UInt32 = 2147483648
+DAUD_LOW_VOICE_PRIORITY: UInt32 = 1073741824
+DAUD_PERSIST_VOICE_PRIORITY: UInt32 = 268435456
+DAUD_CHAN1_VOICE_PRIORITY_OFFSET: UInt32 = 14
+DAUD_CHAN2_VOICE_PRIORITY_OFFSET: UInt32 = 13
+DAUD_CHAN3_VOICE_PRIORITY_OFFSET: UInt32 = 12
+DAUD_CHAN4_VOICE_PRIORITY_OFFSET: UInt32 = 11
+DAUD_CHAN5_VOICE_PRIORITY_OFFSET: UInt32 = 10
+DAUD_CHAN6_VOICE_PRIORITY_OFFSET: UInt32 = 9
+DAUD_CHAN7_VOICE_PRIORITY_OFFSET: UInt32 = 8
+DAUD_CHAN8_VOICE_PRIORITY_OFFSET: UInt32 = 7
+DAUD_CHAN9_VOICE_PRIORITY_OFFSET: UInt32 = 6
+DAUD_CHAN10_VOICE_PRIORITY_OFFSET: UInt32 = 15
+DAUD_CHAN11_VOICE_PRIORITY_OFFSET: UInt32 = 5
+DAUD_CHAN12_VOICE_PRIORITY_OFFSET: UInt32 = 4
+DAUD_CHAN13_VOICE_PRIORITY_OFFSET: UInt32 = 3
+DAUD_CHAN14_VOICE_PRIORITY_OFFSET: UInt32 = 2
+DAUD_CHAN15_VOICE_PRIORITY_OFFSET: UInt32 = 1
+DAUD_CHAN16_VOICE_PRIORITY_OFFSET: UInt32 = 0
+CLSID_DirectMusic: Guid = Guid('636b9f10-0c7d-11d1-95-b2-00-20-af-dc-74-21')
+CLSID_DirectMusicCollection: Guid = Guid('480ff4b0-28b2-11d1-be-f7-00-c0-4f-bf-8f-ef')
+CLSID_DirectMusicSynth: Guid = Guid('58c2b4d0-46e7-11d1-89-ac-00-a0-c9-05-41-29')
+GUID_DMUS_PROP_GM_Hardware: Guid = Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_GS_Hardware: Guid = Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_XG_Hardware: Guid = Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_XG_Capable: Guid = Guid('6496aba1-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_GS_Capable: Guid = Guid('6496aba2-61b0-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_DLS1: Guid = Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_DLS2: Guid = Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_INSTRUMENT2: Guid = Guid('865fd372-9f67-11d2-87-2a-00-60-08-93-b1-bd')
+GUID_DMUS_PROP_SynthSink_DSOUND: Guid = Guid('0aa97844-c877-11d1-87-0c-00-60-08-93-b1-bd')
+GUID_DMUS_PROP_SynthSink_WAVE: Guid = Guid('0aa97845-c877-11d1-87-0c-00-60-08-93-b1-bd')
+GUID_DMUS_PROP_SampleMemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_SamplePlaybackRate: Guid = Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
+GUID_DMUS_PROP_WriteLatency: Guid = Guid('268a0fa0-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_WritePeriod: Guid = Guid('268a0fa1-60f2-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_MemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_WavesReverb: Guid = Guid('04cb5622-32e5-11d2-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_Effects: Guid = Guid('cda8d611-684a-11d2-87-1e-00-60-08-93-b1-bd')
+GUID_DMUS_PROP_LegacyCaps: Guid = Guid('cfa7cdc2-00a1-11d2-aa-d5-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_Volume: Guid = Guid('fedfae25-e46e-11d1-aa-ce-00-00-f8-75-ac-12')
+DMUS_VOLUME_MAX: UInt32 = 2000
+DMUS_VOLUME_MIN: Int32 = -20000
+DMUS_EVENT_STRUCTURED: UInt32 = 1
+DMUS_DOWNLOADINFO_INSTRUMENT: UInt32 = 1
+DMUS_DOWNLOADINFO_WAVE: UInt32 = 2
+DMUS_DOWNLOADINFO_INSTRUMENT2: UInt32 = 3
+DMUS_DOWNLOADINFO_WAVEARTICULATION: UInt32 = 4
+DMUS_DOWNLOADINFO_STREAMINGWAVE: UInt32 = 5
+DMUS_DOWNLOADINFO_ONESHOTWAVE: UInt32 = 6
+DMUS_DEFAULT_SIZE_OFFSETTABLE: UInt32 = 1
+DMUS_INSTRUMENT_GM_INSTRUMENT: UInt32 = 1
+DMUS_MIN_DATA_SIZE: UInt32 = 4
+CONN_SRC_NONE: UInt32 = 0
+CONN_SRC_LFO: UInt32 = 1
+CONN_SRC_KEYONVELOCITY: UInt32 = 2
+CONN_SRC_KEYNUMBER: UInt32 = 3
+CONN_SRC_EG1: UInt32 = 4
+CONN_SRC_EG2: UInt32 = 5
+CONN_SRC_PITCHWHEEL: UInt32 = 6
+CONN_SRC_CC1: UInt32 = 129
+CONN_SRC_CC7: UInt32 = 135
+CONN_SRC_CC10: UInt32 = 138
+CONN_SRC_CC11: UInt32 = 139
+CONN_DST_NONE: UInt32 = 0
+CONN_DST_ATTENUATION: UInt32 = 1
+CONN_DST_PITCH: UInt32 = 3
+CONN_DST_PAN: UInt32 = 4
+CONN_DST_LFO_FREQUENCY: UInt32 = 260
+CONN_DST_LFO_STARTDELAY: UInt32 = 261
+CONN_DST_EG1_ATTACKTIME: UInt32 = 518
+CONN_DST_EG1_DECAYTIME: UInt32 = 519
+CONN_DST_EG1_RELEASETIME: UInt32 = 521
+CONN_DST_EG1_SUSTAINLEVEL: UInt32 = 522
+CONN_DST_EG2_ATTACKTIME: UInt32 = 778
+CONN_DST_EG2_DECAYTIME: UInt32 = 779
+CONN_DST_EG2_RELEASETIME: UInt32 = 781
+CONN_DST_EG2_SUSTAINLEVEL: UInt32 = 782
+CONN_TRN_NONE: UInt32 = 0
+CONN_TRN_CONCAVE: UInt32 = 1
+F_INSTRUMENT_DRUMS: UInt32 = 2147483648
+F_RGN_OPTION_SELFNONEXCLUSIVE: UInt32 = 1
+WAVELINK_CHANNEL_LEFT: Int32 = 1
+WAVELINK_CHANNEL_RIGHT: Int32 = 2
+F_WAVELINK_PHASE_MASTER: UInt32 = 1
+POOL_CUE_NULL: Int32 = -1
+F_WSMP_NO_TRUNCATION: Int32 = 1
+F_WSMP_NO_COMPRESSION: Int32 = 2
+WLOOP_TYPE_FORWARD: UInt32 = 0
+CONN_SRC_POLYPRESSURE: UInt32 = 7
+CONN_SRC_CHANNELPRESSURE: UInt32 = 8
+CONN_SRC_VIBRATO: UInt32 = 9
+CONN_SRC_MONOPRESSURE: UInt32 = 10
+CONN_SRC_CC91: UInt32 = 219
+CONN_SRC_CC93: UInt32 = 221
+CONN_DST_GAIN: UInt32 = 1
+CONN_DST_KEYNUMBER: UInt32 = 5
+CONN_DST_LEFT: UInt32 = 16
+CONN_DST_RIGHT: UInt32 = 17
+CONN_DST_CENTER: UInt32 = 18
+CONN_DST_LEFTREAR: UInt32 = 19
+CONN_DST_RIGHTREAR: UInt32 = 20
+CONN_DST_LFE_CHANNEL: UInt32 = 21
+CONN_DST_CHORUS: UInt32 = 128
+CONN_DST_REVERB: UInt32 = 129
+CONN_DST_VIB_FREQUENCY: UInt32 = 276
+CONN_DST_VIB_STARTDELAY: UInt32 = 277
+CONN_DST_EG1_DELAYTIME: UInt32 = 523
+CONN_DST_EG1_HOLDTIME: UInt32 = 524
+CONN_DST_EG1_SHUTDOWNTIME: UInt32 = 525
+CONN_DST_EG2_DELAYTIME: UInt32 = 783
+CONN_DST_EG2_HOLDTIME: UInt32 = 784
+CONN_DST_FILTER_CUTOFF: UInt32 = 1280
+CONN_DST_FILTER_Q: UInt32 = 1281
+CONN_TRN_CONVEX: UInt32 = 2
+CONN_TRN_SWITCH: UInt32 = 3
+DLS_CDL_AND: UInt32 = 1
+DLS_CDL_OR: UInt32 = 2
+DLS_CDL_XOR: UInt32 = 3
+DLS_CDL_ADD: UInt32 = 4
+DLS_CDL_SUBTRACT: UInt32 = 5
+DLS_CDL_MULTIPLY: UInt32 = 6
+DLS_CDL_DIVIDE: UInt32 = 7
+DLS_CDL_LOGICAL_AND: UInt32 = 8
+DLS_CDL_LOGICAL_OR: UInt32 = 9
+DLS_CDL_LT: UInt32 = 10
+DLS_CDL_LE: UInt32 = 11
+DLS_CDL_GT: UInt32 = 12
+DLS_CDL_GE: UInt32 = 13
+DLS_CDL_EQ: UInt32 = 14
+DLS_CDL_NOT: UInt32 = 15
+DLS_CDL_CONST: UInt32 = 16
+DLS_CDL_QUERY: UInt32 = 17
+DLS_CDL_QUERYSUPPORTED: UInt32 = 18
+WLOOP_TYPE_RELEASE: UInt32 = 2
+F_WAVELINK_MULTICHANNEL: UInt32 = 2
+DLSID_GMInHardware: Guid = Guid('178f2f24-c364-11d1-a7-60-00-00-f8-75-ac-12')
+DLSID_GSInHardware: Guid = Guid('178f2f25-c364-11d1-a7-60-00-00-f8-75-ac-12')
+DLSID_XGInHardware: Guid = Guid('178f2f26-c364-11d1-a7-60-00-00-f8-75-ac-12')
+DLSID_SupportsDLS1: Guid = Guid('178f2f27-c364-11d1-a7-60-00-00-f8-75-ac-12')
+DLSID_SupportsDLS2: Guid = Guid('f14599e5-4689-11d2-af-a6-00-aa-00-24-d8-b6')
+DLSID_SampleMemorySize: Guid = Guid('178f2f28-c364-11d1-a7-60-00-00-f8-75-ac-12')
+DLSID_ManufacturersID: Guid = Guid('b03e1181-8095-11d2-a1-ef-00-60-08-33-db-d8')
+DLSID_ProductID: Guid = Guid('b03e1182-8095-11d2-a1-ef-00-60-08-33-db-d8')
+DLSID_SamplePlaybackRate: Guid = Guid('2a91f713-a4bf-11d2-bb-df-00-60-08-33-db-d8')
+REGSTR_PATH_SOFTWARESYNTHS: String = 'Software\\Microsoft\\DirectMusic\\SoftwareSynths'
+REFRESH_F_LASTBUFFER: UInt32 = 1
+CLSID_DirectMusicSynthSink: Guid = Guid('aec17ce3-a514-11d1-af-a6-00-aa-00-24-d8-b6')
+GUID_DMUS_PROP_SetSynthSink: Guid = Guid('0a3a5ba5-37b6-11d2-b9-f9-00-00-f8-75-ac-12')
+GUID_DMUS_PROP_SinkUsesDSound: Guid = Guid('be208857-8952-11d2-ba-1c-00-00-f8-75-ac-12')
+CLSID_DirectSoundPrivate: Guid = Guid('11ab3ec0-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
+DSPROPSETID_DirectSoundDevice: Guid = Guid('84624f82-25ec-11d1-a4-d8-00-c0-4f-c2-8a-ca')
+DV_DVSD_NTSC_FRAMESIZE: Int32 = 120000
+DV_DVSD_PAL_FRAMESIZE: Int32 = 144000
+DV_SMCHN: UInt32 = 57344
+DV_AUDIOMODE: UInt32 = 3840
+DV_AUDIOSMP: UInt32 = 939524096
+DV_AUDIOQU: UInt32 = 117440512
+DV_NTSCPAL: UInt32 = 2097152
+DV_STYPE: UInt32 = 2031616
+DV_NTSC: UInt32 = 0
+DV_PAL: UInt32 = 1
+DV_SD: UInt32 = 0
+DV_HD: UInt32 = 1
+DV_SL: UInt32 = 2
+DV_CAP_AUD16Bits: UInt32 = 0
+DV_CAP_AUD12Bits: UInt32 = 1
+SIZE_DVINFO: UInt32 = 32
+class CONNECTION(Structure):
+    usSource: UInt16
+    usControl: UInt16
+    usDestination: UInt16
+    usTransform: UInt16
+    lScale: Int32
+class CONNECTIONLIST(Structure):
+    cbSize: UInt32
+    cConnections: UInt32
 DIRECTSOUNDDEVICE_DATAFLOW = Int32
-DIRECTSOUNDDEVICE_DATAFLOW_RENDER = 0
-DIRECTSOUNDDEVICE_DATAFLOW_CAPTURE = 1
+DIRECTSOUNDDEVICE_DATAFLOW_RENDER: DIRECTSOUNDDEVICE_DATAFLOW = 0
+DIRECTSOUNDDEVICE_DATAFLOW_CAPTURE: DIRECTSOUNDDEVICE_DATAFLOW = 1
 DIRECTSOUNDDEVICE_TYPE = Int32
-DIRECTSOUNDDEVICE_TYPE_EMULATED = 0
-DIRECTSOUNDDEVICE_TYPE_VXD = 1
-DIRECTSOUNDDEVICE_TYPE_WDM = 2
-def _define_DLSHEADER_head():
-    class DLSHEADER(Structure):
-        pass
-    return DLSHEADER
-def _define_DLSHEADER():
-    DLSHEADER = win32more.Media.Audio.DirectMusic.DLSHEADER_head
-    DLSHEADER._fields_ = [
-        ('cInstruments', UInt32),
-    ]
-    return DLSHEADER
-def _define_DLSID_head():
-    class DLSID(Structure):
-        pass
-    return DLSID
-def _define_DLSID():
-    DLSID = win32more.Media.Audio.DirectMusic.DLSID_head
-    DLSID._fields_ = [
-        ('ulData1', UInt32),
-        ('usData2', UInt16),
-        ('usData3', UInt16),
-        ('abData4', Byte * 8),
-    ]
-    return DLSID
-def _define_DLSVERSION_head():
-    class DLSVERSION(Structure):
-        pass
-    return DLSVERSION
-def _define_DLSVERSION():
-    DLSVERSION = win32more.Media.Audio.DirectMusic.DLSVERSION_head
-    DLSVERSION._fields_ = [
-        ('dwVersionMS', UInt32),
-        ('dwVersionLS', UInt32),
-    ]
-    return DLSVERSION
-def _define_DMUS_ARTICPARAMS_head():
-    class DMUS_ARTICPARAMS(Structure):
-        pass
-    return DMUS_ARTICPARAMS
-def _define_DMUS_ARTICPARAMS():
-    DMUS_ARTICPARAMS = win32more.Media.Audio.DirectMusic.DMUS_ARTICPARAMS_head
-    DMUS_ARTICPARAMS._fields_ = [
-        ('LFO', win32more.Media.Audio.DirectMusic.DMUS_LFOPARAMS),
-        ('VolEG', win32more.Media.Audio.DirectMusic.DMUS_VEGPARAMS),
-        ('PitchEG', win32more.Media.Audio.DirectMusic.DMUS_PEGPARAMS),
-        ('Misc', win32more.Media.Audio.DirectMusic.DMUS_MSCPARAMS),
-    ]
-    return DMUS_ARTICPARAMS
-def _define_DMUS_ARTICULATION_head():
-    class DMUS_ARTICULATION(Structure):
-        pass
-    return DMUS_ARTICULATION
-def _define_DMUS_ARTICULATION():
-    DMUS_ARTICULATION = win32more.Media.Audio.DirectMusic.DMUS_ARTICULATION_head
-    DMUS_ARTICULATION._fields_ = [
-        ('ulArt1Idx', UInt32),
-        ('ulFirstExtCkIdx', UInt32),
-    ]
-    return DMUS_ARTICULATION
-def _define_DMUS_ARTICULATION2_head():
-    class DMUS_ARTICULATION2(Structure):
-        pass
-    return DMUS_ARTICULATION2
-def _define_DMUS_ARTICULATION2():
-    DMUS_ARTICULATION2 = win32more.Media.Audio.DirectMusic.DMUS_ARTICULATION2_head
-    DMUS_ARTICULATION2._fields_ = [
-        ('ulArtIdx', UInt32),
-        ('ulFirstExtCkIdx', UInt32),
-        ('ulNextArtIdx', UInt32),
-    ]
-    return DMUS_ARTICULATION2
-def _define_DMUS_BUFFERDESC_head():
-    class DMUS_BUFFERDESC(Structure):
-        pass
-    return DMUS_BUFFERDESC
-def _define_DMUS_BUFFERDESC():
-    DMUS_BUFFERDESC = win32more.Media.Audio.DirectMusic.DMUS_BUFFERDESC_head
-    DMUS_BUFFERDESC._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('guidBufferFormat', Guid),
-        ('cbBuffer', UInt32),
-    ]
-    return DMUS_BUFFERDESC
-def _define_DMUS_CLOCKINFO7_head():
-    class DMUS_CLOCKINFO7(Structure):
-        pass
-    return DMUS_CLOCKINFO7
-def _define_DMUS_CLOCKINFO7():
-    DMUS_CLOCKINFO7 = win32more.Media.Audio.DirectMusic.DMUS_CLOCKINFO7_head
-    DMUS_CLOCKINFO7._fields_ = [
-        ('dwSize', UInt32),
-        ('ctType', win32more.Media.Audio.DirectMusic.DMUS_CLOCKTYPE),
-        ('guidClock', Guid),
-        ('wszDescription', Char * 128),
-    ]
-    return DMUS_CLOCKINFO7
-def _define_DMUS_CLOCKINFO8_head():
-    class DMUS_CLOCKINFO8(Structure):
-        pass
-    return DMUS_CLOCKINFO8
-def _define_DMUS_CLOCKINFO8():
-    DMUS_CLOCKINFO8 = win32more.Media.Audio.DirectMusic.DMUS_CLOCKINFO8_head
-    DMUS_CLOCKINFO8._fields_ = [
-        ('dwSize', UInt32),
-        ('ctType', win32more.Media.Audio.DirectMusic.DMUS_CLOCKTYPE),
-        ('guidClock', Guid),
-        ('wszDescription', Char * 128),
-        ('dwFlags', UInt32),
-    ]
-    return DMUS_CLOCKINFO8
+DIRECTSOUNDDEVICE_TYPE_EMULATED: DIRECTSOUNDDEVICE_TYPE = 0
+DIRECTSOUNDDEVICE_TYPE_VXD: DIRECTSOUNDDEVICE_TYPE = 1
+DIRECTSOUNDDEVICE_TYPE_WDM: DIRECTSOUNDDEVICE_TYPE = 2
+class DLSHEADER(Structure):
+    cInstruments: UInt32
+class DLSID(Structure):
+    ulData1: UInt32
+    usData2: UInt16
+    usData3: UInt16
+    abData4: Byte * 8
+class DLSVERSION(Structure):
+    dwVersionMS: UInt32
+    dwVersionLS: UInt32
+class DMUS_ARTICPARAMS(Structure):
+    LFO: win32more.Media.Audio.DirectMusic.DMUS_LFOPARAMS
+    VolEG: win32more.Media.Audio.DirectMusic.DMUS_VEGPARAMS
+    PitchEG: win32more.Media.Audio.DirectMusic.DMUS_PEGPARAMS
+    Misc: win32more.Media.Audio.DirectMusic.DMUS_MSCPARAMS
+class DMUS_ARTICULATION(Structure):
+    ulArt1Idx: UInt32
+    ulFirstExtCkIdx: UInt32
+class DMUS_ARTICULATION2(Structure):
+    ulArtIdx: UInt32
+    ulFirstExtCkIdx: UInt32
+    ulNextArtIdx: UInt32
+class DMUS_BUFFERDESC(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    guidBufferFormat: Guid
+    cbBuffer: UInt32
+class DMUS_CLOCKINFO7(Structure):
+    dwSize: UInt32
+    ctType: win32more.Media.Audio.DirectMusic.DMUS_CLOCKTYPE
+    guidClock: Guid
+    wszDescription: Char * 128
+class DMUS_CLOCKINFO8(Structure):
+    dwSize: UInt32
+    ctType: win32more.Media.Audio.DirectMusic.DMUS_CLOCKTYPE
+    guidClock: Guid
+    wszDescription: Char * 128
+    dwFlags: UInt32
 DMUS_CLOCKTYPE = Int32
-DMUS_CLOCK_SYSTEM = 0
-DMUS_CLOCK_WAVE = 1
-def _define_DMUS_COPYRIGHT_head():
-    class DMUS_COPYRIGHT(Structure):
-        pass
-    return DMUS_COPYRIGHT
-def _define_DMUS_COPYRIGHT():
-    DMUS_COPYRIGHT = win32more.Media.Audio.DirectMusic.DMUS_COPYRIGHT_head
-    DMUS_COPYRIGHT._fields_ = [
-        ('cbSize', UInt32),
-        ('byCopyright', Byte * 4),
-    ]
-    return DMUS_COPYRIGHT
-def _define_DMUS_DOWNLOADINFO_head():
-    class DMUS_DOWNLOADINFO(Structure):
-        pass
-    return DMUS_DOWNLOADINFO
-def _define_DMUS_DOWNLOADINFO():
-    DMUS_DOWNLOADINFO = win32more.Media.Audio.DirectMusic.DMUS_DOWNLOADINFO_head
-    DMUS_DOWNLOADINFO._fields_ = [
-        ('dwDLType', UInt32),
-        ('dwDLId', UInt32),
-        ('dwNumOffsetTableEntries', UInt32),
-        ('cbSize', UInt32),
-    ]
-    return DMUS_DOWNLOADINFO
-def _define_DMUS_EVENTHEADER_head():
-    class DMUS_EVENTHEADER(Structure):
-        pass
-    return DMUS_EVENTHEADER
-def _define_DMUS_EVENTHEADER():
-    DMUS_EVENTHEADER = win32more.Media.Audio.DirectMusic.DMUS_EVENTHEADER_head
-    DMUS_EVENTHEADER._pack_ = 4
-    DMUS_EVENTHEADER._fields_ = [
-        ('cbEvent', UInt32),
-        ('dwChannelGroup', UInt32),
-        ('rtDelta', Int64),
-        ('dwFlags', UInt32),
-    ]
-    return DMUS_EVENTHEADER
-def _define_DMUS_EXTENSIONCHUNK_head():
-    class DMUS_EXTENSIONCHUNK(Structure):
-        pass
-    return DMUS_EXTENSIONCHUNK
-def _define_DMUS_EXTENSIONCHUNK():
-    DMUS_EXTENSIONCHUNK = win32more.Media.Audio.DirectMusic.DMUS_EXTENSIONCHUNK_head
-    DMUS_EXTENSIONCHUNK._fields_ = [
-        ('cbSize', UInt32),
-        ('ulNextExtCkIdx', UInt32),
-        ('ExtCkID', UInt32),
-        ('byExtCk', Byte * 4),
-    ]
-    return DMUS_EXTENSIONCHUNK
-def _define_DMUS_INSTRUMENT_head():
-    class DMUS_INSTRUMENT(Structure):
-        pass
-    return DMUS_INSTRUMENT
-def _define_DMUS_INSTRUMENT():
-    DMUS_INSTRUMENT = win32more.Media.Audio.DirectMusic.DMUS_INSTRUMENT_head
-    DMUS_INSTRUMENT._fields_ = [
-        ('ulPatch', UInt32),
-        ('ulFirstRegionIdx', UInt32),
-        ('ulGlobalArtIdx', UInt32),
-        ('ulFirstExtCkIdx', UInt32),
-        ('ulCopyrightIdx', UInt32),
-        ('ulFlags', UInt32),
-    ]
-    return DMUS_INSTRUMENT
-def _define_DMUS_LFOPARAMS_head():
-    class DMUS_LFOPARAMS(Structure):
-        pass
-    return DMUS_LFOPARAMS
-def _define_DMUS_LFOPARAMS():
-    DMUS_LFOPARAMS = win32more.Media.Audio.DirectMusic.DMUS_LFOPARAMS_head
-    DMUS_LFOPARAMS._fields_ = [
-        ('pcFrequency', Int32),
-        ('tcDelay', Int32),
-        ('gcVolumeScale', Int32),
-        ('pcPitchScale', Int32),
-        ('gcMWToVolume', Int32),
-        ('pcMWToPitch', Int32),
-    ]
-    return DMUS_LFOPARAMS
-def _define_DMUS_MSCPARAMS_head():
-    class DMUS_MSCPARAMS(Structure):
-        pass
-    return DMUS_MSCPARAMS
-def _define_DMUS_MSCPARAMS():
-    DMUS_MSCPARAMS = win32more.Media.Audio.DirectMusic.DMUS_MSCPARAMS_head
-    DMUS_MSCPARAMS._fields_ = [
-        ('ptDefaultPan', Int32),
-    ]
-    return DMUS_MSCPARAMS
-def _define_DMUS_NOTERANGE_head():
-    class DMUS_NOTERANGE(Structure):
-        pass
-    return DMUS_NOTERANGE
-def _define_DMUS_NOTERANGE():
-    DMUS_NOTERANGE = win32more.Media.Audio.DirectMusic.DMUS_NOTERANGE_head
-    DMUS_NOTERANGE._fields_ = [
-        ('dwLowNote', UInt32),
-        ('dwHighNote', UInt32),
-    ]
-    return DMUS_NOTERANGE
-def _define_DMUS_OFFSETTABLE_head():
-    class DMUS_OFFSETTABLE(Structure):
-        pass
-    return DMUS_OFFSETTABLE
-def _define_DMUS_OFFSETTABLE():
-    DMUS_OFFSETTABLE = win32more.Media.Audio.DirectMusic.DMUS_OFFSETTABLE_head
-    DMUS_OFFSETTABLE._fields_ = [
-        ('ulOffsetTable', UInt32 * 1),
-    ]
-    return DMUS_OFFSETTABLE
-def _define_DMUS_PEGPARAMS_head():
-    class DMUS_PEGPARAMS(Structure):
-        pass
-    return DMUS_PEGPARAMS
-def _define_DMUS_PEGPARAMS():
-    DMUS_PEGPARAMS = win32more.Media.Audio.DirectMusic.DMUS_PEGPARAMS_head
-    DMUS_PEGPARAMS._fields_ = [
-        ('tcAttack', Int32),
-        ('tcDecay', Int32),
-        ('ptSustain', Int32),
-        ('tcRelease', Int32),
-        ('tcVel2Attack', Int32),
-        ('tcKey2Decay', Int32),
-        ('pcRange', Int32),
-    ]
-    return DMUS_PEGPARAMS
-def _define_DMUS_PORTCAPS_head():
-    class DMUS_PORTCAPS(Structure):
-        pass
-    return DMUS_PORTCAPS
-def _define_DMUS_PORTCAPS():
-    DMUS_PORTCAPS = win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head
-    DMUS_PORTCAPS._fields_ = [
-        ('dwSize', UInt32),
-        ('dwFlags', UInt32),
-        ('guidPort', Guid),
-        ('dwClass', UInt32),
-        ('dwType', UInt32),
-        ('dwMemorySize', UInt32),
-        ('dwMaxChannelGroups', UInt32),
-        ('dwMaxVoices', UInt32),
-        ('dwMaxAudioChannels', UInt32),
-        ('dwEffectFlags', UInt32),
-        ('wszDescription', Char * 128),
-    ]
-    return DMUS_PORTCAPS
-def _define_DMUS_PORTPARAMS7_head():
-    class DMUS_PORTPARAMS7(Structure):
-        pass
-    return DMUS_PORTPARAMS7
-def _define_DMUS_PORTPARAMS7():
-    DMUS_PORTPARAMS7 = win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS7_head
-    DMUS_PORTPARAMS7._fields_ = [
-        ('dwSize', UInt32),
-        ('dwValidParams', UInt32),
-        ('dwVoices', UInt32),
-        ('dwChannelGroups', UInt32),
-        ('dwAudioChannels', UInt32),
-        ('dwSampleRate', UInt32),
-        ('dwEffectFlags', UInt32),
-        ('fShare', win32more.Foundation.BOOL),
-    ]
-    return DMUS_PORTPARAMS7
-def _define_DMUS_PORTPARAMS8_head():
-    class DMUS_PORTPARAMS8(Structure):
-        pass
-    return DMUS_PORTPARAMS8
-def _define_DMUS_PORTPARAMS8():
-    DMUS_PORTPARAMS8 = win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head
-    DMUS_PORTPARAMS8._fields_ = [
-        ('dwSize', UInt32),
-        ('dwValidParams', UInt32),
-        ('dwVoices', UInt32),
-        ('dwChannelGroups', UInt32),
-        ('dwAudioChannels', UInt32),
-        ('dwSampleRate', UInt32),
-        ('dwEffectFlags', UInt32),
-        ('fShare', win32more.Foundation.BOOL),
-        ('dwFeatures', UInt32),
-    ]
-    return DMUS_PORTPARAMS8
-def _define_DMUS_REGION_head():
-    class DMUS_REGION(Structure):
-        pass
-    return DMUS_REGION
-def _define_DMUS_REGION():
-    DMUS_REGION = win32more.Media.Audio.DirectMusic.DMUS_REGION_head
-    DMUS_REGION._fields_ = [
-        ('RangeKey', win32more.Media.Audio.DirectMusic.RGNRANGE),
-        ('RangeVelocity', win32more.Media.Audio.DirectMusic.RGNRANGE),
-        ('fusOptions', UInt16),
-        ('usKeyGroup', UInt16),
-        ('ulRegionArtIdx', UInt32),
-        ('ulNextRegionIdx', UInt32),
-        ('ulFirstExtCkIdx', UInt32),
-        ('WaveLink', win32more.Media.Audio.DirectMusic.WAVELINK),
-        ('WSMP', win32more.Media.Audio.DirectMusic.WSMPL),
-        ('WLOOP', win32more.Media.Audio.DirectMusic.WLOOP * 1),
-    ]
-    return DMUS_REGION
-def _define_DMUS_SYNTHSTATS_head():
-    class DMUS_SYNTHSTATS(Structure):
-        pass
-    return DMUS_SYNTHSTATS
-def _define_DMUS_SYNTHSTATS():
-    DMUS_SYNTHSTATS = win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS_head
-    DMUS_SYNTHSTATS._fields_ = [
-        ('dwSize', UInt32),
-        ('dwValidStats', UInt32),
-        ('dwVoices', UInt32),
-        ('dwTotalCPU', UInt32),
-        ('dwCPUPerVoice', UInt32),
-        ('dwLostNotes', UInt32),
-        ('dwFreeMemory', UInt32),
-        ('lPeakVolume', Int32),
-    ]
-    return DMUS_SYNTHSTATS
-def _define_DMUS_SYNTHSTATS8_head():
-    class DMUS_SYNTHSTATS8(Structure):
-        pass
-    return DMUS_SYNTHSTATS8
-def _define_DMUS_SYNTHSTATS8():
-    DMUS_SYNTHSTATS8 = win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS8_head
-    DMUS_SYNTHSTATS8._fields_ = [
-        ('dwSize', UInt32),
-        ('dwValidStats', UInt32),
-        ('dwVoices', UInt32),
-        ('dwTotalCPU', UInt32),
-        ('dwCPUPerVoice', UInt32),
-        ('dwLostNotes', UInt32),
-        ('dwFreeMemory', UInt32),
-        ('lPeakVolume', Int32),
-        ('dwSynthMemUse', UInt32),
-    ]
-    return DMUS_SYNTHSTATS8
-def _define_DMUS_VEGPARAMS_head():
-    class DMUS_VEGPARAMS(Structure):
-        pass
-    return DMUS_VEGPARAMS
-def _define_DMUS_VEGPARAMS():
-    DMUS_VEGPARAMS = win32more.Media.Audio.DirectMusic.DMUS_VEGPARAMS_head
-    DMUS_VEGPARAMS._fields_ = [
-        ('tcAttack', Int32),
-        ('tcDecay', Int32),
-        ('ptSustain', Int32),
-        ('tcRelease', Int32),
-        ('tcVel2Attack', Int32),
-        ('tcKey2Decay', Int32),
-    ]
-    return DMUS_VEGPARAMS
-def _define_DMUS_VOICE_STATE_head():
-    class DMUS_VOICE_STATE(Structure):
-        pass
-    return DMUS_VOICE_STATE
-def _define_DMUS_VOICE_STATE():
-    DMUS_VOICE_STATE = win32more.Media.Audio.DirectMusic.DMUS_VOICE_STATE_head
-    DMUS_VOICE_STATE._fields_ = [
-        ('bExists', win32more.Foundation.BOOL),
-        ('spPosition', UInt64),
-    ]
-    return DMUS_VOICE_STATE
-def _define_DMUS_WAVE_head():
-    class DMUS_WAVE(Structure):
-        pass
-    return DMUS_WAVE
-def _define_DMUS_WAVE():
-    DMUS_WAVE = win32more.Media.Audio.DirectMusic.DMUS_WAVE_head
-    DMUS_WAVE._fields_ = [
-        ('ulFirstExtCkIdx', UInt32),
-        ('ulCopyrightIdx', UInt32),
-        ('ulWaveDataIdx', UInt32),
-        ('WaveformatEx', win32more.Media.Audio.WAVEFORMATEX),
-    ]
-    return DMUS_WAVE
-def _define_DMUS_WAVEARTDL_head():
-    class DMUS_WAVEARTDL(Structure):
-        pass
-    return DMUS_WAVEARTDL
-def _define_DMUS_WAVEARTDL():
-    DMUS_WAVEARTDL = win32more.Media.Audio.DirectMusic.DMUS_WAVEARTDL_head
-    DMUS_WAVEARTDL._fields_ = [
-        ('ulDownloadIdIdx', UInt32),
-        ('ulBus', UInt32),
-        ('ulBuffers', UInt32),
-        ('ulMasterDLId', UInt32),
-        ('usOptions', UInt16),
-    ]
-    return DMUS_WAVEARTDL
-def _define_DMUS_WAVEDATA_head():
-    class DMUS_WAVEDATA(Structure):
-        pass
-    return DMUS_WAVEDATA
-def _define_DMUS_WAVEDATA():
-    DMUS_WAVEDATA = win32more.Media.Audio.DirectMusic.DMUS_WAVEDATA_head
-    DMUS_WAVEDATA._fields_ = [
-        ('cbSize', UInt32),
-        ('byData', Byte * 4),
-    ]
-    return DMUS_WAVEDATA
-def _define_DMUS_WAVEDL_head():
-    class DMUS_WAVEDL(Structure):
-        pass
-    return DMUS_WAVEDL
-def _define_DMUS_WAVEDL():
-    DMUS_WAVEDL = win32more.Media.Audio.DirectMusic.DMUS_WAVEDL_head
-    DMUS_WAVEDL._fields_ = [
-        ('cbWaveData', UInt32),
-    ]
-    return DMUS_WAVEDL
-def _define_DMUS_WAVES_REVERB_PARAMS_head():
-    class DMUS_WAVES_REVERB_PARAMS(Structure):
-        pass
-    return DMUS_WAVES_REVERB_PARAMS
-def _define_DMUS_WAVES_REVERB_PARAMS():
-    DMUS_WAVES_REVERB_PARAMS = win32more.Media.Audio.DirectMusic.DMUS_WAVES_REVERB_PARAMS_head
-    DMUS_WAVES_REVERB_PARAMS._fields_ = [
-        ('fInGain', Single),
-        ('fReverbMix', Single),
-        ('fReverbTime', Single),
-        ('fHighFreqRTRatio', Single),
-    ]
-    return DMUS_WAVES_REVERB_PARAMS
+DMUS_CLOCK_SYSTEM: DMUS_CLOCKTYPE = 0
+DMUS_CLOCK_WAVE: DMUS_CLOCKTYPE = 1
+class DMUS_COPYRIGHT(Structure):
+    cbSize: UInt32
+    byCopyright: Byte * 4
+class DMUS_DOWNLOADINFO(Structure):
+    dwDLType: UInt32
+    dwDLId: UInt32
+    dwNumOffsetTableEntries: UInt32
+    cbSize: UInt32
+class DMUS_EVENTHEADER(Structure):
+    cbEvent: UInt32
+    dwChannelGroup: UInt32
+    rtDelta: Int64
+    dwFlags: UInt32
+    _pack_ = 4
+class DMUS_EXTENSIONCHUNK(Structure):
+    cbSize: UInt32
+    ulNextExtCkIdx: UInt32
+    ExtCkID: UInt32
+    byExtCk: Byte * 4
+class DMUS_INSTRUMENT(Structure):
+    ulPatch: UInt32
+    ulFirstRegionIdx: UInt32
+    ulGlobalArtIdx: UInt32
+    ulFirstExtCkIdx: UInt32
+    ulCopyrightIdx: UInt32
+    ulFlags: UInt32
+class DMUS_LFOPARAMS(Structure):
+    pcFrequency: Int32
+    tcDelay: Int32
+    gcVolumeScale: Int32
+    pcPitchScale: Int32
+    gcMWToVolume: Int32
+    pcMWToPitch: Int32
+class DMUS_MSCPARAMS(Structure):
+    ptDefaultPan: Int32
+class DMUS_NOTERANGE(Structure):
+    dwLowNote: UInt32
+    dwHighNote: UInt32
+class DMUS_OFFSETTABLE(Structure):
+    ulOffsetTable: UInt32 * 1
+class DMUS_PEGPARAMS(Structure):
+    tcAttack: Int32
+    tcDecay: Int32
+    ptSustain: Int32
+    tcRelease: Int32
+    tcVel2Attack: Int32
+    tcKey2Decay: Int32
+    pcRange: Int32
+class DMUS_PORTCAPS(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    guidPort: Guid
+    dwClass: UInt32
+    dwType: UInt32
+    dwMemorySize: UInt32
+    dwMaxChannelGroups: UInt32
+    dwMaxVoices: UInt32
+    dwMaxAudioChannels: UInt32
+    dwEffectFlags: UInt32
+    wszDescription: Char * 128
+class DMUS_PORTPARAMS7(Structure):
+    dwSize: UInt32
+    dwValidParams: UInt32
+    dwVoices: UInt32
+    dwChannelGroups: UInt32
+    dwAudioChannels: UInt32
+    dwSampleRate: UInt32
+    dwEffectFlags: UInt32
+    fShare: win32more.Foundation.BOOL
+class DMUS_PORTPARAMS8(Structure):
+    dwSize: UInt32
+    dwValidParams: UInt32
+    dwVoices: UInt32
+    dwChannelGroups: UInt32
+    dwAudioChannels: UInt32
+    dwSampleRate: UInt32
+    dwEffectFlags: UInt32
+    fShare: win32more.Foundation.BOOL
+    dwFeatures: UInt32
+class DMUS_REGION(Structure):
+    RangeKey: win32more.Media.Audio.DirectMusic.RGNRANGE
+    RangeVelocity: win32more.Media.Audio.DirectMusic.RGNRANGE
+    fusOptions: UInt16
+    usKeyGroup: UInt16
+    ulRegionArtIdx: UInt32
+    ulNextRegionIdx: UInt32
+    ulFirstExtCkIdx: UInt32
+    WaveLink: win32more.Media.Audio.DirectMusic.WAVELINK
+    WSMP: win32more.Media.Audio.DirectMusic.WSMPL
+    WLOOP: win32more.Media.Audio.DirectMusic.WLOOP * 1
+class DMUS_SYNTHSTATS(Structure):
+    dwSize: UInt32
+    dwValidStats: UInt32
+    dwVoices: UInt32
+    dwTotalCPU: UInt32
+    dwCPUPerVoice: UInt32
+    dwLostNotes: UInt32
+    dwFreeMemory: UInt32
+    lPeakVolume: Int32
+class DMUS_SYNTHSTATS8(Structure):
+    dwSize: UInt32
+    dwValidStats: UInt32
+    dwVoices: UInt32
+    dwTotalCPU: UInt32
+    dwCPUPerVoice: UInt32
+    dwLostNotes: UInt32
+    dwFreeMemory: UInt32
+    lPeakVolume: Int32
+    dwSynthMemUse: UInt32
+class DMUS_VEGPARAMS(Structure):
+    tcAttack: Int32
+    tcDecay: Int32
+    ptSustain: Int32
+    tcRelease: Int32
+    tcVel2Attack: Int32
+    tcKey2Decay: Int32
+class DMUS_VOICE_STATE(Structure):
+    bExists: win32more.Foundation.BOOL
+    spPosition: UInt64
+class DMUS_WAVE(Structure):
+    ulFirstExtCkIdx: UInt32
+    ulCopyrightIdx: UInt32
+    ulWaveDataIdx: UInt32
+    WaveformatEx: win32more.Media.Audio.WAVEFORMATEX
+class DMUS_WAVEARTDL(Structure):
+    ulDownloadIdIdx: UInt32
+    ulBus: UInt32
+    ulBuffers: UInt32
+    ulMasterDLId: UInt32
+    usOptions: UInt16
+class DMUS_WAVEDATA(Structure):
+    cbSize: UInt32
+    byData: Byte * 4
+class DMUS_WAVEDL(Structure):
+    cbWaveData: UInt32
+class DMUS_WAVES_REVERB_PARAMS(Structure):
+    fInGain: Single
+    fReverbMix: Single
+    fReverbTime: Single
+    fHighFreqRTRatio: Single
 DSPROPERTY_DIRECTSOUNDDEVICE = Int32
-DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A = 1
-DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1 = 2
-DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1 = 3
-DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W = 4
-DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A = 5
-DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W = 6
-DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A = 7
-DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W = 8
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA._fields_ = [
-        ('DeviceId', Guid),
-        ('DescriptionA', win32more.Foundation.CHAR * 256),
-        ('DescriptionW', Char * 256),
-        ('ModuleA', win32more.Foundation.CHAR * 260),
-        ('ModuleW', Char * 260),
-        ('Type', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE),
-        ('DataFlow', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW),
-        ('WaveDeviceId', UInt32),
-        ('Devnode', UInt32),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA._fields_ = [
-        ('Type', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE),
-        ('DataFlow', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW),
-        ('DeviceId', Guid),
-        ('Description', win32more.Foundation.PSTR),
-        ('Module', win32more.Foundation.PSTR),
-        ('Interface', win32more.Foundation.PSTR),
-        ('WaveDeviceId', UInt32),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA._fields_ = [
-        ('Type', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE),
-        ('DataFlow', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW),
-        ('DeviceId', Guid),
-        ('Description', win32more.Foundation.PWSTR),
-        ('Module', win32more.Foundation.PWSTR),
-        ('Interface', win32more.Foundation.PWSTR),
-        ('WaveDeviceId', UInt32),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA._fields_ = [
-        ('Callback', win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1),
-        ('Context', c_void_p),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA._fields_ = [
-        ('Callback', win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA),
-        ('Context', c_void_p),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA._fields_ = [
-        ('Callback', win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW),
-        ('Context', c_void_p),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA._fields_ = [
-        ('DeviceName', win32more.Foundation.PSTR),
-        ('DataFlow', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW),
-        ('DeviceId', Guid),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA_head():
-    class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA(Structure):
-        pass
-    return DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA
-def _define_DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA():
-    DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA = win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA_head
-    DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA._fields_ = [
-        ('DeviceName', win32more.Foundation.PWSTR),
-        ('DataFlow', win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW),
-        ('DeviceId', Guid),
-    ]
-    return DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA
-def _define_DVAudInfo_head():
-    class DVAudInfo(Structure):
-        pass
-    return DVAudInfo
-def _define_DVAudInfo():
-    DVAudInfo = win32more.Media.Audio.DirectMusic.DVAudInfo_head
-    DVAudInfo._fields_ = [
-        ('bAudStyle', Byte * 2),
-        ('bAudQu', Byte * 2),
-        ('bNumAudPin', Byte),
-        ('wAvgSamplesPerPinPerFrm', UInt16 * 2),
-        ('wBlkMode', UInt16),
-        ('wDIFMode', UInt16),
-        ('wBlkDiv', UInt16),
-    ]
-    return DVAudInfo
-def _define_IDirectMusic_head():
-    class IDirectMusic(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6536115a-7b2d-11d2-ba-18-00-00-f8-75-ac-12')
-    return IDirectMusic
-def _define_IDirectMusic():
-    IDirectMusic = win32more.Media.Audio.DirectMusic.IDirectMusic_head
-    IDirectMusic.EnumPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head))(3, 'EnumPort', ((1, 'dwIndex'),(1, 'pPortCaps'),)))
-    IDirectMusic.CreateMusicBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_BUFFERDESC_head),POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head),win32more.System.Com.IUnknown_head)(4, 'CreateMusicBuffer', ((1, 'pBufferDesc'),(1, 'ppBuffer'),(1, 'pUnkOuter'),)))
-    IDirectMusic.CreatePort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head),POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicPort_head),win32more.System.Com.IUnknown_head)(5, 'CreatePort', ((1, 'rclsidPort'),(1, 'pPortParams'),(1, 'ppPort'),(1, 'pUnkOuter'),)))
-    IDirectMusic.EnumMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.DMUS_CLOCKINFO8_head))(6, 'EnumMasterClock', ((1, 'dwIndex'),(1, 'lpClockInfo'),)))
-    IDirectMusic.GetMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.IReferenceClock_head))(7, 'GetMasterClock', ((1, 'pguidClock'),(1, 'ppReferenceClock'),)))
-    IDirectMusic.SetMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'SetMasterClock', ((1, 'rguidClock'),)))
-    IDirectMusic.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(9, 'Activate', ((1, 'fEnable'),)))
-    IDirectMusic.GetDefaultPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(10, 'GetDefaultPort', ((1, 'pguidPort'),)))
-    IDirectMusic.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Foundation.HWND)(11, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'hWnd'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusic
-def _define_IDirectMusic8_head():
-    class IDirectMusic8(win32more.Media.Audio.DirectMusic.IDirectMusic_head):
-        Guid = Guid('2d3629f7-813d-4939-85-08-f0-5c-6b-75-fd-97')
-    return IDirectMusic8
-def _define_IDirectMusic8():
-    IDirectMusic8 = win32more.Media.Audio.DirectMusic.IDirectMusic8_head
-    IDirectMusic8.SetExternalMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.IReferenceClock_head)(12, 'SetExternalMasterClock', ((1, 'pClock'),)))
-    win32more.Media.Audio.DirectMusic.IDirectMusic
-    return IDirectMusic8
-def _define_IDirectMusicBuffer_head():
-    class IDirectMusicBuffer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac2878-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicBuffer
-def _define_IDirectMusicBuffer():
-    IDirectMusicBuffer = win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head
-    IDirectMusicBuffer.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Flush', ()))
-    IDirectMusicBuffer.TotalTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(4, 'TotalTime', ((1, 'prtTime'),)))
-    IDirectMusicBuffer.PackStructured = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,UInt32,UInt32)(5, 'PackStructured', ((1, 'rt'),(1, 'dwChannelGroup'),(1, 'dwChannelMessage'),)))
-    IDirectMusicBuffer.PackUnstructured = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,UInt32,UInt32,c_char_p_no)(6, 'PackUnstructured', ((1, 'rt'),(1, 'dwChannelGroup'),(1, 'cb'),(1, 'lpb'),)))
-    IDirectMusicBuffer.ResetReadPtr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'ResetReadPtr', ()))
-    IDirectMusicBuffer.GetNextEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64),POINTER(UInt32),POINTER(UInt32),POINTER(c_char_p_no))(8, 'GetNextEvent', ((1, 'prt'),(1, 'pdwChannelGroup'),(1, 'pdwLength'),(1, 'ppData'),)))
-    IDirectMusicBuffer.GetRawBufferPtr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no))(9, 'GetRawBufferPtr', ((1, 'ppData'),)))
-    IDirectMusicBuffer.GetStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(10, 'GetStartTime', ((1, 'prt'),)))
-    IDirectMusicBuffer.GetUsedBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'GetUsedBytes', ((1, 'pcb'),)))
-    IDirectMusicBuffer.GetMaxBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'GetMaxBytes', ((1, 'pcb'),)))
-    IDirectMusicBuffer.GetBufferFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(13, 'GetBufferFormat', ((1, 'pGuidFormat'),)))
-    IDirectMusicBuffer.SetStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64)(14, 'SetStartTime', ((1, 'rt'),)))
-    IDirectMusicBuffer.SetUsedBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(15, 'SetUsedBytes', ((1, 'cb'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicBuffer
-def _define_IDirectMusicCollection_head():
-    class IDirectMusicCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac287c-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicCollection
-def _define_IDirectMusicCollection():
-    IDirectMusicCollection = win32more.Media.Audio.DirectMusic.IDirectMusicCollection_head
-    IDirectMusicCollection.GetInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head))(3, 'GetInstrument', ((1, 'dwPatch'),(1, 'ppInstrument'),)))
-    IDirectMusicCollection.EnumInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32)(4, 'EnumInstrument', ((1, 'dwIndex'),(1, 'pdwPatch'),(1, 'pwszName'),(1, 'dwNameLen'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicCollection
-def _define_IDirectMusicDownload_head():
-    class IDirectMusicDownload(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac287b-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicDownload
-def _define_IDirectMusicDownload():
-    IDirectMusicDownload = win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head
-    IDirectMusicDownload.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p),POINTER(UInt32))(3, 'GetBuffer', ((1, 'ppvBuffer'),(1, 'pdwSize'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicDownload
-def _define_IDirectMusicDownloadedInstrument_head():
-    class IDirectMusicDownloadedInstrument(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac287e-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicDownloadedInstrument
-def _define_IDirectMusicDownloadedInstrument():
-    IDirectMusicDownloadedInstrument = win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head
-    win32more.System.Com.IUnknown
-    return IDirectMusicDownloadedInstrument
-def _define_IDirectMusicInstrument_head():
-    class IDirectMusicInstrument(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac287d-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicInstrument
-def _define_IDirectMusicInstrument():
-    IDirectMusicInstrument = win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head
-    IDirectMusicInstrument.GetPatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetPatch', ((1, 'pdwPatch'),)))
-    IDirectMusicInstrument.SetPatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'SetPatch', ((1, 'dwPatch'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicInstrument
-def _define_IDirectMusicPort_head():
-    class IDirectMusicPort(win32more.System.Com.IUnknown_head):
-        Guid = Guid('08f2d8c9-37c2-11d2-b9-f9-00-00-f8-75-ac-12')
-    return IDirectMusicPort
-def _define_IDirectMusicPort():
-    IDirectMusicPort = win32more.Media.Audio.DirectMusic.IDirectMusicPort_head
-    IDirectMusicPort.PlayBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head)(3, 'PlayBuffer', ((1, 'pBuffer'),)))
-    IDirectMusicPort.SetReadNotificationHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(4, 'SetReadNotificationHandle', ((1, 'hEvent'),)))
-    IDirectMusicPort.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head)(5, 'Read', ((1, 'pBuffer'),)))
-    IDirectMusicPort.DownloadInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head,POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head),POINTER(win32more.Media.Audio.DirectMusic.DMUS_NOTERANGE_head),UInt32)(6, 'DownloadInstrument', ((1, 'pInstrument'),(1, 'ppDownloadedInstrument'),(1, 'pNoteRanges'),(1, 'dwNumNoteRanges'),)))
-    IDirectMusicPort.UnloadInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head)(7, 'UnloadInstrument', ((1, 'pDownloadedInstrument'),)))
-    IDirectMusicPort.GetLatencyClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.IReferenceClock_head))(8, 'GetLatencyClock', ((1, 'ppClock'),)))
-    IDirectMusicPort.GetRunningStats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS_head))(9, 'GetRunningStats', ((1, 'pStats'),)))
-    IDirectMusicPort.Compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Compact', ()))
-    IDirectMusicPort.GetCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head))(11, 'GetCaps', ((1, 'pPortCaps'),)))
-    IDirectMusicPort.DeviceIoControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head))(12, 'DeviceIoControl', ((1, 'dwIoControlCode'),(1, 'lpInBuffer'),(1, 'nInBufferSize'),(1, 'lpOutBuffer'),(1, 'nOutBufferSize'),(1, 'lpBytesReturned'),(1, 'lpOverlapped'),)))
-    IDirectMusicPort.SetNumChannelGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'SetNumChannelGroups', ((1, 'dwChannelGroups'),)))
-    IDirectMusicPort.GetNumChannelGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(14, 'GetNumChannelGroups', ((1, 'pdwChannelGroups'),)))
-    IDirectMusicPort.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(15, 'Activate', ((1, 'fActive'),)))
-    IDirectMusicPort.SetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(16, 'SetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'dwPriority'),)))
-    IDirectMusicPort.GetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32))(17, 'GetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwPriority'),)))
-    IDirectMusicPort.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head)(18, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'pDirectSoundBuffer'),)))
-    IDirectMusicPort.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32),POINTER(UInt32))(19, 'GetFormat', ((1, 'pWaveFormatEx'),(1, 'pdwWaveFormatExSize'),(1, 'pdwBufferSize'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicPort
-def _define_IDirectMusicPortDownload_head():
-    class IDirectMusicPortDownload(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d2ac287a-b39b-11d1-87-04-00-60-08-93-b1-bd')
-    return IDirectMusicPortDownload
-def _define_IDirectMusicPortDownload():
-    IDirectMusicPortDownload = win32more.Media.Audio.DirectMusic.IDirectMusicPortDownload_head
-    IDirectMusicPortDownload.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head))(3, 'GetBuffer', ((1, 'dwDLId'),(1, 'ppIDMDownload'),)))
-    IDirectMusicPortDownload.AllocateBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head))(4, 'AllocateBuffer', ((1, 'dwSize'),(1, 'ppIDMDownload'),)))
-    IDirectMusicPortDownload.GetDLId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32)(5, 'GetDLId', ((1, 'pdwStartDLId'),(1, 'dwCount'),)))
-    IDirectMusicPortDownload.GetAppend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetAppend', ((1, 'pdwAppend'),)))
-    IDirectMusicPortDownload.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head)(7, 'Download', ((1, 'pIDMDownload'),)))
-    IDirectMusicPortDownload.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head)(8, 'Unload', ((1, 'pIDMDownload'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicPortDownload
-def _define_IDirectMusicSynth_head():
-    class IDirectMusicSynth(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09823661-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
-    return IDirectMusicSynth
-def _define_IDirectMusicSynth():
-    IDirectMusicSynth = win32more.Media.Audio.DirectMusic.IDirectMusicSynth_head
-    IDirectMusicSynth.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head))(3, 'Open', ((1, 'pPortParams'),)))
-    IDirectMusicSynth.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    IDirectMusicSynth.SetNumChannelGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'SetNumChannelGroups', ((1, 'dwGroups'),)))
-    IDirectMusicSynth.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE),c_void_p,POINTER(Int32))(6, 'Download', ((1, 'phDownload'),(1, 'pvData'),(1, 'pbFree'),)))
-    IDirectMusicSynth.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,IntPtr,win32more.Foundation.HANDLE)(7, 'Unload', ((1, 'hDownload'),(1, 'lpFreeHandle'),(1, 'hUserData'),)))
-    IDirectMusicSynth.PlayBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,c_char_p_no,UInt32)(8, 'PlayBuffer', ((1, 'rt'),(1, 'pbBuffer'),(1, 'cbBuffer'),)))
-    IDirectMusicSynth.GetRunningStats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS_head))(9, 'GetRunningStats', ((1, 'pStats'),)))
-    IDirectMusicSynth.GetPortCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head))(10, 'GetPortCaps', ((1, 'pCaps'),)))
-    IDirectMusicSynth.SetMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.IReferenceClock_head)(11, 'SetMasterClock', ((1, 'pClock'),)))
-    IDirectMusicSynth.GetLatencyClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.IReferenceClock_head))(12, 'GetLatencyClock', ((1, 'ppClock'),)))
-    IDirectMusicSynth.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(13, 'Activate', ((1, 'fEnable'),)))
-    IDirectMusicSynth.SetSynthSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicSynthSink_head)(14, 'SetSynthSink', ((1, 'pSynthSink'),)))
-    IDirectMusicSynth.Render = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16),UInt32,Int64)(15, 'Render', ((1, 'pBuffer'),(1, 'dwLength'),(1, 'llPosition'),)))
-    IDirectMusicSynth.SetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(16, 'SetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'dwPriority'),)))
-    IDirectMusicSynth.GetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32))(17, 'GetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwPriority'),)))
-    IDirectMusicSynth.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32))(18, 'GetFormat', ((1, 'pWaveFormatEx'),(1, 'pdwWaveFormatExSize'),)))
-    IDirectMusicSynth.GetAppend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'GetAppend', ((1, 'pdwAppend'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicSynth
-def _define_IDirectMusicSynth8_head():
-    class IDirectMusicSynth8(win32more.Media.Audio.DirectMusic.IDirectMusicSynth_head):
-        Guid = Guid('53cab625-2711-4c9f-9d-e7-1b-7f-92-5f-6f-c8')
-    return IDirectMusicSynth8
-def _define_IDirectMusicSynth8():
-    IDirectMusicSynth8 = win32more.Media.Audio.DirectMusic.IDirectMusicSynth8_head
-    IDirectMusicSynth8.PlayVoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,UInt32,UInt32,UInt32,UInt32,Int32,Int32,UInt64,UInt64,UInt64)(20, 'PlayVoice', ((1, 'rt'),(1, 'dwVoiceId'),(1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'dwDLId'),(1, 'prPitch'),(1, 'vrVolume'),(1, 'stVoiceStart'),(1, 'stLoopStart'),(1, 'stLoopEnd'),)))
-    IDirectMusicSynth8.StopVoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,UInt32)(21, 'StopVoice', ((1, 'rt'),(1, 'dwVoiceId'),)))
-    IDirectMusicSynth8.GetVoiceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.Media.Audio.DirectMusic.DMUS_VOICE_STATE_head))(22, 'GetVoiceState', ((1, 'dwVoice'),(1, 'cbVoice'),(1, 'dwVoiceState'),)))
-    IDirectMusicSynth8.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(23, 'Refresh', ((1, 'dwDownloadID'),(1, 'dwFlags'),)))
-    IDirectMusicSynth8.AssignChannelToBuses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32),UInt32)(24, 'AssignChannelToBuses', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwBuses'),(1, 'cBuses'),)))
-    win32more.Media.Audio.DirectMusic.IDirectMusicSynth
-    return IDirectMusicSynth8
-def _define_IDirectMusicSynthSink_head():
-    class IDirectMusicSynthSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09823663-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
-    return IDirectMusicSynthSink
-def _define_IDirectMusicSynthSink():
-    IDirectMusicSynthSink = win32more.Media.Audio.DirectMusic.IDirectMusicSynthSink_head
-    IDirectMusicSynthSink.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicSynth_head)(3, 'Init', ((1, 'pSynth'),)))
-    IDirectMusicSynthSink.SetMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.IReferenceClock_head)(4, 'SetMasterClock', ((1, 'pClock'),)))
-    IDirectMusicSynthSink.GetLatencyClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.IReferenceClock_head))(5, 'GetLatencyClock', ((1, 'ppClock'),)))
-    IDirectMusicSynthSink.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(6, 'Activate', ((1, 'fEnable'),)))
-    IDirectMusicSynthSink.SampleToRefTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,POINTER(Int64))(7, 'SampleToRefTime', ((1, 'llSampleTime'),(1, 'prfTime'),)))
-    IDirectMusicSynthSink.RefTimeToSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,POINTER(Int64))(8, 'RefTimeToSample', ((1, 'rfTime'),(1, 'pllSampleTime'),)))
-    IDirectMusicSynthSink.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head)(9, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'pDirectSoundBuffer'),)))
-    IDirectMusicSynthSink.GetDesiredBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(10, 'GetDesiredBufferSize', ((1, 'pdwBufferSizeInSamples'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicSynthSink
-def _define_IDirectMusicThru_head():
-    class IDirectMusicThru(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ced153e7-3606-11d2-b9-f9-00-00-f8-75-ac-12')
-    return IDirectMusicThru
-def _define_IDirectMusicThru():
-    IDirectMusicThru = win32more.Media.Audio.DirectMusic.IDirectMusicThru_head
-    IDirectMusicThru.ThruChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.Media.Audio.DirectMusic.IDirectMusicPort_head)(3, 'ThruChannel', ((1, 'dwSourceChannelGroup'),(1, 'dwSourceChannel'),(1, 'dwDestinationChannelGroup'),(1, 'dwDestinationChannel'),(1, 'pDestinationPort'),)))
-    win32more.System.Com.IUnknown
-    return IDirectMusicThru
-def _define_INSTHEADER_head():
-    class INSTHEADER(Structure):
-        pass
-    return INSTHEADER
-def _define_INSTHEADER():
-    INSTHEADER = win32more.Media.Audio.DirectMusic.INSTHEADER_head
-    INSTHEADER._fields_ = [
-        ('cRegions', UInt32),
-        ('Locale', win32more.Media.Audio.DirectMusic.MIDILOCALE),
-    ]
-    return INSTHEADER
-def _define_LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head),c_void_p)
-def _define_LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head),c_void_p)
-def _define_LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head),c_void_p)
-def _define_MDEVICECAPSEX_head():
-    class MDEVICECAPSEX(Structure):
-        pass
-    return MDEVICECAPSEX
-def _define_MDEVICECAPSEX():
-    MDEVICECAPSEX = win32more.Media.Audio.DirectMusic.MDEVICECAPSEX_head
-    MDEVICECAPSEX._pack_ = 1
-    MDEVICECAPSEX._fields_ = [
-        ('cbSize', UInt32),
-        ('pCaps', c_void_p),
-    ]
-    return MDEVICECAPSEX
-def _define_MIDILOCALE_head():
-    class MIDILOCALE(Structure):
-        pass
-    return MIDILOCALE
-def _define_MIDILOCALE():
-    MIDILOCALE = win32more.Media.Audio.DirectMusic.MIDILOCALE_head
-    MIDILOCALE._fields_ = [
-        ('ulBank', UInt32),
-        ('ulInstrument', UInt32),
-    ]
-    return MIDILOCALE
-def _define_MIDIOPENDESC_head():
-    class MIDIOPENDESC(Structure):
-        pass
-    return MIDIOPENDESC
-def _define_MIDIOPENDESC():
-    MIDIOPENDESC = win32more.Media.Audio.DirectMusic.MIDIOPENDESC_head
-    MIDIOPENDESC._pack_ = 1
-    MIDIOPENDESC._fields_ = [
-        ('hMidi', win32more.Media.Audio.HMIDI),
-        ('dwCallback', UIntPtr),
-        ('dwInstance', UIntPtr),
-        ('dnDevNode', UIntPtr),
-        ('cIds', UInt32),
-        ('rgIds', win32more.Media.Multimedia.MIDIOPENSTRMID * 1),
-    ]
-    return MIDIOPENDESC
-def _define_POOLCUE_head():
-    class POOLCUE(Structure):
-        pass
-    return POOLCUE
-def _define_POOLCUE():
-    POOLCUE = win32more.Media.Audio.DirectMusic.POOLCUE_head
-    POOLCUE._fields_ = [
-        ('ulOffset', UInt32),
-    ]
-    return POOLCUE
-def _define_POOLTABLE_head():
-    class POOLTABLE(Structure):
-        pass
-    return POOLTABLE
-def _define_POOLTABLE():
-    POOLTABLE = win32more.Media.Audio.DirectMusic.POOLTABLE_head
-    POOLTABLE._fields_ = [
-        ('cbSize', UInt32),
-        ('cCues', UInt32),
-    ]
-    return POOLTABLE
-def _define_RGNHEADER_head():
-    class RGNHEADER(Structure):
-        pass
-    return RGNHEADER
-def _define_RGNHEADER():
-    RGNHEADER = win32more.Media.Audio.DirectMusic.RGNHEADER_head
-    RGNHEADER._fields_ = [
-        ('RangeKey', win32more.Media.Audio.DirectMusic.RGNRANGE),
-        ('RangeVelocity', win32more.Media.Audio.DirectMusic.RGNRANGE),
-        ('fusOptions', UInt16),
-        ('usKeyGroup', UInt16),
-    ]
-    return RGNHEADER
-def _define_RGNRANGE_head():
-    class RGNRANGE(Structure):
-        pass
-    return RGNRANGE
-def _define_RGNRANGE():
-    RGNRANGE = win32more.Media.Audio.DirectMusic.RGNRANGE_head
-    RGNRANGE._fields_ = [
-        ('usLow', UInt16),
-        ('usHigh', UInt16),
-    ]
-    return RGNRANGE
-def _define_WAVELINK_head():
-    class WAVELINK(Structure):
-        pass
-    return WAVELINK
-def _define_WAVELINK():
-    WAVELINK = win32more.Media.Audio.DirectMusic.WAVELINK_head
-    WAVELINK._fields_ = [
-        ('fusOptions', UInt16),
-        ('usPhaseGroup', UInt16),
-        ('ulChannel', UInt32),
-        ('ulTableIndex', UInt32),
-    ]
-    return WAVELINK
-def _define_WLOOP_head():
-    class WLOOP(Structure):
-        pass
-    return WLOOP
-def _define_WLOOP():
-    WLOOP = win32more.Media.Audio.DirectMusic.WLOOP_head
-    WLOOP._fields_ = [
-        ('cbSize', UInt32),
-        ('ulType', UInt32),
-        ('ulStart', UInt32),
-        ('ulLength', UInt32),
-    ]
-    return WLOOP
-def _define_WSMPL_head():
-    class WSMPL(Structure):
-        pass
-    return WSMPL
-def _define_WSMPL():
-    WSMPL = win32more.Media.Audio.DirectMusic.WSMPL_head
-    WSMPL._fields_ = [
-        ('cbSize', UInt32),
-        ('usUnityNote', UInt16),
-        ('sFineTune', Int16),
-        ('lAttenuation', Int32),
-        ('fulOptions', UInt32),
-        ('cSampleLoops', UInt32),
-    ]
-    return WSMPL
+DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A: DSPROPERTY_DIRECTSOUNDDEVICE = 1
+DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1: DSPROPERTY_DIRECTSOUNDDEVICE = 2
+DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1: DSPROPERTY_DIRECTSOUNDDEVICE = 3
+DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W: DSPROPERTY_DIRECTSOUNDDEVICE = 4
+DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A: DSPROPERTY_DIRECTSOUNDDEVICE = 5
+DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W: DSPROPERTY_DIRECTSOUNDDEVICE = 6
+DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A: DSPROPERTY_DIRECTSOUNDDEVICE = 7
+DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W: DSPROPERTY_DIRECTSOUNDDEVICE = 8
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA(Structure):
+    DeviceId: Guid
+    DescriptionA: win32more.Foundation.CHAR * 256
+    DescriptionW: Char * 256
+    ModuleA: win32more.Foundation.CHAR * 260
+    ModuleW: Char * 260
+    Type: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE
+    DataFlow: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
+    WaveDeviceId: UInt32
+    Devnode: UInt32
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA(Structure):
+    Type: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE
+    DataFlow: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
+    DeviceId: Guid
+    Description: win32more.Foundation.PSTR
+    Module: win32more.Foundation.PSTR
+    Interface: win32more.Foundation.PSTR
+    WaveDeviceId: UInt32
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(Structure):
+    Type: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE
+    DataFlow: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
+    DeviceId: Guid
+    Description: win32more.Foundation.PWSTR
+    Module: win32more.Foundation.PWSTR
+    Interface: win32more.Foundation.PWSTR
+    WaveDeviceId: UInt32
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA(Structure):
+    Callback: win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1
+    Context: c_void_p
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA(Structure):
+    Callback: win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA
+    Context: c_void_p
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA(Structure):
+    Callback: win32more.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW
+    Context: c_void_p
+class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA(Structure):
+    DeviceName: win32more.Foundation.PSTR
+    DataFlow: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
+    DeviceId: Guid
+class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA(Structure):
+    DeviceName: win32more.Foundation.PWSTR
+    DataFlow: win32more.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
+    DeviceId: Guid
+class DVAudInfo(Structure):
+    bAudStyle: Byte * 2
+    bAudQu: Byte * 2
+    bNumAudPin: Byte
+    wAvgSamplesPerPinPerFrm: UInt16 * 2
+    wBlkMode: UInt16
+    wDIFMode: UInt16
+    wBlkDiv: UInt16
+class IDirectMusic(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6536115a-7b2d-11d2-ba-18-00-00-f8-75-ac-12')
+    @commethod(3)
+    def EnumPort(dwIndex: UInt32, pPortCaps: POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateMusicBuffer(pBufferDesc: POINTER(win32more.Media.Audio.DirectMusic.DMUS_BUFFERDESC_head), ppBuffer: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head), pUnkOuter: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreatePort(rclsidPort: POINTER(Guid), pPortParams: POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head), ppPort: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicPort_head), pUnkOuter: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def EnumMasterClock(dwIndex: UInt32, lpClockInfo: POINTER(win32more.Media.Audio.DirectMusic.DMUS_CLOCKINFO8_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetMasterClock(pguidClock: POINTER(Guid), ppReferenceClock: POINTER(win32more.Media.IReferenceClock_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetMasterClock(rguidClock: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Activate(fEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDefaultPort(pguidPort: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetDirectSound(pDirectSound: win32more.Media.Audio.DirectSound.IDirectSound_head, hWnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+class IDirectMusic8(c_void_p):
+    extends: win32more.Media.Audio.DirectMusic.IDirectMusic
+    Guid = Guid('2d3629f7-813d-4939-85-08-f0-5c-6b-75-fd-97')
+    @commethod(12)
+    def SetExternalMasterClock(pClock: win32more.Media.IReferenceClock_head) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicBuffer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac2878-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    @commethod(3)
+    def Flush() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def TotalTime(prtTime: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def PackStructured(rt: Int64, dwChannelGroup: UInt32, dwChannelMessage: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def PackUnstructured(rt: Int64, dwChannelGroup: UInt32, cb: UInt32, lpb: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ResetReadPtr() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetNextEvent(prt: POINTER(Int64), pdwChannelGroup: POINTER(UInt32), pdwLength: POINTER(UInt32), ppData: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRawBufferPtr(ppData: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetStartTime(prt: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetUsedBytes(pcb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetMaxBytes(pcb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetBufferFormat(pGuidFormat: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetStartTime(rt: Int64) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetUsedBytes(cb: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac287c-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    @commethod(3)
+    def GetInstrument(dwPatch: UInt32, ppInstrument: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnumInstrument(dwIndex: UInt32, pdwPatch: POINTER(UInt32), pwszName: win32more.Foundation.PWSTR, dwNameLen: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicDownload(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac287b-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    @commethod(3)
+    def GetBuffer(ppvBuffer: POINTER(c_void_p), pdwSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicDownloadedInstrument(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac287e-b39b-11d1-87-04-00-60-08-93-b1-bd')
+class IDirectMusicInstrument(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac287d-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    @commethod(3)
+    def GetPatch(pdwPatch: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPatch(dwPatch: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicPort(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('08f2d8c9-37c2-11d2-b9-f9-00-00-f8-75-ac-12')
+    @commethod(3)
+    def PlayBuffer(pBuffer: win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetReadNotificationHandle(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Read(pBuffer: win32more.Media.Audio.DirectMusic.IDirectMusicBuffer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def DownloadInstrument(pInstrument: win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head, ppDownloadedInstrument: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head), pNoteRanges: POINTER(win32more.Media.Audio.DirectMusic.DMUS_NOTERANGE_head), dwNumNoteRanges: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UnloadInstrument(pDownloadedInstrument: win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetLatencyClock(ppClock: POINTER(win32more.Media.IReferenceClock_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRunningStats(pStats: POINTER(win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Compact() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetCaps(pPortCaps: POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DeviceIoControl(dwIoControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetNumChannelGroups(dwChannelGroups: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetNumChannelGroups(pdwChannelGroups: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Activate(fActive: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetChannelPriority(dwChannelGroup: UInt32, dwChannel: UInt32, dwPriority: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetChannelPriority(dwChannelGroup: UInt32, dwChannel: UInt32, pdwPriority: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetDirectSound(pDirectSound: win32more.Media.Audio.DirectSound.IDirectSound_head, pDirectSoundBuffer: win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetFormat(pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pdwWaveFormatExSize: POINTER(UInt32), pdwBufferSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicPortDownload(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d2ac287a-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    @commethod(3)
+    def GetBuffer(dwDLId: UInt32, ppIDMDownload: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AllocateBuffer(dwSize: UInt32, ppIDMDownload: POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetDLId(pdwStartDLId: POINTER(UInt32), dwCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetAppend(pdwAppend: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Download(pIDMDownload: win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Unload(pIDMDownload: win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicSynth(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('09823661-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    @commethod(3)
+    def Open(pPortParams: POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetNumChannelGroups(dwGroups: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Download(phDownload: POINTER(win32more.Foundation.HANDLE), pvData: c_void_p, pbFree: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Unload(hDownload: win32more.Foundation.HANDLE, lpFreeHandle: IntPtr, hUserData: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def PlayBuffer(rt: Int64, pbBuffer: c_char_p_no, cbBuffer: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRunningStats(pStats: POINTER(win32more.Media.Audio.DirectMusic.DMUS_SYNTHSTATS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetPortCaps(pCaps: POINTER(win32more.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetMasterClock(pClock: win32more.Media.IReferenceClock_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetLatencyClock(ppClock: POINTER(win32more.Media.IReferenceClock_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Activate(fEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetSynthSink(pSynthSink: win32more.Media.Audio.DirectMusic.IDirectMusicSynthSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Render(pBuffer: POINTER(Int16), dwLength: UInt32, llPosition: Int64) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetChannelPriority(dwChannelGroup: UInt32, dwChannel: UInt32, dwPriority: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetChannelPriority(dwChannelGroup: UInt32, dwChannel: UInt32, pdwPriority: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetFormat(pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pdwWaveFormatExSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetAppend(pdwAppend: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicSynth8(c_void_p):
+    extends: win32more.Media.Audio.DirectMusic.IDirectMusicSynth
+    Guid = Guid('53cab625-2711-4c9f-9d-e7-1b-7f-92-5f-6f-c8')
+    @commethod(20)
+    def PlayVoice(rt: Int64, dwVoiceId: UInt32, dwChannelGroup: UInt32, dwChannel: UInt32, dwDLId: UInt32, prPitch: Int32, vrVolume: Int32, stVoiceStart: UInt64, stLoopStart: UInt64, stLoopEnd: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def StopVoice(rt: Int64, dwVoiceId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetVoiceState(dwVoice: POINTER(UInt32), cbVoice: UInt32, dwVoiceState: POINTER(win32more.Media.Audio.DirectMusic.DMUS_VOICE_STATE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def Refresh(dwDownloadID: UInt32, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def AssignChannelToBuses(dwChannelGroup: UInt32, dwChannel: UInt32, pdwBuses: POINTER(UInt32), cBuses: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicSynthSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('09823663-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    @commethod(3)
+    def Init(pSynth: win32more.Media.Audio.DirectMusic.IDirectMusicSynth_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetMasterClock(pClock: win32more.Media.IReferenceClock_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetLatencyClock(ppClock: POINTER(win32more.Media.IReferenceClock_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Activate(fEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SampleToRefTime(llSampleTime: Int64, prfTime: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RefTimeToSample(rfTime: Int64, pllSampleTime: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetDirectSound(pDirectSound: win32more.Media.Audio.DirectSound.IDirectSound_head, pDirectSoundBuffer: win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDesiredBufferSize(pdwBufferSizeInSamples: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDirectMusicThru(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ced153e7-3606-11d2-b9-f9-00-00-f8-75-ac-12')
+    @commethod(3)
+    def ThruChannel(dwSourceChannelGroup: UInt32, dwSourceChannel: UInt32, dwDestinationChannelGroup: UInt32, dwDestinationChannel: UInt32, pDestinationPort: win32more.Media.Audio.DirectMusic.IDirectMusicPort_head) -> win32more.Foundation.HRESULT: ...
+class INSTHEADER(Structure):
+    cRegions: UInt32
+    Locale: win32more.Media.Audio.DirectMusic.MIDILOCALE
+@winfunctype_pointer
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1(param0: POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA_head), param1: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA(param0: POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA_head), param1: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW(param0: POINTER(win32more.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA_head), param1: c_void_p) -> win32more.Foundation.BOOL: ...
+class MDEVICECAPSEX(Structure):
+    cbSize: UInt32
+    pCaps: c_void_p
+    _pack_ = 1
+class MIDILOCALE(Structure):
+    ulBank: UInt32
+    ulInstrument: UInt32
+class MIDIOPENDESC(Structure):
+    hMidi: win32more.Media.Audio.HMIDI
+    dwCallback: UIntPtr
+    dwInstance: UIntPtr
+    dnDevNode: UIntPtr
+    cIds: UInt32
+    rgIds: win32more.Media.Multimedia.MIDIOPENSTRMID * 1
+    _pack_ = 1
+class POOLCUE(Structure):
+    ulOffset: UInt32
+class POOLTABLE(Structure):
+    cbSize: UInt32
+    cCues: UInt32
+class RGNHEADER(Structure):
+    RangeKey: win32more.Media.Audio.DirectMusic.RGNRANGE
+    RangeVelocity: win32more.Media.Audio.DirectMusic.RGNRANGE
+    fusOptions: UInt16
+    usKeyGroup: UInt16
+class RGNRANGE(Structure):
+    usLow: UInt16
+    usHigh: UInt16
+class WAVELINK(Structure):
+    fusOptions: UInt16
+    usPhaseGroup: UInt16
+    ulChannel: UInt32
+    ulTableIndex: UInt32
+class WLOOP(Structure):
+    cbSize: UInt32
+    ulType: UInt32
+    ulStart: UInt32
+    ulLength: UInt32
+class WSMPL(Structure):
+    cbSize: UInt32
+    usUnityNote: UInt16
+    sFineTune: Int16
+    lAttenuation: Int32
+    fulOptions: UInt32
+    cSampleLoops: UInt32
+make_head(_module, 'CONNECTION')
+make_head(_module, 'CONNECTIONLIST')
+make_head(_module, 'DLSHEADER')
+make_head(_module, 'DLSID')
+make_head(_module, 'DLSVERSION')
+make_head(_module, 'DMUS_ARTICPARAMS')
+make_head(_module, 'DMUS_ARTICULATION')
+make_head(_module, 'DMUS_ARTICULATION2')
+make_head(_module, 'DMUS_BUFFERDESC')
+make_head(_module, 'DMUS_CLOCKINFO7')
+make_head(_module, 'DMUS_CLOCKINFO8')
+make_head(_module, 'DMUS_COPYRIGHT')
+make_head(_module, 'DMUS_DOWNLOADINFO')
+make_head(_module, 'DMUS_EVENTHEADER')
+make_head(_module, 'DMUS_EXTENSIONCHUNK')
+make_head(_module, 'DMUS_INSTRUMENT')
+make_head(_module, 'DMUS_LFOPARAMS')
+make_head(_module, 'DMUS_MSCPARAMS')
+make_head(_module, 'DMUS_NOTERANGE')
+make_head(_module, 'DMUS_OFFSETTABLE')
+make_head(_module, 'DMUS_PEGPARAMS')
+make_head(_module, 'DMUS_PORTCAPS')
+make_head(_module, 'DMUS_PORTPARAMS7')
+make_head(_module, 'DMUS_PORTPARAMS8')
+make_head(_module, 'DMUS_REGION')
+make_head(_module, 'DMUS_SYNTHSTATS')
+make_head(_module, 'DMUS_SYNTHSTATS8')
+make_head(_module, 'DMUS_VEGPARAMS')
+make_head(_module, 'DMUS_VOICE_STATE')
+make_head(_module, 'DMUS_WAVE')
+make_head(_module, 'DMUS_WAVEARTDL')
+make_head(_module, 'DMUS_WAVEDATA')
+make_head(_module, 'DMUS_WAVEDL')
+make_head(_module, 'DMUS_WAVES_REVERB_PARAMS')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA')
+make_head(_module, 'DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA')
+make_head(_module, 'DVAudInfo')
+make_head(_module, 'IDirectMusic')
+make_head(_module, 'IDirectMusic8')
+make_head(_module, 'IDirectMusicBuffer')
+make_head(_module, 'IDirectMusicCollection')
+make_head(_module, 'IDirectMusicDownload')
+make_head(_module, 'IDirectMusicDownloadedInstrument')
+make_head(_module, 'IDirectMusicInstrument')
+make_head(_module, 'IDirectMusicPort')
+make_head(_module, 'IDirectMusicPortDownload')
+make_head(_module, 'IDirectMusicSynth')
+make_head(_module, 'IDirectMusicSynth8')
+make_head(_module, 'IDirectMusicSynthSink')
+make_head(_module, 'IDirectMusicThru')
+make_head(_module, 'INSTHEADER')
+make_head(_module, 'LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1')
+make_head(_module, 'LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA')
+make_head(_module, 'LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW')
+make_head(_module, 'MDEVICECAPSEX')
+make_head(_module, 'MIDILOCALE')
+make_head(_module, 'MIDIOPENDESC')
+make_head(_module, 'POOLCUE')
+make_head(_module, 'POOLTABLE')
+make_head(_module, 'RGNHEADER')
+make_head(_module, 'RGNRANGE')
+make_head(_module, 'WAVELINK')
+make_head(_module, 'WLOOP')
+make_head(_module, 'WSMPL')
 __all__ = [
     "CLSID_DirectMusic",
     "CLSID_DirectMusicCollection",

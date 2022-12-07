@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.System.Com
@@ -8,1031 +9,643 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-PROPSETFLAG_DEFAULT = 0
-PROPSETFLAG_NONSIMPLE = 1
-PROPSETFLAG_ANSI = 2
-PROPSETFLAG_UNBUFFERED = 4
-PROPSETFLAG_CASE_SENSITIVE = 8
-PROPSET_BEHAVIOR_CASE_SENSITIVE = 1
-PID_DICTIONARY = 0
-PID_CODEPAGE = 1
-PID_FIRST_USABLE = 2
-PID_FIRST_NAME_DEFAULT = 4095
-PID_LOCALE = 2147483648
-PID_MODIFY_TIME = 2147483649
-PID_SECURITY = 2147483650
-PID_BEHAVIOR = 2147483651
-PID_ILLEGAL = 4294967295
-PID_MIN_READONLY = 2147483648
-PID_MAX_READONLY = 3221225471
-PRSPEC_INVALID = 4294967295
-PROPSETHDR_OSVERSION_UNKNOWN = 4294967295
-PIDDI_THUMBNAIL = 2
-PIDSI_TITLE = 2
-PIDSI_SUBJECT = 3
-PIDSI_AUTHOR = 4
-PIDSI_KEYWORDS = 5
-PIDSI_COMMENTS = 6
-PIDSI_TEMPLATE = 7
-PIDSI_LASTAUTHOR = 8
-PIDSI_REVNUMBER = 9
-PIDSI_EDITTIME = 10
-PIDSI_LASTPRINTED = 11
-PIDSI_CREATE_DTM = 12
-PIDSI_LASTSAVE_DTM = 13
-PIDSI_PAGECOUNT = 14
-PIDSI_WORDCOUNT = 15
-PIDSI_CHARCOUNT = 16
-PIDSI_THUMBNAIL = 17
-PIDSI_APPNAME = 18
-PIDSI_DOC_SECURITY = 19
-PIDDSI_CATEGORY = 2
-PIDDSI_PRESFORMAT = 3
-PIDDSI_BYTECOUNT = 4
-PIDDSI_LINECOUNT = 5
-PIDDSI_PARCOUNT = 6
-PIDDSI_SLIDECOUNT = 7
-PIDDSI_NOTECOUNT = 8
-PIDDSI_HIDDENCOUNT = 9
-PIDDSI_MMCLIPCOUNT = 10
-PIDDSI_SCALE = 11
-PIDDSI_HEADINGPAIR = 12
-PIDDSI_DOCPARTS = 13
-PIDDSI_MANAGER = 14
-PIDDSI_COMPANY = 15
-PIDDSI_LINKSDIRTY = 16
-PIDMSI_EDITOR = 2
-PIDMSI_SUPPLIER = 3
-PIDMSI_SOURCE = 4
-PIDMSI_SEQUENCE_NO = 5
-PIDMSI_PROJECT = 6
-PIDMSI_STATUS = 7
-PIDMSI_OWNER = 8
-PIDMSI_RATING = 9
-PIDMSI_PRODUCTION = 10
-PIDMSI_COPYRIGHT = 11
-CWCSTORAGENAME = 32
-STGOPTIONS_VERSION = 1
-CCH_MAX_PROPSTG_NAME = 31
-def _define_CoGetInstanceFromFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.COSERVERINFO_head),POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.CLSCTX,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Com.MULTI_QI_head))(('CoGetInstanceFromFile', windll['OLE32.dll']), ((1, 'pServerInfo'),(1, 'pClsid'),(1, 'punkOuter'),(1, 'dwClsCtx'),(1, 'grfMode'),(1, 'pwszName'),(1, 'dwCount'),(1, 'pResults'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetInstanceFromIStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.COSERVERINFO_head),POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.CLSCTX,win32more.System.Com.StructuredStorage.IStorage_head,UInt32,POINTER(win32more.System.Com.MULTI_QI_head))(('CoGetInstanceFromIStorage', windll['OLE32.dll']), ((1, 'pServerInfo'),(1, 'pClsid'),(1, 'punkOuter'),(1, 'dwClsCtx'),(1, 'pstg'),(1, 'dwCount'),(1, 'pResults'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenAsyncDocfileOnIFillLockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IFillLockBytes_head,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgOpenAsyncDocfileOnIFillLockBytes', windll['ole32.dll']), ((1, 'pflb'),(1, 'grfMode'),(1, 'asyncFlags'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgGetIFillLockBytesOnILockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head,POINTER(win32more.System.Com.StructuredStorage.IFillLockBytes_head))(('StgGetIFillLockBytesOnILockBytes', windll['ole32.dll']), ((1, 'pilb'),(1, 'ppflb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgGetIFillLockBytesOnFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.IFillLockBytes_head))(('StgGetIFillLockBytesOnFile', windll['ole32.dll']), ((1, 'pwcsName'),(1, 'ppflb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenLayoutDocfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgOpenLayoutDocfile', windll['dflayout.dll']), ((1, 'pwcsDfName'),(1, 'grfMode'),(1, 'reserved'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateStreamOnHGlobal():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.BOOL,POINTER(win32more.System.Com.IStream_head))(('CreateStreamOnHGlobal', windll['OLE32.dll']), ((1, 'hGlobal'),(1, 'fDeleteOnRelease'),(1, 'ppstm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetHGlobalFromStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(IntPtr))(('GetHGlobalFromStream', windll['OLE32.dll']), ((1, 'pstm'),(1, 'phglobal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CoGetInterfaceAndReleaseStream():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p))(('CoGetInterfaceAndReleaseStream', windll['OLE32.dll']), ((1, 'pStm'),(1, 'iid'),(1, 'ppv'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantCopy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PropVariantCopy', windll['OLE32.dll']), ((1, 'pvarDest'),(1, 'pvarSrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropVariantClear():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('PropVariantClear', windll['OLE32.dll']), ((1, 'pvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreePropVariantArray():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('FreePropVariantArray', windll['OLE32.dll']), ((1, 'cVariants'),(1, 'rgvars'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgCreateDocfile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.STGM,UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgCreateDocfile', windll['OLE32.dll']), ((1, 'pwcsName'),(1, 'grfMode'),(1, 'reserved'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgCreateDocfileOnILockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head,win32more.System.Com.STGM,UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgCreateDocfileOnILockBytes', windll['OLE32.dll']), ((1, 'plkbyt'),(1, 'grfMode'),(1, 'reserved'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.STGM,POINTER(POINTER(UInt16)),UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgOpenStorage', windll['OLE32.dll']), ((1, 'pwcsName'),(1, 'pstgPriority'),(1, 'grfMode'),(1, 'snbExclude'),(1, 'reserved'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenStorageOnILockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.STGM,POINTER(POINTER(UInt16)),UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(('StgOpenStorageOnILockBytes', windll['OLE32.dll']), ((1, 'plkbyt'),(1, 'pstgPriority'),(1, 'grfMode'),(1, 'snbExclude'),(1, 'reserved'),(1, 'ppstgOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgIsStorageFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('StgIsStorageFile', windll['OLE32.dll']), ((1, 'pwcsName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgIsStorageILockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head)(('StgIsStorageILockBytes', windll['OLE32.dll']), ((1, 'plkbyt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgSetTimes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('StgSetTimes', windll['OLE32.dll']), ((1, 'lpszName'),(1, 'pctime'),(1, 'patime'),(1, 'pmtime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgCreateStorageEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.STGM,win32more.System.Com.StructuredStorage.STGFMT,UInt32,POINTER(win32more.System.Com.StructuredStorage.STGOPTIONS_head),win32more.Security.PSECURITY_DESCRIPTOR,POINTER(Guid),POINTER(c_void_p))(('StgCreateStorageEx', windll['OLE32.dll']), ((1, 'pwcsName'),(1, 'grfMode'),(1, 'stgfmt'),(1, 'grfAttrs'),(1, 'pStgOptions'),(1, 'pSecurityDescriptor'),(1, 'riid'),(1, 'ppObjectOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenStorageEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.STGM,win32more.System.Com.StructuredStorage.STGFMT,UInt32,POINTER(win32more.System.Com.StructuredStorage.STGOPTIONS_head),win32more.Security.PSECURITY_DESCRIPTOR,POINTER(Guid),POINTER(c_void_p))(('StgOpenStorageEx', windll['OLE32.dll']), ((1, 'pwcsName'),(1, 'grfMode'),(1, 'stgfmt'),(1, 'grfAttrs'),(1, 'pStgOptions'),(1, 'pSecurityDescriptor'),(1, 'riid'),(1, 'ppObjectOpen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgCreatePropStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(Guid),UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head))(('StgCreatePropStg', windll['OLE32.dll']), ((1, 'pUnk'),(1, 'fmtid'),(1, 'pclsid'),(1, 'grfFlags'),(1, 'dwReserved'),(1, 'ppPropStg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgOpenPropStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head))(('StgOpenPropStg', windll['OLE32.dll']), ((1, 'pUnk'),(1, 'fmtid'),(1, 'grfFlags'),(1, 'dwReserved'),(1, 'ppPropStg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgCreatePropSetStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertySetStorage_head))(('StgCreatePropSetStg', windll['OLE32.dll']), ((1, 'pStorage'),(1, 'dwReserved'),(1, 'ppPropSetStg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FmtIdToPropStgName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR)(('FmtIdToPropStgName', windll['OLE32.dll']), ((1, 'pfmtid'),(1, 'oszName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PropStgNameToFmtId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid))(('PropStgNameToFmtId', windll['OLE32.dll']), ((1, 'oszName'),(1, 'pfmtid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReadClassStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,POINTER(Guid))(('ReadClassStg', windll['OLE32.dll']), ((1, 'pStg'),(1, 'pclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteClassStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,POINTER(Guid))(('WriteClassStg', windll['OLE32.dll']), ((1, 'pStg'),(1, 'rclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReadClassStm():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid))(('ReadClassStm', windll['OLE32.dll']), ((1, 'pStm'),(1, 'pclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteClassStm():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid))(('WriteClassStm', windll['OLE32.dll']), ((1, 'pStm'),(1, 'rclsid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetHGlobalFromILockBytes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head,POINTER(IntPtr))(('GetHGlobalFromILockBytes', windll['OLE32.dll']), ((1, 'plkbyt'),(1, 'phglobal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateILockBytesOnHGlobal():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.BOOL,POINTER(win32more.System.Com.StructuredStorage.ILockBytes_head))(('CreateILockBytesOnHGlobal', windll['OLE32.dll']), ((1, 'hGlobal'),(1, 'fDeleteOnRelease'),(1, 'pplkbyt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetConvertStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head)(('GetConvertStg', windll['OLE32.dll']), ((1, 'pStg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgConvertVariantToProperty():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt16,POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head),POINTER(UInt32),UInt32,win32more.Foundation.BOOLEAN,POINTER(UInt32))(('StgConvertVariantToProperty', windll['ole32.dll']), ((1, 'pvar'),(1, 'CodePage'),(1, 'pprop'),(1, 'pcb'),(1, 'pid'),(1, 'fReserved'),(1, 'pcIndirect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgConvertPropertyToVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head),UInt16,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PMemoryAllocator_head))(('StgConvertPropertyToVariant', windll['ole32.dll']), ((1, 'pprop'),(1, 'CodePage'),(1, 'pvar'),(1, 'pma'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgPropertyLengthAsVariant():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head),UInt32,UInt16,Byte)(('StgPropertyLengthAsVariant', windll['ole32.dll']), ((1, 'pProp'),(1, 'cbProp'),(1, 'CodePage'),(1, 'bReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteFmtUserTypeStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,UInt16,win32more.Foundation.PWSTR)(('WriteFmtUserTypeStg', windll['OLE32.dll']), ((1, 'pstg'),(1, 'cf'),(1, 'lpszUserType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReadFmtUserTypeStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,POINTER(UInt16),POINTER(win32more.Foundation.PWSTR))(('ReadFmtUserTypeStg', windll['OLE32.dll']), ((1, 'pstg'),(1, 'pcf'),(1, 'lplpszUserType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OleConvertOLESTREAMToIStorage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head),win32more.System.Com.StructuredStorage.IStorage_head,POINTER(win32more.System.Com.DVTARGETDEVICE_head))(('OleConvertOLESTREAMToIStorage', windll['ole32.dll']), ((1, 'lpolestream'),(1, 'pstg'),(1, 'ptd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OleConvertIStorageToOLESTREAM():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head))(('OleConvertIStorageToOLESTREAM', windll['ole32.dll']), ((1, 'pstg'),(1, 'lpolestream'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetConvertStg():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.Foundation.BOOL)(('SetConvertStg', windll['OLE32.dll']), ((1, 'pStg'),(1, 'fConvert'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OleConvertIStorageToOLESTREAMEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,UInt16,Int32,Int32,UInt32,POINTER(win32more.System.Com.STGMEDIUM_head),POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head))(('OleConvertIStorageToOLESTREAMEx', windll['ole32.dll']), ((1, 'pstg'),(1, 'cfFormat'),(1, 'lWidth'),(1, 'lHeight'),(1, 'dwSize'),(1, 'pmedium'),(1, 'polestm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OleConvertOLESTREAMToIStorageEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head),win32more.System.Com.StructuredStorage.IStorage_head,POINTER(UInt16),POINTER(Int32),POINTER(Int32),POINTER(UInt32),POINTER(win32more.System.Com.STGMEDIUM_head))(('OleConvertOLESTREAMToIStorageEx', windll['ole32.dll']), ((1, 'polestm'),(1, 'pstg'),(1, 'pcfFormat'),(1, 'plwWidth'),(1, 'plHeight'),(1, 'pdwSize'),(1, 'pmedium'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgSerializePropVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head)),POINTER(UInt32))(('StgSerializePropVariant', windll['PROPSYS.dll']), ((1, 'ppropvar'),(1, 'ppProp'),(1, 'pcb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StgDeserializePropVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(('StgDeserializePropVariant', windll['PROPSYS.dll']), ((1, 'pprop'),(1, 'cbMax'),(1, 'ppropvar'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BSTRBLOB_head():
-    class BSTRBLOB(Structure):
-        pass
-    return BSTRBLOB
-def _define_BSTRBLOB():
-    BSTRBLOB = win32more.System.Com.StructuredStorage.BSTRBLOB_head
-    BSTRBLOB._fields_ = [
-        ('cbSize', UInt32),
-        ('pData', c_char_p_no),
-    ]
-    return BSTRBLOB
-def _define_CABOOL_head():
-    class CABOOL(Structure):
-        pass
-    return CABOOL
-def _define_CABOOL():
-    CABOOL = win32more.System.Com.StructuredStorage.CABOOL_head
-    CABOOL._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.VARIANT_BOOL)),
-    ]
-    return CABOOL
-def _define_CABSTR_head():
-    class CABSTR(Structure):
-        pass
-    return CABSTR
-def _define_CABSTR():
-    CABSTR = win32more.System.Com.StructuredStorage.CABSTR_head
-    CABSTR._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.BSTR)),
-    ]
-    return CABSTR
-def _define_CABSTRBLOB_head():
-    class CABSTRBLOB(Structure):
-        pass
-    return CABSTRBLOB
-def _define_CABSTRBLOB():
-    CABSTRBLOB = win32more.System.Com.StructuredStorage.CABSTRBLOB_head
-    CABSTRBLOB._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.System.Com.StructuredStorage.BSTRBLOB_head)),
-    ]
-    return CABSTRBLOB
-def _define_CAC_head():
-    class CAC(Structure):
-        pass
-    return CAC
-def _define_CAC():
-    CAC = win32more.System.Com.StructuredStorage.CAC_head
-    CAC._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', win32more.Foundation.PSTR),
-    ]
-    return CAC
-def _define_CACLIPDATA_head():
-    class CACLIPDATA(Structure):
-        pass
-    return CACLIPDATA
-def _define_CACLIPDATA():
-    CACLIPDATA = win32more.System.Com.StructuredStorage.CACLIPDATA_head
-    CACLIPDATA._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.System.Com.StructuredStorage.CLIPDATA_head)),
-    ]
-    return CACLIPDATA
-def _define_CACLSID_head():
-    class CACLSID(Structure):
-        pass
-    return CACLSID
-def _define_CACLSID():
-    CACLSID = win32more.System.Com.StructuredStorage.CACLSID_head
-    CACLSID._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Guid)),
-    ]
-    return CACLSID
-def _define_CACY_head():
-    class CACY(Structure):
-        pass
-    return CACY
-def _define_CACY():
-    CACY = win32more.System.Com.StructuredStorage.CACY_head
-    CACY._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.System.Com.CY_head)),
-    ]
-    return CACY
-def _define_CADATE_head():
-    class CADATE(Structure):
-        pass
-    return CADATE
-def _define_CADATE():
-    CADATE = win32more.System.Com.StructuredStorage.CADATE_head
-    CADATE._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Double)),
-    ]
-    return CADATE
-def _define_CADBL_head():
-    class CADBL(Structure):
-        pass
-    return CADBL
-def _define_CADBL():
-    CADBL = win32more.System.Com.StructuredStorage.CADBL_head
-    CADBL._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Double)),
-    ]
-    return CADBL
-def _define_CAFILETIME_head():
-    class CAFILETIME(Structure):
-        pass
-    return CAFILETIME
-def _define_CAFILETIME():
-    CAFILETIME = win32more.System.Com.StructuredStorage.CAFILETIME_head
-    CAFILETIME._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.FILETIME_head)),
-    ]
-    return CAFILETIME
-def _define_CAFLT_head():
-    class CAFLT(Structure):
-        pass
-    return CAFLT
-def _define_CAFLT():
-    CAFLT = win32more.System.Com.StructuredStorage.CAFLT_head
-    CAFLT._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Single)),
-    ]
-    return CAFLT
-def _define_CAH_head():
-    class CAH(Structure):
-        pass
-    return CAH
-def _define_CAH():
-    CAH = win32more.System.Com.StructuredStorage.CAH_head
-    CAH._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.LARGE_INTEGER_head)),
-    ]
-    return CAH
-def _define_CAI_head():
-    class CAI(Structure):
-        pass
-    return CAI
-def _define_CAI():
-    CAI = win32more.System.Com.StructuredStorage.CAI_head
-    CAI._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Int16)),
-    ]
-    return CAI
-def _define_CAL_head():
-    class CAL(Structure):
-        pass
-    return CAL
-def _define_CAL():
-    CAL = win32more.System.Com.StructuredStorage.CAL_head
-    CAL._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Int32)),
-    ]
-    return CAL
-def _define_CALPSTR_head():
-    class CALPSTR(Structure):
-        pass
-    return CALPSTR
-def _define_CALPSTR():
-    CALPSTR = win32more.System.Com.StructuredStorage.CALPSTR_head
-    CALPSTR._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.PSTR)),
-    ]
-    return CALPSTR
-def _define_CALPWSTR_head():
-    class CALPWSTR(Structure):
-        pass
-    return CALPWSTR
-def _define_CALPWSTR():
-    CALPWSTR = win32more.System.Com.StructuredStorage.CALPWSTR_head
-    CALPWSTR._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return CALPWSTR
-def _define_CAPROPVARIANT_head():
-    class CAPROPVARIANT(Structure):
-        pass
-    return CAPROPVARIANT
-def _define_CAPROPVARIANT():
-    CAPROPVARIANT = win32more.System.Com.StructuredStorage.CAPROPVARIANT_head
-    CAPROPVARIANT._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-    ]
-    return CAPROPVARIANT
-def _define_CASCODE_head():
-    class CASCODE(Structure):
-        pass
-    return CASCODE
-def _define_CASCODE():
-    CASCODE = win32more.System.Com.StructuredStorage.CASCODE_head
-    CASCODE._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(Int32)),
-    ]
-    return CASCODE
-def _define_CAUB_head():
-    class CAUB(Structure):
-        pass
-    return CAUB
-def _define_CAUB():
-    CAUB = win32more.System.Com.StructuredStorage.CAUB_head
-    CAUB._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', c_char_p_no),
-    ]
-    return CAUB
-def _define_CAUH_head():
-    class CAUH(Structure):
-        pass
-    return CAUH
-def _define_CAUH():
-    CAUH = win32more.System.Com.StructuredStorage.CAUH_head
-    CAUH._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(win32more.Foundation.ULARGE_INTEGER_head)),
-    ]
-    return CAUH
-def _define_CAUI_head():
-    class CAUI(Structure):
-        pass
-    return CAUI
-def _define_CAUI():
-    CAUI = win32more.System.Com.StructuredStorage.CAUI_head
-    CAUI._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(UInt16)),
-    ]
-    return CAUI
-def _define_CAUL_head():
-    class CAUL(Structure):
-        pass
-    return CAUL
-def _define_CAUL():
-    CAUL = win32more.System.Com.StructuredStorage.CAUL_head
-    CAUL._fields_ = [
-        ('cElems', UInt32),
-        ('pElems', POINTER(UInt32)),
-    ]
-    return CAUL
-def _define_CLIPDATA_head():
-    class CLIPDATA(Structure):
-        pass
-    return CLIPDATA
-def _define_CLIPDATA():
-    CLIPDATA = win32more.System.Com.StructuredStorage.CLIPDATA_head
-    CLIPDATA._fields_ = [
-        ('cbSize', UInt32),
-        ('ulClipFmt', Int32),
-        ('pClipData', c_char_p_no),
-    ]
-    return CLIPDATA
-def _define_IDirectWriterLock_head():
-    class IDirectWriterLock(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0e6d4d92-6738-11cf-96-08-00-aa-00-68-0d-b4')
-    return IDirectWriterLock
-def _define_IDirectWriterLock():
-    IDirectWriterLock = win32more.System.Com.StructuredStorage.IDirectWriterLock_head
-    IDirectWriterLock.WaitForWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(3, 'WaitForWriteAccess', ((1, 'dwTimeout'),)))
-    IDirectWriterLock.ReleaseWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'ReleaseWriteAccess', ()))
-    IDirectWriterLock.HaveWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'HaveWriteAccess', ()))
-    win32more.System.Com.IUnknown
-    return IDirectWriterLock
-def _define_IEnumSTATPROPSETSTG_head():
-    class IEnumSTATPROPSETSTG(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0000013b-0000-0000-c0-00-00-00-00-00-00-46')
-    return IEnumSTATPROPSETSTG
-def _define_IEnumSTATPROPSETSTG():
-    IEnumSTATPROPSETSTG = win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head
-    IEnumSTATPROPSETSTG.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.STATPROPSETSTG_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumSTATPROPSETSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSTATPROPSETSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumSTATPROPSETSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSTATPROPSETSTG
-def _define_IEnumSTATPROPSTG_head():
-    class IEnumSTATPROPSTG(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00000139-0000-0000-c0-00-00-00-00-00-00-46')
-    return IEnumSTATPROPSTG
-def _define_IEnumSTATPROPSTG():
-    IEnumSTATPROPSTG = win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head
-    IEnumSTATPROPSTG.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.STATPROPSTG_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumSTATPROPSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSTATPROPSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumSTATPROPSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSTATPROPSTG
-def _define_IEnumSTATSTG_head():
-    class IEnumSTATSTG(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0000000d-0000-0000-c0-00-00-00-00-00-00-46')
-    return IEnumSTATSTG
-def _define_IEnumSTATSTG():
-    IEnumSTATSTG = win32more.System.Com.StructuredStorage.IEnumSTATSTG_head
-    IEnumSTATSTG.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.STATSTG_head),POINTER(UInt32))(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
-    IEnumSTATSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'Skip', ((1, 'celt'),)))
-    IEnumSTATSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumSTATSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATSTG_head))(6, 'Clone', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IEnumSTATSTG
-def _define_IFillLockBytes_head():
-    class IFillLockBytes(win32more.System.Com.IUnknown_head):
-        Guid = Guid('99caf010-415e-11cf-88-14-00-aa-00-b5-69-f5')
-    return IFillLockBytes
-def _define_IFillLockBytes():
-    IFillLockBytes = win32more.System.Com.StructuredStorage.IFillLockBytes_head
-    IFillLockBytes.FillAppend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(UInt32))(3, 'FillAppend', ((1, 'pv'),(1, 'cb'),(1, 'pcbWritten'),)))
-    IFillLockBytes.FillAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,c_void_p,UInt32,POINTER(UInt32))(4, 'FillAt', ((1, 'ulOffset'),(1, 'pv'),(1, 'cb'),(1, 'pcbWritten'),)))
-    IFillLockBytes.SetFillSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER)(5, 'SetFillSize', ((1, 'ulSize'),)))
-    IFillLockBytes.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(6, 'Terminate', ((1, 'bCanceled'),)))
-    win32more.System.Com.IUnknown
-    return IFillLockBytes
-def _define_ILayoutStorage_head():
-    class ILayoutStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0e6d4d90-6738-11cf-96-08-00-aa-00-68-0d-b4')
-    return ILayoutStorage
-def _define_ILayoutStorage():
-    ILayoutStorage = win32more.System.Com.StructuredStorage.ILayoutStorage_head
-    ILayoutStorage.LayoutScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StorageLayout_head),UInt32,UInt32)(3, 'LayoutScript', ((1, 'pStorageLayout'),(1, 'nEntries'),(1, 'glfInterleavedFlag'),)))
-    ILayoutStorage.BeginMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'BeginMonitor', ()))
-    ILayoutStorage.EndMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'EndMonitor', ()))
-    ILayoutStorage.ReLayoutDocfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'ReLayoutDocfile', ((1, 'pwcsNewDfName'),)))
-    ILayoutStorage.ReLayoutDocfileOnILockBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head)(7, 'ReLayoutDocfileOnILockBytes', ((1, 'pILockBytes'),)))
-    win32more.System.Com.IUnknown
-    return ILayoutStorage
-def _define_ILockBytes_head():
-    class ILockBytes(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
-    return ILockBytes
-def _define_ILockBytes():
-    ILockBytes = win32more.System.Com.StructuredStorage.ILockBytes_head
-    ILockBytes.ReadAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,c_void_p,UInt32,POINTER(UInt32))(3, 'ReadAt', ((1, 'ulOffset'),(1, 'pv'),(1, 'cb'),(1, 'pcbRead'),)))
-    ILockBytes.WriteAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,c_void_p,UInt32,POINTER(UInt32))(4, 'WriteAt', ((1, 'ulOffset'),(1, 'pv'),(1, 'cb'),(1, 'pcbWritten'),)))
-    ILockBytes.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Flush', ()))
-    ILockBytes.SetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER)(6, 'SetSize', ((1, 'cb'),)))
-    ILockBytes.LockRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,win32more.Foundation.ULARGE_INTEGER,win32more.System.Com.LOCKTYPE)(7, 'LockRegion', ((1, 'libOffset'),(1, 'cb'),(1, 'dwLockType'),)))
-    ILockBytes.UnlockRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,win32more.Foundation.ULARGE_INTEGER,UInt32)(8, 'UnlockRegion', ((1, 'libOffset'),(1, 'cb'),(1, 'dwLockType'),)))
-    ILockBytes.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.STATSTG_head),win32more.System.Com.STATFLAG)(9, 'Stat', ((1, 'pstatstg'),(1, 'grfStatFlag'),)))
-    win32more.System.Com.IUnknown
-    return ILockBytes
-def _define_IPersistStorage_head():
-    class IPersistStorage(win32more.System.Com.IPersist_head):
-        Guid = Guid('0000010a-0000-0000-c0-00-00-00-00-00-00-46')
-    return IPersistStorage
-def _define_IPersistStorage():
-    IPersistStorage = win32more.System.Com.StructuredStorage.IPersistStorage_head
-    IPersistStorage.IsDirty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'IsDirty', ()))
-    IPersistStorage.InitNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head)(5, 'InitNew', ((1, 'pStg'),)))
-    IPersistStorage.Load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head)(6, 'Load', ((1, 'pStg'),)))
-    IPersistStorage.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.Foundation.BOOL)(7, 'Save', ((1, 'pStgSave'),(1, 'fSameAsLoad'),)))
-    IPersistStorage.SaveCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head)(8, 'SaveCompleted', ((1, 'pStgNew'),)))
-    IPersistStorage.HandsOffStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(9, 'HandsOffStorage', ()))
-    win32more.System.Com.IPersist
-    return IPersistStorage
-def _define_IPropertyBag_head():
-    class IPropertyBag(win32more.System.Com.IUnknown_head):
-        Guid = Guid('55272a00-42cb-11ce-81-35-00-aa-00-4b-b8-51')
-    return IPropertyBag
-def _define_IPropertyBag():
-    IPropertyBag = win32more.System.Com.StructuredStorage.IPropertyBag_head
-    IPropertyBag.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.IErrorLog_head)(3, 'Read', ((1, 'pszPropName'),(1, 'pVar'),(1, 'pErrorLog'),)))
-    IPropertyBag.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head))(4, 'Write', ((1, 'pszPropName'),(1, 'pVar'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyBag
-def _define_IPropertyBag2_head():
-    class IPropertyBag2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('22f55882-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
-    return IPropertyBag2
-def _define_IPropertyBag2():
-    IPropertyBag2 = win32more.System.Com.StructuredStorage.IPropertyBag2_head
-    IPropertyBag2.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head),win32more.System.Com.IErrorLog_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.HRESULT))(3, 'Read', ((1, 'cProperties'),(1, 'pPropBag'),(1, 'pErrLog'),(1, 'pvarValue'),(1, 'phrError'),)))
-    IPropertyBag2.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head),POINTER(win32more.System.Com.VARIANT_head))(4, 'Write', ((1, 'cProperties'),(1, 'pPropBag'),(1, 'pvarValue'),)))
-    IPropertyBag2.CountProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'CountProperties', ((1, 'pcProperties'),)))
-    IPropertyBag2.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head),POINTER(UInt32))(6, 'GetPropertyInfo', ((1, 'iProperty'),(1, 'cProperties'),(1, 'pPropBag'),(1, 'pcProperties'),)))
-    IPropertyBag2.LoadObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Com.IUnknown_head,win32more.System.Com.IErrorLog_head)(7, 'LoadObject', ((1, 'pstrName'),(1, 'dwHint'),(1, 'pUnkObject'),(1, 'pErrLog'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyBag2
-def _define_IPropertySetStorage_head():
-    class IPropertySetStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0000013a-0000-0000-c0-00-00-00-00-00-00-46')
-    return IPropertySetStorage
-def _define_IPropertySetStorage():
-    IPropertySetStorage = win32more.System.Com.StructuredStorage.IPropertySetStorage_head
-    IPropertySetStorage.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head))(3, 'Create', ((1, 'rfmtid'),(1, 'pclsid'),(1, 'grfFlags'),(1, 'grfMode'),(1, 'ppprstg'),)))
-    IPropertySetStorage.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head))(4, 'Open', ((1, 'rfmtid'),(1, 'grfMode'),(1, 'ppprstg'),)))
-    IPropertySetStorage.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(5, 'Delete', ((1, 'rfmtid'),)))
-    IPropertySetStorage.Enum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head))(6, 'Enum', ((1, 'ppenum'),)))
-    win32more.System.Com.IUnknown
-    return IPropertySetStorage
-def _define_IPropertyStorage_head():
-    class IPropertyStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00000138-0000-0000-c0-00-00-00-00-00-00-46')
-    return IPropertyStorage
-def _define_IPropertyStorage():
-    IPropertyStorage = win32more.System.Com.StructuredStorage.IPropertyStorage_head
-    IPropertyStorage.ReadMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))(3, 'ReadMultiple', ((1, 'cpspec'),(1, 'rgpspec'),(1, 'rgpropvar'),)))
-    IPropertyStorage.WriteMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),UInt32)(4, 'WriteMultiple', ((1, 'cpspec'),(1, 'rgpspec'),(1, 'rgpropvar'),(1, 'propidNameFirst'),)))
-    IPropertyStorage.DeleteMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head))(5, 'DeleteMultiple', ((1, 'cpspec'),(1, 'rgpspec'),)))
-    IPropertyStorage.ReadPropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(6, 'ReadPropertyNames', ((1, 'cpropid'),(1, 'rgpropid'),(1, 'rglpwstrName'),)))
-    IPropertyStorage.WritePropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(7, 'WritePropertyNames', ((1, 'cpropid'),(1, 'rgpropid'),(1, 'rglpwstrName'),)))
-    IPropertyStorage.DeletePropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(8, 'DeletePropertyNames', ((1, 'cpropid'),(1, 'rgpropid'),)))
-    IPropertyStorage.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(9, 'Commit', ((1, 'grfCommitFlags'),)))
-    IPropertyStorage.Revert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Revert', ()))
-    IPropertyStorage.Enum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head))(11, 'Enum', ((1, 'ppenum'),)))
-    IPropertyStorage.SetTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(12, 'SetTimes', ((1, 'pctime'),(1, 'patime'),(1, 'pmtime'),)))
-    IPropertyStorage.SetClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(13, 'SetClass', ((1, 'clsid'),)))
-    IPropertyStorage.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.STATPROPSETSTG_head))(14, 'Stat', ((1, 'pstatpsstg'),)))
-    win32more.System.Com.IUnknown
-    return IPropertyStorage
-def _define_IRootStorage_head():
-    class IRootStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('00000012-0000-0000-c0-00-00-00-00-00-00-46')
-    return IRootStorage
-def _define_IRootStorage():
-    IRootStorage = win32more.System.Com.StructuredStorage.IRootStorage_head
-    IRootStorage.SwitchToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'SwitchToFile', ((1, 'pszFile'),)))
-    win32more.System.Com.IUnknown
-    return IRootStorage
-def _define_IStorage_head():
-    class IStorage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0000000b-0000-0000-c0-00-00-00-00-00-00-46')
-    return IStorage
-def _define_IStorage():
-    IStorage = win32more.System.Com.StructuredStorage.IStorage_head
-    IStorage.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.STGM,UInt32,UInt32,POINTER(win32more.System.Com.IStream_head))(3, 'CreateStream', ((1, 'pwcsName'),(1, 'grfMode'),(1, 'reserved1'),(1, 'reserved2'),(1, 'ppstm'),)))
-    IStorage.OpenStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,win32more.System.Com.STGM,UInt32,POINTER(win32more.System.Com.IStream_head))(4, 'OpenStream', ((1, 'pwcsName'),(1, 'reserved1'),(1, 'grfMode'),(1, 'reserved2'),(1, 'ppstm'),)))
-    IStorage.CreateStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.STGM,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(5, 'CreateStorage', ((1, 'pwcsName'),(1, 'grfMode'),(1, 'reserved1'),(1, 'reserved2'),(1, 'ppstg'),)))
-    IStorage.OpenStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.STGM,POINTER(POINTER(UInt16)),UInt32,POINTER(win32more.System.Com.StructuredStorage.IStorage_head))(6, 'OpenStorage', ((1, 'pwcsName'),(1, 'pstgPriority'),(1, 'grfMode'),(1, 'snbExclude'),(1, 'reserved'),(1, 'ppstg'),)))
-    IStorage.CopyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(POINTER(UInt16)),win32more.System.Com.StructuredStorage.IStorage_head)(7, 'CopyTo', ((1, 'ciidExclude'),(1, 'rgiidExclude'),(1, 'snbExclude'),(1, 'pstgDest'),)))
-    IStorage.MoveElementTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.StructuredStorage.IStorage_head,win32more.Foundation.PWSTR,win32more.System.Com.StructuredStorage.STGMOVE)(8, 'MoveElementTo', ((1, 'pwcsName'),(1, 'pstgDest'),(1, 'pwcsNewName'),(1, 'grfFlags'),)))
-    IStorage.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.STGC)(9, 'Commit', ((1, 'grfCommitFlags'),)))
-    IStorage.Revert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Revert', ()))
-    IStorage.EnumElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATSTG_head))(11, 'EnumElements', ((1, 'reserved1'),(1, 'reserved2'),(1, 'reserved3'),(1, 'ppenum'),)))
-    IStorage.DestroyElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(12, 'DestroyElement', ((1, 'pwcsName'),)))
-    IStorage.RenameElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(13, 'RenameElement', ((1, 'pwcsOldName'),(1, 'pwcsNewName'),)))
-    IStorage.SetElementTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(14, 'SetElementTimes', ((1, 'pwcsName'),(1, 'pctime'),(1, 'patime'),(1, 'pmtime'),)))
-    IStorage.SetClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(15, 'SetClass', ((1, 'clsid'),)))
-    IStorage.SetStateBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(16, 'SetStateBits', ((1, 'grfStateBits'),(1, 'grfMask'),)))
-    IStorage.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.STATSTG_head),win32more.System.Com.STATFLAG)(17, 'Stat', ((1, 'pstatstg'),(1, 'grfStatFlag'),)))
-    win32more.System.Com.IUnknown
-    return IStorage
-def _define_OLESTREAM_head():
-    class OLESTREAM(Structure):
-        pass
-    return OLESTREAM
-def _define_OLESTREAM():
-    OLESTREAM = win32more.System.Com.StructuredStorage.OLESTREAM_head
-    OLESTREAM._fields_ = [
-        ('lpstbl', POINTER(win32more.System.Com.StructuredStorage.OLESTREAMVTBL_head)),
-    ]
-    return OLESTREAM
-def _define_OLESTREAMVTBL_head():
-    class OLESTREAMVTBL(Structure):
-        pass
-    return OLESTREAMVTBL
-def _define_OLESTREAMVTBL():
-    OLESTREAMVTBL = win32more.System.Com.StructuredStorage.OLESTREAMVTBL_head
-    OLESTREAMVTBL._fields_ = [
-        ('Get', IntPtr),
-        ('Put', IntPtr),
-    ]
-    return OLESTREAMVTBL
+PROPSETFLAG_DEFAULT: UInt32 = 0
+PROPSETFLAG_NONSIMPLE: UInt32 = 1
+PROPSETFLAG_ANSI: UInt32 = 2
+PROPSETFLAG_UNBUFFERED: UInt32 = 4
+PROPSETFLAG_CASE_SENSITIVE: UInt32 = 8
+PROPSET_BEHAVIOR_CASE_SENSITIVE: UInt32 = 1
+PID_DICTIONARY: UInt32 = 0
+PID_CODEPAGE: UInt32 = 1
+PID_FIRST_USABLE: UInt32 = 2
+PID_FIRST_NAME_DEFAULT: UInt32 = 4095
+PID_LOCALE: UInt32 = 2147483648
+PID_MODIFY_TIME: UInt32 = 2147483649
+PID_SECURITY: UInt32 = 2147483650
+PID_BEHAVIOR: UInt32 = 2147483651
+PID_ILLEGAL: UInt32 = 4294967295
+PID_MIN_READONLY: UInt32 = 2147483648
+PID_MAX_READONLY: UInt32 = 3221225471
+PRSPEC_INVALID: UInt32 = 4294967295
+PROPSETHDR_OSVERSION_UNKNOWN: UInt32 = 4294967295
+PIDDI_THUMBNAIL: Int32 = 2
+PIDSI_TITLE: Int32 = 2
+PIDSI_SUBJECT: Int32 = 3
+PIDSI_AUTHOR: Int32 = 4
+PIDSI_KEYWORDS: Int32 = 5
+PIDSI_COMMENTS: Int32 = 6
+PIDSI_TEMPLATE: Int32 = 7
+PIDSI_LASTAUTHOR: Int32 = 8
+PIDSI_REVNUMBER: Int32 = 9
+PIDSI_EDITTIME: Int32 = 10
+PIDSI_LASTPRINTED: Int32 = 11
+PIDSI_CREATE_DTM: Int32 = 12
+PIDSI_LASTSAVE_DTM: Int32 = 13
+PIDSI_PAGECOUNT: Int32 = 14
+PIDSI_WORDCOUNT: Int32 = 15
+PIDSI_CHARCOUNT: Int32 = 16
+PIDSI_THUMBNAIL: Int32 = 17
+PIDSI_APPNAME: Int32 = 18
+PIDSI_DOC_SECURITY: Int32 = 19
+PIDDSI_CATEGORY: UInt32 = 2
+PIDDSI_PRESFORMAT: UInt32 = 3
+PIDDSI_BYTECOUNT: UInt32 = 4
+PIDDSI_LINECOUNT: UInt32 = 5
+PIDDSI_PARCOUNT: UInt32 = 6
+PIDDSI_SLIDECOUNT: UInt32 = 7
+PIDDSI_NOTECOUNT: UInt32 = 8
+PIDDSI_HIDDENCOUNT: UInt32 = 9
+PIDDSI_MMCLIPCOUNT: UInt32 = 10
+PIDDSI_SCALE: UInt32 = 11
+PIDDSI_HEADINGPAIR: UInt32 = 12
+PIDDSI_DOCPARTS: UInt32 = 13
+PIDDSI_MANAGER: UInt32 = 14
+PIDDSI_COMPANY: UInt32 = 15
+PIDDSI_LINKSDIRTY: UInt32 = 16
+PIDMSI_EDITOR: Int32 = 2
+PIDMSI_SUPPLIER: Int32 = 3
+PIDMSI_SOURCE: Int32 = 4
+PIDMSI_SEQUENCE_NO: Int32 = 5
+PIDMSI_PROJECT: Int32 = 6
+PIDMSI_STATUS: Int32 = 7
+PIDMSI_OWNER: Int32 = 8
+PIDMSI_RATING: Int32 = 9
+PIDMSI_PRODUCTION: Int32 = 10
+PIDMSI_COPYRIGHT: Int32 = 11
+CWCSTORAGENAME: UInt32 = 32
+STGOPTIONS_VERSION: UInt32 = 1
+CCH_MAX_PROPSTG_NAME: UInt32 = 31
+@winfunctype('OLE32.dll')
+def CoGetInstanceFromFile(pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head), pClsid: POINTER(Guid), punkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: win32more.System.Com.CLSCTX, grfMode: UInt32, pwszName: win32more.Foundation.PWSTR, dwCount: UInt32, pResults: POINTER(win32more.System.Com.MULTI_QI_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoGetInstanceFromIStorage(pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head), pClsid: POINTER(Guid), punkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: win32more.System.Com.CLSCTX, pstg: win32more.System.Com.StructuredStorage.IStorage_head, dwCount: UInt32, pResults: POINTER(win32more.System.Com.MULTI_QI_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def StgOpenAsyncDocfileOnIFillLockBytes(pflb: win32more.System.Com.StructuredStorage.IFillLockBytes_head, grfMode: UInt32, asyncFlags: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def StgGetIFillLockBytesOnILockBytes(pilb: win32more.System.Com.StructuredStorage.ILockBytes_head, ppflb: POINTER(win32more.System.Com.StructuredStorage.IFillLockBytes_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def StgGetIFillLockBytesOnFile(pwcsName: win32more.Foundation.PWSTR, ppflb: POINTER(win32more.System.Com.StructuredStorage.IFillLockBytes_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('dflayout.dll')
+def StgOpenLayoutDocfile(pwcsDfName: win32more.Foundation.PWSTR, grfMode: UInt32, reserved: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CreateStreamOnHGlobal(hGlobal: IntPtr, fDeleteOnRelease: win32more.Foundation.BOOL, ppstm: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def GetHGlobalFromStream(pstm: win32more.System.Com.IStream_head, phglobal: POINTER(IntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CoGetInterfaceAndReleaseStream(pStm: win32more.System.Com.IStream_head, iid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def PropVariantCopy(pvarDest: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pvarSrc: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def PropVariantClear(pvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def FreePropVariantArray(cVariants: UInt32, rgvars: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgCreateDocfile(pwcsName: win32more.Foundation.PWSTR, grfMode: win32more.System.Com.STGM, reserved: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgCreateDocfileOnILockBytes(plkbyt: win32more.System.Com.StructuredStorage.ILockBytes_head, grfMode: win32more.System.Com.STGM, reserved: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgOpenStorage(pwcsName: win32more.Foundation.PWSTR, pstgPriority: win32more.System.Com.StructuredStorage.IStorage_head, grfMode: win32more.System.Com.STGM, snbExclude: POINTER(POINTER(UInt16)), reserved: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgOpenStorageOnILockBytes(plkbyt: win32more.System.Com.StructuredStorage.ILockBytes_head, pstgPriority: win32more.System.Com.StructuredStorage.IStorage_head, grfMode: win32more.System.Com.STGM, snbExclude: POINTER(POINTER(UInt16)), reserved: UInt32, ppstgOpen: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgIsStorageFile(pwcsName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgIsStorageILockBytes(plkbyt: win32more.System.Com.StructuredStorage.ILockBytes_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgSetTimes(lpszName: win32more.Foundation.PWSTR, pctime: POINTER(win32more.Foundation.FILETIME_head), patime: POINTER(win32more.Foundation.FILETIME_head), pmtime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgCreateStorageEx(pwcsName: win32more.Foundation.PWSTR, grfMode: win32more.System.Com.STGM, stgfmt: win32more.System.Com.StructuredStorage.STGFMT, grfAttrs: UInt32, pStgOptions: POINTER(win32more.System.Com.StructuredStorage.STGOPTIONS_head), pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, riid: POINTER(Guid), ppObjectOpen: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgOpenStorageEx(pwcsName: win32more.Foundation.PWSTR, grfMode: win32more.System.Com.STGM, stgfmt: win32more.System.Com.StructuredStorage.STGFMT, grfAttrs: UInt32, pStgOptions: POINTER(win32more.System.Com.StructuredStorage.STGOPTIONS_head), pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, riid: POINTER(Guid), ppObjectOpen: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgCreatePropStg(pUnk: win32more.System.Com.IUnknown_head, fmtid: POINTER(Guid), pclsid: POINTER(Guid), grfFlags: UInt32, dwReserved: UInt32, ppPropStg: POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgOpenPropStg(pUnk: win32more.System.Com.IUnknown_head, fmtid: POINTER(Guid), grfFlags: UInt32, dwReserved: UInt32, ppPropStg: POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def StgCreatePropSetStg(pStorage: win32more.System.Com.StructuredStorage.IStorage_head, dwReserved: UInt32, ppPropSetStg: POINTER(win32more.System.Com.StructuredStorage.IPropertySetStorage_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def FmtIdToPropStgName(pfmtid: POINTER(Guid), oszName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def PropStgNameToFmtId(oszName: win32more.Foundation.PWSTR, pfmtid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def ReadClassStg(pStg: win32more.System.Com.StructuredStorage.IStorage_head, pclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def WriteClassStg(pStg: win32more.System.Com.StructuredStorage.IStorage_head, rclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def ReadClassStm(pStm: win32more.System.Com.IStream_head, pclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def WriteClassStm(pStm: win32more.System.Com.IStream_head, rclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def GetHGlobalFromILockBytes(plkbyt: win32more.System.Com.StructuredStorage.ILockBytes_head, phglobal: POINTER(IntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def CreateILockBytesOnHGlobal(hGlobal: IntPtr, fDeleteOnRelease: win32more.Foundation.BOOL, pplkbyt: POINTER(win32more.System.Com.StructuredStorage.ILockBytes_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def GetConvertStg(pStg: win32more.System.Com.StructuredStorage.IStorage_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def StgConvertVariantToProperty(pvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), CodePage: UInt16, pprop: POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head), pcb: POINTER(UInt32), pid: UInt32, fReserved: win32more.Foundation.BOOLEAN, pcIndirect: POINTER(UInt32)) -> POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head): ...
+@winfunctype('ole32.dll')
+def StgConvertPropertyToVariant(pprop: POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head), CodePage: UInt16, pvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), pma: POINTER(win32more.System.Com.StructuredStorage.PMemoryAllocator_head)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('ole32.dll')
+def StgPropertyLengthAsVariant(pProp: POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head), cbProp: UInt32, CodePage: UInt16, bReserved: Byte) -> UInt32: ...
+@winfunctype('OLE32.dll')
+def WriteFmtUserTypeStg(pstg: win32more.System.Com.StructuredStorage.IStorage_head, cf: UInt16, lpszUserType: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def ReadFmtUserTypeStg(pstg: win32more.System.Com.StructuredStorage.IStorage_head, pcf: POINTER(UInt16), lplpszUserType: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def OleConvertOLESTREAMToIStorage(lpolestream: POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head), pstg: win32more.System.Com.StructuredStorage.IStorage_head, ptd: POINTER(win32more.System.Com.DVTARGETDEVICE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def OleConvertIStorageToOLESTREAM(pstg: win32more.System.Com.StructuredStorage.IStorage_head, lpolestream: POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLE32.dll')
+def SetConvertStg(pStg: win32more.System.Com.StructuredStorage.IStorage_head, fConvert: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def OleConvertIStorageToOLESTREAMEx(pstg: win32more.System.Com.StructuredStorage.IStorage_head, cfFormat: UInt16, lWidth: Int32, lHeight: Int32, dwSize: UInt32, pmedium: POINTER(win32more.System.Com.STGMEDIUM_head), polestm: POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def OleConvertOLESTREAMToIStorageEx(polestm: POINTER(win32more.System.Com.StructuredStorage.OLESTREAM_head), pstg: win32more.System.Com.StructuredStorage.IStorage_head, pcfFormat: POINTER(UInt16), plwWidth: POINTER(Int32), plHeight: POINTER(Int32), pdwSize: POINTER(UInt32), pmedium: POINTER(win32more.System.Com.STGMEDIUM_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def StgSerializePropVariant(ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), ppProp: POINTER(POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head)), pcb: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('PROPSYS.dll')
+def StgDeserializePropVariant(pprop: POINTER(win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head), cbMax: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class BSTRBLOB(Structure):
+    cbSize: UInt32
+    pData: c_char_p_no
+class CABOOL(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.VARIANT_BOOL)
+class CABSTR(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.BSTR)
+class CABSTRBLOB(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.System.Com.StructuredStorage.BSTRBLOB_head)
+class CAC(Structure):
+    cElems: UInt32
+    pElems: win32more.Foundation.PSTR
+class CACLIPDATA(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.System.Com.StructuredStorage.CLIPDATA_head)
+class CACLSID(Structure):
+    cElems: UInt32
+    pElems: POINTER(Guid)
+class CACY(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.System.Com.CY_head)
+class CADATE(Structure):
+    cElems: UInt32
+    pElems: POINTER(Double)
+class CADBL(Structure):
+    cElems: UInt32
+    pElems: POINTER(Double)
+class CAFILETIME(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.FILETIME_head)
+class CAFLT(Structure):
+    cElems: UInt32
+    pElems: POINTER(Single)
+class CAH(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.LARGE_INTEGER_head)
+class CAI(Structure):
+    cElems: UInt32
+    pElems: POINTER(Int16)
+class CAL(Structure):
+    cElems: UInt32
+    pElems: POINTER(Int32)
+class CALPSTR(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.PSTR)
+class CALPWSTR(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.PWSTR)
+class CAPROPVARIANT(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+class CASCODE(Structure):
+    cElems: UInt32
+    pElems: POINTER(Int32)
+class CAUB(Structure):
+    cElems: UInt32
+    pElems: c_char_p_no
+class CAUH(Structure):
+    cElems: UInt32
+    pElems: POINTER(win32more.Foundation.ULARGE_INTEGER_head)
+class CAUI(Structure):
+    cElems: UInt32
+    pElems: POINTER(UInt16)
+class CAUL(Structure):
+    cElems: UInt32
+    pElems: POINTER(UInt32)
+class CLIPDATA(Structure):
+    cbSize: UInt32
+    ulClipFmt: Int32
+    pClipData: c_char_p_no
+class IDirectWriterLock(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0e6d4d92-6738-11cf-96-08-00-aa-00-68-0d-b4')
+    @commethod(3)
+    def WaitForWriteAccess(dwTimeout: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReleaseWriteAccess() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def HaveWriteAccess() -> win32more.Foundation.HRESULT: ...
+class IEnumSTATPROPSETSTG(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0000013b-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.System.Com.StructuredStorage.STATPROPSETSTG_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumSTATPROPSTG(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000139-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.System.Com.StructuredStorage.STATPROPSTG_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumSTATSTG(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0000000d-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.System.Com.STATSTG_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATSTG_head)) -> win32more.Foundation.HRESULT: ...
+class IFillLockBytes(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('99caf010-415e-11cf-88-14-00-aa-00-b5-69-f5')
+    @commethod(3)
+    def FillAppend(pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FillAt(ulOffset: win32more.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetFillSize(ulSize: win32more.Foundation.ULARGE_INTEGER) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Terminate(bCanceled: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class ILayoutStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0e6d4d90-6738-11cf-96-08-00-aa-00-68-0d-b4')
+    @commethod(3)
+    def LayoutScript(pStorageLayout: POINTER(win32more.System.Com.StorageLayout_head), nEntries: UInt32, glfInterleavedFlag: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def BeginMonitor() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def EndMonitor() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ReLayoutDocfile(pwcsNewDfName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ReLayoutDocfileOnILockBytes(pILockBytes: win32more.System.Com.StructuredStorage.ILockBytes_head) -> win32more.Foundation.HRESULT: ...
+class ILockBytes(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def ReadAt(ulOffset: win32more.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def WriteAt(ulOffset: win32more.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Flush() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetSize(cb: win32more.Foundation.ULARGE_INTEGER) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def LockRegion(libOffset: win32more.Foundation.ULARGE_INTEGER, cb: win32more.Foundation.ULARGE_INTEGER, dwLockType: win32more.System.Com.LOCKTYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def UnlockRegion(libOffset: win32more.Foundation.ULARGE_INTEGER, cb: win32more.Foundation.ULARGE_INTEGER, dwLockType: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Stat(pstatstg: POINTER(win32more.System.Com.STATSTG_head), grfStatFlag: win32more.System.Com.STATFLAG) -> win32more.Foundation.HRESULT: ...
+class IPersistStorage(c_void_p):
+    extends: win32more.System.Com.IPersist
+    Guid = Guid('0000010a-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(4)
+    def IsDirty() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def InitNew(pStg: win32more.System.Com.StructuredStorage.IStorage_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Load(pStg: win32more.System.Com.StructuredStorage.IStorage_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Save(pStgSave: win32more.System.Com.StructuredStorage.IStorage_head, fSameAsLoad: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SaveCompleted(pStgNew: win32more.System.Com.StructuredStorage.IStorage_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def HandsOffStorage() -> win32more.Foundation.HRESULT: ...
+class IPropertyBag(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('55272a00-42cb-11ce-81-35-00-aa-00-4b-b8-51')
+    @commethod(3)
+    def Read(pszPropName: win32more.Foundation.PWSTR, pVar: POINTER(win32more.System.Com.VARIANT_head), pErrorLog: win32more.System.Com.IErrorLog_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Write(pszPropName: win32more.Foundation.PWSTR, pVar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyBag2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('22f55882-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
+    @commethod(3)
+    def Read(cProperties: UInt32, pPropBag: POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head), pErrLog: win32more.System.Com.IErrorLog_head, pvarValue: POINTER(win32more.System.Com.VARIANT_head), phrError: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Write(cProperties: UInt32, pPropBag: POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head), pvarValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CountProperties(pcProperties: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetPropertyInfo(iProperty: UInt32, cProperties: UInt32, pPropBag: POINTER(win32more.System.Com.StructuredStorage.PROPBAG2_head), pcProperties: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def LoadObject(pstrName: win32more.Foundation.PWSTR, dwHint: UInt32, pUnkObject: win32more.System.Com.IUnknown_head, pErrLog: win32more.System.Com.IErrorLog_head) -> win32more.Foundation.HRESULT: ...
+class IPropertySetStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0000013a-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Create(rfmtid: POINTER(Guid), pclsid: POINTER(Guid), grfFlags: UInt32, grfMode: UInt32, ppprstg: POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Open(rfmtid: POINTER(Guid), grfMode: UInt32, ppprstg: POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Delete(rfmtid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Enum(ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> win32more.Foundation.HRESULT: ...
+class IPropertyStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000138-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def ReadMultiple(cpspec: UInt32, rgpspec: POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head), rgpropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def WriteMultiple(cpspec: UInt32, rgpspec: POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head), rgpropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), propidNameFirst: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DeleteMultiple(cpspec: UInt32, rgpspec: POINTER(win32more.System.Com.StructuredStorage.PROPSPEC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ReadPropertyNames(cpropid: UInt32, rgpropid: POINTER(UInt32), rglpwstrName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def WritePropertyNames(cpropid: UInt32, rgpropid: POINTER(UInt32), rglpwstrName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def DeletePropertyNames(cpropid: UInt32, rgpropid: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Commit(grfCommitFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Revert() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Enum(ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetTimes(pctime: POINTER(win32more.Foundation.FILETIME_head), patime: POINTER(win32more.Foundation.FILETIME_head), pmtime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetClass(clsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Stat(pstatpsstg: POINTER(win32more.System.Com.StructuredStorage.STATPROPSETSTG_head)) -> win32more.Foundation.HRESULT: ...
+class IRootStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000012-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def SwitchToFile(pszFile: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IStorage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0000000b-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def CreateStream(pwcsName: win32more.Foundation.PWSTR, grfMode: win32more.System.Com.STGM, reserved1: UInt32, reserved2: UInt32, ppstm: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OpenStream(pwcsName: win32more.Foundation.PWSTR, reserved1: c_void_p, grfMode: win32more.System.Com.STGM, reserved2: UInt32, ppstm: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateStorage(pwcsName: win32more.Foundation.PWSTR, grfMode: win32more.System.Com.STGM, reserved1: UInt32, reserved2: UInt32, ppstg: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OpenStorage(pwcsName: win32more.Foundation.PWSTR, pstgPriority: win32more.System.Com.StructuredStorage.IStorage_head, grfMode: win32more.System.Com.STGM, snbExclude: POINTER(POINTER(UInt16)), reserved: UInt32, ppstg: POINTER(win32more.System.Com.StructuredStorage.IStorage_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CopyTo(ciidExclude: UInt32, rgiidExclude: POINTER(Guid), snbExclude: POINTER(POINTER(UInt16)), pstgDest: win32more.System.Com.StructuredStorage.IStorage_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def MoveElementTo(pwcsName: win32more.Foundation.PWSTR, pstgDest: win32more.System.Com.StructuredStorage.IStorage_head, pwcsNewName: win32more.Foundation.PWSTR, grfFlags: win32more.System.Com.StructuredStorage.STGMOVE) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Commit(grfCommitFlags: win32more.System.Com.STGC) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Revert() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EnumElements(reserved1: UInt32, reserved2: c_void_p, reserved3: UInt32, ppenum: POINTER(win32more.System.Com.StructuredStorage.IEnumSTATSTG_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DestroyElement(pwcsName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def RenameElement(pwcsOldName: win32more.Foundation.PWSTR, pwcsNewName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetElementTimes(pwcsName: win32more.Foundation.PWSTR, pctime: POINTER(win32more.Foundation.FILETIME_head), patime: POINTER(win32more.Foundation.FILETIME_head), pmtime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetClass(clsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetStateBits(grfStateBits: UInt32, grfMask: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def Stat(pstatstg: POINTER(win32more.System.Com.STATSTG_head), grfStatFlag: win32more.System.Com.STATFLAG) -> win32more.Foundation.HRESULT: ...
+class OLESTREAM(Structure):
+    lpstbl: POINTER(win32more.System.Com.StructuredStorage.OLESTREAMVTBL_head)
+class OLESTREAMVTBL(Structure):
+    Get: IntPtr
+    Put: IntPtr
 PIDMSI_STATUS_VALUE = Int32
-PIDMSI_STATUS_NORMAL = 0
-PIDMSI_STATUS_NEW = 1
-PIDMSI_STATUS_PRELIM = 2
-PIDMSI_STATUS_DRAFT = 3
-PIDMSI_STATUS_INPROGRESS = 4
-PIDMSI_STATUS_EDIT = 5
-PIDMSI_STATUS_REVIEW = 6
-PIDMSI_STATUS_PROOF = 7
-PIDMSI_STATUS_FINAL = 8
-PIDMSI_STATUS_OTHER = 32767
-def _define_PMemoryAllocator_head():
-    class PMemoryAllocator(Structure):
-        pass
-    return PMemoryAllocator
-def _define_PMemoryAllocator():
-    PMemoryAllocator = win32more.System.Com.StructuredStorage.PMemoryAllocator_head
-    return PMemoryAllocator
-def _define_PROPBAG2_head():
-    class PROPBAG2(Structure):
-        pass
-    return PROPBAG2
-def _define_PROPBAG2():
-    PROPBAG2 = win32more.System.Com.StructuredStorage.PROPBAG2_head
-    PROPBAG2._fields_ = [
-        ('dwType', UInt32),
-        ('vt', win32more.System.Com.VARENUM),
-        ('cfType', UInt16),
-        ('dwHint', UInt32),
-        ('pstrName', win32more.Foundation.PWSTR),
-        ('clsid', Guid),
-    ]
-    return PROPBAG2
-def _define_PROPSPEC_head():
-    class PROPSPEC(Structure):
-        pass
-    return PROPSPEC
-def _define_PROPSPEC():
-    PROPSPEC = win32more.System.Com.StructuredStorage.PROPSPEC_head
-    class PROPSPEC__Anonymous_e__Union(Union):
-        pass
-    PROPSPEC__Anonymous_e__Union._fields_ = [
-        ('propid', UInt32),
-        ('lpwstr', win32more.Foundation.PWSTR),
-    ]
-    PROPSPEC._anonymous_ = [
-        'Anonymous',
-    ]
-    PROPSPEC._fields_ = [
-        ('ulKind', win32more.System.Com.StructuredStorage.PROPSPEC_KIND),
-        ('Anonymous', PROPSPEC__Anonymous_e__Union),
-    ]
-    return PROPSPEC
+PIDMSI_STATUS_NORMAL: PIDMSI_STATUS_VALUE = 0
+PIDMSI_STATUS_NEW: PIDMSI_STATUS_VALUE = 1
+PIDMSI_STATUS_PRELIM: PIDMSI_STATUS_VALUE = 2
+PIDMSI_STATUS_DRAFT: PIDMSI_STATUS_VALUE = 3
+PIDMSI_STATUS_INPROGRESS: PIDMSI_STATUS_VALUE = 4
+PIDMSI_STATUS_EDIT: PIDMSI_STATUS_VALUE = 5
+PIDMSI_STATUS_REVIEW: PIDMSI_STATUS_VALUE = 6
+PIDMSI_STATUS_PROOF: PIDMSI_STATUS_VALUE = 7
+PIDMSI_STATUS_FINAL: PIDMSI_STATUS_VALUE = 8
+PIDMSI_STATUS_OTHER: PIDMSI_STATUS_VALUE = 32767
+class PMemoryAllocator(Structure):
+    pass
+class PROPBAG2(Structure):
+    dwType: UInt32
+    vt: win32more.System.Com.VARENUM
+    cfType: UInt16
+    dwHint: UInt32
+    pstrName: win32more.Foundation.PWSTR
+    clsid: Guid
+class PROPSPEC(Structure):
+    ulKind: win32more.System.Com.StructuredStorage.PROPSPEC_KIND
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        propid: UInt32
+        lpwstr: win32more.Foundation.PWSTR
 PROPSPEC_KIND = UInt32
-PRSPEC_LPWSTR = 0
-PRSPEC_PROPID = 1
-def _define_PROPVARIANT_head():
-    class PROPVARIANT(Structure):
-        pass
-    return PROPVARIANT
-def _define_PROPVARIANT():
-    PROPVARIANT = win32more.System.Com.StructuredStorage.PROPVARIANT_head
-    class PROPVARIANT__Anonymous_e__Union(Union):
-        pass
-    class PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    class PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct__Anonymous_e__Union(Union):
-        pass
-    PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct__Anonymous_e__Union._fields_ = [
-        ('cVal', win32more.Foundation.CHAR),
-        ('bVal', Byte),
-        ('iVal', Int16),
-        ('uiVal', UInt16),
-        ('lVal', Int32),
-        ('ulVal', UInt32),
-        ('intVal', Int32),
-        ('uintVal', UInt32),
-        ('hVal', win32more.Foundation.LARGE_INTEGER),
-        ('uhVal', win32more.Foundation.ULARGE_INTEGER),
-        ('fltVal', Single),
-        ('dblVal', Double),
-        ('boolVal', win32more.Foundation.VARIANT_BOOL),
-        ('__OBSOLETE__VARIANT_BOOL', win32more.Foundation.VARIANT_BOOL),
-        ('scode', Int32),
-        ('cyVal', win32more.System.Com.CY),
-        ('date', Double),
-        ('filetime', win32more.Foundation.FILETIME),
-        ('puuid', POINTER(Guid)),
-        ('pclipdata', POINTER(win32more.System.Com.StructuredStorage.CLIPDATA_head)),
-        ('bstrVal', win32more.Foundation.BSTR),
-        ('bstrblobVal', win32more.System.Com.StructuredStorage.BSTRBLOB),
-        ('blob', win32more.System.Com.BLOB),
-        ('pszVal', win32more.Foundation.PSTR),
-        ('pwszVal', win32more.Foundation.PWSTR),
-        ('punkVal', win32more.System.Com.IUnknown_head),
-        ('pdispVal', win32more.System.Com.IDispatch_head),
-        ('pStream', win32more.System.Com.IStream_head),
-        ('pStorage', win32more.System.Com.StructuredStorage.IStorage_head),
-        ('pVersionedStream', POINTER(win32more.System.Com.StructuredStorage.VERSIONEDSTREAM_head)),
-        ('parray', POINTER(win32more.System.Com.SAFEARRAY_head)),
-        ('cac', win32more.System.Com.StructuredStorage.CAC),
-        ('caub', win32more.System.Com.StructuredStorage.CAUB),
-        ('cai', win32more.System.Com.StructuredStorage.CAI),
-        ('caui', win32more.System.Com.StructuredStorage.CAUI),
-        ('cal', win32more.System.Com.StructuredStorage.CAL),
-        ('caul', win32more.System.Com.StructuredStorage.CAUL),
-        ('cah', win32more.System.Com.StructuredStorage.CAH),
-        ('cauh', win32more.System.Com.StructuredStorage.CAUH),
-        ('caflt', win32more.System.Com.StructuredStorage.CAFLT),
-        ('cadbl', win32more.System.Com.StructuredStorage.CADBL),
-        ('cabool', win32more.System.Com.StructuredStorage.CABOOL),
-        ('cascode', win32more.System.Com.StructuredStorage.CASCODE),
-        ('cacy', win32more.System.Com.StructuredStorage.CACY),
-        ('cadate', win32more.System.Com.StructuredStorage.CADATE),
-        ('cafiletime', win32more.System.Com.StructuredStorage.CAFILETIME),
-        ('cauuid', win32more.System.Com.StructuredStorage.CACLSID),
-        ('caclipdata', win32more.System.Com.StructuredStorage.CACLIPDATA),
-        ('cabstr', win32more.System.Com.StructuredStorage.CABSTR),
-        ('cabstrblob', win32more.System.Com.StructuredStorage.CABSTRBLOB),
-        ('calpstr', win32more.System.Com.StructuredStorage.CALPSTR),
-        ('calpwstr', win32more.System.Com.StructuredStorage.CALPWSTR),
-        ('capropvar', win32more.System.Com.StructuredStorage.CAPROPVARIANT),
-        ('pcVal', win32more.Foundation.PSTR),
-        ('pbVal', c_char_p_no),
-        ('piVal', POINTER(Int16)),
-        ('puiVal', POINTER(UInt16)),
-        ('plVal', POINTER(Int32)),
-        ('pulVal', POINTER(UInt32)),
-        ('pintVal', POINTER(Int32)),
-        ('puintVal', POINTER(UInt32)),
-        ('pfltVal', POINTER(Single)),
-        ('pdblVal', POINTER(Double)),
-        ('pboolVal', POINTER(win32more.Foundation.VARIANT_BOOL)),
-        ('pdecVal', POINTER(win32more.Foundation.DECIMAL_head)),
-        ('pscode', POINTER(Int32)),
-        ('pcyVal', POINTER(win32more.System.Com.CY_head)),
-        ('pdate', POINTER(Double)),
-        ('pbstrVal', POINTER(win32more.Foundation.BSTR)),
-        ('ppunkVal', POINTER(win32more.System.Com.IUnknown_head)),
-        ('ppdispVal', POINTER(win32more.System.Com.IDispatch_head)),
-        ('pparray', POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))),
-        ('pvarVal', POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)),
-    ]
-    PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct._anonymous_ = [
-        'Anonymous',
-    ]
-    PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('vt', win32more.System.Com.VARENUM),
-        ('wReserved1', UInt16),
-        ('wReserved2', UInt16),
-        ('wReserved3', UInt16),
-        ('Anonymous', PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct__Anonymous_e__Union),
-    ]
-    PROPVARIANT__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    PROPVARIANT__Anonymous_e__Union._fields_ = [
-        ('Anonymous', PROPVARIANT__Anonymous_e__Union__Anonymous_e__Struct),
-        ('decVal', win32more.Foundation.DECIMAL),
-    ]
-    PROPVARIANT._anonymous_ = [
-        'Anonymous',
-    ]
-    PROPVARIANT._fields_ = [
-        ('Anonymous', PROPVARIANT__Anonymous_e__Union),
-    ]
-    return PROPVARIANT
-def _define_RemSNB_head():
-    class RemSNB(Structure):
-        pass
-    return RemSNB
-def _define_RemSNB():
-    RemSNB = win32more.System.Com.StructuredStorage.RemSNB_head
-    RemSNB._fields_ = [
-        ('ulCntStr', UInt32),
-        ('ulCntChar', UInt32),
-        ('rgString', Char * 1),
-    ]
-    return RemSNB
-def _define_SERIALIZEDPROPERTYVALUE_head():
-    class SERIALIZEDPROPERTYVALUE(Structure):
-        pass
-    return SERIALIZEDPROPERTYVALUE
-def _define_SERIALIZEDPROPERTYVALUE():
-    SERIALIZEDPROPERTYVALUE = win32more.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE_head
-    SERIALIZEDPROPERTYVALUE._fields_ = [
-        ('dwType', UInt32),
-        ('rgb', Byte * 1),
-    ]
-    return SERIALIZEDPROPERTYVALUE
-def _define_STATPROPSETSTG_head():
-    class STATPROPSETSTG(Structure):
-        pass
-    return STATPROPSETSTG
-def _define_STATPROPSETSTG():
-    STATPROPSETSTG = win32more.System.Com.StructuredStorage.STATPROPSETSTG_head
-    STATPROPSETSTG._fields_ = [
-        ('fmtid', Guid),
-        ('clsid', Guid),
-        ('grfFlags', UInt32),
-        ('mtime', win32more.Foundation.FILETIME),
-        ('ctime', win32more.Foundation.FILETIME),
-        ('atime', win32more.Foundation.FILETIME),
-        ('dwOSVersion', UInt32),
-    ]
-    return STATPROPSETSTG
-def _define_STATPROPSTG_head():
-    class STATPROPSTG(Structure):
-        pass
-    return STATPROPSTG
-def _define_STATPROPSTG():
-    STATPROPSTG = win32more.System.Com.StructuredStorage.STATPROPSTG_head
-    STATPROPSTG._fields_ = [
-        ('lpwstrName', win32more.Foundation.PWSTR),
-        ('propid', UInt32),
-        ('vt', win32more.System.Com.VARENUM),
-    ]
-    return STATPROPSTG
+PRSPEC_LPWSTR: PROPSPEC_KIND = 0
+PRSPEC_PROPID: PROPSPEC_KIND = 1
+class PROPVARIANT(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        decVal: win32more.Foundation.DECIMAL
+        class _Anonymous_e__Struct(Structure):
+            vt: win32more.System.Com.VARENUM
+            wReserved1: UInt16
+            wReserved2: UInt16
+            wReserved3: UInt16
+            Anonymous: _Anonymous_e__Union
+            class _Anonymous_e__Union(Union):
+                cVal: win32more.Foundation.CHAR
+                bVal: Byte
+                iVal: Int16
+                uiVal: UInt16
+                lVal: Int32
+                ulVal: UInt32
+                intVal: Int32
+                uintVal: UInt32
+                hVal: win32more.Foundation.LARGE_INTEGER
+                uhVal: win32more.Foundation.ULARGE_INTEGER
+                fltVal: Single
+                dblVal: Double
+                boolVal: win32more.Foundation.VARIANT_BOOL
+                __OBSOLETE__VARIANT_BOOL: win32more.Foundation.VARIANT_BOOL
+                scode: Int32
+                cyVal: win32more.System.Com.CY
+                date: Double
+                filetime: win32more.Foundation.FILETIME
+                puuid: POINTER(Guid)
+                pclipdata: POINTER(win32more.System.Com.StructuredStorage.CLIPDATA_head)
+                bstrVal: win32more.Foundation.BSTR
+                bstrblobVal: win32more.System.Com.StructuredStorage.BSTRBLOB
+                blob: win32more.System.Com.BLOB
+                pszVal: win32more.Foundation.PSTR
+                pwszVal: win32more.Foundation.PWSTR
+                punkVal: win32more.System.Com.IUnknown_head
+                pdispVal: win32more.System.Com.IDispatch_head
+                pStream: win32more.System.Com.IStream_head
+                pStorage: win32more.System.Com.StructuredStorage.IStorage_head
+                pVersionedStream: POINTER(win32more.System.Com.StructuredStorage.VERSIONEDSTREAM_head)
+                parray: POINTER(win32more.System.Com.SAFEARRAY_head)
+                cac: win32more.System.Com.StructuredStorage.CAC
+                caub: win32more.System.Com.StructuredStorage.CAUB
+                cai: win32more.System.Com.StructuredStorage.CAI
+                caui: win32more.System.Com.StructuredStorage.CAUI
+                cal: win32more.System.Com.StructuredStorage.CAL
+                caul: win32more.System.Com.StructuredStorage.CAUL
+                cah: win32more.System.Com.StructuredStorage.CAH
+                cauh: win32more.System.Com.StructuredStorage.CAUH
+                caflt: win32more.System.Com.StructuredStorage.CAFLT
+                cadbl: win32more.System.Com.StructuredStorage.CADBL
+                cabool: win32more.System.Com.StructuredStorage.CABOOL
+                cascode: win32more.System.Com.StructuredStorage.CASCODE
+                cacy: win32more.System.Com.StructuredStorage.CACY
+                cadate: win32more.System.Com.StructuredStorage.CADATE
+                cafiletime: win32more.System.Com.StructuredStorage.CAFILETIME
+                cauuid: win32more.System.Com.StructuredStorage.CACLSID
+                caclipdata: win32more.System.Com.StructuredStorage.CACLIPDATA
+                cabstr: win32more.System.Com.StructuredStorage.CABSTR
+                cabstrblob: win32more.System.Com.StructuredStorage.CABSTRBLOB
+                calpstr: win32more.System.Com.StructuredStorage.CALPSTR
+                calpwstr: win32more.System.Com.StructuredStorage.CALPWSTR
+                capropvar: win32more.System.Com.StructuredStorage.CAPROPVARIANT
+                pcVal: win32more.Foundation.PSTR
+                pbVal: c_char_p_no
+                piVal: POINTER(Int16)
+                puiVal: POINTER(UInt16)
+                plVal: POINTER(Int32)
+                pulVal: POINTER(UInt32)
+                pintVal: POINTER(Int32)
+                puintVal: POINTER(UInt32)
+                pfltVal: POINTER(Single)
+                pdblVal: POINTER(Double)
+                pboolVal: POINTER(win32more.Foundation.VARIANT_BOOL)
+                pdecVal: POINTER(win32more.Foundation.DECIMAL_head)
+                pscode: POINTER(Int32)
+                pcyVal: POINTER(win32more.System.Com.CY_head)
+                pdate: POINTER(Double)
+                pbstrVal: POINTER(win32more.Foundation.BSTR)
+                ppunkVal: POINTER(win32more.System.Com.IUnknown_head)
+                ppdispVal: POINTER(win32more.System.Com.IDispatch_head)
+                pparray: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))
+                pvarVal: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+class RemSNB(Structure):
+    ulCntStr: UInt32
+    ulCntChar: UInt32
+    rgString: Char * 1
+class SERIALIZEDPROPERTYVALUE(Structure):
+    dwType: UInt32
+    rgb: Byte * 1
+class STATPROPSETSTG(Structure):
+    fmtid: Guid
+    clsid: Guid
+    grfFlags: UInt32
+    mtime: win32more.Foundation.FILETIME
+    ctime: win32more.Foundation.FILETIME
+    atime: win32more.Foundation.FILETIME
+    dwOSVersion: UInt32
+class STATPROPSTG(Structure):
+    lpwstrName: win32more.Foundation.PWSTR
+    propid: UInt32
+    vt: win32more.System.Com.VARENUM
 STGFMT = UInt32
-STGFMT_STORAGE = 0
-STGFMT_NATIVE = 1
-STGFMT_FILE = 3
-STGFMT_ANY = 4
-STGFMT_DOCFILE = 5
-STGFMT_DOCUMENT = 0
+STGFMT_STORAGE: STGFMT = 0
+STGFMT_NATIVE: STGFMT = 1
+STGFMT_FILE: STGFMT = 3
+STGFMT_ANY: STGFMT = 4
+STGFMT_DOCFILE: STGFMT = 5
+STGFMT_DOCUMENT: STGFMT = 0
 STGMOVE = Int32
-STGMOVE_MOVE = 0
-STGMOVE_COPY = 1
-STGMOVE_SHALLOWCOPY = 2
-def _define_STGOPTIONS_head():
-    class STGOPTIONS(Structure):
-        pass
-    return STGOPTIONS
-def _define_STGOPTIONS():
-    STGOPTIONS = win32more.System.Com.StructuredStorage.STGOPTIONS_head
-    STGOPTIONS._fields_ = [
-        ('usVersion', UInt16),
-        ('reserved', UInt16),
-        ('ulSectorSize', UInt32),
-        ('pwcsTemplateFile', win32more.Foundation.PWSTR),
-    ]
-    return STGOPTIONS
-def _define_VERSIONEDSTREAM_head():
-    class VERSIONEDSTREAM(Structure):
-        pass
-    return VERSIONEDSTREAM
-def _define_VERSIONEDSTREAM():
-    VERSIONEDSTREAM = win32more.System.Com.StructuredStorage.VERSIONEDSTREAM_head
-    VERSIONEDSTREAM._fields_ = [
-        ('guidVersion', Guid),
-        ('pStream', win32more.System.Com.IStream_head),
-    ]
-    return VERSIONEDSTREAM
+STGMOVE_MOVE: STGMOVE = 0
+STGMOVE_COPY: STGMOVE = 1
+STGMOVE_SHALLOWCOPY: STGMOVE = 2
+class STGOPTIONS(Structure):
+    usVersion: UInt16
+    reserved: UInt16
+    ulSectorSize: UInt32
+    pwcsTemplateFile: win32more.Foundation.PWSTR
+class VERSIONEDSTREAM(Structure):
+    guidVersion: Guid
+    pStream: win32more.System.Com.IStream_head
+make_head(_module, 'BSTRBLOB')
+make_head(_module, 'CABOOL')
+make_head(_module, 'CABSTR')
+make_head(_module, 'CABSTRBLOB')
+make_head(_module, 'CAC')
+make_head(_module, 'CACLIPDATA')
+make_head(_module, 'CACLSID')
+make_head(_module, 'CACY')
+make_head(_module, 'CADATE')
+make_head(_module, 'CADBL')
+make_head(_module, 'CAFILETIME')
+make_head(_module, 'CAFLT')
+make_head(_module, 'CAH')
+make_head(_module, 'CAI')
+make_head(_module, 'CAL')
+make_head(_module, 'CALPSTR')
+make_head(_module, 'CALPWSTR')
+make_head(_module, 'CAPROPVARIANT')
+make_head(_module, 'CASCODE')
+make_head(_module, 'CAUB')
+make_head(_module, 'CAUH')
+make_head(_module, 'CAUI')
+make_head(_module, 'CAUL')
+make_head(_module, 'CLIPDATA')
+make_head(_module, 'IDirectWriterLock')
+make_head(_module, 'IEnumSTATPROPSETSTG')
+make_head(_module, 'IEnumSTATPROPSTG')
+make_head(_module, 'IEnumSTATSTG')
+make_head(_module, 'IFillLockBytes')
+make_head(_module, 'ILayoutStorage')
+make_head(_module, 'ILockBytes')
+make_head(_module, 'IPersistStorage')
+make_head(_module, 'IPropertyBag')
+make_head(_module, 'IPropertyBag2')
+make_head(_module, 'IPropertySetStorage')
+make_head(_module, 'IPropertyStorage')
+make_head(_module, 'IRootStorage')
+make_head(_module, 'IStorage')
+make_head(_module, 'OLESTREAM')
+make_head(_module, 'OLESTREAMVTBL')
+make_head(_module, 'PMemoryAllocator')
+make_head(_module, 'PROPBAG2')
+make_head(_module, 'PROPSPEC')
+make_head(_module, 'PROPVARIANT')
+make_head(_module, 'RemSNB')
+make_head(_module, 'SERIALIZEDPROPERTYVALUE')
+make_head(_module, 'STATPROPSETSTG')
+make_head(_module, 'STATPROPSTG')
+make_head(_module, 'STGOPTIONS')
+make_head(_module, 'VERSIONEDSTREAM')
 __all__ = [
     "BSTRBLOB",
     "CABOOL",

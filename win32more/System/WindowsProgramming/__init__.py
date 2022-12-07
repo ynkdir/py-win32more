@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Security
@@ -12,2982 +13,1809 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define__D3DHAL_CALLBACKS_head():
-    class _D3DHAL_CALLBACKS(Structure):
-        pass
-    return _D3DHAL_CALLBACKS
-def _define__D3DHAL_CALLBACKS():
-    _D3DHAL_CALLBACKS = win32more.System.WindowsProgramming._D3DHAL_CALLBACKS_head
-    return _D3DHAL_CALLBACKS
-def _define__D3DHAL_GLOBALDRIVERDATA_head():
-    class _D3DHAL_GLOBALDRIVERDATA(Structure):
-        pass
-    return _D3DHAL_GLOBALDRIVERDATA
-def _define__D3DHAL_GLOBALDRIVERDATA():
-    _D3DHAL_GLOBALDRIVERDATA = win32more.System.WindowsProgramming._D3DHAL_GLOBALDRIVERDATA_head
-    return _D3DHAL_GLOBALDRIVERDATA
-def _define_ACTCTX_SECTION_KEYED_DATA_2600_head():
-    class ACTCTX_SECTION_KEYED_DATA_2600(Structure):
-        pass
-    return ACTCTX_SECTION_KEYED_DATA_2600
-def _define_ACTCTX_SECTION_KEYED_DATA_2600():
-    ACTCTX_SECTION_KEYED_DATA_2600 = win32more.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_2600_head
-    ACTCTX_SECTION_KEYED_DATA_2600._fields_ = [
-        ('cbSize', UInt32),
-        ('ulDataFormatVersion', UInt32),
-        ('lpData', c_void_p),
-        ('ulLength', UInt32),
-        ('lpSectionGlobalData', c_void_p),
-        ('ulSectionGlobalDataLength', UInt32),
-        ('lpSectionBase', c_void_p),
-        ('ulSectionTotalLength', UInt32),
-        ('hActCtx', win32more.Foundation.HANDLE),
-        ('ulAssemblyRosterIndex', UInt32),
-    ]
-    return ACTCTX_SECTION_KEYED_DATA_2600
-def _define_ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA_head():
-    class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(Structure):
-        pass
-    return ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
-def _define_ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA():
-    ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = win32more.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA_head
-    ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA._fields_ = [
-        ('lpInformation', c_void_p),
-        ('lpSectionBase', c_void_p),
-        ('ulSectionLength', UInt32),
-        ('lpSectionGlobalDataBase', c_void_p),
-        ('ulSectionGlobalDataLength', UInt32),
-    ]
-    return ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
-def _define_ACTIVATION_CONTEXT_BASIC_INFORMATION_head():
-    class ACTIVATION_CONTEXT_BASIC_INFORMATION(Structure):
-        pass
-    return ACTIVATION_CONTEXT_BASIC_INFORMATION
-def _define_ACTIVATION_CONTEXT_BASIC_INFORMATION():
-    ACTIVATION_CONTEXT_BASIC_INFORMATION = win32more.System.WindowsProgramming.ACTIVATION_CONTEXT_BASIC_INFORMATION_head
-    ACTIVATION_CONTEXT_BASIC_INFORMATION._fields_ = [
-        ('hActCtx', win32more.Foundation.HANDLE),
-        ('dwFlags', UInt32),
-    ]
-    return ACTIVATION_CONTEXT_BASIC_INFORMATION
-WLDP_DLL = 'WLDP.DLL'
-WLDP_GETLOCKDOWNPOLICY_FN = 'WldpGetLockdownPolicy'
-WLDP_ISCLASSINAPPROVEDLIST_FN = 'WldpIsClassInApprovedList'
-WLDP_SETDYNAMICCODETRUST_FN = 'WldpSetDynamicCodeTrust'
-WLDP_ISDYNAMICCODEPOLICYENABLED_FN = 'WldpIsDynamicCodePolicyEnabled'
-WLDP_QUERYDANAMICCODETRUST_FN = 'WldpQueryDynamicCodeTrust'
-WLDP_QUERYDYNAMICCODETRUST_FN = 'WldpQueryDynamicCodeTrust'
-WLDP_QUERYWINDOWSLOCKDOWNMODE_FN = 'WldpQueryWindowsLockdownMode'
-WLDP_SETWINDOWSLOCKDOWNRESTRICTION_FN = 'WldpSetWindowsLockdownRestriction'
-WLDP_QUERYDEVICESECURITYINFORMATION_FN = 'WldpQueryDeviceSecurityInformation'
-WLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_FN = 'WldpQueryWindowsLockdownRestriction'
-WLDP_ISAPPAPPROVEDBYPOLICY_FN = 'WldpIsAppApprovedByPolicy'
-WLDP_QUERYPOLICYSETTINGENABLED_FN = 'WldpQueryPolicySettingEnabled'
-WLDP_QUERYPOLICYSETTINGENABLED2_FN = 'WldpQueryPolicySettingEnabled2'
-WLDP_ISWCOSPRODUCTIONCONFIGURATION_FN = 'WldpIsWcosProductionConfiguration'
-WLDP_RESETWCOSPRODUCTIONCONFIGURATION_FN = 'WldpResetWcosProductionConfiguration'
-WLDP_ISPRODUCTIONCONFIGURATION_FN = 'WldpIsProductionConfiguration'
-WLDP_RESETPRODUCTIONCONFIGURATION_FN = 'WldpResetProductionConfiguration'
-WLDP_LOCKDOWN_UNDEFINED = 0
-WLDP_LOCKDOWN_DEFINED_FLAG = 2147483648
-WLDP_LOCKDOWN_CONFIG_CI_FLAG = 1
-WLDP_LOCKDOWN_CONFIG_CI_AUDIT_FLAG = 2
-WLDP_LOCKDOWN_UMCIENFORCE_FLAG = 4
-WLDP_LOCKDOWN_AUDIT_FLAG = 8
-WLDP_LOCKDOWN_EXCLUSION_FLAG = 16
-WLDP_LOCKDOWN_OFF = 2147483648
-WLDP_HOST_INFORMATION_REVISION = 1
-WLDP_FLAGS_SKIPSIGNATUREVALIDATION = 256
-MAX_TDI_ENTITIES = 4096
-INFO_CLASS_GENERIC = 256
-INFO_CLASS_PROTOCOL = 512
-INFO_CLASS_IMPLEMENTATION = 768
-INFO_TYPE_PROVIDER = 256
-INFO_TYPE_ADDRESS_OBJECT = 512
-INFO_TYPE_CONNECTION = 768
-ENTITY_LIST_ID = 0
-INVALID_ENTITY_INSTANCE = -1
-CONTEXT_SIZE = 16
-ENTITY_TYPE_ID = 1
-CO_TL_NBF = 1024
-CO_TL_SPX = 1026
-CO_TL_TCP = 1028
-CO_TL_SPP = 1030
-CL_TL_NBF = 1025
-CL_TL_UDP = 1027
-ER_ICMP = 896
-CL_NL_IPX = 769
-CL_NL_IP = 771
-AT_ARP = 640
-AT_NULL = 642
-IF_GENERIC = 512
-IF_MIB = 514
-IOCTL_TDI_TL_IO_CONTROL_ENDPOINT = 2162744
-DCI_VERSION = 256
-DCICREATEPRIMARYSURFACE = 1
-DCICREATEOFFSCREENSURFACE = 2
-DCICREATEOVERLAYSURFACE = 3
-DCIENUMSURFACE = 4
-DCIESCAPE = 5
-DCI_OK = 0
-DCI_FAIL_GENERIC = -1
-DCI_FAIL_UNSUPPORTEDVERSION = -2
-DCI_FAIL_INVALIDSURFACE = -3
-DCI_FAIL_UNSUPPORTED = -4
-DCI_ERR_CURRENTLYNOTAVAIL = -5
-DCI_ERR_INVALIDRECT = -6
-DCI_ERR_UNSUPPORTEDFORMAT = -7
-DCI_ERR_UNSUPPORTEDMASK = -8
-DCI_ERR_TOOBIGHEIGHT = -9
-DCI_ERR_TOOBIGWIDTH = -10
-DCI_ERR_TOOBIGSIZE = -11
-DCI_ERR_OUTOFMEMORY = -12
-DCI_ERR_INVALIDPOSITION = -13
-DCI_ERR_INVALIDSTRETCH = -14
-DCI_ERR_INVALIDCLIPLIST = -15
-DCI_ERR_SURFACEISOBSCURED = -16
-DCI_ERR_XALIGN = -17
-DCI_ERR_YALIGN = -18
-DCI_ERR_XYALIGN = -19
-DCI_ERR_WIDTHALIGN = -20
-DCI_ERR_HEIGHTALIGN = -21
-DCI_STATUS_POINTERCHANGED = 1
-DCI_STATUS_STRIDECHANGED = 2
-DCI_STATUS_FORMATCHANGED = 4
-DCI_STATUS_SURFACEINFOCHANGED = 8
-DCI_STATUS_CHROMAKEYCHANGED = 16
-DCI_STATUS_WASSTILLDRAWING = 32
-DCI_SURFACE_TYPE = 15
-DCI_PRIMARY = 0
-DCI_OFFSCREEN = 1
-DCI_OVERLAY = 2
-DCI_VISIBLE = 16
-DCI_CHROMAKEY = 32
-DCI_1632_ACCESS = 64
-DCI_DWORDSIZE = 128
-DCI_DWORDALIGN = 256
-DCI_WRITEONLY = 512
-DCI_ASYNC = 1024
-DCI_CAN_STRETCHX = 4096
-DCI_CAN_STRETCHY = 8192
-DCI_CAN_STRETCHXN = 16384
-DCI_CAN_STRETCHYN = 32768
-DCI_CANOVERLAY = 65536
-FILE_FLAG_OPEN_REQUIRING_OPLOCK = 262144
-PROGRESS_CONTINUE = 0
-PROGRESS_CANCEL = 1
-PROGRESS_STOP = 2
-PROGRESS_QUIET = 3
-COPY_FILE_FAIL_IF_EXISTS = 1
-COPY_FILE_RESTARTABLE = 2
-COPY_FILE_OPEN_SOURCE_FOR_WRITE = 4
-COPY_FILE_ALLOW_DECRYPTED_DESTINATION = 8
-COPY_FILE_COPY_SYMLINK = 2048
-COPY_FILE_NO_BUFFERING = 4096
-COPY_FILE_REQUEST_SECURITY_PRIVILEGES = 8192
-COPY_FILE_RESUME_FROM_PAUSE = 16384
-COPY_FILE_NO_OFFLOAD = 262144
-COPY_FILE_IGNORE_EDP_BLOCK = 4194304
-COPY_FILE_IGNORE_SOURCE_ENCRYPTION = 8388608
-COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC = 33554432
-COPY_FILE_REQUEST_COMPRESSED_TRAFFIC = 268435456
-COPY_FILE_OPEN_AND_COPY_REPARSE_POINT = 2097152
-COPY_FILE_DIRECTORY = 128
-COPY_FILE_SKIP_ALTERNATE_STREAMS = 32768
-COPY_FILE_DISABLE_PRE_ALLOCATION = 67108864
-COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE = 134217728
-FAIL_FAST_GENERATE_EXCEPTION_ADDRESS = 1
-FAIL_FAST_NO_HARD_ERROR_DLG = 2
-DTR_CONTROL_DISABLE = 0
-DTR_CONTROL_ENABLE = 1
-DTR_CONTROL_HANDSHAKE = 2
-RTS_CONTROL_DISABLE = 0
-RTS_CONTROL_ENABLE = 1
-RTS_CONTROL_HANDSHAKE = 2
-RTS_CONTROL_TOGGLE = 3
-GMEM_NOCOMPACT = 16
-GMEM_NODISCARD = 32
-GMEM_MODIFY = 128
-GMEM_DISCARDABLE = 256
-GMEM_NOT_BANKED = 4096
-GMEM_SHARE = 8192
-GMEM_DDESHARE = 8192
-GMEM_NOTIFY = 16384
-GMEM_LOWER = 4096
-GMEM_VALID_FLAGS = 32626
-GMEM_INVALID_HANDLE = 32768
-GMEM_DISCARDED = 16384
-GMEM_LOCKCOUNT = 255
-THREAD_PRIORITY_ERROR_RETURN = 2147483647
-VOLUME_NAME_DOS = 0
-VOLUME_NAME_GUID = 1
-VOLUME_NAME_NT = 2
-VOLUME_NAME_NONE = 4
-DRIVE_UNKNOWN = 0
-DRIVE_NO_ROOT_DIR = 1
-DRIVE_REMOVABLE = 2
-DRIVE_FIXED = 3
-DRIVE_REMOTE = 4
-DRIVE_CDROM = 5
-DRIVE_RAMDISK = 6
-IGNORE = 0
-INFINITE = 4294967295
-CBR_110 = 110
-CBR_300 = 300
-CBR_600 = 600
-CBR_1200 = 1200
-CBR_2400 = 2400
-CBR_4800 = 4800
-CBR_9600 = 9600
-CBR_14400 = 14400
-CBR_19200 = 19200
-CBR_38400 = 38400
-CBR_56000 = 56000
-CBR_57600 = 57600
-CBR_115200 = 115200
-CBR_128000 = 128000
-CBR_256000 = 256000
-CE_TXFULL = 256
-CE_PTO = 512
-CE_IOE = 1024
-CE_DNS = 2048
-CE_OOP = 4096
-CE_MODE = 32768
-IE_BADID = -1
-IE_OPEN = -2
-IE_NOPEN = -3
-IE_MEMORY = -4
-IE_DEFAULT = -5
-IE_HARDWARE = -10
-IE_BYTESIZE = -11
-IE_BAUDRATE = -12
-RESETDEV = 7
-LPTx = 128
-S_QUEUEEMPTY = 0
-S_THRESHOLD = 1
-S_ALLTHRESHOLD = 2
-S_NORMAL = 0
-S_LEGATO = 1
-S_STACCATO = 2
-S_PERIOD512 = 0
-S_PERIOD1024 = 1
-S_PERIOD2048 = 2
-S_PERIODVOICE = 3
-S_WHITE512 = 4
-S_WHITE1024 = 5
-S_WHITE2048 = 6
-S_WHITEVOICE = 7
-S_SERDVNA = -1
-S_SEROFM = -2
-S_SERMACT = -3
-S_SERQFUL = -4
-S_SERBDNT = -5
-S_SERDLN = -6
-S_SERDCC = -7
-S_SERDTP = -8
-S_SERDVL = -9
-S_SERDMD = -10
-S_SERDSH = -11
-S_SERDPT = -12
-S_SERDFQ = -13
-S_SERDDR = -14
-S_SERDSR = -15
-S_SERDST = -16
-FS_CASE_IS_PRESERVED = 2
-FS_CASE_SENSITIVE = 1
-FS_UNICODE_STORED_ON_DISK = 4
-FS_PERSISTENT_ACLS = 8
-FS_VOL_IS_COMPRESSED = 32768
-FS_FILE_COMPRESSION = 16
-FS_FILE_ENCRYPTION = 131072
-OFS_MAXPATHNAME = 128
-MAXINTATOM = 49152
-SCS_32BIT_BINARY = 0
-SCS_DOS_BINARY = 1
-SCS_WOW_BINARY = 2
-SCS_PIF_BINARY = 3
-SCS_POSIX_BINARY = 4
-SCS_OS216_BINARY = 5
-SCS_64BIT_BINARY = 6
-SCS_THIS_PLATFORM_BINARY = 6
-FIBER_FLAG_FLOAT_SWITCH = 1
-UMS_VERSION = 256
-FILE_SKIP_COMPLETION_PORT_ON_SUCCESS = 1
-FILE_SKIP_SET_EVENT_ON_HANDLE = 2
-CRITICAL_SECTION_NO_DEBUG_INFO = 16777216
-HINSTANCE_ERROR = 32
-FORMAT_MESSAGE_MAX_WIDTH_MASK = 255
-FILE_ENCRYPTABLE = 0
-FILE_IS_ENCRYPTED = 1
-FILE_SYSTEM_ATTR = 2
-FILE_ROOT_DIR = 3
-FILE_SYSTEM_DIR = 4
-FILE_UNKNOWN = 5
-FILE_SYSTEM_NOT_SUPPORT = 6
-FILE_USER_DISALLOWED = 7
-FILE_READ_ONLY = 8
-FILE_DIR_DISALLOWED = 9
-EFS_USE_RECOVERY_KEYS = 1
-CREATE_FOR_IMPORT = 1
-CREATE_FOR_DIR = 2
-OVERWRITE_HIDDEN = 4
-EFSRPC_SECURE_ONLY = 8
-EFS_DROP_ALTERNATE_STREAMS = 16
-BACKUP_INVALID = 0
-BACKUP_GHOSTED_FILE_EXTENTS = 11
-STREAM_NORMAL_ATTRIBUTE = 0
-STREAM_MODIFIED_WHEN_READ = 1
-STREAM_CONTAINS_SECURITY = 2
-STREAM_CONTAINS_PROPERTIES = 4
-STREAM_SPARSE_ATTRIBUTE = 8
-STREAM_CONTAINS_GHOSTED_FILE_EXTENTS = 16
-STARTF_HOLOGRAPHIC = 262144
-SHUTDOWN_NORETRY = 1
-PROTECTION_LEVEL_SAME = 4294967295
-PROC_THREAD_ATTRIBUTE_NUMBER = 65535
-PROC_THREAD_ATTRIBUTE_THREAD = 65536
-PROC_THREAD_ATTRIBUTE_INPUT = 131072
-PROC_THREAD_ATTRIBUTE_ADDITIVE = 262144
-PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE = 1
-PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE = 2
-PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE = 4
-PROCESS_CREATION_CHILD_PROCESS_RESTRICTED = 1
-PROCESS_CREATION_CHILD_PROCESS_OVERRIDE = 2
-PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE = 4
-PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT = 1
-PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE = 1
-PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE = 2
-PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE = 4
-ATOM_FLAG_GLOBAL = 2
-GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A = 'GetSystemWow64DirectoryA'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W = 'GetSystemWow64DirectoryA'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T = 'GetSystemWow64DirectoryA'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A = 'GetSystemWow64DirectoryW'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W = 'GetSystemWow64DirectoryW'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T = 'GetSystemWow64DirectoryW'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A = 'GetSystemWow64DirectoryW'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W = 'GetSystemWow64DirectoryW'
-GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T = 'GetSystemWow64DirectoryW'
-BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE = 1
-BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE = 65536
-BASE_SEARCH_PATH_PERMANENT = 32768
-COPYFILE2_MESSAGE_COPY_OFFLOAD = 1
-COPYFILE2_IO_CYCLE_SIZE_MIN = 4096
-COPYFILE2_IO_CYCLE_SIZE_MAX = 1073741824
-COPYFILE2_IO_RATE_MIN = 512
-EVENTLOG_FULL_INFO = 0
-OPERATION_API_VERSION = 1
-MAX_COMPUTERNAME_LENGTH = 15
-LOGON32_PROVIDER_WINNT35 = 1
-LOGON32_PROVIDER_VIRTUAL = 4
-LOGON_ZERO_PASSWORD_BUFFER = 2147483648
-HW_PROFILE_GUIDLEN = 39
-DOCKINFO_UNDOCKED = 1
-DOCKINFO_DOCKED = 2
-DOCKINFO_USER_SUPPLIED = 4
-TC_NORMAL = 0
-TC_HARDERR = 1
-TC_GP_TRAP = 2
-TC_SIGNAL = 3
-AC_LINE_OFFLINE = 0
-AC_LINE_ONLINE = 1
-AC_LINE_BACKUP_POWER = 2
-AC_LINE_UNKNOWN = 255
-BATTERY_FLAG_HIGH = 1
-BATTERY_FLAG_LOW = 2
-BATTERY_FLAG_CRITICAL = 4
-BATTERY_FLAG_CHARGING = 8
-BATTERY_FLAG_NO_BATTERY = 128
-BATTERY_FLAG_UNKNOWN = 255
-BATTERY_PERCENTAGE_UNKNOWN = 255
-SYSTEM_STATUS_FLAG_POWER_SAVING_ON = 1
-BATTERY_LIFE_UNKNOWN = 4294967295
-ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID = 1
-ACTCTX_FLAG_LANGID_VALID = 2
-ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID = 4
-ACTCTX_FLAG_RESOURCE_NAME_VALID = 8
-ACTCTX_FLAG_SET_PROCESS_DEFAULT = 16
-ACTCTX_FLAG_APPLICATION_NAME_VALID = 32
-ACTCTX_FLAG_SOURCE_IS_ASSEMBLYREF = 64
-ACTCTX_FLAG_HMODULE_VALID = 128
-DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION = 1
-FIND_ACTCTX_SECTION_KEY_RETURN_HACTCTX = 1
-FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS = 2
-FIND_ACTCTX_SECTION_KEY_RETURN_ASSEMBLY_METADATA = 4
-ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED = 1
-QUERY_ACTCTX_FLAG_USE_ACTIVE_ACTCTX = 4
-QUERY_ACTCTX_FLAG_ACTCTX_IS_HMODULE = 8
-QUERY_ACTCTX_FLAG_ACTCTX_IS_ADDRESS = 16
-QUERY_ACTCTX_FLAG_NO_ADDREF = 2147483648
-RESTART_MAX_CMD_LINE = 1024
-RECOVERY_DEFAULT_PING_INTERVAL = 5000
-FILE_RENAME_FLAG_REPLACE_IF_EXISTS = 1
-FILE_RENAME_FLAG_POSIX_SEMANTICS = 2
-FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE = 4
-FILE_DISPOSITION_FLAG_DO_NOT_DELETE = 0
-FILE_DISPOSITION_FLAG_DELETE = 1
-FILE_DISPOSITION_FLAG_POSIX_SEMANTICS = 2
-FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK = 4
-FILE_DISPOSITION_FLAG_ON_CLOSE = 8
-FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE = 16
-STORAGE_INFO_FLAGS_ALIGNED_DEVICE = 1
-STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE = 2
-STORAGE_INFO_OFFSET_UNKNOWN = 4294967295
-REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK = 1
-REMOTE_PROTOCOL_INFO_FLAG_OFFLINE = 2
-REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE = 4
-RPI_FLAG_SMB2_SHARECAP_TIMEWARP = 2
-RPI_FLAG_SMB2_SHARECAP_DFS = 8
-RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY = 16
-RPI_FLAG_SMB2_SHARECAP_SCALEOUT = 32
-RPI_FLAG_SMB2_SHARECAP_CLUSTER = 64
-RPI_SMB2_FLAG_SERVERCAP_DFS = 1
-RPI_SMB2_FLAG_SERVERCAP_LEASING = 2
-RPI_SMB2_FLAG_SERVERCAP_LARGEMTU = 4
-RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL = 8
-RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES = 16
-RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING = 32
-MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS = 0
-MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS = 0
-CODEINTEGRITY_OPTION_ENABLED = 1
-CODEINTEGRITY_OPTION_TESTSIGN = 2
-CODEINTEGRITY_OPTION_UMCI_ENABLED = 4
-CODEINTEGRITY_OPTION_UMCI_AUDITMODE_ENABLED = 8
-CODEINTEGRITY_OPTION_UMCI_EXCLUSIONPATHS_ENABLED = 16
-CODEINTEGRITY_OPTION_TEST_BUILD = 32
-CODEINTEGRITY_OPTION_PREPRODUCTION_BUILD = 64
-CODEINTEGRITY_OPTION_DEBUGMODE_ENABLED = 128
-CODEINTEGRITY_OPTION_FLIGHT_BUILD = 256
-CODEINTEGRITY_OPTION_FLIGHTING_ENABLED = 512
-CODEINTEGRITY_OPTION_HVCI_KMCI_ENABLED = 1024
-CODEINTEGRITY_OPTION_HVCI_KMCI_AUDITMODE_ENABLED = 2048
-CODEINTEGRITY_OPTION_HVCI_KMCI_STRICTMODE_ENABLED = 4096
-CODEINTEGRITY_OPTION_HVCI_IUM_ENABLED = 8192
-FILE_MAXIMUM_DISPOSITION = 5
-FILE_DIRECTORY_FILE = 1
-FILE_WRITE_THROUGH = 2
-FILE_SEQUENTIAL_ONLY = 4
-FILE_NO_INTERMEDIATE_BUFFERING = 8
-FILE_SYNCHRONOUS_IO_ALERT = 16
-FILE_SYNCHRONOUS_IO_NONALERT = 32
-FILE_NON_DIRECTORY_FILE = 64
-FILE_CREATE_TREE_CONNECTION = 128
-FILE_COMPLETE_IF_OPLOCKED = 256
-FILE_NO_EA_KNOWLEDGE = 512
-FILE_OPEN_REMOTE_INSTANCE = 1024
-FILE_RANDOM_ACCESS = 2048
-FILE_DELETE_ON_CLOSE = 4096
-FILE_OPEN_BY_FILE_ID = 8192
-FILE_OPEN_FOR_BACKUP_INTENT = 16384
-FILE_NO_COMPRESSION = 32768
-FILE_OPEN_REQUIRING_OPLOCK = 65536
-FILE_RESERVE_OPFILTER = 1048576
-FILE_OPEN_REPARSE_POINT = 2097152
-FILE_OPEN_NO_RECALL = 4194304
-FILE_OPEN_FOR_FREE_SPACE_QUERY = 8388608
-FILE_VALID_OPTION_FLAGS = 16777215
-FILE_VALID_PIPE_OPTION_FLAGS = 50
-FILE_VALID_MAILSLOT_OPTION_FLAGS = 50
-FILE_VALID_SET_FLAGS = 54
-FILE_SUPERSEDED = 0
-FILE_OPENED = 1
-FILE_CREATED = 2
-FILE_OVERWRITTEN = 3
-FILE_EXISTS = 4
-FILE_DOES_NOT_EXIST = 5
-WINWATCHNOTIFY_START = 0
-WINWATCHNOTIFY_STOP = 1
-WINWATCHNOTIFY_DESTROY = 2
-WINWATCHNOTIFY_CHANGING = 3
-WINWATCHNOTIFY_CHANGED = 4
-RSC_FLAG_INF = 1
-RSC_FLAG_SKIPDISKSPACECHECK = 2
-RSC_FLAG_QUIET = 4
-RSC_FLAG_NGCONV = 8
-RSC_FLAG_UPDHLPDLLS = 16
-RSC_FLAG_DELAYREGISTEROCX = 512
-RSC_FLAG_SETUPAPI = 1024
-ALINF_QUIET = 4
-ALINF_NGCONV = 8
-ALINF_UPDHLPDLLS = 16
-ALINF_BKINSTALL = 32
-ALINF_ROLLBACK = 64
-ALINF_CHECKBKDATA = 128
-ALINF_ROLLBKDOALL = 256
-ALINF_DELAYREGISTEROCX = 512
-AIF_WARNIFSKIP = 1
-AIF_NOSKIP = 2
-AIF_NOVERSIONCHECK = 4
-AIF_FORCE_FILE_IN_USE = 8
-AIF_NOOVERWRITE = 16
-AIF_NO_VERSION_DIALOG = 32
-AIF_REPLACEONLY = 1024
-AIF_NOLANGUAGECHECK = 268435456
-AIF_QUIET = 536870912
-IE4_RESTORE = 1
-IE4_BACKNEW = 2
-IE4_NODELETENEW = 4
-IE4_NOMESSAGES = 8
-IE4_NOPROGRESS = 16
-IE4_NOENUMKEY = 32
-IE4_NO_CRC_MAPPING = 64
-IE4_REGSECTION = 128
-IE4_FRDOALL = 256
-IE4_UPDREFCNT = 512
-IE4_USEREFCNT = 1024
-IE4_EXTRAINCREFCNT = 2048
-IE4_REMOVREGBKDATA = 4096
-ARSR_RESTORE = 1
-ARSR_NOMESSAGES = 8
-ARSR_REGSECTION = 128
-ARSR_REMOVREGBKDATA = 4096
-REG_SAVE_LOG_KEY = 'RegSaveLogFile'
-REG_RESTORE_LOG_KEY = 'RegRestoreLogFile'
-AFSR_RESTORE = 1
-AFSR_BACKNEW = 2
-AFSR_NODELETENEW = 4
-AFSR_NOMESSAGES = 8
-AFSR_NOPROGRESS = 16
-AFSR_UPDREFCNT = 512
-AFSR_USEREFCNT = 1024
-AFSR_EXTRAINCREFCNT = 2048
-AADBE_ADD_ENTRY = 1
-AADBE_DEL_ENTRY = 2
-ADN_DEL_IF_EMPTY = 1
-ADN_DONT_DEL_SUBDIRS = 2
-ADN_DONT_DEL_DIR = 4
-ADN_DEL_UNC_PATHS = 8
-LIS_QUIET = 1
-LIS_NOGRPCONV = 2
-RUNCMDS_QUIET = 1
-RUNCMDS_NOWAIT = 2
-RUNCMDS_DELAYPOSTCMD = 4
-IME_MAXPROCESS = 32
-CP_HWND = 0
-CP_OPEN = 1
-CP_DIRECT = 2
-CP_LEVEL = 3
-MCW_DEFAULT = 0
-MCW_RECT = 1
-MCW_WINDOW = 2
-MCW_SCREEN = 4
-MCW_VERTICAL = 8
-MCW_HIDDEN = 16
-IME_MODE_ALPHANUMERIC = 1
-IME_MODE_SBCSCHAR = 2
-IME_MODE_KATAKANA = 2
-IME_MODE_HIRAGANA = 4
-IME_MODE_HANJACONVERT = 4
-IME_MODE_DBCSCHAR = 16
-IME_MODE_ROMAN = 32
-IME_MODE_NOROMAN = 64
-IME_MODE_CODEINPUT = 128
-IME_MODE_NOCODEINPUT = 256
-IME_GETIMECAPS = 3
-IME_SETOPEN = 4
-IME_GETOPEN = 5
-IME_GETVERSION = 7
-IME_SETCONVERSIONWINDOW = 8
-IME_MOVEIMEWINDOW = 8
-IME_SETCONVERSIONMODE = 16
-IME_GETCONVERSIONMODE = 17
-IME_SET_MODE = 18
-IME_SENDVKEY = 19
-IME_ENTERWORDREGISTERMODE = 24
-IME_SETCONVERSIONFONTEX = 25
-IME_BANJAtoJUNJA = 19
-IME_JUNJAtoBANJA = 20
-IME_JOHABtoKS = 21
-IME_KStoJOHAB = 22
-IMEA_INIT = 1
-IMEA_NEXT = 2
-IMEA_PREV = 3
-IME_REQUEST_CONVERT = 1
-IME_ENABLE_CONVERT = 2
-INTERIM_WINDOW = 0
-MODE_WINDOW = 1
-HANJA_WINDOW = 2
-IME_RS_ERROR = 1
-IME_RS_NOIME = 2
-IME_RS_TOOLONG = 5
-IME_RS_ILLEGAL = 6
-IME_RS_NOTFOUND = 7
-IME_RS_NOROOM = 10
-IME_RS_DISKERROR = 14
-IME_RS_INVALID = 17
-IME_RS_NEST = 18
-IME_RS_SYSTEMMODAL = 19
-WM_IME_REPORT = 640
-IR_STRINGSTART = 256
-IR_STRINGEND = 257
-IR_OPENCONVERT = 288
-IR_CHANGECONVERT = 289
-IR_CLOSECONVERT = 290
-IR_FULLCONVERT = 291
-IR_IMESELECT = 304
-IR_STRING = 320
-IR_DBCSCHAR = 352
-IR_UNDETERMINE = 368
-IR_STRINGEX = 384
-IR_MODEINFO = 400
-WM_WNT_CONVERTREQUESTEX = 265
-WM_CONVERTREQUEST = 266
-WM_CONVERTRESULT = 267
-WM_INTERIM = 268
-WM_IMEKEYDOWN = 656
-WM_IMEKEYUP = 657
-DELAYLOAD_GPA_FAILURE = 4
-def _define_CATID_DeleteBrowsingHistory():
-    return Guid('31caf6e4-d6aa-4090-a0-50-a5-ac-89-72-e9-ef')
-DELETE_BROWSING_HISTORY_HISTORY = 1
-DELETE_BROWSING_HISTORY_COOKIES = 2
-DELETE_BROWSING_HISTORY_TIF = 4
-DELETE_BROWSING_HISTORY_FORMDATA = 8
-DELETE_BROWSING_HISTORY_PASSWORDS = 16
-DELETE_BROWSING_HISTORY_PRESERVEFAVORITES = 32
-DELETE_BROWSING_HISTORY_DOWNLOADHISTORY = 64
-def _define_uaw_lstrcmpW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt16),POINTER(UInt16))(('uaw_lstrcmpW', windll['KERNEL32.dll']), ((1, 'String1'),(1, 'String2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_lstrcmpiW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt16),POINTER(UInt16))(('uaw_lstrcmpiW', windll['KERNEL32.dll']), ((1, 'String1'),(1, 'String2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_lstrlenW():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt16))(('uaw_lstrlenW', windll['KERNEL32.dll']), ((1, 'String'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_wcschr():
-    try:
-        return WINFUNCTYPE(POINTER(UInt16),POINTER(UInt16),Char)(('uaw_wcschr', windll['KERNEL32.dll']), ((1, 'String'),(1, 'Character'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_wcscpy():
-    try:
-        return WINFUNCTYPE(POINTER(UInt16),POINTER(UInt16),POINTER(UInt16))(('uaw_wcscpy', windll['KERNEL32.dll']), ((1, 'Destination'),(1, 'Source'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_wcsicmp():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(UInt16),POINTER(UInt16))(('uaw_wcsicmp', windll['KERNEL32.dll']), ((1, 'String1'),(1, 'String2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_wcslen():
-    try:
-        return WINFUNCTYPE(UIntPtr,POINTER(UInt16))(('uaw_wcslen', windll['KERNEL32.dll']), ((1, 'String'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_uaw_wcsrchr():
-    try:
-        return WINFUNCTYPE(POINTER(UInt16),POINTER(UInt16),Char)(('uaw_wcsrchr', windll['KERNEL32.dll']), ((1, 'String'),(1, 'Character'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlGetReturnAddressHijackTarget():
-    try:
-        return WINFUNCTYPE(UIntPtr,)(('RtlGetReturnAddressHijackTarget', windll['ntdll.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlRaiseCustomSystemEventTrigger():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head))(('RtlRaiseCustomSystemEventTrigger', windll['ntdll.dll']), ((1, 'TriggerConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsApiSetImplemented():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('IsApiSetImplemented', windll['api-ms-win-core-apiquery-l2-1-0.dll']), ((1, 'Contract'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryThreadCycleTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt64))(('QueryThreadCycleTime', windll['KERNEL32.dll']), ((1, 'ThreadHandle'),(1, 'CycleTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryProcessCycleTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt64))(('QueryProcessCycleTime', windll['KERNEL32.dll']), ((1, 'ProcessHandle'),(1, 'CycleTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryIdleProcessorCycleTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt64))(('QueryIdleProcessorCycleTime', windll['KERNEL32.dll']), ((1, 'BufferLength'),(1, 'ProcessorIdleCycleTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryIdleProcessorCycleTimeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt16,POINTER(UInt32),POINTER(UInt64))(('QueryIdleProcessorCycleTimeEx', windll['KERNEL32.dll']), ((1, 'Group'),(1, 'BufferLength'),(1, 'ProcessorIdleCycleTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryInterruptTimePrecise():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt64))(('QueryInterruptTimePrecise', windll['api-ms-win-core-realtime-l1-1-1.dll']), ((1, 'lpInterruptTimePrecise'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryUnbiasedInterruptTimePrecise():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt64))(('QueryUnbiasedInterruptTimePrecise', windll['api-ms-win-core-realtime-l1-1-1.dll']), ((1, 'lpUnbiasedInterruptTimePrecise'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryInterruptTime():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt64))(('QueryInterruptTime', windll['api-ms-win-core-realtime-l1-1-1.dll']), ((1, 'lpInterruptTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryUnbiasedInterruptTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt64))(('QueryUnbiasedInterruptTime', windll['KERNEL32.dll']), ((1, 'UnbiasedTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryAuxiliaryCounterFrequency():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(('QueryAuxiliaryCounterFrequency', windll['api-ms-win-core-realtime-l1-1-2.dll']), ((1, 'lpAuxiliaryCounterFrequency'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertAuxiliaryCounterToPerformanceCounter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt64),POINTER(UInt64))(('ConvertAuxiliaryCounterToPerformanceCounter', windll['api-ms-win-core-realtime-l1-1-2.dll']), ((1, 'ullAuxiliaryCounterValue'),(1, 'lpPerformanceCounterValue'),(1, 'lpConversionError'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertPerformanceCounterToAuxiliaryCounter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt64),POINTER(UInt64))(('ConvertPerformanceCounterToAuxiliaryCounter', windll['api-ms-win-core-realtime-l1-1-2.dll']), ((1, 'ullPerformanceCounterValue'),(1, 'lpAuxiliaryCounterValue'),(1, 'lpConversionError'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalCompact():
-    try:
-        return WINFUNCTYPE(UIntPtr,UInt32)(('GlobalCompact', windll['KERNEL32.dll']), ((1, 'dwMinFree'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalFix():
-    try:
-        return WINFUNCTYPE(Void,IntPtr)(('GlobalFix', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalUnfix():
-    try:
-        return WINFUNCTYPE(Void,IntPtr)(('GlobalUnfix', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalWire():
-    try:
-        return WINFUNCTYPE(c_void_p,IntPtr)(('GlobalWire', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalUnWire():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('GlobalUnWire', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalShrink():
-    try:
-        return WINFUNCTYPE(UIntPtr,IntPtr,UInt32)(('LocalShrink', windll['KERNEL32.dll']), ((1, 'hMem'),(1, 'cbNewSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalCompact():
-    try:
-        return WINFUNCTYPE(UIntPtr,UInt32)(('LocalCompact', windll['KERNEL32.dll']), ((1, 'uMinFree'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetEnvironmentStringsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('SetEnvironmentStringsA', windll['KERNEL32.dll']), ((1, 'NewEnvironment'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetHandleCount():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('SetHandleCount', windll['KERNEL32.dll']), ((1, 'uNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RequestDeviceWakeup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('RequestDeviceWakeup', windll['KERNEL32.dll']), ((1, 'hDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelDeviceWakeupRequest():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('CancelDeviceWakeupRequest', windll['KERNEL32.dll']), ((1, 'hDevice'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetMessageWaitingIndicator():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('SetMessageWaitingIndicator', windll['KERNEL32.dll']), ((1, 'hMsgIndicator'),(1, 'ulMsgCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MulDiv():
-    try:
-        return WINFUNCTYPE(Int32,Int32,Int32,Int32)(('MulDiv', windll['KERNEL32.dll']), ((1, 'nNumber'),(1, 'nNumerator'),(1, 'nDenominator'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemRegistryQuota():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32))(('GetSystemRegistryQuota', windll['KERNEL32.dll']), ((1, 'pdwQuotaAllowed'),(1, 'pdwQuotaUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileTimeToDosDateTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.FILETIME_head),POINTER(UInt16),POINTER(UInt16))(('FileTimeToDosDateTime', windll['KERNEL32.dll']), ((1, 'lpFileTime'),(1, 'lpFatDate'),(1, 'lpFatTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DosDateTimeToFileTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt16,UInt16,POINTER(win32more.Foundation.FILETIME_head))(('DosDateTimeToFileTime', windll['KERNEL32.dll']), ((1, 'wFatDate'),(1, 'wFatTime'),(1, 'lpFileTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__lopen():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32)(('_lopen', windll['KERNEL32.dll']), ((1, 'lpPathName'),(1, 'iReadWrite'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__lcreat():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,Int32)(('_lcreat', windll['KERNEL32.dll']), ((1, 'lpPathName'),(1, 'iAttribute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__lread():
-    try:
-        return WINFUNCTYPE(UInt32,Int32,c_void_p,UInt32)(('_lread', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'uBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__lwrite():
-    try:
-        return WINFUNCTYPE(UInt32,Int32,win32more.Foundation.PSTR,UInt32)(('_lwrite', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'uBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__hread():
-    try:
-        return WINFUNCTYPE(Int32,Int32,c_void_p,Int32)(('_hread', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'lBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__hwrite():
-    try:
-        return WINFUNCTYPE(Int32,Int32,win32more.Foundation.PSTR,Int32)(('_hwrite', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpBuffer'),(1, 'lBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__lclose():
-    try:
-        return WINFUNCTYPE(Int32,Int32)(('_lclose', windll['KERNEL32.dll']), ((1, 'hFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define__llseek():
-    try:
-        return WINFUNCTYPE(Int32,Int32,Int32,Int32)(('_llseek', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lOffset'),(1, 'iOrigin'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SignalObjectAndWait():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL)(('SignalObjectAndWait', windll['KERNEL32.dll']), ((1, 'hObjectToSignal'),(1, 'hObjectToWaitOn'),(1, 'dwMilliseconds'),(1, 'bAlertable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenMutexA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('OpenMutexA', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenSemaphoreA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('OpenSemaphoreA', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWaitableTimerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('CreateWaitableTimerA', windll['KERNEL32.dll']), ((1, 'lpTimerAttributes'),(1, 'bManualReset'),(1, 'lpTimerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenWaitableTimerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('OpenWaitableTimerA', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpTimerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWaitableTimerExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PSTR,UInt32,UInt32)(('CreateWaitableTimerExA', windll['KERNEL32.dll']), ((1, 'lpTimerAttributes'),(1, 'lpTimerName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFirmwareEnvironmentVariableA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32)(('GetFirmwareEnvironmentVariableA', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFirmwareEnvironmentVariableW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32)(('GetFirmwareEnvironmentVariableW', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFirmwareEnvironmentVariableExA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(UInt32))(('GetFirmwareEnvironmentVariableExA', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pBuffer'),(1, 'nSize'),(1, 'pdwAttribubutes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFirmwareEnvironmentVariableExW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(UInt32))(('GetFirmwareEnvironmentVariableExW', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pBuffer'),(1, 'nSize'),(1, 'pdwAttribubutes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFirmwareEnvironmentVariableA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32)(('SetFirmwareEnvironmentVariableA', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pValue'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFirmwareEnvironmentVariableW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32)(('SetFirmwareEnvironmentVariableW', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pValue'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFirmwareEnvironmentVariableExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32,UInt32)(('SetFirmwareEnvironmentVariableExA', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pValue'),(1, 'nSize'),(1, 'dwAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFirmwareEnvironmentVariableExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32,UInt32)(('SetFirmwareEnvironmentVariableExW', windll['KERNEL32.dll']), ((1, 'lpName'),(1, 'lpGuid'),(1, 'pValue'),(1, 'nSize'),(1, 'dwAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsNativeVhdBoot():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL))(('IsNativeVhdBoot', windll['KERNEL32.dll']), ((1, 'NativeVhdBoot'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileIntA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32)(('GetProfileIntA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'nDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileIntW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32)(('GetProfileIntW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'nDefault'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileStringA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('GetProfileStringA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpDefault'),(1, 'lpReturnedString'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileStringW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('GetProfileStringW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpDefault'),(1, 'lpReturnedString'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteProfileStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WriteProfileStringA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteProfileStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WriteProfileStringW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileSectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('GetProfileSectionA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpReturnedString'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProfileSectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('GetProfileSectionW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpReturnedString'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteProfileSectionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WriteProfileSectionA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WriteProfileSectionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WriteProfileSectionW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileIntA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Int32,win32more.Foundation.PSTR)(('GetPrivateProfileIntA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'nDefault'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileIntW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR)(('GetPrivateProfileIntW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'nDefault'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileStringA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('GetPrivateProfileStringA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpDefault'),(1, 'lpReturnedString'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileStringW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('GetPrivateProfileStringW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpDefault'),(1, 'lpReturnedString'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WritePrivateProfileStringA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpString'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WritePrivateProfileStringW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpKeyName'),(1, 'lpString'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileSectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('GetPrivateProfileSectionA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpReturnedString'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileSectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('GetPrivateProfileSectionW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpReturnedString'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileSectionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WritePrivateProfileSectionA', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpString'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileSectionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WritePrivateProfileSectionW', windll['KERNEL32.dll']), ((1, 'lpAppName'),(1, 'lpString'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileSectionNamesA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('GetPrivateProfileSectionNamesA', windll['KERNEL32.dll']), ((1, 'lpszReturnBuffer'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileSectionNamesW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('GetPrivateProfileSectionNamesW', windll['KERNEL32.dll']), ((1, 'lpszReturnBuffer'),(1, 'nSize'),(1, 'lpFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileStructA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32,win32more.Foundation.PSTR)(('GetPrivateProfileStructA', windll['KERNEL32.dll']), ((1, 'lpszSection'),(1, 'lpszKey'),(1, 'lpStruct'),(1, 'uSizeStruct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateProfileStructW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.Foundation.PWSTR)(('GetPrivateProfileStructW', windll['KERNEL32.dll']), ((1, 'lpszSection'),(1, 'lpszKey'),(1, 'lpStruct'),(1, 'uSizeStruct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileStructA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,c_void_p,UInt32,win32more.Foundation.PSTR)(('WritePrivateProfileStructA', windll['KERNEL32.dll']), ((1, 'lpszSection'),(1, 'lpszKey'),(1, 'lpStruct'),(1, 'uSizeStruct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WritePrivateProfileStructW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.Foundation.PWSTR)(('WritePrivateProfileStructW', windll['KERNEL32.dll']), ((1, 'lpszSection'),(1, 'lpszKey'),(1, 'lpStruct'),(1, 'uSizeStruct'),(1, 'szFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadHugeReadPtr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('IsBadHugeReadPtr', windll['KERNEL32.dll']), ((1, 'lp'),(1, 'ucb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadHugeWritePtr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('IsBadHugeWritePtr', windll['KERNEL32.dll']), ((1, 'lp'),(1, 'ucb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetComputerNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32))(('GetComputerNameA', windll['KERNEL32.dll']), ((1, 'lpBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetComputerNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetComputerNameW', windll['KERNEL32.dll']), ((1, 'lpBuffer'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DnsHostnameToComputerNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('DnsHostnameToComputerNameA', windll['KERNEL32.dll']), ((1, 'Hostname'),(1, 'ComputerName'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DnsHostnameToComputerNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('DnsHostnameToComputerNameW', windll['KERNEL32.dll']), ((1, 'Hostname'),(1, 'ComputerName'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUserNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(UInt32))(('GetUserNameA', windll['ADVAPI32.dll']), ((1, 'lpBuffer'),(1, 'pcbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUserNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetUserNameW', windll['ADVAPI32.dll']), ((1, 'lpBuffer'),(1, 'pcbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsTokenUntrusted():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('IsTokenUntrusted', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelTimerQueueTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('CancelTimerQueueTimer', windll['KERNEL32.dll']), ((1, 'TimerQueue'),(1, 'Timer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentHwProfileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.WindowsProgramming.HW_PROFILE_INFOA_head))(('GetCurrentHwProfileA', windll['ADVAPI32.dll']), ((1, 'lpHwProfileInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentHwProfileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.WindowsProgramming.HW_PROFILE_INFOW_head))(('GetCurrentHwProfileW', windll['ADVAPI32.dll']), ((1, 'lpHwProfileInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReplacePartitionUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('ReplacePartitionUnit', windll['KERNEL32.dll']), ((1, 'TargetPartition'),(1, 'SparePartition'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadEnabledXStateFeatures():
-    try:
-        return WINFUNCTYPE(UInt64,)(('GetThreadEnabledXStateFeatures', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnableProcessOptionalXStateFeatures():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt64)(('EnableProcessOptionalXStateFeatures', windll['KERNEL32.dll']), ((1, 'Features'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RaiseCustomSystemEventTrigger():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head))(('RaiseCustomSystemEventTrigger', windll['api-ms-win-core-backgroundtask-l1-1-0.dll']), ((1, 'CustomSystemEventTriggerConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE)(('NtClose', windll['ntdll.dll']), ((1, 'Handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtOpenFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.HANDLE),UInt32,POINTER(win32more.System.WindowsProgramming.OBJECT_ATTRIBUTES_head),POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head),UInt32,UInt32)(('NtOpenFile', windll['ntdll.dll']), ((1, 'FileHandle'),(1, 'DesiredAccess'),(1, 'ObjectAttributes'),(1, 'IoStatusBlock'),(1, 'ShareAccess'),(1, 'OpenOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtRenameKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.UNICODE_STRING_head))(('NtRenameKey', windll['ntdll.dll']), ((1, 'KeyHandle'),(1, 'NewName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtNotifyChangeMultipleKeys():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.WindowsProgramming.OBJECT_ATTRIBUTES_head),win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.PIO_APC_ROUTINE,c_void_p,POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head),UInt32,win32more.Foundation.BOOLEAN,c_void_p,UInt32,win32more.Foundation.BOOLEAN)(('NtNotifyChangeMultipleKeys', windll['ntdll.dll']), ((1, 'MasterKeyHandle'),(1, 'Count'),(1, 'SubordinateObjects'),(1, 'Event'),(1, 'ApcRoutine'),(1, 'ApcContext'),(1, 'IoStatusBlock'),(1, 'CompletionFilter'),(1, 'WatchTree'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'Asynchronous'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQueryMultipleValueKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,POINTER(win32more.System.WindowsProgramming.KEY_VALUE_ENTRY_head),UInt32,c_void_p,POINTER(UInt32),POINTER(UInt32))(('NtQueryMultipleValueKey', windll['ntdll.dll']), ((1, 'KeyHandle'),(1, 'ValueEntries'),(1, 'EntryCount'),(1, 'ValueBuffer'),(1, 'BufferLength'),(1, 'RequiredBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtSetInformationKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.KEY_SET_INFORMATION_CLASS,c_void_p,UInt32)(('NtSetInformationKey', windll['ntdll.dll']), ((1, 'KeyHandle'),(1, 'KeySetInformationClass'),(1, 'KeySetInformation'),(1, 'KeySetInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtDeviceIoControlFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.PIO_APC_ROUTINE,c_void_p,POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head),UInt32,c_void_p,UInt32,c_void_p,UInt32)(('NtDeviceIoControlFile', windll['ntdll.dll']), ((1, 'FileHandle'),(1, 'Event'),(1, 'ApcRoutine'),(1, 'ApcContext'),(1, 'IoStatusBlock'),(1, 'IoControlCode'),(1, 'InputBuffer'),(1, 'InputBufferLength'),(1, 'OutputBuffer'),(1, 'OutputBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtWaitForSingleObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.LARGE_INTEGER_head))(('NtWaitForSingleObject', windll['ntdll.dll']), ((1, 'Handle'),(1, 'Alertable'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIsNameLegalDOS8Dot3():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.UNICODE_STRING_head),POINTER(win32more.System.Kernel.STRING_head),POINTER(win32more.Foundation.BOOLEAN))(('RtlIsNameLegalDOS8Dot3', windll['ntdll.dll']), ((1, 'Name'),(1, 'OemName'),(1, 'NameContainsSpaces'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQueryObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.OBJECT_INFORMATION_CLASS,c_void_p,UInt32,POINTER(UInt32))(('NtQueryObject', windll['ntdll.dll']), ((1, 'Handle'),(1, 'ObjectInformationClass'),(1, 'ObjectInformation'),(1, 'ObjectInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQuerySystemInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.System.WindowsProgramming.SYSTEM_INFORMATION_CLASS,c_void_p,UInt32,POINTER(UInt32))(('NtQuerySystemInformation', windll['ntdll.dll']), ((1, 'SystemInformationClass'),(1, 'SystemInformation'),(1, 'SystemInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQuerySystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.LARGE_INTEGER_head))(('NtQuerySystemTime', windll['ntdll.dll']), ((1, 'SystemTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQueryTimerResolution():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('NtQueryTimerResolution', windll['ntdll.dll']), ((1, 'MaximumTime'),(1, 'MinimumTime'),(1, 'CurrentTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlLocalTimeToSystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.LARGE_INTEGER_head),POINTER(win32more.Foundation.LARGE_INTEGER_head))(('RtlLocalTimeToSystemTime', windll['ntdll.dll']), ((1, 'LocalTime'),(1, 'SystemTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlTimeToSecondsSince1970():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.LARGE_INTEGER_head),POINTER(UInt32))(('RtlTimeToSecondsSince1970', windll['ntdll.dll']), ((1, 'Time'),(1, 'ElapsedSeconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlFreeAnsiString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.STRING_head))(('RtlFreeAnsiString', windll['ntdll.dll']), ((1, 'AnsiString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlFreeUnicodeString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Foundation.UNICODE_STRING_head))(('RtlFreeUnicodeString', windll['ntdll.dll']), ((1, 'UnicodeString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlFreeOemString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.STRING_head))(('RtlFreeOemString', windll['ntdll.dll']), ((1, 'OemString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlInitString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.STRING_head),POINTER(SByte))(('RtlInitString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlInitStringEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.System.Kernel.STRING_head),POINTER(SByte))(('RtlInitStringEx', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlInitAnsiString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.STRING_head),POINTER(SByte))(('RtlInitAnsiString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlInitAnsiStringEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.System.Kernel.STRING_head),POINTER(SByte))(('RtlInitAnsiStringEx', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlInitUnicodeString():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Foundation.UNICODE_STRING_head),win32more.Foundation.PWSTR)(('RtlInitUnicodeString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlAnsiStringToUnicodeString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.UNICODE_STRING_head),POINTER(win32more.System.Kernel.STRING_head),win32more.Foundation.BOOLEAN)(('RtlAnsiStringToUnicodeString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),(1, 'AllocateDestinationString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlUnicodeStringToAnsiString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.System.Kernel.STRING_head),POINTER(win32more.Foundation.UNICODE_STRING_head),win32more.Foundation.BOOLEAN)(('RtlUnicodeStringToAnsiString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),(1, 'AllocateDestinationString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlUnicodeStringToOemString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.System.Kernel.STRING_head),POINTER(win32more.Foundation.UNICODE_STRING_head),win32more.Foundation.BOOLEAN)(('RtlUnicodeStringToOemString', windll['ntdll.dll']), ((1, 'DestinationString'),(1, 'SourceString'),(1, 'AllocateDestinationString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlUnicodeToMultiByteSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32)(('RtlUnicodeToMultiByteSize', windll['ntdll.dll']), ((1, 'BytesInMultiByteString'),(1, 'UnicodeString'),(1, 'BytesInUnicodeString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlCharToInteger():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(SByte),UInt32,POINTER(UInt32))(('RtlCharToInteger', windll['ntdll.dll']), ((1, 'String'),(1, 'Base'),(1, 'Value'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlUniform():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32))(('RtlUniform', windll['ntdll.dll']), ((1, 'Seed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFeatureEnabledState():
-    try:
-        return WINFUNCTYPE(win32more.System.WindowsProgramming.FEATURE_ENABLED_STATE,UInt32,win32more.System.WindowsProgramming.FEATURE_CHANGE_TIME)(('GetFeatureEnabledState', windll['api-ms-win-core-featurestaging-l1-1-0.dll']), ((1, 'featureId'),(1, 'changeTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RecordFeatureUsage():
-    try:
-        return WINFUNCTYPE(Void,UInt32,UInt32,UInt32,win32more.Foundation.PSTR)(('RecordFeatureUsage', windll['api-ms-win-core-featurestaging-l1-1-0.dll']), ((1, 'featureId'),(1, 'kind'),(1, 'addend'),(1, 'originName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RecordFeatureError():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(win32more.System.WindowsProgramming.FEATURE_ERROR_head))(('RecordFeatureError', windll['api-ms-win-core-featurestaging-l1-1-0.dll']), ((1, 'featureId'),(1, 'error'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SubscribeFeatureStateChangeNotification():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION),win32more.System.WindowsProgramming.PFEATURE_STATE_CHANGE_CALLBACK,c_void_p)(('SubscribeFeatureStateChangeNotification', windll['api-ms-win-core-featurestaging-l1-1-0.dll']), ((1, 'subscription'),(1, 'callback'),(1, 'context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnsubscribeFeatureStateChangeNotification():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION)(('UnsubscribeFeatureStateChangeNotification', windll['api-ms-win-core-featurestaging-l1-1-0.dll']), ((1, 'subscription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFeatureVariant():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.System.WindowsProgramming.FEATURE_CHANGE_TIME,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(('GetFeatureVariant', windll['api-ms-win-core-featurestaging-l1-1-1.dll']), ((1, 'featureId'),(1, 'changeTime'),(1, 'payloadId'),(1, 'hasNotification'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIOpenProvider():
-    try:
-        return WINFUNCTYPE(win32more.Graphics.Gdi.HDC,)(('DCIOpenProvider', windll['DCIMAN32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCICloseProvider():
-    try:
-        return WINFUNCTYPE(Void,win32more.Graphics.Gdi.HDC)(('DCICloseProvider', windll['DCIMAN32.dll']), ((1, 'hdc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCICreatePrimary():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head)))(('DCICreatePrimary', windll['DCIMAN32.dll']), ((1, 'hdc'),(1, 'lplpSurface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCICreateOffscreen():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head)))(('DCICreateOffscreen', windll['DCIMAN32.dll']), ((1, 'hdc'),(1, 'dwCompression'),(1, 'dwRedMask'),(1, 'dwGreenMask'),(1, 'dwBlueMask'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'dwDCICaps'),(1, 'dwBitCount'),(1, 'lplpSurface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCICreateOverlay():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,c_void_p,POINTER(POINTER(win32more.System.WindowsProgramming.DCIOVERLAY_head)))(('DCICreateOverlay', windll['DCIMAN32.dll']), ((1, 'hdc'),(1, 'lpOffscreenSurf'),(1, 'lplpSurface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIEnum():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),c_void_p,c_void_p)(('DCIEnum', windll['DCIMAN32.dll']), ((1, 'hdc'),(1, 'lprDst'),(1, 'lprSrc'),(1, 'lpFnCallback'),(1, 'lpContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCISetSrcDestClip():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('DCISetSrcDestClip', windll['DCIMAN32.dll']), ((1, 'pdci'),(1, 'srcrc'),(1, 'destrc'),(1, 'prd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinWatchOpen():
-    try:
-        return WINFUNCTYPE(win32more.System.WindowsProgramming.HWINWATCH,win32more.Foundation.HWND)(('WinWatchOpen', windll['DCIMAN32.dll']), ((1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinWatchClose():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.WindowsProgramming.HWINWATCH)(('WinWatchClose', windll['DCIMAN32.dll']), ((1, 'hWW'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinWatchGetClipList():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.WindowsProgramming.HWINWATCH,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('WinWatchGetClipList', windll['DCIMAN32.dll']), ((1, 'hWW'),(1, 'prc'),(1, 'size'),(1, 'prd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinWatchDidStatusChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.WindowsProgramming.HWINWATCH)(('WinWatchDidStatusChange', windll['DCIMAN32.dll']), ((1, 'hWW'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowRegionData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('GetWindowRegionData', windll['DCIMAN32.dll']), ((1, 'hwnd'),(1, 'size'),(1, 'prd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDCRegionData():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Graphics.Gdi.HDC,UInt32,POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('GetDCRegionData', windll['DCIMAN32.dll']), ((1, 'hdc'),(1, 'size'),(1, 'prd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinWatchNotify():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.WindowsProgramming.HWINWATCH,win32more.System.WindowsProgramming.WINWATCHNOTIFYPROC,win32more.Foundation.LPARAM)(('WinWatchNotify', windll['DCIMAN32.dll']), ((1, 'hWW'),(1, 'NotifyCallback'),(1, 'NotifyParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIEndAccess():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head))(('DCIEndAccess', windll['DCIMAN32.dll']), ((1, 'pdci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIBeginAccess():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head),Int32,Int32,Int32,Int32)(('DCIBeginAccess', windll['DCIMAN32.dll']), ((1, 'pdci'),(1, 'x'),(1, 'y'),(1, 'dx'),(1, 'dy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIDestroy():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head))(('DCIDestroy', windll['DCIMAN32.dll']), ((1, 'pdci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCIDraw():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head))(('DCIDraw', windll['DCIMAN32.dll']), ((1, 'pdci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCISetClipList():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head),POINTER(win32more.Graphics.Gdi.RGNDATA_head))(('DCISetClipList', windll['DCIMAN32.dll']), ((1, 'pdci'),(1, 'prd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DCISetDestination():
-    try:
-        return WINFUNCTYPE(Int32,POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head))(('DCISetDestination', windll['DCIMAN32.dll']), ((1, 'pdci'),(1, 'dst'),(1, 'src'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GdiEntry13():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GdiEntry13', windll['api-ms-win-dx-d3dkmt-l1-1-0.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RunSetupCommandA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Foundation.HANDLE),UInt32,c_void_p)(('RunSetupCommandA', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'szCmdName'),(1, 'szInfSection'),(1, 'szDir'),(1, 'lpszTitle'),(1, 'phEXE'),(1, 'dwFlags'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RunSetupCommandW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE),UInt32,c_void_p)(('RunSetupCommandW', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'szCmdName'),(1, 'szInfSection'),(1, 'szDir'),(1, 'lpszTitle'),(1, 'phEXE'),(1, 'dwFlags'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NeedRebootInit():
-    try:
-        return WINFUNCTYPE(UInt32,)(('NeedRebootInit', windll['ADVPACK.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NeedReboot():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('NeedReboot', windll['ADVPACK.dll']), ((1, 'dwRebootCheck'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RebootCheckOnInstallA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('RebootCheckOnInstallA', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'pszINF'),(1, 'pszSec'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RebootCheckOnInstallW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('RebootCheckOnInstallW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'pszINF'),(1, 'pszSec'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateInfStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(UInt32),c_void_p)(('TranslateInfStringA', windll['ADVPACK.dll']), ((1, 'pszInfFilename'),(1, 'pszInstallSection'),(1, 'pszTranslateSection'),(1, 'pszTranslateKey'),(1, 'pszBuffer'),(1, 'cchBuffer'),(1, 'pdwRequiredSize'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateInfStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),c_void_p)(('TranslateInfStringW', windll['ADVPACK.dll']), ((1, 'pszInfFilename'),(1, 'pszInstallSection'),(1, 'pszTranslateSection'),(1, 'pszTranslateKey'),(1, 'pszBuffer'),(1, 'cchBuffer'),(1, 'pdwRequiredSize'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegInstallA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.System.WindowsProgramming.STRTABLEA_head))(('RegInstallA', windll['ADVPACK.dll']), ((1, 'hmod'),(1, 'pszSection'),(1, 'pstTable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegInstallW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,POINTER(win32more.System.WindowsProgramming.STRTABLEW_head))(('RegInstallW', windll['ADVPACK.dll']), ((1, 'hmod'),(1, 'pszSection'),(1, 'pstTable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LaunchINFSectionExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,Int32)(('LaunchINFSectionExW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExecuteCabA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.CABINFOA_head),c_void_p)(('ExecuteCabA', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'pCab'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExecuteCabW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.CABINFOW_head),c_void_p)(('ExecuteCabW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'pCab'),(1, 'pReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdvInstallFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,UInt32)(('AdvInstallFileA', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'lpszSourceDir'),(1, 'lpszSourceFile'),(1, 'lpszDestDir'),(1, 'lpszDestFile'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdvInstallFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32)(('AdvInstallFileW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'lpszSourceDir'),(1, 'lpszSourceFile'),(1, 'lpszDestDir'),(1, 'lpszDestFile'),(1, 'dwFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegSaveRestoreA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.System.Registry.HKEY,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('RegSaveRestoreA', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitleString'),(1, 'hkBckupKey'),(1, 'pcszRootKey'),(1, 'pcszSubKey'),(1, 'pcszValueName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegSaveRestoreW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('RegSaveRestoreW', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitleString'),(1, 'hkBckupKey'),(1, 'pcszRootKey'),(1, 'pcszSubKey'),(1, 'pcszValueName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegSaveRestoreOnINFA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.Registry.HKEY,win32more.System.Registry.HKEY,UInt32)(('RegSaveRestoreOnINFA', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitle'),(1, 'pszINF'),(1, 'pszSection'),(1, 'hHKLMBackKey'),(1, 'hHKCUBackKey'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegSaveRestoreOnINFW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Registry.HKEY,win32more.System.Registry.HKEY,UInt32)(('RegSaveRestoreOnINFW', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitle'),(1, 'pszINF'),(1, 'pszSection'),(1, 'hHKLMBackKey'),(1, 'hHKCUBackKey'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegRestoreAllA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.System.Registry.HKEY)(('RegRestoreAllA', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitleString'),(1, 'hkBckupKey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegRestoreAllW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.System.Registry.HKEY)(('RegRestoreAllW', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitleString'),(1, 'hkBckupKey'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileSaveRestoreW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('FileSaveRestoreW', windll['ADVPACK.dll']), ((1, 'hDlg'),(1, 'lpFileList'),(1, 'lpDir'),(1, 'lpBaseName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileSaveRestoreOnINFA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('FileSaveRestoreOnINFA', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitle'),(1, 'pszINF'),(1, 'pszSection'),(1, 'pszBackupDir'),(1, 'pszBaseBackupFile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileSaveRestoreOnINFW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('FileSaveRestoreOnINFW', windll['ADVPACK.dll']), ((1, 'hWnd'),(1, 'pszTitle'),(1, 'pszINF'),(1, 'pszSection'),(1, 'pszBackupDir'),(1, 'pszBaseBackupFile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddDelBackupEntryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('AddDelBackupEntryA', windll['ADVPACK.dll']), ((1, 'lpcszFileList'),(1, 'lpcszBackupDir'),(1, 'lpcszBaseName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddDelBackupEntryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('AddDelBackupEntryW', windll['ADVPACK.dll']), ((1, 'lpcszFileList'),(1, 'lpcszBackupDir'),(1, 'lpcszBaseName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileSaveMarkNotExistA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('FileSaveMarkNotExistA', windll['ADVPACK.dll']), ((1, 'lpFileList'),(1, 'lpDir'),(1, 'lpBaseName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FileSaveMarkNotExistW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('FileSaveMarkNotExistW', windll['ADVPACK.dll']), ((1, 'lpFileList'),(1, 'lpDir'),(1, 'lpBaseName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetVersionFromFileA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.BOOL)(('GetVersionFromFileA', windll['ADVPACK.dll']), ((1, 'lpszFilename'),(1, 'pdwMSVer'),(1, 'pdwLSVer'),(1, 'bVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetVersionFromFileW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.BOOL)(('GetVersionFromFileW', windll['ADVPACK.dll']), ((1, 'lpszFilename'),(1, 'pdwMSVer'),(1, 'pdwLSVer'),(1, 'bVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetVersionFromFileExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.BOOL)(('GetVersionFromFileExA', windll['ADVPACK.dll']), ((1, 'lpszFilename'),(1, 'pdwMSVer'),(1, 'pdwLSVer'),(1, 'bVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetVersionFromFileExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.BOOL)(('GetVersionFromFileExW', windll['ADVPACK.dll']), ((1, 'lpszFilename'),(1, 'pdwMSVer'),(1, 'pdwLSVer'),(1, 'bVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsNTAdmin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32))(('IsNTAdmin', windll['ADVPACK.dll']), ((1, 'dwReserved'),(1, 'lpdwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DelNodeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32)(('DelNodeA', windll['ADVPACK.dll']), ((1, 'pszFileOrDirName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DelNodeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(('DelNodeW', windll['ADVPACK.dll']), ((1, 'pszFileOrDirName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DelNodeRunDLL32W():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,Int32)(('DelNodeRunDLL32W', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenINFEngineA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(c_void_p),c_void_p)(('OpenINFEngineA', windll['ADVPACK.dll']), ((1, 'pszInfFilename'),(1, 'pszInstallSection'),(1, 'dwFlags'),(1, 'phInf'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenINFEngineW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p),c_void_p)(('OpenINFEngineW', windll['ADVPACK.dll']), ((1, 'pszInfFilename'),(1, 'pszInstallSection'),(1, 'dwFlags'),(1, 'phInf'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateInfStringExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(UInt32),c_void_p)(('TranslateInfStringExA', windll['ADVPACK.dll']), ((1, 'hInf'),(1, 'pszInfFilename'),(1, 'pszTranslateSection'),(1, 'pszTranslateKey'),(1, 'pszBuffer'),(1, 'dwBufferSize'),(1, 'pdwRequiredSize'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TranslateInfStringExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),c_void_p)(('TranslateInfStringExW', windll['ADVPACK.dll']), ((1, 'hInf'),(1, 'pszInfFilename'),(1, 'pszTranslateSection'),(1, 'pszTranslateKey'),(1, 'pszBuffer'),(1, 'dwBufferSize'),(1, 'pdwRequiredSize'),(1, 'pvReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseINFEngine():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('CloseINFEngine', windll['ADVPACK.dll']), ((1, 'hInf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtractFilesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,c_void_p,UInt32)(('ExtractFilesA', windll['ADVPACK.dll']), ((1, 'pszCabName'),(1, 'pszExpandDir'),(1, 'dwFlags'),(1, 'pszFileList'),(1, 'lpReserved'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExtractFilesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p,UInt32)(('ExtractFilesW', windll['ADVPACK.dll']), ((1, 'pszCabName'),(1, 'pszExpandDir'),(1, 'dwFlags'),(1, 'pszFileList'),(1, 'lpReserved'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LaunchINFSectionW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,Int32)(('LaunchINFSectionW', windll['ADVPACK.dll']), ((1, 'hwndOwner'),(1, 'hInstance'),(1, 'pszParams'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UserInstStubWrapperA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32)(('UserInstStubWrapperA', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UserInstStubWrapperW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,Int32)(('UserInstStubWrapperW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UserUnInstStubWrapperA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,Int32)(('UserUnInstStubWrapperA', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UserUnInstStubWrapperW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,Int32)(('UserUnInstStubWrapperW', windll['ADVPACK.dll']), ((1, 'hwnd'),(1, 'hInstance'),(1, 'pszParms'),(1, 'nShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPerUserSecValuesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.PERUSERSECTIONA_head))(('SetPerUserSecValuesA', windll['ADVPACK.dll']), ((1, 'pPerUser'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPerUserSecValuesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.PERUSERSECTIONW_head))(('SetPerUserSecValuesW', windll['ADVPACK.dll']), ((1, 'pPerUser'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendIMEMessageExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.LPARAM)(('SendIMEMessageExA', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendIMEMessageExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.LPARAM)(('SendIMEMessageExW', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPGetIMEA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.IMEPROA_head))(('IMPGetIMEA', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPGetIMEW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.IMEPROW_head))(('IMPGetIMEW', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPQueryIMEA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.WindowsProgramming.IMEPROA_head))(('IMPQueryIMEA', windll['USER32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPQueryIMEW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.WindowsProgramming.IMEPROW_head))(('IMPQueryIMEW', windll['USER32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPSetIMEA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.IMEPROA_head))(('IMPSetIMEA', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IMPSetIMEW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,POINTER(win32more.System.WindowsProgramming.IMEPROW_head))(('IMPSetIMEW', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WINNLSGetIMEHotkey():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND)(('WINNLSGetIMEHotkey', windll['USER32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WINNLSEnableIME():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL)(('WINNLSEnableIME', windll['USER32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WINNLSGetEnableStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('WINNLSGetEnableStatus', windll['USER32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApphelpCheckShellObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Guid),win32more.Foundation.BOOL,POINTER(UInt64))(('ApphelpCheckShellObject', windll['APPHELP.dll']), ((1, 'ObjectCLSID'),(1, 'bShimIfNecessary'),(1, 'pullFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpGetLockdownPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.WLDP_HOST_INFORMATION_head),POINTER(UInt32),UInt32)(('WldpGetLockdownPolicy', windll['Wldp.dll']), ((1, 'hostInformation'),(1, 'lockdownState'),(1, 'lockdownFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpIsClassInApprovedList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.WindowsProgramming.WLDP_HOST_INFORMATION_head),POINTER(win32more.Foundation.BOOL),UInt32)(('WldpIsClassInApprovedList', windll['Wldp.dll']), ((1, 'classID'),(1, 'hostInformation'),(1, 'isApproved'),(1, 'optionalFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpSetDynamicCodeTrust():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(('WldpSetDynamicCodeTrust', windll['Wldp.dll']), ((1, 'fileHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpIsDynamicCodePolicyEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(('WldpIsDynamicCodePolicyEnabled', windll['Wldp.dll']), ((1, 'isEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpQueryDynamicCodeTrust():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,c_void_p,UInt32)(('WldpQueryDynamicCodeTrust', windll['Wldp.dll']), ((1, 'fileHandle'),(1, 'baseImage'),(1, 'imageSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WldpQueryDeviceSecurityInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head),UInt32,POINTER(UInt32))(('WldpQueryDeviceSecurityInformation', windll['Wldp.dll']), ((1, 'information'),(1, 'informationLength'),(1, 'returnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_APPLICATION_RECOVERY_CALLBACK():
-    return WINFUNCTYPE(UInt32,c_void_p)
-def _define_CABINFOA_head():
-    class CABINFOA(Structure):
-        pass
-    return CABINFOA
-def _define_CABINFOA():
-    CABINFOA = win32more.System.WindowsProgramming.CABINFOA_head
-    CABINFOA._fields_ = [
-        ('pszCab', win32more.Foundation.PSTR),
-        ('pszInf', win32more.Foundation.PSTR),
-        ('pszSection', win32more.Foundation.PSTR),
-        ('szSrcPath', win32more.Foundation.CHAR * 260),
-        ('dwFlags', UInt32),
-    ]
-    return CABINFOA
-def _define_CABINFOW_head():
-    class CABINFOW(Structure):
-        pass
-    return CABINFOW
-def _define_CABINFOW():
-    CABINFOW = win32more.System.WindowsProgramming.CABINFOW_head
-    CABINFOW._fields_ = [
-        ('pszCab', win32more.Foundation.PWSTR),
-        ('pszInf', win32more.Foundation.PWSTR),
-        ('pszSection', win32more.Foundation.PWSTR),
-        ('szSrcPath', Char * 260),
-        ('dwFlags', UInt32),
-    ]
-    return CABINFOW
+class _D3DHAL_CALLBACKS(Structure):
+    pass
+class _D3DHAL_GLOBALDRIVERDATA(Structure):
+    pass
+class ACTCTX_SECTION_KEYED_DATA_2600(Structure):
+    cbSize: UInt32
+    ulDataFormatVersion: UInt32
+    lpData: c_void_p
+    ulLength: UInt32
+    lpSectionGlobalData: c_void_p
+    ulSectionGlobalDataLength: UInt32
+    lpSectionBase: c_void_p
+    ulSectionTotalLength: UInt32
+    hActCtx: win32more.Foundation.HANDLE
+    ulAssemblyRosterIndex: UInt32
+class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(Structure):
+    lpInformation: c_void_p
+    lpSectionBase: c_void_p
+    ulSectionLength: UInt32
+    lpSectionGlobalDataBase: c_void_p
+    ulSectionGlobalDataLength: UInt32
+class ACTIVATION_CONTEXT_BASIC_INFORMATION(Structure):
+    hActCtx: win32more.Foundation.HANDLE
+    dwFlags: UInt32
+WLDP_DLL: String = 'WLDP.DLL'
+WLDP_GETLOCKDOWNPOLICY_FN: String = 'WldpGetLockdownPolicy'
+WLDP_ISCLASSINAPPROVEDLIST_FN: String = 'WldpIsClassInApprovedList'
+WLDP_SETDYNAMICCODETRUST_FN: String = 'WldpSetDynamicCodeTrust'
+WLDP_ISDYNAMICCODEPOLICYENABLED_FN: String = 'WldpIsDynamicCodePolicyEnabled'
+WLDP_QUERYDANAMICCODETRUST_FN: String = 'WldpQueryDynamicCodeTrust'
+WLDP_QUERYDYNAMICCODETRUST_FN: String = 'WldpQueryDynamicCodeTrust'
+WLDP_QUERYWINDOWSLOCKDOWNMODE_FN: String = 'WldpQueryWindowsLockdownMode'
+WLDP_SETWINDOWSLOCKDOWNRESTRICTION_FN: String = 'WldpSetWindowsLockdownRestriction'
+WLDP_QUERYDEVICESECURITYINFORMATION_FN: String = 'WldpQueryDeviceSecurityInformation'
+WLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_FN: String = 'WldpQueryWindowsLockdownRestriction'
+WLDP_ISAPPAPPROVEDBYPOLICY_FN: String = 'WldpIsAppApprovedByPolicy'
+WLDP_QUERYPOLICYSETTINGENABLED_FN: String = 'WldpQueryPolicySettingEnabled'
+WLDP_QUERYPOLICYSETTINGENABLED2_FN: String = 'WldpQueryPolicySettingEnabled2'
+WLDP_ISWCOSPRODUCTIONCONFIGURATION_FN: String = 'WldpIsWcosProductionConfiguration'
+WLDP_RESETWCOSPRODUCTIONCONFIGURATION_FN: String = 'WldpResetWcosProductionConfiguration'
+WLDP_ISPRODUCTIONCONFIGURATION_FN: String = 'WldpIsProductionConfiguration'
+WLDP_RESETPRODUCTIONCONFIGURATION_FN: String = 'WldpResetProductionConfiguration'
+WLDP_LOCKDOWN_UNDEFINED: UInt32 = 0
+WLDP_LOCKDOWN_DEFINED_FLAG: UInt32 = 2147483648
+WLDP_LOCKDOWN_CONFIG_CI_FLAG: UInt32 = 1
+WLDP_LOCKDOWN_CONFIG_CI_AUDIT_FLAG: UInt32 = 2
+WLDP_LOCKDOWN_UMCIENFORCE_FLAG: UInt32 = 4
+WLDP_LOCKDOWN_AUDIT_FLAG: UInt32 = 8
+WLDP_LOCKDOWN_EXCLUSION_FLAG: UInt32 = 16
+WLDP_LOCKDOWN_OFF: UInt32 = 2147483648
+WLDP_HOST_INFORMATION_REVISION: UInt32 = 1
+WLDP_FLAGS_SKIPSIGNATUREVALIDATION: UInt32 = 256
+MAX_TDI_ENTITIES: UInt32 = 4096
+INFO_CLASS_GENERIC: UInt32 = 256
+INFO_CLASS_PROTOCOL: UInt32 = 512
+INFO_CLASS_IMPLEMENTATION: UInt32 = 768
+INFO_TYPE_PROVIDER: UInt32 = 256
+INFO_TYPE_ADDRESS_OBJECT: UInt32 = 512
+INFO_TYPE_CONNECTION: UInt32 = 768
+ENTITY_LIST_ID: UInt32 = 0
+INVALID_ENTITY_INSTANCE: Int32 = -1
+CONTEXT_SIZE: UInt32 = 16
+ENTITY_TYPE_ID: UInt32 = 1
+CO_TL_NBF: UInt32 = 1024
+CO_TL_SPX: UInt32 = 1026
+CO_TL_TCP: UInt32 = 1028
+CO_TL_SPP: UInt32 = 1030
+CL_TL_NBF: UInt32 = 1025
+CL_TL_UDP: UInt32 = 1027
+ER_ICMP: UInt32 = 896
+CL_NL_IPX: UInt32 = 769
+CL_NL_IP: UInt32 = 771
+AT_ARP: UInt32 = 640
+AT_NULL: UInt32 = 642
+IF_GENERIC: UInt32 = 512
+IF_MIB: UInt32 = 514
+IOCTL_TDI_TL_IO_CONTROL_ENDPOINT: UInt32 = 2162744
+DCI_VERSION: UInt32 = 256
+DCICREATEPRIMARYSURFACE: UInt32 = 1
+DCICREATEOFFSCREENSURFACE: UInt32 = 2
+DCICREATEOVERLAYSURFACE: UInt32 = 3
+DCIENUMSURFACE: UInt32 = 4
+DCIESCAPE: UInt32 = 5
+DCI_OK: UInt32 = 0
+DCI_FAIL_GENERIC: Int32 = -1
+DCI_FAIL_UNSUPPORTEDVERSION: Int32 = -2
+DCI_FAIL_INVALIDSURFACE: Int32 = -3
+DCI_FAIL_UNSUPPORTED: Int32 = -4
+DCI_ERR_CURRENTLYNOTAVAIL: Int32 = -5
+DCI_ERR_INVALIDRECT: Int32 = -6
+DCI_ERR_UNSUPPORTEDFORMAT: Int32 = -7
+DCI_ERR_UNSUPPORTEDMASK: Int32 = -8
+DCI_ERR_TOOBIGHEIGHT: Int32 = -9
+DCI_ERR_TOOBIGWIDTH: Int32 = -10
+DCI_ERR_TOOBIGSIZE: Int32 = -11
+DCI_ERR_OUTOFMEMORY: Int32 = -12
+DCI_ERR_INVALIDPOSITION: Int32 = -13
+DCI_ERR_INVALIDSTRETCH: Int32 = -14
+DCI_ERR_INVALIDCLIPLIST: Int32 = -15
+DCI_ERR_SURFACEISOBSCURED: Int32 = -16
+DCI_ERR_XALIGN: Int32 = -17
+DCI_ERR_YALIGN: Int32 = -18
+DCI_ERR_XYALIGN: Int32 = -19
+DCI_ERR_WIDTHALIGN: Int32 = -20
+DCI_ERR_HEIGHTALIGN: Int32 = -21
+DCI_STATUS_POINTERCHANGED: UInt32 = 1
+DCI_STATUS_STRIDECHANGED: UInt32 = 2
+DCI_STATUS_FORMATCHANGED: UInt32 = 4
+DCI_STATUS_SURFACEINFOCHANGED: UInt32 = 8
+DCI_STATUS_CHROMAKEYCHANGED: UInt32 = 16
+DCI_STATUS_WASSTILLDRAWING: UInt32 = 32
+DCI_SURFACE_TYPE: UInt32 = 15
+DCI_PRIMARY: UInt32 = 0
+DCI_OFFSCREEN: UInt32 = 1
+DCI_OVERLAY: UInt32 = 2
+DCI_VISIBLE: UInt32 = 16
+DCI_CHROMAKEY: UInt32 = 32
+DCI_1632_ACCESS: UInt32 = 64
+DCI_DWORDSIZE: UInt32 = 128
+DCI_DWORDALIGN: UInt32 = 256
+DCI_WRITEONLY: UInt32 = 512
+DCI_ASYNC: UInt32 = 1024
+DCI_CAN_STRETCHX: UInt32 = 4096
+DCI_CAN_STRETCHY: UInt32 = 8192
+DCI_CAN_STRETCHXN: UInt32 = 16384
+DCI_CAN_STRETCHYN: UInt32 = 32768
+DCI_CANOVERLAY: UInt32 = 65536
+FILE_FLAG_OPEN_REQUIRING_OPLOCK: UInt32 = 262144
+PROGRESS_CONTINUE: UInt32 = 0
+PROGRESS_CANCEL: UInt32 = 1
+PROGRESS_STOP: UInt32 = 2
+PROGRESS_QUIET: UInt32 = 3
+COPY_FILE_FAIL_IF_EXISTS: UInt32 = 1
+COPY_FILE_RESTARTABLE: UInt32 = 2
+COPY_FILE_OPEN_SOURCE_FOR_WRITE: UInt32 = 4
+COPY_FILE_ALLOW_DECRYPTED_DESTINATION: UInt32 = 8
+COPY_FILE_COPY_SYMLINK: UInt32 = 2048
+COPY_FILE_NO_BUFFERING: UInt32 = 4096
+COPY_FILE_REQUEST_SECURITY_PRIVILEGES: UInt32 = 8192
+COPY_FILE_RESUME_FROM_PAUSE: UInt32 = 16384
+COPY_FILE_NO_OFFLOAD: UInt32 = 262144
+COPY_FILE_IGNORE_EDP_BLOCK: UInt32 = 4194304
+COPY_FILE_IGNORE_SOURCE_ENCRYPTION: UInt32 = 8388608
+COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC: UInt32 = 33554432
+COPY_FILE_REQUEST_COMPRESSED_TRAFFIC: UInt32 = 268435456
+COPY_FILE_OPEN_AND_COPY_REPARSE_POINT: UInt32 = 2097152
+COPY_FILE_DIRECTORY: UInt32 = 128
+COPY_FILE_SKIP_ALTERNATE_STREAMS: UInt32 = 32768
+COPY_FILE_DISABLE_PRE_ALLOCATION: UInt32 = 67108864
+COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE: UInt32 = 134217728
+FAIL_FAST_GENERATE_EXCEPTION_ADDRESS: UInt32 = 1
+FAIL_FAST_NO_HARD_ERROR_DLG: UInt32 = 2
+DTR_CONTROL_DISABLE: UInt32 = 0
+DTR_CONTROL_ENABLE: UInt32 = 1
+DTR_CONTROL_HANDSHAKE: UInt32 = 2
+RTS_CONTROL_DISABLE: UInt32 = 0
+RTS_CONTROL_ENABLE: UInt32 = 1
+RTS_CONTROL_HANDSHAKE: UInt32 = 2
+RTS_CONTROL_TOGGLE: UInt32 = 3
+GMEM_NOCOMPACT: UInt32 = 16
+GMEM_NODISCARD: UInt32 = 32
+GMEM_MODIFY: UInt32 = 128
+GMEM_DISCARDABLE: UInt32 = 256
+GMEM_NOT_BANKED: UInt32 = 4096
+GMEM_SHARE: UInt32 = 8192
+GMEM_DDESHARE: UInt32 = 8192
+GMEM_NOTIFY: UInt32 = 16384
+GMEM_LOWER: UInt32 = 4096
+GMEM_VALID_FLAGS: UInt32 = 32626
+GMEM_INVALID_HANDLE: UInt32 = 32768
+GMEM_DISCARDED: UInt32 = 16384
+GMEM_LOCKCOUNT: UInt32 = 255
+THREAD_PRIORITY_ERROR_RETURN: UInt32 = 2147483647
+VOLUME_NAME_DOS: UInt32 = 0
+VOLUME_NAME_GUID: UInt32 = 1
+VOLUME_NAME_NT: UInt32 = 2
+VOLUME_NAME_NONE: UInt32 = 4
+DRIVE_UNKNOWN: UInt32 = 0
+DRIVE_NO_ROOT_DIR: UInt32 = 1
+DRIVE_REMOVABLE: UInt32 = 2
+DRIVE_FIXED: UInt32 = 3
+DRIVE_REMOTE: UInt32 = 4
+DRIVE_CDROM: UInt32 = 5
+DRIVE_RAMDISK: UInt32 = 6
+IGNORE: UInt32 = 0
+INFINITE: UInt32 = 4294967295
+CBR_110: UInt32 = 110
+CBR_300: UInt32 = 300
+CBR_600: UInt32 = 600
+CBR_1200: UInt32 = 1200
+CBR_2400: UInt32 = 2400
+CBR_4800: UInt32 = 4800
+CBR_9600: UInt32 = 9600
+CBR_14400: UInt32 = 14400
+CBR_19200: UInt32 = 19200
+CBR_38400: UInt32 = 38400
+CBR_56000: UInt32 = 56000
+CBR_57600: UInt32 = 57600
+CBR_115200: UInt32 = 115200
+CBR_128000: UInt32 = 128000
+CBR_256000: UInt32 = 256000
+CE_TXFULL: UInt32 = 256
+CE_PTO: UInt32 = 512
+CE_IOE: UInt32 = 1024
+CE_DNS: UInt32 = 2048
+CE_OOP: UInt32 = 4096
+CE_MODE: UInt32 = 32768
+IE_BADID: Int32 = -1
+IE_OPEN: Int32 = -2
+IE_NOPEN: Int32 = -3
+IE_MEMORY: Int32 = -4
+IE_DEFAULT: Int32 = -5
+IE_HARDWARE: Int32 = -10
+IE_BYTESIZE: Int32 = -11
+IE_BAUDRATE: Int32 = -12
+RESETDEV: UInt32 = 7
+LPTx: UInt32 = 128
+S_QUEUEEMPTY: UInt32 = 0
+S_THRESHOLD: UInt32 = 1
+S_ALLTHRESHOLD: UInt32 = 2
+S_NORMAL: UInt32 = 0
+S_LEGATO: UInt32 = 1
+S_STACCATO: UInt32 = 2
+S_PERIOD512: UInt32 = 0
+S_PERIOD1024: UInt32 = 1
+S_PERIOD2048: UInt32 = 2
+S_PERIODVOICE: UInt32 = 3
+S_WHITE512: UInt32 = 4
+S_WHITE1024: UInt32 = 5
+S_WHITE2048: UInt32 = 6
+S_WHITEVOICE: UInt32 = 7
+S_SERDVNA: Int32 = -1
+S_SEROFM: Int32 = -2
+S_SERMACT: Int32 = -3
+S_SERQFUL: Int32 = -4
+S_SERBDNT: Int32 = -5
+S_SERDLN: Int32 = -6
+S_SERDCC: Int32 = -7
+S_SERDTP: Int32 = -8
+S_SERDVL: Int32 = -9
+S_SERDMD: Int32 = -10
+S_SERDSH: Int32 = -11
+S_SERDPT: Int32 = -12
+S_SERDFQ: Int32 = -13
+S_SERDDR: Int32 = -14
+S_SERDSR: Int32 = -15
+S_SERDST: Int32 = -16
+FS_CASE_IS_PRESERVED: UInt32 = 2
+FS_CASE_SENSITIVE: UInt32 = 1
+FS_UNICODE_STORED_ON_DISK: UInt32 = 4
+FS_PERSISTENT_ACLS: UInt32 = 8
+FS_VOL_IS_COMPRESSED: UInt32 = 32768
+FS_FILE_COMPRESSION: UInt32 = 16
+FS_FILE_ENCRYPTION: UInt32 = 131072
+OFS_MAXPATHNAME: UInt32 = 128
+MAXINTATOM: UInt32 = 49152
+SCS_32BIT_BINARY: UInt32 = 0
+SCS_DOS_BINARY: UInt32 = 1
+SCS_WOW_BINARY: UInt32 = 2
+SCS_PIF_BINARY: UInt32 = 3
+SCS_POSIX_BINARY: UInt32 = 4
+SCS_OS216_BINARY: UInt32 = 5
+SCS_64BIT_BINARY: UInt32 = 6
+SCS_THIS_PLATFORM_BINARY: UInt32 = 6
+FIBER_FLAG_FLOAT_SWITCH: UInt32 = 1
+UMS_VERSION: UInt32 = 256
+FILE_SKIP_COMPLETION_PORT_ON_SUCCESS: UInt32 = 1
+FILE_SKIP_SET_EVENT_ON_HANDLE: UInt32 = 2
+CRITICAL_SECTION_NO_DEBUG_INFO: UInt32 = 16777216
+HINSTANCE_ERROR: UInt32 = 32
+FORMAT_MESSAGE_MAX_WIDTH_MASK: UInt32 = 255
+FILE_ENCRYPTABLE: UInt32 = 0
+FILE_IS_ENCRYPTED: UInt32 = 1
+FILE_SYSTEM_ATTR: UInt32 = 2
+FILE_ROOT_DIR: UInt32 = 3
+FILE_SYSTEM_DIR: UInt32 = 4
+FILE_UNKNOWN: UInt32 = 5
+FILE_SYSTEM_NOT_SUPPORT: UInt32 = 6
+FILE_USER_DISALLOWED: UInt32 = 7
+FILE_READ_ONLY: UInt32 = 8
+FILE_DIR_DISALLOWED: UInt32 = 9
+EFS_USE_RECOVERY_KEYS: UInt32 = 1
+CREATE_FOR_IMPORT: UInt32 = 1
+CREATE_FOR_DIR: UInt32 = 2
+OVERWRITE_HIDDEN: UInt32 = 4
+EFSRPC_SECURE_ONLY: UInt32 = 8
+EFS_DROP_ALTERNATE_STREAMS: UInt32 = 16
+BACKUP_INVALID: UInt32 = 0
+BACKUP_GHOSTED_FILE_EXTENTS: UInt32 = 11
+STREAM_NORMAL_ATTRIBUTE: UInt32 = 0
+STREAM_MODIFIED_WHEN_READ: UInt32 = 1
+STREAM_CONTAINS_SECURITY: UInt32 = 2
+STREAM_CONTAINS_PROPERTIES: UInt32 = 4
+STREAM_SPARSE_ATTRIBUTE: UInt32 = 8
+STREAM_CONTAINS_GHOSTED_FILE_EXTENTS: UInt32 = 16
+STARTF_HOLOGRAPHIC: UInt32 = 262144
+SHUTDOWN_NORETRY: UInt32 = 1
+PROTECTION_LEVEL_SAME: UInt32 = 4294967295
+PROC_THREAD_ATTRIBUTE_NUMBER: UInt32 = 65535
+PROC_THREAD_ATTRIBUTE_THREAD: UInt32 = 65536
+PROC_THREAD_ATTRIBUTE_INPUT: UInt32 = 131072
+PROC_THREAD_ATTRIBUTE_ADDITIVE: UInt32 = 262144
+PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE: UInt32 = 1
+PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE: UInt32 = 2
+PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE: UInt32 = 4
+PROCESS_CREATION_CHILD_PROCESS_RESTRICTED: UInt32 = 1
+PROCESS_CREATION_CHILD_PROCESS_OVERRIDE: UInt32 = 2
+PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE: UInt32 = 4
+PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT: UInt32 = 1
+PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE: UInt32 = 1
+PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE: UInt32 = 2
+PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE: UInt32 = 4
+ATOM_FLAG_GLOBAL: UInt32 = 2
+GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A: String = 'GetSystemWow64DirectoryA'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W: String = 'GetSystemWow64DirectoryA'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T: String = 'GetSystemWow64DirectoryA'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A: String = 'GetSystemWow64DirectoryW'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W: String = 'GetSystemWow64DirectoryW'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T: String = 'GetSystemWow64DirectoryW'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A: String = 'GetSystemWow64DirectoryW'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W: String = 'GetSystemWow64DirectoryW'
+GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T: String = 'GetSystemWow64DirectoryW'
+BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE: UInt32 = 1
+BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE: UInt32 = 65536
+BASE_SEARCH_PATH_PERMANENT: UInt32 = 32768
+COPYFILE2_MESSAGE_COPY_OFFLOAD: Int32 = 1
+COPYFILE2_IO_CYCLE_SIZE_MIN: UInt32 = 4096
+COPYFILE2_IO_CYCLE_SIZE_MAX: UInt32 = 1073741824
+COPYFILE2_IO_RATE_MIN: UInt32 = 512
+EVENTLOG_FULL_INFO: UInt32 = 0
+OPERATION_API_VERSION: UInt32 = 1
+MAX_COMPUTERNAME_LENGTH: UInt32 = 15
+LOGON32_PROVIDER_WINNT35: UInt32 = 1
+LOGON32_PROVIDER_VIRTUAL: UInt32 = 4
+LOGON_ZERO_PASSWORD_BUFFER: UInt32 = 2147483648
+HW_PROFILE_GUIDLEN: UInt32 = 39
+DOCKINFO_UNDOCKED: UInt32 = 1
+DOCKINFO_DOCKED: UInt32 = 2
+DOCKINFO_USER_SUPPLIED: UInt32 = 4
+TC_NORMAL: UInt32 = 0
+TC_HARDERR: UInt32 = 1
+TC_GP_TRAP: UInt32 = 2
+TC_SIGNAL: UInt32 = 3
+AC_LINE_OFFLINE: UInt32 = 0
+AC_LINE_ONLINE: UInt32 = 1
+AC_LINE_BACKUP_POWER: UInt32 = 2
+AC_LINE_UNKNOWN: UInt32 = 255
+BATTERY_FLAG_HIGH: UInt32 = 1
+BATTERY_FLAG_LOW: UInt32 = 2
+BATTERY_FLAG_CRITICAL: UInt32 = 4
+BATTERY_FLAG_CHARGING: UInt32 = 8
+BATTERY_FLAG_NO_BATTERY: UInt32 = 128
+BATTERY_FLAG_UNKNOWN: UInt32 = 255
+BATTERY_PERCENTAGE_UNKNOWN: UInt32 = 255
+SYSTEM_STATUS_FLAG_POWER_SAVING_ON: UInt32 = 1
+BATTERY_LIFE_UNKNOWN: UInt32 = 4294967295
+ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID: UInt32 = 1
+ACTCTX_FLAG_LANGID_VALID: UInt32 = 2
+ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID: UInt32 = 4
+ACTCTX_FLAG_RESOURCE_NAME_VALID: UInt32 = 8
+ACTCTX_FLAG_SET_PROCESS_DEFAULT: UInt32 = 16
+ACTCTX_FLAG_APPLICATION_NAME_VALID: UInt32 = 32
+ACTCTX_FLAG_SOURCE_IS_ASSEMBLYREF: UInt32 = 64
+ACTCTX_FLAG_HMODULE_VALID: UInt32 = 128
+DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION: UInt32 = 1
+FIND_ACTCTX_SECTION_KEY_RETURN_HACTCTX: UInt32 = 1
+FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS: UInt32 = 2
+FIND_ACTCTX_SECTION_KEY_RETURN_ASSEMBLY_METADATA: UInt32 = 4
+ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED: UInt32 = 1
+QUERY_ACTCTX_FLAG_USE_ACTIVE_ACTCTX: UInt32 = 4
+QUERY_ACTCTX_FLAG_ACTCTX_IS_HMODULE: UInt32 = 8
+QUERY_ACTCTX_FLAG_ACTCTX_IS_ADDRESS: UInt32 = 16
+QUERY_ACTCTX_FLAG_NO_ADDREF: UInt32 = 2147483648
+RESTART_MAX_CMD_LINE: UInt32 = 1024
+RECOVERY_DEFAULT_PING_INTERVAL: UInt32 = 5000
+FILE_RENAME_FLAG_REPLACE_IF_EXISTS: UInt32 = 1
+FILE_RENAME_FLAG_POSIX_SEMANTICS: UInt32 = 2
+FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE: UInt32 = 4
+FILE_DISPOSITION_FLAG_DO_NOT_DELETE: UInt32 = 0
+FILE_DISPOSITION_FLAG_DELETE: UInt32 = 1
+FILE_DISPOSITION_FLAG_POSIX_SEMANTICS: UInt32 = 2
+FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK: UInt32 = 4
+FILE_DISPOSITION_FLAG_ON_CLOSE: UInt32 = 8
+FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE: UInt32 = 16
+STORAGE_INFO_FLAGS_ALIGNED_DEVICE: UInt32 = 1
+STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE: UInt32 = 2
+STORAGE_INFO_OFFSET_UNKNOWN: UInt32 = 4294967295
+REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK: UInt32 = 1
+REMOTE_PROTOCOL_INFO_FLAG_OFFLINE: UInt32 = 2
+REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE: UInt32 = 4
+RPI_FLAG_SMB2_SHARECAP_TIMEWARP: UInt32 = 2
+RPI_FLAG_SMB2_SHARECAP_DFS: UInt32 = 8
+RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY: UInt32 = 16
+RPI_FLAG_SMB2_SHARECAP_SCALEOUT: UInt32 = 32
+RPI_FLAG_SMB2_SHARECAP_CLUSTER: UInt32 = 64
+RPI_SMB2_FLAG_SERVERCAP_DFS: UInt32 = 1
+RPI_SMB2_FLAG_SERVERCAP_LEASING: UInt32 = 2
+RPI_SMB2_FLAG_SERVERCAP_LARGEMTU: UInt32 = 4
+RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL: UInt32 = 8
+RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES: UInt32 = 16
+RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING: UInt32 = 32
+MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS: UInt32 = 0
+MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS: UInt32 = 0
+CODEINTEGRITY_OPTION_ENABLED: UInt32 = 1
+CODEINTEGRITY_OPTION_TESTSIGN: UInt32 = 2
+CODEINTEGRITY_OPTION_UMCI_ENABLED: UInt32 = 4
+CODEINTEGRITY_OPTION_UMCI_AUDITMODE_ENABLED: UInt32 = 8
+CODEINTEGRITY_OPTION_UMCI_EXCLUSIONPATHS_ENABLED: UInt32 = 16
+CODEINTEGRITY_OPTION_TEST_BUILD: UInt32 = 32
+CODEINTEGRITY_OPTION_PREPRODUCTION_BUILD: UInt32 = 64
+CODEINTEGRITY_OPTION_DEBUGMODE_ENABLED: UInt32 = 128
+CODEINTEGRITY_OPTION_FLIGHT_BUILD: UInt32 = 256
+CODEINTEGRITY_OPTION_FLIGHTING_ENABLED: UInt32 = 512
+CODEINTEGRITY_OPTION_HVCI_KMCI_ENABLED: UInt32 = 1024
+CODEINTEGRITY_OPTION_HVCI_KMCI_AUDITMODE_ENABLED: UInt32 = 2048
+CODEINTEGRITY_OPTION_HVCI_KMCI_STRICTMODE_ENABLED: UInt32 = 4096
+CODEINTEGRITY_OPTION_HVCI_IUM_ENABLED: UInt32 = 8192
+FILE_MAXIMUM_DISPOSITION: UInt32 = 5
+FILE_DIRECTORY_FILE: UInt32 = 1
+FILE_WRITE_THROUGH: UInt32 = 2
+FILE_SEQUENTIAL_ONLY: UInt32 = 4
+FILE_NO_INTERMEDIATE_BUFFERING: UInt32 = 8
+FILE_SYNCHRONOUS_IO_ALERT: UInt32 = 16
+FILE_SYNCHRONOUS_IO_NONALERT: UInt32 = 32
+FILE_NON_DIRECTORY_FILE: UInt32 = 64
+FILE_CREATE_TREE_CONNECTION: UInt32 = 128
+FILE_COMPLETE_IF_OPLOCKED: UInt32 = 256
+FILE_NO_EA_KNOWLEDGE: UInt32 = 512
+FILE_OPEN_REMOTE_INSTANCE: UInt32 = 1024
+FILE_RANDOM_ACCESS: UInt32 = 2048
+FILE_DELETE_ON_CLOSE: UInt32 = 4096
+FILE_OPEN_BY_FILE_ID: UInt32 = 8192
+FILE_OPEN_FOR_BACKUP_INTENT: UInt32 = 16384
+FILE_NO_COMPRESSION: UInt32 = 32768
+FILE_OPEN_REQUIRING_OPLOCK: UInt32 = 65536
+FILE_RESERVE_OPFILTER: UInt32 = 1048576
+FILE_OPEN_REPARSE_POINT: UInt32 = 2097152
+FILE_OPEN_NO_RECALL: UInt32 = 4194304
+FILE_OPEN_FOR_FREE_SPACE_QUERY: UInt32 = 8388608
+FILE_VALID_OPTION_FLAGS: UInt32 = 16777215
+FILE_VALID_PIPE_OPTION_FLAGS: UInt32 = 50
+FILE_VALID_MAILSLOT_OPTION_FLAGS: UInt32 = 50
+FILE_VALID_SET_FLAGS: UInt32 = 54
+FILE_SUPERSEDED: UInt32 = 0
+FILE_OPENED: UInt32 = 1
+FILE_CREATED: UInt32 = 2
+FILE_OVERWRITTEN: UInt32 = 3
+FILE_EXISTS: UInt32 = 4
+FILE_DOES_NOT_EXIST: UInt32 = 5
+WINWATCHNOTIFY_START: UInt32 = 0
+WINWATCHNOTIFY_STOP: UInt32 = 1
+WINWATCHNOTIFY_DESTROY: UInt32 = 2
+WINWATCHNOTIFY_CHANGING: UInt32 = 3
+WINWATCHNOTIFY_CHANGED: UInt32 = 4
+RSC_FLAG_INF: UInt32 = 1
+RSC_FLAG_SKIPDISKSPACECHECK: UInt32 = 2
+RSC_FLAG_QUIET: UInt32 = 4
+RSC_FLAG_NGCONV: UInt32 = 8
+RSC_FLAG_UPDHLPDLLS: UInt32 = 16
+RSC_FLAG_DELAYREGISTEROCX: UInt32 = 512
+RSC_FLAG_SETUPAPI: UInt32 = 1024
+ALINF_QUIET: UInt32 = 4
+ALINF_NGCONV: UInt32 = 8
+ALINF_UPDHLPDLLS: UInt32 = 16
+ALINF_BKINSTALL: UInt32 = 32
+ALINF_ROLLBACK: UInt32 = 64
+ALINF_CHECKBKDATA: UInt32 = 128
+ALINF_ROLLBKDOALL: UInt32 = 256
+ALINF_DELAYREGISTEROCX: UInt32 = 512
+AIF_WARNIFSKIP: UInt32 = 1
+AIF_NOSKIP: UInt32 = 2
+AIF_NOVERSIONCHECK: UInt32 = 4
+AIF_FORCE_FILE_IN_USE: UInt32 = 8
+AIF_NOOVERWRITE: UInt32 = 16
+AIF_NO_VERSION_DIALOG: UInt32 = 32
+AIF_REPLACEONLY: UInt32 = 1024
+AIF_NOLANGUAGECHECK: UInt32 = 268435456
+AIF_QUIET: UInt32 = 536870912
+IE4_RESTORE: UInt32 = 1
+IE4_BACKNEW: UInt32 = 2
+IE4_NODELETENEW: UInt32 = 4
+IE4_NOMESSAGES: UInt32 = 8
+IE4_NOPROGRESS: UInt32 = 16
+IE4_NOENUMKEY: UInt32 = 32
+IE4_NO_CRC_MAPPING: UInt32 = 64
+IE4_REGSECTION: UInt32 = 128
+IE4_FRDOALL: UInt32 = 256
+IE4_UPDREFCNT: UInt32 = 512
+IE4_USEREFCNT: UInt32 = 1024
+IE4_EXTRAINCREFCNT: UInt32 = 2048
+IE4_REMOVREGBKDATA: UInt32 = 4096
+ARSR_RESTORE: UInt32 = 1
+ARSR_NOMESSAGES: UInt32 = 8
+ARSR_REGSECTION: UInt32 = 128
+ARSR_REMOVREGBKDATA: UInt32 = 4096
+REG_SAVE_LOG_KEY: String = 'RegSaveLogFile'
+REG_RESTORE_LOG_KEY: String = 'RegRestoreLogFile'
+AFSR_RESTORE: UInt32 = 1
+AFSR_BACKNEW: UInt32 = 2
+AFSR_NODELETENEW: UInt32 = 4
+AFSR_NOMESSAGES: UInt32 = 8
+AFSR_NOPROGRESS: UInt32 = 16
+AFSR_UPDREFCNT: UInt32 = 512
+AFSR_USEREFCNT: UInt32 = 1024
+AFSR_EXTRAINCREFCNT: UInt32 = 2048
+AADBE_ADD_ENTRY: UInt32 = 1
+AADBE_DEL_ENTRY: UInt32 = 2
+ADN_DEL_IF_EMPTY: UInt32 = 1
+ADN_DONT_DEL_SUBDIRS: UInt32 = 2
+ADN_DONT_DEL_DIR: UInt32 = 4
+ADN_DEL_UNC_PATHS: UInt32 = 8
+LIS_QUIET: UInt32 = 1
+LIS_NOGRPCONV: UInt32 = 2
+RUNCMDS_QUIET: UInt32 = 1
+RUNCMDS_NOWAIT: UInt32 = 2
+RUNCMDS_DELAYPOSTCMD: UInt32 = 4
+IME_MAXPROCESS: UInt32 = 32
+CP_HWND: UInt32 = 0
+CP_OPEN: UInt32 = 1
+CP_DIRECT: UInt32 = 2
+CP_LEVEL: UInt32 = 3
+MCW_DEFAULT: UInt32 = 0
+MCW_RECT: UInt32 = 1
+MCW_WINDOW: UInt32 = 2
+MCW_SCREEN: UInt32 = 4
+MCW_VERTICAL: UInt32 = 8
+MCW_HIDDEN: UInt32 = 16
+IME_MODE_ALPHANUMERIC: UInt32 = 1
+IME_MODE_SBCSCHAR: UInt32 = 2
+IME_MODE_KATAKANA: UInt32 = 2
+IME_MODE_HIRAGANA: UInt32 = 4
+IME_MODE_HANJACONVERT: UInt32 = 4
+IME_MODE_DBCSCHAR: UInt32 = 16
+IME_MODE_ROMAN: UInt32 = 32
+IME_MODE_NOROMAN: UInt32 = 64
+IME_MODE_CODEINPUT: UInt32 = 128
+IME_MODE_NOCODEINPUT: UInt32 = 256
+IME_GETIMECAPS: UInt32 = 3
+IME_SETOPEN: UInt32 = 4
+IME_GETOPEN: UInt32 = 5
+IME_GETVERSION: UInt32 = 7
+IME_SETCONVERSIONWINDOW: UInt32 = 8
+IME_MOVEIMEWINDOW: UInt32 = 8
+IME_SETCONVERSIONMODE: UInt32 = 16
+IME_GETCONVERSIONMODE: UInt32 = 17
+IME_SET_MODE: UInt32 = 18
+IME_SENDVKEY: UInt32 = 19
+IME_ENTERWORDREGISTERMODE: UInt32 = 24
+IME_SETCONVERSIONFONTEX: UInt32 = 25
+IME_BANJAtoJUNJA: UInt32 = 19
+IME_JUNJAtoBANJA: UInt32 = 20
+IME_JOHABtoKS: UInt32 = 21
+IME_KStoJOHAB: UInt32 = 22
+IMEA_INIT: UInt32 = 1
+IMEA_NEXT: UInt32 = 2
+IMEA_PREV: UInt32 = 3
+IME_REQUEST_CONVERT: UInt32 = 1
+IME_ENABLE_CONVERT: UInt32 = 2
+INTERIM_WINDOW: UInt32 = 0
+MODE_WINDOW: UInt32 = 1
+HANJA_WINDOW: UInt32 = 2
+IME_RS_ERROR: UInt32 = 1
+IME_RS_NOIME: UInt32 = 2
+IME_RS_TOOLONG: UInt32 = 5
+IME_RS_ILLEGAL: UInt32 = 6
+IME_RS_NOTFOUND: UInt32 = 7
+IME_RS_NOROOM: UInt32 = 10
+IME_RS_DISKERROR: UInt32 = 14
+IME_RS_INVALID: UInt32 = 17
+IME_RS_NEST: UInt32 = 18
+IME_RS_SYSTEMMODAL: UInt32 = 19
+WM_IME_REPORT: UInt32 = 640
+IR_STRINGSTART: UInt32 = 256
+IR_STRINGEND: UInt32 = 257
+IR_OPENCONVERT: UInt32 = 288
+IR_CHANGECONVERT: UInt32 = 289
+IR_CLOSECONVERT: UInt32 = 290
+IR_FULLCONVERT: UInt32 = 291
+IR_IMESELECT: UInt32 = 304
+IR_STRING: UInt32 = 320
+IR_DBCSCHAR: UInt32 = 352
+IR_UNDETERMINE: UInt32 = 368
+IR_STRINGEX: UInt32 = 384
+IR_MODEINFO: UInt32 = 400
+WM_WNT_CONVERTREQUESTEX: UInt32 = 265
+WM_CONVERTREQUEST: UInt32 = 266
+WM_CONVERTRESULT: UInt32 = 267
+WM_INTERIM: UInt32 = 268
+WM_IMEKEYDOWN: UInt32 = 656
+WM_IMEKEYUP: UInt32 = 657
+DELAYLOAD_GPA_FAILURE: UInt32 = 4
+CATID_DeleteBrowsingHistory: Guid = Guid('31caf6e4-d6aa-4090-a0-50-a5-ac-89-72-e9-ef')
+DELETE_BROWSING_HISTORY_HISTORY: UInt32 = 1
+DELETE_BROWSING_HISTORY_COOKIES: UInt32 = 2
+DELETE_BROWSING_HISTORY_TIF: UInt32 = 4
+DELETE_BROWSING_HISTORY_FORMDATA: UInt32 = 8
+DELETE_BROWSING_HISTORY_PASSWORDS: UInt32 = 16
+DELETE_BROWSING_HISTORY_PRESERVEFAVORITES: UInt32 = 32
+DELETE_BROWSING_HISTORY_DOWNLOADHISTORY: UInt32 = 64
+@winfunctype('KERNEL32.dll')
+def uaw_lstrcmpW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def uaw_lstrcmpiW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def uaw_lstrlenW(String: POINTER(UInt16)) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def uaw_wcschr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
+@winfunctype('KERNEL32.dll')
+def uaw_wcscpy(Destination: POINTER(UInt16), Source: POINTER(UInt16)) -> POINTER(UInt16): ...
+@winfunctype('KERNEL32.dll')
+def uaw_wcsicmp(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def uaw_wcslen(String: POINTER(UInt16)) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def uaw_wcsrchr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
+@winfunctype('ntdll.dll')
+def RtlGetReturnAddressHijackTarget() -> UIntPtr: ...
+@winfunctype('ntdll.dll')
+def RtlRaiseCustomSystemEventTrigger(TriggerConfig: POINTER(win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head)) -> UInt32: ...
+@winfunctype('api-ms-win-core-apiquery-l2-1-0.dll')
+def IsApiSetImplemented(Contract: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryThreadCycleTime(ThreadHandle: win32more.Foundation.HANDLE, CycleTime: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryProcessCycleTime(ProcessHandle: win32more.Foundation.HANDLE, CycleTime: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryIdleProcessorCycleTime(BufferLength: POINTER(UInt32), ProcessorIdleCycleTime: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryIdleProcessorCycleTimeEx(Group: UInt16, BufferLength: POINTER(UInt32), ProcessorIdleCycleTime: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-1.dll')
+def QueryInterruptTimePrecise(lpInterruptTimePrecise: POINTER(UInt64)) -> Void: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-1.dll')
+def QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise: POINTER(UInt64)) -> Void: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-1.dll')
+def QueryInterruptTime(lpInterruptTime: POINTER(UInt64)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def QueryUnbiasedInterruptTime(UnbiasedTime: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-2.dll')
+def QueryAuxiliaryCounterFrequency(lpAuxiliaryCounterFrequency: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-2.dll')
+def ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue: UInt64, lpPerformanceCounterValue: POINTER(UInt64), lpConversionError: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('api-ms-win-core-realtime-l1-1-2.dll')
+def ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue: UInt64, lpAuxiliaryCounterValue: POINTER(UInt64), lpConversionError: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def GlobalCompact(dwMinFree: UInt32) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GlobalFix(hMem: IntPtr) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GlobalUnfix(hMem: IntPtr) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GlobalWire(hMem: IntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def GlobalUnWire(hMem: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def LocalShrink(hMem: IntPtr, cbNewSize: UInt32) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalCompact(uMinFree: UInt32) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def SetEnvironmentStringsA(NewEnvironment: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetHandleCount(uNumber: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def RequestDeviceWakeup(hDevice: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CancelDeviceWakeupRequest(hDevice: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetMessageWaitingIndicator(hMsgIndicator: win32more.Foundation.HANDLE, ulMsgCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def MulDiv(nNumber: Int32, nNumerator: Int32, nDenominator: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def GetSystemRegistryQuota(pdwQuotaAllowed: POINTER(UInt32), pdwQuotaUsed: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FileTimeToDosDateTime(lpFileTime: POINTER(win32more.Foundation.FILETIME_head), lpFatDate: POINTER(UInt16), lpFatTime: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DosDateTimeToFileTime(wFatDate: UInt16, wFatTime: UInt16, lpFileTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def _lopen(lpPathName: win32more.Foundation.PSTR, iReadWrite: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def _lcreat(lpPathName: win32more.Foundation.PSTR, iAttribute: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def _lread(hFile: Int32, lpBuffer: c_void_p, uBytes: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def _lwrite(hFile: Int32, lpBuffer: win32more.Foundation.PSTR, uBytes: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def _hread(hFile: Int32, lpBuffer: c_void_p, lBytes: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def _hwrite(hFile: Int32, lpBuffer: win32more.Foundation.PSTR, lBytes: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def _lclose(hFile: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def _llseek(hFile: Int32, lOffset: Int32, iOrigin: Int32) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def SignalObjectAndWait(hObjectToSignal: win32more.Foundation.HANDLE, hObjectToWaitOn: win32more.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: win32more.Foundation.BOOL) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('KERNEL32.dll')
+def OpenMutexA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenSemaphoreA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateWaitableTimerA(lpTimerAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bManualReset: win32more.Foundation.BOOL, lpTimerName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenWaitableTimerA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Foundation.BOOL, lpTimerName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateWaitableTimerExA(lpTimerAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpTimerName: win32more.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def GetFirmwareEnvironmentVariableA(lpName: win32more.Foundation.PSTR, lpGuid: win32more.Foundation.PSTR, pBuffer: c_void_p, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetFirmwareEnvironmentVariableW(lpName: win32more.Foundation.PWSTR, lpGuid: win32more.Foundation.PWSTR, pBuffer: c_void_p, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetFirmwareEnvironmentVariableExA(lpName: win32more.Foundation.PSTR, lpGuid: win32more.Foundation.PSTR, pBuffer: c_void_p, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetFirmwareEnvironmentVariableExW(lpName: win32more.Foundation.PWSTR, lpGuid: win32more.Foundation.PWSTR, pBuffer: c_void_p, nSize: UInt32, pdwAttribubutes: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def SetFirmwareEnvironmentVariableA(lpName: win32more.Foundation.PSTR, lpGuid: win32more.Foundation.PSTR, pValue: c_void_p, nSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetFirmwareEnvironmentVariableW(lpName: win32more.Foundation.PWSTR, lpGuid: win32more.Foundation.PWSTR, pValue: c_void_p, nSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetFirmwareEnvironmentVariableExA(lpName: win32more.Foundation.PSTR, lpGuid: win32more.Foundation.PSTR, pValue: c_void_p, nSize: UInt32, dwAttributes: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetFirmwareEnvironmentVariableExW(lpName: win32more.Foundation.PWSTR, lpGuid: win32more.Foundation.PWSTR, pValue: c_void_p, nSize: UInt32, dwAttributes: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsNativeVhdBoot(NativeVhdBoot: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileIntA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, nDefault: Int32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileIntW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, nDefault: Int32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileStringA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, lpDefault: win32more.Foundation.PSTR, lpReturnedString: win32more.Foundation.PSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileStringW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, lpDefault: win32more.Foundation.PWSTR, lpReturnedString: win32more.Foundation.PWSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def WriteProfileStringA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, lpString: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WriteProfileStringW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, lpString: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileSectionA(lpAppName: win32more.Foundation.PSTR, lpReturnedString: win32more.Foundation.PSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetProfileSectionW(lpAppName: win32more.Foundation.PWSTR, lpReturnedString: win32more.Foundation.PWSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def WriteProfileSectionA(lpAppName: win32more.Foundation.PSTR, lpString: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WriteProfileSectionW(lpAppName: win32more.Foundation.PWSTR, lpString: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileIntA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, nDefault: Int32, lpFileName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileIntW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, nDefault: Int32, lpFileName: win32more.Foundation.PWSTR) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileStringA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, lpDefault: win32more.Foundation.PSTR, lpReturnedString: win32more.Foundation.PSTR, nSize: UInt32, lpFileName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileStringW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, lpDefault: win32more.Foundation.PWSTR, lpReturnedString: win32more.Foundation.PWSTR, nSize: UInt32, lpFileName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileStringA(lpAppName: win32more.Foundation.PSTR, lpKeyName: win32more.Foundation.PSTR, lpString: win32more.Foundation.PSTR, lpFileName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileStringW(lpAppName: win32more.Foundation.PWSTR, lpKeyName: win32more.Foundation.PWSTR, lpString: win32more.Foundation.PWSTR, lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileSectionA(lpAppName: win32more.Foundation.PSTR, lpReturnedString: win32more.Foundation.PSTR, nSize: UInt32, lpFileName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileSectionW(lpAppName: win32more.Foundation.PWSTR, lpReturnedString: win32more.Foundation.PWSTR, nSize: UInt32, lpFileName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileSectionA(lpAppName: win32more.Foundation.PSTR, lpString: win32more.Foundation.PSTR, lpFileName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileSectionW(lpAppName: win32more.Foundation.PWSTR, lpString: win32more.Foundation.PWSTR, lpFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileSectionNamesA(lpszReturnBuffer: win32more.Foundation.PSTR, nSize: UInt32, lpFileName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileSectionNamesW(lpszReturnBuffer: win32more.Foundation.PWSTR, nSize: UInt32, lpFileName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileStructA(lpszSection: win32more.Foundation.PSTR, lpszKey: win32more.Foundation.PSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetPrivateProfileStructW(lpszSection: win32more.Foundation.PWSTR, lpszKey: win32more.Foundation.PWSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileStructA(lpszSection: win32more.Foundation.PSTR, lpszKey: win32more.Foundation.PSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WritePrivateProfileStructW(lpszSection: win32more.Foundation.PWSTR, lpszKey: win32more.Foundation.PWSTR, lpStruct: c_void_p, uSizeStruct: UInt32, szFile: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadHugeReadPtr(lp: c_void_p, ucb: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadHugeWritePtr(lp: c_void_p, ucb: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetComputerNameA(lpBuffer: win32more.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetComputerNameW(lpBuffer: win32more.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DnsHostnameToComputerNameA(Hostname: win32more.Foundation.PSTR, ComputerName: win32more.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DnsHostnameToComputerNameW(Hostname: win32more.Foundation.PWSTR, ComputerName: win32more.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetUserNameA(lpBuffer: win32more.Foundation.PSTR, pcbBuffer: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetUserNameW(lpBuffer: win32more.Foundation.PWSTR, pcbBuffer: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsTokenUntrusted(TokenHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CancelTimerQueueTimer(TimerQueue: win32more.Foundation.HANDLE, Timer: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetCurrentHwProfileA(lpHwProfileInfo: POINTER(win32more.System.WindowsProgramming.HW_PROFILE_INFOA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetCurrentHwProfileW(lpHwProfileInfo: POINTER(win32more.System.WindowsProgramming.HW_PROFILE_INFOW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ReplacePartitionUnit(TargetPartition: win32more.Foundation.PWSTR, SparePartition: win32more.Foundation.PWSTR, Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadEnabledXStateFeatures() -> UInt64: ...
+@winfunctype('KERNEL32.dll')
+def EnableProcessOptionalXStateFeatures(Features: UInt64) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-backgroundtask-l1-1-0.dll')
+def RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig: POINTER(win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head)) -> UInt32: ...
+@winfunctype('ntdll.dll')
+def NtClose(Handle: win32more.Foundation.HANDLE) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtOpenFile(FileHandle: POINTER(win32more.Foundation.HANDLE), DesiredAccess: UInt32, ObjectAttributes: POINTER(win32more.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), IoStatusBlock: POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head), ShareAccess: UInt32, OpenOptions: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtRenameKey(KeyHandle: win32more.Foundation.HANDLE, NewName: POINTER(win32more.Foundation.UNICODE_STRING_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtNotifyChangeMultipleKeys(MasterKeyHandle: win32more.Foundation.HANDLE, Count: UInt32, SubordinateObjects: POINTER(win32more.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), Event: win32more.Foundation.HANDLE, ApcRoutine: win32more.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, IoStatusBlock: POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head), CompletionFilter: UInt32, WatchTree: win32more.Foundation.BOOLEAN, Buffer: c_void_p, BufferSize: UInt32, Asynchronous: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtQueryMultipleValueKey(KeyHandle: win32more.Foundation.HANDLE, ValueEntries: POINTER(win32more.System.WindowsProgramming.KEY_VALUE_ENTRY_head), EntryCount: UInt32, ValueBuffer: c_void_p, BufferLength: POINTER(UInt32), RequiredBufferLength: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtSetInformationKey(KeyHandle: win32more.Foundation.HANDLE, KeySetInformationClass: win32more.System.WindowsProgramming.KEY_SET_INFORMATION_CLASS, KeySetInformation: c_void_p, KeySetInformationLength: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtDeviceIoControlFile(FileHandle: win32more.Foundation.HANDLE, Event: win32more.Foundation.HANDLE, ApcRoutine: win32more.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, IoStatusBlock: POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head), IoControlCode: UInt32, InputBuffer: c_void_p, InputBufferLength: UInt32, OutputBuffer: c_void_p, OutputBufferLength: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtWaitForSingleObject(Handle: win32more.Foundation.HANDLE, Alertable: win32more.Foundation.BOOLEAN, Timeout: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlIsNameLegalDOS8Dot3(Name: POINTER(win32more.Foundation.UNICODE_STRING_head), OemName: POINTER(win32more.System.Kernel.STRING_head), NameContainsSpaces: POINTER(win32more.Foundation.BOOLEAN)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('ntdll.dll')
+def NtQueryObject(Handle: win32more.Foundation.HANDLE, ObjectInformationClass: win32more.System.WindowsProgramming.OBJECT_INFORMATION_CLASS, ObjectInformation: c_void_p, ObjectInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtQuerySystemInformation(SystemInformationClass: win32more.System.WindowsProgramming.SYSTEM_INFORMATION_CLASS, SystemInformation: c_void_p, SystemInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtQuerySystemTime(SystemTime: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtQueryTimerResolution(MaximumTime: POINTER(UInt32), MinimumTime: POINTER(UInt32), CurrentTime: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlLocalTimeToSystemTime(LocalTime: POINTER(win32more.Foundation.LARGE_INTEGER_head), SystemTime: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlTimeToSecondsSince1970(Time: POINTER(win32more.Foundation.LARGE_INTEGER_head), ElapsedSeconds: POINTER(UInt32)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('ntdll.dll')
+def RtlFreeAnsiString(AnsiString: POINTER(win32more.System.Kernel.STRING_head)) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlFreeUnicodeString(UnicodeString: POINTER(win32more.Foundation.UNICODE_STRING_head)) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlFreeOemString(OemString: POINTER(win32more.System.Kernel.STRING_head)) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlInitString(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(SByte)) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlInitStringEx(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(SByte)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlInitAnsiString(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(SByte)) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlInitAnsiStringEx(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(SByte)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlInitUnicodeString(DestinationString: POINTER(win32more.Foundation.UNICODE_STRING_head), SourceString: win32more.Foundation.PWSTR) -> Void: ...
+@winfunctype('ntdll.dll')
+def RtlAnsiStringToUnicodeString(DestinationString: POINTER(win32more.Foundation.UNICODE_STRING_head), SourceString: POINTER(win32more.System.Kernel.STRING_head), AllocateDestinationString: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlUnicodeStringToAnsiString(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(win32more.Foundation.UNICODE_STRING_head), AllocateDestinationString: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlUnicodeStringToOemString(DestinationString: POINTER(win32more.System.Kernel.STRING_head), SourceString: POINTER(win32more.Foundation.UNICODE_STRING_head), AllocateDestinationString: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlUnicodeToMultiByteSize(BytesInMultiByteString: POINTER(UInt32), UnicodeString: win32more.Foundation.PWSTR, BytesInUnicodeString: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlCharToInteger(String: POINTER(SByte), Base: UInt32, Value: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def RtlUniform(Seed: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
+def GetFeatureEnabledState(featureId: UInt32, changeTime: win32more.System.WindowsProgramming.FEATURE_CHANGE_TIME) -> win32more.System.WindowsProgramming.FEATURE_ENABLED_STATE: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
+def RecordFeatureUsage(featureId: UInt32, kind: UInt32, addend: UInt32, originName: win32more.Foundation.PSTR) -> Void: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
+def RecordFeatureError(featureId: UInt32, error: POINTER(win32more.System.WindowsProgramming.FEATURE_ERROR_head)) -> Void: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
+def SubscribeFeatureStateChangeNotification(subscription: POINTER(win32more.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION), callback: win32more.System.WindowsProgramming.PFEATURE_STATE_CHANGE_CALLBACK, context: c_void_p) -> Void: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-0.dll')
+def UnsubscribeFeatureStateChangeNotification(subscription: win32more.System.WindowsProgramming.FEATURE_STATE_CHANGE_SUBSCRIPTION) -> Void: ...
+@winfunctype('api-ms-win-core-featurestaging-l1-1-1.dll')
+def GetFeatureVariant(featureId: UInt32, changeTime: win32more.System.WindowsProgramming.FEATURE_CHANGE_TIME, payloadId: POINTER(UInt32), hasNotification: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('DCIMAN32.dll')
+def DCIOpenProvider() -> win32more.Graphics.Gdi.HDC: ...
+@winfunctype('DCIMAN32.dll')
+def DCICloseProvider(hdc: win32more.Graphics.Gdi.HDC) -> Void: ...
+@winfunctype('DCIMAN32.dll')
+def DCICreatePrimary(hdc: win32more.Graphics.Gdi.HDC, lplpSurface: POINTER(POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head))) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCICreateOffscreen(hdc: win32more.Graphics.Gdi.HDC, dwCompression: UInt32, dwRedMask: UInt32, dwGreenMask: UInt32, dwBlueMask: UInt32, dwWidth: UInt32, dwHeight: UInt32, dwDCICaps: UInt32, dwBitCount: UInt32, lplpSurface: POINTER(POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head))) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCICreateOverlay(hdc: win32more.Graphics.Gdi.HDC, lpOffscreenSurf: c_void_p, lplpSurface: POINTER(POINTER(win32more.System.WindowsProgramming.DCIOVERLAY_head))) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCIEnum(hdc: win32more.Graphics.Gdi.HDC, lprDst: POINTER(win32more.Foundation.RECT_head), lprSrc: POINTER(win32more.Foundation.RECT_head), lpFnCallback: c_void_p, lpContext: c_void_p) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCISetSrcDestClip(pdci: POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head), srcrc: POINTER(win32more.Foundation.RECT_head), destrc: POINTER(win32more.Foundation.RECT_head), prd: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def WinWatchOpen(hwnd: win32more.Foundation.HWND) -> win32more.System.WindowsProgramming.HWINWATCH: ...
+@winfunctype('DCIMAN32.dll')
+def WinWatchClose(hWW: win32more.System.WindowsProgramming.HWINWATCH) -> Void: ...
+@winfunctype('DCIMAN32.dll')
+def WinWatchGetClipList(hWW: win32more.System.WindowsProgramming.HWINWATCH, prc: POINTER(win32more.Foundation.RECT_head), size: UInt32, prd: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> UInt32: ...
+@winfunctype('DCIMAN32.dll')
+def WinWatchDidStatusChange(hWW: win32more.System.WindowsProgramming.HWINWATCH) -> win32more.Foundation.BOOL: ...
+@winfunctype('DCIMAN32.dll')
+def GetWindowRegionData(hwnd: win32more.Foundation.HWND, size: UInt32, prd: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> UInt32: ...
+@winfunctype('DCIMAN32.dll')
+def GetDCRegionData(hdc: win32more.Graphics.Gdi.HDC, size: UInt32, prd: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> UInt32: ...
+@winfunctype('DCIMAN32.dll')
+def WinWatchNotify(hWW: win32more.System.WindowsProgramming.HWINWATCH, NotifyCallback: win32more.System.WindowsProgramming.WINWATCHNOTIFYPROC, NotifyParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('DCIMAN32.dll')
+def DCIEndAccess(pdci: POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head)) -> Void: ...
+@winfunctype('DCIMAN32.dll')
+def DCIBeginAccess(pdci: POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head), x: Int32, y: Int32, dx: Int32, dy: Int32) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCIDestroy(pdci: POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head)) -> Void: ...
+@winfunctype('DCIMAN32.dll')
+def DCIDraw(pdci: POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head)) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCISetClipList(pdci: POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head), prd: POINTER(win32more.Graphics.Gdi.RGNDATA_head)) -> Int32: ...
+@winfunctype('DCIMAN32.dll')
+def DCISetDestination(pdci: POINTER(win32more.System.WindowsProgramming.DCIOFFSCREEN_head), dst: POINTER(win32more.Foundation.RECT_head), src: POINTER(win32more.Foundation.RECT_head)) -> Int32: ...
+@winfunctype('api-ms-win-dx-d3dkmt-l1-1-0.dll')
+def GdiEntry13() -> UInt32: ...
+@winfunctype('ADVPACK.dll')
+def RunSetupCommandA(hWnd: win32more.Foundation.HWND, szCmdName: win32more.Foundation.PSTR, szInfSection: win32more.Foundation.PSTR, szDir: win32more.Foundation.PSTR, lpszTitle: win32more.Foundation.PSTR, phEXE: POINTER(win32more.Foundation.HANDLE), dwFlags: UInt32, pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RunSetupCommandW(hWnd: win32more.Foundation.HWND, szCmdName: win32more.Foundation.PWSTR, szInfSection: win32more.Foundation.PWSTR, szDir: win32more.Foundation.PWSTR, lpszTitle: win32more.Foundation.PWSTR, phEXE: POINTER(win32more.Foundation.HANDLE), dwFlags: UInt32, pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def NeedRebootInit() -> UInt32: ...
+@winfunctype('ADVPACK.dll')
+def NeedReboot(dwRebootCheck: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVPACK.dll')
+def RebootCheckOnInstallA(hwnd: win32more.Foundation.HWND, pszINF: win32more.Foundation.PSTR, pszSec: win32more.Foundation.PSTR, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RebootCheckOnInstallW(hwnd: win32more.Foundation.HWND, pszINF: win32more.Foundation.PWSTR, pszSec: win32more.Foundation.PWSTR, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def TranslateInfStringA(pszInfFilename: win32more.Foundation.PSTR, pszInstallSection: win32more.Foundation.PSTR, pszTranslateSection: win32more.Foundation.PSTR, pszTranslateKey: win32more.Foundation.PSTR, pszBuffer: win32more.Foundation.PSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def TranslateInfStringW(pszInfFilename: win32more.Foundation.PWSTR, pszInstallSection: win32more.Foundation.PWSTR, pszTranslateSection: win32more.Foundation.PWSTR, pszTranslateKey: win32more.Foundation.PWSTR, pszBuffer: win32more.Foundation.PWSTR, cchBuffer: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegInstallA(hmod: win32more.Foundation.HINSTANCE, pszSection: win32more.Foundation.PSTR, pstTable: POINTER(win32more.System.WindowsProgramming.STRTABLEA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegInstallW(hmod: win32more.Foundation.HINSTANCE, pszSection: win32more.Foundation.PWSTR, pstTable: POINTER(win32more.System.WindowsProgramming.STRTABLEW_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def LaunchINFSectionExW(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PWSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def ExecuteCabA(hwnd: win32more.Foundation.HWND, pCab: POINTER(win32more.System.WindowsProgramming.CABINFOA_head), pReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def ExecuteCabW(hwnd: win32more.Foundation.HWND, pCab: POINTER(win32more.System.WindowsProgramming.CABINFOW_head), pReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def AdvInstallFileA(hwnd: win32more.Foundation.HWND, lpszSourceDir: win32more.Foundation.PSTR, lpszSourceFile: win32more.Foundation.PSTR, lpszDestDir: win32more.Foundation.PSTR, lpszDestFile: win32more.Foundation.PSTR, dwFlags: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def AdvInstallFileW(hwnd: win32more.Foundation.HWND, lpszSourceDir: win32more.Foundation.PWSTR, lpszSourceFile: win32more.Foundation.PWSTR, lpszDestDir: win32more.Foundation.PWSTR, lpszDestFile: win32more.Foundation.PWSTR, dwFlags: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegSaveRestoreA(hWnd: win32more.Foundation.HWND, pszTitleString: win32more.Foundation.PSTR, hkBckupKey: win32more.System.Registry.HKEY, pcszRootKey: win32more.Foundation.PSTR, pcszSubKey: win32more.Foundation.PSTR, pcszValueName: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegSaveRestoreW(hWnd: win32more.Foundation.HWND, pszTitleString: win32more.Foundation.PWSTR, hkBckupKey: win32more.System.Registry.HKEY, pcszRootKey: win32more.Foundation.PWSTR, pcszSubKey: win32more.Foundation.PWSTR, pcszValueName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegSaveRestoreOnINFA(hWnd: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PSTR, pszINF: win32more.Foundation.PSTR, pszSection: win32more.Foundation.PSTR, hHKLMBackKey: win32more.System.Registry.HKEY, hHKCUBackKey: win32more.System.Registry.HKEY, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegSaveRestoreOnINFW(hWnd: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszINF: win32more.Foundation.PWSTR, pszSection: win32more.Foundation.PWSTR, hHKLMBackKey: win32more.System.Registry.HKEY, hHKCUBackKey: win32more.System.Registry.HKEY, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegRestoreAllA(hWnd: win32more.Foundation.HWND, pszTitleString: win32more.Foundation.PSTR, hkBckupKey: win32more.System.Registry.HKEY) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def RegRestoreAllW(hWnd: win32more.Foundation.HWND, pszTitleString: win32more.Foundation.PWSTR, hkBckupKey: win32more.System.Registry.HKEY) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def FileSaveRestoreW(hDlg: win32more.Foundation.HWND, lpFileList: win32more.Foundation.PWSTR, lpDir: win32more.Foundation.PWSTR, lpBaseName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def FileSaveRestoreOnINFA(hWnd: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PSTR, pszINF: win32more.Foundation.PSTR, pszSection: win32more.Foundation.PSTR, pszBackupDir: win32more.Foundation.PSTR, pszBaseBackupFile: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def FileSaveRestoreOnINFW(hWnd: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszINF: win32more.Foundation.PWSTR, pszSection: win32more.Foundation.PWSTR, pszBackupDir: win32more.Foundation.PWSTR, pszBaseBackupFile: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def AddDelBackupEntryA(lpcszFileList: win32more.Foundation.PSTR, lpcszBackupDir: win32more.Foundation.PSTR, lpcszBaseName: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def AddDelBackupEntryW(lpcszFileList: win32more.Foundation.PWSTR, lpcszBackupDir: win32more.Foundation.PWSTR, lpcszBaseName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def FileSaveMarkNotExistA(lpFileList: win32more.Foundation.PSTR, lpDir: win32more.Foundation.PSTR, lpBaseName: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def FileSaveMarkNotExistW(lpFileList: win32more.Foundation.PWSTR, lpDir: win32more.Foundation.PWSTR, lpBaseName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def GetVersionFromFileA(lpszFilename: win32more.Foundation.PSTR, pdwMSVer: POINTER(UInt32), pdwLSVer: POINTER(UInt32), bVersion: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def GetVersionFromFileW(lpszFilename: win32more.Foundation.PWSTR, pdwMSVer: POINTER(UInt32), pdwLSVer: POINTER(UInt32), bVersion: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def GetVersionFromFileExA(lpszFilename: win32more.Foundation.PSTR, pdwMSVer: POINTER(UInt32), pdwLSVer: POINTER(UInt32), bVersion: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def GetVersionFromFileExW(lpszFilename: win32more.Foundation.PWSTR, pdwMSVer: POINTER(UInt32), pdwLSVer: POINTER(UInt32), bVersion: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def IsNTAdmin(dwReserved: UInt32, lpdwReserved: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVPACK.dll')
+def DelNodeA(pszFileOrDirName: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def DelNodeW(pszFileOrDirName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def DelNodeRunDLL32W(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PWSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def OpenINFEngineA(pszInfFilename: win32more.Foundation.PSTR, pszInstallSection: win32more.Foundation.PSTR, dwFlags: UInt32, phInf: POINTER(c_void_p), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def OpenINFEngineW(pszInfFilename: win32more.Foundation.PWSTR, pszInstallSection: win32more.Foundation.PWSTR, dwFlags: UInt32, phInf: POINTER(c_void_p), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def TranslateInfStringExA(hInf: c_void_p, pszInfFilename: win32more.Foundation.PSTR, pszTranslateSection: win32more.Foundation.PSTR, pszTranslateKey: win32more.Foundation.PSTR, pszBuffer: win32more.Foundation.PSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def TranslateInfStringExW(hInf: c_void_p, pszInfFilename: win32more.Foundation.PWSTR, pszTranslateSection: win32more.Foundation.PWSTR, pszTranslateKey: win32more.Foundation.PWSTR, pszBuffer: win32more.Foundation.PWSTR, dwBufferSize: UInt32, pdwRequiredSize: POINTER(UInt32), pvReserved: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def CloseINFEngine(hInf: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def ExtractFilesA(pszCabName: win32more.Foundation.PSTR, pszExpandDir: win32more.Foundation.PSTR, dwFlags: UInt32, pszFileList: win32more.Foundation.PSTR, lpReserved: c_void_p, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def ExtractFilesW(pszCabName: win32more.Foundation.PWSTR, pszExpandDir: win32more.Foundation.PWSTR, dwFlags: UInt32, pszFileList: win32more.Foundation.PWSTR, lpReserved: c_void_p, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def LaunchINFSectionW(hwndOwner: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParams: win32more.Foundation.PWSTR, nShow: Int32) -> Int32: ...
+@winfunctype('ADVPACK.dll')
+def UserInstStubWrapperA(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def UserInstStubWrapperW(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PWSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def UserUnInstStubWrapperA(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def UserUnInstStubWrapperW(hwnd: win32more.Foundation.HWND, hInstance: win32more.Foundation.HINSTANCE, pszParms: win32more.Foundation.PWSTR, nShow: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def SetPerUserSecValuesA(pPerUser: POINTER(win32more.System.WindowsProgramming.PERUSERSECTIONA_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('ADVPACK.dll')
+def SetPerUserSecValuesW(pPerUser: POINTER(win32more.System.WindowsProgramming.PERUSERSECTIONW_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('USER32.dll')
+def SendIMEMessageExA(param0: win32more.Foundation.HWND, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype('USER32.dll')
+def SendIMEMessageExW(param0: win32more.Foundation.HWND, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype('USER32.dll')
+def IMPGetIMEA(param0: win32more.Foundation.HWND, param1: POINTER(win32more.System.WindowsProgramming.IMEPROA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IMPGetIMEW(param0: win32more.Foundation.HWND, param1: POINTER(win32more.System.WindowsProgramming.IMEPROW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IMPQueryIMEA(param0: POINTER(win32more.System.WindowsProgramming.IMEPROA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IMPQueryIMEW(param0: POINTER(win32more.System.WindowsProgramming.IMEPROW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IMPSetIMEA(param0: win32more.Foundation.HWND, param1: POINTER(win32more.System.WindowsProgramming.IMEPROA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def IMPSetIMEW(param0: win32more.Foundation.HWND, param1: POINTER(win32more.System.WindowsProgramming.IMEPROW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def WINNLSGetIMEHotkey(param0: win32more.Foundation.HWND) -> UInt32: ...
+@winfunctype('USER32.dll')
+def WINNLSEnableIME(param0: win32more.Foundation.HWND, param1: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def WINNLSGetEnableStatus(param0: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('APPHELP.dll')
+def ApphelpCheckShellObject(ObjectCLSID: POINTER(Guid), bShimIfNecessary: win32more.Foundation.BOOL, pullFlags: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('Wldp.dll')
+def WldpGetLockdownPolicy(hostInformation: POINTER(win32more.System.WindowsProgramming.WLDP_HOST_INFORMATION_head), lockdownState: POINTER(UInt32), lockdownFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpIsClassInApprovedList(classID: POINTER(Guid), hostInformation: POINTER(win32more.System.WindowsProgramming.WLDP_HOST_INFORMATION_head), isApproved: POINTER(win32more.Foundation.BOOL), optionalFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpSetDynamicCodeTrust(fileHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpIsDynamicCodePolicyEnabled(isEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpQueryDynamicCodeTrust(fileHandle: win32more.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpQueryDeviceSecurityInformation(information: POINTER(win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def APPLICATION_RECOVERY_CALLBACK(pvParameter: c_void_p) -> UInt32: ...
+class CABINFOA(Structure):
+    pszCab: win32more.Foundation.PSTR
+    pszInf: win32more.Foundation.PSTR
+    pszSection: win32more.Foundation.PSTR
+    szSrcPath: win32more.Foundation.CHAR * 260
+    dwFlags: UInt32
+class CABINFOW(Structure):
+    pszCab: win32more.Foundation.PWSTR
+    pszInf: win32more.Foundation.PWSTR
+    pszSection: win32more.Foundation.PWSTR
+    szSrcPath: Char * 260
+    dwFlags: UInt32
 CameraUIControl = Guid('16d5a2be-b1c5-47b3-8e-ae-cc-bc-f4-52-c7-e8')
 CameraUIControlCaptureMode = Int32
-CameraUIControlCaptureMode_PhotoOrVideo = 0
-CameraUIControlCaptureMode_Photo = 1
-CameraUIControlCaptureMode_Video = 2
+CameraUIControlCaptureMode_PhotoOrVideo: CameraUIControlCaptureMode = 0
+CameraUIControlCaptureMode_Photo: CameraUIControlCaptureMode = 1
+CameraUIControlCaptureMode_Video: CameraUIControlCaptureMode = 2
 CameraUIControlLinearSelectionMode = Int32
-CameraUIControlLinearSelectionMode_Single = 0
-CameraUIControlLinearSelectionMode_Multiple = 1
+CameraUIControlLinearSelectionMode_Single: CameraUIControlLinearSelectionMode = 0
+CameraUIControlLinearSelectionMode_Multiple: CameraUIControlLinearSelectionMode = 1
 CameraUIControlMode = Int32
-CameraUIControlMode_Browse = 0
-CameraUIControlMode_Linear = 1
+CameraUIControlMode_Browse: CameraUIControlMode = 0
+CameraUIControlMode_Linear: CameraUIControlMode = 1
 CameraUIControlPhotoFormat = Int32
-CameraUIControlPhotoFormat_Jpeg = 0
-CameraUIControlPhotoFormat_Png = 1
-CameraUIControlPhotoFormat_JpegXR = 2
+CameraUIControlPhotoFormat_Jpeg: CameraUIControlPhotoFormat = 0
+CameraUIControlPhotoFormat_Png: CameraUIControlPhotoFormat = 1
+CameraUIControlPhotoFormat_JpegXR: CameraUIControlPhotoFormat = 2
 CameraUIControlVideoFormat = Int32
-CameraUIControlVideoFormat_Mp4 = 0
-CameraUIControlVideoFormat_Wmv = 1
+CameraUIControlVideoFormat_Mp4: CameraUIControlVideoFormat = 0
+CameraUIControlVideoFormat_Wmv: CameraUIControlVideoFormat = 1
 CameraUIControlViewType = Int32
-CameraUIControlViewType_SingleItem = 0
-CameraUIControlViewType_ItemList = 1
-def _define_CLIENT_ID_head():
-    class CLIENT_ID(Structure):
-        pass
-    return CLIENT_ID
-def _define_CLIENT_ID():
-    CLIENT_ID = win32more.System.WindowsProgramming.CLIENT_ID_head
-    CLIENT_ID._fields_ = [
-        ('UniqueProcess', win32more.Foundation.HANDLE),
-        ('UniqueThread', win32more.Foundation.HANDLE),
-    ]
-    return CLIENT_ID
-def _define_CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head():
-    class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
-        pass
-    return CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG
-def _define_CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG():
-    CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG = win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head
-    CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG._fields_ = [
-        ('Size', UInt32),
-        ('TriggerId', win32more.Foundation.PWSTR),
-    ]
-    return CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG
-def _define_DATETIME_head():
-    class DATETIME(Structure):
-        pass
-    return DATETIME
-def _define_DATETIME():
-    DATETIME = win32more.System.WindowsProgramming.DATETIME_head
-    DATETIME._fields_ = [
-        ('year', UInt16),
-        ('month', UInt16),
-        ('day', UInt16),
-        ('hour', UInt16),
-        ('min', UInt16),
-        ('sec', UInt16),
-    ]
-    return DATETIME
-def _define_DCICMD_head():
-    class DCICMD(Structure):
-        pass
-    return DCICMD
-def _define_DCICMD():
-    DCICMD = win32more.System.WindowsProgramming.DCICMD_head
-    DCICMD._fields_ = [
-        ('dwCommand', UInt32),
-        ('dwParam1', UInt32),
-        ('dwParam2', UInt32),
-        ('dwVersion', UInt32),
-        ('dwReserved', UInt32),
-    ]
-    return DCICMD
-def _define_DCICREATEINPUT_head():
-    class DCICREATEINPUT(Structure):
-        pass
-    return DCICREATEINPUT
-def _define_DCICREATEINPUT():
-    DCICREATEINPUT = win32more.System.WindowsProgramming.DCICREATEINPUT_head
-    DCICREATEINPUT._fields_ = [
-        ('cmd', win32more.System.WindowsProgramming.DCICMD),
-        ('dwCompression', UInt32),
-        ('dwMask', UInt32 * 3),
-        ('dwWidth', UInt32),
-        ('dwHeight', UInt32),
-        ('dwDCICaps', UInt32),
-        ('dwBitCount', UInt32),
-        ('lpSurface', c_void_p),
-    ]
-    return DCICREATEINPUT
-def _define_DCIENUMINPUT_head():
-    class DCIENUMINPUT(Structure):
-        pass
-    return DCIENUMINPUT
-def _define_DCIENUMINPUT():
-    DCIENUMINPUT = win32more.System.WindowsProgramming.DCIENUMINPUT_head
-    DCIENUMINPUT._fields_ = [
-        ('cmd', win32more.System.WindowsProgramming.DCICMD),
-        ('rSrc', win32more.Foundation.RECT),
-        ('rDst', win32more.Foundation.RECT),
-        ('EnumCallback', IntPtr),
-        ('lpContext', c_void_p),
-    ]
-    return DCIENUMINPUT
-def _define_DCIOFFSCREEN_head():
-    class DCIOFFSCREEN(Structure):
-        pass
-    return DCIOFFSCREEN
-def _define_DCIOFFSCREEN():
-    DCIOFFSCREEN = win32more.System.WindowsProgramming.DCIOFFSCREEN_head
-    DCIOFFSCREEN._fields_ = [
-        ('dciInfo', win32more.System.WindowsProgramming.DCISURFACEINFO),
-        ('Draw', IntPtr),
-        ('SetClipList', IntPtr),
-        ('SetDestination', IntPtr),
-    ]
-    return DCIOFFSCREEN
-def _define_DCIOVERLAY_head():
-    class DCIOVERLAY(Structure):
-        pass
-    return DCIOVERLAY
-def _define_DCIOVERLAY():
-    DCIOVERLAY = win32more.System.WindowsProgramming.DCIOVERLAY_head
-    DCIOVERLAY._fields_ = [
-        ('dciInfo', win32more.System.WindowsProgramming.DCISURFACEINFO),
-        ('dwChromakeyValue', UInt32),
-        ('dwChromakeyMask', UInt32),
-    ]
-    return DCIOVERLAY
-def _define_DCISURFACEINFO_head():
-    class DCISURFACEINFO(Structure):
-        pass
-    return DCISURFACEINFO
-def _define_DCISURFACEINFO():
-    DCISURFACEINFO = win32more.System.WindowsProgramming.DCISURFACEINFO_head
-    DCISURFACEINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwDCICaps', UInt32),
-        ('dwCompression', UInt32),
-        ('dwMask', UInt32 * 3),
-        ('dwWidth', UInt32),
-        ('dwHeight', UInt32),
-        ('lStride', Int32),
-        ('dwBitCount', UInt32),
-        ('dwOffSurface', UIntPtr),
-        ('wSelSurface', UInt16),
-        ('wReserved', UInt16),
-        ('dwReserved1', UInt32),
-        ('dwReserved2', UInt32),
-        ('dwReserved3', UInt32),
-        ('BeginAccess', IntPtr),
-        ('EndAccess', IntPtr),
-        ('DestroySurface', IntPtr),
-    ]
-    return DCISURFACEINFO
+CameraUIControlViewType_SingleItem: CameraUIControlViewType = 0
+CameraUIControlViewType_ItemList: CameraUIControlViewType = 1
+class CLIENT_ID(Structure):
+    UniqueProcess: win32more.Foundation.HANDLE
+    UniqueThread: win32more.Foundation.HANDLE
+class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
+    Size: UInt32
+    TriggerId: win32more.Foundation.PWSTR
+class DATETIME(Structure):
+    year: UInt16
+    month: UInt16
+    day: UInt16
+    hour: UInt16
+    min: UInt16
+    sec: UInt16
+class DCICMD(Structure):
+    dwCommand: UInt32
+    dwParam1: UInt32
+    dwParam2: UInt32
+    dwVersion: UInt32
+    dwReserved: UInt32
+class DCICREATEINPUT(Structure):
+    cmd: win32more.System.WindowsProgramming.DCICMD
+    dwCompression: UInt32
+    dwMask: UInt32 * 3
+    dwWidth: UInt32
+    dwHeight: UInt32
+    dwDCICaps: UInt32
+    dwBitCount: UInt32
+    lpSurface: c_void_p
+class DCIENUMINPUT(Structure):
+    cmd: win32more.System.WindowsProgramming.DCICMD
+    rSrc: win32more.Foundation.RECT
+    rDst: win32more.Foundation.RECT
+    EnumCallback: IntPtr
+    lpContext: c_void_p
+class DCIOFFSCREEN(Structure):
+    dciInfo: win32more.System.WindowsProgramming.DCISURFACEINFO
+    Draw: IntPtr
+    SetClipList: IntPtr
+    SetDestination: IntPtr
+class DCIOVERLAY(Structure):
+    dciInfo: win32more.System.WindowsProgramming.DCISURFACEINFO
+    dwChromakeyValue: UInt32
+    dwChromakeyMask: UInt32
+class DCISURFACEINFO(Structure):
+    dwSize: UInt32
+    dwDCICaps: UInt32
+    dwCompression: UInt32
+    dwMask: UInt32 * 3
+    dwWidth: UInt32
+    dwHeight: UInt32
+    lStride: Int32
+    dwBitCount: UInt32
+    dwOffSurface: UIntPtr
+    wSelSurface: UInt16
+    wReserved: UInt16
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+    dwReserved3: UInt32
+    BeginAccess: IntPtr
+    EndAccess: IntPtr
+    DestroySurface: IntPtr
 DECISION_LOCATION = Int32
-DECISION_LOCATION_REFRESH_GLOBAL_DATA = 0
-DECISION_LOCATION_PARAMETER_VALIDATION = 1
-DECISION_LOCATION_AUDIT = 2
-DECISION_LOCATION_FAILED_CONVERT_GUID = 3
-DECISION_LOCATION_ENTERPRISE_DEFINED_CLASS_ID = 4
-DECISION_LOCATION_GLOBAL_BUILT_IN_LIST = 5
-DECISION_LOCATION_PROVIDER_BUILT_IN_LIST = 6
-DECISION_LOCATION_ENFORCE_STATE_LIST = 7
-DECISION_LOCATION_NOT_FOUND = 8
-DECISION_LOCATION_UNKNOWN = 9
+DECISION_LOCATION_REFRESH_GLOBAL_DATA: DECISION_LOCATION = 0
+DECISION_LOCATION_PARAMETER_VALIDATION: DECISION_LOCATION = 1
+DECISION_LOCATION_AUDIT: DECISION_LOCATION = 2
+DECISION_LOCATION_FAILED_CONVERT_GUID: DECISION_LOCATION = 3
+DECISION_LOCATION_ENTERPRISE_DEFINED_CLASS_ID: DECISION_LOCATION = 4
+DECISION_LOCATION_GLOBAL_BUILT_IN_LIST: DECISION_LOCATION = 5
+DECISION_LOCATION_PROVIDER_BUILT_IN_LIST: DECISION_LOCATION = 6
+DECISION_LOCATION_ENFORCE_STATE_LIST: DECISION_LOCATION = 7
+DECISION_LOCATION_NOT_FOUND: DECISION_LOCATION = 8
+DECISION_LOCATION_UNKNOWN: DECISION_LOCATION = 9
 DefaultBrowserSyncSettings = Guid('3ac83423-3112-4aa6-9b-5b-1f-eb-23-d0-c5-f9')
-def _define_DELAYLOAD_INFO_head():
-    class DELAYLOAD_INFO(Structure):
-        pass
-    return DELAYLOAD_INFO
-def _define_DELAYLOAD_INFO():
-    DELAYLOAD_INFO = win32more.System.WindowsProgramming.DELAYLOAD_INFO_head
-    DELAYLOAD_INFO._fields_ = [
-        ('Size', UInt32),
-        ('DelayloadDescriptor', POINTER(win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head)),
-        ('ThunkAddress', POINTER(win32more.System.WindowsProgramming.IMAGE_THUNK_DATA64_head)),
-        ('TargetDllName', win32more.Foundation.PSTR),
-        ('TargetApiDescriptor', win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR),
-        ('TargetModuleBase', c_void_p),
-        ('Unused', c_void_p),
-        ('LastError', UInt32),
-    ]
-    return DELAYLOAD_INFO
-def _define_DELAYLOAD_PROC_DESCRIPTOR_head():
-    class DELAYLOAD_PROC_DESCRIPTOR(Structure):
-        pass
-    return DELAYLOAD_PROC_DESCRIPTOR
-def _define_DELAYLOAD_PROC_DESCRIPTOR():
-    DELAYLOAD_PROC_DESCRIPTOR = win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR_head
-    class DELAYLOAD_PROC_DESCRIPTOR__Description_e__Union(Union):
-        pass
-    DELAYLOAD_PROC_DESCRIPTOR__Description_e__Union._fields_ = [
-        ('Name', win32more.Foundation.PSTR),
-        ('Ordinal', UInt32),
-    ]
-    DELAYLOAD_PROC_DESCRIPTOR._fields_ = [
-        ('ImportDescribedByName', UInt32),
-        ('Description', DELAYLOAD_PROC_DESCRIPTOR__Description_e__Union),
-    ]
-    return DELAYLOAD_PROC_DESCRIPTOR
+class DELAYLOAD_INFO(Structure):
+    Size: UInt32
+    DelayloadDescriptor: POINTER(win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head)
+    ThunkAddress: POINTER(win32more.System.WindowsProgramming.IMAGE_THUNK_DATA64_head)
+    TargetDllName: win32more.Foundation.PSTR
+    TargetApiDescriptor: win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
+    TargetModuleBase: c_void_p
+    Unused: c_void_p
+    LastError: UInt32
+class DELAYLOAD_PROC_DESCRIPTOR(Structure):
+    ImportDescribedByName: UInt32
+    Description: _Description_e__Union
+    class _Description_e__Union(Union):
+        Name: win32more.Foundation.PSTR
+        Ordinal: UInt32
 EditionUpgradeBroker = Guid('c4270827-4f39-45df-92-88-12-ff-6b-85-a9-21')
 EditionUpgradeHelper = Guid('01776df3-b9af-4e50-9b-1c-56-e9-31-16-d7-04')
-def _define_ENUM_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head),c_void_p)
+@winfunctype_pointer
+def ENUM_CALLBACK(lpSurfaceInfo: POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head), lpContext: c_void_p) -> Void: ...
 FEATURE_CHANGE_TIME = Int32
-FEATURE_CHANGE_TIME_READ = 0
-FEATURE_CHANGE_TIME_MODULE_RELOAD = 1
-FEATURE_CHANGE_TIME_SESSION = 2
-FEATURE_CHANGE_TIME_REBOOT = 3
+FEATURE_CHANGE_TIME_READ: FEATURE_CHANGE_TIME = 0
+FEATURE_CHANGE_TIME_MODULE_RELOAD: FEATURE_CHANGE_TIME = 1
+FEATURE_CHANGE_TIME_SESSION: FEATURE_CHANGE_TIME = 2
+FEATURE_CHANGE_TIME_REBOOT: FEATURE_CHANGE_TIME = 3
 FEATURE_ENABLED_STATE = Int32
-FEATURE_ENABLED_STATE_DEFAULT = 0
-FEATURE_ENABLED_STATE_DISABLED = 1
-FEATURE_ENABLED_STATE_ENABLED = 2
-def _define_FEATURE_ERROR_head():
-    class FEATURE_ERROR(Structure):
-        pass
-    return FEATURE_ERROR
-def _define_FEATURE_ERROR():
-    FEATURE_ERROR = win32more.System.WindowsProgramming.FEATURE_ERROR_head
-    FEATURE_ERROR._fields_ = [
-        ('hr', win32more.Foundation.HRESULT),
-        ('lineNumber', UInt16),
-        ('file', win32more.Foundation.PSTR),
-        ('process', win32more.Foundation.PSTR),
-        ('module', win32more.Foundation.PSTR),
-        ('callerReturnAddressOffset', UInt32),
-        ('callerModule', win32more.Foundation.PSTR),
-        ('message', win32more.Foundation.PSTR),
-        ('originLineNumber', UInt16),
-        ('originFile', win32more.Foundation.PSTR),
-        ('originModule', win32more.Foundation.PSTR),
-        ('originCallerReturnAddressOffset', UInt32),
-        ('originCallerModule', win32more.Foundation.PSTR),
-        ('originName', win32more.Foundation.PSTR),
-    ]
-    return FEATURE_ERROR
+FEATURE_ENABLED_STATE_DEFAULT: FEATURE_ENABLED_STATE = 0
+FEATURE_ENABLED_STATE_DISABLED: FEATURE_ENABLED_STATE = 1
+FEATURE_ENABLED_STATE_ENABLED: FEATURE_ENABLED_STATE = 2
+class FEATURE_ERROR(Structure):
+    hr: win32more.Foundation.HRESULT
+    lineNumber: UInt16
+    file: win32more.Foundation.PSTR
+    process: win32more.Foundation.PSTR
+    module: win32more.Foundation.PSTR
+    callerReturnAddressOffset: UInt32
+    callerModule: win32more.Foundation.PSTR
+    message: win32more.Foundation.PSTR
+    originLineNumber: UInt16
+    originFile: win32more.Foundation.PSTR
+    originModule: win32more.Foundation.PSTR
+    originCallerReturnAddressOffset: UInt32
+    originCallerModule: win32more.Foundation.PSTR
+    originName: win32more.Foundation.PSTR
 FEATURE_STATE_CHANGE_SUBSCRIPTION = IntPtr
 FH_SERVICE_PIPE_HANDLE = IntPtr
-def _define_FILE_CASE_SENSITIVE_INFO_head():
-    class FILE_CASE_SENSITIVE_INFO(Structure):
-        pass
-    return FILE_CASE_SENSITIVE_INFO
-def _define_FILE_CASE_SENSITIVE_INFO():
-    FILE_CASE_SENSITIVE_INFO = win32more.System.WindowsProgramming.FILE_CASE_SENSITIVE_INFO_head
-    FILE_CASE_SENSITIVE_INFO._fields_ = [
-        ('Flags', UInt32),
-    ]
-    return FILE_CASE_SENSITIVE_INFO
-def _define_FILE_DISPOSITION_INFO_EX_head():
-    class FILE_DISPOSITION_INFO_EX(Structure):
-        pass
-    return FILE_DISPOSITION_INFO_EX
-def _define_FILE_DISPOSITION_INFO_EX():
-    FILE_DISPOSITION_INFO_EX = win32more.System.WindowsProgramming.FILE_DISPOSITION_INFO_EX_head
-    FILE_DISPOSITION_INFO_EX._fields_ = [
-        ('Flags', UInt32),
-    ]
-    return FILE_DISPOSITION_INFO_EX
+class FILE_CASE_SENSITIVE_INFO(Structure):
+    Flags: UInt32
+class FILE_DISPOSITION_INFO_EX(Structure):
+    Flags: UInt32
 FILE_INFORMATION_CLASS = Int32
-FILE_INFORMATION_CLASS_FileDirectoryInformation = 1
-def _define_HW_PROFILE_INFOA_head():
-    class HW_PROFILE_INFOA(Structure):
-        pass
-    return HW_PROFILE_INFOA
-def _define_HW_PROFILE_INFOA():
-    HW_PROFILE_INFOA = win32more.System.WindowsProgramming.HW_PROFILE_INFOA_head
-    HW_PROFILE_INFOA._fields_ = [
-        ('dwDockInfo', UInt32),
-        ('szHwProfileGuid', win32more.Foundation.CHAR * 39),
-        ('szHwProfileName', win32more.Foundation.CHAR * 80),
-    ]
-    return HW_PROFILE_INFOA
-def _define_HW_PROFILE_INFOW_head():
-    class HW_PROFILE_INFOW(Structure):
-        pass
-    return HW_PROFILE_INFOW
-def _define_HW_PROFILE_INFOW():
-    HW_PROFILE_INFOW = win32more.System.WindowsProgramming.HW_PROFILE_INFOW_head
-    HW_PROFILE_INFOW._fields_ = [
-        ('dwDockInfo', UInt32),
-        ('szHwProfileGuid', Char * 39),
-        ('szHwProfileName', Char * 80),
-    ]
-    return HW_PROFILE_INFOW
+FILE_INFORMATION_CLASS_FileDirectoryInformation: FILE_INFORMATION_CLASS = 1
+class HW_PROFILE_INFOA(Structure):
+    dwDockInfo: UInt32
+    szHwProfileGuid: win32more.Foundation.CHAR * 39
+    szHwProfileName: win32more.Foundation.CHAR * 80
+class HW_PROFILE_INFOW(Structure):
+    dwDockInfo: UInt32
+    szHwProfileGuid: Char * 39
+    szHwProfileName: Char * 80
 HWINWATCH = IntPtr
-def _define_ICameraUIControl_head():
-    class ICameraUIControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b8733adf-3d68-4b8f-bb-08-e2-8a-0b-ed-03-76')
-    return ICameraUIControl
-def _define_ICameraUIControl():
-    ICameraUIControl = win32more.System.WindowsProgramming.ICameraUIControl_head
-    ICameraUIControl.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.WindowsProgramming.CameraUIControlMode,win32more.System.WindowsProgramming.CameraUIControlLinearSelectionMode,win32more.System.WindowsProgramming.CameraUIControlCaptureMode,win32more.System.WindowsProgramming.CameraUIControlPhotoFormat,win32more.System.WindowsProgramming.CameraUIControlVideoFormat,win32more.Foundation.BOOL,win32more.System.WindowsProgramming.ICameraUIControlEventCallback_head)(3, 'Show', ((1, 'pWindow'),(1, 'mode'),(1, 'selectionMode'),(1, 'captureMode'),(1, 'photoFormat'),(1, 'videoFormat'),(1, 'bHasCloseButton'),(1, 'pEventCallback'),)))
-    ICameraUIControl.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    ICameraUIControl.Suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'Suspend', ((1, 'pbDeferralRequired'),)))
-    ICameraUIControl.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Resume', ()))
-    ICameraUIControl.GetCurrentViewType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.CameraUIControlViewType))(7, 'GetCurrentViewType', ((1, 'pViewType'),)))
-    ICameraUIControl.GetActiveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'GetActiveItem', ((1, 'pbstrActiveItemPath'),)))
-    ICameraUIControl.GetSelectedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(9, 'GetSelectedItems', ((1, 'ppSelectedItemPaths'),)))
-    ICameraUIControl.RemoveCapturedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'RemoveCapturedItem', ((1, 'pszPath'),)))
-    win32more.System.Com.IUnknown
-    return ICameraUIControl
-def _define_ICameraUIControlEventCallback_head():
-    class ICameraUIControlEventCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1bfa0c2c-fbcd-4776-bd-a4-88-bf-97-4e-74-f4')
-    return ICameraUIControlEventCallback
-def _define_ICameraUIControlEventCallback():
-    ICameraUIControlEventCallback = win32more.System.WindowsProgramming.ICameraUIControlEventCallback_head
-    ICameraUIControlEventCallback.OnStartupComplete = COMMETHOD(WINFUNCTYPE(Void,)(3, 'OnStartupComplete', ()))
-    ICameraUIControlEventCallback.OnSuspendComplete = COMMETHOD(WINFUNCTYPE(Void,)(4, 'OnSuspendComplete', ()))
-    ICameraUIControlEventCallback.OnItemCaptured = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR)(5, 'OnItemCaptured', ((1, 'pszPath'),)))
-    ICameraUIControlEventCallback.OnItemDeleted = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR)(6, 'OnItemDeleted', ((1, 'pszPath'),)))
-    ICameraUIControlEventCallback.OnClosed = COMMETHOD(WINFUNCTYPE(Void,)(7, 'OnClosed', ()))
-    win32more.System.Com.IUnknown
-    return ICameraUIControlEventCallback
-def _define_IClipServiceNotificationHelper_head():
-    class IClipServiceNotificationHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c39948f0-6142-44fd-98-ca-e1-68-1a-8d-68-b5')
-    return IClipServiceNotificationHelper
-def _define_IClipServiceNotificationHelper():
-    IClipServiceNotificationHelper = win32more.System.WindowsProgramming.IClipServiceNotificationHelper_head
-    IClipServiceNotificationHelper.ShowToast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(3, 'ShowToast', ((1, 'titleText'),(1, 'bodyText'),(1, 'packageName'),(1, 'appId'),(1, 'launchCommand'),)))
-    win32more.System.Com.IUnknown
-    return IClipServiceNotificationHelper
-def _define_IContainerActivationHelper_head():
-    class IContainerActivationHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b524f93f-80d5-4ec7-ae-9e-d6-6e-93-ad-e1-fa')
-    return IContainerActivationHelper
-def _define_IContainerActivationHelper():
-    IContainerActivationHelper = win32more.System.WindowsProgramming.IContainerActivationHelper_head
-    IContainerActivationHelper.CanActivateClientVM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(3, 'CanActivateClientVM', ((1, 'isAllowed'),)))
-    win32more.System.Com.IUnknown
-    return IContainerActivationHelper
-def _define_IDefaultBrowserSyncSettings_head():
-    class IDefaultBrowserSyncSettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7a27faad-5ae6-4255-90-30-c5-30-93-62-92-e3')
-    return IDefaultBrowserSyncSettings
-def _define_IDefaultBrowserSyncSettings():
-    IDefaultBrowserSyncSettings = win32more.System.WindowsProgramming.IDefaultBrowserSyncSettings_head
-    IDefaultBrowserSyncSettings.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(3, 'IsEnabled', ()))
-    win32more.System.Com.IUnknown
-    return IDefaultBrowserSyncSettings
-def _define_IDeleteBrowsingHistory_head():
-    class IDeleteBrowsingHistory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cf38ed4b-2be7-4461-8b-5e-9a-46-6d-c8-2a-e3')
-    return IDeleteBrowsingHistory
-def _define_IDeleteBrowsingHistory():
-    IDeleteBrowsingHistory = win32more.System.WindowsProgramming.IDeleteBrowsingHistory_head
-    IDeleteBrowsingHistory.DeleteBrowsingHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(3, 'DeleteBrowsingHistory', ((1, 'dwFlags'),)))
-    win32more.System.Com.IUnknown
-    return IDeleteBrowsingHistory
-def _define_IEditionUpgradeBroker_head():
-    class IEditionUpgradeBroker(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ff19cbcf-9455-4937-b8-72-6b-79-29-a4-60-af')
-    return IEditionUpgradeBroker
-def _define_IEditionUpgradeBroker():
-    IEditionUpgradeBroker = win32more.System.WindowsProgramming.IEditionUpgradeBroker_head
-    IEditionUpgradeBroker.InitializeParentWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Ole.OLE_HANDLE)(3, 'InitializeParentWindow', ((1, 'parentHandle'),)))
-    IEditionUpgradeBroker.UpdateOperatingSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'UpdateOperatingSystem', ((1, 'parameter'),)))
-    IEditionUpgradeBroker.ShowProductKeyUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'ShowProductKeyUI', ()))
-    IEditionUpgradeBroker.CanUpgrade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'CanUpgrade', ()))
-    win32more.System.Com.IUnknown
-    return IEditionUpgradeBroker
-def _define_IEditionUpgradeHelper_head():
-    class IEditionUpgradeHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d3e9e342-5deb-43b6-84-9e-69-13-b8-5d-50-3a')
-    return IEditionUpgradeHelper
-def _define_IEditionUpgradeHelper():
-    IEditionUpgradeHelper = win32more.System.WindowsProgramming.IEditionUpgradeHelper_head
-    IEditionUpgradeHelper.CanUpgrade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'CanUpgrade', ((1, 'isAllowed'),)))
-    IEditionUpgradeHelper.UpdateOperatingSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(4, 'UpdateOperatingSystem', ((1, 'contentId'),)))
-    IEditionUpgradeHelper.ShowProductKeyUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'ShowProductKeyUI', ()))
-    IEditionUpgradeHelper.GetOsProductContentId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(6, 'GetOsProductContentId', ((1, 'contentId'),)))
-    IEditionUpgradeHelper.GetGenuineLocalStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'GetGenuineLocalStatus', ((1, 'isGenuine'),)))
-    win32more.System.Com.IUnknown
-    return IEditionUpgradeHelper
-def _define_IMAGE_DELAYLOAD_DESCRIPTOR_head():
-    class IMAGE_DELAYLOAD_DESCRIPTOR(Structure):
-        pass
-    return IMAGE_DELAYLOAD_DESCRIPTOR
-def _define_IMAGE_DELAYLOAD_DESCRIPTOR():
-    IMAGE_DELAYLOAD_DESCRIPTOR = win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head
-    class IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union(Union):
-        pass
-    class IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', UInt32),
-    ]
-    IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union._fields_ = [
-        ('AllAttributes', UInt32),
-        ('Anonymous', IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union__Anonymous_e__Struct),
-    ]
-    IMAGE_DELAYLOAD_DESCRIPTOR._fields_ = [
-        ('Attributes', IMAGE_DELAYLOAD_DESCRIPTOR__Attributes_e__Union),
-        ('DllNameRVA', UInt32),
-        ('ModuleHandleRVA', UInt32),
-        ('ImportAddressTableRVA', UInt32),
-        ('ImportNameTableRVA', UInt32),
-        ('BoundImportAddressTableRVA', UInt32),
-        ('UnloadInformationTableRVA', UInt32),
-        ('TimeDateStamp', UInt32),
-    ]
-    return IMAGE_DELAYLOAD_DESCRIPTOR
-def _define_IMAGE_THUNK_DATA32_head():
-    class IMAGE_THUNK_DATA32(Structure):
-        pass
-    return IMAGE_THUNK_DATA32
-def _define_IMAGE_THUNK_DATA32():
-    IMAGE_THUNK_DATA32 = win32more.System.WindowsProgramming.IMAGE_THUNK_DATA32_head
-    class IMAGE_THUNK_DATA32__u1_e__Union(Union):
-        pass
-    IMAGE_THUNK_DATA32__u1_e__Union._fields_ = [
-        ('ForwarderString', UInt32),
-        ('Function', UInt32),
-        ('Ordinal', UInt32),
-        ('AddressOfData', UInt32),
-    ]
-    IMAGE_THUNK_DATA32._fields_ = [
-        ('u1', IMAGE_THUNK_DATA32__u1_e__Union),
-    ]
-    return IMAGE_THUNK_DATA32
-def _define_IMAGE_THUNK_DATA64_head():
-    class IMAGE_THUNK_DATA64(Structure):
-        pass
-    return IMAGE_THUNK_DATA64
-def _define_IMAGE_THUNK_DATA64():
-    IMAGE_THUNK_DATA64 = win32more.System.WindowsProgramming.IMAGE_THUNK_DATA64_head
-    class IMAGE_THUNK_DATA64__u1_e__Union(Union):
-        pass
-    IMAGE_THUNK_DATA64__u1_e__Union._fields_ = [
-        ('ForwarderString', UInt64),
-        ('Function', UInt64),
-        ('Ordinal', UInt64),
-        ('AddressOfData', UInt64),
-    ]
-    IMAGE_THUNK_DATA64._fields_ = [
-        ('u1', IMAGE_THUNK_DATA64__u1_e__Union),
-    ]
-    return IMAGE_THUNK_DATA64
-def _define_IMEPROA_head():
-    class IMEPROA(Structure):
-        pass
-    return IMEPROA
-def _define_IMEPROA():
-    IMEPROA = win32more.System.WindowsProgramming.IMEPROA_head
-    IMEPROA._fields_ = [
-        ('hWnd', win32more.Foundation.HWND),
-        ('InstDate', win32more.System.WindowsProgramming.DATETIME),
-        ('wVersion', UInt32),
-        ('szDescription', Byte * 50),
-        ('szName', Byte * 80),
-        ('szOptions', Byte * 30),
-    ]
-    return IMEPROA
-def _define_IMEPROW_head():
-    class IMEPROW(Structure):
-        pass
-    return IMEPROW
-def _define_IMEPROW():
-    IMEPROW = win32more.System.WindowsProgramming.IMEPROW_head
-    IMEPROW._fields_ = [
-        ('hWnd', win32more.Foundation.HWND),
-        ('InstDate', win32more.System.WindowsProgramming.DATETIME),
-        ('wVersion', UInt32),
-        ('szDescription', Char * 50),
-        ('szName', Char * 80),
-        ('szOptions', Char * 30),
-    ]
-    return IMEPROW
-def _define_IMESTRUCT_head():
-    class IMESTRUCT(Structure):
-        pass
-    return IMESTRUCT
-def _define_IMESTRUCT():
-    IMESTRUCT = win32more.System.WindowsProgramming.IMESTRUCT_head
-    IMESTRUCT._fields_ = [
-        ('fnc', UInt32),
-        ('wParam', win32more.Foundation.WPARAM),
-        ('wCount', UInt32),
-        ('dchSource', UInt32),
-        ('dchDest', UInt32),
-        ('lParam1', win32more.Foundation.LPARAM),
-        ('lParam2', win32more.Foundation.LPARAM),
-        ('lParam3', win32more.Foundation.LPARAM),
-    ]
-    return IMESTRUCT
-def _define_IO_STATUS_BLOCK_head():
-    class IO_STATUS_BLOCK(Structure):
-        pass
-    return IO_STATUS_BLOCK
-def _define_IO_STATUS_BLOCK():
-    IO_STATUS_BLOCK = win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head
-    class IO_STATUS_BLOCK__Anonymous_e__Union(Union):
-        pass
-    IO_STATUS_BLOCK__Anonymous_e__Union._fields_ = [
-        ('Status', win32more.Foundation.NTSTATUS),
-        ('Pointer', c_void_p),
-    ]
-    IO_STATUS_BLOCK._anonymous_ = [
-        'Anonymous',
-    ]
-    IO_STATUS_BLOCK._fields_ = [
-        ('Anonymous', IO_STATUS_BLOCK__Anonymous_e__Union),
-        ('Information', UIntPtr),
-    ]
-    return IO_STATUS_BLOCK
-def _define_IWindowsLockModeHelper_head():
-    class IWindowsLockModeHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f342d19e-cc22-4648-bb-5d-03-cc-f7-5b-47-c5')
-    return IWindowsLockModeHelper
-def _define_IWindowsLockModeHelper():
-    IWindowsLockModeHelper = win32more.System.WindowsProgramming.IWindowsLockModeHelper_head
-    IWindowsLockModeHelper.GetSMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'GetSMode', ((1, 'isSmode'),)))
-    win32more.System.Com.IUnknown
-    return IWindowsLockModeHelper
-def _define_JAVA_TRUST_head():
-    class JAVA_TRUST(Structure):
-        pass
-    return JAVA_TRUST
-def _define_JAVA_TRUST():
-    JAVA_TRUST = win32more.System.WindowsProgramming.JAVA_TRUST_head
-    JAVA_TRUST._fields_ = [
-        ('cbSize', UInt32),
-        ('flag', UInt32),
-        ('fAllActiveXPermissions', win32more.Foundation.BOOL),
-        ('fAllPermissions', win32more.Foundation.BOOL),
-        ('dwEncodingType', UInt32),
-        ('pbJavaPermissions', c_char_p_no),
-        ('cbJavaPermissions', UInt32),
-        ('pbSigner', c_char_p_no),
-        ('cbSigner', UInt32),
-        ('pwszZone', win32more.Foundation.PWSTR),
-        ('guidZone', Guid),
-        ('hVerify', win32more.Foundation.HRESULT),
-    ]
-    return JAVA_TRUST
-def _define_JIT_DEBUG_INFO_head():
-    class JIT_DEBUG_INFO(Structure):
-        pass
-    return JIT_DEBUG_INFO
-def _define_JIT_DEBUG_INFO():
-    JIT_DEBUG_INFO = win32more.System.WindowsProgramming.JIT_DEBUG_INFO_head
-    JIT_DEBUG_INFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwProcessorArchitecture', UInt32),
-        ('dwThreadID', UInt32),
-        ('dwReserved0', UInt32),
-        ('lpExceptionAddress', UInt64),
-        ('lpExceptionRecord', UInt64),
-        ('lpContextRecord', UInt64),
-    ]
-    return JIT_DEBUG_INFO
+class ICameraUIControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b8733adf-3d68-4b8f-bb-08-e2-8a-0b-ed-03-76')
+    @commethod(3)
+    def Show(pWindow: win32more.System.Com.IUnknown_head, mode: win32more.System.WindowsProgramming.CameraUIControlMode, selectionMode: win32more.System.WindowsProgramming.CameraUIControlLinearSelectionMode, captureMode: win32more.System.WindowsProgramming.CameraUIControlCaptureMode, photoFormat: win32more.System.WindowsProgramming.CameraUIControlPhotoFormat, videoFormat: win32more.System.WindowsProgramming.CameraUIControlVideoFormat, bHasCloseButton: win32more.Foundation.BOOL, pEventCallback: win32more.System.WindowsProgramming.ICameraUIControlEventCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Suspend(pbDeferralRequired: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetCurrentViewType(pViewType: POINTER(win32more.System.WindowsProgramming.CameraUIControlViewType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetActiveItem(pbstrActiveItemPath: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSelectedItems(ppSelectedItemPaths: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def RemoveCapturedItem(pszPath: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class ICameraUIControlEventCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1bfa0c2c-fbcd-4776-bd-a4-88-bf-97-4e-74-f4')
+    @commethod(3)
+    def OnStartupComplete() -> Void: ...
+    @commethod(4)
+    def OnSuspendComplete() -> Void: ...
+    @commethod(5)
+    def OnItemCaptured(pszPath: win32more.Foundation.PWSTR) -> Void: ...
+    @commethod(6)
+    def OnItemDeleted(pszPath: win32more.Foundation.PWSTR) -> Void: ...
+    @commethod(7)
+    def OnClosed() -> Void: ...
+class IClipServiceNotificationHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c39948f0-6142-44fd-98-ca-e1-68-1a-8d-68-b5')
+    @commethod(3)
+    def ShowToast(titleText: win32more.Foundation.BSTR, bodyText: win32more.Foundation.BSTR, packageName: win32more.Foundation.BSTR, appId: win32more.Foundation.BSTR, launchCommand: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IContainerActivationHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b524f93f-80d5-4ec7-ae-9e-d6-6e-93-ad-e1-fa')
+    @commethod(3)
+    def CanActivateClientVM(isAllowed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class IDefaultBrowserSyncSettings(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7a27faad-5ae6-4255-90-30-c5-30-93-62-92-e3')
+    @commethod(3)
+    def IsEnabled() -> win32more.Foundation.BOOL: ...
+class IDeleteBrowsingHistory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cf38ed4b-2be7-4461-8b-5e-9a-46-6d-c8-2a-e3')
+    @commethod(3)
+    def DeleteBrowsingHistory(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IEditionUpgradeBroker(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ff19cbcf-9455-4937-b8-72-6b-79-29-a4-60-af')
+    @commethod(3)
+    def InitializeParentWindow(parentHandle: win32more.System.Ole.OLE_HANDLE) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UpdateOperatingSystem(parameter: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ShowProductKeyUI() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CanUpgrade() -> win32more.Foundation.HRESULT: ...
+class IEditionUpgradeHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d3e9e342-5deb-43b6-84-9e-69-13-b8-5d-50-3a')
+    @commethod(3)
+    def CanUpgrade(isAllowed: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UpdateOperatingSystem(contentId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ShowProductKeyUI() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetOsProductContentId(contentId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetGenuineLocalStatus(isGenuine: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IMAGE_DELAYLOAD_DESCRIPTOR(Structure):
+    Attributes: _Attributes_e__Union
+    DllNameRVA: UInt32
+    ModuleHandleRVA: UInt32
+    ImportAddressTableRVA: UInt32
+    ImportNameTableRVA: UInt32
+    BoundImportAddressTableRVA: UInt32
+    UnloadInformationTableRVA: UInt32
+    TimeDateStamp: UInt32
+    class _Attributes_e__Union(Union):
+        AllAttributes: UInt32
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: UInt32
+class IMAGE_THUNK_DATA32(Structure):
+    u1: _u1_e__Union
+    class _u1_e__Union(Union):
+        ForwarderString: UInt32
+        Function: UInt32
+        Ordinal: UInt32
+        AddressOfData: UInt32
+class IMAGE_THUNK_DATA64(Structure):
+    u1: _u1_e__Union
+    class _u1_e__Union(Union):
+        ForwarderString: UInt64
+        Function: UInt64
+        Ordinal: UInt64
+        AddressOfData: UInt64
+class IMEPROA(Structure):
+    hWnd: win32more.Foundation.HWND
+    InstDate: win32more.System.WindowsProgramming.DATETIME
+    wVersion: UInt32
+    szDescription: Byte * 50
+    szName: Byte * 80
+    szOptions: Byte * 30
+class IMEPROW(Structure):
+    hWnd: win32more.Foundation.HWND
+    InstDate: win32more.System.WindowsProgramming.DATETIME
+    wVersion: UInt32
+    szDescription: Char * 50
+    szName: Char * 80
+    szOptions: Char * 30
+class IMESTRUCT(Structure):
+    fnc: UInt32
+    wParam: win32more.Foundation.WPARAM
+    wCount: UInt32
+    dchSource: UInt32
+    dchDest: UInt32
+    lParam1: win32more.Foundation.LPARAM
+    lParam2: win32more.Foundation.LPARAM
+    lParam3: win32more.Foundation.LPARAM
+class IO_STATUS_BLOCK(Structure):
+    Anonymous: _Anonymous_e__Union
+    Information: UIntPtr
+    class _Anonymous_e__Union(Union):
+        Status: win32more.Foundation.NTSTATUS
+        Pointer: c_void_p
+class IWindowsLockModeHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f342d19e-cc22-4648-bb-5d-03-cc-f7-5b-47-c5')
+    @commethod(3)
+    def GetSMode(isSmode: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class JAVA_TRUST(Structure):
+    cbSize: UInt32
+    flag: UInt32
+    fAllActiveXPermissions: win32more.Foundation.BOOL
+    fAllPermissions: win32more.Foundation.BOOL
+    dwEncodingType: UInt32
+    pbJavaPermissions: c_char_p_no
+    cbJavaPermissions: UInt32
+    pbSigner: c_char_p_no
+    cbSigner: UInt32
+    pwszZone: win32more.Foundation.PWSTR
+    guidZone: Guid
+    hVerify: win32more.Foundation.HRESULT
+class JIT_DEBUG_INFO(Structure):
+    dwSize: UInt32
+    dwProcessorArchitecture: UInt32
+    dwThreadID: UInt32
+    dwReserved0: UInt32
+    lpExceptionAddress: UInt64
+    lpExceptionRecord: UInt64
+    lpContextRecord: UInt64
 KEY_SET_INFORMATION_CLASS = Int32
-KEY_SET_INFORMATION_CLASS_KeyWriteTimeInformation = 0
-KEY_SET_INFORMATION_CLASS_KeyWow64FlagsInformation = 1
-KEY_SET_INFORMATION_CLASS_KeyControlFlagsInformation = 2
-KEY_SET_INFORMATION_CLASS_KeySetVirtualizationInformation = 3
-KEY_SET_INFORMATION_CLASS_KeySetDebugInformation = 4
-KEY_SET_INFORMATION_CLASS_KeySetHandleTagsInformation = 5
-KEY_SET_INFORMATION_CLASS_MaxKeySetInfoClass = 6
-def _define_KEY_VALUE_ENTRY_head():
-    class KEY_VALUE_ENTRY(Structure):
-        pass
-    return KEY_VALUE_ENTRY
-def _define_KEY_VALUE_ENTRY():
-    KEY_VALUE_ENTRY = win32more.System.WindowsProgramming.KEY_VALUE_ENTRY_head
-    KEY_VALUE_ENTRY._fields_ = [
-        ('ValueName', POINTER(win32more.Foundation.UNICODE_STRING_head)),
-        ('DataLength', UInt32),
-        ('DataOffset', UInt32),
-        ('Type', UInt32),
-    ]
-    return KEY_VALUE_ENTRY
-def _define_LDR_DATA_TABLE_ENTRY_head():
-    class LDR_DATA_TABLE_ENTRY(Structure):
-        pass
-    return LDR_DATA_TABLE_ENTRY
-def _define_LDR_DATA_TABLE_ENTRY():
-    LDR_DATA_TABLE_ENTRY = win32more.System.WindowsProgramming.LDR_DATA_TABLE_ENTRY_head
-    class LDR_DATA_TABLE_ENTRY__Anonymous_e__Union(Union):
-        pass
-    LDR_DATA_TABLE_ENTRY__Anonymous_e__Union._fields_ = [
-        ('CheckSum', UInt32),
-        ('Reserved6', c_void_p),
-    ]
-    LDR_DATA_TABLE_ENTRY._anonymous_ = [
-        'Anonymous',
-    ]
-    LDR_DATA_TABLE_ENTRY._fields_ = [
-        ('Reserved1', c_void_p * 2),
-        ('InMemoryOrderLinks', win32more.System.Kernel.LIST_ENTRY),
-        ('Reserved2', c_void_p * 2),
-        ('DllBase', c_void_p),
-        ('Reserved3', c_void_p * 2),
-        ('FullDllName', win32more.Foundation.UNICODE_STRING),
-        ('Reserved4', Byte * 8),
-        ('Reserved5', c_void_p * 3),
-        ('Anonymous', LDR_DATA_TABLE_ENTRY__Anonymous_e__Union),
-        ('TimeDateStamp', UInt32),
-    ]
-    return LDR_DATA_TABLE_ENTRY
-def _define_OBJECT_ATTRIBUTES_head():
-    class OBJECT_ATTRIBUTES(Structure):
-        pass
-    return OBJECT_ATTRIBUTES
-def _define_OBJECT_ATTRIBUTES():
-    OBJECT_ATTRIBUTES = win32more.System.WindowsProgramming.OBJECT_ATTRIBUTES_head
-    OBJECT_ATTRIBUTES._fields_ = [
-        ('Length', UInt32),
-        ('RootDirectory', win32more.Foundation.HANDLE),
-        ('ObjectName', POINTER(win32more.Foundation.UNICODE_STRING_head)),
-        ('Attributes', UInt32),
-        ('SecurityDescriptor', c_void_p),
-        ('SecurityQualityOfService', c_void_p),
-    ]
-    return OBJECT_ATTRIBUTES
+KEY_SET_INFORMATION_CLASS_KeyWriteTimeInformation: KEY_SET_INFORMATION_CLASS = 0
+KEY_SET_INFORMATION_CLASS_KeyWow64FlagsInformation: KEY_SET_INFORMATION_CLASS = 1
+KEY_SET_INFORMATION_CLASS_KeyControlFlagsInformation: KEY_SET_INFORMATION_CLASS = 2
+KEY_SET_INFORMATION_CLASS_KeySetVirtualizationInformation: KEY_SET_INFORMATION_CLASS = 3
+KEY_SET_INFORMATION_CLASS_KeySetDebugInformation: KEY_SET_INFORMATION_CLASS = 4
+KEY_SET_INFORMATION_CLASS_KeySetHandleTagsInformation: KEY_SET_INFORMATION_CLASS = 5
+KEY_SET_INFORMATION_CLASS_MaxKeySetInfoClass: KEY_SET_INFORMATION_CLASS = 6
+class KEY_VALUE_ENTRY(Structure):
+    ValueName: POINTER(win32more.Foundation.UNICODE_STRING_head)
+    DataLength: UInt32
+    DataOffset: UInt32
+    Type: UInt32
+class LDR_DATA_TABLE_ENTRY(Structure):
+    Reserved1: c_void_p * 2
+    InMemoryOrderLinks: win32more.System.Kernel.LIST_ENTRY
+    Reserved2: c_void_p * 2
+    DllBase: c_void_p
+    Reserved3: c_void_p * 2
+    FullDllName: win32more.Foundation.UNICODE_STRING
+    Reserved4: Byte * 8
+    Reserved5: c_void_p * 3
+    Anonymous: _Anonymous_e__Union
+    TimeDateStamp: UInt32
+    class _Anonymous_e__Union(Union):
+        CheckSum: UInt32
+        Reserved6: c_void_p
+class OBJECT_ATTRIBUTES(Structure):
+    Length: UInt32
+    RootDirectory: win32more.Foundation.HANDLE
+    ObjectName: POINTER(win32more.Foundation.UNICODE_STRING_head)
+    Attributes: UInt32
+    SecurityDescriptor: c_void_p
+    SecurityQualityOfService: c_void_p
 OBJECT_INFORMATION_CLASS = Int32
-OBJECT_INFORMATION_CLASS_ObjectBasicInformation = 0
-OBJECT_INFORMATION_CLASS_ObjectTypeInformation = 2
-def _define_PDELAYLOAD_FAILURE_DLL_CALLBACK():
-    return WINFUNCTYPE(c_void_p,UInt32,POINTER(win32more.System.WindowsProgramming.DELAYLOAD_INFO_head))
-def _define_PERUSERSECTIONA_head():
-    class PERUSERSECTIONA(Structure):
-        pass
-    return PERUSERSECTIONA
-def _define_PERUSERSECTIONA():
-    PERUSERSECTIONA = win32more.System.WindowsProgramming.PERUSERSECTIONA_head
-    PERUSERSECTIONA._fields_ = [
-        ('szGUID', win32more.Foundation.CHAR * 59),
-        ('szDispName', win32more.Foundation.CHAR * 128),
-        ('szLocale', win32more.Foundation.CHAR * 10),
-        ('szStub', win32more.Foundation.CHAR * 1040),
-        ('szVersion', win32more.Foundation.CHAR * 32),
-        ('szCompID', win32more.Foundation.CHAR * 128),
-        ('dwIsInstalled', UInt32),
-        ('bRollback', win32more.Foundation.BOOL),
-    ]
-    return PERUSERSECTIONA
-def _define_PERUSERSECTIONW_head():
-    class PERUSERSECTIONW(Structure):
-        pass
-    return PERUSERSECTIONW
-def _define_PERUSERSECTIONW():
-    PERUSERSECTIONW = win32more.System.WindowsProgramming.PERUSERSECTIONW_head
-    PERUSERSECTIONW._fields_ = [
-        ('szGUID', Char * 59),
-        ('szDispName', Char * 128),
-        ('szLocale', Char * 10),
-        ('szStub', Char * 1040),
-        ('szVersion', Char * 32),
-        ('szCompID', Char * 128),
-        ('dwIsInstalled', UInt32),
-        ('bRollback', win32more.Foundation.BOOL),
-    ]
-    return PERUSERSECTIONW
-def _define_PFEATURE_STATE_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p)
-def _define_PFIBER_CALLOUT_ROUTINE():
-    return WINFUNCTYPE(c_void_p,c_void_p)
-def _define_PIO_APC_ROUTINE():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head),UInt32)
-def _define_PQUERYACTCTXW_FUNC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.HANDLE,c_void_p,UInt32,c_void_p,UIntPtr,POINTER(UIntPtr))
-def _define_PUBLIC_OBJECT_BASIC_INFORMATION_head():
-    class PUBLIC_OBJECT_BASIC_INFORMATION(Structure):
-        pass
-    return PUBLIC_OBJECT_BASIC_INFORMATION
-def _define_PUBLIC_OBJECT_BASIC_INFORMATION():
-    PUBLIC_OBJECT_BASIC_INFORMATION = win32more.System.WindowsProgramming.PUBLIC_OBJECT_BASIC_INFORMATION_head
-    PUBLIC_OBJECT_BASIC_INFORMATION._fields_ = [
-        ('Attributes', UInt32),
-        ('GrantedAccess', UInt32),
-        ('HandleCount', UInt32),
-        ('PointerCount', UInt32),
-        ('Reserved', UInt32 * 10),
-    ]
-    return PUBLIC_OBJECT_BASIC_INFORMATION
-def _define_PUBLIC_OBJECT_TYPE_INFORMATION_head():
-    class PUBLIC_OBJECT_TYPE_INFORMATION(Structure):
-        pass
-    return PUBLIC_OBJECT_TYPE_INFORMATION
-def _define_PUBLIC_OBJECT_TYPE_INFORMATION():
-    PUBLIC_OBJECT_TYPE_INFORMATION = win32more.System.WindowsProgramming.PUBLIC_OBJECT_TYPE_INFORMATION_head
-    PUBLIC_OBJECT_TYPE_INFORMATION._fields_ = [
-        ('TypeName', win32more.Foundation.UNICODE_STRING),
-        ('Reserved', UInt32 * 22),
-    ]
-    return PUBLIC_OBJECT_TYPE_INFORMATION
-def _define_PWINSTATIONQUERYINFORMATIONW():
-    return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.Foundation.HANDLE,UInt32,win32more.System.WindowsProgramming.WINSTATIONINFOCLASS,c_void_p,UInt32,POINTER(UInt32))
-def _define_PWLDP_ISAPPAPPROVEDBYPOLICY_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt64)
-def _define_PWLDP_ISDYNAMICCODEPOLICYENABLED_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))
-def _define_PWLDP_ISPRODUCTIONCONFIGURATION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))
-def _define_PWLDP_ISWCOSPRODUCTIONCONFIGURATION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))
-def _define_PWLDP_QUERYDEVICESECURITYINFORMATION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head),UInt32,POINTER(UInt32))
-def _define_PWLDP_QUERYDYNAMICODETRUST_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,c_void_p,UInt32)
-def _define_PWLDP_QUERYPOLICYSETTINGENABLED_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsProgramming.WLDP_POLICY_SETTING,POINTER(win32more.Foundation.BOOL))
-def _define_PWLDP_QUERYPOLICYSETTINGENABLED2_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL))
-def _define_PWLDP_QUERYWINDOWSLOCKDOWNMODE_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE))
-def _define_PWLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION))
-def _define_PWLDP_RESETPRODUCTIONCONFIGURATION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,)
-def _define_PWLDP_RESETWCOSPRODUCTIONCONFIGURATION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,)
-def _define_PWLDP_SETDYNAMICCODETRUST_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)
-def _define_PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION)
-def _define_REGINSTALLA():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,POINTER(win32more.System.WindowsProgramming.STRTABLEA_head))
-def _define_STRENTRYA_head():
-    class STRENTRYA(Structure):
-        pass
-    return STRENTRYA
-def _define_STRENTRYA():
-    STRENTRYA = win32more.System.WindowsProgramming.STRENTRYA_head
-    STRENTRYA._fields_ = [
-        ('pszName', win32more.Foundation.PSTR),
-        ('pszValue', win32more.Foundation.PSTR),
-    ]
-    return STRENTRYA
-def _define_STRENTRYW_head():
-    class STRENTRYW(Structure):
-        pass
-    return STRENTRYW
-def _define_STRENTRYW():
-    STRENTRYW = win32more.System.WindowsProgramming.STRENTRYW_head
-    STRENTRYW._fields_ = [
-        ('pszName', win32more.Foundation.PWSTR),
-        ('pszValue', win32more.Foundation.PWSTR),
-    ]
-    return STRENTRYW
-def _define_STRINGEXSTRUCT_head():
-    class STRINGEXSTRUCT(Structure):
-        pass
-    return STRINGEXSTRUCT
-def _define_STRINGEXSTRUCT():
-    STRINGEXSTRUCT = win32more.System.WindowsProgramming.STRINGEXSTRUCT_head
-    STRINGEXSTRUCT._fields_ = [
-        ('dwSize', UInt32),
-        ('uDeterminePos', UInt32),
-        ('uDetermineDelimPos', UInt32),
-        ('uYomiPos', UInt32),
-        ('uYomiDelimPos', UInt32),
-    ]
-    return STRINGEXSTRUCT
-def _define_STRTABLEA_head():
-    class STRTABLEA(Structure):
-        pass
-    return STRTABLEA
-def _define_STRTABLEA():
-    STRTABLEA = win32more.System.WindowsProgramming.STRTABLEA_head
-    STRTABLEA._fields_ = [
-        ('cEntries', UInt32),
-        ('pse', POINTER(win32more.System.WindowsProgramming.STRENTRYA_head)),
-    ]
-    return STRTABLEA
-def _define_STRTABLEW_head():
-    class STRTABLEW(Structure):
-        pass
-    return STRTABLEW
-def _define_STRTABLEW():
-    STRTABLEW = win32more.System.WindowsProgramming.STRTABLEW_head
-    STRTABLEW._fields_ = [
-        ('cEntries', UInt32),
-        ('pse', POINTER(win32more.System.WindowsProgramming.STRENTRYW_head)),
-    ]
-    return STRTABLEW
-def _define_SYSTEM_BASIC_INFORMATION_head():
-    class SYSTEM_BASIC_INFORMATION(Structure):
-        pass
-    return SYSTEM_BASIC_INFORMATION
-def _define_SYSTEM_BASIC_INFORMATION():
-    SYSTEM_BASIC_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_BASIC_INFORMATION_head
-    SYSTEM_BASIC_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 24),
-        ('Reserved2', c_void_p * 4),
-        ('NumberOfProcessors', SByte),
-    ]
-    return SYSTEM_BASIC_INFORMATION
-def _define_SYSTEM_CODEINTEGRITY_INFORMATION_head():
-    class SYSTEM_CODEINTEGRITY_INFORMATION(Structure):
-        pass
-    return SYSTEM_CODEINTEGRITY_INFORMATION
-def _define_SYSTEM_CODEINTEGRITY_INFORMATION():
-    SYSTEM_CODEINTEGRITY_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_CODEINTEGRITY_INFORMATION_head
-    SYSTEM_CODEINTEGRITY_INFORMATION._fields_ = [
-        ('Length', UInt32),
-        ('CodeIntegrityOptions', UInt32),
-    ]
-    return SYSTEM_CODEINTEGRITY_INFORMATION
-def _define_SYSTEM_EXCEPTION_INFORMATION_head():
-    class SYSTEM_EXCEPTION_INFORMATION(Structure):
-        pass
-    return SYSTEM_EXCEPTION_INFORMATION
-def _define_SYSTEM_EXCEPTION_INFORMATION():
-    SYSTEM_EXCEPTION_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_EXCEPTION_INFORMATION_head
-    SYSTEM_EXCEPTION_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 16),
-    ]
-    return SYSTEM_EXCEPTION_INFORMATION
+OBJECT_INFORMATION_CLASS_ObjectBasicInformation: OBJECT_INFORMATION_CLASS = 0
+OBJECT_INFORMATION_CLASS_ObjectTypeInformation: OBJECT_INFORMATION_CLASS = 2
+@winfunctype_pointer
+def PDELAYLOAD_FAILURE_DLL_CALLBACK(NotificationReason: UInt32, DelayloadInfo: POINTER(win32more.System.WindowsProgramming.DELAYLOAD_INFO_head)) -> c_void_p: ...
+class PERUSERSECTIONA(Structure):
+    szGUID: win32more.Foundation.CHAR * 59
+    szDispName: win32more.Foundation.CHAR * 128
+    szLocale: win32more.Foundation.CHAR * 10
+    szStub: win32more.Foundation.CHAR * 1040
+    szVersion: win32more.Foundation.CHAR * 32
+    szCompID: win32more.Foundation.CHAR * 128
+    dwIsInstalled: UInt32
+    bRollback: win32more.Foundation.BOOL
+class PERUSERSECTIONW(Structure):
+    szGUID: Char * 59
+    szDispName: Char * 128
+    szLocale: Char * 10
+    szStub: Char * 1040
+    szVersion: Char * 32
+    szCompID: Char * 128
+    dwIsInstalled: UInt32
+    bRollback: win32more.Foundation.BOOL
+@winfunctype_pointer
+def PFEATURE_STATE_CHANGE_CALLBACK(context: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFIBER_CALLOUT_ROUTINE(lpParameter: c_void_p) -> c_void_p: ...
+@winfunctype_pointer
+def PIO_APC_ROUTINE(ApcContext: c_void_p, IoStatusBlock: POINTER(win32more.System.WindowsProgramming.IO_STATUS_BLOCK_head), Reserved: UInt32) -> Void: ...
+@winfunctype_pointer
+def PQUERYACTCTXW_FUNC(dwFlags: UInt32, hActCtx: win32more.Foundation.HANDLE, pvSubInstance: c_void_p, ulInfoClass: UInt32, pvBuffer: c_void_p, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+class PUBLIC_OBJECT_BASIC_INFORMATION(Structure):
+    Attributes: UInt32
+    GrantedAccess: UInt32
+    HandleCount: UInt32
+    PointerCount: UInt32
+    Reserved: UInt32 * 10
+class PUBLIC_OBJECT_TYPE_INFORMATION(Structure):
+    TypeName: win32more.Foundation.UNICODE_STRING
+    Reserved: UInt32 * 22
+@winfunctype_pointer
+def PWINSTATIONQUERYINFORMATIONW(param0: win32more.Foundation.HANDLE, param1: UInt32, param2: win32more.System.WindowsProgramming.WINSTATIONINFOCLASS, param3: c_void_p, param4: UInt32, param5: POINTER(UInt32)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype_pointer
+def PWLDP_ISAPPAPPROVEDBYPOLICY_API(PackageFamilyName: win32more.Foundation.PWSTR, PackageVersion: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_ISDYNAMICCODEPOLICYENABLED_API(pbEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_ISPRODUCTIONCONFIGURATION_API(IsProductionConfiguration: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_ISWCOSPRODUCTIONCONFIGURATION_API(IsProductionConfiguration: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYDEVICESECURITYINFORMATION_API(information: POINTER(win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYDYNAMICODETRUST_API(fileHandle: win32more.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYPOLICYSETTINGENABLED_API(Setting: win32more.System.WindowsProgramming.WLDP_POLICY_SETTING, Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYPOLICYSETTINGENABLED2_API(Setting: win32more.Foundation.PWSTR, Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYWINDOWSLOCKDOWNMODE_API(lockdownMode: POINTER(win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_API(LockdownRestriction: POINTER(win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_RESETPRODUCTIONCONFIGURATION_API() -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_RESETWCOSPRODUCTIONCONFIGURATION_API() -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_SETDYNAMICCODETRUST_API(hFileHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API(LockdownRestriction: win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def REGINSTALLA(hm: win32more.Foundation.HINSTANCE, pszSection: win32more.Foundation.PSTR, pstTable: POINTER(win32more.System.WindowsProgramming.STRTABLEA_head)) -> win32more.Foundation.HRESULT: ...
+class STRENTRYA(Structure):
+    pszName: win32more.Foundation.PSTR
+    pszValue: win32more.Foundation.PSTR
+class STRENTRYW(Structure):
+    pszName: win32more.Foundation.PWSTR
+    pszValue: win32more.Foundation.PWSTR
+class STRINGEXSTRUCT(Structure):
+    dwSize: UInt32
+    uDeterminePos: UInt32
+    uDetermineDelimPos: UInt32
+    uYomiPos: UInt32
+    uYomiDelimPos: UInt32
+class STRTABLEA(Structure):
+    cEntries: UInt32
+    pse: POINTER(win32more.System.WindowsProgramming.STRENTRYA_head)
+class STRTABLEW(Structure):
+    cEntries: UInt32
+    pse: POINTER(win32more.System.WindowsProgramming.STRENTRYW_head)
+class SYSTEM_BASIC_INFORMATION(Structure):
+    Reserved1: Byte * 24
+    Reserved2: c_void_p * 4
+    NumberOfProcessors: SByte
+class SYSTEM_CODEINTEGRITY_INFORMATION(Structure):
+    Length: UInt32
+    CodeIntegrityOptions: UInt32
+class SYSTEM_EXCEPTION_INFORMATION(Structure):
+    Reserved1: Byte * 16
 SYSTEM_INFORMATION_CLASS = Int32
-SYSTEM_INFORMATION_CLASS_SystemBasicInformation = 0
-SYSTEM_INFORMATION_CLASS_SystemPerformanceInformation = 2
-SYSTEM_INFORMATION_CLASS_SystemTimeOfDayInformation = 3
-SYSTEM_INFORMATION_CLASS_SystemProcessInformation = 5
-SYSTEM_INFORMATION_CLASS_SystemProcessorPerformanceInformation = 8
-SYSTEM_INFORMATION_CLASS_SystemInterruptInformation = 23
-SYSTEM_INFORMATION_CLASS_SystemExceptionInformation = 33
-SYSTEM_INFORMATION_CLASS_SystemRegistryQuotaInformation = 37
-SYSTEM_INFORMATION_CLASS_SystemLookasideInformation = 45
-SYSTEM_INFORMATION_CLASS_SystemCodeIntegrityInformation = 103
-SYSTEM_INFORMATION_CLASS_SystemPolicyInformation = 134
-def _define_SYSTEM_INTERRUPT_INFORMATION_head():
-    class SYSTEM_INTERRUPT_INFORMATION(Structure):
-        pass
-    return SYSTEM_INTERRUPT_INFORMATION
-def _define_SYSTEM_INTERRUPT_INFORMATION():
-    SYSTEM_INTERRUPT_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_INTERRUPT_INFORMATION_head
-    SYSTEM_INTERRUPT_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 24),
-    ]
-    return SYSTEM_INTERRUPT_INFORMATION
-def _define_SYSTEM_LOOKASIDE_INFORMATION_head():
-    class SYSTEM_LOOKASIDE_INFORMATION(Structure):
-        pass
-    return SYSTEM_LOOKASIDE_INFORMATION
-def _define_SYSTEM_LOOKASIDE_INFORMATION():
-    SYSTEM_LOOKASIDE_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_LOOKASIDE_INFORMATION_head
-    SYSTEM_LOOKASIDE_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 32),
-    ]
-    return SYSTEM_LOOKASIDE_INFORMATION
-def _define_SYSTEM_PERFORMANCE_INFORMATION_head():
-    class SYSTEM_PERFORMANCE_INFORMATION(Structure):
-        pass
-    return SYSTEM_PERFORMANCE_INFORMATION
-def _define_SYSTEM_PERFORMANCE_INFORMATION():
-    SYSTEM_PERFORMANCE_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_PERFORMANCE_INFORMATION_head
-    SYSTEM_PERFORMANCE_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 312),
-    ]
-    return SYSTEM_PERFORMANCE_INFORMATION
-def _define_SYSTEM_POLICY_INFORMATION_head():
-    class SYSTEM_POLICY_INFORMATION(Structure):
-        pass
-    return SYSTEM_POLICY_INFORMATION
-def _define_SYSTEM_POLICY_INFORMATION():
-    SYSTEM_POLICY_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_POLICY_INFORMATION_head
-    SYSTEM_POLICY_INFORMATION._fields_ = [
-        ('Reserved1', c_void_p * 2),
-        ('Reserved2', UInt32 * 3),
-    ]
-    return SYSTEM_POLICY_INFORMATION
-def _define_SYSTEM_PROCESS_INFORMATION_head():
-    class SYSTEM_PROCESS_INFORMATION(Structure):
-        pass
-    return SYSTEM_PROCESS_INFORMATION
-def _define_SYSTEM_PROCESS_INFORMATION():
-    SYSTEM_PROCESS_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_PROCESS_INFORMATION_head
-    SYSTEM_PROCESS_INFORMATION._fields_ = [
-        ('NextEntryOffset', UInt32),
-        ('NumberOfThreads', UInt32),
-        ('Reserved1', Byte * 48),
-        ('ImageName', win32more.Foundation.UNICODE_STRING),
-        ('BasePriority', Int32),
-        ('UniqueProcessId', win32more.Foundation.HANDLE),
-        ('Reserved2', c_void_p),
-        ('HandleCount', UInt32),
-        ('SessionId', UInt32),
-        ('Reserved3', c_void_p),
-        ('PeakVirtualSize', UIntPtr),
-        ('VirtualSize', UIntPtr),
-        ('Reserved4', UInt32),
-        ('PeakWorkingSetSize', UIntPtr),
-        ('WorkingSetSize', UIntPtr),
-        ('Reserved5', c_void_p),
-        ('QuotaPagedPoolUsage', UIntPtr),
-        ('Reserved6', c_void_p),
-        ('QuotaNonPagedPoolUsage', UIntPtr),
-        ('PagefileUsage', UIntPtr),
-        ('PeakPagefileUsage', UIntPtr),
-        ('PrivatePageCount', UIntPtr),
-        ('Reserved7', win32more.Foundation.LARGE_INTEGER * 6),
-    ]
-    return SYSTEM_PROCESS_INFORMATION
-def _define_SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION_head():
-    class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
-        pass
-    return SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION
-def _define_SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION():
-    SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION_head
-    SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION._fields_ = [
-        ('IdleTime', win32more.Foundation.LARGE_INTEGER),
-        ('KernelTime', win32more.Foundation.LARGE_INTEGER),
-        ('UserTime', win32more.Foundation.LARGE_INTEGER),
-        ('Reserved1', win32more.Foundation.LARGE_INTEGER * 2),
-        ('Reserved2', UInt32),
-    ]
-    return SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION
-def _define_SYSTEM_REGISTRY_QUOTA_INFORMATION_head():
-    class SYSTEM_REGISTRY_QUOTA_INFORMATION(Structure):
-        pass
-    return SYSTEM_REGISTRY_QUOTA_INFORMATION
-def _define_SYSTEM_REGISTRY_QUOTA_INFORMATION():
-    SYSTEM_REGISTRY_QUOTA_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_REGISTRY_QUOTA_INFORMATION_head
-    SYSTEM_REGISTRY_QUOTA_INFORMATION._fields_ = [
-        ('RegistryQuotaAllowed', UInt32),
-        ('RegistryQuotaUsed', UInt32),
-        ('Reserved1', c_void_p),
-    ]
-    return SYSTEM_REGISTRY_QUOTA_INFORMATION
-def _define_SYSTEM_THREAD_INFORMATION_head():
-    class SYSTEM_THREAD_INFORMATION(Structure):
-        pass
-    return SYSTEM_THREAD_INFORMATION
-def _define_SYSTEM_THREAD_INFORMATION():
-    SYSTEM_THREAD_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_THREAD_INFORMATION_head
-    SYSTEM_THREAD_INFORMATION._fields_ = [
-        ('Reserved1', win32more.Foundation.LARGE_INTEGER * 3),
-        ('Reserved2', UInt32),
-        ('StartAddress', c_void_p),
-        ('ClientId', win32more.System.WindowsProgramming.CLIENT_ID),
-        ('Priority', Int32),
-        ('BasePriority', Int32),
-        ('Reserved3', UInt32),
-        ('ThreadState', UInt32),
-        ('WaitReason', UInt32),
-    ]
-    return SYSTEM_THREAD_INFORMATION
-def _define_SYSTEM_TIMEOFDAY_INFORMATION_head():
-    class SYSTEM_TIMEOFDAY_INFORMATION(Structure):
-        pass
-    return SYSTEM_TIMEOFDAY_INFORMATION
-def _define_SYSTEM_TIMEOFDAY_INFORMATION():
-    SYSTEM_TIMEOFDAY_INFORMATION = win32more.System.WindowsProgramming.SYSTEM_TIMEOFDAY_INFORMATION_head
-    SYSTEM_TIMEOFDAY_INFORMATION._fields_ = [
-        ('Reserved1', Byte * 48),
-    ]
-    return SYSTEM_TIMEOFDAY_INFORMATION
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX_W2K_head():
-    class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(Structure):
-        pass
-    return TCP_REQUEST_QUERY_INFORMATION_EX_W2K
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX_W2K():
-    TCP_REQUEST_QUERY_INFORMATION_EX_W2K = win32more.System.WindowsProgramming.TCP_REQUEST_QUERY_INFORMATION_EX_W2K_head
-    TCP_REQUEST_QUERY_INFORMATION_EX_W2K._fields_ = [
-        ('ID', win32more.System.WindowsProgramming.TDIObjectID),
-        ('Context', Byte * 16),
-    ]
-    return TCP_REQUEST_QUERY_INFORMATION_EX_W2K
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX_XP_head():
-    class TCP_REQUEST_QUERY_INFORMATION_EX_XP(Structure):
-        pass
-    return TCP_REQUEST_QUERY_INFORMATION_EX_XP
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX_XP():
-    TCP_REQUEST_QUERY_INFORMATION_EX_XP = win32more.System.WindowsProgramming.TCP_REQUEST_QUERY_INFORMATION_EX_XP_head
-    TCP_REQUEST_QUERY_INFORMATION_EX_XP._fields_ = [
-        ('ID', win32more.System.WindowsProgramming.TDIObjectID),
-        ('Context', UIntPtr * 4),
-    ]
-    return TCP_REQUEST_QUERY_INFORMATION_EX_XP
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX32_XP_head():
-    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
-        pass
-    return TCP_REQUEST_QUERY_INFORMATION_EX32_XP
-def _define_TCP_REQUEST_QUERY_INFORMATION_EX32_XP():
-    TCP_REQUEST_QUERY_INFORMATION_EX32_XP = win32more.System.WindowsProgramming.TCP_REQUEST_QUERY_INFORMATION_EX32_XP_head
-    TCP_REQUEST_QUERY_INFORMATION_EX32_XP._fields_ = [
-        ('ID', win32more.System.WindowsProgramming.TDIObjectID),
-        ('Context', UInt32 * 4),
-    ]
-    return TCP_REQUEST_QUERY_INFORMATION_EX32_XP
-def _define_TCP_REQUEST_SET_INFORMATION_EX_head():
-    class TCP_REQUEST_SET_INFORMATION_EX(Structure):
-        pass
-    return TCP_REQUEST_SET_INFORMATION_EX
-def _define_TCP_REQUEST_SET_INFORMATION_EX():
-    TCP_REQUEST_SET_INFORMATION_EX = win32more.System.WindowsProgramming.TCP_REQUEST_SET_INFORMATION_EX_head
-    TCP_REQUEST_SET_INFORMATION_EX._fields_ = [
-        ('ID', win32more.System.WindowsProgramming.TDIObjectID),
-        ('BufferSize', UInt32),
-        ('Buffer', Byte * 1),
-    ]
-    return TCP_REQUEST_SET_INFORMATION_EX
-def _define_TDI_TL_IO_CONTROL_ENDPOINT_head():
-    class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
-        pass
-    return TDI_TL_IO_CONTROL_ENDPOINT
-def _define_TDI_TL_IO_CONTROL_ENDPOINT():
-    TDI_TL_IO_CONTROL_ENDPOINT = win32more.System.WindowsProgramming.TDI_TL_IO_CONTROL_ENDPOINT_head
-    class TDI_TL_IO_CONTROL_ENDPOINT__Anonymous_e__Union(Union):
-        pass
-    TDI_TL_IO_CONTROL_ENDPOINT__Anonymous_e__Union._fields_ = [
-        ('IoControlCode', UInt32),
-        ('OptionName', UInt32),
-    ]
-    TDI_TL_IO_CONTROL_ENDPOINT._anonymous_ = [
-        'Anonymous',
-    ]
-    TDI_TL_IO_CONTROL_ENDPOINT._fields_ = [
-        ('Type', win32more.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE),
-        ('Level', UInt32),
-        ('Anonymous', TDI_TL_IO_CONTROL_ENDPOINT__Anonymous_e__Union),
-        ('InputBuffer', c_void_p),
-        ('InputBufferLength', UInt32),
-        ('OutputBuffer', c_void_p),
-        ('OutputBufferLength', UInt32),
-    ]
-    return TDI_TL_IO_CONTROL_ENDPOINT
+SYSTEM_INFORMATION_CLASS_SystemBasicInformation: SYSTEM_INFORMATION_CLASS = 0
+SYSTEM_INFORMATION_CLASS_SystemPerformanceInformation: SYSTEM_INFORMATION_CLASS = 2
+SYSTEM_INFORMATION_CLASS_SystemTimeOfDayInformation: SYSTEM_INFORMATION_CLASS = 3
+SYSTEM_INFORMATION_CLASS_SystemProcessInformation: SYSTEM_INFORMATION_CLASS = 5
+SYSTEM_INFORMATION_CLASS_SystemProcessorPerformanceInformation: SYSTEM_INFORMATION_CLASS = 8
+SYSTEM_INFORMATION_CLASS_SystemInterruptInformation: SYSTEM_INFORMATION_CLASS = 23
+SYSTEM_INFORMATION_CLASS_SystemExceptionInformation: SYSTEM_INFORMATION_CLASS = 33
+SYSTEM_INFORMATION_CLASS_SystemRegistryQuotaInformation: SYSTEM_INFORMATION_CLASS = 37
+SYSTEM_INFORMATION_CLASS_SystemLookasideInformation: SYSTEM_INFORMATION_CLASS = 45
+SYSTEM_INFORMATION_CLASS_SystemCodeIntegrityInformation: SYSTEM_INFORMATION_CLASS = 103
+SYSTEM_INFORMATION_CLASS_SystemPolicyInformation: SYSTEM_INFORMATION_CLASS = 134
+class SYSTEM_INTERRUPT_INFORMATION(Structure):
+    Reserved1: Byte * 24
+class SYSTEM_LOOKASIDE_INFORMATION(Structure):
+    Reserved1: Byte * 32
+class SYSTEM_PERFORMANCE_INFORMATION(Structure):
+    Reserved1: Byte * 312
+class SYSTEM_POLICY_INFORMATION(Structure):
+    Reserved1: c_void_p * 2
+    Reserved2: UInt32 * 3
+class SYSTEM_PROCESS_INFORMATION(Structure):
+    NextEntryOffset: UInt32
+    NumberOfThreads: UInt32
+    Reserved1: Byte * 48
+    ImageName: win32more.Foundation.UNICODE_STRING
+    BasePriority: Int32
+    UniqueProcessId: win32more.Foundation.HANDLE
+    Reserved2: c_void_p
+    HandleCount: UInt32
+    SessionId: UInt32
+    Reserved3: c_void_p
+    PeakVirtualSize: UIntPtr
+    VirtualSize: UIntPtr
+    Reserved4: UInt32
+    PeakWorkingSetSize: UIntPtr
+    WorkingSetSize: UIntPtr
+    Reserved5: c_void_p
+    QuotaPagedPoolUsage: UIntPtr
+    Reserved6: c_void_p
+    QuotaNonPagedPoolUsage: UIntPtr
+    PagefileUsage: UIntPtr
+    PeakPagefileUsage: UIntPtr
+    PrivatePageCount: UIntPtr
+    Reserved7: win32more.Foundation.LARGE_INTEGER * 6
+class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
+    IdleTime: win32more.Foundation.LARGE_INTEGER
+    KernelTime: win32more.Foundation.LARGE_INTEGER
+    UserTime: win32more.Foundation.LARGE_INTEGER
+    Reserved1: win32more.Foundation.LARGE_INTEGER * 2
+    Reserved2: UInt32
+class SYSTEM_REGISTRY_QUOTA_INFORMATION(Structure):
+    RegistryQuotaAllowed: UInt32
+    RegistryQuotaUsed: UInt32
+    Reserved1: c_void_p
+class SYSTEM_THREAD_INFORMATION(Structure):
+    Reserved1: win32more.Foundation.LARGE_INTEGER * 3
+    Reserved2: UInt32
+    StartAddress: c_void_p
+    ClientId: win32more.System.WindowsProgramming.CLIENT_ID
+    Priority: Int32
+    BasePriority: Int32
+    Reserved3: UInt32
+    ThreadState: UInt32
+    WaitReason: UInt32
+class SYSTEM_TIMEOFDAY_INFORMATION(Structure):
+    Reserved1: Byte * 48
+class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(Structure):
+    ID: win32more.System.WindowsProgramming.TDIObjectID
+    Context: Byte * 16
+class TCP_REQUEST_QUERY_INFORMATION_EX_XP(Structure):
+    ID: win32more.System.WindowsProgramming.TDIObjectID
+    Context: UIntPtr * 4
+class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
+    ID: win32more.System.WindowsProgramming.TDIObjectID
+    Context: UInt32 * 4
+class TCP_REQUEST_SET_INFORMATION_EX(Structure):
+    ID: win32more.System.WindowsProgramming.TDIObjectID
+    BufferSize: UInt32
+    Buffer: Byte * 1
+class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
+    Type: win32more.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE
+    Level: UInt32
+    Anonymous: _Anonymous_e__Union
+    InputBuffer: c_void_p
+    InputBufferLength: UInt32
+    OutputBuffer: c_void_p
+    OutputBufferLength: UInt32
+    class _Anonymous_e__Union(Union):
+        IoControlCode: UInt32
+        OptionName: UInt32
 TDI_TL_IO_CONTROL_TYPE = Int32
-TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType = 0
-TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType = 1
-TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType = 2
-TDI_TL_IO_CONTROL_TYPE_SocketIoControlType = 3
+TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType: TDI_TL_IO_CONTROL_TYPE = 0
+TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 1
+TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 2
+TDI_TL_IO_CONTROL_TYPE_SocketIoControlType: TDI_TL_IO_CONTROL_TYPE = 3
 TDIENTITY_ENTITY_TYPE = UInt32
-GENERIC_ENTITY = 0
-AT_ENTITY = 640
-CL_NL_ENTITY = 769
-CO_NL_ENTITY = 768
-CL_TL_ENTITY = 1025
-CO_TL_ENTITY = 1024
-ER_ENTITY = 896
-IF_ENTITY = 512
-def _define_TDIEntityID_head():
-    class TDIEntityID(Structure):
-        pass
-    return TDIEntityID
-def _define_TDIEntityID():
-    TDIEntityID = win32more.System.WindowsProgramming.TDIEntityID_head
-    TDIEntityID._fields_ = [
-        ('tei_entity', win32more.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE),
-        ('tei_instance', UInt32),
-    ]
-    return TDIEntityID
-def _define_TDIObjectID_head():
-    class TDIObjectID(Structure):
-        pass
-    return TDIObjectID
-def _define_TDIObjectID():
-    TDIObjectID = win32more.System.WindowsProgramming.TDIObjectID_head
-    TDIObjectID._fields_ = [
-        ('toi_entity', win32more.System.WindowsProgramming.TDIEntityID),
-        ('toi_class', UInt32),
-        ('toi_type', UInt32),
-        ('toi_id', UInt32),
-    ]
-    return TDIObjectID
-def _define_THREAD_NAME_INFORMATION_head():
-    class THREAD_NAME_INFORMATION(Structure):
-        pass
-    return THREAD_NAME_INFORMATION
-def _define_THREAD_NAME_INFORMATION():
-    THREAD_NAME_INFORMATION = win32more.System.WindowsProgramming.THREAD_NAME_INFORMATION_head
-    THREAD_NAME_INFORMATION._fields_ = [
-        ('ThreadName', win32more.Foundation.UNICODE_STRING),
-    ]
-    return THREAD_NAME_INFORMATION
-def _define_UNDETERMINESTRUCT_head():
-    class UNDETERMINESTRUCT(Structure):
-        pass
-    return UNDETERMINESTRUCT
-def _define_UNDETERMINESTRUCT():
-    UNDETERMINESTRUCT = win32more.System.WindowsProgramming.UNDETERMINESTRUCT_head
-    UNDETERMINESTRUCT._fields_ = [
-        ('dwSize', UInt32),
-        ('uDefIMESize', UInt32),
-        ('uDefIMEPos', UInt32),
-        ('uUndetTextLen', UInt32),
-        ('uUndetTextPos', UInt32),
-        ('uUndetAttrPos', UInt32),
-        ('uCursorPos', UInt32),
-        ('uDeltaStart', UInt32),
-        ('uDetermineTextLen', UInt32),
-        ('uDetermineTextPos', UInt32),
-        ('uDetermineDelimPos', UInt32),
-        ('uYomiTextLen', UInt32),
-        ('uYomiTextPos', UInt32),
-        ('uYomiDelimPos', UInt32),
-    ]
-    return UNDETERMINESTRUCT
+GENERIC_ENTITY: TDIENTITY_ENTITY_TYPE = 0
+AT_ENTITY: TDIENTITY_ENTITY_TYPE = 640
+CL_NL_ENTITY: TDIENTITY_ENTITY_TYPE = 769
+CO_NL_ENTITY: TDIENTITY_ENTITY_TYPE = 768
+CL_TL_ENTITY: TDIENTITY_ENTITY_TYPE = 1025
+CO_TL_ENTITY: TDIENTITY_ENTITY_TYPE = 1024
+ER_ENTITY: TDIENTITY_ENTITY_TYPE = 896
+IF_ENTITY: TDIENTITY_ENTITY_TYPE = 512
+class TDIEntityID(Structure):
+    tei_entity: win32more.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE
+    tei_instance: UInt32
+class TDIObjectID(Structure):
+    toi_entity: win32more.System.WindowsProgramming.TDIEntityID
+    toi_class: UInt32
+    toi_type: UInt32
+    toi_id: UInt32
+class THREAD_NAME_INFORMATION(Structure):
+    ThreadName: win32more.Foundation.UNICODE_STRING
+class UNDETERMINESTRUCT(Structure):
+    dwSize: UInt32
+    uDefIMESize: UInt32
+    uDefIMEPos: UInt32
+    uUndetTextLen: UInt32
+    uUndetTextPos: UInt32
+    uUndetAttrPos: UInt32
+    uCursorPos: UInt32
+    uDeltaStart: UInt32
+    uDetermineTextLen: UInt32
+    uDetermineTextPos: UInt32
+    uDetermineDelimPos: UInt32
+    uYomiTextLen: UInt32
+    uYomiTextPos: UInt32
+    uYomiDelimPos: UInt32
 VALUENAME = Int32
-VALUENAME_UNKNOWN = 0
-VALUENAME_ENTERPRISE_DEFINED_CLASS_ID = 1
-VALUENAME_BUILT_IN_LIST = 2
+VALUENAME_UNKNOWN: VALUENAME = 0
+VALUENAME_ENTERPRISE_DEFINED_CLASS_ID: VALUENAME = 1
+VALUENAME_BUILT_IN_LIST: VALUENAME = 2
 WINSTATIONINFOCLASS = Int32
-WINSTATIONINFOCLASS_WinStationInformation = 8
-def _define_WINSTATIONINFORMATIONW_head():
-    class WINSTATIONINFORMATIONW(Structure):
-        pass
-    return WINSTATIONINFORMATIONW
-def _define_WINSTATIONINFORMATIONW():
-    WINSTATIONINFORMATIONW = win32more.System.WindowsProgramming.WINSTATIONINFORMATIONW_head
-    WINSTATIONINFORMATIONW._fields_ = [
-        ('Reserved2', Byte * 70),
-        ('LogonId', UInt32),
-        ('Reserved3', Byte * 1140),
-    ]
-    return WINSTATIONINFORMATIONW
-def _define_WINWATCHNOTIFYPROC():
-    return WINFUNCTYPE(Void,win32more.System.WindowsProgramming.HWINWATCH,win32more.Foundation.HWND,UInt32,win32more.Foundation.LPARAM)
-def _define_WLDP_DEVICE_SECURITY_INFORMATION_head():
-    class WLDP_DEVICE_SECURITY_INFORMATION(Structure):
-        pass
-    return WLDP_DEVICE_SECURITY_INFORMATION
-def _define_WLDP_DEVICE_SECURITY_INFORMATION():
-    WLDP_DEVICE_SECURITY_INFORMATION = win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head
-    WLDP_DEVICE_SECURITY_INFORMATION._fields_ = [
-        ('UnlockIdSize', UInt32),
-        ('UnlockId', c_char_p_no),
-        ('ManufacturerIDLength', UInt32),
-        ('ManufacturerID', win32more.Foundation.PWSTR),
-    ]
-    return WLDP_DEVICE_SECURITY_INFORMATION
+WINSTATIONINFOCLASS_WinStationInformation: WINSTATIONINFOCLASS = 8
+class WINSTATIONINFORMATIONW(Structure):
+    Reserved2: Byte * 70
+    LogonId: UInt32
+    Reserved3: Byte * 1140
+@winfunctype_pointer
+def WINWATCHNOTIFYPROC(hww: win32more.System.WindowsProgramming.HWINWATCH, hwnd: win32more.Foundation.HWND, code: UInt32, lParam: win32more.Foundation.LPARAM) -> Void: ...
+class WLDP_DEVICE_SECURITY_INFORMATION(Structure):
+    UnlockIdSize: UInt32
+    UnlockId: c_char_p_no
+    ManufacturerIDLength: UInt32
+    ManufacturerID: win32more.Foundation.PWSTR
 WLDP_HOST = Int32
-WLDP_HOST_RUNDLL32 = 0
-WLDP_HOST_SVCHOST = 1
-WLDP_HOST_MAX = 2
+WLDP_HOST_RUNDLL32: WLDP_HOST = 0
+WLDP_HOST_SVCHOST: WLDP_HOST = 1
+WLDP_HOST_MAX: WLDP_HOST = 2
 WLDP_HOST_ID = Int32
-WLDP_HOST_ID_UNKNOWN = 0
-WLDP_HOST_ID_GLOBAL = 1
-WLDP_HOST_ID_VBA = 2
-WLDP_HOST_ID_WSH = 3
-WLDP_HOST_ID_POWERSHELL = 4
-WLDP_HOST_ID_IE = 5
-WLDP_HOST_ID_MSI = 6
-WLDP_HOST_ID_ALL = 7
-WLDP_HOST_ID_MAX = 8
-def _define_WLDP_HOST_INFORMATION_head():
-    class WLDP_HOST_INFORMATION(Structure):
-        pass
-    return WLDP_HOST_INFORMATION
-def _define_WLDP_HOST_INFORMATION():
-    WLDP_HOST_INFORMATION = win32more.System.WindowsProgramming.WLDP_HOST_INFORMATION_head
-    WLDP_HOST_INFORMATION._fields_ = [
-        ('dwRevision', UInt32),
-        ('dwHostId', win32more.System.WindowsProgramming.WLDP_HOST_ID),
-        ('szSource', win32more.Foundation.PWSTR),
-        ('hSource', win32more.Foundation.HANDLE),
-    ]
-    return WLDP_HOST_INFORMATION
+WLDP_HOST_ID_UNKNOWN: WLDP_HOST_ID = 0
+WLDP_HOST_ID_GLOBAL: WLDP_HOST_ID = 1
+WLDP_HOST_ID_VBA: WLDP_HOST_ID = 2
+WLDP_HOST_ID_WSH: WLDP_HOST_ID = 3
+WLDP_HOST_ID_POWERSHELL: WLDP_HOST_ID = 4
+WLDP_HOST_ID_IE: WLDP_HOST_ID = 5
+WLDP_HOST_ID_MSI: WLDP_HOST_ID = 6
+WLDP_HOST_ID_ALL: WLDP_HOST_ID = 7
+WLDP_HOST_ID_MAX: WLDP_HOST_ID = 8
+class WLDP_HOST_INFORMATION(Structure):
+    dwRevision: UInt32
+    dwHostId: win32more.System.WindowsProgramming.WLDP_HOST_ID
+    szSource: win32more.Foundation.PWSTR
+    hSource: win32more.Foundation.HANDLE
 WLDP_KEY = Int32
-KEY_UNKNOWN = 0
-KEY_OVERRIDE = 1
-KEY_ALL_KEYS = 2
+KEY_UNKNOWN: WLDP_KEY = 0
+KEY_OVERRIDE: WLDP_KEY = 1
+KEY_ALL_KEYS: WLDP_KEY = 2
 WLDP_POLICY_SETTING = Int32
-WLDP_POLICY_SETTING_AV_PERF_MODE = 1000
+WLDP_POLICY_SETTING_AV_PERF_MODE: WLDP_POLICY_SETTING = 1000
 WLDP_WINDOWS_LOCKDOWN_MODE = Int32
-WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED = 0
-WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL = 1
-WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED = 2
-WLDP_WINDOWS_LOCKDOWN_MODE_MAX = 3
+WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED: WLDP_WINDOWS_LOCKDOWN_MODE = 0
+WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL: WLDP_WINDOWS_LOCKDOWN_MODE = 1
+WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED: WLDP_WINDOWS_LOCKDOWN_MODE = 2
+WLDP_WINDOWS_LOCKDOWN_MODE_MAX: WLDP_WINDOWS_LOCKDOWN_MODE = 3
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION = Int32
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE = 0
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK = 1
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT = 2
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX = 3
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 0
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 1
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 2
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 3
+make_head(_module, '_D3DHAL_CALLBACKS')
+make_head(_module, '_D3DHAL_GLOBALDRIVERDATA')
+make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_2600')
+make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA')
+make_head(_module, 'ACTIVATION_CONTEXT_BASIC_INFORMATION')
+make_head(_module, 'APPLICATION_RECOVERY_CALLBACK')
+make_head(_module, 'CABINFOA')
+make_head(_module, 'CABINFOW')
+make_head(_module, 'CLIENT_ID')
+make_head(_module, 'CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG')
+make_head(_module, 'DATETIME')
+make_head(_module, 'DCICMD')
+make_head(_module, 'DCICREATEINPUT')
+make_head(_module, 'DCIENUMINPUT')
+make_head(_module, 'DCIOFFSCREEN')
+make_head(_module, 'DCIOVERLAY')
+make_head(_module, 'DCISURFACEINFO')
+make_head(_module, 'DELAYLOAD_INFO')
+make_head(_module, 'DELAYLOAD_PROC_DESCRIPTOR')
+make_head(_module, 'ENUM_CALLBACK')
+make_head(_module, 'FEATURE_ERROR')
+make_head(_module, 'FILE_CASE_SENSITIVE_INFO')
+make_head(_module, 'FILE_DISPOSITION_INFO_EX')
+make_head(_module, 'HW_PROFILE_INFOA')
+make_head(_module, 'HW_PROFILE_INFOW')
+make_head(_module, 'ICameraUIControl')
+make_head(_module, 'ICameraUIControlEventCallback')
+make_head(_module, 'IClipServiceNotificationHelper')
+make_head(_module, 'IContainerActivationHelper')
+make_head(_module, 'IDefaultBrowserSyncSettings')
+make_head(_module, 'IDeleteBrowsingHistory')
+make_head(_module, 'IEditionUpgradeBroker')
+make_head(_module, 'IEditionUpgradeHelper')
+make_head(_module, 'IMAGE_DELAYLOAD_DESCRIPTOR')
+make_head(_module, 'IMAGE_THUNK_DATA32')
+make_head(_module, 'IMAGE_THUNK_DATA64')
+make_head(_module, 'IMEPROA')
+make_head(_module, 'IMEPROW')
+make_head(_module, 'IMESTRUCT')
+make_head(_module, 'IO_STATUS_BLOCK')
+make_head(_module, 'IWindowsLockModeHelper')
+make_head(_module, 'JAVA_TRUST')
+make_head(_module, 'JIT_DEBUG_INFO')
+make_head(_module, 'KEY_VALUE_ENTRY')
+make_head(_module, 'LDR_DATA_TABLE_ENTRY')
+make_head(_module, 'OBJECT_ATTRIBUTES')
+make_head(_module, 'PDELAYLOAD_FAILURE_DLL_CALLBACK')
+make_head(_module, 'PERUSERSECTIONA')
+make_head(_module, 'PERUSERSECTIONW')
+make_head(_module, 'PFEATURE_STATE_CHANGE_CALLBACK')
+make_head(_module, 'PFIBER_CALLOUT_ROUTINE')
+make_head(_module, 'PIO_APC_ROUTINE')
+make_head(_module, 'PQUERYACTCTXW_FUNC')
+make_head(_module, 'PUBLIC_OBJECT_BASIC_INFORMATION')
+make_head(_module, 'PUBLIC_OBJECT_TYPE_INFORMATION')
+make_head(_module, 'PWINSTATIONQUERYINFORMATIONW')
+make_head(_module, 'PWLDP_ISAPPAPPROVEDBYPOLICY_API')
+make_head(_module, 'PWLDP_ISDYNAMICCODEPOLICYENABLED_API')
+make_head(_module, 'PWLDP_ISPRODUCTIONCONFIGURATION_API')
+make_head(_module, 'PWLDP_ISWCOSPRODUCTIONCONFIGURATION_API')
+make_head(_module, 'PWLDP_QUERYDEVICESECURITYINFORMATION_API')
+make_head(_module, 'PWLDP_QUERYDYNAMICODETRUST_API')
+make_head(_module, 'PWLDP_QUERYPOLICYSETTINGENABLED_API')
+make_head(_module, 'PWLDP_QUERYPOLICYSETTINGENABLED2_API')
+make_head(_module, 'PWLDP_QUERYWINDOWSLOCKDOWNMODE_API')
+make_head(_module, 'PWLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_API')
+make_head(_module, 'PWLDP_RESETPRODUCTIONCONFIGURATION_API')
+make_head(_module, 'PWLDP_RESETWCOSPRODUCTIONCONFIGURATION_API')
+make_head(_module, 'PWLDP_SETDYNAMICCODETRUST_API')
+make_head(_module, 'PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API')
+make_head(_module, 'REGINSTALLA')
+make_head(_module, 'STRENTRYA')
+make_head(_module, 'STRENTRYW')
+make_head(_module, 'STRINGEXSTRUCT')
+make_head(_module, 'STRTABLEA')
+make_head(_module, 'STRTABLEW')
+make_head(_module, 'SYSTEM_BASIC_INFORMATION')
+make_head(_module, 'SYSTEM_CODEINTEGRITY_INFORMATION')
+make_head(_module, 'SYSTEM_EXCEPTION_INFORMATION')
+make_head(_module, 'SYSTEM_INTERRUPT_INFORMATION')
+make_head(_module, 'SYSTEM_LOOKASIDE_INFORMATION')
+make_head(_module, 'SYSTEM_PERFORMANCE_INFORMATION')
+make_head(_module, 'SYSTEM_POLICY_INFORMATION')
+make_head(_module, 'SYSTEM_PROCESS_INFORMATION')
+make_head(_module, 'SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION')
+make_head(_module, 'SYSTEM_REGISTRY_QUOTA_INFORMATION')
+make_head(_module, 'SYSTEM_THREAD_INFORMATION')
+make_head(_module, 'SYSTEM_TIMEOFDAY_INFORMATION')
+make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_W2K')
+make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_XP')
+make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX32_XP')
+make_head(_module, 'TCP_REQUEST_SET_INFORMATION_EX')
+make_head(_module, 'TDI_TL_IO_CONTROL_ENDPOINT')
+make_head(_module, 'TDIEntityID')
+make_head(_module, 'TDIObjectID')
+make_head(_module, 'THREAD_NAME_INFORMATION')
+make_head(_module, 'UNDETERMINESTRUCT')
+make_head(_module, 'WINSTATIONINFORMATIONW')
+make_head(_module, 'WINWATCHNOTIFYPROC')
+make_head(_module, 'WLDP_DEVICE_SECURITY_INFORMATION')
+make_head(_module, 'WLDP_HOST_INFORMATION')
 __all__ = [
     "AADBE_ADD_ENTRY",
     "AADBE_DEL_ENTRY",

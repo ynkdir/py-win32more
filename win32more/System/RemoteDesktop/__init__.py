@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Media.Audio
 import win32more.Media.Audio.Apo
@@ -13,3743 +14,2912 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define__ITSWkspEvents_head():
-    class _ITSWkspEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e9')
-    return _ITSWkspEvents
-def _define__ITSWkspEvents():
-    _ITSWkspEvents = win32more.System.RemoteDesktop._ITSWkspEvents_head
-    win32more.System.Com.IDispatch
-    return _ITSWkspEvents
-def _define_AAAccountingData_head():
-    class AAAccountingData(Structure):
-        pass
-    return AAAccountingData
-def _define_AAAccountingData():
-    AAAccountingData = win32more.System.RemoteDesktop.AAAccountingData_head
-    AAAccountingData._fields_ = [
-        ('userName', win32more.Foundation.BSTR),
-        ('clientName', win32more.Foundation.BSTR),
-        ('authType', win32more.System.RemoteDesktop.AAAuthSchemes),
-        ('resourceName', win32more.Foundation.BSTR),
-        ('portNumber', Int32),
-        ('protocolName', win32more.Foundation.BSTR),
-        ('numberOfBytesReceived', Int32),
-        ('numberOfBytesTransfered', Int32),
-        ('reasonForDisconnect', win32more.Foundation.BSTR),
-        ('mainSessionId', Guid),
-        ('subSessionId', Int32),
-    ]
-    return AAAccountingData
+class _ITSWkspEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e9')
+class AAAccountingData(Structure):
+    userName: win32more.Foundation.BSTR
+    clientName: win32more.Foundation.BSTR
+    authType: win32more.System.RemoteDesktop.AAAuthSchemes
+    resourceName: win32more.Foundation.BSTR
+    portNumber: Int32
+    protocolName: win32more.Foundation.BSTR
+    numberOfBytesReceived: Int32
+    numberOfBytesTransfered: Int32
+    reasonForDisconnect: win32more.Foundation.BSTR
+    mainSessionId: Guid
+    subSessionId: Int32
 AAAccountingDataType = Int32
-AA_MAIN_SESSION_CREATION = 0
-AA_SUB_SESSION_CREATION = 1
-AA_SUB_SESSION_CLOSED = 2
-AA_MAIN_SESSION_CLOSED = 3
+AA_MAIN_SESSION_CREATION: AAAccountingDataType = 0
+AA_SUB_SESSION_CREATION: AAAccountingDataType = 1
+AA_SUB_SESSION_CLOSED: AAAccountingDataType = 2
+AA_MAIN_SESSION_CLOSED: AAAccountingDataType = 3
 AAAuthSchemes = Int32
-AA_AUTH_MIN = 0
-AA_AUTH_BASIC = 1
-AA_AUTH_NTLM = 2
-AA_AUTH_SC = 3
-AA_AUTH_LOGGEDONCREDENTIALS = 4
-AA_AUTH_NEGOTIATE = 5
-AA_AUTH_ANY = 6
-AA_AUTH_COOKIE = 7
-AA_AUTH_DIGEST = 8
-AA_AUTH_ORGID = 9
-AA_AUTH_CONID = 10
-AA_AUTH_SSPI_NTLM = 11
-AA_AUTH_MAX = 12
+AA_AUTH_MIN: AAAuthSchemes = 0
+AA_AUTH_BASIC: AAAuthSchemes = 1
+AA_AUTH_NTLM: AAAuthSchemes = 2
+AA_AUTH_SC: AAAuthSchemes = 3
+AA_AUTH_LOGGEDONCREDENTIALS: AAAuthSchemes = 4
+AA_AUTH_NEGOTIATE: AAAuthSchemes = 5
+AA_AUTH_ANY: AAAuthSchemes = 6
+AA_AUTH_COOKIE: AAAuthSchemes = 7
+AA_AUTH_DIGEST: AAAuthSchemes = 8
+AA_AUTH_ORGID: AAAuthSchemes = 9
+AA_AUTH_CONID: AAAuthSchemes = 10
+AA_AUTH_SSPI_NTLM: AAAuthSchemes = 11
+AA_AUTH_MAX: AAAuthSchemes = 12
 AATrustClassID = Int32
-AA_UNTRUSTED = 0
-AA_TRUSTEDUSER_UNTRUSTEDCLIENT = 1
-AA_TRUSTEDUSER_TRUSTEDCLIENT = 2
+AA_UNTRUSTED: AATrustClassID = 0
+AA_TRUSTEDUSER_UNTRUSTEDCLIENT: AATrustClassID = 1
+AA_TRUSTEDUSER_TRUSTEDCLIENT: AATrustClassID = 2
 ADsTSUserEx = Guid('e2e9cae6-1e7b-4b8e-ba-bd-e9-bf-62-92-ac-29')
-def _define_AE_CURRENT_POSITION_head():
-    class AE_CURRENT_POSITION(Structure):
-        pass
-    return AE_CURRENT_POSITION
-def _define_AE_CURRENT_POSITION():
-    AE_CURRENT_POSITION = win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head
-    AE_CURRENT_POSITION._fields_ = [
-        ('u64DevicePosition', UInt64),
-        ('u64StreamPosition', UInt64),
-        ('u64PaddingFrames', UInt64),
-        ('hnsQPCPosition', Int64),
-        ('f32FramesPerSecond', Single),
-        ('Flag', win32more.System.RemoteDesktop.AE_POSITION_FLAGS),
-    ]
-    return AE_CURRENT_POSITION
+class AE_CURRENT_POSITION(Structure):
+    u64DevicePosition: UInt64
+    u64StreamPosition: UInt64
+    u64PaddingFrames: UInt64
+    hnsQPCPosition: Int64
+    f32FramesPerSecond: Single
+    Flag: win32more.System.RemoteDesktop.AE_POSITION_FLAGS
 AE_POSITION_FLAGS = Int32
-POSITION_INVALID = 0
-POSITION_DISCONTINUOUS = 1
-POSITION_CONTINUOUS = 2
-POSITION_QPC_ERROR = 4
-WTS_DOMAIN_LENGTH = 255
-WTS_USERNAME_LENGTH = 255
-WTS_PASSWORD_LENGTH = 255
-WTS_DIRECTORY_LENGTH = 256
-WTS_INITIALPROGRAM_LENGTH = 256
-WTS_PROTOCOL_NAME_LENGTH = 8
-WTS_DRIVER_NAME_LENGTH = 8
-WTS_DEVICE_NAME_LENGTH = 19
-WTS_IMEFILENAME_LENGTH = 32
-WTS_CLIENTNAME_LENGTH = 20
-WTS_CLIENTADDRESS_LENGTH = 30
-WTS_CLIENT_PRODUCT_ID_LENGTH = 32
-WTS_MAX_PROTOCOL_CACHE = 4
-WTS_MAX_CACHE_RESERVED = 20
-WTS_MAX_RESERVED = 100
-WTS_MAX_COUNTERS = 100
-WTS_MAX_DISPLAY_IOCTL_DATA = 256
-WTS_PERF_DISABLE_NOTHING = 0
-WTS_PERF_DISABLE_WALLPAPER = 1
-WTS_PERF_DISABLE_FULLWINDOWDRAG = 2
-WTS_PERF_DISABLE_MENUANIMATIONS = 4
-WTS_PERF_DISABLE_THEMING = 8
-WTS_PERF_ENABLE_ENHANCED_GRAPHICS = 16
-WTS_PERF_DISABLE_CURSOR_SHADOW = 32
-WTS_PERF_DISABLE_CURSORSETTINGS = 64
-WTS_PERF_ENABLE_FONT_SMOOTHING = 128
-WTS_PERF_ENABLE_DESKTOP_COMPOSITION = 256
-WTS_VALUE_TYPE_ULONG = 1
-WTS_VALUE_TYPE_STRING = 2
-WTS_VALUE_TYPE_BINARY = 3
-WTS_VALUE_TYPE_GUID = 4
-WTS_KEY_EXCHANGE_ALG_RSA = 1
-WTS_KEY_EXCHANGE_ALG_DH = 2
-WTS_LICENSE_PROTOCOL_VERSION = 65536
-WTS_LICENSE_PREAMBLE_VERSION = 3
-WRDS_DOMAIN_LENGTH = 255
-WRDS_USERNAME_LENGTH = 255
-WRDS_PASSWORD_LENGTH = 255
-WRDS_DIRECTORY_LENGTH = 256
-WRDS_INITIALPROGRAM_LENGTH = 256
-WRDS_PROTOCOL_NAME_LENGTH = 8
-WRDS_DRIVER_NAME_LENGTH = 8
-WRDS_DEVICE_NAME_LENGTH = 19
-WRDS_IMEFILENAME_LENGTH = 32
-WRDS_CLIENTNAME_LENGTH = 20
-WRDS_CLIENTADDRESS_LENGTH = 30
-WRDS_CLIENT_PRODUCT_ID_LENGTH = 32
-WRDS_MAX_PROTOCOL_CACHE = 4
-WRDS_MAX_CACHE_RESERVED = 20
-WRDS_MAX_RESERVED = 100
-WRDS_MAX_COUNTERS = 100
-WRDS_MAX_DISPLAY_IOCTL_DATA = 256
-WRDS_PERF_DISABLE_NOTHING = 0
-WRDS_PERF_DISABLE_WALLPAPER = 1
-WRDS_PERF_DISABLE_FULLWINDOWDRAG = 2
-WRDS_PERF_DISABLE_MENUANIMATIONS = 4
-WRDS_PERF_DISABLE_THEMING = 8
-WRDS_PERF_ENABLE_ENHANCED_GRAPHICS = 16
-WRDS_PERF_DISABLE_CURSOR_SHADOW = 32
-WRDS_PERF_DISABLE_CURSORSETTINGS = 64
-WRDS_PERF_ENABLE_FONT_SMOOTHING = 128
-WRDS_PERF_ENABLE_DESKTOP_COMPOSITION = 256
-WRDS_VALUE_TYPE_ULONG = 1
-WRDS_VALUE_TYPE_STRING = 2
-WRDS_VALUE_TYPE_BINARY = 3
-WRDS_VALUE_TYPE_GUID = 4
-WRDS_KEY_EXCHANGE_ALG_RSA = 1
-WRDS_KEY_EXCHANGE_ALG_DH = 2
-WRDS_LICENSE_PROTOCOL_VERSION = 65536
-WRDS_LICENSE_PREAMBLE_VERSION = 3
-SINGLE_SESSION = 1
-FORCE_REJOIN = 2
-FORCE_REJOIN_IN_CLUSTERMODE = 3
-RESERVED_FOR_LEGACY = 4
-KEEP_EXISTING_SESSIONS = 8
-CHANNEL_EVENT_INITIALIZED = 0
-CHANNEL_EVENT_CONNECTED = 1
-CHANNEL_EVENT_V1_CONNECTED = 2
-CHANNEL_EVENT_DISCONNECTED = 3
-CHANNEL_EVENT_TERMINATED = 4
-CHANNEL_EVENT_DATA_RECEIVED = 10
-CHANNEL_EVENT_WRITE_COMPLETE = 11
-CHANNEL_EVENT_WRITE_CANCELLED = 12
-CHANNEL_RC_OK = 0
-CHANNEL_RC_ALREADY_INITIALIZED = 1
-CHANNEL_RC_NOT_INITIALIZED = 2
-CHANNEL_RC_ALREADY_CONNECTED = 3
-CHANNEL_RC_NOT_CONNECTED = 4
-CHANNEL_RC_TOO_MANY_CHANNELS = 5
-CHANNEL_RC_BAD_CHANNEL = 6
-CHANNEL_RC_BAD_CHANNEL_HANDLE = 7
-CHANNEL_RC_NO_BUFFER = 8
-CHANNEL_RC_BAD_INIT_HANDLE = 9
-CHANNEL_RC_NOT_OPEN = 10
-CHANNEL_RC_BAD_PROC = 11
-CHANNEL_RC_NO_MEMORY = 12
-CHANNEL_RC_UNKNOWN_CHANNEL_NAME = 13
-CHANNEL_RC_ALREADY_OPEN = 14
-CHANNEL_RC_NOT_IN_VIRTUALCHANNELENTRY = 15
-CHANNEL_RC_NULL_DATA = 16
-CHANNEL_RC_ZERO_LENGTH = 17
-CHANNEL_RC_INVALID_INSTANCE = 18
-CHANNEL_RC_UNSUPPORTED_VERSION = 19
-CHANNEL_RC_INITIALIZATION_ERROR = 20
-VIRTUAL_CHANNEL_VERSION_WIN2000 = 1
-CHANNEL_CHUNK_LENGTH = 1600
-CHANNEL_BUFFER_SIZE = 65535
-CHANNEL_FLAG_FIRST = 1
-CHANNEL_FLAG_LAST = 2
-CHANNEL_FLAG_MIDDLE = 0
-CHANNEL_FLAG_FAIL = 256
-CHANNEL_OPTION_INITIALIZED = 2147483648
-CHANNEL_OPTION_ENCRYPT_RDP = 1073741824
-CHANNEL_OPTION_ENCRYPT_SC = 536870912
-CHANNEL_OPTION_ENCRYPT_CS = 268435456
-CHANNEL_OPTION_PRI_HIGH = 134217728
-CHANNEL_OPTION_PRI_MED = 67108864
-CHANNEL_OPTION_PRI_LOW = 33554432
-CHANNEL_OPTION_COMPRESS_RDP = 8388608
-CHANNEL_OPTION_COMPRESS = 4194304
-CHANNEL_OPTION_SHOW_PROTOCOL = 2097152
-CHANNEL_OPTION_REMOTE_CONTROL_PERSISTENT = 1048576
-CHANNEL_MAX_COUNT = 30
-CHANNEL_NAME_LEN = 7
-MAX_POLICY_ATTRIBUTES = 20
-WTS_CURRENT_SESSION = 4294967295
-USERNAME_LENGTH = 20
-CLIENTNAME_LENGTH = 20
-CLIENTADDRESS_LENGTH = 30
-WTS_WSD_LOGOFF = 1
-WTS_WSD_SHUTDOWN = 2
-WTS_WSD_REBOOT = 4
-WTS_WSD_POWEROFF = 8
-WTS_WSD_FASTREBOOT = 16
-MAX_ELAPSED_TIME_LENGTH = 15
-MAX_DATE_TIME_LENGTH = 56
-WINSTATIONNAME_LENGTH = 32
-DOMAIN_LENGTH = 17
-WTS_DRIVE_LENGTH = 3
-WTS_LISTENER_NAME_LENGTH = 32
-WTS_COMMENT_LENGTH = 60
-WTS_LISTENER_CREATE = 1
-WTS_LISTENER_UPDATE = 16
-WTS_SECURITY_QUERY_INFORMATION = 1
-WTS_SECURITY_SET_INFORMATION = 2
-WTS_SECURITY_RESET = 4
-WTS_SECURITY_VIRTUAL_CHANNELS = 8
-WTS_SECURITY_REMOTE_CONTROL = 16
-WTS_SECURITY_LOGON = 32
-WTS_SECURITY_LOGOFF = 64
-WTS_SECURITY_MESSAGE = 128
-WTS_SECURITY_CONNECT = 256
-WTS_SECURITY_DISCONNECT = 512
-WTS_SECURITY_GUEST_ACCESS = 32
-WTS_PROTOCOL_TYPE_CONSOLE = 0
-WTS_PROTOCOL_TYPE_ICA = 1
-WTS_PROTOCOL_TYPE_RDP = 2
-WTS_SESSIONSTATE_UNKNOWN = 4294967295
-WTS_SESSIONSTATE_LOCK = 0
-WTS_SESSIONSTATE_UNLOCK = 1
-PRODUCTINFO_COMPANYNAME_LENGTH = 256
-PRODUCTINFO_PRODUCTID_LENGTH = 4
-VALIDATIONINFORMATION_LICENSE_LENGTH = 16384
-VALIDATIONINFORMATION_HARDWAREID_LENGTH = 20
-WTS_EVENT_NONE = 0
-WTS_EVENT_CREATE = 1
-WTS_EVENT_DELETE = 2
-WTS_EVENT_RENAME = 4
-WTS_EVENT_CONNECT = 8
-WTS_EVENT_DISCONNECT = 16
-WTS_EVENT_LOGON = 32
-WTS_EVENT_LOGOFF = 64
-WTS_EVENT_STATECHANGE = 128
-WTS_EVENT_LICENSE = 256
-WTS_EVENT_ALL = 2147483647
-WTS_EVENT_FLUSH = 2147483648
-REMOTECONTROL_KBDSHIFT_HOTKEY = 1
-REMOTECONTROL_KBDCTRL_HOTKEY = 2
-REMOTECONTROL_KBDALT_HOTKEY = 4
-WTS_CHANNEL_OPTION_DYNAMIC = 1
-WTS_CHANNEL_OPTION_DYNAMIC_PRI_LOW = 0
-WTS_CHANNEL_OPTION_DYNAMIC_PRI_MED = 2
-WTS_CHANNEL_OPTION_DYNAMIC_PRI_HIGH = 4
-WTS_CHANNEL_OPTION_DYNAMIC_PRI_REAL = 6
-WTS_CHANNEL_OPTION_DYNAMIC_NO_COMPRESS = 8
-NOTIFY_FOR_ALL_SESSIONS = 1
-NOTIFY_FOR_THIS_SESSION = 0
-WTS_PROCESS_INFO_LEVEL_0 = 0
-WTS_PROCESS_INFO_LEVEL_1 = 1
-PLUGIN_CAPABILITY_EXTERNAL_REDIRECTION = 1
-MaxFQDN_Len = 256
-MaxNetBiosName_Len = 16
-MaxNumOfExposed_IPs = 12
-MaxUserName_Len = 104
-MaxDomainName_Len = 256
-MaxFarm_Len = 256
-MaxAppName_Len = 256
-WKS_FLAG_CLEAR_CREDS_ON_LAST_RESOURCE = 1
-WKS_FLAG_PASSWORD_ENCRYPTED = 2
-WKS_FLAG_CREDS_AUTHENTICATED = 4
-SB_SYNCH_CONFLICT_MAX_WRITE_ATTEMPTS = 100
-ACQUIRE_TARGET_LOCK_TIMEOUT = 300000
-RENDER_HINT_CLEAR = 0
-RENDER_HINT_VIDEO = 1
-RENDER_HINT_MAPPEDWINDOW = 2
-WTS_PROPERTY_DEFAULT_CONFIG = 'DefaultConfig'
-TS_VC_LISTENER_STATIC_CHANNEL = 1
-WRdsGraphicsChannels_LossyChannelMaxMessageSize = 988
-RFX_RDP_MSG_PREFIX = 0
-RFX_GFX_MSG_PREFIX = 48
-RFX_GFX_MSG_PREFIX_MASK = 48
-RFX_GFX_MAX_SUPPORTED_MONITORS = 16
-RFX_CLIENT_ID_LENGTH = 32
-DISPID_METHOD_REMOTEDESKTOPCLIENT_CONNECT = 701
-DISPID_METHOD_REMOTEDESKTOPCLIENT_DISCONNECT = 702
-DISPID_METHOD_REMOTEDESKTOPCLIENT_RECONNECT = 703
-DISPID_METHOD_REMOTEDESKTOPCLIENT_DELETE_SAVED_CREDENTIALS = 704
-DISPID_METHOD_REMOTEDESKTOPCLIENT_UPDATE_SESSION_DISPLAYSETTINGS = 705
-DISPID_METHOD_REMOTEDESKTOPCLIENT_ATTACH_EVENT = 706
-DISPID_METHOD_REMOTEDESKTOPCLIENT_DETACH_EVENT = 707
-DISPID_PROP_REMOTEDESKTOPCLIENT_SETTINGS = 710
-DISPID_PROP_REMOTEDESKTOPCLIENT_ACTIONS = 711
-DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCH_POINTER = 712
-DISPID_METHOD_REMOTEDESKTOPCLIENT_SET_RDPPROPERTY = 720
-DISPID_METHOD_REMOTEDESKTOPCLIENT_GET_RDPPROPERTY = 721
-DISPID_METHOD_REMOTEDESKTOPCLIENT_APPLY_SETTINGS = 722
-DISPID_METHOD_REMOTEDESKTOPCLIENT_RETRIEVE_SETTINGS = 723
-DISPID_METHOD_REMOTEDESKTOPCLIENT_SUSPEND_SCREEN_UPDATES = 730
-DISPID_METHOD_REMOTEDESKTOPCLIENT_RESUME_SCREEN_UPDATES = 731
-DISPID_METHOD_REMOTEDESKTOPCLIENT_EXECUTE_REMOTE_ACTION = 732
-DISPID_METHOD_REMOTEDESKTOPCLIENT_GET_SNAPSHOT = 733
-DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_ENABLED = 740
-DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_EVENTSENABLED = 741
-DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_POINTERSPEED = 742
-DISPID_AX_CONNECTING = 750
-DISPID_AX_CONNECTED = 751
-DISPID_AX_LOGINCOMPLETED = 752
-DISPID_AX_DISCONNECTED = 753
-DISPID_AX_STATUSCHANGED = 754
-DISPID_AX_AUTORECONNECTING = 755
-DISPID_AX_AUTORECONNECTED = 756
-DISPID_AX_DIALOGDISPLAYING = 757
-DISPID_AX_DIALOGDISMISSED = 758
-DISPID_AX_NETWORKSTATUSCHANGED = 759
-DISPID_AX_ADMINMESSAGERECEIVED = 760
-DISPID_AX_KEYCOMBINATIONPRESSED = 761
-DISPID_AX_REMOTEDESKTOPSIZECHANGED = 762
-DISPID_AX_TOUCHPOINTERCURSORMOVED = 800
-def _define_RDCLIENT_BITMAP_RENDER_SERVICE():
-    return Guid('e4cc08cb-942e-4b19-85-04-bd-5a-89-a7-47-f5')
-def _define_WTS_QUERY_ALLOWED_INITIAL_APP():
-    return Guid('c77d1b30-5be1-4c6b-a0-e1-bd-6d-2e-5c-9f-cc')
-def _define_WTS_QUERY_LOGON_SCREEN_SIZE():
-    return Guid('8b8e0fe7-0804-4a0e-b2-79-86-60-b1-df-00-49')
-def _define_WTS_QUERY_AUDIOENUM_DLL():
-    return Guid('9bf4fa97-c883-4c2a-80-ab-5a-39-c9-af-00-db')
-def _define_WTS_QUERY_MF_FORMAT_SUPPORT():
-    return Guid('41869ad0-6332-4dc8-95-d5-db-74-9e-2f-1d-94')
-def _define_WRDS_SERVICE_ID_GRAPHICS_GUID():
-    return Guid('d2993f4d-02cf-4280-8c-48-16-24-b4-4f-87-06')
-def _define_PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION():
-    return Guid('0cdfd28e-d0b9-4c1f-a5-eb-6d-1f-6c-65-35-b9')
-def _define_PROPERTY_TYPE_GET_FAST_RECONNECT():
-    return Guid('6212d757-0043-4862-99-c3-9f-30-59-ac-2a-3b')
-def _define_PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID():
-    return Guid('197c427a-0135-4b6d-9c-5e-e6-57-9a-0a-b6-25')
-def _define_PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL():
-    return Guid('ed2c3fda-338d-4d3f-81-a3-e7-67-31-0d-90-8e')
-def _define_CONNECTION_PROPERTY_IDLE_TIME_WARNING():
-    return Guid('693f7ff5-0c4e-4d17-b8-e0-1f-70-32-5e-5d-58')
-def _define_CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED():
-    return Guid('4b150580-fea4-4d3c-9d-e4-74-33-a6-66-18-f7')
-def _define_WTSStopRemoteControlSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('WTSStopRemoteControlSession', windll['WTSAPI32.dll']), ((1, 'LogonId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSStartRemoteControlSessionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,Byte,UInt16)(('WTSStartRemoteControlSessionW', windll['WTSAPI32.dll']), ((1, 'pTargetServerName'),(1, 'TargetLogonId'),(1, 'HotkeyVk'),(1, 'HotkeyModifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSStartRemoteControlSessionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,Byte,UInt16)(('WTSStartRemoteControlSessionA', windll['WTSAPI32.dll']), ((1, 'pTargetServerName'),(1, 'TargetLogonId'),(1, 'HotkeyVk'),(1, 'HotkeyModifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSConnectSessionA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('WTSConnectSessionA', windll['WTSAPI32.dll']), ((1, 'LogonId'),(1, 'TargetLogonId'),(1, 'pPassword'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSConnectSessionW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('WTSConnectSessionW', windll['WTSAPI32.dll']), ((1, 'LogonId'),(1, 'TargetLogonId'),(1, 'pPassword'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateServersW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SERVER_INFOW_head)),POINTER(UInt32))(('WTSEnumerateServersW', windll['WTSAPI32.dll']), ((1, 'pDomainName'),(1, 'Reserved'),(1, 'Version'),(1, 'ppServerInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateServersA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SERVER_INFOA_head)),POINTER(UInt32))(('WTSEnumerateServersA', windll['WTSAPI32.dll']), ((1, 'pDomainName'),(1, 'Reserved'),(1, 'Version'),(1, 'ppServerInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSOpenServerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('WTSOpenServerW', windll['WTSAPI32.dll']), ((1, 'pServerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSOpenServerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR)(('WTSOpenServerA', windll['WTSAPI32.dll']), ((1, 'pServerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSOpenServerExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('WTSOpenServerExW', windll['WTSAPI32.dll']), ((1, 'pServerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSOpenServerExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR)(('WTSOpenServerExA', windll['WTSAPI32.dll']), ((1, 'pServerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSCloseServer():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HANDLE)(('WTSCloseServer', windll['WTSAPI32.dll']), ((1, 'hServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateSessionsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFOW_head)),POINTER(UInt32))(('WTSEnumerateSessionsW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'Reserved'),(1, 'Version'),(1, 'ppSessionInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateSessionsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFOA_head)),POINTER(UInt32))(('WTSEnumerateSessionsA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'Reserved'),(1, 'Version'),(1, 'ppSessionInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateSessionsExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFO_1W_head)),POINTER(UInt32))(('WTSEnumerateSessionsExW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pLevel'),(1, 'Filter'),(1, 'ppSessionInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateSessionsExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFO_1A_head)),POINTER(UInt32))(('WTSEnumerateSessionsExA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pLevel'),(1, 'Filter'),(1, 'ppSessionInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateProcessesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_PROCESS_INFOW_head)),POINTER(UInt32))(('WTSEnumerateProcessesW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'Reserved'),(1, 'Version'),(1, 'ppProcessInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateProcessesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(POINTER(win32more.System.RemoteDesktop.WTS_PROCESS_INFOA_head)),POINTER(UInt32))(('WTSEnumerateProcessesA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'Reserved'),(1, 'Version'),(1, 'ppProcessInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSTerminateProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,UInt32)(('WTSTerminateProcess', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'ProcessId'),(1, 'ExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQuerySessionInformationW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.System.RemoteDesktop.WTS_INFO_CLASS,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(('WTSQuerySessionInformationW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'WTSInfoClass'),(1, 'ppBuffer'),(1, 'pBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQuerySessionInformationA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.System.RemoteDesktop.WTS_INFO_CLASS,POINTER(win32more.Foundation.PSTR),POINTER(UInt32))(('WTSQuerySessionInformationA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'WTSInfoClass'),(1, 'ppBuffer'),(1, 'pBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQueryUserConfigW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.RemoteDesktop.WTS_CONFIG_CLASS,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(('WTSQueryUserConfigW', windll['WTSAPI32.dll']), ((1, 'pServerName'),(1, 'pUserName'),(1, 'WTSConfigClass'),(1, 'ppBuffer'),(1, 'pBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQueryUserConfigA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.RemoteDesktop.WTS_CONFIG_CLASS,POINTER(win32more.Foundation.PSTR),POINTER(UInt32))(('WTSQueryUserConfigA', windll['WTSAPI32.dll']), ((1, 'pServerName'),(1, 'pUserName'),(1, 'WTSConfigClass'),(1, 'ppBuffer'),(1, 'pBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSetUserConfigW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.RemoteDesktop.WTS_CONFIG_CLASS,win32more.Foundation.PWSTR,UInt32)(('WTSSetUserConfigW', windll['WTSAPI32.dll']), ((1, 'pServerName'),(1, 'pUserName'),(1, 'WTSConfigClass'),(1, 'pBuffer'),(1, 'DataLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSetUserConfigA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.RemoteDesktop.WTS_CONFIG_CLASS,win32more.Foundation.PSTR,UInt32)(('WTSSetUserConfigA', windll['WTSAPI32.dll']), ((1, 'pServerName'),(1, 'pUserName'),(1, 'WTSConfigClass'),(1, 'pBuffer'),(1, 'DataLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSendMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT),win32more.Foundation.BOOL)(('WTSSendMessageW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'pTitle'),(1, 'TitleLength'),(1, 'pMessage'),(1, 'MessageLength'),(1, 'Style'),(1, 'Timeout'),(1, 'pResponse'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSendMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32,win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE,UInt32,POINTER(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT),win32more.Foundation.BOOL)(('WTSSendMessageA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'pTitle'),(1, 'TitleLength'),(1, 'pMessage'),(1, 'MessageLength'),(1, 'Style'),(1, 'Timeout'),(1, 'pResponse'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSDisconnectSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL)(('WTSDisconnectSession', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSLogoffSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL)(('WTSLogoffSession', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'bWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSShutdownSystem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('WTSShutdownSystem', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'ShutdownFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSWaitSystemEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,POINTER(UInt32))(('WTSWaitSystemEvent', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'EventMask'),(1, 'pEventFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelOpen():
-    try:
-        return WINFUNCTYPE(win32more.System.RemoteDesktop.HwtsVirtualChannelHandle,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PSTR)(('WTSVirtualChannelOpen', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'SessionId'),(1, 'pVirtualName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelOpenEx():
-    try:
-        return WINFUNCTYPE(win32more.System.RemoteDesktop.HwtsVirtualChannelHandle,UInt32,win32more.Foundation.PSTR,UInt32)(('WTSVirtualChannelOpenEx', windll['WTSAPI32.dll']), ((1, 'SessionId'),(1, 'pVirtualName'),(1, 'flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelClose():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WTSVirtualChannelClose', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelRead():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(UInt32))(('WTSVirtualChannelRead', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),(1, 'TimeOut'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'pBytesRead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelWrite():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,UInt32,POINTER(UInt32))(('WTSVirtualChannelWrite', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),(1, 'Buffer'),(1, 'Length'),(1, 'pBytesWritten'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelPurgeInput():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WTSVirtualChannelPurgeInput', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelPurgeOutput():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('WTSVirtualChannelPurgeOutput', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSVirtualChannelQuery():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.RemoteDesktop.WTS_VIRTUAL_CLASS,POINTER(c_void_p),POINTER(UInt32))(('WTSVirtualChannelQuery', windll['WTSAPI32.dll']), ((1, 'hChannelHandle'),(1, 'param1'),(1, 'ppBuffer'),(1, 'pBytesReturned'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSFreeMemory():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('WTSFreeMemory', windll['WTSAPI32.dll']), ((1, 'pMemory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSRegisterSessionNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32)(('WTSRegisterSessionNotification', windll['WTSAPI32.dll']), ((1, 'hWnd'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSUnRegisterSessionNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('WTSUnRegisterSessionNotification', windll['WTSAPI32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSRegisterSessionNotificationEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HWND,UInt32)(('WTSRegisterSessionNotificationEx', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'hWnd'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSUnRegisterSessionNotificationEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HWND)(('WTSUnRegisterSessionNotificationEx', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQueryUserToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.HANDLE))(('WTSQueryUserToken', windll['WTSAPI32.dll']), ((1, 'SessionId'),(1, 'phToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSFreeMemoryExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.RemoteDesktop.WTS_TYPE_CLASS,c_void_p,UInt32)(('WTSFreeMemoryExW', windll['WTSAPI32.dll']), ((1, 'WTSTypeClass'),(1, 'pMemory'),(1, 'NumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSFreeMemoryExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.RemoteDesktop.WTS_TYPE_CLASS,c_void_p,UInt32)(('WTSFreeMemoryExA', windll['WTSAPI32.dll']), ((1, 'WTSTypeClass'),(1, 'pMemory'),(1, 'NumberOfEntries'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateProcessesExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32))(('WTSEnumerateProcessesExW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pLevel'),(1, 'SessionId'),(1, 'ppProcessInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateProcessesExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(win32more.Foundation.PSTR),POINTER(UInt32))(('WTSEnumerateProcessesExA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pLevel'),(1, 'SessionId'),(1, 'ppProcessInfo'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateListenersW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,POINTER(POINTER(UInt16)),POINTER(UInt32))(('WTSEnumerateListenersW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListeners'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnumerateListenersA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,POINTER(POINTER(SByte)),POINTER(UInt32))(('WTSEnumerateListenersA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListeners'),(1, 'pCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQueryListenerConfigW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGW_head))(('WTSQueryListenerConfigW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSQueryListenerConfigA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGA_head))(('WTSQueryListenerConfigA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'pBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSCreateListenerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGW_head),UInt32)(('WTSCreateListenerW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'pBuffer'),(1, 'flag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSCreateListenerA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGA_head),UInt32)(('WTSCreateListenerA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'pBuffer'),(1, 'flag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSetListenerSecurityW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('WTSSetListenerSecurityW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSetListenerSecurityA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('WTSSetListenerSecurityA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSGetListenerSecurityW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('WTSGetListenerSecurityW', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSGetListenerSecurityA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('WTSGetListenerSecurityA', windll['WTSAPI32.dll']), ((1, 'hServer'),(1, 'pReserved'),(1, 'Reserved'),(1, 'pListenerName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSEnableChildSessions():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('WTSEnableChildSessions', windll['WTSAPI32.dll']), ((1, 'bEnable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSIsChildSessionsEnabled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL))(('WTSIsChildSessionsEnabled', windll['WTSAPI32.dll']), ((1, 'pbEnabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSGetChildSessionId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32))(('WTSGetChildSessionId', windll['WTSAPI32.dll']), ((1, 'pSessionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSSetRenderHint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),win32more.Foundation.HWND,UInt32,UInt32,c_char_p_no)(('WTSSetRenderHint', windll['WTSAPI32.dll']), ((1, 'pRenderHintID'),(1, 'hwndOwner'),(1, 'renderHintType'),(1, 'cbHintDataLength'),(1, 'pHintData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ProcessIdToSessionId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32))(('ProcessIdToSessionId', windll['KERNEL32.dll']), ((1, 'dwProcessId'),(1, 'pSessionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WTSGetActiveConsoleSessionId():
-    try:
-        return WINFUNCTYPE(UInt32,)(('WTSGetActiveConsoleSessionId', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BITMAP_RENDERER_STATISTICS_head():
-    class BITMAP_RENDERER_STATISTICS(Structure):
-        pass
-    return BITMAP_RENDERER_STATISTICS
-def _define_BITMAP_RENDERER_STATISTICS():
-    BITMAP_RENDERER_STATISTICS = win32more.System.RemoteDesktop.BITMAP_RENDERER_STATISTICS_head
-    BITMAP_RENDERER_STATISTICS._fields_ = [
-        ('dwFramesDelivered', UInt32),
-        ('dwFramesDropped', UInt32),
-    ]
-    return BITMAP_RENDERER_STATISTICS
-def _define_CHANNEL_DEF_head():
-    class CHANNEL_DEF(Structure):
-        pass
-    return CHANNEL_DEF
-def _define_CHANNEL_DEF():
-    CHANNEL_DEF = win32more.System.RemoteDesktop.CHANNEL_DEF_head
-    CHANNEL_DEF._pack_ = 1
-    CHANNEL_DEF._fields_ = [
-        ('name', win32more.Foundation.CHAR * 8),
-        ('options', UInt32),
-    ]
-    return CHANNEL_DEF
-def _define_CHANNEL_ENTRY_POINTS_head():
-    class CHANNEL_ENTRY_POINTS(Structure):
-        pass
-    return CHANNEL_ENTRY_POINTS
-def _define_CHANNEL_ENTRY_POINTS():
-    CHANNEL_ENTRY_POINTS = win32more.System.RemoteDesktop.CHANNEL_ENTRY_POINTS_head
-    CHANNEL_ENTRY_POINTS._fields_ = [
-        ('cbSize', UInt32),
-        ('protocolVersion', UInt32),
-        ('pVirtualChannelInit', win32more.System.RemoteDesktop.PVIRTUALCHANNELINIT),
-        ('pVirtualChannelOpen', win32more.System.RemoteDesktop.PVIRTUALCHANNELOPEN),
-        ('pVirtualChannelClose', win32more.System.RemoteDesktop.PVIRTUALCHANNELCLOSE),
-        ('pVirtualChannelWrite', win32more.System.RemoteDesktop.PVIRTUALCHANNELWRITE),
-    ]
-    return CHANNEL_ENTRY_POINTS
-def _define_CHANNEL_PDU_HEADER_head():
-    class CHANNEL_PDU_HEADER(Structure):
-        pass
-    return CHANNEL_PDU_HEADER
-def _define_CHANNEL_PDU_HEADER():
-    CHANNEL_PDU_HEADER = win32more.System.RemoteDesktop.CHANNEL_PDU_HEADER_head
-    CHANNEL_PDU_HEADER._fields_ = [
-        ('length', UInt32),
-        ('flags', UInt32),
-    ]
-    return CHANNEL_PDU_HEADER
-def _define_CLIENT_DISPLAY_head():
-    class CLIENT_DISPLAY(Structure):
-        pass
-    return CLIENT_DISPLAY
-def _define_CLIENT_DISPLAY():
-    CLIENT_DISPLAY = win32more.System.RemoteDesktop.CLIENT_DISPLAY_head
-    CLIENT_DISPLAY._fields_ = [
-        ('HorizontalResolution', UInt32),
-        ('VerticalResolution', UInt32),
-        ('ColorDepth', UInt32),
-    ]
-    return CLIENT_DISPLAY
+POSITION_INVALID: AE_POSITION_FLAGS = 0
+POSITION_DISCONTINUOUS: AE_POSITION_FLAGS = 1
+POSITION_CONTINUOUS: AE_POSITION_FLAGS = 2
+POSITION_QPC_ERROR: AE_POSITION_FLAGS = 4
+WTS_DOMAIN_LENGTH: UInt32 = 255
+WTS_USERNAME_LENGTH: UInt32 = 255
+WTS_PASSWORD_LENGTH: UInt32 = 255
+WTS_DIRECTORY_LENGTH: UInt32 = 256
+WTS_INITIALPROGRAM_LENGTH: UInt32 = 256
+WTS_PROTOCOL_NAME_LENGTH: UInt32 = 8
+WTS_DRIVER_NAME_LENGTH: UInt32 = 8
+WTS_DEVICE_NAME_LENGTH: UInt32 = 19
+WTS_IMEFILENAME_LENGTH: UInt32 = 32
+WTS_CLIENTNAME_LENGTH: UInt32 = 20
+WTS_CLIENTADDRESS_LENGTH: UInt32 = 30
+WTS_CLIENT_PRODUCT_ID_LENGTH: UInt32 = 32
+WTS_MAX_PROTOCOL_CACHE: UInt32 = 4
+WTS_MAX_CACHE_RESERVED: UInt32 = 20
+WTS_MAX_RESERVED: UInt32 = 100
+WTS_MAX_COUNTERS: UInt32 = 100
+WTS_MAX_DISPLAY_IOCTL_DATA: UInt32 = 256
+WTS_PERF_DISABLE_NOTHING: UInt32 = 0
+WTS_PERF_DISABLE_WALLPAPER: UInt32 = 1
+WTS_PERF_DISABLE_FULLWINDOWDRAG: UInt32 = 2
+WTS_PERF_DISABLE_MENUANIMATIONS: UInt32 = 4
+WTS_PERF_DISABLE_THEMING: UInt32 = 8
+WTS_PERF_ENABLE_ENHANCED_GRAPHICS: UInt32 = 16
+WTS_PERF_DISABLE_CURSOR_SHADOW: UInt32 = 32
+WTS_PERF_DISABLE_CURSORSETTINGS: UInt32 = 64
+WTS_PERF_ENABLE_FONT_SMOOTHING: UInt32 = 128
+WTS_PERF_ENABLE_DESKTOP_COMPOSITION: UInt32 = 256
+WTS_VALUE_TYPE_ULONG: UInt32 = 1
+WTS_VALUE_TYPE_STRING: UInt32 = 2
+WTS_VALUE_TYPE_BINARY: UInt32 = 3
+WTS_VALUE_TYPE_GUID: UInt32 = 4
+WTS_KEY_EXCHANGE_ALG_RSA: UInt32 = 1
+WTS_KEY_EXCHANGE_ALG_DH: UInt32 = 2
+WTS_LICENSE_PROTOCOL_VERSION: UInt32 = 65536
+WTS_LICENSE_PREAMBLE_VERSION: UInt32 = 3
+WRDS_DOMAIN_LENGTH: UInt32 = 255
+WRDS_USERNAME_LENGTH: UInt32 = 255
+WRDS_PASSWORD_LENGTH: UInt32 = 255
+WRDS_DIRECTORY_LENGTH: UInt32 = 256
+WRDS_INITIALPROGRAM_LENGTH: UInt32 = 256
+WRDS_PROTOCOL_NAME_LENGTH: UInt32 = 8
+WRDS_DRIVER_NAME_LENGTH: UInt32 = 8
+WRDS_DEVICE_NAME_LENGTH: UInt32 = 19
+WRDS_IMEFILENAME_LENGTH: UInt32 = 32
+WRDS_CLIENTNAME_LENGTH: UInt32 = 20
+WRDS_CLIENTADDRESS_LENGTH: UInt32 = 30
+WRDS_CLIENT_PRODUCT_ID_LENGTH: UInt32 = 32
+WRDS_MAX_PROTOCOL_CACHE: UInt32 = 4
+WRDS_MAX_CACHE_RESERVED: UInt32 = 20
+WRDS_MAX_RESERVED: UInt32 = 100
+WRDS_MAX_COUNTERS: UInt32 = 100
+WRDS_MAX_DISPLAY_IOCTL_DATA: UInt32 = 256
+WRDS_PERF_DISABLE_NOTHING: UInt32 = 0
+WRDS_PERF_DISABLE_WALLPAPER: UInt32 = 1
+WRDS_PERF_DISABLE_FULLWINDOWDRAG: UInt32 = 2
+WRDS_PERF_DISABLE_MENUANIMATIONS: UInt32 = 4
+WRDS_PERF_DISABLE_THEMING: UInt32 = 8
+WRDS_PERF_ENABLE_ENHANCED_GRAPHICS: UInt32 = 16
+WRDS_PERF_DISABLE_CURSOR_SHADOW: UInt32 = 32
+WRDS_PERF_DISABLE_CURSORSETTINGS: UInt32 = 64
+WRDS_PERF_ENABLE_FONT_SMOOTHING: UInt32 = 128
+WRDS_PERF_ENABLE_DESKTOP_COMPOSITION: UInt32 = 256
+WRDS_VALUE_TYPE_ULONG: UInt32 = 1
+WRDS_VALUE_TYPE_STRING: UInt32 = 2
+WRDS_VALUE_TYPE_BINARY: UInt32 = 3
+WRDS_VALUE_TYPE_GUID: UInt32 = 4
+WRDS_KEY_EXCHANGE_ALG_RSA: UInt32 = 1
+WRDS_KEY_EXCHANGE_ALG_DH: UInt32 = 2
+WRDS_LICENSE_PROTOCOL_VERSION: UInt32 = 65536
+WRDS_LICENSE_PREAMBLE_VERSION: UInt32 = 3
+SINGLE_SESSION: UInt32 = 1
+FORCE_REJOIN: UInt32 = 2
+FORCE_REJOIN_IN_CLUSTERMODE: UInt32 = 3
+RESERVED_FOR_LEGACY: UInt32 = 4
+KEEP_EXISTING_SESSIONS: UInt32 = 8
+CHANNEL_EVENT_INITIALIZED: UInt32 = 0
+CHANNEL_EVENT_CONNECTED: UInt32 = 1
+CHANNEL_EVENT_V1_CONNECTED: UInt32 = 2
+CHANNEL_EVENT_DISCONNECTED: UInt32 = 3
+CHANNEL_EVENT_TERMINATED: UInt32 = 4
+CHANNEL_EVENT_DATA_RECEIVED: UInt32 = 10
+CHANNEL_EVENT_WRITE_COMPLETE: UInt32 = 11
+CHANNEL_EVENT_WRITE_CANCELLED: UInt32 = 12
+CHANNEL_RC_OK: UInt32 = 0
+CHANNEL_RC_ALREADY_INITIALIZED: UInt32 = 1
+CHANNEL_RC_NOT_INITIALIZED: UInt32 = 2
+CHANNEL_RC_ALREADY_CONNECTED: UInt32 = 3
+CHANNEL_RC_NOT_CONNECTED: UInt32 = 4
+CHANNEL_RC_TOO_MANY_CHANNELS: UInt32 = 5
+CHANNEL_RC_BAD_CHANNEL: UInt32 = 6
+CHANNEL_RC_BAD_CHANNEL_HANDLE: UInt32 = 7
+CHANNEL_RC_NO_BUFFER: UInt32 = 8
+CHANNEL_RC_BAD_INIT_HANDLE: UInt32 = 9
+CHANNEL_RC_NOT_OPEN: UInt32 = 10
+CHANNEL_RC_BAD_PROC: UInt32 = 11
+CHANNEL_RC_NO_MEMORY: UInt32 = 12
+CHANNEL_RC_UNKNOWN_CHANNEL_NAME: UInt32 = 13
+CHANNEL_RC_ALREADY_OPEN: UInt32 = 14
+CHANNEL_RC_NOT_IN_VIRTUALCHANNELENTRY: UInt32 = 15
+CHANNEL_RC_NULL_DATA: UInt32 = 16
+CHANNEL_RC_ZERO_LENGTH: UInt32 = 17
+CHANNEL_RC_INVALID_INSTANCE: UInt32 = 18
+CHANNEL_RC_UNSUPPORTED_VERSION: UInt32 = 19
+CHANNEL_RC_INITIALIZATION_ERROR: UInt32 = 20
+VIRTUAL_CHANNEL_VERSION_WIN2000: UInt32 = 1
+CHANNEL_CHUNK_LENGTH: UInt32 = 1600
+CHANNEL_BUFFER_SIZE: UInt32 = 65535
+CHANNEL_FLAG_FIRST: UInt32 = 1
+CHANNEL_FLAG_LAST: UInt32 = 2
+CHANNEL_FLAG_MIDDLE: UInt32 = 0
+CHANNEL_FLAG_FAIL: UInt32 = 256
+CHANNEL_OPTION_INITIALIZED: UInt32 = 2147483648
+CHANNEL_OPTION_ENCRYPT_RDP: UInt32 = 1073741824
+CHANNEL_OPTION_ENCRYPT_SC: UInt32 = 536870912
+CHANNEL_OPTION_ENCRYPT_CS: UInt32 = 268435456
+CHANNEL_OPTION_PRI_HIGH: UInt32 = 134217728
+CHANNEL_OPTION_PRI_MED: UInt32 = 67108864
+CHANNEL_OPTION_PRI_LOW: UInt32 = 33554432
+CHANNEL_OPTION_COMPRESS_RDP: UInt32 = 8388608
+CHANNEL_OPTION_COMPRESS: UInt32 = 4194304
+CHANNEL_OPTION_SHOW_PROTOCOL: UInt32 = 2097152
+CHANNEL_OPTION_REMOTE_CONTROL_PERSISTENT: UInt32 = 1048576
+CHANNEL_MAX_COUNT: UInt32 = 30
+CHANNEL_NAME_LEN: UInt32 = 7
+MAX_POLICY_ATTRIBUTES: UInt32 = 20
+WTS_CURRENT_SESSION: UInt32 = 4294967295
+USERNAME_LENGTH: UInt32 = 20
+CLIENTNAME_LENGTH: UInt32 = 20
+CLIENTADDRESS_LENGTH: UInt32 = 30
+WTS_WSD_LOGOFF: UInt32 = 1
+WTS_WSD_SHUTDOWN: UInt32 = 2
+WTS_WSD_REBOOT: UInt32 = 4
+WTS_WSD_POWEROFF: UInt32 = 8
+WTS_WSD_FASTREBOOT: UInt32 = 16
+MAX_ELAPSED_TIME_LENGTH: UInt32 = 15
+MAX_DATE_TIME_LENGTH: UInt32 = 56
+WINSTATIONNAME_LENGTH: UInt32 = 32
+DOMAIN_LENGTH: UInt32 = 17
+WTS_DRIVE_LENGTH: UInt32 = 3
+WTS_LISTENER_NAME_LENGTH: UInt32 = 32
+WTS_COMMENT_LENGTH: UInt32 = 60
+WTS_LISTENER_CREATE: UInt32 = 1
+WTS_LISTENER_UPDATE: UInt32 = 16
+WTS_SECURITY_QUERY_INFORMATION: UInt32 = 1
+WTS_SECURITY_SET_INFORMATION: UInt32 = 2
+WTS_SECURITY_RESET: UInt32 = 4
+WTS_SECURITY_VIRTUAL_CHANNELS: UInt32 = 8
+WTS_SECURITY_REMOTE_CONTROL: UInt32 = 16
+WTS_SECURITY_LOGON: UInt32 = 32
+WTS_SECURITY_LOGOFF: UInt32 = 64
+WTS_SECURITY_MESSAGE: UInt32 = 128
+WTS_SECURITY_CONNECT: UInt32 = 256
+WTS_SECURITY_DISCONNECT: UInt32 = 512
+WTS_SECURITY_GUEST_ACCESS: UInt32 = 32
+WTS_PROTOCOL_TYPE_CONSOLE: UInt32 = 0
+WTS_PROTOCOL_TYPE_ICA: UInt32 = 1
+WTS_PROTOCOL_TYPE_RDP: UInt32 = 2
+WTS_SESSIONSTATE_UNKNOWN: UInt32 = 4294967295
+WTS_SESSIONSTATE_LOCK: UInt32 = 0
+WTS_SESSIONSTATE_UNLOCK: UInt32 = 1
+PRODUCTINFO_COMPANYNAME_LENGTH: UInt32 = 256
+PRODUCTINFO_PRODUCTID_LENGTH: UInt32 = 4
+VALIDATIONINFORMATION_LICENSE_LENGTH: UInt32 = 16384
+VALIDATIONINFORMATION_HARDWAREID_LENGTH: UInt32 = 20
+WTS_EVENT_NONE: UInt32 = 0
+WTS_EVENT_CREATE: UInt32 = 1
+WTS_EVENT_DELETE: UInt32 = 2
+WTS_EVENT_RENAME: UInt32 = 4
+WTS_EVENT_CONNECT: UInt32 = 8
+WTS_EVENT_DISCONNECT: UInt32 = 16
+WTS_EVENT_LOGON: UInt32 = 32
+WTS_EVENT_LOGOFF: UInt32 = 64
+WTS_EVENT_STATECHANGE: UInt32 = 128
+WTS_EVENT_LICENSE: UInt32 = 256
+WTS_EVENT_ALL: UInt32 = 2147483647
+WTS_EVENT_FLUSH: UInt32 = 2147483648
+REMOTECONTROL_KBDSHIFT_HOTKEY: UInt32 = 1
+REMOTECONTROL_KBDCTRL_HOTKEY: UInt32 = 2
+REMOTECONTROL_KBDALT_HOTKEY: UInt32 = 4
+WTS_CHANNEL_OPTION_DYNAMIC: UInt32 = 1
+WTS_CHANNEL_OPTION_DYNAMIC_PRI_LOW: UInt32 = 0
+WTS_CHANNEL_OPTION_DYNAMIC_PRI_MED: UInt32 = 2
+WTS_CHANNEL_OPTION_DYNAMIC_PRI_HIGH: UInt32 = 4
+WTS_CHANNEL_OPTION_DYNAMIC_PRI_REAL: UInt32 = 6
+WTS_CHANNEL_OPTION_DYNAMIC_NO_COMPRESS: UInt32 = 8
+NOTIFY_FOR_ALL_SESSIONS: UInt32 = 1
+NOTIFY_FOR_THIS_SESSION: UInt32 = 0
+WTS_PROCESS_INFO_LEVEL_0: UInt32 = 0
+WTS_PROCESS_INFO_LEVEL_1: UInt32 = 1
+PLUGIN_CAPABILITY_EXTERNAL_REDIRECTION: UInt32 = 1
+MaxFQDN_Len: UInt32 = 256
+MaxNetBiosName_Len: UInt32 = 16
+MaxNumOfExposed_IPs: UInt32 = 12
+MaxUserName_Len: UInt32 = 104
+MaxDomainName_Len: UInt32 = 256
+MaxFarm_Len: UInt32 = 256
+MaxAppName_Len: UInt32 = 256
+WKS_FLAG_CLEAR_CREDS_ON_LAST_RESOURCE: UInt32 = 1
+WKS_FLAG_PASSWORD_ENCRYPTED: UInt32 = 2
+WKS_FLAG_CREDS_AUTHENTICATED: UInt32 = 4
+SB_SYNCH_CONFLICT_MAX_WRITE_ATTEMPTS: UInt32 = 100
+ACQUIRE_TARGET_LOCK_TIMEOUT: UInt32 = 300000
+RENDER_HINT_CLEAR: UInt32 = 0
+RENDER_HINT_VIDEO: UInt32 = 1
+RENDER_HINT_MAPPEDWINDOW: UInt32 = 2
+WTS_PROPERTY_DEFAULT_CONFIG: String = 'DefaultConfig'
+TS_VC_LISTENER_STATIC_CHANNEL: UInt32 = 1
+WRdsGraphicsChannels_LossyChannelMaxMessageSize: UInt32 = 988
+RFX_RDP_MSG_PREFIX: UInt32 = 0
+RFX_GFX_MSG_PREFIX: UInt32 = 48
+RFX_GFX_MSG_PREFIX_MASK: UInt32 = 48
+RFX_GFX_MAX_SUPPORTED_MONITORS: UInt32 = 16
+RFX_CLIENT_ID_LENGTH: UInt32 = 32
+DISPID_METHOD_REMOTEDESKTOPCLIENT_CONNECT: UInt32 = 701
+DISPID_METHOD_REMOTEDESKTOPCLIENT_DISCONNECT: UInt32 = 702
+DISPID_METHOD_REMOTEDESKTOPCLIENT_RECONNECT: UInt32 = 703
+DISPID_METHOD_REMOTEDESKTOPCLIENT_DELETE_SAVED_CREDENTIALS: UInt32 = 704
+DISPID_METHOD_REMOTEDESKTOPCLIENT_UPDATE_SESSION_DISPLAYSETTINGS: UInt32 = 705
+DISPID_METHOD_REMOTEDESKTOPCLIENT_ATTACH_EVENT: UInt32 = 706
+DISPID_METHOD_REMOTEDESKTOPCLIENT_DETACH_EVENT: UInt32 = 707
+DISPID_PROP_REMOTEDESKTOPCLIENT_SETTINGS: UInt32 = 710
+DISPID_PROP_REMOTEDESKTOPCLIENT_ACTIONS: UInt32 = 711
+DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCH_POINTER: UInt32 = 712
+DISPID_METHOD_REMOTEDESKTOPCLIENT_SET_RDPPROPERTY: UInt32 = 720
+DISPID_METHOD_REMOTEDESKTOPCLIENT_GET_RDPPROPERTY: UInt32 = 721
+DISPID_METHOD_REMOTEDESKTOPCLIENT_APPLY_SETTINGS: UInt32 = 722
+DISPID_METHOD_REMOTEDESKTOPCLIENT_RETRIEVE_SETTINGS: UInt32 = 723
+DISPID_METHOD_REMOTEDESKTOPCLIENT_SUSPEND_SCREEN_UPDATES: UInt32 = 730
+DISPID_METHOD_REMOTEDESKTOPCLIENT_RESUME_SCREEN_UPDATES: UInt32 = 731
+DISPID_METHOD_REMOTEDESKTOPCLIENT_EXECUTE_REMOTE_ACTION: UInt32 = 732
+DISPID_METHOD_REMOTEDESKTOPCLIENT_GET_SNAPSHOT: UInt32 = 733
+DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_ENABLED: UInt32 = 740
+DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_EVENTSENABLED: UInt32 = 741
+DISPID_PROP_REMOTEDESKTOPCLIENT_TOUCHPOINTER_POINTERSPEED: UInt32 = 742
+DISPID_AX_CONNECTING: UInt32 = 750
+DISPID_AX_CONNECTED: UInt32 = 751
+DISPID_AX_LOGINCOMPLETED: UInt32 = 752
+DISPID_AX_DISCONNECTED: UInt32 = 753
+DISPID_AX_STATUSCHANGED: UInt32 = 754
+DISPID_AX_AUTORECONNECTING: UInt32 = 755
+DISPID_AX_AUTORECONNECTED: UInt32 = 756
+DISPID_AX_DIALOGDISPLAYING: UInt32 = 757
+DISPID_AX_DIALOGDISMISSED: UInt32 = 758
+DISPID_AX_NETWORKSTATUSCHANGED: UInt32 = 759
+DISPID_AX_ADMINMESSAGERECEIVED: UInt32 = 760
+DISPID_AX_KEYCOMBINATIONPRESSED: UInt32 = 761
+DISPID_AX_REMOTEDESKTOPSIZECHANGED: UInt32 = 762
+DISPID_AX_TOUCHPOINTERCURSORMOVED: UInt32 = 800
+RDCLIENT_BITMAP_RENDER_SERVICE: Guid = Guid('e4cc08cb-942e-4b19-85-04-bd-5a-89-a7-47-f5')
+WTS_QUERY_ALLOWED_INITIAL_APP: Guid = Guid('c77d1b30-5be1-4c6b-a0-e1-bd-6d-2e-5c-9f-cc')
+WTS_QUERY_LOGON_SCREEN_SIZE: Guid = Guid('8b8e0fe7-0804-4a0e-b2-79-86-60-b1-df-00-49')
+WTS_QUERY_AUDIOENUM_DLL: Guid = Guid('9bf4fa97-c883-4c2a-80-ab-5a-39-c9-af-00-db')
+WTS_QUERY_MF_FORMAT_SUPPORT: Guid = Guid('41869ad0-6332-4dc8-95-d5-db-74-9e-2f-1d-94')
+WRDS_SERVICE_ID_GRAPHICS_GUID: Guid = Guid('d2993f4d-02cf-4280-8c-48-16-24-b4-4f-87-06')
+PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION: Guid = Guid('0cdfd28e-d0b9-4c1f-a5-eb-6d-1f-6c-65-35-b9')
+PROPERTY_TYPE_GET_FAST_RECONNECT: Guid = Guid('6212d757-0043-4862-99-c3-9f-30-59-ac-2a-3b')
+PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID: Guid = Guid('197c427a-0135-4b6d-9c-5e-e6-57-9a-0a-b6-25')
+PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL: Guid = Guid('ed2c3fda-338d-4d3f-81-a3-e7-67-31-0d-90-8e')
+CONNECTION_PROPERTY_IDLE_TIME_WARNING: Guid = Guid('693f7ff5-0c4e-4d17-b8-e0-1f-70-32-5e-5d-58')
+CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED: Guid = Guid('4b150580-fea4-4d3c-9d-e4-74-33-a6-66-18-f7')
+@winfunctype('WTSAPI32.dll')
+def WTSStopRemoteControlSession(LogonId: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSStartRemoteControlSessionW(pTargetServerName: win32more.Foundation.PWSTR, TargetLogonId: UInt32, HotkeyVk: Byte, HotkeyModifiers: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSStartRemoteControlSessionA(pTargetServerName: win32more.Foundation.PSTR, TargetLogonId: UInt32, HotkeyVk: Byte, HotkeyModifiers: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSConnectSessionA(LogonId: UInt32, TargetLogonId: UInt32, pPassword: win32more.Foundation.PSTR, bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSConnectSessionW(LogonId: UInt32, TargetLogonId: UInt32, pPassword: win32more.Foundation.PWSTR, bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateServersW(pDomainName: win32more.Foundation.PWSTR, Reserved: UInt32, Version: UInt32, ppServerInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SERVER_INFOW_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateServersA(pDomainName: win32more.Foundation.PSTR, Reserved: UInt32, Version: UInt32, ppServerInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SERVER_INFOA_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSOpenServerW(pServerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('WTSAPI32.dll')
+def WTSOpenServerA(pServerName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('WTSAPI32.dll')
+def WTSOpenServerExW(pServerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('WTSAPI32.dll')
+def WTSOpenServerExA(pServerName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('WTSAPI32.dll')
+def WTSCloseServer(hServer: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateSessionsW(hServer: win32more.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppSessionInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFOW_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateSessionsA(hServer: win32more.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppSessionInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFOA_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateSessionsExW(hServer: win32more.Foundation.HANDLE, pLevel: POINTER(UInt32), Filter: UInt32, ppSessionInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFO_1W_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateSessionsExA(hServer: win32more.Foundation.HANDLE, pLevel: POINTER(UInt32), Filter: UInt32, ppSessionInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_SESSION_INFO_1A_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateProcessesW(hServer: win32more.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppProcessInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_PROCESS_INFOW_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateProcessesA(hServer: win32more.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppProcessInfo: POINTER(POINTER(win32more.System.RemoteDesktop.WTS_PROCESS_INFOA_head)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSTerminateProcess(hServer: win32more.Foundation.HANDLE, ProcessId: UInt32, ExitCode: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQuerySessionInformationW(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, WTSInfoClass: win32more.System.RemoteDesktop.WTS_INFO_CLASS, ppBuffer: POINTER(win32more.Foundation.PWSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQuerySessionInformationA(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, WTSInfoClass: win32more.System.RemoteDesktop.WTS_INFO_CLASS, ppBuffer: POINTER(win32more.Foundation.PSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQueryUserConfigW(pServerName: win32more.Foundation.PWSTR, pUserName: win32more.Foundation.PWSTR, WTSConfigClass: win32more.System.RemoteDesktop.WTS_CONFIG_CLASS, ppBuffer: POINTER(win32more.Foundation.PWSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQueryUserConfigA(pServerName: win32more.Foundation.PSTR, pUserName: win32more.Foundation.PSTR, WTSConfigClass: win32more.System.RemoteDesktop.WTS_CONFIG_CLASS, ppBuffer: POINTER(win32more.Foundation.PSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSetUserConfigW(pServerName: win32more.Foundation.PWSTR, pUserName: win32more.Foundation.PWSTR, WTSConfigClass: win32more.System.RemoteDesktop.WTS_CONFIG_CLASS, pBuffer: win32more.Foundation.PWSTR, DataLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSetUserConfigA(pServerName: win32more.Foundation.PSTR, pUserName: win32more.Foundation.PSTR, WTSConfigClass: win32more.System.RemoteDesktop.WTS_CONFIG_CLASS, pBuffer: win32more.Foundation.PSTR, DataLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSendMessageW(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, pTitle: win32more.Foundation.PWSTR, TitleLength: UInt32, pMessage: win32more.Foundation.PWSTR, MessageLength: UInt32, Style: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, Timeout: UInt32, pResponse: POINTER(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT), bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSendMessageA(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, pTitle: win32more.Foundation.PSTR, TitleLength: UInt32, pMessage: win32more.Foundation.PSTR, MessageLength: UInt32, Style: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, Timeout: UInt32, pResponse: POINTER(win32more.UI.WindowsAndMessaging.MESSAGEBOX_RESULT), bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSDisconnectSession(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSLogoffSession(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, bWait: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSShutdownSystem(hServer: win32more.Foundation.HANDLE, ShutdownFlag: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSWaitSystemEvent(hServer: win32more.Foundation.HANDLE, EventMask: UInt32, pEventFlags: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelOpen(hServer: win32more.Foundation.HANDLE, SessionId: UInt32, pVirtualName: win32more.Foundation.PSTR) -> win32more.System.RemoteDesktop.HwtsVirtualChannelHandle: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelOpenEx(SessionId: UInt32, pVirtualName: win32more.Foundation.PSTR, flags: UInt32) -> win32more.System.RemoteDesktop.HwtsVirtualChannelHandle: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelClose(hChannelHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelRead(hChannelHandle: win32more.Foundation.HANDLE, TimeOut: UInt32, Buffer: win32more.Foundation.PSTR, BufferSize: UInt32, pBytesRead: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelWrite(hChannelHandle: win32more.Foundation.HANDLE, Buffer: win32more.Foundation.PSTR, Length: UInt32, pBytesWritten: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelPurgeInput(hChannelHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelPurgeOutput(hChannelHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSVirtualChannelQuery(hChannelHandle: win32more.Foundation.HANDLE, param1: win32more.System.RemoteDesktop.WTS_VIRTUAL_CLASS, ppBuffer: POINTER(c_void_p), pBytesReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSFreeMemory(pMemory: c_void_p) -> Void: ...
+@winfunctype('WTSAPI32.dll')
+def WTSRegisterSessionNotification(hWnd: win32more.Foundation.HWND, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSUnRegisterSessionNotification(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSRegisterSessionNotificationEx(hServer: win32more.Foundation.HANDLE, hWnd: win32more.Foundation.HWND, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSUnRegisterSessionNotificationEx(hServer: win32more.Foundation.HANDLE, hWnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQueryUserToken(SessionId: UInt32, phToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSFreeMemoryExW(WTSTypeClass: win32more.System.RemoteDesktop.WTS_TYPE_CLASS, pMemory: c_void_p, NumberOfEntries: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSFreeMemoryExA(WTSTypeClass: win32more.System.RemoteDesktop.WTS_TYPE_CLASS, pMemory: c_void_p, NumberOfEntries: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateProcessesExW(hServer: win32more.Foundation.HANDLE, pLevel: POINTER(UInt32), SessionId: UInt32, ppProcessInfo: POINTER(win32more.Foundation.PWSTR), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateProcessesExA(hServer: win32more.Foundation.HANDLE, pLevel: POINTER(UInt32), SessionId: UInt32, ppProcessInfo: POINTER(win32more.Foundation.PSTR), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateListenersW(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListeners: POINTER(POINTER(UInt16)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnumerateListenersA(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListeners: POINTER(POINTER(SByte)), pCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQueryListenerConfigW(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PWSTR, pBuffer: POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSQueryListenerConfigA(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PSTR, pBuffer: POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSCreateListenerW(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PWSTR, pBuffer: POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGW_head), flag: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSCreateListenerA(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PSTR, pBuffer: POINTER(win32more.System.RemoteDesktop.WTSLISTENERCONFIGA_head), flag: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSetListenerSecurityW(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSetListenerSecurityA(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSGetListenerSecurityW(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSGetListenerSecurityA(hServer: win32more.Foundation.HANDLE, pReserved: c_void_p, Reserved: UInt32, pListenerName: win32more.Foundation.PSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSEnableChildSessions(bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSIsChildSessionsEnabled(pbEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSGetChildSessionId(pSessionId: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WTSAPI32.dll')
+def WTSSetRenderHint(pRenderHintID: POINTER(UInt64), hwndOwner: win32more.Foundation.HWND, renderHintType: UInt32, cbHintDataLength: UInt32, pHintData: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def ProcessIdToSessionId(dwProcessId: UInt32, pSessionId: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WTSGetActiveConsoleSessionId() -> UInt32: ...
+class BITMAP_RENDERER_STATISTICS(Structure):
+    dwFramesDelivered: UInt32
+    dwFramesDropped: UInt32
+class CHANNEL_DEF(Structure):
+    name: win32more.Foundation.CHAR * 8
+    options: UInt32
+    _pack_ = 1
+class CHANNEL_ENTRY_POINTS(Structure):
+    cbSize: UInt32
+    protocolVersion: UInt32
+    pVirtualChannelInit: win32more.System.RemoteDesktop.PVIRTUALCHANNELINIT
+    pVirtualChannelOpen: win32more.System.RemoteDesktop.PVIRTUALCHANNELOPEN
+    pVirtualChannelClose: win32more.System.RemoteDesktop.PVIRTUALCHANNELCLOSE
+    pVirtualChannelWrite: win32more.System.RemoteDesktop.PVIRTUALCHANNELWRITE
+class CHANNEL_PDU_HEADER(Structure):
+    length: UInt32
+    flags: UInt32
+class CLIENT_DISPLAY(Structure):
+    HorizontalResolution: UInt32
+    VerticalResolution: UInt32
+    ColorDepth: UInt32
 CLIENT_MESSAGE_TYPE = Int32
-CLIENT_MESSAGE_CONNECTION_INVALID = 0
-CLIENT_MESSAGE_CONNECTION_STATUS = 1
-CLIENT_MESSAGE_CONNECTION_ERROR = 2
+CLIENT_MESSAGE_CONNECTION_INVALID: CLIENT_MESSAGE_TYPE = 0
+CLIENT_MESSAGE_CONNECTION_STATUS: CLIENT_MESSAGE_TYPE = 1
+CLIENT_MESSAGE_CONNECTION_ERROR: CLIENT_MESSAGE_TYPE = 2
 CONNECTION_CHANGE_NOTIFICATION = Int32
-CONNECTION_REQUEST_INVALID = 0
-CONNECTION_REQUEST_PENDING = 1
-CONNECTION_REQUEST_FAILED = 2
-CONNECTION_REQUEST_TIMEDOUT = 3
-CONNECTION_REQUEST_SUCCEEDED = 4
-CONNECTION_REQUEST_CANCELLED = 5
-CONNECTION_REQUEST_LB_COMPLETED = 6
-CONNECTION_REQUEST_QUERY_PL_COMPLETED = 7
-CONNECTION_REQUEST_ORCH_COMPLETED = 8
+CONNECTION_REQUEST_INVALID: CONNECTION_CHANGE_NOTIFICATION = 0
+CONNECTION_REQUEST_PENDING: CONNECTION_CHANGE_NOTIFICATION = 1
+CONNECTION_REQUEST_FAILED: CONNECTION_CHANGE_NOTIFICATION = 2
+CONNECTION_REQUEST_TIMEDOUT: CONNECTION_CHANGE_NOTIFICATION = 3
+CONNECTION_REQUEST_SUCCEEDED: CONNECTION_CHANGE_NOTIFICATION = 4
+CONNECTION_REQUEST_CANCELLED: CONNECTION_CHANGE_NOTIFICATION = 5
+CONNECTION_REQUEST_LB_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 6
+CONNECTION_REQUEST_QUERY_PL_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 7
+CONNECTION_REQUEST_ORCH_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 8
 HwtsVirtualChannelHandle = IntPtr
-def _define_IADsTSUserEx_head():
-    class IADsTSUserEx(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c4930e79-2989-4462-8a-60-2f-cf-2f-29-55-ef')
-    return IADsTSUserEx
-def _define_IADsTSUserEx():
-    IADsTSUserEx = win32more.System.RemoteDesktop.IADsTSUserEx_head
-    IADsTSUserEx.get_TerminalServicesProfilePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_TerminalServicesProfilePath', ((1, 'pVal'),)))
-    IADsTSUserEx.put_TerminalServicesProfilePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_TerminalServicesProfilePath', ((1, 'pNewVal'),)))
-    IADsTSUserEx.get_TerminalServicesHomeDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_TerminalServicesHomeDirectory', ((1, 'pVal'),)))
-    IADsTSUserEx.put_TerminalServicesHomeDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_TerminalServicesHomeDirectory', ((1, 'pNewVal'),)))
-    IADsTSUserEx.get_TerminalServicesHomeDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_TerminalServicesHomeDrive', ((1, 'pVal'),)))
-    IADsTSUserEx.put_TerminalServicesHomeDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_TerminalServicesHomeDrive', ((1, 'pNewVal'),)))
-    IADsTSUserEx.get_AllowLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_AllowLogon', ((1, 'pVal'),)))
-    IADsTSUserEx.put_AllowLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(14, 'put_AllowLogon', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_EnableRemoteControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(15, 'get_EnableRemoteControl', ((1, 'pVal'),)))
-    IADsTSUserEx.put_EnableRemoteControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(16, 'put_EnableRemoteControl', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_MaxDisconnectionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(17, 'get_MaxDisconnectionTime', ((1, 'pVal'),)))
-    IADsTSUserEx.put_MaxDisconnectionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(18, 'put_MaxDisconnectionTime', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_MaxConnectionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'get_MaxConnectionTime', ((1, 'pVal'),)))
-    IADsTSUserEx.put_MaxConnectionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(20, 'put_MaxConnectionTime', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_MaxIdleTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(21, 'get_MaxIdleTime', ((1, 'pVal'),)))
-    IADsTSUserEx.put_MaxIdleTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(22, 'put_MaxIdleTime', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_ReconnectionAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(23, 'get_ReconnectionAction', ((1, 'pNewVal'),)))
-    IADsTSUserEx.put_ReconnectionAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(24, 'put_ReconnectionAction', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_BrokenConnectionAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(25, 'get_BrokenConnectionAction', ((1, 'pNewVal'),)))
-    IADsTSUserEx.put_BrokenConnectionAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(26, 'put_BrokenConnectionAction', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_ConnectClientDrivesAtLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(27, 'get_ConnectClientDrivesAtLogon', ((1, 'pNewVal'),)))
-    IADsTSUserEx.put_ConnectClientDrivesAtLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(28, 'put_ConnectClientDrivesAtLogon', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_ConnectClientPrintersAtLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(29, 'get_ConnectClientPrintersAtLogon', ((1, 'pVal'),)))
-    IADsTSUserEx.put_ConnectClientPrintersAtLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(30, 'put_ConnectClientPrintersAtLogon', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_DefaultToMainPrinter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(31, 'get_DefaultToMainPrinter', ((1, 'pVal'),)))
-    IADsTSUserEx.put_DefaultToMainPrinter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(32, 'put_DefaultToMainPrinter', ((1, 'NewVal'),)))
-    IADsTSUserEx.get_TerminalServicesWorkDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(33, 'get_TerminalServicesWorkDirectory', ((1, 'pVal'),)))
-    IADsTSUserEx.put_TerminalServicesWorkDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(34, 'put_TerminalServicesWorkDirectory', ((1, 'pNewVal'),)))
-    IADsTSUserEx.get_TerminalServicesInitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(35, 'get_TerminalServicesInitialProgram', ((1, 'pVal'),)))
-    IADsTSUserEx.put_TerminalServicesInitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(36, 'put_TerminalServicesInitialProgram', ((1, 'pNewVal'),)))
-    win32more.System.Com.IDispatch
-    return IADsTSUserEx
-def _define_IAudioDeviceEndpoint_head():
-    class IAudioDeviceEndpoint(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d4952f5a-a0b2-4cc4-8b-82-93-58-48-8d-d8-ac')
-    return IAudioDeviceEndpoint
-def _define_IAudioDeviceEndpoint():
-    IAudioDeviceEndpoint = win32more.System.RemoteDesktop.IAudioDeviceEndpoint_head
-    IAudioDeviceEndpoint.SetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,UInt32)(3, 'SetBuffer', ((1, 'MaxPeriod'),(1, 'u32LatencyCoefficient'),)))
-    IAudioDeviceEndpoint.GetRTCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'GetRTCaps', ((1, 'pbIsRTCapable'),)))
-    IAudioDeviceEndpoint.GetEventDrivenCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'GetEventDrivenCapable', ((1, 'pbisEventCapable'),)))
-    IAudioDeviceEndpoint.WriteExclusiveModeParametersToSharedMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,Int64,Int64,UInt32,POINTER(UInt32),POINTER(UIntPtr))(6, 'WriteExclusiveModeParametersToSharedMemory', ((1, 'hTargetProcess'),(1, 'hnsPeriod'),(1, 'hnsBufferDuration'),(1, 'u32LatencyCoefficient'),(1, 'pu32SharedMemorySize'),(1, 'phSharedMemory'),)))
-    win32more.System.Com.IUnknown
-    return IAudioDeviceEndpoint
-def _define_IAudioEndpoint_head():
-    class IAudioEndpoint(win32more.System.Com.IUnknown_head):
-        Guid = Guid('30a99515-1527-4451-af-9f-00-c5-f0-23-4d-af')
-    return IAudioEndpoint
-def _define_IAudioEndpoint():
-    IAudioEndpoint = win32more.System.RemoteDesktop.IAudioEndpoint_head
-    IAudioEndpoint.GetFrameFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(3, 'GetFrameFormat', ((1, 'ppFormat'),)))
-    IAudioEndpoint.GetFramesPerPacket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'GetFramesPerPacket', ((1, 'pFramesPerPacket'),)))
-    IAudioEndpoint.GetLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64))(5, 'GetLatency', ((1, 'pLatency'),)))
-    IAudioEndpoint.SetStreamFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'SetStreamFlags', ((1, 'streamFlags'),)))
-    IAudioEndpoint.SetEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(7, 'SetEventHandle', ((1, 'eventHandle'),)))
-    win32more.System.Com.IUnknown
-    return IAudioEndpoint
-def _define_IAudioEndpointControl_head():
-    class IAudioEndpointControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c684b72a-6df4-4774-bd-f9-76-b7-75-09-b6-53')
-    return IAudioEndpointControl
-def _define_IAudioEndpointControl():
-    IAudioEndpointControl = win32more.System.RemoteDesktop.IAudioEndpointControl_head
-    IAudioEndpointControl.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Start', ()))
-    IAudioEndpointControl.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Reset', ()))
-    IAudioEndpointControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Stop', ()))
-    win32more.System.Com.IUnknown
-    return IAudioEndpointControl
-def _define_IAudioEndpointRT_head():
-    class IAudioEndpointRT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dfd2005f-a6e5-4d39-a2-65-93-9a-da-9f-bb-4d')
-    return IAudioEndpointRT
-def _define_IAudioEndpointRT():
-    IAudioEndpointRT = win32more.System.RemoteDesktop.IAudioEndpointRT_head
-    IAudioEndpointRT.GetCurrentPadding = COMMETHOD(WINFUNCTYPE(Void,POINTER(Int64),POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head))(3, 'GetCurrentPadding', ((1, 'pPadding'),(1, 'pAeCurrentPosition'),)))
-    IAudioEndpointRT.ProcessingComplete = COMMETHOD(WINFUNCTYPE(Void,)(4, 'ProcessingComplete', ()))
-    IAudioEndpointRT.SetPinInactive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'SetPinInactive', ()))
-    IAudioEndpointRT.SetPinActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'SetPinActive', ()))
-    win32more.System.Com.IUnknown
-    return IAudioEndpointRT
-def _define_IAudioInputEndpointRT_head():
-    class IAudioInputEndpointRT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8026ab61-92b2-43c1-a1-df-5c-37-eb-d0-8d-82')
-    return IAudioInputEndpointRT
-def _define_IAudioInputEndpointRT():
-    IAudioInputEndpointRT = win32more.System.RemoteDesktop.IAudioInputEndpointRT_head
-    IAudioInputEndpointRT.GetInputDataPointer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head),POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head))(3, 'GetInputDataPointer', ((1, 'pConnectionProperty'),(1, 'pAeTimeStamp'),)))
-    IAudioInputEndpointRT.ReleaseInputDataPointer = COMMETHOD(WINFUNCTYPE(Void,UInt32,UIntPtr)(4, 'ReleaseInputDataPointer', ((1, 'u32FrameCount'),(1, 'pDataPointer'),)))
-    IAudioInputEndpointRT.PulseEndpoint = COMMETHOD(WINFUNCTYPE(Void,)(5, 'PulseEndpoint', ()))
-    win32more.System.Com.IUnknown
-    return IAudioInputEndpointRT
-def _define_IAudioOutputEndpointRT_head():
-    class IAudioOutputEndpointRT(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8fa906e4-c31c-4e31-93-2e-19-a6-63-85-e9-aa')
-    return IAudioOutputEndpointRT
-def _define_IAudioOutputEndpointRT():
-    IAudioOutputEndpointRT = win32more.System.RemoteDesktop.IAudioOutputEndpointRT_head
-    IAudioOutputEndpointRT.GetOutputDataPointer = COMMETHOD(WINFUNCTYPE(UIntPtr,UInt32,POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head))(3, 'GetOutputDataPointer', ((1, 'u32FrameCount'),(1, 'pAeTimeStamp'),)))
-    IAudioOutputEndpointRT.ReleaseOutputDataPointer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head))(4, 'ReleaseOutputDataPointer', ((1, 'pConnectionProperty'),)))
-    IAudioOutputEndpointRT.PulseEndpoint = COMMETHOD(WINFUNCTYPE(Void,)(5, 'PulseEndpoint', ()))
-    win32more.System.Com.IUnknown
-    return IAudioOutputEndpointRT
-def _define_IRemoteDesktopClient_head():
-    class IRemoteDesktopClient(win32more.System.Com.IDispatch_head):
-        Guid = Guid('57d25668-625a-4905-be-4e-30-4c-aa-13-f8-9c')
-    return IRemoteDesktopClient
-def _define_IRemoteDesktopClient():
-    IRemoteDesktopClient = win32more.System.RemoteDesktop.IRemoteDesktopClient_head
-    IRemoteDesktopClient.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Connect', ()))
-    IRemoteDesktopClient.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Disconnect', ()))
-    IRemoteDesktopClient.Reconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(9, 'Reconnect', ((1, 'width'),(1, 'height'),)))
-    IRemoteDesktopClient.get_Settings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientSettings_head))(10, 'get_Settings', ((1, 'settings'),)))
-    IRemoteDesktopClient.get_Actions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientActions_head))(11, 'get_Actions', ((1, 'actions'),)))
-    IRemoteDesktopClient.get_TouchPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientTouchPointer_head))(12, 'get_TouchPointer', ((1, 'touchPointer'),)))
-    IRemoteDesktopClient.DeleteSavedCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'DeleteSavedCredentials', ((1, 'serverName'),)))
-    IRemoteDesktopClient.UpdateSessionDisplaySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(14, 'UpdateSessionDisplaySettings', ((1, 'width'),(1, 'height'),)))
-    IRemoteDesktopClient.attachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head)(15, 'attachEvent', ((1, 'eventName'),(1, 'callback'),)))
-    IRemoteDesktopClient.detachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head)(16, 'detachEvent', ((1, 'eventName'),(1, 'callback'),)))
-    win32more.System.Com.IDispatch
-    return IRemoteDesktopClient
-def _define_IRemoteDesktopClientActions_head():
-    class IRemoteDesktopClientActions(win32more.System.Com.IDispatch_head):
-        Guid = Guid('7d54bc4e-1028-45d4-8b-0a-b9-b6-bf-fb-a1-76')
-    return IRemoteDesktopClientActions
-def _define_IRemoteDesktopClientActions():
-    IRemoteDesktopClientActions = win32more.System.RemoteDesktop.IRemoteDesktopClientActions_head
-    IRemoteDesktopClientActions.SuspendScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'SuspendScreenUpdates', ()))
-    IRemoteDesktopClientActions.ResumeScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'ResumeScreenUpdates', ()))
-    IRemoteDesktopClientActions.ExecuteRemoteAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.RemoteActionType)(9, 'ExecuteRemoteAction', ((1, 'remoteAction'),)))
-    IRemoteDesktopClientActions.GetSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.SnapshotEncodingType,win32more.System.RemoteDesktop.SnapshotFormatType,UInt32,UInt32,POINTER(win32more.Foundation.BSTR))(10, 'GetSnapshot', ((1, 'snapshotEncoding'),(1, 'snapshotFormat'),(1, 'snapshotWidth'),(1, 'snapshotHeight'),(1, 'snapshotData'),)))
-    win32more.System.Com.IDispatch
-    return IRemoteDesktopClientActions
-def _define_IRemoteDesktopClientSettings_head():
-    class IRemoteDesktopClientSettings(win32more.System.Com.IDispatch_head):
-        Guid = Guid('48a0f2a7-2713-431f-bb-ac-6f-45-58-e7-d6-4d')
-    return IRemoteDesktopClientSettings
-def _define_IRemoteDesktopClientSettings():
-    IRemoteDesktopClientSettings = win32more.System.RemoteDesktop.IRemoteDesktopClientSettings_head
-    IRemoteDesktopClientSettings.ApplySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'ApplySettings', ((1, 'rdpFileContents'),)))
-    IRemoteDesktopClientSettings.RetrieveSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'RetrieveSettings', ((1, 'rdpFileContents'),)))
-    IRemoteDesktopClientSettings.GetRdpProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetRdpProperty', ((1, 'propertyName'),(1, 'value'),)))
-    IRemoteDesktopClientSettings.SetRdpProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT)(10, 'SetRdpProperty', ((1, 'propertyName'),(1, 'value'),)))
-    win32more.System.Com.IDispatch
-    return IRemoteDesktopClientSettings
-def _define_IRemoteDesktopClientTouchPointer_head():
-    class IRemoteDesktopClientTouchPointer(win32more.System.Com.IDispatch_head):
-        Guid = Guid('260ec22d-8cbc-44b5-9e-88-2a-37-f6-c9-3a-e9')
-    return IRemoteDesktopClientTouchPointer
-def _define_IRemoteDesktopClientTouchPointer():
-    IRemoteDesktopClientTouchPointer = win32more.System.RemoteDesktop.IRemoteDesktopClientTouchPointer_head
-    IRemoteDesktopClientTouchPointer.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(7, 'put_Enabled', ((1, 'enabled'),)))
-    IRemoteDesktopClientTouchPointer.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(8, 'get_Enabled', ((1, 'enabled'),)))
-    IRemoteDesktopClientTouchPointer.put_EventsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(9, 'put_EventsEnabled', ((1, 'eventsEnabled'),)))
-    IRemoteDesktopClientTouchPointer.get_EventsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'get_EventsEnabled', ((1, 'eventsEnabled'),)))
-    IRemoteDesktopClientTouchPointer.put_PointerSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(11, 'put_PointerSpeed', ((1, 'pointerSpeed'),)))
-    IRemoteDesktopClientTouchPointer.get_PointerSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'get_PointerSpeed', ((1, 'pointerSpeed'),)))
-    win32more.System.Com.IDispatch
-    return IRemoteDesktopClientTouchPointer
-def _define_IRemoteSystemAdditionalInfoProvider_head():
-    class IRemoteSystemAdditionalInfoProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('eeaa3d5f-ec63-4d27-af-38-e8-6b-1d-72-92-cb')
-    return IRemoteSystemAdditionalInfoProvider
-def _define_IRemoteSystemAdditionalInfoProvider():
-    IRemoteSystemAdditionalInfoProvider = win32more.System.RemoteDesktop.IRemoteSystemAdditionalInfoProvider_head
-    IRemoteSystemAdditionalInfoProvider.GetAdditionalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING),POINTER(Guid),POINTER(c_void_p))(3, 'GetAdditionalInfo', ((1, 'deduplicationId'),(1, 'riid'),(1, 'mapView'),)))
-    win32more.System.Com.IUnknown
-    return IRemoteSystemAdditionalInfoProvider
-def _define_ITSGAccountingEngine_head():
-    class ITSGAccountingEngine(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4ce2a0c9-e874-4f1a-86-f4-06-bb-b9-11-53-38')
-    return ITSGAccountingEngine
-def _define_ITSGAccountingEngine():
-    ITSGAccountingEngine = win32more.System.RemoteDesktop.ITSGAccountingEngine_head
-    ITSGAccountingEngine.DoAccounting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.AAAccountingDataType,win32more.System.RemoteDesktop.AAAccountingData)(3, 'DoAccounting', ((1, 'accountingDataType'),(1, 'accountingData'),)))
-    win32more.System.Com.IUnknown
-    return ITSGAccountingEngine
-def _define_ITSGAuthenticateUserSink_head():
-    class ITSGAuthenticateUserSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2c3e2e73-a782-47f9-8d-fb-77-ee-1e-d2-7a-03')
-    return ITSGAuthenticateUserSink
-def _define_ITSGAuthenticateUserSink():
-    ITSGAuthenticateUserSink = win32more.System.RemoteDesktop.ITSGAuthenticateUserSink_head
-    ITSGAuthenticateUserSink.OnUserAuthenticated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UIntPtr,win32more.Foundation.HANDLE_PTR)(3, 'OnUserAuthenticated', ((1, 'userName'),(1, 'userDomain'),(1, 'context'),(1, 'userToken'),)))
-    ITSGAuthenticateUserSink.OnUserAuthenticationFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(4, 'OnUserAuthenticationFailed', ((1, 'context'),(1, 'genericErrorCode'),(1, 'specificErrorCode'),)))
-    ITSGAuthenticateUserSink.ReauthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(5, 'ReauthenticateUser', ((1, 'context'),)))
-    ITSGAuthenticateUserSink.DisconnectUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr)(6, 'DisconnectUser', ((1, 'context'),)))
-    win32more.System.Com.IUnknown
-    return ITSGAuthenticateUserSink
-def _define_ITSGAuthenticationEngine_head():
-    class ITSGAuthenticationEngine(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9ee3e5bf-04ab-4691-99-8c-d7-f6-22-32-1a-56')
-    return ITSGAuthenticationEngine
-def _define_ITSGAuthenticationEngine():
-    ITSGAuthenticationEngine = win32more.System.RemoteDesktop.ITSGAuthenticationEngine_head
-    ITSGAuthenticationEngine.AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,c_char_p_no,UInt32,UIntPtr,win32more.System.RemoteDesktop.ITSGAuthenticateUserSink_head)(3, 'AuthenticateUser', ((1, 'mainSessionId'),(1, 'cookieData'),(1, 'numCookieBytes'),(1, 'context'),(1, 'pSink'),)))
-    ITSGAuthenticationEngine.CancelAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UIntPtr)(4, 'CancelAuthentication', ((1, 'mainSessionId'),(1, 'context'),)))
-    win32more.System.Com.IUnknown
-    return ITSGAuthenticationEngine
-def _define_ITSGAuthorizeConnectionSink_head():
-    class ITSGAuthorizeConnectionSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c27ece33-7781-4318-98-ef-1c-f2-da-7b-70-05')
-    return ITSGAuthorizeConnectionSink
-def _define_ITSGAuthorizeConnectionSink():
-    ITSGAuthorizeConnectionSink = win32more.System.RemoteDesktop.ITSGAuthorizeConnectionSink_head
-    ITSGAuthorizeConnectionSink.OnConnectionAuthorized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,Guid,UInt32,c_char_p_no,UInt32,UInt32,win32more.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE,win32more.System.RemoteDesktop.AATrustClassID,POINTER(UInt32))(3, 'OnConnectionAuthorized', ((1, 'hrIn'),(1, 'mainSessionId'),(1, 'cbSoHResponse'),(1, 'pbSoHResponse'),(1, 'idleTimeout'),(1, 'sessionTimeout'),(1, 'sessionTimeoutAction'),(1, 'trustClass'),(1, 'policyAttributes'),)))
-    win32more.System.Com.IUnknown
-    return ITSGAuthorizeConnectionSink
-def _define_ITSGAuthorizeResourceSink_head():
-    class ITSGAuthorizeResourceSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('feddfcd4-fa12-4435-ae-55-7a-d1-a9-77-9a-f7')
-    return ITSGAuthorizeResourceSink
-def _define_ITSGAuthorizeResourceSink():
-    ITSGAuthorizeResourceSink = win32more.System.RemoteDesktop.ITSGAuthorizeResourceSink_head
-    ITSGAuthorizeResourceSink.OnChannelAuthorized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Foundation.BSTR),UInt32,POINTER(win32more.Foundation.BSTR),UInt32)(3, 'OnChannelAuthorized', ((1, 'hrIn'),(1, 'mainSessionId'),(1, 'subSessionId'),(1, 'allowedResourceNames'),(1, 'numAllowedResourceNames'),(1, 'failedResourceNames'),(1, 'numFailedResourceNames'),)))
-    win32more.System.Com.IUnknown
-    return ITSGAuthorizeResourceSink
-def _define_ITSGPolicyEngine_head():
-    class ITSGPolicyEngine(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8bc24f08-6223-42f4-a5-b4-8e-37-cd-13-5b-bd')
-    return ITSGPolicyEngine
-def _define_ITSGPolicyEngine():
-    ITSGPolicyEngine = win32more.System.RemoteDesktop.ITSGPolicyEngine_head
-    ITSGPolicyEngine.AuthorizeConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.AAAuthSchemes,win32more.Foundation.BSTR,win32more.Foundation.BSTR,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.HANDLE_PTR,win32more.System.RemoteDesktop.ITSGAuthorizeConnectionSink_head)(3, 'AuthorizeConnection', ((1, 'mainSessionId'),(1, 'username'),(1, 'authType'),(1, 'clientMachineIP'),(1, 'clientMachineName'),(1, 'sohData'),(1, 'numSOHBytes'),(1, 'cookieData'),(1, 'numCookieBytes'),(1, 'userToken'),(1, 'pSink'),)))
-    ITSGPolicyEngine.AuthorizeResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),UInt32,POINTER(win32more.Foundation.BSTR),UInt32,UInt32,win32more.Foundation.BSTR,c_char_p_no,UInt32,win32more.System.RemoteDesktop.ITSGAuthorizeResourceSink_head)(4, 'AuthorizeResource', ((1, 'mainSessionId'),(1, 'subSessionId'),(1, 'username'),(1, 'resourceNames'),(1, 'numResources'),(1, 'alternateResourceNames'),(1, 'numAlternateResourceName'),(1, 'portNumber'),(1, 'operation'),(1, 'cookie'),(1, 'numBytesInCookie'),(1, 'pSink'),)))
-    ITSGPolicyEngine.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Refresh', ()))
-    ITSGPolicyEngine.IsQuarantineEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'IsQuarantineEnabled', ((1, 'quarantineEnabled'),)))
-    win32more.System.Com.IUnknown
-    return ITSGPolicyEngine
-def _define_ItsPubPlugin_head():
-    class ItsPubPlugin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('70c04b05-f347-412b-82-2f-36-c9-9c-54-ca-45')
-    return ItsPubPlugin
-def _define_ItsPubPlugin():
-    ItsPubPlugin = win32more.System.RemoteDesktop.ItsPubPlugin_head
-    ItsPubPlugin.GetResourceList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32),POINTER(POINTER(win32more.System.RemoteDesktop.pluginResource_head)))(3, 'GetResourceList', ((1, 'userID'),(1, 'pceAppListSize'),(1, 'resourceList'),)))
-    ItsPubPlugin.GetResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(win32more.System.RemoteDesktop.pluginResource_head))(4, 'GetResource', ((1, 'alias'),(1, 'flags'),(1, 'resource'),)))
-    ItsPubPlugin.GetCacheLastUpdateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(5, 'GetCacheLastUpdateTime', ((1, 'lastUpdateTime'),)))
-    ItsPubPlugin.get_pluginName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_pluginName', ((1, 'pVal'),)))
-    ItsPubPlugin.get_pluginVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_pluginVersion', ((1, 'pVal'),)))
-    ItsPubPlugin.ResolveResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(8, 'ResolveResource', ((1, 'resourceType'),(1, 'resourceLocation'),(1, 'endPointName'),(1, 'userID'),(1, 'alias'),)))
-    win32more.System.Com.IUnknown
-    return ItsPubPlugin
-def _define_ItsPubPlugin2_head():
-    class ItsPubPlugin2(win32more.System.RemoteDesktop.ItsPubPlugin_head):
-        Guid = Guid('fa4ce418-aad7-4ec6-ba-d1-0a-32-1b-a4-65-d5')
-    return ItsPubPlugin2
-def _define_ItsPubPlugin2():
-    ItsPubPlugin2 = win32more.System.RemoteDesktop.ItsPubPlugin2_head
-    ItsPubPlugin2.GetResource2List = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32),POINTER(POINTER(win32more.System.RemoteDesktop.pluginResource2_head)))(9, 'GetResource2List', ((1, 'userID'),(1, 'pceAppListSize'),(1, 'resourceList'),)))
-    ItsPubPlugin2.GetResource2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(win32more.System.RemoteDesktop.pluginResource2_head))(10, 'GetResource2', ((1, 'alias'),(1, 'flags'),(1, 'resource'),)))
-    ItsPubPlugin2.ResolvePersonalDesktop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_RESOLUTION_TYPE,POINTER(win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE),win32more.Foundation.PWSTR)(11, 'ResolvePersonalDesktop', ((1, 'userId'),(1, 'poolId'),(1, 'ePdResolutionType'),(1, 'pPdAssignmentType'),(1, 'endPointName'),)))
-    ItsPubPlugin2.DeletePersonalDesktopAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(12, 'DeletePersonalDesktopAssignment', ((1, 'userId'),(1, 'poolId'),(1, 'endpointName'),)))
-    win32more.System.RemoteDesktop.ItsPubPlugin
-    return ItsPubPlugin2
-def _define_ITsSbBaseNotifySink_head():
-    class ITsSbBaseNotifySink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('808a6537-1282-4989-9e-09-f4-39-38-b7-17-22')
-    return ITsSbBaseNotifySink
-def _define_ITsSbBaseNotifySink():
-    ITsSbBaseNotifySink = win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head
-    ITsSbBaseNotifySink.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(3, 'OnError', ((1, 'hrError'),)))
-    ITsSbBaseNotifySink.OnReportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CLIENT_MESSAGE_TYPE,UInt32)(4, 'OnReportStatus', ((1, 'messageType'),(1, 'messageID'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbBaseNotifySink
-def _define_ITsSbClientConnection_head():
-    class ITsSbClientConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('18857499-ad61-4b1b-b7-df-cb-cd-41-fb-83-38')
-    return ITsSbClientConnection
-def _define_ITsSbClientConnection():
-    ITsSbClientConnection = win32more.System.RemoteDesktop.ITsSbClientConnection_head
-    ITsSbClientConnection.get_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_UserName', ((1, 'pVal'),)))
-    ITsSbClientConnection.get_Domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_Domain', ((1, 'pVal'),)))
-    ITsSbClientConnection.get_InitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_InitialProgram', ((1, 'pVal'),)))
-    ITsSbClientConnection.get_LoadBalanceResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head))(6, 'get_LoadBalanceResult', ((1, 'ppVal'),)))
-    ITsSbClientConnection.get_FarmName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_FarmName', ((1, 'pVal'),)))
-    ITsSbClientConnection.PutContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head))(8, 'PutContext', ((1, 'contextId'),(1, 'context'),(1, 'existingContext'),)))
-    ITsSbClientConnection.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetContext', ((1, 'contextId'),(1, 'context'),)))
-    ITsSbClientConnection.get_Environment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head))(10, 'get_Environment', ((1, 'ppEnvironment'),)))
-    ITsSbClientConnection.get_ConnectionError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'get_ConnectionError', ()))
-    ITsSbClientConnection.get_SamUserAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_SamUserAccount', ((1, 'pVal'),)))
-    ITsSbClientConnection.get_ClientConnectionPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbClientConnectionPropertySet_head))(13, 'get_ClientConnectionPropertySet', ((1, 'ppPropertySet'),)))
-    ITsSbClientConnection.get_IsFirstAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'get_IsFirstAssignment', ((1, 'ppVal'),)))
-    ITsSbClientConnection.get_RdFarmType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.RD_FARM_TYPE))(15, 'get_RdFarmType', ((1, 'pRdFarmType'),)))
-    ITsSbClientConnection.get_UserSidString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(SByte)))(16, 'get_UserSidString', ((1, 'pszUserSidString'),)))
-    ITsSbClientConnection.GetDisconnectedSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))(17, 'GetDisconnectedSession', ((1, 'ppSession'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbClientConnection
-def _define_ITsSbClientConnectionPropertySet_head():
-    class ITsSbClientConnectionPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
-        Guid = Guid('e51995b0-46d6-11dd-aa-21-ce-dc-55-d8-95-93')
-    return ITsSbClientConnectionPropertySet
-def _define_ITsSbClientConnectionPropertySet():
-    ITsSbClientConnectionPropertySet = win32more.System.RemoteDesktop.ITsSbClientConnectionPropertySet_head
-    win32more.System.RemoteDesktop.ITsSbPropertySet
-    return ITsSbClientConnectionPropertySet
-def _define_ITsSbEnvironment_head():
-    class ITsSbEnvironment(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8c87f7f7-bf51-4a5c-87-bf-8e-94-fb-6e-22-56')
-    return ITsSbEnvironment
-def _define_ITsSbEnvironment():
-    ITsSbEnvironment = win32more.System.RemoteDesktop.ITsSbEnvironment_head
-    ITsSbEnvironment.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_Name', ((1, 'pVal'),)))
-    ITsSbEnvironment.get_ServerWeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(4, 'get_ServerWeight', ((1, 'pVal'),)))
-    ITsSbEnvironment.get_EnvironmentPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head))(5, 'get_EnvironmentPropertySet', ((1, 'ppPropertySet'),)))
-    ITsSbEnvironment.put_EnvironmentPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head)(6, 'put_EnvironmentPropertySet', ((1, 'pVal'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbEnvironment
-def _define_ITsSbEnvironmentPropertySet_head():
-    class ITsSbEnvironmentPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
-        Guid = Guid('d0d1bf7e-7acf-11dd-a2-43-e5-11-56-d8-95-93')
-    return ITsSbEnvironmentPropertySet
-def _define_ITsSbEnvironmentPropertySet():
-    ITsSbEnvironmentPropertySet = win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head
-    win32more.System.RemoteDesktop.ITsSbPropertySet
-    return ITsSbEnvironmentPropertySet
-def _define_ITsSbFilterPluginStore_head():
-    class ITsSbFilterPluginStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('85b44b0f-ed78-413f-97-02-fa-6d-3b-5e-e7-55')
-    return ITsSbFilterPluginStore
-def _define_ITsSbFilterPluginStore():
-    ITsSbFilterPluginStore = win32more.System.RemoteDesktop.ITsSbFilterPluginStore_head
-    ITsSbFilterPluginStore.SaveProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbPropertySet_head)(3, 'SaveProperties', ((1, 'pPropertySet'),)))
-    ITsSbFilterPluginStore.EnumerateProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbPropertySet_head))(4, 'EnumerateProperties', ((1, 'ppPropertySet'),)))
-    ITsSbFilterPluginStore.DeleteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(5, 'DeleteProperties', ((1, 'propertyName'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbFilterPluginStore
-def _define_ITsSbGenericNotifySink_head():
-    class ITsSbGenericNotifySink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c4c8c4f-300b-46ad-91-64-84-68-a7-e7-56-8c')
-    return ITsSbGenericNotifySink
-def _define_ITsSbGenericNotifySink():
-    ITsSbGenericNotifySink = win32more.System.RemoteDesktop.ITsSbGenericNotifySink_head
-    ITsSbGenericNotifySink.OnCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(3, 'OnCompleted', ((1, 'Status'),)))
-    ITsSbGenericNotifySink.GetWaitTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(4, 'GetWaitTimeout', ((1, 'pftTimeout'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbGenericNotifySink
-def _define_ITsSbGlobalStore_head():
-    class ITsSbGlobalStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9ab60f7b-bd72-4d9f-8a-3a-a0-ea-55-74-e6-35')
-    return ITsSbGlobalStore
-def _define_ITsSbGlobalStore():
-    ITsSbGlobalStore = win32more.System.RemoteDesktop.ITsSbGlobalStore_head
-    ITsSbGlobalStore.QueryTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head))(3, 'QueryTarget', ((1, 'ProviderName'),(1, 'TargetName'),(1, 'FarmName'),(1, 'ppTarget'),)))
-    ITsSbGlobalStore.QuerySessionBySessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))(4, 'QuerySessionBySessionId', ((1, 'ProviderName'),(1, 'dwSessionId'),(1, 'TargetName'),(1, 'ppSession'),)))
-    ITsSbGlobalStore.EnumerateFarms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'EnumerateFarms', ((1, 'ProviderName'),(1, 'pdwCount'),(1, 'pVal'),)))
-    ITsSbGlobalStore.EnumerateTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head)))(6, 'EnumerateTargets', ((1, 'ProviderName'),(1, 'FarmName'),(1, 'EnvName'),(1, 'pdwCount'),(1, 'pVal'),)))
-    ITsSbGlobalStore.EnumerateEnvironmentsByProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)))(7, 'EnumerateEnvironmentsByProvider', ((1, 'ProviderName'),(1, 'pdwCount'),(1, 'ppVal'),)))
-    ITsSbGlobalStore.EnumerateSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE),POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)))(8, 'EnumerateSessions', ((1, 'ProviderName'),(1, 'targetName'),(1, 'userName'),(1, 'userDomain'),(1, 'poolName'),(1, 'initialProgram'),(1, 'pSessionState'),(1, 'pdwCount'),(1, 'ppVal'),)))
-    ITsSbGlobalStore.GetFarmProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetFarmProperty', ((1, 'farmName'),(1, 'propertyName'),(1, 'pVarValue'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbGlobalStore
-def _define_ITsSbLoadBalanceResult_head():
-    class ITsSbLoadBalanceResult(win32more.System.Com.IUnknown_head):
-        Guid = Guid('24fdb7ac-fea6-11dc-96-72-9a-89-56-d8-95-93')
-    return ITsSbLoadBalanceResult
-def _define_ITsSbLoadBalanceResult():
-    ITsSbLoadBalanceResult = win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head
-    ITsSbLoadBalanceResult.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_TargetName', ((1, 'pVal'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbLoadBalanceResult
-def _define_ITsSbLoadBalancing_head():
-    class ITsSbLoadBalancing(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('24329274-9eb7-11dc-ae-98-f2-b4-56-d8-95-93')
-    return ITsSbLoadBalancing
-def _define_ITsSbLoadBalancing():
-    ITsSbLoadBalancing = win32more.System.RemoteDesktop.ITsSbLoadBalancing_head
-    ITsSbLoadBalancing.GetMostSuitableTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head)(5, 'GetMostSuitableTarget', ((1, 'pConnection'),(1, 'pLBSink'),)))
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbLoadBalancing
-def _define_ITsSbLoadBalancingNotifySink_head():
-    class ITsSbLoadBalancingNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
-        Guid = Guid('5f8a8297-3244-4e6a-95-8a-27-c8-22-c1-e1-41')
-    return ITsSbLoadBalancingNotifySink
-def _define_ITsSbLoadBalancingNotifySink():
-    ITsSbLoadBalancingNotifySink = win32more.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head
-    ITsSbLoadBalancingNotifySink.OnGetMostSuitableTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head,win32more.Foundation.BOOL)(5, 'OnGetMostSuitableTarget', ((1, 'pLBResult'),(1, 'fIsNewConnection'),)))
-    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
-    return ITsSbLoadBalancingNotifySink
-def _define_ITsSbOrchestration_head():
-    class ITsSbOrchestration(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('64fc1172-9eb7-11dc-8b-00-3a-ba-56-d8-95-93')
-    return ITsSbOrchestration
-def _define_ITsSbOrchestration():
-    ITsSbOrchestration = win32more.System.RemoteDesktop.ITsSbOrchestration_head
-    ITsSbOrchestration.PrepareTargetForConnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head)(5, 'PrepareTargetForConnect', ((1, 'pConnection'),(1, 'pOrchestrationNotifySink'),)))
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbOrchestration
-def _define_ITsSbOrchestrationNotifySink_head():
-    class ITsSbOrchestrationNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
-        Guid = Guid('36c37d61-926b-442f-bc-a5-11-8c-6d-50-dc-f2')
-    return ITsSbOrchestrationNotifySink
-def _define_ITsSbOrchestrationNotifySink():
-    ITsSbOrchestrationNotifySink = win32more.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head
-    ITsSbOrchestrationNotifySink.OnReadyToConnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTarget_head)(5, 'OnReadyToConnect', ((1, 'pTarget'),)))
-    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
-    return ITsSbOrchestrationNotifySink
-def _define_ITsSbPlacement_head():
-    class ITsSbPlacement(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('daadee5f-6d32-480e-9e-36-dd-ab-23-29-f0-6d')
-    return ITsSbPlacement
-def _define_ITsSbPlacement():
-    ITsSbPlacement = win32more.System.RemoteDesktop.ITsSbPlacement_head
-    ITsSbPlacement.QueryEnvironmentForTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbPlacementNotifySink_head)(5, 'QueryEnvironmentForTarget', ((1, 'pConnection'),(1, 'pPlacementSink'),)))
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbPlacement
-def _define_ITsSbPlacementNotifySink_head():
-    class ITsSbPlacementNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
-        Guid = Guid('68a0c487-2b4f-46c2-94-a1-6c-e6-85-18-36-34')
-    return ITsSbPlacementNotifySink
-def _define_ITsSbPlacementNotifySink():
-    ITsSbPlacementNotifySink = win32more.System.RemoteDesktop.ITsSbPlacementNotifySink_head
-    ITsSbPlacementNotifySink.OnQueryEnvironmentCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironment_head)(5, 'OnQueryEnvironmentCompleted', ((1, 'pEnvironment'),)))
-    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
-    return ITsSbPlacementNotifySink
-def _define_ITsSbPlugin_head():
-    class ITsSbPlugin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('48cd7406-caab-465f-a5-d6-ba-a8-63-b9-ea-4f')
-    return ITsSbPlugin
-def _define_ITsSbPlugin():
-    ITsSbPlugin = win32more.System.RemoteDesktop.ITsSbPlugin_head
-    ITsSbPlugin.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbProvider_head,win32more.System.RemoteDesktop.ITsSbPluginNotifySink_head,win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head)(3, 'Initialize', ((1, 'pProvider'),(1, 'pNotifySink'),(1, 'pPropertySet'),)))
-    ITsSbPlugin.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(4, 'Terminate', ((1, 'hr'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbPlugin
-def _define_ITsSbPluginNotifySink_head():
-    class ITsSbPluginNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
-        Guid = Guid('44dfe30b-c3be-40f5-bf-82-7a-95-bb-79-5a-df')
-    return ITsSbPluginNotifySink
-def _define_ITsSbPluginNotifySink():
-    ITsSbPluginNotifySink = win32more.System.RemoteDesktop.ITsSbPluginNotifySink_head
-    ITsSbPluginNotifySink.OnInitialized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT)(5, 'OnInitialized', ((1, 'hr'),)))
-    ITsSbPluginNotifySink.OnTerminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'OnTerminated', ()))
-    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
-    return ITsSbPluginNotifySink
-def _define_ITsSbPluginPropertySet_head():
-    class ITsSbPluginPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
-        Guid = Guid('95006e34-7eff-4b6c-bb-40-49-a4-fd-a7-ce-a6')
-    return ITsSbPluginPropertySet
-def _define_ITsSbPluginPropertySet():
-    ITsSbPluginPropertySet = win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head
-    win32more.System.RemoteDesktop.ITsSbPropertySet
-    return ITsSbPluginPropertySet
-def _define_ITsSbPropertySet_head():
-    class ITsSbPropertySet(win32more.System.Com.StructuredStorage.IPropertyBag_head):
-        Guid = Guid('5c025171-bb1e-4baf-a2-12-6d-5e-97-74-b3-3b')
-    return ITsSbPropertySet
-def _define_ITsSbPropertySet():
-    ITsSbPropertySet = win32more.System.RemoteDesktop.ITsSbPropertySet_head
-    win32more.System.Com.StructuredStorage.IPropertyBag
-    return ITsSbPropertySet
-def _define_ITsSbProvider_head():
-    class ITsSbProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('87a4098f-6d7b-44dd-bc-17-8c-e4-4e-37-0d-52')
-    return ITsSbProvider
-def _define_ITsSbProvider():
-    ITsSbProvider = win32more.System.RemoteDesktop.ITsSbProvider_head
-    ITsSbProvider.CreateTargetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head))(3, 'CreateTargetObject', ((1, 'TargetName'),(1, 'EnvironmentName'),(1, 'ppTarget'),)))
-    ITsSbProvider.CreateLoadBalanceResultObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head))(4, 'CreateLoadBalanceResultObject', ((1, 'TargetName'),(1, 'ppLBResult'),)))
-    ITsSbProvider.CreateSessionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))(5, 'CreateSessionObject', ((1, 'TargetName'),(1, 'UserName'),(1, 'Domain'),(1, 'SessionId'),(1, 'ppSession'),)))
-    ITsSbProvider.CreatePluginPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head))(6, 'CreatePluginPropertySet', ((1, 'ppPropertySet'),)))
-    ITsSbProvider.CreateTargetPropertySetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head))(7, 'CreateTargetPropertySetObject', ((1, 'ppPropertySet'),)))
-    ITsSbProvider.CreateEnvironmentObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head))(8, 'CreateEnvironmentObject', ((1, 'Name'),(1, 'ServerWeight'),(1, 'ppEnvironment'),)))
-    ITsSbProvider.GetResourcePluginStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbResourcePluginStore_head))(9, 'GetResourcePluginStore', ((1, 'ppStore'),)))
-    ITsSbProvider.GetFilterPluginStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbFilterPluginStore_head))(10, 'GetFilterPluginStore', ((1, 'ppStore'),)))
-    ITsSbProvider.RegisterForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbResourceNotification_head)(11, 'RegisterForNotification', ((1, 'notificationType'),(1, 'ResourceToMonitor'),(1, 'pPluginNotification'),)))
-    ITsSbProvider.UnRegisterForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR)(12, 'UnRegisterForNotification', ((1, 'notificationType'),(1, 'ResourceToMonitor'),)))
-    ITsSbProvider.GetInstanceOfGlobalStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbGlobalStore_head))(13, 'GetInstanceOfGlobalStore', ((1, 'ppGlobalStore'),)))
-    ITsSbProvider.CreateEnvironmentPropertySetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head))(14, 'CreateEnvironmentPropertySetObject', ((1, 'ppPropertySet'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbProvider
-def _define_ITsSbProvisioning_head():
-    class ITsSbProvisioning(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('2f6f0dbb-9e4f-462b-9c-3f-fc-cc-3d-cb-62-32')
-    return ITsSbProvisioning
-def _define_ITsSbProvisioning():
-    ITsSbProvisioning = win32more.System.RemoteDesktop.ITsSbProvisioning_head
-    ITsSbProvisioning.CreateVirtualMachines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head)(5, 'CreateVirtualMachines', ((1, 'JobXmlString'),(1, 'JobGuid'),(1, 'pSink'),)))
-    ITsSbProvisioning.PatchVirtualMachines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head,POINTER(win32more.System.RemoteDesktop.VM_PATCH_INFO_head))(6, 'PatchVirtualMachines', ((1, 'JobXmlString'),(1, 'JobGuid'),(1, 'pSink'),(1, 'pVMPatchInfo'),)))
-    ITsSbProvisioning.DeleteVirtualMachines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head)(7, 'DeleteVirtualMachines', ((1, 'JobXmlString'),(1, 'JobGuid'),(1, 'pSink'),)))
-    ITsSbProvisioning.CancelJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'CancelJob', ((1, 'JobGuid'),)))
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbProvisioning
-def _define_ITsSbProvisioningPluginNotifySink_head():
-    class ITsSbProvisioningPluginNotifySink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('aca87a8e-818b-4581-a0-32-49-c3-df-b9-c7-01')
-    return ITsSbProvisioningPluginNotifySink
-def _define_ITsSbProvisioningPluginNotifySink():
-    ITsSbProvisioningPluginNotifySink = win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head
-    ITsSbProvisioningPluginNotifySink.OnJobCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_INFO_head))(3, 'OnJobCreated', ((1, 'pVmNotifyInfo'),)))
-    ITsSbProvisioningPluginNotifySink.OnVirtualMachineStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head),win32more.System.RemoteDesktop.VM_NOTIFY_STATUS,win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'OnVirtualMachineStatusChanged', ((1, 'pVmNotifyEntry'),(1, 'VmNotifyStatus'),(1, 'ErrorCode'),(1, 'ErrorDescr'),)))
-    ITsSbProvisioningPluginNotifySink.OnJobCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(5, 'OnJobCompleted', ((1, 'ResultCode'),(1, 'ResultDescription'),)))
-    ITsSbProvisioningPluginNotifySink.OnJobCancelled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'OnJobCancelled', ()))
-    ITsSbProvisioningPluginNotifySink.LockVirtualMachine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head))(7, 'LockVirtualMachine', ((1, 'pVmNotifyEntry'),)))
-    ITsSbProvisioningPluginNotifySink.OnVirtualMachineHostStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS,win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'OnVirtualMachineHostStatusChanged', ((1, 'VmHost'),(1, 'VmHostNotifyStatus'),(1, 'ErrorCode'),(1, 'ErrorDescr'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbProvisioningPluginNotifySink
-def _define_ITsSbResourceNotification_head():
-    class ITsSbResourceNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('65d3e85a-c39b-11dc-b9-2d-3c-d2-55-d8-95-93')
-    return ITsSbResourceNotification
-def _define_ITsSbResourceNotification():
-    ITsSbResourceNotification = win32more.System.RemoteDesktop.ITsSbResourceNotification_head
-    ITsSbResourceNotification.NotifySessionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.TSSESSION_STATE,win32more.System.RemoteDesktop.ITsSbSession_head)(3, 'NotifySessionChange', ((1, 'changeType'),(1, 'pSession'),)))
-    ITsSbResourceNotification.NotifyTargetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.RemoteDesktop.ITsSbTarget_head)(4, 'NotifyTargetChange', ((1, 'TargetChangeType'),(1, 'pTarget'),)))
-    ITsSbResourceNotification.NotifyClientConnectionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION,win32more.System.RemoteDesktop.ITsSbClientConnection_head)(5, 'NotifyClientConnectionStateChange', ((1, 'ChangeType'),(1, 'pConnection'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbResourceNotification
-def _define_ITsSbResourceNotificationEx_head():
-    class ITsSbResourceNotificationEx(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a8a47fde-ca91-44d2-b8-97-3a-a2-8a-43-b2-b7')
-    return ITsSbResourceNotificationEx
-def _define_ITsSbResourceNotificationEx():
-    ITsSbResourceNotificationEx = win32more.System.RemoteDesktop.ITsSbResourceNotificationEx_head
-    ITsSbResourceNotificationEx.NotifySessionChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,win32more.System.RemoteDesktop.TSSESSION_STATE)(3, 'NotifySessionChangeEx', ((1, 'targetName'),(1, 'userName'),(1, 'domain'),(1, 'sessionId'),(1, 'sessionState'),)))
-    ITsSbResourceNotificationEx.NotifyTargetChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32)(4, 'NotifyTargetChangeEx', ((1, 'targetName'),(1, 'targetChangeType'),)))
-    ITsSbResourceNotificationEx.NotifyClientConnectionStateChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION)(5, 'NotifyClientConnectionStateChangeEx', ((1, 'userName'),(1, 'domain'),(1, 'initialProgram'),(1, 'poolName'),(1, 'targetName'),(1, 'connectionChangeType'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbResourceNotificationEx
-def _define_ITsSbResourcePlugin_head():
-    class ITsSbResourcePlugin(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('ea8db42c-98ed-4535-a8-8b-2a-16-4f-35-49-0f')
-    return ITsSbResourcePlugin
-def _define_ITsSbResourcePlugin():
-    ITsSbResourcePlugin = win32more.System.RemoteDesktop.ITsSbResourcePlugin_head
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbResourcePlugin
-def _define_ITsSbResourcePluginStore_head():
-    class ITsSbResourcePluginStore(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5c38f65f-bcf1-4036-a6-bf-9e-3c-cc-ae-0b-63')
-    return ITsSbResourcePluginStore
-def _define_ITsSbResourcePluginStore():
-    ITsSbResourcePluginStore = win32more.System.RemoteDesktop.ITsSbResourcePluginStore_head
-    ITsSbResourcePluginStore.QueryTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head))(3, 'QueryTarget', ((1, 'TargetName'),(1, 'FarmName'),(1, 'ppTarget'),)))
-    ITsSbResourcePluginStore.QuerySessionBySessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))(4, 'QuerySessionBySessionId', ((1, 'dwSessionId'),(1, 'TargetName'),(1, 'ppSession'),)))
-    ITsSbResourcePluginStore.AddTargetToStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTarget_head)(5, 'AddTargetToStore', ((1, 'pTarget'),)))
-    ITsSbResourcePluginStore.AddSessionToStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbSession_head)(6, 'AddSessionToStore', ((1, 'pSession'),)))
-    ITsSbResourcePluginStore.AddEnvironmentToStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironment_head)(7, 'AddEnvironmentToStore', ((1, 'pEnvironment'),)))
-    ITsSbResourcePluginStore.RemoveEnvironmentFromStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BOOL)(8, 'RemoveEnvironmentFromStore', ((1, 'EnvironmentName'),(1, 'bIgnoreOwner'),)))
-    ITsSbResourcePluginStore.EnumerateFarms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(9, 'EnumerateFarms', ((1, 'pdwCount'),(1, 'pVal'),)))
-    ITsSbResourcePluginStore.QueryEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head))(10, 'QueryEnvironment', ((1, 'EnvironmentName'),(1, 'ppEnvironment'),)))
-    ITsSbResourcePluginStore.EnumerateEnvironments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)))(11, 'EnumerateEnvironments', ((1, 'pdwCount'),(1, 'pVal'),)))
-    ITsSbResourcePluginStore.SaveTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTarget_head,win32more.Foundation.BOOL)(12, 'SaveTarget', ((1, 'pTarget'),(1, 'bForceWrite'),)))
-    ITsSbResourcePluginStore.SaveEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironment_head,win32more.Foundation.BOOL)(13, 'SaveEnvironment', ((1, 'pEnvironment'),(1, 'bForceWrite'),)))
-    ITsSbResourcePluginStore.SaveSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbSession_head)(14, 'SaveSession', ((1, 'pSession'),)))
-    ITsSbResourcePluginStore.SetTargetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(15, 'SetTargetProperty', ((1, 'TargetName'),(1, 'PropertyName'),(1, 'pProperty'),)))
-    ITsSbResourcePluginStore.SetEnvironmentProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(16, 'SetEnvironmentProperty', ((1, 'EnvironmentName'),(1, 'PropertyName'),(1, 'pProperty'),)))
-    ITsSbResourcePluginStore.SetTargetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.TARGET_STATE,POINTER(win32more.System.RemoteDesktop.TARGET_STATE))(17, 'SetTargetState', ((1, 'targetName'),(1, 'newState'),(1, 'pOldState'),)))
-    ITsSbResourcePluginStore.SetSessionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbSession_head)(18, 'SetSessionState', ((1, 'sbSession'),)))
-    ITsSbResourcePluginStore.EnumerateTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.TS_SB_SORT_BY,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head)))(19, 'EnumerateTargets', ((1, 'FarmName'),(1, 'EnvName'),(1, 'sortByFieldId'),(1, 'sortyByPropName'),(1, 'pdwCount'),(1, 'pVal'),)))
-    ITsSbResourcePluginStore.EnumerateSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE),POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)))(20, 'EnumerateSessions', ((1, 'targetName'),(1, 'userName'),(1, 'userDomain'),(1, 'poolName'),(1, 'initialProgram'),(1, 'pSessionState'),(1, 'pdwCount'),(1, 'ppVal'),)))
-    ITsSbResourcePluginStore.GetFarmProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(21, 'GetFarmProperty', ((1, 'farmName'),(1, 'propertyName'),(1, 'pVarValue'),)))
-    ITsSbResourcePluginStore.DeleteTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(22, 'DeleteTarget', ((1, 'targetName'),(1, 'hostName'),)))
-    ITsSbResourcePluginStore.SetTargetPropertyWithVersionCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTarget_head,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(23, 'SetTargetPropertyWithVersionCheck', ((1, 'pTarget'),(1, 'PropertyName'),(1, 'pProperty'),)))
-    ITsSbResourcePluginStore.SetEnvironmentPropertyWithVersionCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironment_head,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head))(24, 'SetEnvironmentPropertyWithVersionCheck', ((1, 'pEnvironment'),(1, 'PropertyName'),(1, 'pProperty'),)))
-    ITsSbResourcePluginStore.AcquireTargetLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.Com.IUnknown_head))(25, 'AcquireTargetLock', ((1, 'targetName'),(1, 'dwTimeout'),(1, 'ppContext'),)))
-    ITsSbResourcePluginStore.ReleaseTargetLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(26, 'ReleaseTargetLock', ((1, 'pContext'),)))
-    ITsSbResourcePluginStore.TestAndSetServerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.TARGET_STATE,win32more.System.RemoteDesktop.TARGET_STATE,POINTER(win32more.System.RemoteDesktop.TARGET_STATE))(27, 'TestAndSetServerState', ((1, 'PoolName'),(1, 'ServerFQDN'),(1, 'NewState'),(1, 'TestState'),(1, 'pInitState'),)))
-    ITsSbResourcePluginStore.SetServerWaitingToStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(28, 'SetServerWaitingToStart', ((1, 'PoolName'),(1, 'serverName'),)))
-    ITsSbResourcePluginStore.GetServerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.TARGET_STATE))(29, 'GetServerState', ((1, 'PoolName'),(1, 'ServerFQDN'),(1, 'pState'),)))
-    ITsSbResourcePluginStore.SetServerDrainMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32)(30, 'SetServerDrainMode', ((1, 'ServerFQDN'),(1, 'DrainMode'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbResourcePluginStore
-def _define_ITsSbServiceNotification_head():
-    class ITsSbServiceNotification(win32more.System.Com.IUnknown_head):
-        Guid = Guid('86cb68ae-86e0-4f57-8a-64-bb-74-06-bc-55-50')
-    return ITsSbServiceNotification
-def _define_ITsSbServiceNotification():
-    ITsSbServiceNotification = win32more.System.RemoteDesktop.ITsSbServiceNotification_head
-    ITsSbServiceNotification.NotifyServiceFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'NotifyServiceFailure', ()))
-    ITsSbServiceNotification.NotifyServiceSuccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'NotifyServiceSuccess', ()))
-    win32more.System.Com.IUnknown
-    return ITsSbServiceNotification
-def _define_ITsSbSession_head():
-    class ITsSbSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d453aac7-b1d8-4c5e-ba-34-9a-fb-4c-8c-55-10')
-    return ITsSbSession
-def _define_ITsSbSession():
-    ITsSbSession = win32more.System.RemoteDesktop.ITsSbSession_head
-    ITsSbSession.get_SessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'get_SessionId', ((1, 'pVal'),)))
-    ITsSbSession.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_TargetName', ((1, 'targetName'),)))
-    ITsSbSession.put_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(5, 'put_TargetName', ((1, 'targetName'),)))
-    ITsSbSession.get_Username = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_Username', ((1, 'userName'),)))
-    ITsSbSession.get_Domain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Domain', ((1, 'domain'),)))
-    ITsSbSession.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE))(8, 'get_State', ((1, 'pState'),)))
-    ITsSbSession.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.TSSESSION_STATE)(9, 'put_State', ((1, 'State'),)))
-    ITsSbSession.get_CreateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(10, 'get_CreateTime', ((1, 'pTime'),)))
-    ITsSbSession.put_CreateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME)(11, 'put_CreateTime', ((1, 'Time'),)))
-    ITsSbSession.get_DisconnectTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(12, 'get_DisconnectTime', ((1, 'pTime'),)))
-    ITsSbSession.put_DisconnectTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.FILETIME)(13, 'put_DisconnectTime', ((1, 'Time'),)))
-    ITsSbSession.get_InitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_InitialProgram', ((1, 'app'),)))
-    ITsSbSession.put_InitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_InitialProgram', ((1, 'Application'),)))
-    ITsSbSession.get_ClientDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.CLIENT_DISPLAY_head))(16, 'get_ClientDisplay', ((1, 'pClientDisplay'),)))
-    ITsSbSession.put_ClientDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CLIENT_DISPLAY)(17, 'put_ClientDisplay', ((1, 'pClientDisplay'),)))
-    ITsSbSession.get_ProtocolType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(18, 'get_ProtocolType', ((1, 'pVal'),)))
-    ITsSbSession.put_ProtocolType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(19, 'put_ProtocolType', ((1, 'Val'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbSession
-def _define_ITsSbTarget_head():
-    class ITsSbTarget(win32more.System.Com.IUnknown_head):
-        Guid = Guid('16616ecc-272d-411d-b3-24-12-68-93-03-38-56')
-    return ITsSbTarget
-def _define_ITsSbTarget():
-    ITsSbTarget = win32more.System.RemoteDesktop.ITsSbTarget_head
-    ITsSbTarget.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_TargetName', ((1, 'pVal'),)))
-    ITsSbTarget.put_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'put_TargetName', ((1, 'Val'),)))
-    ITsSbTarget.get_FarmName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_FarmName', ((1, 'pVal'),)))
-    ITsSbTarget.put_FarmName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(6, 'put_FarmName', ((1, 'Val'),)))
-    ITsSbTarget.get_TargetFQDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_TargetFQDN', ((1, 'TargetFqdnName'),)))
-    ITsSbTarget.put_TargetFQDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_TargetFQDN', ((1, 'Val'),)))
-    ITsSbTarget.get_TargetNetbios = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_TargetNetbios', ((1, 'TargetNetbiosName'),)))
-    ITsSbTarget.put_TargetNetbios = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_TargetNetbios', ((1, 'Val'),)))
-    ITsSbTarget.get_IpAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.TSSD_ConnectionPoint_head),POINTER(UInt32))(11, 'get_IpAddresses', ((1, 'SOCKADDR'),(1, 'numAddresses'),)))
-    ITsSbTarget.put_IpAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.TSSD_ConnectionPoint_head),UInt32)(12, 'put_IpAddresses', ((1, 'SOCKADDR'),(1, 'numAddresses'),)))
-    ITsSbTarget.get_TargetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.TARGET_STATE))(13, 'get_TargetState', ((1, 'pState'),)))
-    ITsSbTarget.put_TargetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.TARGET_STATE)(14, 'put_TargetState', ((1, 'State'),)))
-    ITsSbTarget.get_TargetPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head))(15, 'get_TargetPropertySet', ((1, 'ppPropertySet'),)))
-    ITsSbTarget.put_TargetPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head)(16, 'put_TargetPropertySet', ((1, 'pVal'),)))
-    ITsSbTarget.get_EnvironmentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_EnvironmentName', ((1, 'pVal'),)))
-    ITsSbTarget.put_EnvironmentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(18, 'put_EnvironmentName', ((1, 'Val'),)))
-    ITsSbTarget.get_NumSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'get_NumSessions', ((1, 'pNumSessions'),)))
-    ITsSbTarget.get_NumPendingConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(20, 'get_NumPendingConnections', ((1, 'pNumPendingConnections'),)))
-    ITsSbTarget.get_TargetLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'get_TargetLoad', ((1, 'pTargetLoad'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbTarget
-def _define_ITsSbTargetPropertySet_head():
-    class ITsSbTargetPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
-        Guid = Guid('f7bda5d6-994c-4e11-a0-79-27-63-b6-18-30-ac')
-    return ITsSbTargetPropertySet
-def _define_ITsSbTargetPropertySet():
-    ITsSbTargetPropertySet = win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head
-    win32more.System.RemoteDesktop.ITsSbPropertySet
-    return ITsSbTargetPropertySet
-def _define_ITsSbTaskInfo_head():
-    class ITsSbTaskInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('523d1083-89be-48dd-99-ea-04-e8-2f-fa-72-65')
-    return ITsSbTaskInfo
-def _define_ITsSbTaskInfo():
-    ITsSbTaskInfo = win32more.System.RemoteDesktop.ITsSbTaskInfo_head
-    ITsSbTaskInfo.get_TargetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_TargetId', ((1, 'pName'),)))
-    ITsSbTaskInfo.get_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(4, 'get_StartTime', ((1, 'pStartTime'),)))
-    ITsSbTaskInfo.get_EndTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(5, 'get_EndTime', ((1, 'pEndTime'),)))
-    ITsSbTaskInfo.get_Deadline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(6, 'get_Deadline', ((1, 'pDeadline'),)))
-    ITsSbTaskInfo.get_Identifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Identifier', ((1, 'pIdentifier'),)))
-    ITsSbTaskInfo.get_Label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Label', ((1, 'pLabel'),)))
-    ITsSbTaskInfo.get_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(9, 'get_Context', ((1, 'pContext'),)))
-    ITsSbTaskInfo.get_Plugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Plugin', ((1, 'pPlugin'),)))
-    ITsSbTaskInfo.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.RDV_TASK_STATUS))(11, 'get_Status', ((1, 'pStatus'),)))
-    win32more.System.Com.IUnknown
-    return ITsSbTaskInfo
-def _define_ITsSbTaskPlugin_head():
-    class ITsSbTaskPlugin(win32more.System.RemoteDesktop.ITsSbPlugin_head):
-        Guid = Guid('fa22ef0f-8705-41be-93-bc-44-bd-bc-f1-c9-c4')
-    return ITsSbTaskPlugin
-def _define_ITsSbTaskPlugin():
-    ITsSbTaskPlugin = win32more.System.RemoteDesktop.ITsSbTaskPlugin_head
-    ITsSbTaskPlugin.InitializeTaskPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTaskPluginNotifySink_head)(5, 'InitializeTaskPlugin', ((1, 'pITsSbTaskPluginNotifySink'),)))
-    ITsSbTaskPlugin.SetTaskQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.RemoteDesktop.ITsSbTaskInfo_head))(6, 'SetTaskQueue', ((1, 'pszHostName'),(1, 'SbTaskInfoSize'),(1, 'pITsSbTaskInfo'),)))
-    win32more.System.RemoteDesktop.ITsSbPlugin
-    return ITsSbTaskPlugin
-def _define_ITsSbTaskPluginNotifySink_head():
-    class ITsSbTaskPluginNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
-        Guid = Guid('6aaf899e-c2ec-45ee-aa-37-45-e6-08-95-26-1a')
-    return ITsSbTaskPluginNotifySink
-def _define_ITsSbTaskPluginNotifySink():
-    ITsSbTaskPluginNotifySink = win32more.System.RemoteDesktop.ITsSbTaskPluginNotifySink_head
-    ITsSbTaskPluginNotifySink.OnSetTaskTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,win32more.Foundation.FILETIME,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.Com.SAFEARRAY_head))(5, 'OnSetTaskTime', ((1, 'szTargetName'),(1, 'TaskStartTime'),(1, 'TaskEndTime'),(1, 'TaskDeadline'),(1, 'szTaskLabel'),(1, 'szTaskIdentifier'),(1, 'szTaskPlugin'),(1, 'dwTaskStatus'),(1, 'saContext'),)))
-    ITsSbTaskPluginNotifySink.OnDeleteTaskTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(6, 'OnDeleteTaskTime', ((1, 'szTargetName'),(1, 'szTaskIdentifier'),)))
-    ITsSbTaskPluginNotifySink.OnUpdateTaskStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.RDV_TASK_STATUS)(7, 'OnUpdateTaskStatus', ((1, 'szTargetName'),(1, 'TaskIdentifier'),(1, 'TaskStatus'),)))
-    ITsSbTaskPluginNotifySink.OnReportTasks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'OnReportTasks', ((1, 'szHostName'),)))
-    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
-    return ITsSbTaskPluginNotifySink
-def _define_IWorkspace_head():
-    class IWorkspace(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e5')
-    return IWorkspace
-def _define_IWorkspace():
-    IWorkspace = win32more.System.RemoteDesktop.IWorkspace_head
-    IWorkspace.GetWorkspaceNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetWorkspaceNames', ((1, 'psaWkspNames'),)))
-    IWorkspace.StartRemoteApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.SAFEARRAY_head))(4, 'StartRemoteApplication', ((1, 'bstrWorkspaceId'),(1, 'psaParams'),)))
-    IWorkspace.GetProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(5, 'GetProcessId', ((1, 'pulProcessId'),)))
-    win32more.System.Com.IUnknown
-    return IWorkspace
-def _define_IWorkspace2_head():
-    class IWorkspace2(win32more.System.RemoteDesktop.IWorkspace_head):
-        Guid = Guid('96d8d7cf-783e-4286-83-4c-eb-c0-e9-5f-78-3c')
-    return IWorkspace2
-def _define_IWorkspace2():
-    IWorkspace2 = win32more.System.RemoteDesktop.IWorkspace2_head
-    IWorkspace2.StartRemoteApplicationEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,POINTER(win32more.System.Com.SAFEARRAY_head))(6, 'StartRemoteApplicationEx', ((1, 'bstrWorkspaceId'),(1, 'bstrRequestingAppId'),(1, 'bstrRequestingAppFamilyName'),(1, 'bLaunchIntoImmersiveClient'),(1, 'bstrImmersiveClientActivationContext'),(1, 'psaParams'),)))
-    win32more.System.RemoteDesktop.IWorkspace
-    return IWorkspace2
-def _define_IWorkspace3_head():
-    class IWorkspace3(win32more.System.RemoteDesktop.IWorkspace2_head):
-        Guid = Guid('1becbe4a-d654-423b-af-eb-be-8d-53-2c-13-c6')
-    return IWorkspace3
-def _define_IWorkspace3():
-    IWorkspace3 = win32more.System.RemoteDesktop.IWorkspace3_head
-    IWorkspace3.GetClaimsToken2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,UInt32,win32more.Foundation.RECT,POINTER(win32more.Foundation.BSTR))(7, 'GetClaimsToken2', ((1, 'bstrClaimsHint'),(1, 'bstrUserHint'),(1, 'claimCookie'),(1, 'hwndCredUiParent'),(1, 'rectCredUiParent'),(1, 'pbstrAccessToken'),)))
-    IWorkspace3.SetClaimsToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt64,win32more.Foundation.BSTR)(8, 'SetClaimsToken', ((1, 'bstrAccessToken'),(1, 'ullAccessTokenExpiration'),(1, 'bstrRefreshToken'),)))
-    win32more.System.RemoteDesktop.IWorkspace2
-    return IWorkspace3
-def _define_IWorkspaceClientExt_head():
-    class IWorkspaceClientExt(win32more.System.Com.IUnknown_head):
-        Guid = Guid('12b952f4-41ca-4f21-a8-29-a6-d0-7d-9a-16-e5')
-    return IWorkspaceClientExt
-def _define_IWorkspaceClientExt():
-    IWorkspaceClientExt = win32more.System.RemoteDesktop.IWorkspaceClientExt_head
-    IWorkspaceClientExt.GetResourceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'GetResourceId', ((1, 'bstrWorkspaceId'),)))
-    IWorkspaceClientExt.GetResourceDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'GetResourceDisplayName', ((1, 'bstrWorkspaceDisplayName'),)))
-    IWorkspaceClientExt.IssueDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'IssueDisconnect', ()))
-    win32more.System.Com.IUnknown
-    return IWorkspaceClientExt
-def _define_IWorkspaceRegistration_head():
-    class IWorkspaceRegistration(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e6')
-    return IWorkspaceRegistration
-def _define_IWorkspaceRegistration():
-    IWorkspaceRegistration = win32more.System.RemoteDesktop.IWorkspaceRegistration_head
-    IWorkspaceRegistration.AddResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWorkspaceClientExt_head,POINTER(UInt32))(3, 'AddResource', ((1, 'pUnk'),(1, 'pdwCookie'),)))
-    IWorkspaceRegistration.RemoveResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'RemoveResource', ((1, 'dwCookieConnection'),)))
-    win32more.System.Com.IUnknown
-    return IWorkspaceRegistration
-def _define_IWorkspaceRegistration2_head():
-    class IWorkspaceRegistration2(win32more.System.RemoteDesktop.IWorkspaceRegistration_head):
-        Guid = Guid('cf59f654-39bb-44d8-94-d0-46-35-72-89-57-e9')
-    return IWorkspaceRegistration2
-def _define_IWorkspaceRegistration2():
-    IWorkspaceRegistration2 = win32more.System.RemoteDesktop.IWorkspaceRegistration2_head
-    IWorkspaceRegistration2.AddResourceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWorkspaceClientExt_head,win32more.Foundation.BSTR,POINTER(UInt32),Guid)(5, 'AddResourceEx', ((1, 'pUnk'),(1, 'bstrEventLogUploadAddress'),(1, 'pdwCookie'),(1, 'correlationId'),)))
-    IWorkspaceRegistration2.RemoveResourceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Guid)(6, 'RemoveResourceEx', ((1, 'dwCookieConnection'),(1, 'correlationId'),)))
-    win32more.System.RemoteDesktop.IWorkspaceRegistration
-    return IWorkspaceRegistration2
-def _define_IWorkspaceReportMessage_head():
-    class IWorkspaceReportMessage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a7c06739-500f-4e8c-99-a8-2b-d6-95-58-99-eb')
-    return IWorkspaceReportMessage
-def _define_IWorkspaceReportMessage():
-    IWorkspaceReportMessage = win32more.System.RemoteDesktop.IWorkspaceReportMessage_head
-    IWorkspaceReportMessage.RegisterErrorLogMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'RegisterErrorLogMessage', ((1, 'bstrMessage'),)))
-    IWorkspaceReportMessage.IsErrorMessageRegistered = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,UInt32,POINTER(win32more.Foundation.VARIANT_BOOL))(4, 'IsErrorMessageRegistered', ((1, 'bstrWkspId'),(1, 'dwErrorType'),(1, 'bstrErrorMessageType'),(1, 'dwErrorCode'),(1, 'pfErrorExist'),)))
-    IWorkspaceReportMessage.RegisterErrorEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,UInt32)(5, 'RegisterErrorEvent', ((1, 'bstrWkspId'),(1, 'dwErrorType'),(1, 'bstrErrorMessageType'),(1, 'dwErrorCode'),)))
-    win32more.System.Com.IUnknown
-    return IWorkspaceReportMessage
-def _define_IWorkspaceResTypeRegistry_head():
-    class IWorkspaceResTypeRegistry(win32more.System.Com.IDispatch_head):
-        Guid = Guid('1d428c79-6e2e-4351-a3-61-c0-40-1a-03-a0-ba')
-    return IWorkspaceResTypeRegistry
-def _define_IWorkspaceResTypeRegistry():
-    IWorkspaceResTypeRegistry = win32more.System.RemoteDesktop.IWorkspaceResTypeRegistry_head
-    IWorkspaceResTypeRegistry.AddResourceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(7, 'AddResourceType', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),(1, 'bstrLauncher'),)))
-    IWorkspaceResTypeRegistry.DeleteResourceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR)(8, 'DeleteResourceType', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),)))
-    IWorkspaceResTypeRegistry.GetRegisteredFileExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(9, 'GetRegisteredFileExtensions', ((1, 'fMachineWide'),(1, 'psaFileExtensions'),)))
-    IWorkspaceResTypeRegistry.GetResourceTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR))(10, 'GetResourceTypeInfo', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),(1, 'pbstrLauncher'),)))
-    IWorkspaceResTypeRegistry.ModifyResourceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(11, 'ModifyResourceType', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),(1, 'bstrLauncher'),)))
-    win32more.System.Com.IDispatch
-    return IWorkspaceResTypeRegistry
-def _define_IWorkspaceScriptable_head():
-    class IWorkspaceScriptable(win32more.System.Com.IDispatch_head):
-        Guid = Guid('efea49a2-dda5-429d-8f-42-b2-3b-92-c4-c3-47')
-    return IWorkspaceScriptable
-def _define_IWorkspaceScriptable():
-    IWorkspaceScriptable = win32more.System.RemoteDesktop.IWorkspaceScriptable_head
-    IWorkspaceScriptable.DisconnectWorkspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'DisconnectWorkspace', ((1, 'bstrWorkspaceId'),)))
-    IWorkspaceScriptable.StartWorkspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32)(8, 'StartWorkspace', ((1, 'bstrWorkspaceId'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'bstrWorkspaceParams'),(1, 'lTimeout'),(1, 'lFlags'),)))
-    IWorkspaceScriptable.IsWorkspaceCredentialSpecified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.VARIANT_BOOL,POINTER(win32more.Foundation.VARIANT_BOOL))(9, 'IsWorkspaceCredentialSpecified', ((1, 'bstrWorkspaceId'),(1, 'bCountUnauthenticatedCredentials'),(1, 'pbCredExist'),)))
-    IWorkspaceScriptable.IsWorkspaceSSOEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(10, 'IsWorkspaceSSOEnabled', ((1, 'pbSSOEnabled'),)))
-    IWorkspaceScriptable.ClearWorkspaceCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'ClearWorkspaceCredential', ((1, 'bstrWorkspaceId'),)))
-    IWorkspaceScriptable.OnAuthenticated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(12, 'OnAuthenticated', ((1, 'bstrWorkspaceId'),(1, 'bstrUserName'),)))
-    IWorkspaceScriptable.DisconnectWorkspaceByFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'DisconnectWorkspaceByFriendlyName', ((1, 'bstrWorkspaceFriendlyName'),)))
-    win32more.System.Com.IDispatch
-    return IWorkspaceScriptable
-def _define_IWorkspaceScriptable2_head():
-    class IWorkspaceScriptable2(win32more.System.RemoteDesktop.IWorkspaceScriptable_head):
-        Guid = Guid('efea49a2-dda5-429d-8f-42-b3-3b-a2-c4-c3-48')
-    return IWorkspaceScriptable2
-def _define_IWorkspaceScriptable2():
-    IWorkspaceScriptable2 = win32more.System.RemoteDesktop.IWorkspaceScriptable2_head
-    IWorkspaceScriptable2.StartWorkspaceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32)(14, 'StartWorkspaceEx', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),(1, 'bstrRedirectorName'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'bstrAppContainer'),(1, 'bstrWorkspaceParams'),(1, 'lTimeout'),(1, 'lFlags'),)))
-    IWorkspaceScriptable2.ResourceDismissed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(15, 'ResourceDismissed', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),)))
-    win32more.System.RemoteDesktop.IWorkspaceScriptable
-    return IWorkspaceScriptable2
-def _define_IWorkspaceScriptable3_head():
-    class IWorkspaceScriptable3(win32more.System.RemoteDesktop.IWorkspaceScriptable2_head):
-        Guid = Guid('531e6512-2cbf-4bd2-80-a5-d9-0a-71-63-6a-9a')
-    return IWorkspaceScriptable3
-def _define_IWorkspaceScriptable3():
-    IWorkspaceScriptable3 = win32more.System.RemoteDesktop.IWorkspaceScriptable3_head
-    IWorkspaceScriptable3.StartWorkspaceEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32,win32more.Foundation.BSTR,Guid)(16, 'StartWorkspaceEx2', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),(1, 'bstrRedirectorName'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'bstrAppContainer'),(1, 'bstrWorkspaceParams'),(1, 'lTimeout'),(1, 'lFlags'),(1, 'bstrEventLogUploadAddress'),(1, 'correlationId'),)))
-    win32more.System.RemoteDesktop.IWorkspaceScriptable2
-    return IWorkspaceScriptable3
-def _define_IWRdsEnhancedFastReconnectArbitrator_head():
-    class IWRdsEnhancedFastReconnectArbitrator(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5718ae9b-47f2-499f-b6-34-d8-17-5b-d5-11-31')
-    return IWRdsEnhancedFastReconnectArbitrator
-def _define_IWRdsEnhancedFastReconnectArbitrator():
-    IWRdsEnhancedFastReconnectArbitrator = win32more.System.RemoteDesktop.IWRdsEnhancedFastReconnectArbitrator_head
-    IWRdsEnhancedFastReconnectArbitrator.GetSessionForEnhancedFastReconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,POINTER(Int32))(3, 'GetSessionForEnhancedFastReconnect', ((1, 'pSessionIdArray'),(1, 'dwSessionCount'),(1, 'pResultSessionId'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsEnhancedFastReconnectArbitrator
-def _define_IWRdsGraphicsChannel_head():
-    class IWRdsGraphicsChannel(win32more.System.Com.IUnknown_head):
-        Guid = Guid('684b7a0b-edff-43ad-d5-a2-4a-8d-53-88-f4-01')
-    return IWRdsGraphicsChannel
-def _define_IWRdsGraphicsChannel():
-    IWRdsGraphicsChannel = win32more.System.RemoteDesktop.IWRdsGraphicsChannel_head
-    IWRdsGraphicsChannel.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,win32more.System.Com.IUnknown_head)(3, 'Write', ((1, 'cbSize'),(1, 'pBuffer'),(1, 'pContext'),)))
-    IWRdsGraphicsChannel.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    IWRdsGraphicsChannel.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsGraphicsChannelEvents_head,win32more.System.Com.IUnknown_head)(5, 'Open', ((1, 'pChannelEvents'),(1, 'pOpenContext'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsGraphicsChannel
-def _define_IWRdsGraphicsChannelEvents_head():
-    class IWRdsGraphicsChannelEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('67f2368c-d674-4fae-66-a5-d2-06-28-a6-40-d2')
-    return IWRdsGraphicsChannelEvents
-def _define_IWRdsGraphicsChannelEvents():
-    IWRdsGraphicsChannelEvents = win32more.System.RemoteDesktop.IWRdsGraphicsChannelEvents_head
-    IWRdsGraphicsChannelEvents.OnDataReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no)(3, 'OnDataReceived', ((1, 'cbSize'),(1, 'pBuffer'),)))
-    IWRdsGraphicsChannelEvents.OnClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'OnClose', ()))
-    IWRdsGraphicsChannelEvents.OnChannelOpened = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(5, 'OnChannelOpened', ((1, 'OpenResult'),(1, 'pOpenContext'),)))
-    IWRdsGraphicsChannelEvents.OnDataSent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,c_char_p_no,UInt32)(6, 'OnDataSent', ((1, 'pWriteContext'),(1, 'bCancelled'),(1, 'pBuffer'),(1, 'cbBuffer'),)))
-    IWRdsGraphicsChannelEvents.OnMetricsUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt64)(7, 'OnMetricsUpdate', ((1, 'bandwidth'),(1, 'RTT'),(1, 'lastSentByteIndex'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsGraphicsChannelEvents
-def _define_IWRdsGraphicsChannelManager_head():
-    class IWRdsGraphicsChannelManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0fd57159-e83e-476a-a8-b9-4a-79-76-e7-1e-18')
-    return IWRdsGraphicsChannelManager
-def _define_IWRdsGraphicsChannelManager():
-    IWRdsGraphicsChannelManager = win32more.System.RemoteDesktop.IWRdsGraphicsChannelManager_head
-    IWRdsGraphicsChannelManager.CreateChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,win32more.System.RemoteDesktop.WRdsGraphicsChannelType,POINTER(win32more.System.RemoteDesktop.IWRdsGraphicsChannel_head))(3, 'CreateChannel', ((1, 'pszChannelName'),(1, 'channelType'),(1, 'ppVirtualChannel'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsGraphicsChannelManager
-def _define_IWRdsProtocolConnection_head():
-    class IWRdsProtocolConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('324ed94f-fdaf-4ff6-81-a8-42-ab-e7-55-83-0b')
-    return IWRdsProtocolConnection
-def _define_IWRdsProtocolConnection():
-    IWRdsProtocolConnection = win32more.System.RemoteDesktop.IWRdsProtocolConnection_head
-    IWRdsProtocolConnection.GetLogonErrorRedirector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWRdsProtocolLogonErrorRedirector_head))(3, 'GetLogonErrorRedirector', ((1, 'ppLogonErrorRedir'),)))
-    IWRdsProtocolConnection.AcceptConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'AcceptConnection', ()))
-    IWRdsProtocolConnection.GetClientData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_CLIENT_DATA_head))(5, 'GetClientData', ((1, 'pClientData'),)))
-    IWRdsProtocolConnection.GetClientMonitorData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(6, 'GetClientMonitorData', ((1, 'pNumMonitors'),(1, 'pPrimaryMonitor'),)))
-    IWRdsProtocolConnection.GetUserCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_USER_CREDENTIAL_head))(7, 'GetUserCredentials', ((1, 'pUserCreds'),)))
-    IWRdsProtocolConnection.GetLicenseConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWRdsProtocolLicenseConnection_head))(8, 'GetLicenseConnection', ((1, 'ppLicenseConnection'),)))
-    IWRdsProtocolConnection.AuthenticateClientToSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(9, 'AuthenticateClientToSession', ((1, 'SessionId'),)))
-    IWRdsProtocolConnection.NotifySessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),win32more.Foundation.HANDLE_PTR)(10, 'NotifySessionId', ((1, 'SessionId'),(1, 'SessionHandle'),)))
-    IWRdsProtocolConnection.GetInputHandles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE_PTR),POINTER(win32more.Foundation.HANDLE_PTR),POINTER(win32more.Foundation.HANDLE_PTR))(11, 'GetInputHandles', ((1, 'pKeyboardHandle'),(1, 'pMouseHandle'),(1, 'pBeepHandle'),)))
-    IWRdsProtocolConnection.GetVideoHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE_PTR))(12, 'GetVideoHandle', ((1, 'pVideoHandle'),)))
-    IWRdsProtocolConnection.ConnectNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(13, 'ConnectNotify', ((1, 'SessionId'),)))
-    IWRdsProtocolConnection.IsUserAllowedToLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE_PTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(14, 'IsUserAllowedToLogon', ((1, 'SessionId'),(1, 'UserToken'),(1, 'pDomainName'),(1, 'pUserName'),)))
-    IWRdsProtocolConnection.SessionArbitrationEnumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32))(15, 'SessionArbitrationEnumeration', ((1, 'hUserToken'),(1, 'bSingleSessionPerUserEnabled'),(1, 'pSessionIdArray'),(1, 'pdwSessionIdentifierCount'),)))
-    IWRdsProtocolConnection.LogonNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head))(16, 'LogonNotify', ((1, 'hClientToken'),(1, 'wszUserName'),(1, 'wszDomainName'),(1, 'SessionId'),(1, 'pWRdsConnectionSettings'),)))
-    IWRdsProtocolConnection.PreDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(17, 'PreDisconnect', ((1, 'DisconnectReason'),)))
-    IWRdsProtocolConnection.DisconnectNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'DisconnectNotify', ()))
-    IWRdsProtocolConnection.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'Close', ()))
-    IWRdsProtocolConnection.GetProtocolStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_PROTOCOL_STATUS_head))(20, 'GetProtocolStatus', ((1, 'pProtocolStatus'),)))
-    IWRdsProtocolConnection.GetLastInputTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(21, 'GetLastInputTime', ((1, 'pLastInputTime'),)))
-    IWRdsProtocolConnection.SetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(22, 'SetErrorInfo', ((1, 'ulError'),)))
-    IWRdsProtocolConnection.CreateVirtualChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32,POINTER(UIntPtr))(23, 'CreateVirtualChannel', ((1, 'szEndpointName'),(1, 'bStatic'),(1, 'RequestedPriority'),(1, 'phChannel'),)))
-    IWRdsProtocolConnection.QueryProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head),POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head))(24, 'QueryProperty', ((1, 'QueryType'),(1, 'ulNumEntriesIn'),(1, 'ulNumEntriesOut'),(1, 'pPropertyEntriesIn'),(1, 'pPropertyEntriesOut'),)))
-    IWRdsProtocolConnection.GetShadowConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWRdsProtocolShadowConnection_head))(25, 'GetShadowConnection', ((1, 'ppShadowConnection'),)))
-    IWRdsProtocolConnection.NotifyCommandProcessCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(26, 'NotifyCommandProcessCreated', ((1, 'SessionId'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolConnection
-def _define_IWRdsProtocolConnectionCallback_head():
-    class IWRdsProtocolConnectionCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f1d70332-d070-4ef1-a0-88-78-31-35-36-c2-d6')
-    return IWRdsProtocolConnectionCallback
-def _define_IWRdsProtocolConnectionCallback():
-    IWRdsProtocolConnectionCallback = win32more.System.RemoteDesktop.IWRdsProtocolConnectionCallback_head
-    IWRdsProtocolConnectionCallback.OnReady = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnReady', ()))
-    IWRdsProtocolConnectionCallback.BrokenConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(4, 'BrokenConnection', ((1, 'Reason'),(1, 'Source'),)))
-    IWRdsProtocolConnectionCallback.StopScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'StopScreenUpdates', ()))
-    IWRdsProtocolConnectionCallback.RedrawWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head))(6, 'RedrawWindow', ((1, 'rect'),)))
-    IWRdsProtocolConnectionCallback.GetConnectionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'GetConnectionId', ((1, 'pConnectionId'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolConnectionCallback
-def _define_IWRdsProtocolConnectionSettings_head():
-    class IWRdsProtocolConnectionSettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('83fcf5d3-f6f4-ea94-9c-d2-32-f2-80-e1-e5-10')
-    return IWRdsProtocolConnectionSettings
-def _define_IWRdsProtocolConnectionSettings():
-    IWRdsProtocolConnectionSettings = win32more.System.RemoteDesktop.IWRdsProtocolConnectionSettings_head
-    IWRdsProtocolConnectionSettings.SetConnectionSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head))(3, 'SetConnectionSetting', ((1, 'PropertyID'),(1, 'pPropertyEntriesIn'),)))
-    IWRdsProtocolConnectionSettings.GetConnectionSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head))(4, 'GetConnectionSetting', ((1, 'PropertyID'),(1, 'pPropertyEntriesOut'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolConnectionSettings
-def _define_IWRdsProtocolLicenseConnection_head():
-    class IWRdsProtocolLicenseConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1d6a145f-d095-4424-95-7a-40-7f-ae-82-2d-84')
-    return IWRdsProtocolLicenseConnection
-def _define_IWRdsProtocolLicenseConnection():
-    IWRdsProtocolLicenseConnection = win32more.System.RemoteDesktop.IWRdsProtocolLicenseConnection_head
-    IWRdsProtocolLicenseConnection.RequestLicensingCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head),POINTER(UInt32))(3, 'RequestLicensingCapabilities', ((1, 'ppLicenseCapabilities'),(1, 'pcbLicenseCapabilities'),)))
-    IWRdsProtocolLicenseConnection.SendClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(4, 'SendClientLicense', ((1, 'pClientLicense'),(1, 'cbClientLicense'),)))
-    IWRdsProtocolLicenseConnection.RequestClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))(5, 'RequestClientLicense', ((1, 'Reserve1'),(1, 'Reserve2'),(1, 'ppClientLicense'),(1, 'pcbClientLicense'),)))
-    IWRdsProtocolLicenseConnection.ProtocolComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'ProtocolComplete', ((1, 'ulComplete'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolLicenseConnection
-def _define_IWRdsProtocolListener_head():
-    class IWRdsProtocolListener(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fcbc131b-c686-451d-a7-73-e2-79-e2-30-f5-40')
-    return IWRdsProtocolListener
-def _define_IWRdsProtocolListener():
-    IWRdsProtocolListener = win32more.System.RemoteDesktop.IWRdsProtocolListener_head
-    IWRdsProtocolListener.GetSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_head))(3, 'GetSettings', ((1, 'WRdsListenerSettingLevel'),(1, 'pWRdsListenerSettings'),)))
-    IWRdsProtocolListener.StartListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsProtocolListenerCallback_head)(4, 'StartListen', ((1, 'pCallback'),)))
-    IWRdsProtocolListener.StopListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'StopListen', ()))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolListener
-def _define_IWRdsProtocolListenerCallback_head():
-    class IWRdsProtocolListenerCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3ab27e5b-4449-4dc1-b7-4a-91-62-1d-4f-e9-84')
-    return IWRdsProtocolListenerCallback
-def _define_IWRdsProtocolListenerCallback():
-    IWRdsProtocolListenerCallback = win32more.System.RemoteDesktop.IWRdsProtocolListenerCallback_head
-    IWRdsProtocolListenerCallback.OnConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsProtocolConnection_head,POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head),POINTER(win32more.System.RemoteDesktop.IWRdsProtocolConnectionCallback_head))(3, 'OnConnected', ((1, 'pConnection'),(1, 'pWRdsConnectionSettings'),(1, 'pCallback'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolListenerCallback
-def _define_IWRdsProtocolLogonErrorRedirector_head():
-    class IWRdsProtocolLogonErrorRedirector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('519fe83b-142a-4120-a3-d5-a4-05-d3-15-28-1a')
-    return IWRdsProtocolLogonErrorRedirector
-def _define_IWRdsProtocolLogonErrorRedirector():
-    IWRdsProtocolLogonErrorRedirector = win32more.System.RemoteDesktop.IWRdsProtocolLogonErrorRedirector_head
-    IWRdsProtocolLogonErrorRedirector.OnBeginPainting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnBeginPainting', ()))
-    IWRdsProtocolLogonErrorRedirector.RedirectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(4, 'RedirectStatus', ((1, 'pszMessage'),(1, 'pResponse'),)))
-    IWRdsProtocolLogonErrorRedirector.RedirectMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(5, 'RedirectMessage', ((1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
-    IWRdsProtocolLogonErrorRedirector.RedirectLogonError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(6, 'RedirectLogonError', ((1, 'ntsStatus'),(1, 'ntsSubstatus'),(1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolLogonErrorRedirector
-def _define_IWRdsProtocolManager_head():
-    class IWRdsProtocolManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dc796967-3abb-40cd-a4-46-10-52-76-b5-89-50')
-    return IWRdsProtocolManager
-def _define_IWRdsProtocolManager():
-    IWRdsProtocolManager = win32more.System.RemoteDesktop.IWRdsProtocolManager_head
-    IWRdsProtocolManager.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsProtocolSettings_head,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head))(3, 'Initialize', ((1, 'pIWRdsSettings'),(1, 'pWRdsSettings'),)))
-    IWRdsProtocolManager.CreateListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.IWRdsProtocolListener_head))(4, 'CreateListener', ((1, 'wszListenerName'),(1, 'pProtocolListener'),)))
-    IWRdsProtocolManager.NotifyServiceStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SERVICE_STATE_head))(5, 'NotifyServiceStateChange', ((1, 'pTSServiceStateChange'),)))
-    IWRdsProtocolManager.NotifySessionOfServiceStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(6, 'NotifySessionOfServiceStart', ((1, 'SessionId'),)))
-    IWRdsProtocolManager.NotifySessionOfServiceStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(7, 'NotifySessionOfServiceStop', ((1, 'SessionId'),)))
-    IWRdsProtocolManager.NotifySessionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),UInt32)(8, 'NotifySessionStateChange', ((1, 'SessionId'),(1, 'EventId'),)))
-    IWRdsProtocolManager.NotifySettingsChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head))(9, 'NotifySettingsChange', ((1, 'pWRdsSettings'),)))
-    IWRdsProtocolManager.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Uninitialize', ()))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolManager
-def _define_IWRdsProtocolSettings_head():
-    class IWRdsProtocolSettings(win32more.System.Com.IUnknown_head):
-        Guid = Guid('654a5a6a-2550-47eb-b6-f7-eb-d6-37-47-52-65')
-    return IWRdsProtocolSettings
-def _define_IWRdsProtocolSettings():
-    IWRdsProtocolSettings = win32more.System.RemoteDesktop.IWRdsProtocolSettings_head
-    IWRdsProtocolSettings.GetSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WRDS_SETTING_TYPE,win32more.System.RemoteDesktop.WRDS_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head))(3, 'GetSettings', ((1, 'WRdsSettingType'),(1, 'WRdsSettingLevel'),(1, 'pWRdsSettings'),)))
-    IWRdsProtocolSettings.MergeSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head),win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head))(4, 'MergeSettings', ((1, 'pWRdsSettings'),(1, 'WRdsConnectionSettingLevel'),(1, 'pWRdsConnectionSettings'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolSettings
-def _define_IWRdsProtocolShadowCallback_head():
-    class IWRdsProtocolShadowCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e0667ce0-0372-40d6-ad-b2-a0-f3-32-26-74-d6')
-    return IWRdsProtocolShadowCallback
-def _define_IWRdsProtocolShadowCallback():
-    IWRdsProtocolShadowCallback = win32more.System.RemoteDesktop.IWRdsProtocolShadowCallback_head
-    IWRdsProtocolShadowCallback.StopShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'StopShadow', ()))
-    IWRdsProtocolShadowCallback.InvokeTargetShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(4, 'InvokeTargetShadow', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolShadowCallback
-def _define_IWRdsProtocolShadowConnection_head():
-    class IWRdsProtocolShadowConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9ae85ce6-cade-4548-8f-eb-99-01-65-97-f6-0a')
-    return IWRdsProtocolShadowConnection
-def _define_IWRdsProtocolShadowConnection():
-    IWRdsProtocolShadowConnection = win32more.System.RemoteDesktop.IWRdsProtocolShadowConnection_head
-    IWRdsProtocolShadowConnection.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,Byte,UInt16,win32more.System.RemoteDesktop.IWRdsProtocolShadowCallback_head)(3, 'Start', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'HotKeyVk'),(1, 'HotkeyModifiers'),(1, 'pShadowCallback'),)))
-    IWRdsProtocolShadowConnection.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Stop', ()))
-    IWRdsProtocolShadowConnection.DoTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(5, 'DoTarget', ((1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsProtocolShadowConnection
-def _define_IWRdsWddmIddProps_head():
-    class IWRdsWddmIddProps(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1382df4d-a289-43d1-a1-84-14-47-26-f9-af-90')
-    return IWRdsWddmIddProps
-def _define_IWRdsWddmIddProps():
-    IWRdsWddmIddProps = win32more.System.RemoteDesktop.IWRdsWddmIddProps_head
-    IWRdsWddmIddProps.GetHardwareId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(3, 'GetHardwareId', ((1, 'pDisplayDriverHardwareId'),(1, 'Count'),)))
-    IWRdsWddmIddProps.OnDriverLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE_PTR)(4, 'OnDriverLoad', ((1, 'SessionId'),(1, 'DriverHandle'),)))
-    IWRdsWddmIddProps.OnDriverUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'OnDriverUnload', ((1, 'SessionId'),)))
-    IWRdsWddmIddProps.EnableWddmIdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(6, 'EnableWddmIdd', ((1, 'Enabled'),)))
-    win32more.System.Com.IUnknown
-    return IWRdsWddmIddProps
-def _define_IWTSBitmapRenderer_head():
-    class IWTSBitmapRenderer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5b7acc97-f3c9-46f7-8c-5b-fa-68-5d-34-41-b1')
-    return IWTSBitmapRenderer
-def _define_IWTSBitmapRenderer():
-    IWTSBitmapRenderer = win32more.System.RemoteDesktop.IWTSBitmapRenderer_head
-    IWTSBitmapRenderer.Render = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,Int32,UInt32,c_char_p_no)(3, 'Render', ((1, 'imageFormat'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'cbStride'),(1, 'cbImageBuffer'),(1, 'pImageBuffer'),)))
-    IWTSBitmapRenderer.GetRendererStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.BITMAP_RENDERER_STATISTICS_head))(4, 'GetRendererStatistics', ((1, 'pStatistics'),)))
-    IWTSBitmapRenderer.RemoveMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'RemoveMapping', ()))
-    win32more.System.Com.IUnknown
-    return IWTSBitmapRenderer
-def _define_IWTSBitmapRendererCallback_head():
-    class IWTSBitmapRendererCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d782928e-fe4e-4e77-ae-90-9c-d0-b3-e3-b3-53')
-    return IWTSBitmapRendererCallback
-def _define_IWTSBitmapRendererCallback():
-    IWTSBitmapRendererCallback = win32more.System.RemoteDesktop.IWTSBitmapRendererCallback_head
-    IWTSBitmapRendererCallback.OnTargetSizeChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT)(3, 'OnTargetSizeChanged', ((1, 'rcNewSize'),)))
-    win32more.System.Com.IUnknown
-    return IWTSBitmapRendererCallback
-def _define_IWTSBitmapRenderService_head():
-    class IWTSBitmapRenderService(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ea326091-05fe-40c1-b4-9c-3d-2e-f4-62-6a-0e')
-    return IWTSBitmapRenderService
-def _define_IWTSBitmapRenderService():
-    IWTSBitmapRenderService = win32more.System.RemoteDesktop.IWTSBitmapRenderService_head
-    IWTSBitmapRenderService.GetMappedRenderer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.System.RemoteDesktop.IWTSBitmapRendererCallback_head,POINTER(win32more.System.RemoteDesktop.IWTSBitmapRenderer_head))(3, 'GetMappedRenderer', ((1, 'mappingId'),(1, 'pMappedRendererCallback'),(1, 'ppMappedRenderer'),)))
-    win32more.System.Com.IUnknown
-    return IWTSBitmapRenderService
-def _define_IWTSListener_head():
-    class IWTSListener(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230206-9a39-4d58-86-74-cd-b4-df-f4-e7-3b')
-    return IWTSListener
-def _define_IWTSListener():
-    IWTSListener = win32more.System.RemoteDesktop.IWTSListener_head
-    IWTSListener.GetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IPropertyBag_head))(3, 'GetConfiguration', ((1, 'ppPropertyBag'),)))
-    win32more.System.Com.IUnknown
-    return IWTSListener
-def _define_IWTSListenerCallback_head():
-    class IWTSListenerCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230203-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
-    return IWTSListenerCallback
-def _define_IWTSListenerCallback():
-    IWTSListenerCallback = win32more.System.RemoteDesktop.IWTSListenerCallback_head
-    IWTSListenerCallback.OnNewChannelConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSVirtualChannel_head,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.RemoteDesktop.IWTSVirtualChannelCallback_head))(3, 'OnNewChannelConnection', ((1, 'pChannel'),(1, 'data'),(1, 'pbAccept'),(1, 'ppCallback'),)))
-    win32more.System.Com.IUnknown
-    return IWTSListenerCallback
-def _define_IWTSPlugin_head():
-    class IWTSPlugin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230201-1439-4e62-a4-14-19-0d-0a-c3-d4-0e')
-    return IWTSPlugin
-def _define_IWTSPlugin():
-    IWTSPlugin = win32more.System.RemoteDesktop.IWTSPlugin_head
-    IWTSPlugin.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSVirtualChannelManager_head)(3, 'Initialize', ((1, 'pChannelMgr'),)))
-    IWTSPlugin.Connected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Connected', ()))
-    IWTSPlugin.Disconnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'Disconnected', ((1, 'dwDisconnectCode'),)))
-    IWTSPlugin.Terminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Terminated', ()))
-    win32more.System.Com.IUnknown
-    return IWTSPlugin
-def _define_IWTSPluginServiceProvider_head():
-    class IWTSPluginServiceProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d3e07363-087c-476c-86-a7-db-b1-5f-46-dd-b4')
-    return IWTSPluginServiceProvider
-def _define_IWTSPluginServiceProvider():
-    IWTSPluginServiceProvider = win32more.System.RemoteDesktop.IWTSPluginServiceProvider_head
-    IWTSPluginServiceProvider.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.IUnknown_head))(3, 'GetService', ((1, 'ServiceId'),(1, 'ppunkObject'),)))
-    win32more.System.Com.IUnknown
-    return IWTSPluginServiceProvider
-def _define_IWTSProtocolConnection_head():
-    class IWTSProtocolConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('23083765-9095-4648-98-bf-ef-81-c9-14-03-2d')
-    return IWTSProtocolConnection
-def _define_IWTSProtocolConnection():
-    IWTSProtocolConnection = win32more.System.RemoteDesktop.IWTSProtocolConnection_head
-    IWTSProtocolConnection.GetLogonErrorRedirector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWTSProtocolLogonErrorRedirector_head))(3, 'GetLogonErrorRedirector', ((1, 'ppLogonErrorRedir'),)))
-    IWTSProtocolConnection.SendPolicyData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_POLICY_DATA_head))(4, 'SendPolicyData', ((1, 'pPolicyData'),)))
-    IWTSProtocolConnection.AcceptConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'AcceptConnection', ()))
-    IWTSProtocolConnection.GetClientData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_CLIENT_DATA_head))(6, 'GetClientData', ((1, 'pClientData'),)))
-    IWTSProtocolConnection.GetUserCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_USER_CREDENTIAL_head))(7, 'GetUserCredentials', ((1, 'pUserCreds'),)))
-    IWTSProtocolConnection.GetLicenseConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWTSProtocolLicenseConnection_head))(8, 'GetLicenseConnection', ((1, 'ppLicenseConnection'),)))
-    IWTSProtocolConnection.AuthenticateClientToSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(9, 'AuthenticateClientToSession', ((1, 'SessionId'),)))
-    IWTSProtocolConnection.NotifySessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(10, 'NotifySessionId', ((1, 'SessionId'),)))
-    IWTSProtocolConnection.GetProtocolHandles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE_PTR),POINTER(win32more.Foundation.HANDLE_PTR),POINTER(win32more.Foundation.HANDLE_PTR),POINTER(win32more.Foundation.HANDLE_PTR))(11, 'GetProtocolHandles', ((1, 'pKeyboardHandle'),(1, 'pMouseHandle'),(1, 'pBeepHandle'),(1, 'pVideoHandle'),)))
-    IWTSProtocolConnection.ConnectNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(12, 'ConnectNotify', ((1, 'SessionId'),)))
-    IWTSProtocolConnection.IsUserAllowedToLogon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE_PTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(13, 'IsUserAllowedToLogon', ((1, 'SessionId'),(1, 'UserToken'),(1, 'pDomainName'),(1, 'pUserName'),)))
-    IWTSProtocolConnection.SessionArbitrationEnumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32))(14, 'SessionArbitrationEnumeration', ((1, 'hUserToken'),(1, 'bSingleSessionPerUserEnabled'),(1, 'pSessionIdArray'),(1, 'pdwSessionIdentifierCount'),)))
-    IWTSProtocolConnection.LogonNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(15, 'LogonNotify', ((1, 'hClientToken'),(1, 'wszUserName'),(1, 'wszDomainName'),(1, 'SessionId'),)))
-    IWTSProtocolConnection.GetUserData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_POLICY_DATA_head),POINTER(win32more.System.RemoteDesktop.WTS_USER_DATA_head))(16, 'GetUserData', ((1, 'pPolicyData'),(1, 'pClientData'),)))
-    IWTSProtocolConnection.DisconnectNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'DisconnectNotify', ()))
-    IWTSProtocolConnection.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'Close', ()))
-    IWTSProtocolConnection.GetProtocolStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_PROTOCOL_STATUS_head))(19, 'GetProtocolStatus', ((1, 'pProtocolStatus'),)))
-    IWTSProtocolConnection.GetLastInputTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64))(20, 'GetLastInputTime', ((1, 'pLastInputTime'),)))
-    IWTSProtocolConnection.SetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(21, 'SetErrorInfo', ((1, 'ulError'),)))
-    IWTSProtocolConnection.SendBeep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(22, 'SendBeep', ((1, 'Frequency'),(1, 'Duration'),)))
-    IWTSProtocolConnection.CreateVirtualChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32,POINTER(UIntPtr))(23, 'CreateVirtualChannel', ((1, 'szEndpointName'),(1, 'bStatic'),(1, 'RequestedPriority'),(1, 'phChannel'),)))
-    IWTSProtocolConnection.QueryProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head),POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head))(24, 'QueryProperty', ((1, 'QueryType'),(1, 'ulNumEntriesIn'),(1, 'ulNumEntriesOut'),(1, 'pPropertyEntriesIn'),(1, 'pPropertyEntriesOut'),)))
-    IWTSProtocolConnection.GetShadowConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWTSProtocolShadowConnection_head))(25, 'GetShadowConnection', ((1, 'ppShadowConnection'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolConnection
-def _define_IWTSProtocolConnectionCallback_head():
-    class IWTSProtocolConnectionCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('23083765-75eb-41fe-b4-fb-e0-86-24-2a-fa-0f')
-    return IWTSProtocolConnectionCallback
-def _define_IWTSProtocolConnectionCallback():
-    IWTSProtocolConnectionCallback = win32more.System.RemoteDesktop.IWTSProtocolConnectionCallback_head
-    IWTSProtocolConnectionCallback.OnReady = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnReady', ()))
-    IWTSProtocolConnectionCallback.BrokenConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(4, 'BrokenConnection', ((1, 'Reason'),(1, 'Source'),)))
-    IWTSProtocolConnectionCallback.StopScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'StopScreenUpdates', ()))
-    IWTSProtocolConnectionCallback.RedrawWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head))(6, 'RedrawWindow', ((1, 'rect'),)))
-    IWTSProtocolConnectionCallback.DisplayIOCtl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_DISPLAY_IOCTL_head))(7, 'DisplayIOCtl', ((1, 'DisplayIOCtl'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolConnectionCallback
-def _define_IWTSProtocolLicenseConnection_head():
-    class IWTSProtocolLicenseConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('23083765-178c-4079-8e-4a-fe-a6-49-6a-4d-70')
-    return IWTSProtocolLicenseConnection
-def _define_IWTSProtocolLicenseConnection():
-    IWTSProtocolLicenseConnection = win32more.System.RemoteDesktop.IWTSProtocolLicenseConnection_head
-    IWTSProtocolLicenseConnection.RequestLicensingCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head),POINTER(UInt32))(3, 'RequestLicensingCapabilities', ((1, 'ppLicenseCapabilities'),(1, 'pcbLicenseCapabilities'),)))
-    IWTSProtocolLicenseConnection.SendClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32)(4, 'SendClientLicense', ((1, 'pClientLicense'),(1, 'cbClientLicense'),)))
-    IWTSProtocolLicenseConnection.RequestClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))(5, 'RequestClientLicense', ((1, 'Reserve1'),(1, 'Reserve2'),(1, 'ppClientLicense'),(1, 'pcbClientLicense'),)))
-    IWTSProtocolLicenseConnection.ProtocolComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'ProtocolComplete', ((1, 'ulComplete'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolLicenseConnection
-def _define_IWTSProtocolListener_head():
-    class IWTSProtocolListener(win32more.System.Com.IUnknown_head):
-        Guid = Guid('23083765-45f0-4394-8f-69-32-b2-bc-0e-f4-ca')
-    return IWTSProtocolListener
-def _define_IWTSProtocolListener():
-    IWTSProtocolListener = win32more.System.RemoteDesktop.IWTSProtocolListener_head
-    IWTSProtocolListener.StartListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSProtocolListenerCallback_head)(3, 'StartListen', ((1, 'pCallback'),)))
-    IWTSProtocolListener.StopListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'StopListen', ()))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolListener
-def _define_IWTSProtocolListenerCallback_head():
-    class IWTSProtocolListenerCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('23083765-1a2d-4de2-97-de-4a-35-f2-60-f0-b3')
-    return IWTSProtocolListenerCallback
-def _define_IWTSProtocolListenerCallback():
-    IWTSProtocolListenerCallback = win32more.System.RemoteDesktop.IWTSProtocolListenerCallback_head
-    IWTSProtocolListenerCallback.OnConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSProtocolConnection_head,POINTER(win32more.System.RemoteDesktop.IWTSProtocolConnectionCallback_head))(3, 'OnConnected', ((1, 'pConnection'),(1, 'pCallback'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolListenerCallback
-def _define_IWTSProtocolLogonErrorRedirector_head():
-    class IWTSProtocolLogonErrorRedirector(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fd9b61a7-2916-4627-8d-ee-43-28-71-1a-d6-cb')
-    return IWTSProtocolLogonErrorRedirector
-def _define_IWTSProtocolLogonErrorRedirector():
-    IWTSProtocolLogonErrorRedirector = win32more.System.RemoteDesktop.IWTSProtocolLogonErrorRedirector_head
-    IWTSProtocolLogonErrorRedirector.OnBeginPainting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnBeginPainting', ()))
-    IWTSProtocolLogonErrorRedirector.RedirectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(4, 'RedirectStatus', ((1, 'pszMessage'),(1, 'pResponse'),)))
-    IWTSProtocolLogonErrorRedirector.RedirectMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(5, 'RedirectMessage', ((1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
-    IWTSProtocolLogonErrorRedirector.RedirectLogonError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE))(6, 'RedirectLogonError', ((1, 'ntsStatus'),(1, 'ntsSubstatus'),(1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolLogonErrorRedirector
-def _define_IWTSProtocolManager_head():
-    class IWTSProtocolManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f9eaf6cc-ed79-4f01-82-1d-1f-88-1b-9f-66-cc')
-    return IWTSProtocolManager
-def _define_IWTSProtocolManager():
-    IWTSProtocolManager = win32more.System.RemoteDesktop.IWTSProtocolManager_head
-    IWTSProtocolManager.CreateListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.IWTSProtocolListener_head))(3, 'CreateListener', ((1, 'wszListenerName'),(1, 'pProtocolListener'),)))
-    IWTSProtocolManager.NotifyServiceStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SERVICE_STATE_head))(4, 'NotifyServiceStateChange', ((1, 'pTSServiceStateChange'),)))
-    IWTSProtocolManager.NotifySessionOfServiceStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(5, 'NotifySessionOfServiceStart', ((1, 'SessionId'),)))
-    IWTSProtocolManager.NotifySessionOfServiceStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head))(6, 'NotifySessionOfServiceStop', ((1, 'SessionId'),)))
-    IWTSProtocolManager.NotifySessionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),UInt32)(7, 'NotifySessionStateChange', ((1, 'SessionId'),(1, 'EventId'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolManager
-def _define_IWTSProtocolShadowCallback_head():
-    class IWTSProtocolShadowCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('503a2504-aae5-4ab1-93-e0-6d-1c-4b-c6-f7-1a')
-    return IWTSProtocolShadowCallback
-def _define_IWTSProtocolShadowCallback():
-    IWTSProtocolShadowCallback = win32more.System.RemoteDesktop.IWTSProtocolShadowCallback_head
-    IWTSProtocolShadowCallback.StopShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'StopShadow', ()))
-    IWTSProtocolShadowCallback.InvokeTargetShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(4, 'InvokeTargetShadow', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolShadowCallback
-def _define_IWTSProtocolShadowConnection_head():
-    class IWTSProtocolShadowConnection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ee3b0c14-37fb-456b-ba-b3-6d-6c-d5-1e-13-bf')
-    return IWTSProtocolShadowConnection
-def _define_IWTSProtocolShadowConnection():
-    IWTSProtocolShadowConnection = win32more.System.RemoteDesktop.IWTSProtocolShadowConnection_head
-    IWTSProtocolShadowConnection.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,Byte,UInt16,win32more.System.RemoteDesktop.IWTSProtocolShadowCallback_head)(3, 'Start', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'HotKeyVk'),(1, 'HotkeyModifiers'),(1, 'pShadowCallback'),)))
-    IWTSProtocolShadowConnection.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Stop', ()))
-    IWTSProtocolShadowConnection.DoTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR)(5, 'DoTarget', ((1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
-    win32more.System.Com.IUnknown
-    return IWTSProtocolShadowConnection
-def _define_IWTSSBPlugin_head():
-    class IWTSSBPlugin(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dc44be78-b18d-4399-b2-10-64-1b-f6-7a-00-2c')
-    return IWTSSBPlugin
-def _define_IWTSSBPlugin():
-    IWTSSBPlugin = win32more.System.RemoteDesktop.IWTSSBPlugin_head
-    IWTSSBPlugin.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'Initialize', ((1, 'PluginCapabilities'),)))
-    IWTSSBPlugin.WTSSBX_MachineChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE,Int32,POINTER(win32more.System.RemoteDesktop.WTSSBX_MACHINE_INFO_head))(4, 'WTSSBX_MachineChangeNotification', ((1, 'NotificationType'),(1, 'MachineId'),(1, 'pMachineInfo'),)))
-    IWTSSBPlugin.WTSSBX_SessionChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE,Int32,UInt32,POINTER(win32more.System.RemoteDesktop.WTSSBX_SESSION_INFO_head))(5, 'WTSSBX_SessionChangeNotification', ((1, 'NotificationType'),(1, 'MachineId'),(1, 'NumOfSessions'),(1, 'SessionInfo'),)))
-    IWTSSBPlugin.WTSSBX_GetMostSuitableServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Int32))(6, 'WTSSBX_GetMostSuitableServer', ((1, 'UserName'),(1, 'DomainName'),(1, 'ApplicationType'),(1, 'FarmName'),(1, 'pMachineId'),)))
-    IWTSSBPlugin.Terminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'Terminated', ()))
-    IWTSSBPlugin.WTSSBX_GetUserExternalSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS_head),POINTER(UInt32),POINTER(win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO_head))(8, 'WTSSBX_GetUserExternalSession', ((1, 'UserName'),(1, 'DomainName'),(1, 'ApplicationType'),(1, 'RedirectorInternalIP'),(1, 'pSessionId'),(1, 'pMachineConnectInfo'),)))
-    win32more.System.Com.IUnknown
-    return IWTSSBPlugin
-def _define_IWTSVirtualChannel_head():
-    class IWTSVirtualChannel(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230207-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
-    return IWTSVirtualChannel
-def _define_IWTSVirtualChannel():
-    IWTSVirtualChannel = win32more.System.RemoteDesktop.IWTSVirtualChannel_head
-    IWTSVirtualChannel.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,win32more.System.Com.IUnknown_head)(3, 'Write', ((1, 'cbSize'),(1, 'pBuffer'),(1, 'pReserved'),)))
-    IWTSVirtualChannel.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    win32more.System.Com.IUnknown
-    return IWTSVirtualChannel
-def _define_IWTSVirtualChannelCallback_head():
-    class IWTSVirtualChannelCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230204-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
-    return IWTSVirtualChannelCallback
-def _define_IWTSVirtualChannelCallback():
-    IWTSVirtualChannelCallback = win32more.System.RemoteDesktop.IWTSVirtualChannelCallback_head
-    IWTSVirtualChannelCallback.OnDataReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no)(3, 'OnDataReceived', ((1, 'cbSize'),(1, 'pBuffer'),)))
-    IWTSVirtualChannelCallback.OnClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'OnClose', ()))
-    win32more.System.Com.IUnknown
-    return IWTSVirtualChannelCallback
-def _define_IWTSVirtualChannelManager_head():
-    class IWTSVirtualChannelManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a1230205-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
-    return IWTSVirtualChannelManager
-def _define_IWTSVirtualChannelManager():
-    IWTSVirtualChannelManager = win32more.System.RemoteDesktop.IWTSVirtualChannelManager_head
-    IWTSVirtualChannelManager.CreateListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,win32more.System.RemoteDesktop.IWTSListenerCallback_head,POINTER(win32more.System.RemoteDesktop.IWTSListener_head))(3, 'CreateListener', ((1, 'pszChannelName'),(1, 'uFlags'),(1, 'pListenerCallback'),(1, 'ppListener'),)))
-    win32more.System.Com.IUnknown
-    return IWTSVirtualChannelManager
+class IADsTSUserEx(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c4930e79-2989-4462-8a-60-2f-cf-2f-29-55-ef')
+    @commethod(7)
+    def get_TerminalServicesProfilePath(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_TerminalServicesProfilePath(pNewVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_TerminalServicesHomeDirectory(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_TerminalServicesHomeDirectory(pNewVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_TerminalServicesHomeDrive(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_TerminalServicesHomeDrive(pNewVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_AllowLogon(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_AllowLogon(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_EnableRemoteControl(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_EnableRemoteControl(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_MaxDisconnectionTime(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_MaxDisconnectionTime(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_MaxConnectionTime(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_MaxConnectionTime(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_MaxIdleTime(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_MaxIdleTime(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_ReconnectionAction(pNewVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_ReconnectionAction(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_BrokenConnectionAction(pNewVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_BrokenConnectionAction(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_ConnectClientDrivesAtLogon(pNewVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def put_ConnectClientDrivesAtLogon(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_ConnectClientPrintersAtLogon(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def put_ConnectClientPrintersAtLogon(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def get_DefaultToMainPrinter(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def put_DefaultToMainPrinter(NewVal: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_TerminalServicesWorkDirectory(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def put_TerminalServicesWorkDirectory(pNewVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_TerminalServicesInitialProgram(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def put_TerminalServicesInitialProgram(pNewVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IAudioDeviceEndpoint(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d4952f5a-a0b2-4cc4-8b-82-93-58-48-8d-d8-ac')
+    @commethod(3)
+    def SetBuffer(MaxPeriod: Int64, u32LatencyCoefficient: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRTCaps(pbIsRTCapable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetEventDrivenCapable(pbisEventCapable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def WriteExclusiveModeParametersToSharedMemory(hTargetProcess: UIntPtr, hnsPeriod: Int64, hnsBufferDuration: Int64, u32LatencyCoefficient: UInt32, pu32SharedMemorySize: POINTER(UInt32), phSharedMemory: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+class IAudioEndpoint(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('30a99515-1527-4451-af-9f-00-c5-f0-23-4d-af')
+    @commethod(3)
+    def GetFrameFormat(ppFormat: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFramesPerPacket(pFramesPerPacket: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetLatency(pLatency: POINTER(Int64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetStreamFlags(streamFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetEventHandle(eventHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+class IAudioEndpointControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c684b72a-6df4-4774-bd-f9-76-b7-75-09-b6-53')
+    @commethod(3)
+    def Start() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+class IAudioEndpointRT(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dfd2005f-a6e5-4d39-a2-65-93-9a-da-9f-bb-4d')
+    @commethod(3)
+    def GetCurrentPadding(pPadding: POINTER(Int64), pAeCurrentPosition: POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> Void: ...
+    @commethod(4)
+    def ProcessingComplete() -> Void: ...
+    @commethod(5)
+    def SetPinInactive() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetPinActive() -> win32more.Foundation.HRESULT: ...
+class IAudioInputEndpointRT(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8026ab61-92b2-43c1-a1-df-5c-37-eb-d0-8d-82')
+    @commethod(3)
+    def GetInputDataPointer(pConnectionProperty: POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head), pAeTimeStamp: POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> Void: ...
+    @commethod(4)
+    def ReleaseInputDataPointer(u32FrameCount: UInt32, pDataPointer: UIntPtr) -> Void: ...
+    @commethod(5)
+    def PulseEndpoint() -> Void: ...
+class IAudioOutputEndpointRT(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8fa906e4-c31c-4e31-93-2e-19-a6-63-85-e9-aa')
+    @commethod(3)
+    def GetOutputDataPointer(u32FrameCount: UInt32, pAeTimeStamp: POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head)) -> UIntPtr: ...
+    @commethod(4)
+    def ReleaseOutputDataPointer(pConnectionProperty: POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)) -> Void: ...
+    @commethod(5)
+    def PulseEndpoint() -> Void: ...
+class IRemoteDesktopClient(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('57d25668-625a-4905-be-4e-30-4c-aa-13-f8-9c')
+    @commethod(7)
+    def Connect() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Disconnect() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Reconnect(width: UInt32, height: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Settings(settings: POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientSettings_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Actions(actions: POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientActions_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_TouchPointer(touchPointer: POINTER(win32more.System.RemoteDesktop.IRemoteDesktopClientTouchPointer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DeleteSavedCredentials(serverName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def UpdateSessionDisplaySettings(width: UInt32, height: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def attachEvent(eventName: win32more.Foundation.BSTR, callback: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def detachEvent(eventName: win32more.Foundation.BSTR, callback: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
+class IRemoteDesktopClientActions(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('7d54bc4e-1028-45d4-8b-0a-b9-b6-bf-fb-a1-76')
+    @commethod(7)
+    def SuspendScreenUpdates() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ResumeScreenUpdates() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ExecuteRemoteAction(remoteAction: win32more.System.RemoteDesktop.RemoteActionType) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetSnapshot(snapshotEncoding: win32more.System.RemoteDesktop.SnapshotEncodingType, snapshotFormat: win32more.System.RemoteDesktop.SnapshotFormatType, snapshotWidth: UInt32, snapshotHeight: UInt32, snapshotData: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IRemoteDesktopClientSettings(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('48a0f2a7-2713-431f-bb-ac-6f-45-58-e7-d6-4d')
+    @commethod(7)
+    def ApplySettings(rdpFileContents: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RetrieveSettings(rdpFileContents: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRdpProperty(propertyName: win32more.Foundation.BSTR, value: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetRdpProperty(propertyName: win32more.Foundation.BSTR, value: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IRemoteDesktopClientTouchPointer(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('260ec22d-8cbc-44b5-9e-88-2a-37-f6-c9-3a-e9')
+    @commethod(7)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_EventsEnabled(eventsEnabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_EventsEnabled(eventsEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_PointerSpeed(pointerSpeed: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_PointerSpeed(pointerSpeed: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IRemoteSystemAdditionalInfoProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('eeaa3d5f-ec63-4d27-af-38-e8-6b-1d-72-92-cb')
+    @commethod(3)
+    def GetAdditionalInfo(deduplicationId: POINTER(win32more.System.WinRT.HSTRING), riid: POINTER(Guid), mapView: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class ITSGAccountingEngine(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4ce2a0c9-e874-4f1a-86-f4-06-bb-b9-11-53-38')
+    @commethod(3)
+    def DoAccounting(accountingDataType: win32more.System.RemoteDesktop.AAAccountingDataType, accountingData: win32more.System.RemoteDesktop.AAAccountingData) -> win32more.Foundation.HRESULT: ...
+class ITSGAuthenticateUserSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2c3e2e73-a782-47f9-8d-fb-77-ee-1e-d2-7a-03')
+    @commethod(3)
+    def OnUserAuthenticated(userName: win32more.Foundation.BSTR, userDomain: win32more.Foundation.BSTR, context: UIntPtr, userToken: win32more.Foundation.HANDLE_PTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnUserAuthenticationFailed(context: UIntPtr, genericErrorCode: win32more.Foundation.HRESULT, specificErrorCode: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ReauthenticateUser(context: UIntPtr) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def DisconnectUser(context: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class ITSGAuthenticationEngine(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9ee3e5bf-04ab-4691-99-8c-d7-f6-22-32-1a-56')
+    @commethod(3)
+    def AuthenticateUser(mainSessionId: Guid, cookieData: c_char_p_no, numCookieBytes: UInt32, context: UIntPtr, pSink: win32more.System.RemoteDesktop.ITSGAuthenticateUserSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CancelAuthentication(mainSessionId: Guid, context: UIntPtr) -> win32more.Foundation.HRESULT: ...
+class ITSGAuthorizeConnectionSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c27ece33-7781-4318-98-ef-1c-f2-da-7b-70-05')
+    @commethod(3)
+    def OnConnectionAuthorized(hrIn: win32more.Foundation.HRESULT, mainSessionId: Guid, cbSoHResponse: UInt32, pbSoHResponse: c_char_p_no, idleTimeout: UInt32, sessionTimeout: UInt32, sessionTimeoutAction: win32more.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE, trustClass: win32more.System.RemoteDesktop.AATrustClassID, policyAttributes: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ITSGAuthorizeResourceSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('feddfcd4-fa12-4435-ae-55-7a-d1-a9-77-9a-f7')
+    @commethod(3)
+    def OnChannelAuthorized(hrIn: win32more.Foundation.HRESULT, mainSessionId: Guid, subSessionId: Int32, allowedResourceNames: POINTER(win32more.Foundation.BSTR), numAllowedResourceNames: UInt32, failedResourceNames: POINTER(win32more.Foundation.BSTR), numFailedResourceNames: UInt32) -> win32more.Foundation.HRESULT: ...
+class ITSGPolicyEngine(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8bc24f08-6223-42f4-a5-b4-8e-37-cd-13-5b-bd')
+    @commethod(3)
+    def AuthorizeConnection(mainSessionId: Guid, username: win32more.Foundation.BSTR, authType: win32more.System.RemoteDesktop.AAAuthSchemes, clientMachineIP: win32more.Foundation.BSTR, clientMachineName: win32more.Foundation.BSTR, sohData: c_char_p_no, numSOHBytes: UInt32, cookieData: c_char_p_no, numCookieBytes: UInt32, userToken: win32more.Foundation.HANDLE_PTR, pSink: win32more.System.RemoteDesktop.ITSGAuthorizeConnectionSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AuthorizeResource(mainSessionId: Guid, subSessionId: Int32, username: win32more.Foundation.BSTR, resourceNames: POINTER(win32more.Foundation.BSTR), numResources: UInt32, alternateResourceNames: POINTER(win32more.Foundation.BSTR), numAlternateResourceName: UInt32, portNumber: UInt32, operation: win32more.Foundation.BSTR, cookie: c_char_p_no, numBytesInCookie: UInt32, pSink: win32more.System.RemoteDesktop.ITSGAuthorizeResourceSink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def IsQuarantineEnabled(quarantineEnabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ItsPubPlugin(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('70c04b05-f347-412b-82-2f-36-c9-9c-54-ca-45')
+    @commethod(3)
+    def GetResourceList(userID: win32more.Foundation.PWSTR, pceAppListSize: POINTER(Int32), resourceList: POINTER(POINTER(win32more.System.RemoteDesktop.pluginResource_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetResource(alias: win32more.Foundation.PWSTR, flags: Int32, resource: POINTER(win32more.System.RemoteDesktop.pluginResource_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetCacheLastUpdateTime(lastUpdateTime: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_pluginName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_pluginVersion(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ResolveResource(resourceType: POINTER(UInt32), resourceLocation: win32more.Foundation.PWSTR, endPointName: win32more.Foundation.PWSTR, userID: win32more.Foundation.PWSTR, alias: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class ItsPubPlugin2(c_void_p):
+    extends: win32more.System.RemoteDesktop.ItsPubPlugin
+    Guid = Guid('fa4ce418-aad7-4ec6-ba-d1-0a-32-1b-a4-65-d5')
+    @commethod(9)
+    def GetResource2List(userID: win32more.Foundation.PWSTR, pceAppListSize: POINTER(Int32), resourceList: POINTER(POINTER(win32more.System.RemoteDesktop.pluginResource2_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetResource2(alias: win32more.Foundation.PWSTR, flags: Int32, resource: POINTER(win32more.System.RemoteDesktop.pluginResource2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ResolvePersonalDesktop(userId: win32more.Foundation.PWSTR, poolId: win32more.Foundation.PWSTR, ePdResolutionType: win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_RESOLUTION_TYPE, pPdAssignmentType: POINTER(win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE), endPointName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DeletePersonalDesktopAssignment(userId: win32more.Foundation.PWSTR, poolId: win32more.Foundation.PWSTR, endpointName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class ITsSbBaseNotifySink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('808a6537-1282-4989-9e-09-f4-39-38-b7-17-22')
+    @commethod(3)
+    def OnError(hrError: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnReportStatus(messageType: win32more.System.RemoteDesktop.CLIENT_MESSAGE_TYPE, messageID: UInt32) -> win32more.Foundation.HRESULT: ...
+class ITsSbClientConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('18857499-ad61-4b1b-b7-df-cb-cd-41-fb-83-38')
+    @commethod(3)
+    def get_UserName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_Domain(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_InitialProgram(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_LoadBalanceResult(ppVal: POINTER(win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_FarmName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def PutContext(contextId: win32more.Foundation.BSTR, context: win32more.System.Com.VARIANT, existingContext: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetContext(contextId: win32more.Foundation.BSTR, context: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Environment(ppEnvironment: POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_ConnectionError() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_SamUserAccount(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ClientConnectionPropertySet(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbClientConnectionPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_IsFirstAssignment(ppVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_RdFarmType(pRdFarmType: POINTER(win32more.System.RemoteDesktop.RD_FARM_TYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_UserSidString(pszUserSidString: POINTER(POINTER(SByte))) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetDisconnectedSession(ppSession: POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)) -> win32more.Foundation.HRESULT: ...
+class ITsSbClientConnectionPropertySet(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPropertySet
+    Guid = Guid('e51995b0-46d6-11dd-aa-21-ce-dc-55-d8-95-93')
+class ITsSbEnvironment(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8c87f7f7-bf51-4a5c-87-bf-8e-94-fb-6e-22-56')
+    @commethod(3)
+    def get_Name(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_ServerWeight(pVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_EnvironmentPropertySet(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def put_EnvironmentPropertySet(pVal: win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbEnvironmentPropertySet(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPropertySet
+    Guid = Guid('d0d1bf7e-7acf-11dd-a2-43-e5-11-56-d8-95-93')
+class ITsSbFilterPluginStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('85b44b0f-ed78-413f-97-02-fa-6d-3b-5e-e7-55')
+    @commethod(3)
+    def SaveProperties(pPropertySet: win32more.System.RemoteDesktop.ITsSbPropertySet_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnumerateProperties(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DeleteProperties(propertyName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class ITsSbGenericNotifySink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4c4c8c4f-300b-46ad-91-64-84-68-a7-e7-56-8c')
+    @commethod(3)
+    def OnCompleted(Status: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetWaitTimeout(pftTimeout: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+class ITsSbGlobalStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9ab60f7b-bd72-4d9f-8a-3a-a0-ea-55-74-e6-35')
+    @commethod(3)
+    def QueryTarget(ProviderName: win32more.Foundation.BSTR, TargetName: win32more.Foundation.BSTR, FarmName: win32more.Foundation.BSTR, ppTarget: POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def QuerySessionBySessionId(ProviderName: win32more.Foundation.BSTR, dwSessionId: UInt32, TargetName: win32more.Foundation.BSTR, ppSession: POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def EnumerateFarms(ProviderName: win32more.Foundation.BSTR, pdwCount: POINTER(UInt32), pVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def EnumerateTargets(ProviderName: win32more.Foundation.BSTR, FarmName: win32more.Foundation.BSTR, EnvName: win32more.Foundation.BSTR, pdwCount: POINTER(UInt32), pVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def EnumerateEnvironmentsByProvider(ProviderName: win32more.Foundation.BSTR, pdwCount: POINTER(UInt32), ppVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def EnumerateSessions(ProviderName: win32more.Foundation.BSTR, targetName: win32more.Foundation.BSTR, userName: win32more.Foundation.BSTR, userDomain: win32more.Foundation.BSTR, poolName: win32more.Foundation.BSTR, initialProgram: win32more.Foundation.BSTR, pSessionState: POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE), pdwCount: POINTER(UInt32), ppVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetFarmProperty(farmName: win32more.Foundation.BSTR, propertyName: win32more.Foundation.BSTR, pVarValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class ITsSbLoadBalanceResult(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('24fdb7ac-fea6-11dc-96-72-9a-89-56-d8-95-93')
+    @commethod(3)
+    def get_TargetName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class ITsSbLoadBalancing(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('24329274-9eb7-11dc-ae-98-f2-b4-56-d8-95-93')
+    @commethod(5)
+    def GetMostSuitableTarget(pConnection: win32more.System.RemoteDesktop.ITsSbClientConnection_head, pLBSink: win32more.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbLoadBalancingNotifySink(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbBaseNotifySink
+    Guid = Guid('5f8a8297-3244-4e6a-95-8a-27-c8-22-c1-e1-41')
+    @commethod(5)
+    def OnGetMostSuitableTarget(pLBResult: win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head, fIsNewConnection: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class ITsSbOrchestration(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('64fc1172-9eb7-11dc-8b-00-3a-ba-56-d8-95-93')
+    @commethod(5)
+    def PrepareTargetForConnect(pConnection: win32more.System.RemoteDesktop.ITsSbClientConnection_head, pOrchestrationNotifySink: win32more.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbOrchestrationNotifySink(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbBaseNotifySink
+    Guid = Guid('36c37d61-926b-442f-bc-a5-11-8c-6d-50-dc-f2')
+    @commethod(5)
+    def OnReadyToConnect(pTarget: win32more.System.RemoteDesktop.ITsSbTarget_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbPlacement(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('daadee5f-6d32-480e-9e-36-dd-ab-23-29-f0-6d')
+    @commethod(5)
+    def QueryEnvironmentForTarget(pConnection: win32more.System.RemoteDesktop.ITsSbClientConnection_head, pPlacementSink: win32more.System.RemoteDesktop.ITsSbPlacementNotifySink_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbPlacementNotifySink(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbBaseNotifySink
+    Guid = Guid('68a0c487-2b4f-46c2-94-a1-6c-e6-85-18-36-34')
+    @commethod(5)
+    def OnQueryEnvironmentCompleted(pEnvironment: win32more.System.RemoteDesktop.ITsSbEnvironment_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbPlugin(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('48cd7406-caab-465f-a5-d6-ba-a8-63-b9-ea-4f')
+    @commethod(3)
+    def Initialize(pProvider: win32more.System.RemoteDesktop.ITsSbProvider_head, pNotifySink: win32more.System.RemoteDesktop.ITsSbPluginNotifySink_head, pPropertySet: win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Terminate(hr: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+class ITsSbPluginNotifySink(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbBaseNotifySink
+    Guid = Guid('44dfe30b-c3be-40f5-bf-82-7a-95-bb-79-5a-df')
+    @commethod(5)
+    def OnInitialized(hr: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnTerminated() -> win32more.Foundation.HRESULT: ...
+class ITsSbPluginPropertySet(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPropertySet
+    Guid = Guid('95006e34-7eff-4b6c-bb-40-49-a4-fd-a7-ce-a6')
+class ITsSbPropertySet(c_void_p):
+    extends: win32more.System.Com.StructuredStorage.IPropertyBag
+    Guid = Guid('5c025171-bb1e-4baf-a2-12-6d-5e-97-74-b3-3b')
+class ITsSbProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('87a4098f-6d7b-44dd-bc-17-8c-e4-4e-37-0d-52')
+    @commethod(3)
+    def CreateTargetObject(TargetName: win32more.Foundation.BSTR, EnvironmentName: win32more.Foundation.BSTR, ppTarget: POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateLoadBalanceResultObject(TargetName: win32more.Foundation.BSTR, ppLBResult: POINTER(win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateSessionObject(TargetName: win32more.Foundation.BSTR, UserName: win32more.Foundation.BSTR, Domain: win32more.Foundation.BSTR, SessionId: UInt32, ppSession: POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreatePluginPropertySet(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateTargetPropertySetObject(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateEnvironmentObject(Name: win32more.Foundation.BSTR, ServerWeight: UInt32, ppEnvironment: POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetResourcePluginStore(ppStore: POINTER(win32more.System.RemoteDesktop.ITsSbResourcePluginStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetFilterPluginStore(ppStore: POINTER(win32more.System.RemoteDesktop.ITsSbFilterPluginStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RegisterForNotification(notificationType: UInt32, ResourceToMonitor: win32more.Foundation.BSTR, pPluginNotification: win32more.System.RemoteDesktop.ITsSbResourceNotification_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def UnRegisterForNotification(notificationType: UInt32, ResourceToMonitor: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetInstanceOfGlobalStore(ppGlobalStore: POINTER(win32more.System.RemoteDesktop.ITsSbGlobalStore_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateEnvironmentPropertySetObject(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+class ITsSbProvisioning(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('2f6f0dbb-9e4f-462b-9c-3f-fc-cc-3d-cb-62-32')
+    @commethod(5)
+    def CreateVirtualMachines(JobXmlString: win32more.Foundation.BSTR, JobGuid: win32more.Foundation.BSTR, pSink: win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def PatchVirtualMachines(JobXmlString: win32more.Foundation.BSTR, JobGuid: win32more.Foundation.BSTR, pSink: win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head, pVMPatchInfo: POINTER(win32more.System.RemoteDesktop.VM_PATCH_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def DeleteVirtualMachines(JobXmlString: win32more.Foundation.BSTR, JobGuid: win32more.Foundation.BSTR, pSink: win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CancelJob(JobGuid: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class ITsSbProvisioningPluginNotifySink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('aca87a8e-818b-4581-a0-32-49-c3-df-b9-c7-01')
+    @commethod(3)
+    def OnJobCreated(pVmNotifyInfo: POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnVirtualMachineStatusChanged(pVmNotifyEntry: POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head), VmNotifyStatus: win32more.System.RemoteDesktop.VM_NOTIFY_STATUS, ErrorCode: win32more.Foundation.HRESULT, ErrorDescr: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnJobCompleted(ResultCode: win32more.Foundation.HRESULT, ResultDescription: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnJobCancelled() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def LockVirtualMachine(pVmNotifyEntry: POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnVirtualMachineHostStatusChanged(VmHost: win32more.Foundation.BSTR, VmHostNotifyStatus: win32more.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS, ErrorCode: win32more.Foundation.HRESULT, ErrorDescr: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class ITsSbResourceNotification(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('65d3e85a-c39b-11dc-b9-2d-3c-d2-55-d8-95-93')
+    @commethod(3)
+    def NotifySessionChange(changeType: win32more.System.RemoteDesktop.TSSESSION_STATE, pSession: win32more.System.RemoteDesktop.ITsSbSession_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NotifyTargetChange(TargetChangeType: UInt32, pTarget: win32more.System.RemoteDesktop.ITsSbTarget_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def NotifyClientConnectionStateChange(ChangeType: win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION, pConnection: win32more.System.RemoteDesktop.ITsSbClientConnection_head) -> win32more.Foundation.HRESULT: ...
+class ITsSbResourceNotificationEx(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a8a47fde-ca91-44d2-b8-97-3a-a2-8a-43-b2-b7')
+    @commethod(3)
+    def NotifySessionChangeEx(targetName: win32more.Foundation.BSTR, userName: win32more.Foundation.BSTR, domain: win32more.Foundation.BSTR, sessionId: UInt32, sessionState: win32more.System.RemoteDesktop.TSSESSION_STATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NotifyTargetChangeEx(targetName: win32more.Foundation.BSTR, targetChangeType: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def NotifyClientConnectionStateChangeEx(userName: win32more.Foundation.BSTR, domain: win32more.Foundation.BSTR, initialProgram: win32more.Foundation.BSTR, poolName: win32more.Foundation.BSTR, targetName: win32more.Foundation.BSTR, connectionChangeType: win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION) -> win32more.Foundation.HRESULT: ...
+class ITsSbResourcePlugin(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('ea8db42c-98ed-4535-a8-8b-2a-16-4f-35-49-0f')
+class ITsSbResourcePluginStore(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5c38f65f-bcf1-4036-a6-bf-9e-3c-cc-ae-0b-63')
+    @commethod(3)
+    def QueryTarget(TargetName: win32more.Foundation.BSTR, FarmName: win32more.Foundation.BSTR, ppTarget: POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def QuerySessionBySessionId(dwSessionId: UInt32, TargetName: win32more.Foundation.BSTR, ppSession: POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddTargetToStore(pTarget: win32more.System.RemoteDesktop.ITsSbTarget_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AddSessionToStore(pSession: win32more.System.RemoteDesktop.ITsSbSession_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AddEnvironmentToStore(pEnvironment: win32more.System.RemoteDesktop.ITsSbEnvironment_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def RemoveEnvironmentFromStore(EnvironmentName: win32more.Foundation.BSTR, bIgnoreOwner: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumerateFarms(pdwCount: POINTER(UInt32), pVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def QueryEnvironment(EnvironmentName: win32more.Foundation.BSTR, ppEnvironment: POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EnumerateEnvironments(pdwCount: POINTER(UInt32), pVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SaveTarget(pTarget: win32more.System.RemoteDesktop.ITsSbTarget_head, bForceWrite: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SaveEnvironment(pEnvironment: win32more.System.RemoteDesktop.ITsSbEnvironment_head, bForceWrite: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SaveSession(pSession: win32more.System.RemoteDesktop.ITsSbSession_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetTargetProperty(TargetName: win32more.Foundation.BSTR, PropertyName: win32more.Foundation.BSTR, pProperty: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetEnvironmentProperty(EnvironmentName: win32more.Foundation.BSTR, PropertyName: win32more.Foundation.BSTR, pProperty: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetTargetState(targetName: win32more.Foundation.BSTR, newState: win32more.System.RemoteDesktop.TARGET_STATE, pOldState: POINTER(win32more.System.RemoteDesktop.TARGET_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetSessionState(sbSession: win32more.System.RemoteDesktop.ITsSbSession_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def EnumerateTargets(FarmName: win32more.Foundation.BSTR, EnvName: win32more.Foundation.BSTR, sortByFieldId: win32more.System.RemoteDesktop.TS_SB_SORT_BY, sortyByPropName: win32more.Foundation.BSTR, pdwCount: POINTER(UInt32), pVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbTarget_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def EnumerateSessions(targetName: win32more.Foundation.BSTR, userName: win32more.Foundation.BSTR, userDomain: win32more.Foundation.BSTR, poolName: win32more.Foundation.BSTR, initialProgram: win32more.Foundation.BSTR, pSessionState: POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE), pdwCount: POINTER(UInt32), ppVal: POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbSession_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetFarmProperty(farmName: win32more.Foundation.BSTR, propertyName: win32more.Foundation.BSTR, pVarValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def DeleteTarget(targetName: win32more.Foundation.BSTR, hostName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def SetTargetPropertyWithVersionCheck(pTarget: win32more.System.RemoteDesktop.ITsSbTarget_head, PropertyName: win32more.Foundation.BSTR, pProperty: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetEnvironmentPropertyWithVersionCheck(pEnvironment: win32more.System.RemoteDesktop.ITsSbEnvironment_head, PropertyName: win32more.Foundation.BSTR, pProperty: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def AcquireTargetLock(targetName: win32more.Foundation.BSTR, dwTimeout: UInt32, ppContext: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def ReleaseTargetLock(pContext: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def TestAndSetServerState(PoolName: win32more.Foundation.BSTR, ServerFQDN: win32more.Foundation.BSTR, NewState: win32more.System.RemoteDesktop.TARGET_STATE, TestState: win32more.System.RemoteDesktop.TARGET_STATE, pInitState: POINTER(win32more.System.RemoteDesktop.TARGET_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def SetServerWaitingToStart(PoolName: win32more.Foundation.BSTR, serverName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetServerState(PoolName: win32more.Foundation.BSTR, ServerFQDN: win32more.Foundation.BSTR, pState: POINTER(win32more.System.RemoteDesktop.TARGET_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def SetServerDrainMode(ServerFQDN: win32more.Foundation.BSTR, DrainMode: UInt32) -> win32more.Foundation.HRESULT: ...
+class ITsSbServiceNotification(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('86cb68ae-86e0-4f57-8a-64-bb-74-06-bc-55-50')
+    @commethod(3)
+    def NotifyServiceFailure() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NotifyServiceSuccess() -> win32more.Foundation.HRESULT: ...
+class ITsSbSession(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d453aac7-b1d8-4c5e-ba-34-9a-fb-4c-8c-55-10')
+    @commethod(3)
+    def get_SessionId(pVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_TargetName(targetName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def put_TargetName(targetName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Username(userName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Domain(domain: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_State(pState: POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_State(State: win32more.System.RemoteDesktop.TSSESSION_STATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CreateTime(pTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_CreateTime(Time: win32more.Foundation.FILETIME) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_DisconnectTime(pTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_DisconnectTime(Time: win32more.Foundation.FILETIME) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_InitialProgram(app: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_InitialProgram(Application: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ClientDisplay(pClientDisplay: POINTER(win32more.System.RemoteDesktop.CLIENT_DISPLAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_ClientDisplay(pClientDisplay: win32more.System.RemoteDesktop.CLIENT_DISPLAY) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_ProtocolType(pVal: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_ProtocolType(Val: UInt32) -> win32more.Foundation.HRESULT: ...
+class ITsSbTarget(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('16616ecc-272d-411d-b3-24-12-68-93-03-38-56')
+    @commethod(3)
+    def get_TargetName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def put_TargetName(Val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_FarmName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def put_FarmName(Val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_TargetFQDN(TargetFqdnName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_TargetFQDN(Val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_TargetNetbios(TargetNetbiosName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_TargetNetbios(Val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_IpAddresses(SOCKADDR: POINTER(win32more.System.RemoteDesktop.TSSD_ConnectionPoint_head), numAddresses: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_IpAddresses(SOCKADDR: POINTER(win32more.System.RemoteDesktop.TSSD_ConnectionPoint_head), numAddresses: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_TargetState(pState: POINTER(win32more.System.RemoteDesktop.TARGET_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_TargetState(State: win32more.System.RemoteDesktop.TARGET_STATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_TargetPropertySet(ppPropertySet: POINTER(win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_TargetPropertySet(pVal: win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_EnvironmentName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_EnvironmentName(Val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_NumSessions(pNumSessions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_NumPendingConnections(pNumPendingConnections: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_TargetLoad(pTargetLoad: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ITsSbTargetPropertySet(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPropertySet
+    Guid = Guid('f7bda5d6-994c-4e11-a0-79-27-63-b6-18-30-ac')
+class ITsSbTaskInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('523d1083-89be-48dd-99-ea-04-e8-2f-fa-72-65')
+    @commethod(3)
+    def get_TargetId(pName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_StartTime(pStartTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_EndTime(pEndTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Deadline(pDeadline: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Identifier(pIdentifier: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Label(pLabel: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Context(pContext: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Plugin(pPlugin: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Status(pStatus: POINTER(win32more.System.RemoteDesktop.RDV_TASK_STATUS)) -> win32more.Foundation.HRESULT: ...
+class ITsSbTaskPlugin(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbPlugin
+    Guid = Guid('fa22ef0f-8705-41be-93-bc-44-bd-bc-f1-c9-c4')
+    @commethod(5)
+    def InitializeTaskPlugin(pITsSbTaskPluginNotifySink: win32more.System.RemoteDesktop.ITsSbTaskPluginNotifySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetTaskQueue(pszHostName: win32more.Foundation.BSTR, SbTaskInfoSize: UInt32, pITsSbTaskInfo: POINTER(win32more.System.RemoteDesktop.ITsSbTaskInfo_head)) -> win32more.Foundation.HRESULT: ...
+class ITsSbTaskPluginNotifySink(c_void_p):
+    extends: win32more.System.RemoteDesktop.ITsSbBaseNotifySink
+    Guid = Guid('6aaf899e-c2ec-45ee-aa-37-45-e6-08-95-26-1a')
+    @commethod(5)
+    def OnSetTaskTime(szTargetName: win32more.Foundation.BSTR, TaskStartTime: win32more.Foundation.FILETIME, TaskEndTime: win32more.Foundation.FILETIME, TaskDeadline: win32more.Foundation.FILETIME, szTaskLabel: win32more.Foundation.BSTR, szTaskIdentifier: win32more.Foundation.BSTR, szTaskPlugin: win32more.Foundation.BSTR, dwTaskStatus: UInt32, saContext: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnDeleteTaskTime(szTargetName: win32more.Foundation.BSTR, szTaskIdentifier: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def OnUpdateTaskStatus(szTargetName: win32more.Foundation.BSTR, TaskIdentifier: win32more.Foundation.BSTR, TaskStatus: win32more.System.RemoteDesktop.RDV_TASK_STATUS) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnReportTasks(szHostName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IWorkspace(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e5')
+    @commethod(3)
+    def GetWorkspaceNames(psaWkspNames: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def StartRemoteApplication(bstrWorkspaceId: win32more.Foundation.BSTR, psaParams: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetProcessId(pulProcessId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWorkspace2(c_void_p):
+    extends: win32more.System.RemoteDesktop.IWorkspace
+    Guid = Guid('96d8d7cf-783e-4286-83-4c-eb-c0-e9-5f-78-3c')
+    @commethod(6)
+    def StartRemoteApplicationEx(bstrWorkspaceId: win32more.Foundation.BSTR, bstrRequestingAppId: win32more.Foundation.BSTR, bstrRequestingAppFamilyName: win32more.Foundation.BSTR, bLaunchIntoImmersiveClient: win32more.Foundation.VARIANT_BOOL, bstrImmersiveClientActivationContext: win32more.Foundation.BSTR, psaParams: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IWorkspace3(c_void_p):
+    extends: win32more.System.RemoteDesktop.IWorkspace2
+    Guid = Guid('1becbe4a-d654-423b-af-eb-be-8d-53-2c-13-c6')
+    @commethod(7)
+    def GetClaimsToken2(bstrClaimsHint: win32more.Foundation.BSTR, bstrUserHint: win32more.Foundation.BSTR, claimCookie: UInt32, hwndCredUiParent: UInt32, rectCredUiParent: win32more.Foundation.RECT, pbstrAccessToken: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetClaimsToken(bstrAccessToken: win32more.Foundation.BSTR, ullAccessTokenExpiration: UInt64, bstrRefreshToken: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceClientExt(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('12b952f4-41ca-4f21-a8-29-a6-d0-7d-9a-16-e5')
+    @commethod(3)
+    def GetResourceId(bstrWorkspaceId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetResourceDisplayName(bstrWorkspaceDisplayName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IssueDisconnect() -> win32more.Foundation.HRESULT: ...
+class IWorkspaceRegistration(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b922bbb8-4c55-4fea-84-96-be-b0-b4-42-85-e6')
+    @commethod(3)
+    def AddResource(pUnk: win32more.System.RemoteDesktop.IWorkspaceClientExt_head, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RemoveResource(dwCookieConnection: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceRegistration2(c_void_p):
+    extends: win32more.System.RemoteDesktop.IWorkspaceRegistration
+    Guid = Guid('cf59f654-39bb-44d8-94-d0-46-35-72-89-57-e9')
+    @commethod(5)
+    def AddResourceEx(pUnk: win32more.System.RemoteDesktop.IWorkspaceClientExt_head, bstrEventLogUploadAddress: win32more.Foundation.BSTR, pdwCookie: POINTER(UInt32), correlationId: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RemoveResourceEx(dwCookieConnection: UInt32, correlationId: Guid) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceReportMessage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a7c06739-500f-4e8c-99-a8-2b-d6-95-58-99-eb')
+    @commethod(3)
+    def RegisterErrorLogMessage(bstrMessage: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsErrorMessageRegistered(bstrWkspId: win32more.Foundation.BSTR, dwErrorType: UInt32, bstrErrorMessageType: win32more.Foundation.BSTR, dwErrorCode: UInt32, pfErrorExist: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RegisterErrorEvent(bstrWkspId: win32more.Foundation.BSTR, dwErrorType: UInt32, bstrErrorMessageType: win32more.Foundation.BSTR, dwErrorCode: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceResTypeRegistry(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('1d428c79-6e2e-4351-a3-61-c0-40-1a-03-a0-ba')
+    @commethod(7)
+    def AddResourceType(fMachineWide: win32more.Foundation.VARIANT_BOOL, bstrFileExtension: win32more.Foundation.BSTR, bstrLauncher: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def DeleteResourceType(fMachineWide: win32more.Foundation.VARIANT_BOOL, bstrFileExtension: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRegisteredFileExtensions(fMachineWide: win32more.Foundation.VARIANT_BOOL, psaFileExtensions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetResourceTypeInfo(fMachineWide: win32more.Foundation.VARIANT_BOOL, bstrFileExtension: win32more.Foundation.BSTR, pbstrLauncher: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ModifyResourceType(fMachineWide: win32more.Foundation.VARIANT_BOOL, bstrFileExtension: win32more.Foundation.BSTR, bstrLauncher: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceScriptable(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('efea49a2-dda5-429d-8f-42-b2-3b-92-c4-c3-47')
+    @commethod(7)
+    def DisconnectWorkspace(bstrWorkspaceId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def StartWorkspace(bstrWorkspaceId: win32more.Foundation.BSTR, bstrUserName: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR, bstrWorkspaceParams: win32more.Foundation.BSTR, lTimeout: Int32, lFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def IsWorkspaceCredentialSpecified(bstrWorkspaceId: win32more.Foundation.BSTR, bCountUnauthenticatedCredentials: win32more.Foundation.VARIANT_BOOL, pbCredExist: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def IsWorkspaceSSOEnabled(pbSSOEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ClearWorkspaceCredential(bstrWorkspaceId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def OnAuthenticated(bstrWorkspaceId: win32more.Foundation.BSTR, bstrUserName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DisconnectWorkspaceByFriendlyName(bstrWorkspaceFriendlyName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceScriptable2(c_void_p):
+    extends: win32more.System.RemoteDesktop.IWorkspaceScriptable
+    Guid = Guid('efea49a2-dda5-429d-8f-42-b3-3b-a2-c4-c3-48')
+    @commethod(14)
+    def StartWorkspaceEx(bstrWorkspaceId: win32more.Foundation.BSTR, bstrWorkspaceFriendlyName: win32more.Foundation.BSTR, bstrRedirectorName: win32more.Foundation.BSTR, bstrUserName: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR, bstrAppContainer: win32more.Foundation.BSTR, bstrWorkspaceParams: win32more.Foundation.BSTR, lTimeout: Int32, lFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ResourceDismissed(bstrWorkspaceId: win32more.Foundation.BSTR, bstrWorkspaceFriendlyName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IWorkspaceScriptable3(c_void_p):
+    extends: win32more.System.RemoteDesktop.IWorkspaceScriptable2
+    Guid = Guid('531e6512-2cbf-4bd2-80-a5-d9-0a-71-63-6a-9a')
+    @commethod(16)
+    def StartWorkspaceEx2(bstrWorkspaceId: win32more.Foundation.BSTR, bstrWorkspaceFriendlyName: win32more.Foundation.BSTR, bstrRedirectorName: win32more.Foundation.BSTR, bstrUserName: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR, bstrAppContainer: win32more.Foundation.BSTR, bstrWorkspaceParams: win32more.Foundation.BSTR, lTimeout: Int32, lFlags: Int32, bstrEventLogUploadAddress: win32more.Foundation.BSTR, correlationId: Guid) -> win32more.Foundation.HRESULT: ...
+class IWRdsEnhancedFastReconnectArbitrator(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5718ae9b-47f2-499f-b6-34-d8-17-5b-d5-11-31')
+    @commethod(3)
+    def GetSessionForEnhancedFastReconnect(pSessionIdArray: POINTER(Int32), dwSessionCount: UInt32, pResultSessionId: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IWRdsGraphicsChannel(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('684b7a0b-edff-43ad-d5-a2-4a-8d-53-88-f4-01')
+    @commethod(3)
+    def Write(cbSize: UInt32, pBuffer: c_char_p_no, pContext: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Open(pChannelEvents: win32more.System.RemoteDesktop.IWRdsGraphicsChannelEvents_head, pOpenContext: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+class IWRdsGraphicsChannelEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('67f2368c-d674-4fae-66-a5-d2-06-28-a6-40-d2')
+    @commethod(3)
+    def OnDataReceived(cbSize: UInt32, pBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnClose() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnChannelOpened(OpenResult: win32more.Foundation.HRESULT, pOpenContext: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OnDataSent(pWriteContext: win32more.System.Com.IUnknown_head, bCancelled: win32more.Foundation.BOOL, pBuffer: c_char_p_no, cbBuffer: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def OnMetricsUpdate(bandwidth: UInt32, RTT: UInt32, lastSentByteIndex: UInt64) -> win32more.Foundation.HRESULT: ...
+class IWRdsGraphicsChannelManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0fd57159-e83e-476a-a8-b9-4a-79-76-e7-1e-18')
+    @commethod(3)
+    def CreateChannel(pszChannelName: c_char_p_no, channelType: win32more.System.RemoteDesktop.WRdsGraphicsChannelType, ppVirtualChannel: POINTER(win32more.System.RemoteDesktop.IWRdsGraphicsChannel_head)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('324ed94f-fdaf-4ff6-81-a8-42-ab-e7-55-83-0b')
+    @commethod(3)
+    def GetLogonErrorRedirector(ppLogonErrorRedir: POINTER(win32more.System.RemoteDesktop.IWRdsProtocolLogonErrorRedirector_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AcceptConnection() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetClientData(pClientData: POINTER(win32more.System.RemoteDesktop.WTS_CLIENT_DATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetClientMonitorData(pNumMonitors: POINTER(UInt32), pPrimaryMonitor: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetUserCredentials(pUserCreds: POINTER(win32more.System.RemoteDesktop.WTS_USER_CREDENTIAL_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetLicenseConnection(ppLicenseConnection: POINTER(win32more.System.RemoteDesktop.IWRdsProtocolLicenseConnection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def AuthenticateClientToSession(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def NotifySessionId(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), SessionHandle: win32more.Foundation.HANDLE_PTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetInputHandles(pKeyboardHandle: POINTER(win32more.Foundation.HANDLE_PTR), pMouseHandle: POINTER(win32more.Foundation.HANDLE_PTR), pBeepHandle: POINTER(win32more.Foundation.HANDLE_PTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetVideoHandle(pVideoHandle: POINTER(win32more.Foundation.HANDLE_PTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ConnectNotify(SessionId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def IsUserAllowedToLogon(SessionId: UInt32, UserToken: win32more.Foundation.HANDLE_PTR, pDomainName: win32more.Foundation.PWSTR, pUserName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SessionArbitrationEnumeration(hUserToken: win32more.Foundation.HANDLE_PTR, bSingleSessionPerUserEnabled: win32more.Foundation.BOOL, pSessionIdArray: POINTER(UInt32), pdwSessionIdentifierCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def LogonNotify(hClientToken: win32more.Foundation.HANDLE_PTR, wszUserName: win32more.Foundation.PWSTR, wszDomainName: win32more.Foundation.PWSTR, SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), pWRdsConnectionSettings: POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def PreDisconnect(DisconnectReason: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def DisconnectNotify() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetProtocolStatus(pProtocolStatus: POINTER(win32more.System.RemoteDesktop.WTS_PROTOCOL_STATUS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetLastInputTime(pLastInputTime: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SetErrorInfo(ulError: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def CreateVirtualChannel(szEndpointName: win32more.Foundation.PSTR, bStatic: win32more.Foundation.BOOL, RequestedPriority: UInt32, phChannel: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def QueryProperty(QueryType: Guid, ulNumEntriesIn: UInt32, ulNumEntriesOut: UInt32, pPropertyEntriesIn: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head), pPropertyEntriesOut: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetShadowConnection(ppShadowConnection: POINTER(win32more.System.RemoteDesktop.IWRdsProtocolShadowConnection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def NotifyCommandProcessCreated(SessionId: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolConnectionCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f1d70332-d070-4ef1-a0-88-78-31-35-36-c2-d6')
+    @commethod(3)
+    def OnReady() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def BrokenConnection(Reason: UInt32, Source: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def StopScreenUpdates() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RedrawWindow(rect: POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetConnectionId(pConnectionId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolConnectionSettings(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('83fcf5d3-f6f4-ea94-9c-d2-32-f2-80-e1-e5-10')
+    @commethod(3)
+    def SetConnectionSetting(PropertyID: Guid, pPropertyEntriesIn: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetConnectionSetting(PropertyID: Guid, pPropertyEntriesOut: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolLicenseConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1d6a145f-d095-4424-95-7a-40-7f-ae-82-2d-84')
+    @commethod(3)
+    def RequestLicensingCapabilities(ppLicenseCapabilities: POINTER(win32more.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head), pcbLicenseCapabilities: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SendClientLicense(pClientLicense: c_char_p_no, cbClientLicense: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RequestClientLicense(Reserve1: c_char_p_no, Reserve2: UInt32, ppClientLicense: c_char_p_no, pcbClientLicense: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ProtocolComplete(ulComplete: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolListener(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fcbc131b-c686-451d-a7-73-e2-79-e2-30-f5-40')
+    @commethod(3)
+    def GetSettings(WRdsListenerSettingLevel: win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL, pWRdsListenerSettings: POINTER(win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def StartListen(pCallback: win32more.System.RemoteDesktop.IWRdsProtocolListenerCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def StopListen() -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolListenerCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3ab27e5b-4449-4dc1-b7-4a-91-62-1d-4f-e9-84')
+    @commethod(3)
+    def OnConnected(pConnection: win32more.System.RemoteDesktop.IWRdsProtocolConnection_head, pWRdsConnectionSettings: POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head), pCallback: POINTER(win32more.System.RemoteDesktop.IWRdsProtocolConnectionCallback_head)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolLogonErrorRedirector(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('519fe83b-142a-4120-a3-d5-a4-05-d3-15-28-1a')
+    @commethod(3)
+    def OnBeginPainting() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RedirectStatus(pszMessage: win32more.Foundation.PWSTR, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RedirectMessage(pszCaption: win32more.Foundation.PWSTR, pszMessage: win32more.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RedirectLogonError(ntsStatus: Int32, ntsSubstatus: Int32, pszCaption: win32more.Foundation.PWSTR, pszMessage: win32more.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dc796967-3abb-40cd-a4-46-10-52-76-b5-89-50')
+    @commethod(3)
+    def Initialize(pIWRdsSettings: win32more.System.RemoteDesktop.IWRdsProtocolSettings_head, pWRdsSettings: POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateListener(wszListenerName: win32more.Foundation.PWSTR, pProtocolListener: POINTER(win32more.System.RemoteDesktop.IWRdsProtocolListener_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def NotifyServiceStateChange(pTSServiceStateChange: POINTER(win32more.System.RemoteDesktop.WTS_SERVICE_STATE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def NotifySessionOfServiceStart(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def NotifySessionOfServiceStop(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def NotifySessionStateChange(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), EventId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def NotifySettingsChange(pWRdsSettings: POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Uninitialize() -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolSettings(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('654a5a6a-2550-47eb-b6-f7-eb-d6-37-47-52-65')
+    @commethod(3)
+    def GetSettings(WRdsSettingType: win32more.System.RemoteDesktop.WRDS_SETTING_TYPE, WRdsSettingLevel: win32more.System.RemoteDesktop.WRDS_SETTING_LEVEL, pWRdsSettings: POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def MergeSettings(pWRdsSettings: POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head), WRdsConnectionSettingLevel: win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL, pWRdsConnectionSettings: POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head)) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolShadowCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e0667ce0-0372-40d6-ad-b2-a0-f3-32-26-74-d6')
+    @commethod(3)
+    def StopShadow() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def InvokeTargetShadow(pTargetServerName: win32more.Foundation.PWSTR, TargetSessionId: UInt32, pParam1: c_char_p_no, Param1Size: UInt32, pParam2: c_char_p_no, Param2Size: UInt32, pParam3: c_char_p_no, Param3Size: UInt32, pParam4: c_char_p_no, Param4Size: UInt32, pClientName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IWRdsProtocolShadowConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9ae85ce6-cade-4548-8f-eb-99-01-65-97-f6-0a')
+    @commethod(3)
+    def Start(pTargetServerName: win32more.Foundation.PWSTR, TargetSessionId: UInt32, HotKeyVk: Byte, HotkeyModifiers: UInt16, pShadowCallback: win32more.System.RemoteDesktop.IWRdsProtocolShadowCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DoTarget(pParam1: c_char_p_no, Param1Size: UInt32, pParam2: c_char_p_no, Param2Size: UInt32, pParam3: c_char_p_no, Param3Size: UInt32, pParam4: c_char_p_no, Param4Size: UInt32, pClientName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IWRdsWddmIddProps(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1382df4d-a289-43d1-a1-84-14-47-26-f9-af-90')
+    @commethod(3)
+    def GetHardwareId(pDisplayDriverHardwareId: win32more.Foundation.PWSTR, Count: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnDriverLoad(SessionId: UInt32, DriverHandle: win32more.Foundation.HANDLE_PTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnDriverUnload(SessionId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def EnableWddmIdd(Enabled: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IWTSBitmapRenderer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5b7acc97-f3c9-46f7-8c-5b-fa-68-5d-34-41-b1')
+    @commethod(3)
+    def Render(imageFormat: Guid, dwWidth: UInt32, dwHeight: UInt32, cbStride: Int32, cbImageBuffer: UInt32, pImageBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRendererStatistics(pStatistics: POINTER(win32more.System.RemoteDesktop.BITMAP_RENDERER_STATISTICS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RemoveMapping() -> win32more.Foundation.HRESULT: ...
+class IWTSBitmapRendererCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d782928e-fe4e-4e77-ae-90-9c-d0-b3-e3-b3-53')
+    @commethod(3)
+    def OnTargetSizeChanged(rcNewSize: win32more.Foundation.RECT) -> win32more.Foundation.HRESULT: ...
+class IWTSBitmapRenderService(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ea326091-05fe-40c1-b4-9c-3d-2e-f4-62-6a-0e')
+    @commethod(3)
+    def GetMappedRenderer(mappingId: UInt64, pMappedRendererCallback: win32more.System.RemoteDesktop.IWTSBitmapRendererCallback_head, ppMappedRenderer: POINTER(win32more.System.RemoteDesktop.IWTSBitmapRenderer_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSListener(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230206-9a39-4d58-86-74-cd-b4-df-f4-e7-3b')
+    @commethod(3)
+    def GetConfiguration(ppPropertyBag: POINTER(win32more.System.Com.StructuredStorage.IPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSListenerCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230203-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    @commethod(3)
+    def OnNewChannelConnection(pChannel: win32more.System.RemoteDesktop.IWTSVirtualChannel_head, data: win32more.Foundation.BSTR, pbAccept: POINTER(win32more.Foundation.BOOL), ppCallback: POINTER(win32more.System.RemoteDesktop.IWTSVirtualChannelCallback_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSPlugin(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230201-1439-4e62-a4-14-19-0d-0a-c3-d4-0e')
+    @commethod(3)
+    def Initialize(pChannelMgr: win32more.System.RemoteDesktop.IWTSVirtualChannelManager_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Connected() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Disconnected(dwDisconnectCode: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Terminated() -> win32more.Foundation.HRESULT: ...
+class IWTSPluginServiceProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d3e07363-087c-476c-86-a7-db-b1-5f-46-dd-b4')
+    @commethod(3)
+    def GetService(ServiceId: Guid, ppunkObject: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('23083765-9095-4648-98-bf-ef-81-c9-14-03-2d')
+    @commethod(3)
+    def GetLogonErrorRedirector(ppLogonErrorRedir: POINTER(win32more.System.RemoteDesktop.IWTSProtocolLogonErrorRedirector_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SendPolicyData(pPolicyData: POINTER(win32more.System.RemoteDesktop.WTS_POLICY_DATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AcceptConnection() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetClientData(pClientData: POINTER(win32more.System.RemoteDesktop.WTS_CLIENT_DATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetUserCredentials(pUserCreds: POINTER(win32more.System.RemoteDesktop.WTS_USER_CREDENTIAL_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetLicenseConnection(ppLicenseConnection: POINTER(win32more.System.RemoteDesktop.IWTSProtocolLicenseConnection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def AuthenticateClientToSession(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def NotifySessionId(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetProtocolHandles(pKeyboardHandle: POINTER(win32more.Foundation.HANDLE_PTR), pMouseHandle: POINTER(win32more.Foundation.HANDLE_PTR), pBeepHandle: POINTER(win32more.Foundation.HANDLE_PTR), pVideoHandle: POINTER(win32more.Foundation.HANDLE_PTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ConnectNotify(SessionId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def IsUserAllowedToLogon(SessionId: UInt32, UserToken: win32more.Foundation.HANDLE_PTR, pDomainName: win32more.Foundation.PWSTR, pUserName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SessionArbitrationEnumeration(hUserToken: win32more.Foundation.HANDLE_PTR, bSingleSessionPerUserEnabled: win32more.Foundation.BOOL, pSessionIdArray: POINTER(UInt32), pdwSessionIdentifierCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def LogonNotify(hClientToken: win32more.Foundation.HANDLE_PTR, wszUserName: win32more.Foundation.PWSTR, wszDomainName: win32more.Foundation.PWSTR, SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetUserData(pPolicyData: POINTER(win32more.System.RemoteDesktop.WTS_POLICY_DATA_head), pClientData: POINTER(win32more.System.RemoteDesktop.WTS_USER_DATA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def DisconnectNotify() -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetProtocolStatus(pProtocolStatus: POINTER(win32more.System.RemoteDesktop.WTS_PROTOCOL_STATUS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetLastInputTime(pLastInputTime: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SetErrorInfo(ulError: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SendBeep(Frequency: UInt32, Duration: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def CreateVirtualChannel(szEndpointName: win32more.Foundation.PSTR, bStatic: win32more.Foundation.BOOL, RequestedPriority: UInt32, phChannel: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def QueryProperty(QueryType: Guid, ulNumEntriesIn: UInt32, ulNumEntriesOut: UInt32, pPropertyEntriesIn: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head), pPropertyEntriesOut: POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetShadowConnection(ppShadowConnection: POINTER(win32more.System.RemoteDesktop.IWTSProtocolShadowConnection_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolConnectionCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('23083765-75eb-41fe-b4-fb-e0-86-24-2a-fa-0f')
+    @commethod(3)
+    def OnReady() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def BrokenConnection(Reason: UInt32, Source: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def StopScreenUpdates() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RedrawWindow(rect: POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def DisplayIOCtl(DisplayIOCtl: POINTER(win32more.System.RemoteDesktop.WTS_DISPLAY_IOCTL_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolLicenseConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('23083765-178c-4079-8e-4a-fe-a6-49-6a-4d-70')
+    @commethod(3)
+    def RequestLicensingCapabilities(ppLicenseCapabilities: POINTER(win32more.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head), pcbLicenseCapabilities: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SendClientLicense(pClientLicense: c_char_p_no, cbClientLicense: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RequestClientLicense(Reserve1: c_char_p_no, Reserve2: UInt32, ppClientLicense: c_char_p_no, pcbClientLicense: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ProtocolComplete(ulComplete: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolListener(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('23083765-45f0-4394-8f-69-32-b2-bc-0e-f4-ca')
+    @commethod(3)
+    def StartListen(pCallback: win32more.System.RemoteDesktop.IWTSProtocolListenerCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def StopListen() -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolListenerCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('23083765-1a2d-4de2-97-de-4a-35-f2-60-f0-b3')
+    @commethod(3)
+    def OnConnected(pConnection: win32more.System.RemoteDesktop.IWTSProtocolConnection_head, pCallback: POINTER(win32more.System.RemoteDesktop.IWTSProtocolConnectionCallback_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolLogonErrorRedirector(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fd9b61a7-2916-4627-8d-ee-43-28-71-1a-d6-cb')
+    @commethod(3)
+    def OnBeginPainting() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RedirectStatus(pszMessage: win32more.Foundation.PWSTR, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RedirectMessage(pszCaption: win32more.Foundation.PWSTR, pszMessage: win32more.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RedirectLogonError(ntsStatus: Int32, ntsSubstatus: Int32, pszCaption: win32more.Foundation.PWSTR, pszMessage: win32more.Foundation.PWSTR, uType: UInt32, pResponse: POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE)) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f9eaf6cc-ed79-4f01-82-1d-1f-88-1b-9f-66-cc')
+    @commethod(3)
+    def CreateListener(wszListenerName: win32more.Foundation.PWSTR, pProtocolListener: POINTER(win32more.System.RemoteDesktop.IWTSProtocolListener_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def NotifyServiceStateChange(pTSServiceStateChange: POINTER(win32more.System.RemoteDesktop.WTS_SERVICE_STATE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def NotifySessionOfServiceStart(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def NotifySessionOfServiceStop(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def NotifySessionStateChange(SessionId: POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), EventId: UInt32) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolShadowCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('503a2504-aae5-4ab1-93-e0-6d-1c-4b-c6-f7-1a')
+    @commethod(3)
+    def StopShadow() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def InvokeTargetShadow(pTargetServerName: win32more.Foundation.PWSTR, TargetSessionId: UInt32, pParam1: c_char_p_no, Param1Size: UInt32, pParam2: c_char_p_no, Param2Size: UInt32, pParam3: c_char_p_no, Param3Size: UInt32, pParam4: c_char_p_no, Param4Size: UInt32, pClientName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IWTSProtocolShadowConnection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ee3b0c14-37fb-456b-ba-b3-6d-6c-d5-1e-13-bf')
+    @commethod(3)
+    def Start(pTargetServerName: win32more.Foundation.PWSTR, TargetSessionId: UInt32, HotKeyVk: Byte, HotkeyModifiers: UInt16, pShadowCallback: win32more.System.RemoteDesktop.IWTSProtocolShadowCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Stop() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def DoTarget(pParam1: c_char_p_no, Param1Size: UInt32, pParam2: c_char_p_no, Param2Size: UInt32, pParam3: c_char_p_no, Param3Size: UInt32, pParam4: c_char_p_no, Param4Size: UInt32, pClientName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IWTSSBPlugin(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dc44be78-b18d-4399-b2-10-64-1b-f6-7a-00-2c')
+    @commethod(3)
+    def Initialize(PluginCapabilities: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def WTSSBX_MachineChangeNotification(NotificationType: win32more.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE, MachineId: Int32, pMachineInfo: POINTER(win32more.System.RemoteDesktop.WTSSBX_MACHINE_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def WTSSBX_SessionChangeNotification(NotificationType: win32more.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE, MachineId: Int32, NumOfSessions: UInt32, SessionInfo: POINTER(win32more.System.RemoteDesktop.WTSSBX_SESSION_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def WTSSBX_GetMostSuitableServer(UserName: win32more.Foundation.PWSTR, DomainName: win32more.Foundation.PWSTR, ApplicationType: win32more.Foundation.PWSTR, FarmName: win32more.Foundation.PWSTR, pMachineId: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Terminated() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def WTSSBX_GetUserExternalSession(UserName: win32more.Foundation.PWSTR, DomainName: win32more.Foundation.PWSTR, ApplicationType: win32more.Foundation.PWSTR, RedirectorInternalIP: POINTER(win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS_head), pSessionId: POINTER(UInt32), pMachineConnectInfo: POINTER(win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO_head)) -> win32more.Foundation.HRESULT: ...
+class IWTSVirtualChannel(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230207-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    @commethod(3)
+    def Write(cbSize: UInt32, pBuffer: c_char_p_no, pReserved: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class IWTSVirtualChannelCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230204-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    @commethod(3)
+    def OnDataReceived(cbSize: UInt32, pBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnClose() -> win32more.Foundation.HRESULT: ...
+class IWTSVirtualChannelManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a1230205-d6a7-11d8-b9-fd-00-0b-db-d1-f1-98')
+    @commethod(3)
+    def CreateListener(pszChannelName: win32more.Foundation.PSTR, uFlags: UInt32, pListenerCallback: win32more.System.RemoteDesktop.IWTSListenerCallback_head, ppListener: POINTER(win32more.System.RemoteDesktop.IWTSListener_head)) -> win32more.Foundation.HRESULT: ...
 KeyCombinationType = Int32
-KeyCombinationType_KeyCombinationHome = 0
-KeyCombinationType_KeyCombinationLeft = 1
-KeyCombinationType_KeyCombinationUp = 2
-KeyCombinationType_KeyCombinationRight = 3
-KeyCombinationType_KeyCombinationDown = 4
-KeyCombinationType_KeyCombinationScroll = 5
+KeyCombinationType_KeyCombinationHome: KeyCombinationType = 0
+KeyCombinationType_KeyCombinationLeft: KeyCombinationType = 1
+KeyCombinationType_KeyCombinationUp: KeyCombinationType = 2
+KeyCombinationType_KeyCombinationRight: KeyCombinationType = 3
+KeyCombinationType_KeyCombinationDown: KeyCombinationType = 4
+KeyCombinationType_KeyCombinationScroll: KeyCombinationType = 5
 PasswordEncodingType = Int32
-PasswordEncodingType_PasswordEncodingUTF8 = 0
-PasswordEncodingType_PasswordEncodingUTF16LE = 1
-PasswordEncodingType_PasswordEncodingUTF16BE = 2
-def _define_PCHANNEL_INIT_EVENT_FN():
-    return WINFUNCTYPE(Void,c_void_p,UInt32,c_void_p,UInt32)
-def _define_PCHANNEL_OPEN_EVENT_FN():
-    return WINFUNCTYPE(Void,UInt32,UInt32,c_void_p,UInt32,UInt32,UInt32)
+PasswordEncodingType_PasswordEncodingUTF8: PasswordEncodingType = 0
+PasswordEncodingType_PasswordEncodingUTF16LE: PasswordEncodingType = 1
+PasswordEncodingType_PasswordEncodingUTF16BE: PasswordEncodingType = 2
+@winfunctype_pointer
+def PCHANNEL_INIT_EVENT_FN(pInitHandle: c_void_p, event: UInt32, pData: c_void_p, dataLength: UInt32) -> Void: ...
+@winfunctype_pointer
+def PCHANNEL_OPEN_EVENT_FN(openHandle: UInt32, event: UInt32, pData: c_void_p, dataLength: UInt32, totalLength: UInt32, dataFlags: UInt32) -> Void: ...
 PLUGIN_TYPE = Int32
-UNKNOWN_PLUGIN = 0
-POLICY_PLUGIN = 1
-RESOURCE_PLUGIN = 2
-LOAD_BALANCING_PLUGIN = 4
-PLACEMENT_PLUGIN = 8
-ORCHESTRATION_PLUGIN = 16
-PROVISIONING_PLUGIN = 32
-TASK_PLUGIN = 64
-def _define_pluginResource_head():
-    class pluginResource(Structure):
-        pass
-    return pluginResource
-def _define_pluginResource():
-    pluginResource = win32more.System.RemoteDesktop.pluginResource_head
-    pluginResource._fields_ = [
-        ('alias', Char * 256),
-        ('name', Char * 256),
-        ('resourceFileContents', win32more.Foundation.PWSTR),
-        ('fileExtension', Char * 256),
-        ('resourcePluginType', Char * 256),
-        ('isDiscoverable', Byte),
-        ('resourceType', Int32),
-        ('pceIconSize', UInt32),
-        ('iconContents', c_char_p_no),
-        ('pcePluginBlobSize', UInt32),
-        ('blobContents', c_char_p_no),
-    ]
-    return pluginResource
-def _define_pluginResource2_head():
-    class pluginResource2(Structure):
-        pass
-    return pluginResource2
-def _define_pluginResource2():
-    pluginResource2 = win32more.System.RemoteDesktop.pluginResource2_head
-    pluginResource2._fields_ = [
-        ('resourceV1', win32more.System.RemoteDesktop.pluginResource),
-        ('pceFileAssocListSize', UInt32),
-        ('fileAssocList', POINTER(win32more.System.RemoteDesktop.pluginResource2FileAssociation_head)),
-        ('securityDescriptor', win32more.Foundation.PWSTR),
-        ('pceFolderListSize', UInt32),
-        ('folderList', POINTER(POINTER(UInt16))),
-    ]
-    return pluginResource2
-def _define_pluginResource2FileAssociation_head():
-    class pluginResource2FileAssociation(Structure):
-        pass
-    return pluginResource2FileAssociation
-def _define_pluginResource2FileAssociation():
-    pluginResource2FileAssociation = win32more.System.RemoteDesktop.pluginResource2FileAssociation_head
-    pluginResource2FileAssociation._fields_ = [
-        ('extName', Char * 256),
-        ('primaryHandler', Byte),
-        ('pceIconSize', UInt32),
-        ('iconContents', c_char_p_no),
-    ]
-    return pluginResource2FileAssociation
+UNKNOWN_PLUGIN: PLUGIN_TYPE = 0
+POLICY_PLUGIN: PLUGIN_TYPE = 1
+RESOURCE_PLUGIN: PLUGIN_TYPE = 2
+LOAD_BALANCING_PLUGIN: PLUGIN_TYPE = 4
+PLACEMENT_PLUGIN: PLUGIN_TYPE = 8
+ORCHESTRATION_PLUGIN: PLUGIN_TYPE = 16
+PROVISIONING_PLUGIN: PLUGIN_TYPE = 32
+TASK_PLUGIN: PLUGIN_TYPE = 64
+class pluginResource(Structure):
+    alias: Char * 256
+    name: Char * 256
+    resourceFileContents: win32more.Foundation.PWSTR
+    fileExtension: Char * 256
+    resourcePluginType: Char * 256
+    isDiscoverable: Byte
+    resourceType: Int32
+    pceIconSize: UInt32
+    iconContents: c_char_p_no
+    pcePluginBlobSize: UInt32
+    blobContents: c_char_p_no
+class pluginResource2(Structure):
+    resourceV1: win32more.System.RemoteDesktop.pluginResource
+    pceFileAssocListSize: UInt32
+    fileAssocList: POINTER(win32more.System.RemoteDesktop.pluginResource2FileAssociation_head)
+    securityDescriptor: win32more.Foundation.PWSTR
+    pceFolderListSize: UInt32
+    folderList: POINTER(POINTER(UInt16))
+class pluginResource2FileAssociation(Structure):
+    extName: Char * 256
+    primaryHandler: Byte
+    pceIconSize: UInt32
+    iconContents: c_char_p_no
 PolicyAttributeType = Int32
-PolicyAttributeType_EnableAllRedirections = 0
-PolicyAttributeType_DisableAllRedirections = 1
-PolicyAttributeType_DriveRedirectionDisabled = 2
-PolicyAttributeType_PrinterRedirectionDisabled = 3
-PolicyAttributeType_PortRedirectionDisabled = 4
-PolicyAttributeType_ClipboardRedirectionDisabled = 5
-PolicyAttributeType_PnpRedirectionDisabled = 6
-PolicyAttributeType_AllowOnlySDRServers = 7
-def _define_PRODUCT_INFOA_head():
-    class PRODUCT_INFOA(Structure):
-        pass
-    return PRODUCT_INFOA
-def _define_PRODUCT_INFOA():
-    PRODUCT_INFOA = win32more.System.RemoteDesktop.PRODUCT_INFOA_head
-    PRODUCT_INFOA._fields_ = [
-        ('CompanyName', win32more.Foundation.CHAR * 256),
-        ('ProductID', win32more.Foundation.CHAR * 4),
-    ]
-    return PRODUCT_INFOA
-def _define_PRODUCT_INFOW_head():
-    class PRODUCT_INFOW(Structure):
-        pass
-    return PRODUCT_INFOW
-def _define_PRODUCT_INFOW():
-    PRODUCT_INFOW = win32more.System.RemoteDesktop.PRODUCT_INFOW_head
-    PRODUCT_INFOW._fields_ = [
-        ('CompanyName', Char * 256),
-        ('ProductID', Char * 4),
-    ]
-    return PRODUCT_INFOW
-def _define_PVIRTUALCHANNELCLOSE():
-    return WINFUNCTYPE(UInt32,UInt32)
-def _define_PVIRTUALCHANNELENTRY():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.RemoteDesktop.CHANNEL_ENTRY_POINTS_head))
-def _define_PVIRTUALCHANNELINIT():
-    return WINFUNCTYPE(UInt32,POINTER(c_void_p),POINTER(win32more.System.RemoteDesktop.CHANNEL_DEF_head),Int32,UInt32,win32more.System.RemoteDesktop.PCHANNEL_INIT_EVENT_FN)
-def _define_PVIRTUALCHANNELOPEN():
-    return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32),win32more.Foundation.PSTR,win32more.System.RemoteDesktop.PCHANNEL_OPEN_EVENT_FN)
-def _define_PVIRTUALCHANNELWRITE():
-    return WINFUNCTYPE(UInt32,UInt32,c_void_p,UInt32,c_void_p)
+PolicyAttributeType_EnableAllRedirections: PolicyAttributeType = 0
+PolicyAttributeType_DisableAllRedirections: PolicyAttributeType = 1
+PolicyAttributeType_DriveRedirectionDisabled: PolicyAttributeType = 2
+PolicyAttributeType_PrinterRedirectionDisabled: PolicyAttributeType = 3
+PolicyAttributeType_PortRedirectionDisabled: PolicyAttributeType = 4
+PolicyAttributeType_ClipboardRedirectionDisabled: PolicyAttributeType = 5
+PolicyAttributeType_PnpRedirectionDisabled: PolicyAttributeType = 6
+PolicyAttributeType_AllowOnlySDRServers: PolicyAttributeType = 7
+class PRODUCT_INFOA(Structure):
+    CompanyName: win32more.Foundation.CHAR * 256
+    ProductID: win32more.Foundation.CHAR * 4
+class PRODUCT_INFOW(Structure):
+    CompanyName: Char * 256
+    ProductID: Char * 4
+@winfunctype_pointer
+def PVIRTUALCHANNELCLOSE(openHandle: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PVIRTUALCHANNELENTRY(pEntryPoints: POINTER(win32more.System.RemoteDesktop.CHANNEL_ENTRY_POINTS_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PVIRTUALCHANNELINIT(ppInitHandle: POINTER(c_void_p), pChannel: POINTER(win32more.System.RemoteDesktop.CHANNEL_DEF_head), channelCount: Int32, versionRequested: UInt32, pChannelInitEventProc: win32more.System.RemoteDesktop.PCHANNEL_INIT_EVENT_FN) -> UInt32: ...
+@winfunctype_pointer
+def PVIRTUALCHANNELOPEN(pInitHandle: c_void_p, pOpenHandle: POINTER(UInt32), pChannelName: win32more.Foundation.PSTR, pChannelOpenEventProc: win32more.System.RemoteDesktop.PCHANNEL_OPEN_EVENT_FN) -> UInt32: ...
+@winfunctype_pointer
+def PVIRTUALCHANNELWRITE(openHandle: UInt32, pData: c_void_p, dataLength: UInt32, pUserData: c_void_p) -> UInt32: ...
 RD_FARM_TYPE = Int32
-RD_FARM_RDSH = 0
-RD_FARM_TEMP_VM = 1
-RD_FARM_MANUAL_PERSONAL_VM = 2
-RD_FARM_AUTO_PERSONAL_VM = 3
-RD_FARM_MANUAL_PERSONAL_RDSH = 4
-RD_FARM_AUTO_PERSONAL_RDSH = 5
-RD_FARM_TYPE_UNKNOWN = -1
+RD_FARM_RDSH: RD_FARM_TYPE = 0
+RD_FARM_TEMP_VM: RD_FARM_TYPE = 1
+RD_FARM_MANUAL_PERSONAL_VM: RD_FARM_TYPE = 2
+RD_FARM_AUTO_PERSONAL_VM: RD_FARM_TYPE = 3
+RD_FARM_MANUAL_PERSONAL_RDSH: RD_FARM_TYPE = 4
+RD_FARM_AUTO_PERSONAL_RDSH: RD_FARM_TYPE = 5
+RD_FARM_TYPE_UNKNOWN: RD_FARM_TYPE = -1
 RDV_TASK_STATUS = Int32
-RDV_TASK_STATUS_UNKNOWN = 0
-RDV_TASK_STATUS_SEARCHING = 1
-RDV_TASK_STATUS_DOWNLOADING = 2
-RDV_TASK_STATUS_APPLYING = 3
-RDV_TASK_STATUS_REBOOTING = 4
-RDV_TASK_STATUS_REBOOTED = 5
-RDV_TASK_STATUS_SUCCESS = 6
-RDV_TASK_STATUS_FAILED = 7
-RDV_TASK_STATUS_TIMEOUT = 8
+RDV_TASK_STATUS_UNKNOWN: RDV_TASK_STATUS = 0
+RDV_TASK_STATUS_SEARCHING: RDV_TASK_STATUS = 1
+RDV_TASK_STATUS_DOWNLOADING: RDV_TASK_STATUS = 2
+RDV_TASK_STATUS_APPLYING: RDV_TASK_STATUS = 3
+RDV_TASK_STATUS_REBOOTING: RDV_TASK_STATUS = 4
+RDV_TASK_STATUS_REBOOTED: RDV_TASK_STATUS = 5
+RDV_TASK_STATUS_SUCCESS: RDV_TASK_STATUS = 6
+RDV_TASK_STATUS_FAILED: RDV_TASK_STATUS = 7
+RDV_TASK_STATUS_TIMEOUT: RDV_TASK_STATUS = 8
 RemoteActionType = Int32
-RemoteActionType_RemoteActionCharms = 0
-RemoteActionType_RemoteActionAppbar = 1
-RemoteActionType_RemoteActionSnap = 2
-RemoteActionType_RemoteActionStartScreen = 3
-RemoteActionType_RemoteActionAppSwitch = 4
-def _define_RFX_GFX_MONITOR_INFO_head():
-    class RFX_GFX_MONITOR_INFO(Structure):
-        pass
-    return RFX_GFX_MONITOR_INFO
-def _define_RFX_GFX_MONITOR_INFO():
-    RFX_GFX_MONITOR_INFO = win32more.System.RemoteDesktop.RFX_GFX_MONITOR_INFO_head
-    RFX_GFX_MONITOR_INFO._pack_ = 1
-    RFX_GFX_MONITOR_INFO._fields_ = [
-        ('left', Int32),
-        ('top', Int32),
-        ('right', Int32),
-        ('bottom', Int32),
-        ('physicalWidth', UInt32),
-        ('physicalHeight', UInt32),
-        ('orientation', UInt32),
-        ('primary', win32more.Foundation.BOOL),
-    ]
-    return RFX_GFX_MONITOR_INFO
-def _define_RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST_head():
-    class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST(Structure):
-        pass
-    return RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST
-def _define_RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST():
-    RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST = win32more.System.RemoteDesktop.RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST_head
-    RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-    ]
-    return RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST
-def _define_RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE_head():
-    class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE(Structure):
-        pass
-    return RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE
-def _define_RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE():
-    RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE = win32more.System.RemoteDesktop.RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE_head
-    RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE._pack_ = 1
-    RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('reserved', UInt32),
-        ('monitorCount', UInt32),
-        ('MonitorData', win32more.System.RemoteDesktop.RFX_GFX_MONITOR_INFO * 16),
-        ('clientUniqueId', Char * 32),
-    ]
-    return RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE
-def _define_RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM_head():
-    class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM(Structure):
-        pass
-    return RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM
-def _define_RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM():
-    RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM = win32more.System.RemoteDesktop.RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM_head
-    RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-    ]
-    return RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM
-def _define_RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY_head():
-    class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY(Structure):
-        pass
-    return RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY
-def _define_RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY():
-    RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY = win32more.System.RemoteDesktop.RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY_head
-    RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY._pack_ = 1
-    RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('ulWidth', UInt32),
-        ('ulHeight', UInt32),
-        ('ulBpp', UInt32),
-        ('Reserved', UInt32),
-    ]
-    return RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY
-def _define_RFX_GFX_MSG_DESKTOP_INPUT_RESET_head():
-    class RFX_GFX_MSG_DESKTOP_INPUT_RESET(Structure):
-        pass
-    return RFX_GFX_MSG_DESKTOP_INPUT_RESET
-def _define_RFX_GFX_MSG_DESKTOP_INPUT_RESET():
-    RFX_GFX_MSG_DESKTOP_INPUT_RESET = win32more.System.RemoteDesktop.RFX_GFX_MSG_DESKTOP_INPUT_RESET_head
-    RFX_GFX_MSG_DESKTOP_INPUT_RESET._pack_ = 1
-    RFX_GFX_MSG_DESKTOP_INPUT_RESET._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('ulWidth', UInt32),
-        ('ulHeight', UInt32),
-    ]
-    return RFX_GFX_MSG_DESKTOP_INPUT_RESET
-def _define_RFX_GFX_MSG_DESKTOP_RESEND_REQUEST_head():
-    class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST(Structure):
-        pass
-    return RFX_GFX_MSG_DESKTOP_RESEND_REQUEST
-def _define_RFX_GFX_MSG_DESKTOP_RESEND_REQUEST():
-    RFX_GFX_MSG_DESKTOP_RESEND_REQUEST = win32more.System.RemoteDesktop.RFX_GFX_MSG_DESKTOP_RESEND_REQUEST_head
-    RFX_GFX_MSG_DESKTOP_RESEND_REQUEST._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('RedrawRect', win32more.System.RemoteDesktop.RFX_GFX_RECT),
-    ]
-    return RFX_GFX_MSG_DESKTOP_RESEND_REQUEST
-def _define_RFX_GFX_MSG_DISCONNECT_NOTIFY_head():
-    class RFX_GFX_MSG_DISCONNECT_NOTIFY(Structure):
-        pass
-    return RFX_GFX_MSG_DISCONNECT_NOTIFY
-def _define_RFX_GFX_MSG_DISCONNECT_NOTIFY():
-    RFX_GFX_MSG_DISCONNECT_NOTIFY = win32more.System.RemoteDesktop.RFX_GFX_MSG_DISCONNECT_NOTIFY_head
-    RFX_GFX_MSG_DISCONNECT_NOTIFY._pack_ = 1
-    RFX_GFX_MSG_DISCONNECT_NOTIFY._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('DisconnectReason', UInt32),
-    ]
-    return RFX_GFX_MSG_DISCONNECT_NOTIFY
-def _define_RFX_GFX_MSG_HEADER_head():
-    class RFX_GFX_MSG_HEADER(Structure):
-        pass
-    return RFX_GFX_MSG_HEADER
-def _define_RFX_GFX_MSG_HEADER():
-    RFX_GFX_MSG_HEADER = win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER_head
-    RFX_GFX_MSG_HEADER._pack_ = 1
-    RFX_GFX_MSG_HEADER._fields_ = [
-        ('uMSGType', UInt16),
-        ('cbSize', UInt16),
-    ]
-    return RFX_GFX_MSG_HEADER
-def _define_RFX_GFX_MSG_RDP_DATA_head():
-    class RFX_GFX_MSG_RDP_DATA(Structure):
-        pass
-    return RFX_GFX_MSG_RDP_DATA
-def _define_RFX_GFX_MSG_RDP_DATA():
-    RFX_GFX_MSG_RDP_DATA = win32more.System.RemoteDesktop.RFX_GFX_MSG_RDP_DATA_head
-    RFX_GFX_MSG_RDP_DATA._fields_ = [
-        ('channelHdr', win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER),
-        ('rdpData', Byte * 1),
-    ]
-    return RFX_GFX_MSG_RDP_DATA
-def _define_RFX_GFX_RECT_head():
-    class RFX_GFX_RECT(Structure):
-        pass
-    return RFX_GFX_RECT
-def _define_RFX_GFX_RECT():
-    RFX_GFX_RECT = win32more.System.RemoteDesktop.RFX_GFX_RECT_head
-    RFX_GFX_RECT._pack_ = 1
-    RFX_GFX_RECT._fields_ = [
-        ('left', Int32),
-        ('top', Int32),
-        ('right', Int32),
-        ('bottom', Int32),
-    ]
-    return RFX_GFX_RECT
+RemoteActionType_RemoteActionCharms: RemoteActionType = 0
+RemoteActionType_RemoteActionAppbar: RemoteActionType = 1
+RemoteActionType_RemoteActionSnap: RemoteActionType = 2
+RemoteActionType_RemoteActionStartScreen: RemoteActionType = 3
+RemoteActionType_RemoteActionAppSwitch: RemoteActionType = 4
+class RFX_GFX_MONITOR_INFO(Structure):
+    left: Int32
+    top: Int32
+    right: Int32
+    bottom: Int32
+    physicalWidth: UInt32
+    physicalHeight: UInt32
+    orientation: UInt32
+    primary: win32more.Foundation.BOOL
+    _pack_ = 1
+class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    reserved: UInt32
+    monitorCount: UInt32
+    MonitorData: win32more.System.RemoteDesktop.RFX_GFX_MONITOR_INFO * 16
+    clientUniqueId: Char * 32
+    _pack_ = 1
+class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    ulWidth: UInt32
+    ulHeight: UInt32
+    ulBpp: UInt32
+    Reserved: UInt32
+    _pack_ = 1
+class RFX_GFX_MSG_DESKTOP_INPUT_RESET(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    ulWidth: UInt32
+    ulHeight: UInt32
+    _pack_ = 1
+class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    RedrawRect: win32more.System.RemoteDesktop.RFX_GFX_RECT
+class RFX_GFX_MSG_DISCONNECT_NOTIFY(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    DisconnectReason: UInt32
+    _pack_ = 1
+class RFX_GFX_MSG_HEADER(Structure):
+    uMSGType: UInt16
+    cbSize: UInt16
+    _pack_ = 1
+class RFX_GFX_MSG_RDP_DATA(Structure):
+    channelHdr: win32more.System.RemoteDesktop.RFX_GFX_MSG_HEADER
+    rdpData: Byte * 1
+class RFX_GFX_RECT(Structure):
+    left: Int32
+    top: Int32
+    right: Int32
+    bottom: Int32
+    _pack_ = 1
 SESSION_TIMEOUT_ACTION_TYPE = Int32
-SESSION_TIMEOUT_ACTION_DISCONNECT = 0
-SESSION_TIMEOUT_ACTION_SILENT_REAUTH = 1
+SESSION_TIMEOUT_ACTION_DISCONNECT: SESSION_TIMEOUT_ACTION_TYPE = 0
+SESSION_TIMEOUT_ACTION_SILENT_REAUTH: SESSION_TIMEOUT_ACTION_TYPE = 1
 SnapshotEncodingType = Int32
-SnapshotEncodingType_SnapshotEncodingDataUri = 0
+SnapshotEncodingType_SnapshotEncodingDataUri: SnapshotEncodingType = 0
 SnapshotFormatType = Int32
-SnapshotFormatType_SnapshotFormatPng = 0
-SnapshotFormatType_SnapshotFormatJpeg = 1
-SnapshotFormatType_SnapshotFormatBmp = 2
+SnapshotFormatType_SnapshotFormatPng: SnapshotFormatType = 0
+SnapshotFormatType_SnapshotFormatJpeg: SnapshotFormatType = 1
+SnapshotFormatType_SnapshotFormatBmp: SnapshotFormatType = 2
 TARGET_CHANGE_TYPE = Int32
-TARGET_CHANGE_UNSPEC = 1
-TARGET_EXTERNALIP_CHANGED = 2
-TARGET_INTERNALIP_CHANGED = 4
-TARGET_JOINED = 8
-TARGET_REMOVED = 16
-TARGET_STATE_CHANGED = 32
-TARGET_IDLE = 64
-TARGET_PENDING = 128
-TARGET_INUSE = 256
-TARGET_PATCH_STATE_CHANGED = 512
-TARGET_FARM_MEMBERSHIP_CHANGED = 1024
+TARGET_CHANGE_UNSPEC: TARGET_CHANGE_TYPE = 1
+TARGET_EXTERNALIP_CHANGED: TARGET_CHANGE_TYPE = 2
+TARGET_INTERNALIP_CHANGED: TARGET_CHANGE_TYPE = 4
+TARGET_JOINED: TARGET_CHANGE_TYPE = 8
+TARGET_REMOVED: TARGET_CHANGE_TYPE = 16
+TARGET_STATE_CHANGED: TARGET_CHANGE_TYPE = 32
+TARGET_IDLE: TARGET_CHANGE_TYPE = 64
+TARGET_PENDING: TARGET_CHANGE_TYPE = 128
+TARGET_INUSE: TARGET_CHANGE_TYPE = 256
+TARGET_PATCH_STATE_CHANGED: TARGET_CHANGE_TYPE = 512
+TARGET_FARM_MEMBERSHIP_CHANGED: TARGET_CHANGE_TYPE = 1024
 TARGET_OWNER = Int32
-OWNER_UNKNOWN = 0
-OWNER_MS_TS_PLUGIN = 1
-OWNER_MS_VM_PLUGIN = 2
+OWNER_UNKNOWN: TARGET_OWNER = 0
+OWNER_MS_TS_PLUGIN: TARGET_OWNER = 1
+OWNER_MS_VM_PLUGIN: TARGET_OWNER = 2
 TARGET_PATCH_STATE = Int32
-TARGET_PATCH_UNKNOWN = 0
-TARGET_PATCH_NOT_STARTED = 1
-TARGET_PATCH_IN_PROGRESS = 2
-TARGET_PATCH_COMPLETED = 3
-TARGET_PATCH_FAILED = 4
+TARGET_PATCH_UNKNOWN: TARGET_PATCH_STATE = 0
+TARGET_PATCH_NOT_STARTED: TARGET_PATCH_STATE = 1
+TARGET_PATCH_IN_PROGRESS: TARGET_PATCH_STATE = 2
+TARGET_PATCH_COMPLETED: TARGET_PATCH_STATE = 3
+TARGET_PATCH_FAILED: TARGET_PATCH_STATE = 4
 TARGET_STATE = Int32
-TARGET_UNKNOWN = 1
-TARGET_INITIALIZING = 2
-TARGET_RUNNING = 3
-TARGET_DOWN = 4
-TARGET_HIBERNATED = 5
-TARGET_CHECKED_OUT = 6
-TARGET_STOPPED = 7
-TARGET_INVALID = 8
-TARGET_STARTING = 9
-TARGET_STOPPING = 10
-TARGET_MAXSTATE = 11
+TARGET_UNKNOWN: TARGET_STATE = 1
+TARGET_INITIALIZING: TARGET_STATE = 2
+TARGET_RUNNING: TARGET_STATE = 3
+TARGET_DOWN: TARGET_STATE = 4
+TARGET_HIBERNATED: TARGET_STATE = 5
+TARGET_CHECKED_OUT: TARGET_STATE = 6
+TARGET_STOPPED: TARGET_STATE = 7
+TARGET_INVALID: TARGET_STATE = 8
+TARGET_STARTING: TARGET_STATE = 9
+TARGET_STOPPING: TARGET_STATE = 10
+TARGET_MAXSTATE: TARGET_STATE = 11
 TARGET_TYPE = Int32
-UNKNOWN = 0
-FARM = 1
-NONFARM = 2
+UNKNOWN: TARGET_TYPE = 0
+FARM: TARGET_TYPE = 1
+NONFARM: TARGET_TYPE = 2
 TS_SB_SORT_BY = Int32
-TS_SB_SORT_BY_NONE = 0
-TS_SB_SORT_BY_NAME = 1
-TS_SB_SORT_BY_PROP = 2
+TS_SB_SORT_BY_NONE: TS_SB_SORT_BY = 0
+TS_SB_SORT_BY_NAME: TS_SB_SORT_BY = 1
+TS_SB_SORT_BY_PROP: TS_SB_SORT_BY = 2
 TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = Int32
-TSPUB_PLUGIN_PD_ASSIGNMENT_NEW = 0
-TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING = 1
+TSPUB_PLUGIN_PD_ASSIGNMENT_NEW: TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 0
+TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING: TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 1
 TSPUB_PLUGIN_PD_RESOLUTION_TYPE = Int32
-TSPUB_PLUGIN_PD_QUERY_OR_CREATE = 0
-TSPUB_PLUGIN_PD_QUERY_EXISTING = 1
+TSPUB_PLUGIN_PD_QUERY_OR_CREATE: TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 0
+TSPUB_PLUGIN_PD_QUERY_EXISTING: TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 1
 TSSB_NOTIFICATION_TYPE = Int32
-TSSB_NOTIFY_INVALID = 0
-TSSB_NOTIFY_TARGET_CHANGE = 1
-TSSB_NOTIFY_SESSION_CHANGE = 2
-TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE = 4
+TSSB_NOTIFY_INVALID: TSSB_NOTIFICATION_TYPE = 0
+TSSB_NOTIFY_TARGET_CHANGE: TSSB_NOTIFICATION_TYPE = 1
+TSSB_NOTIFY_SESSION_CHANGE: TSSB_NOTIFICATION_TYPE = 2
+TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE: TSSB_NOTIFICATION_TYPE = 4
 TSSD_AddrV46Type = Int32
-TSSD_ADDR_UNDEFINED = 0
-TSSD_ADDR_IPv4 = 4
-TSSD_ADDR_IPv6 = 6
-def _define_TSSD_ConnectionPoint_head():
-    class TSSD_ConnectionPoint(Structure):
-        pass
-    return TSSD_ConnectionPoint
-def _define_TSSD_ConnectionPoint():
-    TSSD_ConnectionPoint = win32more.System.RemoteDesktop.TSSD_ConnectionPoint_head
-    TSSD_ConnectionPoint._fields_ = [
-        ('ServerAddressB', Byte * 16),
-        ('AddressType', win32more.System.RemoteDesktop.TSSD_AddrV46Type),
-        ('PortNumber', UInt16),
-        ('AddressScope', UInt32),
-    ]
-    return TSSD_ConnectionPoint
+TSSD_ADDR_UNDEFINED: TSSD_AddrV46Type = 0
+TSSD_ADDR_IPv4: TSSD_AddrV46Type = 4
+TSSD_ADDR_IPv6: TSSD_AddrV46Type = 6
+class TSSD_ConnectionPoint(Structure):
+    ServerAddressB: Byte * 16
+    AddressType: win32more.System.RemoteDesktop.TSSD_AddrV46Type
+    PortNumber: UInt16
+    AddressScope: UInt32
 TSSESSION_STATE = Int32
-STATE_INVALID = -1
-STATE_ACTIVE = 0
-STATE_CONNECTED = 1
-STATE_CONNECTQUERY = 2
-STATE_SHADOW = 3
-STATE_DISCONNECTED = 4
-STATE_IDLE = 5
-STATE_LISTEN = 6
-STATE_RESET = 7
-STATE_DOWN = 8
-STATE_INIT = 9
-STATE_MAX = 10
+STATE_INVALID: TSSESSION_STATE = -1
+STATE_ACTIVE: TSSESSION_STATE = 0
+STATE_CONNECTED: TSSESSION_STATE = 1
+STATE_CONNECTQUERY: TSSESSION_STATE = 2
+STATE_SHADOW: TSSESSION_STATE = 3
+STATE_DISCONNECTED: TSSESSION_STATE = 4
+STATE_IDLE: TSSESSION_STATE = 5
+STATE_LISTEN: TSSESSION_STATE = 6
+STATE_RESET: TSSESSION_STATE = 7
+STATE_DOWN: TSSESSION_STATE = 8
+STATE_INIT: TSSESSION_STATE = 9
+STATE_MAX: TSSESSION_STATE = 10
 TSUserExInterfaces = Guid('0910dd01-df8c-11d1-ae-27-00-c0-4f-a3-58-13')
 VM_HOST_NOTIFY_STATUS = Int32
-VM_HOST_STATUS_INIT_PENDING = 0
-VM_HOST_STATUS_INIT_IN_PROGRESS = 1
-VM_HOST_STATUS_INIT_COMPLETE = 2
-VM_HOST_STATUS_INIT_FAILED = 3
-def _define_VM_NOTIFY_ENTRY_head():
-    class VM_NOTIFY_ENTRY(Structure):
-        pass
-    return VM_NOTIFY_ENTRY
-def _define_VM_NOTIFY_ENTRY():
-    VM_NOTIFY_ENTRY = win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head
-    VM_NOTIFY_ENTRY._fields_ = [
-        ('VmName', Char * 128),
-        ('VmHost', Char * 128),
-    ]
-    return VM_NOTIFY_ENTRY
-def _define_VM_NOTIFY_INFO_head():
-    class VM_NOTIFY_INFO(Structure):
-        pass
-    return VM_NOTIFY_INFO
-def _define_VM_NOTIFY_INFO():
-    VM_NOTIFY_INFO = win32more.System.RemoteDesktop.VM_NOTIFY_INFO_head
-    VM_NOTIFY_INFO._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('ppVmEntries', POINTER(POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head))),
-    ]
-    return VM_NOTIFY_INFO
+VM_HOST_STATUS_INIT_PENDING: VM_HOST_NOTIFY_STATUS = 0
+VM_HOST_STATUS_INIT_IN_PROGRESS: VM_HOST_NOTIFY_STATUS = 1
+VM_HOST_STATUS_INIT_COMPLETE: VM_HOST_NOTIFY_STATUS = 2
+VM_HOST_STATUS_INIT_FAILED: VM_HOST_NOTIFY_STATUS = 3
+class VM_NOTIFY_ENTRY(Structure):
+    VmName: Char * 128
+    VmHost: Char * 128
+class VM_NOTIFY_INFO(Structure):
+    dwNumEntries: UInt32
+    ppVmEntries: POINTER(POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head))
 VM_NOTIFY_STATUS = Int32
-VM_NOTIFY_STATUS_PENDING = 0
-VM_NOTIFY_STATUS_IN_PROGRESS = 1
-VM_NOTIFY_STATUS_COMPLETE = 2
-VM_NOTIFY_STATUS_FAILED = 3
-VM_NOTIFY_STATUS_CANCELED = 4
-def _define_VM_PATCH_INFO_head():
-    class VM_PATCH_INFO(Structure):
-        pass
-    return VM_PATCH_INFO
-def _define_VM_PATCH_INFO():
-    VM_PATCH_INFO = win32more.System.RemoteDesktop.VM_PATCH_INFO_head
-    VM_PATCH_INFO._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('pVmNames', POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return VM_PATCH_INFO
+VM_NOTIFY_STATUS_PENDING: VM_NOTIFY_STATUS = 0
+VM_NOTIFY_STATUS_IN_PROGRESS: VM_NOTIFY_STATUS = 1
+VM_NOTIFY_STATUS_COMPLETE: VM_NOTIFY_STATUS = 2
+VM_NOTIFY_STATUS_FAILED: VM_NOTIFY_STATUS = 3
+VM_NOTIFY_STATUS_CANCELED: VM_NOTIFY_STATUS = 4
+class VM_PATCH_INFO(Structure):
+    dwNumEntries: UInt32
+    pVmNames: POINTER(win32more.Foundation.PWSTR)
 Workspace = Guid('4f1dfca6-3aad-48e1-84-06-4b-c2-1a-50-1d-7c')
-def _define_WRDS_CONNECTION_SETTING_head():
-    class WRDS_CONNECTION_SETTING(Union):
-        pass
-    return WRDS_CONNECTION_SETTING
-def _define_WRDS_CONNECTION_SETTING():
-    WRDS_CONNECTION_SETTING = win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_head
-    WRDS_CONNECTION_SETTING._fields_ = [
-        ('WRdsConnectionSettings1', win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_1),
-    ]
-    return WRDS_CONNECTION_SETTING
+class WRDS_CONNECTION_SETTING(Union):
+    WRdsConnectionSettings1: win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_1
 WRDS_CONNECTION_SETTING_LEVEL = Int32
-WRDS_CONNECTION_SETTING_LEVEL_INVALID = 0
-WRDS_CONNECTION_SETTING_LEVEL_1 = 1
-def _define_WRDS_CONNECTION_SETTINGS_head():
-    class WRDS_CONNECTION_SETTINGS(Structure):
-        pass
-    return WRDS_CONNECTION_SETTINGS
-def _define_WRDS_CONNECTION_SETTINGS():
-    WRDS_CONNECTION_SETTINGS = win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head
-    WRDS_CONNECTION_SETTINGS._fields_ = [
-        ('WRdsConnectionSettingLevel', win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL),
-        ('WRdsConnectionSetting', win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING),
-    ]
-    return WRDS_CONNECTION_SETTINGS
-def _define_WRDS_CONNECTION_SETTINGS_1_head():
-    class WRDS_CONNECTION_SETTINGS_1(Structure):
-        pass
-    return WRDS_CONNECTION_SETTINGS_1
-def _define_WRDS_CONNECTION_SETTINGS_1():
-    WRDS_CONNECTION_SETTINGS_1 = win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_1_head
-    WRDS_CONNECTION_SETTINGS_1._fields_ = [
-        ('fInheritInitialProgram', win32more.Foundation.BOOLEAN),
-        ('fInheritColorDepth', win32more.Foundation.BOOLEAN),
-        ('fHideTitleBar', win32more.Foundation.BOOLEAN),
-        ('fInheritAutoLogon', win32more.Foundation.BOOLEAN),
-        ('fMaximizeShell', win32more.Foundation.BOOLEAN),
-        ('fDisablePNP', win32more.Foundation.BOOLEAN),
-        ('fPasswordIsScPin', win32more.Foundation.BOOLEAN),
-        ('fPromptForPassword', win32more.Foundation.BOOLEAN),
-        ('fDisableCpm', win32more.Foundation.BOOLEAN),
-        ('fDisableCdm', win32more.Foundation.BOOLEAN),
-        ('fDisableCcm', win32more.Foundation.BOOLEAN),
-        ('fDisableLPT', win32more.Foundation.BOOLEAN),
-        ('fDisableClip', win32more.Foundation.BOOLEAN),
-        ('fResetBroken', win32more.Foundation.BOOLEAN),
-        ('fDisableEncryption', win32more.Foundation.BOOLEAN),
-        ('fDisableAutoReconnect', win32more.Foundation.BOOLEAN),
-        ('fDisableCtrlAltDel', win32more.Foundation.BOOLEAN),
-        ('fDoubleClickDetect', win32more.Foundation.BOOLEAN),
-        ('fEnableWindowsKey', win32more.Foundation.BOOLEAN),
-        ('fUsingSavedCreds', win32more.Foundation.BOOLEAN),
-        ('fMouse', win32more.Foundation.BOOLEAN),
-        ('fNoAudioPlayback', win32more.Foundation.BOOLEAN),
-        ('fRemoteConsoleAudio', win32more.Foundation.BOOLEAN),
-        ('EncryptionLevel', Byte),
-        ('ColorDepth', UInt16),
-        ('ProtocolType', UInt16),
-        ('HRes', UInt16),
-        ('VRes', UInt16),
-        ('ClientProductId', UInt16),
-        ('OutBufCountHost', UInt16),
-        ('OutBufCountClient', UInt16),
-        ('OutBufLength', UInt16),
-        ('KeyboardLayout', UInt32),
-        ('MaxConnectionTime', UInt32),
-        ('MaxDisconnectionTime', UInt32),
-        ('MaxIdleTime', UInt32),
-        ('PerformanceFlags', UInt32),
-        ('KeyboardType', UInt32),
-        ('KeyboardSubType', UInt32),
-        ('KeyboardFunctionKey', UInt32),
-        ('ActiveInputLocale', UInt32),
-        ('SerialNumber', UInt32),
-        ('ClientAddressFamily', UInt32),
-        ('ClientBuildNumber', UInt32),
-        ('ClientSessionId', UInt32),
-        ('WorkDirectory', Char * 257),
-        ('InitialProgram', Char * 257),
-        ('UserName', Char * 256),
-        ('Domain', Char * 256),
-        ('Password', Char * 256),
-        ('ProtocolName', Char * 9),
-        ('DisplayDriverName', Char * 9),
-        ('DisplayDeviceName', Char * 20),
-        ('imeFileName', Char * 33),
-        ('AudioDriverName', Char * 9),
-        ('ClientName', Char * 21),
-        ('ClientAddress', Char * 31),
-        ('ClientDirectory', Char * 257),
-        ('ClientDigProductId', Char * 33),
-        ('ClientSockAddress', win32more.System.RemoteDesktop.WTS_SOCKADDR),
-        ('ClientTimeZone', win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION),
-        ('WRdsListenerSettings', win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS),
-        ('EventLogActivityId', Guid),
-        ('ContextSize', UInt32),
-        ('ContextData', c_char_p_no),
-    ]
-    return WRDS_CONNECTION_SETTINGS_1
-def _define_WRDS_DYNAMIC_TIME_ZONE_INFORMATION_head():
-    class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(Structure):
-        pass
-    return WRDS_DYNAMIC_TIME_ZONE_INFORMATION
-def _define_WRDS_DYNAMIC_TIME_ZONE_INFORMATION():
-    WRDS_DYNAMIC_TIME_ZONE_INFORMATION = win32more.System.RemoteDesktop.WRDS_DYNAMIC_TIME_ZONE_INFORMATION_head
-    WRDS_DYNAMIC_TIME_ZONE_INFORMATION._fields_ = [
-        ('Bias', Int32),
-        ('StandardName', Char * 32),
-        ('StandardDate', win32more.System.RemoteDesktop.WTS_SYSTEMTIME),
-        ('StandardBias', Int32),
-        ('DaylightName', Char * 32),
-        ('DaylightDate', win32more.System.RemoteDesktop.WTS_SYSTEMTIME),
-        ('DaylightBias', Int32),
-        ('TimeZoneKeyName', Char * 128),
-        ('DynamicDaylightTimeDisabled', UInt16),
-    ]
-    return WRDS_DYNAMIC_TIME_ZONE_INFORMATION
-def _define_WRDS_LISTENER_SETTING_head():
-    class WRDS_LISTENER_SETTING(Union):
-        pass
-    return WRDS_LISTENER_SETTING
-def _define_WRDS_LISTENER_SETTING():
-    WRDS_LISTENER_SETTING = win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_head
-    WRDS_LISTENER_SETTING._fields_ = [
-        ('WRdsListenerSettings1', win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_1),
-    ]
-    return WRDS_LISTENER_SETTING
+WRDS_CONNECTION_SETTING_LEVEL_INVALID: WRDS_CONNECTION_SETTING_LEVEL = 0
+WRDS_CONNECTION_SETTING_LEVEL_1: WRDS_CONNECTION_SETTING_LEVEL = 1
+class WRDS_CONNECTION_SETTINGS(Structure):
+    WRdsConnectionSettingLevel: win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL
+    WRdsConnectionSetting: win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING
+class WRDS_CONNECTION_SETTINGS_1(Structure):
+    fInheritInitialProgram: win32more.Foundation.BOOLEAN
+    fInheritColorDepth: win32more.Foundation.BOOLEAN
+    fHideTitleBar: win32more.Foundation.BOOLEAN
+    fInheritAutoLogon: win32more.Foundation.BOOLEAN
+    fMaximizeShell: win32more.Foundation.BOOLEAN
+    fDisablePNP: win32more.Foundation.BOOLEAN
+    fPasswordIsScPin: win32more.Foundation.BOOLEAN
+    fPromptForPassword: win32more.Foundation.BOOLEAN
+    fDisableCpm: win32more.Foundation.BOOLEAN
+    fDisableCdm: win32more.Foundation.BOOLEAN
+    fDisableCcm: win32more.Foundation.BOOLEAN
+    fDisableLPT: win32more.Foundation.BOOLEAN
+    fDisableClip: win32more.Foundation.BOOLEAN
+    fResetBroken: win32more.Foundation.BOOLEAN
+    fDisableEncryption: win32more.Foundation.BOOLEAN
+    fDisableAutoReconnect: win32more.Foundation.BOOLEAN
+    fDisableCtrlAltDel: win32more.Foundation.BOOLEAN
+    fDoubleClickDetect: win32more.Foundation.BOOLEAN
+    fEnableWindowsKey: win32more.Foundation.BOOLEAN
+    fUsingSavedCreds: win32more.Foundation.BOOLEAN
+    fMouse: win32more.Foundation.BOOLEAN
+    fNoAudioPlayback: win32more.Foundation.BOOLEAN
+    fRemoteConsoleAudio: win32more.Foundation.BOOLEAN
+    EncryptionLevel: Byte
+    ColorDepth: UInt16
+    ProtocolType: UInt16
+    HRes: UInt16
+    VRes: UInt16
+    ClientProductId: UInt16
+    OutBufCountHost: UInt16
+    OutBufCountClient: UInt16
+    OutBufLength: UInt16
+    KeyboardLayout: UInt32
+    MaxConnectionTime: UInt32
+    MaxDisconnectionTime: UInt32
+    MaxIdleTime: UInt32
+    PerformanceFlags: UInt32
+    KeyboardType: UInt32
+    KeyboardSubType: UInt32
+    KeyboardFunctionKey: UInt32
+    ActiveInputLocale: UInt32
+    SerialNumber: UInt32
+    ClientAddressFamily: UInt32
+    ClientBuildNumber: UInt32
+    ClientSessionId: UInt32
+    WorkDirectory: Char * 257
+    InitialProgram: Char * 257
+    UserName: Char * 256
+    Domain: Char * 256
+    Password: Char * 256
+    ProtocolName: Char * 9
+    DisplayDriverName: Char * 9
+    DisplayDeviceName: Char * 20
+    imeFileName: Char * 33
+    AudioDriverName: Char * 9
+    ClientName: Char * 21
+    ClientAddress: Char * 31
+    ClientDirectory: Char * 257
+    ClientDigProductId: Char * 33
+    ClientSockAddress: win32more.System.RemoteDesktop.WTS_SOCKADDR
+    ClientTimeZone: win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION
+    WRdsListenerSettings: win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS
+    EventLogActivityId: Guid
+    ContextSize: UInt32
+    ContextData: c_char_p_no
+class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(Structure):
+    Bias: Int32
+    StandardName: Char * 32
+    StandardDate: win32more.System.RemoteDesktop.WTS_SYSTEMTIME
+    StandardBias: Int32
+    DaylightName: Char * 32
+    DaylightDate: win32more.System.RemoteDesktop.WTS_SYSTEMTIME
+    DaylightBias: Int32
+    TimeZoneKeyName: Char * 128
+    DynamicDaylightTimeDisabled: UInt16
+class WRDS_LISTENER_SETTING(Union):
+    WRdsListenerSettings1: win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_1
 WRDS_LISTENER_SETTING_LEVEL = Int32
-WRDS_LISTENER_SETTING_LEVEL_INVALID = 0
-WRDS_LISTENER_SETTING_LEVEL_1 = 1
-def _define_WRDS_LISTENER_SETTINGS_head():
-    class WRDS_LISTENER_SETTINGS(Structure):
-        pass
-    return WRDS_LISTENER_SETTINGS
-def _define_WRDS_LISTENER_SETTINGS():
-    WRDS_LISTENER_SETTINGS = win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_head
-    WRDS_LISTENER_SETTINGS._fields_ = [
-        ('WRdsListenerSettingLevel', win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL),
-        ('WRdsListenerSetting', win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING),
-    ]
-    return WRDS_LISTENER_SETTINGS
-def _define_WRDS_LISTENER_SETTINGS_1_head():
-    class WRDS_LISTENER_SETTINGS_1(Structure):
-        pass
-    return WRDS_LISTENER_SETTINGS_1
-def _define_WRDS_LISTENER_SETTINGS_1():
-    WRDS_LISTENER_SETTINGS_1 = win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_1_head
-    WRDS_LISTENER_SETTINGS_1._fields_ = [
-        ('MaxProtocolListenerConnectionCount', UInt32),
-        ('SecurityDescriptorSize', UInt32),
-        ('pSecurityDescriptor', c_char_p_no),
-    ]
-    return WRDS_LISTENER_SETTINGS_1
-def _define_WRDS_SETTING_head():
-    class WRDS_SETTING(Union):
-        pass
-    return WRDS_SETTING
-def _define_WRDS_SETTING():
-    WRDS_SETTING = win32more.System.RemoteDesktop.WRDS_SETTING_head
-    WRDS_SETTING._fields_ = [
-        ('WRdsSettings1', win32more.System.RemoteDesktop.WRDS_SETTINGS_1),
-    ]
-    return WRDS_SETTING
+WRDS_LISTENER_SETTING_LEVEL_INVALID: WRDS_LISTENER_SETTING_LEVEL = 0
+WRDS_LISTENER_SETTING_LEVEL_1: WRDS_LISTENER_SETTING_LEVEL = 1
+class WRDS_LISTENER_SETTINGS(Structure):
+    WRdsListenerSettingLevel: win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL
+    WRdsListenerSetting: win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING
+class WRDS_LISTENER_SETTINGS_1(Structure):
+    MaxProtocolListenerConnectionCount: UInt32
+    SecurityDescriptorSize: UInt32
+    pSecurityDescriptor: c_char_p_no
+class WRDS_SETTING(Union):
+    WRdsSettings1: win32more.System.RemoteDesktop.WRDS_SETTINGS_1
 WRDS_SETTING_LEVEL = Int32
-WRDS_SETTING_LEVEL_INVALID = 0
-WRDS_SETTING_LEVEL_1 = 1
+WRDS_SETTING_LEVEL_INVALID: WRDS_SETTING_LEVEL = 0
+WRDS_SETTING_LEVEL_1: WRDS_SETTING_LEVEL = 1
 WRDS_SETTING_STATUS = Int32
-WRDS_SETTING_STATUS_NOTAPPLICABLE = -1
-WRDS_SETTING_STATUS_DISABLED = 0
-WRDS_SETTING_STATUS_ENABLED = 1
-WRDS_SETTING_STATUS_NOTCONFIGURED = 2
+WRDS_SETTING_STATUS_NOTAPPLICABLE: WRDS_SETTING_STATUS = -1
+WRDS_SETTING_STATUS_DISABLED: WRDS_SETTING_STATUS = 0
+WRDS_SETTING_STATUS_ENABLED: WRDS_SETTING_STATUS = 1
+WRDS_SETTING_STATUS_NOTCONFIGURED: WRDS_SETTING_STATUS = 2
 WRDS_SETTING_TYPE = Int32
-WRDS_SETTING_TYPE_INVALID = 0
-WRDS_SETTING_TYPE_MACHINE = 1
-WRDS_SETTING_TYPE_USER = 2
-WRDS_SETTING_TYPE_SAM = 3
-def _define_WRDS_SETTINGS_head():
-    class WRDS_SETTINGS(Structure):
-        pass
-    return WRDS_SETTINGS
-def _define_WRDS_SETTINGS():
-    WRDS_SETTINGS = win32more.System.RemoteDesktop.WRDS_SETTINGS_head
-    WRDS_SETTINGS._fields_ = [
-        ('WRdsSettingType', win32more.System.RemoteDesktop.WRDS_SETTING_TYPE),
-        ('WRdsSettingLevel', win32more.System.RemoteDesktop.WRDS_SETTING_LEVEL),
-        ('WRdsSetting', win32more.System.RemoteDesktop.WRDS_SETTING),
-    ]
-    return WRDS_SETTINGS
-def _define_WRDS_SETTINGS_1_head():
-    class WRDS_SETTINGS_1(Structure):
-        pass
-    return WRDS_SETTINGS_1
-def _define_WRDS_SETTINGS_1():
-    WRDS_SETTINGS_1 = win32more.System.RemoteDesktop.WRDS_SETTINGS_1_head
-    WRDS_SETTINGS_1._fields_ = [
-        ('WRdsDisableClipStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableClipValue', UInt32),
-        ('WRdsDisableLPTStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableLPTValue', UInt32),
-        ('WRdsDisableCcmStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableCcmValue', UInt32),
-        ('WRdsDisableCdmStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableCdmValue', UInt32),
-        ('WRdsDisableCpmStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableCpmValue', UInt32),
-        ('WRdsDisablePnpStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisablePnpValue', UInt32),
-        ('WRdsEncryptionLevelStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsEncryptionValue', UInt32),
-        ('WRdsColorDepthStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsColorDepthValue', UInt32),
-        ('WRdsDisableAutoReconnecetStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableAutoReconnecetValue', UInt32),
-        ('WRdsDisableEncryptionStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsDisableEncryptionValue', UInt32),
-        ('WRdsResetBrokenStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsResetBrokenValue', UInt32),
-        ('WRdsMaxIdleTimeStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsMaxIdleTimeValue', UInt32),
-        ('WRdsMaxDisconnectTimeStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsMaxDisconnectTimeValue', UInt32),
-        ('WRdsMaxConnectTimeStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsMaxConnectTimeValue', UInt32),
-        ('WRdsKeepAliveStatus', win32more.System.RemoteDesktop.WRDS_SETTING_STATUS),
-        ('WRdsKeepAliveStartValue', win32more.Foundation.BOOLEAN),
-        ('WRdsKeepAliveIntervalValue', UInt32),
-    ]
-    return WRDS_SETTINGS_1
+WRDS_SETTING_TYPE_INVALID: WRDS_SETTING_TYPE = 0
+WRDS_SETTING_TYPE_MACHINE: WRDS_SETTING_TYPE = 1
+WRDS_SETTING_TYPE_USER: WRDS_SETTING_TYPE = 2
+WRDS_SETTING_TYPE_SAM: WRDS_SETTING_TYPE = 3
+class WRDS_SETTINGS(Structure):
+    WRdsSettingType: win32more.System.RemoteDesktop.WRDS_SETTING_TYPE
+    WRdsSettingLevel: win32more.System.RemoteDesktop.WRDS_SETTING_LEVEL
+    WRdsSetting: win32more.System.RemoteDesktop.WRDS_SETTING
+class WRDS_SETTINGS_1(Structure):
+    WRdsDisableClipStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableClipValue: UInt32
+    WRdsDisableLPTStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableLPTValue: UInt32
+    WRdsDisableCcmStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableCcmValue: UInt32
+    WRdsDisableCdmStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableCdmValue: UInt32
+    WRdsDisableCpmStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableCpmValue: UInt32
+    WRdsDisablePnpStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisablePnpValue: UInt32
+    WRdsEncryptionLevelStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsEncryptionValue: UInt32
+    WRdsColorDepthStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsColorDepthValue: UInt32
+    WRdsDisableAutoReconnecetStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableAutoReconnecetValue: UInt32
+    WRdsDisableEncryptionStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsDisableEncryptionValue: UInt32
+    WRdsResetBrokenStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsResetBrokenValue: UInt32
+    WRdsMaxIdleTimeStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsMaxIdleTimeValue: UInt32
+    WRdsMaxDisconnectTimeStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsMaxDisconnectTimeValue: UInt32
+    WRdsMaxConnectTimeStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsMaxConnectTimeValue: UInt32
+    WRdsKeepAliveStatus: win32more.System.RemoteDesktop.WRDS_SETTING_STATUS
+    WRdsKeepAliveStartValue: win32more.Foundation.BOOLEAN
+    WRdsKeepAliveIntervalValue: UInt32
 WRdsGraphicsChannelType = Int32
-WRdsGraphicsChannelType_GuaranteedDelivery = 0
-WRdsGraphicsChannelType_BestEffortDelivery = 1
-def _define_WTS_CACHE_STATS_head():
-    class WTS_CACHE_STATS(Structure):
-        pass
-    return WTS_CACHE_STATS
-def _define_WTS_CACHE_STATS():
-    WTS_CACHE_STATS = win32more.System.RemoteDesktop.WTS_CACHE_STATS_head
-    WTS_CACHE_STATS._fields_ = [
-        ('Specific', UInt32),
-        ('Data', win32more.System.RemoteDesktop.WTS_CACHE_STATS_UN),
-        ('ProtocolType', UInt16),
-        ('Length', UInt16),
-    ]
-    return WTS_CACHE_STATS
-def _define_WTS_CACHE_STATS_UN_head():
-    class WTS_CACHE_STATS_UN(Union):
-        pass
-    return WTS_CACHE_STATS_UN
-def _define_WTS_CACHE_STATS_UN():
-    WTS_CACHE_STATS_UN = win32more.System.RemoteDesktop.WTS_CACHE_STATS_UN_head
-    WTS_CACHE_STATS_UN._fields_ = [
-        ('ProtocolCache', win32more.System.RemoteDesktop.WTS_PROTOCOL_CACHE * 4),
-        ('TShareCacheStats', UInt32),
-        ('Reserved', UInt32 * 20),
-    ]
-    return WTS_CACHE_STATS_UN
+WRdsGraphicsChannelType_GuaranteedDelivery: WRdsGraphicsChannelType = 0
+WRdsGraphicsChannelType_BestEffortDelivery: WRdsGraphicsChannelType = 1
+class WTS_CACHE_STATS(Structure):
+    Specific: UInt32
+    Data: win32more.System.RemoteDesktop.WTS_CACHE_STATS_UN
+    ProtocolType: UInt16
+    Length: UInt16
+class WTS_CACHE_STATS_UN(Union):
+    ProtocolCache: win32more.System.RemoteDesktop.WTS_PROTOCOL_CACHE * 4
+    TShareCacheStats: UInt32
+    Reserved: UInt32 * 20
 WTS_CERT_TYPE = Int32
-WTS_CERT_TYPE_INVALID = 0
-WTS_CERT_TYPE_PROPRIETORY = 1
-WTS_CERT_TYPE_X509 = 2
-def _define_WTS_CLIENT_ADDRESS_head():
-    class WTS_CLIENT_ADDRESS(Structure):
-        pass
-    return WTS_CLIENT_ADDRESS
-def _define_WTS_CLIENT_ADDRESS():
-    WTS_CLIENT_ADDRESS = win32more.System.RemoteDesktop.WTS_CLIENT_ADDRESS_head
-    WTS_CLIENT_ADDRESS._fields_ = [
-        ('AddressFamily', UInt32),
-        ('Address', Byte * 20),
-    ]
-    return WTS_CLIENT_ADDRESS
-def _define_WTS_CLIENT_DATA_head():
-    class WTS_CLIENT_DATA(Structure):
-        pass
-    return WTS_CLIENT_DATA
-def _define_WTS_CLIENT_DATA():
-    WTS_CLIENT_DATA = win32more.System.RemoteDesktop.WTS_CLIENT_DATA_head
-    WTS_CLIENT_DATA._fields_ = [
-        ('fDisableCtrlAltDel', win32more.Foundation.BOOLEAN),
-        ('fDoubleClickDetect', win32more.Foundation.BOOLEAN),
-        ('fEnableWindowsKey', win32more.Foundation.BOOLEAN),
-        ('fHideTitleBar', win32more.Foundation.BOOLEAN),
-        ('fInheritAutoLogon', win32more.Foundation.BOOL),
-        ('fPromptForPassword', win32more.Foundation.BOOLEAN),
-        ('fUsingSavedCreds', win32more.Foundation.BOOLEAN),
-        ('Domain', Char * 256),
-        ('UserName', Char * 256),
-        ('Password', Char * 256),
-        ('fPasswordIsScPin', win32more.Foundation.BOOLEAN),
-        ('fInheritInitialProgram', win32more.Foundation.BOOL),
-        ('WorkDirectory', Char * 257),
-        ('InitialProgram', Char * 257),
-        ('fMaximizeShell', win32more.Foundation.BOOLEAN),
-        ('EncryptionLevel', Byte),
-        ('PerformanceFlags', UInt32),
-        ('ProtocolName', Char * 9),
-        ('ProtocolType', UInt16),
-        ('fInheritColorDepth', win32more.Foundation.BOOL),
-        ('HRes', UInt16),
-        ('VRes', UInt16),
-        ('ColorDepth', UInt16),
-        ('DisplayDriverName', Char * 9),
-        ('DisplayDeviceName', Char * 20),
-        ('fMouse', win32more.Foundation.BOOLEAN),
-        ('KeyboardLayout', UInt32),
-        ('KeyboardType', UInt32),
-        ('KeyboardSubType', UInt32),
-        ('KeyboardFunctionKey', UInt32),
-        ('imeFileName', Char * 33),
-        ('ActiveInputLocale', UInt32),
-        ('fNoAudioPlayback', win32more.Foundation.BOOLEAN),
-        ('fRemoteConsoleAudio', win32more.Foundation.BOOLEAN),
-        ('AudioDriverName', Char * 9),
-        ('ClientTimeZone', win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION),
-        ('ClientName', Char * 21),
-        ('SerialNumber', UInt32),
-        ('ClientAddressFamily', UInt32),
-        ('ClientAddress', Char * 31),
-        ('ClientSockAddress', win32more.System.RemoteDesktop.WTS_SOCKADDR),
-        ('ClientDirectory', Char * 257),
-        ('ClientBuildNumber', UInt32),
-        ('ClientProductId', UInt16),
-        ('OutBufCountHost', UInt16),
-        ('OutBufCountClient', UInt16),
-        ('OutBufLength', UInt16),
-        ('ClientSessionId', UInt32),
-        ('ClientDigProductId', Char * 33),
-        ('fDisableCpm', win32more.Foundation.BOOLEAN),
-        ('fDisableCdm', win32more.Foundation.BOOLEAN),
-        ('fDisableCcm', win32more.Foundation.BOOLEAN),
-        ('fDisableLPT', win32more.Foundation.BOOLEAN),
-        ('fDisableClip', win32more.Foundation.BOOLEAN),
-        ('fDisablePNP', win32more.Foundation.BOOLEAN),
-    ]
-    return WTS_CLIENT_DATA
-def _define_WTS_CLIENT_DISPLAY_head():
-    class WTS_CLIENT_DISPLAY(Structure):
-        pass
-    return WTS_CLIENT_DISPLAY
-def _define_WTS_CLIENT_DISPLAY():
-    WTS_CLIENT_DISPLAY = win32more.System.RemoteDesktop.WTS_CLIENT_DISPLAY_head
-    WTS_CLIENT_DISPLAY._fields_ = [
-        ('HorizontalResolution', UInt32),
-        ('VerticalResolution', UInt32),
-        ('ColorDepth', UInt32),
-    ]
-    return WTS_CLIENT_DISPLAY
+WTS_CERT_TYPE_INVALID: WTS_CERT_TYPE = 0
+WTS_CERT_TYPE_PROPRIETORY: WTS_CERT_TYPE = 1
+WTS_CERT_TYPE_X509: WTS_CERT_TYPE = 2
+class WTS_CLIENT_ADDRESS(Structure):
+    AddressFamily: UInt32
+    Address: Byte * 20
+class WTS_CLIENT_DATA(Structure):
+    fDisableCtrlAltDel: win32more.Foundation.BOOLEAN
+    fDoubleClickDetect: win32more.Foundation.BOOLEAN
+    fEnableWindowsKey: win32more.Foundation.BOOLEAN
+    fHideTitleBar: win32more.Foundation.BOOLEAN
+    fInheritAutoLogon: win32more.Foundation.BOOL
+    fPromptForPassword: win32more.Foundation.BOOLEAN
+    fUsingSavedCreds: win32more.Foundation.BOOLEAN
+    Domain: Char * 256
+    UserName: Char * 256
+    Password: Char * 256
+    fPasswordIsScPin: win32more.Foundation.BOOLEAN
+    fInheritInitialProgram: win32more.Foundation.BOOL
+    WorkDirectory: Char * 257
+    InitialProgram: Char * 257
+    fMaximizeShell: win32more.Foundation.BOOLEAN
+    EncryptionLevel: Byte
+    PerformanceFlags: UInt32
+    ProtocolName: Char * 9
+    ProtocolType: UInt16
+    fInheritColorDepth: win32more.Foundation.BOOL
+    HRes: UInt16
+    VRes: UInt16
+    ColorDepth: UInt16
+    DisplayDriverName: Char * 9
+    DisplayDeviceName: Char * 20
+    fMouse: win32more.Foundation.BOOLEAN
+    KeyboardLayout: UInt32
+    KeyboardType: UInt32
+    KeyboardSubType: UInt32
+    KeyboardFunctionKey: UInt32
+    imeFileName: Char * 33
+    ActiveInputLocale: UInt32
+    fNoAudioPlayback: win32more.Foundation.BOOLEAN
+    fRemoteConsoleAudio: win32more.Foundation.BOOLEAN
+    AudioDriverName: Char * 9
+    ClientTimeZone: win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION
+    ClientName: Char * 21
+    SerialNumber: UInt32
+    ClientAddressFamily: UInt32
+    ClientAddress: Char * 31
+    ClientSockAddress: win32more.System.RemoteDesktop.WTS_SOCKADDR
+    ClientDirectory: Char * 257
+    ClientBuildNumber: UInt32
+    ClientProductId: UInt16
+    OutBufCountHost: UInt16
+    OutBufCountClient: UInt16
+    OutBufLength: UInt16
+    ClientSessionId: UInt32
+    ClientDigProductId: Char * 33
+    fDisableCpm: win32more.Foundation.BOOLEAN
+    fDisableCdm: win32more.Foundation.BOOLEAN
+    fDisableCcm: win32more.Foundation.BOOLEAN
+    fDisableLPT: win32more.Foundation.BOOLEAN
+    fDisableClip: win32more.Foundation.BOOLEAN
+    fDisablePNP: win32more.Foundation.BOOLEAN
+class WTS_CLIENT_DISPLAY(Structure):
+    HorizontalResolution: UInt32
+    VerticalResolution: UInt32
+    ColorDepth: UInt32
 WTS_CONFIG_CLASS = Int32
-WTS_CONFIG_CLASS_WTSUserConfigInitialProgram = 0
-WTS_CONFIG_CLASS_WTSUserConfigWorkingDirectory = 1
-WTS_CONFIG_CLASS_WTSUserConfigfInheritInitialProgram = 2
-WTS_CONFIG_CLASS_WTSUserConfigfAllowLogonTerminalServer = 3
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsConnections = 4
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsDisconnections = 5
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsIdle = 6
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDrives = 7
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientPrinters = 8
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDefaultPrinter = 9
-WTS_CONFIG_CLASS_WTSUserConfigBrokenTimeoutSettings = 10
-WTS_CONFIG_CLASS_WTSUserConfigReconnectSettings = 11
-WTS_CONFIG_CLASS_WTSUserConfigModemCallbackSettings = 12
-WTS_CONFIG_CLASS_WTSUserConfigModemCallbackPhoneNumber = 13
-WTS_CONFIG_CLASS_WTSUserConfigShadowingSettings = 14
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerProfilePath = 15
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDir = 16
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDirDrive = 17
-WTS_CONFIG_CLASS_WTSUserConfigfTerminalServerRemoteHomeDir = 18
-WTS_CONFIG_CLASS_WTSUserConfigUser = 19
+WTS_CONFIG_CLASS_WTSUserConfigInitialProgram: WTS_CONFIG_CLASS = 0
+WTS_CONFIG_CLASS_WTSUserConfigWorkingDirectory: WTS_CONFIG_CLASS = 1
+WTS_CONFIG_CLASS_WTSUserConfigfInheritInitialProgram: WTS_CONFIG_CLASS = 2
+WTS_CONFIG_CLASS_WTSUserConfigfAllowLogonTerminalServer: WTS_CONFIG_CLASS = 3
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsConnections: WTS_CONFIG_CLASS = 4
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsDisconnections: WTS_CONFIG_CLASS = 5
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsIdle: WTS_CONFIG_CLASS = 6
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDrives: WTS_CONFIG_CLASS = 7
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientPrinters: WTS_CONFIG_CLASS = 8
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDefaultPrinter: WTS_CONFIG_CLASS = 9
+WTS_CONFIG_CLASS_WTSUserConfigBrokenTimeoutSettings: WTS_CONFIG_CLASS = 10
+WTS_CONFIG_CLASS_WTSUserConfigReconnectSettings: WTS_CONFIG_CLASS = 11
+WTS_CONFIG_CLASS_WTSUserConfigModemCallbackSettings: WTS_CONFIG_CLASS = 12
+WTS_CONFIG_CLASS_WTSUserConfigModemCallbackPhoneNumber: WTS_CONFIG_CLASS = 13
+WTS_CONFIG_CLASS_WTSUserConfigShadowingSettings: WTS_CONFIG_CLASS = 14
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerProfilePath: WTS_CONFIG_CLASS = 15
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDir: WTS_CONFIG_CLASS = 16
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDirDrive: WTS_CONFIG_CLASS = 17
+WTS_CONFIG_CLASS_WTSUserConfigfTerminalServerRemoteHomeDir: WTS_CONFIG_CLASS = 18
+WTS_CONFIG_CLASS_WTSUserConfigUser: WTS_CONFIG_CLASS = 19
 WTS_CONFIG_SOURCE = Int32
-WTS_CONFIG_SOURCE_WTSUserConfigSourceSAM = 0
+WTS_CONFIG_SOURCE_WTSUserConfigSourceSAM: WTS_CONFIG_SOURCE = 0
 WTS_CONNECTSTATE_CLASS = Int32
-WTS_CONNECTSTATE_CLASS_WTSActive = 0
-WTS_CONNECTSTATE_CLASS_WTSConnected = 1
-WTS_CONNECTSTATE_CLASS_WTSConnectQuery = 2
-WTS_CONNECTSTATE_CLASS_WTSShadow = 3
-WTS_CONNECTSTATE_CLASS_WTSDisconnected = 4
-WTS_CONNECTSTATE_CLASS_WTSIdle = 5
-WTS_CONNECTSTATE_CLASS_WTSListen = 6
-WTS_CONNECTSTATE_CLASS_WTSReset = 7
-WTS_CONNECTSTATE_CLASS_WTSDown = 8
-WTS_CONNECTSTATE_CLASS_WTSInit = 9
-def _define_WTS_DISPLAY_IOCTL_head():
-    class WTS_DISPLAY_IOCTL(Structure):
-        pass
-    return WTS_DISPLAY_IOCTL
-def _define_WTS_DISPLAY_IOCTL():
-    WTS_DISPLAY_IOCTL = win32more.System.RemoteDesktop.WTS_DISPLAY_IOCTL_head
-    WTS_DISPLAY_IOCTL._fields_ = [
-        ('pDisplayIOCtlData', Byte * 256),
-        ('cbDisplayIOCtlData', UInt32),
-    ]
-    return WTS_DISPLAY_IOCTL
+WTS_CONNECTSTATE_CLASS_WTSActive: WTS_CONNECTSTATE_CLASS = 0
+WTS_CONNECTSTATE_CLASS_WTSConnected: WTS_CONNECTSTATE_CLASS = 1
+WTS_CONNECTSTATE_CLASS_WTSConnectQuery: WTS_CONNECTSTATE_CLASS = 2
+WTS_CONNECTSTATE_CLASS_WTSShadow: WTS_CONNECTSTATE_CLASS = 3
+WTS_CONNECTSTATE_CLASS_WTSDisconnected: WTS_CONNECTSTATE_CLASS = 4
+WTS_CONNECTSTATE_CLASS_WTSIdle: WTS_CONNECTSTATE_CLASS = 5
+WTS_CONNECTSTATE_CLASS_WTSListen: WTS_CONNECTSTATE_CLASS = 6
+WTS_CONNECTSTATE_CLASS_WTSReset: WTS_CONNECTSTATE_CLASS = 7
+WTS_CONNECTSTATE_CLASS_WTSDown: WTS_CONNECTSTATE_CLASS = 8
+WTS_CONNECTSTATE_CLASS_WTSInit: WTS_CONNECTSTATE_CLASS = 9
+class WTS_DISPLAY_IOCTL(Structure):
+    pDisplayIOCtlData: Byte * 256
+    cbDisplayIOCtlData: UInt32
 WTS_INFO_CLASS = Int32
-WTS_INFO_CLASS_WTSInitialProgram = 0
-WTS_INFO_CLASS_WTSApplicationName = 1
-WTS_INFO_CLASS_WTSWorkingDirectory = 2
-WTS_INFO_CLASS_WTSOEMId = 3
-WTS_INFO_CLASS_WTSSessionId = 4
-WTS_INFO_CLASS_WTSUserName = 5
-WTS_INFO_CLASS_WTSWinStationName = 6
-WTS_INFO_CLASS_WTSDomainName = 7
-WTS_INFO_CLASS_WTSConnectState = 8
-WTS_INFO_CLASS_WTSClientBuildNumber = 9
-WTS_INFO_CLASS_WTSClientName = 10
-WTS_INFO_CLASS_WTSClientDirectory = 11
-WTS_INFO_CLASS_WTSClientProductId = 12
-WTS_INFO_CLASS_WTSClientHardwareId = 13
-WTS_INFO_CLASS_WTSClientAddress = 14
-WTS_INFO_CLASS_WTSClientDisplay = 15
-WTS_INFO_CLASS_WTSClientProtocolType = 16
-WTS_INFO_CLASS_WTSIdleTime = 17
-WTS_INFO_CLASS_WTSLogonTime = 18
-WTS_INFO_CLASS_WTSIncomingBytes = 19
-WTS_INFO_CLASS_WTSOutgoingBytes = 20
-WTS_INFO_CLASS_WTSIncomingFrames = 21
-WTS_INFO_CLASS_WTSOutgoingFrames = 22
-WTS_INFO_CLASS_WTSClientInfo = 23
-WTS_INFO_CLASS_WTSSessionInfo = 24
-WTS_INFO_CLASS_WTSSessionInfoEx = 25
-WTS_INFO_CLASS_WTSConfigInfo = 26
-WTS_INFO_CLASS_WTSValidationInfo = 27
-WTS_INFO_CLASS_WTSSessionAddressV4 = 28
-WTS_INFO_CLASS_WTSIsRemoteSession = 29
-def _define_WTS_LICENSE_CAPABILITIES_head():
-    class WTS_LICENSE_CAPABILITIES(Structure):
-        pass
-    return WTS_LICENSE_CAPABILITIES
-def _define_WTS_LICENSE_CAPABILITIES():
-    WTS_LICENSE_CAPABILITIES = win32more.System.RemoteDesktop.WTS_LICENSE_CAPABILITIES_head
-    WTS_LICENSE_CAPABILITIES._fields_ = [
-        ('KeyExchangeAlg', UInt32),
-        ('ProtocolVer', UInt32),
-        ('fAuthenticateServer', win32more.Foundation.BOOL),
-        ('CertType', win32more.System.RemoteDesktop.WTS_CERT_TYPE),
-        ('cbClientName', UInt32),
-        ('rgbClientName', Byte * 42),
-    ]
-    return WTS_LICENSE_CAPABILITIES
+WTS_INFO_CLASS_WTSInitialProgram: WTS_INFO_CLASS = 0
+WTS_INFO_CLASS_WTSApplicationName: WTS_INFO_CLASS = 1
+WTS_INFO_CLASS_WTSWorkingDirectory: WTS_INFO_CLASS = 2
+WTS_INFO_CLASS_WTSOEMId: WTS_INFO_CLASS = 3
+WTS_INFO_CLASS_WTSSessionId: WTS_INFO_CLASS = 4
+WTS_INFO_CLASS_WTSUserName: WTS_INFO_CLASS = 5
+WTS_INFO_CLASS_WTSWinStationName: WTS_INFO_CLASS = 6
+WTS_INFO_CLASS_WTSDomainName: WTS_INFO_CLASS = 7
+WTS_INFO_CLASS_WTSConnectState: WTS_INFO_CLASS = 8
+WTS_INFO_CLASS_WTSClientBuildNumber: WTS_INFO_CLASS = 9
+WTS_INFO_CLASS_WTSClientName: WTS_INFO_CLASS = 10
+WTS_INFO_CLASS_WTSClientDirectory: WTS_INFO_CLASS = 11
+WTS_INFO_CLASS_WTSClientProductId: WTS_INFO_CLASS = 12
+WTS_INFO_CLASS_WTSClientHardwareId: WTS_INFO_CLASS = 13
+WTS_INFO_CLASS_WTSClientAddress: WTS_INFO_CLASS = 14
+WTS_INFO_CLASS_WTSClientDisplay: WTS_INFO_CLASS = 15
+WTS_INFO_CLASS_WTSClientProtocolType: WTS_INFO_CLASS = 16
+WTS_INFO_CLASS_WTSIdleTime: WTS_INFO_CLASS = 17
+WTS_INFO_CLASS_WTSLogonTime: WTS_INFO_CLASS = 18
+WTS_INFO_CLASS_WTSIncomingBytes: WTS_INFO_CLASS = 19
+WTS_INFO_CLASS_WTSOutgoingBytes: WTS_INFO_CLASS = 20
+WTS_INFO_CLASS_WTSIncomingFrames: WTS_INFO_CLASS = 21
+WTS_INFO_CLASS_WTSOutgoingFrames: WTS_INFO_CLASS = 22
+WTS_INFO_CLASS_WTSClientInfo: WTS_INFO_CLASS = 23
+WTS_INFO_CLASS_WTSSessionInfo: WTS_INFO_CLASS = 24
+WTS_INFO_CLASS_WTSSessionInfoEx: WTS_INFO_CLASS = 25
+WTS_INFO_CLASS_WTSConfigInfo: WTS_INFO_CLASS = 26
+WTS_INFO_CLASS_WTSValidationInfo: WTS_INFO_CLASS = 27
+WTS_INFO_CLASS_WTSSessionAddressV4: WTS_INFO_CLASS = 28
+WTS_INFO_CLASS_WTSIsRemoteSession: WTS_INFO_CLASS = 29
+class WTS_LICENSE_CAPABILITIES(Structure):
+    KeyExchangeAlg: UInt32
+    ProtocolVer: UInt32
+    fAuthenticateServer: win32more.Foundation.BOOL
+    CertType: win32more.System.RemoteDesktop.WTS_CERT_TYPE
+    cbClientName: UInt32
+    rgbClientName: Byte * 42
 WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = Int32
-WTS_LOGON_ERR_INVALID = 0
-WTS_LOGON_ERR_NOT_HANDLED = 1
-WTS_LOGON_ERR_HANDLED_SHOW = 2
-WTS_LOGON_ERR_HANDLED_DONT_SHOW = 3
-WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER = 4
-def _define_WTS_POLICY_DATA_head():
-    class WTS_POLICY_DATA(Structure):
-        pass
-    return WTS_POLICY_DATA
-def _define_WTS_POLICY_DATA():
-    WTS_POLICY_DATA = win32more.System.RemoteDesktop.WTS_POLICY_DATA_head
-    WTS_POLICY_DATA._fields_ = [
-        ('fDisableEncryption', win32more.Foundation.BOOLEAN),
-        ('fDisableAutoReconnect', win32more.Foundation.BOOLEAN),
-        ('ColorDepth', UInt32),
-        ('MinEncryptionLevel', Byte),
-        ('fDisableCpm', win32more.Foundation.BOOLEAN),
-        ('fDisableCdm', win32more.Foundation.BOOLEAN),
-        ('fDisableCcm', win32more.Foundation.BOOLEAN),
-        ('fDisableLPT', win32more.Foundation.BOOLEAN),
-        ('fDisableClip', win32more.Foundation.BOOLEAN),
-        ('fDisablePNPRedir', win32more.Foundation.BOOLEAN),
-    ]
-    return WTS_POLICY_DATA
-def _define_WTS_PROCESS_INFO_EXA_head():
-    class WTS_PROCESS_INFO_EXA(Structure):
-        pass
-    return WTS_PROCESS_INFO_EXA
-def _define_WTS_PROCESS_INFO_EXA():
-    WTS_PROCESS_INFO_EXA = win32more.System.RemoteDesktop.WTS_PROCESS_INFO_EXA_head
-    WTS_PROCESS_INFO_EXA._fields_ = [
-        ('SessionId', UInt32),
-        ('ProcessId', UInt32),
-        ('pProcessName', win32more.Foundation.PSTR),
-        ('pUserSid', win32more.Foundation.PSID),
-        ('NumberOfThreads', UInt32),
-        ('HandleCount', UInt32),
-        ('PagefileUsage', UInt32),
-        ('PeakPagefileUsage', UInt32),
-        ('WorkingSetSize', UInt32),
-        ('PeakWorkingSetSize', UInt32),
-        ('UserTime', win32more.Foundation.LARGE_INTEGER),
-        ('KernelTime', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WTS_PROCESS_INFO_EXA
-def _define_WTS_PROCESS_INFO_EXW_head():
-    class WTS_PROCESS_INFO_EXW(Structure):
-        pass
-    return WTS_PROCESS_INFO_EXW
-def _define_WTS_PROCESS_INFO_EXW():
-    WTS_PROCESS_INFO_EXW = win32more.System.RemoteDesktop.WTS_PROCESS_INFO_EXW_head
-    WTS_PROCESS_INFO_EXW._fields_ = [
-        ('SessionId', UInt32),
-        ('ProcessId', UInt32),
-        ('pProcessName', win32more.Foundation.PWSTR),
-        ('pUserSid', win32more.Foundation.PSID),
-        ('NumberOfThreads', UInt32),
-        ('HandleCount', UInt32),
-        ('PagefileUsage', UInt32),
-        ('PeakPagefileUsage', UInt32),
-        ('WorkingSetSize', UInt32),
-        ('PeakWorkingSetSize', UInt32),
-        ('UserTime', win32more.Foundation.LARGE_INTEGER),
-        ('KernelTime', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WTS_PROCESS_INFO_EXW
-def _define_WTS_PROCESS_INFOA_head():
-    class WTS_PROCESS_INFOA(Structure):
-        pass
-    return WTS_PROCESS_INFOA
-def _define_WTS_PROCESS_INFOA():
-    WTS_PROCESS_INFOA = win32more.System.RemoteDesktop.WTS_PROCESS_INFOA_head
-    WTS_PROCESS_INFOA._fields_ = [
-        ('SessionId', UInt32),
-        ('ProcessId', UInt32),
-        ('pProcessName', win32more.Foundation.PSTR),
-        ('pUserSid', win32more.Foundation.PSID),
-    ]
-    return WTS_PROCESS_INFOA
-def _define_WTS_PROCESS_INFOW_head():
-    class WTS_PROCESS_INFOW(Structure):
-        pass
-    return WTS_PROCESS_INFOW
-def _define_WTS_PROCESS_INFOW():
-    WTS_PROCESS_INFOW = win32more.System.RemoteDesktop.WTS_PROCESS_INFOW_head
-    WTS_PROCESS_INFOW._fields_ = [
-        ('SessionId', UInt32),
-        ('ProcessId', UInt32),
-        ('pProcessName', win32more.Foundation.PWSTR),
-        ('pUserSid', win32more.Foundation.PSID),
-    ]
-    return WTS_PROCESS_INFOW
-def _define_WTS_PROPERTY_VALUE_head():
-    class WTS_PROPERTY_VALUE(Structure):
-        pass
-    return WTS_PROPERTY_VALUE
-def _define_WTS_PROPERTY_VALUE():
-    WTS_PROPERTY_VALUE = win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head
-    class WTS_PROPERTY_VALUE__u_e__Union(Union):
-        pass
-    class WTS_PROPERTY_VALUE__u_e__Union__strVal_e__Struct(Structure):
-        pass
-    WTS_PROPERTY_VALUE__u_e__Union__strVal_e__Struct._fields_ = [
-        ('size', UInt32),
-        ('pstrVal', win32more.Foundation.PWSTR),
-    ]
-    class WTS_PROPERTY_VALUE__u_e__Union__bVal_e__Struct(Structure):
-        pass
-    WTS_PROPERTY_VALUE__u_e__Union__bVal_e__Struct._fields_ = [
-        ('size', UInt32),
-        ('pbVal', win32more.Foundation.PSTR),
-    ]
-    WTS_PROPERTY_VALUE__u_e__Union._fields_ = [
-        ('ulVal', UInt32),
-        ('strVal', WTS_PROPERTY_VALUE__u_e__Union__strVal_e__Struct),
-        ('bVal', WTS_PROPERTY_VALUE__u_e__Union__bVal_e__Struct),
-        ('guidVal', Guid),
-    ]
-    WTS_PROPERTY_VALUE._fields_ = [
-        ('Type', UInt16),
-        ('u', WTS_PROPERTY_VALUE__u_e__Union),
-    ]
-    return WTS_PROPERTY_VALUE
-def _define_WTS_PROTOCOL_CACHE_head():
-    class WTS_PROTOCOL_CACHE(Structure):
-        pass
-    return WTS_PROTOCOL_CACHE
-def _define_WTS_PROTOCOL_CACHE():
-    WTS_PROTOCOL_CACHE = win32more.System.RemoteDesktop.WTS_PROTOCOL_CACHE_head
-    WTS_PROTOCOL_CACHE._fields_ = [
-        ('CacheReads', UInt32),
-        ('CacheHits', UInt32),
-    ]
-    return WTS_PROTOCOL_CACHE
-def _define_WTS_PROTOCOL_COUNTERS_head():
-    class WTS_PROTOCOL_COUNTERS(Structure):
-        pass
-    return WTS_PROTOCOL_COUNTERS
-def _define_WTS_PROTOCOL_COUNTERS():
-    WTS_PROTOCOL_COUNTERS = win32more.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS_head
-    WTS_PROTOCOL_COUNTERS._fields_ = [
-        ('WdBytes', UInt32),
-        ('WdFrames', UInt32),
-        ('WaitForOutBuf', UInt32),
-        ('Frames', UInt32),
-        ('Bytes', UInt32),
-        ('CompressedBytes', UInt32),
-        ('CompressFlushes', UInt32),
-        ('Errors', UInt32),
-        ('Timeouts', UInt32),
-        ('AsyncFramingError', UInt32),
-        ('AsyncOverrunError', UInt32),
-        ('AsyncOverflowError', UInt32),
-        ('AsyncParityError', UInt32),
-        ('TdErrors', UInt32),
-        ('ProtocolType', UInt16),
-        ('Length', UInt16),
-        ('Specific', UInt16),
-        ('Reserved', UInt32 * 100),
-    ]
-    return WTS_PROTOCOL_COUNTERS
-def _define_WTS_PROTOCOL_STATUS_head():
-    class WTS_PROTOCOL_STATUS(Structure):
-        pass
-    return WTS_PROTOCOL_STATUS
-def _define_WTS_PROTOCOL_STATUS():
-    WTS_PROTOCOL_STATUS = win32more.System.RemoteDesktop.WTS_PROTOCOL_STATUS_head
-    WTS_PROTOCOL_STATUS._fields_ = [
-        ('Output', win32more.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS),
-        ('Input', win32more.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS),
-        ('Cache', win32more.System.RemoteDesktop.WTS_CACHE_STATS),
-        ('AsyncSignal', UInt32),
-        ('AsyncSignalMask', UInt32),
-        ('Counters', win32more.Foundation.LARGE_INTEGER * 100),
-    ]
-    return WTS_PROTOCOL_STATUS
+WTS_LOGON_ERR_INVALID: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 0
+WTS_LOGON_ERR_NOT_HANDLED: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 1
+WTS_LOGON_ERR_HANDLED_SHOW: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 2
+WTS_LOGON_ERR_HANDLED_DONT_SHOW: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 3
+WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 4
+class WTS_POLICY_DATA(Structure):
+    fDisableEncryption: win32more.Foundation.BOOLEAN
+    fDisableAutoReconnect: win32more.Foundation.BOOLEAN
+    ColorDepth: UInt32
+    MinEncryptionLevel: Byte
+    fDisableCpm: win32more.Foundation.BOOLEAN
+    fDisableCdm: win32more.Foundation.BOOLEAN
+    fDisableCcm: win32more.Foundation.BOOLEAN
+    fDisableLPT: win32more.Foundation.BOOLEAN
+    fDisableClip: win32more.Foundation.BOOLEAN
+    fDisablePNPRedir: win32more.Foundation.BOOLEAN
+class WTS_PROCESS_INFO_EXA(Structure):
+    SessionId: UInt32
+    ProcessId: UInt32
+    pProcessName: win32more.Foundation.PSTR
+    pUserSid: win32more.Foundation.PSID
+    NumberOfThreads: UInt32
+    HandleCount: UInt32
+    PagefileUsage: UInt32
+    PeakPagefileUsage: UInt32
+    WorkingSetSize: UInt32
+    PeakWorkingSetSize: UInt32
+    UserTime: win32more.Foundation.LARGE_INTEGER
+    KernelTime: win32more.Foundation.LARGE_INTEGER
+class WTS_PROCESS_INFO_EXW(Structure):
+    SessionId: UInt32
+    ProcessId: UInt32
+    pProcessName: win32more.Foundation.PWSTR
+    pUserSid: win32more.Foundation.PSID
+    NumberOfThreads: UInt32
+    HandleCount: UInt32
+    PagefileUsage: UInt32
+    PeakPagefileUsage: UInt32
+    WorkingSetSize: UInt32
+    PeakWorkingSetSize: UInt32
+    UserTime: win32more.Foundation.LARGE_INTEGER
+    KernelTime: win32more.Foundation.LARGE_INTEGER
+class WTS_PROCESS_INFOA(Structure):
+    SessionId: UInt32
+    ProcessId: UInt32
+    pProcessName: win32more.Foundation.PSTR
+    pUserSid: win32more.Foundation.PSID
+class WTS_PROCESS_INFOW(Structure):
+    SessionId: UInt32
+    ProcessId: UInt32
+    pProcessName: win32more.Foundation.PWSTR
+    pUserSid: win32more.Foundation.PSID
+class WTS_PROPERTY_VALUE(Structure):
+    Type: UInt16
+    u: _u_e__Union
+    class _u_e__Union(Union):
+        ulVal: UInt32
+        strVal: _strVal_e__Struct
+        bVal: _bVal_e__Struct
+        guidVal: Guid
+        class _strVal_e__Struct(Structure):
+            size: UInt32
+            pstrVal: win32more.Foundation.PWSTR
+        class _bVal_e__Struct(Structure):
+            size: UInt32
+            pbVal: win32more.Foundation.PSTR
+class WTS_PROTOCOL_CACHE(Structure):
+    CacheReads: UInt32
+    CacheHits: UInt32
+class WTS_PROTOCOL_COUNTERS(Structure):
+    WdBytes: UInt32
+    WdFrames: UInt32
+    WaitForOutBuf: UInt32
+    Frames: UInt32
+    Bytes: UInt32
+    CompressedBytes: UInt32
+    CompressFlushes: UInt32
+    Errors: UInt32
+    Timeouts: UInt32
+    AsyncFramingError: UInt32
+    AsyncOverrunError: UInt32
+    AsyncOverflowError: UInt32
+    AsyncParityError: UInt32
+    TdErrors: UInt32
+    ProtocolType: UInt16
+    Length: UInt16
+    Specific: UInt16
+    Reserved: UInt32 * 100
+class WTS_PROTOCOL_STATUS(Structure):
+    Output: win32more.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS
+    Input: win32more.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS
+    Cache: win32more.System.RemoteDesktop.WTS_CACHE_STATS
+    AsyncSignal: UInt32
+    AsyncSignalMask: UInt32
+    Counters: win32more.Foundation.LARGE_INTEGER * 100
 WTS_RCM_DRAIN_STATE = Int32
-WTS_DRAIN_STATE_NONE = 0
-WTS_DRAIN_IN_DRAIN = 1
-WTS_DRAIN_NOT_IN_DRAIN = 2
+WTS_DRAIN_STATE_NONE: WTS_RCM_DRAIN_STATE = 0
+WTS_DRAIN_IN_DRAIN: WTS_RCM_DRAIN_STATE = 1
+WTS_DRAIN_NOT_IN_DRAIN: WTS_RCM_DRAIN_STATE = 2
 WTS_RCM_SERVICE_STATE = Int32
-WTS_SERVICE_NONE = 0
-WTS_SERVICE_START = 1
-WTS_SERVICE_STOP = 2
-def _define_WTS_SERVER_INFOA_head():
-    class WTS_SERVER_INFOA(Structure):
-        pass
-    return WTS_SERVER_INFOA
-def _define_WTS_SERVER_INFOA():
-    WTS_SERVER_INFOA = win32more.System.RemoteDesktop.WTS_SERVER_INFOA_head
-    WTS_SERVER_INFOA._fields_ = [
-        ('pServerName', win32more.Foundation.PSTR),
-    ]
-    return WTS_SERVER_INFOA
-def _define_WTS_SERVER_INFOW_head():
-    class WTS_SERVER_INFOW(Structure):
-        pass
-    return WTS_SERVER_INFOW
-def _define_WTS_SERVER_INFOW():
-    WTS_SERVER_INFOW = win32more.System.RemoteDesktop.WTS_SERVER_INFOW_head
-    WTS_SERVER_INFOW._fields_ = [
-        ('pServerName', win32more.Foundation.PWSTR),
-    ]
-    return WTS_SERVER_INFOW
-def _define_WTS_SERVICE_STATE_head():
-    class WTS_SERVICE_STATE(Structure):
-        pass
-    return WTS_SERVICE_STATE
-def _define_WTS_SERVICE_STATE():
-    WTS_SERVICE_STATE = win32more.System.RemoteDesktop.WTS_SERVICE_STATE_head
-    WTS_SERVICE_STATE._fields_ = [
-        ('RcmServiceState', win32more.System.RemoteDesktop.WTS_RCM_SERVICE_STATE),
-        ('RcmDrainState', win32more.System.RemoteDesktop.WTS_RCM_DRAIN_STATE),
-    ]
-    return WTS_SERVICE_STATE
-def _define_WTS_SESSION_ADDRESS_head():
-    class WTS_SESSION_ADDRESS(Structure):
-        pass
-    return WTS_SESSION_ADDRESS
-def _define_WTS_SESSION_ADDRESS():
-    WTS_SESSION_ADDRESS = win32more.System.RemoteDesktop.WTS_SESSION_ADDRESS_head
-    WTS_SESSION_ADDRESS._fields_ = [
-        ('AddressFamily', UInt32),
-        ('Address', Byte * 20),
-    ]
-    return WTS_SESSION_ADDRESS
-def _define_WTS_SESSION_ID_head():
-    class WTS_SESSION_ID(Structure):
-        pass
-    return WTS_SESSION_ID
-def _define_WTS_SESSION_ID():
-    WTS_SESSION_ID = win32more.System.RemoteDesktop.WTS_SESSION_ID_head
-    WTS_SESSION_ID._fields_ = [
-        ('SessionUniqueGuid', Guid),
-        ('SessionId', UInt32),
-    ]
-    return WTS_SESSION_ID
-def _define_WTS_SESSION_INFO_1A_head():
-    class WTS_SESSION_INFO_1A(Structure):
-        pass
-    return WTS_SESSION_INFO_1A
-def _define_WTS_SESSION_INFO_1A():
-    WTS_SESSION_INFO_1A = win32more.System.RemoteDesktop.WTS_SESSION_INFO_1A_head
-    WTS_SESSION_INFO_1A._fields_ = [
-        ('ExecEnvId', UInt32),
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionId', UInt32),
-        ('pSessionName', win32more.Foundation.PSTR),
-        ('pHostName', win32more.Foundation.PSTR),
-        ('pUserName', win32more.Foundation.PSTR),
-        ('pDomainName', win32more.Foundation.PSTR),
-        ('pFarmName', win32more.Foundation.PSTR),
-    ]
-    return WTS_SESSION_INFO_1A
-def _define_WTS_SESSION_INFO_1W_head():
-    class WTS_SESSION_INFO_1W(Structure):
-        pass
-    return WTS_SESSION_INFO_1W
-def _define_WTS_SESSION_INFO_1W():
-    WTS_SESSION_INFO_1W = win32more.System.RemoteDesktop.WTS_SESSION_INFO_1W_head
-    WTS_SESSION_INFO_1W._fields_ = [
-        ('ExecEnvId', UInt32),
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionId', UInt32),
-        ('pSessionName', win32more.Foundation.PWSTR),
-        ('pHostName', win32more.Foundation.PWSTR),
-        ('pUserName', win32more.Foundation.PWSTR),
-        ('pDomainName', win32more.Foundation.PWSTR),
-        ('pFarmName', win32more.Foundation.PWSTR),
-    ]
-    return WTS_SESSION_INFO_1W
-def _define_WTS_SESSION_INFOA_head():
-    class WTS_SESSION_INFOA(Structure):
-        pass
-    return WTS_SESSION_INFOA
-def _define_WTS_SESSION_INFOA():
-    WTS_SESSION_INFOA = win32more.System.RemoteDesktop.WTS_SESSION_INFOA_head
-    WTS_SESSION_INFOA._fields_ = [
-        ('SessionId', UInt32),
-        ('pWinStationName', win32more.Foundation.PSTR),
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-    ]
-    return WTS_SESSION_INFOA
-def _define_WTS_SESSION_INFOW_head():
-    class WTS_SESSION_INFOW(Structure):
-        pass
-    return WTS_SESSION_INFOW
-def _define_WTS_SESSION_INFOW():
-    WTS_SESSION_INFOW = win32more.System.RemoteDesktop.WTS_SESSION_INFOW_head
-    WTS_SESSION_INFOW._fields_ = [
-        ('SessionId', UInt32),
-        ('pWinStationName', win32more.Foundation.PWSTR),
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-    ]
-    return WTS_SESSION_INFOW
-def _define_WTS_SMALL_RECT_head():
-    class WTS_SMALL_RECT(Structure):
-        pass
-    return WTS_SMALL_RECT
-def _define_WTS_SMALL_RECT():
-    WTS_SMALL_RECT = win32more.System.RemoteDesktop.WTS_SMALL_RECT_head
-    WTS_SMALL_RECT._fields_ = [
-        ('Left', Int16),
-        ('Top', Int16),
-        ('Right', Int16),
-        ('Bottom', Int16),
-    ]
-    return WTS_SMALL_RECT
-def _define_WTS_SOCKADDR_head():
-    class WTS_SOCKADDR(Structure):
-        pass
-    return WTS_SOCKADDR
-def _define_WTS_SOCKADDR():
-    WTS_SOCKADDR = win32more.System.RemoteDesktop.WTS_SOCKADDR_head
-    class WTS_SOCKADDR__u_e__Union(Union):
-        pass
-    class WTS_SOCKADDR__u_e__Union__ipv4_e__Struct(Structure):
-        pass
-    WTS_SOCKADDR__u_e__Union__ipv4_e__Struct._fields_ = [
-        ('sin_port', UInt16),
-        ('IN_ADDR', UInt32),
-        ('sin_zero', Byte * 8),
-    ]
-    class WTS_SOCKADDR__u_e__Union__ipv6_e__Struct(Structure):
-        pass
-    WTS_SOCKADDR__u_e__Union__ipv6_e__Struct._fields_ = [
-        ('sin6_port', UInt16),
-        ('sin6_flowinfo', UInt32),
-        ('sin6_addr', UInt16 * 8),
-        ('sin6_scope_id', UInt32),
-    ]
-    WTS_SOCKADDR__u_e__Union._fields_ = [
-        ('ipv4', WTS_SOCKADDR__u_e__Union__ipv4_e__Struct),
-        ('ipv6', WTS_SOCKADDR__u_e__Union__ipv6_e__Struct),
-    ]
-    WTS_SOCKADDR._fields_ = [
-        ('sin_family', UInt16),
-        ('u', WTS_SOCKADDR__u_e__Union),
-    ]
-    return WTS_SOCKADDR
-def _define_WTS_SYSTEMTIME_head():
-    class WTS_SYSTEMTIME(Structure):
-        pass
-    return WTS_SYSTEMTIME
-def _define_WTS_SYSTEMTIME():
-    WTS_SYSTEMTIME = win32more.System.RemoteDesktop.WTS_SYSTEMTIME_head
-    WTS_SYSTEMTIME._fields_ = [
-        ('wYear', UInt16),
-        ('wMonth', UInt16),
-        ('wDayOfWeek', UInt16),
-        ('wDay', UInt16),
-        ('wHour', UInt16),
-        ('wMinute', UInt16),
-        ('wSecond', UInt16),
-        ('wMilliseconds', UInt16),
-    ]
-    return WTS_SYSTEMTIME
-def _define_WTS_TIME_ZONE_INFORMATION_head():
-    class WTS_TIME_ZONE_INFORMATION(Structure):
-        pass
-    return WTS_TIME_ZONE_INFORMATION
-def _define_WTS_TIME_ZONE_INFORMATION():
-    WTS_TIME_ZONE_INFORMATION = win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION_head
-    WTS_TIME_ZONE_INFORMATION._fields_ = [
-        ('Bias', Int32),
-        ('StandardName', Char * 32),
-        ('StandardDate', win32more.System.RemoteDesktop.WTS_SYSTEMTIME),
-        ('StandardBias', Int32),
-        ('DaylightName', Char * 32),
-        ('DaylightDate', win32more.System.RemoteDesktop.WTS_SYSTEMTIME),
-        ('DaylightBias', Int32),
-    ]
-    return WTS_TIME_ZONE_INFORMATION
+WTS_SERVICE_NONE: WTS_RCM_SERVICE_STATE = 0
+WTS_SERVICE_START: WTS_RCM_SERVICE_STATE = 1
+WTS_SERVICE_STOP: WTS_RCM_SERVICE_STATE = 2
+class WTS_SERVER_INFOA(Structure):
+    pServerName: win32more.Foundation.PSTR
+class WTS_SERVER_INFOW(Structure):
+    pServerName: win32more.Foundation.PWSTR
+class WTS_SERVICE_STATE(Structure):
+    RcmServiceState: win32more.System.RemoteDesktop.WTS_RCM_SERVICE_STATE
+    RcmDrainState: win32more.System.RemoteDesktop.WTS_RCM_DRAIN_STATE
+class WTS_SESSION_ADDRESS(Structure):
+    AddressFamily: UInt32
+    Address: Byte * 20
+class WTS_SESSION_ID(Structure):
+    SessionUniqueGuid: Guid
+    SessionId: UInt32
+class WTS_SESSION_INFO_1A(Structure):
+    ExecEnvId: UInt32
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionId: UInt32
+    pSessionName: win32more.Foundation.PSTR
+    pHostName: win32more.Foundation.PSTR
+    pUserName: win32more.Foundation.PSTR
+    pDomainName: win32more.Foundation.PSTR
+    pFarmName: win32more.Foundation.PSTR
+class WTS_SESSION_INFO_1W(Structure):
+    ExecEnvId: UInt32
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionId: UInt32
+    pSessionName: win32more.Foundation.PWSTR
+    pHostName: win32more.Foundation.PWSTR
+    pUserName: win32more.Foundation.PWSTR
+    pDomainName: win32more.Foundation.PWSTR
+    pFarmName: win32more.Foundation.PWSTR
+class WTS_SESSION_INFOA(Structure):
+    SessionId: UInt32
+    pWinStationName: win32more.Foundation.PSTR
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+class WTS_SESSION_INFOW(Structure):
+    SessionId: UInt32
+    pWinStationName: win32more.Foundation.PWSTR
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+class WTS_SMALL_RECT(Structure):
+    Left: Int16
+    Top: Int16
+    Right: Int16
+    Bottom: Int16
+class WTS_SOCKADDR(Structure):
+    sin_family: UInt16
+    u: _u_e__Union
+    class _u_e__Union(Union):
+        ipv4: _ipv4_e__Struct
+        ipv6: _ipv6_e__Struct
+        class _ipv4_e__Struct(Structure):
+            sin_port: UInt16
+            IN_ADDR: UInt32
+            sin_zero: Byte * 8
+        class _ipv6_e__Struct(Structure):
+            sin6_port: UInt16
+            sin6_flowinfo: UInt32
+            sin6_addr: UInt16 * 8
+            sin6_scope_id: UInt32
+class WTS_SYSTEMTIME(Structure):
+    wYear: UInt16
+    wMonth: UInt16
+    wDayOfWeek: UInt16
+    wDay: UInt16
+    wHour: UInt16
+    wMinute: UInt16
+    wSecond: UInt16
+    wMilliseconds: UInt16
+class WTS_TIME_ZONE_INFORMATION(Structure):
+    Bias: Int32
+    StandardName: Char * 32
+    StandardDate: win32more.System.RemoteDesktop.WTS_SYSTEMTIME
+    StandardBias: Int32
+    DaylightName: Char * 32
+    DaylightDate: win32more.System.RemoteDesktop.WTS_SYSTEMTIME
+    DaylightBias: Int32
 WTS_TYPE_CLASS = Int32
-WTS_TYPE_CLASS_WTSTypeProcessInfoLevel0 = 0
-WTS_TYPE_CLASS_WTSTypeProcessInfoLevel1 = 1
-WTS_TYPE_CLASS_WTSTypeSessionInfoLevel1 = 2
-def _define_WTS_USER_CREDENTIAL_head():
-    class WTS_USER_CREDENTIAL(Structure):
-        pass
-    return WTS_USER_CREDENTIAL
-def _define_WTS_USER_CREDENTIAL():
-    WTS_USER_CREDENTIAL = win32more.System.RemoteDesktop.WTS_USER_CREDENTIAL_head
-    WTS_USER_CREDENTIAL._fields_ = [
-        ('UserName', Char * 256),
-        ('Password', Char * 256),
-        ('Domain', Char * 256),
-    ]
-    return WTS_USER_CREDENTIAL
-def _define_WTS_USER_DATA_head():
-    class WTS_USER_DATA(Structure):
-        pass
-    return WTS_USER_DATA
-def _define_WTS_USER_DATA():
-    WTS_USER_DATA = win32more.System.RemoteDesktop.WTS_USER_DATA_head
-    WTS_USER_DATA._fields_ = [
-        ('WorkDirectory', Char * 257),
-        ('InitialProgram', Char * 257),
-        ('UserTimeZone', win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION),
-    ]
-    return WTS_USER_DATA
-def _define_WTS_VALIDATION_INFORMATIONA_head():
-    class WTS_VALIDATION_INFORMATIONA(Structure):
-        pass
-    return WTS_VALIDATION_INFORMATIONA
-def _define_WTS_VALIDATION_INFORMATIONA():
-    WTS_VALIDATION_INFORMATIONA = win32more.System.RemoteDesktop.WTS_VALIDATION_INFORMATIONA_head
-    WTS_VALIDATION_INFORMATIONA._fields_ = [
-        ('ProductInfo', win32more.System.RemoteDesktop.PRODUCT_INFOA),
-        ('License', Byte * 16384),
-        ('LicenseLength', UInt32),
-        ('HardwareID', Byte * 20),
-        ('HardwareIDLength', UInt32),
-    ]
-    return WTS_VALIDATION_INFORMATIONA
-def _define_WTS_VALIDATION_INFORMATIONW_head():
-    class WTS_VALIDATION_INFORMATIONW(Structure):
-        pass
-    return WTS_VALIDATION_INFORMATIONW
-def _define_WTS_VALIDATION_INFORMATIONW():
-    WTS_VALIDATION_INFORMATIONW = win32more.System.RemoteDesktop.WTS_VALIDATION_INFORMATIONW_head
-    WTS_VALIDATION_INFORMATIONW._fields_ = [
-        ('ProductInfo', win32more.System.RemoteDesktop.PRODUCT_INFOW),
-        ('License', Byte * 16384),
-        ('LicenseLength', UInt32),
-        ('HardwareID', Byte * 20),
-        ('HardwareIDLength', UInt32),
-    ]
-    return WTS_VALIDATION_INFORMATIONW
+WTS_TYPE_CLASS_WTSTypeProcessInfoLevel0: WTS_TYPE_CLASS = 0
+WTS_TYPE_CLASS_WTSTypeProcessInfoLevel1: WTS_TYPE_CLASS = 1
+WTS_TYPE_CLASS_WTSTypeSessionInfoLevel1: WTS_TYPE_CLASS = 2
+class WTS_USER_CREDENTIAL(Structure):
+    UserName: Char * 256
+    Password: Char * 256
+    Domain: Char * 256
+class WTS_USER_DATA(Structure):
+    WorkDirectory: Char * 257
+    InitialProgram: Char * 257
+    UserTimeZone: win32more.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION
+class WTS_VALIDATION_INFORMATIONA(Structure):
+    ProductInfo: win32more.System.RemoteDesktop.PRODUCT_INFOA
+    License: Byte * 16384
+    LicenseLength: UInt32
+    HardwareID: Byte * 20
+    HardwareIDLength: UInt32
+class WTS_VALIDATION_INFORMATIONW(Structure):
+    ProductInfo: win32more.System.RemoteDesktop.PRODUCT_INFOW
+    License: Byte * 16384
+    LicenseLength: UInt32
+    HardwareID: Byte * 20
+    HardwareIDLength: UInt32
 WTS_VIRTUAL_CLASS = Int32
-WTS_VIRTUAL_CLASS_WTSVirtualClientData = 0
-WTS_VIRTUAL_CLASS_WTSVirtualFileHandle = 1
-def _define_WTSCLIENTA_head():
-    class WTSCLIENTA(Structure):
-        pass
-    return WTSCLIENTA
-def _define_WTSCLIENTA():
-    WTSCLIENTA = win32more.System.RemoteDesktop.WTSCLIENTA_head
-    WTSCLIENTA._fields_ = [
-        ('ClientName', win32more.Foundation.CHAR * 21),
-        ('Domain', win32more.Foundation.CHAR * 18),
-        ('UserName', win32more.Foundation.CHAR * 21),
-        ('WorkDirectory', win32more.Foundation.CHAR * 261),
-        ('InitialProgram', win32more.Foundation.CHAR * 261),
-        ('EncryptionLevel', Byte),
-        ('ClientAddressFamily', UInt32),
-        ('ClientAddress', UInt16 * 31),
-        ('HRes', UInt16),
-        ('VRes', UInt16),
-        ('ColorDepth', UInt16),
-        ('ClientDirectory', win32more.Foundation.CHAR * 261),
-        ('ClientBuildNumber', UInt32),
-        ('ClientHardwareId', UInt32),
-        ('ClientProductId', UInt16),
-        ('OutBufCountHost', UInt16),
-        ('OutBufCountClient', UInt16),
-        ('OutBufLength', UInt16),
-        ('DeviceId', win32more.Foundation.CHAR * 261),
-    ]
-    return WTSCLIENTA
-def _define_WTSCLIENTW_head():
-    class WTSCLIENTW(Structure):
-        pass
-    return WTSCLIENTW
-def _define_WTSCLIENTW():
-    WTSCLIENTW = win32more.System.RemoteDesktop.WTSCLIENTW_head
-    WTSCLIENTW._fields_ = [
-        ('ClientName', Char * 21),
-        ('Domain', Char * 18),
-        ('UserName', Char * 21),
-        ('WorkDirectory', Char * 261),
-        ('InitialProgram', Char * 261),
-        ('EncryptionLevel', Byte),
-        ('ClientAddressFamily', UInt32),
-        ('ClientAddress', UInt16 * 31),
-        ('HRes', UInt16),
-        ('VRes', UInt16),
-        ('ColorDepth', UInt16),
-        ('ClientDirectory', Char * 261),
-        ('ClientBuildNumber', UInt32),
-        ('ClientHardwareId', UInt32),
-        ('ClientProductId', UInt16),
-        ('OutBufCountHost', UInt16),
-        ('OutBufCountClient', UInt16),
-        ('OutBufLength', UInt16),
-        ('DeviceId', Char * 261),
-    ]
-    return WTSCLIENTW
-def _define_WTSCONFIGINFOA_head():
-    class WTSCONFIGINFOA(Structure):
-        pass
-    return WTSCONFIGINFOA
-def _define_WTSCONFIGINFOA():
-    WTSCONFIGINFOA = win32more.System.RemoteDesktop.WTSCONFIGINFOA_head
-    WTSCONFIGINFOA._fields_ = [
-        ('version', UInt32),
-        ('fConnectClientDrivesAtLogon', UInt32),
-        ('fConnectPrinterAtLogon', UInt32),
-        ('fDisablePrinterRedirection', UInt32),
-        ('fDisableDefaultMainClientPrinter', UInt32),
-        ('ShadowSettings', UInt32),
-        ('LogonUserName', win32more.Foundation.CHAR * 21),
-        ('LogonDomain', win32more.Foundation.CHAR * 18),
-        ('WorkDirectory', win32more.Foundation.CHAR * 261),
-        ('InitialProgram', win32more.Foundation.CHAR * 261),
-        ('ApplicationName', win32more.Foundation.CHAR * 261),
-    ]
-    return WTSCONFIGINFOA
-def _define_WTSCONFIGINFOW_head():
-    class WTSCONFIGINFOW(Structure):
-        pass
-    return WTSCONFIGINFOW
-def _define_WTSCONFIGINFOW():
-    WTSCONFIGINFOW = win32more.System.RemoteDesktop.WTSCONFIGINFOW_head
-    WTSCONFIGINFOW._fields_ = [
-        ('version', UInt32),
-        ('fConnectClientDrivesAtLogon', UInt32),
-        ('fConnectPrinterAtLogon', UInt32),
-        ('fDisablePrinterRedirection', UInt32),
-        ('fDisableDefaultMainClientPrinter', UInt32),
-        ('ShadowSettings', UInt32),
-        ('LogonUserName', Char * 21),
-        ('LogonDomain', Char * 18),
-        ('WorkDirectory', Char * 261),
-        ('InitialProgram', Char * 261),
-        ('ApplicationName', Char * 261),
-    ]
-    return WTSCONFIGINFOW
-def _define_WTSINFOA_head():
-    class WTSINFOA(Structure):
-        pass
-    return WTSINFOA
-def _define_WTSINFOA():
-    WTSINFOA = win32more.System.RemoteDesktop.WTSINFOA_head
-    WTSINFOA._fields_ = [
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionId', UInt32),
-        ('IncomingBytes', UInt32),
-        ('OutgoingBytes', UInt32),
-        ('IncomingFrames', UInt32),
-        ('OutgoingFrames', UInt32),
-        ('IncomingCompressedBytes', UInt32),
-        ('OutgoingCompressedBy', UInt32),
-        ('WinStationName', win32more.Foundation.CHAR * 32),
-        ('Domain', win32more.Foundation.CHAR * 17),
-        ('UserName', win32more.Foundation.CHAR * 21),
-        ('ConnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('DisconnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('LastInputTime', win32more.Foundation.LARGE_INTEGER),
-        ('LogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('CurrentTime', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WTSINFOA
-def _define_WTSINFOEX_LEVEL_A_head():
-    class WTSINFOEX_LEVEL_A(Union):
-        pass
-    return WTSINFOEX_LEVEL_A
-def _define_WTSINFOEX_LEVEL_A():
-    WTSINFOEX_LEVEL_A = win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_A_head
-    WTSINFOEX_LEVEL_A._fields_ = [
-        ('WTSInfoExLevel1', win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_A),
-    ]
-    return WTSINFOEX_LEVEL_A
-def _define_WTSINFOEX_LEVEL_W_head():
-    class WTSINFOEX_LEVEL_W(Union):
-        pass
-    return WTSINFOEX_LEVEL_W
-def _define_WTSINFOEX_LEVEL_W():
-    WTSINFOEX_LEVEL_W = win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_W_head
-    WTSINFOEX_LEVEL_W._fields_ = [
-        ('WTSInfoExLevel1', win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_W),
-    ]
-    return WTSINFOEX_LEVEL_W
-def _define_WTSINFOEX_LEVEL1_A_head():
-    class WTSINFOEX_LEVEL1_A(Structure):
-        pass
-    return WTSINFOEX_LEVEL1_A
-def _define_WTSINFOEX_LEVEL1_A():
-    WTSINFOEX_LEVEL1_A = win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_A_head
-    WTSINFOEX_LEVEL1_A._fields_ = [
-        ('SessionId', UInt32),
-        ('SessionState', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionFlags', Int32),
-        ('WinStationName', win32more.Foundation.CHAR * 33),
-        ('UserName', win32more.Foundation.CHAR * 21),
-        ('DomainName', win32more.Foundation.CHAR * 18),
-        ('LogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('ConnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('DisconnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('LastInputTime', win32more.Foundation.LARGE_INTEGER),
-        ('CurrentTime', win32more.Foundation.LARGE_INTEGER),
-        ('IncomingBytes', UInt32),
-        ('OutgoingBytes', UInt32),
-        ('IncomingFrames', UInt32),
-        ('OutgoingFrames', UInt32),
-        ('IncomingCompressedBytes', UInt32),
-        ('OutgoingCompressedBytes', UInt32),
-    ]
-    return WTSINFOEX_LEVEL1_A
-def _define_WTSINFOEX_LEVEL1_W_head():
-    class WTSINFOEX_LEVEL1_W(Structure):
-        pass
-    return WTSINFOEX_LEVEL1_W
-def _define_WTSINFOEX_LEVEL1_W():
-    WTSINFOEX_LEVEL1_W = win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_W_head
-    WTSINFOEX_LEVEL1_W._fields_ = [
-        ('SessionId', UInt32),
-        ('SessionState', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionFlags', Int32),
-        ('WinStationName', Char * 33),
-        ('UserName', Char * 21),
-        ('DomainName', Char * 18),
-        ('LogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('ConnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('DisconnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('LastInputTime', win32more.Foundation.LARGE_INTEGER),
-        ('CurrentTime', win32more.Foundation.LARGE_INTEGER),
-        ('IncomingBytes', UInt32),
-        ('OutgoingBytes', UInt32),
-        ('IncomingFrames', UInt32),
-        ('OutgoingFrames', UInt32),
-        ('IncomingCompressedBytes', UInt32),
-        ('OutgoingCompressedBytes', UInt32),
-    ]
-    return WTSINFOEX_LEVEL1_W
-def _define_WTSINFOEXA_head():
-    class WTSINFOEXA(Structure):
-        pass
-    return WTSINFOEXA
-def _define_WTSINFOEXA():
-    WTSINFOEXA = win32more.System.RemoteDesktop.WTSINFOEXA_head
-    WTSINFOEXA._fields_ = [
-        ('Level', UInt32),
-        ('Data', win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_A),
-    ]
-    return WTSINFOEXA
-def _define_WTSINFOEXW_head():
-    class WTSINFOEXW(Structure):
-        pass
-    return WTSINFOEXW
-def _define_WTSINFOEXW():
-    WTSINFOEXW = win32more.System.RemoteDesktop.WTSINFOEXW_head
-    WTSINFOEXW._fields_ = [
-        ('Level', UInt32),
-        ('Data', win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_W),
-    ]
-    return WTSINFOEXW
-def _define_WTSINFOW_head():
-    class WTSINFOW(Structure):
-        pass
-    return WTSINFOW
-def _define_WTSINFOW():
-    WTSINFOW = win32more.System.RemoteDesktop.WTSINFOW_head
-    WTSINFOW._fields_ = [
-        ('State', win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS),
-        ('SessionId', UInt32),
-        ('IncomingBytes', UInt32),
-        ('OutgoingBytes', UInt32),
-        ('IncomingFrames', UInt32),
-        ('OutgoingFrames', UInt32),
-        ('IncomingCompressedBytes', UInt32),
-        ('OutgoingCompressedBytes', UInt32),
-        ('WinStationName', Char * 32),
-        ('Domain', Char * 17),
-        ('UserName', Char * 21),
-        ('ConnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('DisconnectTime', win32more.Foundation.LARGE_INTEGER),
-        ('LastInputTime', win32more.Foundation.LARGE_INTEGER),
-        ('LogonTime', win32more.Foundation.LARGE_INTEGER),
-        ('CurrentTime', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return WTSINFOW
-def _define_WTSLISTENERCONFIGA_head():
-    class WTSLISTENERCONFIGA(Structure):
-        pass
-    return WTSLISTENERCONFIGA
-def _define_WTSLISTENERCONFIGA():
-    WTSLISTENERCONFIGA = win32more.System.RemoteDesktop.WTSLISTENERCONFIGA_head
-    WTSLISTENERCONFIGA._fields_ = [
-        ('version', UInt32),
-        ('fEnableListener', UInt32),
-        ('MaxConnectionCount', UInt32),
-        ('fPromptForPassword', UInt32),
-        ('fInheritColorDepth', UInt32),
-        ('ColorDepth', UInt32),
-        ('fInheritBrokenTimeoutSettings', UInt32),
-        ('BrokenTimeoutSettings', UInt32),
-        ('fDisablePrinterRedirection', UInt32),
-        ('fDisableDriveRedirection', UInt32),
-        ('fDisableComPortRedirection', UInt32),
-        ('fDisableLPTPortRedirection', UInt32),
-        ('fDisableClipboardRedirection', UInt32),
-        ('fDisableAudioRedirection', UInt32),
-        ('fDisablePNPRedirection', UInt32),
-        ('fDisableDefaultMainClientPrinter', UInt32),
-        ('LanAdapter', UInt32),
-        ('PortNumber', UInt32),
-        ('fInheritShadowSettings', UInt32),
-        ('ShadowSettings', UInt32),
-        ('TimeoutSettingsConnection', UInt32),
-        ('TimeoutSettingsDisconnection', UInt32),
-        ('TimeoutSettingsIdle', UInt32),
-        ('SecurityLayer', UInt32),
-        ('MinEncryptionLevel', UInt32),
-        ('UserAuthentication', UInt32),
-        ('Comment', win32more.Foundation.CHAR * 61),
-        ('LogonUserName', win32more.Foundation.CHAR * 21),
-        ('LogonDomain', win32more.Foundation.CHAR * 18),
-        ('WorkDirectory', win32more.Foundation.CHAR * 261),
-        ('InitialProgram', win32more.Foundation.CHAR * 261),
-    ]
-    return WTSLISTENERCONFIGA
-def _define_WTSLISTENERCONFIGW_head():
-    class WTSLISTENERCONFIGW(Structure):
-        pass
-    return WTSLISTENERCONFIGW
-def _define_WTSLISTENERCONFIGW():
-    WTSLISTENERCONFIGW = win32more.System.RemoteDesktop.WTSLISTENERCONFIGW_head
-    WTSLISTENERCONFIGW._fields_ = [
-        ('version', UInt32),
-        ('fEnableListener', UInt32),
-        ('MaxConnectionCount', UInt32),
-        ('fPromptForPassword', UInt32),
-        ('fInheritColorDepth', UInt32),
-        ('ColorDepth', UInt32),
-        ('fInheritBrokenTimeoutSettings', UInt32),
-        ('BrokenTimeoutSettings', UInt32),
-        ('fDisablePrinterRedirection', UInt32),
-        ('fDisableDriveRedirection', UInt32),
-        ('fDisableComPortRedirection', UInt32),
-        ('fDisableLPTPortRedirection', UInt32),
-        ('fDisableClipboardRedirection', UInt32),
-        ('fDisableAudioRedirection', UInt32),
-        ('fDisablePNPRedirection', UInt32),
-        ('fDisableDefaultMainClientPrinter', UInt32),
-        ('LanAdapter', UInt32),
-        ('PortNumber', UInt32),
-        ('fInheritShadowSettings', UInt32),
-        ('ShadowSettings', UInt32),
-        ('TimeoutSettingsConnection', UInt32),
-        ('TimeoutSettingsDisconnection', UInt32),
-        ('TimeoutSettingsIdle', UInt32),
-        ('SecurityLayer', UInt32),
-        ('MinEncryptionLevel', UInt32),
-        ('UserAuthentication', UInt32),
-        ('Comment', Char * 61),
-        ('LogonUserName', Char * 21),
-        ('LogonDomain', Char * 18),
-        ('WorkDirectory', Char * 261),
-        ('InitialProgram', Char * 261),
-    ]
-    return WTSLISTENERCONFIGW
+WTS_VIRTUAL_CLASS_WTSVirtualClientData: WTS_VIRTUAL_CLASS = 0
+WTS_VIRTUAL_CLASS_WTSVirtualFileHandle: WTS_VIRTUAL_CLASS = 1
+class WTSCLIENTA(Structure):
+    ClientName: win32more.Foundation.CHAR * 21
+    Domain: win32more.Foundation.CHAR * 18
+    UserName: win32more.Foundation.CHAR * 21
+    WorkDirectory: win32more.Foundation.CHAR * 261
+    InitialProgram: win32more.Foundation.CHAR * 261
+    EncryptionLevel: Byte
+    ClientAddressFamily: UInt32
+    ClientAddress: UInt16 * 31
+    HRes: UInt16
+    VRes: UInt16
+    ColorDepth: UInt16
+    ClientDirectory: win32more.Foundation.CHAR * 261
+    ClientBuildNumber: UInt32
+    ClientHardwareId: UInt32
+    ClientProductId: UInt16
+    OutBufCountHost: UInt16
+    OutBufCountClient: UInt16
+    OutBufLength: UInt16
+    DeviceId: win32more.Foundation.CHAR * 261
+class WTSCLIENTW(Structure):
+    ClientName: Char * 21
+    Domain: Char * 18
+    UserName: Char * 21
+    WorkDirectory: Char * 261
+    InitialProgram: Char * 261
+    EncryptionLevel: Byte
+    ClientAddressFamily: UInt32
+    ClientAddress: UInt16 * 31
+    HRes: UInt16
+    VRes: UInt16
+    ColorDepth: UInt16
+    ClientDirectory: Char * 261
+    ClientBuildNumber: UInt32
+    ClientHardwareId: UInt32
+    ClientProductId: UInt16
+    OutBufCountHost: UInt16
+    OutBufCountClient: UInt16
+    OutBufLength: UInt16
+    DeviceId: Char * 261
+class WTSCONFIGINFOA(Structure):
+    version: UInt32
+    fConnectClientDrivesAtLogon: UInt32
+    fConnectPrinterAtLogon: UInt32
+    fDisablePrinterRedirection: UInt32
+    fDisableDefaultMainClientPrinter: UInt32
+    ShadowSettings: UInt32
+    LogonUserName: win32more.Foundation.CHAR * 21
+    LogonDomain: win32more.Foundation.CHAR * 18
+    WorkDirectory: win32more.Foundation.CHAR * 261
+    InitialProgram: win32more.Foundation.CHAR * 261
+    ApplicationName: win32more.Foundation.CHAR * 261
+class WTSCONFIGINFOW(Structure):
+    version: UInt32
+    fConnectClientDrivesAtLogon: UInt32
+    fConnectPrinterAtLogon: UInt32
+    fDisablePrinterRedirection: UInt32
+    fDisableDefaultMainClientPrinter: UInt32
+    ShadowSettings: UInt32
+    LogonUserName: Char * 21
+    LogonDomain: Char * 18
+    WorkDirectory: Char * 261
+    InitialProgram: Char * 261
+    ApplicationName: Char * 261
+class WTSINFOA(Structure):
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionId: UInt32
+    IncomingBytes: UInt32
+    OutgoingBytes: UInt32
+    IncomingFrames: UInt32
+    OutgoingFrames: UInt32
+    IncomingCompressedBytes: UInt32
+    OutgoingCompressedBy: UInt32
+    WinStationName: win32more.Foundation.CHAR * 32
+    Domain: win32more.Foundation.CHAR * 17
+    UserName: win32more.Foundation.CHAR * 21
+    ConnectTime: win32more.Foundation.LARGE_INTEGER
+    DisconnectTime: win32more.Foundation.LARGE_INTEGER
+    LastInputTime: win32more.Foundation.LARGE_INTEGER
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    CurrentTime: win32more.Foundation.LARGE_INTEGER
+class WTSINFOEX_LEVEL_A(Union):
+    WTSInfoExLevel1: win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_A
+class WTSINFOEX_LEVEL_W(Union):
+    WTSInfoExLevel1: win32more.System.RemoteDesktop.WTSINFOEX_LEVEL1_W
+class WTSINFOEX_LEVEL1_A(Structure):
+    SessionId: UInt32
+    SessionState: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionFlags: Int32
+    WinStationName: win32more.Foundation.CHAR * 33
+    UserName: win32more.Foundation.CHAR * 21
+    DomainName: win32more.Foundation.CHAR * 18
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    ConnectTime: win32more.Foundation.LARGE_INTEGER
+    DisconnectTime: win32more.Foundation.LARGE_INTEGER
+    LastInputTime: win32more.Foundation.LARGE_INTEGER
+    CurrentTime: win32more.Foundation.LARGE_INTEGER
+    IncomingBytes: UInt32
+    OutgoingBytes: UInt32
+    IncomingFrames: UInt32
+    OutgoingFrames: UInt32
+    IncomingCompressedBytes: UInt32
+    OutgoingCompressedBytes: UInt32
+class WTSINFOEX_LEVEL1_W(Structure):
+    SessionId: UInt32
+    SessionState: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionFlags: Int32
+    WinStationName: Char * 33
+    UserName: Char * 21
+    DomainName: Char * 18
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    ConnectTime: win32more.Foundation.LARGE_INTEGER
+    DisconnectTime: win32more.Foundation.LARGE_INTEGER
+    LastInputTime: win32more.Foundation.LARGE_INTEGER
+    CurrentTime: win32more.Foundation.LARGE_INTEGER
+    IncomingBytes: UInt32
+    OutgoingBytes: UInt32
+    IncomingFrames: UInt32
+    OutgoingFrames: UInt32
+    IncomingCompressedBytes: UInt32
+    OutgoingCompressedBytes: UInt32
+class WTSINFOEXA(Structure):
+    Level: UInt32
+    Data: win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_A
+class WTSINFOEXW(Structure):
+    Level: UInt32
+    Data: win32more.System.RemoteDesktop.WTSINFOEX_LEVEL_W
+class WTSINFOW(Structure):
+    State: win32more.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+    SessionId: UInt32
+    IncomingBytes: UInt32
+    OutgoingBytes: UInt32
+    IncomingFrames: UInt32
+    OutgoingFrames: UInt32
+    IncomingCompressedBytes: UInt32
+    OutgoingCompressedBytes: UInt32
+    WinStationName: Char * 32
+    Domain: Char * 17
+    UserName: Char * 21
+    ConnectTime: win32more.Foundation.LARGE_INTEGER
+    DisconnectTime: win32more.Foundation.LARGE_INTEGER
+    LastInputTime: win32more.Foundation.LARGE_INTEGER
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    CurrentTime: win32more.Foundation.LARGE_INTEGER
+class WTSLISTENERCONFIGA(Structure):
+    version: UInt32
+    fEnableListener: UInt32
+    MaxConnectionCount: UInt32
+    fPromptForPassword: UInt32
+    fInheritColorDepth: UInt32
+    ColorDepth: UInt32
+    fInheritBrokenTimeoutSettings: UInt32
+    BrokenTimeoutSettings: UInt32
+    fDisablePrinterRedirection: UInt32
+    fDisableDriveRedirection: UInt32
+    fDisableComPortRedirection: UInt32
+    fDisableLPTPortRedirection: UInt32
+    fDisableClipboardRedirection: UInt32
+    fDisableAudioRedirection: UInt32
+    fDisablePNPRedirection: UInt32
+    fDisableDefaultMainClientPrinter: UInt32
+    LanAdapter: UInt32
+    PortNumber: UInt32
+    fInheritShadowSettings: UInt32
+    ShadowSettings: UInt32
+    TimeoutSettingsConnection: UInt32
+    TimeoutSettingsDisconnection: UInt32
+    TimeoutSettingsIdle: UInt32
+    SecurityLayer: UInt32
+    MinEncryptionLevel: UInt32
+    UserAuthentication: UInt32
+    Comment: win32more.Foundation.CHAR * 61
+    LogonUserName: win32more.Foundation.CHAR * 21
+    LogonDomain: win32more.Foundation.CHAR * 18
+    WorkDirectory: win32more.Foundation.CHAR * 261
+    InitialProgram: win32more.Foundation.CHAR * 261
+class WTSLISTENERCONFIGW(Structure):
+    version: UInt32
+    fEnableListener: UInt32
+    MaxConnectionCount: UInt32
+    fPromptForPassword: UInt32
+    fInheritColorDepth: UInt32
+    ColorDepth: UInt32
+    fInheritBrokenTimeoutSettings: UInt32
+    BrokenTimeoutSettings: UInt32
+    fDisablePrinterRedirection: UInt32
+    fDisableDriveRedirection: UInt32
+    fDisableComPortRedirection: UInt32
+    fDisableLPTPortRedirection: UInt32
+    fDisableClipboardRedirection: UInt32
+    fDisableAudioRedirection: UInt32
+    fDisablePNPRedirection: UInt32
+    fDisableDefaultMainClientPrinter: UInt32
+    LanAdapter: UInt32
+    PortNumber: UInt32
+    fInheritShadowSettings: UInt32
+    ShadowSettings: UInt32
+    TimeoutSettingsConnection: UInt32
+    TimeoutSettingsDisconnection: UInt32
+    TimeoutSettingsIdle: UInt32
+    SecurityLayer: UInt32
+    MinEncryptionLevel: UInt32
+    UserAuthentication: UInt32
+    Comment: Char * 61
+    LogonUserName: Char * 21
+    LogonDomain: Char * 18
+    WorkDirectory: Char * 261
+    InitialProgram: Char * 261
 WTSSBX_ADDRESS_FAMILY = Int32
-WTSSBX_ADDRESS_FAMILY_AF_UNSPEC = 0
-WTSSBX_ADDRESS_FAMILY_AF_INET = 1
-WTSSBX_ADDRESS_FAMILY_AF_INET6 = 2
-WTSSBX_ADDRESS_FAMILY_AF_IPX = 3
-WTSSBX_ADDRESS_FAMILY_AF_NETBIOS = 4
-def _define_WTSSBX_IP_ADDRESS_head():
-    class WTSSBX_IP_ADDRESS(Structure):
-        pass
-    return WTSSBX_IP_ADDRESS
-def _define_WTSSBX_IP_ADDRESS():
-    WTSSBX_IP_ADDRESS = win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS_head
-    WTSSBX_IP_ADDRESS._fields_ = [
-        ('AddressFamily', win32more.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY),
-        ('Address', Byte * 16),
-        ('PortNumber', UInt16),
-        ('dwScope', UInt32),
-    ]
-    return WTSSBX_IP_ADDRESS
-def _define_WTSSBX_MACHINE_CONNECT_INFO_head():
-    class WTSSBX_MACHINE_CONNECT_INFO(Structure):
-        pass
-    return WTSSBX_MACHINE_CONNECT_INFO
-def _define_WTSSBX_MACHINE_CONNECT_INFO():
-    WTSSBX_MACHINE_CONNECT_INFO = win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO_head
-    WTSSBX_MACHINE_CONNECT_INFO._fields_ = [
-        ('wczMachineFQDN', Char * 257),
-        ('wczMachineNetBiosName', Char * 17),
-        ('dwNumOfIPAddr', UInt32),
-        ('IPaddr', win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS * 12),
-    ]
-    return WTSSBX_MACHINE_CONNECT_INFO
+WTSSBX_ADDRESS_FAMILY_AF_UNSPEC: WTSSBX_ADDRESS_FAMILY = 0
+WTSSBX_ADDRESS_FAMILY_AF_INET: WTSSBX_ADDRESS_FAMILY = 1
+WTSSBX_ADDRESS_FAMILY_AF_INET6: WTSSBX_ADDRESS_FAMILY = 2
+WTSSBX_ADDRESS_FAMILY_AF_IPX: WTSSBX_ADDRESS_FAMILY = 3
+WTSSBX_ADDRESS_FAMILY_AF_NETBIOS: WTSSBX_ADDRESS_FAMILY = 4
+class WTSSBX_IP_ADDRESS(Structure):
+    AddressFamily: win32more.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY
+    Address: Byte * 16
+    PortNumber: UInt16
+    dwScope: UInt32
+class WTSSBX_MACHINE_CONNECT_INFO(Structure):
+    wczMachineFQDN: Char * 257
+    wczMachineNetBiosName: Char * 17
+    dwNumOfIPAddr: UInt32
+    IPaddr: win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS * 12
 WTSSBX_MACHINE_DRAIN = Int32
-WTSSBX_MACHINE_DRAIN_UNSPEC = 0
-WTSSBX_MACHINE_DRAIN_OFF = 1
-WTSSBX_MACHINE_DRAIN_ON = 2
-def _define_WTSSBX_MACHINE_INFO_head():
-    class WTSSBX_MACHINE_INFO(Structure):
-        pass
-    return WTSSBX_MACHINE_INFO
-def _define_WTSSBX_MACHINE_INFO():
-    WTSSBX_MACHINE_INFO = win32more.System.RemoteDesktop.WTSSBX_MACHINE_INFO_head
-    WTSSBX_MACHINE_INFO._fields_ = [
-        ('ClientConnectInfo', win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO),
-        ('wczFarmName', Char * 257),
-        ('InternalIPAddress', win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS),
-        ('dwMaxSessionsLimit', UInt32),
-        ('ServerWeight', UInt32),
-        ('SingleSessionMode', win32more.System.RemoteDesktop.WTSSBX_MACHINE_SESSION_MODE),
-        ('InDrain', win32more.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN),
-        ('MachineState', win32more.System.RemoteDesktop.WTSSBX_MACHINE_STATE),
-    ]
-    return WTSSBX_MACHINE_INFO
+WTSSBX_MACHINE_DRAIN_UNSPEC: WTSSBX_MACHINE_DRAIN = 0
+WTSSBX_MACHINE_DRAIN_OFF: WTSSBX_MACHINE_DRAIN = 1
+WTSSBX_MACHINE_DRAIN_ON: WTSSBX_MACHINE_DRAIN = 2
+class WTSSBX_MACHINE_INFO(Structure):
+    ClientConnectInfo: win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO
+    wczFarmName: Char * 257
+    InternalIPAddress: win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS
+    dwMaxSessionsLimit: UInt32
+    ServerWeight: UInt32
+    SingleSessionMode: win32more.System.RemoteDesktop.WTSSBX_MACHINE_SESSION_MODE
+    InDrain: win32more.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN
+    MachineState: win32more.System.RemoteDesktop.WTSSBX_MACHINE_STATE
 WTSSBX_MACHINE_SESSION_MODE = Int32
-WTSSBX_MACHINE_SESSION_MODE_UNSPEC = 0
-WTSSBX_MACHINE_SESSION_MODE_SINGLE = 1
-WTSSBX_MACHINE_SESSION_MODE_MULTIPLE = 2
+WTSSBX_MACHINE_SESSION_MODE_UNSPEC: WTSSBX_MACHINE_SESSION_MODE = 0
+WTSSBX_MACHINE_SESSION_MODE_SINGLE: WTSSBX_MACHINE_SESSION_MODE = 1
+WTSSBX_MACHINE_SESSION_MODE_MULTIPLE: WTSSBX_MACHINE_SESSION_MODE = 2
 WTSSBX_MACHINE_STATE = Int32
-WTSSBX_MACHINE_STATE_UNSPEC = 0
-WTSSBX_MACHINE_STATE_READY = 1
-WTSSBX_MACHINE_STATE_SYNCHRONIZING = 2
+WTSSBX_MACHINE_STATE_UNSPEC: WTSSBX_MACHINE_STATE = 0
+WTSSBX_MACHINE_STATE_READY: WTSSBX_MACHINE_STATE = 1
+WTSSBX_MACHINE_STATE_SYNCHRONIZING: WTSSBX_MACHINE_STATE = 2
 WTSSBX_NOTIFICATION_TYPE = Int32
-WTSSBX_NOTIFICATION_REMOVED = 1
-WTSSBX_NOTIFICATION_CHANGED = 2
-WTSSBX_NOTIFICATION_ADDED = 4
-WTSSBX_NOTIFICATION_RESYNC = 8
-def _define_WTSSBX_SESSION_INFO_head():
-    class WTSSBX_SESSION_INFO(Structure):
-        pass
-    return WTSSBX_SESSION_INFO
-def _define_WTSSBX_SESSION_INFO():
-    WTSSBX_SESSION_INFO = win32more.System.RemoteDesktop.WTSSBX_SESSION_INFO_head
-    WTSSBX_SESSION_INFO._fields_ = [
-        ('wszUserName', Char * 105),
-        ('wszDomainName', Char * 257),
-        ('ApplicationType', Char * 257),
-        ('dwSessionId', UInt32),
-        ('CreateTime', win32more.Foundation.FILETIME),
-        ('DisconnectTime', win32more.Foundation.FILETIME),
-        ('SessionState', win32more.System.RemoteDesktop.WTSSBX_SESSION_STATE),
-    ]
-    return WTSSBX_SESSION_INFO
+WTSSBX_NOTIFICATION_REMOVED: WTSSBX_NOTIFICATION_TYPE = 1
+WTSSBX_NOTIFICATION_CHANGED: WTSSBX_NOTIFICATION_TYPE = 2
+WTSSBX_NOTIFICATION_ADDED: WTSSBX_NOTIFICATION_TYPE = 4
+WTSSBX_NOTIFICATION_RESYNC: WTSSBX_NOTIFICATION_TYPE = 8
+class WTSSBX_SESSION_INFO(Structure):
+    wszUserName: Char * 105
+    wszDomainName: Char * 257
+    ApplicationType: Char * 257
+    dwSessionId: UInt32
+    CreateTime: win32more.Foundation.FILETIME
+    DisconnectTime: win32more.Foundation.FILETIME
+    SessionState: win32more.System.RemoteDesktop.WTSSBX_SESSION_STATE
 WTSSBX_SESSION_STATE = Int32
-WTSSBX_SESSION_STATE_UNSPEC = 0
-WTSSBX_SESSION_STATE_ACTIVE = 1
-WTSSBX_SESSION_STATE_DISCONNECTED = 2
-def _define_WTSSESSION_NOTIFICATION_head():
-    class WTSSESSION_NOTIFICATION(Structure):
-        pass
-    return WTSSESSION_NOTIFICATION
-def _define_WTSSESSION_NOTIFICATION():
-    WTSSESSION_NOTIFICATION = win32more.System.RemoteDesktop.WTSSESSION_NOTIFICATION_head
-    WTSSESSION_NOTIFICATION._fields_ = [
-        ('cbSize', UInt32),
-        ('dwSessionId', UInt32),
-    ]
-    return WTSSESSION_NOTIFICATION
-def _define_WTSUSERCONFIGA_head():
-    class WTSUSERCONFIGA(Structure):
-        pass
-    return WTSUSERCONFIGA
-def _define_WTSUSERCONFIGA():
-    WTSUSERCONFIGA = win32more.System.RemoteDesktop.WTSUSERCONFIGA_head
-    WTSUSERCONFIGA._fields_ = [
-        ('Source', UInt32),
-        ('InheritInitialProgram', UInt32),
-        ('AllowLogonTerminalServer', UInt32),
-        ('TimeoutSettingsConnections', UInt32),
-        ('TimeoutSettingsDisconnections', UInt32),
-        ('TimeoutSettingsIdle', UInt32),
-        ('DeviceClientDrives', UInt32),
-        ('DeviceClientPrinters', UInt32),
-        ('ClientDefaultPrinter', UInt32),
-        ('BrokenTimeoutSettings', UInt32),
-        ('ReconnectSettings', UInt32),
-        ('ShadowingSettings', UInt32),
-        ('TerminalServerRemoteHomeDir', UInt32),
-        ('InitialProgram', win32more.Foundation.CHAR * 261),
-        ('WorkDirectory', win32more.Foundation.CHAR * 261),
-        ('TerminalServerProfilePath', win32more.Foundation.CHAR * 261),
-        ('TerminalServerHomeDir', win32more.Foundation.CHAR * 261),
-        ('TerminalServerHomeDirDrive', win32more.Foundation.CHAR * 4),
-    ]
-    return WTSUSERCONFIGA
-def _define_WTSUSERCONFIGW_head():
-    class WTSUSERCONFIGW(Structure):
-        pass
-    return WTSUSERCONFIGW
-def _define_WTSUSERCONFIGW():
-    WTSUSERCONFIGW = win32more.System.RemoteDesktop.WTSUSERCONFIGW_head
-    WTSUSERCONFIGW._fields_ = [
-        ('Source', UInt32),
-        ('InheritInitialProgram', UInt32),
-        ('AllowLogonTerminalServer', UInt32),
-        ('TimeoutSettingsConnections', UInt32),
-        ('TimeoutSettingsDisconnections', UInt32),
-        ('TimeoutSettingsIdle', UInt32),
-        ('DeviceClientDrives', UInt32),
-        ('DeviceClientPrinters', UInt32),
-        ('ClientDefaultPrinter', UInt32),
-        ('BrokenTimeoutSettings', UInt32),
-        ('ReconnectSettings', UInt32),
-        ('ShadowingSettings', UInt32),
-        ('TerminalServerRemoteHomeDir', UInt32),
-        ('InitialProgram', Char * 261),
-        ('WorkDirectory', Char * 261),
-        ('TerminalServerProfilePath', Char * 261),
-        ('TerminalServerHomeDir', Char * 261),
-        ('TerminalServerHomeDirDrive', Char * 4),
-    ]
-    return WTSUSERCONFIGW
+WTSSBX_SESSION_STATE_UNSPEC: WTSSBX_SESSION_STATE = 0
+WTSSBX_SESSION_STATE_ACTIVE: WTSSBX_SESSION_STATE = 1
+WTSSBX_SESSION_STATE_DISCONNECTED: WTSSBX_SESSION_STATE = 2
+class WTSSESSION_NOTIFICATION(Structure):
+    cbSize: UInt32
+    dwSessionId: UInt32
+class WTSUSERCONFIGA(Structure):
+    Source: UInt32
+    InheritInitialProgram: UInt32
+    AllowLogonTerminalServer: UInt32
+    TimeoutSettingsConnections: UInt32
+    TimeoutSettingsDisconnections: UInt32
+    TimeoutSettingsIdle: UInt32
+    DeviceClientDrives: UInt32
+    DeviceClientPrinters: UInt32
+    ClientDefaultPrinter: UInt32
+    BrokenTimeoutSettings: UInt32
+    ReconnectSettings: UInt32
+    ShadowingSettings: UInt32
+    TerminalServerRemoteHomeDir: UInt32
+    InitialProgram: win32more.Foundation.CHAR * 261
+    WorkDirectory: win32more.Foundation.CHAR * 261
+    TerminalServerProfilePath: win32more.Foundation.CHAR * 261
+    TerminalServerHomeDir: win32more.Foundation.CHAR * 261
+    TerminalServerHomeDirDrive: win32more.Foundation.CHAR * 4
+class WTSUSERCONFIGW(Structure):
+    Source: UInt32
+    InheritInitialProgram: UInt32
+    AllowLogonTerminalServer: UInt32
+    TimeoutSettingsConnections: UInt32
+    TimeoutSettingsDisconnections: UInt32
+    TimeoutSettingsIdle: UInt32
+    DeviceClientDrives: UInt32
+    DeviceClientPrinters: UInt32
+    ClientDefaultPrinter: UInt32
+    BrokenTimeoutSettings: UInt32
+    ReconnectSettings: UInt32
+    ShadowingSettings: UInt32
+    TerminalServerRemoteHomeDir: UInt32
+    InitialProgram: Char * 261
+    WorkDirectory: Char * 261
+    TerminalServerProfilePath: Char * 261
+    TerminalServerHomeDir: Char * 261
+    TerminalServerHomeDirDrive: Char * 4
+make_head(_module, '_ITSWkspEvents')
+make_head(_module, 'AAAccountingData')
+make_head(_module, 'AE_CURRENT_POSITION')
+make_head(_module, 'BITMAP_RENDERER_STATISTICS')
+make_head(_module, 'CHANNEL_DEF')
+make_head(_module, 'CHANNEL_ENTRY_POINTS')
+make_head(_module, 'CHANNEL_PDU_HEADER')
+make_head(_module, 'CLIENT_DISPLAY')
+make_head(_module, 'IADsTSUserEx')
+make_head(_module, 'IAudioDeviceEndpoint')
+make_head(_module, 'IAudioEndpoint')
+make_head(_module, 'IAudioEndpointControl')
+make_head(_module, 'IAudioEndpointRT')
+make_head(_module, 'IAudioInputEndpointRT')
+make_head(_module, 'IAudioOutputEndpointRT')
+make_head(_module, 'IRemoteDesktopClient')
+make_head(_module, 'IRemoteDesktopClientActions')
+make_head(_module, 'IRemoteDesktopClientSettings')
+make_head(_module, 'IRemoteDesktopClientTouchPointer')
+make_head(_module, 'IRemoteSystemAdditionalInfoProvider')
+make_head(_module, 'ITSGAccountingEngine')
+make_head(_module, 'ITSGAuthenticateUserSink')
+make_head(_module, 'ITSGAuthenticationEngine')
+make_head(_module, 'ITSGAuthorizeConnectionSink')
+make_head(_module, 'ITSGAuthorizeResourceSink')
+make_head(_module, 'ITSGPolicyEngine')
+make_head(_module, 'ItsPubPlugin')
+make_head(_module, 'ItsPubPlugin2')
+make_head(_module, 'ITsSbBaseNotifySink')
+make_head(_module, 'ITsSbClientConnection')
+make_head(_module, 'ITsSbClientConnectionPropertySet')
+make_head(_module, 'ITsSbEnvironment')
+make_head(_module, 'ITsSbEnvironmentPropertySet')
+make_head(_module, 'ITsSbFilterPluginStore')
+make_head(_module, 'ITsSbGenericNotifySink')
+make_head(_module, 'ITsSbGlobalStore')
+make_head(_module, 'ITsSbLoadBalanceResult')
+make_head(_module, 'ITsSbLoadBalancing')
+make_head(_module, 'ITsSbLoadBalancingNotifySink')
+make_head(_module, 'ITsSbOrchestration')
+make_head(_module, 'ITsSbOrchestrationNotifySink')
+make_head(_module, 'ITsSbPlacement')
+make_head(_module, 'ITsSbPlacementNotifySink')
+make_head(_module, 'ITsSbPlugin')
+make_head(_module, 'ITsSbPluginNotifySink')
+make_head(_module, 'ITsSbPluginPropertySet')
+make_head(_module, 'ITsSbPropertySet')
+make_head(_module, 'ITsSbProvider')
+make_head(_module, 'ITsSbProvisioning')
+make_head(_module, 'ITsSbProvisioningPluginNotifySink')
+make_head(_module, 'ITsSbResourceNotification')
+make_head(_module, 'ITsSbResourceNotificationEx')
+make_head(_module, 'ITsSbResourcePlugin')
+make_head(_module, 'ITsSbResourcePluginStore')
+make_head(_module, 'ITsSbServiceNotification')
+make_head(_module, 'ITsSbSession')
+make_head(_module, 'ITsSbTarget')
+make_head(_module, 'ITsSbTargetPropertySet')
+make_head(_module, 'ITsSbTaskInfo')
+make_head(_module, 'ITsSbTaskPlugin')
+make_head(_module, 'ITsSbTaskPluginNotifySink')
+make_head(_module, 'IWorkspace')
+make_head(_module, 'IWorkspace2')
+make_head(_module, 'IWorkspace3')
+make_head(_module, 'IWorkspaceClientExt')
+make_head(_module, 'IWorkspaceRegistration')
+make_head(_module, 'IWorkspaceRegistration2')
+make_head(_module, 'IWorkspaceReportMessage')
+make_head(_module, 'IWorkspaceResTypeRegistry')
+make_head(_module, 'IWorkspaceScriptable')
+make_head(_module, 'IWorkspaceScriptable2')
+make_head(_module, 'IWorkspaceScriptable3')
+make_head(_module, 'IWRdsEnhancedFastReconnectArbitrator')
+make_head(_module, 'IWRdsGraphicsChannel')
+make_head(_module, 'IWRdsGraphicsChannelEvents')
+make_head(_module, 'IWRdsGraphicsChannelManager')
+make_head(_module, 'IWRdsProtocolConnection')
+make_head(_module, 'IWRdsProtocolConnectionCallback')
+make_head(_module, 'IWRdsProtocolConnectionSettings')
+make_head(_module, 'IWRdsProtocolLicenseConnection')
+make_head(_module, 'IWRdsProtocolListener')
+make_head(_module, 'IWRdsProtocolListenerCallback')
+make_head(_module, 'IWRdsProtocolLogonErrorRedirector')
+make_head(_module, 'IWRdsProtocolManager')
+make_head(_module, 'IWRdsProtocolSettings')
+make_head(_module, 'IWRdsProtocolShadowCallback')
+make_head(_module, 'IWRdsProtocolShadowConnection')
+make_head(_module, 'IWRdsWddmIddProps')
+make_head(_module, 'IWTSBitmapRenderer')
+make_head(_module, 'IWTSBitmapRendererCallback')
+make_head(_module, 'IWTSBitmapRenderService')
+make_head(_module, 'IWTSListener')
+make_head(_module, 'IWTSListenerCallback')
+make_head(_module, 'IWTSPlugin')
+make_head(_module, 'IWTSPluginServiceProvider')
+make_head(_module, 'IWTSProtocolConnection')
+make_head(_module, 'IWTSProtocolConnectionCallback')
+make_head(_module, 'IWTSProtocolLicenseConnection')
+make_head(_module, 'IWTSProtocolListener')
+make_head(_module, 'IWTSProtocolListenerCallback')
+make_head(_module, 'IWTSProtocolLogonErrorRedirector')
+make_head(_module, 'IWTSProtocolManager')
+make_head(_module, 'IWTSProtocolShadowCallback')
+make_head(_module, 'IWTSProtocolShadowConnection')
+make_head(_module, 'IWTSSBPlugin')
+make_head(_module, 'IWTSVirtualChannel')
+make_head(_module, 'IWTSVirtualChannelCallback')
+make_head(_module, 'IWTSVirtualChannelManager')
+make_head(_module, 'PCHANNEL_INIT_EVENT_FN')
+make_head(_module, 'PCHANNEL_OPEN_EVENT_FN')
+make_head(_module, 'pluginResource')
+make_head(_module, 'pluginResource2')
+make_head(_module, 'pluginResource2FileAssociation')
+make_head(_module, 'PRODUCT_INFOA')
+make_head(_module, 'PRODUCT_INFOW')
+make_head(_module, 'PVIRTUALCHANNELCLOSE')
+make_head(_module, 'PVIRTUALCHANNELENTRY')
+make_head(_module, 'PVIRTUALCHANNELINIT')
+make_head(_module, 'PVIRTUALCHANNELOPEN')
+make_head(_module, 'PVIRTUALCHANNELWRITE')
+make_head(_module, 'RFX_GFX_MONITOR_INFO')
+make_head(_module, 'RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST')
+make_head(_module, 'RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE')
+make_head(_module, 'RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM')
+make_head(_module, 'RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY')
+make_head(_module, 'RFX_GFX_MSG_DESKTOP_INPUT_RESET')
+make_head(_module, 'RFX_GFX_MSG_DESKTOP_RESEND_REQUEST')
+make_head(_module, 'RFX_GFX_MSG_DISCONNECT_NOTIFY')
+make_head(_module, 'RFX_GFX_MSG_HEADER')
+make_head(_module, 'RFX_GFX_MSG_RDP_DATA')
+make_head(_module, 'RFX_GFX_RECT')
+make_head(_module, 'TSSD_ConnectionPoint')
+make_head(_module, 'VM_NOTIFY_ENTRY')
+make_head(_module, 'VM_NOTIFY_INFO')
+make_head(_module, 'VM_PATCH_INFO')
+make_head(_module, 'WRDS_CONNECTION_SETTING')
+make_head(_module, 'WRDS_CONNECTION_SETTINGS')
+make_head(_module, 'WRDS_CONNECTION_SETTINGS_1')
+make_head(_module, 'WRDS_DYNAMIC_TIME_ZONE_INFORMATION')
+make_head(_module, 'WRDS_LISTENER_SETTING')
+make_head(_module, 'WRDS_LISTENER_SETTINGS')
+make_head(_module, 'WRDS_LISTENER_SETTINGS_1')
+make_head(_module, 'WRDS_SETTING')
+make_head(_module, 'WRDS_SETTINGS')
+make_head(_module, 'WRDS_SETTINGS_1')
+make_head(_module, 'WTS_CACHE_STATS')
+make_head(_module, 'WTS_CACHE_STATS_UN')
+make_head(_module, 'WTS_CLIENT_ADDRESS')
+make_head(_module, 'WTS_CLIENT_DATA')
+make_head(_module, 'WTS_CLIENT_DISPLAY')
+make_head(_module, 'WTS_DISPLAY_IOCTL')
+make_head(_module, 'WTS_LICENSE_CAPABILITIES')
+make_head(_module, 'WTS_POLICY_DATA')
+make_head(_module, 'WTS_PROCESS_INFO_EXA')
+make_head(_module, 'WTS_PROCESS_INFO_EXW')
+make_head(_module, 'WTS_PROCESS_INFOA')
+make_head(_module, 'WTS_PROCESS_INFOW')
+make_head(_module, 'WTS_PROPERTY_VALUE')
+make_head(_module, 'WTS_PROTOCOL_CACHE')
+make_head(_module, 'WTS_PROTOCOL_COUNTERS')
+make_head(_module, 'WTS_PROTOCOL_STATUS')
+make_head(_module, 'WTS_SERVER_INFOA')
+make_head(_module, 'WTS_SERVER_INFOW')
+make_head(_module, 'WTS_SERVICE_STATE')
+make_head(_module, 'WTS_SESSION_ADDRESS')
+make_head(_module, 'WTS_SESSION_ID')
+make_head(_module, 'WTS_SESSION_INFO_1A')
+make_head(_module, 'WTS_SESSION_INFO_1W')
+make_head(_module, 'WTS_SESSION_INFOA')
+make_head(_module, 'WTS_SESSION_INFOW')
+make_head(_module, 'WTS_SMALL_RECT')
+make_head(_module, 'WTS_SOCKADDR')
+make_head(_module, 'WTS_SYSTEMTIME')
+make_head(_module, 'WTS_TIME_ZONE_INFORMATION')
+make_head(_module, 'WTS_USER_CREDENTIAL')
+make_head(_module, 'WTS_USER_DATA')
+make_head(_module, 'WTS_VALIDATION_INFORMATIONA')
+make_head(_module, 'WTS_VALIDATION_INFORMATIONW')
+make_head(_module, 'WTSCLIENTA')
+make_head(_module, 'WTSCLIENTW')
+make_head(_module, 'WTSCONFIGINFOA')
+make_head(_module, 'WTSCONFIGINFOW')
+make_head(_module, 'WTSINFOA')
+make_head(_module, 'WTSINFOEX_LEVEL_A')
+make_head(_module, 'WTSINFOEX_LEVEL_W')
+make_head(_module, 'WTSINFOEX_LEVEL1_A')
+make_head(_module, 'WTSINFOEX_LEVEL1_W')
+make_head(_module, 'WTSINFOEXA')
+make_head(_module, 'WTSINFOEXW')
+make_head(_module, 'WTSINFOW')
+make_head(_module, 'WTSLISTENERCONFIGA')
+make_head(_module, 'WTSLISTENERCONFIGW')
+make_head(_module, 'WTSSBX_IP_ADDRESS')
+make_head(_module, 'WTSSBX_MACHINE_CONNECT_INFO')
+make_head(_module, 'WTSSBX_MACHINE_INFO')
+make_head(_module, 'WTSSBX_SESSION_INFO')
+make_head(_module, 'WTSSESSION_NOTIFICATION')
+make_head(_module, 'WTSUSERCONFIGA')
+make_head(_module, 'WTSUSERCONFIGW')
 __all__ = [
     "AAAccountingData",
     "AAAccountingDataType",

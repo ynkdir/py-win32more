@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.System.Memory
@@ -7,904 +8,477 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-FILE_CACHE_MAX_HARD_ENABLE = 1
-FILE_CACHE_MAX_HARD_DISABLE = 2
-FILE_CACHE_MIN_HARD_ENABLE = 4
-FILE_CACHE_MIN_HARD_DISABLE = 8
-MEHC_PATROL_SCRUBBER_PRESENT = 1
-def _define_HeapCreate():
-    try:
-        return WINFUNCTYPE(win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,UIntPtr,UIntPtr)(('HeapCreate', windll['KERNEL32.dll']), ((1, 'flOptions'),(1, 'dwInitialSize'),(1, 'dwMaximumSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapDestroy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle)(('HeapDestroy', windll['KERNEL32.dll']), ((1, 'hHeap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapAlloc():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,UIntPtr)(('HeapAlloc', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'dwBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapReAlloc():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,c_void_p,UIntPtr)(('HeapReAlloc', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'lpMem'),(1, 'dwBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,c_void_p)(('HeapFree', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'lpMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapSize():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,c_void_p)(('HeapSize', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'lpMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessHeap():
-    try:
-        return WINFUNCTYPE(win32more.System.Memory.HeapHandle,)(('GetProcessHeap', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapCompact():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS)(('HeapCompact', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapSetInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_INFORMATION_CLASS,c_void_p,UIntPtr)(('HeapSetInformation', windll['KERNEL32.dll']), ((1, 'HeapHandle'),(1, 'HeapInformationClass'),(1, 'HeapInformation'),(1, 'HeapInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapValidate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_FLAGS,c_void_p)(('HeapValidate', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'lpMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapSummary():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.System.Memory.HEAP_SUMMARY_head))(('HeapSummary', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'dwFlags'),(1, 'lpSummary'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessHeaps():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.System.Memory.HeapHandle))(('GetProcessHeaps', windll['KERNEL32.dll']), ((1, 'NumberOfHeaps'),(1, 'ProcessHeaps'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapLock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle)(('HeapLock', windll['KERNEL32.dll']), ((1, 'hHeap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapUnlock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle)(('HeapUnlock', windll['KERNEL32.dll']), ((1, 'hHeap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapWalk():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle,POINTER(win32more.System.Memory.PROCESS_HEAP_ENTRY_head))(('HeapWalk', windll['KERNEL32.dll']), ((1, 'hHeap'),(1, 'lpEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HeapQueryInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.HeapHandle,win32more.System.Memory.HEAP_INFORMATION_CLASS,c_void_p,UIntPtr,POINTER(UIntPtr))(('HeapQueryInformation', windll['KERNEL32.dll']), ((1, 'HeapHandle'),(1, 'HeapInformationClass'),(1, 'HeapInformation'),(1, 'HeapInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAlloc():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,win32more.System.Memory.PAGE_PROTECTION_FLAGS)(('VirtualAlloc', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'dwSize'),(1, 'flAllocationType'),(1, 'flProtect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualProtect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr,win32more.System.Memory.PAGE_PROTECTION_FLAGS,POINTER(win32more.System.Memory.PAGE_PROTECTION_FLAGS))(('VirtualProtect', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'dwSize'),(1, 'flNewProtect'),(1, 'lpflOldProtect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_FREE_TYPE)(('VirtualFree', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'dwSize'),(1, 'dwFreeType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualQuery():
-    try:
-        return WINFUNCTYPE(UIntPtr,c_void_p,POINTER(win32more.System.Memory.MEMORY_BASIC_INFORMATION_head),UIntPtr)(('VirtualQuery', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'lpBuffer'),(1, 'dwLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAllocEx():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,win32more.System.Memory.PAGE_PROTECTION_FLAGS)(('VirtualAllocEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpAddress'),(1, 'dwSize'),(1, 'flAllocationType'),(1, 'flProtect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualProtectEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.PAGE_PROTECTION_FLAGS,POINTER(win32more.System.Memory.PAGE_PROTECTION_FLAGS))(('VirtualProtectEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpAddress'),(1, 'dwSize'),(1, 'flNewProtect'),(1, 'lpflOldProtect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualQueryEx():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HANDLE,c_void_p,POINTER(win32more.System.Memory.MEMORY_BASIC_INFORMATION_head),UIntPtr)(('VirtualQueryEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpAddress'),(1, 'lpBuffer'),(1, 'dwLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMappingW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt32,UInt32,win32more.Foundation.PWSTR)(('CreateFileMappingW', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpFileMappingAttributes'),(1, 'flProtect'),(1, 'dwMaximumSizeHigh'),(1, 'dwMaximumSizeLow'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenFileMappingW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenFileMappingW', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFile():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.System.Memory.FILE_MAP,UInt32,UInt32,UIntPtr)(('MapViewOfFile', windll['KERNEL32.dll']), ((1, 'hFileMappingObject'),(1, 'dwDesiredAccess'),(1, 'dwFileOffsetHigh'),(1, 'dwFileOffsetLow'),(1, 'dwNumberOfBytesToMap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFileEx():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.System.Memory.FILE_MAP,UInt32,UInt32,UIntPtr,c_void_p)(('MapViewOfFileEx', windll['KERNEL32.dll']), ((1, 'hFileMappingObject'),(1, 'dwDesiredAccess'),(1, 'dwFileOffsetHigh'),(1, 'dwFileOffsetLow'),(1, 'dwNumberOfBytesToMap'),(1, 'lpBaseAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualFreeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_FREE_TYPE)(('VirtualFreeEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpAddress'),(1, 'dwSize'),(1, 'dwFreeType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlushViewOfFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('FlushViewOfFile', windll['KERNEL32.dll']), ((1, 'lpBaseAddress'),(1, 'dwNumberOfBytesToFlush'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnmapViewOfFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('UnmapViewOfFile', windll['KERNEL32.dll']), ((1, 'lpBaseAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLargePageMinimum():
-    try:
-        return WINFUNCTYPE(UIntPtr,)(('GetLargePageMinimum', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessWorkingSetSizeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32))(('GetProcessWorkingSetSizeEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpMinimumWorkingSetSize'),(1, 'lpMaximumWorkingSetSize'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessWorkingSetSizeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UIntPtr,UIntPtr,UInt32)(('SetProcessWorkingSetSizeEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwMinimumWorkingSetSize'),(1, 'dwMaximumWorkingSetSize'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualLock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('VirtualLock', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualUnlock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('VirtualUnlock', windll['KERNEL32.dll']), ((1, 'lpAddress'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWriteWatch():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,UIntPtr,POINTER(c_void_p),POINTER(UIntPtr),POINTER(UInt32))(('GetWriteWatch', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpBaseAddress'),(1, 'dwRegionSize'),(1, 'lpAddresses'),(1, 'lpdwCount'),(1, 'lpdwGranularity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetWriteWatch():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UIntPtr)(('ResetWriteWatch', windll['KERNEL32.dll']), ((1, 'lpBaseAddress'),(1, 'dwRegionSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMemoryResourceNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE)(('CreateMemoryResourceNotification', windll['KERNEL32.dll']), ((1, 'NotificationType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryMemoryResourceNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('QueryMemoryResourceNotification', windll['KERNEL32.dll']), ((1, 'ResourceNotificationHandle'),(1, 'ResourceState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemFileCacheSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32))(('GetSystemFileCacheSize', windll['KERNEL32.dll']), ((1, 'lpMinimumFileCacheSize'),(1, 'lpMaximumFileCacheSize'),(1, 'lpFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSystemFileCacheSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UIntPtr,UIntPtr,UInt32)(('SetSystemFileCacheSize', windll['KERNEL32.dll']), ((1, 'MinimumFileCacheSize'),(1, 'MaximumFileCacheSize'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMappingNumaW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('CreateFileMappingNumaW', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpFileMappingAttributes'),(1, 'flProtect'),(1, 'dwMaximumSizeHigh'),(1, 'dwMaximumSizeLow'),(1, 'lpName'),(1, 'nndPreferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrefetchVirtualMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UIntPtr,POINTER(win32more.System.Memory.WIN32_MEMORY_RANGE_ENTRY_head),UInt32)(('PrefetchVirtualMemory', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'NumberOfEntries'),(1, 'VirtualAddresses'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMappingFromApp():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt64,win32more.Foundation.PWSTR)(('CreateFileMappingFromApp', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'SecurityAttributes'),(1, 'PageProtection'),(1, 'MaximumSize'),(1, 'Name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFileFromApp():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.System.Memory.FILE_MAP,UInt64,UIntPtr)(('MapViewOfFileFromApp', windll['KERNEL32.dll']), ((1, 'hFileMappingObject'),(1, 'DesiredAccess'),(1, 'FileOffset'),(1, 'NumberOfBytesToMap'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnmapViewOfFileEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.System.Memory.UNMAP_VIEW_OF_FILE_FLAGS)(('UnmapViewOfFileEx', windll['KERNEL32.dll']), ((1, 'BaseAddress'),(1, 'UnmapFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllocateUserPhysicalPages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr))(('AllocateUserPhysicalPages', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'NumberOfPages'),(1, 'PageArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeUserPhysicalPages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr))(('FreeUserPhysicalPages', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'NumberOfPages'),(1, 'PageArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapUserPhysicalPages():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr,POINTER(UIntPtr))(('MapUserPhysicalPages', windll['KERNEL32.dll']), ((1, 'VirtualAddress'),(1, 'NumberOfPages'),(1, 'PageArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllocateUserPhysicalPagesNuma():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr),UInt32)(('AllocateUserPhysicalPagesNuma', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'NumberOfPages'),(1, 'PageArray'),(1, 'nndPreferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAllocExNuma():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32,UInt32)(('VirtualAllocExNuma', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpAddress'),(1, 'dwSize'),(1, 'flAllocationType'),(1, 'flProtect'),(1, 'nndPreferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMemoryErrorHandlingCapabilities():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32))(('GetMemoryErrorHandlingCapabilities', windll['KERNEL32.dll']), ((1, 'Capabilities'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterBadMemoryNotification():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.System.Memory.PBAD_MEMORY_CALLBACK_ROUTINE)(('RegisterBadMemoryNotification', windll['KERNEL32.dll']), ((1, 'Callback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterBadMemoryNotification():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('UnregisterBadMemoryNotification', windll['KERNEL32.dll']), ((1, 'RegistrationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OfferVirtualMemory():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UIntPtr,win32more.System.Memory.OFFER_PRIORITY)(('OfferVirtualMemory', windll['KERNEL32.dll']), ((1, 'VirtualAddress'),(1, 'Size'),(1, 'Priority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReclaimVirtualMemory():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UIntPtr)(('ReclaimVirtualMemory', windll['KERNEL32.dll']), ((1, 'VirtualAddress'),(1, 'Size'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DiscardVirtualMemory():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UIntPtr)(('DiscardVirtualMemory', windll['KERNEL32.dll']), ((1, 'VirtualAddress'),(1, 'Size'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessValidCallTargets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UIntPtr,UInt32,POINTER(win32more.System.Memory.CFG_CALL_TARGET_INFO_head))(('SetProcessValidCallTargets', windll['api-ms-win-core-memory-l1-1-3.dll']), ((1, 'hProcess'),(1, 'VirtualAddress'),(1, 'RegionSize'),(1, 'NumberOfOffsets'),(1, 'OffsetInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessValidCallTargetsForMappedView():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UIntPtr,UInt32,POINTER(win32more.System.Memory.CFG_CALL_TARGET_INFO_head),win32more.Foundation.HANDLE,UInt64)(('SetProcessValidCallTargetsForMappedView', windll['api-ms-win-core-memory-l1-1-7.dll']), ((1, 'Process'),(1, 'VirtualAddress'),(1, 'RegionSize'),(1, 'NumberOfOffsets'),(1, 'OffsetInformation'),(1, 'Section'),(1, 'ExpectedFileOffset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAllocFromApp():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32)(('VirtualAllocFromApp', windll['api-ms-win-core-memory-l1-1-3.dll']), ((1, 'BaseAddress'),(1, 'Size'),(1, 'AllocationType'),(1, 'Protection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualProtectFromApp():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr,UInt32,POINTER(UInt32))(('VirtualProtectFromApp', windll['api-ms-win-core-memory-l1-1-3.dll']), ((1, 'Address'),(1, 'Size'),(1, 'NewProtection'),(1, 'OldProtection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenFileMappingFromApp():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenFileMappingFromApp', windll['api-ms-win-core-memory-l1-1-3.dll']), ((1, 'DesiredAccess'),(1, 'InheritHandle'),(1, 'Name'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryVirtualMemoryInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,win32more.System.Memory.WIN32_MEMORY_INFORMATION_CLASS,c_void_p,UIntPtr,POINTER(UIntPtr))(('QueryVirtualMemoryInformation', windll['api-ms-win-core-memory-l1-1-4.dll']), ((1, 'Process'),(1, 'VirtualAddress'),(1, 'MemoryInformationClass'),(1, 'MemoryInformation'),(1, 'MemoryInformationSize'),(1, 'ReturnSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFileNuma2():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt64,c_void_p,UIntPtr,UInt32,UInt32,UInt32)(('MapViewOfFileNuma2', windll['api-ms-win-core-memory-l1-1-5.dll']), ((1, 'FileMappingHandle'),(1, 'ProcessHandle'),(1, 'Offset'),(1, 'BaseAddress'),(1, 'ViewSize'),(1, 'AllocationType'),(1, 'PageProtection'),(1, 'PreferredNode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnmapViewOfFile2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,win32more.System.Memory.UNMAP_VIEW_OF_FILE_FLAGS)(('UnmapViewOfFile2', windll['api-ms-win-core-memory-l1-1-5.dll']), ((1, 'Process'),(1, 'BaseAddress'),(1, 'UnmapFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualUnlockEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,c_void_p,UIntPtr)(('VirtualUnlockEx', windll['api-ms-win-core-memory-l1-1-5.dll']), ((1, 'Process'),(1, 'Address'),(1, 'Size'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAlloc2():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32,POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('VirtualAlloc2', windll['api-ms-win-core-memory-l1-1-6.dll']), ((1, 'Process'),(1, 'BaseAddress'),(1, 'Size'),(1, 'AllocationType'),(1, 'PageProtection'),(1, 'ExtendedParameters'),(1, 'ParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFile3():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,c_void_p,UInt64,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32,POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('MapViewOfFile3', windll['api-ms-win-core-memory-l1-1-6.dll']), ((1, 'FileMapping'),(1, 'Process'),(1, 'BaseAddress'),(1, 'Offset'),(1, 'ViewSize'),(1, 'AllocationType'),(1, 'PageProtection'),(1, 'ExtendedParameters'),(1, 'ParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualAlloc2FromApp():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,c_void_p,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32,POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('VirtualAlloc2FromApp', windll['api-ms-win-core-memory-l1-1-6.dll']), ((1, 'Process'),(1, 'BaseAddress'),(1, 'Size'),(1, 'AllocationType'),(1, 'PageProtection'),(1, 'ExtendedParameters'),(1, 'ParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFile3FromApp():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,c_void_p,UInt64,UIntPtr,win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE,UInt32,POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('MapViewOfFile3FromApp', windll['api-ms-win-core-memory-l1-1-6.dll']), ((1, 'FileMapping'),(1, 'Process'),(1, 'BaseAddress'),(1, 'Offset'),(1, 'ViewSize'),(1, 'AllocationType'),(1, 'PageProtection'),(1, 'ExtendedParameters'),(1, 'ParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMapping2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt32,UInt64,win32more.Foundation.PWSTR,POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('CreateFileMapping2', windll['api-ms-win-core-memory-l1-1-7.dll']), ((1, 'File'),(1, 'SecurityAttributes'),(1, 'DesiredAccess'),(1, 'PageProtection'),(1, 'AllocationAttributes'),(1, 'MaximumSize'),(1, 'Name'),(1, 'ExtendedParameters'),(1, 'ParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllocateUserPhysicalPages2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head),UInt32)(('AllocateUserPhysicalPages2', windll['api-ms-win-core-memory-l1-1-8.dll']), ((1, 'ObjectHandle'),(1, 'NumberOfPages'),(1, 'PageArray'),(1, 'ExtendedParameters'),(1, 'ExtendedParameterCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenDedicatedMemoryPartition():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt64,UInt32,win32more.Foundation.BOOL)(('OpenDedicatedMemoryPartition', windll['api-ms-win-core-memory-l1-1-8.dll']), ((1, 'Partition'),(1, 'DedicatedMemoryTypeId'),(1, 'DesiredAccess'),(1, 'InheritHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryPartitionInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS,c_void_p,UInt32)(('QueryPartitionInformation', windll['api-ms-win-core-memory-l1-1-8.dll']), ((1, 'Partition'),(1, 'PartitionInformationClass'),(1, 'PartitionInformation'),(1, 'PartitionInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlCompareMemory():
-    try:
-        return WINFUNCTYPE(UIntPtr,c_void_p,c_void_p,UIntPtr)(('RtlCompareMemory', windll['KERNEL32.dll']), ((1, 'Source1'),(1, 'Source2'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlCrc32():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UIntPtr,UInt32)(('RtlCrc32', windll['ntdll.dll']), ((1, 'Buffer'),(1, 'Size'),(1, 'InitialCrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlCrc64():
-    try:
-        return WINFUNCTYPE(UInt64,c_void_p,UIntPtr,UInt64)(('RtlCrc64', windll['ntdll.dll']), ((1, 'Buffer'),(1, 'Size'),(1, 'InitialCrc'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlIsZeroMemory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,c_void_p,UIntPtr)(('RtlIsZeroMemory', windll['ntdll.dll']), ((1, 'Buffer'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalAlloc():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.System.Memory.GLOBAL_ALLOC_FLAGS,UIntPtr)(('GlobalAlloc', windll['KERNEL32.dll']), ((1, 'uFlags'),(1, 'dwBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalReAlloc():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,UIntPtr,UInt32)(('GlobalReAlloc', windll['KERNEL32.dll']), ((1, 'hMem'),(1, 'dwBytes'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalSize():
-    try:
-        return WINFUNCTYPE(UIntPtr,IntPtr)(('GlobalSize', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalUnlock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('GlobalUnlock', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalLock():
-    try:
-        return WINFUNCTYPE(c_void_p,IntPtr)(('GlobalLock', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalFlags():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('GlobalFlags', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalHandle():
-    try:
-        return WINFUNCTYPE(IntPtr,c_void_p)(('GlobalHandle', windll['KERNEL32.dll']), ((1, 'pMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GlobalFree():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr)(('GlobalFree', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalAlloc():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.System.Memory.LOCAL_ALLOC_FLAGS,UIntPtr)(('LocalAlloc', windll['KERNEL32.dll']), ((1, 'uFlags'),(1, 'uBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalReAlloc():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr,UIntPtr,UInt32)(('LocalReAlloc', windll['KERNEL32.dll']), ((1, 'hMem'),(1, 'uBytes'),(1, 'uFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalLock():
-    try:
-        return WINFUNCTYPE(c_void_p,IntPtr)(('LocalLock', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalHandle():
-    try:
-        return WINFUNCTYPE(IntPtr,c_void_p)(('LocalHandle', windll['KERNEL32.dll']), ((1, 'pMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalUnlock():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('LocalUnlock', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalSize():
-    try:
-        return WINFUNCTYPE(UIntPtr,IntPtr)(('LocalSize', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalFlags():
-    try:
-        return WINFUNCTYPE(UInt32,IntPtr)(('LocalFlags', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LocalFree():
-    try:
-        return WINFUNCTYPE(IntPtr,IntPtr)(('LocalFree', windll['KERNEL32.dll']), ((1, 'hMem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMappingA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt32,UInt32,win32more.Foundation.PSTR)(('CreateFileMappingA', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpFileMappingAttributes'),(1, 'flProtect'),(1, 'dwMaximumSizeHigh'),(1, 'dwMaximumSizeLow'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFileMappingNumaA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.System.Memory.PAGE_PROTECTION_FLAGS,UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('CreateFileMappingNumaA', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'lpFileMappingAttributes'),(1, 'flProtect'),(1, 'dwMaximumSizeHigh'),(1, 'dwMaximumSizeLow'),(1, 'lpName'),(1, 'nndPreferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenFileMappingA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('OpenFileMappingA', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapViewOfFileExNuma():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.HANDLE,win32more.System.Memory.FILE_MAP,UInt32,UInt32,UIntPtr,c_void_p,UInt32)(('MapViewOfFileExNuma', windll['KERNEL32.dll']), ((1, 'hFileMappingObject'),(1, 'dwDesiredAccess'),(1, 'dwFileOffsetHigh'),(1, 'dwFileOffsetLow'),(1, 'dwNumberOfBytesToMap'),(1, 'lpBaseAddress'),(1, 'nndPreferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadReadPtr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('IsBadReadPtr', windll['KERNEL32.dll']), ((1, 'lp'),(1, 'ucb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadWritePtr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UIntPtr)(('IsBadWritePtr', windll['KERNEL32.dll']), ((1, 'lp'),(1, 'ucb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadCodePtr():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.FARPROC)(('IsBadCodePtr', windll['KERNEL32.dll']), ((1, 'lpfn'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadStringPtrA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UIntPtr)(('IsBadStringPtrA', windll['KERNEL32.dll']), ((1, 'lpsz'),(1, 'ucchMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsBadStringPtrW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UIntPtr)(('IsBadStringPtrW', windll['KERNEL32.dll']), ((1, 'lpsz'),(1, 'ucchMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapUserPhysicalPagesScatter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(c_void_p),UIntPtr,POINTER(UIntPtr))(('MapUserPhysicalPagesScatter', windll['KERNEL32.dll']), ((1, 'VirtualAddresses'),(1, 'NumberOfPages'),(1, 'PageArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddSecureMemoryCacheCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.PSECURE_MEMORY_CACHE_CALLBACK)(('AddSecureMemoryCacheCallback', windll['KERNEL32.dll']), ((1, 'pfnCallBack'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveSecureMemoryCacheCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Memory.PSECURE_MEMORY_CACHE_CALLBACK)(('RemoveSecureMemoryCacheCallback', windll['KERNEL32.dll']), ((1, 'pfnCallBack'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CFG_CALL_TARGET_INFO_head():
-    class CFG_CALL_TARGET_INFO(Structure):
-        pass
-    return CFG_CALL_TARGET_INFO
-def _define_CFG_CALL_TARGET_INFO():
-    CFG_CALL_TARGET_INFO = win32more.System.Memory.CFG_CALL_TARGET_INFO_head
-    CFG_CALL_TARGET_INFO._fields_ = [
-        ('Offset', UIntPtr),
-        ('Flags', UIntPtr),
-    ]
-    return CFG_CALL_TARGET_INFO
+FILE_CACHE_MAX_HARD_ENABLE: UInt32 = 1
+FILE_CACHE_MAX_HARD_DISABLE: UInt32 = 2
+FILE_CACHE_MIN_HARD_ENABLE: UInt32 = 4
+FILE_CACHE_MIN_HARD_DISABLE: UInt32 = 8
+MEHC_PATROL_SCRUBBER_PRESENT: UInt32 = 1
+@winfunctype('KERNEL32.dll')
+def HeapCreate(flOptions: win32more.System.Memory.HEAP_FLAGS, dwInitialSize: UIntPtr, dwMaximumSize: UIntPtr) -> win32more.System.Memory.HeapHandle: ...
+@winfunctype('KERNEL32.dll')
+def HeapDestroy(hHeap: win32more.System.Memory.HeapHandle) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapAlloc(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS, dwBytes: UIntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def HeapReAlloc(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS, lpMem: c_void_p, dwBytes: UIntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def HeapFree(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS, lpMem: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapSize(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS, lpMem: c_void_p) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessHeap() -> win32more.System.Memory.HeapHandle: ...
+@winfunctype('KERNEL32.dll')
+def HeapCompact(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def HeapSetInformation(HeapHandle: win32more.System.Memory.HeapHandle, HeapInformationClass: win32more.System.Memory.HEAP_INFORMATION_CLASS, HeapInformation: c_void_p, HeapInformationLength: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapValidate(hHeap: win32more.System.Memory.HeapHandle, dwFlags: win32more.System.Memory.HEAP_FLAGS, lpMem: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapSummary(hHeap: win32more.Foundation.HANDLE, dwFlags: UInt32, lpSummary: POINTER(win32more.System.Memory.HEAP_SUMMARY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessHeaps(NumberOfHeaps: UInt32, ProcessHeaps: POINTER(win32more.System.Memory.HeapHandle)) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def HeapLock(hHeap: win32more.System.Memory.HeapHandle) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapUnlock(hHeap: win32more.System.Memory.HeapHandle) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapWalk(hHeap: win32more.System.Memory.HeapHandle, lpEntry: POINTER(win32more.System.Memory.PROCESS_HEAP_ENTRY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def HeapQueryInformation(HeapHandle: win32more.System.Memory.HeapHandle, HeapInformationClass: win32more.System.Memory.HEAP_INFORMATION_CLASS, HeapInformation: c_void_p, HeapInformationLength: UIntPtr, ReturnLength: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualAlloc(lpAddress: c_void_p, dwSize: UIntPtr, flAllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def VirtualProtect(lpAddress: c_void_p, dwSize: UIntPtr, flNewProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, lpflOldProtect: POINTER(win32more.System.Memory.PAGE_PROTECTION_FLAGS)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualFree(lpAddress: c_void_p, dwSize: UIntPtr, dwFreeType: win32more.System.Memory.VIRTUAL_FREE_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualQuery(lpAddress: c_void_p, lpBuffer: POINTER(win32more.System.Memory.MEMORY_BASIC_INFORMATION_head), dwLength: UIntPtr) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def VirtualAllocEx(hProcess: win32more.Foundation.HANDLE, lpAddress: c_void_p, dwSize: UIntPtr, flAllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def VirtualProtectEx(hProcess: win32more.Foundation.HANDLE, lpAddress: c_void_p, dwSize: UIntPtr, flNewProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, lpflOldProtect: POINTER(win32more.System.Memory.PAGE_PROTECTION_FLAGS)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualQueryEx(hProcess: win32more.Foundation.HANDLE, lpAddress: c_void_p, lpBuffer: POINTER(win32more.System.Memory.MEMORY_BASIC_INFORMATION_head), dwLength: UIntPtr) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def CreateFileMappingW(hFile: win32more.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenFileMappingW(dwDesiredAccess: UInt32, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def MapViewOfFile(hFileMappingObject: win32more.Foundation.HANDLE, dwDesiredAccess: win32more.System.Memory.FILE_MAP, dwFileOffsetHigh: UInt32, dwFileOffsetLow: UInt32, dwNumberOfBytesToMap: UIntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def MapViewOfFileEx(hFileMappingObject: win32more.Foundation.HANDLE, dwDesiredAccess: win32more.System.Memory.FILE_MAP, dwFileOffsetHigh: UInt32, dwFileOffsetLow: UInt32, dwNumberOfBytesToMap: UIntPtr, lpBaseAddress: c_void_p) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def VirtualFreeEx(hProcess: win32more.Foundation.HANDLE, lpAddress: c_void_p, dwSize: UIntPtr, dwFreeType: win32more.System.Memory.VIRTUAL_FREE_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FlushViewOfFile(lpBaseAddress: c_void_p, dwNumberOfBytesToFlush: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UnmapViewOfFile(lpBaseAddress: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetLargePageMinimum() -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessWorkingSetSizeEx(hProcess: win32more.Foundation.HANDLE, lpMinimumWorkingSetSize: POINTER(UIntPtr), lpMaximumWorkingSetSize: POINTER(UIntPtr), Flags: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessWorkingSetSizeEx(hProcess: win32more.Foundation.HANDLE, dwMinimumWorkingSetSize: UIntPtr, dwMaximumWorkingSetSize: UIntPtr, Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualLock(lpAddress: c_void_p, dwSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualUnlock(lpAddress: c_void_p, dwSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetWriteWatch(dwFlags: UInt32, lpBaseAddress: c_void_p, dwRegionSize: UIntPtr, lpAddresses: POINTER(c_void_p), lpdwCount: POINTER(UIntPtr), lpdwGranularity: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def ResetWriteWatch(lpBaseAddress: c_void_p, dwRegionSize: UIntPtr) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def CreateMemoryResourceNotification(NotificationType: win32more.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def QueryMemoryResourceNotification(ResourceNotificationHandle: win32more.Foundation.HANDLE, ResourceState: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetSystemFileCacheSize(lpMinimumFileCacheSize: POINTER(UIntPtr), lpMaximumFileCacheSize: POINTER(UIntPtr), lpFlags: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetSystemFileCacheSize(MinimumFileCacheSize: UIntPtr, MaximumFileCacheSize: UIntPtr, Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateFileMappingNumaW(hFile: win32more.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Foundation.PWSTR, nndPreferred: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def PrefetchVirtualMemory(hProcess: win32more.Foundation.HANDLE, NumberOfEntries: UIntPtr, VirtualAddresses: POINTER(win32more.System.Memory.WIN32_MEMORY_RANGE_ENTRY_head), Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateFileMappingFromApp(hFile: win32more.Foundation.HANDLE, SecurityAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), PageProtection: win32more.System.Memory.PAGE_PROTECTION_FLAGS, MaximumSize: UInt64, Name: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def MapViewOfFileFromApp(hFileMappingObject: win32more.Foundation.HANDLE, DesiredAccess: win32more.System.Memory.FILE_MAP, FileOffset: UInt64, NumberOfBytesToMap: UIntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def UnmapViewOfFileEx(BaseAddress: c_void_p, UnmapFlags: win32more.System.Memory.UNMAP_VIEW_OF_FILE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AllocateUserPhysicalPages(hProcess: win32more.Foundation.HANDLE, NumberOfPages: POINTER(UIntPtr), PageArray: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FreeUserPhysicalPages(hProcess: win32more.Foundation.HANDLE, NumberOfPages: POINTER(UIntPtr), PageArray: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def MapUserPhysicalPages(VirtualAddress: c_void_p, NumberOfPages: UIntPtr, PageArray: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AllocateUserPhysicalPagesNuma(hProcess: win32more.Foundation.HANDLE, NumberOfPages: POINTER(UIntPtr), PageArray: POINTER(UIntPtr), nndPreferred: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def VirtualAllocExNuma(hProcess: win32more.Foundation.HANDLE, lpAddress: c_void_p, dwSize: UIntPtr, flAllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, flProtect: UInt32, nndPreferred: UInt32) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def GetMemoryErrorHandlingCapabilities(Capabilities: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def RegisterBadMemoryNotification(Callback: win32more.System.Memory.PBAD_MEMORY_CALLBACK_ROUTINE) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def UnregisterBadMemoryNotification(RegistrationHandle: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def OfferVirtualMemory(VirtualAddress: c_void_p, Size: UIntPtr, Priority: win32more.System.Memory.OFFER_PRIORITY) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def ReclaimVirtualMemory(VirtualAddress: c_void_p, Size: UIntPtr) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def DiscardVirtualMemory(VirtualAddress: c_void_p, Size: UIntPtr) -> UInt32: ...
+@winfunctype('api-ms-win-core-memory-l1-1-3.dll')
+def SetProcessValidCallTargets(hProcess: win32more.Foundation.HANDLE, VirtualAddress: c_void_p, RegionSize: UIntPtr, NumberOfOffsets: UInt32, OffsetInformation: POINTER(win32more.System.Memory.CFG_CALL_TARGET_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-7.dll')
+def SetProcessValidCallTargetsForMappedView(Process: win32more.Foundation.HANDLE, VirtualAddress: c_void_p, RegionSize: UIntPtr, NumberOfOffsets: UInt32, OffsetInformation: POINTER(win32more.System.Memory.CFG_CALL_TARGET_INFO_head), Section: win32more.Foundation.HANDLE, ExpectedFileOffset: UInt64) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-3.dll')
+def VirtualAllocFromApp(BaseAddress: c_void_p, Size: UIntPtr, AllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, Protection: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-3.dll')
+def VirtualProtectFromApp(Address: c_void_p, Size: UIntPtr, NewProtection: UInt32, OldProtection: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-3.dll')
+def OpenFileMappingFromApp(DesiredAccess: UInt32, InheritHandle: win32more.Foundation.BOOL, Name: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('api-ms-win-core-memory-l1-1-4.dll')
+def QueryVirtualMemoryInformation(Process: win32more.Foundation.HANDLE, VirtualAddress: c_void_p, MemoryInformationClass: win32more.System.Memory.WIN32_MEMORY_INFORMATION_CLASS, MemoryInformation: c_void_p, MemoryInformationSize: UIntPtr, ReturnSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-5.dll')
+def MapViewOfFileNuma2(FileMappingHandle: win32more.Foundation.HANDLE, ProcessHandle: win32more.Foundation.HANDLE, Offset: UInt64, BaseAddress: c_void_p, ViewSize: UIntPtr, AllocationType: UInt32, PageProtection: UInt32, PreferredNode: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-5.dll')
+def UnmapViewOfFile2(Process: win32more.Foundation.HANDLE, BaseAddress: c_void_p, UnmapFlags: win32more.System.Memory.UNMAP_VIEW_OF_FILE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-5.dll')
+def VirtualUnlockEx(Process: win32more.Foundation.HANDLE, Address: c_void_p, Size: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-6.dll')
+def VirtualAlloc2(Process: win32more.Foundation.HANDLE, BaseAddress: c_void_p, Size: UIntPtr, AllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, PageProtection: UInt32, ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ParameterCount: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-6.dll')
+def MapViewOfFile3(FileMapping: win32more.Foundation.HANDLE, Process: win32more.Foundation.HANDLE, BaseAddress: c_void_p, Offset: UInt64, ViewSize: UIntPtr, AllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, PageProtection: UInt32, ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ParameterCount: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-6.dll')
+def VirtualAlloc2FromApp(Process: win32more.Foundation.HANDLE, BaseAddress: c_void_p, Size: UIntPtr, AllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, PageProtection: UInt32, ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ParameterCount: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-6.dll')
+def MapViewOfFile3FromApp(FileMapping: win32more.Foundation.HANDLE, Process: win32more.Foundation.HANDLE, BaseAddress: c_void_p, Offset: UInt64, ViewSize: UIntPtr, AllocationType: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE, PageProtection: UInt32, ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ParameterCount: UInt32) -> c_void_p: ...
+@winfunctype('api-ms-win-core-memory-l1-1-7.dll')
+def CreateFileMapping2(File: win32more.Foundation.HANDLE, SecurityAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), DesiredAccess: UInt32, PageProtection: win32more.System.Memory.PAGE_PROTECTION_FLAGS, AllocationAttributes: UInt32, MaximumSize: UInt64, Name: win32more.Foundation.PWSTR, ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ParameterCount: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('api-ms-win-core-memory-l1-1-8.dll')
+def AllocateUserPhysicalPages2(ObjectHandle: win32more.Foundation.HANDLE, NumberOfPages: POINTER(UIntPtr), PageArray: POINTER(UIntPtr), ExtendedParameters: POINTER(win32more.System.Memory.MEM_EXTENDED_PARAMETER_head), ExtendedParameterCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-memory-l1-1-8.dll')
+def OpenDedicatedMemoryPartition(Partition: win32more.Foundation.HANDLE, DedicatedMemoryTypeId: UInt64, DesiredAccess: UInt32, InheritHandle: win32more.Foundation.BOOL) -> win32more.Foundation.HANDLE: ...
+@winfunctype('api-ms-win-core-memory-l1-1-8.dll')
+def QueryPartitionInformation(Partition: win32more.Foundation.HANDLE, PartitionInformationClass: win32more.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS, PartitionInformation: c_void_p, PartitionInformationLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def RtlCompareMemory(Source1: c_void_p, Source2: c_void_p, Length: UIntPtr) -> UIntPtr: ...
+@winfunctype('ntdll.dll')
+def RtlCrc32(Buffer: c_void_p, Size: UIntPtr, InitialCrc: UInt32) -> UInt32: ...
+@winfunctype('ntdll.dll')
+def RtlCrc64(Buffer: c_void_p, Size: UIntPtr, InitialCrc: UInt64) -> UInt64: ...
+@winfunctype('ntdll.dll')
+def RtlIsZeroMemory(Buffer: c_void_p, Length: UIntPtr) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('KERNEL32.dll')
+def GlobalAlloc(uFlags: win32more.System.Memory.GLOBAL_ALLOC_FLAGS, dwBytes: UIntPtr) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GlobalReAlloc(hMem: IntPtr, dwBytes: UIntPtr, uFlags: UInt32) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GlobalSize(hMem: IntPtr) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GlobalUnlock(hMem: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GlobalLock(hMem: IntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def GlobalFlags(hMem: IntPtr) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GlobalHandle(pMem: c_void_p) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def GlobalFree(hMem: IntPtr) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalAlloc(uFlags: win32more.System.Memory.LOCAL_ALLOC_FLAGS, uBytes: UIntPtr) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalReAlloc(hMem: IntPtr, uBytes: UIntPtr, uFlags: UInt32) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalLock(hMem: IntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def LocalHandle(pMem: c_void_p) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalUnlock(hMem: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def LocalSize(hMem: IntPtr) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LocalFlags(hMem: IntPtr) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def LocalFree(hMem: IntPtr) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def CreateFileMappingA(hFile: win32more.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateFileMappingNumaA(hFile: win32more.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), flProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Foundation.PSTR, nndPreferred: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenFileMappingA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def MapViewOfFileExNuma(hFileMappingObject: win32more.Foundation.HANDLE, dwDesiredAccess: win32more.System.Memory.FILE_MAP, dwFileOffsetHigh: UInt32, dwFileOffsetLow: UInt32, dwNumberOfBytesToMap: UIntPtr, lpBaseAddress: c_void_p, nndPreferred: UInt32) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def IsBadReadPtr(lp: c_void_p, ucb: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadWritePtr(lp: c_void_p, ucb: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadCodePtr(lpfn: win32more.Foundation.FARPROC) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadStringPtrA(lpsz: win32more.Foundation.PSTR, ucchMax: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsBadStringPtrW(lpsz: win32more.Foundation.PWSTR, ucchMax: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def MapUserPhysicalPagesScatter(VirtualAddresses: POINTER(c_void_p), NumberOfPages: UIntPtr, PageArray: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AddSecureMemoryCacheCallback(pfnCallBack: win32more.System.Memory.PSECURE_MEMORY_CACHE_CALLBACK) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def RemoveSecureMemoryCacheCallback(pfnCallBack: win32more.System.Memory.PSECURE_MEMORY_CACHE_CALLBACK) -> win32more.Foundation.BOOL: ...
+class CFG_CALL_TARGET_INFO(Structure):
+    Offset: UIntPtr
+    Flags: UIntPtr
 FILE_MAP = UInt32
-FILE_MAP_WRITE = 2
-FILE_MAP_READ = 4
-FILE_MAP_ALL_ACCESS = 983071
-FILE_MAP_EXECUTE = 32
-FILE_MAP_COPY = 1
-FILE_MAP_RESERVE = 2147483648
-FILE_MAP_TARGETS_INVALID = 1073741824
-FILE_MAP_LARGE_PAGES = 536870912
+FILE_MAP_WRITE: FILE_MAP = 2
+FILE_MAP_READ: FILE_MAP = 4
+FILE_MAP_ALL_ACCESS: FILE_MAP = 983071
+FILE_MAP_EXECUTE: FILE_MAP = 32
+FILE_MAP_COPY: FILE_MAP = 1
+FILE_MAP_RESERVE: FILE_MAP = 2147483648
+FILE_MAP_TARGETS_INVALID: FILE_MAP = 1073741824
+FILE_MAP_LARGE_PAGES: FILE_MAP = 536870912
 GLOBAL_ALLOC_FLAGS = UInt32
-GHND = 66
-GMEM_FIXED = 0
-GMEM_MOVEABLE = 2
-GMEM_ZEROINIT = 64
-GPTR = 64
+GHND: GLOBAL_ALLOC_FLAGS = 66
+GMEM_FIXED: GLOBAL_ALLOC_FLAGS = 0
+GMEM_MOVEABLE: GLOBAL_ALLOC_FLAGS = 2
+GMEM_ZEROINIT: GLOBAL_ALLOC_FLAGS = 64
+GPTR: GLOBAL_ALLOC_FLAGS = 64
 HEAP_FLAGS = UInt32
-HEAP_NONE = 0
-HEAP_NO_SERIALIZE = 1
-HEAP_GROWABLE = 2
-HEAP_GENERATE_EXCEPTIONS = 4
-HEAP_ZERO_MEMORY = 8
-HEAP_REALLOC_IN_PLACE_ONLY = 16
-HEAP_TAIL_CHECKING_ENABLED = 32
-HEAP_FREE_CHECKING_ENABLED = 64
-HEAP_DISABLE_COALESCE_ON_FREE = 128
-HEAP_CREATE_ALIGN_16 = 65536
-HEAP_CREATE_ENABLE_TRACING = 131072
-HEAP_CREATE_ENABLE_EXECUTE = 262144
-HEAP_MAXIMUM_TAG = 4095
-HEAP_PSEUDO_TAG_FLAG = 32768
-HEAP_TAG_SHIFT = 18
-HEAP_CREATE_SEGMENT_HEAP = 256
-HEAP_CREATE_HARDENED = 512
+HEAP_NONE: HEAP_FLAGS = 0
+HEAP_NO_SERIALIZE: HEAP_FLAGS = 1
+HEAP_GROWABLE: HEAP_FLAGS = 2
+HEAP_GENERATE_EXCEPTIONS: HEAP_FLAGS = 4
+HEAP_ZERO_MEMORY: HEAP_FLAGS = 8
+HEAP_REALLOC_IN_PLACE_ONLY: HEAP_FLAGS = 16
+HEAP_TAIL_CHECKING_ENABLED: HEAP_FLAGS = 32
+HEAP_FREE_CHECKING_ENABLED: HEAP_FLAGS = 64
+HEAP_DISABLE_COALESCE_ON_FREE: HEAP_FLAGS = 128
+HEAP_CREATE_ALIGN_16: HEAP_FLAGS = 65536
+HEAP_CREATE_ENABLE_TRACING: HEAP_FLAGS = 131072
+HEAP_CREATE_ENABLE_EXECUTE: HEAP_FLAGS = 262144
+HEAP_MAXIMUM_TAG: HEAP_FLAGS = 4095
+HEAP_PSEUDO_TAG_FLAG: HEAP_FLAGS = 32768
+HEAP_TAG_SHIFT: HEAP_FLAGS = 18
+HEAP_CREATE_SEGMENT_HEAP: HEAP_FLAGS = 256
+HEAP_CREATE_HARDENED: HEAP_FLAGS = 512
 HEAP_INFORMATION_CLASS = Int32
-HEAP_INFORMATION_CLASS_HeapCompatibilityInformation = 0
-HEAP_INFORMATION_CLASS_HeapEnableTerminationOnCorruption = 1
-HEAP_INFORMATION_CLASS_HeapOptimizeResources = 3
-HEAP_INFORMATION_CLASS_HeapTag = 7
-def _define_HEAP_SUMMARY_head():
-    class HEAP_SUMMARY(Structure):
-        pass
-    return HEAP_SUMMARY
-def _define_HEAP_SUMMARY():
-    HEAP_SUMMARY = win32more.System.Memory.HEAP_SUMMARY_head
-    HEAP_SUMMARY._fields_ = [
-        ('cb', UInt32),
-        ('cbAllocated', UIntPtr),
-        ('cbCommitted', UIntPtr),
-        ('cbReserved', UIntPtr),
-        ('cbMaxReserve', UIntPtr),
-    ]
-    return HEAP_SUMMARY
+HEAP_INFORMATION_CLASS_HeapCompatibilityInformation: HEAP_INFORMATION_CLASS = 0
+HEAP_INFORMATION_CLASS_HeapEnableTerminationOnCorruption: HEAP_INFORMATION_CLASS = 1
+HEAP_INFORMATION_CLASS_HeapOptimizeResources: HEAP_INFORMATION_CLASS = 3
+HEAP_INFORMATION_CLASS_HeapTag: HEAP_INFORMATION_CLASS = 7
+class HEAP_SUMMARY(Structure):
+    cb: UInt32
+    cbAllocated: UIntPtr
+    cbCommitted: UIntPtr
+    cbReserved: UIntPtr
+    cbMaxReserve: UIntPtr
 HeapHandle = IntPtr
 LOCAL_ALLOC_FLAGS = UInt32
-LHND = 66
-LMEM_FIXED = 0
-LMEM_MOVEABLE = 2
-LMEM_ZEROINIT = 64
-LPTR = 64
-NONZEROLHND = 2
-NONZEROLPTR = 0
-def _define_MEM_ADDRESS_REQUIREMENTS_head():
-    class MEM_ADDRESS_REQUIREMENTS(Structure):
-        pass
-    return MEM_ADDRESS_REQUIREMENTS
-def _define_MEM_ADDRESS_REQUIREMENTS():
-    MEM_ADDRESS_REQUIREMENTS = win32more.System.Memory.MEM_ADDRESS_REQUIREMENTS_head
-    MEM_ADDRESS_REQUIREMENTS._fields_ = [
-        ('LowestStartingAddress', c_void_p),
-        ('HighestEndingAddress', c_void_p),
-        ('Alignment', UIntPtr),
-    ]
-    return MEM_ADDRESS_REQUIREMENTS
-def _define_MEM_EXTENDED_PARAMETER_head():
-    class MEM_EXTENDED_PARAMETER(Structure):
-        pass
-    return MEM_EXTENDED_PARAMETER
-def _define_MEM_EXTENDED_PARAMETER():
-    MEM_EXTENDED_PARAMETER = win32more.System.Memory.MEM_EXTENDED_PARAMETER_head
-    class MEM_EXTENDED_PARAMETER__Anonymous1_e__Struct(Structure):
-        pass
-    MEM_EXTENDED_PARAMETER__Anonymous1_e__Struct._fields_ = [
-        ('_bitfield', UInt64),
-    ]
-    class MEM_EXTENDED_PARAMETER__Anonymous2_e__Union(Union):
-        pass
-    MEM_EXTENDED_PARAMETER__Anonymous2_e__Union._fields_ = [
-        ('ULong64', UInt64),
-        ('Pointer', c_void_p),
-        ('Size', UIntPtr),
-        ('Handle', win32more.Foundation.HANDLE),
-        ('ULong', UInt32),
-    ]
-    MEM_EXTENDED_PARAMETER._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    MEM_EXTENDED_PARAMETER._fields_ = [
-        ('Anonymous1', MEM_EXTENDED_PARAMETER__Anonymous1_e__Struct),
-        ('Anonymous2', MEM_EXTENDED_PARAMETER__Anonymous2_e__Union),
-    ]
-    return MEM_EXTENDED_PARAMETER
+LHND: LOCAL_ALLOC_FLAGS = 66
+LMEM_FIXED: LOCAL_ALLOC_FLAGS = 0
+LMEM_MOVEABLE: LOCAL_ALLOC_FLAGS = 2
+LMEM_ZEROINIT: LOCAL_ALLOC_FLAGS = 64
+LPTR: LOCAL_ALLOC_FLAGS = 64
+NONZEROLHND: LOCAL_ALLOC_FLAGS = 2
+NONZEROLPTR: LOCAL_ALLOC_FLAGS = 0
+class MEM_ADDRESS_REQUIREMENTS(Structure):
+    LowestStartingAddress: c_void_p
+    HighestEndingAddress: c_void_p
+    Alignment: UIntPtr
+class MEM_EXTENDED_PARAMETER(Structure):
+    Anonymous1: _Anonymous1_e__Struct
+    Anonymous2: _Anonymous2_e__Union
+    class _Anonymous1_e__Struct(Structure):
+        _bitfield: UInt64
+    class _Anonymous2_e__Union(Union):
+        ULong64: UInt64
+        Pointer: c_void_p
+        Size: UIntPtr
+        Handle: win32more.Foundation.HANDLE
+        ULong: UInt32
 MEM_EXTENDED_PARAMETER_TYPE = Int32
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterInvalidType = 0
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements = 1
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterNumaNode = 2
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterPartitionHandle = 3
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle = 4
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags = 5
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine = 6
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax = 7
-def _define_MEMORY_BASIC_INFORMATION_head():
-    class MEMORY_BASIC_INFORMATION(Structure):
-        pass
-    return MEMORY_BASIC_INFORMATION
-def _define_MEMORY_BASIC_INFORMATION():
-    MEMORY_BASIC_INFORMATION = win32more.System.Memory.MEMORY_BASIC_INFORMATION_head
-    MEMORY_BASIC_INFORMATION._fields_ = [
-        ('BaseAddress', c_void_p),
-        ('AllocationBase', c_void_p),
-        ('AllocationProtect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('PartitionId', UInt16),
-        ('RegionSize', UIntPtr),
-        ('State', win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE),
-        ('Protect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('Type', win32more.System.Memory.PAGE_TYPE),
-    ]
-    return MEMORY_BASIC_INFORMATION
-def _define_MEMORY_BASIC_INFORMATION32_head():
-    class MEMORY_BASIC_INFORMATION32(Structure):
-        pass
-    return MEMORY_BASIC_INFORMATION32
-def _define_MEMORY_BASIC_INFORMATION32():
-    MEMORY_BASIC_INFORMATION32 = win32more.System.Memory.MEMORY_BASIC_INFORMATION32_head
-    MEMORY_BASIC_INFORMATION32._fields_ = [
-        ('BaseAddress', UInt32),
-        ('AllocationBase', UInt32),
-        ('AllocationProtect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('RegionSize', UInt32),
-        ('State', win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE),
-        ('Protect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('Type', win32more.System.Memory.PAGE_TYPE),
-    ]
-    return MEMORY_BASIC_INFORMATION32
-def _define_MEMORY_BASIC_INFORMATION64_head():
-    class MEMORY_BASIC_INFORMATION64(Structure):
-        pass
-    return MEMORY_BASIC_INFORMATION64
-def _define_MEMORY_BASIC_INFORMATION64():
-    MEMORY_BASIC_INFORMATION64 = win32more.System.Memory.MEMORY_BASIC_INFORMATION64_head
-    MEMORY_BASIC_INFORMATION64._fields_ = [
-        ('BaseAddress', UInt64),
-        ('AllocationBase', UInt64),
-        ('AllocationProtect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('__alignment1', UInt32),
-        ('RegionSize', UInt64),
-        ('State', win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE),
-        ('Protect', win32more.System.Memory.PAGE_PROTECTION_FLAGS),
-        ('Type', win32more.System.Memory.PAGE_TYPE),
-        ('__alignment2', UInt32),
-    ]
-    return MEMORY_BASIC_INFORMATION64
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterInvalidType: MEM_EXTENDED_PARAMETER_TYPE = 0
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements: MEM_EXTENDED_PARAMETER_TYPE = 1
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterNumaNode: MEM_EXTENDED_PARAMETER_TYPE = 2
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterPartitionHandle: MEM_EXTENDED_PARAMETER_TYPE = 3
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: MEM_EXTENDED_PARAMETER_TYPE = 4
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: MEM_EXTENDED_PARAMETER_TYPE = 5
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: MEM_EXTENDED_PARAMETER_TYPE = 6
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: MEM_EXTENDED_PARAMETER_TYPE = 7
+class MEMORY_BASIC_INFORMATION(Structure):
+    BaseAddress: c_void_p
+    AllocationBase: c_void_p
+    AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    PartitionId: UInt16
+    RegionSize: UIntPtr
+    State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
+    Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    Type: win32more.System.Memory.PAGE_TYPE
+class MEMORY_BASIC_INFORMATION32(Structure):
+    BaseAddress: UInt32
+    AllocationBase: UInt32
+    AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    RegionSize: UInt32
+    State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
+    Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    Type: win32more.System.Memory.PAGE_TYPE
+class MEMORY_BASIC_INFORMATION64(Structure):
+    BaseAddress: UInt64
+    AllocationBase: UInt64
+    AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    __alignment1: UInt32
+    RegionSize: UInt64
+    State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
+    Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+    Type: win32more.System.Memory.PAGE_TYPE
+    __alignment2: UInt32
 MEMORY_RESOURCE_NOTIFICATION_TYPE = Int32
-MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification = 0
-MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification = 1
+MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
+MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
 OFFER_PRIORITY = Int32
-OFFER_PRIORITY_VmOfferPriorityVeryLow = 1
-OFFER_PRIORITY_VmOfferPriorityLow = 2
-OFFER_PRIORITY_VmOfferPriorityBelowNormal = 3
-OFFER_PRIORITY_VmOfferPriorityNormal = 4
+OFFER_PRIORITY_VmOfferPriorityVeryLow: OFFER_PRIORITY = 1
+OFFER_PRIORITY_VmOfferPriorityLow: OFFER_PRIORITY = 2
+OFFER_PRIORITY_VmOfferPriorityBelowNormal: OFFER_PRIORITY = 3
+OFFER_PRIORITY_VmOfferPriorityNormal: OFFER_PRIORITY = 4
 PAGE_PROTECTION_FLAGS = UInt32
-PAGE_NOACCESS = 1
-PAGE_READONLY = 2
-PAGE_READWRITE = 4
-PAGE_WRITECOPY = 8
-PAGE_EXECUTE = 16
-PAGE_EXECUTE_READ = 32
-PAGE_EXECUTE_READWRITE = 64
-PAGE_EXECUTE_WRITECOPY = 128
-PAGE_GUARD = 256
-PAGE_NOCACHE = 512
-PAGE_WRITECOMBINE = 1024
-PAGE_GRAPHICS_NOACCESS = 2048
-PAGE_GRAPHICS_READONLY = 4096
-PAGE_GRAPHICS_READWRITE = 8192
-PAGE_GRAPHICS_EXECUTE = 16384
-PAGE_GRAPHICS_EXECUTE_READ = 32768
-PAGE_GRAPHICS_EXECUTE_READWRITE = 65536
-PAGE_GRAPHICS_COHERENT = 131072
-PAGE_GRAPHICS_NOCACHE = 262144
-PAGE_ENCLAVE_THREAD_CONTROL = 2147483648
-PAGE_REVERT_TO_FILE_MAP = 2147483648
-PAGE_TARGETS_NO_UPDATE = 1073741824
-PAGE_TARGETS_INVALID = 1073741824
-PAGE_ENCLAVE_UNVALIDATED = 536870912
-PAGE_ENCLAVE_MASK = 268435456
-PAGE_ENCLAVE_DECOMMIT = 268435456
-PAGE_ENCLAVE_SS_FIRST = 268435457
-PAGE_ENCLAVE_SS_REST = 268435458
-SEC_PARTITION_OWNER_HANDLE = 262144
-SEC_64K_PAGES = 524288
-SEC_FILE = 8388608
-SEC_IMAGE = 16777216
-SEC_PROTECTED_IMAGE = 33554432
-SEC_RESERVE = 67108864
-SEC_COMMIT = 134217728
-SEC_NOCACHE = 268435456
-SEC_WRITECOMBINE = 1073741824
-SEC_LARGE_PAGES = 2147483648
-SEC_IMAGE_NO_EXECUTE = 285212672
+PAGE_NOACCESS: PAGE_PROTECTION_FLAGS = 1
+PAGE_READONLY: PAGE_PROTECTION_FLAGS = 2
+PAGE_READWRITE: PAGE_PROTECTION_FLAGS = 4
+PAGE_WRITECOPY: PAGE_PROTECTION_FLAGS = 8
+PAGE_EXECUTE: PAGE_PROTECTION_FLAGS = 16
+PAGE_EXECUTE_READ: PAGE_PROTECTION_FLAGS = 32
+PAGE_EXECUTE_READWRITE: PAGE_PROTECTION_FLAGS = 64
+PAGE_EXECUTE_WRITECOPY: PAGE_PROTECTION_FLAGS = 128
+PAGE_GUARD: PAGE_PROTECTION_FLAGS = 256
+PAGE_NOCACHE: PAGE_PROTECTION_FLAGS = 512
+PAGE_WRITECOMBINE: PAGE_PROTECTION_FLAGS = 1024
+PAGE_GRAPHICS_NOACCESS: PAGE_PROTECTION_FLAGS = 2048
+PAGE_GRAPHICS_READONLY: PAGE_PROTECTION_FLAGS = 4096
+PAGE_GRAPHICS_READWRITE: PAGE_PROTECTION_FLAGS = 8192
+PAGE_GRAPHICS_EXECUTE: PAGE_PROTECTION_FLAGS = 16384
+PAGE_GRAPHICS_EXECUTE_READ: PAGE_PROTECTION_FLAGS = 32768
+PAGE_GRAPHICS_EXECUTE_READWRITE: PAGE_PROTECTION_FLAGS = 65536
+PAGE_GRAPHICS_COHERENT: PAGE_PROTECTION_FLAGS = 131072
+PAGE_GRAPHICS_NOCACHE: PAGE_PROTECTION_FLAGS = 262144
+PAGE_ENCLAVE_THREAD_CONTROL: PAGE_PROTECTION_FLAGS = 2147483648
+PAGE_REVERT_TO_FILE_MAP: PAGE_PROTECTION_FLAGS = 2147483648
+PAGE_TARGETS_NO_UPDATE: PAGE_PROTECTION_FLAGS = 1073741824
+PAGE_TARGETS_INVALID: PAGE_PROTECTION_FLAGS = 1073741824
+PAGE_ENCLAVE_UNVALIDATED: PAGE_PROTECTION_FLAGS = 536870912
+PAGE_ENCLAVE_MASK: PAGE_PROTECTION_FLAGS = 268435456
+PAGE_ENCLAVE_DECOMMIT: PAGE_PROTECTION_FLAGS = 268435456
+PAGE_ENCLAVE_SS_FIRST: PAGE_PROTECTION_FLAGS = 268435457
+PAGE_ENCLAVE_SS_REST: PAGE_PROTECTION_FLAGS = 268435458
+SEC_PARTITION_OWNER_HANDLE: PAGE_PROTECTION_FLAGS = 262144
+SEC_64K_PAGES: PAGE_PROTECTION_FLAGS = 524288
+SEC_FILE: PAGE_PROTECTION_FLAGS = 8388608
+SEC_IMAGE: PAGE_PROTECTION_FLAGS = 16777216
+SEC_PROTECTED_IMAGE: PAGE_PROTECTION_FLAGS = 33554432
+SEC_RESERVE: PAGE_PROTECTION_FLAGS = 67108864
+SEC_COMMIT: PAGE_PROTECTION_FLAGS = 134217728
+SEC_NOCACHE: PAGE_PROTECTION_FLAGS = 268435456
+SEC_WRITECOMBINE: PAGE_PROTECTION_FLAGS = 1073741824
+SEC_LARGE_PAGES: PAGE_PROTECTION_FLAGS = 2147483648
+SEC_IMAGE_NO_EXECUTE: PAGE_PROTECTION_FLAGS = 285212672
 PAGE_TYPE = UInt32
-MEM_PRIVATE = 131072
-MEM_MAPPED = 262144
-MEM_IMAGE = 16777216
-def _define_PBAD_MEMORY_CALLBACK_ROUTINE():
-    return WINFUNCTYPE(Void,)
-def _define_PROCESS_HEAP_ENTRY_head():
-    class PROCESS_HEAP_ENTRY(Structure):
-        pass
-    return PROCESS_HEAP_ENTRY
-def _define_PROCESS_HEAP_ENTRY():
-    PROCESS_HEAP_ENTRY = win32more.System.Memory.PROCESS_HEAP_ENTRY_head
-    class PROCESS_HEAP_ENTRY__Anonymous_e__Union(Union):
-        pass
-    class PROCESS_HEAP_ENTRY__Anonymous_e__Union__Block_e__Struct(Structure):
-        pass
-    PROCESS_HEAP_ENTRY__Anonymous_e__Union__Block_e__Struct._fields_ = [
-        ('hMem', win32more.Foundation.HANDLE),
-        ('dwReserved', UInt32 * 3),
-    ]
-    class PROCESS_HEAP_ENTRY__Anonymous_e__Union__Region_e__Struct(Structure):
-        pass
-    PROCESS_HEAP_ENTRY__Anonymous_e__Union__Region_e__Struct._fields_ = [
-        ('dwCommittedSize', UInt32),
-        ('dwUnCommittedSize', UInt32),
-        ('lpFirstBlock', c_void_p),
-        ('lpLastBlock', c_void_p),
-    ]
-    PROCESS_HEAP_ENTRY__Anonymous_e__Union._fields_ = [
-        ('Block', PROCESS_HEAP_ENTRY__Anonymous_e__Union__Block_e__Struct),
-        ('Region', PROCESS_HEAP_ENTRY__Anonymous_e__Union__Region_e__Struct),
-    ]
-    PROCESS_HEAP_ENTRY._anonymous_ = [
-        'Anonymous',
-    ]
-    PROCESS_HEAP_ENTRY._fields_ = [
-        ('lpData', c_void_p),
-        ('cbData', UInt32),
-        ('cbOverhead', Byte),
-        ('iRegionIndex', Byte),
-        ('wFlags', UInt16),
-        ('Anonymous', PROCESS_HEAP_ENTRY__Anonymous_e__Union),
-    ]
-    return PROCESS_HEAP_ENTRY
-def _define_PSECURE_MEMORY_CACHE_CALLBACK():
-    return WINFUNCTYPE(win32more.Foundation.BOOLEAN,c_void_p,UIntPtr)
+MEM_PRIVATE: PAGE_TYPE = 131072
+MEM_MAPPED: PAGE_TYPE = 262144
+MEM_IMAGE: PAGE_TYPE = 16777216
+@winfunctype_pointer
+def PBAD_MEMORY_CALLBACK_ROUTINE() -> Void: ...
+class PROCESS_HEAP_ENTRY(Structure):
+    lpData: c_void_p
+    cbData: UInt32
+    cbOverhead: Byte
+    iRegionIndex: Byte
+    wFlags: UInt16
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Block: _Block_e__Struct
+        Region: _Region_e__Struct
+        class _Block_e__Struct(Structure):
+            hMem: win32more.Foundation.HANDLE
+            dwReserved: UInt32 * 3
+        class _Region_e__Struct(Structure):
+            dwCommittedSize: UInt32
+            dwUnCommittedSize: UInt32
+            lpFirstBlock: c_void_p
+            lpLastBlock: c_void_p
+@winfunctype_pointer
+def PSECURE_MEMORY_CACHE_CALLBACK(Addr: c_void_p, Range: UIntPtr) -> win32more.Foundation.BOOLEAN: ...
 UNMAP_VIEW_OF_FILE_FLAGS = UInt32
-MEM_UNMAP_NONE = 0
-MEM_UNMAP_WITH_TRANSIENT_BOOST = 1
-MEM_PRESERVE_PLACEHOLDER = 2
+MEM_UNMAP_NONE: UNMAP_VIEW_OF_FILE_FLAGS = 0
+MEM_UNMAP_WITH_TRANSIENT_BOOST: UNMAP_VIEW_OF_FILE_FLAGS = 1
+MEM_PRESERVE_PLACEHOLDER: UNMAP_VIEW_OF_FILE_FLAGS = 2
 VIRTUAL_ALLOCATION_TYPE = UInt32
-MEM_COMMIT = 4096
-MEM_RESERVE = 8192
-MEM_RESET = 524288
-MEM_RESET_UNDO = 16777216
-MEM_REPLACE_PLACEHOLDER = 16384
-MEM_LARGE_PAGES = 536870912
-MEM_RESERVE_PLACEHOLDER = 262144
-MEM_FREE = 65536
+MEM_COMMIT: VIRTUAL_ALLOCATION_TYPE = 4096
+MEM_RESERVE: VIRTUAL_ALLOCATION_TYPE = 8192
+MEM_RESET: VIRTUAL_ALLOCATION_TYPE = 524288
+MEM_RESET_UNDO: VIRTUAL_ALLOCATION_TYPE = 16777216
+MEM_REPLACE_PLACEHOLDER: VIRTUAL_ALLOCATION_TYPE = 16384
+MEM_LARGE_PAGES: VIRTUAL_ALLOCATION_TYPE = 536870912
+MEM_RESERVE_PLACEHOLDER: VIRTUAL_ALLOCATION_TYPE = 262144
+MEM_FREE: VIRTUAL_ALLOCATION_TYPE = 65536
 VIRTUAL_FREE_TYPE = UInt32
-MEM_DECOMMIT = 16384
-MEM_RELEASE = 32768
+MEM_DECOMMIT: VIRTUAL_FREE_TYPE = 16384
+MEM_RELEASE: VIRTUAL_FREE_TYPE = 32768
 WIN32_MEMORY_INFORMATION_CLASS = Int32
-WIN32_MEMORY_INFORMATION_CLASS_MemoryRegionInfo = 0
-def _define_WIN32_MEMORY_PARTITION_INFORMATION_head():
-    class WIN32_MEMORY_PARTITION_INFORMATION(Structure):
-        pass
-    return WIN32_MEMORY_PARTITION_INFORMATION
-def _define_WIN32_MEMORY_PARTITION_INFORMATION():
-    WIN32_MEMORY_PARTITION_INFORMATION = win32more.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_head
-    WIN32_MEMORY_PARTITION_INFORMATION._fields_ = [
-        ('Flags', UInt32),
-        ('NumaNode', UInt32),
-        ('Channel', UInt32),
-        ('NumberOfNumaNodes', UInt32),
-        ('ResidentAvailablePages', UInt64),
-        ('CommittedPages', UInt64),
-        ('CommitLimit', UInt64),
-        ('PeakCommitment', UInt64),
-        ('TotalNumberOfPages', UInt64),
-        ('AvailablePages', UInt64),
-        ('ZeroPages', UInt64),
-        ('FreePages', UInt64),
-        ('StandbyPages', UInt64),
-        ('Reserved', UInt64 * 16),
-        ('MaximumCommitLimit', UInt64),
-        ('Reserved2', UInt64),
-        ('PartitionId', UInt32),
-    ]
-    return WIN32_MEMORY_PARTITION_INFORMATION
+WIN32_MEMORY_INFORMATION_CLASS_MemoryRegionInfo: WIN32_MEMORY_INFORMATION_CLASS = 0
+class WIN32_MEMORY_PARTITION_INFORMATION(Structure):
+    Flags: UInt32
+    NumaNode: UInt32
+    Channel: UInt32
+    NumberOfNumaNodes: UInt32
+    ResidentAvailablePages: UInt64
+    CommittedPages: UInt64
+    CommitLimit: UInt64
+    PeakCommitment: UInt64
+    TotalNumberOfPages: UInt64
+    AvailablePages: UInt64
+    ZeroPages: UInt64
+    FreePages: UInt64
+    StandbyPages: UInt64
+    Reserved: UInt64 * 16
+    MaximumCommitLimit: UInt64
+    Reserved2: UInt64
+    PartitionId: UInt32
 WIN32_MEMORY_PARTITION_INFORMATION_CLASS = Int32
-WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionInfo = 0
-WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionDedicatedMemoryInfo = 1
-def _define_WIN32_MEMORY_RANGE_ENTRY_head():
-    class WIN32_MEMORY_RANGE_ENTRY(Structure):
-        pass
-    return WIN32_MEMORY_RANGE_ENTRY
-def _define_WIN32_MEMORY_RANGE_ENTRY():
-    WIN32_MEMORY_RANGE_ENTRY = win32more.System.Memory.WIN32_MEMORY_RANGE_ENTRY_head
-    WIN32_MEMORY_RANGE_ENTRY._fields_ = [
-        ('VirtualAddress', c_void_p),
-        ('NumberOfBytes', UIntPtr),
-    ]
-    return WIN32_MEMORY_RANGE_ENTRY
-def _define_WIN32_MEMORY_REGION_INFORMATION_head():
-    class WIN32_MEMORY_REGION_INFORMATION(Structure):
-        pass
-    return WIN32_MEMORY_REGION_INFORMATION
-def _define_WIN32_MEMORY_REGION_INFORMATION():
-    WIN32_MEMORY_REGION_INFORMATION = win32more.System.Memory.WIN32_MEMORY_REGION_INFORMATION_head
-    class WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union(Union):
-        pass
-    class WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', UInt32),
-    ]
-    WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union._fields_ = [
-        ('Flags', UInt32),
-        ('Anonymous', WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    WIN32_MEMORY_REGION_INFORMATION._anonymous_ = [
-        'Anonymous',
-    ]
-    WIN32_MEMORY_REGION_INFORMATION._fields_ = [
-        ('AllocationBase', c_void_p),
-        ('AllocationProtect', UInt32),
-        ('Anonymous', WIN32_MEMORY_REGION_INFORMATION__Anonymous_e__Union),
-        ('RegionSize', UIntPtr),
-        ('CommitSize', UIntPtr),
-    ]
-    return WIN32_MEMORY_REGION_INFORMATION
+WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionInfo: WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 0
+WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionDedicatedMemoryInfo: WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 1
+class WIN32_MEMORY_RANGE_ENTRY(Structure):
+    VirtualAddress: c_void_p
+    NumberOfBytes: UIntPtr
+class WIN32_MEMORY_REGION_INFORMATION(Structure):
+    AllocationBase: c_void_p
+    AllocationProtect: UInt32
+    Anonymous: _Anonymous_e__Union
+    RegionSize: UIntPtr
+    CommitSize: UIntPtr
+    class _Anonymous_e__Union(Union):
+        Flags: UInt32
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: UInt32
+make_head(_module, 'CFG_CALL_TARGET_INFO')
+make_head(_module, 'HEAP_SUMMARY')
+make_head(_module, 'MEM_ADDRESS_REQUIREMENTS')
+make_head(_module, 'MEM_EXTENDED_PARAMETER')
+make_head(_module, 'MEMORY_BASIC_INFORMATION')
+make_head(_module, 'MEMORY_BASIC_INFORMATION32')
+make_head(_module, 'MEMORY_BASIC_INFORMATION64')
+make_head(_module, 'PBAD_MEMORY_CALLBACK_ROUTINE')
+make_head(_module, 'PROCESS_HEAP_ENTRY')
+make_head(_module, 'PSECURE_MEMORY_CACHE_CALLBACK')
+make_head(_module, 'WIN32_MEMORY_PARTITION_INFORMATION')
+make_head(_module, 'WIN32_MEMORY_RANGE_ENTRY')
+make_head(_module, 'WIN32_MEMORY_REGION_INFORMATION')
 __all__ = [
     "AddSecureMemoryCacheCallback",
     "AllocateUserPhysicalPages",

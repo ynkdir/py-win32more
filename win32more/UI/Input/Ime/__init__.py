@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Globalization
 import win32more.Graphics.Gdi
@@ -11,2348 +12,1896 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_CATID_MSIME_IImePadApplet_VER7():
-    return Guid('4a0f8e31-c3ee-11d1-af-ef-00-80-5f-0c-8b-6d')
-def _define_CATID_MSIME_IImePadApplet_VER80():
-    return Guid('56f7a792-fef1-11d3-84-63-00-c0-4f-7a-06-e5')
-def _define_CATID_MSIME_IImePadApplet_VER81():
-    return Guid('656520b0-bb88-11d4-84-c0-00-c0-4f-7a-06-e5')
-def _define_CATID_MSIME_IImePadApplet900():
-    return Guid('faae51bf-5e5b-4a1d-8d-e1-17-c1-d9-e1-72-8d')
-def _define_CATID_MSIME_IImePadApplet1000():
-    return Guid('e081e1d6-2389-43cb-b6-6f-60-9f-82-3d-9f-9c')
-def _define_CATID_MSIME_IImePadApplet1200():
-    return Guid('a47fb5fc-7d15-4223-a7-89-b7-81-bf-9a-e6-67')
-def _define_CATID_MSIME_IImePadApplet():
-    return Guid('7566cad1-4ec9-4478-9f-e9-8e-d7-66-61-9e-df')
-FEID_NONE = 0
-FEID_CHINESE_TRADITIONAL = 1
-FEID_CHINESE_SIMPLIFIED = 2
-FEID_CHINESE_HONGKONG = 3
-FEID_CHINESE_SINGAPORE = 4
-FEID_JAPANESE = 5
-FEID_KOREAN = 6
-FEID_KOREAN_JOHAB = 7
-INFOMASK_NONE = 0
-INFOMASK_QUERY_CAND = 1
-INFOMASK_APPLY_CAND = 2
-INFOMASK_APPLY_CAND_EX = 4
-INFOMASK_STRING_FIX = 65536
-INFOMASK_HIDE_CAND = 131072
-INFOMASK_BLOCK_CAND = 262144
-IMEFAREASTINFO_TYPE_DEFAULT = 0
-IMEFAREASTINFO_TYPE_READING = 1
-IMEFAREASTINFO_TYPE_COMMENT = 2
-IMEFAREASTINFO_TYPE_COSTTIME = 3
-CHARINFO_APPLETID_MASK = 4278190080
-CHARINFO_FEID_MASK = 15728640
-CHARINFO_CHARID_MASK = 65535
-MAX_APPLETTITLE = 64
-MAX_FONTFACE = 32
-IPACFG_NONE = 0
-IPACFG_PROPERTY = 1
-IPACFG_HELP = 2
-IPACFG_TITLE = 65536
-IPACFG_TITLEFONTFACE = 131072
-IPACFG_CATEGORY = 262144
-IPACFG_LANG = 16
-IPACID_NONE = 0
-IPACID_SOFTKEY = 1
-IPACID_HANDWRITING = 2
-IPACID_STROKESEARCH = 3
-IPACID_RADICALSEARCH = 4
-IPACID_SYMBOLSEARCH = 5
-IPACID_VOICE = 6
-IPACID_EPWING = 7
-IPACID_OCR = 8
-IPACID_CHARLIST = 9
-IPACID_USER = 256
-IMEPADREQ_FIRST = 4096
-IMEPADREQ_INSERTSTRINGCANDIDATE = 4098
-IMEPADREQ_INSERTITEMCANDIDATE = 4099
-IMEPADREQ_SENDKEYCONTROL = 4101
-IMEPADREQ_GETSELECTEDSTRING = 4103
-IMEPADREQ_SETAPPLETDATA = 4105
-IMEPADREQ_GETAPPLETDATA = 4106
-IMEPADREQ_SETTITLEFONT = 4107
-IMEPADREQ_GETCOMPOSITIONSTRINGID = 4109
-IMEPADREQ_INSERTSTRINGCANDIDATEINFO = 4110
-IMEPADREQ_CHANGESTRINGCANDIDATEINFO = 4111
-IMEPADREQ_INSERTSTRINGINFO = 4114
-IMEPADREQ_CHANGESTRINGINFO = 4115
-IMEPADREQ_GETCURRENTUILANGID = 4120
-IMEPADCTRL_CONVERTALL = 1
-IMEPADCTRL_DETERMINALL = 2
-IMEPADCTRL_DETERMINCHAR = 3
-IMEPADCTRL_CLEARALL = 4
-IMEPADCTRL_CARETSET = 5
-IMEPADCTRL_CARETLEFT = 6
-IMEPADCTRL_CARETRIGHT = 7
-IMEPADCTRL_CARETTOP = 8
-IMEPADCTRL_CARETBOTTOM = 9
-IMEPADCTRL_CARETBACKSPACE = 10
-IMEPADCTRL_CARETDELETE = 11
-IMEPADCTRL_PHRASEDELETE = 12
-IMEPADCTRL_INSERTSPACE = 13
-IMEPADCTRL_INSERTFULLSPACE = 14
-IMEPADCTRL_INSERTHALFSPACE = 15
-IMEPADCTRL_ONIME = 16
-IMEPADCTRL_OFFIME = 17
-IMEPADCTRL_ONPRECONVERSION = 18
-IMEPADCTRL_OFFPRECONVERSION = 19
-IMEPADCTRL_PHONETICCANDIDATE = 20
-IMEKEYCTRLMASK_ALT = 1
-IMEKEYCTRLMASK_CTRL = 2
-IMEKEYCTRLMASK_SHIFT = 4
-IMEKEYCTRL_UP = 1
-IMEKEYCTRL_DOWN = 0
-IMEPN_FIRST = 256
-IMEPN_ACTIVATE = 257
-IMEPN_INACTIVATE = 258
-IMEPN_SHOW = 260
-IMEPN_HIDE = 261
-IMEPN_SIZECHANGING = 262
-IMEPN_SIZECHANGED = 263
-IMEPN_CONFIG = 264
-IMEPN_HELP = 265
-IMEPN_QUERYCAND = 266
-IMEPN_APPLYCAND = 267
-IMEPN_APPLYCANDEX = 268
-IMEPN_SETTINGCHANGED = 269
-IMEPN_USER = 356
-IPAWS_ENABLED = 1
-IPAWS_SIZINGNOTIFY = 4
-IPAWS_VERTICALFIXED = 256
-IPAWS_HORIZONTALFIXED = 512
-IPAWS_SIZEFIXED = 768
-IPAWS_MAXWIDTHFIXED = 4096
-IPAWS_MAXHEIGHTFIXED = 8192
-IPAWS_MAXSIZEFIXED = 12288
-IPAWS_MINWIDTHFIXED = 65536
-IPAWS_MINHEIGHTFIXED = 131072
-IPAWS_MINSIZEFIXED = 196608
-STYLE_DESCRIPTION_SIZE = 32
-IMEMENUITEM_STRING_SIZE = 80
-IMC_GETCANDIDATEPOS = 7
-IMC_SETCANDIDATEPOS = 8
-IMC_GETCOMPOSITIONFONT = 9
-IMC_SETCOMPOSITIONFONT = 10
-IMC_GETCOMPOSITIONWINDOW = 11
-IMC_SETCOMPOSITIONWINDOW = 12
-IMC_GETSTATUSWINDOWPOS = 15
-IMC_SETSTATUSWINDOWPOS = 16
-IMC_CLOSESTATUSWINDOW = 33
-IMC_OPENSTATUSWINDOW = 34
-NI_FINALIZECONVERSIONRESULT = 20
-ISC_SHOWUICANDIDATEWINDOW = 1
-ISC_SHOWUICOMPOSITIONWINDOW = 2147483648
-ISC_SHOWUIGUIDELINE = 1073741824
-ISC_SHOWUIALLCANDIDATEWINDOW = 15
-ISC_SHOWUIALL = 3221225487
-MOD_LEFT = 32768
-MOD_RIGHT = 16384
-MOD_ON_KEYUP = 2048
-MOD_IGNORE_ALL_MODIFIER = 1024
-IME_HOTKEY_DSWITCH_FIRST = 256
-IME_HOTKEY_DSWITCH_LAST = 287
-IME_HOTKEY_PRIVATE_FIRST = 512
-IME_HOTKEY_PRIVATE_LAST = 543
-CS_INSERTCHAR = 8192
-CS_NOMOVECARET = 16384
-IMEVER_0310 = 196618
-IMEVER_0400 = 262144
-IME_PROP_AT_CARET = 65536
-IME_PROP_SPECIAL_UI = 131072
-IME_PROP_CANDLIST_START_FROM_1 = 262144
-IME_PROP_UNICODE = 524288
-IME_PROP_COMPLETE_ON_UNSELECT = 1048576
-UI_CAP_2700 = 1
-UI_CAP_ROT90 = 2
-UI_CAP_ROTANY = 4
-SCS_CAP_COMPSTR = 1
-SCS_CAP_MAKEREAD = 2
-SCS_CAP_SETRECONVERTSTRING = 4
-SELECT_CAP_CONVERSION = 1
-SELECT_CAP_SENTENCE = 2
-GL_LEVEL_NOGUIDELINE = 0
-GL_LEVEL_FATAL = 1
-GL_LEVEL_ERROR = 2
-GL_LEVEL_WARNING = 3
-GL_LEVEL_INFORMATION = 4
-GL_ID_UNKNOWN = 0
-GL_ID_NOMODULE = 1
-GL_ID_NODICTIONARY = 16
-GL_ID_CANNOTSAVE = 17
-GL_ID_NOCONVERT = 32
-GL_ID_TYPINGERROR = 33
-GL_ID_TOOMANYSTROKE = 34
-GL_ID_READINGCONFLICT = 35
-GL_ID_INPUTREADING = 36
-GL_ID_INPUTRADICAL = 37
-GL_ID_INPUTCODE = 38
-GL_ID_INPUTSYMBOL = 39
-GL_ID_CHOOSECANDIDATE = 40
-GL_ID_REVERSECONVERSION = 41
-GL_ID_PRIVATE_FIRST = 32768
-GL_ID_PRIVATE_LAST = 65535
-ATTR_INPUT = 0
-ATTR_TARGET_CONVERTED = 1
-ATTR_CONVERTED = 2
-ATTR_TARGET_NOTCONVERTED = 3
-ATTR_INPUT_ERROR = 4
-ATTR_FIXEDCONVERTED = 5
-CFS_DEFAULT = 0
-CFS_RECT = 1
-CFS_POINT = 2
-CFS_FORCE_POSITION = 32
-CFS_CANDIDATEPOS = 64
-CFS_EXCLUDE = 128
-IME_CAND_UNKNOWN = 0
-IME_CAND_READ = 1
-IME_CAND_CODE = 2
-IME_CAND_MEANING = 3
-IME_CAND_RADICAL = 4
-IME_CAND_STROKE = 5
-IMN_CLOSESTATUSWINDOW = 1
-IMN_OPENSTATUSWINDOW = 2
-IMN_CHANGECANDIDATE = 3
-IMN_CLOSECANDIDATE = 4
-IMN_OPENCANDIDATE = 5
-IMN_SETCONVERSIONMODE = 6
-IMN_SETSENTENCEMODE = 7
-IMN_SETOPENSTATUS = 8
-IMN_SETCANDIDATEPOS = 9
-IMN_SETCOMPOSITIONFONT = 10
-IMN_SETCOMPOSITIONWINDOW = 11
-IMN_SETSTATUSWINDOWPOS = 12
-IMN_GUIDELINE = 13
-IMN_PRIVATE = 14
-IMR_COMPOSITIONWINDOW = 1
-IMR_CANDIDATEWINDOW = 2
-IMR_COMPOSITIONFONT = 3
-IMR_RECONVERTSTRING = 4
-IMR_CONFIRMRECONVERTSTRING = 5
-IMR_QUERYCHARPOSITION = 6
-IMR_DOCUMENTFEED = 7
-IMM_ERROR_NODATA = -1
-IMM_ERROR_GENERAL = -2
-IME_CONFIG_GENERAL = 1
-IME_CONFIG_REGISTERWORD = 2
-IME_CONFIG_SELECTDICTIONARY = 3
-IME_REGWORD_STYLE_EUDC = 1
-IME_REGWORD_STYLE_USER_FIRST = 2147483648
-IME_REGWORD_STYLE_USER_LAST = 4294967295
-IACE_CHILDREN = 1
-IACE_DEFAULT = 16
-IACE_IGNORENOCONTEXT = 32
-IGIMIF_RIGHTMENU = 1
-IGIMII_CMODE = 1
-IGIMII_SMODE = 2
-IGIMII_CONFIGURE = 4
-IGIMII_TOOLS = 8
-IGIMII_HELP = 16
-IGIMII_OTHER = 32
-IGIMII_INPUTTOOLS = 64
-IMFT_RADIOCHECK = 1
-IMFT_SEPARATOR = 2
-IMFT_SUBMENU = 4
-SOFTKEYBOARD_TYPE_T1 = 1
-SOFTKEYBOARD_TYPE_C1 = 2
-IMMGWL_IMC = 0
-IMMGWLP_IMC = 0
-IMC_SETCONVERSIONMODE = 2
-IMC_SETSENTENCEMODE = 4
-IMC_SETOPENSTATUS = 6
-IMC_GETSOFTKBDFONT = 17
-IMC_SETSOFTKBDFONT = 18
-IMC_GETSOFTKBDPOS = 19
-IMC_SETSOFTKBDPOS = 20
-IMC_GETSOFTKBDSUBTYPE = 21
-IMC_SETSOFTKBDSUBTYPE = 22
-IMC_SETSOFTKBDDATA = 24
-NI_CONTEXTUPDATED = 3
-IME_SYSINFO_WINLOGON = 1
-IME_SYSINFO_WOW16 = 2
-INIT_STATUSWNDPOS = 1
-INIT_CONVERSION = 2
-INIT_SENTENCE = 4
-INIT_LOGFONT = 8
-INIT_COMPFORM = 16
-INIT_SOFTKBDPOS = 32
-IME_PROP_END_UNLOAD = 1
-IME_PROP_KBD_CHAR_FIRST = 2
-IME_PROP_IGNORE_UPKEYS = 4
-IME_PROP_NEED_ALTKEY = 8
-IME_PROP_NO_KEYS_ON_CLOSE = 16
-IME_PROP_ACCEPT_WIDE_VKEY = 32
-UI_CAP_SOFTKBD = 65536
-IMN_SOFTKBDDESTROYED = 17
-IME_UI_CLASS_NAME_SIZE = 16
-IME_ESC_STRING_BUFFER_SIZE = 80
-szImeJapan = 'MSIME.Japan'
-szImeKorea = 'MSIME.Korea'
-szImeChina = 'MSIME.China'
-szImeTaiwan = 'MSIME.Taiwan'
-def _define_CLSID_VERSION_DEPENDENT_MSIME_JAPANESE():
-    return Guid('6a91029e-aa49-471b-ae-e7-7d-33-27-85-66-0d')
-IFEC_S_ALREADY_DEFAULT = 291840
-FELANG_REQ_CONV = 65536
-FELANG_REQ_RECONV = 131072
-FELANG_REQ_REV = 196608
-FELANG_CMODE_MONORUBY = 2
-FELANG_CMODE_NOPRUNING = 4
-FELANG_CMODE_KATAKANAOUT = 8
-FELANG_CMODE_HIRAGANAOUT = 0
-FELANG_CMODE_HALFWIDTHOUT = 16
-FELANG_CMODE_FULLWIDTHOUT = 32
-FELANG_CMODE_BOPOMOFO = 64
-FELANG_CMODE_HANGUL = 128
-FELANG_CMODE_PINYIN = 256
-FELANG_CMODE_PRECONV = 512
-FELANG_CMODE_RADICAL = 1024
-FELANG_CMODE_UNKNOWNREADING = 2048
-FELANG_CMODE_MERGECAND = 4096
-FELANG_CMODE_ROMAN = 8192
-FELANG_CMODE_BESTFIRST = 16384
-FELANG_CMODE_USENOREVWORDS = 32768
-FELANG_CMODE_NONE = 16777216
-FELANG_CMODE_PLAURALCLAUSE = 33554432
-FELANG_CMODE_SINGLECONVERT = 67108864
-FELANG_CMODE_AUTOMATIC = 134217728
-FELANG_CMODE_PHRASEPREDICT = 268435456
-FELANG_CMODE_CONVERSATION = 536870912
-FELANG_CMODE_NAME = 268435456
-FELANG_CMODE_NOINVISIBLECHAR = 1073741824
-E_NOCAND = 48
-E_NOTENOUGH_BUFFER = 49
-E_NOTENOUGH_WDD = 50
-E_LARGEINPUT = 51
-FELANG_CLMN_WBREAK = 1
-FELANG_CLMN_NOWBREAK = 2
-FELANG_CLMN_PBREAK = 4
-FELANG_CLMN_NOPBREAK = 8
-FELANG_CLMN_FIXR = 16
-FELANG_CLMN_FIXD = 32
-FELANG_INVALD_PO = 65535
-IFED_POS_NONE = 0
-IFED_POS_NOUN = 1
-IFED_POS_VERB = 2
-IFED_POS_ADJECTIVE = 4
-IFED_POS_ADJECTIVE_VERB = 8
-IFED_POS_ADVERB = 16
-IFED_POS_ADNOUN = 32
-IFED_POS_CONJUNCTION = 64
-IFED_POS_INTERJECTION = 128
-IFED_POS_INDEPENDENT = 255
-IFED_POS_INFLECTIONALSUFFIX = 256
-IFED_POS_PREFIX = 512
-IFED_POS_SUFFIX = 1024
-IFED_POS_AFFIX = 1536
-IFED_POS_TANKANJI = 2048
-IFED_POS_IDIOMS = 4096
-IFED_POS_SYMBOLS = 8192
-IFED_POS_PARTICLE = 16384
-IFED_POS_AUXILIARY_VERB = 32768
-IFED_POS_SUB_VERB = 65536
-IFED_POS_DEPENDENT = 114688
-IFED_POS_ALL = 131071
-IFED_SELECT_NONE = 0
-IFED_SELECT_READING = 1
-IFED_SELECT_DISPLAY = 2
-IFED_SELECT_POS = 4
-IFED_SELECT_COMMENT = 8
-IFED_SELECT_ALL = 15
-IFED_REG_NONE = 0
-IFED_REG_USER = 1
-IFED_REG_AUTO = 2
-IFED_REG_GRAMMAR = 4
-IFED_REG_ALL = 7
-IFED_TYPE_NONE = 0
-IFED_TYPE_GENERAL = 1
-IFED_TYPE_NAMEPLACE = 2
-IFED_TYPE_SPEECH = 4
-IFED_TYPE_REVERSE = 8
-IFED_TYPE_ENGLISH = 16
-IFED_TYPE_ALL = 31
-IFED_S_MORE_ENTRIES = 291328
-IFED_S_EMPTY_DICTIONARY = 291329
-IFED_S_WORD_EXISTS = 291330
-IFED_S_COMMENT_CHANGED = 291331
-IFED_E_NOT_FOUND = -2147192064
-IFED_E_INVALID_FORMAT = -2147192063
-IFED_E_OPEN_FAILED = -2147192062
-IFED_E_WRITE_FAILED = -2147192061
-IFED_E_NO_ENTRY = -2147192060
-IFED_E_REGISTER_FAILED = -2147192059
-IFED_E_NOT_USER_DIC = -2147192058
-IFED_E_NOT_SUPPORTED = -2147192057
-IFED_E_USER_COMMENT = -2147192056
-IFED_E_REGISTER_ILLEGAL_POS = -2147192055
-IFED_E_REGISTER_IMPROPER_WORD = -2147192054
-IFED_E_REGISTER_DISCONNECTED = -2147192053
-cbCommentMax = 256
-wchPrivate1 = 57344
-POS_UNDEFINED = 0
-JPOS_UNDEFINED = 0
-JPOS_MEISHI_FUTSU = 100
-JPOS_MEISHI_SAHEN = 101
-JPOS_MEISHI_ZAHEN = 102
-JPOS_MEISHI_KEIYOUDOUSHI = 103
-JPOS_HUKUSIMEISHI = 104
-JPOS_MEISA_KEIDOU = 105
-JPOS_JINMEI = 106
-JPOS_JINMEI_SEI = 107
-JPOS_JINMEI_MEI = 108
-JPOS_CHIMEI = 109
-JPOS_CHIMEI_KUNI = 110
-JPOS_CHIMEI_KEN = 111
-JPOS_CHIMEI_GUN = 112
-JPOS_CHIMEI_KU = 113
-JPOS_CHIMEI_SHI = 114
-JPOS_CHIMEI_MACHI = 115
-JPOS_CHIMEI_MURA = 116
-JPOS_CHIMEI_EKI = 117
-JPOS_SONOTA = 118
-JPOS_SHAMEI = 119
-JPOS_SOSHIKI = 120
-JPOS_KENCHIKU = 121
-JPOS_BUPPIN = 122
-JPOS_DAIMEISHI = 123
-JPOS_DAIMEISHI_NINSHOU = 124
-JPOS_DAIMEISHI_SHIJI = 125
-JPOS_KAZU = 126
-JPOS_KAZU_SURYOU = 127
-JPOS_KAZU_SUSHI = 128
-JPOS_5DAN_AWA = 200
-JPOS_5DAN_KA = 201
-JPOS_5DAN_GA = 202
-JPOS_5DAN_SA = 203
-JPOS_5DAN_TA = 204
-JPOS_5DAN_NA = 205
-JPOS_5DAN_BA = 206
-JPOS_5DAN_MA = 207
-JPOS_5DAN_RA = 208
-JPOS_5DAN_AWAUON = 209
-JPOS_5DAN_KASOKUON = 210
-JPOS_5DAN_RAHEN = 211
-JPOS_4DAN_HA = 212
-JPOS_1DAN = 213
-JPOS_TOKUSHU_KAHEN = 214
-JPOS_TOKUSHU_SAHENSURU = 215
-JPOS_TOKUSHU_SAHEN = 216
-JPOS_TOKUSHU_ZAHEN = 217
-JPOS_TOKUSHU_NAHEN = 218
-JPOS_KURU_KI = 219
-JPOS_KURU_KITA = 220
-JPOS_KURU_KITARA = 221
-JPOS_KURU_KITARI = 222
-JPOS_KURU_KITAROU = 223
-JPOS_KURU_KITE = 224
-JPOS_KURU_KUREBA = 225
-JPOS_KURU_KO = 226
-JPOS_KURU_KOI = 227
-JPOS_KURU_KOYOU = 228
-JPOS_SURU_SA = 229
-JPOS_SURU_SI = 230
-JPOS_SURU_SITA = 231
-JPOS_SURU_SITARA = 232
-JPOS_SURU_SIATRI = 233
-JPOS_SURU_SITAROU = 234
-JPOS_SURU_SITE = 235
-JPOS_SURU_SIYOU = 236
-JPOS_SURU_SUREBA = 237
-JPOS_SURU_SE = 238
-JPOS_SURU_SEYO = 239
-JPOS_KEIYOU = 300
-JPOS_KEIYOU_GARU = 301
-JPOS_KEIYOU_GE = 302
-JPOS_KEIYOU_ME = 303
-JPOS_KEIYOU_YUU = 304
-JPOS_KEIYOU_U = 305
-JPOS_KEIDOU = 400
-JPOS_KEIDOU_NO = 401
-JPOS_KEIDOU_TARU = 402
-JPOS_KEIDOU_GARU = 403
-JPOS_FUKUSHI = 500
-JPOS_FUKUSHI_SAHEN = 501
-JPOS_FUKUSHI_NI = 502
-JPOS_FUKUSHI_NANO = 503
-JPOS_FUKUSHI_DA = 504
-JPOS_FUKUSHI_TO = 505
-JPOS_FUKUSHI_TOSURU = 506
-JPOS_RENTAISHI = 600
-JPOS_RENTAISHI_SHIJI = 601
-JPOS_SETSUZOKUSHI = 650
-JPOS_KANDOUSHI = 670
-JPOS_SETTOU = 700
-JPOS_SETTOU_KAKU = 701
-JPOS_SETTOU_SAI = 702
-JPOS_SETTOU_FUKU = 703
-JPOS_SETTOU_MI = 704
-JPOS_SETTOU_DAISHOU = 705
-JPOS_SETTOU_KOUTEI = 706
-JPOS_SETTOU_CHOUTAN = 707
-JPOS_SETTOU_SHINKYU = 708
-JPOS_SETTOU_JINMEI = 709
-JPOS_SETTOU_CHIMEI = 710
-JPOS_SETTOU_SONOTA = 711
-JPOS_SETTOU_JOSUSHI = 712
-JPOS_SETTOU_TEINEI_O = 713
-JPOS_SETTOU_TEINEI_GO = 714
-JPOS_SETTOU_TEINEI_ON = 715
-JPOS_SETSUBI = 800
-JPOS_SETSUBI_TEKI = 801
-JPOS_SETSUBI_SEI = 802
-JPOS_SETSUBI_KA = 803
-JPOS_SETSUBI_CHU = 804
-JPOS_SETSUBI_FU = 805
-JPOS_SETSUBI_RYU = 806
-JPOS_SETSUBI_YOU = 807
-JPOS_SETSUBI_KATA = 808
-JPOS_SETSUBI_MEISHIRENDAKU = 809
-JPOS_SETSUBI_JINMEI = 810
-JPOS_SETSUBI_CHIMEI = 811
-JPOS_SETSUBI_KUNI = 812
-JPOS_SETSUBI_KEN = 813
-JPOS_SETSUBI_GUN = 814
-JPOS_SETSUBI_KU = 815
-JPOS_SETSUBI_SHI = 816
-JPOS_SETSUBI_MACHI = 817
-JPOS_SETSUBI_CHOU = 818
-JPOS_SETSUBI_MURA = 819
-JPOS_SETSUBI_SON = 820
-JPOS_SETSUBI_EKI = 821
-JPOS_SETSUBI_SONOTA = 822
-JPOS_SETSUBI_SHAMEI = 823
-JPOS_SETSUBI_SOSHIKI = 824
-JPOS_SETSUBI_KENCHIKU = 825
-JPOS_RENYOU_SETSUBI = 826
-JPOS_SETSUBI_JOSUSHI = 827
-JPOS_SETSUBI_JOSUSHIPLUS = 828
-JPOS_SETSUBI_JIKAN = 829
-JPOS_SETSUBI_JIKANPLUS = 830
-JPOS_SETSUBI_TEINEI = 831
-JPOS_SETSUBI_SAN = 832
-JPOS_SETSUBI_KUN = 833
-JPOS_SETSUBI_SAMA = 834
-JPOS_SETSUBI_DONO = 835
-JPOS_SETSUBI_FUKUSU = 836
-JPOS_SETSUBI_TACHI = 837
-JPOS_SETSUBI_RA = 838
-JPOS_TANKANJI = 900
-JPOS_TANKANJI_KAO = 901
-JPOS_KANYOUKU = 902
-JPOS_DOKURITSUGO = 903
-JPOS_FUTEIGO = 904
-JPOS_KIGOU = 905
-JPOS_EIJI = 906
-JPOS_KUTEN = 907
-JPOS_TOUTEN = 908
-JPOS_KANJI = 909
-JPOS_OPENBRACE = 910
-JPOS_CLOSEBRACE = 911
-JPOS_YOKUSEI = 912
-JPOS_TANSHUKU = 913
-VERSION_ID_JAPANESE = 16777216
-VERSION_ID_KOREAN = 33554432
-VERSION_ID_CHINESE_TRADITIONAL = 67108864
-VERSION_ID_CHINESE_SIMPLIFIED = 134217728
-RWM_SERVICE = 'MSIMEService'
-FID_MSIME_VERSION = 0
-RWM_UIREADY = 'MSIMEUIReady'
-RWM_MOUSE = 'MSIMEMouseOperation'
-VERSION_MOUSE_OPERATION = 1
-IMEMOUSERET_NOTHANDLED = -1
-IMEMOUSE_VERSION = 255
-IMEMOUSE_NONE = 0
-IMEMOUSE_LDOWN = 1
-IMEMOUSE_RDOWN = 2
-IMEMOUSE_MDOWN = 4
-IMEMOUSE_WUP = 16
-IMEMOUSE_WDOWN = 32
-RWM_RECONVERT = 'MSIMEReconvert'
-FID_RECONVERT_VERSION = 268435456
-VERSION_RECONVERSION = 1
-RWM_RECONVERTREQUEST = 'MSIMEReconvertRequest'
-VERSION_DOCUMENTFEED = 1
-RWM_DOCUMENTFEED = 'MSIMEDocumentFeed'
-VERSION_QUERYPOSITION = 1
-RWM_QUERYPOSITION = 'MSIMEQueryPosition'
-RWM_MODEBIAS = 'MSIMEModeBias'
-VERSION_MODEBIAS = 1
-MODEBIAS_GETVERSION = 0
-MODEBIAS_SETVALUE = 1
-MODEBIAS_GETVALUE = 2
-MODEBIASMODE_DEFAULT = 0
-MODEBIASMODE_FILENAME = 1
-MODEBIASMODE_READING = 2
-MODEBIASMODE_DIGIT = 4
-RWM_SHOWIMEPAD = 'MSIMEShowImePad'
-SHOWIMEPAD_DEFAULT = 0
-SHOWIMEPAD_CATEGORY = 1
-SHOWIMEPAD_GUID = 2
-RWM_KEYMAP = 'MSIMEKeyMap'
-RWM_CHGKEYMAP = 'MSIMEChangeKeyMap'
-RWM_NTFYKEYMAP = 'MSIMENotifyKeyMap'
-FID_MSIME_KMS_VERSION = 1
-FID_MSIME_KMS_INIT = 2
-FID_MSIME_KMS_TERM = 3
-FID_MSIME_KMS_DEL_KEYLIST = 4
-FID_MSIME_KMS_NOTIFY = 5
-FID_MSIME_KMS_GETMAP = 6
-FID_MSIME_KMS_INVOKE = 7
-FID_MSIME_KMS_SETMAP = 8
-FID_MSIME_KMS_FUNCDESC = 9
-FID_MSIME_KMS_GETMAPSEAMLESS = 10
-FID_MSIME_KMS_GETMAPFAST = 11
-IMEKMS_NOCOMPOSITION = 0
-IMEKMS_COMPOSITION = 1
-IMEKMS_SELECTION = 2
-IMEKMS_IMEOFF = 3
-IMEKMS_2NDLEVEL = 4
-IMEKMS_INPTGL = 5
-IMEKMS_CANDIDATE = 6
-IMEKMS_TYPECAND = 7
-RWM_RECONVERTOPTIONS = 'MSIMEReconvertOptions'
-RECONVOPT_NONE = 0
-RECONVOPT_USECANCELNOTIFY = 1
-GCSEX_CANCELRECONVERT = 268435456
-def _define_CLSID_ImePlugInDictDictionaryList_CHS():
-    return Guid('7bf0129b-5bef-4de4-9b-0b-5e-db-66-ac-2f-a6')
-def _define_CLSID_ImePlugInDictDictionaryList_JPN():
-    return Guid('4fe2776b-b0f9-4396-b5-fc-e9-d4-cf-1e-c1-95')
-def _define_ImmInstallIMEA():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('ImmInstallIMEA', windll['IMM32.dll']), ((1, 'lpszIMEFileName'),(1, 'lpszLayoutText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmInstallIMEW():
-    try:
-        return WINFUNCTYPE(win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('ImmInstallIMEW', windll['IMM32.dll']), ((1, 'lpszIMEFileName'),(1, 'lpszLayoutText'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetDefaultIMEWnd():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,win32more.Foundation.HWND)(('ImmGetDefaultIMEWnd', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetDescriptionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32)(('ImmGetDescriptionA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszDescription'),(1, 'uBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetDescriptionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32)(('ImmGetDescriptionW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszDescription'),(1, 'uBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetIMEFileNameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32)(('ImmGetIMEFileNameA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszFileName'),(1, 'uBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetIMEFileNameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32)(('ImmGetIMEFileNameW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszFileName'),(1, 'uBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetProperty():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,UInt32)(('ImmGetProperty', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmIsIME():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL)(('ImmIsIME', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSimulateHotKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.Input.Ime.IME_HOTKEY_IDENTIFIER)(('ImmSimulateHotKey', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmCreateContext():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMC,)(('ImmCreateContext', windll['IMM32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDestroyContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC)(('ImmDestroyContext', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetContext():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMC,win32more.Foundation.HWND)(('ImmGetContext', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmReleaseContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Globalization.HIMC)(('ImmReleaseContext', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmAssociateContext():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMC,win32more.Foundation.HWND,win32more.Globalization.HIMC)(('ImmAssociateContext', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmAssociateContextEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Globalization.HIMC,UInt32)(('ImmAssociateContextEx', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCompositionStringA():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Globalization.HIMC,win32more.UI.Input.Ime.IME_COMPOSITION_STRING,c_void_p,UInt32)(('ImmGetCompositionStringA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpBuf'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCompositionStringW():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Globalization.HIMC,win32more.UI.Input.Ime.IME_COMPOSITION_STRING,c_void_p,UInt32)(('ImmGetCompositionStringW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpBuf'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCompositionStringA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE,c_void_p,UInt32,c_void_p,UInt32)(('ImmSetCompositionStringA', windll['IMM32.dll']), ((1, 'param0'),(1, 'dwIndex'),(1, 'lpComp'),(1, 'dwCompLen'),(1, 'lpRead'),(1, 'dwReadLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCompositionStringW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE,c_void_p,UInt32,c_void_p,UInt32)(('ImmSetCompositionStringW', windll['IMM32.dll']), ((1, 'param0'),(1, 'dwIndex'),(1, 'lpComp'),(1, 'dwCompLen'),(1, 'lpRead'),(1, 'dwReadLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCandidateListCountA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,POINTER(UInt32))(('ImmGetCandidateListCountA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpdwListCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCandidateListCountW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,POINTER(UInt32))(('ImmGetCandidateListCountW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpdwListCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCandidateListA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),UInt32)(('ImmGetCandidateListA', windll['IMM32.dll']), ((1, 'param0'),(1, 'deIndex'),(1, 'lpCandList'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCandidateListW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),UInt32)(('ImmGetCandidateListW', windll['IMM32.dll']), ((1, 'param0'),(1, 'deIndex'),(1, 'lpCandList'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetGuideLineA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,win32more.UI.Input.Ime.GET_GUIDE_LINE_TYPE,win32more.Foundation.PSTR,UInt32)(('ImmGetGuideLineA', windll['IMM32.dll']), ((1, 'param0'),(1, 'dwIndex'),(1, 'lpBuf'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetGuideLineW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,win32more.UI.Input.Ime.GET_GUIDE_LINE_TYPE,win32more.Foundation.PWSTR,UInt32)(('ImmGetGuideLineW', windll['IMM32.dll']), ((1, 'param0'),(1, 'dwIndex'),(1, 'lpBuf'),(1, 'dwBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetConversionStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.IME_CONVERSION_MODE),POINTER(win32more.UI.Input.Ime.IME_SENTENCE_MODE))(('ImmGetConversionStatus', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpfdwConversion'),(1, 'lpfdwSentence'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetConversionStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.IME_CONVERSION_MODE,win32more.UI.Input.Ime.IME_SENTENCE_MODE)(('ImmSetConversionStatus', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetOpenStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC)(('ImmGetOpenStatus', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetOpenStatus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.Foundation.BOOL)(('ImmSetOpenStatus', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCompositionFontA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(('ImmGetCompositionFontA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCompositionFontW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(('ImmGetCompositionFontW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCompositionFontA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(('ImmSetCompositionFontA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCompositionFontW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(('ImmSetCompositionFontW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lplf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmConfigureIMEA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,c_void_p)(('ImmConfigureIMEA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmConfigureIMEW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,c_void_p)(('ImmConfigureIMEW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmEscapeA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.IME_ESCAPE,c_void_p)(('ImmEscapeA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmEscapeW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.IME_ESCAPE,c_void_p)(('ImmEscapeW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetConversionListA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PSTR,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),UInt32,win32more.UI.Input.Ime.GET_CONVERSION_LIST_FLAG)(('ImmGetConversionListA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpSrc'),(1, 'lpDst'),(1, 'dwBufLen'),(1, 'uFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetConversionListW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PWSTR,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),UInt32,win32more.UI.Input.Ime.GET_CONVERSION_LIST_FLAG)(('ImmGetConversionListW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpSrc'),(1, 'lpDst'),(1, 'dwBufLen'),(1, 'uFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmNotifyIME():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.UI.Input.Ime.NOTIFY_IME_ACTION,win32more.UI.Input.Ime.NOTIFY_IME_INDEX,UInt32)(('ImmNotifyIME', windll['IMM32.dll']), ((1, 'param0'),(1, 'dwAction'),(1, 'dwIndex'),(1, 'dwValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetStatusWindowPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(('ImmGetStatusWindowPos', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpptPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetStatusWindowPos():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(('ImmSetStatusWindowPos', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpptPos'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCompositionWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(('ImmGetCompositionWindow', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpCompForm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCompositionWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(('ImmSetCompositionWindow', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpCompForm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetCandidateWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(('ImmGetCandidateWindow', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpCandidate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetCandidateWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(('ImmSetCandidateWindow', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpCandidate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmIsUIMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('ImmIsUIMessageA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmIsUIMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('ImmIsUIMessageW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetVirtualKey():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND)(('ImmGetVirtualKey', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmRegisterWordA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('ImmRegisterWordA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszReading'),(1, 'param2'),(1, 'lpszRegister'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmRegisterWordW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('ImmRegisterWordW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszReading'),(1, 'param2'),(1, 'lpszRegister'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmUnregisterWordA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('ImmUnregisterWordA', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszReading'),(1, 'param2'),(1, 'lpszUnregister'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmUnregisterWordW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('ImmUnregisterWordW', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpszReading'),(1, 'param2'),(1, 'lpszUnregister'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetRegisterWordStyleA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFA_head))(('ImmGetRegisterWordStyleA', windll['IMM32.dll']), ((1, 'param0'),(1, 'nItem'),(1, 'lpStyleBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetRegisterWordStyleW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFW_head))(('ImmGetRegisterWordStyleW', windll['IMM32.dll']), ((1, 'param0'),(1, 'nItem'),(1, 'lpStyleBuf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmEnumRegisterWordA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.UI.Input.Ime.REGISTERWORDENUMPROCA,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,c_void_p)(('ImmEnumRegisterWordA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpszReading'),(1, 'param3'),(1, 'lpszRegister'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmEnumRegisterWordW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.UI.TextServices.HKL,win32more.UI.Input.Ime.REGISTERWORDENUMPROCW,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p)(('ImmEnumRegisterWordW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'lpszReading'),(1, 'param3'),(1, 'lpszRegister'),(1, 'param5'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDisableIME():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('ImmDisableIME', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmEnumInputContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.UI.Input.Ime.IMCENUMPROC,win32more.Foundation.LPARAM)(('ImmEnumInputContext', windll['IMM32.dll']), ((1, 'idThread'),(1, 'lpfn'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetImeMenuItemsA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),UInt32)(('ImmGetImeMenuItemsA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'lpImeParentMenu'),(1, 'lpImeMenu'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetImeMenuItemsW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),UInt32)(('ImmGetImeMenuItemsW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'lpImeParentMenu'),(1, 'lpImeMenu'),(1, 'dwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDisableTextFrameService():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('ImmDisableTextFrameService', windll['IMM32.dll']), ((1, 'idThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDisableLegacyIME():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('ImmDisableLegacyIME', windll['IMM32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetHotKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(IntPtr))(('ImmGetHotKey', windll['IMM32.dll']), ((1, 'param0'),(1, 'lpuModifiers'),(1, 'lpuVKey'),(1, 'phKL'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmSetHotKey():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,UInt32,win32more.UI.TextServices.HKL)(('ImmSetHotKey', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGenerateMessage():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC)(('ImmGenerateMessage', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmRequestMessageA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Globalization.HIMC,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('ImmRequestMessageA', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmRequestMessageW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Globalization.HIMC,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(('ImmRequestMessageW', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmCreateSoftKeyboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HWND,UInt32,win32more.Foundation.HWND,Int32,Int32)(('ImmCreateSoftKeyboard', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDestroySoftKeyboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('ImmDestroySoftKeyboard', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmShowSoftKeyboard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,Int32)(('ImmShowSoftKeyboard', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmLockIMC():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.UI.Input.Ime.INPUTCONTEXT_head),win32more.Globalization.HIMC)(('ImmLockIMC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmUnlockIMC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC)(('ImmUnlockIMC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetIMCLockCount():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMC)(('ImmGetIMCLockCount', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmCreateIMCC():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMCC,UInt32)(('ImmCreateIMCC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmDestroyIMCC():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMCC,win32more.Globalization.HIMCC)(('ImmDestroyIMCC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmLockIMCC():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Globalization.HIMCC)(('ImmLockIMCC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmUnlockIMCC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMCC)(('ImmUnlockIMCC', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetIMCCLockCount():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMCC)(('ImmGetIMCCLockCount', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmReSizeIMCC():
-    try:
-        return WINFUNCTYPE(win32more.Globalization.HIMCC,win32more.Globalization.HIMCC,UInt32)(('ImmReSizeIMCC', windll['IMM32.dll']), ((1, 'param0'),(1, 'param1'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImmGetIMCCSize():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Globalization.HIMCC)(('ImmGetIMCCSize', windll['IMM32.dll']), ((1, 'param0'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_APPLETIDLIST_head():
-    class APPLETIDLIST(Structure):
-        pass
-    return APPLETIDLIST
-def _define_APPLETIDLIST():
-    APPLETIDLIST = win32more.UI.Input.Ime.APPLETIDLIST_head
-    APPLETIDLIST._fields_ = [
-        ('count', Int32),
-        ('pIIDList', POINTER(Guid)),
-    ]
-    return APPLETIDLIST
-def _define_APPLYCANDEXPARAM_head():
-    class APPLYCANDEXPARAM(Structure):
-        pass
-    return APPLYCANDEXPARAM
-def _define_APPLYCANDEXPARAM():
-    APPLYCANDEXPARAM = win32more.UI.Input.Ime.APPLYCANDEXPARAM_head
-    APPLYCANDEXPARAM._fields_ = [
-        ('dwSize', UInt32),
-        ('lpwstrDisplay', win32more.Foundation.PWSTR),
-        ('lpwstrReading', win32more.Foundation.PWSTR),
-        ('dwReserved', UInt32),
-    ]
-    return APPLYCANDEXPARAM
+CATID_MSIME_IImePadApplet_VER7: Guid = Guid('4a0f8e31-c3ee-11d1-af-ef-00-80-5f-0c-8b-6d')
+CATID_MSIME_IImePadApplet_VER80: Guid = Guid('56f7a792-fef1-11d3-84-63-00-c0-4f-7a-06-e5')
+CATID_MSIME_IImePadApplet_VER81: Guid = Guid('656520b0-bb88-11d4-84-c0-00-c0-4f-7a-06-e5')
+CATID_MSIME_IImePadApplet900: Guid = Guid('faae51bf-5e5b-4a1d-8d-e1-17-c1-d9-e1-72-8d')
+CATID_MSIME_IImePadApplet1000: Guid = Guid('e081e1d6-2389-43cb-b6-6f-60-9f-82-3d-9f-9c')
+CATID_MSIME_IImePadApplet1200: Guid = Guid('a47fb5fc-7d15-4223-a7-89-b7-81-bf-9a-e6-67')
+CATID_MSIME_IImePadApplet: Guid = Guid('7566cad1-4ec9-4478-9f-e9-8e-d7-66-61-9e-df')
+FEID_NONE: UInt32 = 0
+FEID_CHINESE_TRADITIONAL: UInt32 = 1
+FEID_CHINESE_SIMPLIFIED: UInt32 = 2
+FEID_CHINESE_HONGKONG: UInt32 = 3
+FEID_CHINESE_SINGAPORE: UInt32 = 4
+FEID_JAPANESE: UInt32 = 5
+FEID_KOREAN: UInt32 = 6
+FEID_KOREAN_JOHAB: UInt32 = 7
+INFOMASK_NONE: UInt32 = 0
+INFOMASK_QUERY_CAND: UInt32 = 1
+INFOMASK_APPLY_CAND: UInt32 = 2
+INFOMASK_APPLY_CAND_EX: UInt32 = 4
+INFOMASK_STRING_FIX: UInt32 = 65536
+INFOMASK_HIDE_CAND: UInt32 = 131072
+INFOMASK_BLOCK_CAND: UInt32 = 262144
+IMEFAREASTINFO_TYPE_DEFAULT: UInt32 = 0
+IMEFAREASTINFO_TYPE_READING: UInt32 = 1
+IMEFAREASTINFO_TYPE_COMMENT: UInt32 = 2
+IMEFAREASTINFO_TYPE_COSTTIME: UInt32 = 3
+CHARINFO_APPLETID_MASK: UInt32 = 4278190080
+CHARINFO_FEID_MASK: UInt32 = 15728640
+CHARINFO_CHARID_MASK: UInt32 = 65535
+MAX_APPLETTITLE: UInt32 = 64
+MAX_FONTFACE: UInt32 = 32
+IPACFG_NONE: Int32 = 0
+IPACFG_PROPERTY: Int32 = 1
+IPACFG_HELP: Int32 = 2
+IPACFG_TITLE: Int32 = 65536
+IPACFG_TITLEFONTFACE: Int32 = 131072
+IPACFG_CATEGORY: Int32 = 262144
+IPACFG_LANG: Int32 = 16
+IPACID_NONE: UInt32 = 0
+IPACID_SOFTKEY: UInt32 = 1
+IPACID_HANDWRITING: UInt32 = 2
+IPACID_STROKESEARCH: UInt32 = 3
+IPACID_RADICALSEARCH: UInt32 = 4
+IPACID_SYMBOLSEARCH: UInt32 = 5
+IPACID_VOICE: UInt32 = 6
+IPACID_EPWING: UInt32 = 7
+IPACID_OCR: UInt32 = 8
+IPACID_CHARLIST: UInt32 = 9
+IPACID_USER: UInt32 = 256
+IMEPADREQ_FIRST: UInt32 = 4096
+IMEPADREQ_INSERTSTRINGCANDIDATE: UInt32 = 4098
+IMEPADREQ_INSERTITEMCANDIDATE: UInt32 = 4099
+IMEPADREQ_SENDKEYCONTROL: UInt32 = 4101
+IMEPADREQ_GETSELECTEDSTRING: UInt32 = 4103
+IMEPADREQ_SETAPPLETDATA: UInt32 = 4105
+IMEPADREQ_GETAPPLETDATA: UInt32 = 4106
+IMEPADREQ_SETTITLEFONT: UInt32 = 4107
+IMEPADREQ_GETCOMPOSITIONSTRINGID: UInt32 = 4109
+IMEPADREQ_INSERTSTRINGCANDIDATEINFO: UInt32 = 4110
+IMEPADREQ_CHANGESTRINGCANDIDATEINFO: UInt32 = 4111
+IMEPADREQ_INSERTSTRINGINFO: UInt32 = 4114
+IMEPADREQ_CHANGESTRINGINFO: UInt32 = 4115
+IMEPADREQ_GETCURRENTUILANGID: UInt32 = 4120
+IMEPADCTRL_CONVERTALL: UInt32 = 1
+IMEPADCTRL_DETERMINALL: UInt32 = 2
+IMEPADCTRL_DETERMINCHAR: UInt32 = 3
+IMEPADCTRL_CLEARALL: UInt32 = 4
+IMEPADCTRL_CARETSET: UInt32 = 5
+IMEPADCTRL_CARETLEFT: UInt32 = 6
+IMEPADCTRL_CARETRIGHT: UInt32 = 7
+IMEPADCTRL_CARETTOP: UInt32 = 8
+IMEPADCTRL_CARETBOTTOM: UInt32 = 9
+IMEPADCTRL_CARETBACKSPACE: UInt32 = 10
+IMEPADCTRL_CARETDELETE: UInt32 = 11
+IMEPADCTRL_PHRASEDELETE: UInt32 = 12
+IMEPADCTRL_INSERTSPACE: UInt32 = 13
+IMEPADCTRL_INSERTFULLSPACE: UInt32 = 14
+IMEPADCTRL_INSERTHALFSPACE: UInt32 = 15
+IMEPADCTRL_ONIME: UInt32 = 16
+IMEPADCTRL_OFFIME: UInt32 = 17
+IMEPADCTRL_ONPRECONVERSION: UInt32 = 18
+IMEPADCTRL_OFFPRECONVERSION: UInt32 = 19
+IMEPADCTRL_PHONETICCANDIDATE: UInt32 = 20
+IMEKEYCTRLMASK_ALT: UInt32 = 1
+IMEKEYCTRLMASK_CTRL: UInt32 = 2
+IMEKEYCTRLMASK_SHIFT: UInt32 = 4
+IMEKEYCTRL_UP: UInt32 = 1
+IMEKEYCTRL_DOWN: UInt32 = 0
+IMEPN_FIRST: UInt32 = 256
+IMEPN_ACTIVATE: UInt32 = 257
+IMEPN_INACTIVATE: UInt32 = 258
+IMEPN_SHOW: UInt32 = 260
+IMEPN_HIDE: UInt32 = 261
+IMEPN_SIZECHANGING: UInt32 = 262
+IMEPN_SIZECHANGED: UInt32 = 263
+IMEPN_CONFIG: UInt32 = 264
+IMEPN_HELP: UInt32 = 265
+IMEPN_QUERYCAND: UInt32 = 266
+IMEPN_APPLYCAND: UInt32 = 267
+IMEPN_APPLYCANDEX: UInt32 = 268
+IMEPN_SETTINGCHANGED: UInt32 = 269
+IMEPN_USER: UInt32 = 356
+IPAWS_ENABLED: Int32 = 1
+IPAWS_SIZINGNOTIFY: Int32 = 4
+IPAWS_VERTICALFIXED: Int32 = 256
+IPAWS_HORIZONTALFIXED: Int32 = 512
+IPAWS_SIZEFIXED: Int32 = 768
+IPAWS_MAXWIDTHFIXED: Int32 = 4096
+IPAWS_MAXHEIGHTFIXED: Int32 = 8192
+IPAWS_MAXSIZEFIXED: Int32 = 12288
+IPAWS_MINWIDTHFIXED: Int32 = 65536
+IPAWS_MINHEIGHTFIXED: Int32 = 131072
+IPAWS_MINSIZEFIXED: Int32 = 196608
+STYLE_DESCRIPTION_SIZE: UInt32 = 32
+IMEMENUITEM_STRING_SIZE: UInt32 = 80
+IMC_GETCANDIDATEPOS: UInt32 = 7
+IMC_SETCANDIDATEPOS: UInt32 = 8
+IMC_GETCOMPOSITIONFONT: UInt32 = 9
+IMC_SETCOMPOSITIONFONT: UInt32 = 10
+IMC_GETCOMPOSITIONWINDOW: UInt32 = 11
+IMC_SETCOMPOSITIONWINDOW: UInt32 = 12
+IMC_GETSTATUSWINDOWPOS: UInt32 = 15
+IMC_SETSTATUSWINDOWPOS: UInt32 = 16
+IMC_CLOSESTATUSWINDOW: UInt32 = 33
+IMC_OPENSTATUSWINDOW: UInt32 = 34
+NI_FINALIZECONVERSIONRESULT: UInt32 = 20
+ISC_SHOWUICANDIDATEWINDOW: UInt32 = 1
+ISC_SHOWUICOMPOSITIONWINDOW: UInt32 = 2147483648
+ISC_SHOWUIGUIDELINE: UInt32 = 1073741824
+ISC_SHOWUIALLCANDIDATEWINDOW: UInt32 = 15
+ISC_SHOWUIALL: UInt32 = 3221225487
+MOD_LEFT: UInt32 = 32768
+MOD_RIGHT: UInt32 = 16384
+MOD_ON_KEYUP: UInt32 = 2048
+MOD_IGNORE_ALL_MODIFIER: UInt32 = 1024
+IME_HOTKEY_DSWITCH_FIRST: UInt32 = 256
+IME_HOTKEY_DSWITCH_LAST: UInt32 = 287
+IME_HOTKEY_PRIVATE_FIRST: UInt32 = 512
+IME_HOTKEY_PRIVATE_LAST: UInt32 = 543
+CS_INSERTCHAR: UInt32 = 8192
+CS_NOMOVECARET: UInt32 = 16384
+IMEVER_0310: UInt32 = 196618
+IMEVER_0400: UInt32 = 262144
+IME_PROP_AT_CARET: UInt32 = 65536
+IME_PROP_SPECIAL_UI: UInt32 = 131072
+IME_PROP_CANDLIST_START_FROM_1: UInt32 = 262144
+IME_PROP_UNICODE: UInt32 = 524288
+IME_PROP_COMPLETE_ON_UNSELECT: UInt32 = 1048576
+UI_CAP_2700: UInt32 = 1
+UI_CAP_ROT90: UInt32 = 2
+UI_CAP_ROTANY: UInt32 = 4
+SCS_CAP_COMPSTR: UInt32 = 1
+SCS_CAP_MAKEREAD: UInt32 = 2
+SCS_CAP_SETRECONVERTSTRING: UInt32 = 4
+SELECT_CAP_CONVERSION: UInt32 = 1
+SELECT_CAP_SENTENCE: UInt32 = 2
+GL_LEVEL_NOGUIDELINE: UInt32 = 0
+GL_LEVEL_FATAL: UInt32 = 1
+GL_LEVEL_ERROR: UInt32 = 2
+GL_LEVEL_WARNING: UInt32 = 3
+GL_LEVEL_INFORMATION: UInt32 = 4
+GL_ID_UNKNOWN: UInt32 = 0
+GL_ID_NOMODULE: UInt32 = 1
+GL_ID_NODICTIONARY: UInt32 = 16
+GL_ID_CANNOTSAVE: UInt32 = 17
+GL_ID_NOCONVERT: UInt32 = 32
+GL_ID_TYPINGERROR: UInt32 = 33
+GL_ID_TOOMANYSTROKE: UInt32 = 34
+GL_ID_READINGCONFLICT: UInt32 = 35
+GL_ID_INPUTREADING: UInt32 = 36
+GL_ID_INPUTRADICAL: UInt32 = 37
+GL_ID_INPUTCODE: UInt32 = 38
+GL_ID_INPUTSYMBOL: UInt32 = 39
+GL_ID_CHOOSECANDIDATE: UInt32 = 40
+GL_ID_REVERSECONVERSION: UInt32 = 41
+GL_ID_PRIVATE_FIRST: UInt32 = 32768
+GL_ID_PRIVATE_LAST: UInt32 = 65535
+ATTR_INPUT: UInt32 = 0
+ATTR_TARGET_CONVERTED: UInt32 = 1
+ATTR_CONVERTED: UInt32 = 2
+ATTR_TARGET_NOTCONVERTED: UInt32 = 3
+ATTR_INPUT_ERROR: UInt32 = 4
+ATTR_FIXEDCONVERTED: UInt32 = 5
+CFS_DEFAULT: UInt32 = 0
+CFS_RECT: UInt32 = 1
+CFS_POINT: UInt32 = 2
+CFS_FORCE_POSITION: UInt32 = 32
+CFS_CANDIDATEPOS: UInt32 = 64
+CFS_EXCLUDE: UInt32 = 128
+IME_CAND_UNKNOWN: UInt32 = 0
+IME_CAND_READ: UInt32 = 1
+IME_CAND_CODE: UInt32 = 2
+IME_CAND_MEANING: UInt32 = 3
+IME_CAND_RADICAL: UInt32 = 4
+IME_CAND_STROKE: UInt32 = 5
+IMN_CLOSESTATUSWINDOW: UInt32 = 1
+IMN_OPENSTATUSWINDOW: UInt32 = 2
+IMN_CHANGECANDIDATE: UInt32 = 3
+IMN_CLOSECANDIDATE: UInt32 = 4
+IMN_OPENCANDIDATE: UInt32 = 5
+IMN_SETCONVERSIONMODE: UInt32 = 6
+IMN_SETSENTENCEMODE: UInt32 = 7
+IMN_SETOPENSTATUS: UInt32 = 8
+IMN_SETCANDIDATEPOS: UInt32 = 9
+IMN_SETCOMPOSITIONFONT: UInt32 = 10
+IMN_SETCOMPOSITIONWINDOW: UInt32 = 11
+IMN_SETSTATUSWINDOWPOS: UInt32 = 12
+IMN_GUIDELINE: UInt32 = 13
+IMN_PRIVATE: UInt32 = 14
+IMR_COMPOSITIONWINDOW: UInt32 = 1
+IMR_CANDIDATEWINDOW: UInt32 = 2
+IMR_COMPOSITIONFONT: UInt32 = 3
+IMR_RECONVERTSTRING: UInt32 = 4
+IMR_CONFIRMRECONVERTSTRING: UInt32 = 5
+IMR_QUERYCHARPOSITION: UInt32 = 6
+IMR_DOCUMENTFEED: UInt32 = 7
+IMM_ERROR_NODATA: Int32 = -1
+IMM_ERROR_GENERAL: Int32 = -2
+IME_CONFIG_GENERAL: UInt32 = 1
+IME_CONFIG_REGISTERWORD: UInt32 = 2
+IME_CONFIG_SELECTDICTIONARY: UInt32 = 3
+IME_REGWORD_STYLE_EUDC: UInt32 = 1
+IME_REGWORD_STYLE_USER_FIRST: UInt32 = 2147483648
+IME_REGWORD_STYLE_USER_LAST: UInt32 = 4294967295
+IACE_CHILDREN: UInt32 = 1
+IACE_DEFAULT: UInt32 = 16
+IACE_IGNORENOCONTEXT: UInt32 = 32
+IGIMIF_RIGHTMENU: UInt32 = 1
+IGIMII_CMODE: UInt32 = 1
+IGIMII_SMODE: UInt32 = 2
+IGIMII_CONFIGURE: UInt32 = 4
+IGIMII_TOOLS: UInt32 = 8
+IGIMII_HELP: UInt32 = 16
+IGIMII_OTHER: UInt32 = 32
+IGIMII_INPUTTOOLS: UInt32 = 64
+IMFT_RADIOCHECK: UInt32 = 1
+IMFT_SEPARATOR: UInt32 = 2
+IMFT_SUBMENU: UInt32 = 4
+SOFTKEYBOARD_TYPE_T1: UInt32 = 1
+SOFTKEYBOARD_TYPE_C1: UInt32 = 2
+IMMGWL_IMC: UInt32 = 0
+IMMGWLP_IMC: UInt32 = 0
+IMC_SETCONVERSIONMODE: UInt32 = 2
+IMC_SETSENTENCEMODE: UInt32 = 4
+IMC_SETOPENSTATUS: UInt32 = 6
+IMC_GETSOFTKBDFONT: UInt32 = 17
+IMC_SETSOFTKBDFONT: UInt32 = 18
+IMC_GETSOFTKBDPOS: UInt32 = 19
+IMC_SETSOFTKBDPOS: UInt32 = 20
+IMC_GETSOFTKBDSUBTYPE: UInt32 = 21
+IMC_SETSOFTKBDSUBTYPE: UInt32 = 22
+IMC_SETSOFTKBDDATA: UInt32 = 24
+NI_CONTEXTUPDATED: UInt32 = 3
+IME_SYSINFO_WINLOGON: UInt32 = 1
+IME_SYSINFO_WOW16: UInt32 = 2
+INIT_STATUSWNDPOS: UInt32 = 1
+INIT_CONVERSION: UInt32 = 2
+INIT_SENTENCE: UInt32 = 4
+INIT_LOGFONT: UInt32 = 8
+INIT_COMPFORM: UInt32 = 16
+INIT_SOFTKBDPOS: UInt32 = 32
+IME_PROP_END_UNLOAD: UInt32 = 1
+IME_PROP_KBD_CHAR_FIRST: UInt32 = 2
+IME_PROP_IGNORE_UPKEYS: UInt32 = 4
+IME_PROP_NEED_ALTKEY: UInt32 = 8
+IME_PROP_NO_KEYS_ON_CLOSE: UInt32 = 16
+IME_PROP_ACCEPT_WIDE_VKEY: UInt32 = 32
+UI_CAP_SOFTKBD: UInt32 = 65536
+IMN_SOFTKBDDESTROYED: UInt32 = 17
+IME_UI_CLASS_NAME_SIZE: UInt32 = 16
+IME_ESC_STRING_BUFFER_SIZE: UInt32 = 80
+szImeJapan: String = 'MSIME.Japan'
+szImeKorea: String = 'MSIME.Korea'
+szImeChina: String = 'MSIME.China'
+szImeTaiwan: String = 'MSIME.Taiwan'
+CLSID_VERSION_DEPENDENT_MSIME_JAPANESE: Guid = Guid('6a91029e-aa49-471b-ae-e7-7d-33-27-85-66-0d')
+IFEC_S_ALREADY_DEFAULT: win32more.Foundation.HRESULT = 291840
+FELANG_REQ_CONV: UInt32 = 65536
+FELANG_REQ_RECONV: UInt32 = 131072
+FELANG_REQ_REV: UInt32 = 196608
+FELANG_CMODE_MONORUBY: UInt32 = 2
+FELANG_CMODE_NOPRUNING: UInt32 = 4
+FELANG_CMODE_KATAKANAOUT: UInt32 = 8
+FELANG_CMODE_HIRAGANAOUT: UInt32 = 0
+FELANG_CMODE_HALFWIDTHOUT: UInt32 = 16
+FELANG_CMODE_FULLWIDTHOUT: UInt32 = 32
+FELANG_CMODE_BOPOMOFO: UInt32 = 64
+FELANG_CMODE_HANGUL: UInt32 = 128
+FELANG_CMODE_PINYIN: UInt32 = 256
+FELANG_CMODE_PRECONV: UInt32 = 512
+FELANG_CMODE_RADICAL: UInt32 = 1024
+FELANG_CMODE_UNKNOWNREADING: UInt32 = 2048
+FELANG_CMODE_MERGECAND: UInt32 = 4096
+FELANG_CMODE_ROMAN: UInt32 = 8192
+FELANG_CMODE_BESTFIRST: UInt32 = 16384
+FELANG_CMODE_USENOREVWORDS: UInt32 = 32768
+FELANG_CMODE_NONE: UInt32 = 16777216
+FELANG_CMODE_PLAURALCLAUSE: UInt32 = 33554432
+FELANG_CMODE_SINGLECONVERT: UInt32 = 67108864
+FELANG_CMODE_AUTOMATIC: UInt32 = 134217728
+FELANG_CMODE_PHRASEPREDICT: UInt32 = 268435456
+FELANG_CMODE_CONVERSATION: UInt32 = 536870912
+FELANG_CMODE_NAME: UInt32 = 268435456
+FELANG_CMODE_NOINVISIBLECHAR: UInt32 = 1073741824
+E_NOCAND: UInt32 = 48
+E_NOTENOUGH_BUFFER: UInt32 = 49
+E_NOTENOUGH_WDD: UInt32 = 50
+E_LARGEINPUT: UInt32 = 51
+FELANG_CLMN_WBREAK: UInt32 = 1
+FELANG_CLMN_NOWBREAK: UInt32 = 2
+FELANG_CLMN_PBREAK: UInt32 = 4
+FELANG_CLMN_NOPBREAK: UInt32 = 8
+FELANG_CLMN_FIXR: UInt32 = 16
+FELANG_CLMN_FIXD: UInt32 = 32
+FELANG_INVALD_PO: UInt32 = 65535
+IFED_POS_NONE: UInt32 = 0
+IFED_POS_NOUN: UInt32 = 1
+IFED_POS_VERB: UInt32 = 2
+IFED_POS_ADJECTIVE: UInt32 = 4
+IFED_POS_ADJECTIVE_VERB: UInt32 = 8
+IFED_POS_ADVERB: UInt32 = 16
+IFED_POS_ADNOUN: UInt32 = 32
+IFED_POS_CONJUNCTION: UInt32 = 64
+IFED_POS_INTERJECTION: UInt32 = 128
+IFED_POS_INDEPENDENT: UInt32 = 255
+IFED_POS_INFLECTIONALSUFFIX: UInt32 = 256
+IFED_POS_PREFIX: UInt32 = 512
+IFED_POS_SUFFIX: UInt32 = 1024
+IFED_POS_AFFIX: UInt32 = 1536
+IFED_POS_TANKANJI: UInt32 = 2048
+IFED_POS_IDIOMS: UInt32 = 4096
+IFED_POS_SYMBOLS: UInt32 = 8192
+IFED_POS_PARTICLE: UInt32 = 16384
+IFED_POS_AUXILIARY_VERB: UInt32 = 32768
+IFED_POS_SUB_VERB: UInt32 = 65536
+IFED_POS_DEPENDENT: UInt32 = 114688
+IFED_POS_ALL: UInt32 = 131071
+IFED_SELECT_NONE: UInt32 = 0
+IFED_SELECT_READING: UInt32 = 1
+IFED_SELECT_DISPLAY: UInt32 = 2
+IFED_SELECT_POS: UInt32 = 4
+IFED_SELECT_COMMENT: UInt32 = 8
+IFED_SELECT_ALL: UInt32 = 15
+IFED_REG_NONE: UInt32 = 0
+IFED_REG_USER: UInt32 = 1
+IFED_REG_AUTO: UInt32 = 2
+IFED_REG_GRAMMAR: UInt32 = 4
+IFED_REG_ALL: UInt32 = 7
+IFED_TYPE_NONE: UInt32 = 0
+IFED_TYPE_GENERAL: UInt32 = 1
+IFED_TYPE_NAMEPLACE: UInt32 = 2
+IFED_TYPE_SPEECH: UInt32 = 4
+IFED_TYPE_REVERSE: UInt32 = 8
+IFED_TYPE_ENGLISH: UInt32 = 16
+IFED_TYPE_ALL: UInt32 = 31
+IFED_S_MORE_ENTRIES: win32more.Foundation.HRESULT = 291328
+IFED_S_EMPTY_DICTIONARY: win32more.Foundation.HRESULT = 291329
+IFED_S_WORD_EXISTS: win32more.Foundation.HRESULT = 291330
+IFED_S_COMMENT_CHANGED: win32more.Foundation.HRESULT = 291331
+IFED_E_NOT_FOUND: win32more.Foundation.HRESULT = -2147192064
+IFED_E_INVALID_FORMAT: win32more.Foundation.HRESULT = -2147192063
+IFED_E_OPEN_FAILED: win32more.Foundation.HRESULT = -2147192062
+IFED_E_WRITE_FAILED: win32more.Foundation.HRESULT = -2147192061
+IFED_E_NO_ENTRY: win32more.Foundation.HRESULT = -2147192060
+IFED_E_REGISTER_FAILED: win32more.Foundation.HRESULT = -2147192059
+IFED_E_NOT_USER_DIC: win32more.Foundation.HRESULT = -2147192058
+IFED_E_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147192057
+IFED_E_USER_COMMENT: win32more.Foundation.HRESULT = -2147192056
+IFED_E_REGISTER_ILLEGAL_POS: win32more.Foundation.HRESULT = -2147192055
+IFED_E_REGISTER_IMPROPER_WORD: win32more.Foundation.HRESULT = -2147192054
+IFED_E_REGISTER_DISCONNECTED: win32more.Foundation.HRESULT = -2147192053
+cbCommentMax: UInt32 = 256
+wchPrivate1: UInt32 = 57344
+POS_UNDEFINED: UInt32 = 0
+JPOS_UNDEFINED: UInt32 = 0
+JPOS_MEISHI_FUTSU: UInt32 = 100
+JPOS_MEISHI_SAHEN: UInt32 = 101
+JPOS_MEISHI_ZAHEN: UInt32 = 102
+JPOS_MEISHI_KEIYOUDOUSHI: UInt32 = 103
+JPOS_HUKUSIMEISHI: UInt32 = 104
+JPOS_MEISA_KEIDOU: UInt32 = 105
+JPOS_JINMEI: UInt32 = 106
+JPOS_JINMEI_SEI: UInt32 = 107
+JPOS_JINMEI_MEI: UInt32 = 108
+JPOS_CHIMEI: UInt32 = 109
+JPOS_CHIMEI_KUNI: UInt32 = 110
+JPOS_CHIMEI_KEN: UInt32 = 111
+JPOS_CHIMEI_GUN: UInt32 = 112
+JPOS_CHIMEI_KU: UInt32 = 113
+JPOS_CHIMEI_SHI: UInt32 = 114
+JPOS_CHIMEI_MACHI: UInt32 = 115
+JPOS_CHIMEI_MURA: UInt32 = 116
+JPOS_CHIMEI_EKI: UInt32 = 117
+JPOS_SONOTA: UInt32 = 118
+JPOS_SHAMEI: UInt32 = 119
+JPOS_SOSHIKI: UInt32 = 120
+JPOS_KENCHIKU: UInt32 = 121
+JPOS_BUPPIN: UInt32 = 122
+JPOS_DAIMEISHI: UInt32 = 123
+JPOS_DAIMEISHI_NINSHOU: UInt32 = 124
+JPOS_DAIMEISHI_SHIJI: UInt32 = 125
+JPOS_KAZU: UInt32 = 126
+JPOS_KAZU_SURYOU: UInt32 = 127
+JPOS_KAZU_SUSHI: UInt32 = 128
+JPOS_5DAN_AWA: UInt32 = 200
+JPOS_5DAN_KA: UInt32 = 201
+JPOS_5DAN_GA: UInt32 = 202
+JPOS_5DAN_SA: UInt32 = 203
+JPOS_5DAN_TA: UInt32 = 204
+JPOS_5DAN_NA: UInt32 = 205
+JPOS_5DAN_BA: UInt32 = 206
+JPOS_5DAN_MA: UInt32 = 207
+JPOS_5DAN_RA: UInt32 = 208
+JPOS_5DAN_AWAUON: UInt32 = 209
+JPOS_5DAN_KASOKUON: UInt32 = 210
+JPOS_5DAN_RAHEN: UInt32 = 211
+JPOS_4DAN_HA: UInt32 = 212
+JPOS_1DAN: UInt32 = 213
+JPOS_TOKUSHU_KAHEN: UInt32 = 214
+JPOS_TOKUSHU_SAHENSURU: UInt32 = 215
+JPOS_TOKUSHU_SAHEN: UInt32 = 216
+JPOS_TOKUSHU_ZAHEN: UInt32 = 217
+JPOS_TOKUSHU_NAHEN: UInt32 = 218
+JPOS_KURU_KI: UInt32 = 219
+JPOS_KURU_KITA: UInt32 = 220
+JPOS_KURU_KITARA: UInt32 = 221
+JPOS_KURU_KITARI: UInt32 = 222
+JPOS_KURU_KITAROU: UInt32 = 223
+JPOS_KURU_KITE: UInt32 = 224
+JPOS_KURU_KUREBA: UInt32 = 225
+JPOS_KURU_KO: UInt32 = 226
+JPOS_KURU_KOI: UInt32 = 227
+JPOS_KURU_KOYOU: UInt32 = 228
+JPOS_SURU_SA: UInt32 = 229
+JPOS_SURU_SI: UInt32 = 230
+JPOS_SURU_SITA: UInt32 = 231
+JPOS_SURU_SITARA: UInt32 = 232
+JPOS_SURU_SIATRI: UInt32 = 233
+JPOS_SURU_SITAROU: UInt32 = 234
+JPOS_SURU_SITE: UInt32 = 235
+JPOS_SURU_SIYOU: UInt32 = 236
+JPOS_SURU_SUREBA: UInt32 = 237
+JPOS_SURU_SE: UInt32 = 238
+JPOS_SURU_SEYO: UInt32 = 239
+JPOS_KEIYOU: UInt32 = 300
+JPOS_KEIYOU_GARU: UInt32 = 301
+JPOS_KEIYOU_GE: UInt32 = 302
+JPOS_KEIYOU_ME: UInt32 = 303
+JPOS_KEIYOU_YUU: UInt32 = 304
+JPOS_KEIYOU_U: UInt32 = 305
+JPOS_KEIDOU: UInt32 = 400
+JPOS_KEIDOU_NO: UInt32 = 401
+JPOS_KEIDOU_TARU: UInt32 = 402
+JPOS_KEIDOU_GARU: UInt32 = 403
+JPOS_FUKUSHI: UInt32 = 500
+JPOS_FUKUSHI_SAHEN: UInt32 = 501
+JPOS_FUKUSHI_NI: UInt32 = 502
+JPOS_FUKUSHI_NANO: UInt32 = 503
+JPOS_FUKUSHI_DA: UInt32 = 504
+JPOS_FUKUSHI_TO: UInt32 = 505
+JPOS_FUKUSHI_TOSURU: UInt32 = 506
+JPOS_RENTAISHI: UInt32 = 600
+JPOS_RENTAISHI_SHIJI: UInt32 = 601
+JPOS_SETSUZOKUSHI: UInt32 = 650
+JPOS_KANDOUSHI: UInt32 = 670
+JPOS_SETTOU: UInt32 = 700
+JPOS_SETTOU_KAKU: UInt32 = 701
+JPOS_SETTOU_SAI: UInt32 = 702
+JPOS_SETTOU_FUKU: UInt32 = 703
+JPOS_SETTOU_MI: UInt32 = 704
+JPOS_SETTOU_DAISHOU: UInt32 = 705
+JPOS_SETTOU_KOUTEI: UInt32 = 706
+JPOS_SETTOU_CHOUTAN: UInt32 = 707
+JPOS_SETTOU_SHINKYU: UInt32 = 708
+JPOS_SETTOU_JINMEI: UInt32 = 709
+JPOS_SETTOU_CHIMEI: UInt32 = 710
+JPOS_SETTOU_SONOTA: UInt32 = 711
+JPOS_SETTOU_JOSUSHI: UInt32 = 712
+JPOS_SETTOU_TEINEI_O: UInt32 = 713
+JPOS_SETTOU_TEINEI_GO: UInt32 = 714
+JPOS_SETTOU_TEINEI_ON: UInt32 = 715
+JPOS_SETSUBI: UInt32 = 800
+JPOS_SETSUBI_TEKI: UInt32 = 801
+JPOS_SETSUBI_SEI: UInt32 = 802
+JPOS_SETSUBI_KA: UInt32 = 803
+JPOS_SETSUBI_CHU: UInt32 = 804
+JPOS_SETSUBI_FU: UInt32 = 805
+JPOS_SETSUBI_RYU: UInt32 = 806
+JPOS_SETSUBI_YOU: UInt32 = 807
+JPOS_SETSUBI_KATA: UInt32 = 808
+JPOS_SETSUBI_MEISHIRENDAKU: UInt32 = 809
+JPOS_SETSUBI_JINMEI: UInt32 = 810
+JPOS_SETSUBI_CHIMEI: UInt32 = 811
+JPOS_SETSUBI_KUNI: UInt32 = 812
+JPOS_SETSUBI_KEN: UInt32 = 813
+JPOS_SETSUBI_GUN: UInt32 = 814
+JPOS_SETSUBI_KU: UInt32 = 815
+JPOS_SETSUBI_SHI: UInt32 = 816
+JPOS_SETSUBI_MACHI: UInt32 = 817
+JPOS_SETSUBI_CHOU: UInt32 = 818
+JPOS_SETSUBI_MURA: UInt32 = 819
+JPOS_SETSUBI_SON: UInt32 = 820
+JPOS_SETSUBI_EKI: UInt32 = 821
+JPOS_SETSUBI_SONOTA: UInt32 = 822
+JPOS_SETSUBI_SHAMEI: UInt32 = 823
+JPOS_SETSUBI_SOSHIKI: UInt32 = 824
+JPOS_SETSUBI_KENCHIKU: UInt32 = 825
+JPOS_RENYOU_SETSUBI: UInt32 = 826
+JPOS_SETSUBI_JOSUSHI: UInt32 = 827
+JPOS_SETSUBI_JOSUSHIPLUS: UInt32 = 828
+JPOS_SETSUBI_JIKAN: UInt32 = 829
+JPOS_SETSUBI_JIKANPLUS: UInt32 = 830
+JPOS_SETSUBI_TEINEI: UInt32 = 831
+JPOS_SETSUBI_SAN: UInt32 = 832
+JPOS_SETSUBI_KUN: UInt32 = 833
+JPOS_SETSUBI_SAMA: UInt32 = 834
+JPOS_SETSUBI_DONO: UInt32 = 835
+JPOS_SETSUBI_FUKUSU: UInt32 = 836
+JPOS_SETSUBI_TACHI: UInt32 = 837
+JPOS_SETSUBI_RA: UInt32 = 838
+JPOS_TANKANJI: UInt32 = 900
+JPOS_TANKANJI_KAO: UInt32 = 901
+JPOS_KANYOUKU: UInt32 = 902
+JPOS_DOKURITSUGO: UInt32 = 903
+JPOS_FUTEIGO: UInt32 = 904
+JPOS_KIGOU: UInt32 = 905
+JPOS_EIJI: UInt32 = 906
+JPOS_KUTEN: UInt32 = 907
+JPOS_TOUTEN: UInt32 = 908
+JPOS_KANJI: UInt32 = 909
+JPOS_OPENBRACE: UInt32 = 910
+JPOS_CLOSEBRACE: UInt32 = 911
+JPOS_YOKUSEI: UInt32 = 912
+JPOS_TANSHUKU: UInt32 = 913
+VERSION_ID_JAPANESE: UInt32 = 16777216
+VERSION_ID_KOREAN: UInt32 = 33554432
+VERSION_ID_CHINESE_TRADITIONAL: UInt32 = 67108864
+VERSION_ID_CHINESE_SIMPLIFIED: UInt32 = 134217728
+RWM_SERVICE: String = 'MSIMEService'
+FID_MSIME_VERSION: UInt32 = 0
+RWM_UIREADY: String = 'MSIMEUIReady'
+RWM_MOUSE: String = 'MSIMEMouseOperation'
+VERSION_MOUSE_OPERATION: UInt32 = 1
+IMEMOUSERET_NOTHANDLED: Int32 = -1
+IMEMOUSE_VERSION: UInt32 = 255
+IMEMOUSE_NONE: UInt32 = 0
+IMEMOUSE_LDOWN: UInt32 = 1
+IMEMOUSE_RDOWN: UInt32 = 2
+IMEMOUSE_MDOWN: UInt32 = 4
+IMEMOUSE_WUP: UInt32 = 16
+IMEMOUSE_WDOWN: UInt32 = 32
+RWM_RECONVERT: String = 'MSIMEReconvert'
+FID_RECONVERT_VERSION: UInt32 = 268435456
+VERSION_RECONVERSION: UInt32 = 1
+RWM_RECONVERTREQUEST: String = 'MSIMEReconvertRequest'
+VERSION_DOCUMENTFEED: UInt32 = 1
+RWM_DOCUMENTFEED: String = 'MSIMEDocumentFeed'
+VERSION_QUERYPOSITION: UInt32 = 1
+RWM_QUERYPOSITION: String = 'MSIMEQueryPosition'
+RWM_MODEBIAS: String = 'MSIMEModeBias'
+VERSION_MODEBIAS: UInt32 = 1
+MODEBIAS_GETVERSION: UInt32 = 0
+MODEBIAS_SETVALUE: UInt32 = 1
+MODEBIAS_GETVALUE: UInt32 = 2
+MODEBIASMODE_DEFAULT: UInt32 = 0
+MODEBIASMODE_FILENAME: UInt32 = 1
+MODEBIASMODE_READING: UInt32 = 2
+MODEBIASMODE_DIGIT: UInt32 = 4
+RWM_SHOWIMEPAD: String = 'MSIMEShowImePad'
+SHOWIMEPAD_DEFAULT: UInt32 = 0
+SHOWIMEPAD_CATEGORY: UInt32 = 1
+SHOWIMEPAD_GUID: UInt32 = 2
+RWM_KEYMAP: String = 'MSIMEKeyMap'
+RWM_CHGKEYMAP: String = 'MSIMEChangeKeyMap'
+RWM_NTFYKEYMAP: String = 'MSIMENotifyKeyMap'
+FID_MSIME_KMS_VERSION: UInt32 = 1
+FID_MSIME_KMS_INIT: UInt32 = 2
+FID_MSIME_KMS_TERM: UInt32 = 3
+FID_MSIME_KMS_DEL_KEYLIST: UInt32 = 4
+FID_MSIME_KMS_NOTIFY: UInt32 = 5
+FID_MSIME_KMS_GETMAP: UInt32 = 6
+FID_MSIME_KMS_INVOKE: UInt32 = 7
+FID_MSIME_KMS_SETMAP: UInt32 = 8
+FID_MSIME_KMS_FUNCDESC: UInt32 = 9
+FID_MSIME_KMS_GETMAPSEAMLESS: UInt32 = 10
+FID_MSIME_KMS_GETMAPFAST: UInt32 = 11
+IMEKMS_NOCOMPOSITION: UInt32 = 0
+IMEKMS_COMPOSITION: UInt32 = 1
+IMEKMS_SELECTION: UInt32 = 2
+IMEKMS_IMEOFF: UInt32 = 3
+IMEKMS_2NDLEVEL: UInt32 = 4
+IMEKMS_INPTGL: UInt32 = 5
+IMEKMS_CANDIDATE: UInt32 = 6
+IMEKMS_TYPECAND: UInt32 = 7
+RWM_RECONVERTOPTIONS: String = 'MSIMEReconvertOptions'
+RECONVOPT_NONE: UInt32 = 0
+RECONVOPT_USECANCELNOTIFY: UInt32 = 1
+GCSEX_CANCELRECONVERT: UInt32 = 268435456
+CLSID_ImePlugInDictDictionaryList_CHS: Guid = Guid('7bf0129b-5bef-4de4-9b-0b-5e-db-66-ac-2f-a6')
+CLSID_ImePlugInDictDictionaryList_JPN: Guid = Guid('4fe2776b-b0f9-4396-b5-fc-e9-d4-cf-1e-c1-95')
+@winfunctype('IMM32.dll')
+def ImmInstallIMEA(lpszIMEFileName: win32more.Foundation.PSTR, lpszLayoutText: win32more.Foundation.PSTR) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('IMM32.dll')
+def ImmInstallIMEW(lpszIMEFileName: win32more.Foundation.PWSTR, lpszLayoutText: win32more.Foundation.PWSTR) -> win32more.UI.TextServices.HKL: ...
+@winfunctype('IMM32.dll')
+def ImmGetDefaultIMEWnd(param0: win32more.Foundation.HWND) -> win32more.Foundation.HWND: ...
+@winfunctype('IMM32.dll')
+def ImmGetDescriptionA(param0: win32more.UI.TextServices.HKL, lpszDescription: win32more.Foundation.PSTR, uBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetDescriptionW(param0: win32more.UI.TextServices.HKL, lpszDescription: win32more.Foundation.PWSTR, uBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetIMEFileNameA(param0: win32more.UI.TextServices.HKL, lpszFileName: win32more.Foundation.PSTR, uBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetIMEFileNameW(param0: win32more.UI.TextServices.HKL, lpszFileName: win32more.Foundation.PWSTR, uBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetProperty(param0: win32more.UI.TextServices.HKL, param1: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmIsIME(param0: win32more.UI.TextServices.HKL) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSimulateHotKey(param0: win32more.Foundation.HWND, param1: win32more.UI.Input.Ime.IME_HOTKEY_IDENTIFIER) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmCreateContext() -> win32more.Globalization.HIMC: ...
+@winfunctype('IMM32.dll')
+def ImmDestroyContext(param0: win32more.Globalization.HIMC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetContext(param0: win32more.Foundation.HWND) -> win32more.Globalization.HIMC: ...
+@winfunctype('IMM32.dll')
+def ImmReleaseContext(param0: win32more.Foundation.HWND, param1: win32more.Globalization.HIMC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmAssociateContext(param0: win32more.Foundation.HWND, param1: win32more.Globalization.HIMC) -> win32more.Globalization.HIMC: ...
+@winfunctype('IMM32.dll')
+def ImmAssociateContextEx(param0: win32more.Foundation.HWND, param1: win32more.Globalization.HIMC, param2: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCompositionStringA(param0: win32more.Globalization.HIMC, param1: win32more.UI.Input.Ime.IME_COMPOSITION_STRING, lpBuf: c_void_p, dwBufLen: UInt32) -> Int32: ...
+@winfunctype('IMM32.dll')
+def ImmGetCompositionStringW(param0: win32more.Globalization.HIMC, param1: win32more.UI.Input.Ime.IME_COMPOSITION_STRING, lpBuf: c_void_p, dwBufLen: UInt32) -> Int32: ...
+@winfunctype('IMM32.dll')
+def ImmSetCompositionStringA(param0: win32more.Globalization.HIMC, dwIndex: win32more.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE, lpComp: c_void_p, dwCompLen: UInt32, lpRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetCompositionStringW(param0: win32more.Globalization.HIMC, dwIndex: win32more.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE, lpComp: c_void_p, dwCompLen: UInt32, lpRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCandidateListCountA(param0: win32more.Globalization.HIMC, lpdwListCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetCandidateListCountW(param0: win32more.Globalization.HIMC, lpdwListCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetCandidateListA(param0: win32more.Globalization.HIMC, deIndex: UInt32, lpCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), dwBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetCandidateListW(param0: win32more.Globalization.HIMC, deIndex: UInt32, lpCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), dwBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetGuideLineA(param0: win32more.Globalization.HIMC, dwIndex: win32more.UI.Input.Ime.GET_GUIDE_LINE_TYPE, lpBuf: win32more.Foundation.PSTR, dwBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetGuideLineW(param0: win32more.Globalization.HIMC, dwIndex: win32more.UI.Input.Ime.GET_GUIDE_LINE_TYPE, lpBuf: win32more.Foundation.PWSTR, dwBufLen: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetConversionStatus(param0: win32more.Globalization.HIMC, lpfdwConversion: POINTER(win32more.UI.Input.Ime.IME_CONVERSION_MODE), lpfdwSentence: POINTER(win32more.UI.Input.Ime.IME_SENTENCE_MODE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetConversionStatus(param0: win32more.Globalization.HIMC, param1: win32more.UI.Input.Ime.IME_CONVERSION_MODE, param2: win32more.UI.Input.Ime.IME_SENTENCE_MODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetOpenStatus(param0: win32more.Globalization.HIMC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetOpenStatus(param0: win32more.Globalization.HIMC, param1: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCompositionFontA(param0: win32more.Globalization.HIMC, lplf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCompositionFontW(param0: win32more.Globalization.HIMC, lplf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetCompositionFontA(param0: win32more.Globalization.HIMC, lplf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetCompositionFontW(param0: win32more.Globalization.HIMC, lplf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmConfigureIMEA(param0: win32more.UI.TextServices.HKL, param1: win32more.Foundation.HWND, param2: UInt32, param3: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmConfigureIMEW(param0: win32more.UI.TextServices.HKL, param1: win32more.Foundation.HWND, param2: UInt32, param3: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmEscapeA(param0: win32more.UI.TextServices.HKL, param1: win32more.Globalization.HIMC, param2: win32more.UI.Input.Ime.IME_ESCAPE, param3: c_void_p) -> win32more.Foundation.LRESULT: ...
+@winfunctype('IMM32.dll')
+def ImmEscapeW(param0: win32more.UI.TextServices.HKL, param1: win32more.Globalization.HIMC, param2: win32more.UI.Input.Ime.IME_ESCAPE, param3: c_void_p) -> win32more.Foundation.LRESULT: ...
+@winfunctype('IMM32.dll')
+def ImmGetConversionListA(param0: win32more.UI.TextServices.HKL, param1: win32more.Globalization.HIMC, lpSrc: win32more.Foundation.PSTR, lpDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), dwBufLen: UInt32, uFlag: win32more.UI.Input.Ime.GET_CONVERSION_LIST_FLAG) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetConversionListW(param0: win32more.UI.TextServices.HKL, param1: win32more.Globalization.HIMC, lpSrc: win32more.Foundation.PWSTR, lpDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), dwBufLen: UInt32, uFlag: win32more.UI.Input.Ime.GET_CONVERSION_LIST_FLAG) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmNotifyIME(param0: win32more.Globalization.HIMC, dwAction: win32more.UI.Input.Ime.NOTIFY_IME_ACTION, dwIndex: win32more.UI.Input.Ime.NOTIFY_IME_INDEX, dwValue: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetStatusWindowPos(param0: win32more.Globalization.HIMC, lpptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetStatusWindowPos(param0: win32more.Globalization.HIMC, lpptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCompositionWindow(param0: win32more.Globalization.HIMC, lpCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetCompositionWindow(param0: win32more.Globalization.HIMC, lpCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetCandidateWindow(param0: win32more.Globalization.HIMC, param1: UInt32, lpCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetCandidateWindow(param0: win32more.Globalization.HIMC, lpCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmIsUIMessageA(param0: win32more.Foundation.HWND, param1: UInt32, param2: win32more.Foundation.WPARAM, param3: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmIsUIMessageW(param0: win32more.Foundation.HWND, param1: UInt32, param2: win32more.Foundation.WPARAM, param3: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetVirtualKey(param0: win32more.Foundation.HWND) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmRegisterWordA(param0: win32more.UI.TextServices.HKL, lpszReading: win32more.Foundation.PSTR, param2: UInt32, lpszRegister: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmRegisterWordW(param0: win32more.UI.TextServices.HKL, lpszReading: win32more.Foundation.PWSTR, param2: UInt32, lpszRegister: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmUnregisterWordA(param0: win32more.UI.TextServices.HKL, lpszReading: win32more.Foundation.PSTR, param2: UInt32, lpszUnregister: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmUnregisterWordW(param0: win32more.UI.TextServices.HKL, lpszReading: win32more.Foundation.PWSTR, param2: UInt32, lpszUnregister: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetRegisterWordStyleA(param0: win32more.UI.TextServices.HKL, nItem: UInt32, lpStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFA_head)) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetRegisterWordStyleW(param0: win32more.UI.TextServices.HKL, nItem: UInt32, lpStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFW_head)) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmEnumRegisterWordA(param0: win32more.UI.TextServices.HKL, param1: win32more.UI.Input.Ime.REGISTERWORDENUMPROCA, lpszReading: win32more.Foundation.PSTR, param3: UInt32, lpszRegister: win32more.Foundation.PSTR, param5: c_void_p) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmEnumRegisterWordW(param0: win32more.UI.TextServices.HKL, param1: win32more.UI.Input.Ime.REGISTERWORDENUMPROCW, lpszReading: win32more.Foundation.PWSTR, param3: UInt32, lpszRegister: win32more.Foundation.PWSTR, param5: c_void_p) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmDisableIME(param0: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmEnumInputContext(idThread: UInt32, lpfn: win32more.UI.Input.Ime.IMCENUMPROC, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetImeMenuItemsA(param0: win32more.Globalization.HIMC, param1: UInt32, param2: UInt32, lpImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), lpImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), dwSize: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmGetImeMenuItemsW(param0: win32more.Globalization.HIMC, param1: UInt32, param2: UInt32, lpImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), lpImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), dwSize: UInt32) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmDisableTextFrameService(idThread: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmDisableLegacyIME() -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetHotKey(param0: UInt32, lpuModifiers: POINTER(UInt32), lpuVKey: POINTER(UInt32), phKL: POINTER(IntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmSetHotKey(param0: UInt32, param1: UInt32, param2: UInt32, param3: win32more.UI.TextServices.HKL) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGenerateMessage(param0: win32more.Globalization.HIMC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmRequestMessageA(param0: win32more.Globalization.HIMC, param1: win32more.Foundation.WPARAM, param2: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype('IMM32.dll')
+def ImmRequestMessageW(param0: win32more.Globalization.HIMC, param1: win32more.Foundation.WPARAM, param2: win32more.Foundation.LPARAM) -> win32more.Foundation.LRESULT: ...
+@winfunctype('IMM32.dll')
+def ImmCreateSoftKeyboard(param0: UInt32, param1: win32more.Foundation.HWND, param2: Int32, param3: Int32) -> win32more.Foundation.HWND: ...
+@winfunctype('IMM32.dll')
+def ImmDestroySoftKeyboard(param0: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmShowSoftKeyboard(param0: win32more.Foundation.HWND, param1: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmLockIMC(param0: win32more.Globalization.HIMC) -> POINTER(win32more.UI.Input.Ime.INPUTCONTEXT_head): ...
+@winfunctype('IMM32.dll')
+def ImmUnlockIMC(param0: win32more.Globalization.HIMC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetIMCLockCount(param0: win32more.Globalization.HIMC) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmCreateIMCC(param0: UInt32) -> win32more.Globalization.HIMCC: ...
+@winfunctype('IMM32.dll')
+def ImmDestroyIMCC(param0: win32more.Globalization.HIMCC) -> win32more.Globalization.HIMCC: ...
+@winfunctype('IMM32.dll')
+def ImmLockIMCC(param0: win32more.Globalization.HIMCC) -> c_void_p: ...
+@winfunctype('IMM32.dll')
+def ImmUnlockIMCC(param0: win32more.Globalization.HIMCC) -> win32more.Foundation.BOOL: ...
+@winfunctype('IMM32.dll')
+def ImmGetIMCCLockCount(param0: win32more.Globalization.HIMCC) -> UInt32: ...
+@winfunctype('IMM32.dll')
+def ImmReSizeIMCC(param0: win32more.Globalization.HIMCC, param1: UInt32) -> win32more.Globalization.HIMCC: ...
+@winfunctype('IMM32.dll')
+def ImmGetIMCCSize(param0: win32more.Globalization.HIMCC) -> UInt32: ...
+class APPLETIDLIST(Structure):
+    count: Int32
+    pIIDList: POINTER(Guid)
+class APPLYCANDEXPARAM(Structure):
+    dwSize: UInt32
+    lpwstrDisplay: win32more.Foundation.PWSTR
+    lpwstrReading: win32more.Foundation.PWSTR
+    dwReserved: UInt32
 CActiveIMM = Guid('4955dd33-b159-11d0-8f-cf-00-aa-00-6b-cc-59')
-def _define_CANDIDATEFORM_head():
-    class CANDIDATEFORM(Structure):
-        pass
-    return CANDIDATEFORM
-def _define_CANDIDATEFORM():
-    CANDIDATEFORM = win32more.UI.Input.Ime.CANDIDATEFORM_head
-    CANDIDATEFORM._fields_ = [
-        ('dwIndex', UInt32),
-        ('dwStyle', UInt32),
-        ('ptCurrentPos', win32more.Foundation.POINT),
-        ('rcArea', win32more.Foundation.RECT),
-    ]
-    return CANDIDATEFORM
-def _define_CANDIDATEINFO_head():
-    class CANDIDATEINFO(Structure):
-        pass
-    return CANDIDATEINFO
-def _define_CANDIDATEINFO():
-    CANDIDATEINFO = win32more.UI.Input.Ime.CANDIDATEINFO_head
-    CANDIDATEINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwCount', UInt32),
-        ('dwOffset', UInt32 * 32),
-        ('dwPrivateSize', UInt32),
-        ('dwPrivateOffset', UInt32),
-    ]
-    return CANDIDATEINFO
-def _define_CANDIDATELIST_head():
-    class CANDIDATELIST(Structure):
-        pass
-    return CANDIDATELIST
-def _define_CANDIDATELIST():
-    CANDIDATELIST = win32more.UI.Input.Ime.CANDIDATELIST_head
-    CANDIDATELIST._fields_ = [
-        ('dwSize', UInt32),
-        ('dwStyle', UInt32),
-        ('dwCount', UInt32),
-        ('dwSelection', UInt32),
-        ('dwPageStart', UInt32),
-        ('dwPageSize', UInt32),
-        ('dwOffset', UInt32 * 1),
-    ]
-    return CANDIDATELIST
-def _define_COMPOSITIONFORM_head():
-    class COMPOSITIONFORM(Structure):
-        pass
-    return COMPOSITIONFORM
-def _define_COMPOSITIONFORM():
-    COMPOSITIONFORM = win32more.UI.Input.Ime.COMPOSITIONFORM_head
-    COMPOSITIONFORM._fields_ = [
-        ('dwStyle', UInt32),
-        ('ptCurrentPos', win32more.Foundation.POINT),
-        ('rcArea', win32more.Foundation.RECT),
-    ]
-    return COMPOSITIONFORM
-def _define_COMPOSITIONSTRING_head():
-    class COMPOSITIONSTRING(Structure):
-        pass
-    return COMPOSITIONSTRING
-def _define_COMPOSITIONSTRING():
-    COMPOSITIONSTRING = win32more.UI.Input.Ime.COMPOSITIONSTRING_head
-    COMPOSITIONSTRING._fields_ = [
-        ('dwSize', UInt32),
-        ('dwCompReadAttrLen', UInt32),
-        ('dwCompReadAttrOffset', UInt32),
-        ('dwCompReadClauseLen', UInt32),
-        ('dwCompReadClauseOffset', UInt32),
-        ('dwCompReadStrLen', UInt32),
-        ('dwCompReadStrOffset', UInt32),
-        ('dwCompAttrLen', UInt32),
-        ('dwCompAttrOffset', UInt32),
-        ('dwCompClauseLen', UInt32),
-        ('dwCompClauseOffset', UInt32),
-        ('dwCompStrLen', UInt32),
-        ('dwCompStrOffset', UInt32),
-        ('dwCursorPos', UInt32),
-        ('dwDeltaStart', UInt32),
-        ('dwResultReadClauseLen', UInt32),
-        ('dwResultReadClauseOffset', UInt32),
-        ('dwResultReadStrLen', UInt32),
-        ('dwResultReadStrOffset', UInt32),
-        ('dwResultClauseLen', UInt32),
-        ('dwResultClauseOffset', UInt32),
-        ('dwResultStrLen', UInt32),
-        ('dwResultStrOffset', UInt32),
-        ('dwPrivateSize', UInt32),
-        ('dwPrivateOffset', UInt32),
-    ]
-    return COMPOSITIONSTRING
-def _define_fpCreateIFECommonInstanceType():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))
-def _define_fpCreateIFEDictionaryInstanceType():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))
-def _define_fpCreateIFELanguageInstanceType():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))
+class CANDIDATEFORM(Structure):
+    dwIndex: UInt32
+    dwStyle: UInt32
+    ptCurrentPos: win32more.Foundation.POINT
+    rcArea: win32more.Foundation.RECT
+class CANDIDATEINFO(Structure):
+    dwSize: UInt32
+    dwCount: UInt32
+    dwOffset: UInt32 * 32
+    dwPrivateSize: UInt32
+    dwPrivateOffset: UInt32
+class CANDIDATELIST(Structure):
+    dwSize: UInt32
+    dwStyle: UInt32
+    dwCount: UInt32
+    dwSelection: UInt32
+    dwPageStart: UInt32
+    dwPageSize: UInt32
+    dwOffset: UInt32 * 1
+class COMPOSITIONFORM(Structure):
+    dwStyle: UInt32
+    ptCurrentPos: win32more.Foundation.POINT
+    rcArea: win32more.Foundation.RECT
+class COMPOSITIONSTRING(Structure):
+    dwSize: UInt32
+    dwCompReadAttrLen: UInt32
+    dwCompReadAttrOffset: UInt32
+    dwCompReadClauseLen: UInt32
+    dwCompReadClauseOffset: UInt32
+    dwCompReadStrLen: UInt32
+    dwCompReadStrOffset: UInt32
+    dwCompAttrLen: UInt32
+    dwCompAttrOffset: UInt32
+    dwCompClauseLen: UInt32
+    dwCompClauseOffset: UInt32
+    dwCompStrLen: UInt32
+    dwCompStrOffset: UInt32
+    dwCursorPos: UInt32
+    dwDeltaStart: UInt32
+    dwResultReadClauseLen: UInt32
+    dwResultReadClauseOffset: UInt32
+    dwResultReadStrLen: UInt32
+    dwResultReadStrOffset: UInt32
+    dwResultClauseLen: UInt32
+    dwResultClauseOffset: UInt32
+    dwResultStrLen: UInt32
+    dwResultStrOffset: UInt32
+    dwPrivateSize: UInt32
+    dwPrivateOffset: UInt32
+@winfunctype_pointer
+def fpCreateIFECommonInstanceType(ppvObj: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def fpCreateIFEDictionaryInstanceType(ppvObj: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def fpCreateIFELanguageInstanceType(clsid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 GET_CONVERSION_LIST_FLAG = UInt32
-GCL_CONVERSION = 1
-GCL_REVERSECONVERSION = 2
-GCL_REVERSE_LENGTH = 3
+GCL_CONVERSION: GET_CONVERSION_LIST_FLAG = 1
+GCL_REVERSECONVERSION: GET_CONVERSION_LIST_FLAG = 2
+GCL_REVERSE_LENGTH: GET_CONVERSION_LIST_FLAG = 3
 GET_GUIDE_LINE_TYPE = UInt32
-GGL_LEVEL = 1
-GGL_INDEX = 2
-GGL_STRING = 3
-GGL_PRIVATE = 4
-def _define_GUIDELINE_head():
-    class GUIDELINE(Structure):
-        pass
-    return GUIDELINE
-def _define_GUIDELINE():
-    GUIDELINE = win32more.UI.Input.Ime.GUIDELINE_head
-    GUIDELINE._fields_ = [
-        ('dwSize', UInt32),
-        ('dwLevel', UInt32),
-        ('dwIndex', UInt32),
-        ('dwStrLen', UInt32),
-        ('dwStrOffset', UInt32),
-        ('dwPrivateSize', UInt32),
-        ('dwPrivateOffset', UInt32),
-    ]
-    return GUIDELINE
-def _define_IActiveIME_head():
-    class IActiveIME(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6fe20962-d077-11d0-8f-e7-00-aa-00-6b-cc-59')
-    return IActiveIME
-def _define_IActiveIME():
-    IActiveIME = win32more.UI.Input.Ime.IActiveIME_head
-    IActiveIME.Inquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.IMEINFO_head),win32more.Foundation.PWSTR,POINTER(UInt32))(3, 'Inquire', ((1, 'dwSystemInfoFlags'),(1, 'pIMEInfo'),(1, 'szWndClass'),(1, 'pdwPrivate'),)))
-    IActiveIME.ConversionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(4, 'ConversionList', ((1, 'hIMC'),(1, 'szSource'),(1, 'uFlag'),(1, 'uBufLen'),(1, 'pDest'),(1, 'puCopied'),)))
-    IActiveIME.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head))(5, 'Configure', ((1, 'hKL'),(1, 'hWnd'),(1, 'dwMode'),(1, 'pRegisterWord'),)))
-    IActiveIME.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'Destroy', ((1, 'uReserved'),)))
-    IActiveIME.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,POINTER(win32more.Foundation.LRESULT))(7, 'Escape', ((1, 'hIMC'),(1, 'uEscape'),(1, 'pData'),(1, 'plResult'),)))
-    IActiveIME.SetActiveContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.BOOL)(8, 'SetActiveContext', ((1, 'hIMC'),(1, 'fFlag'),)))
-    IActiveIME.ProcessKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,c_char_p_no)(9, 'ProcessKey', ((1, 'hIMC'),(1, 'uVirKey'),(1, 'lParam'),(1, 'pbKeyState'),)))
-    IActiveIME.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,UInt32)(10, 'Notify', ((1, 'hIMC'),(1, 'dwAction'),(1, 'dwIndex'),(1, 'dwValue'),)))
-    IActiveIME.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.BOOL)(11, 'Select', ((1, 'hIMC'),(1, 'fSelect'),)))
-    IActiveIME.SetCompositionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,UInt32,c_void_p,UInt32)(12, 'SetCompositionString', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pComp'),(1, 'dwCompLen'),(1, 'pRead'),(1, 'dwReadLen'),)))
-    IActiveIME.ToAsciiEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(13, 'ToAsciiEx', ((1, 'uVirKey'),(1, 'uScanCode'),(1, 'pbKeyState'),(1, 'fuState'),(1, 'hIMC'),(1, 'pdwTransBuf'),(1, 'puSize'),)))
-    IActiveIME.RegisterWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(14, 'RegisterWord', ((1, 'szReading'),(1, 'dwStyle'),(1, 'szString'),)))
-    IActiveIME.UnregisterWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(15, 'UnregisterWord', ((1, 'szReading'),(1, 'dwStyle'),(1, 'szString'),)))
-    IActiveIME.GetRegisterWordStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFW_head),POINTER(UInt32))(16, 'GetRegisterWordStyle', ((1, 'nItem'),(1, 'pStyleBuf'),(1, 'puBufSize'),)))
-    IActiveIME.EnumRegisterWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head))(17, 'EnumRegisterWord', ((1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'ppEnum'),)))
-    IActiveIME.GetCodePageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(18, 'GetCodePageA', ((1, 'uCodePage'),)))
-    IActiveIME.GetLangId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16))(19, 'GetLangId', ((1, 'plid'),)))
-    win32more.System.Com.IUnknown
-    return IActiveIME
-def _define_IActiveIME2_head():
-    class IActiveIME2(win32more.UI.Input.Ime.IActiveIME_head):
-        Guid = Guid('e1c4bf0e-2d53-11d2-93-e1-00-60-b0-67-b8-6e')
-    return IActiveIME2
-def _define_IActiveIME2():
-    IActiveIME2 = win32more.UI.Input.Ime.IActiveIME2_head
-    IActiveIME2.Sleep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'Sleep', ()))
-    IActiveIME2.Unsleep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(21, 'Unsleep', ((1, 'fDead'),)))
-    win32more.UI.Input.Ime.IActiveIME
-    return IActiveIME2
-def _define_IActiveIMMApp_head():
-    class IActiveIMMApp(win32more.System.Com.IUnknown_head):
-        Guid = Guid('08c0e040-62d1-11d1-93-26-00-60-b0-67-b8-6e')
-    return IActiveIMMApp
-def _define_IActiveIMMApp():
-    IActiveIMMApp = win32more.UI.Input.Ime.IActiveIMMApp_head
-    IActiveIMMApp.AssociateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC,POINTER(win32more.Globalization.HIMC))(3, 'AssociateContext', ((1, 'hWnd'),(1, 'hIME'),(1, 'phPrev'),)))
-    IActiveIMMApp.ConfigureIMEA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head))(4, 'ConfigureIMEA', ((1, 'hKL'),(1, 'hWnd'),(1, 'dwMode'),(1, 'pData'),)))
-    IActiveIMMApp.ConfigureIMEW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head))(5, 'ConfigureIMEW', ((1, 'hKL'),(1, 'hWnd'),(1, 'dwMode'),(1, 'pData'),)))
-    IActiveIMMApp.CreateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Globalization.HIMC))(6, 'CreateContext', ((1, 'phIMC'),)))
-    IActiveIMMApp.DestroyContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(7, 'DestroyContext', ((1, 'hIME'),)))
-    IActiveIMMApp.EnumRegisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head))(8, 'EnumRegisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'pEnum'),)))
-    IActiveIMMApp.EnumRegisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head))(9, 'EnumRegisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'pEnum'),)))
-    IActiveIMMApp.EscapeA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,UInt32,c_void_p,POINTER(win32more.Foundation.LRESULT))(10, 'EscapeA', ((1, 'hKL'),(1, 'hIMC'),(1, 'uEscape'),(1, 'pData'),(1, 'plResult'),)))
-    IActiveIMMApp.EscapeW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,UInt32,c_void_p,POINTER(win32more.Foundation.LRESULT))(11, 'EscapeW', ((1, 'hKL'),(1, 'hIMC'),(1, 'uEscape'),(1, 'pData'),(1, 'plResult'),)))
-    IActiveIMMApp.GetCandidateListA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(12, 'GetCandidateListA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'uBufLen'),(1, 'pCandList'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetCandidateListW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(13, 'GetCandidateListW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'uBufLen'),(1, 'pCandList'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetCandidateListCountA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(14, 'GetCandidateListCountA', ((1, 'hIMC'),(1, 'pdwListSize'),(1, 'pdwBufLen'),)))
-    IActiveIMMApp.GetCandidateListCountW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(15, 'GetCandidateListCountW', ((1, 'hIMC'),(1, 'pdwListSize'),(1, 'pdwBufLen'),)))
-    IActiveIMMApp.GetCandidateWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(16, 'GetCandidateWindow', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pCandidate'),)))
-    IActiveIMMApp.GetCompositionFontA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(17, 'GetCompositionFontA', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMApp.GetCompositionFontW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(18, 'GetCompositionFontW', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMApp.GetCompositionStringA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(Int32),c_void_p)(19, 'GetCompositionStringA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'plCopied'),(1, 'pBuf'),)))
-    IActiveIMMApp.GetCompositionStringW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(Int32),c_void_p)(20, 'GetCompositionStringW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'plCopied'),(1, 'pBuf'),)))
-    IActiveIMMApp.GetCompositionWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(21, 'GetCompositionWindow', ((1, 'hIMC'),(1, 'pCompForm'),)))
-    IActiveIMMApp.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Globalization.HIMC))(22, 'GetContext', ((1, 'hWnd'),(1, 'phIMC'),)))
-    IActiveIMMApp.GetConversionListA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(23, 'GetConversionListA', ((1, 'hKL'),(1, 'hIMC'),(1, 'pSrc'),(1, 'uBufLen'),(1, 'uFlag'),(1, 'pDst'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetConversionListW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(24, 'GetConversionListW', ((1, 'hKL'),(1, 'hIMC'),(1, 'pSrc'),(1, 'uBufLen'),(1, 'uFlag'),(1, 'pDst'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetConversionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(25, 'GetConversionStatus', ((1, 'hIMC'),(1, 'pfdwConversion'),(1, 'pfdwSentence'),)))
-    IActiveIMMApp.GetDefaultIMEWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.HWND))(26, 'GetDefaultIMEWnd', ((1, 'hWnd'),(1, 'phDefWnd'),)))
-    IActiveIMMApp.GetDescriptionA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(27, 'GetDescriptionA', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szDescription'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetDescriptionW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(28, 'GetDescriptionW', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szDescription'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetGuideLineA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(29, 'GetGuideLineA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'pBuf'),(1, 'pdwResult'),)))
-    IActiveIMMApp.GetGuideLineW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(30, 'GetGuideLineW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'pBuf'),(1, 'pdwResult'),)))
-    IActiveIMMApp.GetIMEFileNameA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(31, 'GetIMEFileNameA', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szFileName'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetIMEFileNameW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(32, 'GetIMEFileNameW', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szFileName'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetOpenStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(33, 'GetOpenStatus', ((1, 'hIMC'),)))
-    IActiveIMMApp.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(UInt32))(34, 'GetProperty', ((1, 'hKL'),(1, 'fdwIndex'),(1, 'pdwProperty'),)))
-    IActiveIMMApp.GetRegisterWordStyleA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFA_head),POINTER(UInt32))(35, 'GetRegisterWordStyleA', ((1, 'hKL'),(1, 'nItem'),(1, 'pStyleBuf'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetRegisterWordStyleW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFW_head),POINTER(UInt32))(36, 'GetRegisterWordStyleW', ((1, 'hKL'),(1, 'nItem'),(1, 'pStyleBuf'),(1, 'puCopied'),)))
-    IActiveIMMApp.GetStatusWindowPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(37, 'GetStatusWindowPos', ((1, 'hIMC'),(1, 'pptPos'),)))
-    IActiveIMMApp.GetVirtualKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(UInt32))(38, 'GetVirtualKey', ((1, 'hWnd'),(1, 'puVirtualKey'),)))
-    IActiveIMMApp.InstallIMEA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.UI.TextServices.HKL))(39, 'InstallIMEA', ((1, 'szIMEFileName'),(1, 'szLayoutText'),(1, 'phKL'),)))
-    IActiveIMMApp.InstallIMEW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.TextServices.HKL))(40, 'InstallIMEW', ((1, 'szIMEFileName'),(1, 'szLayoutText'),(1, 'phKL'),)))
-    IActiveIMMApp.IsIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL)(41, 'IsIME', ((1, 'hKL'),)))
-    IActiveIMMApp.IsUIMessageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(42, 'IsUIMessageA', ((1, 'hWndIME'),(1, 'msg'),(1, 'wParam'),(1, 'lParam'),)))
-    IActiveIMMApp.IsUIMessageW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(43, 'IsUIMessageW', ((1, 'hWndIME'),(1, 'msg'),(1, 'wParam'),(1, 'lParam'),)))
-    IActiveIMMApp.NotifyIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,UInt32)(44, 'NotifyIME', ((1, 'hIMC'),(1, 'dwAction'),(1, 'dwIndex'),(1, 'dwValue'),)))
-    IActiveIMMApp.RegisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(45, 'RegisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),)))
-    IActiveIMMApp.RegisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(46, 'RegisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),)))
-    IActiveIMMApp.ReleaseContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC)(47, 'ReleaseContext', ((1, 'hWnd'),(1, 'hIMC'),)))
-    IActiveIMMApp.SetCandidateWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(48, 'SetCandidateWindow', ((1, 'hIMC'),(1, 'pCandidate'),)))
-    IActiveIMMApp.SetCompositionFontA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(49, 'SetCompositionFontA', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMApp.SetCompositionFontW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(50, 'SetCompositionFontW', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMApp.SetCompositionStringA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,UInt32,c_void_p,UInt32)(51, 'SetCompositionStringA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pComp'),(1, 'dwCompLen'),(1, 'pRead'),(1, 'dwReadLen'),)))
-    IActiveIMMApp.SetCompositionStringW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,UInt32,c_void_p,UInt32)(52, 'SetCompositionStringW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pComp'),(1, 'dwCompLen'),(1, 'pRead'),(1, 'dwReadLen'),)))
-    IActiveIMMApp.SetCompositionWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(53, 'SetCompositionWindow', ((1, 'hIMC'),(1, 'pCompForm'),)))
-    IActiveIMMApp.SetConversionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32)(54, 'SetConversionStatus', ((1, 'hIMC'),(1, 'fdwConversion'),(1, 'fdwSentence'),)))
-    IActiveIMMApp.SetOpenStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.BOOL)(55, 'SetOpenStatus', ((1, 'hIMC'),(1, 'fOpen'),)))
-    IActiveIMMApp.SetStatusWindowPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(56, 'SetStatusWindowPos', ((1, 'hIMC'),(1, 'pptPos'),)))
-    IActiveIMMApp.SimulateHotKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(57, 'SimulateHotKey', ((1, 'hWnd'),(1, 'dwHotKeyID'),)))
-    IActiveIMMApp.UnregisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(58, 'UnregisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szUnregister'),)))
-    IActiveIMMApp.UnregisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(59, 'UnregisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szUnregister'),)))
-    IActiveIMMApp.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(60, 'Activate', ((1, 'fRestoreLayout'),)))
-    IActiveIMMApp.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(61, 'Deactivate', ()))
-    IActiveIMMApp.OnDefWindowProc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(62, 'OnDefWindowProc', ((1, 'hWnd'),(1, 'Msg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
-    IActiveIMMApp.FilterClientWindows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),UInt32)(63, 'FilterClientWindows', ((1, 'aaClassList'),(1, 'uSize'),)))
-    IActiveIMMApp.GetCodePageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,POINTER(UInt32))(64, 'GetCodePageA', ((1, 'hKL'),(1, 'uCodePage'),)))
-    IActiveIMMApp.GetLangId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,POINTER(UInt16))(65, 'GetLangId', ((1, 'hKL'),(1, 'plid'),)))
-    IActiveIMMApp.AssociateContextEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC,UInt32)(66, 'AssociateContextEx', ((1, 'hWnd'),(1, 'hIMC'),(1, 'dwFlags'),)))
-    IActiveIMMApp.DisableIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(67, 'DisableIME', ((1, 'idThread'),)))
-    IActiveIMMApp.GetImeMenuItemsA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),UInt32,POINTER(UInt32))(68, 'GetImeMenuItemsA', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
-    IActiveIMMApp.GetImeMenuItemsW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),UInt32,POINTER(UInt32))(69, 'GetImeMenuItemsW', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
-    IActiveIMMApp.EnumInputContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.IEnumInputContext_head))(70, 'EnumInputContext', ((1, 'idThread'),(1, 'ppEnum'),)))
-    win32more.System.Com.IUnknown
-    return IActiveIMMApp
-def _define_IActiveIMMIME_head():
-    class IActiveIMMIME(win32more.System.Com.IUnknown_head):
-        Guid = Guid('08c03411-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
-    return IActiveIMMIME
-def _define_IActiveIMMIME():
-    IActiveIMMIME = win32more.UI.Input.Ime.IActiveIMMIME_head
-    IActiveIMMIME.AssociateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC,POINTER(win32more.Globalization.HIMC))(3, 'AssociateContext', ((1, 'hWnd'),(1, 'hIME'),(1, 'phPrev'),)))
-    IActiveIMMIME.ConfigureIMEA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head))(4, 'ConfigureIMEA', ((1, 'hKL'),(1, 'hWnd'),(1, 'dwMode'),(1, 'pData'),)))
-    IActiveIMMIME.ConfigureIMEW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.HWND,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head))(5, 'ConfigureIMEW', ((1, 'hKL'),(1, 'hWnd'),(1, 'dwMode'),(1, 'pData'),)))
-    IActiveIMMIME.CreateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Globalization.HIMC))(6, 'CreateContext', ((1, 'phIMC'),)))
-    IActiveIMMIME.DestroyContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(7, 'DestroyContext', ((1, 'hIME'),)))
-    IActiveIMMIME.EnumRegisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head))(8, 'EnumRegisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'pEnum'),)))
-    IActiveIMMIME.EnumRegisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head))(9, 'EnumRegisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'pEnum'),)))
-    IActiveIMMIME.EscapeA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,UInt32,c_void_p,POINTER(win32more.Foundation.LRESULT))(10, 'EscapeA', ((1, 'hKL'),(1, 'hIMC'),(1, 'uEscape'),(1, 'pData'),(1, 'plResult'),)))
-    IActiveIMMIME.EscapeW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,UInt32,c_void_p,POINTER(win32more.Foundation.LRESULT))(11, 'EscapeW', ((1, 'hKL'),(1, 'hIMC'),(1, 'uEscape'),(1, 'pData'),(1, 'plResult'),)))
-    IActiveIMMIME.GetCandidateListA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(12, 'GetCandidateListA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'uBufLen'),(1, 'pCandList'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetCandidateListW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(13, 'GetCandidateListW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'uBufLen'),(1, 'pCandList'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetCandidateListCountA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(14, 'GetCandidateListCountA', ((1, 'hIMC'),(1, 'pdwListSize'),(1, 'pdwBufLen'),)))
-    IActiveIMMIME.GetCandidateListCountW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(15, 'GetCandidateListCountW', ((1, 'hIMC'),(1, 'pdwListSize'),(1, 'pdwBufLen'),)))
-    IActiveIMMIME.GetCandidateWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(16, 'GetCandidateWindow', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pCandidate'),)))
-    IActiveIMMIME.GetCompositionFontA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(17, 'GetCompositionFontA', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMIME.GetCompositionFontW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(18, 'GetCompositionFontW', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMIME.GetCompositionStringA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(Int32),c_void_p)(19, 'GetCompositionStringA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'plCopied'),(1, 'pBuf'),)))
-    IActiveIMMIME.GetCompositionStringW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(Int32),c_void_p)(20, 'GetCompositionStringW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'plCopied'),(1, 'pBuf'),)))
-    IActiveIMMIME.GetCompositionWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(21, 'GetCompositionWindow', ((1, 'hIMC'),(1, 'pCompForm'),)))
-    IActiveIMMIME.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Globalization.HIMC))(22, 'GetContext', ((1, 'hWnd'),(1, 'phIMC'),)))
-    IActiveIMMIME.GetConversionListA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(23, 'GetConversionListA', ((1, 'hKL'),(1, 'hIMC'),(1, 'pSrc'),(1, 'uBufLen'),(1, 'uFlag'),(1, 'pDst'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetConversionListW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Globalization.HIMC,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head),POINTER(UInt32))(24, 'GetConversionListW', ((1, 'hKL'),(1, 'hIMC'),(1, 'pSrc'),(1, 'uBufLen'),(1, 'uFlag'),(1, 'pDst'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetConversionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32),POINTER(UInt32))(25, 'GetConversionStatus', ((1, 'hIMC'),(1, 'pfdwConversion'),(1, 'pfdwSentence'),)))
-    IActiveIMMIME.GetDefaultIMEWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.HWND))(26, 'GetDefaultIMEWnd', ((1, 'hWnd'),(1, 'phDefWnd'),)))
-    IActiveIMMIME.GetDescriptionA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(27, 'GetDescriptionA', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szDescription'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetDescriptionW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(28, 'GetDescriptionW', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szDescription'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetGuideLineA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(29, 'GetGuideLineA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'pBuf'),(1, 'pdwResult'),)))
-    IActiveIMMIME.GetGuideLineW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(30, 'GetGuideLineW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'dwBufLen'),(1, 'pBuf'),(1, 'pdwResult'),)))
-    IActiveIMMIME.GetIMEFileNameA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(31, 'GetIMEFileNameA', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szFileName'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetIMEFileNameW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(32, 'GetIMEFileNameW', ((1, 'hKL'),(1, 'uBufLen'),(1, 'szFileName'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetOpenStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(33, 'GetOpenStatus', ((1, 'hIMC'),)))
-    IActiveIMMIME.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(UInt32))(34, 'GetProperty', ((1, 'hKL'),(1, 'fdwIndex'),(1, 'pdwProperty'),)))
-    IActiveIMMIME.GetRegisterWordStyleA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFA_head),POINTER(UInt32))(35, 'GetRegisterWordStyleA', ((1, 'hKL'),(1, 'nItem'),(1, 'pStyleBuf'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetRegisterWordStyleW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,UInt32,POINTER(win32more.UI.Input.Ime.STYLEBUFW_head),POINTER(UInt32))(36, 'GetRegisterWordStyleW', ((1, 'hKL'),(1, 'nItem'),(1, 'pStyleBuf'),(1, 'puCopied'),)))
-    IActiveIMMIME.GetStatusWindowPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(37, 'GetStatusWindowPos', ((1, 'hIMC'),(1, 'pptPos'),)))
-    IActiveIMMIME.GetVirtualKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(UInt32))(38, 'GetVirtualKey', ((1, 'hWnd'),(1, 'puVirtualKey'),)))
-    IActiveIMMIME.InstallIMEA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.UI.TextServices.HKL))(39, 'InstallIMEA', ((1, 'szIMEFileName'),(1, 'szLayoutText'),(1, 'phKL'),)))
-    IActiveIMMIME.InstallIMEW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.TextServices.HKL))(40, 'InstallIMEW', ((1, 'szIMEFileName'),(1, 'szLayoutText'),(1, 'phKL'),)))
-    IActiveIMMIME.IsIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL)(41, 'IsIME', ((1, 'hKL'),)))
-    IActiveIMMIME.IsUIMessageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(42, 'IsUIMessageA', ((1, 'hWndIME'),(1, 'msg'),(1, 'wParam'),(1, 'lParam'),)))
-    IActiveIMMIME.IsUIMessageW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(43, 'IsUIMessageW', ((1, 'hWndIME'),(1, 'msg'),(1, 'wParam'),(1, 'lParam'),)))
-    IActiveIMMIME.NotifyIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,UInt32)(44, 'NotifyIME', ((1, 'hIMC'),(1, 'dwAction'),(1, 'dwIndex'),(1, 'dwValue'),)))
-    IActiveIMMIME.RegisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(45, 'RegisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),)))
-    IActiveIMMIME.RegisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(46, 'RegisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),)))
-    IActiveIMMIME.ReleaseContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC)(47, 'ReleaseContext', ((1, 'hWnd'),(1, 'hIMC'),)))
-    IActiveIMMIME.SetCandidateWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head))(48, 'SetCandidateWindow', ((1, 'hIMC'),(1, 'pCandidate'),)))
-    IActiveIMMIME.SetCompositionFontA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTA_head))(49, 'SetCompositionFontA', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMIME.SetCompositionFontW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Graphics.Gdi.LOGFONTW_head))(50, 'SetCompositionFontW', ((1, 'hIMC'),(1, 'plf'),)))
-    IActiveIMMIME.SetCompositionStringA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,UInt32,c_void_p,UInt32)(51, 'SetCompositionStringA', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pComp'),(1, 'dwCompLen'),(1, 'pRead'),(1, 'dwReadLen'),)))
-    IActiveIMMIME.SetCompositionStringW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,c_void_p,UInt32,c_void_p,UInt32)(52, 'SetCompositionStringW', ((1, 'hIMC'),(1, 'dwIndex'),(1, 'pComp'),(1, 'dwCompLen'),(1, 'pRead'),(1, 'dwReadLen'),)))
-    IActiveIMMIME.SetCompositionWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head))(53, 'SetCompositionWindow', ((1, 'hIMC'),(1, 'pCompForm'),)))
-    IActiveIMMIME.SetConversionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32)(54, 'SetConversionStatus', ((1, 'hIMC'),(1, 'fdwConversion'),(1, 'fdwSentence'),)))
-    IActiveIMMIME.SetOpenStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.BOOL)(55, 'SetOpenStatus', ((1, 'hIMC'),(1, 'fOpen'),)))
-    IActiveIMMIME.SetStatusWindowPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(win32more.Foundation.POINT_head))(56, 'SetStatusWindowPos', ((1, 'hIMC'),(1, 'pptPos'),)))
-    IActiveIMMIME.SimulateHotKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(57, 'SimulateHotKey', ((1, 'hWnd'),(1, 'dwHotKeyID'),)))
-    IActiveIMMIME.UnregisterWordA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(58, 'UnregisterWordA', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szUnregister'),)))
-    IActiveIMMIME.UnregisterWordW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(59, 'UnregisterWordW', ((1, 'hKL'),(1, 'szReading'),(1, 'dwStyle'),(1, 'szUnregister'),)))
-    IActiveIMMIME.GenerateMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(60, 'GenerateMessage', ((1, 'hIMC'),)))
-    IActiveIMMIME.LockIMC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(POINTER(win32more.UI.Input.Ime.INPUTCONTEXT_head)))(61, 'LockIMC', ((1, 'hIMC'),(1, 'ppIMC'),)))
-    IActiveIMMIME.UnlockIMC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC)(62, 'UnlockIMC', ((1, 'hIMC'),)))
-    IActiveIMMIME.GetIMCLockCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,POINTER(UInt32))(63, 'GetIMCLockCount', ((1, 'hIMC'),(1, 'pdwLockCount'),)))
-    IActiveIMMIME.CreateIMCC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.HIMCC))(64, 'CreateIMCC', ((1, 'dwSize'),(1, 'phIMCC'),)))
-    IActiveIMMIME.DestroyIMCC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC)(65, 'DestroyIMCC', ((1, 'hIMCC'),)))
-    IActiveIMMIME.LockIMCC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC,POINTER(c_void_p))(66, 'LockIMCC', ((1, 'hIMCC'),(1, 'ppv'),)))
-    IActiveIMMIME.UnlockIMCC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC)(67, 'UnlockIMCC', ((1, 'hIMCC'),)))
-    IActiveIMMIME.ReSizeIMCC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC,UInt32,POINTER(win32more.Globalization.HIMCC))(68, 'ReSizeIMCC', ((1, 'hIMCC'),(1, 'dwSize'),(1, 'phIMCC'),)))
-    IActiveIMMIME.GetIMCCSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC,POINTER(UInt32))(69, 'GetIMCCSize', ((1, 'hIMCC'),(1, 'pdwSize'),)))
-    IActiveIMMIME.GetIMCCLockCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMCC,POINTER(UInt32))(70, 'GetIMCCLockCount', ((1, 'hIMCC'),(1, 'pdwLockCount'),)))
-    IActiveIMMIME.GetHotKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.UI.TextServices.HKL))(71, 'GetHotKey', ((1, 'dwHotKeyID'),(1, 'puModifiers'),(1, 'puVKey'),(1, 'phKL'),)))
-    IActiveIMMIME.SetHotKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.UI.TextServices.HKL)(72, 'SetHotKey', ((1, 'dwHotKeyID'),(1, 'uModifiers'),(1, 'uVKey'),(1, 'hKL'),)))
-    IActiveIMMIME.CreateSoftKeyboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.Foundation.HWND))(73, 'CreateSoftKeyboard', ((1, 'uType'),(1, 'hOwner'),(1, 'x'),(1, 'y'),(1, 'phSoftKbdWnd'),)))
-    IActiveIMMIME.DestroySoftKeyboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(74, 'DestroySoftKeyboard', ((1, 'hSoftKbdWnd'),)))
-    IActiveIMMIME.ShowSoftKeyboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32)(75, 'ShowSoftKeyboard', ((1, 'hSoftKbdWnd'),(1, 'nCmdShow'),)))
-    IActiveIMMIME.GetCodePageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,POINTER(UInt32))(76, 'GetCodePageA', ((1, 'hKL'),(1, 'uCodePage'),)))
-    IActiveIMMIME.GetLangId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.HKL,POINTER(UInt16))(77, 'GetLangId', ((1, 'hKL'),(1, 'plid'),)))
-    IActiveIMMIME.KeybdEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,Byte,Byte,UInt32,UInt32)(78, 'KeybdEvent', ((1, 'lgidIME'),(1, 'bVk'),(1, 'bScan'),(1, 'dwFlags'),(1, 'dwExtraInfo'),)))
-    IActiveIMMIME.LockModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(79, 'LockModal', ()))
-    IActiveIMMIME.UnlockModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(80, 'UnlockModal', ()))
-    IActiveIMMIME.AssociateContextEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Globalization.HIMC,UInt32)(81, 'AssociateContextEx', ((1, 'hWnd'),(1, 'hIMC'),(1, 'dwFlags'),)))
-    IActiveIMMIME.DisableIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(82, 'DisableIME', ((1, 'idThread'),)))
-    IActiveIMMIME.GetImeMenuItemsA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),UInt32,POINTER(UInt32))(83, 'GetImeMenuItemsA', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
-    IActiveIMMIME.GetImeMenuItemsW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),UInt32,POINTER(UInt32))(84, 'GetImeMenuItemsW', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
-    IActiveIMMIME.EnumInputContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.IEnumInputContext_head))(85, 'EnumInputContext', ((1, 'idThread'),(1, 'ppEnum'),)))
-    IActiveIMMIME.RequestMessageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(86, 'RequestMessageA', ((1, 'hIMC'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
-    IActiveIMMIME.RequestMessageW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(87, 'RequestMessageW', ((1, 'hIMC'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
-    IActiveIMMIME.SendIMCA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(88, 'SendIMCA', ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
-    IActiveIMMIME.SendIMCW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT))(89, 'SendIMCW', ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
-    IActiveIMMIME.IsSleeping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(90, 'IsSleeping', ()))
-    win32more.System.Com.IUnknown
-    return IActiveIMMIME
-def _define_IActiveIMMMessagePumpOwner_head():
-    class IActiveIMMMessagePumpOwner(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b5cf2cfa-8aeb-11d1-93-64-00-60-b0-67-b8-6e')
-    return IActiveIMMMessagePumpOwner
-def _define_IActiveIMMMessagePumpOwner():
-    IActiveIMMMessagePumpOwner = win32more.UI.Input.Ime.IActiveIMMMessagePumpOwner_head
-    IActiveIMMMessagePumpOwner.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Start', ()))
-    IActiveIMMMessagePumpOwner.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'End', ()))
-    IActiveIMMMessagePumpOwner.OnTranslateMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head))(5, 'OnTranslateMessage', ((1, 'pMsg'),)))
-    IActiveIMMMessagePumpOwner.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'Pause', ((1, 'pdwCookie'),)))
-    IActiveIMMMessagePumpOwner.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(7, 'Resume', ((1, 'dwCookie'),)))
-    win32more.System.Com.IUnknown
-    return IActiveIMMMessagePumpOwner
-def _define_IActiveIMMRegistrar_head():
-    class IActiveIMMRegistrar(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b3458082-bd00-11d1-93-9b-00-60-b0-67-b8-6e')
-    return IActiveIMMRegistrar
-def _define_IActiveIMMRegistrar():
-    IActiveIMMRegistrar = win32more.UI.Input.Ime.IActiveIMMRegistrar_head
-    IActiveIMMRegistrar.RegisterIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'RegisterIME', ((1, 'rclsid'),(1, 'lgid'),(1, 'pszIconFile'),(1, 'pszDesc'),)))
-    IActiveIMMRegistrar.UnregisterIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(4, 'UnregisterIME', ((1, 'rclsid'),)))
-    win32more.System.Com.IUnknown
-    return IActiveIMMRegistrar
-def _define_IEnumInputContext_head():
-    class IEnumInputContext(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09b5eab0-f997-11d1-93-d4-00-60-b0-67-b8-6e')
-    return IEnumInputContext
-def _define_IEnumInputContext():
-    IEnumInputContext = win32more.UI.Input.Ime.IEnumInputContext_head
-    IEnumInputContext.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IEnumInputContext_head))(3, 'Clone', ((1, 'ppEnum'),)))
-    IEnumInputContext.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.HIMC),POINTER(UInt32))(4, 'Next', ((1, 'ulCount'),(1, 'rgInputContext'),(1, 'pcFetched'),)))
-    IEnumInputContext.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumInputContext.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'Skip', ((1, 'ulCount'),)))
-    win32more.System.Com.IUnknown
-    return IEnumInputContext
-def _define_IEnumRegisterWordA_head():
-    class IEnumRegisterWordA(win32more.System.Com.IUnknown_head):
-        Guid = Guid('08c03412-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
-    return IEnumRegisterWordA
-def _define_IEnumRegisterWordA():
-    IEnumRegisterWordA = win32more.UI.Input.Ime.IEnumRegisterWordA_head
-    IEnumRegisterWordA.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head))(3, 'Clone', ((1, 'ppEnum'),)))
-    IEnumRegisterWordA.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head),POINTER(UInt32))(4, 'Next', ((1, 'ulCount'),(1, 'rgRegisterWord'),(1, 'pcFetched'),)))
-    IEnumRegisterWordA.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumRegisterWordA.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'Skip', ((1, 'ulCount'),)))
-    win32more.System.Com.IUnknown
-    return IEnumRegisterWordA
-def _define_IEnumRegisterWordW_head():
-    class IEnumRegisterWordW(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4955dd31-b159-11d0-8f-cf-00-aa-00-6b-cc-59')
-    return IEnumRegisterWordW
-def _define_IEnumRegisterWordW():
-    IEnumRegisterWordW = win32more.UI.Input.Ime.IEnumRegisterWordW_head
-    IEnumRegisterWordW.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head))(3, 'Clone', ((1, 'ppEnum'),)))
-    IEnumRegisterWordW.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head),POINTER(UInt32))(4, 'Next', ((1, 'ulCount'),(1, 'rgRegisterWord'),(1, 'pcFetched'),)))
-    IEnumRegisterWordW.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'Reset', ()))
-    IEnumRegisterWordW.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(6, 'Skip', ((1, 'ulCount'),)))
-    win32more.System.Com.IUnknown
-    return IEnumRegisterWordW
-def _define_IFEClassFactory_head():
-    class IFEClassFactory(win32more.System.Com.IClassFactory_head):
-        pass
-    return IFEClassFactory
-def _define_IFEClassFactory():
-    IFEClassFactory = win32more.UI.Input.Ime.IFEClassFactory_head
-    win32more.System.Com.IClassFactory
-    return IFEClassFactory
-def _define_IFECommon_head():
-    class IFECommon(win32more.System.Com.IUnknown_head):
-        Guid = Guid('019f7151-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
-    return IFECommon
-def _define_IFECommon():
-    IFECommon = win32more.UI.Input.Ime.IFECommon_head
-    IFECommon.IsDefaultIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,Int32)(3, 'IsDefaultIME', ((1, 'szName'),(1, 'cszName'),)))
-    IFECommon.SetDefaultIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'SetDefaultIME', ()))
-    IFECommon.InvokeWordRegDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEDLG_head))(5, 'InvokeWordRegDialog', ((1, 'pimedlg'),)))
-    IFECommon.InvokeDictToolDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEDLG_head))(6, 'InvokeDictToolDialog', ((1, 'pimedlg'),)))
-    win32more.System.Com.IUnknown
-    return IFECommon
-def _define_IFEDictionary_head():
-    class IFEDictionary(win32more.System.Com.IUnknown_head):
-        Guid = Guid('019f7153-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
-    return IFEDictionary
-def _define_IFEDictionary():
-    IFEDictionary = win32more.UI.Input.Ime.IFEDictionary_head
-    IFEDictionary.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.UI.Input.Ime.IMESHF_head))(3, 'Open', ((1, 'pchDictPath'),(1, 'pshf'),)))
-    IFEDictionary.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    IFEDictionary.GetHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.UI.Input.Ime.IMESHF_head),POINTER(win32more.UI.Input.Ime.IMEFMT),POINTER(UInt32))(5, 'GetHeader', ((1, 'pchDictPath'),(1, 'pshf'),(1, 'pjfmt'),(1, 'pulType'),)))
-    IFEDictionary.DisplayProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND)(6, 'DisplayProperty', ((1, 'hwnd'),)))
-    IFEDictionary.GetPosTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Input.Ime.POSTBL_head)),POINTER(Int32))(7, 'GetPosTable', ((1, 'prgPosTbl'),(1, 'pcPosTbl'),)))
-    IFEDictionary.GetWords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,c_char_p_no,UInt32,POINTER(UInt32))(8, 'GetWords', ((1, 'pwchFirst'),(1, 'pwchLast'),(1, 'pwchDisplay'),(1, 'ulPos'),(1, 'ulSelect'),(1, 'ulWordSrc'),(1, 'pchBuffer'),(1, 'cbBuffer'),(1, 'pcWrd'),)))
-    IFEDictionary.NextWords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(UInt32))(9, 'NextWords', ((1, 'pchBuffer'),(1, 'cbBuffer'),(1, 'pcWrd'),)))
-    IFEDictionary.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.UI.Input.Ime.IMESHF_head))(10, 'Create', ((1, 'pchDictPath'),(1, 'pshf'),)))
-    IFEDictionary.SetHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMESHF_head))(11, 'SetHeader', ((1, 'pshf'),)))
-    IFEDictionary.ExistWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEWRD_head))(12, 'ExistWord', ((1, 'pwrd'),)))
-    IFEDictionary.ExistDependency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEDP_head))(13, 'ExistDependency', ((1, 'pdp'),)))
-    IFEDictionary.RegisterWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Input.Ime.IMEREG,POINTER(win32more.UI.Input.Ime.IMEWRD_head))(14, 'RegisterWord', ((1, 'reg'),(1, 'pwrd'),)))
-    IFEDictionary.RegisterDependency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Input.Ime.IMEREG,POINTER(win32more.UI.Input.Ime.IMEDP_head))(15, 'RegisterDependency', ((1, 'reg'),(1, 'pdp'),)))
-    IFEDictionary.GetDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.UI.Input.Ime.IMEREL,UInt32,c_char_p_no,UInt32,POINTER(UInt32))(16, 'GetDependencies', ((1, 'pwchKakariReading'),(1, 'pwchKakariDisplay'),(1, 'ulKakariPos'),(1, 'pwchUkeReading'),(1, 'pwchUkeDisplay'),(1, 'ulUkePos'),(1, 'jrel'),(1, 'ulWordSrc'),(1, 'pchBuffer'),(1, 'cbBuffer'),(1, 'pcdp'),)))
-    IFEDictionary.NextDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(UInt32))(17, 'NextDependencies', ((1, 'pchBuffer'),(1, 'cbBuffer'),(1, 'pcDp'),)))
-    IFEDictionary.ConvertFromOldMSIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.UI.Input.Ime.PFNLOG,win32more.UI.Input.Ime.IMEREG)(18, 'ConvertFromOldMSIME', ((1, 'pchDic'),(1, 'pfnLog'),(1, 'reg'),)))
-    IFEDictionary.ConvertFromUserToSys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'ConvertFromUserToSys', ()))
-    win32more.System.Com.IUnknown
-    return IFEDictionary
-def _define_IFELanguage_head():
-    class IFELanguage(win32more.System.Com.IUnknown_head):
-        Guid = Guid('019f7152-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
-    return IFELanguage
-def _define_IFELanguage():
-    IFELanguage = win32more.UI.Input.Ime.IFELanguage_head
-    IFELanguage.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Open', ()))
-    IFELanguage.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    IFELanguage.GetJMorphResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,Int32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.UI.Input.Ime.MORRSLT_head)))(5, 'GetJMorphResult', ((1, 'dwRequest'),(1, 'dwCMode'),(1, 'cwchInput'),(1, 'pwchInput'),(1, 'pfCInfo'),(1, 'ppResult'),)))
-    IFELanguage.GetConversionModeCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetConversionModeCaps', ((1, 'pdwCaps'),)))
-    IFELanguage.GetPhonetic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Foundation.BSTR))(7, 'GetPhonetic', ((1, 'string'),(1, 'start'),(1, 'length'),(1, 'phonetic'),)))
-    IFELanguage.GetConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Foundation.BSTR))(8, 'GetConversion', ((1, 'string'),(1, 'start'),(1, 'length'),(1, 'result'),)))
-    win32more.System.Com.IUnknown
-    return IFELanguage
-def _define_IImePad_head():
-    class IImePad(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5d8e643a-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
-    return IImePad
-def _define_IImePad():
-    IImePad = win32more.UI.Input.Ime.IImePad_head
-    IImePad.Request = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Input.Ime.IImePadApplet_head,win32more.UI.Input.Ime.IME_PAD_REQUEST_FLAGS,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(3, 'Request', ((1, 'pIImePadApplet'),(1, 'reqId'),(1, 'wParam'),(1, 'lParam'),)))
-    win32more.System.Com.IUnknown
-    return IImePad
-def _define_IImePadApplet_head():
-    class IImePadApplet(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5d8e643b-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
-    return IImePadApplet
-def _define_IImePadApplet():
-    IImePadApplet = win32more.UI.Input.Ime.IImePadApplet_head
-    IImePadApplet.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(3, 'Initialize', ((1, 'lpIImePad'),)))
-    IImePadApplet.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Terminate', ()))
-    IImePadApplet.GetAppletConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEAPPLETCFG_head))(5, 'GetAppletConfig', ((1, 'lpAppletCfg'),)))
-    IImePadApplet.CreateUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Input.Ime.IMEAPPLETUI_head))(6, 'CreateUI', ((1, 'hwndParent'),(1, 'lpImeAppletUI'),)))
-    IImePadApplet.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM)(7, 'Notify', ((1, 'lpImePad'),(1, 'notify'),(1, 'wParam'),(1, 'lParam'),)))
-    win32more.System.Com.IUnknown
-    return IImePadApplet
-def _define_IImePlugInDictDictionaryList_head():
-    class IImePlugInDictDictionaryList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('98752974-b0a6-489b-8f-6f-bf-f3-76-9c-8e-eb')
-    return IImePlugInDictDictionaryList
-def _define_IImePlugInDictDictionaryList():
-    IImePlugInDictDictionaryList = win32more.UI.Input.Ime.IImePlugInDictDictionaryList_head
-    IImePlugInDictDictionaryList.GetDictionariesInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetDictionariesInUse', ((1, 'prgDictionaryGUID'),(1, 'prgDateCreated'),(1, 'prgfEncrypted'),)))
-    IImePlugInDictDictionaryList.DeleteDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(4, 'DeleteDictionary', ((1, 'bstrDictionaryGUID'),)))
-    win32more.System.Com.IUnknown
-    return IImePlugInDictDictionaryList
-def _define_IImeSpecifyApplets_head():
-    class IImeSpecifyApplets(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5d8e643c-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
-    return IImeSpecifyApplets
-def _define_IImeSpecifyApplets():
-    IImeSpecifyApplets = win32more.UI.Input.Ime.IImeSpecifyApplets_head
-    IImeSpecifyApplets.GetAppletIIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Input.Ime.APPLETIDLIST_head))(3, 'GetAppletIIDList', ((1, 'refiid'),(1, 'lpIIDList'),)))
-    win32more.System.Com.IUnknown
-    return IImeSpecifyApplets
-def _define_IMCENUMPROC():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Globalization.HIMC,win32more.Foundation.LPARAM)
+GGL_LEVEL: GET_GUIDE_LINE_TYPE = 1
+GGL_INDEX: GET_GUIDE_LINE_TYPE = 2
+GGL_STRING: GET_GUIDE_LINE_TYPE = 3
+GGL_PRIVATE: GET_GUIDE_LINE_TYPE = 4
+class GUIDELINE(Structure):
+    dwSize: UInt32
+    dwLevel: UInt32
+    dwIndex: UInt32
+    dwStrLen: UInt32
+    dwStrOffset: UInt32
+    dwPrivateSize: UInt32
+    dwPrivateOffset: UInt32
+class IActiveIME(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6fe20962-d077-11d0-8f-e7-00-aa-00-6b-cc-59')
+    @commethod(3)
+    def Inquire(dwSystemInfoFlags: UInt32, pIMEInfo: POINTER(win32more.UI.Input.Ime.IMEINFO_head), szWndClass: win32more.Foundation.PWSTR, pdwPrivate: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ConversionList(hIMC: win32more.Globalization.HIMC, szSource: win32more.Foundation.PWSTR, uFlag: UInt32, uBufLen: UInt32, pDest: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Configure(hKL: win32more.UI.TextServices.HKL, hWnd: win32more.Foundation.HWND, dwMode: UInt32, pRegisterWord: POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Destroy(uReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Escape(hIMC: win32more.Globalization.HIMC, uEscape: UInt32, pData: c_void_p, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetActiveContext(hIMC: win32more.Globalization.HIMC, fFlag: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ProcessKey(hIMC: win32more.Globalization.HIMC, uVirKey: UInt32, lParam: UInt32, pbKeyState: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Notify(hIMC: win32more.Globalization.HIMC, dwAction: UInt32, dwIndex: UInt32, dwValue: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Select(hIMC: win32more.Globalization.HIMC, fSelect: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetCompositionString(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pComp: c_void_p, dwCompLen: UInt32, pRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ToAsciiEx(uVirKey: UInt32, uScanCode: UInt32, pbKeyState: c_char_p_no, fuState: UInt32, hIMC: win32more.Globalization.HIMC, pdwTransBuf: POINTER(UInt32), puSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def RegisterWord(szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def UnregisterWord(szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetRegisterWordStyle(nItem: UInt32, pStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFW_head), puBufSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def EnumRegisterWord(szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PWSTR, pData: c_void_p, ppEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCodePageA(uCodePage: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetLangId(plid: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+class IActiveIME2(c_void_p):
+    extends: win32more.UI.Input.Ime.IActiveIME
+    Guid = Guid('e1c4bf0e-2d53-11d2-93-e1-00-60-b0-67-b8-6e')
+    @commethod(20)
+    def Sleep() -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def Unsleep(fDead: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IActiveIMMApp(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('08c0e040-62d1-11d1-93-26-00-60-b0-67-b8-6e')
+    @commethod(3)
+    def AssociateContext(hWnd: win32more.Foundation.HWND, hIME: win32more.Globalization.HIMC, phPrev: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ConfigureIMEA(hKL: win32more.UI.TextServices.HKL, hWnd: win32more.Foundation.HWND, dwMode: UInt32, pData: POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ConfigureIMEW(hKL: win32more.UI.TextServices.HKL, hWnd: win32more.Foundation.HWND, dwMode: UInt32, pData: POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateContext(phIMC: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def DestroyContext(hIME: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def EnumRegisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PSTR, pData: c_void_p, pEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumRegisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PWSTR, pData: c_void_p, pEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def EscapeA(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, uEscape: UInt32, pData: c_void_p, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EscapeW(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, uEscape: UInt32, pData: c_void_p, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetCandidateListA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, uBufLen: UInt32, pCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetCandidateListW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, uBufLen: UInt32, pCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetCandidateListCountA(hIMC: win32more.Globalization.HIMC, pdwListSize: POINTER(UInt32), pdwBufLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetCandidateListCountW(hIMC: win32more.Globalization.HIMC, pdwListSize: POINTER(UInt32), pdwBufLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetCandidateWindow(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetCompositionFontA(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCompositionFontW(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetCompositionStringA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, plCopied: POINTER(Int32), pBuf: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetCompositionStringW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, plCopied: POINTER(Int32), pBuf: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetCompositionWindow(hIMC: win32more.Globalization.HIMC, pCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetContext(hWnd: win32more.Foundation.HWND, phIMC: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def GetConversionListA(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, pSrc: win32more.Foundation.PSTR, uBufLen: UInt32, uFlag: UInt32, pDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetConversionListW(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, pSrc: win32more.Foundation.PWSTR, uBufLen: UInt32, uFlag: UInt32, pDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetConversionStatus(hIMC: win32more.Globalization.HIMC, pfdwConversion: POINTER(UInt32), pfdwSentence: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetDefaultIMEWnd(hWnd: win32more.Foundation.HWND, phDefWnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetDescriptionA(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szDescription: win32more.Foundation.PSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetDescriptionW(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szDescription: win32more.Foundation.PWSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetGuideLineA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, pBuf: win32more.Foundation.PSTR, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetGuideLineW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, pBuf: win32more.Foundation.PWSTR, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetIMEFileNameA(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szFileName: win32more.Foundation.PSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def GetIMEFileNameW(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szFileName: win32more.Foundation.PWSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def GetOpenStatus(hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def GetProperty(hKL: win32more.UI.TextServices.HKL, fdwIndex: UInt32, pdwProperty: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def GetRegisterWordStyleA(hKL: win32more.UI.TextServices.HKL, nItem: UInt32, pStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFA_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def GetRegisterWordStyleW(hKL: win32more.UI.TextServices.HKL, nItem: UInt32, pStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFW_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def GetStatusWindowPos(hIMC: win32more.Globalization.HIMC, pptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def GetVirtualKey(hWnd: win32more.Foundation.HWND, puVirtualKey: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def InstallIMEA(szIMEFileName: win32more.Foundation.PSTR, szLayoutText: win32more.Foundation.PSTR, phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def InstallIMEW(szIMEFileName: win32more.Foundation.PWSTR, szLayoutText: win32more.Foundation.PWSTR, phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def IsIME(hKL: win32more.UI.TextServices.HKL) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def IsUIMessageA(hWndIME: win32more.Foundation.HWND, msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def IsUIMessageW(hWndIME: win32more.Foundation.HWND, msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def NotifyIME(hIMC: win32more.Globalization.HIMC, dwAction: UInt32, dwIndex: UInt32, dwValue: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def RegisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def RegisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def ReleaseContext(hWnd: win32more.Foundation.HWND, hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def SetCandidateWindow(hIMC: win32more.Globalization.HIMC, pCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def SetCompositionFontA(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def SetCompositionFontW(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def SetCompositionStringA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pComp: c_void_p, dwCompLen: UInt32, pRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def SetCompositionStringW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pComp: c_void_p, dwCompLen: UInt32, pRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def SetCompositionWindow(hIMC: win32more.Globalization.HIMC, pCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def SetConversionStatus(hIMC: win32more.Globalization.HIMC, fdwConversion: UInt32, fdwSentence: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def SetOpenStatus(hIMC: win32more.Globalization.HIMC, fOpen: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def SetStatusWindowPos(hIMC: win32more.Globalization.HIMC, pptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def SimulateHotKey(hWnd: win32more.Foundation.HWND, dwHotKeyID: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def UnregisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szUnregister: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def UnregisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szUnregister: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def Activate(fRestoreLayout: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def Deactivate() -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def OnDefWindowProc(hWnd: win32more.Foundation.HWND, Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def FilterClientWindows(aaClassList: POINTER(UInt16), uSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(64)
+    def GetCodePageA(hKL: win32more.UI.TextServices.HKL, uCodePage: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def GetLangId(hKL: win32more.UI.TextServices.HKL, plid: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(66)
+    def AssociateContextEx(hWnd: win32more.Foundation.HWND, hIMC: win32more.Globalization.HIMC, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(67)
+    def DisableIME(idThread: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(68)
+    def GetImeMenuItemsA(hIMC: win32more.Globalization.HIMC, dwFlags: UInt32, dwType: UInt32, pImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), pImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), dwSize: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(69)
+    def GetImeMenuItemsW(hIMC: win32more.Globalization.HIMC, dwFlags: UInt32, dwType: UInt32, pImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), pImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), dwSize: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(70)
+    def EnumInputContext(idThread: UInt32, ppEnum: POINTER(win32more.UI.Input.Ime.IEnumInputContext_head)) -> win32more.Foundation.HRESULT: ...
+class IActiveIMMIME(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('08c03411-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
+    @commethod(3)
+    def AssociateContext(hWnd: win32more.Foundation.HWND, hIME: win32more.Globalization.HIMC, phPrev: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ConfigureIMEA(hKL: win32more.UI.TextServices.HKL, hWnd: win32more.Foundation.HWND, dwMode: UInt32, pData: POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ConfigureIMEW(hKL: win32more.UI.TextServices.HKL, hWnd: win32more.Foundation.HWND, dwMode: UInt32, pData: POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateContext(phIMC: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def DestroyContext(hIME: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def EnumRegisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PSTR, pData: c_void_p, pEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumRegisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PWSTR, pData: c_void_p, pEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def EscapeA(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, uEscape: UInt32, pData: c_void_p, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EscapeW(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, uEscape: UInt32, pData: c_void_p, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetCandidateListA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, uBufLen: UInt32, pCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetCandidateListW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, uBufLen: UInt32, pCandList: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetCandidateListCountA(hIMC: win32more.Globalization.HIMC, pdwListSize: POINTER(UInt32), pdwBufLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetCandidateListCountW(hIMC: win32more.Globalization.HIMC, pdwListSize: POINTER(UInt32), pdwBufLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetCandidateWindow(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetCompositionFontA(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCompositionFontW(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetCompositionStringA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, plCopied: POINTER(Int32), pBuf: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetCompositionStringW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, plCopied: POINTER(Int32), pBuf: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetCompositionWindow(hIMC: win32more.Globalization.HIMC, pCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetContext(hWnd: win32more.Foundation.HWND, phIMC: POINTER(win32more.Globalization.HIMC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def GetConversionListA(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, pSrc: win32more.Foundation.PSTR, uBufLen: UInt32, uFlag: UInt32, pDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetConversionListW(hKL: win32more.UI.TextServices.HKL, hIMC: win32more.Globalization.HIMC, pSrc: win32more.Foundation.PWSTR, uBufLen: UInt32, uFlag: UInt32, pDst: POINTER(win32more.UI.Input.Ime.CANDIDATELIST_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetConversionStatus(hIMC: win32more.Globalization.HIMC, pfdwConversion: POINTER(UInt32), pfdwSentence: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetDefaultIMEWnd(hWnd: win32more.Foundation.HWND, phDefWnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetDescriptionA(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szDescription: win32more.Foundation.PSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetDescriptionW(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szDescription: win32more.Foundation.PWSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetGuideLineA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, pBuf: win32more.Foundation.PSTR, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetGuideLineW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, dwBufLen: UInt32, pBuf: win32more.Foundation.PWSTR, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetIMEFileNameA(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szFileName: win32more.Foundation.PSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def GetIMEFileNameW(hKL: win32more.UI.TextServices.HKL, uBufLen: UInt32, szFileName: win32more.Foundation.PWSTR, puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def GetOpenStatus(hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def GetProperty(hKL: win32more.UI.TextServices.HKL, fdwIndex: UInt32, pdwProperty: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def GetRegisterWordStyleA(hKL: win32more.UI.TextServices.HKL, nItem: UInt32, pStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFA_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def GetRegisterWordStyleW(hKL: win32more.UI.TextServices.HKL, nItem: UInt32, pStyleBuf: POINTER(win32more.UI.Input.Ime.STYLEBUFW_head), puCopied: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def GetStatusWindowPos(hIMC: win32more.Globalization.HIMC, pptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def GetVirtualKey(hWnd: win32more.Foundation.HWND, puVirtualKey: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def InstallIMEA(szIMEFileName: win32more.Foundation.PSTR, szLayoutText: win32more.Foundation.PSTR, phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def InstallIMEW(szIMEFileName: win32more.Foundation.PWSTR, szLayoutText: win32more.Foundation.PWSTR, phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def IsIME(hKL: win32more.UI.TextServices.HKL) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def IsUIMessageA(hWndIME: win32more.Foundation.HWND, msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def IsUIMessageW(hWndIME: win32more.Foundation.HWND, msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def NotifyIME(hIMC: win32more.Globalization.HIMC, dwAction: UInt32, dwIndex: UInt32, dwValue: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def RegisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def RegisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szRegister: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def ReleaseContext(hWnd: win32more.Foundation.HWND, hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def SetCandidateWindow(hIMC: win32more.Globalization.HIMC, pCandidate: POINTER(win32more.UI.Input.Ime.CANDIDATEFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def SetCompositionFontA(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def SetCompositionFontW(hIMC: win32more.Globalization.HIMC, plf: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def SetCompositionStringA(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pComp: c_void_p, dwCompLen: UInt32, pRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def SetCompositionStringW(hIMC: win32more.Globalization.HIMC, dwIndex: UInt32, pComp: c_void_p, dwCompLen: UInt32, pRead: c_void_p, dwReadLen: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def SetCompositionWindow(hIMC: win32more.Globalization.HIMC, pCompForm: POINTER(win32more.UI.Input.Ime.COMPOSITIONFORM_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def SetConversionStatus(hIMC: win32more.Globalization.HIMC, fdwConversion: UInt32, fdwSentence: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def SetOpenStatus(hIMC: win32more.Globalization.HIMC, fOpen: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def SetStatusWindowPos(hIMC: win32more.Globalization.HIMC, pptPos: POINTER(win32more.Foundation.POINT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def SimulateHotKey(hWnd: win32more.Foundation.HWND, dwHotKeyID: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def UnregisterWordA(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PSTR, dwStyle: UInt32, szUnregister: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def UnregisterWordW(hKL: win32more.UI.TextServices.HKL, szReading: win32more.Foundation.PWSTR, dwStyle: UInt32, szUnregister: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def GenerateMessage(hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def LockIMC(hIMC: win32more.Globalization.HIMC, ppIMC: POINTER(POINTER(win32more.UI.Input.Ime.INPUTCONTEXT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def UnlockIMC(hIMC: win32more.Globalization.HIMC) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def GetIMCLockCount(hIMC: win32more.Globalization.HIMC, pdwLockCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(64)
+    def CreateIMCC(dwSize: UInt32, phIMCC: POINTER(win32more.Globalization.HIMCC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def DestroyIMCC(hIMCC: win32more.Globalization.HIMCC) -> win32more.Foundation.HRESULT: ...
+    @commethod(66)
+    def LockIMCC(hIMCC: win32more.Globalization.HIMCC, ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(67)
+    def UnlockIMCC(hIMCC: win32more.Globalization.HIMCC) -> win32more.Foundation.HRESULT: ...
+    @commethod(68)
+    def ReSizeIMCC(hIMCC: win32more.Globalization.HIMCC, dwSize: UInt32, phIMCC: POINTER(win32more.Globalization.HIMCC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(69)
+    def GetIMCCSize(hIMCC: win32more.Globalization.HIMCC, pdwSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(70)
+    def GetIMCCLockCount(hIMCC: win32more.Globalization.HIMCC, pdwLockCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(71)
+    def GetHotKey(dwHotKeyID: UInt32, puModifiers: POINTER(UInt32), puVKey: POINTER(UInt32), phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(72)
+    def SetHotKey(dwHotKeyID: UInt32, uModifiers: UInt32, uVKey: UInt32, hKL: win32more.UI.TextServices.HKL) -> win32more.Foundation.HRESULT: ...
+    @commethod(73)
+    def CreateSoftKeyboard(uType: UInt32, hOwner: win32more.Foundation.HWND, x: Int32, y: Int32, phSoftKbdWnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(74)
+    def DestroySoftKeyboard(hSoftKbdWnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+    @commethod(75)
+    def ShowSoftKeyboard(hSoftKbdWnd: win32more.Foundation.HWND, nCmdShow: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(76)
+    def GetCodePageA(hKL: win32more.UI.TextServices.HKL, uCodePage: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(77)
+    def GetLangId(hKL: win32more.UI.TextServices.HKL, plid: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(78)
+    def KeybdEvent(lgidIME: UInt16, bVk: Byte, bScan: Byte, dwFlags: UInt32, dwExtraInfo: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(79)
+    def LockModal() -> win32more.Foundation.HRESULT: ...
+    @commethod(80)
+    def UnlockModal() -> win32more.Foundation.HRESULT: ...
+    @commethod(81)
+    def AssociateContextEx(hWnd: win32more.Foundation.HWND, hIMC: win32more.Globalization.HIMC, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(82)
+    def DisableIME(idThread: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(83)
+    def GetImeMenuItemsA(hIMC: win32more.Globalization.HIMC, dwFlags: UInt32, dwType: UInt32, pImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), pImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head), dwSize: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(84)
+    def GetImeMenuItemsW(hIMC: win32more.Globalization.HIMC, dwFlags: UInt32, dwType: UInt32, pImeParentMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), pImeMenu: POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head), dwSize: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(85)
+    def EnumInputContext(idThread: UInt32, ppEnum: POINTER(win32more.UI.Input.Ime.IEnumInputContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(86)
+    def RequestMessageA(hIMC: win32more.Globalization.HIMC, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(87)
+    def RequestMessageW(hIMC: win32more.Globalization.HIMC, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(88)
+    def SendIMCA(hWnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(89)
+    def SendIMCW(hWnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, plResult: POINTER(win32more.Foundation.LRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(90)
+    def IsSleeping() -> win32more.Foundation.HRESULT: ...
+class IActiveIMMMessagePumpOwner(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b5cf2cfa-8aeb-11d1-93-64-00-60-b0-67-b8-6e')
+    @commethod(3)
+    def Start() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def End() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def OnTranslateMessage(pMsg: POINTER(win32more.UI.WindowsAndMessaging.MSG_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Pause(pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Resume(dwCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+class IActiveIMMRegistrar(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b3458082-bd00-11d1-93-9b-00-60-b0-67-b8-6e')
+    @commethod(3)
+    def RegisterIME(rclsid: POINTER(Guid), lgid: UInt16, pszIconFile: win32more.Foundation.PWSTR, pszDesc: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterIME(rclsid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IEnumInputContext(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('09b5eab0-f997-11d1-93-d4-00-60-b0-67-b8-6e')
+    @commethod(3)
+    def Clone(ppEnum: POINTER(win32more.UI.Input.Ime.IEnumInputContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next(ulCount: UInt32, rgInputContext: POINTER(win32more.Globalization.HIMC), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IEnumRegisterWordA(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('08c03412-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
+    @commethod(3)
+    def Clone(ppEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next(ulCount: UInt32, rgRegisterWord: POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IEnumRegisterWordW(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4955dd31-b159-11d0-8f-cf-00-aa-00-6b-cc-59')
+    @commethod(3)
+    def Clone(ppEnum: POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next(ulCount: UInt32, rgRegisterWord: POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IFEClassFactory(c_void_p):
+    extends: win32more.System.Com.IClassFactory
+class IFECommon(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('019f7151-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
+    @commethod(3)
+    def IsDefaultIME(szName: win32more.Foundation.PSTR, cszName: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetDefaultIME() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def InvokeWordRegDialog(pimedlg: POINTER(win32more.UI.Input.Ime.IMEDLG_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def InvokeDictToolDialog(pimedlg: POINTER(win32more.UI.Input.Ime.IMEDLG_head)) -> win32more.Foundation.HRESULT: ...
+class IFEDictionary(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('019f7153-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
+    @commethod(3)
+    def Open(pchDictPath: win32more.Foundation.PSTR, pshf: POINTER(win32more.UI.Input.Ime.IMESHF_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetHeader(pchDictPath: win32more.Foundation.PSTR, pshf: POINTER(win32more.UI.Input.Ime.IMESHF_head), pjfmt: POINTER(win32more.UI.Input.Ime.IMEFMT), pulType: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def DisplayProperty(hwnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPosTable(prgPosTbl: POINTER(POINTER(win32more.UI.Input.Ime.POSTBL_head)), pcPosTbl: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetWords(pwchFirst: win32more.Foundation.PWSTR, pwchLast: win32more.Foundation.PWSTR, pwchDisplay: win32more.Foundation.PWSTR, ulPos: UInt32, ulSelect: UInt32, ulWordSrc: UInt32, pchBuffer: c_char_p_no, cbBuffer: UInt32, pcWrd: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def NextWords(pchBuffer: c_char_p_no, cbBuffer: UInt32, pcWrd: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Create(pchDictPath: win32more.Foundation.PSTR, pshf: POINTER(win32more.UI.Input.Ime.IMESHF_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetHeader(pshf: POINTER(win32more.UI.Input.Ime.IMESHF_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ExistWord(pwrd: POINTER(win32more.UI.Input.Ime.IMEWRD_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ExistDependency(pdp: POINTER(win32more.UI.Input.Ime.IMEDP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def RegisterWord(reg: win32more.UI.Input.Ime.IMEREG, pwrd: POINTER(win32more.UI.Input.Ime.IMEWRD_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def RegisterDependency(reg: win32more.UI.Input.Ime.IMEREG, pdp: POINTER(win32more.UI.Input.Ime.IMEDP_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetDependencies(pwchKakariReading: win32more.Foundation.PWSTR, pwchKakariDisplay: win32more.Foundation.PWSTR, ulKakariPos: UInt32, pwchUkeReading: win32more.Foundation.PWSTR, pwchUkeDisplay: win32more.Foundation.PWSTR, ulUkePos: UInt32, jrel: win32more.UI.Input.Ime.IMEREL, ulWordSrc: UInt32, pchBuffer: c_char_p_no, cbBuffer: UInt32, pcdp: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def NextDependencies(pchBuffer: c_char_p_no, cbBuffer: UInt32, pcDp: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def ConvertFromOldMSIME(pchDic: win32more.Foundation.PSTR, pfnLog: win32more.UI.Input.Ime.PFNLOG, reg: win32more.UI.Input.Ime.IMEREG) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ConvertFromUserToSys() -> win32more.Foundation.HRESULT: ...
+class IFELanguage(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('019f7152-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
+    @commethod(3)
+    def Open() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetJMorphResult(dwRequest: UInt32, dwCMode: UInt32, cwchInput: Int32, pwchInput: win32more.Foundation.PWSTR, pfCInfo: POINTER(UInt32), ppResult: POINTER(POINTER(win32more.UI.Input.Ime.MORRSLT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetConversionModeCaps(pdwCaps: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPhonetic(string: win32more.Foundation.BSTR, start: Int32, length: Int32, phonetic: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetConversion(string: win32more.Foundation.BSTR, start: Int32, length: Int32, result: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IImePad(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5d8e643a-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
+    @commethod(3)
+    def Request(pIImePadApplet: win32more.UI.Input.Ime.IImePadApplet_head, reqId: win32more.UI.Input.Ime.IME_PAD_REQUEST_FLAGS, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+class IImePadApplet(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5d8e643b-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
+    @commethod(3)
+    def Initialize(lpIImePad: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Terminate() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetAppletConfig(lpAppletCfg: POINTER(win32more.UI.Input.Ime.IMEAPPLETCFG_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateUI(hwndParent: win32more.Foundation.HWND, lpImeAppletUI: POINTER(win32more.UI.Input.Ime.IMEAPPLETUI_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Notify(lpImePad: win32more.System.Com.IUnknown_head, notify: Int32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+class IImePlugInDictDictionaryList(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('98752974-b0a6-489b-8f-6f-bf-f3-76-9c-8e-eb')
+    @commethod(3)
+    def GetDictionariesInUse(prgDictionaryGUID: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), prgDateCreated: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), prgfEncrypted: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DeleteDictionary(bstrDictionaryGUID: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IImeSpecifyApplets(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5d8e643c-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
+    @commethod(3)
+    def GetAppletIIDList(refiid: POINTER(Guid), lpIIDList: POINTER(win32more.UI.Input.Ime.APPLETIDLIST_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def IMCENUMPROC(param0: win32more.Globalization.HIMC, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 IME_COMPOSITION_STRING = UInt32
-GCS_COMPREADSTR = 1
-GCS_COMPREADATTR = 2
-GCS_COMPREADCLAUSE = 4
-GCS_COMPSTR = 8
-GCS_COMPATTR = 16
-GCS_COMPCLAUSE = 32
-GCS_CURSORPOS = 128
-GCS_DELTASTART = 256
-GCS_RESULTREADSTR = 512
-GCS_RESULTREADCLAUSE = 1024
-GCS_RESULTSTR = 2048
-GCS_RESULTCLAUSE = 4096
+GCS_COMPREADSTR: IME_COMPOSITION_STRING = 1
+GCS_COMPREADATTR: IME_COMPOSITION_STRING = 2
+GCS_COMPREADCLAUSE: IME_COMPOSITION_STRING = 4
+GCS_COMPSTR: IME_COMPOSITION_STRING = 8
+GCS_COMPATTR: IME_COMPOSITION_STRING = 16
+GCS_COMPCLAUSE: IME_COMPOSITION_STRING = 32
+GCS_CURSORPOS: IME_COMPOSITION_STRING = 128
+GCS_DELTASTART: IME_COMPOSITION_STRING = 256
+GCS_RESULTREADSTR: IME_COMPOSITION_STRING = 512
+GCS_RESULTREADCLAUSE: IME_COMPOSITION_STRING = 1024
+GCS_RESULTSTR: IME_COMPOSITION_STRING = 2048
+GCS_RESULTCLAUSE: IME_COMPOSITION_STRING = 4096
 IME_CONVERSION_MODE = UInt32
-IME_CMODE_ALPHANUMERIC = 0
-IME_CMODE_NATIVE = 1
-IME_CMODE_CHINESE = 1
-IME_CMODE_HANGUL = 1
-IME_CMODE_JAPANESE = 1
-IME_CMODE_KATAKANA = 2
-IME_CMODE_LANGUAGE = 3
-IME_CMODE_FULLSHAPE = 8
-IME_CMODE_ROMAN = 16
-IME_CMODE_CHARCODE = 32
-IME_CMODE_HANJACONVERT = 64
-IME_CMODE_NATIVESYMBOL = 128
-IME_CMODE_HANGEUL = 1
-IME_CMODE_SOFTKBD = 128
-IME_CMODE_NOCONVERSION = 256
-IME_CMODE_EUDC = 512
-IME_CMODE_SYMBOL = 1024
-IME_CMODE_FIXED = 2048
-IME_CMODE_RESERVED = 4026531840
+IME_CMODE_ALPHANUMERIC: IME_CONVERSION_MODE = 0
+IME_CMODE_NATIVE: IME_CONVERSION_MODE = 1
+IME_CMODE_CHINESE: IME_CONVERSION_MODE = 1
+IME_CMODE_HANGUL: IME_CONVERSION_MODE = 1
+IME_CMODE_JAPANESE: IME_CONVERSION_MODE = 1
+IME_CMODE_KATAKANA: IME_CONVERSION_MODE = 2
+IME_CMODE_LANGUAGE: IME_CONVERSION_MODE = 3
+IME_CMODE_FULLSHAPE: IME_CONVERSION_MODE = 8
+IME_CMODE_ROMAN: IME_CONVERSION_MODE = 16
+IME_CMODE_CHARCODE: IME_CONVERSION_MODE = 32
+IME_CMODE_HANJACONVERT: IME_CONVERSION_MODE = 64
+IME_CMODE_NATIVESYMBOL: IME_CONVERSION_MODE = 128
+IME_CMODE_HANGEUL: IME_CONVERSION_MODE = 1
+IME_CMODE_SOFTKBD: IME_CONVERSION_MODE = 128
+IME_CMODE_NOCONVERSION: IME_CONVERSION_MODE = 256
+IME_CMODE_EUDC: IME_CONVERSION_MODE = 512
+IME_CMODE_SYMBOL: IME_CONVERSION_MODE = 1024
+IME_CMODE_FIXED: IME_CONVERSION_MODE = 2048
+IME_CMODE_RESERVED: IME_CONVERSION_MODE = 4026531840
 IME_ESCAPE = UInt32
-IME_ESC_QUERY_SUPPORT = 3
-IME_ESC_RESERVED_FIRST = 4
-IME_ESC_RESERVED_LAST = 2047
-IME_ESC_PRIVATE_FIRST = 2048
-IME_ESC_PRIVATE_LAST = 4095
-IME_ESC_SEQUENCE_TO_INTERNAL = 4097
-IME_ESC_GET_EUDC_DICTIONARY = 4099
-IME_ESC_SET_EUDC_DICTIONARY = 4100
-IME_ESC_MAX_KEY = 4101
-IME_ESC_IME_NAME = 4102
-IME_ESC_SYNC_HOTKEY = 4103
-IME_ESC_HANJA_MODE = 4104
-IME_ESC_AUTOMATA = 4105
-IME_ESC_PRIVATE_HOTKEY = 4106
-IME_ESC_GETHELPFILENAME = 4107
+IME_ESC_QUERY_SUPPORT: IME_ESCAPE = 3
+IME_ESC_RESERVED_FIRST: IME_ESCAPE = 4
+IME_ESC_RESERVED_LAST: IME_ESCAPE = 2047
+IME_ESC_PRIVATE_FIRST: IME_ESCAPE = 2048
+IME_ESC_PRIVATE_LAST: IME_ESCAPE = 4095
+IME_ESC_SEQUENCE_TO_INTERNAL: IME_ESCAPE = 4097
+IME_ESC_GET_EUDC_DICTIONARY: IME_ESCAPE = 4099
+IME_ESC_SET_EUDC_DICTIONARY: IME_ESCAPE = 4100
+IME_ESC_MAX_KEY: IME_ESCAPE = 4101
+IME_ESC_IME_NAME: IME_ESCAPE = 4102
+IME_ESC_SYNC_HOTKEY: IME_ESCAPE = 4103
+IME_ESC_HANJA_MODE: IME_ESCAPE = 4104
+IME_ESC_AUTOMATA: IME_ESCAPE = 4105
+IME_ESC_PRIVATE_HOTKEY: IME_ESCAPE = 4106
+IME_ESC_GETHELPFILENAME: IME_ESCAPE = 4107
 IME_HOTKEY_IDENTIFIER = UInt32
-IME_CHOTKEY_IME_NONIME_TOGGLE = 16
-IME_CHOTKEY_SHAPE_TOGGLE = 17
-IME_CHOTKEY_SYMBOL_TOGGLE = 18
-IME_JHOTKEY_CLOSE_OPEN = 48
-IME_KHOTKEY_SHAPE_TOGGLE = 80
-IME_KHOTKEY_HANJACONVERT = 81
-IME_KHOTKEY_ENGLISH = 82
-IME_THOTKEY_IME_NONIME_TOGGLE = 112
-IME_THOTKEY_SHAPE_TOGGLE = 113
-IME_THOTKEY_SYMBOL_TOGGLE = 114
-IME_ITHOTKEY_RESEND_RESULTSTR = 512
-IME_ITHOTKEY_PREVIOUS_COMPOSITION = 513
-IME_ITHOTKEY_UISTYLE_TOGGLE = 514
-IME_ITHOTKEY_RECONVERTSTRING = 515
+IME_CHOTKEY_IME_NONIME_TOGGLE: IME_HOTKEY_IDENTIFIER = 16
+IME_CHOTKEY_SHAPE_TOGGLE: IME_HOTKEY_IDENTIFIER = 17
+IME_CHOTKEY_SYMBOL_TOGGLE: IME_HOTKEY_IDENTIFIER = 18
+IME_JHOTKEY_CLOSE_OPEN: IME_HOTKEY_IDENTIFIER = 48
+IME_KHOTKEY_SHAPE_TOGGLE: IME_HOTKEY_IDENTIFIER = 80
+IME_KHOTKEY_HANJACONVERT: IME_HOTKEY_IDENTIFIER = 81
+IME_KHOTKEY_ENGLISH: IME_HOTKEY_IDENTIFIER = 82
+IME_THOTKEY_IME_NONIME_TOGGLE: IME_HOTKEY_IDENTIFIER = 112
+IME_THOTKEY_SHAPE_TOGGLE: IME_HOTKEY_IDENTIFIER = 113
+IME_THOTKEY_SYMBOL_TOGGLE: IME_HOTKEY_IDENTIFIER = 114
+IME_ITHOTKEY_RESEND_RESULTSTR: IME_HOTKEY_IDENTIFIER = 512
+IME_ITHOTKEY_PREVIOUS_COMPOSITION: IME_HOTKEY_IDENTIFIER = 513
+IME_ITHOTKEY_UISTYLE_TOGGLE: IME_HOTKEY_IDENTIFIER = 514
+IME_ITHOTKEY_RECONVERTSTRING: IME_HOTKEY_IDENTIFIER = 515
 IME_PAD_REQUEST_FLAGS = UInt32
-IMEPADREQ_INSERTSTRING = 4097
-IMEPADREQ_SENDCONTROL = 4100
-IMEPADREQ_SETAPPLETSIZE = 4104
-IMEPADREQ_GETCOMPOSITIONSTRING = 4102
-IMEPADREQ_GETCOMPOSITIONSTRINGINFO = 4108
-IMEPADREQ_DELETESTRING = 4112
-IMEPADREQ_CHANGESTRING = 4113
-IMEPADREQ_GETAPPLHWND = 4116
-IMEPADREQ_FORCEIMEPADWINDOWSHOW = 4117
-IMEPADREQ_POSTMODALNOTIFY = 4118
-IMEPADREQ_GETDEFAULTUILANGID = 4119
-IMEPADREQ_GETAPPLETUISTYLE = 4121
-IMEPADREQ_SETAPPLETUISTYLE = 4122
-IMEPADREQ_ISAPPLETACTIVE = 4123
-IMEPADREQ_ISIMEPADWINDOWVISIBLE = 4124
-IMEPADREQ_SETAPPLETMINMAXSIZE = 4125
-IMEPADREQ_GETCONVERSIONSTATUS = 4126
-IMEPADREQ_GETVERSION = 4127
-IMEPADREQ_GETCURRENTIMEINFO = 4128
+IMEPADREQ_INSERTSTRING: IME_PAD_REQUEST_FLAGS = 4097
+IMEPADREQ_SENDCONTROL: IME_PAD_REQUEST_FLAGS = 4100
+IMEPADREQ_SETAPPLETSIZE: IME_PAD_REQUEST_FLAGS = 4104
+IMEPADREQ_GETCOMPOSITIONSTRING: IME_PAD_REQUEST_FLAGS = 4102
+IMEPADREQ_GETCOMPOSITIONSTRINGINFO: IME_PAD_REQUEST_FLAGS = 4108
+IMEPADREQ_DELETESTRING: IME_PAD_REQUEST_FLAGS = 4112
+IMEPADREQ_CHANGESTRING: IME_PAD_REQUEST_FLAGS = 4113
+IMEPADREQ_GETAPPLHWND: IME_PAD_REQUEST_FLAGS = 4116
+IMEPADREQ_FORCEIMEPADWINDOWSHOW: IME_PAD_REQUEST_FLAGS = 4117
+IMEPADREQ_POSTMODALNOTIFY: IME_PAD_REQUEST_FLAGS = 4118
+IMEPADREQ_GETDEFAULTUILANGID: IME_PAD_REQUEST_FLAGS = 4119
+IMEPADREQ_GETAPPLETUISTYLE: IME_PAD_REQUEST_FLAGS = 4121
+IMEPADREQ_SETAPPLETUISTYLE: IME_PAD_REQUEST_FLAGS = 4122
+IMEPADREQ_ISAPPLETACTIVE: IME_PAD_REQUEST_FLAGS = 4123
+IMEPADREQ_ISIMEPADWINDOWVISIBLE: IME_PAD_REQUEST_FLAGS = 4124
+IMEPADREQ_SETAPPLETMINMAXSIZE: IME_PAD_REQUEST_FLAGS = 4125
+IMEPADREQ_GETCONVERSIONSTATUS: IME_PAD_REQUEST_FLAGS = 4126
+IMEPADREQ_GETVERSION: IME_PAD_REQUEST_FLAGS = 4127
+IMEPADREQ_GETCURRENTIMEINFO: IME_PAD_REQUEST_FLAGS = 4128
 IME_SENTENCE_MODE = UInt32
-IME_SMODE_NONE = 0
-IME_SMODE_PLAURALCLAUSE = 1
-IME_SMODE_SINGLECONVERT = 2
-IME_SMODE_AUTOMATIC = 4
-IME_SMODE_PHRASEPREDICT = 8
-IME_SMODE_CONVERSATION = 16
-IME_SMODE_RESERVED = 61440
-def _define_IMEAPPLETCFG_head():
-    class IMEAPPLETCFG(Structure):
-        pass
-    return IMEAPPLETCFG
-def _define_IMEAPPLETCFG():
-    IMEAPPLETCFG = win32more.UI.Input.Ime.IMEAPPLETCFG_head
-    IMEAPPLETCFG._fields_ = [
-        ('dwConfig', UInt32),
-        ('wchTitle', Char * 64),
-        ('wchTitleFontFace', Char * 32),
-        ('dwCharSet', UInt32),
-        ('iCategory', Int32),
-        ('hIcon', win32more.UI.WindowsAndMessaging.HICON),
-        ('langID', UInt16),
-        ('dummy', UInt16),
-        ('lReserved1', win32more.Foundation.LPARAM),
-    ]
-    return IMEAPPLETCFG
-def _define_IMEAPPLETUI_head():
-    class IMEAPPLETUI(Structure):
-        pass
-    return IMEAPPLETUI
-def _define_IMEAPPLETUI():
-    IMEAPPLETUI = win32more.UI.Input.Ime.IMEAPPLETUI_head
-    IMEAPPLETUI._fields_ = [
-        ('hwnd', win32more.Foundation.HWND),
-        ('dwStyle', UInt32),
-        ('width', Int32),
-        ('height', Int32),
-        ('minWidth', Int32),
-        ('minHeight', Int32),
-        ('maxWidth', Int32),
-        ('maxHeight', Int32),
-        ('lReserved1', win32more.Foundation.LPARAM),
-        ('lReserved2', win32more.Foundation.LPARAM),
-    ]
-    return IMEAPPLETUI
-def _define_IMECHARINFO_head():
-    class IMECHARINFO(Structure):
-        pass
-    return IMECHARINFO
-def _define_IMECHARINFO():
-    IMECHARINFO = win32more.UI.Input.Ime.IMECHARINFO_head
-    IMECHARINFO._fields_ = [
-        ('wch', Char),
-        ('dwCharInfo', UInt32),
-    ]
-    return IMECHARINFO
-def _define_IMECHARPOSITION_head():
-    class IMECHARPOSITION(Structure):
-        pass
-    return IMECHARPOSITION
-def _define_IMECHARPOSITION():
-    IMECHARPOSITION = win32more.UI.Input.Ime.IMECHARPOSITION_head
-    IMECHARPOSITION._fields_ = [
-        ('dwSize', UInt32),
-        ('dwCharPos', UInt32),
-        ('pt', win32more.Foundation.POINT),
-        ('cLineHeight', UInt32),
-        ('rcDocument', win32more.Foundation.RECT),
-    ]
-    return IMECHARPOSITION
-def _define_IMECOMPOSITIONSTRINGINFO_head():
-    class IMECOMPOSITIONSTRINGINFO(Structure):
-        pass
-    return IMECOMPOSITIONSTRINGINFO
-def _define_IMECOMPOSITIONSTRINGINFO():
-    IMECOMPOSITIONSTRINGINFO = win32more.UI.Input.Ime.IMECOMPOSITIONSTRINGINFO_head
-    IMECOMPOSITIONSTRINGINFO._fields_ = [
-        ('iCompStrLen', Int32),
-        ('iCaretPos', Int32),
-        ('iEditStart', Int32),
-        ('iEditLen', Int32),
-        ('iTargetStart', Int32),
-        ('iTargetLen', Int32),
-    ]
-    return IMECOMPOSITIONSTRINGINFO
-def _define_IMEDLG_head():
-    class IMEDLG(Structure):
-        pass
-    return IMEDLG
-def _define_IMEDLG():
-    IMEDLG = win32more.UI.Input.Ime.IMEDLG_head
-    IMEDLG._pack_ = 1
-    IMEDLG._fields_ = [
-        ('cbIMEDLG', Int32),
-        ('hwnd', win32more.Foundation.HWND),
-        ('lpwstrWord', win32more.Foundation.PWSTR),
-        ('nTabId', Int32),
-    ]
-    return IMEDLG
-def _define_IMEDP_head():
-    class IMEDP(Structure):
-        pass
-    return IMEDP
-def _define_IMEDP():
-    IMEDP = win32more.UI.Input.Ime.IMEDP_head
-    IMEDP._pack_ = 1
-    IMEDP._fields_ = [
-        ('wrdModifier', win32more.UI.Input.Ime.IMEWRD),
-        ('wrdModifiee', win32more.UI.Input.Ime.IMEWRD),
-        ('relID', win32more.UI.Input.Ime.IMEREL),
-    ]
-    return IMEDP
-def _define_IMEFAREASTINFO_head():
-    class IMEFAREASTINFO(Structure):
-        pass
-    return IMEFAREASTINFO
-def _define_IMEFAREASTINFO():
-    IMEFAREASTINFO = win32more.UI.Input.Ime.IMEFAREASTINFO_head
-    IMEFAREASTINFO._fields_ = [
-        ('dwSize', UInt32),
-        ('dwType', UInt32),
-        ('dwData', UInt32 * 1),
-    ]
-    return IMEFAREASTINFO
+IME_SMODE_NONE: IME_SENTENCE_MODE = 0
+IME_SMODE_PLAURALCLAUSE: IME_SENTENCE_MODE = 1
+IME_SMODE_SINGLECONVERT: IME_SENTENCE_MODE = 2
+IME_SMODE_AUTOMATIC: IME_SENTENCE_MODE = 4
+IME_SMODE_PHRASEPREDICT: IME_SENTENCE_MODE = 8
+IME_SMODE_CONVERSATION: IME_SENTENCE_MODE = 16
+IME_SMODE_RESERVED: IME_SENTENCE_MODE = 61440
+class IMEAPPLETCFG(Structure):
+    dwConfig: UInt32
+    wchTitle: Char * 64
+    wchTitleFontFace: Char * 32
+    dwCharSet: UInt32
+    iCategory: Int32
+    hIcon: win32more.UI.WindowsAndMessaging.HICON
+    langID: UInt16
+    dummy: UInt16
+    lReserved1: win32more.Foundation.LPARAM
+class IMEAPPLETUI(Structure):
+    hwnd: win32more.Foundation.HWND
+    dwStyle: UInt32
+    width: Int32
+    height: Int32
+    minWidth: Int32
+    minHeight: Int32
+    maxWidth: Int32
+    maxHeight: Int32
+    lReserved1: win32more.Foundation.LPARAM
+    lReserved2: win32more.Foundation.LPARAM
+class IMECHARINFO(Structure):
+    wch: Char
+    dwCharInfo: UInt32
+class IMECHARPOSITION(Structure):
+    dwSize: UInt32
+    dwCharPos: UInt32
+    pt: win32more.Foundation.POINT
+    cLineHeight: UInt32
+    rcDocument: win32more.Foundation.RECT
+class IMECOMPOSITIONSTRINGINFO(Structure):
+    iCompStrLen: Int32
+    iCaretPos: Int32
+    iEditStart: Int32
+    iEditLen: Int32
+    iTargetStart: Int32
+    iTargetLen: Int32
+class IMEDLG(Structure):
+    cbIMEDLG: Int32
+    hwnd: win32more.Foundation.HWND
+    lpwstrWord: win32more.Foundation.PWSTR
+    nTabId: Int32
+    _pack_ = 1
+class IMEDP(Structure):
+    wrdModifier: win32more.UI.Input.Ime.IMEWRD
+    wrdModifiee: win32more.UI.Input.Ime.IMEWRD
+    relID: win32more.UI.Input.Ime.IMEREL
+    _pack_ = 1
+class IMEFAREASTINFO(Structure):
+    dwSize: UInt32
+    dwType: UInt32
+    dwData: UInt32 * 1
 IMEFMT = Int32
-IFED_UNKNOWN = 0
-IFED_MSIME2_BIN_SYSTEM = 1
-IFED_MSIME2_BIN_USER = 2
-IFED_MSIME2_TEXT_USER = 3
-IFED_MSIME95_BIN_SYSTEM = 4
-IFED_MSIME95_BIN_USER = 5
-IFED_MSIME95_TEXT_USER = 6
-IFED_MSIME97_BIN_SYSTEM = 7
-IFED_MSIME97_BIN_USER = 8
-IFED_MSIME97_TEXT_USER = 9
-IFED_MSIME98_BIN_SYSTEM = 10
-IFED_MSIME98_BIN_USER = 11
-IFED_MSIME98_TEXT_USER = 12
-IFED_ACTIVE_DICT = 13
-IFED_ATOK9 = 14
-IFED_ATOK10 = 15
-IFED_NEC_AI_ = 16
-IFED_WX_II = 17
-IFED_WX_III = 18
-IFED_VJE_20 = 19
-IFED_MSIME98_SYSTEM_CE = 20
-IFED_MSIME_BIN_SYSTEM = 21
-IFED_MSIME_BIN_USER = 22
-IFED_MSIME_TEXT_USER = 23
-IFED_PIME2_BIN_USER = 24
-IFED_PIME2_BIN_SYSTEM = 25
-IFED_PIME2_BIN_STANDARD_SYSTEM = 26
-def _define_IMEINFO_head():
-    class IMEINFO(Structure):
-        pass
-    return IMEINFO
-def _define_IMEINFO():
-    IMEINFO = win32more.UI.Input.Ime.IMEINFO_head
-    IMEINFO._fields_ = [
-        ('dwPrivateDataSize', UInt32),
-        ('fdwProperty', UInt32),
-        ('fdwConversionCaps', UInt32),
-        ('fdwSentenceCaps', UInt32),
-        ('fdwUICaps', UInt32),
-        ('fdwSCSCaps', UInt32),
-        ('fdwSelectCaps', UInt32),
-    ]
-    return IMEINFO
-def _define_IMEITEM_head():
-    class IMEITEM(Structure):
-        pass
-    return IMEITEM
-def _define_IMEITEM():
-    IMEITEM = win32more.UI.Input.Ime.IMEITEM_head
-    IMEITEM._fields_ = [
-        ('cbSize', Int32),
-        ('iType', Int32),
-        ('lpItemData', c_void_p),
-    ]
-    return IMEITEM
-def _define_IMEITEMCANDIDATE_head():
-    class IMEITEMCANDIDATE(Structure):
-        pass
-    return IMEITEMCANDIDATE
-def _define_IMEITEMCANDIDATE():
-    IMEITEMCANDIDATE = win32more.UI.Input.Ime.IMEITEMCANDIDATE_head
-    IMEITEMCANDIDATE._fields_ = [
-        ('uCount', UInt32),
-        ('imeItem', win32more.UI.Input.Ime.IMEITEM * 1),
-    ]
-    return IMEITEMCANDIDATE
-def _define_IMEKMS_head():
-    class IMEKMS(Structure):
-        pass
-    return IMEKMS
-def _define_IMEKMS():
-    IMEKMS = win32more.UI.Input.Ime.IMEKMS_head
-    IMEKMS._pack_ = 1
-    IMEKMS._fields_ = [
-        ('cbSize', Int32),
-        ('hIMC', win32more.Globalization.HIMC),
-        ('cKeyList', UInt32),
-        ('pKeyList', POINTER(win32more.UI.Input.Ime.IMEKMSKEY_head)),
-    ]
-    return IMEKMS
-def _define_IMEKMSFUNCDESC_head():
-    class IMEKMSFUNCDESC(Structure):
-        pass
-    return IMEKMSFUNCDESC
-def _define_IMEKMSFUNCDESC():
-    IMEKMSFUNCDESC = win32more.UI.Input.Ime.IMEKMSFUNCDESC_head
-    IMEKMSFUNCDESC._pack_ = 1
-    IMEKMSFUNCDESC._fields_ = [
-        ('cbSize', Int32),
-        ('idLang', UInt16),
-        ('dwControl', UInt32),
-        ('pwszDescription', Char * 128),
-    ]
-    return IMEKMSFUNCDESC
-def _define_IMEKMSINIT_head():
-    class IMEKMSINIT(Structure):
-        pass
-    return IMEKMSINIT
-def _define_IMEKMSINIT():
-    IMEKMSINIT = win32more.UI.Input.Ime.IMEKMSINIT_head
-    IMEKMSINIT._pack_ = 1
-    IMEKMSINIT._fields_ = [
-        ('cbSize', Int32),
-        ('hWnd', win32more.Foundation.HWND),
-    ]
-    return IMEKMSINIT
-def _define_IMEKMSINVK_head():
-    class IMEKMSINVK(Structure):
-        pass
-    return IMEKMSINVK
-def _define_IMEKMSINVK():
-    IMEKMSINVK = win32more.UI.Input.Ime.IMEKMSINVK_head
-    IMEKMSINVK._pack_ = 1
-    IMEKMSINVK._fields_ = [
-        ('cbSize', Int32),
-        ('hIMC', win32more.Globalization.HIMC),
-        ('dwControl', UInt32),
-    ]
-    return IMEKMSINVK
-def _define_IMEKMSKEY_head():
-    class IMEKMSKEY(Structure):
-        pass
-    return IMEKMSKEY
-def _define_IMEKMSKEY():
-    IMEKMSKEY = win32more.UI.Input.Ime.IMEKMSKEY_head
-    class IMEKMSKEY__Anonymous1_e__Union(Union):
-        pass
-    IMEKMSKEY__Anonymous1_e__Union._pack_ = 1
-    IMEKMSKEY__Anonymous1_e__Union._fields_ = [
-        ('dwControl', UInt32),
-        ('dwNotUsed', UInt32),
-    ]
-    class IMEKMSKEY__Anonymous2_e__Union(Union):
-        pass
-    IMEKMSKEY__Anonymous2_e__Union._pack_ = 1
-    IMEKMSKEY__Anonymous2_e__Union._fields_ = [
-        ('pwszDscr', Char * 31),
-        ('pwszNoUse', Char * 31),
-    ]
-    IMEKMSKEY._pack_ = 1
-    IMEKMSKEY._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    IMEKMSKEY._fields_ = [
-        ('dwStatus', UInt32),
-        ('dwCompStatus', UInt32),
-        ('dwVKEY', UInt32),
-        ('Anonymous1', IMEKMSKEY__Anonymous1_e__Union),
-        ('Anonymous2', IMEKMSKEY__Anonymous2_e__Union),
-    ]
-    return IMEKMSKEY
-def _define_IMEKMSKMP_head():
-    class IMEKMSKMP(Structure):
-        pass
-    return IMEKMSKMP
-def _define_IMEKMSKMP():
-    IMEKMSKMP = win32more.UI.Input.Ime.IMEKMSKMP_head
-    IMEKMSKMP._pack_ = 1
-    IMEKMSKMP._fields_ = [
-        ('cbSize', Int32),
-        ('hIMC', win32more.Globalization.HIMC),
-        ('idLang', UInt16),
-        ('wVKStart', UInt16),
-        ('wVKEnd', UInt16),
-        ('cKeyList', Int32),
-        ('pKeyList', POINTER(win32more.UI.Input.Ime.IMEKMSKEY_head)),
-    ]
-    return IMEKMSKMP
-def _define_IMEKMSNTFY_head():
-    class IMEKMSNTFY(Structure):
-        pass
-    return IMEKMSNTFY
-def _define_IMEKMSNTFY():
-    IMEKMSNTFY = win32more.UI.Input.Ime.IMEKMSNTFY_head
-    IMEKMSNTFY._pack_ = 1
-    IMEKMSNTFY._fields_ = [
-        ('cbSize', Int32),
-        ('hIMC', win32more.Globalization.HIMC),
-        ('fSelect', win32more.Foundation.BOOL),
-    ]
-    return IMEKMSNTFY
-def _define_IMEMENUITEMINFOA_head():
-    class IMEMENUITEMINFOA(Structure):
-        pass
-    return IMEMENUITEMINFOA
-def _define_IMEMENUITEMINFOA():
-    IMEMENUITEMINFOA = win32more.UI.Input.Ime.IMEMENUITEMINFOA_head
-    IMEMENUITEMINFOA._fields_ = [
-        ('cbSize', UInt32),
-        ('fType', UInt32),
-        ('fState', UInt32),
-        ('wID', UInt32),
-        ('hbmpChecked', win32more.Graphics.Gdi.HBITMAP),
-        ('hbmpUnchecked', win32more.Graphics.Gdi.HBITMAP),
-        ('dwItemData', UInt32),
-        ('szString', win32more.Foundation.CHAR * 80),
-        ('hbmpItem', win32more.Graphics.Gdi.HBITMAP),
-    ]
-    return IMEMENUITEMINFOA
-def _define_IMEMENUITEMINFOW_head():
-    class IMEMENUITEMINFOW(Structure):
-        pass
-    return IMEMENUITEMINFOW
-def _define_IMEMENUITEMINFOW():
-    IMEMENUITEMINFOW = win32more.UI.Input.Ime.IMEMENUITEMINFOW_head
-    IMEMENUITEMINFOW._fields_ = [
-        ('cbSize', UInt32),
-        ('fType', UInt32),
-        ('fState', UInt32),
-        ('wID', UInt32),
-        ('hbmpChecked', win32more.Graphics.Gdi.HBITMAP),
-        ('hbmpUnchecked', win32more.Graphics.Gdi.HBITMAP),
-        ('dwItemData', UInt32),
-        ('szString', Char * 80),
-        ('hbmpItem', win32more.Graphics.Gdi.HBITMAP),
-    ]
-    return IMEMENUITEMINFOW
+IFED_UNKNOWN: IMEFMT = 0
+IFED_MSIME2_BIN_SYSTEM: IMEFMT = 1
+IFED_MSIME2_BIN_USER: IMEFMT = 2
+IFED_MSIME2_TEXT_USER: IMEFMT = 3
+IFED_MSIME95_BIN_SYSTEM: IMEFMT = 4
+IFED_MSIME95_BIN_USER: IMEFMT = 5
+IFED_MSIME95_TEXT_USER: IMEFMT = 6
+IFED_MSIME97_BIN_SYSTEM: IMEFMT = 7
+IFED_MSIME97_BIN_USER: IMEFMT = 8
+IFED_MSIME97_TEXT_USER: IMEFMT = 9
+IFED_MSIME98_BIN_SYSTEM: IMEFMT = 10
+IFED_MSIME98_BIN_USER: IMEFMT = 11
+IFED_MSIME98_TEXT_USER: IMEFMT = 12
+IFED_ACTIVE_DICT: IMEFMT = 13
+IFED_ATOK9: IMEFMT = 14
+IFED_ATOK10: IMEFMT = 15
+IFED_NEC_AI_: IMEFMT = 16
+IFED_WX_II: IMEFMT = 17
+IFED_WX_III: IMEFMT = 18
+IFED_VJE_20: IMEFMT = 19
+IFED_MSIME98_SYSTEM_CE: IMEFMT = 20
+IFED_MSIME_BIN_SYSTEM: IMEFMT = 21
+IFED_MSIME_BIN_USER: IMEFMT = 22
+IFED_MSIME_TEXT_USER: IMEFMT = 23
+IFED_PIME2_BIN_USER: IMEFMT = 24
+IFED_PIME2_BIN_SYSTEM: IMEFMT = 25
+IFED_PIME2_BIN_STANDARD_SYSTEM: IMEFMT = 26
+class IMEINFO(Structure):
+    dwPrivateDataSize: UInt32
+    fdwProperty: UInt32
+    fdwConversionCaps: UInt32
+    fdwSentenceCaps: UInt32
+    fdwUICaps: UInt32
+    fdwSCSCaps: UInt32
+    fdwSelectCaps: UInt32
+class IMEITEM(Structure):
+    cbSize: Int32
+    iType: Int32
+    lpItemData: c_void_p
+class IMEITEMCANDIDATE(Structure):
+    uCount: UInt32
+    imeItem: win32more.UI.Input.Ime.IMEITEM * 1
+class IMEKMS(Structure):
+    cbSize: Int32
+    hIMC: win32more.Globalization.HIMC
+    cKeyList: UInt32
+    pKeyList: POINTER(win32more.UI.Input.Ime.IMEKMSKEY_head)
+    _pack_ = 1
+class IMEKMSFUNCDESC(Structure):
+    cbSize: Int32
+    idLang: UInt16
+    dwControl: UInt32
+    pwszDescription: Char * 128
+    _pack_ = 1
+class IMEKMSINIT(Structure):
+    cbSize: Int32
+    hWnd: win32more.Foundation.HWND
+    _pack_ = 1
+class IMEKMSINVK(Structure):
+    cbSize: Int32
+    hIMC: win32more.Globalization.HIMC
+    dwControl: UInt32
+    _pack_ = 1
+class IMEKMSKEY(Structure):
+    dwStatus: UInt32
+    dwCompStatus: UInt32
+    dwVKEY: UInt32
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    _pack_ = 1
+    class _Anonymous1_e__Union(Union):
+        dwControl: UInt32
+        dwNotUsed: UInt32
+        _pack_ = 1
+    class _Anonymous2_e__Union(Union):
+        pwszDscr: Char * 31
+        pwszNoUse: Char * 31
+        _pack_ = 1
+class IMEKMSKMP(Structure):
+    cbSize: Int32
+    hIMC: win32more.Globalization.HIMC
+    idLang: UInt16
+    wVKStart: UInt16
+    wVKEnd: UInt16
+    cKeyList: Int32
+    pKeyList: POINTER(win32more.UI.Input.Ime.IMEKMSKEY_head)
+    _pack_ = 1
+class IMEKMSNTFY(Structure):
+    cbSize: Int32
+    hIMC: win32more.Globalization.HIMC
+    fSelect: win32more.Foundation.BOOL
+    _pack_ = 1
+class IMEMENUITEMINFOA(Structure):
+    cbSize: UInt32
+    fType: UInt32
+    fState: UInt32
+    wID: UInt32
+    hbmpChecked: win32more.Graphics.Gdi.HBITMAP
+    hbmpUnchecked: win32more.Graphics.Gdi.HBITMAP
+    dwItemData: UInt32
+    szString: win32more.Foundation.CHAR * 80
+    hbmpItem: win32more.Graphics.Gdi.HBITMAP
+class IMEMENUITEMINFOW(Structure):
+    cbSize: UInt32
+    fType: UInt32
+    fState: UInt32
+    wID: UInt32
+    hbmpChecked: win32more.Graphics.Gdi.HBITMAP
+    hbmpUnchecked: win32more.Graphics.Gdi.HBITMAP
+    dwItemData: UInt32
+    szString: Char * 80
+    hbmpItem: win32more.Graphics.Gdi.HBITMAP
 IMEREG = Int32
-IFED_REG_HEAD = 0
-IFED_REG_TAIL = 1
-IFED_REG_DEL = 2
+IFED_REG_HEAD: IMEREG = 0
+IFED_REG_TAIL: IMEREG = 1
+IFED_REG_DEL: IMEREG = 2
 IMEREL = Int32
-IFED_REL_NONE = 0
-IFED_REL_NO = 1
-IFED_REL_GA = 2
-IFED_REL_WO = 3
-IFED_REL_NI = 4
-IFED_REL_DE = 5
-IFED_REL_YORI = 6
-IFED_REL_KARA = 7
-IFED_REL_MADE = 8
-IFED_REL_HE = 9
-IFED_REL_TO = 10
-IFED_REL_IDEOM = 11
-IFED_REL_FUKU_YOUGEN = 12
-IFED_REL_KEIYOU_YOUGEN = 13
-IFED_REL_KEIDOU1_YOUGEN = 14
-IFED_REL_KEIDOU2_YOUGEN = 15
-IFED_REL_TAIGEN = 16
-IFED_REL_YOUGEN = 17
-IFED_REL_RENTAI_MEI = 18
-IFED_REL_RENSOU = 19
-IFED_REL_KEIYOU_TO_YOUGEN = 20
-IFED_REL_KEIYOU_TARU_YOUGEN = 21
-IFED_REL_UNKNOWN1 = 22
-IFED_REL_UNKNOWN2 = 23
-IFED_REL_ALL = 24
-def _define_IMESHF_head():
-    class IMESHF(Structure):
-        pass
-    return IMESHF
-def _define_IMESHF():
-    IMESHF = win32more.UI.Input.Ime.IMESHF_head
-    IMESHF._pack_ = 1
-    IMESHF._fields_ = [
-        ('cbShf', UInt16),
-        ('verDic', UInt16),
-        ('szTitle', win32more.Foundation.CHAR * 48),
-        ('szDescription', win32more.Foundation.CHAR * 256),
-        ('szCopyright', win32more.Foundation.CHAR * 128),
-    ]
-    return IMESHF
-def _define_IMESTRINGCANDIDATE_head():
-    class IMESTRINGCANDIDATE(Structure):
-        pass
-    return IMESTRINGCANDIDATE
-def _define_IMESTRINGCANDIDATE():
-    IMESTRINGCANDIDATE = win32more.UI.Input.Ime.IMESTRINGCANDIDATE_head
-    IMESTRINGCANDIDATE._fields_ = [
-        ('uCount', UInt32),
-        ('lpwstr', win32more.Foundation.PWSTR * 1),
-    ]
-    return IMESTRINGCANDIDATE
-def _define_IMESTRINGCANDIDATEINFO_head():
-    class IMESTRINGCANDIDATEINFO(Structure):
-        pass
-    return IMESTRINGCANDIDATEINFO
-def _define_IMESTRINGCANDIDATEINFO():
-    IMESTRINGCANDIDATEINFO = win32more.UI.Input.Ime.IMESTRINGCANDIDATEINFO_head
-    IMESTRINGCANDIDATEINFO._fields_ = [
-        ('dwFarEastId', UInt32),
-        ('lpFarEastInfo', POINTER(win32more.UI.Input.Ime.IMEFAREASTINFO_head)),
-        ('fInfoMask', UInt32),
-        ('iSelIndex', Int32),
-        ('uCount', UInt32),
-        ('lpwstr', win32more.Foundation.PWSTR * 1),
-    ]
-    return IMESTRINGCANDIDATEINFO
-def _define_IMESTRINGINFO_head():
-    class IMESTRINGINFO(Structure):
-        pass
-    return IMESTRINGINFO
-def _define_IMESTRINGINFO():
-    IMESTRINGINFO = win32more.UI.Input.Ime.IMESTRINGINFO_head
-    IMESTRINGINFO._fields_ = [
-        ('dwFarEastId', UInt32),
-        ('lpwstr', win32more.Foundation.PWSTR),
-    ]
-    return IMESTRINGINFO
+IFED_REL_NONE: IMEREL = 0
+IFED_REL_NO: IMEREL = 1
+IFED_REL_GA: IMEREL = 2
+IFED_REL_WO: IMEREL = 3
+IFED_REL_NI: IMEREL = 4
+IFED_REL_DE: IMEREL = 5
+IFED_REL_YORI: IMEREL = 6
+IFED_REL_KARA: IMEREL = 7
+IFED_REL_MADE: IMEREL = 8
+IFED_REL_HE: IMEREL = 9
+IFED_REL_TO: IMEREL = 10
+IFED_REL_IDEOM: IMEREL = 11
+IFED_REL_FUKU_YOUGEN: IMEREL = 12
+IFED_REL_KEIYOU_YOUGEN: IMEREL = 13
+IFED_REL_KEIDOU1_YOUGEN: IMEREL = 14
+IFED_REL_KEIDOU2_YOUGEN: IMEREL = 15
+IFED_REL_TAIGEN: IMEREL = 16
+IFED_REL_YOUGEN: IMEREL = 17
+IFED_REL_RENTAI_MEI: IMEREL = 18
+IFED_REL_RENSOU: IMEREL = 19
+IFED_REL_KEIYOU_TO_YOUGEN: IMEREL = 20
+IFED_REL_KEIYOU_TARU_YOUGEN: IMEREL = 21
+IFED_REL_UNKNOWN1: IMEREL = 22
+IFED_REL_UNKNOWN2: IMEREL = 23
+IFED_REL_ALL: IMEREL = 24
+class IMESHF(Structure):
+    cbShf: UInt16
+    verDic: UInt16
+    szTitle: win32more.Foundation.CHAR * 48
+    szDescription: win32more.Foundation.CHAR * 256
+    szCopyright: win32more.Foundation.CHAR * 128
+    _pack_ = 1
+class IMESTRINGCANDIDATE(Structure):
+    uCount: UInt32
+    lpwstr: win32more.Foundation.PWSTR * 1
+class IMESTRINGCANDIDATEINFO(Structure):
+    dwFarEastId: UInt32
+    lpFarEastInfo: POINTER(win32more.UI.Input.Ime.IMEFAREASTINFO_head)
+    fInfoMask: UInt32
+    iSelIndex: Int32
+    uCount: UInt32
+    lpwstr: win32more.Foundation.PWSTR * 1
+class IMESTRINGINFO(Structure):
+    dwFarEastId: UInt32
+    lpwstr: win32more.Foundation.PWSTR
 IMEUCT = Int32
-IFED_UCT_NONE = 0
-IFED_UCT_STRING_SJIS = 1
-IFED_UCT_STRING_UNICODE = 2
-IFED_UCT_USER_DEFINED = 3
-IFED_UCT_MAX = 4
-def _define_IMEWRD_head():
-    class IMEWRD(Structure):
-        pass
-    return IMEWRD
-def _define_IMEWRD():
-    IMEWRD = win32more.UI.Input.Ime.IMEWRD_head
-    class IMEWRD__Anonymous_e__Union(Union):
-        pass
-    class IMEWRD__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IMEWRD__Anonymous_e__Union__Anonymous_e__Struct._pack_ = 1
-    IMEWRD__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('nPos1', UInt16),
-        ('nPos2', UInt16),
-    ]
-    IMEWRD__Anonymous_e__Union._pack_ = 1
-    IMEWRD__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IMEWRD__Anonymous_e__Union._fields_ = [
-        ('ulPos', UInt32),
-        ('Anonymous', IMEWRD__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IMEWRD._pack_ = 1
-    IMEWRD._anonymous_ = [
-        'Anonymous',
-    ]
-    IMEWRD._fields_ = [
-        ('pwchReading', win32more.Foundation.PWSTR),
-        ('pwchDisplay', win32more.Foundation.PWSTR),
-        ('Anonymous', IMEWRD__Anonymous_e__Union),
-        ('rgulAttrs', UInt32 * 2),
-        ('cbComment', Int32),
-        ('uct', win32more.UI.Input.Ime.IMEUCT),
-        ('pvComment', c_void_p),
-    ]
-    return IMEWRD
-def _define_INPUTCONTEXT_head():
-    class INPUTCONTEXT(Structure):
-        pass
-    return INPUTCONTEXT
-def _define_INPUTCONTEXT():
-    INPUTCONTEXT = win32more.UI.Input.Ime.INPUTCONTEXT_head
-    class INPUTCONTEXT__lfFont_e__Union(Union):
-        pass
-    INPUTCONTEXT__lfFont_e__Union._fields_ = [
-        ('A', win32more.Graphics.Gdi.LOGFONTA),
-        ('W', win32more.Graphics.Gdi.LOGFONTW),
-    ]
-    INPUTCONTEXT._fields_ = [
-        ('hWnd', win32more.Foundation.HWND),
-        ('fOpen', win32more.Foundation.BOOL),
-        ('ptStatusWndPos', win32more.Foundation.POINT),
-        ('ptSoftKbdPos', win32more.Foundation.POINT),
-        ('fdwConversion', UInt32),
-        ('fdwSentence', UInt32),
-        ('lfFont', INPUTCONTEXT__lfFont_e__Union),
-        ('cfCompForm', win32more.UI.Input.Ime.COMPOSITIONFORM),
-        ('cfCandForm', win32more.UI.Input.Ime.CANDIDATEFORM * 4),
-        ('hCompStr', win32more.Globalization.HIMCC),
-        ('hCandInfo', win32more.Globalization.HIMCC),
-        ('hGuideLine', win32more.Globalization.HIMCC),
-        ('hPrivate', win32more.Globalization.HIMCC),
-        ('dwNumMsgBuf', UInt32),
-        ('hMsgBuf', win32more.Globalization.HIMCC),
-        ('fdwInit', UInt32),
-        ('dwReserve', UInt32 * 3),
-    ]
-    return INPUTCONTEXT
-def _define_MORRSLT_head():
-    class MORRSLT(Structure):
-        pass
-    return MORRSLT
-def _define_MORRSLT():
-    MORRSLT = win32more.UI.Input.Ime.MORRSLT_head
-    class MORRSLT__Anonymous1_e__Union(Union):
-        pass
-    MORRSLT__Anonymous1_e__Union._pack_ = 1
-    MORRSLT__Anonymous1_e__Union._fields_ = [
-        ('pwchRead', win32more.Foundation.PWSTR),
-        ('pwchComp', win32more.Foundation.PWSTR),
-    ]
-    class MORRSLT__Anonymous2_e__Union(Union):
-        pass
-    MORRSLT__Anonymous2_e__Union._pack_ = 1
-    MORRSLT__Anonymous2_e__Union._fields_ = [
-        ('cchRead', UInt16),
-        ('cchComp', UInt16),
-    ]
-    class MORRSLT__Anonymous3_e__Union(Union):
-        pass
-    MORRSLT__Anonymous3_e__Union._pack_ = 1
-    MORRSLT__Anonymous3_e__Union._fields_ = [
-        ('pchReadIdxWDD', POINTER(UInt16)),
-        ('pchCompIdxWDD', POINTER(UInt16)),
-    ]
-    MORRSLT._pack_ = 1
-    MORRSLT._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-        'Anonymous3',
-    ]
-    MORRSLT._fields_ = [
-        ('dwSize', UInt32),
-        ('pwchOutput', win32more.Foundation.PWSTR),
-        ('cchOutput', UInt16),
-        ('Anonymous1', MORRSLT__Anonymous1_e__Union),
-        ('Anonymous2', MORRSLT__Anonymous2_e__Union),
-        ('pchInputPos', POINTER(UInt16)),
-        ('pchOutputIdxWDD', POINTER(UInt16)),
-        ('Anonymous3', MORRSLT__Anonymous3_e__Union),
-        ('paMonoRubyPos', POINTER(UInt16)),
-        ('pWDD', POINTER(win32more.UI.Input.Ime.WDD_head)),
-        ('cWDD', Int32),
-        ('pPrivate', c_void_p),
-        ('BLKBuff', Char * 1),
-    ]
-    return MORRSLT
+IFED_UCT_NONE: IMEUCT = 0
+IFED_UCT_STRING_SJIS: IMEUCT = 1
+IFED_UCT_STRING_UNICODE: IMEUCT = 2
+IFED_UCT_USER_DEFINED: IMEUCT = 3
+IFED_UCT_MAX: IMEUCT = 4
+class IMEWRD(Structure):
+    pwchReading: win32more.Foundation.PWSTR
+    pwchDisplay: win32more.Foundation.PWSTR
+    Anonymous: _Anonymous_e__Union
+    rgulAttrs: UInt32 * 2
+    cbComment: Int32
+    uct: win32more.UI.Input.Ime.IMEUCT
+    pvComment: c_void_p
+    _pack_ = 1
+    class _Anonymous_e__Union(Union):
+        ulPos: UInt32
+        Anonymous: _Anonymous_e__Struct
+        _pack_ = 1
+        class _Anonymous_e__Struct(Structure):
+            nPos1: UInt16
+            nPos2: UInt16
+            _pack_ = 1
+class INPUTCONTEXT(Structure):
+    hWnd: win32more.Foundation.HWND
+    fOpen: win32more.Foundation.BOOL
+    ptStatusWndPos: win32more.Foundation.POINT
+    ptSoftKbdPos: win32more.Foundation.POINT
+    fdwConversion: UInt32
+    fdwSentence: UInt32
+    lfFont: _lfFont_e__Union
+    cfCompForm: win32more.UI.Input.Ime.COMPOSITIONFORM
+    cfCandForm: win32more.UI.Input.Ime.CANDIDATEFORM * 4
+    hCompStr: win32more.Globalization.HIMCC
+    hCandInfo: win32more.Globalization.HIMCC
+    hGuideLine: win32more.Globalization.HIMCC
+    hPrivate: win32more.Globalization.HIMCC
+    dwNumMsgBuf: UInt32
+    hMsgBuf: win32more.Globalization.HIMCC
+    fdwInit: UInt32
+    dwReserve: UInt32 * 3
+    class _lfFont_e__Union(Union):
+        A: win32more.Graphics.Gdi.LOGFONTA
+        W: win32more.Graphics.Gdi.LOGFONTW
+class MORRSLT(Structure):
+    dwSize: UInt32
+    pwchOutput: win32more.Foundation.PWSTR
+    cchOutput: UInt16
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    pchInputPos: POINTER(UInt16)
+    pchOutputIdxWDD: POINTER(UInt16)
+    Anonymous3: _Anonymous3_e__Union
+    paMonoRubyPos: POINTER(UInt16)
+    pWDD: POINTER(win32more.UI.Input.Ime.WDD_head)
+    cWDD: Int32
+    pPrivate: c_void_p
+    BLKBuff: Char * 1
+    _pack_ = 1
+    class _Anonymous1_e__Union(Union):
+        pwchRead: win32more.Foundation.PWSTR
+        pwchComp: win32more.Foundation.PWSTR
+        _pack_ = 1
+    class _Anonymous2_e__Union(Union):
+        cchRead: UInt16
+        cchComp: UInt16
+        _pack_ = 1
+    class _Anonymous3_e__Union(Union):
+        pchReadIdxWDD: POINTER(UInt16)
+        pchCompIdxWDD: POINTER(UInt16)
+        _pack_ = 1
 NOTIFY_IME_ACTION = UInt32
-NI_CHANGECANDIDATELIST = 19
-NI_CLOSECANDIDATE = 17
-NI_COMPOSITIONSTR = 21
-NI_IMEMENUSELECTED = 24
-NI_OPENCANDIDATE = 16
-NI_SELECTCANDIDATESTR = 18
-NI_SETCANDIDATE_PAGESIZE = 23
-NI_SETCANDIDATE_PAGESTART = 22
+NI_CHANGECANDIDATELIST: NOTIFY_IME_ACTION = 19
+NI_CLOSECANDIDATE: NOTIFY_IME_ACTION = 17
+NI_COMPOSITIONSTR: NOTIFY_IME_ACTION = 21
+NI_IMEMENUSELECTED: NOTIFY_IME_ACTION = 24
+NI_OPENCANDIDATE: NOTIFY_IME_ACTION = 16
+NI_SELECTCANDIDATESTR: NOTIFY_IME_ACTION = 18
+NI_SETCANDIDATE_PAGESIZE: NOTIFY_IME_ACTION = 23
+NI_SETCANDIDATE_PAGESTART: NOTIFY_IME_ACTION = 22
 NOTIFY_IME_INDEX = UInt32
-CPS_CANCEL = 4
-CPS_COMPLETE = 1
-CPS_CONVERT = 2
-CPS_REVERT = 3
-def _define_PFNLOG():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.UI.Input.Ime.IMEDP_head),win32more.Foundation.HRESULT)
-def _define_POSTBL_head():
-    class POSTBL(Structure):
-        pass
-    return POSTBL
-def _define_POSTBL():
-    POSTBL = win32more.UI.Input.Ime.POSTBL_head
-    POSTBL._pack_ = 1
-    POSTBL._fields_ = [
-        ('nPos', UInt16),
-        ('szName', c_char_p_no),
-    ]
-    return POSTBL
-def _define_RECONVERTSTRING_head():
-    class RECONVERTSTRING(Structure):
-        pass
-    return RECONVERTSTRING
-def _define_RECONVERTSTRING():
-    RECONVERTSTRING = win32more.UI.Input.Ime.RECONVERTSTRING_head
-    RECONVERTSTRING._fields_ = [
-        ('dwSize', UInt32),
-        ('dwVersion', UInt32),
-        ('dwStrLen', UInt32),
-        ('dwStrOffset', UInt32),
-        ('dwCompStrLen', UInt32),
-        ('dwCompStrOffset', UInt32),
-        ('dwTargetStrLen', UInt32),
-        ('dwTargetStrOffset', UInt32),
-    ]
-    return RECONVERTSTRING
-def _define_REGISTERWORDA_head():
-    class REGISTERWORDA(Structure):
-        pass
-    return REGISTERWORDA
-def _define_REGISTERWORDA():
-    REGISTERWORDA = win32more.UI.Input.Ime.REGISTERWORDA_head
-    REGISTERWORDA._fields_ = [
-        ('lpReading', win32more.Foundation.PSTR),
-        ('lpWord', win32more.Foundation.PSTR),
-    ]
-    return REGISTERWORDA
-def _define_REGISTERWORDENUMPROCA():
-    return WINFUNCTYPE(Int32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,c_void_p)
-def _define_REGISTERWORDENUMPROCW():
-    return WINFUNCTYPE(Int32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p)
-def _define_REGISTERWORDW_head():
-    class REGISTERWORDW(Structure):
-        pass
-    return REGISTERWORDW
-def _define_REGISTERWORDW():
-    REGISTERWORDW = win32more.UI.Input.Ime.REGISTERWORDW_head
-    REGISTERWORDW._fields_ = [
-        ('lpReading', win32more.Foundation.PWSTR),
-        ('lpWord', win32more.Foundation.PWSTR),
-    ]
-    return REGISTERWORDW
+CPS_CANCEL: NOTIFY_IME_INDEX = 4
+CPS_COMPLETE: NOTIFY_IME_INDEX = 1
+CPS_CONVERT: NOTIFY_IME_INDEX = 2
+CPS_REVERT: NOTIFY_IME_INDEX = 3
+@winfunctype_pointer
+def PFNLOG(param0: POINTER(win32more.UI.Input.Ime.IMEDP_head), param1: win32more.Foundation.HRESULT) -> win32more.Foundation.BOOL: ...
+class POSTBL(Structure):
+    nPos: UInt16
+    szName: c_char_p_no
+    _pack_ = 1
+class RECONVERTSTRING(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    dwStrLen: UInt32
+    dwStrOffset: UInt32
+    dwCompStrLen: UInt32
+    dwCompStrOffset: UInt32
+    dwTargetStrLen: UInt32
+    dwTargetStrOffset: UInt32
+class REGISTERWORDA(Structure):
+    lpReading: win32more.Foundation.PSTR
+    lpWord: win32more.Foundation.PSTR
+@winfunctype_pointer
+def REGISTERWORDENUMPROCA(lpszReading: win32more.Foundation.PSTR, param1: UInt32, lpszString: win32more.Foundation.PSTR, param3: c_void_p) -> Int32: ...
+@winfunctype_pointer
+def REGISTERWORDENUMPROCW(lpszReading: win32more.Foundation.PWSTR, param1: UInt32, lpszString: win32more.Foundation.PWSTR, param3: c_void_p) -> Int32: ...
+class REGISTERWORDW(Structure):
+    lpReading: win32more.Foundation.PWSTR
+    lpWord: win32more.Foundation.PWSTR
 SET_COMPOSITION_STRING_TYPE = UInt32
-SCS_SETSTR = 9
-SCS_CHANGEATTR = 18
-SCS_CHANGECLAUSE = 36
-SCS_SETRECONVERTSTRING = 65536
-SCS_QUERYRECONVERTSTRING = 131072
-def _define_SOFTKBDDATA_head():
-    class SOFTKBDDATA(Structure):
-        pass
-    return SOFTKBDDATA
-def _define_SOFTKBDDATA():
-    SOFTKBDDATA = win32more.UI.Input.Ime.SOFTKBDDATA_head
-    SOFTKBDDATA._fields_ = [
-        ('uCount', UInt32),
-        ('wCode', UInt16 * 256),
-    ]
-    return SOFTKBDDATA
-def _define_STYLEBUFA_head():
-    class STYLEBUFA(Structure):
-        pass
-    return STYLEBUFA
-def _define_STYLEBUFA():
-    STYLEBUFA = win32more.UI.Input.Ime.STYLEBUFA_head
-    STYLEBUFA._fields_ = [
-        ('dwStyle', UInt32),
-        ('szDescription', win32more.Foundation.CHAR * 32),
-    ]
-    return STYLEBUFA
-def _define_STYLEBUFW_head():
-    class STYLEBUFW(Structure):
-        pass
-    return STYLEBUFW
-def _define_STYLEBUFW():
-    STYLEBUFW = win32more.UI.Input.Ime.STYLEBUFW_head
-    STYLEBUFW._fields_ = [
-        ('dwStyle', UInt32),
-        ('szDescription', Char * 32),
-    ]
-    return STYLEBUFW
-def _define_TRANSMSG_head():
-    class TRANSMSG(Structure):
-        pass
-    return TRANSMSG
-def _define_TRANSMSG():
-    TRANSMSG = win32more.UI.Input.Ime.TRANSMSG_head
-    TRANSMSG._fields_ = [
-        ('message', UInt32),
-        ('wParam', win32more.Foundation.WPARAM),
-        ('lParam', win32more.Foundation.LPARAM),
-    ]
-    return TRANSMSG
-def _define_TRANSMSGLIST_head():
-    class TRANSMSGLIST(Structure):
-        pass
-    return TRANSMSGLIST
-def _define_TRANSMSGLIST():
-    TRANSMSGLIST = win32more.UI.Input.Ime.TRANSMSGLIST_head
-    TRANSMSGLIST._fields_ = [
-        ('uMsgCount', UInt32),
-        ('TransMsg', win32more.UI.Input.Ime.TRANSMSG * 1),
-    ]
-    return TRANSMSGLIST
-def _define_WDD_head():
-    class WDD(Structure):
-        pass
-    return WDD
-def _define_WDD():
-    WDD = win32more.UI.Input.Ime.WDD_head
-    class WDD__Anonymous1_e__Union(Union):
-        pass
-    WDD__Anonymous1_e__Union._pack_ = 1
-    WDD__Anonymous1_e__Union._fields_ = [
-        ('wReadPos', UInt16),
-        ('wCompPos', UInt16),
-    ]
-    class WDD__Anonymous2_e__Union(Union):
-        pass
-    WDD__Anonymous2_e__Union._pack_ = 1
-    WDD__Anonymous2_e__Union._fields_ = [
-        ('cchRead', UInt16),
-        ('cchComp', UInt16),
-    ]
-    WDD._pack_ = 1
-    WDD._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    WDD._fields_ = [
-        ('wDispPos', UInt16),
-        ('Anonymous1', WDD__Anonymous1_e__Union),
-        ('cchDisp', UInt16),
-        ('Anonymous2', WDD__Anonymous2_e__Union),
-        ('WDD_nReserve1', UInt32),
-        ('nPos', UInt16),
-        ('_bitfield', UInt16),
-        ('pReserved', c_void_p),
-    ]
-    return WDD
+SCS_SETSTR: SET_COMPOSITION_STRING_TYPE = 9
+SCS_CHANGEATTR: SET_COMPOSITION_STRING_TYPE = 18
+SCS_CHANGECLAUSE: SET_COMPOSITION_STRING_TYPE = 36
+SCS_SETRECONVERTSTRING: SET_COMPOSITION_STRING_TYPE = 65536
+SCS_QUERYRECONVERTSTRING: SET_COMPOSITION_STRING_TYPE = 131072
+class SOFTKBDDATA(Structure):
+    uCount: UInt32
+    wCode: UInt16 * 256
+class STYLEBUFA(Structure):
+    dwStyle: UInt32
+    szDescription: win32more.Foundation.CHAR * 32
+class STYLEBUFW(Structure):
+    dwStyle: UInt32
+    szDescription: Char * 32
+class TRANSMSG(Structure):
+    message: UInt32
+    wParam: win32more.Foundation.WPARAM
+    lParam: win32more.Foundation.LPARAM
+class TRANSMSGLIST(Structure):
+    uMsgCount: UInt32
+    TransMsg: win32more.UI.Input.Ime.TRANSMSG * 1
+class WDD(Structure):
+    wDispPos: UInt16
+    Anonymous1: _Anonymous1_e__Union
+    cchDisp: UInt16
+    Anonymous2: _Anonymous2_e__Union
+    WDD_nReserve1: UInt32
+    nPos: UInt16
+    _bitfield: UInt16
+    pReserved: c_void_p
+    _pack_ = 1
+    class _Anonymous1_e__Union(Union):
+        wReadPos: UInt16
+        wCompPos: UInt16
+        _pack_ = 1
+    class _Anonymous2_e__Union(Union):
+        cchRead: UInt16
+        cchComp: UInt16
+        _pack_ = 1
+make_head(_module, 'APPLETIDLIST')
+make_head(_module, 'APPLYCANDEXPARAM')
+make_head(_module, 'CANDIDATEFORM')
+make_head(_module, 'CANDIDATEINFO')
+make_head(_module, 'CANDIDATELIST')
+make_head(_module, 'COMPOSITIONFORM')
+make_head(_module, 'COMPOSITIONSTRING')
+make_head(_module, 'fpCreateIFECommonInstanceType')
+make_head(_module, 'fpCreateIFEDictionaryInstanceType')
+make_head(_module, 'fpCreateIFELanguageInstanceType')
+make_head(_module, 'GUIDELINE')
+make_head(_module, 'IActiveIME')
+make_head(_module, 'IActiveIME2')
+make_head(_module, 'IActiveIMMApp')
+make_head(_module, 'IActiveIMMIME')
+make_head(_module, 'IActiveIMMMessagePumpOwner')
+make_head(_module, 'IActiveIMMRegistrar')
+make_head(_module, 'IEnumInputContext')
+make_head(_module, 'IEnumRegisterWordA')
+make_head(_module, 'IEnumRegisterWordW')
+make_head(_module, 'IFEClassFactory')
+make_head(_module, 'IFECommon')
+make_head(_module, 'IFEDictionary')
+make_head(_module, 'IFELanguage')
+make_head(_module, 'IImePad')
+make_head(_module, 'IImePadApplet')
+make_head(_module, 'IImePlugInDictDictionaryList')
+make_head(_module, 'IImeSpecifyApplets')
+make_head(_module, 'IMCENUMPROC')
+make_head(_module, 'IMEAPPLETCFG')
+make_head(_module, 'IMEAPPLETUI')
+make_head(_module, 'IMECHARINFO')
+make_head(_module, 'IMECHARPOSITION')
+make_head(_module, 'IMECOMPOSITIONSTRINGINFO')
+make_head(_module, 'IMEDLG')
+make_head(_module, 'IMEDP')
+make_head(_module, 'IMEFAREASTINFO')
+make_head(_module, 'IMEINFO')
+make_head(_module, 'IMEITEM')
+make_head(_module, 'IMEITEMCANDIDATE')
+make_head(_module, 'IMEKMS')
+make_head(_module, 'IMEKMSFUNCDESC')
+make_head(_module, 'IMEKMSINIT')
+make_head(_module, 'IMEKMSINVK')
+make_head(_module, 'IMEKMSKEY')
+make_head(_module, 'IMEKMSKMP')
+make_head(_module, 'IMEKMSNTFY')
+make_head(_module, 'IMEMENUITEMINFOA')
+make_head(_module, 'IMEMENUITEMINFOW')
+make_head(_module, 'IMESHF')
+make_head(_module, 'IMESTRINGCANDIDATE')
+make_head(_module, 'IMESTRINGCANDIDATEINFO')
+make_head(_module, 'IMESTRINGINFO')
+make_head(_module, 'IMEWRD')
+make_head(_module, 'INPUTCONTEXT')
+make_head(_module, 'MORRSLT')
+make_head(_module, 'PFNLOG')
+make_head(_module, 'POSTBL')
+make_head(_module, 'RECONVERTSTRING')
+make_head(_module, 'REGISTERWORDA')
+make_head(_module, 'REGISTERWORDENUMPROCA')
+make_head(_module, 'REGISTERWORDENUMPROCW')
+make_head(_module, 'REGISTERWORDW')
+make_head(_module, 'SOFTKBDDATA')
+make_head(_module, 'STYLEBUFA')
+make_head(_module, 'STYLEBUFW')
+make_head(_module, 'TRANSMSG')
+make_head(_module, 'TRANSMSGLIST')
+make_head(_module, 'WDD')
 __all__ = [
     "APPLETIDLIST",
     "APPLYCANDEXPARAM",

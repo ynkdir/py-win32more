@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
@@ -8,23 +9,21 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_IGraphicsCaptureItemInterop_head():
-    class IGraphicsCaptureItemInterop(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3628e81b-3cac-4c60-b7-f4-23-ce-0e-0c-33-56')
-    return IGraphicsCaptureItemInterop
-def _define_IGraphicsCaptureItemInterop():
-    IGraphicsCaptureItemInterop = win32more.System.WinRT.Graphics.Capture.IGraphicsCaptureItemInterop_head
-    IGraphicsCaptureItemInterop.CreateForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p))(3, 'CreateForWindow', ((1, 'window'),(1, 'riid'),(1, 'result'),)))
-    IGraphicsCaptureItemInterop.CreateForMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HMONITOR,POINTER(Guid),POINTER(c_void_p))(4, 'CreateForMonitor', ((1, 'monitor'),(1, 'riid'),(1, 'result'),)))
-    win32more.System.Com.IUnknown
-    return IGraphicsCaptureItemInterop
+class IGraphicsCaptureItemInterop(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3628e81b-3cac-4c60-b7-f4-23-ce-0e-0c-33-56')
+    @commethod(3)
+    def CreateForWindow(window: win32more.Foundation.HWND, riid: POINTER(Guid), result: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateForMonitor(monitor: win32more.Graphics.Gdi.HMONITOR, riid: POINTER(Guid), result: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'IGraphicsCaptureItemInterop')
 __all__ = [
     "IGraphicsCaptureItemInterop",
 ]

@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Recovery
 import win32more.System.WindowsProgramming
@@ -7,58 +8,34 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_RegisterApplicationRecoveryCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK,c_void_p,UInt32,UInt32)(('RegisterApplicationRecoveryCallback', windll['KERNEL32.dll']), ((1, 'pRecoveyCallback'),(1, 'pvParameter'),(1, 'dwPingInterval'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterApplicationRecoveryCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('UnregisterApplicationRecoveryCallback', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterApplicationRestart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS)(('RegisterApplicationRestart', windll['KERNEL32.dll']), ((1, 'pwzCommandline'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterApplicationRestart():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('UnregisterApplicationRestart', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetApplicationRecoveryCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK),POINTER(c_void_p),POINTER(UInt32),POINTER(UInt32))(('GetApplicationRecoveryCallback', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'pRecoveryCallback'),(1, 'ppvParameter'),(1, 'pdwPingInterval'),(1, 'pdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetApplicationRestartSettings():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('GetApplicationRestartSettings', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'pwzCommandline'),(1, 'pcchSize'),(1, 'pdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplicationRecoveryInProgress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(('ApplicationRecoveryInProgress', windll['KERNEL32.dll']), ((1, 'pbCancelled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplicationRecoveryFinished():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.BOOL)(('ApplicationRecoveryFinished', windll['KERNEL32.dll']), ((1, 'bSuccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+@winfunctype('KERNEL32.dll')
+def RegisterApplicationRecoveryCallback(pRecoveyCallback: win32more.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK, pvParameter: c_void_p, dwPingInterval: UInt32, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def UnregisterApplicationRecoveryCallback() -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def RegisterApplicationRestart(pwzCommandline: win32more.Foundation.PWSTR, dwFlags: win32more.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def UnregisterApplicationRestart() -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def GetApplicationRecoveryCallback(hProcess: win32more.Foundation.HANDLE, pRecoveryCallback: POINTER(win32more.System.WindowsProgramming.APPLICATION_RECOVERY_CALLBACK), ppvParameter: POINTER(c_void_p), pdwPingInterval: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def GetApplicationRestartSettings(hProcess: win32more.Foundation.HANDLE, pwzCommandline: win32more.Foundation.PWSTR, pcchSize: POINTER(UInt32), pdwFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def ApplicationRecoveryInProgress(pbCancelled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def ApplicationRecoveryFinished(bSuccess: win32more.Foundation.BOOL) -> Void: ...
 REGISTER_APPLICATION_RESTART_FLAGS = UInt32
-RESTART_NO_CRASH = 1
-RESTART_NO_HANG = 2
-RESTART_NO_PATCH = 4
-RESTART_NO_REBOOT = 8
+RESTART_NO_CRASH: REGISTER_APPLICATION_RESTART_FLAGS = 1
+RESTART_NO_HANG: REGISTER_APPLICATION_RESTART_FLAGS = 2
+RESTART_NO_PATCH: REGISTER_APPLICATION_RESTART_FLAGS = 4
+RESTART_NO_REBOOT: REGISTER_APPLICATION_RESTART_FLAGS = 8
 __all__ = [
     "ApplicationRecoveryFinished",
     "ApplicationRecoveryInProgress",

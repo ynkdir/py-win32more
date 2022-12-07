@@ -1,227 +1,165 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.UI.Input.XboxController
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-XINPUT_DLL_A = 'xinput1_4.dll'
-XINPUT_DLL_W = 'xinput1_4.dll'
-XINPUT_DLL = 'xinput1_4.dll'
-XUSER_MAX_COUNT = 4
-XUSER_INDEX_ANY = 255
-def _define_XInputGetState():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.UI.Input.XboxController.XINPUT_STATE_head))(('XInputGetState', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'pState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputSetState():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.UI.Input.XboxController.XINPUT_VIBRATION_head))(('XInputSetState', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'pVibration'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputGetCapabilities():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.UI.Input.XboxController.XINPUT_FLAG,POINTER(win32more.UI.Input.XboxController.XINPUT_CAPABILITIES_head))(('XInputGetCapabilities', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'dwFlags'),(1, 'pCapabilities'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputEnable():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.BOOL)(('XInputEnable', windll['xinput1_4.dll']), ((1, 'enable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputGetAudioDeviceIds():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32))(('XInputGetAudioDeviceIds', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'pRenderDeviceId'),(1, 'pRenderCount'),(1, 'pCaptureDeviceId'),(1, 'pCaptureCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputGetBatteryInformation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.UI.Input.XboxController.BATTERY_DEVTYPE,POINTER(win32more.UI.Input.XboxController.XINPUT_BATTERY_INFORMATION_head))(('XInputGetBatteryInformation', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'devType'),(1, 'pBatteryInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XInputGetKeystroke():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(win32more.UI.Input.XboxController.XINPUT_KEYSTROKE_head))(('XInputGetKeystroke', windll['xinput1_4.dll']), ((1, 'dwUserIndex'),(1, 'dwReserved'),(1, 'pKeystroke'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+XINPUT_DLL_A: String = 'xinput1_4.dll'
+XINPUT_DLL_W: String = 'xinput1_4.dll'
+XINPUT_DLL: String = 'xinput1_4.dll'
+XUSER_MAX_COUNT: UInt32 = 4
+XUSER_INDEX_ANY: UInt32 = 255
+@winfunctype('xinput1_4.dll')
+def XInputGetState(dwUserIndex: UInt32, pState: POINTER(win32more.UI.Input.XboxController.XINPUT_STATE_head)) -> UInt32: ...
+@winfunctype('xinput1_4.dll')
+def XInputSetState(dwUserIndex: UInt32, pVibration: POINTER(win32more.UI.Input.XboxController.XINPUT_VIBRATION_head)) -> UInt32: ...
+@winfunctype('xinput1_4.dll')
+def XInputGetCapabilities(dwUserIndex: UInt32, dwFlags: win32more.UI.Input.XboxController.XINPUT_FLAG, pCapabilities: POINTER(win32more.UI.Input.XboxController.XINPUT_CAPABILITIES_head)) -> UInt32: ...
+@winfunctype('xinput1_4.dll')
+def XInputEnable(enable: win32more.Foundation.BOOL) -> Void: ...
+@winfunctype('xinput1_4.dll')
+def XInputGetAudioDeviceIds(dwUserIndex: UInt32, pRenderDeviceId: win32more.Foundation.PWSTR, pRenderCount: POINTER(UInt32), pCaptureDeviceId: win32more.Foundation.PWSTR, pCaptureCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('xinput1_4.dll')
+def XInputGetBatteryInformation(dwUserIndex: UInt32, devType: win32more.UI.Input.XboxController.BATTERY_DEVTYPE, pBatteryInformation: POINTER(win32more.UI.Input.XboxController.XINPUT_BATTERY_INFORMATION_head)) -> UInt32: ...
+@winfunctype('xinput1_4.dll')
+def XInputGetKeystroke(dwUserIndex: UInt32, dwReserved: UInt32, pKeystroke: POINTER(win32more.UI.Input.XboxController.XINPUT_KEYSTROKE_head)) -> UInt32: ...
 BATTERY_DEVTYPE = Byte
-BATTERY_DEVTYPE_GAMEPAD = 0
-BATTERY_DEVTYPE_HEADSET = 1
+BATTERY_DEVTYPE_GAMEPAD: BATTERY_DEVTYPE = 0
+BATTERY_DEVTYPE_HEADSET: BATTERY_DEVTYPE = 1
 BATTERY_LEVEL = Byte
-BATTERY_LEVEL_EMPTY = 0
-BATTERY_LEVEL_LOW = 1
-BATTERY_LEVEL_MEDIUM = 2
-BATTERY_LEVEL_FULL = 3
+BATTERY_LEVEL_EMPTY: BATTERY_LEVEL = 0
+BATTERY_LEVEL_LOW: BATTERY_LEVEL = 1
+BATTERY_LEVEL_MEDIUM: BATTERY_LEVEL = 2
+BATTERY_LEVEL_FULL: BATTERY_LEVEL = 3
 BATTERY_TYPE = Byte
-BATTERY_TYPE_DISCONNECTED = 0
-BATTERY_TYPE_WIRED = 1
-BATTERY_TYPE_ALKALINE = 2
-BATTERY_TYPE_NIMH = 3
-BATTERY_TYPE_UNKNOWN = 255
-def _define_XINPUT_BATTERY_INFORMATION_head():
-    class XINPUT_BATTERY_INFORMATION(Structure):
-        pass
-    return XINPUT_BATTERY_INFORMATION
-def _define_XINPUT_BATTERY_INFORMATION():
-    XINPUT_BATTERY_INFORMATION = win32more.UI.Input.XboxController.XINPUT_BATTERY_INFORMATION_head
-    XINPUT_BATTERY_INFORMATION._fields_ = [
-        ('BatteryType', win32more.UI.Input.XboxController.BATTERY_TYPE),
-        ('BatteryLevel', win32more.UI.Input.XboxController.BATTERY_LEVEL),
-    ]
-    return XINPUT_BATTERY_INFORMATION
-def _define_XINPUT_CAPABILITIES_head():
-    class XINPUT_CAPABILITIES(Structure):
-        pass
-    return XINPUT_CAPABILITIES
-def _define_XINPUT_CAPABILITIES():
-    XINPUT_CAPABILITIES = win32more.UI.Input.XboxController.XINPUT_CAPABILITIES_head
-    XINPUT_CAPABILITIES._fields_ = [
-        ('Type', win32more.UI.Input.XboxController.XINPUT_DEVTYPE),
-        ('SubType', win32more.UI.Input.XboxController.XINPUT_DEVSUBTYPE),
-        ('Flags', win32more.UI.Input.XboxController.XINPUT_CAPABILITIES_FLAGS),
-        ('Gamepad', win32more.UI.Input.XboxController.XINPUT_GAMEPAD),
-        ('Vibration', win32more.UI.Input.XboxController.XINPUT_VIBRATION),
-    ]
-    return XINPUT_CAPABILITIES
+BATTERY_TYPE_DISCONNECTED: BATTERY_TYPE = 0
+BATTERY_TYPE_WIRED: BATTERY_TYPE = 1
+BATTERY_TYPE_ALKALINE: BATTERY_TYPE = 2
+BATTERY_TYPE_NIMH: BATTERY_TYPE = 3
+BATTERY_TYPE_UNKNOWN: BATTERY_TYPE = 255
+class XINPUT_BATTERY_INFORMATION(Structure):
+    BatteryType: win32more.UI.Input.XboxController.BATTERY_TYPE
+    BatteryLevel: win32more.UI.Input.XboxController.BATTERY_LEVEL
+class XINPUT_CAPABILITIES(Structure):
+    Type: win32more.UI.Input.XboxController.XINPUT_DEVTYPE
+    SubType: win32more.UI.Input.XboxController.XINPUT_DEVSUBTYPE
+    Flags: win32more.UI.Input.XboxController.XINPUT_CAPABILITIES_FLAGS
+    Gamepad: win32more.UI.Input.XboxController.XINPUT_GAMEPAD
+    Vibration: win32more.UI.Input.XboxController.XINPUT_VIBRATION
 XINPUT_CAPABILITIES_FLAGS = UInt16
-XINPUT_CAPS_VOICE_SUPPORTED = 4
-XINPUT_CAPS_FFB_SUPPORTED = 1
-XINPUT_CAPS_WIRELESS = 2
-XINPUT_CAPS_PMD_SUPPORTED = 8
-XINPUT_CAPS_NO_NAVIGATION = 16
+XINPUT_CAPS_VOICE_SUPPORTED: XINPUT_CAPABILITIES_FLAGS = 4
+XINPUT_CAPS_FFB_SUPPORTED: XINPUT_CAPABILITIES_FLAGS = 1
+XINPUT_CAPS_WIRELESS: XINPUT_CAPABILITIES_FLAGS = 2
+XINPUT_CAPS_PMD_SUPPORTED: XINPUT_CAPABILITIES_FLAGS = 8
+XINPUT_CAPS_NO_NAVIGATION: XINPUT_CAPABILITIES_FLAGS = 16
 XINPUT_DEVSUBTYPE = Byte
-XINPUT_DEVSUBTYPE_GAMEPAD = 1
-XINPUT_DEVSUBTYPE_UNKNOWN = 0
-XINPUT_DEVSUBTYPE_WHEEL = 2
-XINPUT_DEVSUBTYPE_ARCADE_STICK = 3
-XINPUT_DEVSUBTYPE_FLIGHT_STICK = 4
-XINPUT_DEVSUBTYPE_DANCE_PAD = 5
-XINPUT_DEVSUBTYPE_GUITAR = 6
-XINPUT_DEVSUBTYPE_GUITAR_ALTERNATE = 7
-XINPUT_DEVSUBTYPE_DRUM_KIT = 8
-XINPUT_DEVSUBTYPE_GUITAR_BASS = 11
-XINPUT_DEVSUBTYPE_ARCADE_PAD = 19
+XINPUT_DEVSUBTYPE_GAMEPAD: XINPUT_DEVSUBTYPE = 1
+XINPUT_DEVSUBTYPE_UNKNOWN: XINPUT_DEVSUBTYPE = 0
+XINPUT_DEVSUBTYPE_WHEEL: XINPUT_DEVSUBTYPE = 2
+XINPUT_DEVSUBTYPE_ARCADE_STICK: XINPUT_DEVSUBTYPE = 3
+XINPUT_DEVSUBTYPE_FLIGHT_STICK: XINPUT_DEVSUBTYPE = 4
+XINPUT_DEVSUBTYPE_DANCE_PAD: XINPUT_DEVSUBTYPE = 5
+XINPUT_DEVSUBTYPE_GUITAR: XINPUT_DEVSUBTYPE = 6
+XINPUT_DEVSUBTYPE_GUITAR_ALTERNATE: XINPUT_DEVSUBTYPE = 7
+XINPUT_DEVSUBTYPE_DRUM_KIT: XINPUT_DEVSUBTYPE = 8
+XINPUT_DEVSUBTYPE_GUITAR_BASS: XINPUT_DEVSUBTYPE = 11
+XINPUT_DEVSUBTYPE_ARCADE_PAD: XINPUT_DEVSUBTYPE = 19
 XINPUT_DEVTYPE = Byte
-XINPUT_DEVTYPE_GAMEPAD = 1
+XINPUT_DEVTYPE_GAMEPAD: XINPUT_DEVTYPE = 1
 XINPUT_FLAG = UInt32
-XINPUT_FLAG_ALL = 0
-XINPUT_FLAG_GAMEPAD = 1
-def _define_XINPUT_GAMEPAD_head():
-    class XINPUT_GAMEPAD(Structure):
-        pass
-    return XINPUT_GAMEPAD
-def _define_XINPUT_GAMEPAD():
-    XINPUT_GAMEPAD = win32more.UI.Input.XboxController.XINPUT_GAMEPAD_head
-    XINPUT_GAMEPAD._fields_ = [
-        ('wButtons', win32more.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS),
-        ('bLeftTrigger', Byte),
-        ('bRightTrigger', Byte),
-        ('sThumbLX', Int16),
-        ('sThumbLY', Int16),
-        ('sThumbRX', Int16),
-        ('sThumbRY', Int16),
-    ]
-    return XINPUT_GAMEPAD
+XINPUT_FLAG_ALL: XINPUT_FLAG = 0
+XINPUT_FLAG_GAMEPAD: XINPUT_FLAG = 1
+class XINPUT_GAMEPAD(Structure):
+    wButtons: win32more.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS
+    bLeftTrigger: Byte
+    bRightTrigger: Byte
+    sThumbLX: Int16
+    sThumbLY: Int16
+    sThumbRX: Int16
+    sThumbRY: Int16
 XINPUT_GAMEPAD_BUTTON_FLAGS = UInt16
-XINPUT_GAMEPAD_DPAD_UP = 1
-XINPUT_GAMEPAD_DPAD_DOWN = 2
-XINPUT_GAMEPAD_DPAD_LEFT = 4
-XINPUT_GAMEPAD_DPAD_RIGHT = 8
-XINPUT_GAMEPAD_START = 16
-XINPUT_GAMEPAD_BACK = 32
-XINPUT_GAMEPAD_LEFT_THUMB = 64
-XINPUT_GAMEPAD_RIGHT_THUMB = 128
-XINPUT_GAMEPAD_LEFT_SHOULDER = 256
-XINPUT_GAMEPAD_RIGHT_SHOULDER = 512
-XINPUT_GAMEPAD_A = 4096
-XINPUT_GAMEPAD_B = 8192
-XINPUT_GAMEPAD_X = 16384
-XINPUT_GAMEPAD_Y = 32768
-XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE = 7849
-XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE = 8689
-XINPUT_GAMEPAD_TRIGGER_THRESHOLD = 30
-def _define_XINPUT_KEYSTROKE_head():
-    class XINPUT_KEYSTROKE(Structure):
-        pass
-    return XINPUT_KEYSTROKE
-def _define_XINPUT_KEYSTROKE():
-    XINPUT_KEYSTROKE = win32more.UI.Input.XboxController.XINPUT_KEYSTROKE_head
-    XINPUT_KEYSTROKE._fields_ = [
-        ('VirtualKey', win32more.UI.Input.XboxController.XINPUT_VIRTUAL_KEY),
-        ('Unicode', Char),
-        ('Flags', win32more.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS),
-        ('UserIndex', Byte),
-        ('HidCode', Byte),
-    ]
-    return XINPUT_KEYSTROKE
+XINPUT_GAMEPAD_DPAD_UP: XINPUT_GAMEPAD_BUTTON_FLAGS = 1
+XINPUT_GAMEPAD_DPAD_DOWN: XINPUT_GAMEPAD_BUTTON_FLAGS = 2
+XINPUT_GAMEPAD_DPAD_LEFT: XINPUT_GAMEPAD_BUTTON_FLAGS = 4
+XINPUT_GAMEPAD_DPAD_RIGHT: XINPUT_GAMEPAD_BUTTON_FLAGS = 8
+XINPUT_GAMEPAD_START: XINPUT_GAMEPAD_BUTTON_FLAGS = 16
+XINPUT_GAMEPAD_BACK: XINPUT_GAMEPAD_BUTTON_FLAGS = 32
+XINPUT_GAMEPAD_LEFT_THUMB: XINPUT_GAMEPAD_BUTTON_FLAGS = 64
+XINPUT_GAMEPAD_RIGHT_THUMB: XINPUT_GAMEPAD_BUTTON_FLAGS = 128
+XINPUT_GAMEPAD_LEFT_SHOULDER: XINPUT_GAMEPAD_BUTTON_FLAGS = 256
+XINPUT_GAMEPAD_RIGHT_SHOULDER: XINPUT_GAMEPAD_BUTTON_FLAGS = 512
+XINPUT_GAMEPAD_A: XINPUT_GAMEPAD_BUTTON_FLAGS = 4096
+XINPUT_GAMEPAD_B: XINPUT_GAMEPAD_BUTTON_FLAGS = 8192
+XINPUT_GAMEPAD_X: XINPUT_GAMEPAD_BUTTON_FLAGS = 16384
+XINPUT_GAMEPAD_Y: XINPUT_GAMEPAD_BUTTON_FLAGS = 32768
+XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE: XINPUT_GAMEPAD_BUTTON_FLAGS = 7849
+XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE: XINPUT_GAMEPAD_BUTTON_FLAGS = 8689
+XINPUT_GAMEPAD_TRIGGER_THRESHOLD: XINPUT_GAMEPAD_BUTTON_FLAGS = 30
+class XINPUT_KEYSTROKE(Structure):
+    VirtualKey: win32more.UI.Input.XboxController.XINPUT_VIRTUAL_KEY
+    Unicode: Char
+    Flags: win32more.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS
+    UserIndex: Byte
+    HidCode: Byte
 XINPUT_KEYSTROKE_FLAGS = UInt16
-XINPUT_KEYSTROKE_KEYDOWN = 1
-XINPUT_KEYSTROKE_KEYUP = 2
-XINPUT_KEYSTROKE_REPEAT = 4
-def _define_XINPUT_STATE_head():
-    class XINPUT_STATE(Structure):
-        pass
-    return XINPUT_STATE
-def _define_XINPUT_STATE():
-    XINPUT_STATE = win32more.UI.Input.XboxController.XINPUT_STATE_head
-    XINPUT_STATE._fields_ = [
-        ('dwPacketNumber', UInt32),
-        ('Gamepad', win32more.UI.Input.XboxController.XINPUT_GAMEPAD),
-    ]
-    return XINPUT_STATE
-def _define_XINPUT_VIBRATION_head():
-    class XINPUT_VIBRATION(Structure):
-        pass
-    return XINPUT_VIBRATION
-def _define_XINPUT_VIBRATION():
-    XINPUT_VIBRATION = win32more.UI.Input.XboxController.XINPUT_VIBRATION_head
-    XINPUT_VIBRATION._fields_ = [
-        ('wLeftMotorSpeed', UInt16),
-        ('wRightMotorSpeed', UInt16),
-    ]
-    return XINPUT_VIBRATION
+XINPUT_KEYSTROKE_KEYDOWN: XINPUT_KEYSTROKE_FLAGS = 1
+XINPUT_KEYSTROKE_KEYUP: XINPUT_KEYSTROKE_FLAGS = 2
+XINPUT_KEYSTROKE_REPEAT: XINPUT_KEYSTROKE_FLAGS = 4
+class XINPUT_STATE(Structure):
+    dwPacketNumber: UInt32
+    Gamepad: win32more.UI.Input.XboxController.XINPUT_GAMEPAD
+class XINPUT_VIBRATION(Structure):
+    wLeftMotorSpeed: UInt16
+    wRightMotorSpeed: UInt16
 XINPUT_VIRTUAL_KEY = UInt16
-VK_PAD_A = 22528
-VK_PAD_B = 22529
-VK_PAD_X = 22530
-VK_PAD_Y = 22531
-VK_PAD_RSHOULDER = 22532
-VK_PAD_LSHOULDER = 22533
-VK_PAD_LTRIGGER = 22534
-VK_PAD_RTRIGGER = 22535
-VK_PAD_DPAD_UP = 22544
-VK_PAD_DPAD_DOWN = 22545
-VK_PAD_DPAD_LEFT = 22546
-VK_PAD_DPAD_RIGHT = 22547
-VK_PAD_START = 22548
-VK_PAD_BACK = 22549
-VK_PAD_LTHUMB_PRESS = 22550
-VK_PAD_RTHUMB_PRESS = 22551
-VK_PAD_LTHUMB_UP = 22560
-VK_PAD_LTHUMB_DOWN = 22561
-VK_PAD_LTHUMB_RIGHT = 22562
-VK_PAD_LTHUMB_LEFT = 22563
-VK_PAD_LTHUMB_UPLEFT = 22564
-VK_PAD_LTHUMB_UPRIGHT = 22565
-VK_PAD_LTHUMB_DOWNRIGHT = 22566
-VK_PAD_LTHUMB_DOWNLEFT = 22567
-VK_PAD_RTHUMB_UP = 22576
-VK_PAD_RTHUMB_DOWN = 22577
-VK_PAD_RTHUMB_RIGHT = 22578
-VK_PAD_RTHUMB_LEFT = 22579
-VK_PAD_RTHUMB_UPLEFT = 22580
-VK_PAD_RTHUMB_UPRIGHT = 22581
-VK_PAD_RTHUMB_DOWNRIGHT = 22582
-VK_PAD_RTHUMB_DOWNLEFT = 22583
+VK_PAD_A: XINPUT_VIRTUAL_KEY = 22528
+VK_PAD_B: XINPUT_VIRTUAL_KEY = 22529
+VK_PAD_X: XINPUT_VIRTUAL_KEY = 22530
+VK_PAD_Y: XINPUT_VIRTUAL_KEY = 22531
+VK_PAD_RSHOULDER: XINPUT_VIRTUAL_KEY = 22532
+VK_PAD_LSHOULDER: XINPUT_VIRTUAL_KEY = 22533
+VK_PAD_LTRIGGER: XINPUT_VIRTUAL_KEY = 22534
+VK_PAD_RTRIGGER: XINPUT_VIRTUAL_KEY = 22535
+VK_PAD_DPAD_UP: XINPUT_VIRTUAL_KEY = 22544
+VK_PAD_DPAD_DOWN: XINPUT_VIRTUAL_KEY = 22545
+VK_PAD_DPAD_LEFT: XINPUT_VIRTUAL_KEY = 22546
+VK_PAD_DPAD_RIGHT: XINPUT_VIRTUAL_KEY = 22547
+VK_PAD_START: XINPUT_VIRTUAL_KEY = 22548
+VK_PAD_BACK: XINPUT_VIRTUAL_KEY = 22549
+VK_PAD_LTHUMB_PRESS: XINPUT_VIRTUAL_KEY = 22550
+VK_PAD_RTHUMB_PRESS: XINPUT_VIRTUAL_KEY = 22551
+VK_PAD_LTHUMB_UP: XINPUT_VIRTUAL_KEY = 22560
+VK_PAD_LTHUMB_DOWN: XINPUT_VIRTUAL_KEY = 22561
+VK_PAD_LTHUMB_RIGHT: XINPUT_VIRTUAL_KEY = 22562
+VK_PAD_LTHUMB_LEFT: XINPUT_VIRTUAL_KEY = 22563
+VK_PAD_LTHUMB_UPLEFT: XINPUT_VIRTUAL_KEY = 22564
+VK_PAD_LTHUMB_UPRIGHT: XINPUT_VIRTUAL_KEY = 22565
+VK_PAD_LTHUMB_DOWNRIGHT: XINPUT_VIRTUAL_KEY = 22566
+VK_PAD_LTHUMB_DOWNLEFT: XINPUT_VIRTUAL_KEY = 22567
+VK_PAD_RTHUMB_UP: XINPUT_VIRTUAL_KEY = 22576
+VK_PAD_RTHUMB_DOWN: XINPUT_VIRTUAL_KEY = 22577
+VK_PAD_RTHUMB_RIGHT: XINPUT_VIRTUAL_KEY = 22578
+VK_PAD_RTHUMB_LEFT: XINPUT_VIRTUAL_KEY = 22579
+VK_PAD_RTHUMB_UPLEFT: XINPUT_VIRTUAL_KEY = 22580
+VK_PAD_RTHUMB_UPRIGHT: XINPUT_VIRTUAL_KEY = 22581
+VK_PAD_RTHUMB_DOWNRIGHT: XINPUT_VIRTUAL_KEY = 22582
+VK_PAD_RTHUMB_DOWNLEFT: XINPUT_VIRTUAL_KEY = 22583
+make_head(_module, 'XINPUT_BATTERY_INFORMATION')
+make_head(_module, 'XINPUT_CAPABILITIES')
+make_head(_module, 'XINPUT_GAMEPAD')
+make_head(_module, 'XINPUT_KEYSTROKE')
+make_head(_module, 'XINPUT_STATE')
+make_head(_module, 'XINPUT_VIBRATION')
 __all__ = [
     "BATTERY_DEVTYPE",
     "BATTERY_DEVTYPE_GAMEPAD",

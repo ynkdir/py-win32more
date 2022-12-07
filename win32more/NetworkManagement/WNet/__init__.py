@@ -1,748 +1,480 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.WNet
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-WNGETCON_CONNECTED = 0
-WNGETCON_DISCONNECTED = 1
-WNNC_SPEC_VERSION = 1
-WNNC_SPEC_VERSION51 = 327681
-WNNC_NET_TYPE = 2
-WNNC_NET_NONE = 0
-WNNC_DRIVER_VERSION = 3
-WNNC_USER = 4
-WNNC_USR_GETUSER = 1
-WNNC_CONNECTION = 6
-WNNC_CON_ADDCONNECTION = 1
-WNNC_CON_CANCELCONNECTION = 2
-WNNC_CON_GETCONNECTIONS = 4
-WNNC_CON_ADDCONNECTION3 = 8
-WNNC_CON_ADDCONNECTION4 = 16
-WNNC_CON_CANCELCONNECTION2 = 32
-WNNC_CON_GETPERFORMANCE = 64
-WNNC_CON_DEFER = 128
-WNNC_DIALOG = 8
-WNNC_DLG_DEVICEMODE = 1
-WNNC_DLG_PROPERTYDIALOG = 32
-WNNC_DLG_SEARCHDIALOG = 64
-WNNC_DLG_FORMATNETWORKNAME = 128
-WNNC_DLG_PERMISSIONEDITOR = 256
-WNNC_DLG_GETRESOURCEPARENT = 512
-WNNC_DLG_GETRESOURCEINFORMATION = 2048
-WNNC_ADMIN = 9
-WNNC_ADM_GETDIRECTORYTYPE = 1
-WNNC_ADM_DIRECTORYNOTIFY = 2
-WNNC_ENUMERATION = 11
-WNNC_ENUM_GLOBAL = 1
-WNNC_ENUM_LOCAL = 2
-WNNC_ENUM_CONTEXT = 4
-WNNC_ENUM_SHAREABLE = 8
-WNNC_START = 12
-WNNC_WAIT_FOR_START = 1
-WNNC_CONNECTION_FLAGS = 13
-WNTYPE_DRIVE = 1
-WNTYPE_FILE = 2
-WNTYPE_PRINTER = 3
-WNTYPE_COMM = 4
-WNSRCH_REFRESH_FIRST_LEVEL = 1
-WNDT_NORMAL = 0
-WNDT_NETWORK = 1
-WN_NETWORK_CLASS = 1
-WN_CREDENTIAL_CLASS = 2
-WN_PRIMARY_AUTHENT_CLASS = 4
-WN_SERVICE_CLASS = 8
-WN_VALID_LOGON_ACCOUNT = 1
-WN_NT_PASSWORD_CHANGED = 2
-NOTIFY_PRE = 1
-NOTIFY_POST = 2
-WNPERMC_PERM = 1
-WNPERMC_AUDIT = 2
-WNPERMC_OWNER = 4
-RESOURCE_RECENT = 4
-RESOURCETYPE_RESERVED = 8
-RESOURCETYPE_UNKNOWN = 4294967295
-RESOURCEUSAGE_NOLOCALDEVICE = 4
-RESOURCEUSAGE_SIBLING = 8
-RESOURCEUSAGE_RESERVED = 2147483648
-RESOURCEDISPLAYTYPE_NETWORK = 6
-RESOURCEDISPLAYTYPE_ROOT = 7
-RESOURCEDISPLAYTYPE_SHAREADMIN = 8
-RESOURCEDISPLAYTYPE_DIRECTORY = 9
-RESOURCEDISPLAYTYPE_NDSCONTAINER = 11
-NETPROPERTY_PERSISTENT = 1
-CONNECT_NEED_DRIVE = 32
-CONNECT_REFCOUNT = 64
-CONNECT_LOCALDRIVE = 256
-CONNECT_CURRENT_MEDIA = 512
-CONNECT_RESERVED = 4278190080
-CONNECT_CRED_RESET = 8192
-CONNECT_REQUIRE_INTEGRITY = 16384
-CONNECT_REQUIRE_PRIVACY = 32768
-CONNECT_WRITE_THROUGH_SEMANTICS = 65536
-CONNECT_GLOBAL_MAPPING = 262144
-WNFMT_INENUM = 16
-WNFMT_CONNECTION = 32
-WNCON_FORNETCARD = 1
-WNCON_NOTROUTED = 2
-WNCON_SLOWLINK = 4
-WNCON_DYNAMIC = 8
-def _define_WNetAddConnectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WNetAddConnectionA', windll['MPR.dll']), ((1, 'lpRemoteName'),(1, 'lpPassword'),(1, 'lpLocalName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WNetAddConnectionW', windll['MPR.dll']), ((1, 'lpRemoteName'),(1, 'lpPassword'),(1, 'lpLocalName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection2A():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('WNetAddConnection2A', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection2W():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('WNetAddConnection2W', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection3A():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32)(('WNetAddConnection3A', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection3W():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('WNetAddConnection3W', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection4A():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32)(('WNetAddConnection4A', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'pAuthBuffer'),(1, 'cbAuthBuffer'),(1, 'dwFlags'),(1, 'lpUseOptions'),(1, 'cbUseOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetAddConnection4W():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32)(('WNetAddConnection4W', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'pAuthBuffer'),(1, 'cbAuthBuffer'),(1, 'dwFlags'),(1, 'lpUseOptions'),(1, 'cbUseOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetCancelConnectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('WNetCancelConnectionA', windll['MPR.dll']), ((1, 'lpName'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetCancelConnectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('WNetCancelConnectionW', windll['MPR.dll']), ((1, 'lpName'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetCancelConnection2A():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.BOOL)(('WNetCancelConnection2A', windll['MPR.dll']), ((1, 'lpName'),(1, 'dwFlags'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetCancelConnection2W():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL)(('WNetCancelConnection2W', windll['MPR.dll']), ((1, 'lpName'),(1, 'dwFlags'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetConnectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('WNetGetConnectionA', windll['MPR.dll']), ((1, 'lpLocalName'),(1, 'lpRemoteName'),(1, 'lpnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetConnectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('WNetGetConnectionW', windll['MPR.dll']), ((1, 'lpLocalName'),(1, 'lpRemoteName'),(1, 'lpnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetUseConnectionA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32))(('WNetUseConnectionA', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserId'),(1, 'dwFlags'),(1, 'lpAccessName'),(1, 'lpBufferSize'),(1, 'lpResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetUseConnectionW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('WNetUseConnectionW', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserId'),(1, 'dwFlags'),(1, 'lpAccessName'),(1, 'lpBufferSize'),(1, 'lpResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetUseConnection4A():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32))(('WNetUseConnection4A', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'pAuthBuffer'),(1, 'cbAuthBuffer'),(1, 'dwFlags'),(1, 'lpUseOptions'),(1, 'cbUseOptions'),(1, 'lpAccessName'),(1, 'lpBufferSize'),(1, 'lpResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetUseConnection4W():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('WNetUseConnection4W', windll['MPR.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'pAuthBuffer'),(1, 'cbAuthBuffer'),(1, 'dwFlags'),(1, 'lpUseOptions'),(1, 'cbUseOptions'),(1, 'lpAccessName'),(1, 'lpBufferSize'),(1, 'lpResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetConnectionDialog():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32)(('WNetConnectionDialog', windll['MPR.dll']), ((1, 'hwnd'),(1, 'dwType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetDisconnectDialog():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32)(('WNetDisconnectDialog', windll['MPR.dll']), ((1, 'hwnd'),(1, 'dwType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetConnectionDialog1A():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTA_head))(('WNetConnectionDialog1A', windll['MPR.dll']), ((1, 'lpConnDlgStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetConnectionDialog1W():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTW_head))(('WNetConnectionDialog1W', windll['MPR.dll']), ((1, 'lpConnDlgStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetDisconnectDialog1A():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.DISCDLGSTRUCTA_head))(('WNetDisconnectDialog1A', windll['MPR.dll']), ((1, 'lpConnDlgStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetDisconnectDialog1W():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.DISCDLGSTRUCTW_head))(('WNetDisconnectDialog1W', windll['MPR.dll']), ((1, 'lpConnDlgStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetOpenEnumA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE,win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE,win32more.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),POINTER(win32more.NetworkManagement.WNet.NetEnumHandle))(('WNetOpenEnumA', windll['MPR.dll']), ((1, 'dwScope'),(1, 'dwType'),(1, 'dwUsage'),(1, 'lpNetResource'),(1, 'lphEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetOpenEnumW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE,win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE,win32more.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),POINTER(win32more.NetworkManagement.WNet.NetEnumHandle))(('WNetOpenEnumW', windll['MPR.dll']), ((1, 'dwScope'),(1, 'dwType'),(1, 'dwUsage'),(1, 'lpNetResource'),(1, 'lphEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetEnumResourceA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),c_void_p,POINTER(UInt32))(('WNetEnumResourceA', windll['MPR.dll']), ((1, 'hEnum'),(1, 'lpcCount'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetEnumResourceW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),c_void_p,POINTER(UInt32))(('WNetEnumResourceW', windll['MPR.dll']), ((1, 'hEnum'),(1, 'lpcCount'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetCloseEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('WNetCloseEnum', windll['MPR.dll']), ((1, 'hEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetResourceParentA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),c_void_p,POINTER(UInt32))(('WNetGetResourceParentA', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpcbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetResourceParentW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32))(('WNetGetResourceParentW', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpcbBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetResourceInformationA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.PSTR))(('WNetGetResourceInformationA', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpcbBuffer'),(1, 'lplpSystem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetResourceInformationW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(('WNetGetResourceInformationW', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpcbBuffer'),(1, 'lplpSystem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetUniversalNameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.NetworkManagement.WNet.UNC_INFO_LEVEL,c_void_p,POINTER(UInt32))(('WNetGetUniversalNameA', windll['MPR.dll']), ((1, 'lpLocalPath'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetUniversalNameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.WNet.UNC_INFO_LEVEL,c_void_p,POINTER(UInt32))(('WNetGetUniversalNameW', windll['MPR.dll']), ((1, 'lpLocalPath'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetUserA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('WNetGetUserA', windll['MPR.dll']), ((1, 'lpName'),(1, 'lpUserName'),(1, 'lpnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetUserW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('WNetGetUserW', windll['MPR.dll']), ((1, 'lpName'),(1, 'lpUserName'),(1, 'lpnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetProviderNameA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,POINTER(UInt32))(('WNetGetProviderNameA', windll['MPR.dll']), ((1, 'dwNetType'),(1, 'lpProviderName'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetProviderNameW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('WNetGetProviderNameW', windll['MPR.dll']), ((1, 'dwNetType'),(1, 'lpProviderName'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetNetworkInformationA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.WNet.NETINFOSTRUCT_head))(('WNetGetNetworkInformationA', windll['MPR.dll']), ((1, 'lpProvider'),(1, 'lpNetInfoStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetNetworkInformationW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WNet.NETINFOSTRUCT_head))(('WNetGetNetworkInformationW', windll['MPR.dll']), ((1, 'lpProvider'),(1, 'lpNetInfoStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetLastErrorA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32)(('WNetGetLastErrorA', windll['MPR.dll']), ((1, 'lpError'),(1, 'lpErrorBuf'),(1, 'nErrorBufSize'),(1, 'lpNameBuf'),(1, 'nNameBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetGetLastErrorW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32)(('WNetGetLastErrorW', windll['MPR.dll']), ((1, 'lpError'),(1, 'lpErrorBuf'),(1, 'nErrorBufSize'),(1, 'lpNameBuf'),(1, 'nNameBufSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MultinetGetConnectionPerformanceA():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head),POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head))(('MultinetGetConnectionPerformanceA', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpNetConnectInfoStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MultinetGetConnectionPerformanceW():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head))(('MultinetGetConnectionPerformanceW', windll['MPR.dll']), ((1, 'lpNetResource'),(1, 'lpNetConnectInfoStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPAddConnection():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('NPAddConnection', windll['davclnt.dll']), ((1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPAddConnection3():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS)(('NPAddConnection3', windll['davclnt.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpPassword'),(1, 'lpUserName'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPAddConnection4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32)(('NPAddConnection4', windll['NTLANMAN.dll']), ((1, 'hwndOwner'),(1, 'lpNetResource'),(1, 'lpAuthBuffer'),(1, 'cbAuthBuffer'),(1, 'dwFlags'),(1, 'lpUseOptions'),(1, 'cbUseOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPCancelConnection():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('NPCancelConnection', windll['davclnt.dll']), ((1, 'lpName'),(1, 'fForce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPCancelConnection2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32)(('NPCancelConnection2', windll['NTLANMAN.dll']), ((1, 'lpName'),(1, 'fForce'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetConnection():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('NPGetConnection', windll['davclnt.dll']), ((1, 'lpLocalName'),(1, 'lpRemoteName'),(1, 'lpnBufferLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetConnection3():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,c_void_p,POINTER(UInt32))(('NPGetConnection3', windll['NTLANMAN.dll']), ((1, 'lpLocalName'),(1, 'dwLevel'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetUniversalName():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.WNet.UNC_INFO_LEVEL,c_void_p,POINTER(UInt32))(('NPGetUniversalName', windll['davclnt.dll']), ((1, 'lpLocalPath'),(1, 'dwInfoLevel'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetConnectionPerformance():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head))(('NPGetConnectionPerformance', windll['NTLANMAN.dll']), ((1, 'lpRemoteName'),(1, 'lpNetConnectInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPOpenEnum():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),POINTER(win32more.Foundation.HANDLE))(('NPOpenEnum', windll['davclnt.dll']), ((1, 'dwScope'),(1, 'dwType'),(1, 'dwUsage'),(1, 'lpNetResource'),(1, 'lphEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPEnumResource():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),c_void_p,POINTER(UInt32))(('NPEnumResource', windll['davclnt.dll']), ((1, 'hEnum'),(1, 'lpcCount'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPCloseEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('NPCloseEnum', windll['davclnt.dll']), ((1, 'hEnum'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetCaps():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('NPGetCaps', windll['davclnt.dll']), ((1, 'ndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetUser():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('NPGetUser', windll['davclnt.dll']), ((1, 'lpName'),(1, 'lpUserName'),(1, 'lpnBufferLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetPersistentUseOptionsForConnection():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))(('NPGetPersistentUseOptionsForConnection', windll['NTLANMAN.dll']), ((1, 'lpRemotePath'),(1, 'lpReadUseOptions'),(1, 'cbReadUseOptions'),(1, 'lpWriteUseOptions'),(1, 'lpSizeWriteUseOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetResourceParent():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32))(('NPGetResourceParent', windll['davclnt.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPGetResourceInformation():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))(('NPGetResourceInformation', windll['davclnt.dll']), ((1, 'lpNetResource'),(1, 'lpBuffer'),(1, 'lpBufferSize'),(1, 'lplpSystem'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NPFormatNetworkName():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS,UInt32)(('NPFormatNetworkName', windll['davclnt.dll']), ((1, 'lpRemoteName'),(1, 'lpFormattedName'),(1, 'lpnLength'),(1, 'dwFlags'),(1, 'dwAveCharPerLine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetSetLastErrorA():
-    try:
-        return WINFUNCTYPE(Void,UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('WNetSetLastErrorA', windll['MPR.dll']), ((1, 'err'),(1, 'lpError'),(1, 'lpProviders'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WNetSetLastErrorW():
-    try:
-        return WINFUNCTYPE(Void,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('WNetSetLastErrorW', windll['MPR.dll']), ((1, 'err'),(1, 'lpError'),(1, 'lpProviders'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+WNGETCON_CONNECTED: UInt32 = 0
+WNGETCON_DISCONNECTED: UInt32 = 1
+WNNC_SPEC_VERSION: UInt32 = 1
+WNNC_SPEC_VERSION51: UInt32 = 327681
+WNNC_NET_TYPE: UInt32 = 2
+WNNC_NET_NONE: UInt32 = 0
+WNNC_DRIVER_VERSION: UInt32 = 3
+WNNC_USER: UInt32 = 4
+WNNC_USR_GETUSER: UInt32 = 1
+WNNC_CONNECTION: UInt32 = 6
+WNNC_CON_ADDCONNECTION: UInt32 = 1
+WNNC_CON_CANCELCONNECTION: UInt32 = 2
+WNNC_CON_GETCONNECTIONS: UInt32 = 4
+WNNC_CON_ADDCONNECTION3: UInt32 = 8
+WNNC_CON_ADDCONNECTION4: UInt32 = 16
+WNNC_CON_CANCELCONNECTION2: UInt32 = 32
+WNNC_CON_GETPERFORMANCE: UInt32 = 64
+WNNC_CON_DEFER: UInt32 = 128
+WNNC_DIALOG: UInt32 = 8
+WNNC_DLG_DEVICEMODE: UInt32 = 1
+WNNC_DLG_PROPERTYDIALOG: UInt32 = 32
+WNNC_DLG_SEARCHDIALOG: UInt32 = 64
+WNNC_DLG_FORMATNETWORKNAME: UInt32 = 128
+WNNC_DLG_PERMISSIONEDITOR: UInt32 = 256
+WNNC_DLG_GETRESOURCEPARENT: UInt32 = 512
+WNNC_DLG_GETRESOURCEINFORMATION: UInt32 = 2048
+WNNC_ADMIN: UInt32 = 9
+WNNC_ADM_GETDIRECTORYTYPE: UInt32 = 1
+WNNC_ADM_DIRECTORYNOTIFY: UInt32 = 2
+WNNC_ENUMERATION: UInt32 = 11
+WNNC_ENUM_GLOBAL: UInt32 = 1
+WNNC_ENUM_LOCAL: UInt32 = 2
+WNNC_ENUM_CONTEXT: UInt32 = 4
+WNNC_ENUM_SHAREABLE: UInt32 = 8
+WNNC_START: UInt32 = 12
+WNNC_WAIT_FOR_START: UInt32 = 1
+WNNC_CONNECTION_FLAGS: UInt32 = 13
+WNTYPE_DRIVE: UInt32 = 1
+WNTYPE_FILE: UInt32 = 2
+WNTYPE_PRINTER: UInt32 = 3
+WNTYPE_COMM: UInt32 = 4
+WNSRCH_REFRESH_FIRST_LEVEL: UInt32 = 1
+WNDT_NORMAL: UInt32 = 0
+WNDT_NETWORK: UInt32 = 1
+WN_NETWORK_CLASS: UInt32 = 1
+WN_CREDENTIAL_CLASS: UInt32 = 2
+WN_PRIMARY_AUTHENT_CLASS: UInt32 = 4
+WN_SERVICE_CLASS: UInt32 = 8
+WN_VALID_LOGON_ACCOUNT: UInt32 = 1
+WN_NT_PASSWORD_CHANGED: UInt32 = 2
+NOTIFY_PRE: UInt32 = 1
+NOTIFY_POST: UInt32 = 2
+WNPERMC_PERM: UInt32 = 1
+WNPERMC_AUDIT: UInt32 = 2
+WNPERMC_OWNER: UInt32 = 4
+RESOURCE_RECENT: UInt32 = 4
+RESOURCETYPE_RESERVED: UInt32 = 8
+RESOURCETYPE_UNKNOWN: UInt32 = 4294967295
+RESOURCEUSAGE_NOLOCALDEVICE: UInt32 = 4
+RESOURCEUSAGE_SIBLING: UInt32 = 8
+RESOURCEUSAGE_RESERVED: UInt32 = 2147483648
+RESOURCEDISPLAYTYPE_NETWORK: UInt32 = 6
+RESOURCEDISPLAYTYPE_ROOT: UInt32 = 7
+RESOURCEDISPLAYTYPE_SHAREADMIN: UInt32 = 8
+RESOURCEDISPLAYTYPE_DIRECTORY: UInt32 = 9
+RESOURCEDISPLAYTYPE_NDSCONTAINER: UInt32 = 11
+NETPROPERTY_PERSISTENT: UInt32 = 1
+CONNECT_NEED_DRIVE: UInt32 = 32
+CONNECT_REFCOUNT: UInt32 = 64
+CONNECT_LOCALDRIVE: UInt32 = 256
+CONNECT_CURRENT_MEDIA: UInt32 = 512
+CONNECT_RESERVED: UInt32 = 4278190080
+CONNECT_CRED_RESET: UInt32 = 8192
+CONNECT_REQUIRE_INTEGRITY: UInt32 = 16384
+CONNECT_REQUIRE_PRIVACY: UInt32 = 32768
+CONNECT_WRITE_THROUGH_SEMANTICS: UInt32 = 65536
+CONNECT_GLOBAL_MAPPING: UInt32 = 262144
+WNFMT_INENUM: UInt32 = 16
+WNFMT_CONNECTION: UInt32 = 32
+WNCON_FORNETCARD: UInt32 = 1
+WNCON_NOTROUTED: UInt32 = 2
+WNCON_SLOWLINK: UInt32 = 4
+WNCON_DYNAMIC: UInt32 = 8
+@winfunctype('MPR.dll')
+def WNetAddConnectionA(lpRemoteName: win32more.Foundation.PSTR, lpPassword: win32more.Foundation.PSTR, lpLocalName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnectionW(lpRemoteName: win32more.Foundation.PWSTR, lpPassword: win32more.Foundation.PWSTR, lpLocalName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection2A(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpPassword: win32more.Foundation.PSTR, lpUserName: win32more.Foundation.PSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection2W(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection3A(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpPassword: win32more.Foundation.PSTR, lpUserName: win32more.Foundation.PSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection3W(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection4A(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetAddConnection4W(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetCancelConnectionA(lpName: win32more.Foundation.PSTR, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetCancelConnectionW(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetCancelConnection2A(lpName: win32more.Foundation.PSTR, dwFlags: UInt32, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetCancelConnection2W(lpName: win32more.Foundation.PWSTR, dwFlags: UInt32, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetConnectionA(lpLocalName: win32more.Foundation.PSTR, lpRemoteName: win32more.Foundation.PSTR, lpnLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetConnectionW(lpLocalName: win32more.Foundation.PWSTR, lpRemoteName: win32more.Foundation.PWSTR, lpnLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetUseConnectionA(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpPassword: win32more.Foundation.PSTR, lpUserId: win32more.Foundation.PSTR, dwFlags: win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS, lpAccessName: win32more.Foundation.PSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetUseConnectionW(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserId: win32more.Foundation.PWSTR, dwFlags: win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS, lpAccessName: win32more.Foundation.PWSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetUseConnection4A(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32, lpAccessName: win32more.Foundation.PSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetUseConnection4W(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), pAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32, lpAccessName: win32more.Foundation.PWSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetConnectionDialog(hwnd: win32more.Foundation.HWND, dwType: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetDisconnectDialog(hwnd: win32more.Foundation.HWND, dwType: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetConnectionDialog1A(lpConnDlgStruct: POINTER(win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTA_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetConnectionDialog1W(lpConnDlgStruct: POINTER(win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTW_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetDisconnectDialog1A(lpConnDlgStruct: POINTER(win32more.NetworkManagement.WNet.DISCDLGSTRUCTA_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetDisconnectDialog1W(lpConnDlgStruct: POINTER(win32more.NetworkManagement.WNet.DISCDLGSTRUCTW_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetOpenEnumA(dwScope: win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: win32more.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lphEnum: POINTER(win32more.NetworkManagement.WNet.NetEnumHandle)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetOpenEnumW(dwScope: win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE, dwType: win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE, dwUsage: win32more.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lphEnum: POINTER(win32more.NetworkManagement.WNet.NetEnumHandle)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetEnumResourceA(hEnum: win32more.Foundation.HANDLE, lpcCount: POINTER(UInt32), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetEnumResourceW(hEnum: win32more.Foundation.HANDLE, lpcCount: POINTER(UInt32), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetCloseEnum(hEnum: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetResourceParentA(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpBuffer: c_void_p, lpcbBuffer: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetResourceParentW(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpcbBuffer: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetResourceInformationA(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpBuffer: c_void_p, lpcbBuffer: POINTER(UInt32), lplpSystem: POINTER(win32more.Foundation.PSTR)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetResourceInformationW(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpcbBuffer: POINTER(UInt32), lplpSystem: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetUniversalNameA(lpLocalPath: win32more.Foundation.PSTR, dwInfoLevel: win32more.NetworkManagement.WNet.UNC_INFO_LEVEL, lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetUniversalNameW(lpLocalPath: win32more.Foundation.PWSTR, dwInfoLevel: win32more.NetworkManagement.WNet.UNC_INFO_LEVEL, lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetUserA(lpName: win32more.Foundation.PSTR, lpUserName: win32more.Foundation.PSTR, lpnLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetUserW(lpName: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, lpnLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetProviderNameA(dwNetType: UInt32, lpProviderName: win32more.Foundation.PSTR, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetProviderNameW(dwNetType: UInt32, lpProviderName: win32more.Foundation.PWSTR, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetNetworkInformationA(lpProvider: win32more.Foundation.PSTR, lpNetInfoStruct: POINTER(win32more.NetworkManagement.WNet.NETINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetNetworkInformationW(lpProvider: win32more.Foundation.PWSTR, lpNetInfoStruct: POINTER(win32more.NetworkManagement.WNet.NETINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetLastErrorA(lpError: POINTER(UInt32), lpErrorBuf: win32more.Foundation.PSTR, nErrorBufSize: UInt32, lpNameBuf: win32more.Foundation.PSTR, nNameBufSize: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetGetLastErrorW(lpError: POINTER(UInt32), lpErrorBuf: win32more.Foundation.PWSTR, nErrorBufSize: UInt32, lpNameBuf: win32more.Foundation.PWSTR, nNameBufSize: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def MultinetGetConnectionPerformanceA(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head), lpNetConnectInfoStruct: POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype('MPR.dll')
+def MultinetGetConnectionPerformanceW(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpNetConnectInfoStruct: POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPAddConnection(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPAddConnection3(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, dwFlags: win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS) -> UInt32: ...
+@winfunctype('NTLANMAN.dll')
+def NPAddConnection4(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPCancelConnection(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('NTLANMAN.dll')
+def NPCancelConnection2(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetConnection(lpLocalName: win32more.Foundation.PWSTR, lpRemoteName: win32more.Foundation.PWSTR, lpnBufferLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NTLANMAN.dll')
+def NPGetConnection3(lpLocalName: win32more.Foundation.PWSTR, dwLevel: UInt32, lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetUniversalName(lpLocalPath: win32more.Foundation.PWSTR, dwInfoLevel: win32more.NetworkManagement.WNet.UNC_INFO_LEVEL, lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NTLANMAN.dll')
+def NPGetConnectionPerformance(lpRemoteName: win32more.Foundation.PWSTR, lpNetConnectInfo: POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPOpenEnum(dwScope: UInt32, dwType: UInt32, dwUsage: UInt32, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lphEnum: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPEnumResource(hEnum: win32more.Foundation.HANDLE, lpcCount: POINTER(UInt32), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPCloseEnum(hEnum: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetCaps(ndex: UInt32) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetUser(lpName: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, lpnBufferLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NTLANMAN.dll')
+def NPGetPersistentUseOptionsForConnection(lpRemotePath: win32more.Foundation.PWSTR, lpReadUseOptions: c_char_p_no, cbReadUseOptions: UInt32, lpWriteUseOptions: c_char_p_no, lpSizeWriteUseOptions: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetResourceParent(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPGetResourceInformation(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32), lplpSystem: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype('davclnt.dll')
+def NPFormatNetworkName(lpRemoteName: win32more.Foundation.PWSTR, lpFormattedName: win32more.Foundation.PWSTR, lpnLength: POINTER(UInt32), dwFlags: win32more.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS, dwAveCharPerLine: UInt32) -> UInt32: ...
+@winfunctype('MPR.dll')
+def WNetSetLastErrorA(err: UInt32, lpError: win32more.Foundation.PSTR, lpProviders: win32more.Foundation.PSTR) -> Void: ...
+@winfunctype('MPR.dll')
+def WNetSetLastErrorW(err: UInt32, lpError: win32more.Foundation.PWSTR, lpProviders: win32more.Foundation.PWSTR) -> Void: ...
 CONNECTDLGSTRUCT_FLAGS = UInt32
-CONNDLG_RO_PATH = 1
-CONNDLG_CONN_POINT = 2
-CONNDLG_USE_MRU = 4
-CONNDLG_HIDE_BOX = 8
-CONNDLG_PERSIST = 16
-CONNDLG_NOT_PERSIST = 32
-def _define_CONNECTDLGSTRUCTA_head():
-    class CONNECTDLGSTRUCTA(Structure):
-        pass
-    return CONNECTDLGSTRUCTA
-def _define_CONNECTDLGSTRUCTA():
-    CONNECTDLGSTRUCTA = win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTA_head
-    CONNECTDLGSTRUCTA._fields_ = [
-        ('cbStructure', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('lpConnRes', POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head)),
-        ('dwFlags', win32more.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS),
-        ('dwDevNum', UInt32),
-    ]
-    return CONNECTDLGSTRUCTA
-def _define_CONNECTDLGSTRUCTW_head():
-    class CONNECTDLGSTRUCTW(Structure):
-        pass
-    return CONNECTDLGSTRUCTW
-def _define_CONNECTDLGSTRUCTW():
-    CONNECTDLGSTRUCTW = win32more.NetworkManagement.WNet.CONNECTDLGSTRUCTW_head
-    CONNECTDLGSTRUCTW._fields_ = [
-        ('cbStructure', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('lpConnRes', POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head)),
-        ('dwFlags', win32more.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS),
-        ('dwDevNum', UInt32),
-    ]
-    return CONNECTDLGSTRUCTW
+CONNDLG_RO_PATH: CONNECTDLGSTRUCT_FLAGS = 1
+CONNDLG_CONN_POINT: CONNECTDLGSTRUCT_FLAGS = 2
+CONNDLG_USE_MRU: CONNECTDLGSTRUCT_FLAGS = 4
+CONNDLG_HIDE_BOX: CONNECTDLGSTRUCT_FLAGS = 8
+CONNDLG_PERSIST: CONNECTDLGSTRUCT_FLAGS = 16
+CONNDLG_NOT_PERSIST: CONNECTDLGSTRUCT_FLAGS = 32
+class CONNECTDLGSTRUCTA(Structure):
+    cbStructure: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    lpConnRes: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEA_head)
+    dwFlags: win32more.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS
+    dwDevNum: UInt32
+class CONNECTDLGSTRUCTW(Structure):
+    cbStructure: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    lpConnRes: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head)
+    dwFlags: win32more.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS
+    dwDevNum: UInt32
 DISCDLGSTRUCT_FLAGS = UInt32
-DISC_UPDATE_PROFILE = 1
-DISC_NO_FORCE = 64
-def _define_DISCDLGSTRUCTA_head():
-    class DISCDLGSTRUCTA(Structure):
-        pass
-    return DISCDLGSTRUCTA
-def _define_DISCDLGSTRUCTA():
-    DISCDLGSTRUCTA = win32more.NetworkManagement.WNet.DISCDLGSTRUCTA_head
-    DISCDLGSTRUCTA._fields_ = [
-        ('cbStructure', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('lpLocalName', win32more.Foundation.PSTR),
-        ('lpRemoteName', win32more.Foundation.PSTR),
-        ('dwFlags', win32more.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS),
-    ]
-    return DISCDLGSTRUCTA
-def _define_DISCDLGSTRUCTW_head():
-    class DISCDLGSTRUCTW(Structure):
-        pass
-    return DISCDLGSTRUCTW
-def _define_DISCDLGSTRUCTW():
-    DISCDLGSTRUCTW = win32more.NetworkManagement.WNet.DISCDLGSTRUCTW_head
-    DISCDLGSTRUCTW._fields_ = [
-        ('cbStructure', UInt32),
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('lpLocalName', win32more.Foundation.PWSTR),
-        ('lpRemoteName', win32more.Foundation.PWSTR),
-        ('dwFlags', win32more.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS),
-    ]
-    return DISCDLGSTRUCTW
+DISC_UPDATE_PROFILE: DISCDLGSTRUCT_FLAGS = 1
+DISC_NO_FORCE: DISCDLGSTRUCT_FLAGS = 64
+class DISCDLGSTRUCTA(Structure):
+    cbStructure: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    lpLocalName: win32more.Foundation.PSTR
+    lpRemoteName: win32more.Foundation.PSTR
+    dwFlags: win32more.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS
+class DISCDLGSTRUCTW(Structure):
+    cbStructure: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    lpLocalName: win32more.Foundation.PWSTR
+    lpRemoteName: win32more.Foundation.PWSTR
+    dwFlags: win32more.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS
 NET_RESOURCE_SCOPE = UInt32
-RESOURCE_CONNECTED = 1
-RESOURCE_CONTEXT = 5
-RESOURCE_GLOBALNET = 2
-RESOURCE_REMEMBERED = 3
+RESOURCE_CONNECTED: NET_RESOURCE_SCOPE = 1
+RESOURCE_CONTEXT: NET_RESOURCE_SCOPE = 5
+RESOURCE_GLOBALNET: NET_RESOURCE_SCOPE = 2
+RESOURCE_REMEMBERED: NET_RESOURCE_SCOPE = 3
 NET_RESOURCE_TYPE = UInt32
-RESOURCETYPE_ANY = 0
-RESOURCETYPE_DISK = 1
-RESOURCETYPE_PRINT = 2
+RESOURCETYPE_ANY: NET_RESOURCE_TYPE = 0
+RESOURCETYPE_DISK: NET_RESOURCE_TYPE = 1
+RESOURCETYPE_PRINT: NET_RESOURCE_TYPE = 2
 NET_USE_CONNECT_FLAGS = UInt32
-CONNECT_INTERACTIVE = 8
-CONNECT_PROMPT = 16
-CONNECT_REDIRECT = 128
-CONNECT_UPDATE_PROFILE = 1
-CONNECT_COMMANDLINE = 2048
-CONNECT_CMD_SAVECRED = 4096
-CONNECT_TEMPORARY = 4
-CONNECT_DEFERRED = 1024
-CONNECT_UPDATE_RECENT = 2
-def _define_NETCONNECTINFOSTRUCT_head():
-    class NETCONNECTINFOSTRUCT(Structure):
-        pass
-    return NETCONNECTINFOSTRUCT
-def _define_NETCONNECTINFOSTRUCT():
-    NETCONNECTINFOSTRUCT = win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head
-    NETCONNECTINFOSTRUCT._fields_ = [
-        ('cbStructure', UInt32),
-        ('dwFlags', UInt32),
-        ('dwSpeed', UInt32),
-        ('dwDelay', UInt32),
-        ('dwOptDataSize', UInt32),
-    ]
-    return NETCONNECTINFOSTRUCT
+CONNECT_INTERACTIVE: NET_USE_CONNECT_FLAGS = 8
+CONNECT_PROMPT: NET_USE_CONNECT_FLAGS = 16
+CONNECT_REDIRECT: NET_USE_CONNECT_FLAGS = 128
+CONNECT_UPDATE_PROFILE: NET_USE_CONNECT_FLAGS = 1
+CONNECT_COMMANDLINE: NET_USE_CONNECT_FLAGS = 2048
+CONNECT_CMD_SAVECRED: NET_USE_CONNECT_FLAGS = 4096
+CONNECT_TEMPORARY: NET_USE_CONNECT_FLAGS = 4
+CONNECT_DEFERRED: NET_USE_CONNECT_FLAGS = 1024
+CONNECT_UPDATE_RECENT: NET_USE_CONNECT_FLAGS = 2
+class NETCONNECTINFOSTRUCT(Structure):
+    cbStructure: UInt32
+    dwFlags: UInt32
+    dwSpeed: UInt32
+    dwDelay: UInt32
+    dwOptDataSize: UInt32
 NetEnumHandle = IntPtr
-def _define_NETINFOSTRUCT_head():
-    class NETINFOSTRUCT(Structure):
-        pass
-    return NETINFOSTRUCT
-def _define_NETINFOSTRUCT():
-    NETINFOSTRUCT = win32more.NetworkManagement.WNet.NETINFOSTRUCT_head
-    NETINFOSTRUCT._fields_ = [
-        ('cbStructure', UInt32),
-        ('dwProviderVersion', UInt32),
-        ('dwStatus', win32more.Foundation.WIN32_ERROR),
-        ('dwCharacteristics', win32more.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS),
-        ('dwHandle', UIntPtr),
-        ('wNetType', UInt16),
-        ('dwPrinters', UInt32),
-        ('dwDrives', UInt32),
-    ]
-    return NETINFOSTRUCT
+class NETINFOSTRUCT(Structure):
+    cbStructure: UInt32
+    dwProviderVersion: UInt32
+    dwStatus: win32more.Foundation.WIN32_ERROR
+    dwCharacteristics: win32more.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS
+    dwHandle: UIntPtr
+    wNetType: UInt16
+    dwPrinters: UInt32
+    dwDrives: UInt32
 NETINFOSTRUCT_CHARACTERISTICS = UInt32
-NETINFO_DLL16 = 1
-NETINFO_DISKRED = 4
-NETINFO_PRINTERRED = 8
-def _define_NETRESOURCEA_head():
-    class NETRESOURCEA(Structure):
-        pass
-    return NETRESOURCEA
-def _define_NETRESOURCEA():
-    NETRESOURCEA = win32more.NetworkManagement.WNet.NETRESOURCEA_head
-    NETRESOURCEA._fields_ = [
-        ('dwScope', win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE),
-        ('dwType', win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE),
-        ('dwDisplayType', UInt32),
-        ('dwUsage', UInt32),
-        ('lpLocalName', win32more.Foundation.PSTR),
-        ('lpRemoteName', win32more.Foundation.PSTR),
-        ('lpComment', win32more.Foundation.PSTR),
-        ('lpProvider', win32more.Foundation.PSTR),
-    ]
-    return NETRESOURCEA
-def _define_NETRESOURCEW_head():
-    class NETRESOURCEW(Structure):
-        pass
-    return NETRESOURCEW
-def _define_NETRESOURCEW():
-    NETRESOURCEW = win32more.NetworkManagement.WNet.NETRESOURCEW_head
-    NETRESOURCEW._fields_ = [
-        ('dwScope', win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE),
-        ('dwType', win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE),
-        ('dwDisplayType', UInt32),
-        ('dwUsage', UInt32),
-        ('lpLocalName', win32more.Foundation.PWSTR),
-        ('lpRemoteName', win32more.Foundation.PWSTR),
-        ('lpComment', win32more.Foundation.PWSTR),
-        ('lpProvider', win32more.Foundation.PWSTR),
-    ]
-    return NETRESOURCEW
+NETINFO_DLL16: NETINFOSTRUCT_CHARACTERISTICS = 1
+NETINFO_DISKRED: NETINFOSTRUCT_CHARACTERISTICS = 4
+NETINFO_PRINTERRED: NETINFOSTRUCT_CHARACTERISTICS = 8
+class NETRESOURCEA(Structure):
+    dwScope: win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE
+    dwType: win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE
+    dwDisplayType: UInt32
+    dwUsage: UInt32
+    lpLocalName: win32more.Foundation.PSTR
+    lpRemoteName: win32more.Foundation.PSTR
+    lpComment: win32more.Foundation.PSTR
+    lpProvider: win32more.Foundation.PSTR
+class NETRESOURCEW(Structure):
+    dwScope: win32more.NetworkManagement.WNet.NET_RESOURCE_SCOPE
+    dwType: win32more.NetworkManagement.WNet.NET_RESOURCE_TYPE
+    dwDisplayType: UInt32
+    dwUsage: UInt32
+    lpLocalName: win32more.Foundation.PWSTR
+    lpRemoteName: win32more.Foundation.PWSTR
+    lpComment: win32more.Foundation.PWSTR
+    lpProvider: win32more.Foundation.PWSTR
 NETWORK_NAME_FORMAT_FLAGS = UInt32
-WNFMT_MULTILINE = 1
-WNFMT_ABBREVIATED = 2
-def _define_NOTIFYADD_head():
-    class NOTIFYADD(Structure):
-        pass
-    return NOTIFYADD
-def _define_NOTIFYADD():
-    NOTIFYADD = win32more.NetworkManagement.WNet.NOTIFYADD_head
-    NOTIFYADD._fields_ = [
-        ('hwndOwner', win32more.Foundation.HWND),
-        ('NetResource', win32more.NetworkManagement.WNet.NETRESOURCEA),
-        ('dwAddFlags', win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS),
-    ]
-    return NOTIFYADD
-def _define_NOTIFYCANCEL_head():
-    class NOTIFYCANCEL(Structure):
-        pass
-    return NOTIFYCANCEL
-def _define_NOTIFYCANCEL():
-    NOTIFYCANCEL = win32more.NetworkManagement.WNet.NOTIFYCANCEL_head
-    NOTIFYCANCEL._fields_ = [
-        ('lpName', win32more.Foundation.PWSTR),
-        ('lpProvider', win32more.Foundation.PWSTR),
-        ('dwFlags', UInt32),
-        ('fForce', win32more.Foundation.BOOL),
-    ]
-    return NOTIFYCANCEL
-def _define_NOTIFYINFO_head():
-    class NOTIFYINFO(Structure):
-        pass
-    return NOTIFYINFO
-def _define_NOTIFYINFO():
-    NOTIFYINFO = win32more.NetworkManagement.WNet.NOTIFYINFO_head
-    NOTIFYINFO._fields_ = [
-        ('dwNotifyStatus', UInt32),
-        ('dwOperationStatus', UInt32),
-        ('lpContext', c_void_p),
-    ]
-    return NOTIFYINFO
+WNFMT_MULTILINE: NETWORK_NAME_FORMAT_FLAGS = 1
+WNFMT_ABBREVIATED: NETWORK_NAME_FORMAT_FLAGS = 2
+class NOTIFYADD(Structure):
+    hwndOwner: win32more.Foundation.HWND
+    NetResource: win32more.NetworkManagement.WNet.NETRESOURCEA
+    dwAddFlags: win32more.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS
+class NOTIFYCANCEL(Structure):
+    lpName: win32more.Foundation.PWSTR
+    lpProvider: win32more.Foundation.PWSTR
+    dwFlags: UInt32
+    fForce: win32more.Foundation.BOOL
+class NOTIFYINFO(Structure):
+    dwNotifyStatus: UInt32
+    dwOperationStatus: UInt32
+    lpContext: c_void_p
 NP_PROPERTY_DIALOG_SELECTION = UInt32
-WNPS_FILE = 0
-WNPS_DIR = 1
-WNPS_MULT = 2
+WNPS_FILE: NP_PROPERTY_DIALOG_SELECTION = 0
+WNPS_DIR: NP_PROPERTY_DIALOG_SELECTION = 1
+WNPS_MULT: NP_PROPERTY_DIALOG_SELECTION = 2
 NPDIRECTORY_NOTIFY_OPERATION = UInt32
-WNDN_MKDIR = 1
-WNDN_RMDIR = 2
-WNDN_MVDIR = 3
-def _define_PF_AddConnectNotify():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NOTIFYINFO_head),POINTER(win32more.NetworkManagement.WNet.NOTIFYADD_head))
-def _define_PF_CancelConnectNotify():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NOTIFYINFO_head),POINTER(win32more.NetworkManagement.WNet.NOTIFYCANCEL_head))
-def _define_PF_NPAddConnection():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
-def _define_PF_NPAddConnection3():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)
-def _define_PF_NPAddConnection4():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,UInt32,UInt32,c_char_p_no,UInt32)
-def _define_PF_NPCancelConnection():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)
-def _define_PF_NPCancelConnection2():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32)
-def _define_PF_NPCloseEnum():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)
-def _define_PF_NPDeviceMode():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND)
-def _define_PF_NPDirectoryNotify():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32)
-def _define_PF_NPEnumResource():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(UInt32),c_void_p,POINTER(UInt32))
-def _define_PF_NPFMXEditPerm():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.HWND,UInt32)
-def _define_PF_NPFMXGetPermCaps():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)
-def _define_PF_NPFMXGetPermHelp():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,c_void_p,POINTER(UInt32),POINTER(UInt32))
-def _define_PF_NPFormatNetworkName():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,UInt32)
-def _define_PF_NPGetCaps():
-    return WINFUNCTYPE(UInt32,UInt32)
-def _define_PF_NPGetConnection():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))
-def _define_PF_NPGetConnection3():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,c_void_p,POINTER(UInt32))
-def _define_PF_NPGetConnectionPerformance():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head))
-def _define_PF_NPGetDirectoryType():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(Int32),win32more.Foundation.BOOL)
-def _define_PF_NPGetPersistentUseOptionsForConnection():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,c_char_p_no,UInt32,c_char_p_no,POINTER(UInt32))
-def _define_PF_NPGetPropertyText():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32)
-def _define_PF_NPGetResourceInformation():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR))
-def _define_PF_NPGetResourceParent():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,POINTER(UInt32))
-def _define_PF_NPGetUniversalName():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,c_void_p,POINTER(UInt32))
-def _define_PF_NPGetUser():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))
-def _define_PF_NPLogonNotify():
-    return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.LUID_head),win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.Foundation.PWSTR))
-def _define_PF_NPOpenEnum():
-    return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),POINTER(win32more.Foundation.HANDLE))
-def _define_PF_NPPasswordChangeNotify():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,c_void_p,UInt32)
-def _define_PF_NPPropertyDialog():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)
-def _define_PF_NPSearchDialog():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head),c_void_p,UInt32,POINTER(UInt32))
-def _define_REMOTE_NAME_INFOA_head():
-    class REMOTE_NAME_INFOA(Structure):
-        pass
-    return REMOTE_NAME_INFOA
-def _define_REMOTE_NAME_INFOA():
-    REMOTE_NAME_INFOA = win32more.NetworkManagement.WNet.REMOTE_NAME_INFOA_head
-    REMOTE_NAME_INFOA._fields_ = [
-        ('lpUniversalName', win32more.Foundation.PSTR),
-        ('lpConnectionName', win32more.Foundation.PSTR),
-        ('lpRemainingPath', win32more.Foundation.PSTR),
-    ]
-    return REMOTE_NAME_INFOA
-def _define_REMOTE_NAME_INFOW_head():
-    class REMOTE_NAME_INFOW(Structure):
-        pass
-    return REMOTE_NAME_INFOW
-def _define_REMOTE_NAME_INFOW():
-    REMOTE_NAME_INFOW = win32more.NetworkManagement.WNet.REMOTE_NAME_INFOW_head
-    REMOTE_NAME_INFOW._fields_ = [
-        ('lpUniversalName', win32more.Foundation.PWSTR),
-        ('lpConnectionName', win32more.Foundation.PWSTR),
-        ('lpRemainingPath', win32more.Foundation.PWSTR),
-    ]
-    return REMOTE_NAME_INFOW
+WNDN_MKDIR: NPDIRECTORY_NOTIFY_OPERATION = 1
+WNDN_RMDIR: NPDIRECTORY_NOTIFY_OPERATION = 2
+WNDN_MVDIR: NPDIRECTORY_NOTIFY_OPERATION = 3
+@winfunctype_pointer
+def PF_AddConnectNotify(lpNotifyInfo: POINTER(win32more.NetworkManagement.WNet.NOTIFYINFO_head), lpAddInfo: POINTER(win32more.NetworkManagement.WNet.NOTIFYADD_head)) -> UInt32: ...
+@winfunctype_pointer
+def PF_CancelConnectNotify(lpNotifyInfo: POINTER(win32more.NetworkManagement.WNet.NOTIFYINFO_head), lpCancelInfo: POINTER(win32more.NetworkManagement.WNet.NOTIFYCANCEL_head)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPAddConnection(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPAddConnection3(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpPassword: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPAddConnection4(hwndOwner: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpAuthBuffer: c_void_p, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: c_char_p_no, cbUseOptions: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPCancelConnection(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPCancelConnection2(lpName: win32more.Foundation.PWSTR, fForce: win32more.Foundation.BOOL, dwFlags: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPCloseEnum(hEnum: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPDeviceMode(hParent: win32more.Foundation.HWND) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPDirectoryNotify(hwnd: win32more.Foundation.HWND, lpDir: win32more.Foundation.PWSTR, dwOper: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPEnumResource(hEnum: win32more.Foundation.HANDLE, lpcCount: POINTER(UInt32), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPFMXEditPerm(lpDriveName: win32more.Foundation.PWSTR, hwndFMX: win32more.Foundation.HWND, nDialogType: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPFMXGetPermCaps(lpDriveName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPFMXGetPermHelp(lpDriveName: win32more.Foundation.PWSTR, nDialogType: UInt32, fDirectory: win32more.Foundation.BOOL, lpFileNameBuffer: c_void_p, lpBufferSize: POINTER(UInt32), lpnHelpContext: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPFormatNetworkName(lpRemoteName: win32more.Foundation.PWSTR, lpFormattedName: win32more.Foundation.PWSTR, lpnLength: POINTER(UInt32), dwFlags: UInt32, dwAveCharPerLine: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetCaps(ndex: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetConnection(lpLocalName: win32more.Foundation.PWSTR, lpRemoteName: win32more.Foundation.PWSTR, lpnBufferLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetConnection3(lpLocalName: win32more.Foundation.PWSTR, dwLevel: UInt32, lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetConnectionPerformance(lpRemoteName: win32more.Foundation.PWSTR, lpNetConnectInfo: POINTER(win32more.NetworkManagement.WNet.NETCONNECTINFOSTRUCT_head)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetDirectoryType(lpName: win32more.Foundation.PWSTR, lpType: POINTER(Int32), bFlushCache: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetPersistentUseOptionsForConnection(lpRemotePath: win32more.Foundation.PWSTR, lpReadUseOptions: c_char_p_no, cbReadUseOptions: UInt32, lpWriteUseOptions: c_char_p_no, lpSizeWriteUseOptions: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetPropertyText(iButton: UInt32, nPropSel: UInt32, lpName: win32more.Foundation.PWSTR, lpButtonName: win32more.Foundation.PWSTR, nButtonNameLen: UInt32, nType: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetResourceInformation(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32), lplpSystem: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetResourceParent(lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, lpBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetUniversalName(lpLocalPath: win32more.Foundation.PWSTR, dwInfoLevel: UInt32, lpBuffer: c_void_p, lpnBufferSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPGetUser(lpName: win32more.Foundation.PWSTR, lpUserName: win32more.Foundation.PWSTR, lpnBufferLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPLogonNotify(lpLogonId: POINTER(win32more.Foundation.LUID_head), lpAuthentInfoType: win32more.Foundation.PWSTR, lpAuthentInfo: c_void_p, lpPreviousAuthentInfoType: win32more.Foundation.PWSTR, lpPreviousAuthentInfo: c_void_p, lpStationName: win32more.Foundation.PWSTR, StationHandle: c_void_p, lpLogonScript: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPOpenEnum(dwScope: UInt32, dwType: UInt32, dwUsage: UInt32, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lphEnum: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPPasswordChangeNotify(lpAuthentInfoType: win32more.Foundation.PWSTR, lpAuthentInfo: c_void_p, lpPreviousAuthentInfoType: win32more.Foundation.PWSTR, lpPreviousAuthentInfo: c_void_p, lpStationName: win32more.Foundation.PWSTR, StationHandle: c_void_p, dwChangeInfo: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPPropertyDialog(hwndParent: win32more.Foundation.HWND, iButtonDlg: UInt32, nPropSel: UInt32, lpFileName: win32more.Foundation.PWSTR, nType: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PF_NPSearchDialog(hwndParent: win32more.Foundation.HWND, lpNetResource: POINTER(win32more.NetworkManagement.WNet.NETRESOURCEW_head), lpBuffer: c_void_p, cbBuffer: UInt32, lpnFlags: POINTER(UInt32)) -> UInt32: ...
+class REMOTE_NAME_INFOA(Structure):
+    lpUniversalName: win32more.Foundation.PSTR
+    lpConnectionName: win32more.Foundation.PSTR
+    lpRemainingPath: win32more.Foundation.PSTR
+class REMOTE_NAME_INFOW(Structure):
+    lpUniversalName: win32more.Foundation.PWSTR
+    lpConnectionName: win32more.Foundation.PWSTR
+    lpRemainingPath: win32more.Foundation.PWSTR
 UNC_INFO_LEVEL = UInt32
-UNIVERSAL_NAME_INFO_LEVEL = 1
-REMOTE_NAME_INFO_LEVEL = 2
-def _define_UNIVERSAL_NAME_INFOA_head():
-    class UNIVERSAL_NAME_INFOA(Structure):
-        pass
-    return UNIVERSAL_NAME_INFOA
-def _define_UNIVERSAL_NAME_INFOA():
-    UNIVERSAL_NAME_INFOA = win32more.NetworkManagement.WNet.UNIVERSAL_NAME_INFOA_head
-    UNIVERSAL_NAME_INFOA._fields_ = [
-        ('lpUniversalName', win32more.Foundation.PSTR),
-    ]
-    return UNIVERSAL_NAME_INFOA
-def _define_UNIVERSAL_NAME_INFOW_head():
-    class UNIVERSAL_NAME_INFOW(Structure):
-        pass
-    return UNIVERSAL_NAME_INFOW
-def _define_UNIVERSAL_NAME_INFOW():
-    UNIVERSAL_NAME_INFOW = win32more.NetworkManagement.WNet.UNIVERSAL_NAME_INFOW_head
-    UNIVERSAL_NAME_INFOW._fields_ = [
-        ('lpUniversalName', win32more.Foundation.PWSTR),
-    ]
-    return UNIVERSAL_NAME_INFOW
+UNIVERSAL_NAME_INFO_LEVEL: UNC_INFO_LEVEL = 1
+REMOTE_NAME_INFO_LEVEL: UNC_INFO_LEVEL = 2
+class UNIVERSAL_NAME_INFOA(Structure):
+    lpUniversalName: win32more.Foundation.PSTR
+class UNIVERSAL_NAME_INFOW(Structure):
+    lpUniversalName: win32more.Foundation.PWSTR
 WNET_OPEN_ENUM_USAGE = UInt32
-RESOURCEUSAGE_NONE = 0
-RESOURCEUSAGE_CONNECTABLE = 1
-RESOURCEUSAGE_CONTAINER = 2
-RESOURCEUSAGE_ATTACHED = 16
-RESOURCEUSAGE_ALL = 19
+RESOURCEUSAGE_NONE: WNET_OPEN_ENUM_USAGE = 0
+RESOURCEUSAGE_CONNECTABLE: WNET_OPEN_ENUM_USAGE = 1
+RESOURCEUSAGE_CONTAINER: WNET_OPEN_ENUM_USAGE = 2
+RESOURCEUSAGE_ATTACHED: WNET_OPEN_ENUM_USAGE = 16
+RESOURCEUSAGE_ALL: WNET_OPEN_ENUM_USAGE = 19
 WNPERM_DLG = UInt32
-WNPERM_DLG_PERM = 0
-WNPERM_DLG_AUDIT = 1
-WNPERM_DLG_OWNER = 2
+WNPERM_DLG_PERM: WNPERM_DLG = 0
+WNPERM_DLG_AUDIT: WNPERM_DLG = 1
+WNPERM_DLG_OWNER: WNPERM_DLG = 2
+make_head(_module, 'CONNECTDLGSTRUCTA')
+make_head(_module, 'CONNECTDLGSTRUCTW')
+make_head(_module, 'DISCDLGSTRUCTA')
+make_head(_module, 'DISCDLGSTRUCTW')
+make_head(_module, 'NETCONNECTINFOSTRUCT')
+make_head(_module, 'NETINFOSTRUCT')
+make_head(_module, 'NETRESOURCEA')
+make_head(_module, 'NETRESOURCEW')
+make_head(_module, 'NOTIFYADD')
+make_head(_module, 'NOTIFYCANCEL')
+make_head(_module, 'NOTIFYINFO')
+make_head(_module, 'PF_AddConnectNotify')
+make_head(_module, 'PF_CancelConnectNotify')
+make_head(_module, 'PF_NPAddConnection')
+make_head(_module, 'PF_NPAddConnection3')
+make_head(_module, 'PF_NPAddConnection4')
+make_head(_module, 'PF_NPCancelConnection')
+make_head(_module, 'PF_NPCancelConnection2')
+make_head(_module, 'PF_NPCloseEnum')
+make_head(_module, 'PF_NPDeviceMode')
+make_head(_module, 'PF_NPDirectoryNotify')
+make_head(_module, 'PF_NPEnumResource')
+make_head(_module, 'PF_NPFMXEditPerm')
+make_head(_module, 'PF_NPFMXGetPermCaps')
+make_head(_module, 'PF_NPFMXGetPermHelp')
+make_head(_module, 'PF_NPFormatNetworkName')
+make_head(_module, 'PF_NPGetCaps')
+make_head(_module, 'PF_NPGetConnection')
+make_head(_module, 'PF_NPGetConnection3')
+make_head(_module, 'PF_NPGetConnectionPerformance')
+make_head(_module, 'PF_NPGetDirectoryType')
+make_head(_module, 'PF_NPGetPersistentUseOptionsForConnection')
+make_head(_module, 'PF_NPGetPropertyText')
+make_head(_module, 'PF_NPGetResourceInformation')
+make_head(_module, 'PF_NPGetResourceParent')
+make_head(_module, 'PF_NPGetUniversalName')
+make_head(_module, 'PF_NPGetUser')
+make_head(_module, 'PF_NPLogonNotify')
+make_head(_module, 'PF_NPOpenEnum')
+make_head(_module, 'PF_NPPasswordChangeNotify')
+make_head(_module, 'PF_NPPropertyDialog')
+make_head(_module, 'PF_NPSearchDialog')
+make_head(_module, 'REMOTE_NAME_INFOA')
+make_head(_module, 'REMOTE_NAME_INFOW')
+make_head(_module, 'UNIVERSAL_NAME_INFOA')
+make_head(_module, 'UNIVERSAL_NAME_INFOW')
 __all__ = [
     "CONNDLG_CONN_POINT",
     "CONNDLG_HIDE_BOX",

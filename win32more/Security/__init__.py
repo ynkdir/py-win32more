@@ -1,1989 +1,1081 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define_ACCESS_ALLOWED_ACE_head():
-    class ACCESS_ALLOWED_ACE(Structure):
-        pass
-    return ACCESS_ALLOWED_ACE
-def _define_ACCESS_ALLOWED_ACE():
-    ACCESS_ALLOWED_ACE = win32more.Security.ACCESS_ALLOWED_ACE_head
-    ACCESS_ALLOWED_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_ALLOWED_ACE
-def _define_ACCESS_ALLOWED_CALLBACK_ACE_head():
-    class ACCESS_ALLOWED_CALLBACK_ACE(Structure):
-        pass
-    return ACCESS_ALLOWED_CALLBACK_ACE
-def _define_ACCESS_ALLOWED_CALLBACK_ACE():
-    ACCESS_ALLOWED_CALLBACK_ACE = win32more.Security.ACCESS_ALLOWED_CALLBACK_ACE_head
-    ACCESS_ALLOWED_CALLBACK_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_ALLOWED_CALLBACK_ACE
-def _define_ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_head():
-    class ACCESS_ALLOWED_CALLBACK_OBJECT_ACE(Structure):
-        pass
-    return ACCESS_ALLOWED_CALLBACK_OBJECT_ACE
-def _define_ACCESS_ALLOWED_CALLBACK_OBJECT_ACE():
-    ACCESS_ALLOWED_CALLBACK_OBJECT_ACE = win32more.Security.ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_head
-    ACCESS_ALLOWED_CALLBACK_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_ALLOWED_CALLBACK_OBJECT_ACE
-def _define_ACCESS_ALLOWED_OBJECT_ACE_head():
-    class ACCESS_ALLOWED_OBJECT_ACE(Structure):
-        pass
-    return ACCESS_ALLOWED_OBJECT_ACE
-def _define_ACCESS_ALLOWED_OBJECT_ACE():
-    ACCESS_ALLOWED_OBJECT_ACE = win32more.Security.ACCESS_ALLOWED_OBJECT_ACE_head
-    ACCESS_ALLOWED_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_ALLOWED_OBJECT_ACE
-def _define_ACCESS_DENIED_ACE_head():
-    class ACCESS_DENIED_ACE(Structure):
-        pass
-    return ACCESS_DENIED_ACE
-def _define_ACCESS_DENIED_ACE():
-    ACCESS_DENIED_ACE = win32more.Security.ACCESS_DENIED_ACE_head
-    ACCESS_DENIED_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_DENIED_ACE
-def _define_ACCESS_DENIED_CALLBACK_ACE_head():
-    class ACCESS_DENIED_CALLBACK_ACE(Structure):
-        pass
-    return ACCESS_DENIED_CALLBACK_ACE
-def _define_ACCESS_DENIED_CALLBACK_ACE():
-    ACCESS_DENIED_CALLBACK_ACE = win32more.Security.ACCESS_DENIED_CALLBACK_ACE_head
-    ACCESS_DENIED_CALLBACK_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_DENIED_CALLBACK_ACE
-def _define_ACCESS_DENIED_CALLBACK_OBJECT_ACE_head():
-    class ACCESS_DENIED_CALLBACK_OBJECT_ACE(Structure):
-        pass
-    return ACCESS_DENIED_CALLBACK_OBJECT_ACE
-def _define_ACCESS_DENIED_CALLBACK_OBJECT_ACE():
-    ACCESS_DENIED_CALLBACK_OBJECT_ACE = win32more.Security.ACCESS_DENIED_CALLBACK_OBJECT_ACE_head
-    ACCESS_DENIED_CALLBACK_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_DENIED_CALLBACK_OBJECT_ACE
-def _define_ACCESS_DENIED_OBJECT_ACE_head():
-    class ACCESS_DENIED_OBJECT_ACE(Structure):
-        pass
-    return ACCESS_DENIED_OBJECT_ACE
-def _define_ACCESS_DENIED_OBJECT_ACE():
-    ACCESS_DENIED_OBJECT_ACE = win32more.Security.ACCESS_DENIED_OBJECT_ACE_head
-    ACCESS_DENIED_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return ACCESS_DENIED_OBJECT_ACE
-def _define_ACCESS_REASONS_head():
-    class ACCESS_REASONS(Structure):
-        pass
-    return ACCESS_REASONS
-def _define_ACCESS_REASONS():
-    ACCESS_REASONS = win32more.Security.ACCESS_REASONS_head
-    ACCESS_REASONS._fields_ = [
-        ('Data', UInt32 * 32),
-    ]
-    return ACCESS_REASONS
+class ACCESS_ALLOWED_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_ALLOWED_CALLBACK_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_ALLOWED_CALLBACK_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class ACCESS_ALLOWED_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class ACCESS_DENIED_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_DENIED_CALLBACK_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_DENIED_CALLBACK_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class ACCESS_DENIED_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class ACCESS_REASONS(Structure):
+    Data: UInt32 * 32
 ACE_FLAGS = UInt32
-CONTAINER_INHERIT_ACE = 2
-FAILED_ACCESS_ACE_FLAG = 128
-INHERIT_ONLY_ACE = 8
-INHERITED_ACE = 16
-NO_PROPAGATE_INHERIT_ACE = 4
-OBJECT_INHERIT_ACE = 1
-SUCCESSFUL_ACCESS_ACE_FLAG = 64
-SUB_CONTAINERS_AND_OBJECTS_INHERIT = 3
-SUB_CONTAINERS_ONLY_INHERIT = 2
-SUB_OBJECTS_ONLY_INHERIT = 1
-INHERIT_NO_PROPAGATE = 4
-INHERIT_ONLY = 8
-NO_INHERITANCE = 0
-def _define_ACE_HEADER_head():
-    class ACE_HEADER(Structure):
-        pass
-    return ACE_HEADER
-def _define_ACE_HEADER():
-    ACE_HEADER = win32more.Security.ACE_HEADER_head
-    ACE_HEADER._fields_ = [
-        ('AceType', Byte),
-        ('AceFlags', Byte),
-        ('AceSize', UInt16),
-    ]
-    return ACE_HEADER
+CONTAINER_INHERIT_ACE: ACE_FLAGS = 2
+FAILED_ACCESS_ACE_FLAG: ACE_FLAGS = 128
+INHERIT_ONLY_ACE: ACE_FLAGS = 8
+INHERITED_ACE: ACE_FLAGS = 16
+NO_PROPAGATE_INHERIT_ACE: ACE_FLAGS = 4
+OBJECT_INHERIT_ACE: ACE_FLAGS = 1
+SUCCESSFUL_ACCESS_ACE_FLAG: ACE_FLAGS = 64
+SUB_CONTAINERS_AND_OBJECTS_INHERIT: ACE_FLAGS = 3
+SUB_CONTAINERS_ONLY_INHERIT: ACE_FLAGS = 2
+SUB_OBJECTS_ONLY_INHERIT: ACE_FLAGS = 1
+INHERIT_NO_PROPAGATE: ACE_FLAGS = 4
+INHERIT_ONLY: ACE_FLAGS = 8
+NO_INHERITANCE: ACE_FLAGS = 0
+class ACE_HEADER(Structure):
+    AceType: Byte
+    AceFlags: Byte
+    AceSize: UInt16
 ACE_REVISION = UInt32
-ACL_REVISION = 2
-ACL_REVISION_DS = 4
-def _define_ACL_head():
-    class ACL(Structure):
-        pass
-    return ACL
-def _define_ACL():
-    ACL = win32more.Security.ACL_head
-    ACL._fields_ = [
-        ('AclRevision', Byte),
-        ('Sbz1', Byte),
-        ('AclSize', UInt16),
-        ('AceCount', UInt16),
-        ('Sbz2', UInt16),
-    ]
-    return ACL
+ACL_REVISION: ACE_REVISION = 2
+ACL_REVISION_DS: ACE_REVISION = 4
+class ACL(Structure):
+    AclRevision: Byte
+    Sbz1: Byte
+    AclSize: UInt16
+    AceCount: UInt16
+    Sbz2: UInt16
 ACL_INFORMATION_CLASS = Int32
-ACL_INFORMATION_CLASS_AclRevisionInformation = 1
-ACL_INFORMATION_CLASS_AclSizeInformation = 2
-def _define_ACL_REVISION_INFORMATION_head():
-    class ACL_REVISION_INFORMATION(Structure):
-        pass
-    return ACL_REVISION_INFORMATION
-def _define_ACL_REVISION_INFORMATION():
-    ACL_REVISION_INFORMATION = win32more.Security.ACL_REVISION_INFORMATION_head
-    ACL_REVISION_INFORMATION._fields_ = [
-        ('AclRevision', UInt32),
-    ]
-    return ACL_REVISION_INFORMATION
-def _define_ACL_SIZE_INFORMATION_head():
-    class ACL_SIZE_INFORMATION(Structure):
-        pass
-    return ACL_SIZE_INFORMATION
-def _define_ACL_SIZE_INFORMATION():
-    ACL_SIZE_INFORMATION = win32more.Security.ACL_SIZE_INFORMATION_head
-    ACL_SIZE_INFORMATION._fields_ = [
-        ('AceCount', UInt32),
-        ('AclBytesInUse', UInt32),
-        ('AclBytesFree', UInt32),
-    ]
-    return ACL_SIZE_INFORMATION
-wszCERTENROLLSHAREPATH = 'CertSrv\\CertEnroll'
-cwcHRESULTSTRING = 40
-szLBRACE = '{'
-szRBRACE = '}'
-wszLBRACE = '{'
-wszRBRACE = '}'
-szLPAREN = '('
-szRPAREN = ')'
-wszLPAREN = '('
-wszRPAREN = ')'
-CVT_SECONDS = 1
-cwcFILENAMESUFFIXMAX = 20
-wszFCSAPARM_SERVERDNSNAME = '%1'
-wszFCSAPARM_SERVERSHORTNAME = '%2'
-wszFCSAPARM_SANITIZEDCANAME = '%3'
-wszFCSAPARM_CERTFILENAMESUFFIX = '%4'
-wszFCSAPARM_DOMAINDN = '%5'
-wszFCSAPARM_CONFIGDN = '%6'
-wszFCSAPARM_SANITIZEDCANAMEHASH = '%7'
-wszFCSAPARM_CRLFILENAMESUFFIX = '%8'
-wszFCSAPARM_CRLDELTAFILENAMESUFFIX = '%9'
-wszFCSAPARM_DSCRLATTRIBUTE = '%10'
-wszFCSAPARM_DSCACERTATTRIBUTE = '%11'
-wszFCSAPARM_DSUSERCERTATTRIBUTE = '%12'
-wszFCSAPARM_DSKRACERTATTRIBUTE = '%13'
-wszFCSAPARM_DSCROSSCERTPAIRATTRIBUTE = '%14'
-def _define_AccessCheck():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),POINTER(win32more.Security.PRIVILEGE_SET_head),POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheck', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'GenericMapping'),(1, 'PrivilegeSet'),(1, 'PrivilegeSetLength'),(1, 'GrantedAccess'),(1, 'AccessStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckAndAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('AccessCheckAndAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'DesiredAccess'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatus'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByType():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),POINTER(win32more.Security.PRIVILEGE_SET_head),POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheckByType', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'PrivilegeSet'),(1, 'PrivilegeSetLength'),(1, 'GrantedAccess'),(1, 'AccessStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeResultList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),POINTER(win32more.Security.PRIVILEGE_SET_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('AccessCheckByTypeResultList', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'PrivilegeSet'),(1, 'PrivilegeSetLength'),(1, 'GrantedAccessList'),(1, 'AccessStatusList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeAndAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('AccessCheckByTypeAndAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatus'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeResultListAndAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheckByTypeResultListAndAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccessList'),(1, 'AccessStatusList'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeResultListAndAuditAlarmByHandleW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheckByTypeResultListAndAuditAlarmByHandleW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ClientToken'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccessList'),(1, 'AccessStatusList'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessAllowedAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,UInt32,win32more.Foundation.PSID)(('AddAccessAllowedAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AccessMask'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessAllowedAceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID)(('AddAccessAllowedAceEx', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessAllowedObjectAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,POINTER(Guid),POINTER(Guid),win32more.Foundation.PSID)(('AddAccessAllowedObjectAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'ObjectTypeGuid'),(1, 'InheritedObjectTypeGuid'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessDeniedAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,UInt32,win32more.Foundation.PSID)(('AddAccessDeniedAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AccessMask'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessDeniedAceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID)(('AddAccessDeniedAceEx', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAccessDeniedObjectAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,POINTER(Guid),POINTER(Guid),win32more.Foundation.PSID)(('AddAccessDeniedObjectAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'ObjectTypeGuid'),(1, 'InheritedObjectTypeGuid'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,UInt32,c_void_p,UInt32)(('AddAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'dwStartingAceIndex'),(1, 'pAceList'),(1, 'nAceListLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAuditAccessAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,UInt32,win32more.Foundation.PSID,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('AddAuditAccessAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'dwAccessMask'),(1, 'pSid'),(1, 'bAuditSuccess'),(1, 'bAuditFailure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAuditAccessAceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('AddAuditAccessAceEx', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'dwAccessMask'),(1, 'pSid'),(1, 'bAuditSuccess'),(1, 'bAuditFailure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddAuditAccessObjectAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,POINTER(Guid),POINTER(Guid),win32more.Foundation.PSID,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('AddAuditAccessObjectAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'ObjectTypeGuid'),(1, 'InheritedObjectTypeGuid'),(1, 'pSid'),(1, 'bAuditSuccess'),(1, 'bAuditFailure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddMandatoryAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID)(('AddMandatoryAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'MandatoryPolicy'),(1, 'pLabelSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddResourceAttributeAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID,POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTES_INFORMATION_head),POINTER(UInt32))(('AddResourceAttributeAce', windll['KERNEL32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'pSid'),(1, 'pAttributeInfo'),(1, 'pReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddScopedPolicyIDAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,UInt32,win32more.Foundation.PSID)(('AddScopedPolicyIDAce', windll['KERNEL32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AccessMask'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdjustTokenGroups():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,POINTER(win32more.Security.TOKEN_GROUPS_head),UInt32,POINTER(win32more.Security.TOKEN_GROUPS_head),POINTER(UInt32))(('AdjustTokenGroups', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),(1, 'ResetToDefault'),(1, 'NewState'),(1, 'BufferLength'),(1, 'PreviousState'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AdjustTokenPrivileges():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL,POINTER(win32more.Security.TOKEN_PRIVILEGES_head),UInt32,POINTER(win32more.Security.TOKEN_PRIVILEGES_head),POINTER(UInt32))(('AdjustTokenPrivileges', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),(1, 'DisableAllPrivileges'),(1, 'NewState'),(1, 'BufferLength'),(1, 'PreviousState'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllocateAndInitializeSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head),Byte,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Foundation.PSID))(('AllocateAndInitializeSid', windll['ADVAPI32.dll']), ((1, 'pIdentifierAuthority'),(1, 'nSubAuthorityCount'),(1, 'nSubAuthority0'),(1, 'nSubAuthority1'),(1, 'nSubAuthority2'),(1, 'nSubAuthority3'),(1, 'nSubAuthority4'),(1, 'nSubAuthority5'),(1, 'nSubAuthority6'),(1, 'nSubAuthority7'),(1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AllocateLocallyUniqueId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.LUID_head))(('AllocateLocallyUniqueId', windll['ADVAPI32.dll']), ((1, 'Luid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AreAllAccessesGranted():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32)(('AreAllAccessesGranted', windll['ADVAPI32.dll']), ((1, 'GrantedAccess'),(1, 'DesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AreAnyAccessesGranted():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32)(('AreAnyAccessesGranted', windll['ADVAPI32.dll']), ((1, 'GrantedAccess'),(1, 'DesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckTokenMembership():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSID,POINTER(win32more.Foundation.BOOL))(('CheckTokenMembership', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),(1, 'SidToCheck'),(1, 'IsMember'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckTokenCapability():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSID,POINTER(win32more.Foundation.BOOL))(('CheckTokenCapability', windll['KERNEL32.dll']), ((1, 'TokenHandle'),(1, 'CapabilitySidToCheck'),(1, 'HasCapability'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAppContainerAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),UInt32,POINTER(c_void_p),POINTER(UInt32))(('GetAppContainerAce', windll['KERNEL32.dll']), ((1, 'Acl'),(1, 'StartingAceIndex'),(1, 'AppContainerAce'),(1, 'AppContainerAceIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckTokenMembershipEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSID,UInt32,POINTER(win32more.Foundation.BOOL))(('CheckTokenMembershipEx', windll['KERNEL32.dll']), ((1, 'TokenHandle'),(1, 'SidToCheck'),(1, 'Flags'),(1, 'IsMember'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertToAutoInheritPrivateObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(Guid),win32more.Foundation.BOOLEAN,POINTER(win32more.Security.GENERIC_MAPPING_head))(('ConvertToAutoInheritPrivateObjectSecurity', windll['ADVAPI32.dll']), ((1, 'ParentDescriptor'),(1, 'CurrentSecurityDescriptor'),(1, 'NewSecurityDescriptor'),(1, 'ObjectType'),(1, 'IsDirectoryObject'),(1, 'GenericMapping'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CopySid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSID,win32more.Foundation.PSID)(('CopySid', windll['ADVAPI32.dll']), ((1, 'nDestinationSidLength'),(1, 'pDestinationSid'),(1, 'pSourceSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePrivateObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Security.GENERIC_MAPPING_head))(('CreatePrivateObjectSecurity', windll['ADVAPI32.dll']), ((1, 'ParentDescriptor'),(1, 'CreatorDescriptor'),(1, 'NewDescriptor'),(1, 'IsDirectoryObject'),(1, 'Token'),(1, 'GenericMapping'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePrivateObjectSecurityEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(Guid),win32more.Foundation.BOOL,win32more.Security.SECURITY_AUTO_INHERIT_FLAGS,win32more.Foundation.HANDLE,POINTER(win32more.Security.GENERIC_MAPPING_head))(('CreatePrivateObjectSecurityEx', windll['ADVAPI32.dll']), ((1, 'ParentDescriptor'),(1, 'CreatorDescriptor'),(1, 'NewDescriptor'),(1, 'ObjectType'),(1, 'IsContainerObject'),(1, 'AutoInheritFlags'),(1, 'Token'),(1, 'GenericMapping'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePrivateObjectSecurityWithMultipleInheritance():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(POINTER(Guid)),UInt32,win32more.Foundation.BOOL,win32more.Security.SECURITY_AUTO_INHERIT_FLAGS,win32more.Foundation.HANDLE,POINTER(win32more.Security.GENERIC_MAPPING_head))(('CreatePrivateObjectSecurityWithMultipleInheritance', windll['ADVAPI32.dll']), ((1, 'ParentDescriptor'),(1, 'CreatorDescriptor'),(1, 'NewDescriptor'),(1, 'ObjectTypes'),(1, 'GuidCount'),(1, 'IsContainerObject'),(1, 'AutoInheritFlags'),(1, 'Token'),(1, 'GenericMapping'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRestrictedToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.CREATE_RESTRICTED_TOKEN_FLAGS,UInt32,POINTER(win32more.Security.SID_AND_ATTRIBUTES_head),UInt32,POINTER(win32more.Security.LUID_AND_ATTRIBUTES_head),UInt32,POINTER(win32more.Security.SID_AND_ATTRIBUTES_head),POINTER(win32more.Foundation.HANDLE))(('CreateRestrictedToken', windll['ADVAPI32.dll']), ((1, 'ExistingTokenHandle'),(1, 'Flags'),(1, 'DisableSidCount'),(1, 'SidsToDisable'),(1, 'DeletePrivilegeCount'),(1, 'PrivilegesToDelete'),(1, 'RestrictedSidCount'),(1, 'SidsToRestrict'),(1, 'NewTokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWellKnownSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.WELL_KNOWN_SID_TYPE,win32more.Foundation.PSID,win32more.Foundation.PSID,POINTER(UInt32))(('CreateWellKnownSid', windll['ADVAPI32.dll']), ((1, 'WellKnownSidType'),(1, 'DomainSid'),(1, 'pSid'),(1, 'cbSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EqualDomainSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,win32more.Foundation.PSID,POINTER(win32more.Foundation.BOOL))(('EqualDomainSid', windll['ADVAPI32.dll']), ((1, 'pSid1'),(1, 'pSid2'),(1, 'pfEqual'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),UInt32)(('DeleteAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DestroyPrivateObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.PSECURITY_DESCRIPTOR))(('DestroyPrivateObjectSecurity', windll['ADVAPI32.dll']), ((1, 'ObjectDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DuplicateToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.SECURITY_IMPERSONATION_LEVEL,POINTER(win32more.Foundation.HANDLE))(('DuplicateToken', windll['ADVAPI32.dll']), ((1, 'ExistingTokenHandle'),(1, 'ImpersonationLevel'),(1, 'DuplicateTokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DuplicateTokenEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.TOKEN_ACCESS_MASK,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Security.SECURITY_IMPERSONATION_LEVEL,win32more.Security.TOKEN_TYPE,POINTER(win32more.Foundation.HANDLE))(('DuplicateTokenEx', windll['ADVAPI32.dll']), ((1, 'hExistingToken'),(1, 'dwDesiredAccess'),(1, 'lpTokenAttributes'),(1, 'ImpersonationLevel'),(1, 'TokenType'),(1, 'phNewToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EqualPrefixSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,win32more.Foundation.PSID)(('EqualPrefixSid', windll['ADVAPI32.dll']), ((1, 'pSid1'),(1, 'pSid2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EqualSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,win32more.Foundation.PSID)(('EqualSid', windll['ADVAPI32.dll']), ((1, 'pSid1'),(1, 'pSid2'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindFirstFreeAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),POINTER(c_void_p))(('FindFirstFreeAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'pAce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeSid():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PSID)(('FreeSid', windll['ADVAPI32.dll']), ((1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),UInt32,POINTER(c_void_p))(('GetAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceIndex'),(1, 'pAce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAclInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),c_void_p,UInt32,win32more.Security.ACL_INFORMATION_CLASS)(('GetAclInformation', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'pAclInformation'),(1, 'nAclInformationLength'),(1, 'dwAclInformationClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFileSecurityW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('GetFileSecurityW', windll['ADVAPI32.dll']), ((1, 'lpFileName'),(1, 'RequestedInformation'),(1, 'pSecurityDescriptor'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetKernelObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('GetKernelObjectSecurity', windll['ADVAPI32.dll']), ((1, 'Handle'),(1, 'RequestedInformation'),(1, 'pSecurityDescriptor'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetLengthSid():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSID)(('GetLengthSid', windll['ADVAPI32.dll']), ((1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPrivateObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('GetPrivateObjectSecurity', windll['ADVAPI32.dll']), ((1, 'ObjectDescriptor'),(1, 'SecurityInformation'),(1, 'ResultantDescriptor'),(1, 'DescriptorLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorControl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(UInt16),POINTER(UInt32))(('GetSecurityDescriptorControl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'pControl'),(1, 'lpdwRevision'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorDacl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(Int32),POINTER(POINTER(win32more.Security.ACL_head)),POINTER(Int32))(('GetSecurityDescriptorDacl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'lpbDaclPresent'),(1, 'pDacl'),(1, 'lpbDaclDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Foundation.PSID),POINTER(Int32))(('GetSecurityDescriptorGroup', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'pGroup'),(1, 'lpbGroupDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorLength():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('GetSecurityDescriptorLength', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorOwner():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Foundation.PSID),POINTER(Int32))(('GetSecurityDescriptorOwner', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'pOwner'),(1, 'lpbOwnerDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorRMControl():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Security.PSECURITY_DESCRIPTOR,c_char_p_no)(('GetSecurityDescriptorRMControl', windll['ADVAPI32.dll']), ((1, 'SecurityDescriptor'),(1, 'RMControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSecurityDescriptorSacl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(Int32),POINTER(POINTER(win32more.Security.ACL_head)),POINTER(Int32))(('GetSecurityDescriptorSacl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'lpbSaclPresent'),(1, 'pSacl'),(1, 'lpbSaclDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSidIdentifierAuthority():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head),win32more.Foundation.PSID)(('GetSidIdentifierAuthority', windll['ADVAPI32.dll']), ((1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSidLengthRequired():
-    try:
-        return WINFUNCTYPE(UInt32,Byte)(('GetSidLengthRequired', windll['ADVAPI32.dll']), ((1, 'nSubAuthorityCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSidSubAuthority():
-    try:
-        return WINFUNCTYPE(POINTER(UInt32),win32more.Foundation.PSID,UInt32)(('GetSidSubAuthority', windll['ADVAPI32.dll']), ((1, 'pSid'),(1, 'nSubAuthority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSidSubAuthorityCount():
-    try:
-        return WINFUNCTYPE(c_char_p_no,win32more.Foundation.PSID)(('GetSidSubAuthorityCount', windll['ADVAPI32.dll']), ((1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTokenInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.TOKEN_INFORMATION_CLASS,c_void_p,UInt32,POINTER(UInt32))(('GetTokenInformation', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),(1, 'TokenInformationClass'),(1, 'TokenInformation'),(1, 'TokenInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetWindowsAccountDomainSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,win32more.Foundation.PSID,POINTER(UInt32))(('GetWindowsAccountDomainSid', windll['ADVAPI32.dll']), ((1, 'pSid'),(1, 'pDomainSid'),(1, 'cbDomainSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImpersonateAnonymousToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('ImpersonateAnonymousToken', windll['ADVAPI32.dll']), ((1, 'ThreadHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImpersonateLoggedOnUser():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('ImpersonateLoggedOnUser', windll['ADVAPI32.dll']), ((1, 'hToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ImpersonateSelf():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.SECURITY_IMPERSONATION_LEVEL)(('ImpersonateSelf', windll['ADVAPI32.dll']), ((1, 'ImpersonationLevel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeAcl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),UInt32,win32more.Security.ACE_REVISION)(('InitializeAcl', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'nAclLength'),(1, 'dwAclRevision'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeSecurityDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,UInt32)(('InitializeSecurityDescriptor', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'dwRevision'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head),Byte)(('InitializeSid', windll['ADVAPI32.dll']), ((1, 'Sid'),(1, 'pIdentifierAuthority'),(1, 'nSubAuthorityCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsTokenRestricted():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('IsTokenRestricted', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsValidAcl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head))(('IsValidAcl', windll['ADVAPI32.dll']), ((1, 'pAcl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsValidSecurityDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR)(('IsValidSecurityDescriptor', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsValidSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID)(('IsValidSid', windll['ADVAPI32.dll']), ((1, 'pSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWellKnownSid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSID,win32more.Security.WELL_KNOWN_SID_TYPE)(('IsWellKnownSid', windll['ADVAPI32.dll']), ((1, 'pSid'),(1, 'WellKnownSidType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MakeAbsoluteSD():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(UInt32),POINTER(win32more.Security.ACL_head),POINTER(UInt32),POINTER(win32more.Security.ACL_head),POINTER(UInt32),win32more.Foundation.PSID,POINTER(UInt32),win32more.Foundation.PSID,POINTER(UInt32))(('MakeAbsoluteSD', windll['ADVAPI32.dll']), ((1, 'pSelfRelativeSecurityDescriptor'),(1, 'pAbsoluteSecurityDescriptor'),(1, 'lpdwAbsoluteSecurityDescriptorSize'),(1, 'pDacl'),(1, 'lpdwDaclSize'),(1, 'pSacl'),(1, 'lpdwSaclSize'),(1, 'pOwner'),(1, 'lpdwOwnerSize'),(1, 'pPrimaryGroup'),(1, 'lpdwPrimaryGroupSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MakeSelfRelativeSD():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(UInt32))(('MakeSelfRelativeSD', windll['ADVAPI32.dll']), ((1, 'pAbsoluteSecurityDescriptor'),(1, 'pSelfRelativeSecurityDescriptor'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MapGenericMask():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(win32more.Security.GENERIC_MAPPING_head))(('MapGenericMask', windll['ADVAPI32.dll']), ((1, 'AccessMask'),(1, 'GenericMapping'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectCloseAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.BOOL)(('ObjectCloseAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectDeleteAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.BOOL)(('ObjectDeleteAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectOpenAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Int32))(('ObjectOpenAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'pSecurityDescriptor'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'GrantedAccess'),(1, 'Privileges'),(1, 'ObjectCreation'),(1, 'AccessGranted'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectPrivilegeAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,c_void_p,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL)(('ObjectPrivilegeAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'Privileges'),(1, 'AccessGranted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivilegeCheck():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Security.PRIVILEGE_SET_head),POINTER(Int32))(('PrivilegeCheck', windll['ADVAPI32.dll']), ((1, 'ClientToken'),(1, 'RequiredPrivileges'),(1, 'pfResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivilegedServiceAuditAlarmW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL)(('PrivilegedServiceAuditAlarmW', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'ServiceName'),(1, 'ClientToken'),(1, 'Privileges'),(1, 'AccessGranted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QuerySecurityAccessMask():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(UInt32))(('QuerySecurityAccessMask', windll['ADVAPI32.dll']), ((1, 'SecurityInformation'),(1, 'DesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RevertToSelf():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('RevertToSelf', windll['ADVAPI32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetAclInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),c_void_p,UInt32,win32more.Security.ACL_INFORMATION_CLASS)(('SetAclInformation', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'pAclInformation'),(1, 'nAclInformationLength'),(1, 'dwAclInformationClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFileSecurityW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('SetFileSecurityW', windll['ADVAPI32.dll']), ((1, 'lpFileName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetKernelObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('SetKernelObjectSecurity', windll['ADVAPI32.dll']), ((1, 'Handle'),(1, 'SecurityInformation'),(1, 'SecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPrivateObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.HANDLE)(('SetPrivateObjectSecurity', windll['ADVAPI32.dll']), ((1, 'SecurityInformation'),(1, 'ModificationDescriptor'),(1, 'ObjectsSecurityDescriptor'),(1, 'GenericMapping'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPrivateObjectSecurityEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),win32more.Security.SECURITY_AUTO_INHERIT_FLAGS,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.HANDLE)(('SetPrivateObjectSecurityEx', windll['ADVAPI32.dll']), ((1, 'SecurityInformation'),(1, 'ModificationDescriptor'),(1, 'ObjectsSecurityDescriptor'),(1, 'AutoInheritFlags'),(1, 'GenericMapping'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityAccessMask():
-    try:
-        return WINFUNCTYPE(Void,UInt32,POINTER(UInt32))(('SetSecurityAccessMask', windll['ADVAPI32.dll']), ((1, 'SecurityInformation'),(1, 'DesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorControl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,UInt16,UInt16)(('SetSecurityDescriptorControl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'ControlBitsOfInterest'),(1, 'ControlBitsToSet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorDacl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Foundation.BOOL)(('SetSecurityDescriptorDacl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'bDaclPresent'),(1, 'pDacl'),(1, 'bDaclDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,win32more.Foundation.BOOL)(('SetSecurityDescriptorGroup', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'pGroup'),(1, 'bGroupDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorOwner():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,win32more.Foundation.BOOL)(('SetSecurityDescriptorOwner', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'pOwner'),(1, 'bOwnerDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorRMControl():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Security.PSECURITY_DESCRIPTOR,c_char_p_no)(('SetSecurityDescriptorRMControl', windll['ADVAPI32.dll']), ((1, 'SecurityDescriptor'),(1, 'RMControl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSecurityDescriptorSacl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Foundation.BOOL)(('SetSecurityDescriptorSacl', windll['ADVAPI32.dll']), ((1, 'pSecurityDescriptor'),(1, 'bSaclPresent'),(1, 'pSacl'),(1, 'bSaclDefaulted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTokenInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.TOKEN_INFORMATION_CLASS,c_void_p,UInt32)(('SetTokenInformation', windll['ADVAPI32.dll']), ((1, 'TokenHandle'),(1, 'TokenInformationClass'),(1, 'TokenInformation'),(1, 'TokenInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCachedSigningLevel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),UInt32,UInt32,win32more.Foundation.HANDLE)(('SetCachedSigningLevel', windll['KERNEL32.dll']), ((1, 'SourceFiles'),(1, 'SourceFileCount'),(1, 'Flags'),(1, 'TargetFile'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCachedSigningLevel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(UInt32),c_char_p_no,POINTER(UInt32),POINTER(UInt32))(('GetCachedSigningLevel', windll['KERNEL32.dll']), ((1, 'File'),(1, 'Flags'),(1, 'SigningLevel'),(1, 'Thumbprint'),(1, 'ThumbprintSize'),(1, 'ThumbprintAlgorithm'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeriveCapabilitySidsFromName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Foundation.PSID)),POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PSID)),POINTER(UInt32))(('DeriveCapabilitySidsFromName', windll['api-ms-win-security-base-l1-2-2.dll']), ((1, 'CapName'),(1, 'CapabilityGroupSids'),(1, 'CapabilityGroupSidCount'),(1, 'CapabilitySids'),(1, 'CapabilitySidCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlNormalizeSecurityDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),UInt32,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(UInt32),win32more.Foundation.BOOLEAN)(('RtlNormalizeSecurityDescriptor', windll['ntdll.dll']), ((1, 'SecurityDescriptor'),(1, 'SecurityDescriptorLength'),(1, 'NewSecurityDescriptor'),(1, 'NewSecurityDescriptorLength'),(1, 'CheckOnly'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUserObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Security.OBJECT_SECURITY_INFORMATION),win32more.Security.PSECURITY_DESCRIPTOR)(('SetUserObjectSecurity', windll['USER32.dll']), ((1, 'hObj'),(1, 'pSIRequested'),(1, 'pSID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUserObjectSecurity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('GetUserObjectSecurity', windll['USER32.dll']), ((1, 'hObj'),(1, 'pSIRequested'),(1, 'pSID'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckAndAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('AccessCheckAndAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'DesiredAccess'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatus'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeAndAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(Int32),POINTER(Int32))(('AccessCheckByTypeAndAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatus'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeResultListAndAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheckByTypeResultListAndAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatusList'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessCheckByTypeResultListAndAuditAlarmByHandleA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.PSID,UInt32,win32more.Security.AUDIT_EVENT_TYPE,UInt32,POINTER(win32more.Security.OBJECT_TYPE_LIST_head),UInt32,POINTER(win32more.Security.GENERIC_MAPPING_head),win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32),POINTER(Int32))(('AccessCheckByTypeResultListAndAuditAlarmByHandleA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ClientToken'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'SecurityDescriptor'),(1, 'PrincipalSelfSid'),(1, 'DesiredAccess'),(1, 'AuditType'),(1, 'Flags'),(1, 'ObjectTypeList'),(1, 'ObjectTypeListLength'),(1, 'GenericMapping'),(1, 'ObjectCreation'),(1, 'GrantedAccess'),(1, 'AccessStatusList'),(1, 'pfGenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectOpenAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.PSECURITY_DESCRIPTOR,win32more.Foundation.HANDLE,UInt32,UInt32,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Int32))(('ObjectOpenAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ObjectTypeName'),(1, 'ObjectName'),(1, 'pSecurityDescriptor'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'GrantedAccess'),(1, 'Privileges'),(1, 'ObjectCreation'),(1, 'AccessGranted'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectPrivilegeAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL)(('ObjectPrivilegeAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'ClientToken'),(1, 'DesiredAccess'),(1, 'Privileges'),(1, 'AccessGranted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectCloseAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.BOOL)(('ObjectCloseAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectDeleteAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,c_void_p,win32more.Foundation.BOOL)(('ObjectDeleteAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'HandleId'),(1, 'GenerateOnClose'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PrivilegedServiceAuditAlarmA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.HANDLE,POINTER(win32more.Security.PRIVILEGE_SET_head),win32more.Foundation.BOOL)(('PrivilegedServiceAuditAlarmA', windll['ADVAPI32.dll']), ((1, 'SubsystemName'),(1, 'ServiceName'),(1, 'ClientToken'),(1, 'Privileges'),(1, 'AccessGranted'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddConditionalAce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head),win32more.Security.ACE_REVISION,win32more.Security.ACE_FLAGS,Byte,UInt32,win32more.Foundation.PSID,win32more.Foundation.PWSTR,POINTER(UInt32))(('AddConditionalAce', windll['ADVAPI32.dll']), ((1, 'pAcl'),(1, 'dwAceRevision'),(1, 'AceFlags'),(1, 'AceType'),(1, 'AccessMask'),(1, 'pSid'),(1, 'ConditionStr'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetFileSecurityA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('SetFileSecurityA', windll['ADVAPI32.dll']), ((1, 'lpFileName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFileSecurityA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR,UInt32,POINTER(UInt32))(('GetFileSecurityA', windll['ADVAPI32.dll']), ((1, 'lpFileName'),(1, 'RequestedInformation'),(1, 'pSecurityDescriptor'),(1, 'nLength'),(1, 'lpnLengthNeeded'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupAccountSidA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSID,win32more.Foundation.PSTR,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),POINTER(win32more.Security.SID_NAME_USE))(('LookupAccountSidA', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'Sid'),(1, 'Name'),(1, 'cchName'),(1, 'ReferencedDomainName'),(1, 'cchReferencedDomainName'),(1, 'peUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupAccountSidW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PSID,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Security.SID_NAME_USE))(('LookupAccountSidW', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'Sid'),(1, 'Name'),(1, 'cchName'),(1, 'ReferencedDomainName'),(1, 'cchReferencedDomainName'),(1, 'peUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupAccountNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSID,POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32),POINTER(win32more.Security.SID_NAME_USE))(('LookupAccountNameA', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpAccountName'),(1, 'Sid'),(1, 'cbSid'),(1, 'ReferencedDomainName'),(1, 'cchReferencedDomainName'),(1, 'peUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupAccountNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PSID,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Security.SID_NAME_USE))(('LookupAccountNameW', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpAccountName'),(1, 'Sid'),(1, 'cbSid'),(1, 'ReferencedDomainName'),(1, 'cchReferencedDomainName'),(1, 'peUse'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeValueA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Foundation.LUID_head))(('LookupPrivilegeValueA', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpName'),(1, 'lpLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeValueW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.LUID_head))(('LookupPrivilegeValueW', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpName'),(1, 'lpLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,POINTER(win32more.Foundation.LUID_head),win32more.Foundation.PSTR,POINTER(UInt32))(('LookupPrivilegeNameA', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpLuid'),(1, 'lpName'),(1, 'cchName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.LUID_head),win32more.Foundation.PWSTR,POINTER(UInt32))(('LookupPrivilegeNameW', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpLuid'),(1, 'lpName'),(1, 'cchName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeDisplayNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(UInt32))(('LookupPrivilegeDisplayNameA', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpName'),(1, 'lpDisplayName'),(1, 'cchDisplayName'),(1, 'lpLanguageId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPrivilegeDisplayNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('LookupPrivilegeDisplayNameW', windll['ADVAPI32.dll']), ((1, 'lpSystemName'),(1, 'lpName'),(1, 'lpDisplayName'),(1, 'cchDisplayName'),(1, 'lpLanguageId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LogonUserA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.LOGON32_LOGON,win32more.Security.LOGON32_PROVIDER,POINTER(win32more.Foundation.HANDLE))(('LogonUserA', windll['ADVAPI32.dll']), ((1, 'lpszUsername'),(1, 'lpszDomain'),(1, 'lpszPassword'),(1, 'dwLogonType'),(1, 'dwLogonProvider'),(1, 'phToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LogonUserW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.LOGON32_LOGON,win32more.Security.LOGON32_PROVIDER,POINTER(win32more.Foundation.HANDLE))(('LogonUserW', windll['ADVAPI32.dll']), ((1, 'lpszUsername'),(1, 'lpszDomain'),(1, 'lpszPassword'),(1, 'dwLogonType'),(1, 'dwLogonProvider'),(1, 'phToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LogonUserExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Security.LOGON32_LOGON,win32more.Security.LOGON32_PROVIDER,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Foundation.PSID),POINTER(c_void_p),POINTER(UInt32),POINTER(win32more.Security.QUOTA_LIMITS_head))(('LogonUserExA', windll['ADVAPI32.dll']), ((1, 'lpszUsername'),(1, 'lpszDomain'),(1, 'lpszPassword'),(1, 'dwLogonType'),(1, 'dwLogonProvider'),(1, 'phToken'),(1, 'ppLogonSid'),(1, 'ppProfileBuffer'),(1, 'pdwProfileLength'),(1, 'pQuotaLimits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LogonUserExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.LOGON32_LOGON,win32more.Security.LOGON32_PROVIDER,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Foundation.PSID),POINTER(c_void_p),POINTER(UInt32),POINTER(win32more.Security.QUOTA_LIMITS_head))(('LogonUserExW', windll['ADVAPI32.dll']), ((1, 'lpszUsername'),(1, 'lpszDomain'),(1, 'lpszPassword'),(1, 'dwLogonType'),(1, 'dwLogonProvider'),(1, 'phToken'),(1, 'ppLogonSid'),(1, 'ppProfileBuffer'),(1, 'pdwProfileLength'),(1, 'pQuotaLimits'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RtlConvertSidToUnicodeString():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.UNICODE_STRING_head),win32more.Foundation.PSID,win32more.Foundation.BOOLEAN)(('RtlConvertSidToUnicodeString', windll['ntdll.dll']), ((1, 'UnicodeString'),(1, 'Sid'),(1, 'AllocateDestinationString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+ACL_INFORMATION_CLASS_AclRevisionInformation: ACL_INFORMATION_CLASS = 1
+ACL_INFORMATION_CLASS_AclSizeInformation: ACL_INFORMATION_CLASS = 2
+class ACL_REVISION_INFORMATION(Structure):
+    AclRevision: UInt32
+class ACL_SIZE_INFORMATION(Structure):
+    AceCount: UInt32
+    AclBytesInUse: UInt32
+    AclBytesFree: UInt32
+wszCERTENROLLSHAREPATH: String = 'CertSrv\\CertEnroll'
+cwcHRESULTSTRING: UInt32 = 40
+szLBRACE: String = '{'
+szRBRACE: String = '}'
+wszLBRACE: String = '{'
+wszRBRACE: String = '}'
+szLPAREN: String = '('
+szRPAREN: String = ')'
+wszLPAREN: String = '('
+wszRPAREN: String = ')'
+CVT_SECONDS: UInt32 = 1
+cwcFILENAMESUFFIXMAX: UInt32 = 20
+wszFCSAPARM_SERVERDNSNAME: String = '%1'
+wszFCSAPARM_SERVERSHORTNAME: String = '%2'
+wszFCSAPARM_SANITIZEDCANAME: String = '%3'
+wszFCSAPARM_CERTFILENAMESUFFIX: String = '%4'
+wszFCSAPARM_DOMAINDN: String = '%5'
+wszFCSAPARM_CONFIGDN: String = '%6'
+wszFCSAPARM_SANITIZEDCANAMEHASH: String = '%7'
+wszFCSAPARM_CRLFILENAMESUFFIX: String = '%8'
+wszFCSAPARM_CRLDELTAFILENAMESUFFIX: String = '%9'
+wszFCSAPARM_DSCRLATTRIBUTE: String = '%10'
+wszFCSAPARM_DSCACERTATTRIBUTE: String = '%11'
+wszFCSAPARM_DSUSERCERTATTRIBUTE: String = '%12'
+wszFCSAPARM_DSKRACERTATTRIBUTE: String = '%13'
+wszFCSAPARM_DSCROSSCERTPAIRATTRIBUTE: String = '%14'
+@winfunctype('ADVAPI32.dll')
+def AccessCheck(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), PrivilegeSet: POINTER(win32more.Security.PRIVILEGE_SET_head), PrivilegeSetLength: POINTER(UInt32), GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckAndAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PWSTR, ObjectName: win32more.Foundation.PWSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, DesiredAccess: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByType(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), PrivilegeSet: POINTER(win32more.Security.PRIVILEGE_SET_head), PrivilegeSetLength: POINTER(UInt32), GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeResultList(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), PrivilegeSet: POINTER(win32more.Security.PRIVILEGE_SET_head), PrivilegeSetLength: POINTER(UInt32), GrantedAccessList: POINTER(UInt32), AccessStatusList: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeAndAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PWSTR, ObjectName: win32more.Foundation.PWSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PWSTR, ObjectName: win32more.Foundation.PWSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccessList: POINTER(UInt32), AccessStatusList: POINTER(UInt32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ClientToken: win32more.Foundation.HANDLE, ObjectTypeName: win32more.Foundation.PWSTR, ObjectName: win32more.Foundation.PWSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccessList: POINTER(UInt32), AccessStatusList: POINTER(UInt32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessAllowedAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AccessMask: UInt32, pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessAllowedAceEx(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessAllowedObjectAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, ObjectTypeGuid: POINTER(Guid), InheritedObjectTypeGuid: POINTER(Guid), pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessDeniedAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AccessMask: UInt32, pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessDeniedAceEx(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAccessDeniedObjectAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, ObjectTypeGuid: POINTER(Guid), InheritedObjectTypeGuid: POINTER(Guid), pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, dwStartingAceIndex: UInt32, pAceList: c_void_p, nAceListLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAuditAccessAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, dwAccessMask: UInt32, pSid: win32more.Foundation.PSID, bAuditSuccess: win32more.Foundation.BOOL, bAuditFailure: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAuditAccessAceEx(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, dwAccessMask: UInt32, pSid: win32more.Foundation.PSID, bAuditSuccess: win32more.Foundation.BOOL, bAuditFailure: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddAuditAccessObjectAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, ObjectTypeGuid: POINTER(Guid), InheritedObjectTypeGuid: POINTER(Guid), pSid: win32more.Foundation.PSID, bAuditSuccess: win32more.Foundation.BOOL, bAuditFailure: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddMandatoryAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, MandatoryPolicy: UInt32, pLabelSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AddResourceAttributeAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, pSid: win32more.Foundation.PSID, pAttributeInfo: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTES_INFORMATION_head), pReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AddScopedPolicyIDAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AccessMask: UInt32, pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AdjustTokenGroups(TokenHandle: win32more.Foundation.HANDLE, ResetToDefault: win32more.Foundation.BOOL, NewState: POINTER(win32more.Security.TOKEN_GROUPS_head), BufferLength: UInt32, PreviousState: POINTER(win32more.Security.TOKEN_GROUPS_head), ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AdjustTokenPrivileges(TokenHandle: win32more.Foundation.HANDLE, DisableAllPrivileges: win32more.Foundation.BOOL, NewState: POINTER(win32more.Security.TOKEN_PRIVILEGES_head), BufferLength: UInt32, PreviousState: POINTER(win32more.Security.TOKEN_PRIVILEGES_head), ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AllocateAndInitializeSid(pIdentifierAuthority: POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head), nSubAuthorityCount: Byte, nSubAuthority0: UInt32, nSubAuthority1: UInt32, nSubAuthority2: UInt32, nSubAuthority3: UInt32, nSubAuthority4: UInt32, nSubAuthority5: UInt32, nSubAuthority6: UInt32, nSubAuthority7: UInt32, pSid: POINTER(win32more.Foundation.PSID)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AllocateLocallyUniqueId(Luid: POINTER(win32more.Foundation.LUID_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AreAllAccessesGranted(GrantedAccess: UInt32, DesiredAccess: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AreAnyAccessesGranted(GrantedAccess: UInt32, DesiredAccess: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CheckTokenMembership(TokenHandle: win32more.Foundation.HANDLE, SidToCheck: win32more.Foundation.PSID, IsMember: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CheckTokenCapability(TokenHandle: win32more.Foundation.HANDLE, CapabilitySidToCheck: win32more.Foundation.PSID, HasCapability: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetAppContainerAce(Acl: POINTER(win32more.Security.ACL_head), StartingAceIndex: UInt32, AppContainerAce: POINTER(c_void_p), AppContainerAceIndex: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CheckTokenMembershipEx(TokenHandle: win32more.Foundation.HANDLE, SidToCheck: win32more.Foundation.PSID, Flags: UInt32, IsMember: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, CurrentSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, NewSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), ObjectType: POINTER(Guid), IsDirectoryObject: win32more.Foundation.BOOLEAN, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CopySid(nDestinationSidLength: UInt32, pDestinationSid: win32more.Foundation.PSID, pSourceSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreatePrivateObjectSecurity(ParentDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, CreatorDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, NewDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), IsDirectoryObject: win32more.Foundation.BOOL, Token: win32more.Foundation.HANDLE, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreatePrivateObjectSecurityEx(ParentDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, CreatorDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, NewDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), ObjectType: POINTER(Guid), IsContainerObject: win32more.Foundation.BOOL, AutoInheritFlags: win32more.Security.SECURITY_AUTO_INHERIT_FLAGS, Token: win32more.Foundation.HANDLE, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, CreatorDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, NewDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), ObjectTypes: POINTER(POINTER(Guid)), GuidCount: UInt32, IsContainerObject: win32more.Foundation.BOOL, AutoInheritFlags: win32more.Security.SECURITY_AUTO_INHERIT_FLAGS, Token: win32more.Foundation.HANDLE, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreateRestrictedToken(ExistingTokenHandle: win32more.Foundation.HANDLE, Flags: win32more.Security.CREATE_RESTRICTED_TOKEN_FLAGS, DisableSidCount: UInt32, SidsToDisable: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head), DeletePrivilegeCount: UInt32, PrivilegesToDelete: POINTER(win32more.Security.LUID_AND_ATTRIBUTES_head), RestrictedSidCount: UInt32, SidsToRestrict: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head), NewTokenHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreateWellKnownSid(WellKnownSidType: win32more.Security.WELL_KNOWN_SID_TYPE, DomainSid: win32more.Foundation.PSID, pSid: win32more.Foundation.PSID, cbSid: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def EqualDomainSid(pSid1: win32more.Foundation.PSID, pSid2: win32more.Foundation.PSID, pfEqual: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def DeleteAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceIndex: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def DestroyPrivateObjectSecurity(ObjectDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def DuplicateToken(ExistingTokenHandle: win32more.Foundation.HANDLE, ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL, DuplicateTokenHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def DuplicateTokenEx(hExistingToken: win32more.Foundation.HANDLE, dwDesiredAccess: win32more.Security.TOKEN_ACCESS_MASK, lpTokenAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL, TokenType: win32more.Security.TOKEN_TYPE, phNewToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def EqualPrefixSid(pSid1: win32more.Foundation.PSID, pSid2: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def EqualSid(pSid1: win32more.Foundation.PSID, pSid2: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def FindFirstFreeAce(pAcl: POINTER(win32more.Security.ACL_head), pAce: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def FreeSid(pSid: win32more.Foundation.PSID) -> c_void_p: ...
+@winfunctype('ADVAPI32.dll')
+def GetAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceIndex: UInt32, pAce: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetAclInformation(pAcl: POINTER(win32more.Security.ACL_head), pAclInformation: c_void_p, nAclInformationLength: UInt32, dwAclInformationClass: win32more.Security.ACL_INFORMATION_CLASS) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetFileSecurityW(lpFileName: win32more.Foundation.PWSTR, RequestedInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetKernelObjectSecurity(Handle: win32more.Foundation.HANDLE, RequestedInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetLengthSid(pSid: win32more.Foundation.PSID) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetPrivateObjectSecurity(ObjectDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, SecurityInformation: UInt32, ResultantDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, DescriptorLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorControl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pControl: POINTER(UInt16), lpdwRevision: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorDacl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, lpbDaclPresent: POINTER(Int32), pDacl: POINTER(POINTER(win32more.Security.ACL_head)), lpbDaclDefaulted: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorGroup(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pGroup: POINTER(win32more.Foundation.PSID), lpbGroupDefaulted: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorLength(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorOwner(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pOwner: POINTER(win32more.Foundation.PSID), lpbOwnerDefaulted: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorRMControl(SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, RMControl: c_char_p_no) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetSecurityDescriptorSacl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, lpbSaclPresent: POINTER(Int32), pSacl: POINTER(POINTER(win32more.Security.ACL_head)), lpbSaclDefaulted: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetSidIdentifierAuthority(pSid: win32more.Foundation.PSID) -> POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head): ...
+@winfunctype('ADVAPI32.dll')
+def GetSidLengthRequired(nSubAuthorityCount: Byte) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def GetSidSubAuthority(pSid: win32more.Foundation.PSID, nSubAuthority: UInt32) -> POINTER(UInt32): ...
+@winfunctype('ADVAPI32.dll')
+def GetSidSubAuthorityCount(pSid: win32more.Foundation.PSID) -> c_char_p_no: ...
+@winfunctype('ADVAPI32.dll')
+def GetTokenInformation(TokenHandle: win32more.Foundation.HANDLE, TokenInformationClass: win32more.Security.TOKEN_INFORMATION_CLASS, TokenInformation: c_void_p, TokenInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetWindowsAccountDomainSid(pSid: win32more.Foundation.PSID, pDomainSid: win32more.Foundation.PSID, cbDomainSid: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ImpersonateAnonymousToken(ThreadHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ImpersonateLoggedOnUser(hToken: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ImpersonateSelf(ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitializeAcl(pAcl: POINTER(win32more.Security.ACL_head), nAclLength: UInt32, dwAclRevision: win32more.Security.ACE_REVISION) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitializeSecurityDescriptor(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, dwRevision: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitializeSid(Sid: win32more.Foundation.PSID, pIdentifierAuthority: POINTER(win32more.Security.SID_IDENTIFIER_AUTHORITY_head), nSubAuthorityCount: Byte) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsTokenRestricted(TokenHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsValidAcl(pAcl: POINTER(win32more.Security.ACL_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsValidSecurityDescriptor(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsValidSid(pSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def IsWellKnownSid(pSid: win32more.Foundation.PSID, WellKnownSidType: win32more.Security.WELL_KNOWN_SID_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def MakeAbsoluteSD(pSelfRelativeSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pAbsoluteSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, lpdwAbsoluteSecurityDescriptorSize: POINTER(UInt32), pDacl: POINTER(win32more.Security.ACL_head), lpdwDaclSize: POINTER(UInt32), pSacl: POINTER(win32more.Security.ACL_head), lpdwSaclSize: POINTER(UInt32), pOwner: win32more.Foundation.PSID, lpdwOwnerSize: POINTER(UInt32), pPrimaryGroup: win32more.Foundation.PSID, lpdwPrimaryGroupSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def MakeSelfRelativeSD(pAbsoluteSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pSelfRelativeSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, lpdwBufferLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def MapGenericMask(AccessMask: POINTER(UInt32), GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectCloseAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, GenerateOnClose: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectDeleteAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, GenerateOnClose: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectOpenAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PWSTR, ObjectName: win32more.Foundation.PWSTR, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, GrantedAccess: UInt32, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), ObjectCreation: win32more.Foundation.BOOL, AccessGranted: win32more.Foundation.BOOL, GenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectPrivilegeAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, HandleId: c_void_p, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), AccessGranted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def PrivilegeCheck(ClientToken: win32more.Foundation.HANDLE, RequiredPrivileges: POINTER(win32more.Security.PRIVILEGE_SET_head), pfResult: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def PrivilegedServiceAuditAlarmW(SubsystemName: win32more.Foundation.PWSTR, ServiceName: win32more.Foundation.PWSTR, ClientToken: win32more.Foundation.HANDLE, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), AccessGranted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def QuerySecurityAccessMask(SecurityInformation: UInt32, DesiredAccess: POINTER(UInt32)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def RevertToSelf() -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetAclInformation(pAcl: POINTER(win32more.Security.ACL_head), pAclInformation: c_void_p, nAclInformationLength: UInt32, dwAclInformationClass: win32more.Security.ACL_INFORMATION_CLASS) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetFileSecurityW(lpFileName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetKernelObjectSecurity(Handle: win32more.Foundation.HANDLE, SecurityInformation: UInt32, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetPrivateObjectSecurity(SecurityInformation: UInt32, ModificationDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ObjectsSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), Token: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetPrivateObjectSecurityEx(SecurityInformation: UInt32, ModificationDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ObjectsSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), AutoInheritFlags: win32more.Security.SECURITY_AUTO_INHERIT_FLAGS, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), Token: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityAccessMask(SecurityInformation: UInt32, DesiredAccess: POINTER(UInt32)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorControl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ControlBitsOfInterest: UInt16, ControlBitsToSet: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorDacl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, bDaclPresent: win32more.Foundation.BOOL, pDacl: POINTER(win32more.Security.ACL_head), bDaclDefaulted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorGroup(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pGroup: win32more.Foundation.PSID, bGroupDefaulted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorOwner(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, pOwner: win32more.Foundation.PSID, bOwnerDefaulted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorRMControl(SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, RMControl: c_char_p_no) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def SetSecurityDescriptorSacl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, bSaclPresent: win32more.Foundation.BOOL, pSacl: POINTER(win32more.Security.ACL_head), bSaclDefaulted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetTokenInformation(TokenHandle: win32more.Foundation.HANDLE, TokenInformationClass: win32more.Security.TOKEN_INFORMATION_CLASS, TokenInformation: c_void_p, TokenInformationLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetCachedSigningLevel(SourceFiles: POINTER(win32more.Foundation.HANDLE), SourceFileCount: UInt32, Flags: UInt32, TargetFile: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCachedSigningLevel(File: win32more.Foundation.HANDLE, Flags: POINTER(UInt32), SigningLevel: POINTER(UInt32), Thumbprint: c_char_p_no, ThumbprintSize: POINTER(UInt32), ThumbprintAlgorithm: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-security-base-l1-2-2.dll')
+def DeriveCapabilitySidsFromName(CapName: win32more.Foundation.PWSTR, CapabilityGroupSids: POINTER(POINTER(win32more.Foundation.PSID)), CapabilityGroupSidCount: POINTER(UInt32), CapabilitySids: POINTER(POINTER(win32more.Foundation.PSID)), CapabilitySidCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ntdll.dll')
+def RtlNormalizeSecurityDescriptor(SecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), SecurityDescriptorLength: UInt32, NewSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), NewSecurityDescriptorLength: POINTER(UInt32), CheckOnly: win32more.Foundation.BOOLEAN) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('USER32.dll')
+def SetUserObjectSecurity(hObj: win32more.Foundation.HANDLE, pSIRequested: POINTER(win32more.Security.OBJECT_SECURITY_INFORMATION), pSID: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def GetUserObjectSecurity(hObj: win32more.Foundation.HANDLE, pSIRequested: POINTER(UInt32), pSID: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckAndAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PSTR, ObjectName: win32more.Foundation.PSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, DesiredAccess: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeAndAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PSTR, ObjectName: win32more.Foundation.PSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(Int32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PSTR, ObjectName: win32more.Foundation.PSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatusList: POINTER(UInt32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ClientToken: win32more.Foundation.HANDLE, ObjectTypeName: win32more.Foundation.PSTR, ObjectName: win32more.Foundation.PSTR, SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, PrincipalSelfSid: win32more.Foundation.PSID, DesiredAccess: UInt32, AuditType: win32more.Security.AUDIT_EVENT_TYPE, Flags: UInt32, ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head), ObjectTypeListLength: UInt32, GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head), ObjectCreation: win32more.Foundation.BOOL, GrantedAccess: POINTER(UInt32), AccessStatusList: POINTER(UInt32), pfGenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectOpenAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ObjectTypeName: win32more.Foundation.PSTR, ObjectName: win32more.Foundation.PSTR, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, GrantedAccess: UInt32, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), ObjectCreation: win32more.Foundation.BOOL, AccessGranted: win32more.Foundation.BOOL, GenerateOnClose: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectPrivilegeAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, ClientToken: win32more.Foundation.HANDLE, DesiredAccess: UInt32, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), AccessGranted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectCloseAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, GenerateOnClose: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def ObjectDeleteAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, HandleId: c_void_p, GenerateOnClose: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def PrivilegedServiceAuditAlarmA(SubsystemName: win32more.Foundation.PSTR, ServiceName: win32more.Foundation.PSTR, ClientToken: win32more.Foundation.HANDLE, Privileges: POINTER(win32more.Security.PRIVILEGE_SET_head), AccessGranted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AddConditionalAce(pAcl: POINTER(win32more.Security.ACL_head), dwAceRevision: win32more.Security.ACE_REVISION, AceFlags: win32more.Security.ACE_FLAGS, AceType: Byte, AccessMask: UInt32, pSid: win32more.Foundation.PSID, ConditionStr: win32more.Foundation.PWSTR, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetFileSecurityA(lpFileName: win32more.Foundation.PSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def GetFileSecurityA(lpFileName: win32more.Foundation.PSTR, RequestedInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupAccountSidA(lpSystemName: win32more.Foundation.PSTR, Sid: win32more.Foundation.PSID, Name: win32more.Foundation.PSTR, cchName: POINTER(UInt32), ReferencedDomainName: win32more.Foundation.PSTR, cchReferencedDomainName: POINTER(UInt32), peUse: POINTER(win32more.Security.SID_NAME_USE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupAccountSidW(lpSystemName: win32more.Foundation.PWSTR, Sid: win32more.Foundation.PSID, Name: win32more.Foundation.PWSTR, cchName: POINTER(UInt32), ReferencedDomainName: win32more.Foundation.PWSTR, cchReferencedDomainName: POINTER(UInt32), peUse: POINTER(win32more.Security.SID_NAME_USE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupAccountNameA(lpSystemName: win32more.Foundation.PSTR, lpAccountName: win32more.Foundation.PSTR, Sid: win32more.Foundation.PSID, cbSid: POINTER(UInt32), ReferencedDomainName: win32more.Foundation.PSTR, cchReferencedDomainName: POINTER(UInt32), peUse: POINTER(win32more.Security.SID_NAME_USE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupAccountNameW(lpSystemName: win32more.Foundation.PWSTR, lpAccountName: win32more.Foundation.PWSTR, Sid: win32more.Foundation.PSID, cbSid: POINTER(UInt32), ReferencedDomainName: win32more.Foundation.PWSTR, cchReferencedDomainName: POINTER(UInt32), peUse: POINTER(win32more.Security.SID_NAME_USE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeValueA(lpSystemName: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, lpLuid: POINTER(win32more.Foundation.LUID_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeValueW(lpSystemName: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, lpLuid: POINTER(win32more.Foundation.LUID_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeNameA(lpSystemName: win32more.Foundation.PSTR, lpLuid: POINTER(win32more.Foundation.LUID_head), lpName: win32more.Foundation.PSTR, cchName: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeNameW(lpSystemName: win32more.Foundation.PWSTR, lpLuid: POINTER(win32more.Foundation.LUID_head), lpName: win32more.Foundation.PWSTR, cchName: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeDisplayNameA(lpSystemName: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, lpDisplayName: win32more.Foundation.PSTR, cchDisplayName: POINTER(UInt32), lpLanguageId: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LookupPrivilegeDisplayNameW(lpSystemName: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, lpDisplayName: win32more.Foundation.PWSTR, cchDisplayName: POINTER(UInt32), lpLanguageId: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LogonUserA(lpszUsername: win32more.Foundation.PSTR, lpszDomain: win32more.Foundation.PSTR, lpszPassword: win32more.Foundation.PSTR, dwLogonType: win32more.Security.LOGON32_LOGON, dwLogonProvider: win32more.Security.LOGON32_PROVIDER, phToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LogonUserW(lpszUsername: win32more.Foundation.PWSTR, lpszDomain: win32more.Foundation.PWSTR, lpszPassword: win32more.Foundation.PWSTR, dwLogonType: win32more.Security.LOGON32_LOGON, dwLogonProvider: win32more.Security.LOGON32_PROVIDER, phToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LogonUserExA(lpszUsername: win32more.Foundation.PSTR, lpszDomain: win32more.Foundation.PSTR, lpszPassword: win32more.Foundation.PSTR, dwLogonType: win32more.Security.LOGON32_LOGON, dwLogonProvider: win32more.Security.LOGON32_PROVIDER, phToken: POINTER(win32more.Foundation.HANDLE), ppLogonSid: POINTER(win32more.Foundation.PSID), ppProfileBuffer: POINTER(c_void_p), pdwProfileLength: POINTER(UInt32), pQuotaLimits: POINTER(win32more.Security.QUOTA_LIMITS_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def LogonUserExW(lpszUsername: win32more.Foundation.PWSTR, lpszDomain: win32more.Foundation.PWSTR, lpszPassword: win32more.Foundation.PWSTR, dwLogonType: win32more.Security.LOGON32_LOGON, dwLogonProvider: win32more.Security.LOGON32_PROVIDER, phToken: POINTER(win32more.Foundation.HANDLE), ppLogonSid: POINTER(win32more.Foundation.PSID), ppProfileBuffer: POINTER(c_void_p), pdwProfileLength: POINTER(UInt32), pQuotaLimits: POINTER(win32more.Security.QUOTA_LIMITS_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ntdll.dll')
+def RtlConvertSidToUnicodeString(UnicodeString: POINTER(win32more.Foundation.UNICODE_STRING_head), Sid: win32more.Foundation.PSID, AllocateDestinationString: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
 AUDIT_EVENT_TYPE = Int32
-AUDIT_EVENT_TYPE_AuditEventObjectAccess = 0
-AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess = 1
+AUDIT_EVENT_TYPE_AuditEventObjectAccess: AUDIT_EVENT_TYPE = 0
+AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
 CLAIM_SECURITY_ATTRIBUTE_FLAGS = UInt32
-CLAIM_SECURITY_ATTRIBUTE_NON_INHERITABLE = 1
-CLAIM_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE = 2
-CLAIM_SECURITY_ATTRIBUTE_USE_FOR_DENY_ONLY = 4
-CLAIM_SECURITY_ATTRIBUTE_DISABLED_BY_DEFAULT = 8
-CLAIM_SECURITY_ATTRIBUTE_DISABLED = 16
-CLAIM_SECURITY_ATTRIBUTE_MANDATORY = 32
-def _define_CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE_head():
-    class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE(Structure):
-        pass
-    return CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE
-def _define_CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE():
-    CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = win32more.Security.CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE_head
-    CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE._fields_ = [
-        ('Version', UInt64),
-        ('Name', win32more.Foundation.PWSTR),
-    ]
-    return CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE
-def _define_CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE_head():
-    class CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(Structure):
-        pass
-    return CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE
-def _define_CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE():
-    CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = win32more.Security.CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE_head
-    CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE._fields_ = [
-        ('pValue', c_void_p),
-        ('ValueLength', UInt32),
-    ]
-    return CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE
-def _define_CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1_head():
-    class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1(Structure):
-        pass
-    return CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1
-def _define_CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1():
-    CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = win32more.Security.CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1_head
-    class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1__Values_e__Union(Union):
-        pass
-    CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1__Values_e__Union._fields_ = [
-        ('pInt64', UInt32 * 1),
-        ('pUint64', UInt32 * 1),
-        ('ppString', UInt32 * 1),
-        ('pFqbn', UInt32 * 1),
-        ('pOctetString', UInt32 * 1),
-    ]
-    CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._fields_ = [
-        ('Name', UInt32),
-        ('ValueType', win32more.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE),
-        ('Reserved', UInt16),
-        ('Flags', win32more.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS),
-        ('ValueCount', UInt32),
-        ('Values', CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1__Values_e__Union),
-    ]
-    return CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1
-def _define_CLAIM_SECURITY_ATTRIBUTE_V1_head():
-    class CLAIM_SECURITY_ATTRIBUTE_V1(Structure):
-        pass
-    return CLAIM_SECURITY_ATTRIBUTE_V1
-def _define_CLAIM_SECURITY_ATTRIBUTE_V1():
-    CLAIM_SECURITY_ATTRIBUTE_V1 = win32more.Security.CLAIM_SECURITY_ATTRIBUTE_V1_head
-    class CLAIM_SECURITY_ATTRIBUTE_V1__Values_e__Union(Union):
-        pass
-    CLAIM_SECURITY_ATTRIBUTE_V1__Values_e__Union._fields_ = [
-        ('pInt64', POINTER(Int64)),
-        ('pUint64', POINTER(UInt64)),
-        ('ppString', POINTER(win32more.Foundation.PWSTR)),
-        ('pFqbn', POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE_head)),
-        ('pOctetString', POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE_head)),
-    ]
-    CLAIM_SECURITY_ATTRIBUTE_V1._fields_ = [
-        ('Name', win32more.Foundation.PWSTR),
-        ('ValueType', win32more.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE),
-        ('Reserved', UInt16),
-        ('Flags', UInt32),
-        ('ValueCount', UInt32),
-        ('Values', CLAIM_SECURITY_ATTRIBUTE_V1__Values_e__Union),
-    ]
-    return CLAIM_SECURITY_ATTRIBUTE_V1
+CLAIM_SECURITY_ATTRIBUTE_NON_INHERITABLE: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 1
+CLAIM_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 2
+CLAIM_SECURITY_ATTRIBUTE_USE_FOR_DENY_ONLY: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 4
+CLAIM_SECURITY_ATTRIBUTE_DISABLED_BY_DEFAULT: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 8
+CLAIM_SECURITY_ATTRIBUTE_DISABLED: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 16
+CLAIM_SECURITY_ATTRIBUTE_MANDATORY: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 32
+class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE(Structure):
+    Version: UInt64
+    Name: win32more.Foundation.PWSTR
+class CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(Structure):
+    pValue: c_void_p
+    ValueLength: UInt32
+class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1(Structure):
+    Name: UInt32
+    ValueType: win32more.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
+    Reserved: UInt16
+    Flags: win32more.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS
+    ValueCount: UInt32
+    Values: _Values_e__Union
+    class _Values_e__Union(Union):
+        pInt64: UInt32 * 1
+        pUint64: UInt32 * 1
+        ppString: UInt32 * 1
+        pFqbn: UInt32 * 1
+        pOctetString: UInt32 * 1
+class CLAIM_SECURITY_ATTRIBUTE_V1(Structure):
+    Name: win32more.Foundation.PWSTR
+    ValueType: win32more.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
+    Reserved: UInt16
+    Flags: UInt32
+    ValueCount: UInt32
+    Values: _Values_e__Union
+    class _Values_e__Union(Union):
+        pInt64: POINTER(Int64)
+        pUint64: POINTER(UInt64)
+        ppString: POINTER(win32more.Foundation.PWSTR)
+        pFqbn: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE_head)
+        pOctetString: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE_head)
 CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = UInt16
-CLAIM_SECURITY_ATTRIBUTE_TYPE_INT64 = 1
-CLAIM_SECURITY_ATTRIBUTE_TYPE_UINT64 = 2
-CLAIM_SECURITY_ATTRIBUTE_TYPE_STRING = 3
-CLAIM_SECURITY_ATTRIBUTE_TYPE_OCTET_STRING = 16
-CLAIM_SECURITY_ATTRIBUTE_TYPE_FQBN = 4
-CLAIM_SECURITY_ATTRIBUTE_TYPE_SID = 5
-CLAIM_SECURITY_ATTRIBUTE_TYPE_BOOLEAN = 6
-def _define_CLAIM_SECURITY_ATTRIBUTES_INFORMATION_head():
-    class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(Structure):
-        pass
-    return CLAIM_SECURITY_ATTRIBUTES_INFORMATION
-def _define_CLAIM_SECURITY_ATTRIBUTES_INFORMATION():
-    CLAIM_SECURITY_ATTRIBUTES_INFORMATION = win32more.Security.CLAIM_SECURITY_ATTRIBUTES_INFORMATION_head
-    class CLAIM_SECURITY_ATTRIBUTES_INFORMATION__Attribute_e__Union(Union):
-        pass
-    CLAIM_SECURITY_ATTRIBUTES_INFORMATION__Attribute_e__Union._fields_ = [
-        ('pAttributeV1', POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_V1_head)),
-    ]
-    CLAIM_SECURITY_ATTRIBUTES_INFORMATION._fields_ = [
-        ('Version', UInt16),
-        ('Reserved', UInt16),
-        ('AttributeCount', UInt32),
-        ('Attribute', CLAIM_SECURITY_ATTRIBUTES_INFORMATION__Attribute_e__Union),
-    ]
-    return CLAIM_SECURITY_ATTRIBUTES_INFORMATION
+CLAIM_SECURITY_ATTRIBUTE_TYPE_INT64: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 1
+CLAIM_SECURITY_ATTRIBUTE_TYPE_UINT64: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 2
+CLAIM_SECURITY_ATTRIBUTE_TYPE_STRING: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 3
+CLAIM_SECURITY_ATTRIBUTE_TYPE_OCTET_STRING: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 16
+CLAIM_SECURITY_ATTRIBUTE_TYPE_FQBN: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 4
+CLAIM_SECURITY_ATTRIBUTE_TYPE_SID: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 5
+CLAIM_SECURITY_ATTRIBUTE_TYPE_BOOLEAN: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 6
+class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(Structure):
+    Version: UInt16
+    Reserved: UInt16
+    AttributeCount: UInt32
+    Attribute: _Attribute_e__Union
+    class _Attribute_e__Union(Union):
+        pAttributeV1: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_V1_head)
 CREATE_RESTRICTED_TOKEN_FLAGS = UInt32
-DISABLE_MAX_PRIVILEGE = 1
-SANDBOX_INERT = 2
-LUA_TOKEN = 4
-WRITE_RESTRICTED = 8
+DISABLE_MAX_PRIVILEGE: CREATE_RESTRICTED_TOKEN_FLAGS = 1
+SANDBOX_INERT: CREATE_RESTRICTED_TOKEN_FLAGS = 2
+LUA_TOKEN: CREATE_RESTRICTED_TOKEN_FLAGS = 4
+WRITE_RESTRICTED: CREATE_RESTRICTED_TOKEN_FLAGS = 8
 ENUM_PERIOD = Int32
-ENUM_PERIOD_INVALID = -1
-ENUM_PERIOD_SECONDS = 0
-ENUM_PERIOD_MINUTES = 1
-ENUM_PERIOD_HOURS = 2
-ENUM_PERIOD_DAYS = 3
-ENUM_PERIOD_WEEKS = 4
-ENUM_PERIOD_MONTHS = 5
-ENUM_PERIOD_YEARS = 6
-def _define_GENERIC_MAPPING_head():
-    class GENERIC_MAPPING(Structure):
-        pass
-    return GENERIC_MAPPING
-def _define_GENERIC_MAPPING():
-    GENERIC_MAPPING = win32more.Security.GENERIC_MAPPING_head
-    GENERIC_MAPPING._fields_ = [
-        ('GenericRead', UInt32),
-        ('GenericWrite', UInt32),
-        ('GenericExecute', UInt32),
-        ('GenericAll', UInt32),
-    ]
-    return GENERIC_MAPPING
+ENUM_PERIOD_INVALID: ENUM_PERIOD = -1
+ENUM_PERIOD_SECONDS: ENUM_PERIOD = 0
+ENUM_PERIOD_MINUTES: ENUM_PERIOD = 1
+ENUM_PERIOD_HOURS: ENUM_PERIOD = 2
+ENUM_PERIOD_DAYS: ENUM_PERIOD = 3
+ENUM_PERIOD_WEEKS: ENUM_PERIOD = 4
+ENUM_PERIOD_MONTHS: ENUM_PERIOD = 5
+ENUM_PERIOD_YEARS: ENUM_PERIOD = 6
+class GENERIC_MAPPING(Structure):
+    GenericRead: UInt32
+    GenericWrite: UInt32
+    GenericExecute: UInt32
+    GenericAll: UInt32
 HDIAGNOSTIC_DATA_QUERY_SESSION = IntPtr
 HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION = IntPtr
 HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION = IntPtr
 HDIAGNOSTIC_EVENT_TAG_DESCRIPTION = IntPtr
 HDIAGNOSTIC_RECORD = IntPtr
 HDIAGNOSTIC_REPORT = IntPtr
-def _define_LLFILETIME_head():
-    class LLFILETIME(Structure):
-        pass
-    return LLFILETIME
-def _define_LLFILETIME():
-    LLFILETIME = win32more.Security.LLFILETIME_head
-    class LLFILETIME__Anonymous_e__Union(Union):
-        pass
-    LLFILETIME__Anonymous_e__Union._fields_ = [
-        ('ll', Int64),
-        ('ft', win32more.Foundation.FILETIME),
-    ]
-    LLFILETIME._anonymous_ = [
-        'Anonymous',
-    ]
-    LLFILETIME._fields_ = [
-        ('Anonymous', LLFILETIME__Anonymous_e__Union),
-    ]
-    return LLFILETIME
+class LLFILETIME(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ll: Int64
+        ft: win32more.Foundation.FILETIME
 LOGON32_LOGON = UInt32
-LOGON32_LOGON_BATCH = 4
-LOGON32_LOGON_INTERACTIVE = 2
-LOGON32_LOGON_NETWORK = 3
-LOGON32_LOGON_NETWORK_CLEARTEXT = 8
-LOGON32_LOGON_NEW_CREDENTIALS = 9
-LOGON32_LOGON_SERVICE = 5
-LOGON32_LOGON_UNLOCK = 7
+LOGON32_LOGON_BATCH: LOGON32_LOGON = 4
+LOGON32_LOGON_INTERACTIVE: LOGON32_LOGON = 2
+LOGON32_LOGON_NETWORK: LOGON32_LOGON = 3
+LOGON32_LOGON_NETWORK_CLEARTEXT: LOGON32_LOGON = 8
+LOGON32_LOGON_NEW_CREDENTIALS: LOGON32_LOGON = 9
+LOGON32_LOGON_SERVICE: LOGON32_LOGON = 5
+LOGON32_LOGON_UNLOCK: LOGON32_LOGON = 7
 LOGON32_PROVIDER = UInt32
-LOGON32_PROVIDER_DEFAULT = 0
-LOGON32_PROVIDER_WINNT50 = 3
-LOGON32_PROVIDER_WINNT40 = 2
-def _define_LUID_AND_ATTRIBUTES_head():
-    class LUID_AND_ATTRIBUTES(Structure):
-        pass
-    return LUID_AND_ATTRIBUTES
-def _define_LUID_AND_ATTRIBUTES():
-    LUID_AND_ATTRIBUTES = win32more.Security.LUID_AND_ATTRIBUTES_head
-    LUID_AND_ATTRIBUTES._fields_ = [
-        ('Luid', win32more.Foundation.LUID),
-        ('Attributes', win32more.Security.TOKEN_PRIVILEGES_ATTRIBUTES),
-    ]
-    return LUID_AND_ATTRIBUTES
+LOGON32_PROVIDER_DEFAULT: LOGON32_PROVIDER = 0
+LOGON32_PROVIDER_WINNT50: LOGON32_PROVIDER = 3
+LOGON32_PROVIDER_WINNT40: LOGON32_PROVIDER = 2
+class LUID_AND_ATTRIBUTES(Structure):
+    Luid: win32more.Foundation.LUID
+    Attributes: win32more.Security.TOKEN_PRIVILEGES_ATTRIBUTES
 MANDATORY_LEVEL = Int32
-MANDATORY_LEVEL_MandatoryLevelUntrusted = 0
-MANDATORY_LEVEL_MandatoryLevelLow = 1
-MANDATORY_LEVEL_MandatoryLevelMedium = 2
-MANDATORY_LEVEL_MandatoryLevelHigh = 3
-MANDATORY_LEVEL_MandatoryLevelSystem = 4
-MANDATORY_LEVEL_MandatoryLevelSecureProcess = 5
-MANDATORY_LEVEL_MandatoryLevelCount = 6
+MANDATORY_LEVEL_MandatoryLevelUntrusted: MANDATORY_LEVEL = 0
+MANDATORY_LEVEL_MandatoryLevelLow: MANDATORY_LEVEL = 1
+MANDATORY_LEVEL_MandatoryLevelMedium: MANDATORY_LEVEL = 2
+MANDATORY_LEVEL_MandatoryLevelHigh: MANDATORY_LEVEL = 3
+MANDATORY_LEVEL_MandatoryLevelSystem: MANDATORY_LEVEL = 4
+MANDATORY_LEVEL_MandatoryLevelSecureProcess: MANDATORY_LEVEL = 5
+MANDATORY_LEVEL_MandatoryLevelCount: MANDATORY_LEVEL = 6
 NCRYPT_DESCRIPTOR_HANDLE = IntPtr
 NCRYPT_STREAM_HANDLE = IntPtr
 OBJECT_SECURITY_INFORMATION = UInt32
-ATTRIBUTE_SECURITY_INFORMATION = 32
-BACKUP_SECURITY_INFORMATION = 65536
-DACL_SECURITY_INFORMATION = 4
-GROUP_SECURITY_INFORMATION = 2
-LABEL_SECURITY_INFORMATION = 16
-OWNER_SECURITY_INFORMATION = 1
-PROTECTED_DACL_SECURITY_INFORMATION = 2147483648
-PROTECTED_SACL_SECURITY_INFORMATION = 1073741824
-SACL_SECURITY_INFORMATION = 8
-SCOPE_SECURITY_INFORMATION = 64
-UNPROTECTED_DACL_SECURITY_INFORMATION = 536870912
-UNPROTECTED_SACL_SECURITY_INFORMATION = 268435456
-def _define_OBJECT_TYPE_LIST_head():
-    class OBJECT_TYPE_LIST(Structure):
-        pass
-    return OBJECT_TYPE_LIST
-def _define_OBJECT_TYPE_LIST():
-    OBJECT_TYPE_LIST = win32more.Security.OBJECT_TYPE_LIST_head
-    OBJECT_TYPE_LIST._fields_ = [
-        ('Level', UInt16),
-        ('Sbz', UInt16),
-        ('ObjectType', POINTER(Guid)),
-    ]
-    return OBJECT_TYPE_LIST
-def _define_PLSA_AP_CALL_PACKAGE_UNTRUSTED():
-    return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(c_void_p),c_void_p,c_void_p,UInt32,POINTER(c_void_p),POINTER(UInt32),POINTER(Int32))
-def _define_PRIVILEGE_SET_head():
-    class PRIVILEGE_SET(Structure):
-        pass
-    return PRIVILEGE_SET
-def _define_PRIVILEGE_SET():
-    PRIVILEGE_SET = win32more.Security.PRIVILEGE_SET_head
-    PRIVILEGE_SET._fields_ = [
-        ('PrivilegeCount', UInt32),
-        ('Control', UInt32),
-        ('Privilege', win32more.Security.LUID_AND_ATTRIBUTES * 1),
-    ]
-    return PRIVILEGE_SET
+ATTRIBUTE_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 32
+BACKUP_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 65536
+DACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 4
+GROUP_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 2
+LABEL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 16
+OWNER_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 1
+PROTECTED_DACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 2147483648
+PROTECTED_SACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 1073741824
+SACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 8
+SCOPE_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 64
+UNPROTECTED_DACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 536870912
+UNPROTECTED_SACL_SECURITY_INFORMATION: OBJECT_SECURITY_INFORMATION = 268435456
+class OBJECT_TYPE_LIST(Structure):
+    Level: UInt16
+    Sbz: UInt16
+    ObjectType: POINTER(Guid)
+@winfunctype_pointer
+def PLSA_AP_CALL_PACKAGE_UNTRUSTED(ClientRequest: POINTER(c_void_p), ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
+class PRIVILEGE_SET(Structure):
+    PrivilegeCount: UInt32
+    Control: UInt32
+    Privilege: win32more.Security.LUID_AND_ATTRIBUTES * 1
 PSECURITY_DESCRIPTOR = c_void_p
-def _define_QUOTA_LIMITS_head():
-    class QUOTA_LIMITS(Structure):
-        pass
-    return QUOTA_LIMITS
-def _define_QUOTA_LIMITS():
-    QUOTA_LIMITS = win32more.Security.QUOTA_LIMITS_head
-    QUOTA_LIMITS._fields_ = [
-        ('PagedPoolLimit', UIntPtr),
-        ('NonPagedPoolLimit', UIntPtr),
-        ('MinimumWorkingSetSize', UIntPtr),
-        ('MaximumWorkingSetSize', UIntPtr),
-        ('PagefileLimit', UIntPtr),
-        ('TimeLimit', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return QUOTA_LIMITS
+class QUOTA_LIMITS(Structure):
+    PagedPoolLimit: UIntPtr
+    NonPagedPoolLimit: UIntPtr
+    MinimumWorkingSetSize: UIntPtr
+    MaximumWorkingSetSize: UIntPtr
+    PagefileLimit: UIntPtr
+    TimeLimit: win32more.Foundation.LARGE_INTEGER
 SAFER_LEVEL_HANDLE = IntPtr
 SC_HANDLE = IntPtr
-def _define_SE_ACCESS_REPLY_head():
-    class SE_ACCESS_REPLY(Structure):
-        pass
-    return SE_ACCESS_REPLY
-def _define_SE_ACCESS_REPLY():
-    SE_ACCESS_REPLY = win32more.Security.SE_ACCESS_REPLY_head
-    SE_ACCESS_REPLY._fields_ = [
-        ('Size', UInt32),
-        ('ResultListCount', UInt32),
-        ('GrantedAccess', POINTER(UInt32)),
-        ('AccessStatus', POINTER(UInt32)),
-        ('AccessReason', POINTER(win32more.Security.ACCESS_REASONS_head)),
-        ('Privileges', POINTER(POINTER(win32more.Security.PRIVILEGE_SET_head))),
-    ]
-    return SE_ACCESS_REPLY
-def _define_SE_ACCESS_REQUEST_head():
-    class SE_ACCESS_REQUEST(Structure):
-        pass
-    return SE_ACCESS_REQUEST
-def _define_SE_ACCESS_REQUEST():
-    SE_ACCESS_REQUEST = win32more.Security.SE_ACCESS_REQUEST_head
-    SE_ACCESS_REQUEST._fields_ = [
-        ('Size', UInt32),
-        ('SeSecurityDescriptor', POINTER(win32more.Security.SE_SECURITY_DESCRIPTOR_head)),
-        ('DesiredAccess', UInt32),
-        ('PreviouslyGrantedAccess', UInt32),
-        ('PrincipalSelfSid', win32more.Foundation.PSID),
-        ('GenericMapping', POINTER(win32more.Security.GENERIC_MAPPING_head)),
-        ('ObjectTypeListCount', UInt32),
-        ('ObjectTypeList', POINTER(win32more.Security.OBJECT_TYPE_LIST_head)),
-    ]
-    return SE_ACCESS_REQUEST
-def _define_SE_IMPERSONATION_STATE_head():
-    class SE_IMPERSONATION_STATE(Structure):
-        pass
-    return SE_IMPERSONATION_STATE
-def _define_SE_IMPERSONATION_STATE():
-    SE_IMPERSONATION_STATE = win32more.Security.SE_IMPERSONATION_STATE_head
-    SE_IMPERSONATION_STATE._fields_ = [
-        ('Token', c_void_p),
-        ('CopyOnOpen', win32more.Foundation.BOOLEAN),
-        ('EffectiveOnly', win32more.Foundation.BOOLEAN),
-        ('Level', win32more.Security.SECURITY_IMPERSONATION_LEVEL),
-    ]
-    return SE_IMPERSONATION_STATE
-def _define_SE_SECURITY_DESCRIPTOR_head():
-    class SE_SECURITY_DESCRIPTOR(Structure):
-        pass
-    return SE_SECURITY_DESCRIPTOR
-def _define_SE_SECURITY_DESCRIPTOR():
-    SE_SECURITY_DESCRIPTOR = win32more.Security.SE_SECURITY_DESCRIPTOR_head
-    SE_SECURITY_DESCRIPTOR._fields_ = [
-        ('Size', UInt32),
-        ('Flags', UInt32),
-        ('SecurityDescriptor', win32more.Security.PSECURITY_DESCRIPTOR),
-    ]
-    return SE_SECURITY_DESCRIPTOR
-def _define_SE_SID_head():
-    class SE_SID(Union):
-        pass
-    return SE_SID
-def _define_SE_SID():
-    SE_SID = win32more.Security.SE_SID_head
-    SE_SID._fields_ = [
-        ('Sid', win32more.Security.SID),
-        ('Buffer', Byte * 68),
-    ]
-    return SE_SID
-def _define_SEC_THREAD_START():
-    return WINFUNCTYPE(UInt32,c_void_p)
-def _define_SECURITY_ATTRIBUTES_head():
-    class SECURITY_ATTRIBUTES(Structure):
-        pass
-    return SECURITY_ATTRIBUTES
-def _define_SECURITY_ATTRIBUTES():
-    SECURITY_ATTRIBUTES = win32more.Security.SECURITY_ATTRIBUTES_head
-    SECURITY_ATTRIBUTES._fields_ = [
-        ('nLength', UInt32),
-        ('lpSecurityDescriptor', c_void_p),
-        ('bInheritHandle', win32more.Foundation.BOOL),
-    ]
-    return SECURITY_ATTRIBUTES
+class SE_ACCESS_REPLY(Structure):
+    Size: UInt32
+    ResultListCount: UInt32
+    GrantedAccess: POINTER(UInt32)
+    AccessStatus: POINTER(UInt32)
+    AccessReason: POINTER(win32more.Security.ACCESS_REASONS_head)
+    Privileges: POINTER(POINTER(win32more.Security.PRIVILEGE_SET_head))
+class SE_ACCESS_REQUEST(Structure):
+    Size: UInt32
+    SeSecurityDescriptor: POINTER(win32more.Security.SE_SECURITY_DESCRIPTOR_head)
+    DesiredAccess: UInt32
+    PreviouslyGrantedAccess: UInt32
+    PrincipalSelfSid: win32more.Foundation.PSID
+    GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)
+    ObjectTypeListCount: UInt32
+    ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head)
+class SE_IMPERSONATION_STATE(Structure):
+    Token: c_void_p
+    CopyOnOpen: win32more.Foundation.BOOLEAN
+    EffectiveOnly: win32more.Foundation.BOOLEAN
+    Level: win32more.Security.SECURITY_IMPERSONATION_LEVEL
+class SE_SECURITY_DESCRIPTOR(Structure):
+    Size: UInt32
+    Flags: UInt32
+    SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+class SE_SID(Union):
+    Sid: win32more.Security.SID
+    Buffer: Byte * 68
+@winfunctype_pointer
+def SEC_THREAD_START(lpThreadParameter: c_void_p) -> UInt32: ...
+class SECURITY_ATTRIBUTES(Structure):
+    nLength: UInt32
+    lpSecurityDescriptor: c_void_p
+    bInheritHandle: win32more.Foundation.BOOL
 SECURITY_AUTO_INHERIT_FLAGS = UInt32
-SEF_AVOID_OWNER_CHECK = 16
-SEF_AVOID_OWNER_RESTRICTION = 4096
-SEF_AVOID_PRIVILEGE_CHECK = 8
-SEF_DACL_AUTO_INHERIT = 1
-SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT = 4
-SEF_DEFAULT_GROUP_FROM_PARENT = 64
-SEF_DEFAULT_OWNER_FROM_PARENT = 32
-SEF_MACL_NO_EXECUTE_UP = 1024
-SEF_MACL_NO_READ_UP = 512
-SEF_MACL_NO_WRITE_UP = 256
-SEF_SACL_AUTO_INHERIT = 2
-def _define_SECURITY_CAPABILITIES_head():
-    class SECURITY_CAPABILITIES(Structure):
-        pass
-    return SECURITY_CAPABILITIES
-def _define_SECURITY_CAPABILITIES():
-    SECURITY_CAPABILITIES = win32more.Security.SECURITY_CAPABILITIES_head
-    SECURITY_CAPABILITIES._fields_ = [
-        ('AppContainerSid', win32more.Foundation.PSID),
-        ('Capabilities', POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)),
-        ('CapabilityCount', UInt32),
-        ('Reserved', UInt32),
-    ]
-    return SECURITY_CAPABILITIES
-def _define_SECURITY_DESCRIPTOR_head():
-    class SECURITY_DESCRIPTOR(Structure):
-        pass
-    return SECURITY_DESCRIPTOR
-def _define_SECURITY_DESCRIPTOR():
-    SECURITY_DESCRIPTOR = win32more.Security.SECURITY_DESCRIPTOR_head
-    SECURITY_DESCRIPTOR._fields_ = [
-        ('Revision', Byte),
-        ('Sbz1', Byte),
-        ('Control', win32more.Security.SECURITY_DESCRIPTOR_CONTROL),
-        ('Owner', win32more.Foundation.PSID),
-        ('Group', win32more.Foundation.PSID),
-        ('Sacl', POINTER(win32more.Security.ACL_head)),
-        ('Dacl', POINTER(win32more.Security.ACL_head)),
-    ]
-    return SECURITY_DESCRIPTOR
+SEF_AVOID_OWNER_CHECK: SECURITY_AUTO_INHERIT_FLAGS = 16
+SEF_AVOID_OWNER_RESTRICTION: SECURITY_AUTO_INHERIT_FLAGS = 4096
+SEF_AVOID_PRIVILEGE_CHECK: SECURITY_AUTO_INHERIT_FLAGS = 8
+SEF_DACL_AUTO_INHERIT: SECURITY_AUTO_INHERIT_FLAGS = 1
+SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT: SECURITY_AUTO_INHERIT_FLAGS = 4
+SEF_DEFAULT_GROUP_FROM_PARENT: SECURITY_AUTO_INHERIT_FLAGS = 64
+SEF_DEFAULT_OWNER_FROM_PARENT: SECURITY_AUTO_INHERIT_FLAGS = 32
+SEF_MACL_NO_EXECUTE_UP: SECURITY_AUTO_INHERIT_FLAGS = 1024
+SEF_MACL_NO_READ_UP: SECURITY_AUTO_INHERIT_FLAGS = 512
+SEF_MACL_NO_WRITE_UP: SECURITY_AUTO_INHERIT_FLAGS = 256
+SEF_SACL_AUTO_INHERIT: SECURITY_AUTO_INHERIT_FLAGS = 2
+class SECURITY_CAPABILITIES(Structure):
+    AppContainerSid: win32more.Foundation.PSID
+    Capabilities: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)
+    CapabilityCount: UInt32
+    Reserved: UInt32
+class SECURITY_DESCRIPTOR(Structure):
+    Revision: Byte
+    Sbz1: Byte
+    Control: win32more.Security.SECURITY_DESCRIPTOR_CONTROL
+    Owner: win32more.Foundation.PSID
+    Group: win32more.Foundation.PSID
+    Sacl: POINTER(win32more.Security.ACL_head)
+    Dacl: POINTER(win32more.Security.ACL_head)
 SECURITY_DESCRIPTOR_CONTROL = UInt16
-SE_OWNER_DEFAULTED = 1
-SE_GROUP_DEFAULTED = 2
-SE_DACL_PRESENT = 4
-SE_DACL_DEFAULTED = 8
-SE_SACL_PRESENT = 16
-SE_SACL_DEFAULTED = 32
-SE_DACL_AUTO_INHERIT_REQ = 256
-SE_SACL_AUTO_INHERIT_REQ = 512
-SE_DACL_AUTO_INHERITED = 1024
-SE_SACL_AUTO_INHERITED = 2048
-SE_DACL_PROTECTED = 4096
-SE_SACL_PROTECTED = 8192
-SE_RM_CONTROL_VALID = 16384
-SE_SELF_RELATIVE = 32768
-def _define_SECURITY_DESCRIPTOR_RELATIVE_head():
-    class SECURITY_DESCRIPTOR_RELATIVE(Structure):
-        pass
-    return SECURITY_DESCRIPTOR_RELATIVE
-def _define_SECURITY_DESCRIPTOR_RELATIVE():
-    SECURITY_DESCRIPTOR_RELATIVE = win32more.Security.SECURITY_DESCRIPTOR_RELATIVE_head
-    SECURITY_DESCRIPTOR_RELATIVE._fields_ = [
-        ('Revision', Byte),
-        ('Sbz1', Byte),
-        ('Control', win32more.Security.SECURITY_DESCRIPTOR_CONTROL),
-        ('Owner', UInt32),
-        ('Group', UInt32),
-        ('Sacl', UInt32),
-        ('Dacl', UInt32),
-    ]
-    return SECURITY_DESCRIPTOR_RELATIVE
+SE_OWNER_DEFAULTED: SECURITY_DESCRIPTOR_CONTROL = 1
+SE_GROUP_DEFAULTED: SECURITY_DESCRIPTOR_CONTROL = 2
+SE_DACL_PRESENT: SECURITY_DESCRIPTOR_CONTROL = 4
+SE_DACL_DEFAULTED: SECURITY_DESCRIPTOR_CONTROL = 8
+SE_SACL_PRESENT: SECURITY_DESCRIPTOR_CONTROL = 16
+SE_SACL_DEFAULTED: SECURITY_DESCRIPTOR_CONTROL = 32
+SE_DACL_AUTO_INHERIT_REQ: SECURITY_DESCRIPTOR_CONTROL = 256
+SE_SACL_AUTO_INHERIT_REQ: SECURITY_DESCRIPTOR_CONTROL = 512
+SE_DACL_AUTO_INHERITED: SECURITY_DESCRIPTOR_CONTROL = 1024
+SE_SACL_AUTO_INHERITED: SECURITY_DESCRIPTOR_CONTROL = 2048
+SE_DACL_PROTECTED: SECURITY_DESCRIPTOR_CONTROL = 4096
+SE_SACL_PROTECTED: SECURITY_DESCRIPTOR_CONTROL = 8192
+SE_RM_CONTROL_VALID: SECURITY_DESCRIPTOR_CONTROL = 16384
+SE_SELF_RELATIVE: SECURITY_DESCRIPTOR_CONTROL = 32768
+class SECURITY_DESCRIPTOR_RELATIVE(Structure):
+    Revision: Byte
+    Sbz1: Byte
+    Control: win32more.Security.SECURITY_DESCRIPTOR_CONTROL
+    Owner: UInt32
+    Group: UInt32
+    Sacl: UInt32
+    Dacl: UInt32
 SECURITY_IMPERSONATION_LEVEL = Int32
-SECURITY_IMPERSONATION_LEVEL_SecurityAnonymous = 0
-SECURITY_IMPERSONATION_LEVEL_SecurityIdentification = 1
-SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation = 2
-SECURITY_IMPERSONATION_LEVEL_SecurityDelegation = 3
-def _define_SECURITY_QUALITY_OF_SERVICE_head():
-    class SECURITY_QUALITY_OF_SERVICE(Structure):
-        pass
-    return SECURITY_QUALITY_OF_SERVICE
-def _define_SECURITY_QUALITY_OF_SERVICE():
-    SECURITY_QUALITY_OF_SERVICE = win32more.Security.SECURITY_QUALITY_OF_SERVICE_head
-    SECURITY_QUALITY_OF_SERVICE._fields_ = [
-        ('Length', UInt32),
-        ('ImpersonationLevel', win32more.Security.SECURITY_IMPERSONATION_LEVEL),
-        ('ContextTrackingMode', Byte),
-        ('EffectiveOnly', win32more.Foundation.BOOLEAN),
-    ]
-    return SECURITY_QUALITY_OF_SERVICE
-def _define_SID_head():
-    class SID(Structure):
-        pass
-    return SID
-def _define_SID():
-    SID = win32more.Security.SID_head
-    SID._fields_ = [
-        ('Revision', Byte),
-        ('SubAuthorityCount', Byte),
-        ('IdentifierAuthority', win32more.Security.SID_IDENTIFIER_AUTHORITY),
-        ('SubAuthority', UInt32 * 1),
-    ]
-    return SID
-def _define_SID_AND_ATTRIBUTES_head():
-    class SID_AND_ATTRIBUTES(Structure):
-        pass
-    return SID_AND_ATTRIBUTES
-def _define_SID_AND_ATTRIBUTES():
-    SID_AND_ATTRIBUTES = win32more.Security.SID_AND_ATTRIBUTES_head
-    SID_AND_ATTRIBUTES._fields_ = [
-        ('Sid', win32more.Foundation.PSID),
-        ('Attributes', UInt32),
-    ]
-    return SID_AND_ATTRIBUTES
-def _define_SID_AND_ATTRIBUTES_HASH_head():
-    class SID_AND_ATTRIBUTES_HASH(Structure):
-        pass
-    return SID_AND_ATTRIBUTES_HASH
-def _define_SID_AND_ATTRIBUTES_HASH():
-    SID_AND_ATTRIBUTES_HASH = win32more.Security.SID_AND_ATTRIBUTES_HASH_head
-    SID_AND_ATTRIBUTES_HASH._fields_ = [
-        ('SidCount', UInt32),
-        ('SidAttr', POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)),
-        ('Hash', UIntPtr * 32),
-    ]
-    return SID_AND_ATTRIBUTES_HASH
-def _define_SID_IDENTIFIER_AUTHORITY_head():
-    class SID_IDENTIFIER_AUTHORITY(Structure):
-        pass
-    return SID_IDENTIFIER_AUTHORITY
-def _define_SID_IDENTIFIER_AUTHORITY():
-    SID_IDENTIFIER_AUTHORITY = win32more.Security.SID_IDENTIFIER_AUTHORITY_head
-    SID_IDENTIFIER_AUTHORITY._fields_ = [
-        ('Value', Byte * 6),
-    ]
-    return SID_IDENTIFIER_AUTHORITY
+SECURITY_IMPERSONATION_LEVEL_SecurityAnonymous: SECURITY_IMPERSONATION_LEVEL = 0
+SECURITY_IMPERSONATION_LEVEL_SecurityIdentification: SECURITY_IMPERSONATION_LEVEL = 1
+SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation: SECURITY_IMPERSONATION_LEVEL = 2
+SECURITY_IMPERSONATION_LEVEL_SecurityDelegation: SECURITY_IMPERSONATION_LEVEL = 3
+class SECURITY_QUALITY_OF_SERVICE(Structure):
+    Length: UInt32
+    ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL
+    ContextTrackingMode: Byte
+    EffectiveOnly: win32more.Foundation.BOOLEAN
+class SID(Structure):
+    Revision: Byte
+    SubAuthorityCount: Byte
+    IdentifierAuthority: win32more.Security.SID_IDENTIFIER_AUTHORITY
+    SubAuthority: UInt32 * 1
+class SID_AND_ATTRIBUTES(Structure):
+    Sid: win32more.Foundation.PSID
+    Attributes: UInt32
+class SID_AND_ATTRIBUTES_HASH(Structure):
+    SidCount: UInt32
+    SidAttr: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)
+    Hash: UIntPtr * 32
+class SID_IDENTIFIER_AUTHORITY(Structure):
+    Value: Byte * 6
 SID_NAME_USE = Int32
-SID_NAME_USE_SidTypeUser = 1
-SID_NAME_USE_SidTypeGroup = 2
-SID_NAME_USE_SidTypeDomain = 3
-SID_NAME_USE_SidTypeAlias = 4
-SID_NAME_USE_SidTypeWellKnownGroup = 5
-SID_NAME_USE_SidTypeDeletedAccount = 6
-SID_NAME_USE_SidTypeInvalid = 7
-SID_NAME_USE_SidTypeUnknown = 8
-SID_NAME_USE_SidTypeComputer = 9
-SID_NAME_USE_SidTypeLabel = 10
-SID_NAME_USE_SidTypeLogonSession = 11
-def _define_SYSTEM_ACCESS_FILTER_ACE_head():
-    class SYSTEM_ACCESS_FILTER_ACE(Structure):
-        pass
-    return SYSTEM_ACCESS_FILTER_ACE
-def _define_SYSTEM_ACCESS_FILTER_ACE():
-    SYSTEM_ACCESS_FILTER_ACE = win32more.Security.SYSTEM_ACCESS_FILTER_ACE_head
-    SYSTEM_ACCESS_FILTER_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_ACCESS_FILTER_ACE
-def _define_SYSTEM_ALARM_ACE_head():
-    class SYSTEM_ALARM_ACE(Structure):
-        pass
-    return SYSTEM_ALARM_ACE
-def _define_SYSTEM_ALARM_ACE():
-    SYSTEM_ALARM_ACE = win32more.Security.SYSTEM_ALARM_ACE_head
-    SYSTEM_ALARM_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_ALARM_ACE
-def _define_SYSTEM_ALARM_CALLBACK_ACE_head():
-    class SYSTEM_ALARM_CALLBACK_ACE(Structure):
-        pass
-    return SYSTEM_ALARM_CALLBACK_ACE
-def _define_SYSTEM_ALARM_CALLBACK_ACE():
-    SYSTEM_ALARM_CALLBACK_ACE = win32more.Security.SYSTEM_ALARM_CALLBACK_ACE_head
-    SYSTEM_ALARM_CALLBACK_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_ALARM_CALLBACK_ACE
-def _define_SYSTEM_ALARM_CALLBACK_OBJECT_ACE_head():
-    class SYSTEM_ALARM_CALLBACK_OBJECT_ACE(Structure):
-        pass
-    return SYSTEM_ALARM_CALLBACK_OBJECT_ACE
-def _define_SYSTEM_ALARM_CALLBACK_OBJECT_ACE():
-    SYSTEM_ALARM_CALLBACK_OBJECT_ACE = win32more.Security.SYSTEM_ALARM_CALLBACK_OBJECT_ACE_head
-    SYSTEM_ALARM_CALLBACK_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_ALARM_CALLBACK_OBJECT_ACE
-def _define_SYSTEM_ALARM_OBJECT_ACE_head():
-    class SYSTEM_ALARM_OBJECT_ACE(Structure):
-        pass
-    return SYSTEM_ALARM_OBJECT_ACE
-def _define_SYSTEM_ALARM_OBJECT_ACE():
-    SYSTEM_ALARM_OBJECT_ACE = win32more.Security.SYSTEM_ALARM_OBJECT_ACE_head
-    SYSTEM_ALARM_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', UInt32),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_ALARM_OBJECT_ACE
-def _define_SYSTEM_AUDIT_ACE_head():
-    class SYSTEM_AUDIT_ACE(Structure):
-        pass
-    return SYSTEM_AUDIT_ACE
-def _define_SYSTEM_AUDIT_ACE():
-    SYSTEM_AUDIT_ACE = win32more.Security.SYSTEM_AUDIT_ACE_head
-    SYSTEM_AUDIT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_AUDIT_ACE
-def _define_SYSTEM_AUDIT_CALLBACK_ACE_head():
-    class SYSTEM_AUDIT_CALLBACK_ACE(Structure):
-        pass
-    return SYSTEM_AUDIT_CALLBACK_ACE
-def _define_SYSTEM_AUDIT_CALLBACK_ACE():
-    SYSTEM_AUDIT_CALLBACK_ACE = win32more.Security.SYSTEM_AUDIT_CALLBACK_ACE_head
-    SYSTEM_AUDIT_CALLBACK_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_AUDIT_CALLBACK_ACE
-def _define_SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_head():
-    class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE(Structure):
-        pass
-    return SYSTEM_AUDIT_CALLBACK_OBJECT_ACE
-def _define_SYSTEM_AUDIT_CALLBACK_OBJECT_ACE():
-    SYSTEM_AUDIT_CALLBACK_OBJECT_ACE = win32more.Security.SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_head
-    SYSTEM_AUDIT_CALLBACK_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_AUDIT_CALLBACK_OBJECT_ACE
-def _define_SYSTEM_AUDIT_OBJECT_ACE_head():
-    class SYSTEM_AUDIT_OBJECT_ACE(Structure):
-        pass
-    return SYSTEM_AUDIT_OBJECT_ACE
-def _define_SYSTEM_AUDIT_OBJECT_ACE():
-    SYSTEM_AUDIT_OBJECT_ACE = win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_head
-    SYSTEM_AUDIT_OBJECT_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('Flags', win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS),
-        ('ObjectType', Guid),
-        ('InheritedObjectType', Guid),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_AUDIT_OBJECT_ACE
+SID_NAME_USE_SidTypeUser: SID_NAME_USE = 1
+SID_NAME_USE_SidTypeGroup: SID_NAME_USE = 2
+SID_NAME_USE_SidTypeDomain: SID_NAME_USE = 3
+SID_NAME_USE_SidTypeAlias: SID_NAME_USE = 4
+SID_NAME_USE_SidTypeWellKnownGroup: SID_NAME_USE = 5
+SID_NAME_USE_SidTypeDeletedAccount: SID_NAME_USE = 6
+SID_NAME_USE_SidTypeInvalid: SID_NAME_USE = 7
+SID_NAME_USE_SidTypeUnknown: SID_NAME_USE = 8
+SID_NAME_USE_SidTypeComputer: SID_NAME_USE = 9
+SID_NAME_USE_SidTypeLabel: SID_NAME_USE = 10
+SID_NAME_USE_SidTypeLogonSession: SID_NAME_USE = 11
+class SYSTEM_ACCESS_FILTER_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_ALARM_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_ALARM_CALLBACK_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_ALARM_CALLBACK_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class SYSTEM_ALARM_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: UInt32
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class SYSTEM_AUDIT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_AUDIT_CALLBACK_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class SYSTEM_AUDIT_OBJECT_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
 SYSTEM_AUDIT_OBJECT_ACE_FLAGS = UInt32
-ACE_OBJECT_TYPE_PRESENT = 1
-ACE_INHERITED_OBJECT_TYPE_PRESENT = 2
-def _define_SYSTEM_MANDATORY_LABEL_ACE_head():
-    class SYSTEM_MANDATORY_LABEL_ACE(Structure):
-        pass
-    return SYSTEM_MANDATORY_LABEL_ACE
-def _define_SYSTEM_MANDATORY_LABEL_ACE():
-    SYSTEM_MANDATORY_LABEL_ACE = win32more.Security.SYSTEM_MANDATORY_LABEL_ACE_head
-    SYSTEM_MANDATORY_LABEL_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_MANDATORY_LABEL_ACE
-def _define_SYSTEM_PROCESS_TRUST_LABEL_ACE_head():
-    class SYSTEM_PROCESS_TRUST_LABEL_ACE(Structure):
-        pass
-    return SYSTEM_PROCESS_TRUST_LABEL_ACE
-def _define_SYSTEM_PROCESS_TRUST_LABEL_ACE():
-    SYSTEM_PROCESS_TRUST_LABEL_ACE = win32more.Security.SYSTEM_PROCESS_TRUST_LABEL_ACE_head
-    SYSTEM_PROCESS_TRUST_LABEL_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_PROCESS_TRUST_LABEL_ACE
-def _define_SYSTEM_RESOURCE_ATTRIBUTE_ACE_head():
-    class SYSTEM_RESOURCE_ATTRIBUTE_ACE(Structure):
-        pass
-    return SYSTEM_RESOURCE_ATTRIBUTE_ACE
-def _define_SYSTEM_RESOURCE_ATTRIBUTE_ACE():
-    SYSTEM_RESOURCE_ATTRIBUTE_ACE = win32more.Security.SYSTEM_RESOURCE_ATTRIBUTE_ACE_head
-    SYSTEM_RESOURCE_ATTRIBUTE_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_RESOURCE_ATTRIBUTE_ACE
-def _define_SYSTEM_SCOPED_POLICY_ID_ACE_head():
-    class SYSTEM_SCOPED_POLICY_ID_ACE(Structure):
-        pass
-    return SYSTEM_SCOPED_POLICY_ID_ACE
-def _define_SYSTEM_SCOPED_POLICY_ID_ACE():
-    SYSTEM_SCOPED_POLICY_ID_ACE = win32more.Security.SYSTEM_SCOPED_POLICY_ID_ACE_head
-    SYSTEM_SCOPED_POLICY_ID_ACE._fields_ = [
-        ('Header', win32more.Security.ACE_HEADER),
-        ('Mask', UInt32),
-        ('SidStart', UInt32),
-    ]
-    return SYSTEM_SCOPED_POLICY_ID_ACE
-def _define_TOKEN_ACCESS_INFORMATION_head():
-    class TOKEN_ACCESS_INFORMATION(Structure):
-        pass
-    return TOKEN_ACCESS_INFORMATION
-def _define_TOKEN_ACCESS_INFORMATION():
-    TOKEN_ACCESS_INFORMATION = win32more.Security.TOKEN_ACCESS_INFORMATION_head
-    TOKEN_ACCESS_INFORMATION._fields_ = [
-        ('SidHash', POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)),
-        ('RestrictedSidHash', POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)),
-        ('Privileges', POINTER(win32more.Security.TOKEN_PRIVILEGES_head)),
-        ('AuthenticationId', win32more.Foundation.LUID),
-        ('TokenType', win32more.Security.TOKEN_TYPE),
-        ('ImpersonationLevel', win32more.Security.SECURITY_IMPERSONATION_LEVEL),
-        ('MandatoryPolicy', win32more.Security.TOKEN_MANDATORY_POLICY),
-        ('Flags', UInt32),
-        ('AppContainerNumber', UInt32),
-        ('PackageSid', win32more.Foundation.PSID),
-        ('CapabilitiesHash', POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)),
-        ('TrustLevelSid', win32more.Foundation.PSID),
-        ('SecurityAttributes', c_void_p),
-    ]
-    return TOKEN_ACCESS_INFORMATION
+ACE_OBJECT_TYPE_PRESENT: SYSTEM_AUDIT_OBJECT_ACE_FLAGS = 1
+ACE_INHERITED_OBJECT_TYPE_PRESENT: SYSTEM_AUDIT_OBJECT_ACE_FLAGS = 2
+class SYSTEM_MANDATORY_LABEL_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_PROCESS_TRUST_LABEL_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_RESOURCE_ATTRIBUTE_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class SYSTEM_SCOPED_POLICY_ID_ACE(Structure):
+    Header: win32more.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class TOKEN_ACCESS_INFORMATION(Structure):
+    SidHash: POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)
+    RestrictedSidHash: POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)
+    Privileges: POINTER(win32more.Security.TOKEN_PRIVILEGES_head)
+    AuthenticationId: win32more.Foundation.LUID
+    TokenType: win32more.Security.TOKEN_TYPE
+    ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL
+    MandatoryPolicy: win32more.Security.TOKEN_MANDATORY_POLICY
+    Flags: UInt32
+    AppContainerNumber: UInt32
+    PackageSid: win32more.Foundation.PSID
+    CapabilitiesHash: POINTER(win32more.Security.SID_AND_ATTRIBUTES_HASH_head)
+    TrustLevelSid: win32more.Foundation.PSID
+    SecurityAttributes: c_void_p
 TOKEN_ACCESS_MASK = UInt32
-TOKEN_DELETE = 65536
-TOKEN_READ_CONTROL = 131072
-TOKEN_WRITE_DAC = 262144
-TOKEN_WRITE_OWNER = 524288
-TOKEN_ACCESS_SYSTEM_SECURITY = 16777216
-TOKEN_ASSIGN_PRIMARY = 1
-TOKEN_DUPLICATE = 2
-TOKEN_IMPERSONATE = 4
-TOKEN_QUERY = 8
-TOKEN_QUERY_SOURCE = 16
-TOKEN_ADJUST_PRIVILEGES = 32
-TOKEN_ADJUST_GROUPS = 64
-TOKEN_ADJUST_DEFAULT = 128
-TOKEN_ADJUST_SESSIONID = 256
-TOKEN_READ = 131080
-TOKEN_WRITE = 131296
-TOKEN_EXECUTE = 131072
-TOKEN_TRUST_CONSTRAINT_MASK = 131096
-TOKEN_ACCESS_PSEUDO_HANDLE_WIN8 = 24
-TOKEN_ACCESS_PSEUDO_HANDLE = 24
-TOKEN_ALL_ACCESS = 983295
-def _define_TOKEN_APPCONTAINER_INFORMATION_head():
-    class TOKEN_APPCONTAINER_INFORMATION(Structure):
-        pass
-    return TOKEN_APPCONTAINER_INFORMATION
-def _define_TOKEN_APPCONTAINER_INFORMATION():
-    TOKEN_APPCONTAINER_INFORMATION = win32more.Security.TOKEN_APPCONTAINER_INFORMATION_head
-    TOKEN_APPCONTAINER_INFORMATION._fields_ = [
-        ('TokenAppContainer', win32more.Foundation.PSID),
-    ]
-    return TOKEN_APPCONTAINER_INFORMATION
-def _define_TOKEN_AUDIT_POLICY_head():
-    class TOKEN_AUDIT_POLICY(Structure):
-        pass
-    return TOKEN_AUDIT_POLICY
-def _define_TOKEN_AUDIT_POLICY():
-    TOKEN_AUDIT_POLICY = win32more.Security.TOKEN_AUDIT_POLICY_head
-    TOKEN_AUDIT_POLICY._fields_ = [
-        ('PerUserPolicy', Byte * 30),
-    ]
-    return TOKEN_AUDIT_POLICY
-def _define_TOKEN_CONTROL_head():
-    class TOKEN_CONTROL(Structure):
-        pass
-    return TOKEN_CONTROL
-def _define_TOKEN_CONTROL():
-    TOKEN_CONTROL = win32more.Security.TOKEN_CONTROL_head
-    TOKEN_CONTROL._fields_ = [
-        ('TokenId', win32more.Foundation.LUID),
-        ('AuthenticationId', win32more.Foundation.LUID),
-        ('ModifiedId', win32more.Foundation.LUID),
-        ('TokenSource', win32more.Security.TOKEN_SOURCE),
-    ]
-    return TOKEN_CONTROL
-def _define_TOKEN_DEFAULT_DACL_head():
-    class TOKEN_DEFAULT_DACL(Structure):
-        pass
-    return TOKEN_DEFAULT_DACL
-def _define_TOKEN_DEFAULT_DACL():
-    TOKEN_DEFAULT_DACL = win32more.Security.TOKEN_DEFAULT_DACL_head
-    TOKEN_DEFAULT_DACL._fields_ = [
-        ('DefaultDacl', POINTER(win32more.Security.ACL_head)),
-    ]
-    return TOKEN_DEFAULT_DACL
-def _define_TOKEN_DEVICE_CLAIMS_head():
-    class TOKEN_DEVICE_CLAIMS(Structure):
-        pass
-    return TOKEN_DEVICE_CLAIMS
-def _define_TOKEN_DEVICE_CLAIMS():
-    TOKEN_DEVICE_CLAIMS = win32more.Security.TOKEN_DEVICE_CLAIMS_head
-    TOKEN_DEVICE_CLAIMS._fields_ = [
-        ('DeviceClaims', c_void_p),
-    ]
-    return TOKEN_DEVICE_CLAIMS
-def _define_TOKEN_ELEVATION_head():
-    class TOKEN_ELEVATION(Structure):
-        pass
-    return TOKEN_ELEVATION
-def _define_TOKEN_ELEVATION():
-    TOKEN_ELEVATION = win32more.Security.TOKEN_ELEVATION_head
-    TOKEN_ELEVATION._fields_ = [
-        ('TokenIsElevated', UInt32),
-    ]
-    return TOKEN_ELEVATION
+TOKEN_DELETE: TOKEN_ACCESS_MASK = 65536
+TOKEN_READ_CONTROL: TOKEN_ACCESS_MASK = 131072
+TOKEN_WRITE_DAC: TOKEN_ACCESS_MASK = 262144
+TOKEN_WRITE_OWNER: TOKEN_ACCESS_MASK = 524288
+TOKEN_ACCESS_SYSTEM_SECURITY: TOKEN_ACCESS_MASK = 16777216
+TOKEN_ASSIGN_PRIMARY: TOKEN_ACCESS_MASK = 1
+TOKEN_DUPLICATE: TOKEN_ACCESS_MASK = 2
+TOKEN_IMPERSONATE: TOKEN_ACCESS_MASK = 4
+TOKEN_QUERY: TOKEN_ACCESS_MASK = 8
+TOKEN_QUERY_SOURCE: TOKEN_ACCESS_MASK = 16
+TOKEN_ADJUST_PRIVILEGES: TOKEN_ACCESS_MASK = 32
+TOKEN_ADJUST_GROUPS: TOKEN_ACCESS_MASK = 64
+TOKEN_ADJUST_DEFAULT: TOKEN_ACCESS_MASK = 128
+TOKEN_ADJUST_SESSIONID: TOKEN_ACCESS_MASK = 256
+TOKEN_READ: TOKEN_ACCESS_MASK = 131080
+TOKEN_WRITE: TOKEN_ACCESS_MASK = 131296
+TOKEN_EXECUTE: TOKEN_ACCESS_MASK = 131072
+TOKEN_TRUST_CONSTRAINT_MASK: TOKEN_ACCESS_MASK = 131096
+TOKEN_ACCESS_PSEUDO_HANDLE_WIN8: TOKEN_ACCESS_MASK = 24
+TOKEN_ACCESS_PSEUDO_HANDLE: TOKEN_ACCESS_MASK = 24
+TOKEN_ALL_ACCESS: TOKEN_ACCESS_MASK = 983295
+class TOKEN_APPCONTAINER_INFORMATION(Structure):
+    TokenAppContainer: win32more.Foundation.PSID
+class TOKEN_AUDIT_POLICY(Structure):
+    PerUserPolicy: Byte * 30
+class TOKEN_CONTROL(Structure):
+    TokenId: win32more.Foundation.LUID
+    AuthenticationId: win32more.Foundation.LUID
+    ModifiedId: win32more.Foundation.LUID
+    TokenSource: win32more.Security.TOKEN_SOURCE
+class TOKEN_DEFAULT_DACL(Structure):
+    DefaultDacl: POINTER(win32more.Security.ACL_head)
+class TOKEN_DEVICE_CLAIMS(Structure):
+    DeviceClaims: c_void_p
+class TOKEN_ELEVATION(Structure):
+    TokenIsElevated: UInt32
 TOKEN_ELEVATION_TYPE = Int32
-TOKEN_ELEVATION_TYPE_TokenElevationTypeDefault = 1
-TOKEN_ELEVATION_TYPE_TokenElevationTypeFull = 2
-TOKEN_ELEVATION_TYPE_TokenElevationTypeLimited = 3
-def _define_TOKEN_GROUPS_head():
-    class TOKEN_GROUPS(Structure):
-        pass
-    return TOKEN_GROUPS
-def _define_TOKEN_GROUPS():
-    TOKEN_GROUPS = win32more.Security.TOKEN_GROUPS_head
-    TOKEN_GROUPS._fields_ = [
-        ('GroupCount', UInt32),
-        ('Groups', win32more.Security.SID_AND_ATTRIBUTES * 1),
-    ]
-    return TOKEN_GROUPS
-def _define_TOKEN_GROUPS_AND_PRIVILEGES_head():
-    class TOKEN_GROUPS_AND_PRIVILEGES(Structure):
-        pass
-    return TOKEN_GROUPS_AND_PRIVILEGES
-def _define_TOKEN_GROUPS_AND_PRIVILEGES():
-    TOKEN_GROUPS_AND_PRIVILEGES = win32more.Security.TOKEN_GROUPS_AND_PRIVILEGES_head
-    TOKEN_GROUPS_AND_PRIVILEGES._fields_ = [
-        ('SidCount', UInt32),
-        ('SidLength', UInt32),
-        ('Sids', POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)),
-        ('RestrictedSidCount', UInt32),
-        ('RestrictedSidLength', UInt32),
-        ('RestrictedSids', POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)),
-        ('PrivilegeCount', UInt32),
-        ('PrivilegeLength', UInt32),
-        ('Privileges', POINTER(win32more.Security.LUID_AND_ATTRIBUTES_head)),
-        ('AuthenticationId', win32more.Foundation.LUID),
-    ]
-    return TOKEN_GROUPS_AND_PRIVILEGES
+TOKEN_ELEVATION_TYPE_TokenElevationTypeDefault: TOKEN_ELEVATION_TYPE = 1
+TOKEN_ELEVATION_TYPE_TokenElevationTypeFull: TOKEN_ELEVATION_TYPE = 2
+TOKEN_ELEVATION_TYPE_TokenElevationTypeLimited: TOKEN_ELEVATION_TYPE = 3
+class TOKEN_GROUPS(Structure):
+    GroupCount: UInt32
+    Groups: win32more.Security.SID_AND_ATTRIBUTES * 1
+class TOKEN_GROUPS_AND_PRIVILEGES(Structure):
+    SidCount: UInt32
+    SidLength: UInt32
+    Sids: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)
+    RestrictedSidCount: UInt32
+    RestrictedSidLength: UInt32
+    RestrictedSids: POINTER(win32more.Security.SID_AND_ATTRIBUTES_head)
+    PrivilegeCount: UInt32
+    PrivilegeLength: UInt32
+    Privileges: POINTER(win32more.Security.LUID_AND_ATTRIBUTES_head)
+    AuthenticationId: win32more.Foundation.LUID
 TOKEN_INFORMATION_CLASS = Int32
-TOKEN_INFORMATION_CLASS_TokenUser = 1
-TOKEN_INFORMATION_CLASS_TokenGroups = 2
-TOKEN_INFORMATION_CLASS_TokenPrivileges = 3
-TOKEN_INFORMATION_CLASS_TokenOwner = 4
-TOKEN_INFORMATION_CLASS_TokenPrimaryGroup = 5
-TOKEN_INFORMATION_CLASS_TokenDefaultDacl = 6
-TOKEN_INFORMATION_CLASS_TokenSource = 7
-TOKEN_INFORMATION_CLASS_TokenType = 8
-TOKEN_INFORMATION_CLASS_TokenImpersonationLevel = 9
-TOKEN_INFORMATION_CLASS_TokenStatistics = 10
-TOKEN_INFORMATION_CLASS_TokenRestrictedSids = 11
-TOKEN_INFORMATION_CLASS_TokenSessionId = 12
-TOKEN_INFORMATION_CLASS_TokenGroupsAndPrivileges = 13
-TOKEN_INFORMATION_CLASS_TokenSessionReference = 14
-TOKEN_INFORMATION_CLASS_TokenSandBoxInert = 15
-TOKEN_INFORMATION_CLASS_TokenAuditPolicy = 16
-TOKEN_INFORMATION_CLASS_TokenOrigin = 17
-TOKEN_INFORMATION_CLASS_TokenElevationType = 18
-TOKEN_INFORMATION_CLASS_TokenLinkedToken = 19
-TOKEN_INFORMATION_CLASS_TokenElevation = 20
-TOKEN_INFORMATION_CLASS_TokenHasRestrictions = 21
-TOKEN_INFORMATION_CLASS_TokenAccessInformation = 22
-TOKEN_INFORMATION_CLASS_TokenVirtualizationAllowed = 23
-TOKEN_INFORMATION_CLASS_TokenVirtualizationEnabled = 24
-TOKEN_INFORMATION_CLASS_TokenIntegrityLevel = 25
-TOKEN_INFORMATION_CLASS_TokenUIAccess = 26
-TOKEN_INFORMATION_CLASS_TokenMandatoryPolicy = 27
-TOKEN_INFORMATION_CLASS_TokenLogonSid = 28
-TOKEN_INFORMATION_CLASS_TokenIsAppContainer = 29
-TOKEN_INFORMATION_CLASS_TokenCapabilities = 30
-TOKEN_INFORMATION_CLASS_TokenAppContainerSid = 31
-TOKEN_INFORMATION_CLASS_TokenAppContainerNumber = 32
-TOKEN_INFORMATION_CLASS_TokenUserClaimAttributes = 33
-TOKEN_INFORMATION_CLASS_TokenDeviceClaimAttributes = 34
-TOKEN_INFORMATION_CLASS_TokenRestrictedUserClaimAttributes = 35
-TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceClaimAttributes = 36
-TOKEN_INFORMATION_CLASS_TokenDeviceGroups = 37
-TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceGroups = 38
-TOKEN_INFORMATION_CLASS_TokenSecurityAttributes = 39
-TOKEN_INFORMATION_CLASS_TokenIsRestricted = 40
-TOKEN_INFORMATION_CLASS_TokenProcessTrustLevel = 41
-TOKEN_INFORMATION_CLASS_TokenPrivateNameSpace = 42
-TOKEN_INFORMATION_CLASS_TokenSingletonAttributes = 43
-TOKEN_INFORMATION_CLASS_TokenBnoIsolation = 44
-TOKEN_INFORMATION_CLASS_TokenChildProcessFlags = 45
-TOKEN_INFORMATION_CLASS_TokenIsLessPrivilegedAppContainer = 46
-TOKEN_INFORMATION_CLASS_TokenIsSandboxed = 47
-TOKEN_INFORMATION_CLASS_MaxTokenInfoClass = 48
-def _define_TOKEN_LINKED_TOKEN_head():
-    class TOKEN_LINKED_TOKEN(Structure):
-        pass
-    return TOKEN_LINKED_TOKEN
-def _define_TOKEN_LINKED_TOKEN():
-    TOKEN_LINKED_TOKEN = win32more.Security.TOKEN_LINKED_TOKEN_head
-    TOKEN_LINKED_TOKEN._fields_ = [
-        ('LinkedToken', win32more.Foundation.HANDLE),
-    ]
-    return TOKEN_LINKED_TOKEN
-def _define_TOKEN_MANDATORY_LABEL_head():
-    class TOKEN_MANDATORY_LABEL(Structure):
-        pass
-    return TOKEN_MANDATORY_LABEL
-def _define_TOKEN_MANDATORY_LABEL():
-    TOKEN_MANDATORY_LABEL = win32more.Security.TOKEN_MANDATORY_LABEL_head
-    TOKEN_MANDATORY_LABEL._fields_ = [
-        ('Label', win32more.Security.SID_AND_ATTRIBUTES),
-    ]
-    return TOKEN_MANDATORY_LABEL
-def _define_TOKEN_MANDATORY_POLICY_head():
-    class TOKEN_MANDATORY_POLICY(Structure):
-        pass
-    return TOKEN_MANDATORY_POLICY
-def _define_TOKEN_MANDATORY_POLICY():
-    TOKEN_MANDATORY_POLICY = win32more.Security.TOKEN_MANDATORY_POLICY_head
-    TOKEN_MANDATORY_POLICY._fields_ = [
-        ('Policy', win32more.Security.TOKEN_MANDATORY_POLICY_ID),
-    ]
-    return TOKEN_MANDATORY_POLICY
+TOKEN_INFORMATION_CLASS_TokenUser: TOKEN_INFORMATION_CLASS = 1
+TOKEN_INFORMATION_CLASS_TokenGroups: TOKEN_INFORMATION_CLASS = 2
+TOKEN_INFORMATION_CLASS_TokenPrivileges: TOKEN_INFORMATION_CLASS = 3
+TOKEN_INFORMATION_CLASS_TokenOwner: TOKEN_INFORMATION_CLASS = 4
+TOKEN_INFORMATION_CLASS_TokenPrimaryGroup: TOKEN_INFORMATION_CLASS = 5
+TOKEN_INFORMATION_CLASS_TokenDefaultDacl: TOKEN_INFORMATION_CLASS = 6
+TOKEN_INFORMATION_CLASS_TokenSource: TOKEN_INFORMATION_CLASS = 7
+TOKEN_INFORMATION_CLASS_TokenType: TOKEN_INFORMATION_CLASS = 8
+TOKEN_INFORMATION_CLASS_TokenImpersonationLevel: TOKEN_INFORMATION_CLASS = 9
+TOKEN_INFORMATION_CLASS_TokenStatistics: TOKEN_INFORMATION_CLASS = 10
+TOKEN_INFORMATION_CLASS_TokenRestrictedSids: TOKEN_INFORMATION_CLASS = 11
+TOKEN_INFORMATION_CLASS_TokenSessionId: TOKEN_INFORMATION_CLASS = 12
+TOKEN_INFORMATION_CLASS_TokenGroupsAndPrivileges: TOKEN_INFORMATION_CLASS = 13
+TOKEN_INFORMATION_CLASS_TokenSessionReference: TOKEN_INFORMATION_CLASS = 14
+TOKEN_INFORMATION_CLASS_TokenSandBoxInert: TOKEN_INFORMATION_CLASS = 15
+TOKEN_INFORMATION_CLASS_TokenAuditPolicy: TOKEN_INFORMATION_CLASS = 16
+TOKEN_INFORMATION_CLASS_TokenOrigin: TOKEN_INFORMATION_CLASS = 17
+TOKEN_INFORMATION_CLASS_TokenElevationType: TOKEN_INFORMATION_CLASS = 18
+TOKEN_INFORMATION_CLASS_TokenLinkedToken: TOKEN_INFORMATION_CLASS = 19
+TOKEN_INFORMATION_CLASS_TokenElevation: TOKEN_INFORMATION_CLASS = 20
+TOKEN_INFORMATION_CLASS_TokenHasRestrictions: TOKEN_INFORMATION_CLASS = 21
+TOKEN_INFORMATION_CLASS_TokenAccessInformation: TOKEN_INFORMATION_CLASS = 22
+TOKEN_INFORMATION_CLASS_TokenVirtualizationAllowed: TOKEN_INFORMATION_CLASS = 23
+TOKEN_INFORMATION_CLASS_TokenVirtualizationEnabled: TOKEN_INFORMATION_CLASS = 24
+TOKEN_INFORMATION_CLASS_TokenIntegrityLevel: TOKEN_INFORMATION_CLASS = 25
+TOKEN_INFORMATION_CLASS_TokenUIAccess: TOKEN_INFORMATION_CLASS = 26
+TOKEN_INFORMATION_CLASS_TokenMandatoryPolicy: TOKEN_INFORMATION_CLASS = 27
+TOKEN_INFORMATION_CLASS_TokenLogonSid: TOKEN_INFORMATION_CLASS = 28
+TOKEN_INFORMATION_CLASS_TokenIsAppContainer: TOKEN_INFORMATION_CLASS = 29
+TOKEN_INFORMATION_CLASS_TokenCapabilities: TOKEN_INFORMATION_CLASS = 30
+TOKEN_INFORMATION_CLASS_TokenAppContainerSid: TOKEN_INFORMATION_CLASS = 31
+TOKEN_INFORMATION_CLASS_TokenAppContainerNumber: TOKEN_INFORMATION_CLASS = 32
+TOKEN_INFORMATION_CLASS_TokenUserClaimAttributes: TOKEN_INFORMATION_CLASS = 33
+TOKEN_INFORMATION_CLASS_TokenDeviceClaimAttributes: TOKEN_INFORMATION_CLASS = 34
+TOKEN_INFORMATION_CLASS_TokenRestrictedUserClaimAttributes: TOKEN_INFORMATION_CLASS = 35
+TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceClaimAttributes: TOKEN_INFORMATION_CLASS = 36
+TOKEN_INFORMATION_CLASS_TokenDeviceGroups: TOKEN_INFORMATION_CLASS = 37
+TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceGroups: TOKEN_INFORMATION_CLASS = 38
+TOKEN_INFORMATION_CLASS_TokenSecurityAttributes: TOKEN_INFORMATION_CLASS = 39
+TOKEN_INFORMATION_CLASS_TokenIsRestricted: TOKEN_INFORMATION_CLASS = 40
+TOKEN_INFORMATION_CLASS_TokenProcessTrustLevel: TOKEN_INFORMATION_CLASS = 41
+TOKEN_INFORMATION_CLASS_TokenPrivateNameSpace: TOKEN_INFORMATION_CLASS = 42
+TOKEN_INFORMATION_CLASS_TokenSingletonAttributes: TOKEN_INFORMATION_CLASS = 43
+TOKEN_INFORMATION_CLASS_TokenBnoIsolation: TOKEN_INFORMATION_CLASS = 44
+TOKEN_INFORMATION_CLASS_TokenChildProcessFlags: TOKEN_INFORMATION_CLASS = 45
+TOKEN_INFORMATION_CLASS_TokenIsLessPrivilegedAppContainer: TOKEN_INFORMATION_CLASS = 46
+TOKEN_INFORMATION_CLASS_TokenIsSandboxed: TOKEN_INFORMATION_CLASS = 47
+TOKEN_INFORMATION_CLASS_MaxTokenInfoClass: TOKEN_INFORMATION_CLASS = 48
+class TOKEN_LINKED_TOKEN(Structure):
+    LinkedToken: win32more.Foundation.HANDLE
+class TOKEN_MANDATORY_LABEL(Structure):
+    Label: win32more.Security.SID_AND_ATTRIBUTES
+class TOKEN_MANDATORY_POLICY(Structure):
+    Policy: win32more.Security.TOKEN_MANDATORY_POLICY_ID
 TOKEN_MANDATORY_POLICY_ID = UInt32
-TOKEN_MANDATORY_POLICY_OFF = 0
-TOKEN_MANDATORY_POLICY_NO_WRITE_UP = 1
-TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN = 2
-TOKEN_MANDATORY_POLICY_VALID_MASK = 3
-def _define_TOKEN_ORIGIN_head():
-    class TOKEN_ORIGIN(Structure):
-        pass
-    return TOKEN_ORIGIN
-def _define_TOKEN_ORIGIN():
-    TOKEN_ORIGIN = win32more.Security.TOKEN_ORIGIN_head
-    TOKEN_ORIGIN._fields_ = [
-        ('OriginatingLogonSession', win32more.Foundation.LUID),
-    ]
-    return TOKEN_ORIGIN
-def _define_TOKEN_OWNER_head():
-    class TOKEN_OWNER(Structure):
-        pass
-    return TOKEN_OWNER
-def _define_TOKEN_OWNER():
-    TOKEN_OWNER = win32more.Security.TOKEN_OWNER_head
-    TOKEN_OWNER._fields_ = [
-        ('Owner', win32more.Foundation.PSID),
-    ]
-    return TOKEN_OWNER
-def _define_TOKEN_PRIMARY_GROUP_head():
-    class TOKEN_PRIMARY_GROUP(Structure):
-        pass
-    return TOKEN_PRIMARY_GROUP
-def _define_TOKEN_PRIMARY_GROUP():
-    TOKEN_PRIMARY_GROUP = win32more.Security.TOKEN_PRIMARY_GROUP_head
-    TOKEN_PRIMARY_GROUP._fields_ = [
-        ('PrimaryGroup', win32more.Foundation.PSID),
-    ]
-    return TOKEN_PRIMARY_GROUP
-def _define_TOKEN_PRIVILEGES_head():
-    class TOKEN_PRIVILEGES(Structure):
-        pass
-    return TOKEN_PRIVILEGES
-def _define_TOKEN_PRIVILEGES():
-    TOKEN_PRIVILEGES = win32more.Security.TOKEN_PRIVILEGES_head
-    TOKEN_PRIVILEGES._fields_ = [
-        ('PrivilegeCount', UInt32),
-        ('Privileges', win32more.Security.LUID_AND_ATTRIBUTES * 1),
-    ]
-    return TOKEN_PRIVILEGES
+TOKEN_MANDATORY_POLICY_OFF: TOKEN_MANDATORY_POLICY_ID = 0
+TOKEN_MANDATORY_POLICY_NO_WRITE_UP: TOKEN_MANDATORY_POLICY_ID = 1
+TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN: TOKEN_MANDATORY_POLICY_ID = 2
+TOKEN_MANDATORY_POLICY_VALID_MASK: TOKEN_MANDATORY_POLICY_ID = 3
+class TOKEN_ORIGIN(Structure):
+    OriginatingLogonSession: win32more.Foundation.LUID
+class TOKEN_OWNER(Structure):
+    Owner: win32more.Foundation.PSID
+class TOKEN_PRIMARY_GROUP(Structure):
+    PrimaryGroup: win32more.Foundation.PSID
+class TOKEN_PRIVILEGES(Structure):
+    PrivilegeCount: UInt32
+    Privileges: win32more.Security.LUID_AND_ATTRIBUTES * 1
 TOKEN_PRIVILEGES_ATTRIBUTES = UInt32
-SE_PRIVILEGE_ENABLED = 2
-SE_PRIVILEGE_ENABLED_BY_DEFAULT = 1
-SE_PRIVILEGE_REMOVED = 4
-SE_PRIVILEGE_USED_FOR_ACCESS = 2147483648
-def _define_TOKEN_SOURCE_head():
-    class TOKEN_SOURCE(Structure):
-        pass
-    return TOKEN_SOURCE
-def _define_TOKEN_SOURCE():
-    TOKEN_SOURCE = win32more.Security.TOKEN_SOURCE_head
-    TOKEN_SOURCE._fields_ = [
-        ('SourceName', win32more.Foundation.CHAR * 8),
-        ('SourceIdentifier', win32more.Foundation.LUID),
-    ]
-    return TOKEN_SOURCE
-def _define_TOKEN_STATISTICS_head():
-    class TOKEN_STATISTICS(Structure):
-        pass
-    return TOKEN_STATISTICS
-def _define_TOKEN_STATISTICS():
-    TOKEN_STATISTICS = win32more.Security.TOKEN_STATISTICS_head
-    TOKEN_STATISTICS._fields_ = [
-        ('TokenId', win32more.Foundation.LUID),
-        ('AuthenticationId', win32more.Foundation.LUID),
-        ('ExpirationTime', win32more.Foundation.LARGE_INTEGER),
-        ('TokenType', win32more.Security.TOKEN_TYPE),
-        ('ImpersonationLevel', win32more.Security.SECURITY_IMPERSONATION_LEVEL),
-        ('DynamicCharged', UInt32),
-        ('DynamicAvailable', UInt32),
-        ('GroupCount', UInt32),
-        ('PrivilegeCount', UInt32),
-        ('ModifiedId', win32more.Foundation.LUID),
-    ]
-    return TOKEN_STATISTICS
+SE_PRIVILEGE_ENABLED: TOKEN_PRIVILEGES_ATTRIBUTES = 2
+SE_PRIVILEGE_ENABLED_BY_DEFAULT: TOKEN_PRIVILEGES_ATTRIBUTES = 1
+SE_PRIVILEGE_REMOVED: TOKEN_PRIVILEGES_ATTRIBUTES = 4
+SE_PRIVILEGE_USED_FOR_ACCESS: TOKEN_PRIVILEGES_ATTRIBUTES = 2147483648
+class TOKEN_SOURCE(Structure):
+    SourceName: win32more.Foundation.CHAR * 8
+    SourceIdentifier: win32more.Foundation.LUID
+class TOKEN_STATISTICS(Structure):
+    TokenId: win32more.Foundation.LUID
+    AuthenticationId: win32more.Foundation.LUID
+    ExpirationTime: win32more.Foundation.LARGE_INTEGER
+    TokenType: win32more.Security.TOKEN_TYPE
+    ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL
+    DynamicCharged: UInt32
+    DynamicAvailable: UInt32
+    GroupCount: UInt32
+    PrivilegeCount: UInt32
+    ModifiedId: win32more.Foundation.LUID
 TOKEN_TYPE = Int32
-TOKEN_TYPE_TokenPrimary = 1
-TOKEN_TYPE_TokenImpersonation = 2
-def _define_TOKEN_USER_head():
-    class TOKEN_USER(Structure):
-        pass
-    return TOKEN_USER
-def _define_TOKEN_USER():
-    TOKEN_USER = win32more.Security.TOKEN_USER_head
-    TOKEN_USER._fields_ = [
-        ('User', win32more.Security.SID_AND_ATTRIBUTES),
-    ]
-    return TOKEN_USER
-def _define_TOKEN_USER_CLAIMS_head():
-    class TOKEN_USER_CLAIMS(Structure):
-        pass
-    return TOKEN_USER_CLAIMS
-def _define_TOKEN_USER_CLAIMS():
-    TOKEN_USER_CLAIMS = win32more.Security.TOKEN_USER_CLAIMS_head
-    TOKEN_USER_CLAIMS._fields_ = [
-        ('UserClaims', c_void_p),
-    ]
-    return TOKEN_USER_CLAIMS
+TOKEN_TYPE_TokenPrimary: TOKEN_TYPE = 1
+TOKEN_TYPE_TokenImpersonation: TOKEN_TYPE = 2
+class TOKEN_USER(Structure):
+    User: win32more.Security.SID_AND_ATTRIBUTES
+class TOKEN_USER_CLAIMS(Structure):
+    UserClaims: c_void_p
 WELL_KNOWN_SID_TYPE = Int32
-WELL_KNOWN_SID_TYPE_WinNullSid = 0
-WELL_KNOWN_SID_TYPE_WinWorldSid = 1
-WELL_KNOWN_SID_TYPE_WinLocalSid = 2
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerSid = 3
-WELL_KNOWN_SID_TYPE_WinCreatorGroupSid = 4
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerServerSid = 5
-WELL_KNOWN_SID_TYPE_WinCreatorGroupServerSid = 6
-WELL_KNOWN_SID_TYPE_WinNtAuthoritySid = 7
-WELL_KNOWN_SID_TYPE_WinDialupSid = 8
-WELL_KNOWN_SID_TYPE_WinNetworkSid = 9
-WELL_KNOWN_SID_TYPE_WinBatchSid = 10
-WELL_KNOWN_SID_TYPE_WinInteractiveSid = 11
-WELL_KNOWN_SID_TYPE_WinServiceSid = 12
-WELL_KNOWN_SID_TYPE_WinAnonymousSid = 13
-WELL_KNOWN_SID_TYPE_WinProxySid = 14
-WELL_KNOWN_SID_TYPE_WinEnterpriseControllersSid = 15
-WELL_KNOWN_SID_TYPE_WinSelfSid = 16
-WELL_KNOWN_SID_TYPE_WinAuthenticatedUserSid = 17
-WELL_KNOWN_SID_TYPE_WinRestrictedCodeSid = 18
-WELL_KNOWN_SID_TYPE_WinTerminalServerSid = 19
-WELL_KNOWN_SID_TYPE_WinRemoteLogonIdSid = 20
-WELL_KNOWN_SID_TYPE_WinLogonIdsSid = 21
-WELL_KNOWN_SID_TYPE_WinLocalSystemSid = 22
-WELL_KNOWN_SID_TYPE_WinLocalServiceSid = 23
-WELL_KNOWN_SID_TYPE_WinNetworkServiceSid = 24
-WELL_KNOWN_SID_TYPE_WinBuiltinDomainSid = 25
-WELL_KNOWN_SID_TYPE_WinBuiltinAdministratorsSid = 26
-WELL_KNOWN_SID_TYPE_WinBuiltinUsersSid = 27
-WELL_KNOWN_SID_TYPE_WinBuiltinGuestsSid = 28
-WELL_KNOWN_SID_TYPE_WinBuiltinPowerUsersSid = 29
-WELL_KNOWN_SID_TYPE_WinBuiltinAccountOperatorsSid = 30
-WELL_KNOWN_SID_TYPE_WinBuiltinSystemOperatorsSid = 31
-WELL_KNOWN_SID_TYPE_WinBuiltinPrintOperatorsSid = 32
-WELL_KNOWN_SID_TYPE_WinBuiltinBackupOperatorsSid = 33
-WELL_KNOWN_SID_TYPE_WinBuiltinReplicatorSid = 34
-WELL_KNOWN_SID_TYPE_WinBuiltinPreWindows2000CompatibleAccessSid = 35
-WELL_KNOWN_SID_TYPE_WinBuiltinRemoteDesktopUsersSid = 36
-WELL_KNOWN_SID_TYPE_WinBuiltinNetworkConfigurationOperatorsSid = 37
-WELL_KNOWN_SID_TYPE_WinAccountAdministratorSid = 38
-WELL_KNOWN_SID_TYPE_WinAccountGuestSid = 39
-WELL_KNOWN_SID_TYPE_WinAccountKrbtgtSid = 40
-WELL_KNOWN_SID_TYPE_WinAccountDomainAdminsSid = 41
-WELL_KNOWN_SID_TYPE_WinAccountDomainUsersSid = 42
-WELL_KNOWN_SID_TYPE_WinAccountDomainGuestsSid = 43
-WELL_KNOWN_SID_TYPE_WinAccountComputersSid = 44
-WELL_KNOWN_SID_TYPE_WinAccountControllersSid = 45
-WELL_KNOWN_SID_TYPE_WinAccountCertAdminsSid = 46
-WELL_KNOWN_SID_TYPE_WinAccountSchemaAdminsSid = 47
-WELL_KNOWN_SID_TYPE_WinAccountEnterpriseAdminsSid = 48
-WELL_KNOWN_SID_TYPE_WinAccountPolicyAdminsSid = 49
-WELL_KNOWN_SID_TYPE_WinAccountRasAndIasServersSid = 50
-WELL_KNOWN_SID_TYPE_WinNTLMAuthenticationSid = 51
-WELL_KNOWN_SID_TYPE_WinDigestAuthenticationSid = 52
-WELL_KNOWN_SID_TYPE_WinSChannelAuthenticationSid = 53
-WELL_KNOWN_SID_TYPE_WinThisOrganizationSid = 54
-WELL_KNOWN_SID_TYPE_WinOtherOrganizationSid = 55
-WELL_KNOWN_SID_TYPE_WinBuiltinIncomingForestTrustBuildersSid = 56
-WELL_KNOWN_SID_TYPE_WinBuiltinPerfMonitoringUsersSid = 57
-WELL_KNOWN_SID_TYPE_WinBuiltinPerfLoggingUsersSid = 58
-WELL_KNOWN_SID_TYPE_WinBuiltinAuthorizationAccessSid = 59
-WELL_KNOWN_SID_TYPE_WinBuiltinTerminalServerLicenseServersSid = 60
-WELL_KNOWN_SID_TYPE_WinBuiltinDCOMUsersSid = 61
-WELL_KNOWN_SID_TYPE_WinBuiltinIUsersSid = 62
-WELL_KNOWN_SID_TYPE_WinIUserSid = 63
-WELL_KNOWN_SID_TYPE_WinBuiltinCryptoOperatorsSid = 64
-WELL_KNOWN_SID_TYPE_WinUntrustedLabelSid = 65
-WELL_KNOWN_SID_TYPE_WinLowLabelSid = 66
-WELL_KNOWN_SID_TYPE_WinMediumLabelSid = 67
-WELL_KNOWN_SID_TYPE_WinHighLabelSid = 68
-WELL_KNOWN_SID_TYPE_WinSystemLabelSid = 69
-WELL_KNOWN_SID_TYPE_WinWriteRestrictedCodeSid = 70
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerRightsSid = 71
-WELL_KNOWN_SID_TYPE_WinCacheablePrincipalsGroupSid = 72
-WELL_KNOWN_SID_TYPE_WinNonCacheablePrincipalsGroupSid = 73
-WELL_KNOWN_SID_TYPE_WinEnterpriseReadonlyControllersSid = 74
-WELL_KNOWN_SID_TYPE_WinAccountReadonlyControllersSid = 75
-WELL_KNOWN_SID_TYPE_WinBuiltinEventLogReadersGroup = 76
-WELL_KNOWN_SID_TYPE_WinNewEnterpriseReadonlyControllersSid = 77
-WELL_KNOWN_SID_TYPE_WinBuiltinCertSvcDComAccessGroup = 78
-WELL_KNOWN_SID_TYPE_WinMediumPlusLabelSid = 79
-WELL_KNOWN_SID_TYPE_WinLocalLogonSid = 80
-WELL_KNOWN_SID_TYPE_WinConsoleLogonSid = 81
-WELL_KNOWN_SID_TYPE_WinThisOrganizationCertificateSid = 82
-WELL_KNOWN_SID_TYPE_WinApplicationPackageAuthoritySid = 83
-WELL_KNOWN_SID_TYPE_WinBuiltinAnyPackageSid = 84
-WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientSid = 85
-WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientServerSid = 86
-WELL_KNOWN_SID_TYPE_WinCapabilityPrivateNetworkClientServerSid = 87
-WELL_KNOWN_SID_TYPE_WinCapabilityPicturesLibrarySid = 88
-WELL_KNOWN_SID_TYPE_WinCapabilityVideosLibrarySid = 89
-WELL_KNOWN_SID_TYPE_WinCapabilityMusicLibrarySid = 90
-WELL_KNOWN_SID_TYPE_WinCapabilityDocumentsLibrarySid = 91
-WELL_KNOWN_SID_TYPE_WinCapabilitySharedUserCertificatesSid = 92
-WELL_KNOWN_SID_TYPE_WinCapabilityEnterpriseAuthenticationSid = 93
-WELL_KNOWN_SID_TYPE_WinCapabilityRemovableStorageSid = 94
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSRemoteAccessServersSid = 95
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSEndpointServersSid = 96
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSManagementServersSid = 97
-WELL_KNOWN_SID_TYPE_WinUserModeDriversSid = 98
-WELL_KNOWN_SID_TYPE_WinBuiltinHyperVAdminsSid = 99
-WELL_KNOWN_SID_TYPE_WinAccountCloneableControllersSid = 100
-WELL_KNOWN_SID_TYPE_WinBuiltinAccessControlAssistanceOperatorsSid = 101
-WELL_KNOWN_SID_TYPE_WinBuiltinRemoteManagementUsersSid = 102
-WELL_KNOWN_SID_TYPE_WinAuthenticationAuthorityAssertedSid = 103
-WELL_KNOWN_SID_TYPE_WinAuthenticationServiceAssertedSid = 104
-WELL_KNOWN_SID_TYPE_WinLocalAccountSid = 105
-WELL_KNOWN_SID_TYPE_WinLocalAccountAndAdministratorSid = 106
-WELL_KNOWN_SID_TYPE_WinAccountProtectedUsersSid = 107
-WELL_KNOWN_SID_TYPE_WinCapabilityAppointmentsSid = 108
-WELL_KNOWN_SID_TYPE_WinCapabilityContactsSid = 109
-WELL_KNOWN_SID_TYPE_WinAccountDefaultSystemManagedSid = 110
-WELL_KNOWN_SID_TYPE_WinBuiltinDefaultSystemManagedGroupSid = 111
-WELL_KNOWN_SID_TYPE_WinBuiltinStorageReplicaAdminsSid = 112
-WELL_KNOWN_SID_TYPE_WinAccountKeyAdminsSid = 113
-WELL_KNOWN_SID_TYPE_WinAccountEnterpriseKeyAdminsSid = 114
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyTrustSid = 115
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyMFASid = 116
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyAttestationSid = 117
-WELL_KNOWN_SID_TYPE_WinAuthenticationFreshKeyAuthSid = 118
-WELL_KNOWN_SID_TYPE_WinBuiltinDeviceOwnersSid = 119
+WELL_KNOWN_SID_TYPE_WinNullSid: WELL_KNOWN_SID_TYPE = 0
+WELL_KNOWN_SID_TYPE_WinWorldSid: WELL_KNOWN_SID_TYPE = 1
+WELL_KNOWN_SID_TYPE_WinLocalSid: WELL_KNOWN_SID_TYPE = 2
+WELL_KNOWN_SID_TYPE_WinCreatorOwnerSid: WELL_KNOWN_SID_TYPE = 3
+WELL_KNOWN_SID_TYPE_WinCreatorGroupSid: WELL_KNOWN_SID_TYPE = 4
+WELL_KNOWN_SID_TYPE_WinCreatorOwnerServerSid: WELL_KNOWN_SID_TYPE = 5
+WELL_KNOWN_SID_TYPE_WinCreatorGroupServerSid: WELL_KNOWN_SID_TYPE = 6
+WELL_KNOWN_SID_TYPE_WinNtAuthoritySid: WELL_KNOWN_SID_TYPE = 7
+WELL_KNOWN_SID_TYPE_WinDialupSid: WELL_KNOWN_SID_TYPE = 8
+WELL_KNOWN_SID_TYPE_WinNetworkSid: WELL_KNOWN_SID_TYPE = 9
+WELL_KNOWN_SID_TYPE_WinBatchSid: WELL_KNOWN_SID_TYPE = 10
+WELL_KNOWN_SID_TYPE_WinInteractiveSid: WELL_KNOWN_SID_TYPE = 11
+WELL_KNOWN_SID_TYPE_WinServiceSid: WELL_KNOWN_SID_TYPE = 12
+WELL_KNOWN_SID_TYPE_WinAnonymousSid: WELL_KNOWN_SID_TYPE = 13
+WELL_KNOWN_SID_TYPE_WinProxySid: WELL_KNOWN_SID_TYPE = 14
+WELL_KNOWN_SID_TYPE_WinEnterpriseControllersSid: WELL_KNOWN_SID_TYPE = 15
+WELL_KNOWN_SID_TYPE_WinSelfSid: WELL_KNOWN_SID_TYPE = 16
+WELL_KNOWN_SID_TYPE_WinAuthenticatedUserSid: WELL_KNOWN_SID_TYPE = 17
+WELL_KNOWN_SID_TYPE_WinRestrictedCodeSid: WELL_KNOWN_SID_TYPE = 18
+WELL_KNOWN_SID_TYPE_WinTerminalServerSid: WELL_KNOWN_SID_TYPE = 19
+WELL_KNOWN_SID_TYPE_WinRemoteLogonIdSid: WELL_KNOWN_SID_TYPE = 20
+WELL_KNOWN_SID_TYPE_WinLogonIdsSid: WELL_KNOWN_SID_TYPE = 21
+WELL_KNOWN_SID_TYPE_WinLocalSystemSid: WELL_KNOWN_SID_TYPE = 22
+WELL_KNOWN_SID_TYPE_WinLocalServiceSid: WELL_KNOWN_SID_TYPE = 23
+WELL_KNOWN_SID_TYPE_WinNetworkServiceSid: WELL_KNOWN_SID_TYPE = 24
+WELL_KNOWN_SID_TYPE_WinBuiltinDomainSid: WELL_KNOWN_SID_TYPE = 25
+WELL_KNOWN_SID_TYPE_WinBuiltinAdministratorsSid: WELL_KNOWN_SID_TYPE = 26
+WELL_KNOWN_SID_TYPE_WinBuiltinUsersSid: WELL_KNOWN_SID_TYPE = 27
+WELL_KNOWN_SID_TYPE_WinBuiltinGuestsSid: WELL_KNOWN_SID_TYPE = 28
+WELL_KNOWN_SID_TYPE_WinBuiltinPowerUsersSid: WELL_KNOWN_SID_TYPE = 29
+WELL_KNOWN_SID_TYPE_WinBuiltinAccountOperatorsSid: WELL_KNOWN_SID_TYPE = 30
+WELL_KNOWN_SID_TYPE_WinBuiltinSystemOperatorsSid: WELL_KNOWN_SID_TYPE = 31
+WELL_KNOWN_SID_TYPE_WinBuiltinPrintOperatorsSid: WELL_KNOWN_SID_TYPE = 32
+WELL_KNOWN_SID_TYPE_WinBuiltinBackupOperatorsSid: WELL_KNOWN_SID_TYPE = 33
+WELL_KNOWN_SID_TYPE_WinBuiltinReplicatorSid: WELL_KNOWN_SID_TYPE = 34
+WELL_KNOWN_SID_TYPE_WinBuiltinPreWindows2000CompatibleAccessSid: WELL_KNOWN_SID_TYPE = 35
+WELL_KNOWN_SID_TYPE_WinBuiltinRemoteDesktopUsersSid: WELL_KNOWN_SID_TYPE = 36
+WELL_KNOWN_SID_TYPE_WinBuiltinNetworkConfigurationOperatorsSid: WELL_KNOWN_SID_TYPE = 37
+WELL_KNOWN_SID_TYPE_WinAccountAdministratorSid: WELL_KNOWN_SID_TYPE = 38
+WELL_KNOWN_SID_TYPE_WinAccountGuestSid: WELL_KNOWN_SID_TYPE = 39
+WELL_KNOWN_SID_TYPE_WinAccountKrbtgtSid: WELL_KNOWN_SID_TYPE = 40
+WELL_KNOWN_SID_TYPE_WinAccountDomainAdminsSid: WELL_KNOWN_SID_TYPE = 41
+WELL_KNOWN_SID_TYPE_WinAccountDomainUsersSid: WELL_KNOWN_SID_TYPE = 42
+WELL_KNOWN_SID_TYPE_WinAccountDomainGuestsSid: WELL_KNOWN_SID_TYPE = 43
+WELL_KNOWN_SID_TYPE_WinAccountComputersSid: WELL_KNOWN_SID_TYPE = 44
+WELL_KNOWN_SID_TYPE_WinAccountControllersSid: WELL_KNOWN_SID_TYPE = 45
+WELL_KNOWN_SID_TYPE_WinAccountCertAdminsSid: WELL_KNOWN_SID_TYPE = 46
+WELL_KNOWN_SID_TYPE_WinAccountSchemaAdminsSid: WELL_KNOWN_SID_TYPE = 47
+WELL_KNOWN_SID_TYPE_WinAccountEnterpriseAdminsSid: WELL_KNOWN_SID_TYPE = 48
+WELL_KNOWN_SID_TYPE_WinAccountPolicyAdminsSid: WELL_KNOWN_SID_TYPE = 49
+WELL_KNOWN_SID_TYPE_WinAccountRasAndIasServersSid: WELL_KNOWN_SID_TYPE = 50
+WELL_KNOWN_SID_TYPE_WinNTLMAuthenticationSid: WELL_KNOWN_SID_TYPE = 51
+WELL_KNOWN_SID_TYPE_WinDigestAuthenticationSid: WELL_KNOWN_SID_TYPE = 52
+WELL_KNOWN_SID_TYPE_WinSChannelAuthenticationSid: WELL_KNOWN_SID_TYPE = 53
+WELL_KNOWN_SID_TYPE_WinThisOrganizationSid: WELL_KNOWN_SID_TYPE = 54
+WELL_KNOWN_SID_TYPE_WinOtherOrganizationSid: WELL_KNOWN_SID_TYPE = 55
+WELL_KNOWN_SID_TYPE_WinBuiltinIncomingForestTrustBuildersSid: WELL_KNOWN_SID_TYPE = 56
+WELL_KNOWN_SID_TYPE_WinBuiltinPerfMonitoringUsersSid: WELL_KNOWN_SID_TYPE = 57
+WELL_KNOWN_SID_TYPE_WinBuiltinPerfLoggingUsersSid: WELL_KNOWN_SID_TYPE = 58
+WELL_KNOWN_SID_TYPE_WinBuiltinAuthorizationAccessSid: WELL_KNOWN_SID_TYPE = 59
+WELL_KNOWN_SID_TYPE_WinBuiltinTerminalServerLicenseServersSid: WELL_KNOWN_SID_TYPE = 60
+WELL_KNOWN_SID_TYPE_WinBuiltinDCOMUsersSid: WELL_KNOWN_SID_TYPE = 61
+WELL_KNOWN_SID_TYPE_WinBuiltinIUsersSid: WELL_KNOWN_SID_TYPE = 62
+WELL_KNOWN_SID_TYPE_WinIUserSid: WELL_KNOWN_SID_TYPE = 63
+WELL_KNOWN_SID_TYPE_WinBuiltinCryptoOperatorsSid: WELL_KNOWN_SID_TYPE = 64
+WELL_KNOWN_SID_TYPE_WinUntrustedLabelSid: WELL_KNOWN_SID_TYPE = 65
+WELL_KNOWN_SID_TYPE_WinLowLabelSid: WELL_KNOWN_SID_TYPE = 66
+WELL_KNOWN_SID_TYPE_WinMediumLabelSid: WELL_KNOWN_SID_TYPE = 67
+WELL_KNOWN_SID_TYPE_WinHighLabelSid: WELL_KNOWN_SID_TYPE = 68
+WELL_KNOWN_SID_TYPE_WinSystemLabelSid: WELL_KNOWN_SID_TYPE = 69
+WELL_KNOWN_SID_TYPE_WinWriteRestrictedCodeSid: WELL_KNOWN_SID_TYPE = 70
+WELL_KNOWN_SID_TYPE_WinCreatorOwnerRightsSid: WELL_KNOWN_SID_TYPE = 71
+WELL_KNOWN_SID_TYPE_WinCacheablePrincipalsGroupSid: WELL_KNOWN_SID_TYPE = 72
+WELL_KNOWN_SID_TYPE_WinNonCacheablePrincipalsGroupSid: WELL_KNOWN_SID_TYPE = 73
+WELL_KNOWN_SID_TYPE_WinEnterpriseReadonlyControllersSid: WELL_KNOWN_SID_TYPE = 74
+WELL_KNOWN_SID_TYPE_WinAccountReadonlyControllersSid: WELL_KNOWN_SID_TYPE = 75
+WELL_KNOWN_SID_TYPE_WinBuiltinEventLogReadersGroup: WELL_KNOWN_SID_TYPE = 76
+WELL_KNOWN_SID_TYPE_WinNewEnterpriseReadonlyControllersSid: WELL_KNOWN_SID_TYPE = 77
+WELL_KNOWN_SID_TYPE_WinBuiltinCertSvcDComAccessGroup: WELL_KNOWN_SID_TYPE = 78
+WELL_KNOWN_SID_TYPE_WinMediumPlusLabelSid: WELL_KNOWN_SID_TYPE = 79
+WELL_KNOWN_SID_TYPE_WinLocalLogonSid: WELL_KNOWN_SID_TYPE = 80
+WELL_KNOWN_SID_TYPE_WinConsoleLogonSid: WELL_KNOWN_SID_TYPE = 81
+WELL_KNOWN_SID_TYPE_WinThisOrganizationCertificateSid: WELL_KNOWN_SID_TYPE = 82
+WELL_KNOWN_SID_TYPE_WinApplicationPackageAuthoritySid: WELL_KNOWN_SID_TYPE = 83
+WELL_KNOWN_SID_TYPE_WinBuiltinAnyPackageSid: WELL_KNOWN_SID_TYPE = 84
+WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientSid: WELL_KNOWN_SID_TYPE = 85
+WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientServerSid: WELL_KNOWN_SID_TYPE = 86
+WELL_KNOWN_SID_TYPE_WinCapabilityPrivateNetworkClientServerSid: WELL_KNOWN_SID_TYPE = 87
+WELL_KNOWN_SID_TYPE_WinCapabilityPicturesLibrarySid: WELL_KNOWN_SID_TYPE = 88
+WELL_KNOWN_SID_TYPE_WinCapabilityVideosLibrarySid: WELL_KNOWN_SID_TYPE = 89
+WELL_KNOWN_SID_TYPE_WinCapabilityMusicLibrarySid: WELL_KNOWN_SID_TYPE = 90
+WELL_KNOWN_SID_TYPE_WinCapabilityDocumentsLibrarySid: WELL_KNOWN_SID_TYPE = 91
+WELL_KNOWN_SID_TYPE_WinCapabilitySharedUserCertificatesSid: WELL_KNOWN_SID_TYPE = 92
+WELL_KNOWN_SID_TYPE_WinCapabilityEnterpriseAuthenticationSid: WELL_KNOWN_SID_TYPE = 93
+WELL_KNOWN_SID_TYPE_WinCapabilityRemovableStorageSid: WELL_KNOWN_SID_TYPE = 94
+WELL_KNOWN_SID_TYPE_WinBuiltinRDSRemoteAccessServersSid: WELL_KNOWN_SID_TYPE = 95
+WELL_KNOWN_SID_TYPE_WinBuiltinRDSEndpointServersSid: WELL_KNOWN_SID_TYPE = 96
+WELL_KNOWN_SID_TYPE_WinBuiltinRDSManagementServersSid: WELL_KNOWN_SID_TYPE = 97
+WELL_KNOWN_SID_TYPE_WinUserModeDriversSid: WELL_KNOWN_SID_TYPE = 98
+WELL_KNOWN_SID_TYPE_WinBuiltinHyperVAdminsSid: WELL_KNOWN_SID_TYPE = 99
+WELL_KNOWN_SID_TYPE_WinAccountCloneableControllersSid: WELL_KNOWN_SID_TYPE = 100
+WELL_KNOWN_SID_TYPE_WinBuiltinAccessControlAssistanceOperatorsSid: WELL_KNOWN_SID_TYPE = 101
+WELL_KNOWN_SID_TYPE_WinBuiltinRemoteManagementUsersSid: WELL_KNOWN_SID_TYPE = 102
+WELL_KNOWN_SID_TYPE_WinAuthenticationAuthorityAssertedSid: WELL_KNOWN_SID_TYPE = 103
+WELL_KNOWN_SID_TYPE_WinAuthenticationServiceAssertedSid: WELL_KNOWN_SID_TYPE = 104
+WELL_KNOWN_SID_TYPE_WinLocalAccountSid: WELL_KNOWN_SID_TYPE = 105
+WELL_KNOWN_SID_TYPE_WinLocalAccountAndAdministratorSid: WELL_KNOWN_SID_TYPE = 106
+WELL_KNOWN_SID_TYPE_WinAccountProtectedUsersSid: WELL_KNOWN_SID_TYPE = 107
+WELL_KNOWN_SID_TYPE_WinCapabilityAppointmentsSid: WELL_KNOWN_SID_TYPE = 108
+WELL_KNOWN_SID_TYPE_WinCapabilityContactsSid: WELL_KNOWN_SID_TYPE = 109
+WELL_KNOWN_SID_TYPE_WinAccountDefaultSystemManagedSid: WELL_KNOWN_SID_TYPE = 110
+WELL_KNOWN_SID_TYPE_WinBuiltinDefaultSystemManagedGroupSid: WELL_KNOWN_SID_TYPE = 111
+WELL_KNOWN_SID_TYPE_WinBuiltinStorageReplicaAdminsSid: WELL_KNOWN_SID_TYPE = 112
+WELL_KNOWN_SID_TYPE_WinAccountKeyAdminsSid: WELL_KNOWN_SID_TYPE = 113
+WELL_KNOWN_SID_TYPE_WinAccountEnterpriseKeyAdminsSid: WELL_KNOWN_SID_TYPE = 114
+WELL_KNOWN_SID_TYPE_WinAuthenticationKeyTrustSid: WELL_KNOWN_SID_TYPE = 115
+WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyMFASid: WELL_KNOWN_SID_TYPE = 116
+WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyAttestationSid: WELL_KNOWN_SID_TYPE = 117
+WELL_KNOWN_SID_TYPE_WinAuthenticationFreshKeyAuthSid: WELL_KNOWN_SID_TYPE = 118
+WELL_KNOWN_SID_TYPE_WinBuiltinDeviceOwnersSid: WELL_KNOWN_SID_TYPE = 119
+make_head(_module, 'ACCESS_ALLOWED_ACE')
+make_head(_module, 'ACCESS_ALLOWED_CALLBACK_ACE')
+make_head(_module, 'ACCESS_ALLOWED_CALLBACK_OBJECT_ACE')
+make_head(_module, 'ACCESS_ALLOWED_OBJECT_ACE')
+make_head(_module, 'ACCESS_DENIED_ACE')
+make_head(_module, 'ACCESS_DENIED_CALLBACK_ACE')
+make_head(_module, 'ACCESS_DENIED_CALLBACK_OBJECT_ACE')
+make_head(_module, 'ACCESS_DENIED_OBJECT_ACE')
+make_head(_module, 'ACCESS_REASONS')
+make_head(_module, 'ACE_HEADER')
+make_head(_module, 'ACL')
+make_head(_module, 'ACL_REVISION_INFORMATION')
+make_head(_module, 'ACL_SIZE_INFORMATION')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_V1')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTES_INFORMATION')
+make_head(_module, 'GENERIC_MAPPING')
+make_head(_module, 'LLFILETIME')
+make_head(_module, 'LUID_AND_ATTRIBUTES')
+make_head(_module, 'OBJECT_TYPE_LIST')
+make_head(_module, 'PLSA_AP_CALL_PACKAGE_UNTRUSTED')
+make_head(_module, 'PRIVILEGE_SET')
+make_head(_module, 'QUOTA_LIMITS')
+make_head(_module, 'SE_ACCESS_REPLY')
+make_head(_module, 'SE_ACCESS_REQUEST')
+make_head(_module, 'SE_IMPERSONATION_STATE')
+make_head(_module, 'SE_SECURITY_DESCRIPTOR')
+make_head(_module, 'SE_SID')
+make_head(_module, 'SEC_THREAD_START')
+make_head(_module, 'SECURITY_ATTRIBUTES')
+make_head(_module, 'SECURITY_CAPABILITIES')
+make_head(_module, 'SECURITY_DESCRIPTOR')
+make_head(_module, 'SECURITY_DESCRIPTOR_RELATIVE')
+make_head(_module, 'SECURITY_QUALITY_OF_SERVICE')
+make_head(_module, 'SID')
+make_head(_module, 'SID_AND_ATTRIBUTES')
+make_head(_module, 'SID_AND_ATTRIBUTES_HASH')
+make_head(_module, 'SID_IDENTIFIER_AUTHORITY')
+make_head(_module, 'SYSTEM_ACCESS_FILTER_ACE')
+make_head(_module, 'SYSTEM_ALARM_ACE')
+make_head(_module, 'SYSTEM_ALARM_CALLBACK_ACE')
+make_head(_module, 'SYSTEM_ALARM_CALLBACK_OBJECT_ACE')
+make_head(_module, 'SYSTEM_ALARM_OBJECT_ACE')
+make_head(_module, 'SYSTEM_AUDIT_ACE')
+make_head(_module, 'SYSTEM_AUDIT_CALLBACK_ACE')
+make_head(_module, 'SYSTEM_AUDIT_CALLBACK_OBJECT_ACE')
+make_head(_module, 'SYSTEM_AUDIT_OBJECT_ACE')
+make_head(_module, 'SYSTEM_MANDATORY_LABEL_ACE')
+make_head(_module, 'SYSTEM_PROCESS_TRUST_LABEL_ACE')
+make_head(_module, 'SYSTEM_RESOURCE_ATTRIBUTE_ACE')
+make_head(_module, 'SYSTEM_SCOPED_POLICY_ID_ACE')
+make_head(_module, 'TOKEN_ACCESS_INFORMATION')
+make_head(_module, 'TOKEN_APPCONTAINER_INFORMATION')
+make_head(_module, 'TOKEN_AUDIT_POLICY')
+make_head(_module, 'TOKEN_CONTROL')
+make_head(_module, 'TOKEN_DEFAULT_DACL')
+make_head(_module, 'TOKEN_DEVICE_CLAIMS')
+make_head(_module, 'TOKEN_ELEVATION')
+make_head(_module, 'TOKEN_GROUPS')
+make_head(_module, 'TOKEN_GROUPS_AND_PRIVILEGES')
+make_head(_module, 'TOKEN_LINKED_TOKEN')
+make_head(_module, 'TOKEN_MANDATORY_LABEL')
+make_head(_module, 'TOKEN_MANDATORY_POLICY')
+make_head(_module, 'TOKEN_ORIGIN')
+make_head(_module, 'TOKEN_OWNER')
+make_head(_module, 'TOKEN_PRIMARY_GROUP')
+make_head(_module, 'TOKEN_PRIVILEGES')
+make_head(_module, 'TOKEN_SOURCE')
+make_head(_module, 'TOKEN_STATISTICS')
+make_head(_module, 'TOKEN_USER')
+make_head(_module, 'TOKEN_USER_CLAIMS')
 __all__ = [
     "ACCESS_ALLOWED_ACE",
     "ACCESS_ALLOWED_CALLBACK_ACE",

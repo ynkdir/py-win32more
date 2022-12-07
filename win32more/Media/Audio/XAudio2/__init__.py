@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Media.Audio
 import win32more.Media.Audio.XAudio2
@@ -8,869 +9,672 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-FXEQ_MIN_FRAMERATE = 22000
-FXEQ_MAX_FRAMERATE = 48000
-FXEQ_MIN_FREQUENCY_CENTER = 20
-FXEQ_MAX_FREQUENCY_CENTER = 20000
-FXEQ_DEFAULT_FREQUENCY_CENTER_0 = 100
-FXEQ_DEFAULT_FREQUENCY_CENTER_1 = 800
-FXEQ_DEFAULT_FREQUENCY_CENTER_2 = 2000
-FXEQ_DEFAULT_FREQUENCY_CENTER_3 = 10000
-FXEQ_MIN_GAIN = 0.126
-FXEQ_MAX_GAIN = 7.94
-FXEQ_DEFAULT_GAIN = 1
-FXEQ_MIN_BANDWIDTH = 0.1
-FXEQ_MAX_BANDWIDTH = 2
-FXEQ_DEFAULT_BANDWIDTH = 1
-FXMASTERINGLIMITER_MIN_RELEASE = 1
-FXMASTERINGLIMITER_MAX_RELEASE = 20
-FXMASTERINGLIMITER_DEFAULT_RELEASE = 6
-FXMASTERINGLIMITER_MIN_LOUDNESS = 1
-FXMASTERINGLIMITER_MAX_LOUDNESS = 1800
-FXMASTERINGLIMITER_DEFAULT_LOUDNESS = 1000
-FXREVERB_MIN_DIFFUSION = 0
-FXREVERB_MAX_DIFFUSION = 1
-FXREVERB_DEFAULT_DIFFUSION = 0.9
-FXREVERB_MIN_ROOMSIZE = 0.0001
-FXREVERB_MAX_ROOMSIZE = 1
-FXREVERB_DEFAULT_ROOMSIZE = 0.6
-FXLOUDNESS_DEFAULT_MOMENTARY_MS = 400
-FXLOUDNESS_DEFAULT_SHORTTERM_MS = 3000
-FXECHO_MIN_WETDRYMIX = 0
-FXECHO_MAX_WETDRYMIX = 1
-FXECHO_DEFAULT_WETDRYMIX = 0.5
-FXECHO_MIN_FEEDBACK = 0
-FXECHO_MAX_FEEDBACK = 1
-FXECHO_DEFAULT_FEEDBACK = 0.5
-FXECHO_MIN_DELAY = 1
-FXECHO_MAX_DELAY = 2000
-FXECHO_DEFAULT_DELAY = 500
-XAUDIO2_DLL_A = 'xaudio2_9.dll'
-XAUDIO2_DLL_W = 'xaudio2_9.dll'
-XAUDIO2D_DLL_A = 'xaudio2_9d.dll'
-XAUDIO2D_DLL_W = 'xaudio2_9d.dll'
-XAUDIO2_DLL = 'xaudio2_9.dll'
-XAUDIO2D_DLL = 'xaudio2_9d.dll'
-XAUDIO2_MAX_BUFFER_BYTES = 2147483648
-XAUDIO2_MAX_QUEUED_BUFFERS = 64
-XAUDIO2_MAX_BUFFERS_SYSTEM = 2
-XAUDIO2_MAX_AUDIO_CHANNELS = 64
-XAUDIO2_MIN_SAMPLE_RATE = 1000
-XAUDIO2_MAX_SAMPLE_RATE = 200000
-XAUDIO2_MAX_VOLUME_LEVEL = 16777216
-XAUDIO2_MAX_FREQ_RATIO = 1024
-XAUDIO2_DEFAULT_FREQ_RATIO = 2
-XAUDIO2_MAX_FILTER_ONEOVERQ = 1.5
-XAUDIO2_MAX_FILTER_FREQUENCY = 1
-XAUDIO2_MAX_LOOP_COUNT = 254
-XAUDIO2_MAX_INSTANCES = 8
-XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO = 600000
-XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL = 300000
-XAUDIO2_COMMIT_NOW = 0
-XAUDIO2_COMMIT_ALL = 0
-XAUDIO2_NO_LOOP_REGION = 0
-XAUDIO2_LOOP_INFINITE = 255
-XAUDIO2_DEFAULT_CHANNELS = 0
-XAUDIO2_DEFAULT_SAMPLERATE = 0
-XAUDIO2_DEBUG_ENGINE = 1
-XAUDIO2_VOICE_NOPITCH = 2
-XAUDIO2_VOICE_NOSRC = 4
-XAUDIO2_VOICE_USEFILTER = 8
-XAUDIO2_PLAY_TAILS = 32
-XAUDIO2_END_OF_STREAM = 64
-XAUDIO2_SEND_USEFILTER = 128
-XAUDIO2_VOICE_NOSAMPLESPLAYED = 256
-XAUDIO2_STOP_ENGINE_WHEN_IDLE = 8192
-XAUDIO2_1024_QUANTUM = 32768
-XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT = 65536
-XAUDIO2_DEFAULT_FILTER_FREQUENCY = 1
-XAUDIO2_DEFAULT_FILTER_ONEOVERQ = 1
-XAUDIO2_QUANTUM_NUMERATOR = 1
-XAUDIO2_QUANTUM_DENOMINATOR = 100
-FACILITY_XAUDIO2 = 2198
-XAUDIO2_E_INVALID_CALL = -2003435519
-XAUDIO2_E_XMA_DECODER_ERROR = -2003435518
-XAUDIO2_E_XAPO_CREATION_FAILED = -2003435517
-XAUDIO2_E_DEVICE_INVALIDATED = -2003435516
-Processor1 = 1
-Processor2 = 2
-Processor3 = 4
-Processor4 = 8
-Processor5 = 16
-Processor6 = 32
-Processor7 = 64
-Processor8 = 128
-Processor9 = 256
-Processor10 = 512
-Processor11 = 1024
-Processor12 = 2048
-Processor13 = 4096
-Processor14 = 8192
-Processor15 = 16384
-Processor16 = 32768
-Processor17 = 65536
-Processor18 = 131072
-Processor19 = 262144
-Processor20 = 524288
-Processor21 = 1048576
-Processor22 = 2097152
-Processor23 = 4194304
-Processor24 = 8388608
-Processor25 = 16777216
-Processor26 = 33554432
-Processor27 = 67108864
-Processor28 = 134217728
-Processor29 = 268435456
-Processor30 = 536870912
-Processor31 = 1073741824
-Processor32 = 2147483648
-XAUDIO2_ANY_PROCESSOR = 4294967295
-XAUDIO2_USE_DEFAULT_PROCESSOR = 0
-XAUDIO2_DEFAULT_PROCESSOR = 1
-XAUDIO2_LOG_ERRORS = 1
-XAUDIO2_LOG_WARNINGS = 2
-XAUDIO2_LOG_INFO = 4
-XAUDIO2_LOG_DETAIL = 8
-XAUDIO2_LOG_API_CALLS = 16
-XAUDIO2_LOG_FUNC_CALLS = 32
-XAUDIO2_LOG_TIMING = 64
-XAUDIO2_LOG_LOCKS = 128
-XAUDIO2_LOG_MEMORY = 256
-XAUDIO2_LOG_STREAMING = 4096
-XAUDIO2FX_REVERB_MIN_FRAMERATE = 20000
-XAUDIO2FX_REVERB_MAX_FRAMERATE = 48000
-XAUDIO2FX_REVERB_MIN_WET_DRY_MIX = 0
-XAUDIO2FX_REVERB_MIN_REFLECTIONS_DELAY = 0
-XAUDIO2FX_REVERB_MIN_REVERB_DELAY = 0
-XAUDIO2FX_REVERB_MIN_REAR_DELAY = 0
-XAUDIO2FX_REVERB_MIN_7POINT1_SIDE_DELAY = 0
-XAUDIO2FX_REVERB_MIN_7POINT1_REAR_DELAY = 0
-XAUDIO2FX_REVERB_MIN_POSITION = 0
-XAUDIO2FX_REVERB_MIN_DIFFUSION = 0
-XAUDIO2FX_REVERB_MIN_LOW_EQ_GAIN = 0
-XAUDIO2FX_REVERB_MIN_LOW_EQ_CUTOFF = 0
-XAUDIO2FX_REVERB_MIN_HIGH_EQ_GAIN = 0
-XAUDIO2FX_REVERB_MIN_HIGH_EQ_CUTOFF = 0
-XAUDIO2FX_REVERB_MIN_ROOM_FILTER_FREQ = 20
-XAUDIO2FX_REVERB_MIN_ROOM_FILTER_MAIN = -100
-XAUDIO2FX_REVERB_MIN_ROOM_FILTER_HF = -100
-XAUDIO2FX_REVERB_MIN_REFLECTIONS_GAIN = -100
-XAUDIO2FX_REVERB_MIN_REVERB_GAIN = -100
-XAUDIO2FX_REVERB_MIN_DECAY_TIME = 0.1
-XAUDIO2FX_REVERB_MIN_DENSITY = 0
-XAUDIO2FX_REVERB_MIN_ROOM_SIZE = 0
-XAUDIO2FX_REVERB_MAX_WET_DRY_MIX = 100
-XAUDIO2FX_REVERB_MAX_REFLECTIONS_DELAY = 300
-XAUDIO2FX_REVERB_MAX_REVERB_DELAY = 85
-XAUDIO2FX_REVERB_MAX_REAR_DELAY = 5
-XAUDIO2FX_REVERB_MAX_7POINT1_SIDE_DELAY = 5
-XAUDIO2FX_REVERB_MAX_7POINT1_REAR_DELAY = 20
-XAUDIO2FX_REVERB_MAX_POSITION = 30
-XAUDIO2FX_REVERB_MAX_DIFFUSION = 15
-XAUDIO2FX_REVERB_MAX_LOW_EQ_GAIN = 12
-XAUDIO2FX_REVERB_MAX_LOW_EQ_CUTOFF = 9
-XAUDIO2FX_REVERB_MAX_HIGH_EQ_GAIN = 8
-XAUDIO2FX_REVERB_MAX_HIGH_EQ_CUTOFF = 14
-XAUDIO2FX_REVERB_MAX_ROOM_FILTER_FREQ = 20000
-XAUDIO2FX_REVERB_MAX_ROOM_FILTER_MAIN = 0
-XAUDIO2FX_REVERB_MAX_ROOM_FILTER_HF = 0
-XAUDIO2FX_REVERB_MAX_REFLECTIONS_GAIN = 20
-XAUDIO2FX_REVERB_MAX_REVERB_GAIN = 20
-XAUDIO2FX_REVERB_MAX_DENSITY = 100
-XAUDIO2FX_REVERB_MAX_ROOM_SIZE = 100
-XAUDIO2FX_REVERB_DEFAULT_WET_DRY_MIX = 100
-XAUDIO2FX_REVERB_DEFAULT_REFLECTIONS_DELAY = 5
-XAUDIO2FX_REVERB_DEFAULT_REVERB_DELAY = 5
-XAUDIO2FX_REVERB_DEFAULT_REAR_DELAY = 5
-XAUDIO2FX_REVERB_DEFAULT_7POINT1_SIDE_DELAY = 5
-XAUDIO2FX_REVERB_DEFAULT_7POINT1_REAR_DELAY = 20
-XAUDIO2FX_REVERB_DEFAULT_POSITION = 6
-XAUDIO2FX_REVERB_DEFAULT_POSITION_MATRIX = 27
-XAUDIO2FX_REVERB_DEFAULT_EARLY_DIFFUSION = 8
-XAUDIO2FX_REVERB_DEFAULT_LATE_DIFFUSION = 8
-XAUDIO2FX_REVERB_DEFAULT_LOW_EQ_GAIN = 8
-XAUDIO2FX_REVERB_DEFAULT_LOW_EQ_CUTOFF = 4
-XAUDIO2FX_REVERB_DEFAULT_HIGH_EQ_GAIN = 8
-XAUDIO2FX_REVERB_DEFAULT_HIGH_EQ_CUTOFF = 4
-XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_FREQ = 5000
-XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_MAIN = 0
-XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_HF = 0
-XAUDIO2FX_REVERB_DEFAULT_REFLECTIONS_GAIN = 0
-XAUDIO2FX_REVERB_DEFAULT_REVERB_GAIN = 0
-XAUDIO2FX_REVERB_DEFAULT_DECAY_TIME = 1
-XAUDIO2FX_REVERB_DEFAULT_DENSITY = 100
-XAUDIO2FX_REVERB_DEFAULT_ROOM_SIZE = 100
-XAUDIO2FX_REVERB_DEFAULT_DISABLE_LATE_FIELD = 0
-HRTF_MAX_GAIN_LIMIT = 12
-HRTF_MIN_GAIN_LIMIT = -96
-HRTF_MIN_UNITY_GAIN_DISTANCE = 0.05
-HRTF_DEFAULT_UNITY_GAIN_DISTANCE = 1
-FACILITY_XAPO = 2199
-XAPO_E_FORMAT_UNSUPPORTED = -2003369983
-XAPO_MIN_CHANNELS = 1
-XAPO_MAX_CHANNELS = 64
-XAPO_MIN_FRAMERATE = 1000
-XAPO_MAX_FRAMERATE = 200000
-XAPO_REGISTRATION_STRING_LENGTH = 256
-XAPO_FLAG_CHANNELS_MUST_MATCH = 1
-XAPO_FLAG_FRAMERATE_MUST_MATCH = 2
-XAPO_FLAG_BITSPERSAMPLE_MUST_MATCH = 4
-XAPO_FLAG_BUFFERCOUNT_MUST_MATCH = 8
-XAPO_FLAG_INPLACE_REQUIRED = 32
-XAPO_FLAG_INPLACE_SUPPORTED = 16
-SPEAKER_MONO = 4
-X3DAUDIO_HANDLE_BYTESIZE = 20
-X3DAUDIO_PI = 3.1415927
-X3DAUDIO_2PI = 6.2831855
-X3DAUDIO_SPEED_OF_SOUND = 343.5
-X3DAUDIO_CALCULATE_MATRIX = 1
-X3DAUDIO_CALCULATE_DELAY = 2
-X3DAUDIO_CALCULATE_LPF_DIRECT = 4
-X3DAUDIO_CALCULATE_LPF_REVERB = 8
-X3DAUDIO_CALCULATE_REVERB = 16
-X3DAUDIO_CALCULATE_DOPPLER = 32
-X3DAUDIO_CALCULATE_EMITTER_ANGLE = 64
-X3DAUDIO_CALCULATE_ZEROCENTER = 65536
-X3DAUDIO_CALCULATE_REDIRECT_TO_LFE = 131072
-def _define_CreateFX():
-    try:
-        return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),c_void_p,UInt32)(('CreateFX', cdll['XAudio2_8.dll']), ((1, 'clsid'),(1, 'pEffect'),(1, 'pInitDat'),(1, 'InitDataByteSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_XAudio2CreateWithVersionInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.IXAudio2_head),UInt32,UInt32,UInt32)(('XAudio2CreateWithVersionInfo', windll['XAudio2_8.dll']), ((1, 'ppXAudio2'),(1, 'Flags'),(1, 'XAudio2Processor'),(1, 'ntddiVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAudioVolumeMeter():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(('CreateAudioVolumeMeter', windll['XAudio2_8.dll']), ((1, 'ppApo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAudioReverb():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(('CreateAudioReverb', windll['XAudio2_8.dll']), ((1, 'ppApo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateHrtfApo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.HrtfApoInit_head),POINTER(win32more.Media.Audio.XAudio2.IXAPO_head))(('CreateHrtfApo', windll['HrtfApo.dll']), ((1, 'init'),(1, 'xApo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+FXEQ_MIN_FRAMERATE: UInt32 = 22000
+FXEQ_MAX_FRAMERATE: UInt32 = 48000
+FXEQ_MIN_FREQUENCY_CENTER: Single = 20
+FXEQ_MAX_FREQUENCY_CENTER: Single = 20000
+FXEQ_DEFAULT_FREQUENCY_CENTER_0: Single = 100
+FXEQ_DEFAULT_FREQUENCY_CENTER_1: Single = 800
+FXEQ_DEFAULT_FREQUENCY_CENTER_2: Single = 2000
+FXEQ_DEFAULT_FREQUENCY_CENTER_3: Single = 10000
+FXEQ_MIN_GAIN: Single = 0.126
+FXEQ_MAX_GAIN: Single = 7.94
+FXEQ_DEFAULT_GAIN: Single = 1
+FXEQ_MIN_BANDWIDTH: Single = 0.1
+FXEQ_MAX_BANDWIDTH: Single = 2
+FXEQ_DEFAULT_BANDWIDTH: Single = 1
+FXMASTERINGLIMITER_MIN_RELEASE: UInt32 = 1
+FXMASTERINGLIMITER_MAX_RELEASE: UInt32 = 20
+FXMASTERINGLIMITER_DEFAULT_RELEASE: UInt32 = 6
+FXMASTERINGLIMITER_MIN_LOUDNESS: UInt32 = 1
+FXMASTERINGLIMITER_MAX_LOUDNESS: UInt32 = 1800
+FXMASTERINGLIMITER_DEFAULT_LOUDNESS: UInt32 = 1000
+FXREVERB_MIN_DIFFUSION: Single = 0
+FXREVERB_MAX_DIFFUSION: Single = 1
+FXREVERB_DEFAULT_DIFFUSION: Single = 0.9
+FXREVERB_MIN_ROOMSIZE: Single = 0.0001
+FXREVERB_MAX_ROOMSIZE: Single = 1
+FXREVERB_DEFAULT_ROOMSIZE: Single = 0.6
+FXLOUDNESS_DEFAULT_MOMENTARY_MS: UInt32 = 400
+FXLOUDNESS_DEFAULT_SHORTTERM_MS: UInt32 = 3000
+FXECHO_MIN_WETDRYMIX: Single = 0
+FXECHO_MAX_WETDRYMIX: Single = 1
+FXECHO_DEFAULT_WETDRYMIX: Single = 0.5
+FXECHO_MIN_FEEDBACK: Single = 0
+FXECHO_MAX_FEEDBACK: Single = 1
+FXECHO_DEFAULT_FEEDBACK: Single = 0.5
+FXECHO_MIN_DELAY: Single = 1
+FXECHO_MAX_DELAY: Single = 2000
+FXECHO_DEFAULT_DELAY: Single = 500
+XAUDIO2_DLL_A: String = 'xaudio2_9.dll'
+XAUDIO2_DLL_W: String = 'xaudio2_9.dll'
+XAUDIO2D_DLL_A: String = 'xaudio2_9d.dll'
+XAUDIO2D_DLL_W: String = 'xaudio2_9d.dll'
+XAUDIO2_DLL: String = 'xaudio2_9.dll'
+XAUDIO2D_DLL: String = 'xaudio2_9d.dll'
+XAUDIO2_MAX_BUFFER_BYTES: UInt32 = 2147483648
+XAUDIO2_MAX_QUEUED_BUFFERS: UInt32 = 64
+XAUDIO2_MAX_BUFFERS_SYSTEM: UInt32 = 2
+XAUDIO2_MAX_AUDIO_CHANNELS: UInt32 = 64
+XAUDIO2_MIN_SAMPLE_RATE: UInt32 = 1000
+XAUDIO2_MAX_SAMPLE_RATE: UInt32 = 200000
+XAUDIO2_MAX_VOLUME_LEVEL: Single = 16777216
+XAUDIO2_MAX_FREQ_RATIO: Single = 1024
+XAUDIO2_DEFAULT_FREQ_RATIO: Single = 2
+XAUDIO2_MAX_FILTER_ONEOVERQ: Single = 1.5
+XAUDIO2_MAX_FILTER_FREQUENCY: Single = 1
+XAUDIO2_MAX_LOOP_COUNT: UInt32 = 254
+XAUDIO2_MAX_INSTANCES: UInt32 = 8
+XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO: UInt32 = 600000
+XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL: UInt32 = 300000
+XAUDIO2_COMMIT_NOW: UInt32 = 0
+XAUDIO2_COMMIT_ALL: UInt32 = 0
+XAUDIO2_NO_LOOP_REGION: UInt32 = 0
+XAUDIO2_LOOP_INFINITE: UInt32 = 255
+XAUDIO2_DEFAULT_CHANNELS: UInt32 = 0
+XAUDIO2_DEFAULT_SAMPLERATE: UInt32 = 0
+XAUDIO2_DEBUG_ENGINE: UInt32 = 1
+XAUDIO2_VOICE_NOPITCH: UInt32 = 2
+XAUDIO2_VOICE_NOSRC: UInt32 = 4
+XAUDIO2_VOICE_USEFILTER: UInt32 = 8
+XAUDIO2_PLAY_TAILS: UInt32 = 32
+XAUDIO2_END_OF_STREAM: UInt32 = 64
+XAUDIO2_SEND_USEFILTER: UInt32 = 128
+XAUDIO2_VOICE_NOSAMPLESPLAYED: UInt32 = 256
+XAUDIO2_STOP_ENGINE_WHEN_IDLE: UInt32 = 8192
+XAUDIO2_1024_QUANTUM: UInt32 = 32768
+XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT: UInt32 = 65536
+XAUDIO2_DEFAULT_FILTER_FREQUENCY: Single = 1
+XAUDIO2_DEFAULT_FILTER_ONEOVERQ: Single = 1
+XAUDIO2_QUANTUM_NUMERATOR: UInt32 = 1
+XAUDIO2_QUANTUM_DENOMINATOR: UInt32 = 100
+FACILITY_XAUDIO2: UInt32 = 2198
+XAUDIO2_E_INVALID_CALL: win32more.Foundation.HRESULT = -2003435519
+XAUDIO2_E_XMA_DECODER_ERROR: win32more.Foundation.HRESULT = -2003435518
+XAUDIO2_E_XAPO_CREATION_FAILED: win32more.Foundation.HRESULT = -2003435517
+XAUDIO2_E_DEVICE_INVALIDATED: win32more.Foundation.HRESULT = -2003435516
+Processor1: UInt32 = 1
+Processor2: UInt32 = 2
+Processor3: UInt32 = 4
+Processor4: UInt32 = 8
+Processor5: UInt32 = 16
+Processor6: UInt32 = 32
+Processor7: UInt32 = 64
+Processor8: UInt32 = 128
+Processor9: UInt32 = 256
+Processor10: UInt32 = 512
+Processor11: UInt32 = 1024
+Processor12: UInt32 = 2048
+Processor13: UInt32 = 4096
+Processor14: UInt32 = 8192
+Processor15: UInt32 = 16384
+Processor16: UInt32 = 32768
+Processor17: UInt32 = 65536
+Processor18: UInt32 = 131072
+Processor19: UInt32 = 262144
+Processor20: UInt32 = 524288
+Processor21: UInt32 = 1048576
+Processor22: UInt32 = 2097152
+Processor23: UInt32 = 4194304
+Processor24: UInt32 = 8388608
+Processor25: UInt32 = 16777216
+Processor26: UInt32 = 33554432
+Processor27: UInt32 = 67108864
+Processor28: UInt32 = 134217728
+Processor29: UInt32 = 268435456
+Processor30: UInt32 = 536870912
+Processor31: UInt32 = 1073741824
+Processor32: UInt32 = 2147483648
+XAUDIO2_ANY_PROCESSOR: UInt32 = 4294967295
+XAUDIO2_USE_DEFAULT_PROCESSOR: UInt32 = 0
+XAUDIO2_DEFAULT_PROCESSOR: UInt32 = 1
+XAUDIO2_LOG_ERRORS: UInt32 = 1
+XAUDIO2_LOG_WARNINGS: UInt32 = 2
+XAUDIO2_LOG_INFO: UInt32 = 4
+XAUDIO2_LOG_DETAIL: UInt32 = 8
+XAUDIO2_LOG_API_CALLS: UInt32 = 16
+XAUDIO2_LOG_FUNC_CALLS: UInt32 = 32
+XAUDIO2_LOG_TIMING: UInt32 = 64
+XAUDIO2_LOG_LOCKS: UInt32 = 128
+XAUDIO2_LOG_MEMORY: UInt32 = 256
+XAUDIO2_LOG_STREAMING: UInt32 = 4096
+XAUDIO2FX_REVERB_MIN_FRAMERATE: UInt32 = 20000
+XAUDIO2FX_REVERB_MAX_FRAMERATE: UInt32 = 48000
+XAUDIO2FX_REVERB_MIN_WET_DRY_MIX: Single = 0
+XAUDIO2FX_REVERB_MIN_REFLECTIONS_DELAY: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_REVERB_DELAY: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_REAR_DELAY: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_7POINT1_SIDE_DELAY: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_7POINT1_REAR_DELAY: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_POSITION: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_DIFFUSION: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_LOW_EQ_GAIN: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_LOW_EQ_CUTOFF: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_HIGH_EQ_GAIN: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_HIGH_EQ_CUTOFF: UInt32 = 0
+XAUDIO2FX_REVERB_MIN_ROOM_FILTER_FREQ: Single = 20
+XAUDIO2FX_REVERB_MIN_ROOM_FILTER_MAIN: Single = -100
+XAUDIO2FX_REVERB_MIN_ROOM_FILTER_HF: Single = -100
+XAUDIO2FX_REVERB_MIN_REFLECTIONS_GAIN: Single = -100
+XAUDIO2FX_REVERB_MIN_REVERB_GAIN: Single = -100
+XAUDIO2FX_REVERB_MIN_DECAY_TIME: Single = 0.1
+XAUDIO2FX_REVERB_MIN_DENSITY: Single = 0
+XAUDIO2FX_REVERB_MIN_ROOM_SIZE: Single = 0
+XAUDIO2FX_REVERB_MAX_WET_DRY_MIX: Single = 100
+XAUDIO2FX_REVERB_MAX_REFLECTIONS_DELAY: UInt32 = 300
+XAUDIO2FX_REVERB_MAX_REVERB_DELAY: UInt32 = 85
+XAUDIO2FX_REVERB_MAX_REAR_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_MAX_7POINT1_SIDE_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_MAX_7POINT1_REAR_DELAY: UInt32 = 20
+XAUDIO2FX_REVERB_MAX_POSITION: UInt32 = 30
+XAUDIO2FX_REVERB_MAX_DIFFUSION: UInt32 = 15
+XAUDIO2FX_REVERB_MAX_LOW_EQ_GAIN: UInt32 = 12
+XAUDIO2FX_REVERB_MAX_LOW_EQ_CUTOFF: UInt32 = 9
+XAUDIO2FX_REVERB_MAX_HIGH_EQ_GAIN: UInt32 = 8
+XAUDIO2FX_REVERB_MAX_HIGH_EQ_CUTOFF: UInt32 = 14
+XAUDIO2FX_REVERB_MAX_ROOM_FILTER_FREQ: Single = 20000
+XAUDIO2FX_REVERB_MAX_ROOM_FILTER_MAIN: Single = 0
+XAUDIO2FX_REVERB_MAX_ROOM_FILTER_HF: Single = 0
+XAUDIO2FX_REVERB_MAX_REFLECTIONS_GAIN: Single = 20
+XAUDIO2FX_REVERB_MAX_REVERB_GAIN: Single = 20
+XAUDIO2FX_REVERB_MAX_DENSITY: Single = 100
+XAUDIO2FX_REVERB_MAX_ROOM_SIZE: Single = 100
+XAUDIO2FX_REVERB_DEFAULT_WET_DRY_MIX: Single = 100
+XAUDIO2FX_REVERB_DEFAULT_REFLECTIONS_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_DEFAULT_REVERB_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_DEFAULT_REAR_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_DEFAULT_7POINT1_SIDE_DELAY: UInt32 = 5
+XAUDIO2FX_REVERB_DEFAULT_7POINT1_REAR_DELAY: UInt32 = 20
+XAUDIO2FX_REVERB_DEFAULT_POSITION: UInt32 = 6
+XAUDIO2FX_REVERB_DEFAULT_POSITION_MATRIX: UInt32 = 27
+XAUDIO2FX_REVERB_DEFAULT_EARLY_DIFFUSION: UInt32 = 8
+XAUDIO2FX_REVERB_DEFAULT_LATE_DIFFUSION: UInt32 = 8
+XAUDIO2FX_REVERB_DEFAULT_LOW_EQ_GAIN: UInt32 = 8
+XAUDIO2FX_REVERB_DEFAULT_LOW_EQ_CUTOFF: UInt32 = 4
+XAUDIO2FX_REVERB_DEFAULT_HIGH_EQ_GAIN: UInt32 = 8
+XAUDIO2FX_REVERB_DEFAULT_HIGH_EQ_CUTOFF: UInt32 = 4
+XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_FREQ: Single = 5000
+XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_MAIN: Single = 0
+XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_HF: Single = 0
+XAUDIO2FX_REVERB_DEFAULT_REFLECTIONS_GAIN: Single = 0
+XAUDIO2FX_REVERB_DEFAULT_REVERB_GAIN: Single = 0
+XAUDIO2FX_REVERB_DEFAULT_DECAY_TIME: Single = 1
+XAUDIO2FX_REVERB_DEFAULT_DENSITY: Single = 100
+XAUDIO2FX_REVERB_DEFAULT_ROOM_SIZE: Single = 100
+XAUDIO2FX_REVERB_DEFAULT_DISABLE_LATE_FIELD: UInt32 = 0
+HRTF_MAX_GAIN_LIMIT: Single = 12
+HRTF_MIN_GAIN_LIMIT: Single = -96
+HRTF_MIN_UNITY_GAIN_DISTANCE: Single = 0.05
+HRTF_DEFAULT_UNITY_GAIN_DISTANCE: Single = 1
+FACILITY_XAPO: UInt32 = 2199
+XAPO_E_FORMAT_UNSUPPORTED: win32more.Foundation.HRESULT = -2003369983
+XAPO_MIN_CHANNELS: UInt32 = 1
+XAPO_MAX_CHANNELS: UInt32 = 64
+XAPO_MIN_FRAMERATE: UInt32 = 1000
+XAPO_MAX_FRAMERATE: UInt32 = 200000
+XAPO_REGISTRATION_STRING_LENGTH: UInt32 = 256
+XAPO_FLAG_CHANNELS_MUST_MATCH: UInt32 = 1
+XAPO_FLAG_FRAMERATE_MUST_MATCH: UInt32 = 2
+XAPO_FLAG_BITSPERSAMPLE_MUST_MATCH: UInt32 = 4
+XAPO_FLAG_BUFFERCOUNT_MUST_MATCH: UInt32 = 8
+XAPO_FLAG_INPLACE_REQUIRED: UInt32 = 32
+XAPO_FLAG_INPLACE_SUPPORTED: UInt32 = 16
+SPEAKER_MONO: UInt32 = 4
+X3DAUDIO_HANDLE_BYTESIZE: UInt32 = 20
+X3DAUDIO_PI: Single = 3.1415927
+X3DAUDIO_2PI: Single = 6.2831855
+X3DAUDIO_SPEED_OF_SOUND: Single = 343.5
+X3DAUDIO_CALCULATE_MATRIX: UInt32 = 1
+X3DAUDIO_CALCULATE_DELAY: UInt32 = 2
+X3DAUDIO_CALCULATE_LPF_DIRECT: UInt32 = 4
+X3DAUDIO_CALCULATE_LPF_REVERB: UInt32 = 8
+X3DAUDIO_CALCULATE_REVERB: UInt32 = 16
+X3DAUDIO_CALCULATE_DOPPLER: UInt32 = 32
+X3DAUDIO_CALCULATE_EMITTER_ANGLE: UInt32 = 64
+X3DAUDIO_CALCULATE_ZEROCENTER: UInt32 = 65536
+X3DAUDIO_CALCULATE_REDIRECT_TO_LFE: UInt32 = 131072
+@cfunctype('XAudio2_8.dll')
+def CreateFX(clsid: POINTER(Guid), pEffect: POINTER(win32more.System.Com.IUnknown_head), pInitDat: c_void_p, InitDataByteSize: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('XAudio2_8.dll')
+def XAudio2CreateWithVersionInfo(ppXAudio2: POINTER(win32more.Media.Audio.XAudio2.IXAudio2_head), Flags: UInt32, XAudio2Processor: UInt32, ntddiVersion: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('XAudio2_8.dll')
+def CreateAudioVolumeMeter(ppApo: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('XAudio2_8.dll')
+def CreateAudioReverb(ppApo: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('HrtfApo.dll')
+def CreateHrtfApo(init: POINTER(win32more.Media.Audio.XAudio2.HrtfApoInit_head), xApo: POINTER(win32more.Media.Audio.XAudio2.IXAPO_head)) -> win32more.Foundation.HRESULT: ...
 AudioReverb = Guid('c2633b16-471b-4498-b8-c5-4f-09-59-e2-ec-09')
 AudioVolumeMeter = Guid('4fc3b166-972a-40cf-bc-37-7d-b0-3d-b2-fb-a3')
 FXEcho = Guid('5039d740-f736-449a-84-d3-a5-62-02-55-7b-87')
-def _define_FXECHO_INITDATA_head():
-    class FXECHO_INITDATA(Structure):
-        pass
-    return FXECHO_INITDATA
-def _define_FXECHO_INITDATA():
-    FXECHO_INITDATA = win32more.Media.Audio.XAudio2.FXECHO_INITDATA_head
-    FXECHO_INITDATA._pack_ = 1
-    FXECHO_INITDATA._fields_ = [
-        ('MaxDelay', Single),
-    ]
-    return FXECHO_INITDATA
-def _define_FXECHO_PARAMETERS_head():
-    class FXECHO_PARAMETERS(Structure):
-        pass
-    return FXECHO_PARAMETERS
-def _define_FXECHO_PARAMETERS():
-    FXECHO_PARAMETERS = win32more.Media.Audio.XAudio2.FXECHO_PARAMETERS_head
-    FXECHO_PARAMETERS._pack_ = 1
-    FXECHO_PARAMETERS._fields_ = [
-        ('WetDryMix', Single),
-        ('Feedback', Single),
-        ('Delay', Single),
-    ]
-    return FXECHO_PARAMETERS
+class FXECHO_INITDATA(Structure):
+    MaxDelay: Single
+    _pack_ = 1
+class FXECHO_PARAMETERS(Structure):
+    WetDryMix: Single
+    Feedback: Single
+    Delay: Single
+    _pack_ = 1
 FXEQ = Guid('f5e01117-d6c4-485a-a3-f5-69-51-96-f3-db-fa')
-def _define_FXEQ_PARAMETERS_head():
-    class FXEQ_PARAMETERS(Structure):
-        pass
-    return FXEQ_PARAMETERS
-def _define_FXEQ_PARAMETERS():
-    FXEQ_PARAMETERS = win32more.Media.Audio.XAudio2.FXEQ_PARAMETERS_head
-    FXEQ_PARAMETERS._pack_ = 1
-    FXEQ_PARAMETERS._fields_ = [
-        ('FrequencyCenter0', Single),
-        ('Gain0', Single),
-        ('Bandwidth0', Single),
-        ('FrequencyCenter1', Single),
-        ('Gain1', Single),
-        ('Bandwidth1', Single),
-        ('FrequencyCenter2', Single),
-        ('Gain2', Single),
-        ('Bandwidth2', Single),
-        ('FrequencyCenter3', Single),
-        ('Gain3', Single),
-        ('Bandwidth3', Single),
-    ]
-    return FXEQ_PARAMETERS
+class FXEQ_PARAMETERS(Structure):
+    FrequencyCenter0: Single
+    Gain0: Single
+    Bandwidth0: Single
+    FrequencyCenter1: Single
+    Gain1: Single
+    Bandwidth1: Single
+    FrequencyCenter2: Single
+    Gain2: Single
+    Bandwidth2: Single
+    FrequencyCenter3: Single
+    Gain3: Single
+    Bandwidth3: Single
+    _pack_ = 1
 FXMasteringLimiter = Guid('c4137916-2be1-46fd-85-99-44-15-36-f4-98-56')
-def _define_FXMASTERINGLIMITER_PARAMETERS_head():
-    class FXMASTERINGLIMITER_PARAMETERS(Structure):
-        pass
-    return FXMASTERINGLIMITER_PARAMETERS
-def _define_FXMASTERINGLIMITER_PARAMETERS():
-    FXMASTERINGLIMITER_PARAMETERS = win32more.Media.Audio.XAudio2.FXMASTERINGLIMITER_PARAMETERS_head
-    FXMASTERINGLIMITER_PARAMETERS._pack_ = 1
-    FXMASTERINGLIMITER_PARAMETERS._fields_ = [
-        ('Release', UInt32),
-        ('Loudness', UInt32),
-    ]
-    return FXMASTERINGLIMITER_PARAMETERS
+class FXMASTERINGLIMITER_PARAMETERS(Structure):
+    Release: UInt32
+    Loudness: UInt32
+    _pack_ = 1
 FXReverb = Guid('7d9aca56-cb68-4807-b6-32-b1-37-35-2e-85-96')
-def _define_FXREVERB_PARAMETERS_head():
-    class FXREVERB_PARAMETERS(Structure):
-        pass
-    return FXREVERB_PARAMETERS
-def _define_FXREVERB_PARAMETERS():
-    FXREVERB_PARAMETERS = win32more.Media.Audio.XAudio2.FXREVERB_PARAMETERS_head
-    FXREVERB_PARAMETERS._pack_ = 1
-    FXREVERB_PARAMETERS._fields_ = [
-        ('Diffusion', Single),
-        ('RoomSize', Single),
-    ]
-    return FXREVERB_PARAMETERS
-def _define_HrtfApoInit_head():
-    class HrtfApoInit(Structure):
-        pass
-    return HrtfApoInit
-def _define_HrtfApoInit():
-    HrtfApoInit = win32more.Media.Audio.XAudio2.HrtfApoInit_head
-    HrtfApoInit._fields_ = [
-        ('distanceDecay', POINTER(win32more.Media.Audio.XAudio2.HrtfDistanceDecay_head)),
-        ('directivity', POINTER(win32more.Media.Audio.XAudio2.HrtfDirectivity_head)),
-    ]
-    return HrtfApoInit
-def _define_HrtfDirectivity_head():
-    class HrtfDirectivity(Structure):
-        pass
-    return HrtfDirectivity
-def _define_HrtfDirectivity():
-    HrtfDirectivity = win32more.Media.Audio.XAudio2.HrtfDirectivity_head
-    HrtfDirectivity._fields_ = [
-        ('type', win32more.Media.Audio.XAudio2.HrtfDirectivityType),
-        ('scaling', Single),
-    ]
-    return HrtfDirectivity
-def _define_HrtfDirectivityCardioid_head():
-    class HrtfDirectivityCardioid(Structure):
-        pass
-    return HrtfDirectivityCardioid
-def _define_HrtfDirectivityCardioid():
-    HrtfDirectivityCardioid = win32more.Media.Audio.XAudio2.HrtfDirectivityCardioid_head
-    HrtfDirectivityCardioid._fields_ = [
-        ('directivity', win32more.Media.Audio.XAudio2.HrtfDirectivity),
-        ('order', Single),
-    ]
-    return HrtfDirectivityCardioid
-def _define_HrtfDirectivityCone_head():
-    class HrtfDirectivityCone(Structure):
-        pass
-    return HrtfDirectivityCone
-def _define_HrtfDirectivityCone():
-    HrtfDirectivityCone = win32more.Media.Audio.XAudio2.HrtfDirectivityCone_head
-    HrtfDirectivityCone._fields_ = [
-        ('directivity', win32more.Media.Audio.XAudio2.HrtfDirectivity),
-        ('innerAngle', Single),
-        ('outerAngle', Single),
-    ]
-    return HrtfDirectivityCone
+class FXREVERB_PARAMETERS(Structure):
+    Diffusion: Single
+    RoomSize: Single
+    _pack_ = 1
+class HrtfApoInit(Structure):
+    distanceDecay: POINTER(win32more.Media.Audio.XAudio2.HrtfDistanceDecay_head)
+    directivity: POINTER(win32more.Media.Audio.XAudio2.HrtfDirectivity_head)
+class HrtfDirectivity(Structure):
+    type: win32more.Media.Audio.XAudio2.HrtfDirectivityType
+    scaling: Single
+class HrtfDirectivityCardioid(Structure):
+    directivity: win32more.Media.Audio.XAudio2.HrtfDirectivity
+    order: Single
+class HrtfDirectivityCone(Structure):
+    directivity: win32more.Media.Audio.XAudio2.HrtfDirectivity
+    innerAngle: Single
+    outerAngle: Single
 HrtfDirectivityType = Int32
-HrtfDirectivityType_OmniDirectional = 0
-HrtfDirectivityType_Cardioid = 1
-HrtfDirectivityType_Cone = 2
-def _define_HrtfDistanceDecay_head():
-    class HrtfDistanceDecay(Structure):
-        pass
-    return HrtfDistanceDecay
-def _define_HrtfDistanceDecay():
-    HrtfDistanceDecay = win32more.Media.Audio.XAudio2.HrtfDistanceDecay_head
-    HrtfDistanceDecay._fields_ = [
-        ('type', win32more.Media.Audio.XAudio2.HrtfDistanceDecayType),
-        ('maxGain', Single),
-        ('minGain', Single),
-        ('unityGainDistance', Single),
-        ('cutoffDistance', Single),
-    ]
-    return HrtfDistanceDecay
+HrtfDirectivityType_OmniDirectional: HrtfDirectivityType = 0
+HrtfDirectivityType_Cardioid: HrtfDirectivityType = 1
+HrtfDirectivityType_Cone: HrtfDirectivityType = 2
+class HrtfDistanceDecay(Structure):
+    type: win32more.Media.Audio.XAudio2.HrtfDistanceDecayType
+    maxGain: Single
+    minGain: Single
+    unityGainDistance: Single
+    cutoffDistance: Single
 HrtfDistanceDecayType = Int32
-HrtfDistanceDecayType_NaturalDecay = 0
-HrtfDistanceDecayType_CustomDecay = 1
+HrtfDistanceDecayType_NaturalDecay: HrtfDistanceDecayType = 0
+HrtfDistanceDecayType_CustomDecay: HrtfDistanceDecayType = 1
 HrtfEnvironment = Int32
-HrtfEnvironment_Small = 0
-HrtfEnvironment_Medium = 1
-HrtfEnvironment_Large = 2
-HrtfEnvironment_Outdoors = 3
-def _define_HrtfOrientation_head():
-    class HrtfOrientation(Structure):
-        pass
-    return HrtfOrientation
-def _define_HrtfOrientation():
-    HrtfOrientation = win32more.Media.Audio.XAudio2.HrtfOrientation_head
-    HrtfOrientation._fields_ = [
-        ('element', Single * 9),
-    ]
-    return HrtfOrientation
-def _define_HrtfPosition_head():
-    class HrtfPosition(Structure):
-        pass
-    return HrtfPosition
-def _define_HrtfPosition():
-    HrtfPosition = win32more.Media.Audio.XAudio2.HrtfPosition_head
-    HrtfPosition._fields_ = [
-        ('x', Single),
-        ('y', Single),
-        ('z', Single),
-    ]
-    return HrtfPosition
-def _define_IXAPO_head():
-    class IXAPO(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a410b984-9839-4819-a0-be-28-56-ae-6b-3a-db')
-    return IXAPO
-def _define_IXAPO():
-    IXAPO = win32more.Media.Audio.XAudio2.IXAPO_head
-    IXAPO.GetRegistrationProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES_head)))(3, 'GetRegistrationProperties', ((1, 'ppRegistrationProperties'),)))
-    IXAPO.IsInputFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(4, 'IsInputFormatSupported', ((1, 'pOutputFormat'),(1, 'pRequestedInputFormat'),(1, 'ppSupportedInputFormat'),)))
-    IXAPO.IsOutputFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)))(5, 'IsOutputFormatSupported', ((1, 'pInputFormat'),(1, 'pRequestedOutputFormat'),(1, 'ppSupportedOutputFormat'),)))
-    IXAPO.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32)(6, 'Initialize', ((1, 'pData'),(1, 'DataByteSize'),)))
-    IXAPO.Reset = COMMETHOD(WINFUNCTYPE(Void,)(7, 'Reset', ()))
-    IXAPO.LockForProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head),UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head))(8, 'LockForProcess', ((1, 'InputLockedParameterCount'),(1, 'pInputLockedParameters'),(1, 'OutputLockedParameterCount'),(1, 'pOutputLockedParameters'),)))
-    IXAPO.UnlockForProcess = COMMETHOD(WINFUNCTYPE(Void,)(9, 'UnlockForProcess', ()))
-    IXAPO.Process = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head),UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head),win32more.Foundation.BOOL)(10, 'Process', ((1, 'InputProcessParameterCount'),(1, 'pInputProcessParameters'),(1, 'OutputProcessParameterCount'),(1, 'pOutputProcessParameters'),(1, 'IsEnabled'),)))
-    IXAPO.CalcInputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32)(11, 'CalcInputFrames', ((1, 'OutputFrameCount'),)))
-    IXAPO.CalcOutputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32)(12, 'CalcOutputFrames', ((1, 'InputFrameCount'),)))
-    win32more.System.Com.IUnknown
-    return IXAPO
-def _define_IXAPOHrtfParameters_head():
-    class IXAPOHrtfParameters(win32more.System.Com.IUnknown_head):
-        Guid = Guid('15b3cd66-e9de-4464-b6-e6-2b-c3-cf-63-d4-55')
-    return IXAPOHrtfParameters
-def _define_IXAPOHrtfParameters():
-    IXAPOHrtfParameters = win32more.Media.Audio.XAudio2.IXAPOHrtfParameters_head
-    IXAPOHrtfParameters.SetSourcePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.HrtfPosition_head))(3, 'SetSourcePosition', ((1, 'position'),)))
-    IXAPOHrtfParameters.SetSourceOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.HrtfOrientation_head))(4, 'SetSourceOrientation', ((1, 'orientation'),)))
-    IXAPOHrtfParameters.SetSourceGain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single)(5, 'SetSourceGain', ((1, 'gain'),)))
-    IXAPOHrtfParameters.SetEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.XAudio2.HrtfEnvironment)(6, 'SetEnvironment', ((1, 'environment'),)))
-    win32more.System.Com.IUnknown
-    return IXAPOHrtfParameters
-def _define_IXAPOParameters_head():
-    class IXAPOParameters(win32more.System.Com.IUnknown_head):
-        Guid = Guid('26d95c66-80f2-499a-ad-54-5a-e7-f0-1c-6d-98')
-    return IXAPOParameters
-def _define_IXAPOParameters():
-    IXAPOParameters = win32more.Media.Audio.XAudio2.IXAPOParameters_head
-    IXAPOParameters.SetParameters = COMMETHOD(WINFUNCTYPE(Void,c_void_p,UInt32)(3, 'SetParameters', ((1, 'pParameters'),(1, 'ParameterByteSize'),)))
-    IXAPOParameters.GetParameters = COMMETHOD(WINFUNCTYPE(Void,c_void_p,UInt32)(4, 'GetParameters', ((1, 'pParameters'),(1, 'ParameterByteSize'),)))
-    win32more.System.Com.IUnknown
-    return IXAPOParameters
-def _define_IXAudio2_head():
-    class IXAudio2(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2b02e3cf-2e0b-4ec3-be-45-1b-2a-3f-e7-21-0d')
-    return IXAudio2
-def _define_IXAudio2():
-    IXAudio2 = win32more.Media.Audio.XAudio2.IXAudio2_head
-    IXAudio2.RegisterForCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.XAudio2.IXAudio2EngineCallback_head)(3, 'RegisterForCallbacks', ((1, 'pCallback'),)))
-    IXAudio2.UnregisterForCallbacks = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.Audio.XAudio2.IXAudio2EngineCallback_head)(4, 'UnregisterForCallbacks', ((1, 'pCallback'),)))
-    IXAudio2.CreateSourceVoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.IXAudio2SourceVoice_head),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),UInt32,Single,win32more.Media.Audio.XAudio2.IXAudio2VoiceCallback_head,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head),POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head))(5, 'CreateSourceVoice', ((1, 'ppSourceVoice'),(1, 'pSourceFormat'),(1, 'Flags'),(1, 'MaxFrequencyRatio'),(1, 'pCallback'),(1, 'pSendList'),(1, 'pEffectChain'),)))
-    IXAudio2.CreateSubmixVoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.IXAudio2SubmixVoice_head),UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head),POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head))(6, 'CreateSubmixVoice', ((1, 'ppSubmixVoice'),(1, 'InputChannels'),(1, 'InputSampleRate'),(1, 'Flags'),(1, 'ProcessingStage'),(1, 'pSendList'),(1, 'pEffectChain'),)))
-    IXAudio2.CreateMasteringVoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.IXAudio2MasteringVoice_head),UInt32,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head),win32more.Media.Audio.AUDIO_STREAM_CATEGORY)(7, 'CreateMasteringVoice', ((1, 'ppMasteringVoice'),(1, 'InputChannels'),(1, 'InputSampleRate'),(1, 'Flags'),(1, 'szDeviceId'),(1, 'pEffectChain'),(1, 'StreamCategory'),)))
-    IXAudio2.StartEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'StartEngine', ()))
-    IXAudio2.StopEngine = COMMETHOD(WINFUNCTYPE(Void,)(9, 'StopEngine', ()))
-    IXAudio2.CommitChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(10, 'CommitChanges', ((1, 'OperationSet'),)))
-    IXAudio2.GetPerformanceData = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head))(11, 'GetPerformanceData', ((1, 'pPerfData'),)))
-    IXAudio2.SetDebugConfiguration = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head),c_void_p)(12, 'SetDebugConfiguration', ((1, 'pDebugConfiguration'),(1, 'pReserved'),)))
-    win32more.System.Com.IUnknown
-    return IXAudio2
-def _define_IXAudio2EngineCallback_head():
-    class IXAudio2EngineCallback(c_void_p):
-        pass
-    return IXAudio2EngineCallback
-def _define_IXAudio2EngineCallback():
-    IXAudio2EngineCallback = win32more.Media.Audio.XAudio2.IXAudio2EngineCallback_head
-    IXAudio2EngineCallback.OnProcessingPassStart = COMMETHOD(WINFUNCTYPE(Void,)(0, 'OnProcessingPassStart', ()))
-    IXAudio2EngineCallback.OnProcessingPassEnd = COMMETHOD(WINFUNCTYPE(Void,)(1, 'OnProcessingPassEnd', ()))
-    IXAudio2EngineCallback.OnCriticalError = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.HRESULT)(2, 'OnCriticalError', ((1, 'Error'),)))
-    return IXAudio2EngineCallback
-def _define_IXAudio2Extension_head():
-    class IXAudio2Extension(win32more.System.Com.IUnknown_head):
-        Guid = Guid('84ac29bb-d619-44d2-b1-97-e4-ac-f7-df-3e-d6')
-    return IXAudio2Extension
-def _define_IXAudio2Extension():
-    IXAudio2Extension = win32more.Media.Audio.XAudio2.IXAudio2Extension_head
-    IXAudio2Extension.GetProcessingQuantum = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt32))(3, 'GetProcessingQuantum', ((1, 'quantumNumerator'),(1, 'quantumDenominator'),)))
-    IXAudio2Extension.GetProcessor = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32))(4, 'GetProcessor', ((1, 'processor'),)))
-    win32more.System.Com.IUnknown
-    return IXAudio2Extension
-def _define_IXAudio2MasteringVoice_head():
-    class IXAudio2MasteringVoice(win32more.Media.Audio.XAudio2.IXAudio2Voice_head):
-        pass
-    return IXAudio2MasteringVoice
-def _define_IXAudio2MasteringVoice():
-    IXAudio2MasteringVoice = win32more.Media.Audio.XAudio2.IXAudio2MasteringVoice_head
-    IXAudio2MasteringVoice.GetChannelMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'GetChannelMask', ((1, 'pChannelmask'),)))
-    win32more.Media.Audio.XAudio2.IXAudio2Voice
-    return IXAudio2MasteringVoice
-def _define_IXAudio2SourceVoice_head():
-    class IXAudio2SourceVoice(win32more.Media.Audio.XAudio2.IXAudio2Voice_head):
-        pass
-    return IXAudio2SourceVoice
-def _define_IXAudio2SourceVoice():
-    IXAudio2SourceVoice = win32more.Media.Audio.XAudio2.IXAudio2SourceVoice_head
-    IXAudio2SourceVoice.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(19, 'Start', ((1, 'Flags'),(1, 'OperationSet'),)))
-    IXAudio2SourceVoice.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(20, 'Stop', ((1, 'Flags'),(1, 'OperationSet'),)))
-    IXAudio2SourceVoice.SubmitSourceBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_head),POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_WMA_head))(21, 'SubmitSourceBuffer', ((1, 'pBuffer'),(1, 'pBufferWMA'),)))
-    IXAudio2SourceVoice.FlushSourceBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(22, 'FlushSourceBuffers', ()))
-    IXAudio2SourceVoice.Discontinuity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(23, 'Discontinuity', ()))
-    IXAudio2SourceVoice.ExitLoop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(24, 'ExitLoop', ((1, 'OperationSet'),)))
-    IXAudio2SourceVoice.GetState = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_STATE_head),UInt32)(25, 'GetState', ((1, 'pVoiceState'),(1, 'Flags'),)))
-    IXAudio2SourceVoice.SetFrequencyRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32)(26, 'SetFrequencyRatio', ((1, 'Ratio'),(1, 'OperationSet'),)))
-    IXAudio2SourceVoice.GetFrequencyRatio = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single))(27, 'GetFrequencyRatio', ((1, 'pRatio'),)))
-    IXAudio2SourceVoice.SetSourceSampleRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(28, 'SetSourceSampleRate', ((1, 'NewSourceSampleRate'),)))
-    win32more.Media.Audio.XAudio2.IXAudio2Voice
-    return IXAudio2SourceVoice
-def _define_IXAudio2SubmixVoice_head():
-    class IXAudio2SubmixVoice(win32more.Media.Audio.XAudio2.IXAudio2Voice_head):
-        pass
-    return IXAudio2SubmixVoice
-def _define_IXAudio2SubmixVoice():
-    IXAudio2SubmixVoice = win32more.Media.Audio.XAudio2.IXAudio2SubmixVoice_head
-    win32more.Media.Audio.XAudio2.IXAudio2Voice
-    return IXAudio2SubmixVoice
-def _define_IXAudio2Voice_head():
-    class IXAudio2Voice(c_void_p):
-        pass
-    return IXAudio2Voice
-def _define_IXAudio2Voice():
-    IXAudio2Voice = win32more.Media.Audio.XAudio2.IXAudio2Voice_head
-    IXAudio2Voice.GetVoiceDetails = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS_head))(0, 'GetVoiceDetails', ((1, 'pVoiceDetails'),)))
-    IXAudio2Voice.SetOutputVoices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head))(1, 'SetOutputVoices', ((1, 'pSendList'),)))
-    IXAudio2Voice.SetEffectChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head))(2, 'SetEffectChain', ((1, 'pEffectChain'),)))
-    IXAudio2Voice.EnableEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(3, 'EnableEffect', ((1, 'EffectIndex'),(1, 'OperationSet'),)))
-    IXAudio2Voice.DisableEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(4, 'DisableEffect', ((1, 'EffectIndex'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetEffectState = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Foundation.BOOL))(5, 'GetEffectState', ((1, 'EffectIndex'),(1, 'pEnabled'),)))
-    IXAudio2Voice.SetEffectParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32)(6, 'SetEffectParameters', ((1, 'EffectIndex'),(1, 'pParameters'),(1, 'ParametersByteSize'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetEffectParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32)(7, 'GetEffectParameters', ((1, 'EffectIndex'),(1, 'pParameters'),(1, 'ParametersByteSize'),)))
-    IXAudio2Voice.SetFilterParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head),UInt32)(8, 'SetFilterParameters', ((1, 'pParameters'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetFilterParameters = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head))(9, 'GetFilterParameters', ((1, 'pParameters'),)))
-    IXAudio2Voice.SetOutputFilterParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.XAudio2.IXAudio2Voice_head,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head),UInt32)(10, 'SetOutputFilterParameters', ((1, 'pDestinationVoice'),(1, 'pParameters'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetOutputFilterParameters = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.Audio.XAudio2.IXAudio2Voice_head,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head))(11, 'GetOutputFilterParameters', ((1, 'pDestinationVoice'),(1, 'pParameters'),)))
-    IXAudio2Voice.SetVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32)(12, 'SetVolume', ((1, 'Volume'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetVolume = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single))(13, 'GetVolume', ((1, 'pVolume'),)))
-    IXAudio2Voice.SetChannelVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),UInt32)(14, 'SetChannelVolumes', ((1, 'Channels'),(1, 'pVolumes'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetChannelVolumes = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(Single))(15, 'GetChannelVolumes', ((1, 'Channels'),(1, 'pVolumes'),)))
-    IXAudio2Voice.SetOutputMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.XAudio2.IXAudio2Voice_head,UInt32,UInt32,POINTER(Single),UInt32)(16, 'SetOutputMatrix', ((1, 'pDestinationVoice'),(1, 'SourceChannels'),(1, 'DestinationChannels'),(1, 'pLevelMatrix'),(1, 'OperationSet'),)))
-    IXAudio2Voice.GetOutputMatrix = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.Audio.XAudio2.IXAudio2Voice_head,UInt32,UInt32,POINTER(Single))(17, 'GetOutputMatrix', ((1, 'pDestinationVoice'),(1, 'SourceChannels'),(1, 'DestinationChannels'),(1, 'pLevelMatrix'),)))
-    IXAudio2Voice.DestroyVoice = COMMETHOD(WINFUNCTYPE(Void,)(18, 'DestroyVoice', ()))
-    return IXAudio2Voice
-def _define_IXAudio2VoiceCallback_head():
-    class IXAudio2VoiceCallback(c_void_p):
-        pass
-    return IXAudio2VoiceCallback
-def _define_IXAudio2VoiceCallback():
-    IXAudio2VoiceCallback = win32more.Media.Audio.XAudio2.IXAudio2VoiceCallback_head
-    IXAudio2VoiceCallback.OnVoiceProcessingPassStart = COMMETHOD(WINFUNCTYPE(Void,UInt32)(0, 'OnVoiceProcessingPassStart', ((1, 'BytesRequired'),)))
-    IXAudio2VoiceCallback.OnVoiceProcessingPassEnd = COMMETHOD(WINFUNCTYPE(Void,)(1, 'OnVoiceProcessingPassEnd', ()))
-    IXAudio2VoiceCallback.OnStreamEnd = COMMETHOD(WINFUNCTYPE(Void,)(2, 'OnStreamEnd', ()))
-    IXAudio2VoiceCallback.OnBufferStart = COMMETHOD(WINFUNCTYPE(Void,c_void_p)(3, 'OnBufferStart', ((1, 'pBufferContext'),)))
-    IXAudio2VoiceCallback.OnBufferEnd = COMMETHOD(WINFUNCTYPE(Void,c_void_p)(4, 'OnBufferEnd', ((1, 'pBufferContext'),)))
-    IXAudio2VoiceCallback.OnLoopEnd = COMMETHOD(WINFUNCTYPE(Void,c_void_p)(5, 'OnLoopEnd', ((1, 'pBufferContext'),)))
-    IXAudio2VoiceCallback.OnVoiceError = COMMETHOD(WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT)(6, 'OnVoiceError', ((1, 'pBufferContext'),(1, 'Error'),)))
-    return IXAudio2VoiceCallback
+HrtfEnvironment_Small: HrtfEnvironment = 0
+HrtfEnvironment_Medium: HrtfEnvironment = 1
+HrtfEnvironment_Large: HrtfEnvironment = 2
+HrtfEnvironment_Outdoors: HrtfEnvironment = 3
+class HrtfOrientation(Structure):
+    element: Single * 9
+class HrtfPosition(Structure):
+    x: Single
+    y: Single
+    z: Single
+class IXAPO(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a410b984-9839-4819-a0-be-28-56-ae-6b-3a-db')
+    @commethod(3)
+    def GetRegistrationProperties(ppRegistrationProperties: POINTER(POINTER(win32more.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsInputFormatSupported(pOutputFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pRequestedInputFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), ppSupportedInputFormat: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IsOutputFormatSupported(pInputFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), pRequestedOutputFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), ppSupportedOutputFormat: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Initialize(pData: c_void_p, DataByteSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Reset() -> Void: ...
+    @commethod(8)
+    def LockForProcess(InputLockedParameterCount: UInt32, pInputLockedParameters: POINTER(win32more.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head), OutputLockedParameterCount: UInt32, pOutputLockedParameters: POINTER(win32more.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def UnlockForProcess() -> Void: ...
+    @commethod(10)
+    def Process(InputProcessParameterCount: UInt32, pInputProcessParameters: POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head), OutputProcessParameterCount: UInt32, pOutputProcessParameters: POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head), IsEnabled: win32more.Foundation.BOOL) -> Void: ...
+    @commethod(11)
+    def CalcInputFrames(OutputFrameCount: UInt32) -> UInt32: ...
+    @commethod(12)
+    def CalcOutputFrames(InputFrameCount: UInt32) -> UInt32: ...
+class IXAPOHrtfParameters(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('15b3cd66-e9de-4464-b6-e6-2b-c3-cf-63-d4-55')
+    @commethod(3)
+    def SetSourcePosition(position: POINTER(win32more.Media.Audio.XAudio2.HrtfPosition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSourceOrientation(orientation: POINTER(win32more.Media.Audio.XAudio2.HrtfOrientation_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetSourceGain(gain: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetEnvironment(environment: win32more.Media.Audio.XAudio2.HrtfEnvironment) -> win32more.Foundation.HRESULT: ...
+class IXAPOParameters(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('26d95c66-80f2-499a-ad-54-5a-e7-f0-1c-6d-98')
+    @commethod(3)
+    def SetParameters(pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
+    @commethod(4)
+    def GetParameters(pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
+class IXAudio2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2b02e3cf-2e0b-4ec3-be-45-1b-2a-3f-e7-21-0d')
+    @commethod(3)
+    def RegisterForCallbacks(pCallback: win32more.Media.Audio.XAudio2.IXAudio2EngineCallback_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterForCallbacks(pCallback: win32more.Media.Audio.XAudio2.IXAudio2EngineCallback_head) -> Void: ...
+    @commethod(5)
+    def CreateSourceVoice(ppSourceVoice: POINTER(win32more.Media.Audio.XAudio2.IXAudio2SourceVoice_head), pSourceFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), Flags: UInt32, MaxFrequencyRatio: Single, pCallback: win32more.Media.Audio.XAudio2.IXAudio2VoiceCallback_head, pSendList: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head), pEffectChain: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateSubmixVoice(ppSubmixVoice: POINTER(win32more.Media.Audio.XAudio2.IXAudio2SubmixVoice_head), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, ProcessingStage: UInt32, pSendList: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head), pEffectChain: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateMasteringVoice(ppMasteringVoice: POINTER(win32more.Media.Audio.XAudio2.IXAudio2MasteringVoice_head), InputChannels: UInt32, InputSampleRate: UInt32, Flags: UInt32, szDeviceId: win32more.Foundation.PWSTR, pEffectChain: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head), StreamCategory: win32more.Media.Audio.AUDIO_STREAM_CATEGORY) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def StartEngine() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def StopEngine() -> Void: ...
+    @commethod(10)
+    def CommitChanges(OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetPerformanceData(pPerfData: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head)) -> Void: ...
+    @commethod(12)
+    def SetDebugConfiguration(pDebugConfiguration: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head), pReserved: c_void_p) -> Void: ...
+class IXAudio2EngineCallback(c_void_p):
+    extends: None
+    @commethod(0)
+    def OnProcessingPassStart() -> Void: ...
+    @commethod(1)
+    def OnProcessingPassEnd() -> Void: ...
+    @commethod(2)
+    def OnCriticalError(Error: win32more.Foundation.HRESULT) -> Void: ...
+class IXAudio2Extension(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('84ac29bb-d619-44d2-b1-97-e4-ac-f7-df-3e-d6')
+    @commethod(3)
+    def GetProcessingQuantum(quantumNumerator: POINTER(UInt32), quantumDenominator: POINTER(UInt32)) -> Void: ...
+    @commethod(4)
+    def GetProcessor(processor: POINTER(UInt32)) -> Void: ...
+class IXAudio2MasteringVoice(c_void_p):
+    extends: win32more.Media.Audio.XAudio2.IXAudio2Voice
+    @commethod(19)
+    def GetChannelMask(pChannelmask: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IXAudio2SourceVoice(c_void_p):
+    extends: win32more.Media.Audio.XAudio2.IXAudio2Voice
+    @commethod(19)
+    def Start(Flags: UInt32, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def Stop(Flags: UInt32, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SubmitSourceBuffer(pBuffer: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_head), pBufferWMA: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_WMA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def FlushSourceBuffers() -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def Discontinuity() -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def ExitLoop(OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetState(pVoiceState: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_STATE_head), Flags: UInt32) -> Void: ...
+    @commethod(26)
+    def SetFrequencyRatio(Ratio: Single, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetFrequencyRatio(pRatio: POINTER(Single)) -> Void: ...
+    @commethod(28)
+    def SetSourceSampleRate(NewSourceSampleRate: UInt32) -> win32more.Foundation.HRESULT: ...
+class IXAudio2SubmixVoice(c_void_p):
+    extends: win32more.Media.Audio.XAudio2.IXAudio2Voice
+class IXAudio2Voice(c_void_p):
+    extends: None
+    @commethod(0)
+    def GetVoiceDetails(pVoiceDetails: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS_head)) -> Void: ...
+    @commethod(1)
+    def SetOutputVoices(pSendList: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(2)
+    def SetEffectChain(pEffectChain: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(3)
+    def EnableEffect(EffectIndex: UInt32, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DisableEffect(EffectIndex: UInt32, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetEffectState(EffectIndex: UInt32, pEnabled: POINTER(win32more.Foundation.BOOL)) -> Void: ...
+    @commethod(6)
+    def SetEffectParameters(EffectIndex: UInt32, pParameters: c_void_p, ParametersByteSize: UInt32, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetEffectParameters(EffectIndex: UInt32, pParameters: c_void_p, ParametersByteSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetFilterParameters(pParameters: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head), OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetFilterParameters(pParameters: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head)) -> Void: ...
+    @commethod(10)
+    def SetOutputFilterParameters(pDestinationVoice: win32more.Media.Audio.XAudio2.IXAudio2Voice_head, pParameters: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head), OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetOutputFilterParameters(pDestinationVoice: win32more.Media.Audio.XAudio2.IXAudio2Voice_head, pParameters: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head)) -> Void: ...
+    @commethod(12)
+    def SetVolume(Volume: Single, OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetVolume(pVolume: POINTER(Single)) -> Void: ...
+    @commethod(14)
+    def SetChannelVolumes(Channels: UInt32, pVolumes: POINTER(Single), OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetChannelVolumes(Channels: UInt32, pVolumes: POINTER(Single)) -> Void: ...
+    @commethod(16)
+    def SetOutputMatrix(pDestinationVoice: win32more.Media.Audio.XAudio2.IXAudio2Voice_head, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single), OperationSet: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetOutputMatrix(pDestinationVoice: win32more.Media.Audio.XAudio2.IXAudio2Voice_head, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single)) -> Void: ...
+    @commethod(18)
+    def DestroyVoice() -> Void: ...
+class IXAudio2VoiceCallback(c_void_p):
+    extends: None
+    @commethod(0)
+    def OnVoiceProcessingPassStart(BytesRequired: UInt32) -> Void: ...
+    @commethod(1)
+    def OnVoiceProcessingPassEnd() -> Void: ...
+    @commethod(2)
+    def OnStreamEnd() -> Void: ...
+    @commethod(3)
+    def OnBufferStart(pBufferContext: c_void_p) -> Void: ...
+    @commethod(4)
+    def OnBufferEnd(pBufferContext: c_void_p) -> Void: ...
+    @commethod(5)
+    def OnLoopEnd(pBufferContext: c_void_p) -> Void: ...
+    @commethod(6)
+    def OnVoiceError(pBufferContext: c_void_p, Error: win32more.Foundation.HRESULT) -> Void: ...
 XAPO_BUFFER_FLAGS = Int32
-XAPO_BUFFER_SILENT = 0
-XAPO_BUFFER_VALID = 1
-def _define_XAPO_LOCKFORPROCESS_PARAMETERS_head():
-    class XAPO_LOCKFORPROCESS_PARAMETERS(Structure):
-        pass
-    return XAPO_LOCKFORPROCESS_PARAMETERS
-def _define_XAPO_LOCKFORPROCESS_PARAMETERS():
-    XAPO_LOCKFORPROCESS_PARAMETERS = win32more.Media.Audio.XAudio2.XAPO_LOCKFORPROCESS_PARAMETERS_head
-    XAPO_LOCKFORPROCESS_PARAMETERS._pack_ = 1
-    XAPO_LOCKFORPROCESS_PARAMETERS._fields_ = [
-        ('pFormat', POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),
-        ('MaxFrameCount', UInt32),
-    ]
-    return XAPO_LOCKFORPROCESS_PARAMETERS
-def _define_XAPO_PROCESS_BUFFER_PARAMETERS_head():
-    class XAPO_PROCESS_BUFFER_PARAMETERS(Structure):
-        pass
-    return XAPO_PROCESS_BUFFER_PARAMETERS
-def _define_XAPO_PROCESS_BUFFER_PARAMETERS():
-    XAPO_PROCESS_BUFFER_PARAMETERS = win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS_head
-    XAPO_PROCESS_BUFFER_PARAMETERS._pack_ = 1
-    XAPO_PROCESS_BUFFER_PARAMETERS._fields_ = [
-        ('pBuffer', c_void_p),
-        ('BufferFlags', win32more.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS),
-        ('ValidFrameCount', UInt32),
-    ]
-    return XAPO_PROCESS_BUFFER_PARAMETERS
-def _define_XAPO_REGISTRATION_PROPERTIES_head():
-    class XAPO_REGISTRATION_PROPERTIES(Structure):
-        pass
-    return XAPO_REGISTRATION_PROPERTIES
-def _define_XAPO_REGISTRATION_PROPERTIES():
-    XAPO_REGISTRATION_PROPERTIES = win32more.Media.Audio.XAudio2.XAPO_REGISTRATION_PROPERTIES_head
-    XAPO_REGISTRATION_PROPERTIES._pack_ = 1
-    XAPO_REGISTRATION_PROPERTIES._fields_ = [
-        ('clsid', Guid),
-        ('FriendlyName', Char * 256),
-        ('CopyrightInfo', Char * 256),
-        ('MajorVersion', UInt32),
-        ('MinorVersion', UInt32),
-        ('Flags', UInt32),
-        ('MinInputBufferCount', UInt32),
-        ('MaxInputBufferCount', UInt32),
-        ('MinOutputBufferCount', UInt32),
-        ('MaxOutputBufferCount', UInt32),
-    ]
-    return XAPO_REGISTRATION_PROPERTIES
-def _define_XAUDIO2_BUFFER_head():
-    class XAUDIO2_BUFFER(Structure):
-        pass
-    return XAUDIO2_BUFFER
-def _define_XAUDIO2_BUFFER():
-    XAUDIO2_BUFFER = win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_head
-    XAUDIO2_BUFFER._pack_ = 1
-    XAUDIO2_BUFFER._fields_ = [
-        ('Flags', UInt32),
-        ('AudioBytes', UInt32),
-        ('pAudioData', c_char_p_no),
-        ('PlayBegin', UInt32),
-        ('PlayLength', UInt32),
-        ('LoopBegin', UInt32),
-        ('LoopLength', UInt32),
-        ('LoopCount', UInt32),
-        ('pContext', c_void_p),
-    ]
-    return XAUDIO2_BUFFER
-def _define_XAUDIO2_BUFFER_WMA_head():
-    class XAUDIO2_BUFFER_WMA(Structure):
-        pass
-    return XAUDIO2_BUFFER_WMA
-def _define_XAUDIO2_BUFFER_WMA():
-    XAUDIO2_BUFFER_WMA = win32more.Media.Audio.XAudio2.XAUDIO2_BUFFER_WMA_head
-    XAUDIO2_BUFFER_WMA._pack_ = 1
-    XAUDIO2_BUFFER_WMA._fields_ = [
-        ('pDecodedPacketCumulativeBytes', POINTER(UInt32)),
-        ('PacketCount', UInt32),
-    ]
-    return XAUDIO2_BUFFER_WMA
-def _define_XAUDIO2_DEBUG_CONFIGURATION_head():
-    class XAUDIO2_DEBUG_CONFIGURATION(Structure):
-        pass
-    return XAUDIO2_DEBUG_CONFIGURATION
-def _define_XAUDIO2_DEBUG_CONFIGURATION():
-    XAUDIO2_DEBUG_CONFIGURATION = win32more.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head
-    XAUDIO2_DEBUG_CONFIGURATION._pack_ = 1
-    XAUDIO2_DEBUG_CONFIGURATION._fields_ = [
-        ('TraceMask', UInt32),
-        ('BreakMask', UInt32),
-        ('LogThreadID', win32more.Foundation.BOOL),
-        ('LogFileline', win32more.Foundation.BOOL),
-        ('LogFunctionName', win32more.Foundation.BOOL),
-        ('LogTiming', win32more.Foundation.BOOL),
-    ]
-    return XAUDIO2_DEBUG_CONFIGURATION
-def _define_XAUDIO2_EFFECT_CHAIN_head():
-    class XAUDIO2_EFFECT_CHAIN(Structure):
-        pass
-    return XAUDIO2_EFFECT_CHAIN
-def _define_XAUDIO2_EFFECT_CHAIN():
-    XAUDIO2_EFFECT_CHAIN = win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_CHAIN_head
-    XAUDIO2_EFFECT_CHAIN._pack_ = 1
-    XAUDIO2_EFFECT_CHAIN._fields_ = [
-        ('EffectCount', UInt32),
-        ('pEffectDescriptors', POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR_head)),
-    ]
-    return XAUDIO2_EFFECT_CHAIN
-def _define_XAUDIO2_EFFECT_DESCRIPTOR_head():
-    class XAUDIO2_EFFECT_DESCRIPTOR(Structure):
-        pass
-    return XAUDIO2_EFFECT_DESCRIPTOR
-def _define_XAUDIO2_EFFECT_DESCRIPTOR():
-    XAUDIO2_EFFECT_DESCRIPTOR = win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR_head
-    XAUDIO2_EFFECT_DESCRIPTOR._pack_ = 1
-    XAUDIO2_EFFECT_DESCRIPTOR._fields_ = [
-        ('pEffect', win32more.System.Com.IUnknown_head),
-        ('InitialState', win32more.Foundation.BOOL),
-        ('OutputChannels', UInt32),
-    ]
-    return XAUDIO2_EFFECT_DESCRIPTOR
-def _define_XAUDIO2_FILTER_PARAMETERS_head():
-    class XAUDIO2_FILTER_PARAMETERS(Structure):
-        pass
-    return XAUDIO2_FILTER_PARAMETERS
-def _define_XAUDIO2_FILTER_PARAMETERS():
-    XAUDIO2_FILTER_PARAMETERS = win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_PARAMETERS_head
-    XAUDIO2_FILTER_PARAMETERS._pack_ = 1
-    XAUDIO2_FILTER_PARAMETERS._fields_ = [
-        ('Type', win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE),
-        ('Frequency', Single),
-        ('OneOverQ', Single),
-    ]
-    return XAUDIO2_FILTER_PARAMETERS
+XAPO_BUFFER_SILENT: XAPO_BUFFER_FLAGS = 0
+XAPO_BUFFER_VALID: XAPO_BUFFER_FLAGS = 1
+class XAPO_LOCKFORPROCESS_PARAMETERS(Structure):
+    pFormat: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)
+    MaxFrameCount: UInt32
+    _pack_ = 1
+class XAPO_PROCESS_BUFFER_PARAMETERS(Structure):
+    pBuffer: c_void_p
+    BufferFlags: win32more.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS
+    ValidFrameCount: UInt32
+    _pack_ = 1
+class XAPO_REGISTRATION_PROPERTIES(Structure):
+    clsid: Guid
+    FriendlyName: Char * 256
+    CopyrightInfo: Char * 256
+    MajorVersion: UInt32
+    MinorVersion: UInt32
+    Flags: UInt32
+    MinInputBufferCount: UInt32
+    MaxInputBufferCount: UInt32
+    MinOutputBufferCount: UInt32
+    MaxOutputBufferCount: UInt32
+    _pack_ = 1
+class XAUDIO2_BUFFER(Structure):
+    Flags: UInt32
+    AudioBytes: UInt32
+    pAudioData: c_char_p_no
+    PlayBegin: UInt32
+    PlayLength: UInt32
+    LoopBegin: UInt32
+    LoopLength: UInt32
+    LoopCount: UInt32
+    pContext: c_void_p
+    _pack_ = 1
+class XAUDIO2_BUFFER_WMA(Structure):
+    pDecodedPacketCumulativeBytes: POINTER(UInt32)
+    PacketCount: UInt32
+    _pack_ = 1
+class XAUDIO2_DEBUG_CONFIGURATION(Structure):
+    TraceMask: UInt32
+    BreakMask: UInt32
+    LogThreadID: win32more.Foundation.BOOL
+    LogFileline: win32more.Foundation.BOOL
+    LogFunctionName: win32more.Foundation.BOOL
+    LogTiming: win32more.Foundation.BOOL
+    _pack_ = 1
+class XAUDIO2_EFFECT_CHAIN(Structure):
+    EffectCount: UInt32
+    pEffectDescriptors: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR_head)
+    _pack_ = 1
+class XAUDIO2_EFFECT_DESCRIPTOR(Structure):
+    pEffect: win32more.System.Com.IUnknown_head
+    InitialState: win32more.Foundation.BOOL
+    OutputChannels: UInt32
+    _pack_ = 1
+class XAUDIO2_FILTER_PARAMETERS(Structure):
+    Type: win32more.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE
+    Frequency: Single
+    OneOverQ: Single
+    _pack_ = 1
 XAUDIO2_FILTER_TYPE = Int32
-XAUDIO2_FILTER_TYPE_LowPassFilter = 0
-XAUDIO2_FILTER_TYPE_BandPassFilter = 1
-XAUDIO2_FILTER_TYPE_HighPassFilter = 2
-XAUDIO2_FILTER_TYPE_NotchFilter = 3
-XAUDIO2_FILTER_TYPE_LowPassOnePoleFilter = 4
-XAUDIO2_FILTER_TYPE_HighPassOnePoleFilter = 5
-def _define_XAUDIO2_PERFORMANCE_DATA_head():
-    class XAUDIO2_PERFORMANCE_DATA(Structure):
-        pass
-    return XAUDIO2_PERFORMANCE_DATA
-def _define_XAUDIO2_PERFORMANCE_DATA():
-    XAUDIO2_PERFORMANCE_DATA = win32more.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head
-    XAUDIO2_PERFORMANCE_DATA._pack_ = 1
-    XAUDIO2_PERFORMANCE_DATA._fields_ = [
-        ('AudioCyclesSinceLastQuery', UInt64),
-        ('TotalCyclesSinceLastQuery', UInt64),
-        ('MinimumCyclesPerQuantum', UInt32),
-        ('MaximumCyclesPerQuantum', UInt32),
-        ('MemoryUsageInBytes', UInt32),
-        ('CurrentLatencyInSamples', UInt32),
-        ('GlitchesSinceEngineStarted', UInt32),
-        ('ActiveSourceVoiceCount', UInt32),
-        ('TotalSourceVoiceCount', UInt32),
-        ('ActiveSubmixVoiceCount', UInt32),
-        ('ActiveResamplerCount', UInt32),
-        ('ActiveMatrixMixCount', UInt32),
-        ('ActiveXmaSourceVoices', UInt32),
-        ('ActiveXmaStreams', UInt32),
-    ]
-    return XAUDIO2_PERFORMANCE_DATA
-def _define_XAUDIO2_SEND_DESCRIPTOR_head():
-    class XAUDIO2_SEND_DESCRIPTOR(Structure):
-        pass
-    return XAUDIO2_SEND_DESCRIPTOR
-def _define_XAUDIO2_SEND_DESCRIPTOR():
-    XAUDIO2_SEND_DESCRIPTOR = win32more.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR_head
-    XAUDIO2_SEND_DESCRIPTOR._pack_ = 1
-    XAUDIO2_SEND_DESCRIPTOR._fields_ = [
-        ('Flags', UInt32),
-        ('pOutputVoice', win32more.Media.Audio.XAudio2.IXAudio2Voice_head),
-    ]
-    return XAUDIO2_SEND_DESCRIPTOR
-def _define_XAUDIO2_VOICE_DETAILS_head():
-    class XAUDIO2_VOICE_DETAILS(Structure):
-        pass
-    return XAUDIO2_VOICE_DETAILS
-def _define_XAUDIO2_VOICE_DETAILS():
-    XAUDIO2_VOICE_DETAILS = win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS_head
-    XAUDIO2_VOICE_DETAILS._pack_ = 1
-    XAUDIO2_VOICE_DETAILS._fields_ = [
-        ('CreationFlags', UInt32),
-        ('ActiveFlags', UInt32),
-        ('InputChannels', UInt32),
-        ('InputSampleRate', UInt32),
-    ]
-    return XAUDIO2_VOICE_DETAILS
-def _define_XAUDIO2_VOICE_SENDS_head():
-    class XAUDIO2_VOICE_SENDS(Structure):
-        pass
-    return XAUDIO2_VOICE_SENDS
-def _define_XAUDIO2_VOICE_SENDS():
-    XAUDIO2_VOICE_SENDS = win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_SENDS_head
-    XAUDIO2_VOICE_SENDS._pack_ = 1
-    XAUDIO2_VOICE_SENDS._fields_ = [
-        ('SendCount', UInt32),
-        ('pSends', POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR_head)),
-    ]
-    return XAUDIO2_VOICE_SENDS
-def _define_XAUDIO2_VOICE_STATE_head():
-    class XAUDIO2_VOICE_STATE(Structure):
-        pass
-    return XAUDIO2_VOICE_STATE
-def _define_XAUDIO2_VOICE_STATE():
-    XAUDIO2_VOICE_STATE = win32more.Media.Audio.XAudio2.XAUDIO2_VOICE_STATE_head
-    XAUDIO2_VOICE_STATE._pack_ = 1
-    XAUDIO2_VOICE_STATE._fields_ = [
-        ('pCurrentBufferContext', c_void_p),
-        ('BuffersQueued', UInt32),
-        ('SamplesPlayed', UInt64),
-    ]
-    return XAUDIO2_VOICE_STATE
-def _define_XAUDIO2FX_REVERB_I3DL2_PARAMETERS_head():
-    class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(Structure):
-        pass
-    return XAUDIO2FX_REVERB_I3DL2_PARAMETERS
-def _define_XAUDIO2FX_REVERB_I3DL2_PARAMETERS():
-    XAUDIO2FX_REVERB_I3DL2_PARAMETERS = win32more.Media.Audio.XAudio2.XAUDIO2FX_REVERB_I3DL2_PARAMETERS_head
-    XAUDIO2FX_REVERB_I3DL2_PARAMETERS._pack_ = 1
-    XAUDIO2FX_REVERB_I3DL2_PARAMETERS._fields_ = [
-        ('WetDryMix', Single),
-        ('Room', Int32),
-        ('RoomHF', Int32),
-        ('RoomRolloffFactor', Single),
-        ('DecayTime', Single),
-        ('DecayHFRatio', Single),
-        ('Reflections', Int32),
-        ('ReflectionsDelay', Single),
-        ('Reverb', Int32),
-        ('ReverbDelay', Single),
-        ('Diffusion', Single),
-        ('Density', Single),
-        ('HFReference', Single),
-    ]
-    return XAUDIO2FX_REVERB_I3DL2_PARAMETERS
-def _define_XAUDIO2FX_REVERB_PARAMETERS_head():
-    class XAUDIO2FX_REVERB_PARAMETERS(Structure):
-        pass
-    return XAUDIO2FX_REVERB_PARAMETERS
-def _define_XAUDIO2FX_REVERB_PARAMETERS():
-    XAUDIO2FX_REVERB_PARAMETERS = win32more.Media.Audio.XAudio2.XAUDIO2FX_REVERB_PARAMETERS_head
-    XAUDIO2FX_REVERB_PARAMETERS._pack_ = 1
-    XAUDIO2FX_REVERB_PARAMETERS._fields_ = [
-        ('WetDryMix', Single),
-        ('ReflectionsDelay', UInt32),
-        ('ReverbDelay', Byte),
-        ('RearDelay', Byte),
-        ('SideDelay', Byte),
-        ('PositionLeft', Byte),
-        ('PositionRight', Byte),
-        ('PositionMatrixLeft', Byte),
-        ('PositionMatrixRight', Byte),
-        ('EarlyDiffusion', Byte),
-        ('LateDiffusion', Byte),
-        ('LowEQGain', Byte),
-        ('LowEQCutoff', Byte),
-        ('HighEQGain', Byte),
-        ('HighEQCutoff', Byte),
-        ('RoomFilterFreq', Single),
-        ('RoomFilterMain', Single),
-        ('RoomFilterHF', Single),
-        ('ReflectionsGain', Single),
-        ('ReverbGain', Single),
-        ('DecayTime', Single),
-        ('Density', Single),
-        ('RoomSize', Single),
-        ('DisableLateField', win32more.Foundation.BOOL),
-    ]
-    return XAUDIO2FX_REVERB_PARAMETERS
-def _define_XAUDIO2FX_VOLUMEMETER_LEVELS_head():
-    class XAUDIO2FX_VOLUMEMETER_LEVELS(Structure):
-        pass
-    return XAUDIO2FX_VOLUMEMETER_LEVELS
-def _define_XAUDIO2FX_VOLUMEMETER_LEVELS():
-    XAUDIO2FX_VOLUMEMETER_LEVELS = win32more.Media.Audio.XAudio2.XAUDIO2FX_VOLUMEMETER_LEVELS_head
-    XAUDIO2FX_VOLUMEMETER_LEVELS._pack_ = 1
-    XAUDIO2FX_VOLUMEMETER_LEVELS._fields_ = [
-        ('pPeakLevels', POINTER(Single)),
-        ('pRMSLevels', POINTER(Single)),
-        ('ChannelCount', UInt32),
-    ]
-    return XAUDIO2FX_VOLUMEMETER_LEVELS
+XAUDIO2_FILTER_TYPE_LowPassFilter: XAUDIO2_FILTER_TYPE = 0
+XAUDIO2_FILTER_TYPE_BandPassFilter: XAUDIO2_FILTER_TYPE = 1
+XAUDIO2_FILTER_TYPE_HighPassFilter: XAUDIO2_FILTER_TYPE = 2
+XAUDIO2_FILTER_TYPE_NotchFilter: XAUDIO2_FILTER_TYPE = 3
+XAUDIO2_FILTER_TYPE_LowPassOnePoleFilter: XAUDIO2_FILTER_TYPE = 4
+XAUDIO2_FILTER_TYPE_HighPassOnePoleFilter: XAUDIO2_FILTER_TYPE = 5
+class XAUDIO2_PERFORMANCE_DATA(Structure):
+    AudioCyclesSinceLastQuery: UInt64
+    TotalCyclesSinceLastQuery: UInt64
+    MinimumCyclesPerQuantum: UInt32
+    MaximumCyclesPerQuantum: UInt32
+    MemoryUsageInBytes: UInt32
+    CurrentLatencyInSamples: UInt32
+    GlitchesSinceEngineStarted: UInt32
+    ActiveSourceVoiceCount: UInt32
+    TotalSourceVoiceCount: UInt32
+    ActiveSubmixVoiceCount: UInt32
+    ActiveResamplerCount: UInt32
+    ActiveMatrixMixCount: UInt32
+    ActiveXmaSourceVoices: UInt32
+    ActiveXmaStreams: UInt32
+    _pack_ = 1
+class XAUDIO2_SEND_DESCRIPTOR(Structure):
+    Flags: UInt32
+    pOutputVoice: win32more.Media.Audio.XAudio2.IXAudio2Voice_head
+    _pack_ = 1
+class XAUDIO2_VOICE_DETAILS(Structure):
+    CreationFlags: UInt32
+    ActiveFlags: UInt32
+    InputChannels: UInt32
+    InputSampleRate: UInt32
+    _pack_ = 1
+class XAUDIO2_VOICE_SENDS(Structure):
+    SendCount: UInt32
+    pSends: POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR_head)
+    _pack_ = 1
+class XAUDIO2_VOICE_STATE(Structure):
+    pCurrentBufferContext: c_void_p
+    BuffersQueued: UInt32
+    SamplesPlayed: UInt64
+    _pack_ = 1
+class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(Structure):
+    WetDryMix: Single
+    Room: Int32
+    RoomHF: Int32
+    RoomRolloffFactor: Single
+    DecayTime: Single
+    DecayHFRatio: Single
+    Reflections: Int32
+    ReflectionsDelay: Single
+    Reverb: Int32
+    ReverbDelay: Single
+    Diffusion: Single
+    Density: Single
+    HFReference: Single
+    _pack_ = 1
+class XAUDIO2FX_REVERB_PARAMETERS(Structure):
+    WetDryMix: Single
+    ReflectionsDelay: UInt32
+    ReverbDelay: Byte
+    RearDelay: Byte
+    SideDelay: Byte
+    PositionLeft: Byte
+    PositionRight: Byte
+    PositionMatrixLeft: Byte
+    PositionMatrixRight: Byte
+    EarlyDiffusion: Byte
+    LateDiffusion: Byte
+    LowEQGain: Byte
+    LowEQCutoff: Byte
+    HighEQGain: Byte
+    HighEQCutoff: Byte
+    RoomFilterFreq: Single
+    RoomFilterMain: Single
+    RoomFilterHF: Single
+    ReflectionsGain: Single
+    ReverbGain: Single
+    DecayTime: Single
+    Density: Single
+    RoomSize: Single
+    DisableLateField: win32more.Foundation.BOOL
+    _pack_ = 1
+class XAUDIO2FX_VOLUMEMETER_LEVELS(Structure):
+    pPeakLevels: POINTER(Single)
+    pRMSLevels: POINTER(Single)
+    ChannelCount: UInt32
+    _pack_ = 1
+make_head(_module, 'FXECHO_INITDATA')
+make_head(_module, 'FXECHO_PARAMETERS')
+make_head(_module, 'FXEQ_PARAMETERS')
+make_head(_module, 'FXMASTERINGLIMITER_PARAMETERS')
+make_head(_module, 'FXREVERB_PARAMETERS')
+make_head(_module, 'HrtfApoInit')
+make_head(_module, 'HrtfDirectivity')
+make_head(_module, 'HrtfDirectivityCardioid')
+make_head(_module, 'HrtfDirectivityCone')
+make_head(_module, 'HrtfDistanceDecay')
+make_head(_module, 'HrtfOrientation')
+make_head(_module, 'HrtfPosition')
+make_head(_module, 'IXAPO')
+make_head(_module, 'IXAPOHrtfParameters')
+make_head(_module, 'IXAPOParameters')
+make_head(_module, 'IXAudio2')
+make_head(_module, 'IXAudio2EngineCallback')
+make_head(_module, 'IXAudio2Extension')
+make_head(_module, 'IXAudio2MasteringVoice')
+make_head(_module, 'IXAudio2SourceVoice')
+make_head(_module, 'IXAudio2SubmixVoice')
+make_head(_module, 'IXAudio2Voice')
+make_head(_module, 'IXAudio2VoiceCallback')
+make_head(_module, 'XAPO_LOCKFORPROCESS_PARAMETERS')
+make_head(_module, 'XAPO_PROCESS_BUFFER_PARAMETERS')
+make_head(_module, 'XAPO_REGISTRATION_PROPERTIES')
+make_head(_module, 'XAUDIO2_BUFFER')
+make_head(_module, 'XAUDIO2_BUFFER_WMA')
+make_head(_module, 'XAUDIO2_DEBUG_CONFIGURATION')
+make_head(_module, 'XAUDIO2_EFFECT_CHAIN')
+make_head(_module, 'XAUDIO2_EFFECT_DESCRIPTOR')
+make_head(_module, 'XAUDIO2_FILTER_PARAMETERS')
+make_head(_module, 'XAUDIO2_PERFORMANCE_DATA')
+make_head(_module, 'XAUDIO2_SEND_DESCRIPTOR')
+make_head(_module, 'XAUDIO2_VOICE_DETAILS')
+make_head(_module, 'XAUDIO2_VOICE_SENDS')
+make_head(_module, 'XAUDIO2_VOICE_STATE')
+make_head(_module, 'XAUDIO2FX_REVERB_I3DL2_PARAMETERS')
+make_head(_module, 'XAUDIO2FX_REVERB_PARAMETERS')
+make_head(_module, 'XAUDIO2FX_VOLUMEMETER_LEVELS')
 __all__ = [
     "AudioReverb",
     "AudioVolumeMeter",

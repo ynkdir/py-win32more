@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.UI.Accessibility
@@ -8,4674 +9,3857 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 ACC_UTILITY_STATE_FLAGS = UInt32
-ANRUS_ON_SCREEN_KEYBOARD_ACTIVE = 1
-ANRUS_TOUCH_MODIFICATION_ACTIVE = 2
-ANRUS_PRIORITY_AUDIO_ACTIVE = 4
-ANRUS_PRIORITY_AUDIO_ACTIVE_NODUCK = 8
-def _define_ACCESSTIMEOUT_head():
-    class ACCESSTIMEOUT(Structure):
-        pass
-    return ACCESSTIMEOUT
-def _define_ACCESSTIMEOUT():
-    ACCESSTIMEOUT = win32more.UI.Accessibility.ACCESSTIMEOUT_head
-    ACCESSTIMEOUT._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', UInt32),
-        ('iTimeOutMSec', UInt32),
-    ]
-    return ACCESSTIMEOUT
+ANRUS_ON_SCREEN_KEYBOARD_ACTIVE: ACC_UTILITY_STATE_FLAGS = 1
+ANRUS_TOUCH_MODIFICATION_ACTIVE: ACC_UTILITY_STATE_FLAGS = 2
+ANRUS_PRIORITY_AUDIO_ACTIVE: ACC_UTILITY_STATE_FLAGS = 4
+ANRUS_PRIORITY_AUDIO_ACTIVE_NODUCK: ACC_UTILITY_STATE_FLAGS = 8
+class ACCESSTIMEOUT(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    iTimeOutMSec: UInt32
 ActiveEnd = Int32
-ActiveEnd_None = 0
-ActiveEnd_Start = 1
-ActiveEnd_End = 2
+ActiveEnd_None: ActiveEnd = 0
+ActiveEnd_Start: ActiveEnd = 1
+ActiveEnd_End: ActiveEnd = 2
 AnimationStyle = Int32
-AnimationStyle_None = 0
-AnimationStyle_LasVegasLights = 1
-AnimationStyle_BlinkingBackground = 2
-AnimationStyle_SparkleText = 3
-AnimationStyle_MarchingBlackAnts = 4
-AnimationStyle_MarchingRedAnts = 5
-AnimationStyle_Shimmer = 6
-AnimationStyle_Other = -1
+AnimationStyle_None: AnimationStyle = 0
+AnimationStyle_LasVegasLights: AnimationStyle = 1
+AnimationStyle_BlinkingBackground: AnimationStyle = 2
+AnimationStyle_SparkleText: AnimationStyle = 3
+AnimationStyle_MarchingBlackAnts: AnimationStyle = 4
+AnimationStyle_MarchingRedAnts: AnimationStyle = 5
+AnimationStyle_Shimmer: AnimationStyle = 6
+AnimationStyle_Other: AnimationStyle = -1
 AnnoScope = Int32
-ANNO_THIS = 0
-ANNO_CONTAINER = 1
-def _define_LIBID_Accessibility():
-    return Guid('1ea4dbf0-3c3b-11cf-81-0c-00-aa-00-38-9b-71')
-def _define_CLSID_AccPropServices():
-    return Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
-def _define_IIS_IsOleaccProxy():
-    return Guid('902697fa-80e4-4560-80-2a-a1-3f-22-a6-47-09')
-def _define_IIS_ControlAccessible():
-    return Guid('38c682a6-9731-43f2-9f-ae-e9-01-e6-41-b1-01')
-ANRUS_PRIORITY_AUDIO_DYNAMIC_DUCK = 16
-MSAA_MENU_SIG = -1441927155
-def _define_PROPID_ACC_NAME():
-    return Guid('608d3df8-8128-4aa7-a4-28-f5-5e-49-26-72-91')
-def _define_PROPID_ACC_VALUE():
-    return Guid('123fe443-211a-4615-95-27-c4-5a-7e-93-71-7a')
-def _define_PROPID_ACC_DESCRIPTION():
-    return Guid('4d48dfe4-bd3f-491f-a6-48-49-2d-6f-20-c5-88')
-def _define_PROPID_ACC_ROLE():
-    return Guid('cb905ff2-7bd1-4c05-b3-c8-e6-c2-41-36-4d-70')
-def _define_PROPID_ACC_STATE():
-    return Guid('a8d4d5b0-0a21-42d0-a5-c0-51-4e-98-4f-45-7b')
-def _define_PROPID_ACC_HELP():
-    return Guid('c831e11f-44db-4a99-97-68-cb-8f-97-8b-72-31')
-def _define_PROPID_ACC_KEYBOARDSHORTCUT():
-    return Guid('7d9bceee-7d1e-4979-93-82-51-80-f4-17-2c-34')
-def _define_PROPID_ACC_DEFAULTACTION():
-    return Guid('180c072b-c27f-43c7-99-22-f6-35-62-a4-63-2b')
-def _define_PROPID_ACC_HELPTOPIC():
-    return Guid('787d1379-8ede-440b-8a-ec-11-f7-bf-90-30-b3')
-def _define_PROPID_ACC_FOCUS():
-    return Guid('6eb335df-1c29-4127-b1-2c-de-e9-fd-15-7f-2b')
-def _define_PROPID_ACC_SELECTION():
-    return Guid('b99d073c-d731-405b-90-61-d9-5e-8f-84-29-84')
-def _define_PROPID_ACC_PARENT():
-    return Guid('474c22b6-ffc2-467a-b1-b5-e9-58-b4-65-73-30')
-def _define_PROPID_ACC_NAV_UP():
-    return Guid('016e1a2b-1a4e-4767-86-12-33-86-f6-69-35-ec')
-def _define_PROPID_ACC_NAV_DOWN():
-    return Guid('031670ed-3cdf-48d2-96-13-13-8f-2d-d8-a6-68')
-def _define_PROPID_ACC_NAV_LEFT():
-    return Guid('228086cb-82f1-4a39-87-05-dc-dc-0f-ff-92-f5')
-def _define_PROPID_ACC_NAV_RIGHT():
-    return Guid('cd211d9f-e1cb-4fe5-a7-7c-92-0b-88-4d-09-5b')
-def _define_PROPID_ACC_NAV_PREV():
-    return Guid('776d3891-c73b-4480-b3-f6-07-6a-16-a1-5a-f6')
-def _define_PROPID_ACC_NAV_NEXT():
-    return Guid('1cdc5455-8cd9-4c92-a3-71-39-39-a2-fe-3e-ee')
-def _define_PROPID_ACC_NAV_FIRSTCHILD():
-    return Guid('cfd02558-557b-4c67-84-f9-2a-09-fc-e4-07-49')
-def _define_PROPID_ACC_NAV_LASTCHILD():
-    return Guid('302ecaa5-48d5-4f8d-b6-71-1a-8d-20-a7-78-32')
-def _define_PROPID_ACC_ROLEMAP():
-    return Guid('f79acda2-140d-4fe6-89-14-20-84-76-32-82-69')
-def _define_PROPID_ACC_VALUEMAP():
-    return Guid('da1c3d79-fc5c-420e-b3-99-9d-15-33-54-9e-75')
-def _define_PROPID_ACC_STATEMAP():
-    return Guid('43946c5e-0ac0-4042-b5-25-07-bb-db-e1-7f-a7')
-def _define_PROPID_ACC_DESCRIPTIONMAP():
-    return Guid('1ff1435f-8a14-477b-b2-26-a0-ab-e2-79-97-5d')
-def _define_PROPID_ACC_DODEFAULTACTION():
-    return Guid('1ba09523-2e3b-49a6-a0-59-59-68-2a-3c-48-fd')
-DISPID_ACC_PARENT = -5000
-DISPID_ACC_CHILDCOUNT = -5001
-DISPID_ACC_CHILD = -5002
-DISPID_ACC_NAME = -5003
-DISPID_ACC_VALUE = -5004
-DISPID_ACC_DESCRIPTION = -5005
-DISPID_ACC_ROLE = -5006
-DISPID_ACC_STATE = -5007
-DISPID_ACC_HELP = -5008
-DISPID_ACC_HELPTOPIC = -5009
-DISPID_ACC_KEYBOARDSHORTCUT = -5010
-DISPID_ACC_FOCUS = -5011
-DISPID_ACC_SELECTION = -5012
-DISPID_ACC_DEFAULTACTION = -5013
-DISPID_ACC_SELECT = -5014
-DISPID_ACC_LOCATION = -5015
-DISPID_ACC_NAVIGATE = -5016
-DISPID_ACC_HITTEST = -5017
-DISPID_ACC_DODEFAULTACTION = -5018
-NAVDIR_MIN = 0
-NAVDIR_UP = 1
-NAVDIR_DOWN = 2
-NAVDIR_LEFT = 3
-NAVDIR_RIGHT = 4
-NAVDIR_NEXT = 5
-NAVDIR_PREVIOUS = 6
-NAVDIR_FIRSTCHILD = 7
-NAVDIR_LASTCHILD = 8
-NAVDIR_MAX = 9
-SELFLAG_NONE = 0
-SELFLAG_TAKEFOCUS = 1
-SELFLAG_TAKESELECTION = 2
-SELFLAG_EXTENDSELECTION = 4
-SELFLAG_ADDSELECTION = 8
-SELFLAG_REMOVESELECTION = 16
-SELFLAG_VALID = 31
-STATE_SYSTEM_NORMAL = 0
-STATE_SYSTEM_HASPOPUP = 1073741824
-ROLE_SYSTEM_TITLEBAR = 1
-ROLE_SYSTEM_MENUBAR = 2
-ROLE_SYSTEM_SCROLLBAR = 3
-ROLE_SYSTEM_GRIP = 4
-ROLE_SYSTEM_SOUND = 5
-ROLE_SYSTEM_CURSOR = 6
-ROLE_SYSTEM_CARET = 7
-ROLE_SYSTEM_ALERT = 8
-ROLE_SYSTEM_WINDOW = 9
-ROLE_SYSTEM_CLIENT = 10
-ROLE_SYSTEM_MENUPOPUP = 11
-ROLE_SYSTEM_MENUITEM = 12
-ROLE_SYSTEM_TOOLTIP = 13
-ROLE_SYSTEM_APPLICATION = 14
-ROLE_SYSTEM_DOCUMENT = 15
-ROLE_SYSTEM_PANE = 16
-ROLE_SYSTEM_CHART = 17
-ROLE_SYSTEM_DIALOG = 18
-ROLE_SYSTEM_BORDER = 19
-ROLE_SYSTEM_GROUPING = 20
-ROLE_SYSTEM_SEPARATOR = 21
-ROLE_SYSTEM_TOOLBAR = 22
-ROLE_SYSTEM_STATUSBAR = 23
-ROLE_SYSTEM_TABLE = 24
-ROLE_SYSTEM_COLUMNHEADER = 25
-ROLE_SYSTEM_ROWHEADER = 26
-ROLE_SYSTEM_COLUMN = 27
-ROLE_SYSTEM_ROW = 28
-ROLE_SYSTEM_CELL = 29
-ROLE_SYSTEM_LINK = 30
-ROLE_SYSTEM_HELPBALLOON = 31
-ROLE_SYSTEM_CHARACTER = 32
-ROLE_SYSTEM_LIST = 33
-ROLE_SYSTEM_LISTITEM = 34
-ROLE_SYSTEM_OUTLINE = 35
-ROLE_SYSTEM_OUTLINEITEM = 36
-ROLE_SYSTEM_PAGETAB = 37
-ROLE_SYSTEM_PROPERTYPAGE = 38
-ROLE_SYSTEM_INDICATOR = 39
-ROLE_SYSTEM_GRAPHIC = 40
-ROLE_SYSTEM_STATICTEXT = 41
-ROLE_SYSTEM_TEXT = 42
-ROLE_SYSTEM_PUSHBUTTON = 43
-ROLE_SYSTEM_CHECKBUTTON = 44
-ROLE_SYSTEM_RADIOBUTTON = 45
-ROLE_SYSTEM_COMBOBOX = 46
-ROLE_SYSTEM_DROPLIST = 47
-ROLE_SYSTEM_PROGRESSBAR = 48
-ROLE_SYSTEM_DIAL = 49
-ROLE_SYSTEM_HOTKEYFIELD = 50
-ROLE_SYSTEM_SLIDER = 51
-ROLE_SYSTEM_SPINBUTTON = 52
-ROLE_SYSTEM_DIAGRAM = 53
-ROLE_SYSTEM_ANIMATION = 54
-ROLE_SYSTEM_EQUATION = 55
-ROLE_SYSTEM_BUTTONDROPDOWN = 56
-ROLE_SYSTEM_BUTTONMENU = 57
-ROLE_SYSTEM_BUTTONDROPDOWNGRID = 58
-ROLE_SYSTEM_WHITESPACE = 59
-ROLE_SYSTEM_PAGETABLIST = 60
-ROLE_SYSTEM_CLOCK = 61
-ROLE_SYSTEM_SPLITBUTTON = 62
-ROLE_SYSTEM_IPADDRESS = 63
-ROLE_SYSTEM_OUTLINEBUTTON = 64
-UIA_E_ELEMENTNOTENABLED = 2147746304
-UIA_E_ELEMENTNOTAVAILABLE = 2147746305
-UIA_E_NOCLICKABLEPOINT = 2147746306
-UIA_E_PROXYASSEMBLYNOTLOADED = 2147746307
-UIA_E_NOTSUPPORTED = 2147746308
-UIA_E_INVALIDOPERATION = 2148734217
-UIA_E_TIMEOUT = 2148734213
-UiaAppendRuntimeId = 3
-UiaRootObjectId = -25
-def _define_RuntimeId_Property_GUID():
-    return Guid('a39eebfa-7fba-4c89-b4-d4-b9-9e-2d-e7-d1-60')
-def _define_BoundingRectangle_Property_GUID():
-    return Guid('7bbfe8b2-3bfc-48dd-b7-29-c7-94-b8-46-e9-a1')
-def _define_ProcessId_Property_GUID():
-    return Guid('40499998-9c31-4245-a4-03-87-32-0e-59-ea-f6')
-def _define_ControlType_Property_GUID():
-    return Guid('ca774fea-28ac-4bc2-94-ca-ac-ec-6d-6c-10-a3')
-def _define_LocalizedControlType_Property_GUID():
-    return Guid('8763404f-a1bd-452a-89-c4-3f-01-d3-83-38-06')
-def _define_Name_Property_GUID():
-    return Guid('c3a6921b-4a99-44f1-bc-a6-61-18-70-52-c4-31')
-def _define_AcceleratorKey_Property_GUID():
-    return Guid('514865df-2557-4cb9-ae-ed-6c-ed-08-4c-e5-2c')
-def _define_AccessKey_Property_GUID():
-    return Guid('06827b12-a7f9-4a15-91-7c-ff-a5-ad-3e-b0-a7')
-def _define_HasKeyboardFocus_Property_GUID():
-    return Guid('cf8afd39-3f46-4800-96-56-b2-bf-12-52-99-05')
-def _define_IsKeyboardFocusable_Property_GUID():
-    return Guid('f7b8552a-0859-4b37-b9-cb-51-e7-20-92-f2-9f')
-def _define_IsEnabled_Property_GUID():
-    return Guid('2109427f-da60-4fed-bf-1b-26-4b-dc-e6-eb-3a')
-def _define_AutomationId_Property_GUID():
-    return Guid('c82c0500-b60e-4310-a2-67-30-3c-53-1f-8e-e5')
-def _define_ClassName_Property_GUID():
-    return Guid('157b7215-894f-4b65-84-e2-aa-c0-da-08-b1-6b')
-def _define_HelpText_Property_GUID():
-    return Guid('08555685-0977-45c7-a7-a6-ab-af-56-84-12-1a')
-def _define_ClickablePoint_Property_GUID():
-    return Guid('0196903b-b203-4818-a9-f3-f0-8e-67-5f-23-41')
-def _define_Culture_Property_GUID():
-    return Guid('e2d74f27-3d79-4dc2-b8-8b-30-44-96-3a-8a-fb')
-def _define_IsControlElement_Property_GUID():
-    return Guid('95f35085-abcc-4afd-a5-f4-db-b4-6c-23-0f-db')
-def _define_IsContentElement_Property_GUID():
-    return Guid('4bda64a8-f5d8-480b-81-55-ef-2e-89-ad-b6-72')
-def _define_LabeledBy_Property_GUID():
-    return Guid('e5b8924b-fc8a-4a35-80-31-cf-78-ac-43-e5-5e')
-def _define_IsPassword_Property_GUID():
-    return Guid('e8482eb1-687c-497b-be-bc-03-be-53-ec-14-54')
-def _define_NewNativeWindowHandle_Property_GUID():
-    return Guid('5196b33b-380a-4982-95-e1-91-f3-ef-60-e0-24')
-def _define_ItemType_Property_GUID():
-    return Guid('cdda434d-6222-413b-a6-8a-32-5d-d1-d4-0f-39')
-def _define_IsOffscreen_Property_GUID():
-    return Guid('03c3d160-db79-42db-a2-ef-1c-23-1e-ed-e5-07')
-def _define_Orientation_Property_GUID():
-    return Guid('a01eee62-3884-4415-88-7e-67-8e-c2-1e-39-ba')
-def _define_FrameworkId_Property_GUID():
-    return Guid('dbfd9900-7e1a-4f58-b6-1b-70-63-12-0f-77-3b')
-def _define_IsRequiredForForm_Property_GUID():
-    return Guid('4f5f43cf-59fb-4bde-a2-70-60-2e-5e-11-41-e9')
-def _define_ItemStatus_Property_GUID():
-    return Guid('51de0321-3973-43e7-89-13-0b-08-e8-13-c3-7f')
-def _define_AriaRole_Property_GUID():
-    return Guid('dd207b95-be4a-4e0d-b7-27-63-ac-e9-4b-69-16')
-def _define_AriaProperties_Property_GUID():
-    return Guid('4213678c-e025-4922-be-b5-e4-3b-a0-8e-62-21')
-def _define_IsDataValidForForm_Property_GUID():
-    return Guid('445ac684-c3fc-4dd9-ac-f8-84-5a-57-92-96-ba')
-def _define_ControllerFor_Property_GUID():
-    return Guid('51124c8a-a5d2-4f13-9b-e6-7f-a8-ba-9d-3a-90')
-def _define_DescribedBy_Property_GUID():
-    return Guid('7c5865b8-9992-40fd-8d-b0-6b-f1-d3-17-f9-98')
-def _define_FlowsTo_Property_GUID():
-    return Guid('e4f33d20-559a-47fb-a8-30-f9-cb-4f-f1-a7-0a')
-def _define_ProviderDescription_Property_GUID():
-    return Guid('dca5708a-c16b-4cd9-b8-89-be-b1-6a-80-49-04')
-def _define_OptimizeForVisualContent_Property_GUID():
-    return Guid('6a852250-c75a-4e5d-b8-58-e3-81-b0-f7-88-61')
-def _define_IsDockPatternAvailable_Property_GUID():
-    return Guid('2600a4c4-2ff8-4c96-ae-31-8f-e6-19-a1-3c-6c')
-def _define_IsExpandCollapsePatternAvailable_Property_GUID():
-    return Guid('929d3806-5287-4725-aa-16-22-2a-fc-63-d5-95')
-def _define_IsGridItemPatternAvailable_Property_GUID():
-    return Guid('5a43e524-f9a2-4b12-84-c8-b4-8a-3e-fe-dd-34')
-def _define_IsGridPatternAvailable_Property_GUID():
-    return Guid('5622c26c-f0ef-4f3b-97-cb-71-4c-08-68-58-8b')
-def _define_IsInvokePatternAvailable_Property_GUID():
-    return Guid('4e725738-8364-4679-aa-6c-f3-f4-19-31-f7-50')
-def _define_IsMultipleViewPatternAvailable_Property_GUID():
-    return Guid('ff0a31eb-8e25-469d-8d-6e-e7-71-a2-7c-1b-90')
-def _define_IsRangeValuePatternAvailable_Property_GUID():
-    return Guid('fda4244a-eb4d-43ff-b5-ad-ed-36-d3-73-ec-4c')
-def _define_IsScrollPatternAvailable_Property_GUID():
-    return Guid('3ebb7b4a-828a-4b57-9d-22-2f-ea-16-32-ed-0d')
-def _define_IsScrollItemPatternAvailable_Property_GUID():
-    return Guid('1cad1a05-0927-4b76-97-e1-0f-cd-b2-09-b9-8a')
-def _define_IsSelectionItemPatternAvailable_Property_GUID():
-    return Guid('8becd62d-0bc3-4109-be-e2-8e-67-15-29-0e-68')
-def _define_IsSelectionPatternAvailable_Property_GUID():
-    return Guid('f588acbe-c769-4838-9a-60-26-86-dc-11-88-c4')
-def _define_IsTablePatternAvailable_Property_GUID():
-    return Guid('cb83575f-45c2-4048-9c-76-15-97-15-a1-39-df')
-def _define_IsTableItemPatternAvailable_Property_GUID():
-    return Guid('eb36b40d-8ea4-489b-a0-13-e6-0d-59-51-fe-34')
-def _define_IsTextPatternAvailable_Property_GUID():
-    return Guid('fbe2d69d-aff6-4a45-82-e2-fc-92-a8-2f-59-17')
-def _define_IsTogglePatternAvailable_Property_GUID():
-    return Guid('78686d53-fcd0-4b83-9b-78-58-32-ce-63-bb-5b')
-def _define_IsTransformPatternAvailable_Property_GUID():
-    return Guid('a7f78804-d68b-4077-a5-c6-7a-5e-a1-ac-31-c5')
-def _define_IsValuePatternAvailable_Property_GUID():
-    return Guid('0b5020a7-2119-473b-be-37-5c-eb-98-bb-fb-22')
-def _define_IsWindowPatternAvailable_Property_GUID():
-    return Guid('e7a57bb1-5888-4155-98-dc-b4-22-fd-57-f2-bc')
-def _define_IsLegacyIAccessiblePatternAvailable_Property_GUID():
-    return Guid('d8ebd0c7-929a-4ee7-8d-3a-d3-d9-44-13-02-7b')
-def _define_IsItemContainerPatternAvailable_Property_GUID():
-    return Guid('624b5ca7-fe40-4957-a0-19-20-c4-cf-11-92-0f')
-def _define_IsVirtualizedItemPatternAvailable_Property_GUID():
-    return Guid('302cb151-2ac8-45d6-97-7b-d2-b3-a5-a5-3f-20')
-def _define_IsSynchronizedInputPatternAvailable_Property_GUID():
-    return Guid('75d69cc5-d2bf-4943-87-6e-b4-5b-62-a6-cc-66')
-def _define_IsObjectModelPatternAvailable_Property_GUID():
-    return Guid('6b21d89b-2841-412f-8e-f2-15-ca-95-23-18-ba')
-def _define_IsAnnotationPatternAvailable_Property_GUID():
-    return Guid('0b5b3238-6d5c-41b6-bc-c4-5e-80-7f-65-51-c4')
-def _define_IsTextPattern2Available_Property_GUID():
-    return Guid('41cf921d-e3f1-4b22-9c-81-e1-c3-ed-33-1c-22')
-def _define_IsTextEditPatternAvailable_Property_GUID():
-    return Guid('7843425c-8b32-484c-9a-b5-e3-20-05-71-ff-da')
-def _define_IsCustomNavigationPatternAvailable_Property_GUID():
-    return Guid('8f8e80d4-2351-48e0-87-4a-54-aa-73-13-88-9a')
-def _define_IsStylesPatternAvailable_Property_GUID():
-    return Guid('27f353d3-459c-4b59-a4-90-50-61-1d-ac-af-b5')
-def _define_IsSpreadsheetPatternAvailable_Property_GUID():
-    return Guid('6ff43732-e4b4-4555-97-bc-ec-db-bc-4d-18-88')
-def _define_IsSpreadsheetItemPatternAvailable_Property_GUID():
-    return Guid('9fe79b2a-2f94-43fd-99-6b-54-9e-31-6f-4a-cd')
-def _define_IsTransformPattern2Available_Property_GUID():
-    return Guid('25980b4b-be04-4710-ab-4a-fd-a3-1d-bd-28-95')
-def _define_IsTextChildPatternAvailable_Property_GUID():
-    return Guid('559e65df-30ff-43b5-b5-ed-5b-28-3b-80-c7-e9')
-def _define_IsDragPatternAvailable_Property_GUID():
-    return Guid('e997a7b7-1d39-4ca7-be-0f-27-7f-cf-56-05-cc')
-def _define_IsDropTargetPatternAvailable_Property_GUID():
-    return Guid('0686b62e-8e19-4aaf-87-3d-38-4f-6d-3b-92-be')
-def _define_IsStructuredMarkupPatternAvailable_Property_GUID():
-    return Guid('b0d4c196-2c0b-489c-b1-65-a4-05-92-8c-6f-3d')
-def _define_IsPeripheral_Property_GUID():
-    return Guid('da758276-7ed5-49d4-8e-68-ec-c9-a2-d3-00-dd')
-def _define_PositionInSet_Property_GUID():
-    return Guid('33d1dc54-641e-4d76-a6-b1-13-f3-41-c1-f8-96')
-def _define_SizeOfSet_Property_GUID():
-    return Guid('1600d33c-3b9f-4369-94-31-aa-29-3f-34-4c-f1')
-def _define_Level_Property_GUID():
-    return Guid('242ac529-cd36-400f-aa-d9-78-76-ef-3a-f6-27')
-def _define_AnnotationTypes_Property_GUID():
-    return Guid('64b71f76-53c4-4696-a2-19-20-e9-40-c9-a1-76')
-def _define_AnnotationObjects_Property_GUID():
-    return Guid('310910c8-7c6e-4f20-be-cd-4a-af-6d-19-11-56')
-def _define_LandmarkType_Property_GUID():
-    return Guid('454045f2-6f61-49f7-a4-f8-b5-f0-cf-82-da-1e')
-def _define_LocalizedLandmarkType_Property_GUID():
-    return Guid('7ac81980-eafb-4fb2-bf-91-f4-85-be-f5-e8-e1')
-def _define_FullDescription_Property_GUID():
-    return Guid('0d4450ff-6aef-4f33-95-dd-7b-ef-a7-2a-43-91')
-def _define_Value_Value_Property_GUID():
-    return Guid('e95f5e64-269f-4a85-ba-99-40-92-c3-ea-29-86')
-def _define_Value_IsReadOnly_Property_GUID():
-    return Guid('eb090f30-e24c-4799-a7-05-0d-24-7b-c0-37-f8')
-def _define_RangeValue_Value_Property_GUID():
-    return Guid('131f5d98-c50c-489d-ab-e5-ae-22-08-98-c5-f7')
-def _define_RangeValue_IsReadOnly_Property_GUID():
-    return Guid('25fa1055-debf-4373-a7-9e-1f-1a-19-08-d3-c4')
-def _define_RangeValue_Minimum_Property_GUID():
-    return Guid('78cbd3b2-684d-4860-af-93-d1-f9-5c-b0-22-fd')
-def _define_RangeValue_Maximum_Property_GUID():
-    return Guid('19319914-f979-4b35-a1-a6-d3-7e-05-43-34-73')
-def _define_RangeValue_LargeChange_Property_GUID():
-    return Guid('a1f96325-3a3d-4b44-8e-1f-4a-46-d9-84-40-19')
-def _define_RangeValue_SmallChange_Property_GUID():
-    return Guid('81c2c457-3941-4107-99-75-13-97-60-f7-c0-72')
-def _define_Scroll_HorizontalScrollPercent_Property_GUID():
-    return Guid('c7c13c0e-eb21-47ff-ac-c4-b5-a3-35-0f-51-91')
-def _define_Scroll_HorizontalViewSize_Property_GUID():
-    return Guid('70c2e5d4-fcb0-4713-a9-aa-af-92-ff-79-e4-cd')
-def _define_Scroll_VerticalScrollPercent_Property_GUID():
-    return Guid('6c8d7099-b2a8-4948-bf-f7-3c-f9-05-8b-fe-fb')
-def _define_Scroll_VerticalViewSize_Property_GUID():
-    return Guid('de6a2e22-d8c7-40c5-83-ba-e5-f6-81-d5-31-08')
-def _define_Scroll_HorizontallyScrollable_Property_GUID():
-    return Guid('8b925147-28cd-49ae-bd-63-f4-41-18-d2-e7-19')
-def _define_Scroll_VerticallyScrollable_Property_GUID():
-    return Guid('89164798-0068-4315-b8-9a-1e-7c-fb-bc-3d-fc')
-def _define_Selection_Selection_Property_GUID():
-    return Guid('aa6dc2a2-0e2b-4d38-96-d5-34-e4-70-b8-18-53')
-def _define_Selection_CanSelectMultiple_Property_GUID():
-    return Guid('49d73da5-c883-4500-88-3d-8f-cf-8d-af-6c-be')
-def _define_Selection_IsSelectionRequired_Property_GUID():
-    return Guid('b1ae4422-63fe-44e7-a5-a5-a7-38-c8-29-b1-9a')
-def _define_Grid_RowCount_Property_GUID():
-    return Guid('2a9505bf-c2eb-4fb6-b3-56-82-45-ae-53-70-3e')
-def _define_Grid_ColumnCount_Property_GUID():
-    return Guid('fe96f375-44aa-4536-ac-7a-2a-75-d7-1a-3e-fc')
-def _define_GridItem_Row_Property_GUID():
-    return Guid('6223972a-c945-4563-93-29-fd-c9-74-af-25-53')
-def _define_GridItem_Column_Property_GUID():
-    return Guid('c774c15c-62c0-4519-8b-dc-47-be-57-3c-8a-d5')
-def _define_GridItem_RowSpan_Property_GUID():
-    return Guid('4582291c-466b-4e93-8e-83-3d-17-15-ec-0c-5e')
-def _define_GridItem_ColumnSpan_Property_GUID():
-    return Guid('583ea3f5-86d0-4b08-a6-ec-2c-54-63-ff-c1-09')
-def _define_GridItem_Parent_Property_GUID():
-    return Guid('9d912252-b97f-4ecc-85-10-ea-0e-33-42-7c-72')
-def _define_Dock_DockPosition_Property_GUID():
-    return Guid('6d67f02e-c0b0-4b10-b5-b9-18-d6-ec-f9-87-60')
-def _define_ExpandCollapse_ExpandCollapseState_Property_GUID():
-    return Guid('275a4c48-85a7-4f69-ab-a0-af-15-76-10-00-2b')
-def _define_MultipleView_CurrentView_Property_GUID():
-    return Guid('7a81a67a-b94f-4875-91-8b-65-c8-d2-f9-98-e5')
-def _define_MultipleView_SupportedViews_Property_GUID():
-    return Guid('8d5db9fd-ce3c-4ae7-b7-88-40-0a-3c-64-55-47')
-def _define_Window_CanMaximize_Property_GUID():
-    return Guid('64fff53f-635d-41c1-95-0c-cb-5a-df-be-28-e3')
-def _define_Window_CanMinimize_Property_GUID():
-    return Guid('b73b4625-5988-4b97-b4-c2-a6-fe-6e-78-c8-c6')
-def _define_Window_WindowVisualState_Property_GUID():
-    return Guid('4ab7905f-e860-453e-a3-0a-f6-43-1e-5d-aa-d5')
-def _define_Window_WindowInteractionState_Property_GUID():
-    return Guid('4fed26a4-0455-4fa2-b2-1c-c4-da-2d-b1-ff-9c')
-def _define_Window_IsModal_Property_GUID():
-    return Guid('ff4e6892-37b9-4fca-85-32-ff-e6-74-ec-fe-ed')
-def _define_Window_IsTopmost_Property_GUID():
-    return Guid('ef7d85d3-0937-4962-92-41-b6-23-45-f2-40-41')
-def _define_SelectionItem_IsSelected_Property_GUID():
-    return Guid('f122835f-cd5f-43df-b7-9d-4b-84-9e-9e-60-20')
-def _define_SelectionItem_SelectionContainer_Property_GUID():
-    return Guid('a4365b6e-9c1e-4b63-8b-53-c2-42-1d-d1-e8-fb')
-def _define_Table_RowHeaders_Property_GUID():
-    return Guid('d9e35b87-6eb8-4562-aa-c6-a8-a9-07-52-36-a8')
-def _define_Table_ColumnHeaders_Property_GUID():
-    return Guid('aff1d72b-968d-42b1-b4-59-15-0b-29-9d-a6-64')
-def _define_Table_RowOrColumnMajor_Property_GUID():
-    return Guid('83be75c3-29fe-4a30-85-e1-2a-62-77-fd-10-6e')
-def _define_TableItem_RowHeaderItems_Property_GUID():
-    return Guid('b3f853a0-0574-4cd8-bc-d7-ed-59-23-57-2d-97')
-def _define_TableItem_ColumnHeaderItems_Property_GUID():
-    return Guid('967a56a3-74b6-431e-8d-e6-99-c4-11-03-1c-58')
-def _define_Toggle_ToggleState_Property_GUID():
-    return Guid('b23cdc52-22c2-4c6c-9d-ed-f5-c4-22-47-9e-de')
-def _define_Transform_CanMove_Property_GUID():
-    return Guid('1b75824d-208b-4fdf-bc-cd-f1-f4-e5-74-1f-4f')
-def _define_Transform_CanResize_Property_GUID():
-    return Guid('bb98dca5-4c1a-41d4-a4-f6-eb-c1-28-64-41-80')
-def _define_Transform_CanRotate_Property_GUID():
-    return Guid('10079b48-3849-476f-ac-96-44-a9-5c-84-40-d9')
-def _define_LegacyIAccessible_ChildId_Property_GUID():
-    return Guid('9a191b5d-9ef2-4787-a4-59-dc-de-88-5d-d4-e8')
-def _define_LegacyIAccessible_Name_Property_GUID():
-    return Guid('caeb063d-40ae-4869-aa-5a-1b-8e-5d-66-67-39')
-def _define_LegacyIAccessible_Value_Property_GUID():
-    return Guid('b5c5b0b6-8217-4a77-97-a5-19-0a-85-ed-01-56')
-def _define_LegacyIAccessible_Description_Property_GUID():
-    return Guid('46448418-7d70-4ea9-9d-27-b7-e7-75-cf-2a-d7')
-def _define_LegacyIAccessible_Role_Property_GUID():
-    return Guid('6856e59f-cbaf-4e31-93-e8-bc-bf-6f-7e-49-1c')
-def _define_LegacyIAccessible_State_Property_GUID():
-    return Guid('df985854-2281-4340-ab-9c-c6-0e-2c-58-03-f6')
-def _define_LegacyIAccessible_Help_Property_GUID():
-    return Guid('94402352-161c-4b77-a9-8d-a8-72-cc-33-94-7a')
-def _define_LegacyIAccessible_KeyboardShortcut_Property_GUID():
-    return Guid('8f6909ac-00b8-4259-a4-1c-96-62-66-d4-3a-8a')
-def _define_LegacyIAccessible_Selection_Property_GUID():
-    return Guid('8aa8b1e0-0891-40cc-8b-06-90-d7-d4-16-62-19')
-def _define_LegacyIAccessible_DefaultAction_Property_GUID():
-    return Guid('3b331729-eaad-4502-b8-5f-92-61-56-22-91-3c')
-def _define_Annotation_AnnotationTypeId_Property_GUID():
-    return Guid('20ae484f-69ef-4c48-8f-5b-c4-93-8b-20-6a-c7')
-def _define_Annotation_AnnotationTypeName_Property_GUID():
-    return Guid('9b818892-5ac9-4af9-aa-96-f5-8a-77-b0-58-e3')
-def _define_Annotation_Author_Property_GUID():
-    return Guid('7a528462-9c5c-4a03-a9-74-8b-30-7a-99-37-f2')
-def _define_Annotation_DateTime_Property_GUID():
-    return Guid('99b5ca5d-1acf-414b-a4-d0-6b-35-0b-04-75-78')
-def _define_Annotation_Target_Property_GUID():
-    return Guid('b71b302d-2104-44ad-9c-5c-09-2b-49-07-d7-0f')
-def _define_Styles_StyleId_Property_GUID():
-    return Guid('da82852f-3817-4233-82-af-02-27-9e-72-cc-77')
-def _define_Styles_StyleName_Property_GUID():
-    return Guid('1c12b035-05d1-4f55-9e-8e-14-89-f3-ff-55-0d')
-def _define_Styles_FillColor_Property_GUID():
-    return Guid('63eff97a-a1c5-4b1d-84-eb-b7-65-f2-ed-d6-32')
-def _define_Styles_FillPatternStyle_Property_GUID():
-    return Guid('81cf651f-482b-4451-a3-0a-e1-54-5e-55-4f-b8')
-def _define_Styles_Shape_Property_GUID():
-    return Guid('c71a23f8-778c-400d-84-58-3b-54-3e-52-69-84')
-def _define_Styles_FillPatternColor_Property_GUID():
-    return Guid('939a59fe-8fbd-4e75-a2-71-ac-45-95-19-51-63')
-def _define_Styles_ExtendedProperties_Property_GUID():
-    return Guid('f451cda0-ba0a-4681-b0-b0-0d-bd-b5-3e-58-f3')
-def _define_SpreadsheetItem_Formula_Property_GUID():
-    return Guid('e602e47d-1b47-4bea-87-cf-3b-0b-0b-5c-15-b6')
-def _define_SpreadsheetItem_AnnotationObjects_Property_GUID():
-    return Guid('a3194c38-c9bc-4604-93-96-ae-3f-9f-45-7f-7b')
-def _define_SpreadsheetItem_AnnotationTypes_Property_GUID():
-    return Guid('c70c51d0-d602-4b45-af-bc-b4-71-2b-96-d7-2b')
-def _define_Transform2_CanZoom_Property_GUID():
-    return Guid('f357e890-a756-4359-9c-a6-86-70-2b-f8-f3-81')
-def _define_LiveSetting_Property_GUID():
-    return Guid('c12bcd8e-2a8e-4950-8a-e7-36-25-11-1d-58-eb')
-def _define_Drag_IsGrabbed_Property_GUID():
-    return Guid('45f206f3-75cc-4cca-a9-b9-fc-df-b9-82-d8-a2')
-def _define_Drag_GrabbedItems_Property_GUID():
-    return Guid('77c1562c-7b86-4b21-9e-d7-3c-ef-da-6f-4c-43')
-def _define_Drag_DropEffect_Property_GUID():
-    return Guid('646f2779-48d3-4b23-89-02-4b-f1-00-00-5d-f3')
-def _define_Drag_DropEffects_Property_GUID():
-    return Guid('f5d61156-7ce6-49be-a8-36-92-69-dc-ec-92-0f')
-def _define_DropTarget_DropTargetEffect_Property_GUID():
-    return Guid('8bb75975-a0ca-4981-b8-18-87-fc-66-e9-50-9d')
-def _define_DropTarget_DropTargetEffects_Property_GUID():
-    return Guid('bc1dd4ed-cb89-45f1-a5-92-e0-3b-08-ae-79-0f')
-def _define_Transform2_ZoomLevel_Property_GUID():
-    return Guid('eee29f1a-f4a2-4b5b-ac-65-95-cf-93-28-33-87')
-def _define_Transform2_ZoomMinimum_Property_GUID():
-    return Guid('742ccc16-4ad1-4e07-96-fe-b1-22-c6-e6-b2-2b')
-def _define_Transform2_ZoomMaximum_Property_GUID():
-    return Guid('42ab6b77-ceb0-4eca-b8-2a-6c-fa-5f-a1-fc-08')
-def _define_FlowsFrom_Property_GUID():
-    return Guid('05c6844f-19de-48f8-95-fa-88-0d-5b-0f-d6-15')
-def _define_FillColor_Property_GUID():
-    return Guid('6e0ec4d0-e2a8-4a56-9d-e7-95-33-89-93-3b-39')
-def _define_OutlineColor_Property_GUID():
-    return Guid('c395d6c0-4b55-4762-a0-73-fd-30-3a-63-4f-52')
-def _define_FillType_Property_GUID():
-    return Guid('c6fc74e4-8cb9-429c-a9-e1-9b-c4-ac-37-2b-62')
-def _define_VisualEffects_Property_GUID():
-    return Guid('e61a8565-aad9-46d7-9e-70-4e-8a-84-20-d4-20')
-def _define_OutlineThickness_Property_GUID():
-    return Guid('13e67cc7-dac2-4888-bd-d3-37-5c-62-fa-96-18')
-def _define_CenterPoint_Property_GUID():
-    return Guid('0cb00c08-540c-4edb-94-45-26-35-9e-a6-97-85')
-def _define_Rotation_Property_GUID():
-    return Guid('767cdc7d-aec0-4110-ad-32-30-ed-d4-03-49-2e')
-def _define_Size_Property_GUID():
-    return Guid('2b5f761d-f885-4404-97-3f-9b-1d-98-e3-6d-8f')
-def _define_ToolTipOpened_Event_GUID():
-    return Guid('3f4b97ff-2edc-451d-bc-a4-95-a3-18-8d-5b-03')
-def _define_ToolTipClosed_Event_GUID():
-    return Guid('276d71ef-24a9-49b6-8e-97-da-98-b4-01-bb-cd')
-def _define_StructureChanged_Event_GUID():
-    return Guid('59977961-3edd-4b11-b1-3b-67-6b-2a-2a-6c-a9')
-def _define_MenuOpened_Event_GUID():
-    return Guid('ebe2e945-66ca-4ed1-9f-f8-2a-d7-df-0a-1b-08')
-def _define_AutomationPropertyChanged_Event_GUID():
-    return Guid('2527fba1-8d7a-4630-a4-cc-e6-63-15-94-2f-52')
-def _define_AutomationFocusChanged_Event_GUID():
-    return Guid('b68a1f17-f60d-41a7-a3-cc-b0-52-92-15-5f-e0')
-def _define_ActiveTextPositionChanged_Event_GUID():
-    return Guid('a5c09e9c-c77d-4f25-b4-91-e5-bb-70-17-cb-d4')
-def _define_AsyncContentLoaded_Event_GUID():
-    return Guid('5fdee11c-d2fa-4fb9-90-4e-5c-be-e8-94-d5-ef')
-def _define_MenuClosed_Event_GUID():
-    return Guid('3cf1266e-1582-4041-ac-d7-88-a3-5a-96-52-97')
-def _define_LayoutInvalidated_Event_GUID():
-    return Guid('ed7d6544-a6bd-4595-9b-ae-3d-28-94-6c-c7-15')
-def _define_Invoke_Invoked_Event_GUID():
-    return Guid('dfd699f0-c915-49dd-b4-22-dd-e7-85-c3-d2-4b')
-def _define_SelectionItem_ElementAddedToSelectionEvent_Event_GUID():
-    return Guid('3c822dd1-c407-4dba-91-dd-79-d4-ae-d0-ae-c6')
-def _define_SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID():
-    return Guid('097fa8a9-7079-41af-8b-9c-09-34-d8-30-5e-5c')
-def _define_SelectionItem_ElementSelectedEvent_Event_GUID():
-    return Guid('b9c7dbfb-4ebe-4532-aa-f4-00-8c-f6-47-23-3c')
-def _define_Selection_InvalidatedEvent_Event_GUID():
-    return Guid('cac14904-16b4-4b53-8e-47-4c-b1-df-26-7b-b7')
-def _define_Text_TextSelectionChangedEvent_Event_GUID():
-    return Guid('918edaa1-71b3-49ae-97-41-79-be-b8-d3-58-f3')
-def _define_Text_TextChangedEvent_Event_GUID():
-    return Guid('4a342082-f483-48c4-ac-11-a8-4b-43-5e-2a-84')
-def _define_Window_WindowOpened_Event_GUID():
-    return Guid('d3e81d06-de45-4f2f-96-33-de-9e-02-fb-65-af')
-def _define_Window_WindowClosed_Event_GUID():
-    return Guid('edf141f8-fa67-4e22-bb-f7-94-4e-05-73-5e-e2')
-def _define_MenuModeStart_Event_GUID():
-    return Guid('18d7c631-166a-4ac9-ae-3b-ef-4b-54-20-e6-81')
-def _define_MenuModeEnd_Event_GUID():
-    return Guid('9ecd4c9f-80dd-47b8-82-67-5a-ec-06-bb-2c-ff')
-def _define_InputReachedTarget_Event_GUID():
-    return Guid('93ed549a-0549-40f0-be-db-28-e4-4f-7d-e2-a3')
-def _define_InputReachedOtherElement_Event_GUID():
-    return Guid('ed201d8a-4e6c-415e-a8-74-24-60-c9-b6-6b-a8')
-def _define_InputDiscarded_Event_GUID():
-    return Guid('7f36c367-7b18-417c-97-e3-9d-58-dd-c9-44-ab')
-def _define_SystemAlert_Event_GUID():
-    return Guid('d271545d-7a3a-47a7-84-74-81-d2-9a-24-51-c9')
-def _define_LiveRegionChanged_Event_GUID():
-    return Guid('102d5e90-e6a9-41b6-b1-c5-a9-b1-92-9d-95-10')
-def _define_HostedFragmentRootsInvalidated_Event_GUID():
-    return Guid('e6bdb03e-0921-4ec5-8d-cf-ea-e8-77-b0-42-6b')
-def _define_Drag_DragStart_Event_GUID():
-    return Guid('883a480b-3aa9-429d-95-e4-d9-c8-d0-11-f0-dd')
-def _define_Drag_DragCancel_Event_GUID():
-    return Guid('c3ede6fa-3451-4e0f-9e-71-df-9c-28-0a-46-57')
-def _define_Drag_DragComplete_Event_GUID():
-    return Guid('38e96188-ef1f-463e-91-ca-3a-77-92-c2-9c-af')
-def _define_DropTarget_DragEnter_Event_GUID():
-    return Guid('aad9319b-032c-4a88-96-1d-1c-f5-79-58-1e-34')
-def _define_DropTarget_DragLeave_Event_GUID():
-    return Guid('0f82eb15-24a2-4988-92-17-de-16-2a-ee-27-2b')
-def _define_DropTarget_Dropped_Event_GUID():
-    return Guid('622cead8-1edb-4a3d-ab-bc-be-22-11-ff-68-b5')
-def _define_StructuredMarkup_CompositionComplete_Event_GUID():
-    return Guid('c48a3c17-677a-4047-a6-8d-fc-12-57-52-8a-ef')
-def _define_StructuredMarkup_Deleted_Event_GUID():
-    return Guid('f9d0a020-e1c1-4ecf-b9-aa-52-ef-de-7e-41-e1')
-def _define_StructuredMarkup_SelectionChanged_Event_GUID():
-    return Guid('a7c815f7-ff9f-41c7-a3-a7-ab-6c-bf-db-49-03')
-def _define_Invoke_Pattern_GUID():
-    return Guid('d976c2fc-66ea-4a6e-b2-8f-c2-4c-75-46-ad-37')
-def _define_Selection_Pattern_GUID():
-    return Guid('66e3b7e8-d821-4d25-87-61-43-5d-2c-8b-25-3f')
-def _define_Value_Pattern_GUID():
-    return Guid('17faad9e-c877-475b-b9-33-77-33-27-79-b6-37')
-def _define_RangeValue_Pattern_GUID():
-    return Guid('18b00d87-b1c9-476a-bf-bd-5f-0b-db-92-6f-63')
-def _define_Scroll_Pattern_GUID():
-    return Guid('895fa4b4-759d-4c50-8e-15-03-46-06-72-00-3c')
-def _define_ExpandCollapse_Pattern_GUID():
-    return Guid('ae05efa2-f9d1-428a-83-4c-53-a5-c5-2f-9b-8b')
-def _define_Grid_Pattern_GUID():
-    return Guid('260a2ccb-93a8-4e44-a4-c1-3d-f3-97-f2-b0-2b')
-def _define_GridItem_Pattern_GUID():
-    return Guid('f2d5c877-a462-4957-a2-a5-2c-96-b3-03-bc-63')
-def _define_MultipleView_Pattern_GUID():
-    return Guid('547a6ae4-113f-47c4-85-0f-db-4d-fa-46-6b-1d')
-def _define_Window_Pattern_GUID():
-    return Guid('27901735-c760-4994-ad-11-59-19-e6-06-b1-10')
-def _define_SelectionItem_Pattern_GUID():
-    return Guid('9bc64eeb-87c7-4b28-94-bb-4d-9f-a4-37-b6-ef')
-def _define_Dock_Pattern_GUID():
-    return Guid('9cbaa846-83c8-428d-82-7f-7e-60-63-fe-06-20')
-def _define_Table_Pattern_GUID():
-    return Guid('c415218e-a028-461e-aa-92-8f-92-5c-f7-93-51')
-def _define_TableItem_Pattern_GUID():
-    return Guid('df1343bd-1888-4a29-a5-0c-b9-2e-6d-e3-7f-6f')
-def _define_Text_Pattern_GUID():
-    return Guid('8615f05d-7de5-44fd-a6-79-2c-a4-b4-60-33-a8')
-def _define_Toggle_Pattern_GUID():
-    return Guid('0b419760-e2f4-43ff-8c-5f-94-57-c8-2b-56-e9')
-def _define_Transform_Pattern_GUID():
-    return Guid('24b46fdb-587e-49f1-9c-4a-d8-e9-8b-66-4b-7b')
-def _define_ScrollItem_Pattern_GUID():
-    return Guid('4591d005-a803-4d5c-b4-d5-8d-28-00-f9-06-a7')
-def _define_LegacyIAccessible_Pattern_GUID():
-    return Guid('54cc0a9f-3395-48af-ba-8d-73-f8-56-90-f3-e0')
-def _define_ItemContainer_Pattern_GUID():
-    return Guid('3d13da0f-8b9a-4a99-85-fa-c5-c9-a6-9f-1e-d4')
-def _define_VirtualizedItem_Pattern_GUID():
-    return Guid('f510173e-2e71-45e9-a6-e5-62-f6-ed-82-89-d5')
-def _define_SynchronizedInput_Pattern_GUID():
-    return Guid('05c288a6-c47b-488b-b6-53-33-97-7a-55-1b-8b')
-def _define_ObjectModel_Pattern_GUID():
-    return Guid('3e04acfe-08fc-47ec-96-bc-35-3f-a3-b3-4a-a7')
-def _define_Annotation_Pattern_GUID():
-    return Guid('f6c72ad7-356c-4850-92-91-31-6f-60-8a-8c-84')
-def _define_Text_Pattern2_GUID():
-    return Guid('498479a2-5b22-448d-b6-e4-64-74-90-86-06-98')
-def _define_TextEdit_Pattern_GUID():
-    return Guid('69f3ff89-5af9-4c75-93-40-f2-de-29-2e-45-91')
-def _define_CustomNavigation_Pattern_GUID():
-    return Guid('afea938a-621e-4054-bb-2c-2f-46-11-4d-ac-3f')
-def _define_Styles_Pattern_GUID():
-    return Guid('1ae62655-da72-4d60-a1-53-e5-aa-69-88-e3-bf')
-def _define_Spreadsheet_Pattern_GUID():
-    return Guid('6a5b24c9-9d1e-4b85-9e-44-c0-2e-31-69-b1-0b')
-def _define_SpreadsheetItem_Pattern_GUID():
-    return Guid('32cf83ff-f1a8-4a8c-86-58-d4-7b-a7-4e-20-ba')
-def _define_Tranform_Pattern2_GUID():
-    return Guid('8afcfd07-a369-44de-98-8b-2f-7f-f4-9f-b8-a8')
-def _define_TextChild_Pattern_GUID():
-    return Guid('7533cab7-3bfe-41ef-9e-85-e2-63-8c-be-16-9e')
-def _define_Drag_Pattern_GUID():
-    return Guid('c0bee21f-ccb3-4fed-99-5b-11-4f-6e-3d-27-28')
-def _define_DropTarget_Pattern_GUID():
-    return Guid('0bcbec56-bd34-4b7b-9f-d5-26-59-90-5e-a3-dc')
-def _define_StructuredMarkup_Pattern_GUID():
-    return Guid('abbd0878-8665-4f5c-94-fc-36-e7-d8-bb-70-6b')
-def _define_Button_Control_GUID():
-    return Guid('5a78e369-c6a1-4f33-a9-d7-79-f2-0d-0c-78-8e')
-def _define_Calendar_Control_GUID():
-    return Guid('8913eb88-00e5-46bc-8e-4e-14-a7-86-e1-65-a1')
-def _define_CheckBox_Control_GUID():
-    return Guid('fb50f922-a3db-49c0-8b-c3-06-da-d5-57-78-e2')
-def _define_ComboBox_Control_GUID():
-    return Guid('54cb426c-2f33-4fff-aa-a1-ae-f6-0d-ac-5d-eb')
-def _define_Edit_Control_GUID():
-    return Guid('6504a5c8-2c86-4f87-ae-7b-1a-bd-dc-81-0c-f9')
-def _define_Hyperlink_Control_GUID():
-    return Guid('8a56022c-b00d-4d15-8f-f0-5b-6b-26-6e-5e-02')
-def _define_Image_Control_GUID():
-    return Guid('2d3736e4-6b16-4c57-a9-62-f9-32-60-a7-52-43')
-def _define_ListItem_Control_GUID():
-    return Guid('7b3717f2-44d1-4a58-98-a8-f1-2a-9b-8f-78-e2')
-def _define_List_Control_GUID():
-    return Guid('9b149ee1-7cca-4cfc-9a-f1-ca-c7-bd-dd-30-31')
-def _define_Menu_Control_GUID():
-    return Guid('2e9b1440-0ea8-41fd-b3-74-c1-ea-6f-50-3c-d1')
-def _define_MenuBar_Control_GUID():
-    return Guid('cc384250-0e7b-4ae8-95-ae-a0-8f-26-1b-52-ee')
-def _define_MenuItem_Control_GUID():
-    return Guid('f45225d3-d0a0-49d8-98-34-9a-00-0d-2a-ed-dc')
-def _define_ProgressBar_Control_GUID():
-    return Guid('228c9f86-c36c-47bb-9f-b6-a5-83-4b-fc-53-a4')
-def _define_RadioButton_Control_GUID():
-    return Guid('3bdb49db-fe2c-4483-b3-e1-e5-7f-21-94-40-c6')
-def _define_ScrollBar_Control_GUID():
-    return Guid('daf34b36-5065-4946-b2-2f-92-59-5f-c0-75-1a')
-def _define_Slider_Control_GUID():
-    return Guid('b033c24b-3b35-4cea-b6-09-76-36-82-fa-66-0b')
-def _define_Spinner_Control_GUID():
-    return Guid('60cc4b38-3cb1-4161-b4-42-c6-b7-26-c1-78-25')
-def _define_StatusBar_Control_GUID():
-    return Guid('d45e7d1b-5873-475f-95-a4-04-33-e1-f1-b0-0a')
-def _define_Tab_Control_GUID():
-    return Guid('38cd1f2d-337a-4bd2-a5-e3-ad-b4-69-e3-0b-d3')
-def _define_TabItem_Control_GUID():
-    return Guid('2c6a634f-921b-4e6e-b2-6e-08-fc-b0-79-8f-4c')
-def _define_Text_Control_GUID():
-    return Guid('ae9772dc-d331-4f09-be-20-7e-6d-fa-f0-7b-0a')
-def _define_ToolBar_Control_GUID():
-    return Guid('8f06b751-e182-4e98-88-93-22-84-54-3a-7d-ce')
-def _define_ToolTip_Control_GUID():
-    return Guid('05ddc6d1-2137-4768-98-ea-73-f5-2f-71-34-f3')
-def _define_Tree_Control_GUID():
-    return Guid('7561349c-d241-43f4-99-08-b5-f0-91-be-e6-11')
-def _define_TreeItem_Control_GUID():
-    return Guid('62c9feb9-8ffc-4878-a3-a4-96-b0-30-31-5c-18')
-def _define_Custom_Control_GUID():
-    return Guid('f29ea0c3-adb7-430a-ba-90-e5-2c-73-13-e6-ed')
-def _define_Group_Control_GUID():
-    return Guid('ad50aa1c-e8c8-4774-ae-1b-dd-86-df-0b-3b-dc')
-def _define_Thumb_Control_GUID():
-    return Guid('701ca877-e310-4dd6-b6-44-79-7e-4f-ae-a2-13')
-def _define_DataGrid_Control_GUID():
-    return Guid('84b783af-d103-4b0a-84-15-e7-39-42-41-0f-4b')
-def _define_DataItem_Control_GUID():
-    return Guid('a0177842-d94f-42a5-81-4b-60-68-ad-dc-8d-a5')
-def _define_Document_Control_GUID():
-    return Guid('3cd6bb6f-6f08-4562-b2-29-e4-e2-fc-7a-9e-b4')
-def _define_SplitButton_Control_GUID():
-    return Guid('7011f01f-4ace-4901-b4-61-92-0a-6f-1c-a6-50')
-def _define_Window_Control_GUID():
-    return Guid('e13a7242-f462-4f4d-ae-c1-53-b2-8d-6c-32-90')
-def _define_Pane_Control_GUID():
-    return Guid('5c2b3f5b-9182-42a3-8d-ec-8c-04-c1-ee-63-4d')
-def _define_Header_Control_GUID():
-    return Guid('5b90cbce-78fb-4614-82-b6-55-4d-74-71-8e-67')
-def _define_HeaderItem_Control_GUID():
-    return Guid('e6bc12cb-7c8e-49cf-b1-68-4a-93-a3-2b-eb-b0')
-def _define_Table_Control_GUID():
-    return Guid('773bfa0e-5bc4-4deb-92-1b-de-7b-32-06-22-9e')
-def _define_TitleBar_Control_GUID():
-    return Guid('98aa55bf-3bb0-4b65-83-6e-2e-a3-0d-bc-17-1f')
-def _define_Separator_Control_GUID():
-    return Guid('8767eba3-2a63-4ab0-ac-8d-aa-50-e2-3d-e9-78')
-def _define_SemanticZoom_Control_GUID():
-    return Guid('5fd34a43-061e-42c8-b5-89-9d-cc-f7-4b-c4-3a')
-def _define_AppBar_Control_GUID():
-    return Guid('6114908d-cc02-4d37-87-5b-b5-30-c7-13-95-54')
-def _define_Text_AnimationStyle_Attribute_GUID():
-    return Guid('628209f0-7c9a-4d57-be-64-1f-18-36-57-1f-f5')
-def _define_Text_BackgroundColor_Attribute_GUID():
-    return Guid('fdc49a07-583d-4f17-ad-27-77-fc-83-2a-3c-0b')
-def _define_Text_BulletStyle_Attribute_GUID():
-    return Guid('c1097c90-d5c4-4237-97-81-3b-ec-8b-a5-4e-48')
-def _define_Text_CapStyle_Attribute_GUID():
-    return Guid('fb059c50-92cc-49a5-ba-8f-0a-a8-72-bb-a2-f3')
-def _define_Text_Culture_Attribute_GUID():
-    return Guid('c2025af9-a42d-4ced-a1-fb-c6-74-63-15-22-2e')
-def _define_Text_FontName_Attribute_GUID():
-    return Guid('64e63ba8-f2e5-476e-a4-77-17-34-fe-aa-f7-26')
-def _define_Text_FontSize_Attribute_GUID():
-    return Guid('dc5eeeff-0506-4673-93-f2-37-7e-4a-8e-01-f1')
-def _define_Text_FontWeight_Attribute_GUID():
-    return Guid('6fc02359-b316-4f5f-b4-01-f1-ce-55-74-18-53')
-def _define_Text_ForegroundColor_Attribute_GUID():
-    return Guid('72d1c95d-5e60-471a-96-b1-6c-1b-3b-77-a4-36')
-def _define_Text_HorizontalTextAlignment_Attribute_GUID():
-    return Guid('04ea6161-fba3-477a-95-2a-bb-32-6d-02-6a-5b')
-def _define_Text_IndentationFirstLine_Attribute_GUID():
-    return Guid('206f9ad5-c1d3-424a-81-82-6d-a9-a7-f3-d6-32')
-def _define_Text_IndentationLeading_Attribute_GUID():
-    return Guid('5cf66bac-2d45-4a4b-b6-c9-f7-22-1d-28-15-b0')
-def _define_Text_IndentationTrailing_Attribute_GUID():
-    return Guid('97ff6c0f-1ce4-408a-b6-7b-94-d8-3e-b6-9b-f2')
-def _define_Text_IsHidden_Attribute_GUID():
-    return Guid('360182fb-bdd7-47f6-ab-69-19-e3-3f-8a-33-44')
-def _define_Text_IsItalic_Attribute_GUID():
-    return Guid('fce12a56-1336-4a34-96-63-1b-ab-47-23-93-20')
-def _define_Text_IsReadOnly_Attribute_GUID():
-    return Guid('a738156b-ca3e-495e-95-14-83-3c-44-0f-eb-11')
-def _define_Text_IsSubscript_Attribute_GUID():
-    return Guid('f0ead858-8f53-413c-87-3f-1a-7d-7f-5e-0d-e4')
-def _define_Text_IsSuperscript_Attribute_GUID():
-    return Guid('da706ee4-b3aa-4645-a4-1f-cd-25-15-7d-ea-76')
-def _define_Text_MarginBottom_Attribute_GUID():
-    return Guid('7ee593c4-72b4-4cac-92-71-3e-d2-4b-0e-4d-42')
-def _define_Text_MarginLeading_Attribute_GUID():
-    return Guid('9e9242d0-5ed0-4900-8e-8a-ee-cc-03-83-5a-fc')
-def _define_Text_MarginTop_Attribute_GUID():
-    return Guid('683d936f-c9b9-4a9a-b3-d9-d2-0d-33-31-1e-2a')
-def _define_Text_MarginTrailing_Attribute_GUID():
-    return Guid('af522f98-999d-40af-a5-b2-01-69-d0-34-20-02')
-def _define_Text_OutlineStyles_Attribute_GUID():
-    return Guid('5b675b27-db89-46fe-97-0c-61-4d-52-3b-b9-7d')
-def _define_Text_OverlineColor_Attribute_GUID():
-    return Guid('83ab383a-fd43-40da-ab-3e-ec-f8-16-5c-bb-6d')
-def _define_Text_OverlineStyle_Attribute_GUID():
-    return Guid('0a234d66-617e-427f-87-1d-e1-ff-1e-0c-21-3f')
-def _define_Text_StrikethroughColor_Attribute_GUID():
-    return Guid('bfe15a18-8c41-4c5a-9a-0b-04-af-0e-07-f4-87')
-def _define_Text_StrikethroughStyle_Attribute_GUID():
-    return Guid('72913ef1-da00-4f01-89-9c-ac-5a-85-77-a3-07')
-def _define_Text_Tabs_Attribute_GUID():
-    return Guid('2e68d00b-92fe-42d8-89-9a-a7-84-aa-44-54-a1')
-def _define_Text_TextFlowDirections_Attribute_GUID():
-    return Guid('8bdf8739-f420-423e-af-77-20-a5-d9-73-a9-07')
-def _define_Text_UnderlineColor_Attribute_GUID():
-    return Guid('bfa12c73-fde2-4473-bf-64-10-36-d6-aa-0f-45')
-def _define_Text_UnderlineStyle_Attribute_GUID():
-    return Guid('5f3b21c0-ede4-44bd-9c-36-38-53-03-8c-bf-eb')
-def _define_Text_AnnotationTypes_Attribute_GUID():
-    return Guid('ad2eb431-ee4e-4be1-a7-ba-55-59-15-5a-73-ef')
-def _define_Text_AnnotationObjects_Attribute_GUID():
-    return Guid('ff41cf68-e7ab-40b9-8c-72-72-a8-ed-94-01-7d')
-def _define_Text_StyleName_Attribute_GUID():
-    return Guid('22c9e091-4d66-45d8-a8-28-73-7b-ab-4c-98-a7')
-def _define_Text_StyleId_Attribute_GUID():
-    return Guid('14c300de-c32b-449b-ab-7c-b0-e0-78-9a-ea-5d')
-def _define_Text_Link_Attribute_GUID():
-    return Guid('b38ef51d-9e8d-4e46-91-44-56-eb-e1-77-32-9b')
-def _define_Text_IsActive_Attribute_GUID():
-    return Guid('f5a4e533-e1b8-436b-93-5d-b5-7a-a3-f5-58-c4')
-def _define_Text_SelectionActiveEnd_Attribute_GUID():
-    return Guid('1f668cc3-9bbf-416b-b0-a2-f8-9f-86-f6-61-2c')
-def _define_Text_CaretPosition_Attribute_GUID():
-    return Guid('b227b131-9889-4752-a9-1b-73-3e-fd-c5-c5-a0')
-def _define_Text_CaretBidiMode_Attribute_GUID():
-    return Guid('929ee7a6-51d3-4715-96-dc-b6-94-fa-24-a1-68')
-def _define_Text_BeforeParagraphSpacing_Attribute_GUID():
-    return Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
-def _define_Text_AfterParagraphSpacing_Attribute_GUID():
-    return Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
-def _define_Text_LineSpacing_Attribute_GUID():
-    return Guid('63ff70ae-d943-4b47-8a-b7-a7-a0-33-d3-21-4b')
-def _define_Text_BeforeSpacing_Attribute_GUID():
-    return Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
-def _define_Text_AfterSpacing_Attribute_GUID():
-    return Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
-def _define_Text_SayAsInterpretAs_Attribute_GUID():
-    return Guid('b38ad6ac-eee1-4b6e-88-cc-01-4c-ef-a9-3f-cb')
-def _define_TextEdit_TextChanged_Event_GUID():
-    return Guid('120b0308-ec22-4eb8-9c-98-98-67-cd-a1-b1-65')
-def _define_TextEdit_ConversionTargetChanged_Event_GUID():
-    return Guid('3388c183-ed4f-4c8b-9b-aa-36-4d-51-d8-84-7f')
-def _define_Changes_Event_GUID():
-    return Guid('7df26714-614f-4e05-94-88-71-6c-5b-a1-94-36')
-def _define_Annotation_Custom_GUID():
-    return Guid('9ec82750-3931-4952-85-bc-1d-bf-f7-8a-43-e3')
-def _define_Annotation_SpellingError_GUID():
-    return Guid('ae85567e-9ece-423f-81-b7-96-c4-3d-53-e5-0e')
-def _define_Annotation_GrammarError_GUID():
-    return Guid('757a048d-4518-41c6-85-4c-dc-00-9b-7c-fb-53')
-def _define_Annotation_Comment_GUID():
-    return Guid('fd2fda30-26b3-4c06-8b-c7-98-f1-53-2e-46-fd')
-def _define_Annotation_FormulaError_GUID():
-    return Guid('95611982-0cab-46d5-a2-f0-e3-0d-19-05-f8-bf')
-def _define_Annotation_TrackChanges_GUID():
-    return Guid('21e6e888-dc14-4016-ac-27-19-05-53-c8-c4-70')
-def _define_Annotation_Header_GUID():
-    return Guid('867b409b-b216-4472-a2-19-52-5e-31-06-81-f8')
-def _define_Annotation_Footer_GUID():
-    return Guid('cceab046-1833-47aa-80-80-70-1e-d0-b0-c8-32')
-def _define_Annotation_Highlighted_GUID():
-    return Guid('757c884e-8083-4081-8b-9c-e8-7f-50-72-f0-e4')
-def _define_Annotation_Endnote_GUID():
-    return Guid('7565725c-2d99-4839-96-0d-33-d3-b8-66-ab-a5')
-def _define_Annotation_Footnote_GUID():
-    return Guid('3de10e21-4125-42db-86-20-be-80-83-08-06-24')
-def _define_Annotation_InsertionChange_GUID():
-    return Guid('0dbeb3a6-df15-4164-a3-c0-e2-1a-8c-e9-31-c4')
-def _define_Annotation_DeletionChange_GUID():
-    return Guid('be3d5b05-951d-42e7-90-1d-ad-c8-c2-cf-34-d0')
-def _define_Annotation_MoveChange_GUID():
-    return Guid('9da587eb-23e5-4490-b3-85-1a-22-dd-c8-b1-87')
-def _define_Annotation_FormatChange_GUID():
-    return Guid('eb247345-d4f1-41ce-8e-52-f7-9b-69-63-5e-48')
-def _define_Annotation_UnsyncedChange_GUID():
-    return Guid('1851116a-0e47-4b30-8c-b5-d7-da-e4-fb-cd-1b')
-def _define_Annotation_EditingLockedChange_GUID():
-    return Guid('c31f3e1c-7423-4dac-83-48-41-f0-99-ff-6f-64')
-def _define_Annotation_ExternalChange_GUID():
-    return Guid('75a05b31-5f11-42fd-88-7d-df-a0-10-db-23-92')
-def _define_Annotation_ConflictingChange_GUID():
-    return Guid('98af8802-517c-459f-af-13-01-6d-3f-ab-87-7e')
-def _define_Annotation_Author_GUID():
-    return Guid('f161d3a7-f81b-4128-b1-7f-71-f6-90-91-45-20')
-def _define_Annotation_AdvancedProofingIssue_GUID():
-    return Guid('dac7b72c-c0f2-4b84-b9-0d-5f-af-c0-f0-ef-1c')
-def _define_Annotation_DataValidationError_GUID():
-    return Guid('c8649fa8-9775-437e-ad-46-e7-09-d9-3c-23-43')
-def _define_Annotation_CircularReferenceError_GUID():
-    return Guid('25bd9cf4-1745-4659-ba-67-72-7f-03-18-c6-16')
-def _define_Annotation_Mathematics_GUID():
-    return Guid('eaab634b-26d0-40c1-80-73-57-ca-1c-63-3c-9b')
-def _define_Annotation_Sensitive_GUID():
-    return Guid('37f4c04f-0f12-4464-92-9c-82-8f-d1-52-92-e3')
-def _define_Changes_Summary_GUID():
-    return Guid('313d65a6-e60f-4d62-98-61-55-af-d7-28-d2-07')
-def _define_StyleId_Custom_GUID():
-    return Guid('ef2edd3e-a999-4b7c-a3-78-09-bb-d5-2a-35-16')
-def _define_StyleId_Heading1_GUID():
-    return Guid('7f7e8f69-6866-4621-93-0c-9a-5d-0c-a5-96-1c')
-def _define_StyleId_Heading2_GUID():
-    return Guid('baa9b241-5c69-469d-85-ad-47-47-37-b5-2b-14')
-def _define_StyleId_Heading3_GUID():
-    return Guid('bf8be9d2-d8b8-4ec5-8c-52-9c-fb-0d-03-59-70')
-def _define_StyleId_Heading4_GUID():
-    return Guid('8436ffc0-9578-45fc-83-a4-ff-40-05-33-15-dd')
-def _define_StyleId_Heading5_GUID():
-    return Guid('909f424d-0dbf-406e-97-bb-4e-77-3d-97-98-f7')
-def _define_StyleId_Heading6_GUID():
-    return Guid('89d23459-5d5b-4824-a4-20-11-d3-ed-82-e4-0f')
-def _define_StyleId_Heading7_GUID():
-    return Guid('a3790473-e9ae-422d-b8-e3-3b-67-5c-61-81-a4')
-def _define_StyleId_Heading8_GUID():
-    return Guid('2bc14145-a40c-4881-84-ae-f2-23-56-85-38-0c')
-def _define_StyleId_Heading9_GUID():
-    return Guid('c70d9133-bb2a-43d3-8a-c6-33-65-78-84-b0-f0')
-def _define_StyleId_Title_GUID():
-    return Guid('15d8201a-ffcf-481f-b0-a1-30-b6-3b-e9-8f-07')
-def _define_StyleId_Subtitle_GUID():
-    return Guid('b5d9fc17-5d6f-4420-b4-39-7c-b1-9a-d4-34-e2')
-def _define_StyleId_Normal_GUID():
-    return Guid('cd14d429-e45e-4475-a1-c5-7f-9e-6b-e9-6e-ba')
-def _define_StyleId_Emphasis_GUID():
-    return Guid('ca6e7dbe-355e-4820-95-a0-92-5f-04-1d-34-70')
-def _define_StyleId_Quote_GUID():
-    return Guid('5d1c21ea-8195-4f6c-87-ea-5d-ab-ec-e6-4c-1d')
-def _define_StyleId_BulletedList_GUID():
-    return Guid('5963ed64-6426-4632-8c-af-a3-2a-d4-02-d9-1a')
-def _define_StyleId_NumberedList_GUID():
-    return Guid('1e96dbd5-64c3-43d0-b1-ee-b5-3b-06-e3-ed-df')
-def _define_Notification_Event_GUID():
-    return Guid('72c5a2f7-9788-480f-b8-eb-4d-ee-00-f6-18-6f')
-def _define_SID_IsUIAutomationObject():
-    return Guid('b96fdb85-7204-4724-84-2b-c7-05-9d-ed-b9-d0')
-def _define_SID_ControlElementProvider():
-    return Guid('f4791d68-e254-4ba3-9a-53-26-a5-c5-49-79-46')
-def _define_IsSelectionPattern2Available_Property_GUID():
-    return Guid('490806fb-6e89-4a47-83-19-d2-66-e5-11-f0-21')
-def _define_Selection2_FirstSelectedItem_Property_GUID():
-    return Guid('cc24ea67-369c-4e55-9f-f7-38-da-69-54-0c-29')
-def _define_Selection2_LastSelectedItem_Property_GUID():
-    return Guid('cf7bda90-2d83-49f8-86-0c-9c-e3-94-cf-89-b4')
-def _define_Selection2_CurrentSelectedItem_Property_GUID():
-    return Guid('34257c26-83b5-41a6-93-9c-ae-84-1c-13-62-36')
-def _define_Selection2_ItemCount_Property_GUID():
-    return Guid('bb49eb9f-456d-4048-b5-91-9c-20-26-b8-46-36')
-def _define_Selection_Pattern2_GUID():
-    return Guid('fba25cab-ab98-49f7-a7-dc-fe-53-9d-c1-5b-e7')
-def _define_HeadingLevel_Property_GUID():
-    return Guid('29084272-aaaf-4a30-87-96-3c-12-f6-2b-6b-bb')
-def _define_IsDialog_Property_GUID():
-    return Guid('9d0dfb9b-8436-4501-bb-bb-e5-34-a4-fb-3b-3f')
-UIA_IAFP_DEFAULT = 0
-UIA_IAFP_UNWRAP_BRIDGE = 1
-UIA_PFIA_DEFAULT = 0
-UIA_PFIA_UNWRAP_BRIDGE = 1
-UIA_ScrollPatternNoScroll = -1
-def _define_LresultFromObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(Guid),win32more.Foundation.WPARAM,win32more.System.Com.IUnknown_head)(('LresultFromObject', windll['OLEACC.dll']), ((1, 'riid'),(1, 'wParam'),(1, 'punk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ObjectFromLresult():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LRESULT,POINTER(Guid),win32more.Foundation.WPARAM,POINTER(c_void_p))(('ObjectFromLresult', windll['OLEACC.dll']), ((1, 'lResult'),(1, 'riid'),(1, 'wParam'),(1, 'ppvObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowFromAccessibleObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,POINTER(win32more.Foundation.HWND))(('WindowFromAccessibleObject', windll['OLEACC.dll']), ((1, 'param0'),(1, 'phwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessibleObjectFromWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(Guid),POINTER(c_void_p))(('AccessibleObjectFromWindow', windll['OLEACC.dll']), ((1, 'hwnd'),(1, 'dwId'),(1, 'riid'),(1, 'ppvObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessibleObjectFromEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(win32more.System.Com.VARIANT_head))(('AccessibleObjectFromEvent', windll['OLEACC.dll']), ((1, 'hwnd'),(1, 'dwId'),(1, 'dwChildId'),(1, 'ppacc'),(1, 'pvarChild'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessibleObjectFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(win32more.System.Com.VARIANT_head))(('AccessibleObjectFromPoint', windll['OLEACC.dll']), ((1, 'ptScreen'),(1, 'ppacc'),(1, 'pvarChild'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccessibleChildren():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32))(('AccessibleChildren', windll['OLEACC.dll']), ((1, 'paccContainer'),(1, 'iChildStart'),(1, 'cChildren'),(1, 'rgvarChildren'),(1, 'pcObtained'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRoleTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('GetRoleTextA', windll['OLEACC.dll']), ((1, 'lRole'),(1, 'lpszRole'),(1, 'cchRoleMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRoleTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('GetRoleTextW', windll['OLEACC.dll']), ((1, 'lRole'),(1, 'lpszRole'),(1, 'cchRoleMax'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStateTextA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR,UInt32)(('GetStateTextA', windll['OLEACC.dll']), ((1, 'lStateBit'),(1, 'lpszState'),(1, 'cchState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStateTextW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,UInt32)(('GetStateTextW', windll['OLEACC.dll']), ((1, 'lStateBit'),(1, 'lpszState'),(1, 'cchState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOleaccVersionInfo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt32))(('GetOleaccVersionInfo', windll['OLEACC.dll']), ((1, 'pVer'),(1, 'pBuild'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateStdAccessibleObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,POINTER(Guid),POINTER(c_void_p))(('CreateStdAccessibleObject', windll['OLEACC.dll']), ((1, 'hwnd'),(1, 'idObject'),(1, 'riid'),(1, 'ppvObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateStdAccessibleProxyA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PSTR,Int32,POINTER(Guid),POINTER(c_void_p))(('CreateStdAccessibleProxyA', windll['OLEACC.dll']), ((1, 'hwnd'),(1, 'pClassName'),(1, 'idObject'),(1, 'riid'),(1, 'ppvObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateStdAccessibleProxyW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,Int32,POINTER(Guid),POINTER(c_void_p))(('CreateStdAccessibleProxyW', windll['OLEACC.dll']), ((1, 'hwnd'),(1, 'pClassName'),(1, 'idObject'),(1, 'riid'),(1, 'ppvObject'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccSetRunningUtilityState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.UI.Accessibility.ACC_UTILITY_STATE_FLAGS)(('AccSetRunningUtilityState', windll['OLEACC.dll']), ((1, 'hwndApp'),(1, 'dwUtilityStateMask'),(1, 'dwUtilityState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AccNotifyTouchInteraction():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HWND,win32more.Foundation.POINT)(('AccNotifyTouchInteraction', windll['OLEACC.dll']), ((1, 'hwndApp'),(1, 'hwndTarget'),(1, 'ptTarget'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetErrorDescription():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.BSTR))(('UiaGetErrorDescription', windll['UIAutomationCore.dll']), ((1, 'pDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaHUiaNodeFromVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.UI.Accessibility.HUIANODE))(('UiaHUiaNodeFromVariant', windll['UIAutomationCore.dll']), ((1, 'pvar'),(1, 'phnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaHPatternObjectFromVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.UI.Accessibility.HUIAPATTERNOBJECT))(('UiaHPatternObjectFromVariant', windll['UIAutomationCore.dll']), ((1, 'pvar'),(1, 'phobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaHTextRangeFromVariant():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('UiaHTextRangeFromVariant', windll['UIAutomationCore.dll']), ((1, 'pvar'),(1, 'phtextrange'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNodeRelease():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.Accessibility.HUIANODE)(('UiaNodeRelease', windll['UIAutomationCore.dll']), ((1, 'hnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetPropertyValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,Int32,POINTER(win32more.System.Com.VARIANT_head))(('UiaGetPropertyValue', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'propertyId'),(1, 'pValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetPatternProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,Int32,POINTER(win32more.UI.Accessibility.HUIAPATTERNOBJECT))(('UiaGetPatternProvider', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'patternId'),(1, 'phobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetRuntimeId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('UiaGetRuntimeId', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'pruntimeId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaSetFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE)(('UiaSetFocus', windll['UIAutomationCore.dll']), ((1, 'hnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNavigate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.UiaCondition_head),POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(win32more.Foundation.BSTR))(('UiaNavigate', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'direction'),(1, 'pCondition'),(1, 'pRequest'),(1, 'ppRequestedData'),(1, 'ppTreeStructure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetUpdatedCache():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),win32more.UI.Accessibility.NormalizeState,POINTER(win32more.UI.Accessibility.UiaCondition_head),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(win32more.Foundation.BSTR))(('UiaGetUpdatedCache', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'pRequest'),(1, 'normalizeState'),(1, 'pNormalizeCondition'),(1, 'ppRequestedData'),(1, 'ppTreeStructure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaFind():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,POINTER(win32more.UI.Accessibility.UiaFindParams_head),POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('UiaFind', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'pParams'),(1, 'pRequest'),(1, 'ppRequestedData'),(1, 'ppOffsets'),(1, 'ppTreeStructures'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNodeFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(win32more.Foundation.BSTR))(('UiaNodeFromPoint', windll['UIAutomationCore.dll']), ((1, 'x'),(1, 'y'),(1, 'pRequest'),(1, 'ppRequestedData'),(1, 'ppTreeStructure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNodeFromFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(win32more.Foundation.BSTR))(('UiaNodeFromFocus', windll['UIAutomationCore.dll']), ((1, 'pRequest'),(1, 'ppRequestedData'),(1, 'ppTreeStructure'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNodeFromHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Accessibility.HUIANODE))(('UiaNodeFromHandle', windll['UIAutomationCore.dll']), ((1, 'hwnd'),(1, 'phnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaNodeFromProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.HUIANODE))(('UiaNodeFromProvider', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'phnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetRootNode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.HUIANODE))(('UiaGetRootNode', windll['UIAutomationCore.dll']), ((1, 'phnode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRegisterProviderCallback():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.UI.Accessibility.UiaProviderCallback))(('UiaRegisterProviderCallback', windll['UIAutomationCore.dll']), ((1, 'pCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaLookupId():
-    try:
-        return WINFUNCTYPE(Int32,win32more.UI.Accessibility.AutomationIdentifierType,POINTER(Guid))(('UiaLookupId', windll['UIAutomationCore.dll']), ((1, 'type'),(1, 'pGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetReservedNotSupportedValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(('UiaGetReservedNotSupportedValue', windll['UIAutomationCore.dll']), ((1, 'punkNotSupportedValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaGetReservedMixedAttributeValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(('UiaGetReservedMixedAttributeValue', windll['UIAutomationCore.dll']), ((1, 'punkMixedAttributeValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaClientsAreListening():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('UiaClientsAreListening', windll['UIAutomationCore.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseAutomationPropertyChangedEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT)(('UiaRaiseAutomationPropertyChangedEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'id'),(1, 'oldValue'),(1, 'newValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseAutomationEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.UIA_EVENT_ID)(('UiaRaiseAutomationEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'id'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseStructureChangedEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.StructureChangeType,POINTER(Int32),Int32)(('UiaRaiseStructureChangedEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'structureChangeType'),(1, 'pRuntimeId'),(1, 'cRuntimeIdLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseAsyncContentLoadedEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.AsyncContentLoadedState,Double)(('UiaRaiseAsyncContentLoadedEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'asyncContentLoadedState'),(1, 'percentComplete'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseTextEditTextChangedEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.TextEditChangeType,POINTER(win32more.System.Com.SAFEARRAY_head))(('UiaRaiseTextEditTextChangedEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'textEditChangeType'),(1, 'pChangedData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseChangesEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,Int32,POINTER(win32more.UI.Accessibility.UiaChangeInfo_head))(('UiaRaiseChangesEvent', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'eventIdCount'),(1, 'pUiaChanges'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseNotificationEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.NotificationKind,win32more.UI.Accessibility.NotificationProcessing,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(('UiaRaiseNotificationEvent', windll['UIAutomationCore.dll']), ((1, 'provider'),(1, 'notificationKind'),(1, 'notificationProcessing'),(1, 'displayString'),(1, 'activityId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRaiseActiveTextPositionChangedEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.ITextRangeProvider_head)(('UiaRaiseActiveTextPositionChangedEvent', windll['UIAutomationCore.dll']), ((1, 'provider'),(1, 'textRange'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaAddEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIANODE,Int32,POINTER(win32more.UI.Accessibility.UiaEventCallback),win32more.UI.Accessibility.TreeScope,POINTER(Int32),Int32,POINTER(win32more.UI.Accessibility.UiaCacheRequest_head),POINTER(win32more.UI.Accessibility.HUIAEVENT))(('UiaAddEvent', windll['UIAutomationCore.dll']), ((1, 'hnode'),(1, 'eventId'),(1, 'pCallback'),(1, 'scope'),(1, 'pProperties'),(1, 'cProperties'),(1, 'pRequest'),(1, 'phEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaRemoveEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAEVENT)(('UiaRemoveEvent', windll['UIAutomationCore.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaEventAddWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAEVENT,win32more.Foundation.HWND)(('UiaEventAddWindow', windll['UIAutomationCore.dll']), ((1, 'hEvent'),(1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaEventRemoveWindow():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAEVENT,win32more.Foundation.HWND)(('UiaEventRemoveWindow', windll['UIAutomationCore.dll']), ((1, 'hEvent'),(1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DockPattern_SetDockPosition():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.DockPosition)(('DockPattern_SetDockPosition', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'dockPosition'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExpandCollapsePattern_Collapse():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('ExpandCollapsePattern_Collapse', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExpandCollapsePattern_Expand():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('ExpandCollapsePattern_Expand', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GridPattern_GetItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Int32,Int32,POINTER(win32more.UI.Accessibility.HUIANODE))(('GridPattern_GetItem', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'row'),(1, 'column'),(1, 'pResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InvokePattern_Invoke():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('InvokePattern_Invoke', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MultipleViewPattern_GetViewName():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Int32,POINTER(win32more.Foundation.BSTR))(('MultipleViewPattern_GetViewName', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'viewId'),(1, 'ppStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MultipleViewPattern_SetCurrentView():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Int32)(('MultipleViewPattern_SetCurrentView', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'viewId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RangeValuePattern_SetValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Double)(('RangeValuePattern_SetValue', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'val'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollItemPattern_ScrollIntoView():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('ScrollItemPattern_ScrollIntoView', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollPattern_Scroll():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.ScrollAmount,win32more.UI.Accessibility.ScrollAmount)(('ScrollPattern_Scroll', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'horizontalAmount'),(1, 'verticalAmount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ScrollPattern_SetScrollPercent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Double,Double)(('ScrollPattern_SetScrollPercent', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'horizontalPercent'),(1, 'verticalPercent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectionItemPattern_AddToSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('SelectionItemPattern_AddToSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectionItemPattern_RemoveFromSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('SelectionItemPattern_RemoveFromSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SelectionItemPattern_Select():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('SelectionItemPattern_Select', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TogglePattern_Toggle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('TogglePattern_Toggle', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TransformPattern_Move():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Double,Double)(('TransformPattern_Move', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'x'),(1, 'y'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TransformPattern_Resize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Double,Double)(('TransformPattern_Resize', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'width'),(1, 'height'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TransformPattern_Rotate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Double)(('TransformPattern_Rotate', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'degrees'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ValuePattern_SetValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.Foundation.PWSTR)(('ValuePattern_SetValue', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowPattern_Close():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('WindowPattern_Close', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowPattern_SetWindowVisualState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.WindowVisualState)(('WindowPattern_SetWindowVisualState', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'state'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WindowPattern_WaitForInputIdle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Int32,POINTER(win32more.Foundation.BOOL))(('WindowPattern_WaitForInputIdle', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'milliseconds'),(1, 'pResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_GetSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('TextPattern_GetSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_GetVisibleRanges():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('TextPattern_GetVisibleRanges', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_RangeFromChild():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.HUIANODE,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextPattern_RangeFromChild', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'hnodeChild'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_RangeFromPoint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.UiaPoint,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextPattern_RangeFromPoint', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'point'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_get_DocumentRange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextPattern_get_DocumentRange', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextPattern_get_SupportedTextSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,POINTER(win32more.UI.Accessibility.SupportedTextSelection))(('TextPattern_get_SupportedTextSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_Clone():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextRange_Clone', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_Compare():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.HUIATEXTRANGE,POINTER(win32more.Foundation.BOOL))(('TextRange_Compare', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'range'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_CompareEndpoints():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextPatternRangeEndpoint,POINTER(Int32))(('TextRange_CompareEndpoints', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'endpoint'),(1, 'targetRange'),(1, 'targetEndpoint'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_ExpandToEnclosingUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextUnit)(('TextRange_ExpandToEnclosingUnit', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'unit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_GetAttributeValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,Int32,POINTER(win32more.System.Com.VARIANT_head))(('TextRange_GetAttributeValue', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'attributeId'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_FindAttribute():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,Int32,win32more.System.Com.VARIANT,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextRange_FindAttribute', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'attributeId'),(1, 'val'),(1, 'backward'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_FindText():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.Foundation.BSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.HUIATEXTRANGE))(('TextRange_FindText', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'text'),(1, 'backward'),(1, 'ignoreCase'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_GetBoundingRectangles():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('TextRange_GetBoundingRectangles', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_GetEnclosingElement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,POINTER(win32more.UI.Accessibility.HUIANODE))(('TextRange_GetEnclosingElement', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_GetText():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,Int32,POINTER(win32more.Foundation.BSTR))(('TextRange_GetText', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'maxLength'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_Move():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(('TextRange_Move', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'unit'),(1, 'count'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_MoveEndpointByUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(('TextRange_MoveEndpointByUnit', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'endpoint'),(1, 'unit'),(1, 'count'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_MoveEndpointByRange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.UI.Accessibility.TextPatternRangeEndpoint)(('TextRange_MoveEndpointByRange', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'endpoint'),(1, 'targetRange'),(1, 'targetEndpoint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_Select():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE)(('TextRange_Select', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_AddToSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE)(('TextRange_AddToSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_RemoveFromSelection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE)(('TextRange_RemoveFromSelection', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_ScrollIntoView():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,win32more.Foundation.BOOL)(('TextRange_ScrollIntoView', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'alignToTop'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TextRange_GetChildren():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIATEXTRANGE,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(('TextRange_GetChildren', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pRetVal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ItemContainerPattern_FindItemByProperty():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.HUIANODE,Int32,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.HUIANODE))(('ItemContainerPattern_FindItemByProperty', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'hnodeStartAfter'),(1, 'propertyId'),(1, 'value'),(1, 'pFound'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LegacyIAccessiblePattern_Select():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,Int32)(('LegacyIAccessiblePattern_Select', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'flagsSelect'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LegacyIAccessiblePattern_DoDefaultAction():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('LegacyIAccessiblePattern_DoDefaultAction', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LegacyIAccessiblePattern_SetValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.Foundation.PWSTR)(('LegacyIAccessiblePattern_SetValue', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'szValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LegacyIAccessiblePattern_GetIAccessible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,POINTER(win32more.UI.Accessibility.IAccessible_head))(('LegacyIAccessiblePattern_GetIAccessible', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'pAccessible'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SynchronizedInputPattern_StartListening():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT,win32more.UI.Accessibility.SynchronizedInputType)(('SynchronizedInputPattern_StartListening', windll['UIAutomationCore.dll']), ((1, 'hobj'),(1, 'inputType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SynchronizedInputPattern_Cancel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('SynchronizedInputPattern_Cancel', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_VirtualizedItemPattern_Realize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('VirtualizedItemPattern_Realize', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaPatternRelease():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.Accessibility.HUIAPATTERNOBJECT)(('UiaPatternRelease', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaTextRangeRelease():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.Accessibility.HUIATEXTRANGE)(('UiaTextRangeRelease', windll['UIAutomationCore.dll']), ((1, 'hobj'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaReturnRawElementProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.LRESULT,win32more.Foundation.HWND,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,win32more.UI.Accessibility.IRawElementProviderSimple_head)(('UiaReturnRawElementProvider', windll['UIAutomationCore.dll']), ((1, 'hwnd'),(1, 'wParam'),(1, 'lParam'),(1, 'el'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaHostProviderFromHwnd():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(('UiaHostProviderFromHwnd', windll['UIAutomationCore.dll']), ((1, 'hwnd'),(1, 'ppProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaProviderForNonClient():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(('UiaProviderForNonClient', windll['UIAutomationCore.dll']), ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'ppProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaIAccessibleFromProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,UInt32,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(win32more.System.Com.VARIANT_head))(('UiaIAccessibleFromProvider', windll['UIAutomationCore.dll']), ((1, 'pProvider'),(1, 'dwFlags'),(1, 'ppAccessible'),(1, 'pvarChild'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaProviderFromIAccessible():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,UInt32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(('UiaProviderFromIAccessible', windll['UIAutomationCore.dll']), ((1, 'pAccessible'),(1, 'idChild'),(1, 'dwFlags'),(1, 'ppProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaDisconnectAllProviders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('UiaDisconnectAllProviders', windll['UIAutomationCore.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaDisconnectProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head)(('UiaDisconnectProvider', windll['UIAutomationCore.dll']), ((1, 'pProvider'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UiaHasServerSideProvider():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('UiaHasServerSideProvider', windll['UIAutomationCore.dll']), ((1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterPointerInputTarget():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE)(('RegisterPointerInputTarget', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pointerType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterPointerInputTarget():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE)(('UnregisterPointerInputTarget', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pointerType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterPointerInputTargetEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE,win32more.Foundation.BOOL)(('RegisterPointerInputTargetEx', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pointerType'),(1, 'fObserve'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterPointerInputTargetEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE)(('UnregisterPointerInputTargetEx', windll['USER32.dll']), ((1, 'hwnd'),(1, 'pointerType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyWinEvent():
-    try:
-        return WINFUNCTYPE(Void,UInt32,win32more.Foundation.HWND,Int32,Int32)(('NotifyWinEvent', windll['USER32.dll']), ((1, 'event'),(1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWinEventHook():
-    try:
-        return WINFUNCTYPE(win32more.UI.Accessibility.HWINEVENTHOOK,UInt32,UInt32,win32more.Foundation.HINSTANCE,win32more.UI.Accessibility.WINEVENTPROC,UInt32,UInt32,UInt32)(('SetWinEventHook', windll['USER32.dll']), ((1, 'eventMin'),(1, 'eventMax'),(1, 'hmodWinEventProc'),(1, 'pfnWinEventProc'),(1, 'idProcess'),(1, 'idThread'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWinEventHookInstalled():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('IsWinEventHookInstalled', windll['USER32.dll']), ((1, 'event'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnhookWinEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.UI.Accessibility.HWINEVENTHOOK)(('UnhookWinEvent', windll['USER32.dll']), ((1, 'hWinEventHook'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+ANNO_THIS: AnnoScope = 0
+ANNO_CONTAINER: AnnoScope = 1
+LIBID_Accessibility: Guid = Guid('1ea4dbf0-3c3b-11cf-81-0c-00-aa-00-38-9b-71')
+CLSID_AccPropServices: Guid = Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
+IIS_IsOleaccProxy: Guid = Guid('902697fa-80e4-4560-80-2a-a1-3f-22-a6-47-09')
+IIS_ControlAccessible: Guid = Guid('38c682a6-9731-43f2-9f-ae-e9-01-e6-41-b1-01')
+ANRUS_PRIORITY_AUDIO_DYNAMIC_DUCK: UInt32 = 16
+MSAA_MENU_SIG: Int32 = -1441927155
+PROPID_ACC_NAME: Guid = Guid('608d3df8-8128-4aa7-a4-28-f5-5e-49-26-72-91')
+PROPID_ACC_VALUE: Guid = Guid('123fe443-211a-4615-95-27-c4-5a-7e-93-71-7a')
+PROPID_ACC_DESCRIPTION: Guid = Guid('4d48dfe4-bd3f-491f-a6-48-49-2d-6f-20-c5-88')
+PROPID_ACC_ROLE: Guid = Guid('cb905ff2-7bd1-4c05-b3-c8-e6-c2-41-36-4d-70')
+PROPID_ACC_STATE: Guid = Guid('a8d4d5b0-0a21-42d0-a5-c0-51-4e-98-4f-45-7b')
+PROPID_ACC_HELP: Guid = Guid('c831e11f-44db-4a99-97-68-cb-8f-97-8b-72-31')
+PROPID_ACC_KEYBOARDSHORTCUT: Guid = Guid('7d9bceee-7d1e-4979-93-82-51-80-f4-17-2c-34')
+PROPID_ACC_DEFAULTACTION: Guid = Guid('180c072b-c27f-43c7-99-22-f6-35-62-a4-63-2b')
+PROPID_ACC_HELPTOPIC: Guid = Guid('787d1379-8ede-440b-8a-ec-11-f7-bf-90-30-b3')
+PROPID_ACC_FOCUS: Guid = Guid('6eb335df-1c29-4127-b1-2c-de-e9-fd-15-7f-2b')
+PROPID_ACC_SELECTION: Guid = Guid('b99d073c-d731-405b-90-61-d9-5e-8f-84-29-84')
+PROPID_ACC_PARENT: Guid = Guid('474c22b6-ffc2-467a-b1-b5-e9-58-b4-65-73-30')
+PROPID_ACC_NAV_UP: Guid = Guid('016e1a2b-1a4e-4767-86-12-33-86-f6-69-35-ec')
+PROPID_ACC_NAV_DOWN: Guid = Guid('031670ed-3cdf-48d2-96-13-13-8f-2d-d8-a6-68')
+PROPID_ACC_NAV_LEFT: Guid = Guid('228086cb-82f1-4a39-87-05-dc-dc-0f-ff-92-f5')
+PROPID_ACC_NAV_RIGHT: Guid = Guid('cd211d9f-e1cb-4fe5-a7-7c-92-0b-88-4d-09-5b')
+PROPID_ACC_NAV_PREV: Guid = Guid('776d3891-c73b-4480-b3-f6-07-6a-16-a1-5a-f6')
+PROPID_ACC_NAV_NEXT: Guid = Guid('1cdc5455-8cd9-4c92-a3-71-39-39-a2-fe-3e-ee')
+PROPID_ACC_NAV_FIRSTCHILD: Guid = Guid('cfd02558-557b-4c67-84-f9-2a-09-fc-e4-07-49')
+PROPID_ACC_NAV_LASTCHILD: Guid = Guid('302ecaa5-48d5-4f8d-b6-71-1a-8d-20-a7-78-32')
+PROPID_ACC_ROLEMAP: Guid = Guid('f79acda2-140d-4fe6-89-14-20-84-76-32-82-69')
+PROPID_ACC_VALUEMAP: Guid = Guid('da1c3d79-fc5c-420e-b3-99-9d-15-33-54-9e-75')
+PROPID_ACC_STATEMAP: Guid = Guid('43946c5e-0ac0-4042-b5-25-07-bb-db-e1-7f-a7')
+PROPID_ACC_DESCRIPTIONMAP: Guid = Guid('1ff1435f-8a14-477b-b2-26-a0-ab-e2-79-97-5d')
+PROPID_ACC_DODEFAULTACTION: Guid = Guid('1ba09523-2e3b-49a6-a0-59-59-68-2a-3c-48-fd')
+DISPID_ACC_PARENT: Int32 = -5000
+DISPID_ACC_CHILDCOUNT: Int32 = -5001
+DISPID_ACC_CHILD: Int32 = -5002
+DISPID_ACC_NAME: Int32 = -5003
+DISPID_ACC_VALUE: Int32 = -5004
+DISPID_ACC_DESCRIPTION: Int32 = -5005
+DISPID_ACC_ROLE: Int32 = -5006
+DISPID_ACC_STATE: Int32 = -5007
+DISPID_ACC_HELP: Int32 = -5008
+DISPID_ACC_HELPTOPIC: Int32 = -5009
+DISPID_ACC_KEYBOARDSHORTCUT: Int32 = -5010
+DISPID_ACC_FOCUS: Int32 = -5011
+DISPID_ACC_SELECTION: Int32 = -5012
+DISPID_ACC_DEFAULTACTION: Int32 = -5013
+DISPID_ACC_SELECT: Int32 = -5014
+DISPID_ACC_LOCATION: Int32 = -5015
+DISPID_ACC_NAVIGATE: Int32 = -5016
+DISPID_ACC_HITTEST: Int32 = -5017
+DISPID_ACC_DODEFAULTACTION: Int32 = -5018
+NAVDIR_MIN: UInt32 = 0
+NAVDIR_UP: UInt32 = 1
+NAVDIR_DOWN: UInt32 = 2
+NAVDIR_LEFT: UInt32 = 3
+NAVDIR_RIGHT: UInt32 = 4
+NAVDIR_NEXT: UInt32 = 5
+NAVDIR_PREVIOUS: UInt32 = 6
+NAVDIR_FIRSTCHILD: UInt32 = 7
+NAVDIR_LASTCHILD: UInt32 = 8
+NAVDIR_MAX: UInt32 = 9
+SELFLAG_NONE: UInt32 = 0
+SELFLAG_TAKEFOCUS: UInt32 = 1
+SELFLAG_TAKESELECTION: UInt32 = 2
+SELFLAG_EXTENDSELECTION: UInt32 = 4
+SELFLAG_ADDSELECTION: UInt32 = 8
+SELFLAG_REMOVESELECTION: UInt32 = 16
+SELFLAG_VALID: UInt32 = 31
+STATE_SYSTEM_NORMAL: UInt32 = 0
+STATE_SYSTEM_HASPOPUP: UInt32 = 1073741824
+ROLE_SYSTEM_TITLEBAR: UInt32 = 1
+ROLE_SYSTEM_MENUBAR: UInt32 = 2
+ROLE_SYSTEM_SCROLLBAR: UInt32 = 3
+ROLE_SYSTEM_GRIP: UInt32 = 4
+ROLE_SYSTEM_SOUND: UInt32 = 5
+ROLE_SYSTEM_CURSOR: UInt32 = 6
+ROLE_SYSTEM_CARET: UInt32 = 7
+ROLE_SYSTEM_ALERT: UInt32 = 8
+ROLE_SYSTEM_WINDOW: UInt32 = 9
+ROLE_SYSTEM_CLIENT: UInt32 = 10
+ROLE_SYSTEM_MENUPOPUP: UInt32 = 11
+ROLE_SYSTEM_MENUITEM: UInt32 = 12
+ROLE_SYSTEM_TOOLTIP: UInt32 = 13
+ROLE_SYSTEM_APPLICATION: UInt32 = 14
+ROLE_SYSTEM_DOCUMENT: UInt32 = 15
+ROLE_SYSTEM_PANE: UInt32 = 16
+ROLE_SYSTEM_CHART: UInt32 = 17
+ROLE_SYSTEM_DIALOG: UInt32 = 18
+ROLE_SYSTEM_BORDER: UInt32 = 19
+ROLE_SYSTEM_GROUPING: UInt32 = 20
+ROLE_SYSTEM_SEPARATOR: UInt32 = 21
+ROLE_SYSTEM_TOOLBAR: UInt32 = 22
+ROLE_SYSTEM_STATUSBAR: UInt32 = 23
+ROLE_SYSTEM_TABLE: UInt32 = 24
+ROLE_SYSTEM_COLUMNHEADER: UInt32 = 25
+ROLE_SYSTEM_ROWHEADER: UInt32 = 26
+ROLE_SYSTEM_COLUMN: UInt32 = 27
+ROLE_SYSTEM_ROW: UInt32 = 28
+ROLE_SYSTEM_CELL: UInt32 = 29
+ROLE_SYSTEM_LINK: UInt32 = 30
+ROLE_SYSTEM_HELPBALLOON: UInt32 = 31
+ROLE_SYSTEM_CHARACTER: UInt32 = 32
+ROLE_SYSTEM_LIST: UInt32 = 33
+ROLE_SYSTEM_LISTITEM: UInt32 = 34
+ROLE_SYSTEM_OUTLINE: UInt32 = 35
+ROLE_SYSTEM_OUTLINEITEM: UInt32 = 36
+ROLE_SYSTEM_PAGETAB: UInt32 = 37
+ROLE_SYSTEM_PROPERTYPAGE: UInt32 = 38
+ROLE_SYSTEM_INDICATOR: UInt32 = 39
+ROLE_SYSTEM_GRAPHIC: UInt32 = 40
+ROLE_SYSTEM_STATICTEXT: UInt32 = 41
+ROLE_SYSTEM_TEXT: UInt32 = 42
+ROLE_SYSTEM_PUSHBUTTON: UInt32 = 43
+ROLE_SYSTEM_CHECKBUTTON: UInt32 = 44
+ROLE_SYSTEM_RADIOBUTTON: UInt32 = 45
+ROLE_SYSTEM_COMBOBOX: UInt32 = 46
+ROLE_SYSTEM_DROPLIST: UInt32 = 47
+ROLE_SYSTEM_PROGRESSBAR: UInt32 = 48
+ROLE_SYSTEM_DIAL: UInt32 = 49
+ROLE_SYSTEM_HOTKEYFIELD: UInt32 = 50
+ROLE_SYSTEM_SLIDER: UInt32 = 51
+ROLE_SYSTEM_SPINBUTTON: UInt32 = 52
+ROLE_SYSTEM_DIAGRAM: UInt32 = 53
+ROLE_SYSTEM_ANIMATION: UInt32 = 54
+ROLE_SYSTEM_EQUATION: UInt32 = 55
+ROLE_SYSTEM_BUTTONDROPDOWN: UInt32 = 56
+ROLE_SYSTEM_BUTTONMENU: UInt32 = 57
+ROLE_SYSTEM_BUTTONDROPDOWNGRID: UInt32 = 58
+ROLE_SYSTEM_WHITESPACE: UInt32 = 59
+ROLE_SYSTEM_PAGETABLIST: UInt32 = 60
+ROLE_SYSTEM_CLOCK: UInt32 = 61
+ROLE_SYSTEM_SPLITBUTTON: UInt32 = 62
+ROLE_SYSTEM_IPADDRESS: UInt32 = 63
+ROLE_SYSTEM_OUTLINEBUTTON: UInt32 = 64
+UIA_E_ELEMENTNOTENABLED: UInt32 = 2147746304
+UIA_E_ELEMENTNOTAVAILABLE: UInt32 = 2147746305
+UIA_E_NOCLICKABLEPOINT: UInt32 = 2147746306
+UIA_E_PROXYASSEMBLYNOTLOADED: UInt32 = 2147746307
+UIA_E_NOTSUPPORTED: UInt32 = 2147746308
+UIA_E_INVALIDOPERATION: UInt32 = 2148734217
+UIA_E_TIMEOUT: UInt32 = 2148734213
+UiaAppendRuntimeId: UInt32 = 3
+UiaRootObjectId: Int32 = -25
+RuntimeId_Property_GUID: Guid = Guid('a39eebfa-7fba-4c89-b4-d4-b9-9e-2d-e7-d1-60')
+BoundingRectangle_Property_GUID: Guid = Guid('7bbfe8b2-3bfc-48dd-b7-29-c7-94-b8-46-e9-a1')
+ProcessId_Property_GUID: Guid = Guid('40499998-9c31-4245-a4-03-87-32-0e-59-ea-f6')
+ControlType_Property_GUID: Guid = Guid('ca774fea-28ac-4bc2-94-ca-ac-ec-6d-6c-10-a3')
+LocalizedControlType_Property_GUID: Guid = Guid('8763404f-a1bd-452a-89-c4-3f-01-d3-83-38-06')
+Name_Property_GUID: Guid = Guid('c3a6921b-4a99-44f1-bc-a6-61-18-70-52-c4-31')
+AcceleratorKey_Property_GUID: Guid = Guid('514865df-2557-4cb9-ae-ed-6c-ed-08-4c-e5-2c')
+AccessKey_Property_GUID: Guid = Guid('06827b12-a7f9-4a15-91-7c-ff-a5-ad-3e-b0-a7')
+HasKeyboardFocus_Property_GUID: Guid = Guid('cf8afd39-3f46-4800-96-56-b2-bf-12-52-99-05')
+IsKeyboardFocusable_Property_GUID: Guid = Guid('f7b8552a-0859-4b37-b9-cb-51-e7-20-92-f2-9f')
+IsEnabled_Property_GUID: Guid = Guid('2109427f-da60-4fed-bf-1b-26-4b-dc-e6-eb-3a')
+AutomationId_Property_GUID: Guid = Guid('c82c0500-b60e-4310-a2-67-30-3c-53-1f-8e-e5')
+ClassName_Property_GUID: Guid = Guid('157b7215-894f-4b65-84-e2-aa-c0-da-08-b1-6b')
+HelpText_Property_GUID: Guid = Guid('08555685-0977-45c7-a7-a6-ab-af-56-84-12-1a')
+ClickablePoint_Property_GUID: Guid = Guid('0196903b-b203-4818-a9-f3-f0-8e-67-5f-23-41')
+Culture_Property_GUID: Guid = Guid('e2d74f27-3d79-4dc2-b8-8b-30-44-96-3a-8a-fb')
+IsControlElement_Property_GUID: Guid = Guid('95f35085-abcc-4afd-a5-f4-db-b4-6c-23-0f-db')
+IsContentElement_Property_GUID: Guid = Guid('4bda64a8-f5d8-480b-81-55-ef-2e-89-ad-b6-72')
+LabeledBy_Property_GUID: Guid = Guid('e5b8924b-fc8a-4a35-80-31-cf-78-ac-43-e5-5e')
+IsPassword_Property_GUID: Guid = Guid('e8482eb1-687c-497b-be-bc-03-be-53-ec-14-54')
+NewNativeWindowHandle_Property_GUID: Guid = Guid('5196b33b-380a-4982-95-e1-91-f3-ef-60-e0-24')
+ItemType_Property_GUID: Guid = Guid('cdda434d-6222-413b-a6-8a-32-5d-d1-d4-0f-39')
+IsOffscreen_Property_GUID: Guid = Guid('03c3d160-db79-42db-a2-ef-1c-23-1e-ed-e5-07')
+Orientation_Property_GUID: Guid = Guid('a01eee62-3884-4415-88-7e-67-8e-c2-1e-39-ba')
+FrameworkId_Property_GUID: Guid = Guid('dbfd9900-7e1a-4f58-b6-1b-70-63-12-0f-77-3b')
+IsRequiredForForm_Property_GUID: Guid = Guid('4f5f43cf-59fb-4bde-a2-70-60-2e-5e-11-41-e9')
+ItemStatus_Property_GUID: Guid = Guid('51de0321-3973-43e7-89-13-0b-08-e8-13-c3-7f')
+AriaRole_Property_GUID: Guid = Guid('dd207b95-be4a-4e0d-b7-27-63-ac-e9-4b-69-16')
+AriaProperties_Property_GUID: Guid = Guid('4213678c-e025-4922-be-b5-e4-3b-a0-8e-62-21')
+IsDataValidForForm_Property_GUID: Guid = Guid('445ac684-c3fc-4dd9-ac-f8-84-5a-57-92-96-ba')
+ControllerFor_Property_GUID: Guid = Guid('51124c8a-a5d2-4f13-9b-e6-7f-a8-ba-9d-3a-90')
+DescribedBy_Property_GUID: Guid = Guid('7c5865b8-9992-40fd-8d-b0-6b-f1-d3-17-f9-98')
+FlowsTo_Property_GUID: Guid = Guid('e4f33d20-559a-47fb-a8-30-f9-cb-4f-f1-a7-0a')
+ProviderDescription_Property_GUID: Guid = Guid('dca5708a-c16b-4cd9-b8-89-be-b1-6a-80-49-04')
+OptimizeForVisualContent_Property_GUID: Guid = Guid('6a852250-c75a-4e5d-b8-58-e3-81-b0-f7-88-61')
+IsDockPatternAvailable_Property_GUID: Guid = Guid('2600a4c4-2ff8-4c96-ae-31-8f-e6-19-a1-3c-6c')
+IsExpandCollapsePatternAvailable_Property_GUID: Guid = Guid('929d3806-5287-4725-aa-16-22-2a-fc-63-d5-95')
+IsGridItemPatternAvailable_Property_GUID: Guid = Guid('5a43e524-f9a2-4b12-84-c8-b4-8a-3e-fe-dd-34')
+IsGridPatternAvailable_Property_GUID: Guid = Guid('5622c26c-f0ef-4f3b-97-cb-71-4c-08-68-58-8b')
+IsInvokePatternAvailable_Property_GUID: Guid = Guid('4e725738-8364-4679-aa-6c-f3-f4-19-31-f7-50')
+IsMultipleViewPatternAvailable_Property_GUID: Guid = Guid('ff0a31eb-8e25-469d-8d-6e-e7-71-a2-7c-1b-90')
+IsRangeValuePatternAvailable_Property_GUID: Guid = Guid('fda4244a-eb4d-43ff-b5-ad-ed-36-d3-73-ec-4c')
+IsScrollPatternAvailable_Property_GUID: Guid = Guid('3ebb7b4a-828a-4b57-9d-22-2f-ea-16-32-ed-0d')
+IsScrollItemPatternAvailable_Property_GUID: Guid = Guid('1cad1a05-0927-4b76-97-e1-0f-cd-b2-09-b9-8a')
+IsSelectionItemPatternAvailable_Property_GUID: Guid = Guid('8becd62d-0bc3-4109-be-e2-8e-67-15-29-0e-68')
+IsSelectionPatternAvailable_Property_GUID: Guid = Guid('f588acbe-c769-4838-9a-60-26-86-dc-11-88-c4')
+IsTablePatternAvailable_Property_GUID: Guid = Guid('cb83575f-45c2-4048-9c-76-15-97-15-a1-39-df')
+IsTableItemPatternAvailable_Property_GUID: Guid = Guid('eb36b40d-8ea4-489b-a0-13-e6-0d-59-51-fe-34')
+IsTextPatternAvailable_Property_GUID: Guid = Guid('fbe2d69d-aff6-4a45-82-e2-fc-92-a8-2f-59-17')
+IsTogglePatternAvailable_Property_GUID: Guid = Guid('78686d53-fcd0-4b83-9b-78-58-32-ce-63-bb-5b')
+IsTransformPatternAvailable_Property_GUID: Guid = Guid('a7f78804-d68b-4077-a5-c6-7a-5e-a1-ac-31-c5')
+IsValuePatternAvailable_Property_GUID: Guid = Guid('0b5020a7-2119-473b-be-37-5c-eb-98-bb-fb-22')
+IsWindowPatternAvailable_Property_GUID: Guid = Guid('e7a57bb1-5888-4155-98-dc-b4-22-fd-57-f2-bc')
+IsLegacyIAccessiblePatternAvailable_Property_GUID: Guid = Guid('d8ebd0c7-929a-4ee7-8d-3a-d3-d9-44-13-02-7b')
+IsItemContainerPatternAvailable_Property_GUID: Guid = Guid('624b5ca7-fe40-4957-a0-19-20-c4-cf-11-92-0f')
+IsVirtualizedItemPatternAvailable_Property_GUID: Guid = Guid('302cb151-2ac8-45d6-97-7b-d2-b3-a5-a5-3f-20')
+IsSynchronizedInputPatternAvailable_Property_GUID: Guid = Guid('75d69cc5-d2bf-4943-87-6e-b4-5b-62-a6-cc-66')
+IsObjectModelPatternAvailable_Property_GUID: Guid = Guid('6b21d89b-2841-412f-8e-f2-15-ca-95-23-18-ba')
+IsAnnotationPatternAvailable_Property_GUID: Guid = Guid('0b5b3238-6d5c-41b6-bc-c4-5e-80-7f-65-51-c4')
+IsTextPattern2Available_Property_GUID: Guid = Guid('41cf921d-e3f1-4b22-9c-81-e1-c3-ed-33-1c-22')
+IsTextEditPatternAvailable_Property_GUID: Guid = Guid('7843425c-8b32-484c-9a-b5-e3-20-05-71-ff-da')
+IsCustomNavigationPatternAvailable_Property_GUID: Guid = Guid('8f8e80d4-2351-48e0-87-4a-54-aa-73-13-88-9a')
+IsStylesPatternAvailable_Property_GUID: Guid = Guid('27f353d3-459c-4b59-a4-90-50-61-1d-ac-af-b5')
+IsSpreadsheetPatternAvailable_Property_GUID: Guid = Guid('6ff43732-e4b4-4555-97-bc-ec-db-bc-4d-18-88')
+IsSpreadsheetItemPatternAvailable_Property_GUID: Guid = Guid('9fe79b2a-2f94-43fd-99-6b-54-9e-31-6f-4a-cd')
+IsTransformPattern2Available_Property_GUID: Guid = Guid('25980b4b-be04-4710-ab-4a-fd-a3-1d-bd-28-95')
+IsTextChildPatternAvailable_Property_GUID: Guid = Guid('559e65df-30ff-43b5-b5-ed-5b-28-3b-80-c7-e9')
+IsDragPatternAvailable_Property_GUID: Guid = Guid('e997a7b7-1d39-4ca7-be-0f-27-7f-cf-56-05-cc')
+IsDropTargetPatternAvailable_Property_GUID: Guid = Guid('0686b62e-8e19-4aaf-87-3d-38-4f-6d-3b-92-be')
+IsStructuredMarkupPatternAvailable_Property_GUID: Guid = Guid('b0d4c196-2c0b-489c-b1-65-a4-05-92-8c-6f-3d')
+IsPeripheral_Property_GUID: Guid = Guid('da758276-7ed5-49d4-8e-68-ec-c9-a2-d3-00-dd')
+PositionInSet_Property_GUID: Guid = Guid('33d1dc54-641e-4d76-a6-b1-13-f3-41-c1-f8-96')
+SizeOfSet_Property_GUID: Guid = Guid('1600d33c-3b9f-4369-94-31-aa-29-3f-34-4c-f1')
+Level_Property_GUID: Guid = Guid('242ac529-cd36-400f-aa-d9-78-76-ef-3a-f6-27')
+AnnotationTypes_Property_GUID: Guid = Guid('64b71f76-53c4-4696-a2-19-20-e9-40-c9-a1-76')
+AnnotationObjects_Property_GUID: Guid = Guid('310910c8-7c6e-4f20-be-cd-4a-af-6d-19-11-56')
+LandmarkType_Property_GUID: Guid = Guid('454045f2-6f61-49f7-a4-f8-b5-f0-cf-82-da-1e')
+LocalizedLandmarkType_Property_GUID: Guid = Guid('7ac81980-eafb-4fb2-bf-91-f4-85-be-f5-e8-e1')
+FullDescription_Property_GUID: Guid = Guid('0d4450ff-6aef-4f33-95-dd-7b-ef-a7-2a-43-91')
+Value_Value_Property_GUID: Guid = Guid('e95f5e64-269f-4a85-ba-99-40-92-c3-ea-29-86')
+Value_IsReadOnly_Property_GUID: Guid = Guid('eb090f30-e24c-4799-a7-05-0d-24-7b-c0-37-f8')
+RangeValue_Value_Property_GUID: Guid = Guid('131f5d98-c50c-489d-ab-e5-ae-22-08-98-c5-f7')
+RangeValue_IsReadOnly_Property_GUID: Guid = Guid('25fa1055-debf-4373-a7-9e-1f-1a-19-08-d3-c4')
+RangeValue_Minimum_Property_GUID: Guid = Guid('78cbd3b2-684d-4860-af-93-d1-f9-5c-b0-22-fd')
+RangeValue_Maximum_Property_GUID: Guid = Guid('19319914-f979-4b35-a1-a6-d3-7e-05-43-34-73')
+RangeValue_LargeChange_Property_GUID: Guid = Guid('a1f96325-3a3d-4b44-8e-1f-4a-46-d9-84-40-19')
+RangeValue_SmallChange_Property_GUID: Guid = Guid('81c2c457-3941-4107-99-75-13-97-60-f7-c0-72')
+Scroll_HorizontalScrollPercent_Property_GUID: Guid = Guid('c7c13c0e-eb21-47ff-ac-c4-b5-a3-35-0f-51-91')
+Scroll_HorizontalViewSize_Property_GUID: Guid = Guid('70c2e5d4-fcb0-4713-a9-aa-af-92-ff-79-e4-cd')
+Scroll_VerticalScrollPercent_Property_GUID: Guid = Guid('6c8d7099-b2a8-4948-bf-f7-3c-f9-05-8b-fe-fb')
+Scroll_VerticalViewSize_Property_GUID: Guid = Guid('de6a2e22-d8c7-40c5-83-ba-e5-f6-81-d5-31-08')
+Scroll_HorizontallyScrollable_Property_GUID: Guid = Guid('8b925147-28cd-49ae-bd-63-f4-41-18-d2-e7-19')
+Scroll_VerticallyScrollable_Property_GUID: Guid = Guid('89164798-0068-4315-b8-9a-1e-7c-fb-bc-3d-fc')
+Selection_Selection_Property_GUID: Guid = Guid('aa6dc2a2-0e2b-4d38-96-d5-34-e4-70-b8-18-53')
+Selection_CanSelectMultiple_Property_GUID: Guid = Guid('49d73da5-c883-4500-88-3d-8f-cf-8d-af-6c-be')
+Selection_IsSelectionRequired_Property_GUID: Guid = Guid('b1ae4422-63fe-44e7-a5-a5-a7-38-c8-29-b1-9a')
+Grid_RowCount_Property_GUID: Guid = Guid('2a9505bf-c2eb-4fb6-b3-56-82-45-ae-53-70-3e')
+Grid_ColumnCount_Property_GUID: Guid = Guid('fe96f375-44aa-4536-ac-7a-2a-75-d7-1a-3e-fc')
+GridItem_Row_Property_GUID: Guid = Guid('6223972a-c945-4563-93-29-fd-c9-74-af-25-53')
+GridItem_Column_Property_GUID: Guid = Guid('c774c15c-62c0-4519-8b-dc-47-be-57-3c-8a-d5')
+GridItem_RowSpan_Property_GUID: Guid = Guid('4582291c-466b-4e93-8e-83-3d-17-15-ec-0c-5e')
+GridItem_ColumnSpan_Property_GUID: Guid = Guid('583ea3f5-86d0-4b08-a6-ec-2c-54-63-ff-c1-09')
+GridItem_Parent_Property_GUID: Guid = Guid('9d912252-b97f-4ecc-85-10-ea-0e-33-42-7c-72')
+Dock_DockPosition_Property_GUID: Guid = Guid('6d67f02e-c0b0-4b10-b5-b9-18-d6-ec-f9-87-60')
+ExpandCollapse_ExpandCollapseState_Property_GUID: Guid = Guid('275a4c48-85a7-4f69-ab-a0-af-15-76-10-00-2b')
+MultipleView_CurrentView_Property_GUID: Guid = Guid('7a81a67a-b94f-4875-91-8b-65-c8-d2-f9-98-e5')
+MultipleView_SupportedViews_Property_GUID: Guid = Guid('8d5db9fd-ce3c-4ae7-b7-88-40-0a-3c-64-55-47')
+Window_CanMaximize_Property_GUID: Guid = Guid('64fff53f-635d-41c1-95-0c-cb-5a-df-be-28-e3')
+Window_CanMinimize_Property_GUID: Guid = Guid('b73b4625-5988-4b97-b4-c2-a6-fe-6e-78-c8-c6')
+Window_WindowVisualState_Property_GUID: Guid = Guid('4ab7905f-e860-453e-a3-0a-f6-43-1e-5d-aa-d5')
+Window_WindowInteractionState_Property_GUID: Guid = Guid('4fed26a4-0455-4fa2-b2-1c-c4-da-2d-b1-ff-9c')
+Window_IsModal_Property_GUID: Guid = Guid('ff4e6892-37b9-4fca-85-32-ff-e6-74-ec-fe-ed')
+Window_IsTopmost_Property_GUID: Guid = Guid('ef7d85d3-0937-4962-92-41-b6-23-45-f2-40-41')
+SelectionItem_IsSelected_Property_GUID: Guid = Guid('f122835f-cd5f-43df-b7-9d-4b-84-9e-9e-60-20')
+SelectionItem_SelectionContainer_Property_GUID: Guid = Guid('a4365b6e-9c1e-4b63-8b-53-c2-42-1d-d1-e8-fb')
+Table_RowHeaders_Property_GUID: Guid = Guid('d9e35b87-6eb8-4562-aa-c6-a8-a9-07-52-36-a8')
+Table_ColumnHeaders_Property_GUID: Guid = Guid('aff1d72b-968d-42b1-b4-59-15-0b-29-9d-a6-64')
+Table_RowOrColumnMajor_Property_GUID: Guid = Guid('83be75c3-29fe-4a30-85-e1-2a-62-77-fd-10-6e')
+TableItem_RowHeaderItems_Property_GUID: Guid = Guid('b3f853a0-0574-4cd8-bc-d7-ed-59-23-57-2d-97')
+TableItem_ColumnHeaderItems_Property_GUID: Guid = Guid('967a56a3-74b6-431e-8d-e6-99-c4-11-03-1c-58')
+Toggle_ToggleState_Property_GUID: Guid = Guid('b23cdc52-22c2-4c6c-9d-ed-f5-c4-22-47-9e-de')
+Transform_CanMove_Property_GUID: Guid = Guid('1b75824d-208b-4fdf-bc-cd-f1-f4-e5-74-1f-4f')
+Transform_CanResize_Property_GUID: Guid = Guid('bb98dca5-4c1a-41d4-a4-f6-eb-c1-28-64-41-80')
+Transform_CanRotate_Property_GUID: Guid = Guid('10079b48-3849-476f-ac-96-44-a9-5c-84-40-d9')
+LegacyIAccessible_ChildId_Property_GUID: Guid = Guid('9a191b5d-9ef2-4787-a4-59-dc-de-88-5d-d4-e8')
+LegacyIAccessible_Name_Property_GUID: Guid = Guid('caeb063d-40ae-4869-aa-5a-1b-8e-5d-66-67-39')
+LegacyIAccessible_Value_Property_GUID: Guid = Guid('b5c5b0b6-8217-4a77-97-a5-19-0a-85-ed-01-56')
+LegacyIAccessible_Description_Property_GUID: Guid = Guid('46448418-7d70-4ea9-9d-27-b7-e7-75-cf-2a-d7')
+LegacyIAccessible_Role_Property_GUID: Guid = Guid('6856e59f-cbaf-4e31-93-e8-bc-bf-6f-7e-49-1c')
+LegacyIAccessible_State_Property_GUID: Guid = Guid('df985854-2281-4340-ab-9c-c6-0e-2c-58-03-f6')
+LegacyIAccessible_Help_Property_GUID: Guid = Guid('94402352-161c-4b77-a9-8d-a8-72-cc-33-94-7a')
+LegacyIAccessible_KeyboardShortcut_Property_GUID: Guid = Guid('8f6909ac-00b8-4259-a4-1c-96-62-66-d4-3a-8a')
+LegacyIAccessible_Selection_Property_GUID: Guid = Guid('8aa8b1e0-0891-40cc-8b-06-90-d7-d4-16-62-19')
+LegacyIAccessible_DefaultAction_Property_GUID: Guid = Guid('3b331729-eaad-4502-b8-5f-92-61-56-22-91-3c')
+Annotation_AnnotationTypeId_Property_GUID: Guid = Guid('20ae484f-69ef-4c48-8f-5b-c4-93-8b-20-6a-c7')
+Annotation_AnnotationTypeName_Property_GUID: Guid = Guid('9b818892-5ac9-4af9-aa-96-f5-8a-77-b0-58-e3')
+Annotation_Author_Property_GUID: Guid = Guid('7a528462-9c5c-4a03-a9-74-8b-30-7a-99-37-f2')
+Annotation_DateTime_Property_GUID: Guid = Guid('99b5ca5d-1acf-414b-a4-d0-6b-35-0b-04-75-78')
+Annotation_Target_Property_GUID: Guid = Guid('b71b302d-2104-44ad-9c-5c-09-2b-49-07-d7-0f')
+Styles_StyleId_Property_GUID: Guid = Guid('da82852f-3817-4233-82-af-02-27-9e-72-cc-77')
+Styles_StyleName_Property_GUID: Guid = Guid('1c12b035-05d1-4f55-9e-8e-14-89-f3-ff-55-0d')
+Styles_FillColor_Property_GUID: Guid = Guid('63eff97a-a1c5-4b1d-84-eb-b7-65-f2-ed-d6-32')
+Styles_FillPatternStyle_Property_GUID: Guid = Guid('81cf651f-482b-4451-a3-0a-e1-54-5e-55-4f-b8')
+Styles_Shape_Property_GUID: Guid = Guid('c71a23f8-778c-400d-84-58-3b-54-3e-52-69-84')
+Styles_FillPatternColor_Property_GUID: Guid = Guid('939a59fe-8fbd-4e75-a2-71-ac-45-95-19-51-63')
+Styles_ExtendedProperties_Property_GUID: Guid = Guid('f451cda0-ba0a-4681-b0-b0-0d-bd-b5-3e-58-f3')
+SpreadsheetItem_Formula_Property_GUID: Guid = Guid('e602e47d-1b47-4bea-87-cf-3b-0b-0b-5c-15-b6')
+SpreadsheetItem_AnnotationObjects_Property_GUID: Guid = Guid('a3194c38-c9bc-4604-93-96-ae-3f-9f-45-7f-7b')
+SpreadsheetItem_AnnotationTypes_Property_GUID: Guid = Guid('c70c51d0-d602-4b45-af-bc-b4-71-2b-96-d7-2b')
+Transform2_CanZoom_Property_GUID: Guid = Guid('f357e890-a756-4359-9c-a6-86-70-2b-f8-f3-81')
+LiveSetting_Property_GUID: Guid = Guid('c12bcd8e-2a8e-4950-8a-e7-36-25-11-1d-58-eb')
+Drag_IsGrabbed_Property_GUID: Guid = Guid('45f206f3-75cc-4cca-a9-b9-fc-df-b9-82-d8-a2')
+Drag_GrabbedItems_Property_GUID: Guid = Guid('77c1562c-7b86-4b21-9e-d7-3c-ef-da-6f-4c-43')
+Drag_DropEffect_Property_GUID: Guid = Guid('646f2779-48d3-4b23-89-02-4b-f1-00-00-5d-f3')
+Drag_DropEffects_Property_GUID: Guid = Guid('f5d61156-7ce6-49be-a8-36-92-69-dc-ec-92-0f')
+DropTarget_DropTargetEffect_Property_GUID: Guid = Guid('8bb75975-a0ca-4981-b8-18-87-fc-66-e9-50-9d')
+DropTarget_DropTargetEffects_Property_GUID: Guid = Guid('bc1dd4ed-cb89-45f1-a5-92-e0-3b-08-ae-79-0f')
+Transform2_ZoomLevel_Property_GUID: Guid = Guid('eee29f1a-f4a2-4b5b-ac-65-95-cf-93-28-33-87')
+Transform2_ZoomMinimum_Property_GUID: Guid = Guid('742ccc16-4ad1-4e07-96-fe-b1-22-c6-e6-b2-2b')
+Transform2_ZoomMaximum_Property_GUID: Guid = Guid('42ab6b77-ceb0-4eca-b8-2a-6c-fa-5f-a1-fc-08')
+FlowsFrom_Property_GUID: Guid = Guid('05c6844f-19de-48f8-95-fa-88-0d-5b-0f-d6-15')
+FillColor_Property_GUID: Guid = Guid('6e0ec4d0-e2a8-4a56-9d-e7-95-33-89-93-3b-39')
+OutlineColor_Property_GUID: Guid = Guid('c395d6c0-4b55-4762-a0-73-fd-30-3a-63-4f-52')
+FillType_Property_GUID: Guid = Guid('c6fc74e4-8cb9-429c-a9-e1-9b-c4-ac-37-2b-62')
+VisualEffects_Property_GUID: Guid = Guid('e61a8565-aad9-46d7-9e-70-4e-8a-84-20-d4-20')
+OutlineThickness_Property_GUID: Guid = Guid('13e67cc7-dac2-4888-bd-d3-37-5c-62-fa-96-18')
+CenterPoint_Property_GUID: Guid = Guid('0cb00c08-540c-4edb-94-45-26-35-9e-a6-97-85')
+Rotation_Property_GUID: Guid = Guid('767cdc7d-aec0-4110-ad-32-30-ed-d4-03-49-2e')
+Size_Property_GUID: Guid = Guid('2b5f761d-f885-4404-97-3f-9b-1d-98-e3-6d-8f')
+ToolTipOpened_Event_GUID: Guid = Guid('3f4b97ff-2edc-451d-bc-a4-95-a3-18-8d-5b-03')
+ToolTipClosed_Event_GUID: Guid = Guid('276d71ef-24a9-49b6-8e-97-da-98-b4-01-bb-cd')
+StructureChanged_Event_GUID: Guid = Guid('59977961-3edd-4b11-b1-3b-67-6b-2a-2a-6c-a9')
+MenuOpened_Event_GUID: Guid = Guid('ebe2e945-66ca-4ed1-9f-f8-2a-d7-df-0a-1b-08')
+AutomationPropertyChanged_Event_GUID: Guid = Guid('2527fba1-8d7a-4630-a4-cc-e6-63-15-94-2f-52')
+AutomationFocusChanged_Event_GUID: Guid = Guid('b68a1f17-f60d-41a7-a3-cc-b0-52-92-15-5f-e0')
+ActiveTextPositionChanged_Event_GUID: Guid = Guid('a5c09e9c-c77d-4f25-b4-91-e5-bb-70-17-cb-d4')
+AsyncContentLoaded_Event_GUID: Guid = Guid('5fdee11c-d2fa-4fb9-90-4e-5c-be-e8-94-d5-ef')
+MenuClosed_Event_GUID: Guid = Guid('3cf1266e-1582-4041-ac-d7-88-a3-5a-96-52-97')
+LayoutInvalidated_Event_GUID: Guid = Guid('ed7d6544-a6bd-4595-9b-ae-3d-28-94-6c-c7-15')
+Invoke_Invoked_Event_GUID: Guid = Guid('dfd699f0-c915-49dd-b4-22-dd-e7-85-c3-d2-4b')
+SelectionItem_ElementAddedToSelectionEvent_Event_GUID: Guid = Guid('3c822dd1-c407-4dba-91-dd-79-d4-ae-d0-ae-c6')
+SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID: Guid = Guid('097fa8a9-7079-41af-8b-9c-09-34-d8-30-5e-5c')
+SelectionItem_ElementSelectedEvent_Event_GUID: Guid = Guid('b9c7dbfb-4ebe-4532-aa-f4-00-8c-f6-47-23-3c')
+Selection_InvalidatedEvent_Event_GUID: Guid = Guid('cac14904-16b4-4b53-8e-47-4c-b1-df-26-7b-b7')
+Text_TextSelectionChangedEvent_Event_GUID: Guid = Guid('918edaa1-71b3-49ae-97-41-79-be-b8-d3-58-f3')
+Text_TextChangedEvent_Event_GUID: Guid = Guid('4a342082-f483-48c4-ac-11-a8-4b-43-5e-2a-84')
+Window_WindowOpened_Event_GUID: Guid = Guid('d3e81d06-de45-4f2f-96-33-de-9e-02-fb-65-af')
+Window_WindowClosed_Event_GUID: Guid = Guid('edf141f8-fa67-4e22-bb-f7-94-4e-05-73-5e-e2')
+MenuModeStart_Event_GUID: Guid = Guid('18d7c631-166a-4ac9-ae-3b-ef-4b-54-20-e6-81')
+MenuModeEnd_Event_GUID: Guid = Guid('9ecd4c9f-80dd-47b8-82-67-5a-ec-06-bb-2c-ff')
+InputReachedTarget_Event_GUID: Guid = Guid('93ed549a-0549-40f0-be-db-28-e4-4f-7d-e2-a3')
+InputReachedOtherElement_Event_GUID: Guid = Guid('ed201d8a-4e6c-415e-a8-74-24-60-c9-b6-6b-a8')
+InputDiscarded_Event_GUID: Guid = Guid('7f36c367-7b18-417c-97-e3-9d-58-dd-c9-44-ab')
+SystemAlert_Event_GUID: Guid = Guid('d271545d-7a3a-47a7-84-74-81-d2-9a-24-51-c9')
+LiveRegionChanged_Event_GUID: Guid = Guid('102d5e90-e6a9-41b6-b1-c5-a9-b1-92-9d-95-10')
+HostedFragmentRootsInvalidated_Event_GUID: Guid = Guid('e6bdb03e-0921-4ec5-8d-cf-ea-e8-77-b0-42-6b')
+Drag_DragStart_Event_GUID: Guid = Guid('883a480b-3aa9-429d-95-e4-d9-c8-d0-11-f0-dd')
+Drag_DragCancel_Event_GUID: Guid = Guid('c3ede6fa-3451-4e0f-9e-71-df-9c-28-0a-46-57')
+Drag_DragComplete_Event_GUID: Guid = Guid('38e96188-ef1f-463e-91-ca-3a-77-92-c2-9c-af')
+DropTarget_DragEnter_Event_GUID: Guid = Guid('aad9319b-032c-4a88-96-1d-1c-f5-79-58-1e-34')
+DropTarget_DragLeave_Event_GUID: Guid = Guid('0f82eb15-24a2-4988-92-17-de-16-2a-ee-27-2b')
+DropTarget_Dropped_Event_GUID: Guid = Guid('622cead8-1edb-4a3d-ab-bc-be-22-11-ff-68-b5')
+StructuredMarkup_CompositionComplete_Event_GUID: Guid = Guid('c48a3c17-677a-4047-a6-8d-fc-12-57-52-8a-ef')
+StructuredMarkup_Deleted_Event_GUID: Guid = Guid('f9d0a020-e1c1-4ecf-b9-aa-52-ef-de-7e-41-e1')
+StructuredMarkup_SelectionChanged_Event_GUID: Guid = Guid('a7c815f7-ff9f-41c7-a3-a7-ab-6c-bf-db-49-03')
+Invoke_Pattern_GUID: Guid = Guid('d976c2fc-66ea-4a6e-b2-8f-c2-4c-75-46-ad-37')
+Selection_Pattern_GUID: Guid = Guid('66e3b7e8-d821-4d25-87-61-43-5d-2c-8b-25-3f')
+Value_Pattern_GUID: Guid = Guid('17faad9e-c877-475b-b9-33-77-33-27-79-b6-37')
+RangeValue_Pattern_GUID: Guid = Guid('18b00d87-b1c9-476a-bf-bd-5f-0b-db-92-6f-63')
+Scroll_Pattern_GUID: Guid = Guid('895fa4b4-759d-4c50-8e-15-03-46-06-72-00-3c')
+ExpandCollapse_Pattern_GUID: Guid = Guid('ae05efa2-f9d1-428a-83-4c-53-a5-c5-2f-9b-8b')
+Grid_Pattern_GUID: Guid = Guid('260a2ccb-93a8-4e44-a4-c1-3d-f3-97-f2-b0-2b')
+GridItem_Pattern_GUID: Guid = Guid('f2d5c877-a462-4957-a2-a5-2c-96-b3-03-bc-63')
+MultipleView_Pattern_GUID: Guid = Guid('547a6ae4-113f-47c4-85-0f-db-4d-fa-46-6b-1d')
+Window_Pattern_GUID: Guid = Guid('27901735-c760-4994-ad-11-59-19-e6-06-b1-10')
+SelectionItem_Pattern_GUID: Guid = Guid('9bc64eeb-87c7-4b28-94-bb-4d-9f-a4-37-b6-ef')
+Dock_Pattern_GUID: Guid = Guid('9cbaa846-83c8-428d-82-7f-7e-60-63-fe-06-20')
+Table_Pattern_GUID: Guid = Guid('c415218e-a028-461e-aa-92-8f-92-5c-f7-93-51')
+TableItem_Pattern_GUID: Guid = Guid('df1343bd-1888-4a29-a5-0c-b9-2e-6d-e3-7f-6f')
+Text_Pattern_GUID: Guid = Guid('8615f05d-7de5-44fd-a6-79-2c-a4-b4-60-33-a8')
+Toggle_Pattern_GUID: Guid = Guid('0b419760-e2f4-43ff-8c-5f-94-57-c8-2b-56-e9')
+Transform_Pattern_GUID: Guid = Guid('24b46fdb-587e-49f1-9c-4a-d8-e9-8b-66-4b-7b')
+ScrollItem_Pattern_GUID: Guid = Guid('4591d005-a803-4d5c-b4-d5-8d-28-00-f9-06-a7')
+LegacyIAccessible_Pattern_GUID: Guid = Guid('54cc0a9f-3395-48af-ba-8d-73-f8-56-90-f3-e0')
+ItemContainer_Pattern_GUID: Guid = Guid('3d13da0f-8b9a-4a99-85-fa-c5-c9-a6-9f-1e-d4')
+VirtualizedItem_Pattern_GUID: Guid = Guid('f510173e-2e71-45e9-a6-e5-62-f6-ed-82-89-d5')
+SynchronizedInput_Pattern_GUID: Guid = Guid('05c288a6-c47b-488b-b6-53-33-97-7a-55-1b-8b')
+ObjectModel_Pattern_GUID: Guid = Guid('3e04acfe-08fc-47ec-96-bc-35-3f-a3-b3-4a-a7')
+Annotation_Pattern_GUID: Guid = Guid('f6c72ad7-356c-4850-92-91-31-6f-60-8a-8c-84')
+Text_Pattern2_GUID: Guid = Guid('498479a2-5b22-448d-b6-e4-64-74-90-86-06-98')
+TextEdit_Pattern_GUID: Guid = Guid('69f3ff89-5af9-4c75-93-40-f2-de-29-2e-45-91')
+CustomNavigation_Pattern_GUID: Guid = Guid('afea938a-621e-4054-bb-2c-2f-46-11-4d-ac-3f')
+Styles_Pattern_GUID: Guid = Guid('1ae62655-da72-4d60-a1-53-e5-aa-69-88-e3-bf')
+Spreadsheet_Pattern_GUID: Guid = Guid('6a5b24c9-9d1e-4b85-9e-44-c0-2e-31-69-b1-0b')
+SpreadsheetItem_Pattern_GUID: Guid = Guid('32cf83ff-f1a8-4a8c-86-58-d4-7b-a7-4e-20-ba')
+Tranform_Pattern2_GUID: Guid = Guid('8afcfd07-a369-44de-98-8b-2f-7f-f4-9f-b8-a8')
+TextChild_Pattern_GUID: Guid = Guid('7533cab7-3bfe-41ef-9e-85-e2-63-8c-be-16-9e')
+Drag_Pattern_GUID: Guid = Guid('c0bee21f-ccb3-4fed-99-5b-11-4f-6e-3d-27-28')
+DropTarget_Pattern_GUID: Guid = Guid('0bcbec56-bd34-4b7b-9f-d5-26-59-90-5e-a3-dc')
+StructuredMarkup_Pattern_GUID: Guid = Guid('abbd0878-8665-4f5c-94-fc-36-e7-d8-bb-70-6b')
+Button_Control_GUID: Guid = Guid('5a78e369-c6a1-4f33-a9-d7-79-f2-0d-0c-78-8e')
+Calendar_Control_GUID: Guid = Guid('8913eb88-00e5-46bc-8e-4e-14-a7-86-e1-65-a1')
+CheckBox_Control_GUID: Guid = Guid('fb50f922-a3db-49c0-8b-c3-06-da-d5-57-78-e2')
+ComboBox_Control_GUID: Guid = Guid('54cb426c-2f33-4fff-aa-a1-ae-f6-0d-ac-5d-eb')
+Edit_Control_GUID: Guid = Guid('6504a5c8-2c86-4f87-ae-7b-1a-bd-dc-81-0c-f9')
+Hyperlink_Control_GUID: Guid = Guid('8a56022c-b00d-4d15-8f-f0-5b-6b-26-6e-5e-02')
+Image_Control_GUID: Guid = Guid('2d3736e4-6b16-4c57-a9-62-f9-32-60-a7-52-43')
+ListItem_Control_GUID: Guid = Guid('7b3717f2-44d1-4a58-98-a8-f1-2a-9b-8f-78-e2')
+List_Control_GUID: Guid = Guid('9b149ee1-7cca-4cfc-9a-f1-ca-c7-bd-dd-30-31')
+Menu_Control_GUID: Guid = Guid('2e9b1440-0ea8-41fd-b3-74-c1-ea-6f-50-3c-d1')
+MenuBar_Control_GUID: Guid = Guid('cc384250-0e7b-4ae8-95-ae-a0-8f-26-1b-52-ee')
+MenuItem_Control_GUID: Guid = Guid('f45225d3-d0a0-49d8-98-34-9a-00-0d-2a-ed-dc')
+ProgressBar_Control_GUID: Guid = Guid('228c9f86-c36c-47bb-9f-b6-a5-83-4b-fc-53-a4')
+RadioButton_Control_GUID: Guid = Guid('3bdb49db-fe2c-4483-b3-e1-e5-7f-21-94-40-c6')
+ScrollBar_Control_GUID: Guid = Guid('daf34b36-5065-4946-b2-2f-92-59-5f-c0-75-1a')
+Slider_Control_GUID: Guid = Guid('b033c24b-3b35-4cea-b6-09-76-36-82-fa-66-0b')
+Spinner_Control_GUID: Guid = Guid('60cc4b38-3cb1-4161-b4-42-c6-b7-26-c1-78-25')
+StatusBar_Control_GUID: Guid = Guid('d45e7d1b-5873-475f-95-a4-04-33-e1-f1-b0-0a')
+Tab_Control_GUID: Guid = Guid('38cd1f2d-337a-4bd2-a5-e3-ad-b4-69-e3-0b-d3')
+TabItem_Control_GUID: Guid = Guid('2c6a634f-921b-4e6e-b2-6e-08-fc-b0-79-8f-4c')
+Text_Control_GUID: Guid = Guid('ae9772dc-d331-4f09-be-20-7e-6d-fa-f0-7b-0a')
+ToolBar_Control_GUID: Guid = Guid('8f06b751-e182-4e98-88-93-22-84-54-3a-7d-ce')
+ToolTip_Control_GUID: Guid = Guid('05ddc6d1-2137-4768-98-ea-73-f5-2f-71-34-f3')
+Tree_Control_GUID: Guid = Guid('7561349c-d241-43f4-99-08-b5-f0-91-be-e6-11')
+TreeItem_Control_GUID: Guid = Guid('62c9feb9-8ffc-4878-a3-a4-96-b0-30-31-5c-18')
+Custom_Control_GUID: Guid = Guid('f29ea0c3-adb7-430a-ba-90-e5-2c-73-13-e6-ed')
+Group_Control_GUID: Guid = Guid('ad50aa1c-e8c8-4774-ae-1b-dd-86-df-0b-3b-dc')
+Thumb_Control_GUID: Guid = Guid('701ca877-e310-4dd6-b6-44-79-7e-4f-ae-a2-13')
+DataGrid_Control_GUID: Guid = Guid('84b783af-d103-4b0a-84-15-e7-39-42-41-0f-4b')
+DataItem_Control_GUID: Guid = Guid('a0177842-d94f-42a5-81-4b-60-68-ad-dc-8d-a5')
+Document_Control_GUID: Guid = Guid('3cd6bb6f-6f08-4562-b2-29-e4-e2-fc-7a-9e-b4')
+SplitButton_Control_GUID: Guid = Guid('7011f01f-4ace-4901-b4-61-92-0a-6f-1c-a6-50')
+Window_Control_GUID: Guid = Guid('e13a7242-f462-4f4d-ae-c1-53-b2-8d-6c-32-90')
+Pane_Control_GUID: Guid = Guid('5c2b3f5b-9182-42a3-8d-ec-8c-04-c1-ee-63-4d')
+Header_Control_GUID: Guid = Guid('5b90cbce-78fb-4614-82-b6-55-4d-74-71-8e-67')
+HeaderItem_Control_GUID: Guid = Guid('e6bc12cb-7c8e-49cf-b1-68-4a-93-a3-2b-eb-b0')
+Table_Control_GUID: Guid = Guid('773bfa0e-5bc4-4deb-92-1b-de-7b-32-06-22-9e')
+TitleBar_Control_GUID: Guid = Guid('98aa55bf-3bb0-4b65-83-6e-2e-a3-0d-bc-17-1f')
+Separator_Control_GUID: Guid = Guid('8767eba3-2a63-4ab0-ac-8d-aa-50-e2-3d-e9-78')
+SemanticZoom_Control_GUID: Guid = Guid('5fd34a43-061e-42c8-b5-89-9d-cc-f7-4b-c4-3a')
+AppBar_Control_GUID: Guid = Guid('6114908d-cc02-4d37-87-5b-b5-30-c7-13-95-54')
+Text_AnimationStyle_Attribute_GUID: Guid = Guid('628209f0-7c9a-4d57-be-64-1f-18-36-57-1f-f5')
+Text_BackgroundColor_Attribute_GUID: Guid = Guid('fdc49a07-583d-4f17-ad-27-77-fc-83-2a-3c-0b')
+Text_BulletStyle_Attribute_GUID: Guid = Guid('c1097c90-d5c4-4237-97-81-3b-ec-8b-a5-4e-48')
+Text_CapStyle_Attribute_GUID: Guid = Guid('fb059c50-92cc-49a5-ba-8f-0a-a8-72-bb-a2-f3')
+Text_Culture_Attribute_GUID: Guid = Guid('c2025af9-a42d-4ced-a1-fb-c6-74-63-15-22-2e')
+Text_FontName_Attribute_GUID: Guid = Guid('64e63ba8-f2e5-476e-a4-77-17-34-fe-aa-f7-26')
+Text_FontSize_Attribute_GUID: Guid = Guid('dc5eeeff-0506-4673-93-f2-37-7e-4a-8e-01-f1')
+Text_FontWeight_Attribute_GUID: Guid = Guid('6fc02359-b316-4f5f-b4-01-f1-ce-55-74-18-53')
+Text_ForegroundColor_Attribute_GUID: Guid = Guid('72d1c95d-5e60-471a-96-b1-6c-1b-3b-77-a4-36')
+Text_HorizontalTextAlignment_Attribute_GUID: Guid = Guid('04ea6161-fba3-477a-95-2a-bb-32-6d-02-6a-5b')
+Text_IndentationFirstLine_Attribute_GUID: Guid = Guid('206f9ad5-c1d3-424a-81-82-6d-a9-a7-f3-d6-32')
+Text_IndentationLeading_Attribute_GUID: Guid = Guid('5cf66bac-2d45-4a4b-b6-c9-f7-22-1d-28-15-b0')
+Text_IndentationTrailing_Attribute_GUID: Guid = Guid('97ff6c0f-1ce4-408a-b6-7b-94-d8-3e-b6-9b-f2')
+Text_IsHidden_Attribute_GUID: Guid = Guid('360182fb-bdd7-47f6-ab-69-19-e3-3f-8a-33-44')
+Text_IsItalic_Attribute_GUID: Guid = Guid('fce12a56-1336-4a34-96-63-1b-ab-47-23-93-20')
+Text_IsReadOnly_Attribute_GUID: Guid = Guid('a738156b-ca3e-495e-95-14-83-3c-44-0f-eb-11')
+Text_IsSubscript_Attribute_GUID: Guid = Guid('f0ead858-8f53-413c-87-3f-1a-7d-7f-5e-0d-e4')
+Text_IsSuperscript_Attribute_GUID: Guid = Guid('da706ee4-b3aa-4645-a4-1f-cd-25-15-7d-ea-76')
+Text_MarginBottom_Attribute_GUID: Guid = Guid('7ee593c4-72b4-4cac-92-71-3e-d2-4b-0e-4d-42')
+Text_MarginLeading_Attribute_GUID: Guid = Guid('9e9242d0-5ed0-4900-8e-8a-ee-cc-03-83-5a-fc')
+Text_MarginTop_Attribute_GUID: Guid = Guid('683d936f-c9b9-4a9a-b3-d9-d2-0d-33-31-1e-2a')
+Text_MarginTrailing_Attribute_GUID: Guid = Guid('af522f98-999d-40af-a5-b2-01-69-d0-34-20-02')
+Text_OutlineStyles_Attribute_GUID: Guid = Guid('5b675b27-db89-46fe-97-0c-61-4d-52-3b-b9-7d')
+Text_OverlineColor_Attribute_GUID: Guid = Guid('83ab383a-fd43-40da-ab-3e-ec-f8-16-5c-bb-6d')
+Text_OverlineStyle_Attribute_GUID: Guid = Guid('0a234d66-617e-427f-87-1d-e1-ff-1e-0c-21-3f')
+Text_StrikethroughColor_Attribute_GUID: Guid = Guid('bfe15a18-8c41-4c5a-9a-0b-04-af-0e-07-f4-87')
+Text_StrikethroughStyle_Attribute_GUID: Guid = Guid('72913ef1-da00-4f01-89-9c-ac-5a-85-77-a3-07')
+Text_Tabs_Attribute_GUID: Guid = Guid('2e68d00b-92fe-42d8-89-9a-a7-84-aa-44-54-a1')
+Text_TextFlowDirections_Attribute_GUID: Guid = Guid('8bdf8739-f420-423e-af-77-20-a5-d9-73-a9-07')
+Text_UnderlineColor_Attribute_GUID: Guid = Guid('bfa12c73-fde2-4473-bf-64-10-36-d6-aa-0f-45')
+Text_UnderlineStyle_Attribute_GUID: Guid = Guid('5f3b21c0-ede4-44bd-9c-36-38-53-03-8c-bf-eb')
+Text_AnnotationTypes_Attribute_GUID: Guid = Guid('ad2eb431-ee4e-4be1-a7-ba-55-59-15-5a-73-ef')
+Text_AnnotationObjects_Attribute_GUID: Guid = Guid('ff41cf68-e7ab-40b9-8c-72-72-a8-ed-94-01-7d')
+Text_StyleName_Attribute_GUID: Guid = Guid('22c9e091-4d66-45d8-a8-28-73-7b-ab-4c-98-a7')
+Text_StyleId_Attribute_GUID: Guid = Guid('14c300de-c32b-449b-ab-7c-b0-e0-78-9a-ea-5d')
+Text_Link_Attribute_GUID: Guid = Guid('b38ef51d-9e8d-4e46-91-44-56-eb-e1-77-32-9b')
+Text_IsActive_Attribute_GUID: Guid = Guid('f5a4e533-e1b8-436b-93-5d-b5-7a-a3-f5-58-c4')
+Text_SelectionActiveEnd_Attribute_GUID: Guid = Guid('1f668cc3-9bbf-416b-b0-a2-f8-9f-86-f6-61-2c')
+Text_CaretPosition_Attribute_GUID: Guid = Guid('b227b131-9889-4752-a9-1b-73-3e-fd-c5-c5-a0')
+Text_CaretBidiMode_Attribute_GUID: Guid = Guid('929ee7a6-51d3-4715-96-dc-b6-94-fa-24-a1-68')
+Text_BeforeParagraphSpacing_Attribute_GUID: Guid = Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
+Text_AfterParagraphSpacing_Attribute_GUID: Guid = Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
+Text_LineSpacing_Attribute_GUID: Guid = Guid('63ff70ae-d943-4b47-8a-b7-a7-a0-33-d3-21-4b')
+Text_BeforeSpacing_Attribute_GUID: Guid = Guid('be7b0ab1-c822-4a24-85-e9-c8-f2-65-0f-c7-9c')
+Text_AfterSpacing_Attribute_GUID: Guid = Guid('588cbb38-e62f-497c-b5-d1-cc-df-0e-e8-23-d8')
+Text_SayAsInterpretAs_Attribute_GUID: Guid = Guid('b38ad6ac-eee1-4b6e-88-cc-01-4c-ef-a9-3f-cb')
+TextEdit_TextChanged_Event_GUID: Guid = Guid('120b0308-ec22-4eb8-9c-98-98-67-cd-a1-b1-65')
+TextEdit_ConversionTargetChanged_Event_GUID: Guid = Guid('3388c183-ed4f-4c8b-9b-aa-36-4d-51-d8-84-7f')
+Changes_Event_GUID: Guid = Guid('7df26714-614f-4e05-94-88-71-6c-5b-a1-94-36')
+Annotation_Custom_GUID: Guid = Guid('9ec82750-3931-4952-85-bc-1d-bf-f7-8a-43-e3')
+Annotation_SpellingError_GUID: Guid = Guid('ae85567e-9ece-423f-81-b7-96-c4-3d-53-e5-0e')
+Annotation_GrammarError_GUID: Guid = Guid('757a048d-4518-41c6-85-4c-dc-00-9b-7c-fb-53')
+Annotation_Comment_GUID: Guid = Guid('fd2fda30-26b3-4c06-8b-c7-98-f1-53-2e-46-fd')
+Annotation_FormulaError_GUID: Guid = Guid('95611982-0cab-46d5-a2-f0-e3-0d-19-05-f8-bf')
+Annotation_TrackChanges_GUID: Guid = Guid('21e6e888-dc14-4016-ac-27-19-05-53-c8-c4-70')
+Annotation_Header_GUID: Guid = Guid('867b409b-b216-4472-a2-19-52-5e-31-06-81-f8')
+Annotation_Footer_GUID: Guid = Guid('cceab046-1833-47aa-80-80-70-1e-d0-b0-c8-32')
+Annotation_Highlighted_GUID: Guid = Guid('757c884e-8083-4081-8b-9c-e8-7f-50-72-f0-e4')
+Annotation_Endnote_GUID: Guid = Guid('7565725c-2d99-4839-96-0d-33-d3-b8-66-ab-a5')
+Annotation_Footnote_GUID: Guid = Guid('3de10e21-4125-42db-86-20-be-80-83-08-06-24')
+Annotation_InsertionChange_GUID: Guid = Guid('0dbeb3a6-df15-4164-a3-c0-e2-1a-8c-e9-31-c4')
+Annotation_DeletionChange_GUID: Guid = Guid('be3d5b05-951d-42e7-90-1d-ad-c8-c2-cf-34-d0')
+Annotation_MoveChange_GUID: Guid = Guid('9da587eb-23e5-4490-b3-85-1a-22-dd-c8-b1-87')
+Annotation_FormatChange_GUID: Guid = Guid('eb247345-d4f1-41ce-8e-52-f7-9b-69-63-5e-48')
+Annotation_UnsyncedChange_GUID: Guid = Guid('1851116a-0e47-4b30-8c-b5-d7-da-e4-fb-cd-1b')
+Annotation_EditingLockedChange_GUID: Guid = Guid('c31f3e1c-7423-4dac-83-48-41-f0-99-ff-6f-64')
+Annotation_ExternalChange_GUID: Guid = Guid('75a05b31-5f11-42fd-88-7d-df-a0-10-db-23-92')
+Annotation_ConflictingChange_GUID: Guid = Guid('98af8802-517c-459f-af-13-01-6d-3f-ab-87-7e')
+Annotation_Author_GUID: Guid = Guid('f161d3a7-f81b-4128-b1-7f-71-f6-90-91-45-20')
+Annotation_AdvancedProofingIssue_GUID: Guid = Guid('dac7b72c-c0f2-4b84-b9-0d-5f-af-c0-f0-ef-1c')
+Annotation_DataValidationError_GUID: Guid = Guid('c8649fa8-9775-437e-ad-46-e7-09-d9-3c-23-43')
+Annotation_CircularReferenceError_GUID: Guid = Guid('25bd9cf4-1745-4659-ba-67-72-7f-03-18-c6-16')
+Annotation_Mathematics_GUID: Guid = Guid('eaab634b-26d0-40c1-80-73-57-ca-1c-63-3c-9b')
+Annotation_Sensitive_GUID: Guid = Guid('37f4c04f-0f12-4464-92-9c-82-8f-d1-52-92-e3')
+Changes_Summary_GUID: Guid = Guid('313d65a6-e60f-4d62-98-61-55-af-d7-28-d2-07')
+StyleId_Custom_GUID: Guid = Guid('ef2edd3e-a999-4b7c-a3-78-09-bb-d5-2a-35-16')
+StyleId_Heading1_GUID: Guid = Guid('7f7e8f69-6866-4621-93-0c-9a-5d-0c-a5-96-1c')
+StyleId_Heading2_GUID: Guid = Guid('baa9b241-5c69-469d-85-ad-47-47-37-b5-2b-14')
+StyleId_Heading3_GUID: Guid = Guid('bf8be9d2-d8b8-4ec5-8c-52-9c-fb-0d-03-59-70')
+StyleId_Heading4_GUID: Guid = Guid('8436ffc0-9578-45fc-83-a4-ff-40-05-33-15-dd')
+StyleId_Heading5_GUID: Guid = Guid('909f424d-0dbf-406e-97-bb-4e-77-3d-97-98-f7')
+StyleId_Heading6_GUID: Guid = Guid('89d23459-5d5b-4824-a4-20-11-d3-ed-82-e4-0f')
+StyleId_Heading7_GUID: Guid = Guid('a3790473-e9ae-422d-b8-e3-3b-67-5c-61-81-a4')
+StyleId_Heading8_GUID: Guid = Guid('2bc14145-a40c-4881-84-ae-f2-23-56-85-38-0c')
+StyleId_Heading9_GUID: Guid = Guid('c70d9133-bb2a-43d3-8a-c6-33-65-78-84-b0-f0')
+StyleId_Title_GUID: Guid = Guid('15d8201a-ffcf-481f-b0-a1-30-b6-3b-e9-8f-07')
+StyleId_Subtitle_GUID: Guid = Guid('b5d9fc17-5d6f-4420-b4-39-7c-b1-9a-d4-34-e2')
+StyleId_Normal_GUID: Guid = Guid('cd14d429-e45e-4475-a1-c5-7f-9e-6b-e9-6e-ba')
+StyleId_Emphasis_GUID: Guid = Guid('ca6e7dbe-355e-4820-95-a0-92-5f-04-1d-34-70')
+StyleId_Quote_GUID: Guid = Guid('5d1c21ea-8195-4f6c-87-ea-5d-ab-ec-e6-4c-1d')
+StyleId_BulletedList_GUID: Guid = Guid('5963ed64-6426-4632-8c-af-a3-2a-d4-02-d9-1a')
+StyleId_NumberedList_GUID: Guid = Guid('1e96dbd5-64c3-43d0-b1-ee-b5-3b-06-e3-ed-df')
+Notification_Event_GUID: Guid = Guid('72c5a2f7-9788-480f-b8-eb-4d-ee-00-f6-18-6f')
+SID_IsUIAutomationObject: Guid = Guid('b96fdb85-7204-4724-84-2b-c7-05-9d-ed-b9-d0')
+SID_ControlElementProvider: Guid = Guid('f4791d68-e254-4ba3-9a-53-26-a5-c5-49-79-46')
+IsSelectionPattern2Available_Property_GUID: Guid = Guid('490806fb-6e89-4a47-83-19-d2-66-e5-11-f0-21')
+Selection2_FirstSelectedItem_Property_GUID: Guid = Guid('cc24ea67-369c-4e55-9f-f7-38-da-69-54-0c-29')
+Selection2_LastSelectedItem_Property_GUID: Guid = Guid('cf7bda90-2d83-49f8-86-0c-9c-e3-94-cf-89-b4')
+Selection2_CurrentSelectedItem_Property_GUID: Guid = Guid('34257c26-83b5-41a6-93-9c-ae-84-1c-13-62-36')
+Selection2_ItemCount_Property_GUID: Guid = Guid('bb49eb9f-456d-4048-b5-91-9c-20-26-b8-46-36')
+Selection_Pattern2_GUID: Guid = Guid('fba25cab-ab98-49f7-a7-dc-fe-53-9d-c1-5b-e7')
+HeadingLevel_Property_GUID: Guid = Guid('29084272-aaaf-4a30-87-96-3c-12-f6-2b-6b-bb')
+IsDialog_Property_GUID: Guid = Guid('9d0dfb9b-8436-4501-bb-bb-e5-34-a4-fb-3b-3f')
+UIA_IAFP_DEFAULT: UInt32 = 0
+UIA_IAFP_UNWRAP_BRIDGE: UInt32 = 1
+UIA_PFIA_DEFAULT: UInt32 = 0
+UIA_PFIA_UNWRAP_BRIDGE: UInt32 = 1
+UIA_ScrollPatternNoScroll: Double = -1
+@winfunctype('OLEACC.dll')
+def LresultFromObject(riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, punk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.LRESULT: ...
+@winfunctype('OLEACC.dll')
+def ObjectFromLresult(lResult: win32more.Foundation.LRESULT, riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def WindowFromAccessibleObject(param0: win32more.UI.Accessibility.IAccessible_head, phwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccessibleObjectFromWindow(hwnd: win32more.Foundation.HWND, dwId: UInt32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccessibleObjectFromEvent(hwnd: win32more.Foundation.HWND, dwId: UInt32, dwChildId: UInt32, ppacc: POINTER(win32more.UI.Accessibility.IAccessible_head), pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccessibleObjectFromPoint(ptScreen: win32more.Foundation.POINT, ppacc: POINTER(win32more.UI.Accessibility.IAccessible_head), pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccessibleChildren(paccContainer: win32more.UI.Accessibility.IAccessible_head, iChildStart: Int32, cChildren: Int32, rgvarChildren: POINTER(win32more.System.Com.VARIANT_head), pcObtained: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def GetRoleTextA(lRole: UInt32, lpszRole: win32more.Foundation.PSTR, cchRoleMax: UInt32) -> UInt32: ...
+@winfunctype('OLEACC.dll')
+def GetRoleTextW(lRole: UInt32, lpszRole: win32more.Foundation.PWSTR, cchRoleMax: UInt32) -> UInt32: ...
+@winfunctype('OLEACC.dll')
+def GetStateTextA(lStateBit: UInt32, lpszState: win32more.Foundation.PSTR, cchState: UInt32) -> UInt32: ...
+@winfunctype('OLEACC.dll')
+def GetStateTextW(lStateBit: UInt32, lpszState: win32more.Foundation.PWSTR, cchState: UInt32) -> UInt32: ...
+@winfunctype('OLEACC.dll')
+def GetOleaccVersionInfo(pVer: POINTER(UInt32), pBuild: POINTER(UInt32)) -> Void: ...
+@winfunctype('OLEACC.dll')
+def CreateStdAccessibleObject(hwnd: win32more.Foundation.HWND, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def CreateStdAccessibleProxyA(hwnd: win32more.Foundation.HWND, pClassName: win32more.Foundation.PSTR, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def CreateStdAccessibleProxyW(hwnd: win32more.Foundation.HWND, pClassName: win32more.Foundation.PWSTR, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccSetRunningUtilityState(hwndApp: win32more.Foundation.HWND, dwUtilityStateMask: UInt32, dwUtilityState: win32more.UI.Accessibility.ACC_UTILITY_STATE_FLAGS) -> win32more.Foundation.HRESULT: ...
+@winfunctype('OLEACC.dll')
+def AccNotifyTouchInteraction(hwndApp: win32more.Foundation.HWND, hwndTarget: win32more.Foundation.HWND, ptTarget: win32more.Foundation.POINT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetErrorDescription(pDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.BOOL: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaHUiaNodeFromVariant(pvar: POINTER(win32more.System.Com.VARIANT_head), phnode: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaHPatternObjectFromVariant(pvar: POINTER(win32more.System.Com.VARIANT_head), phobj: POINTER(win32more.UI.Accessibility.HUIAPATTERNOBJECT)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaHTextRangeFromVariant(pvar: POINTER(win32more.System.Com.VARIANT_head), phtextrange: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNodeRelease(hnode: win32more.UI.Accessibility.HUIANODE) -> win32more.Foundation.BOOL: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetPropertyValue(hnode: win32more.UI.Accessibility.HUIANODE, propertyId: Int32, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetPatternProvider(hnode: win32more.UI.Accessibility.HUIANODE, patternId: Int32, phobj: POINTER(win32more.UI.Accessibility.HUIAPATTERNOBJECT)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetRuntimeId(hnode: win32more.UI.Accessibility.HUIANODE, pruntimeId: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaSetFocus(hnode: win32more.UI.Accessibility.HUIANODE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNavigate(hnode: win32more.UI.Accessibility.HUIANODE, direction: win32more.UI.Accessibility.NavigateDirection, pCondition: POINTER(win32more.UI.Accessibility.UiaCondition_head), pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), ppRequestedData: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppTreeStructure: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetUpdatedCache(hnode: win32more.UI.Accessibility.HUIANODE, pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), normalizeState: win32more.UI.Accessibility.NormalizeState, pNormalizeCondition: POINTER(win32more.UI.Accessibility.UiaCondition_head), ppRequestedData: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppTreeStructure: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaFind(hnode: win32more.UI.Accessibility.HUIANODE, pParams: POINTER(win32more.UI.Accessibility.UiaFindParams_head), pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), ppRequestedData: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppOffsets: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppTreeStructures: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNodeFromPoint(x: Double, y: Double, pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), ppRequestedData: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppTreeStructure: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNodeFromFocus(pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), ppRequestedData: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), ppTreeStructure: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNodeFromHandle(hwnd: win32more.Foundation.HWND, phnode: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaNodeFromProvider(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, phnode: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetRootNode(phnode: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRegisterProviderCallback(pCallback: POINTER(win32more.UI.Accessibility.UiaProviderCallback)) -> Void: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaLookupId(type: win32more.UI.Accessibility.AutomationIdentifierType, pGuid: POINTER(Guid)) -> Int32: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetReservedNotSupportedValue(punkNotSupportedValue: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaGetReservedMixedAttributeValue(punkMixedAttributeValue: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaClientsAreListening() -> win32more.Foundation.BOOL: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseAutomationPropertyChangedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, id: win32more.UI.Accessibility.UIA_PROPERTY_ID, oldValue: win32more.System.Com.VARIANT, newValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseAutomationEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, id: win32more.UI.Accessibility.UIA_EVENT_ID) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseStructureChangedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, structureChangeType: win32more.UI.Accessibility.StructureChangeType, pRuntimeId: POINTER(Int32), cRuntimeIdLen: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseAsyncContentLoadedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, asyncContentLoadedState: win32more.UI.Accessibility.AsyncContentLoadedState, percentComplete: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseTextEditTextChangedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, textEditChangeType: win32more.UI.Accessibility.TextEditChangeType, pChangedData: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseChangesEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, eventIdCount: Int32, pUiaChanges: POINTER(win32more.UI.Accessibility.UiaChangeInfo_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseNotificationEvent(provider: win32more.UI.Accessibility.IRawElementProviderSimple_head, notificationKind: win32more.UI.Accessibility.NotificationKind, notificationProcessing: win32more.UI.Accessibility.NotificationProcessing, displayString: win32more.Foundation.BSTR, activityId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRaiseActiveTextPositionChangedEvent(provider: win32more.UI.Accessibility.IRawElementProviderSimple_head, textRange: win32more.UI.Accessibility.ITextRangeProvider_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaAddEvent(hnode: win32more.UI.Accessibility.HUIANODE, eventId: Int32, pCallback: POINTER(win32more.UI.Accessibility.UiaEventCallback), scope: win32more.UI.Accessibility.TreeScope, pProperties: POINTER(Int32), cProperties: Int32, pRequest: POINTER(win32more.UI.Accessibility.UiaCacheRequest_head), phEvent: POINTER(win32more.UI.Accessibility.HUIAEVENT)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaRemoveEvent(hEvent: win32more.UI.Accessibility.HUIAEVENT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaEventAddWindow(hEvent: win32more.UI.Accessibility.HUIAEVENT, hwnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaEventRemoveWindow(hEvent: win32more.UI.Accessibility.HUIAEVENT, hwnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def DockPattern_SetDockPosition(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, dockPosition: win32more.UI.Accessibility.DockPosition) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ExpandCollapsePattern_Collapse(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ExpandCollapsePattern_Expand(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def GridPattern_GetItem(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, row: Int32, column: Int32, pResult: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def InvokePattern_Invoke(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def MultipleViewPattern_GetViewName(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, viewId: Int32, ppStr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def MultipleViewPattern_SetCurrentView(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, viewId: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def RangeValuePattern_SetValue(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, val: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ScrollItemPattern_ScrollIntoView(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ScrollPattern_Scroll(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, horizontalAmount: win32more.UI.Accessibility.ScrollAmount, verticalAmount: win32more.UI.Accessibility.ScrollAmount) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ScrollPattern_SetScrollPercent(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, horizontalPercent: Double, verticalPercent: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def SelectionItemPattern_AddToSelection(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def SelectionItemPattern_RemoveFromSelection(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def SelectionItemPattern_Select(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TogglePattern_Toggle(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TransformPattern_Move(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, x: Double, y: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TransformPattern_Resize(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, width: Double, height: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TransformPattern_Rotate(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, degrees: Double) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ValuePattern_SetValue(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pVal: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def WindowPattern_Close(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def WindowPattern_SetWindowVisualState(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, state: win32more.UI.Accessibility.WindowVisualState) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def WindowPattern_WaitForInputIdle(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, milliseconds: Int32, pResult: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_GetSelection(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_GetVisibleRanges(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_RangeFromChild(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, hnodeChild: win32more.UI.Accessibility.HUIANODE, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_RangeFromPoint(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, point: win32more.UI.Accessibility.UiaPoint, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_get_DocumentRange(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextPattern_get_SupportedTextSelection(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pRetVal: POINTER(win32more.UI.Accessibility.SupportedTextSelection)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_Clone(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_Compare(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, range: win32more.UI.Accessibility.HUIATEXTRANGE, pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_CompareEndpoints(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, targetRange: win32more.UI.Accessibility.HUIATEXTRANGE, targetEndpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_ExpandToEnclosingUnit(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, unit: win32more.UI.Accessibility.TextUnit) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_GetAttributeValue(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, attributeId: Int32, pRetVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_FindAttribute(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, attributeId: Int32, val: win32more.System.Com.VARIANT, backward: win32more.Foundation.BOOL, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_FindText(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, text: win32more.Foundation.BSTR, backward: win32more.Foundation.BOOL, ignoreCase: win32more.Foundation.BOOL, pRetVal: POINTER(win32more.UI.Accessibility.HUIATEXTRANGE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_GetBoundingRectangles(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_GetEnclosingElement(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, pRetVal: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_GetText(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, maxLength: Int32, pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_Move(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, unit: win32more.UI.Accessibility.TextUnit, count: Int32, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_MoveEndpointByUnit(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, unit: win32more.UI.Accessibility.TextUnit, count: Int32, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_MoveEndpointByRange(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, targetRange: win32more.UI.Accessibility.HUIATEXTRANGE, targetEndpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_Select(hobj: win32more.UI.Accessibility.HUIATEXTRANGE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_AddToSelection(hobj: win32more.UI.Accessibility.HUIATEXTRANGE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_RemoveFromSelection(hobj: win32more.UI.Accessibility.HUIATEXTRANGE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_ScrollIntoView(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, alignToTop: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def TextRange_GetChildren(hobj: win32more.UI.Accessibility.HUIATEXTRANGE, pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def ItemContainerPattern_FindItemByProperty(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, hnodeStartAfter: win32more.UI.Accessibility.HUIANODE, propertyId: Int32, value: win32more.System.Com.VARIANT, pFound: POINTER(win32more.UI.Accessibility.HUIANODE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def LegacyIAccessiblePattern_Select(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, flagsSelect: Int32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def LegacyIAccessiblePattern_DoDefaultAction(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def LegacyIAccessiblePattern_SetValue(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, szValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def LegacyIAccessiblePattern_GetIAccessible(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, pAccessible: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def SynchronizedInputPattern_StartListening(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT, inputType: win32more.UI.Accessibility.SynchronizedInputType) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def SynchronizedInputPattern_Cancel(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def VirtualizedItemPattern_Realize(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaPatternRelease(hobj: win32more.UI.Accessibility.HUIAPATTERNOBJECT) -> win32more.Foundation.BOOL: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaTextRangeRelease(hobj: win32more.UI.Accessibility.HUIATEXTRANGE) -> win32more.Foundation.BOOL: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaReturnRawElementProvider(hwnd: win32more.Foundation.HWND, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, el: win32more.UI.Accessibility.IRawElementProviderSimple_head) -> win32more.Foundation.LRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaHostProviderFromHwnd(hwnd: win32more.Foundation.HWND, ppProvider: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaProviderForNonClient(hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, ppProvider: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaIAccessibleFromProvider(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, dwFlags: UInt32, ppAccessible: POINTER(win32more.UI.Accessibility.IAccessible_head), pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaProviderFromIAccessible(pAccessible: win32more.UI.Accessibility.IAccessible_head, idChild: Int32, dwFlags: UInt32, ppProvider: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaDisconnectAllProviders() -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaDisconnectProvider(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head) -> win32more.Foundation.HRESULT: ...
+@winfunctype('UIAutomationCore.dll')
+def UiaHasServerSideProvider(hwnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def RegisterPointerInputTarget(hwnd: win32more.Foundation.HWND, pointerType: win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def UnregisterPointerInputTarget(hwnd: win32more.Foundation.HWND, pointerType: win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def RegisterPointerInputTargetEx(hwnd: win32more.Foundation.HWND, pointerType: win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE, fObserve: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def UnregisterPointerInputTargetEx(hwnd: win32more.Foundation.HWND, pointerType: win32more.UI.WindowsAndMessaging.POINTER_INPUT_TYPE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def NotifyWinEvent(event: UInt32, hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32) -> Void: ...
+@winfunctype('USER32.dll')
+def SetWinEventHook(eventMin: UInt32, eventMax: UInt32, hmodWinEventProc: win32more.Foundation.HINSTANCE, pfnWinEventProc: win32more.UI.Accessibility.WINEVENTPROC, idProcess: UInt32, idThread: UInt32, dwFlags: UInt32) -> win32more.UI.Accessibility.HWINEVENTHOOK: ...
+@winfunctype('USER32.dll')
+def IsWinEventHookInstalled(event: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def UnhookWinEvent(hWinEventHook: win32more.UI.Accessibility.HWINEVENTHOOK) -> win32more.Foundation.BOOL: ...
 AsyncContentLoadedState = Int32
-AsyncContentLoadedState_Beginning = 0
-AsyncContentLoadedState_Progress = 1
-AsyncContentLoadedState_Completed = 2
+AsyncContentLoadedState_Beginning: AsyncContentLoadedState = 0
+AsyncContentLoadedState_Progress: AsyncContentLoadedState = 1
+AsyncContentLoadedState_Completed: AsyncContentLoadedState = 2
 AutomationElementMode = Int32
-AutomationElementMode_None = 0
-AutomationElementMode_Full = 1
+AutomationElementMode_None: AutomationElementMode = 0
+AutomationElementMode_Full: AutomationElementMode = 1
 AutomationIdentifierType = Int32
-AutomationIdentifierType_Property = 0
-AutomationIdentifierType_Pattern = 1
-AutomationIdentifierType_Event = 2
-AutomationIdentifierType_ControlType = 3
-AutomationIdentifierType_TextAttribute = 4
-AutomationIdentifierType_LandmarkType = 5
-AutomationIdentifierType_Annotation = 6
-AutomationIdentifierType_Changes = 7
-AutomationIdentifierType_Style = 8
+AutomationIdentifierType_Property: AutomationIdentifierType = 0
+AutomationIdentifierType_Pattern: AutomationIdentifierType = 1
+AutomationIdentifierType_Event: AutomationIdentifierType = 2
+AutomationIdentifierType_ControlType: AutomationIdentifierType = 3
+AutomationIdentifierType_TextAttribute: AutomationIdentifierType = 4
+AutomationIdentifierType_LandmarkType: AutomationIdentifierType = 5
+AutomationIdentifierType_Annotation: AutomationIdentifierType = 6
+AutomationIdentifierType_Changes: AutomationIdentifierType = 7
+AutomationIdentifierType_Style: AutomationIdentifierType = 8
 BulletStyle = Int32
-BulletStyle_None = 0
-BulletStyle_HollowRoundBullet = 1
-BulletStyle_FilledRoundBullet = 2
-BulletStyle_HollowSquareBullet = 3
-BulletStyle_FilledSquareBullet = 4
-BulletStyle_DashBullet = 5
-BulletStyle_Other = -1
+BulletStyle_None: BulletStyle = 0
+BulletStyle_HollowRoundBullet: BulletStyle = 1
+BulletStyle_FilledRoundBullet: BulletStyle = 2
+BulletStyle_HollowSquareBullet: BulletStyle = 3
+BulletStyle_FilledSquareBullet: BulletStyle = 4
+BulletStyle_DashBullet: BulletStyle = 5
+BulletStyle_Other: BulletStyle = -1
 CAccPropServices = Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
 CapStyle = Int32
-CapStyle_None = 0
-CapStyle_SmallCap = 1
-CapStyle_AllCap = 2
-CapStyle_AllPetiteCaps = 3
-CapStyle_PetiteCaps = 4
-CapStyle_Unicase = 5
-CapStyle_Titling = 6
-CapStyle_Other = -1
+CapStyle_None: CapStyle = 0
+CapStyle_SmallCap: CapStyle = 1
+CapStyle_AllCap: CapStyle = 2
+CapStyle_AllPetiteCaps: CapStyle = 3
+CapStyle_PetiteCaps: CapStyle = 4
+CapStyle_Unicase: CapStyle = 5
+CapStyle_Titling: CapStyle = 6
+CapStyle_Other: CapStyle = -1
 CaretBidiMode = Int32
-CaretBidiMode_LTR = 0
-CaretBidiMode_RTL = 1
+CaretBidiMode_LTR: CaretBidiMode = 0
+CaretBidiMode_RTL: CaretBidiMode = 1
 CaretPosition = Int32
-CaretPosition_Unknown = 0
-CaretPosition_EndOfLine = 1
-CaretPosition_BeginningOfLine = 2
+CaretPosition_Unknown: CaretPosition = 0
+CaretPosition_EndOfLine: CaretPosition = 1
+CaretPosition_BeginningOfLine: CaretPosition = 2
 CoalesceEventsOptions = Int32
-CoalesceEventsOptions_Disabled = 0
-CoalesceEventsOptions_Enabled = 1
+CoalesceEventsOptions_Disabled: CoalesceEventsOptions = 0
+CoalesceEventsOptions_Enabled: CoalesceEventsOptions = 1
 ConditionType = Int32
-ConditionType_True = 0
-ConditionType_False = 1
-ConditionType_Property = 2
-ConditionType_And = 3
-ConditionType_Or = 4
-ConditionType_Not = 5
+ConditionType_True: ConditionType = 0
+ConditionType_False: ConditionType = 1
+ConditionType_Property: ConditionType = 2
+ConditionType_And: ConditionType = 3
+ConditionType_Or: ConditionType = 4
+ConditionType_Not: ConditionType = 5
 ConnectionRecoveryBehaviorOptions = Int32
-ConnectionRecoveryBehaviorOptions_Disabled = 0
-ConnectionRecoveryBehaviorOptions_Enabled = 1
+ConnectionRecoveryBehaviorOptions_Disabled: ConnectionRecoveryBehaviorOptions = 0
+ConnectionRecoveryBehaviorOptions_Enabled: ConnectionRecoveryBehaviorOptions = 1
 CUIAutomation = Guid('ff48dba4-60ef-4201-aa-87-54-10-3e-ef-59-4e')
 CUIAutomation8 = Guid('e22ad333-b25f-460c-83-d0-05-81-10-73-95-c9')
 CUIAutomationRegistrar = Guid('6e29fabf-9977-42d1-8d-0e-ca-7e-61-ad-87-e6')
 DockPosition = Int32
-DockPosition_Top = 0
-DockPosition_Left = 1
-DockPosition_Bottom = 2
-DockPosition_Right = 3
-DockPosition_Fill = 4
-DockPosition_None = 5
+DockPosition_Top: DockPosition = 0
+DockPosition_Left: DockPosition = 1
+DockPosition_Bottom: DockPosition = 2
+DockPosition_Right: DockPosition = 3
+DockPosition_Fill: DockPosition = 4
+DockPosition_None: DockPosition = 5
 EventArgsType = Int32
-EventArgsType_Simple = 0
-EventArgsType_PropertyChanged = 1
-EventArgsType_StructureChanged = 2
-EventArgsType_AsyncContentLoaded = 3
-EventArgsType_WindowClosed = 4
-EventArgsType_TextEditTextChanged = 5
-EventArgsType_Changes = 6
-EventArgsType_Notification = 7
-EventArgsType_ActiveTextPositionChanged = 8
-EventArgsType_StructuredMarkup = 9
+EventArgsType_Simple: EventArgsType = 0
+EventArgsType_PropertyChanged: EventArgsType = 1
+EventArgsType_StructureChanged: EventArgsType = 2
+EventArgsType_AsyncContentLoaded: EventArgsType = 3
+EventArgsType_WindowClosed: EventArgsType = 4
+EventArgsType_TextEditTextChanged: EventArgsType = 5
+EventArgsType_Changes: EventArgsType = 6
+EventArgsType_Notification: EventArgsType = 7
+EventArgsType_ActiveTextPositionChanged: EventArgsType = 8
+EventArgsType_StructuredMarkup: EventArgsType = 9
 ExpandCollapseState = Int32
-ExpandCollapseState_Collapsed = 0
-ExpandCollapseState_Expanded = 1
-ExpandCollapseState_PartiallyExpanded = 2
-ExpandCollapseState_LeafNode = 3
-def _define_ExtendedProperty_head():
-    class ExtendedProperty(Structure):
-        pass
-    return ExtendedProperty
-def _define_ExtendedProperty():
-    ExtendedProperty = win32more.UI.Accessibility.ExtendedProperty_head
-    ExtendedProperty._fields_ = [
-        ('PropertyName', win32more.Foundation.BSTR),
-        ('PropertyValue', win32more.Foundation.BSTR),
-    ]
-    return ExtendedProperty
+ExpandCollapseState_Collapsed: ExpandCollapseState = 0
+ExpandCollapseState_Expanded: ExpandCollapseState = 1
+ExpandCollapseState_PartiallyExpanded: ExpandCollapseState = 2
+ExpandCollapseState_LeafNode: ExpandCollapseState = 3
+class ExtendedProperty(Structure):
+    PropertyName: win32more.Foundation.BSTR
+    PropertyValue: win32more.Foundation.BSTR
 FillType = Int32
-FillType_None = 0
-FillType_Color = 1
-FillType_Gradient = 2
-FillType_Picture = 3
-FillType_Pattern = 4
-def _define_FILTERKEYS_head():
-    class FILTERKEYS(Structure):
-        pass
-    return FILTERKEYS
-def _define_FILTERKEYS():
-    FILTERKEYS = win32more.UI.Accessibility.FILTERKEYS_head
-    FILTERKEYS._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', UInt32),
-        ('iWaitMSec', UInt32),
-        ('iDelayMSec', UInt32),
-        ('iRepeatMSec', UInt32),
-        ('iBounceMSec', UInt32),
-    ]
-    return FILTERKEYS
+FillType_None: FillType = 0
+FillType_Color: FillType = 1
+FillType_Gradient: FillType = 2
+FillType_Picture: FillType = 3
+FillType_Pattern: FillType = 4
+class FILTERKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    iWaitMSec: UInt32
+    iDelayMSec: UInt32
+    iRepeatMSec: UInt32
+    iBounceMSec: UInt32
 FlowDirections = Int32
-FlowDirections_Default = 0
-FlowDirections_RightToLeft = 1
-FlowDirections_BottomToTop = 2
-FlowDirections_Vertical = 4
-def _define_HIGHCONTRASTA_head():
-    class HIGHCONTRASTA(Structure):
-        pass
-    return HIGHCONTRASTA
-def _define_HIGHCONTRASTA():
-    HIGHCONTRASTA = win32more.UI.Accessibility.HIGHCONTRASTA_head
-    HIGHCONTRASTA._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.HIGHCONTRASTW_FLAGS),
-        ('lpszDefaultScheme', win32more.Foundation.PSTR),
-    ]
-    return HIGHCONTRASTA
-def _define_HIGHCONTRASTW_head():
-    class HIGHCONTRASTW(Structure):
-        pass
-    return HIGHCONTRASTW
-def _define_HIGHCONTRASTW():
-    HIGHCONTRASTW = win32more.UI.Accessibility.HIGHCONTRASTW_head
-    HIGHCONTRASTW._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.HIGHCONTRASTW_FLAGS),
-        ('lpszDefaultScheme', win32more.Foundation.PWSTR),
-    ]
-    return HIGHCONTRASTW
+FlowDirections_Default: FlowDirections = 0
+FlowDirections_RightToLeft: FlowDirections = 1
+FlowDirections_BottomToTop: FlowDirections = 2
+FlowDirections_Vertical: FlowDirections = 4
+class HIGHCONTRASTA(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.HIGHCONTRASTW_FLAGS
+    lpszDefaultScheme: win32more.Foundation.PSTR
+class HIGHCONTRASTW(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.HIGHCONTRASTW_FLAGS
+    lpszDefaultScheme: win32more.Foundation.PWSTR
 HIGHCONTRASTW_FLAGS = UInt32
-HCF_HIGHCONTRASTON = 1
-HCF_AVAILABLE = 2
-HCF_HOTKEYACTIVE = 4
-HCF_CONFIRMHOTKEY = 8
-HCF_HOTKEYSOUND = 16
-HCF_INDICATOR = 32
-HCF_HOTKEYAVAILABLE = 64
-HCF_OPTION_NOTHEMECHANGE = 4096
+HCF_HIGHCONTRASTON: HIGHCONTRASTW_FLAGS = 1
+HCF_AVAILABLE: HIGHCONTRASTW_FLAGS = 2
+HCF_HOTKEYACTIVE: HIGHCONTRASTW_FLAGS = 4
+HCF_CONFIRMHOTKEY: HIGHCONTRASTW_FLAGS = 8
+HCF_HOTKEYSOUND: HIGHCONTRASTW_FLAGS = 16
+HCF_INDICATOR: HIGHCONTRASTW_FLAGS = 32
+HCF_HOTKEYAVAILABLE: HIGHCONTRASTW_FLAGS = 64
+HCF_OPTION_NOTHEMECHANGE: HIGHCONTRASTW_FLAGS = 4096
 HorizontalTextAlignment = Int32
-HorizontalTextAlignment_Left = 0
-HorizontalTextAlignment_Centered = 1
-HorizontalTextAlignment_Right = 2
-HorizontalTextAlignment_Justified = 3
+HorizontalTextAlignment_Left: HorizontalTextAlignment = 0
+HorizontalTextAlignment_Centered: HorizontalTextAlignment = 1
+HorizontalTextAlignment_Right: HorizontalTextAlignment = 2
+HorizontalTextAlignment_Justified: HorizontalTextAlignment = 3
 HUIAEVENT = IntPtr
 HUIANODE = IntPtr
 HUIAPATTERNOBJECT = IntPtr
 HUIATEXTRANGE = IntPtr
 HWINEVENTHOOK = IntPtr
-def _define_IAccessible_head():
-    class IAccessible(win32more.System.Com.IDispatch_head):
-        Guid = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
-    return IAccessible
-def _define_IAccessible():
-    IAccessible = win32more.UI.Accessibility.IAccessible_head
-    IAccessible.get_accParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head))(7, 'get_accParent', ((1, 'ppdispParent'),)))
-    IAccessible.get_accChildCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_accChildCount', ((1, 'pcountChildren'),)))
-    IAccessible.get_accChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head))(9, 'get_accChild', ((1, 'varChild'),(1, 'ppdispChild'),)))
-    IAccessible.get_accName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(10, 'get_accName', ((1, 'varChild'),(1, 'pszName'),)))
-    IAccessible.get_accValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(11, 'get_accValue', ((1, 'varChild'),(1, 'pszValue'),)))
-    IAccessible.get_accDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(12, 'get_accDescription', ((1, 'varChild'),(1, 'pszDescription'),)))
-    IAccessible.get_accRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_accRole', ((1, 'varChild'),(1, 'pvarRole'),)))
-    IAccessible.get_accState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head))(14, 'get_accState', ((1, 'varChild'),(1, 'pvarState'),)))
-    IAccessible.get_accHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(15, 'get_accHelp', ((1, 'varChild'),(1, 'pszHelp'),)))
-    IAccessible.get_accHelpTopic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),win32more.System.Com.VARIANT,POINTER(Int32))(16, 'get_accHelpTopic', ((1, 'pszHelpFile'),(1, 'varChild'),(1, 'pidTopic'),)))
-    IAccessible.get_accKeyboardShortcut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(17, 'get_accKeyboardShortcut', ((1, 'varChild'),(1, 'pszKeyboardShortcut'),)))
-    IAccessible.get_accFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(18, 'get_accFocus', ((1, 'pvarChild'),)))
-    IAccessible.get_accSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(19, 'get_accSelection', ((1, 'pvarChildren'),)))
-    IAccessible.get_accDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR))(20, 'get_accDefaultAction', ((1, 'varChild'),(1, 'pszDefaultAction'),)))
-    IAccessible.accSelect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT)(21, 'accSelect', ((1, 'flagsSelect'),(1, 'varChild'),)))
-    IAccessible.accLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),win32more.System.Com.VARIANT)(22, 'accLocation', ((1, 'pxLeft'),(1, 'pyTop'),(1, 'pcxWidth'),(1, 'pcyHeight'),(1, 'varChild'),)))
-    IAccessible.accNavigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head))(23, 'accNavigate', ((1, 'navDir'),(1, 'varStart'),(1, 'pvarEndUpAt'),)))
-    IAccessible.accHitTest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head))(24, 'accHitTest', ((1, 'xLeft'),(1, 'yTop'),(1, 'pvarChild'),)))
-    IAccessible.accDoDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(25, 'accDoDefaultAction', ((1, 'varChild'),)))
-    IAccessible.put_accName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR)(26, 'put_accName', ((1, 'varChild'),(1, 'szName'),)))
-    IAccessible.put_accValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR)(27, 'put_accValue', ((1, 'varChild'),(1, 'szValue'),)))
-    win32more.System.Com.IDispatch
-    return IAccessible
-def _define_IAccessibleEx_head():
-    class IAccessibleEx(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f8b80ada-2c44-48d0-89-be-5f-f2-3c-9c-d8-75')
-    return IAccessibleEx
-def _define_IAccessibleEx():
-    IAccessibleEx = win32more.UI.Accessibility.IAccessibleEx_head
-    IAccessibleEx.GetObjectForChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Accessibility.IAccessibleEx_head))(3, 'GetObjectForChild', ((1, 'idChild'),(1, 'pRetVal'),)))
-    IAccessibleEx.GetIAccessiblePair = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(Int32))(4, 'GetIAccessiblePair', ((1, 'ppAcc'),(1, 'pidChild'),)))
-    IAccessibleEx.GetRuntimeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'GetRuntimeId', ((1, 'pRetVal'),)))
-    IAccessibleEx.ConvertReturnedElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.IAccessibleEx_head))(6, 'ConvertReturnedElement', ((1, 'pIn'),(1, 'ppRetValOut'),)))
-    win32more.System.Com.IUnknown
-    return IAccessibleEx
-def _define_IAccessibleHandler_head():
-    class IAccessibleHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('03022430-abc4-11d0-bd-e2-00-aa-00-1a-19-53')
-    return IAccessibleHandler
-def _define_IAccessibleHandler():
-    IAccessibleHandler = win32more.UI.Accessibility.IAccessibleHandler_head
-    IAccessibleHandler.AccessibleObjectFromID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Accessibility.IAccessible_head))(3, 'AccessibleObjectFromID', ((1, 'hwnd'),(1, 'lObjectID'),(1, 'pIAccessible'),)))
-    win32more.System.Com.IUnknown
-    return IAccessibleHandler
-def _define_IAccessibleHostingElementProviders_head():
-    class IAccessibleHostingElementProviders(win32more.System.Com.IUnknown_head):
-        Guid = Guid('33ac331b-943e-4020-b2-95-db-37-78-49-74-a3')
-    return IAccessibleHostingElementProviders
-def _define_IAccessibleHostingElementProviders():
-    IAccessibleHostingElementProviders = win32more.UI.Accessibility.IAccessibleHostingElementProviders_head
-    IAccessibleHostingElementProviders.GetEmbeddedFragmentRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetEmbeddedFragmentRoots', ((1, 'pRetVal'),)))
-    IAccessibleHostingElementProviders.GetObjectIdForProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(Int32))(4, 'GetObjectIdForProvider', ((1, 'pProvider'),(1, 'pidObject'),)))
-    win32more.System.Com.IUnknown
-    return IAccessibleHostingElementProviders
-def _define_IAccessibleWindowlessSite_head():
-    class IAccessibleWindowlessSite(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bf3abd9c-76da-4389-9e-b6-14-27-d2-5a-ba-b7')
-    return IAccessibleWindowlessSite
-def _define_IAccessibleWindowlessSite():
-    IAccessibleWindowlessSite = win32more.UI.Accessibility.IAccessibleWindowlessSite_head
-    IAccessibleWindowlessSite.AcquireObjectIdRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Accessibility.IAccessibleHandler_head,POINTER(Int32))(3, 'AcquireObjectIdRange', ((1, 'rangeSize'),(1, 'pRangeOwner'),(1, 'pRangeBase'),)))
-    IAccessibleWindowlessSite.ReleaseObjectIdRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Accessibility.IAccessibleHandler_head)(4, 'ReleaseObjectIdRange', ((1, 'rangeBase'),(1, 'pRangeOwner'),)))
-    IAccessibleWindowlessSite.QueryObjectIdRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessibleHandler_head,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'QueryObjectIdRanges', ((1, 'pRangesOwner'),(1, 'psaRanges'),)))
-    IAccessibleWindowlessSite.GetParentAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head))(6, 'GetParentAccessible', ((1, 'ppParent'),)))
-    win32more.System.Com.IUnknown
-    return IAccessibleWindowlessSite
-def _define_IAccIdentity_head():
-    class IAccIdentity(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
-    return IAccIdentity
-def _define_IAccIdentity():
-    IAccIdentity = win32more.UI.Accessibility.IAccIdentity_head
-    IAccIdentity.GetIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(3, 'GetIdentityString', ((1, 'dwIDChild'),(1, 'ppIDString'),(1, 'pdwIDStringLen'),)))
-    win32more.System.Com.IUnknown
-    return IAccIdentity
-def _define_IAccPropServer_head():
-    class IAccPropServer(win32more.System.Com.IUnknown_head):
-        Guid = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
-    return IAccPropServer
-def _define_IAccPropServer():
-    IAccPropServer = win32more.UI.Accessibility.IAccPropServer_head
-    IAccPropServer.GetPropValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,Guid,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BOOL))(3, 'GetPropValue', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'idProp'),(1, 'pvarValue'),(1, 'pfHasProp'),)))
-    win32more.System.Com.IUnknown
-    return IAccPropServer
-def _define_IAccPropServices_head():
-    class IAccPropServices(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
-    return IAccPropServices
-def _define_IAccPropServices():
-    IAccPropServices = win32more.UI.Accessibility.IAccPropServices_head
-    IAccPropServices.SetPropValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,Guid,win32more.System.Com.VARIANT)(3, 'SetPropValue', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'idProp'),(1, 'var'),)))
-    IAccPropServices.SetPropServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(Guid),Int32,win32more.UI.Accessibility.IAccPropServer_head,win32more.UI.Accessibility.AnnoScope)(4, 'SetPropServer', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'paProps'),(1, 'cProps'),(1, 'pServer'),(1, 'annoScope'),)))
-    IAccPropServices.ClearProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(Guid),Int32)(5, 'ClearProps', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'paProps'),(1, 'cProps'),)))
-    IAccPropServices.SetHwndProp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,Guid,win32more.System.Com.VARIANT)(6, 'SetHwndProp', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'idProp'),(1, 'var'),)))
-    IAccPropServices.SetHwndPropStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,Guid,win32more.Foundation.PWSTR)(7, 'SetHwndPropStr', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'idProp'),(1, 'str'),)))
-    IAccPropServices.SetHwndPropServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,POINTER(Guid),Int32,win32more.UI.Accessibility.IAccPropServer_head,win32more.UI.Accessibility.AnnoScope)(8, 'SetHwndPropServer', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'paProps'),(1, 'cProps'),(1, 'pServer'),(1, 'annoScope'),)))
-    IAccPropServices.ClearHwndProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,POINTER(Guid),Int32)(9, 'ClearHwndProps', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'paProps'),(1, 'cProps'),)))
-    IAccPropServices.ComposeHwndIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(10, 'ComposeHwndIdentityString', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'ppIDString'),(1, 'pdwIDStringLen'),)))
-    IAccPropServices.DecomposeHwndIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(win32more.Foundation.HWND),POINTER(UInt32),POINTER(UInt32))(11, 'DecomposeHwndIdentityString', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'phwnd'),(1, 'pidObject'),(1, 'pidChild'),)))
-    IAccPropServices.SetHmenuProp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,Guid,win32more.System.Com.VARIANT)(12, 'SetHmenuProp', ((1, 'hmenu'),(1, 'idChild'),(1, 'idProp'),(1, 'var'),)))
-    IAccPropServices.SetHmenuPropStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,Guid,win32more.Foundation.PWSTR)(13, 'SetHmenuPropStr', ((1, 'hmenu'),(1, 'idChild'),(1, 'idProp'),(1, 'str'),)))
-    IAccPropServices.SetHmenuPropServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(Guid),Int32,win32more.UI.Accessibility.IAccPropServer_head,win32more.UI.Accessibility.AnnoScope)(14, 'SetHmenuPropServer', ((1, 'hmenu'),(1, 'idChild'),(1, 'paProps'),(1, 'cProps'),(1, 'pServer'),(1, 'annoScope'),)))
-    IAccPropServices.ClearHmenuProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(Guid),Int32)(15, 'ClearHmenuProps', ((1, 'hmenu'),(1, 'idChild'),(1, 'paProps'),(1, 'cProps'),)))
-    IAccPropServices.ComposeHmenuIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(c_char_p_no),POINTER(UInt32))(16, 'ComposeHmenuIdentityString', ((1, 'hmenu'),(1, 'idChild'),(1, 'ppIDString'),(1, 'pdwIDStringLen'),)))
-    IAccPropServices.DecomposeHmenuIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(win32more.UI.WindowsAndMessaging.HMENU),POINTER(UInt32))(17, 'DecomposeHmenuIdentityString', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'phmenu'),(1, 'pidChild'),)))
-    win32more.System.Com.IUnknown
-    return IAccPropServices
-def _define_IAnnotationProvider_head():
-    class IAnnotationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
-    return IAnnotationProvider
-def _define_IAnnotationProvider():
-    IAnnotationProvider = win32more.UI.Accessibility.IAnnotationProvider_head
-    IAnnotationProvider.get_AnnotationTypeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE))(3, 'get_AnnotationTypeId', ((1, 'retVal'),)))
-    IAnnotationProvider.get_AnnotationTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_AnnotationTypeName', ((1, 'retVal'),)))
-    IAnnotationProvider.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_Author', ((1, 'retVal'),)))
-    IAnnotationProvider.get_DateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_DateTime', ((1, 'retVal'),)))
-    IAnnotationProvider.get_Target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(7, 'get_Target', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IAnnotationProvider
-def _define_ICustomNavigationProvider_head():
-    class ICustomNavigationProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2062a28a-8c07-4b94-8e-12-70-37-c6-22-ae-b8')
-    return ICustomNavigationProvider
-def _define_ICustomNavigationProvider():
-    ICustomNavigationProvider = win32more.UI.Accessibility.ICustomNavigationProvider_head
-    ICustomNavigationProvider.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'Navigate', ((1, 'direction'),(1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ICustomNavigationProvider
-def _define_IDockProvider_head():
-    class IDockProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('159bc72c-4ad3-485e-96-37-d7-05-2e-df-01-46')
-    return IDockProvider
-def _define_IDockProvider():
-    IDockProvider = win32more.UI.Accessibility.IDockProvider_head
-    IDockProvider.SetDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.DockPosition)(3, 'SetDockPosition', ((1, 'dockPosition'),)))
-    IDockProvider.get_DockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition))(4, 'get_DockPosition', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IDockProvider
-def _define_IDragProvider_head():
-    class IDragProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6aa7bbbb-7ff9-497d-90-4f-d2-0b-89-79-29-d8')
-    return IDragProvider
-def _define_IDragProvider():
-    IDragProvider = win32more.UI.Accessibility.IDragProvider_head
-    IDragProvider.get_IsGrabbed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'get_IsGrabbed', ((1, 'pRetVal'),)))
-    IDragProvider.get_DropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_DropEffect', ((1, 'pRetVal'),)))
-    IDragProvider.get_DropEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'get_DropEffects', ((1, 'pRetVal'),)))
-    IDragProvider.GetGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(6, 'GetGrabbedItems', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IDragProvider
-def _define_IDropTargetProvider_head():
-    class IDropTargetProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('bae82bfd-358a-481c-85-a0-d8-b4-d9-0a-5d-61')
-    return IDropTargetProvider
-def _define_IDropTargetProvider():
-    IDropTargetProvider = win32more.UI.Accessibility.IDropTargetProvider_head
-    IDropTargetProvider.get_DropTargetEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_DropTargetEffect', ((1, 'pRetVal'),)))
-    IDropTargetProvider.get_DropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'get_DropTargetEffects', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IDropTargetProvider
-def _define_IExpandCollapseProvider_head():
-    class IExpandCollapseProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d847d3a5-cab0-4a98-8c-32-ec-b4-5c-59-ad-24')
-    return IExpandCollapseProvider
-def _define_IExpandCollapseProvider():
-    IExpandCollapseProvider = win32more.UI.Accessibility.IExpandCollapseProvider_head
-    IExpandCollapseProvider.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Expand', ()))
-    IExpandCollapseProvider.Collapse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Collapse', ()))
-    IExpandCollapseProvider.get_ExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState))(5, 'get_ExpandCollapseState', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IExpandCollapseProvider
-def _define_IGridItemProvider_head():
-    class IGridItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d02541f1-fb81-4d64-ae-32-f5-20-f8-a6-db-d1')
-    return IGridItemProvider
-def _define_IGridItemProvider():
-    IGridItemProvider = win32more.UI.Accessibility.IGridItemProvider_head
-    IGridItemProvider.get_Row = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_Row', ((1, 'pRetVal'),)))
-    IGridItemProvider.get_Column = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'get_Column', ((1, 'pRetVal'),)))
-    IGridItemProvider.get_RowSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_RowSpan', ((1, 'pRetVal'),)))
-    IGridItemProvider.get_ColumnSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_ColumnSpan', ((1, 'pRetVal'),)))
-    IGridItemProvider.get_ContainingGrid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(7, 'get_ContainingGrid', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IGridItemProvider
-def _define_IGridProvider_head():
-    class IGridProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b17d6187-0907-464b-a1-68-0e-f1-7a-15-72-b1')
-    return IGridProvider
-def _define_IGridProvider():
-    IGridProvider = win32more.UI.Accessibility.IGridProvider_head
-    IGridProvider.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'GetItem', ((1, 'row'),(1, 'column'),(1, 'pRetVal'),)))
-    IGridProvider.get_RowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'get_RowCount', ((1, 'pRetVal'),)))
-    IGridProvider.get_ColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_ColumnCount', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IGridProvider
-def _define_IInvokeProvider_head():
-    class IInvokeProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('54fcb24b-e18e-47a2-b4-d3-ec-cb-e7-75-99-a2')
-    return IInvokeProvider
-def _define_IInvokeProvider():
-    IInvokeProvider = win32more.UI.Accessibility.IInvokeProvider_head
-    IInvokeProvider.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Invoke', ()))
-    win32more.System.Com.IUnknown
-    return IInvokeProvider
-def _define_IItemContainerProvider_head():
-    class IItemContainerProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e747770b-39ce-4382-ab-30-d8-fb-3f-33-6f-24')
-    return IItemContainerProvider
-def _define_IItemContainerProvider():
-    IItemContainerProvider = win32more.UI.Accessibility.IItemContainerProvider_head
-    IItemContainerProvider.FindItemByProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'FindItemByProperty', ((1, 'pStartAfter'),(1, 'propertyId'),(1, 'value'),(1, 'pFound'),)))
-    win32more.System.Com.IUnknown
-    return IItemContainerProvider
-def _define_ILegacyIAccessibleProvider_head():
-    class ILegacyIAccessibleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e44c3566-915d-4070-99-c6-04-7b-ff-5a-08-f5')
-    return ILegacyIAccessibleProvider
-def _define_ILegacyIAccessibleProvider():
-    ILegacyIAccessibleProvider = win32more.UI.Accessibility.ILegacyIAccessibleProvider_head
-    ILegacyIAccessibleProvider.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'Select', ((1, 'flagsSelect'),)))
-    ILegacyIAccessibleProvider.DoDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'DoDefaultAction', ()))
-    ILegacyIAccessibleProvider.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'SetValue', ((1, 'szValue'),)))
-    ILegacyIAccessibleProvider.GetIAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head))(6, 'GetIAccessible', ((1, 'ppAccessible'),)))
-    ILegacyIAccessibleProvider.get_ChildId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_ChildId', ((1, 'pRetVal'),)))
-    ILegacyIAccessibleProvider.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Name', ((1, 'pszName'),)))
-    ILegacyIAccessibleProvider.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Value', ((1, 'pszValue'),)))
-    ILegacyIAccessibleProvider.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Description', ((1, 'pszDescription'),)))
-    ILegacyIAccessibleProvider.get_Role = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'get_Role', ((1, 'pdwRole'),)))
-    ILegacyIAccessibleProvider.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(12, 'get_State', ((1, 'pdwState'),)))
-    ILegacyIAccessibleProvider.get_Help = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_Help', ((1, 'pszHelp'),)))
-    ILegacyIAccessibleProvider.get_KeyboardShortcut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_KeyboardShortcut', ((1, 'pszKeyboardShortcut'),)))
-    ILegacyIAccessibleProvider.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(15, 'GetSelection', ((1, 'pvarSelectedChildren'),)))
-    ILegacyIAccessibleProvider.get_DefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_DefaultAction', ((1, 'pszDefaultAction'),)))
-    win32more.System.Com.IUnknown
-    return ILegacyIAccessibleProvider
-def _define_IMultipleViewProvider_head():
-    class IMultipleViewProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6278cab1-b556-4a1a-b4-e0-41-8a-cc-52-32-01')
-    return IMultipleViewProvider
-def _define_IMultipleViewProvider():
-    IMultipleViewProvider = win32more.UI.Accessibility.IMultipleViewProvider_head
-    IMultipleViewProvider.GetViewName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(3, 'GetViewName', ((1, 'viewId'),(1, 'pRetVal'),)))
-    IMultipleViewProvider.SetCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(4, 'SetCurrentView', ((1, 'viewId'),)))
-    IMultipleViewProvider.get_CurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_CurrentView', ((1, 'pRetVal'),)))
-    IMultipleViewProvider.GetSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(6, 'GetSupportedViews', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IMultipleViewProvider
-def _define_IObjectModelProvider_head():
-    class IObjectModelProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3ad86ebd-f5ef-483d-bb-18-b1-04-2a-47-5d-64')
-    return IObjectModelProvider
-def _define_IObjectModelProvider():
-    IObjectModelProvider = win32more.UI.Accessibility.IObjectModelProvider_head
-    IObjectModelProvider.GetUnderlyingObjectModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(3, 'GetUnderlyingObjectModel', ((1, 'ppUnknown'),)))
-    win32more.System.Com.IUnknown
-    return IObjectModelProvider
-def _define_IProxyProviderWinEventHandler_head():
-    class IProxyProviderWinEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('89592ad4-f4e0-43d5-a3-b6-ba-d7-e1-11-b4-35')
-    return IProxyProviderWinEventHandler
-def _define_IProxyProviderWinEventHandler():
-    IProxyProviderWinEventHandler = win32more.UI.Accessibility.IProxyProviderWinEventHandler_head
-    IProxyProviderWinEventHandler.RespondToWinEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND,Int32,Int32,win32more.UI.Accessibility.IProxyProviderWinEventSink_head)(3, 'RespondToWinEvent', ((1, 'idWinEvent'),(1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'pSink'),)))
-    win32more.System.Com.IUnknown
-    return IProxyProviderWinEventHandler
-def _define_IProxyProviderWinEventSink_head():
-    class IProxyProviderWinEventSink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4fd82b78-a43e-46ac-98-03-0a-69-69-c7-c1-83')
-    return IProxyProviderWinEventSink
-def _define_IProxyProviderWinEventSink():
-    IProxyProviderWinEventSink = win32more.UI.Accessibility.IProxyProviderWinEventSink_head
-    IProxyProviderWinEventSink.AddAutomationPropertyChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT)(3, 'AddAutomationPropertyChangedEvent', ((1, 'pProvider'),(1, 'id'),(1, 'newValue'),)))
-    IProxyProviderWinEventSink.AddAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.UIA_EVENT_ID)(4, 'AddAutomationEvent', ((1, 'pProvider'),(1, 'id'),)))
-    IProxyProviderWinEventSink.AddStructureChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.StructureChangeType,POINTER(win32more.System.Com.SAFEARRAY_head))(5, 'AddStructureChangedEvent', ((1, 'pProvider'),(1, 'structureChangeType'),(1, 'runtimeId'),)))
-    win32more.System.Com.IUnknown
-    return IProxyProviderWinEventSink
-def _define_IRangeValueProvider_head():
-    class IRangeValueProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('36dc7aef-33e6-4691-af-e1-2b-e7-27-4b-3d-33')
-    return IRangeValueProvider
-def _define_IRangeValueProvider():
-    IRangeValueProvider = win32more.UI.Accessibility.IRangeValueProvider_head
-    IRangeValueProvider.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(3, 'SetValue', ((1, 'val'),)))
-    IRangeValueProvider.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(4, 'get_Value', ((1, 'pRetVal'),)))
-    IRangeValueProvider.get_IsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_IsReadOnly', ((1, 'pRetVal'),)))
-    IRangeValueProvider.get_Maximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'get_Maximum', ((1, 'pRetVal'),)))
-    IRangeValueProvider.get_Minimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(7, 'get_Minimum', ((1, 'pRetVal'),)))
-    IRangeValueProvider.get_LargeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'get_LargeChange', ((1, 'pRetVal'),)))
-    IRangeValueProvider.get_SmallChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(9, 'get_SmallChange', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRangeValueProvider
-def _define_IRawElementProviderAdviseEvents_head():
-    class IRawElementProviderAdviseEvents(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a407b27b-0f6d-4427-92-92-47-3c-7b-f9-32-58')
-    return IRawElementProviderAdviseEvents
-def _define_IRawElementProviderAdviseEvents():
-    IRawElementProviderAdviseEvents = win32more.UI.Accessibility.IRawElementProviderAdviseEvents_head
-    IRawElementProviderAdviseEvents.AdviseEventAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,POINTER(win32more.System.Com.SAFEARRAY_head))(3, 'AdviseEventAdded', ((1, 'eventId'),(1, 'propertyIDs'),)))
-    IRawElementProviderAdviseEvents.AdviseEventRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,POINTER(win32more.System.Com.SAFEARRAY_head))(4, 'AdviseEventRemoved', ((1, 'eventId'),(1, 'propertyIDs'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderAdviseEvents
-def _define_IRawElementProviderFragment_head():
-    class IRawElementProviderFragment(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f7063da8-8359-439c-92-97-bb-c5-29-9a-7d-87')
-    return IRawElementProviderFragment
-def _define_IRawElementProviderFragment():
-    IRawElementProviderFragment = win32more.UI.Accessibility.IRawElementProviderFragment_head
-    IRawElementProviderFragment.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head))(3, 'Navigate', ((1, 'direction'),(1, 'pRetVal'),)))
-    IRawElementProviderFragment.GetRuntimeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetRuntimeId', ((1, 'pRetVal'),)))
-    IRawElementProviderFragment.get_BoundingRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UiaRect_head))(5, 'get_BoundingRectangle', ((1, 'pRetVal'),)))
-    IRawElementProviderFragment.GetEmbeddedFragmentRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(6, 'GetEmbeddedFragmentRoots', ((1, 'pRetVal'),)))
-    IRawElementProviderFragment.SetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'SetFocus', ()))
-    IRawElementProviderFragment.get_FragmentRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderFragmentRoot_head))(8, 'get_FragmentRoot', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderFragment
-def _define_IRawElementProviderFragmentRoot_head():
-    class IRawElementProviderFragmentRoot(win32more.System.Com.IUnknown_head):
-        Guid = Guid('620ce2a5-ab8f-40a9-86-cb-de-3c-75-59-9b-58')
-    return IRawElementProviderFragmentRoot
-def _define_IRawElementProviderFragmentRoot():
-    IRawElementProviderFragmentRoot = win32more.UI.Accessibility.IRawElementProviderFragmentRoot_head
-    IRawElementProviderFragmentRoot.ElementProviderFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head))(3, 'ElementProviderFromPoint', ((1, 'x'),(1, 'y'),(1, 'pRetVal'),)))
-    IRawElementProviderFragmentRoot.GetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head))(4, 'GetFocus', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderFragmentRoot
-def _define_IRawElementProviderHostingAccessibles_head():
-    class IRawElementProviderHostingAccessibles(win32more.System.Com.IUnknown_head):
-        Guid = Guid('24be0b07-d37d-487a-98-cf-a1-3e-d4-65-e9-b3')
-    return IRawElementProviderHostingAccessibles
-def _define_IRawElementProviderHostingAccessibles():
-    IRawElementProviderHostingAccessibles = win32more.UI.Accessibility.IRawElementProviderHostingAccessibles_head
-    IRawElementProviderHostingAccessibles.GetEmbeddedAccessibles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetEmbeddedAccessibles', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderHostingAccessibles
-def _define_IRawElementProviderHwndOverride_head():
-    class IRawElementProviderHwndOverride(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1d5df27c-8947-4425-b8-d9-79-78-7b-b4-60-b8')
-    return IRawElementProviderHwndOverride
-def _define_IRawElementProviderHwndOverride():
-    IRawElementProviderHwndOverride = win32more.UI.Accessibility.IRawElementProviderHwndOverride_head
-    IRawElementProviderHwndOverride.GetOverrideProviderForHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'GetOverrideProviderForHwnd', ((1, 'hwnd'),(1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderHwndOverride
-def _define_IRawElementProviderSimple_head():
-    class IRawElementProviderSimple(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d6dd68d1-86fd-4332-86-66-9a-be-de-a2-d2-4c')
-    return IRawElementProviderSimple
-def _define_IRawElementProviderSimple():
-    IRawElementProviderSimple = win32more.UI.Accessibility.IRawElementProviderSimple_head
-    IRawElementProviderSimple.get_ProviderOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ProviderOptions))(3, 'get_ProviderOptions', ((1, 'pRetVal'),)))
-    IRawElementProviderSimple.GetPatternProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(win32more.System.Com.IUnknown_head))(4, 'GetPatternProvider', ((1, 'patternId'),(1, 'pRetVal'),)))
-    IRawElementProviderSimple.GetPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(win32more.System.Com.VARIANT_head))(5, 'GetPropertyValue', ((1, 'propertyId'),(1, 'pRetVal'),)))
-    IRawElementProviderSimple.get_HostRawElementProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(6, 'get_HostRawElementProvider', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderSimple
-def _define_IRawElementProviderSimple2_head():
-    class IRawElementProviderSimple2(win32more.UI.Accessibility.IRawElementProviderSimple_head):
-        Guid = Guid('a0a839a9-8da1-4a82-80-6a-8e-0d-44-e7-9f-56')
-    return IRawElementProviderSimple2
-def _define_IRawElementProviderSimple2():
-    IRawElementProviderSimple2 = win32more.UI.Accessibility.IRawElementProviderSimple2_head
-    IRawElementProviderSimple2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(7, 'ShowContextMenu', ()))
-    win32more.UI.Accessibility.IRawElementProviderSimple
-    return IRawElementProviderSimple2
-def _define_IRawElementProviderSimple3_head():
-    class IRawElementProviderSimple3(win32more.UI.Accessibility.IRawElementProviderSimple2_head):
-        Guid = Guid('fcf5d820-d7ec-4613-bd-f6-42-a8-4c-e7-da-af')
-    return IRawElementProviderSimple3
-def _define_IRawElementProviderSimple3():
-    IRawElementProviderSimple3 = win32more.UI.Accessibility.IRawElementProviderSimple3_head
-    IRawElementProviderSimple3.GetMetadataValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Accessibility.UIA_METADATA_ID,POINTER(win32more.System.Com.VARIANT_head))(8, 'GetMetadataValue', ((1, 'targetId'),(1, 'metadataId'),(1, 'returnVal'),)))
-    win32more.UI.Accessibility.IRawElementProviderSimple2
-    return IRawElementProviderSimple3
-def _define_IRawElementProviderWindowlessSite_head():
-    class IRawElementProviderWindowlessSite(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0a2a93cc-bfad-42ac-9b-2e-09-91-fb-0d-3e-a0')
-    return IRawElementProviderWindowlessSite
-def _define_IRawElementProviderWindowlessSite():
-    IRawElementProviderWindowlessSite = win32more.UI.Accessibility.IRawElementProviderWindowlessSite_head
-    IRawElementProviderWindowlessSite.GetAdjacentFragment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head))(3, 'GetAdjacentFragment', ((1, 'direction'),(1, 'ppParent'),)))
-    IRawElementProviderWindowlessSite.GetRuntimeIdPrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetRuntimeIdPrefix', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IRawElementProviderWindowlessSite
-def _define_IRichEditUiaInformation_head():
-    class IRichEditUiaInformation(win32more.System.Com.IUnknown_head):
-        pass
-    return IRichEditUiaInformation
-def _define_IRichEditUiaInformation():
-    IRichEditUiaInformation = win32more.UI.Accessibility.IRichEditUiaInformation_head
-    IRichEditUiaInformation.GetBoundaryRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UiaRect_head))(3, 'GetBoundaryRectangle', ((1, 'pUiaRect'),)))
-    IRichEditUiaInformation.IsVisible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'IsVisible', ()))
-    win32more.System.Com.IUnknown
-    return IRichEditUiaInformation
-def _define_IRicheditWindowlessAccessibility_head():
-    class IRicheditWindowlessAccessibility(win32more.System.Com.IUnknown_head):
-        pass
-    return IRicheditWindowlessAccessibility
-def _define_IRicheditWindowlessAccessibility():
-    IRicheditWindowlessAccessibility = win32more.UI.Accessibility.IRicheditWindowlessAccessibility_head
-    IRicheditWindowlessAccessibility.CreateProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderWindowlessSite_head,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'CreateProvider', ((1, 'pSite'),(1, 'ppProvider'),)))
-    win32more.System.Com.IUnknown
-    return IRicheditWindowlessAccessibility
-def _define_IScrollItemProvider_head():
-    class IScrollItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2360c714-4bf1-4b26-ba-65-9b-21-31-61-27-eb')
-    return IScrollItemProvider
-def _define_IScrollItemProvider():
-    IScrollItemProvider = win32more.UI.Accessibility.IScrollItemProvider_head
-    IScrollItemProvider.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ScrollIntoView', ()))
-    win32more.System.Com.IUnknown
-    return IScrollItemProvider
-def _define_IScrollProvider_head():
-    class IScrollProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b38b8077-1fc3-42a5-8c-ae-d4-0c-22-15-05-5a')
-    return IScrollProvider
-def _define_IScrollProvider():
-    IScrollProvider = win32more.UI.Accessibility.IScrollProvider_head
-    IScrollProvider.Scroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ScrollAmount,win32more.UI.Accessibility.ScrollAmount)(3, 'Scroll', ((1, 'horizontalAmount'),(1, 'verticalAmount'),)))
-    IScrollProvider.SetScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(4, 'SetScrollPercent', ((1, 'horizontalPercent'),(1, 'verticalPercent'),)))
-    IScrollProvider.get_HorizontalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(5, 'get_HorizontalScrollPercent', ((1, 'pRetVal'),)))
-    IScrollProvider.get_VerticalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'get_VerticalScrollPercent', ((1, 'pRetVal'),)))
-    IScrollProvider.get_HorizontalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(7, 'get_HorizontalViewSize', ((1, 'pRetVal'),)))
-    IScrollProvider.get_VerticalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'get_VerticalViewSize', ((1, 'pRetVal'),)))
-    IScrollProvider.get_HorizontallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_HorizontallyScrollable', ((1, 'pRetVal'),)))
-    IScrollProvider.get_VerticallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_VerticallyScrollable', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IScrollProvider
-def _define_ISelectionItemProvider_head():
-    class ISelectionItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2acad808-b2d4-452d-a4-07-91-ff-1a-d1-67-b2')
-    return ISelectionItemProvider
-def _define_ISelectionItemProvider():
-    ISelectionItemProvider = win32more.UI.Accessibility.ISelectionItemProvider_head
-    ISelectionItemProvider.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Select', ()))
-    ISelectionItemProvider.AddToSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'AddToSelection', ()))
-    ISelectionItemProvider.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'RemoveFromSelection', ()))
-    ISelectionItemProvider.get_IsSelected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_IsSelected', ((1, 'pRetVal'),)))
-    ISelectionItemProvider.get_SelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(7, 'get_SelectionContainer', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ISelectionItemProvider
-def _define_ISelectionProvider_head():
-    class ISelectionProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fb8b03af-3bdf-48d4-bd-36-1a-65-79-3b-e1-68')
-    return ISelectionProvider
-def _define_ISelectionProvider():
-    ISelectionProvider = win32more.UI.Accessibility.ISelectionProvider_head
-    ISelectionProvider.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetSelection', ((1, 'pRetVal'),)))
-    ISelectionProvider.get_CanSelectMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_CanSelectMultiple', ((1, 'pRetVal'),)))
-    ISelectionProvider.get_IsSelectionRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_IsSelectionRequired', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ISelectionProvider
-def _define_ISelectionProvider2_head():
-    class ISelectionProvider2(win32more.UI.Accessibility.ISelectionProvider_head):
-        Guid = Guid('14f68475-ee1c-44f6-a8-69-d2-39-38-1f-0f-e7')
-    return ISelectionProvider2
-def _define_ISelectionProvider2():
-    ISelectionProvider2 = win32more.UI.Accessibility.ISelectionProvider2_head
-    ISelectionProvider2.get_FirstSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(6, 'get_FirstSelectedItem', ((1, 'retVal'),)))
-    ISelectionProvider2.get_LastSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(7, 'get_LastSelectedItem', ((1, 'retVal'),)))
-    ISelectionProvider2.get_CurrentSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(8, 'get_CurrentSelectedItem', ((1, 'retVal'),)))
-    ISelectionProvider2.get_ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_ItemCount', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.ISelectionProvider
-    return ISelectionProvider2
-def _define_ISpreadsheetItemProvider_head():
-    class ISpreadsheetItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('eaed4660-7b3d-4879-a2-e6-36-5c-e6-03-f3-d0')
-    return ISpreadsheetItemProvider
-def _define_ISpreadsheetItemProvider():
-    ISpreadsheetItemProvider = win32more.UI.Accessibility.ISpreadsheetItemProvider_head
-    ISpreadsheetItemProvider.get_Formula = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_Formula', ((1, 'pRetVal'),)))
-    ISpreadsheetItemProvider.GetAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetAnnotationObjects', ((1, 'pRetVal'),)))
-    ISpreadsheetItemProvider.GetAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'GetAnnotationTypes', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ISpreadsheetItemProvider
-def _define_ISpreadsheetProvider_head():
-    class ISpreadsheetProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6f6b5d35-5525-4f80-b7-58-85-47-38-32-ff-c7')
-    return ISpreadsheetProvider
-def _define_ISpreadsheetProvider():
-    ISpreadsheetProvider = win32more.UI.Accessibility.ISpreadsheetProvider_head
-    ISpreadsheetProvider.GetItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'GetItemByName', ((1, 'name'),(1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ISpreadsheetProvider
-def _define_IStylesProvider_head():
-    class IStylesProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('19b6b649-f5d7-4a6d-bd-cb-12-92-52-be-58-8a')
-    return IStylesProvider
-def _define_IStylesProvider():
-    IStylesProvider = win32more.UI.Accessibility.IStylesProvider_head
-    IStylesProvider.get_StyleId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_STYLE_ID))(3, 'get_StyleId', ((1, 'retVal'),)))
-    IStylesProvider.get_StyleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_StyleName', ((1, 'retVal'),)))
-    IStylesProvider.get_FillColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_FillColor', ((1, 'retVal'),)))
-    IStylesProvider.get_FillPatternStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_FillPatternStyle', ((1, 'retVal'),)))
-    IStylesProvider.get_Shape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Shape', ((1, 'retVal'),)))
-    IStylesProvider.get_FillPatternColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_FillPatternColor', ((1, 'retVal'),)))
-    IStylesProvider.get_ExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_ExtendedProperties', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IStylesProvider
-def _define_ISynchronizedInputProvider_head():
-    class ISynchronizedInputProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('29db1a06-02ce-4cf7-9b-42-56-5d-4f-ab-20-ee')
-    return ISynchronizedInputProvider
-def _define_ISynchronizedInputProvider():
-    ISynchronizedInputProvider = win32more.UI.Accessibility.ISynchronizedInputProvider_head
-    ISynchronizedInputProvider.StartListening = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.SynchronizedInputType)(3, 'StartListening', ((1, 'inputType'),)))
-    ISynchronizedInputProvider.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Cancel', ()))
-    win32more.System.Com.IUnknown
-    return ISynchronizedInputProvider
-def _define_ITableItemProvider_head():
-    class ITableItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b9734fa6-771f-4d78-9c-90-25-17-99-93-49-cd')
-    return ITableItemProvider
-def _define_ITableItemProvider():
-    ITableItemProvider = win32more.UI.Accessibility.ITableItemProvider_head
-    ITableItemProvider.GetRowHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetRowHeaderItems', ((1, 'pRetVal'),)))
-    ITableItemProvider.GetColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetColumnHeaderItems', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITableItemProvider
-def _define_ITableProvider_head():
-    class ITableProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9c860395-97b3-490a-b5-2a-85-8c-c2-2a-f1-66')
-    return ITableProvider
-def _define_ITableProvider():
-    ITableProvider = win32more.UI.Accessibility.ITableProvider_head
-    ITableProvider.GetRowHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetRowHeaders', ((1, 'pRetVal'),)))
-    ITableProvider.GetColumnHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetColumnHeaders', ((1, 'pRetVal'),)))
-    ITableProvider.get_RowOrColumnMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.RowOrColumnMajor))(5, 'get_RowOrColumnMajor', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITableProvider
-def _define_ITextChildProvider_head():
-    class ITextChildProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4c2de2b9-c88f-4f88-a1-11-f1-d3-36-b7-d1-a9')
-    return ITextChildProvider
-def _define_ITextChildProvider():
-    ITextChildProvider = win32more.UI.Accessibility.ITextChildProvider_head
-    ITextChildProvider.get_TextContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'get_TextContainer', ((1, 'pRetVal'),)))
-    ITextChildProvider.get_TextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(4, 'get_TextRange', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITextChildProvider
-def _define_ITextEditProvider_head():
-    class ITextEditProvider(win32more.UI.Accessibility.ITextProvider_head):
-        Guid = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
-    return ITextEditProvider
-def _define_ITextEditProvider():
-    ITextEditProvider = win32more.UI.Accessibility.ITextEditProvider_head
-    ITextEditProvider.GetActiveComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(9, 'GetActiveComposition', ((1, 'pRetVal'),)))
-    ITextEditProvider.GetConversionTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(10, 'GetConversionTarget', ((1, 'pRetVal'),)))
-    win32more.UI.Accessibility.ITextProvider
-    return ITextEditProvider
-def _define_ITextProvider_head():
-    class ITextProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('3589c92c-63f3-4367-99-bb-ad-a6-53-b7-7c-f2')
-    return ITextProvider
-def _define_ITextProvider():
-    ITextProvider = win32more.UI.Accessibility.ITextProvider_head
-    ITextProvider.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(3, 'GetSelection', ((1, 'pRetVal'),)))
-    ITextProvider.GetVisibleRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetVisibleRanges', ((1, 'pRetVal'),)))
-    ITextProvider.RangeFromChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(5, 'RangeFromChild', ((1, 'childElement'),(1, 'pRetVal'),)))
-    ITextProvider.RangeFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UiaPoint,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(6, 'RangeFromPoint', ((1, 'point'),(1, 'pRetVal'),)))
-    ITextProvider.get_DocumentRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(7, 'get_DocumentRange', ((1, 'pRetVal'),)))
-    ITextProvider.get_SupportedTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.SupportedTextSelection))(8, 'get_SupportedTextSelection', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITextProvider
-def _define_ITextProvider2_head():
-    class ITextProvider2(win32more.UI.Accessibility.ITextProvider_head):
-        Guid = Guid('0dc5e6ed-3e16-4bf1-8f-9a-a9-79-87-8b-c1-95')
-    return ITextProvider2
-def _define_ITextProvider2():
-    ITextProvider2 = win32more.UI.Accessibility.ITextProvider2_head
-    ITextProvider2.RangeFromAnnotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(9, 'RangeFromAnnotation', ((1, 'annotationElement'),(1, 'pRetVal'),)))
-    ITextProvider2.GetCaretRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(10, 'GetCaretRange', ((1, 'isActive'),(1, 'pRetVal'),)))
-    win32more.UI.Accessibility.ITextProvider
-    return ITextProvider2
-def _define_ITextRangeProvider_head():
-    class ITextRangeProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5347ad7b-c355-46f8-af-f5-90-90-33-58-2f-63')
-    return ITextRangeProvider
-def _define_ITextRangeProvider():
-    ITextRangeProvider = win32more.UI.Accessibility.ITextRangeProvider_head
-    ITextRangeProvider.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(3, 'Clone', ((1, 'pRetVal'),)))
-    ITextRangeProvider.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ITextRangeProvider_head,POINTER(win32more.Foundation.BOOL))(4, 'Compare', ((1, 'range'),(1, 'pRetVal'),)))
-    ITextRangeProvider.CompareEndpoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.ITextRangeProvider_head,win32more.UI.Accessibility.TextPatternRangeEndpoint,POINTER(Int32))(5, 'CompareEndpoints', ((1, 'endpoint'),(1, 'targetRange'),(1, 'targetEndpoint'),(1, 'pRetVal'),)))
-    ITextRangeProvider.ExpandToEnclosingUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextUnit)(6, 'ExpandToEnclosingUnit', ((1, 'unit'),)))
-    ITextRangeProvider.FindAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID,win32more.System.Com.VARIANT,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(7, 'FindAttribute', ((1, 'attributeId'),(1, 'val'),(1, 'backward'),(1, 'pRetVal'),)))
-    ITextRangeProvider.FindText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head))(8, 'FindText', ((1, 'text'),(1, 'backward'),(1, 'ignoreCase'),(1, 'pRetVal'),)))
-    ITextRangeProvider.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetAttributeValue', ((1, 'attributeId'),(1, 'pRetVal'),)))
-    ITextRangeProvider.GetBoundingRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(10, 'GetBoundingRectangles', ((1, 'pRetVal'),)))
-    ITextRangeProvider.GetEnclosingElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(11, 'GetEnclosingElement', ((1, 'pRetVal'),)))
-    ITextRangeProvider.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(12, 'GetText', ((1, 'maxLength'),(1, 'pRetVal'),)))
-    ITextRangeProvider.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(13, 'Move', ((1, 'unit'),(1, 'count'),(1, 'pRetVal'),)))
-    ITextRangeProvider.MoveEndpointByUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(14, 'MoveEndpointByUnit', ((1, 'endpoint'),(1, 'unit'),(1, 'count'),(1, 'pRetVal'),)))
-    ITextRangeProvider.MoveEndpointByRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.ITextRangeProvider_head,win32more.UI.Accessibility.TextPatternRangeEndpoint)(15, 'MoveEndpointByRange', ((1, 'endpoint'),(1, 'targetRange'),(1, 'targetEndpoint'),)))
-    ITextRangeProvider.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'Select', ()))
-    ITextRangeProvider.AddToSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'AddToSelection', ()))
-    ITextRangeProvider.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'RemoveFromSelection', ()))
-    ITextRangeProvider.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(19, 'ScrollIntoView', ((1, 'alignToTop'),)))
-    ITextRangeProvider.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(20, 'GetChildren', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITextRangeProvider
-def _define_ITextRangeProvider2_head():
-    class ITextRangeProvider2(win32more.UI.Accessibility.ITextRangeProvider_head):
-        Guid = Guid('9bbce42c-1921-4f18-89-ca-db-a1-91-0a-03-86')
-    return ITextRangeProvider2
-def _define_ITextRangeProvider2():
-    ITextRangeProvider2 = win32more.UI.Accessibility.ITextRangeProvider2_head
-    ITextRangeProvider2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(21, 'ShowContextMenu', ()))
-    win32more.UI.Accessibility.ITextRangeProvider
-    return ITextRangeProvider2
-def _define_IToggleProvider_head():
-    class IToggleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('56d00bd0-c4f4-433c-a8-36-1a-52-a5-7e-08-92')
-    return IToggleProvider
-def _define_IToggleProvider():
-    IToggleProvider = win32more.UI.Accessibility.IToggleProvider_head
-    IToggleProvider.Toggle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Toggle', ()))
-    IToggleProvider.get_ToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState))(4, 'get_ToggleState', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IToggleProvider
-def _define_ITransformProvider_head():
-    class ITransformProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6829ddc4-4f91-4ffa-b8-6f-bd-3e-29-87-cb-4c')
-    return ITransformProvider
-def _define_ITransformProvider():
-    ITransformProvider = win32more.UI.Accessibility.ITransformProvider_head
-    ITransformProvider.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(3, 'Move', ((1, 'x'),(1, 'y'),)))
-    ITransformProvider.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(4, 'Resize', ((1, 'width'),(1, 'height'),)))
-    ITransformProvider.Rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(5, 'Rotate', ((1, 'degrees'),)))
-    ITransformProvider.get_CanMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_CanMove', ((1, 'pRetVal'),)))
-    ITransformProvider.get_CanResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CanResize', ((1, 'pRetVal'),)))
-    ITransformProvider.get_CanRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_CanRotate', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return ITransformProvider
-def _define_ITransformProvider2_head():
-    class ITransformProvider2(win32more.UI.Accessibility.ITransformProvider_head):
-        Guid = Guid('4758742f-7ac2-460c-bc-48-09-fc-09-30-8a-93')
-    return ITransformProvider2
-def _define_ITransformProvider2():
-    ITransformProvider2 = win32more.UI.Accessibility.ITransformProvider2_head
-    ITransformProvider2.Zoom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(9, 'Zoom', ((1, 'zoom'),)))
-    ITransformProvider2.get_CanZoom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_CanZoom', ((1, 'pRetVal'),)))
-    ITransformProvider2.get_ZoomLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(11, 'get_ZoomLevel', ((1, 'pRetVal'),)))
-    ITransformProvider2.get_ZoomMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_ZoomMinimum', ((1, 'pRetVal'),)))
-    ITransformProvider2.get_ZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_ZoomMaximum', ((1, 'pRetVal'),)))
-    ITransformProvider2.ZoomByUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ZoomUnit)(14, 'ZoomByUnit', ((1, 'zoomUnit'),)))
-    win32more.UI.Accessibility.ITransformProvider
-    return ITransformProvider2
-def _define_IUIAutomation_head():
-    class IUIAutomation(win32more.System.Com.IUnknown_head):
-        Guid = Guid('30cbe57d-d9d0-452a-ab-13-7a-c5-ac-48-25-ee')
-    return IUIAutomation
-def _define_IUIAutomation():
-    IUIAutomation = win32more.UI.Accessibility.IUIAutomation_head
-    IUIAutomation.CompareElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.Foundation.BOOL))(3, 'CompareElements', ((1, 'el1'),(1, 'el2'),(1, 'areSame'),)))
-    IUIAutomation.CompareRuntimeIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.Foundation.BOOL))(4, 'CompareRuntimeIds', ((1, 'runtimeId1'),(1, 'runtimeId2'),(1, 'areSame'),)))
-    IUIAutomation.GetRootElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(5, 'GetRootElement', ((1, 'root'),)))
-    IUIAutomation.ElementFromHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(6, 'ElementFromHandle', ((1, 'hwnd'),(1, 'element'),)))
-    IUIAutomation.ElementFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(7, 'ElementFromPoint', ((1, 'pt'),(1, 'element'),)))
-    IUIAutomation.GetFocusedElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(8, 'GetFocusedElement', ((1, 'element'),)))
-    IUIAutomation.GetRootElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(9, 'GetRootElementBuildCache', ((1, 'cacheRequest'),(1, 'root'),)))
-    IUIAutomation.ElementFromHandleBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(10, 'ElementFromHandleBuildCache', ((1, 'hwnd'),(1, 'cacheRequest'),(1, 'element'),)))
-    IUIAutomation.ElementFromPointBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(11, 'ElementFromPointBuildCache', ((1, 'pt'),(1, 'cacheRequest'),(1, 'element'),)))
-    IUIAutomation.GetFocusedElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(12, 'GetFocusedElementBuildCache', ((1, 'cacheRequest'),(1, 'element'),)))
-    IUIAutomation.CreateTreeWalker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head))(13, 'CreateTreeWalker', ((1, 'pCondition'),(1, 'walker'),)))
-    IUIAutomation.get_ControlViewWalker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head))(14, 'get_ControlViewWalker', ((1, 'walker'),)))
-    IUIAutomation.get_ContentViewWalker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head))(15, 'get_ContentViewWalker', ((1, 'walker'),)))
-    IUIAutomation.get_RawViewWalker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head))(16, 'get_RawViewWalker', ((1, 'walker'),)))
-    IUIAutomation.get_RawViewCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(17, 'get_RawViewCondition', ((1, 'condition'),)))
-    IUIAutomation.get_ControlViewCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(18, 'get_ControlViewCondition', ((1, 'condition'),)))
-    IUIAutomation.get_ContentViewCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(19, 'get_ContentViewCondition', ((1, 'condition'),)))
-    IUIAutomation.CreateCacheRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCacheRequest_head))(20, 'CreateCacheRequest', ((1, 'cacheRequest'),)))
-    IUIAutomation.CreateTrueCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(21, 'CreateTrueCondition', ((1, 'newCondition'),)))
-    IUIAutomation.CreateFalseCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(22, 'CreateFalseCondition', ((1, 'newCondition'),)))
-    IUIAutomation.CreatePropertyCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(23, 'CreatePropertyCondition', ((1, 'propertyId'),(1, 'value'),(1, 'newCondition'),)))
-    IUIAutomation.CreatePropertyConditionEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT,win32more.UI.Accessibility.PropertyConditionFlags,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(24, 'CreatePropertyConditionEx', ((1, 'propertyId'),(1, 'value'),(1, 'flags'),(1, 'newCondition'),)))
-    IUIAutomation.CreateAndCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(25, 'CreateAndCondition', ((1, 'condition1'),(1, 'condition2'),(1, 'newCondition'),)))
-    IUIAutomation.CreateAndConditionFromArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(26, 'CreateAndConditionFromArray', ((1, 'conditions'),(1, 'newCondition'),)))
-    IUIAutomation.CreateAndConditionFromNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head),Int32,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(27, 'CreateAndConditionFromNativeArray', ((1, 'conditions'),(1, 'conditionCount'),(1, 'newCondition'),)))
-    IUIAutomation.CreateOrCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(28, 'CreateOrCondition', ((1, 'condition1'),(1, 'condition2'),(1, 'newCondition'),)))
-    IUIAutomation.CreateOrConditionFromArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(29, 'CreateOrConditionFromArray', ((1, 'conditions'),(1, 'newCondition'),)))
-    IUIAutomation.CreateOrConditionFromNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head),Int32,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(30, 'CreateOrConditionFromNativeArray', ((1, 'conditions'),(1, 'conditionCount'),(1, 'newCondition'),)))
-    IUIAutomation.CreateNotCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(31, 'CreateNotCondition', ((1, 'condition'),(1, 'newCondition'),)))
-    IUIAutomation.AddAutomationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationEventHandler_head)(32, 'AddAutomationEventHandler', ((1, 'eventId'),(1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation.RemoveAutomationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationEventHandler_head)(33, 'RemoveAutomationEventHandler', ((1, 'eventId'),(1, 'element'),(1, 'handler'),)))
-    IUIAutomation.AddPropertyChangedEventHandlerNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head,POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID),Int32)(34, 'AddPropertyChangedEventHandlerNativeArray', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),(1, 'propertyArray'),(1, 'propertyCount'),)))
-    IUIAutomation.AddPropertyChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head,POINTER(win32more.System.Com.SAFEARRAY_head))(35, 'AddPropertyChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),(1, 'propertyArray'),)))
-    IUIAutomation.RemovePropertyChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head)(36, 'RemovePropertyChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
-    IUIAutomation.AddStructureChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head)(37, 'AddStructureChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation.RemoveStructureChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head)(38, 'RemoveStructureChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
-    IUIAutomation.AddFocusChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head)(39, 'AddFocusChangedEventHandler', ((1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation.RemoveFocusChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head)(40, 'RemoveFocusChangedEventHandler', ((1, 'handler'),)))
-    IUIAutomation.RemoveAllEventHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(41, 'RemoveAllEventHandlers', ()))
-    IUIAutomation.IntNativeArrayToSafeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),Int32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(42, 'IntNativeArrayToSafeArray', ((1, 'array'),(1, 'arrayCount'),(1, 'safeArray'),)))
-    IUIAutomation.IntSafeArrayToNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(POINTER(Int32)),POINTER(Int32))(43, 'IntSafeArrayToNativeArray', ((1, 'intArray'),(1, 'array'),(1, 'arrayCount'),)))
-    IUIAutomation.RectToVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT,POINTER(win32more.System.Com.VARIANT_head))(44, 'RectToVariant', ((1, 'rc'),(1, 'var'),)))
-    IUIAutomation.VariantToRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.RECT_head))(45, 'VariantToRect', ((1, 'var'),(1, 'rc'),)))
-    IUIAutomation.SafeArrayToRectNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(POINTER(win32more.Foundation.RECT_head)),POINTER(Int32))(46, 'SafeArrayToRectNativeArray', ((1, 'rects'),(1, 'rectArray'),(1, 'rectArrayCount'),)))
-    IUIAutomation.CreateProxyFactoryEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationProxyFactory_head,POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head))(47, 'CreateProxyFactoryEntry', ((1, 'factory'),(1, 'factoryEntry'),)))
-    IUIAutomation.get_ProxyFactoryMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryMapping_head))(48, 'get_ProxyFactoryMapping', ((1, 'factoryMapping'),)))
-    IUIAutomation.GetPropertyProgrammaticName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(win32more.Foundation.BSTR))(49, 'GetPropertyProgrammaticName', ((1, 'property'),(1, 'name'),)))
-    IUIAutomation.GetPatternProgrammaticName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(win32more.Foundation.BSTR))(50, 'GetPatternProgrammaticName', ((1, 'pattern'),(1, 'name'),)))
-    IUIAutomation.PollForPotentialSupportedPatterns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(51, 'PollForPotentialSupportedPatterns', ((1, 'pElement'),(1, 'patternIds'),(1, 'patternNames'),)))
-    IUIAutomation.PollForPotentialSupportedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(52, 'PollForPotentialSupportedProperties', ((1, 'pElement'),(1, 'propertyIds'),(1, 'propertyNames'),)))
-    IUIAutomation.CheckNotSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BOOL))(53, 'CheckNotSupported', ((1, 'value'),(1, 'isNotSupported'),)))
-    IUIAutomation.get_ReservedNotSupportedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(54, 'get_ReservedNotSupportedValue', ((1, 'notSupportedValue'),)))
-    IUIAutomation.get_ReservedMixedAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(55, 'get_ReservedMixedAttributeValue', ((1, 'mixedAttributeValue'),)))
-    IUIAutomation.ElementFromIAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(56, 'ElementFromIAccessible', ((1, 'accessible'),(1, 'childId'),(1, 'element'),)))
-    IUIAutomation.ElementFromIAccessibleBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(57, 'ElementFromIAccessibleBuildCache', ((1, 'accessible'),(1, 'childId'),(1, 'cacheRequest'),(1, 'element'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomation
-def _define_IUIAutomation2_head():
-    class IUIAutomation2(win32more.UI.Accessibility.IUIAutomation_head):
-        Guid = Guid('34723aff-0c9d-49d0-98-96-7a-b5-2d-f8-cd-8a')
-    return IUIAutomation2
-def _define_IUIAutomation2():
-    IUIAutomation2 = win32more.UI.Accessibility.IUIAutomation2_head
-    IUIAutomation2.get_AutoSetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(58, 'get_AutoSetFocus', ((1, 'autoSetFocus'),)))
-    IUIAutomation2.put_AutoSetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(59, 'put_AutoSetFocus', ((1, 'autoSetFocus'),)))
-    IUIAutomation2.get_ConnectionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(60, 'get_ConnectionTimeout', ((1, 'timeout'),)))
-    IUIAutomation2.put_ConnectionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(61, 'put_ConnectionTimeout', ((1, 'timeout'),)))
-    IUIAutomation2.get_TransactionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(62, 'get_TransactionTimeout', ((1, 'timeout'),)))
-    IUIAutomation2.put_TransactionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(63, 'put_TransactionTimeout', ((1, 'timeout'),)))
-    win32more.UI.Accessibility.IUIAutomation
-    return IUIAutomation2
-def _define_IUIAutomation3_head():
-    class IUIAutomation3(win32more.UI.Accessibility.IUIAutomation2_head):
-        Guid = Guid('73d768da-9b51-4b89-93-6e-c2-09-29-09-73-e7')
-    return IUIAutomation3
-def _define_IUIAutomation3():
-    IUIAutomation3 = win32more.UI.Accessibility.IUIAutomation3_head
-    IUIAutomation3.AddTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.TextEditChangeType,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head)(64, 'AddTextEditTextChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'textEditChangeType'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation3.RemoveTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head)(65, 'RemoveTextEditTextChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
-    win32more.UI.Accessibility.IUIAutomation2
-    return IUIAutomation3
-def _define_IUIAutomation4_head():
-    class IUIAutomation4(win32more.UI.Accessibility.IUIAutomation3_head):
-        Guid = Guid('1189c02a-05f8-4319-8e-21-e8-17-e3-db-28-60')
-    return IUIAutomation4
-def _define_IUIAutomation4():
-    IUIAutomation4 = win32more.UI.Accessibility.IUIAutomation4_head
-    IUIAutomation4.AddChangesEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,POINTER(Int32),Int32,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head)(66, 'AddChangesEventHandler', ((1, 'element'),(1, 'scope'),(1, 'changeTypes'),(1, 'changesCount'),(1, 'pCacheRequest'),(1, 'handler'),)))
-    IUIAutomation4.RemoveChangesEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head)(67, 'RemoveChangesEventHandler', ((1, 'element'),(1, 'handler'),)))
-    win32more.UI.Accessibility.IUIAutomation3
-    return IUIAutomation4
-def _define_IUIAutomation5_head():
-    class IUIAutomation5(win32more.UI.Accessibility.IUIAutomation4_head):
-        Guid = Guid('25f700c8-d816-4057-a9-dc-3c-bd-ee-77-e2-56')
-    return IUIAutomation5
-def _define_IUIAutomation5():
-    IUIAutomation5 = win32more.UI.Accessibility.IUIAutomation5_head
-    IUIAutomation5.AddNotificationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head)(68, 'AddNotificationEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation5.RemoveNotificationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head)(69, 'RemoveNotificationEventHandler', ((1, 'element'),(1, 'handler'),)))
-    win32more.UI.Accessibility.IUIAutomation4
-    return IUIAutomation5
-def _define_IUIAutomation6_head():
-    class IUIAutomation6(win32more.UI.Accessibility.IUIAutomation5_head):
-        Guid = Guid('aae072da-29e3-413d-87-a7-19-2d-bf-81-ed-10')
-    return IUIAutomation6
-def _define_IUIAutomation6():
-    IUIAutomation6 = win32more.UI.Accessibility.IUIAutomation6_head
-    IUIAutomation6.CreateEventHandlerGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head))(70, 'CreateEventHandlerGroup', ((1, 'handlerGroup'),)))
-    IUIAutomation6.AddEventHandlerGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head)(71, 'AddEventHandlerGroup', ((1, 'element'),(1, 'handlerGroup'),)))
-    IUIAutomation6.RemoveEventHandlerGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head)(72, 'RemoveEventHandlerGroup', ((1, 'element'),(1, 'handlerGroup'),)))
-    IUIAutomation6.get_ConnectionRecoveryBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ConnectionRecoveryBehaviorOptions))(73, 'get_ConnectionRecoveryBehavior', ((1, 'connectionRecoveryBehaviorOptions'),)))
-    IUIAutomation6.put_ConnectionRecoveryBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ConnectionRecoveryBehaviorOptions)(74, 'put_ConnectionRecoveryBehavior', ((1, 'connectionRecoveryBehaviorOptions'),)))
-    IUIAutomation6.get_CoalesceEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.CoalesceEventsOptions))(75, 'get_CoalesceEvents', ((1, 'coalesceEventsOptions'),)))
-    IUIAutomation6.put_CoalesceEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.CoalesceEventsOptions)(76, 'put_CoalesceEvents', ((1, 'coalesceEventsOptions'),)))
-    IUIAutomation6.AddActiveTextPositionChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head)(77, 'AddActiveTextPositionChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomation6.RemoveActiveTextPositionChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head)(78, 'RemoveActiveTextPositionChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
-    win32more.UI.Accessibility.IUIAutomation5
-    return IUIAutomation6
-def _define_IUIAutomationActiveTextPositionChangedEventHandler_head():
-    class IUIAutomationActiveTextPositionChangedEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f97933b0-8dae-4496-89-97-5b-a0-15-fe-0d-82')
-    return IUIAutomationActiveTextPositionChangedEventHandler
-def _define_IUIAutomationActiveTextPositionChangedEventHandler():
-    IUIAutomationActiveTextPositionChangedEventHandler = win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head
-    IUIAutomationActiveTextPositionChangedEventHandler.HandleActiveTextPositionChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationTextRange_head)(3, 'HandleActiveTextPositionChangedEvent', ((1, 'sender'),(1, 'range'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationActiveTextPositionChangedEventHandler
-def _define_IUIAutomationAndCondition_head():
-    class IUIAutomationAndCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
-        Guid = Guid('a7d0af36-b912-45fe-98-55-09-1d-dc-17-4a-ec')
-    return IUIAutomationAndCondition
-def _define_IUIAutomationAndCondition():
-    IUIAutomationAndCondition = win32more.UI.Accessibility.IUIAutomationAndCondition_head
-    IUIAutomationAndCondition.get_ChildCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_ChildCount', ((1, 'childCount'),)))
-    IUIAutomationAndCondition.GetChildrenAsNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)),POINTER(Int32))(4, 'GetChildrenAsNativeArray', ((1, 'childArray'),(1, 'childArrayCount'),)))
-    IUIAutomationAndCondition.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'GetChildren', ((1, 'childArray'),)))
-    win32more.UI.Accessibility.IUIAutomationCondition
-    return IUIAutomationAndCondition
-def _define_IUIAutomationAnnotationPattern_head():
-    class IUIAutomationAnnotationPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9a175b21-339e-41b1-8e-8b-62-3f-6b-68-10-98')
-    return IUIAutomationAnnotationPattern
-def _define_IUIAutomationAnnotationPattern():
-    IUIAutomationAnnotationPattern = win32more.UI.Accessibility.IUIAutomationAnnotationPattern_head
-    IUIAutomationAnnotationPattern.get_CurrentAnnotationTypeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE))(3, 'get_CurrentAnnotationTypeId', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CurrentAnnotationTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_CurrentAnnotationTypeName', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CurrentAuthor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_CurrentAuthor', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CurrentDateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_CurrentDateTime', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CurrentTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(7, 'get_CurrentTarget', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CachedAnnotationTypeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE))(8, 'get_CachedAnnotationTypeId', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CachedAnnotationTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_CachedAnnotationTypeName', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CachedAuthor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_CachedAuthor', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CachedDateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_CachedDateTime', ((1, 'retVal'),)))
-    IUIAutomationAnnotationPattern.get_CachedTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(12, 'get_CachedTarget', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationAnnotationPattern
-def _define_IUIAutomationBoolCondition_head():
-    class IUIAutomationBoolCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
-        Guid = Guid('1b4e1f2e-75eb-4d0b-89-52-5a-69-98-8e-23-07')
-    return IUIAutomationBoolCondition
-def _define_IUIAutomationBoolCondition():
-    IUIAutomationBoolCondition = win32more.UI.Accessibility.IUIAutomationBoolCondition_head
-    IUIAutomationBoolCondition.get_BooleanValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'get_BooleanValue', ((1, 'boolVal'),)))
-    win32more.UI.Accessibility.IUIAutomationCondition
-    return IUIAutomationBoolCondition
-def _define_IUIAutomationCacheRequest_head():
-    class IUIAutomationCacheRequest(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b32a92b5-bc25-4078-9c-08-d7-ee-95-c4-8e-03')
-    return IUIAutomationCacheRequest
-def _define_IUIAutomationCacheRequest():
-    IUIAutomationCacheRequest = win32more.UI.Accessibility.IUIAutomationCacheRequest_head
-    IUIAutomationCacheRequest.AddProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID)(3, 'AddProperty', ((1, 'propertyId'),)))
-    IUIAutomationCacheRequest.AddPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID)(4, 'AddPattern', ((1, 'patternId'),)))
-    IUIAutomationCacheRequest.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCacheRequest_head))(5, 'Clone', ((1, 'clonedRequest'),)))
-    IUIAutomationCacheRequest.get_TreeScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.TreeScope))(6, 'get_TreeScope', ((1, 'scope'),)))
-    IUIAutomationCacheRequest.put_TreeScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope)(7, 'put_TreeScope', ((1, 'scope'),)))
-    IUIAutomationCacheRequest.get_TreeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(8, 'get_TreeFilter', ((1, 'filter'),)))
-    IUIAutomationCacheRequest.put_TreeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head)(9, 'put_TreeFilter', ((1, 'filter'),)))
-    IUIAutomationCacheRequest.get_AutomationElementMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.AutomationElementMode))(10, 'get_AutomationElementMode', ((1, 'mode'),)))
-    IUIAutomationCacheRequest.put_AutomationElementMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.AutomationElementMode)(11, 'put_AutomationElementMode', ((1, 'mode'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationCacheRequest
-def _define_IUIAutomationChangesEventHandler_head():
-    class IUIAutomationChangesEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('58edca55-2c3e-4980-b1-b9-56-c1-7f-27-a2-a0')
-    return IUIAutomationChangesEventHandler
-def _define_IUIAutomationChangesEventHandler():
-    IUIAutomationChangesEventHandler = win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head
-    IUIAutomationChangesEventHandler.HandleChangesEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.UiaChangeInfo_head),Int32)(3, 'HandleChangesEvent', ((1, 'sender'),(1, 'uiaChanges'),(1, 'changesCount'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationChangesEventHandler
-def _define_IUIAutomationCondition_head():
-    class IUIAutomationCondition(win32more.System.Com.IUnknown_head):
-        Guid = Guid('352ffba8-0973-437c-a6-1f-f6-4c-af-d8-1d-f9')
-    return IUIAutomationCondition
-def _define_IUIAutomationCondition():
-    IUIAutomationCondition = win32more.UI.Accessibility.IUIAutomationCondition_head
-    win32more.System.Com.IUnknown
-    return IUIAutomationCondition
-def _define_IUIAutomationCustomNavigationPattern_head():
-    class IUIAutomationCustomNavigationPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('01ea217a-1766-47ed-a6-cc-ac-f4-92-85-4b-1f')
-    return IUIAutomationCustomNavigationPattern
-def _define_IUIAutomationCustomNavigationPattern():
-    IUIAutomationCustomNavigationPattern = win32more.UI.Accessibility.IUIAutomationCustomNavigationPattern_head
-    IUIAutomationCustomNavigationPattern.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'Navigate', ((1, 'direction'),(1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationCustomNavigationPattern
-def _define_IUIAutomationDockPattern_head():
-    class IUIAutomationDockPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fde5ef97-1464-48f6-90-bf-43-d0-94-8e-86-ec')
-    return IUIAutomationDockPattern
-def _define_IUIAutomationDockPattern():
-    IUIAutomationDockPattern = win32more.UI.Accessibility.IUIAutomationDockPattern_head
-    IUIAutomationDockPattern.SetDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.DockPosition)(3, 'SetDockPosition', ((1, 'dockPos'),)))
-    IUIAutomationDockPattern.get_CurrentDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition))(4, 'get_CurrentDockPosition', ((1, 'retVal'),)))
-    IUIAutomationDockPattern.get_CachedDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition))(5, 'get_CachedDockPosition', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationDockPattern
-def _define_IUIAutomationDragPattern_head():
-    class IUIAutomationDragPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1dc7b570-1f54-4bad-bc-da-d3-6a-72-2f-b7-bd')
-    return IUIAutomationDragPattern
-def _define_IUIAutomationDragPattern():
-    IUIAutomationDragPattern = win32more.UI.Accessibility.IUIAutomationDragPattern_head
-    IUIAutomationDragPattern.get_CurrentIsGrabbed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(3, 'get_CurrentIsGrabbed', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.get_CachedIsGrabbed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_CachedIsGrabbed', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.get_CurrentDropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_CurrentDropEffect', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.get_CachedDropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_CachedDropEffect', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.get_CurrentDropEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'get_CurrentDropEffects', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.get_CachedDropEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'get_CachedDropEffects', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.GetCurrentGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(9, 'GetCurrentGrabbedItems', ((1, 'retVal'),)))
-    IUIAutomationDragPattern.GetCachedGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(10, 'GetCachedGrabbedItems', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationDragPattern
-def _define_IUIAutomationDropTargetPattern_head():
-    class IUIAutomationDropTargetPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('69a095f7-eee4-430e-a4-6b-fb-73-b1-ae-39-a5')
-    return IUIAutomationDropTargetPattern
-def _define_IUIAutomationDropTargetPattern():
-    IUIAutomationDropTargetPattern = win32more.UI.Accessibility.IUIAutomationDropTargetPattern_head
-    IUIAutomationDropTargetPattern.get_CurrentDropTargetEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_CurrentDropTargetEffect', ((1, 'retVal'),)))
-    IUIAutomationDropTargetPattern.get_CachedDropTargetEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_CachedDropTargetEffect', ((1, 'retVal'),)))
-    IUIAutomationDropTargetPattern.get_CurrentDropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'get_CurrentDropTargetEffects', ((1, 'retVal'),)))
-    IUIAutomationDropTargetPattern.get_CachedDropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(6, 'get_CachedDropTargetEffects', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationDropTargetPattern
-def _define_IUIAutomationElement_head():
-    class IUIAutomationElement(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d22108aa-8ac5-49a5-83-7b-37-bb-b3-d7-59-1e')
-    return IUIAutomationElement
-def _define_IUIAutomationElement():
-    IUIAutomationElement = win32more.UI.Accessibility.IUIAutomationElement_head
-    IUIAutomationElement.SetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'SetFocus', ()))
-    IUIAutomationElement.GetRuntimeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetRuntimeId', ((1, 'runtimeId'),)))
-    IUIAutomationElement.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(5, 'FindFirst', ((1, 'scope'),(1, 'condition'),(1, 'found'),)))
-    IUIAutomationElement.FindAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(6, 'FindAll', ((1, 'scope'),(1, 'condition'),(1, 'found'),)))
-    IUIAutomationElement.FindFirstBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(7, 'FindFirstBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'found'),)))
-    IUIAutomationElement.FindAllBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(8, 'FindAllBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'found'),)))
-    IUIAutomationElement.BuildUpdatedCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(9, 'BuildUpdatedCache', ((1, 'cacheRequest'),(1, 'updatedElement'),)))
-    IUIAutomationElement.GetCurrentPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(win32more.System.Com.VARIANT_head))(10, 'GetCurrentPropertyValue', ((1, 'propertyId'),(1, 'retVal'),)))
-    IUIAutomationElement.GetCurrentPropertyValueEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.Foundation.BOOL,POINTER(win32more.System.Com.VARIANT_head))(11, 'GetCurrentPropertyValueEx', ((1, 'propertyId'),(1, 'ignoreDefaultValue'),(1, 'retVal'),)))
-    IUIAutomationElement.GetCachedPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(win32more.System.Com.VARIANT_head))(12, 'GetCachedPropertyValue', ((1, 'propertyId'),(1, 'retVal'),)))
-    IUIAutomationElement.GetCachedPropertyValueEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.Foundation.BOOL,POINTER(win32more.System.Com.VARIANT_head))(13, 'GetCachedPropertyValueEx', ((1, 'propertyId'),(1, 'ignoreDefaultValue'),(1, 'retVal'),)))
-    IUIAutomationElement.GetCurrentPatternAs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(Guid),POINTER(c_void_p))(14, 'GetCurrentPatternAs', ((1, 'patternId'),(1, 'riid'),(1, 'patternObject'),)))
-    IUIAutomationElement.GetCachedPatternAs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(Guid),POINTER(c_void_p))(15, 'GetCachedPatternAs', ((1, 'patternId'),(1, 'riid'),(1, 'patternObject'),)))
-    IUIAutomationElement.GetCurrentPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(win32more.System.Com.IUnknown_head))(16, 'GetCurrentPattern', ((1, 'patternId'),(1, 'patternObject'),)))
-    IUIAutomationElement.GetCachedPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_PATTERN_ID,POINTER(win32more.System.Com.IUnknown_head))(17, 'GetCachedPattern', ((1, 'patternId'),(1, 'patternObject'),)))
-    IUIAutomationElement.GetCachedParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(18, 'GetCachedParent', ((1, 'parent'),)))
-    IUIAutomationElement.GetCachedChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(19, 'GetCachedChildren', ((1, 'children'),)))
-    IUIAutomationElement.get_CurrentProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(20, 'get_CurrentProcessId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentControlType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_CONTROLTYPE_ID))(21, 'get_CurrentControlType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentLocalizedControlType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_CurrentLocalizedControlType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_CurrentName', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentAcceleratorKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_CurrentAcceleratorKey', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentAccessKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(25, 'get_CurrentAccessKey', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentHasKeyboardFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(26, 'get_CurrentHasKeyboardFocus', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsKeyboardFocusable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(27, 'get_CurrentIsKeyboardFocusable', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(28, 'get_CurrentIsEnabled', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentAutomationId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(29, 'get_CurrentAutomationId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(30, 'get_CurrentClassName', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentHelpText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(31, 'get_CurrentHelpText', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentCulture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(32, 'get_CurrentCulture', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsControlElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(33, 'get_CurrentIsControlElement', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsContentElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(34, 'get_CurrentIsContentElement', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsPassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(35, 'get_CurrentIsPassword', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentNativeWindowHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(36, 'get_CurrentNativeWindowHandle', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentItemType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(37, 'get_CurrentItemType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsOffscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(38, 'get_CurrentIsOffscreen', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.OrientationType))(39, 'get_CurrentOrientation', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentFrameworkId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(40, 'get_CurrentFrameworkId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsRequiredForForm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(41, 'get_CurrentIsRequiredForForm', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentItemStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(42, 'get_CurrentItemStatus', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentBoundingRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(43, 'get_CurrentBoundingRectangle', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentLabeledBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(44, 'get_CurrentLabeledBy', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentAriaRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(45, 'get_CurrentAriaRole', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentAriaProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(46, 'get_CurrentAriaProperties', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentIsDataValidForForm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(47, 'get_CurrentIsDataValidForForm', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentControllerFor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(48, 'get_CurrentControllerFor', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentDescribedBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(49, 'get_CurrentDescribedBy', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentFlowsTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(50, 'get_CurrentFlowsTo', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CurrentProviderDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(51, 'get_CurrentProviderDescription', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(52, 'get_CachedProcessId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedControlType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_CONTROLTYPE_ID))(53, 'get_CachedControlType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedLocalizedControlType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(54, 'get_CachedLocalizedControlType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(55, 'get_CachedName', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedAcceleratorKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(56, 'get_CachedAcceleratorKey', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedAccessKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(57, 'get_CachedAccessKey', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedHasKeyboardFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(58, 'get_CachedHasKeyboardFocus', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsKeyboardFocusable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(59, 'get_CachedIsKeyboardFocusable', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(60, 'get_CachedIsEnabled', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedAutomationId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(61, 'get_CachedAutomationId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(62, 'get_CachedClassName', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedHelpText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(63, 'get_CachedHelpText', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedCulture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(64, 'get_CachedCulture', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsControlElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(65, 'get_CachedIsControlElement', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsContentElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(66, 'get_CachedIsContentElement', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsPassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(67, 'get_CachedIsPassword', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedNativeWindowHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(68, 'get_CachedNativeWindowHandle', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedItemType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(69, 'get_CachedItemType', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsOffscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(70, 'get_CachedIsOffscreen', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.OrientationType))(71, 'get_CachedOrientation', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedFrameworkId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(72, 'get_CachedFrameworkId', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsRequiredForForm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(73, 'get_CachedIsRequiredForForm', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedItemStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(74, 'get_CachedItemStatus', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedBoundingRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(75, 'get_CachedBoundingRectangle', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedLabeledBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(76, 'get_CachedLabeledBy', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedAriaRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(77, 'get_CachedAriaRole', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedAriaProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(78, 'get_CachedAriaProperties', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedIsDataValidForForm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(79, 'get_CachedIsDataValidForForm', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedControllerFor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(80, 'get_CachedControllerFor', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedDescribedBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(81, 'get_CachedDescribedBy', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedFlowsTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(82, 'get_CachedFlowsTo', ((1, 'retVal'),)))
-    IUIAutomationElement.get_CachedProviderDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(83, 'get_CachedProviderDescription', ((1, 'retVal'),)))
-    IUIAutomationElement.GetClickablePoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.BOOL))(84, 'GetClickablePoint', ((1, 'clickable'),(1, 'gotClickable'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationElement
-def _define_IUIAutomationElement2_head():
-    class IUIAutomationElement2(win32more.UI.Accessibility.IUIAutomationElement_head):
-        Guid = Guid('6749c683-f70d-4487-a6-98-5f-79-d5-52-90-d6')
-    return IUIAutomationElement2
-def _define_IUIAutomationElement2():
-    IUIAutomationElement2 = win32more.UI.Accessibility.IUIAutomationElement2_head
-    IUIAutomationElement2.get_CurrentOptimizeForVisualContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(85, 'get_CurrentOptimizeForVisualContent', ((1, 'retVal'),)))
-    IUIAutomationElement2.get_CachedOptimizeForVisualContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(86, 'get_CachedOptimizeForVisualContent', ((1, 'retVal'),)))
-    IUIAutomationElement2.get_CurrentLiveSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.LiveSetting))(87, 'get_CurrentLiveSetting', ((1, 'retVal'),)))
-    IUIAutomationElement2.get_CachedLiveSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.LiveSetting))(88, 'get_CachedLiveSetting', ((1, 'retVal'),)))
-    IUIAutomationElement2.get_CurrentFlowsFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(89, 'get_CurrentFlowsFrom', ((1, 'retVal'),)))
-    IUIAutomationElement2.get_CachedFlowsFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(90, 'get_CachedFlowsFrom', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement
-    return IUIAutomationElement2
-def _define_IUIAutomationElement3_head():
-    class IUIAutomationElement3(win32more.UI.Accessibility.IUIAutomationElement2_head):
-        Guid = Guid('8471df34-aee0-4a01-a7-de-7d-b9-af-12-c2-96')
-    return IUIAutomationElement3
-def _define_IUIAutomationElement3():
-    IUIAutomationElement3 = win32more.UI.Accessibility.IUIAutomationElement3_head
-    IUIAutomationElement3.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(91, 'ShowContextMenu', ()))
-    IUIAutomationElement3.get_CurrentIsPeripheral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(92, 'get_CurrentIsPeripheral', ((1, 'retVal'),)))
-    IUIAutomationElement3.get_CachedIsPeripheral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(93, 'get_CachedIsPeripheral', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement2
-    return IUIAutomationElement3
-def _define_IUIAutomationElement4_head():
-    class IUIAutomationElement4(win32more.UI.Accessibility.IUIAutomationElement3_head):
-        Guid = Guid('3b6e233c-52fb-4063-a4-c9-77-c0-75-c2-a0-6b')
-    return IUIAutomationElement4
-def _define_IUIAutomationElement4():
-    IUIAutomationElement4 = win32more.UI.Accessibility.IUIAutomationElement4_head
-    IUIAutomationElement4.get_CurrentPositionInSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(94, 'get_CurrentPositionInSet', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CurrentSizeOfSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(95, 'get_CurrentSizeOfSet', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CurrentLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(96, 'get_CurrentLevel', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CurrentAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(97, 'get_CurrentAnnotationTypes', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CurrentAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(98, 'get_CurrentAnnotationObjects', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CachedPositionInSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(99, 'get_CachedPositionInSet', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CachedSizeOfSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(100, 'get_CachedSizeOfSet', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CachedLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(101, 'get_CachedLevel', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CachedAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(102, 'get_CachedAnnotationTypes', ((1, 'retVal'),)))
-    IUIAutomationElement4.get_CachedAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(103, 'get_CachedAnnotationObjects', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement3
-    return IUIAutomationElement4
-def _define_IUIAutomationElement5_head():
-    class IUIAutomationElement5(win32more.UI.Accessibility.IUIAutomationElement4_head):
-        Guid = Guid('98141c1d-0d0e-4175-bb-e2-6b-ff-45-58-42-a7')
-    return IUIAutomationElement5
-def _define_IUIAutomationElement5():
-    IUIAutomationElement5 = win32more.UI.Accessibility.IUIAutomationElement5_head
-    IUIAutomationElement5.get_CurrentLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_LANDMARKTYPE_ID))(104, 'get_CurrentLandmarkType', ((1, 'retVal'),)))
-    IUIAutomationElement5.get_CurrentLocalizedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(105, 'get_CurrentLocalizedLandmarkType', ((1, 'retVal'),)))
-    IUIAutomationElement5.get_CachedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_LANDMARKTYPE_ID))(106, 'get_CachedLandmarkType', ((1, 'retVal'),)))
-    IUIAutomationElement5.get_CachedLocalizedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(107, 'get_CachedLocalizedLandmarkType', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement4
-    return IUIAutomationElement5
-def _define_IUIAutomationElement6_head():
-    class IUIAutomationElement6(win32more.UI.Accessibility.IUIAutomationElement5_head):
-        Guid = Guid('4780d450-8bca-4977-af-a5-a4-a5-17-f5-55-e3')
-    return IUIAutomationElement6
-def _define_IUIAutomationElement6():
-    IUIAutomationElement6 = win32more.UI.Accessibility.IUIAutomationElement6_head
-    IUIAutomationElement6.get_CurrentFullDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(108, 'get_CurrentFullDescription', ((1, 'retVal'),)))
-    IUIAutomationElement6.get_CachedFullDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(109, 'get_CachedFullDescription', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement5
-    return IUIAutomationElement6
-def _define_IUIAutomationElement7_head():
-    class IUIAutomationElement7(win32more.UI.Accessibility.IUIAutomationElement6_head):
-        Guid = Guid('204e8572-cfc3-4c11-b0-c8-7d-a7-42-07-50-b7')
-    return IUIAutomationElement7
-def _define_IUIAutomationElement7():
-    IUIAutomationElement7 = win32more.UI.Accessibility.IUIAutomationElement7_head
-    IUIAutomationElement7.FindFirstWithOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(110, 'FindFirstWithOptions', ((1, 'scope'),(1, 'condition'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
-    IUIAutomationElement7.FindAllWithOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(111, 'FindAllWithOptions', ((1, 'scope'),(1, 'condition'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
-    IUIAutomationElement7.FindFirstWithOptionsBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(112, 'FindFirstWithOptionsBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
-    IUIAutomationElement7.FindAllWithOptionsBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(113, 'FindAllWithOptionsBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
-    IUIAutomationElement7.GetCurrentMetadataValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Accessibility.UIA_METADATA_ID,POINTER(win32more.System.Com.VARIANT_head))(114, 'GetCurrentMetadataValue', ((1, 'targetId'),(1, 'metadataId'),(1, 'returnVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement6
-    return IUIAutomationElement7
-def _define_IUIAutomationElement8_head():
-    class IUIAutomationElement8(win32more.UI.Accessibility.IUIAutomationElement7_head):
-        Guid = Guid('8c60217d-5411-4cde-bc-c0-1c-ed-a2-23-83-0c')
-    return IUIAutomationElement8
-def _define_IUIAutomationElement8():
-    IUIAutomationElement8 = win32more.UI.Accessibility.IUIAutomationElement8_head
-    IUIAutomationElement8.get_CurrentHeadingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_HEADINGLEVEL_ID))(115, 'get_CurrentHeadingLevel', ((1, 'retVal'),)))
-    IUIAutomationElement8.get_CachedHeadingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_HEADINGLEVEL_ID))(116, 'get_CachedHeadingLevel', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement7
-    return IUIAutomationElement8
-def _define_IUIAutomationElement9_head():
-    class IUIAutomationElement9(win32more.UI.Accessibility.IUIAutomationElement8_head):
-        Guid = Guid('39325fac-039d-440e-a3-a3-5e-b8-1a-5c-ec-c3')
-    return IUIAutomationElement9
-def _define_IUIAutomationElement9():
-    IUIAutomationElement9 = win32more.UI.Accessibility.IUIAutomationElement9_head
-    IUIAutomationElement9.get_CurrentIsDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(117, 'get_CurrentIsDialog', ((1, 'retVal'),)))
-    IUIAutomationElement9.get_CachedIsDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(118, 'get_CachedIsDialog', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationElement8
-    return IUIAutomationElement9
-def _define_IUIAutomationElementArray_head():
-    class IUIAutomationElementArray(win32more.System.Com.IUnknown_head):
-        Guid = Guid('14314595-b4bc-4055-95-f2-58-f2-e4-2c-98-55')
-    return IUIAutomationElementArray
-def _define_IUIAutomationElementArray():
-    IUIAutomationElementArray = win32more.UI.Accessibility.IUIAutomationElementArray_head
-    IUIAutomationElementArray.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_Length', ((1, 'length'),)))
-    IUIAutomationElementArray.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(4, 'GetElement', ((1, 'index'),(1, 'element'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationElementArray
-def _define_IUIAutomationEventHandler_head():
-    class IUIAutomationEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('146c3c17-f12e-4e22-8c-27-f8-94-b9-b7-9c-69')
-    return IUIAutomationEventHandler
-def _define_IUIAutomationEventHandler():
-    IUIAutomationEventHandler = win32more.UI.Accessibility.IUIAutomationEventHandler_head
-    IUIAutomationEventHandler.HandleAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.UIA_EVENT_ID)(3, 'HandleAutomationEvent', ((1, 'sender'),(1, 'eventId'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationEventHandler
-def _define_IUIAutomationEventHandlerGroup_head():
-    class IUIAutomationEventHandlerGroup(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c9ee12f2-c13b-4408-99-7c-63-99-14-37-7f-4e')
-    return IUIAutomationEventHandlerGroup
-def _define_IUIAutomationEventHandlerGroup():
-    IUIAutomationEventHandlerGroup = win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head
-    IUIAutomationEventHandlerGroup.AddActiveTextPositionChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head)(3, 'AddActiveTextPositionChangedEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomationEventHandlerGroup.AddAutomationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationEventHandler_head)(4, 'AddAutomationEventHandler', ((1, 'eventId'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomationEventHandlerGroup.AddChangesEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,POINTER(Int32),Int32,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head)(5, 'AddChangesEventHandler', ((1, 'scope'),(1, 'changeTypes'),(1, 'changesCount'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomationEventHandlerGroup.AddNotificationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head)(6, 'AddNotificationEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomationEventHandlerGroup.AddPropertyChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head,POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID),Int32)(7, 'AddPropertyChangedEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),(1, 'propertyArray'),(1, 'propertyCount'),)))
-    IUIAutomationEventHandlerGroup.AddStructureChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head)(8, 'AddStructureChangedEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
-    IUIAutomationEventHandlerGroup.AddTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.TextEditChangeType,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head)(9, 'AddTextEditTextChangedEventHandler', ((1, 'scope'),(1, 'textEditChangeType'),(1, 'cacheRequest'),(1, 'handler'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationEventHandlerGroup
-def _define_IUIAutomationExpandCollapsePattern_head():
-    class IUIAutomationExpandCollapsePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('619be086-1f4e-4ee4-ba-fa-21-01-28-73-87-30')
-    return IUIAutomationExpandCollapsePattern
-def _define_IUIAutomationExpandCollapsePattern():
-    IUIAutomationExpandCollapsePattern = win32more.UI.Accessibility.IUIAutomationExpandCollapsePattern_head
-    IUIAutomationExpandCollapsePattern.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Expand', ()))
-    IUIAutomationExpandCollapsePattern.Collapse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Collapse', ()))
-    IUIAutomationExpandCollapsePattern.get_CurrentExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState))(5, 'get_CurrentExpandCollapseState', ((1, 'retVal'),)))
-    IUIAutomationExpandCollapsePattern.get_CachedExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState))(6, 'get_CachedExpandCollapseState', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationExpandCollapsePattern
-def _define_IUIAutomationFocusChangedEventHandler_head():
-    class IUIAutomationFocusChangedEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c270f6b5-5c69-4290-97-45-7a-7f-97-16-94-68')
-    return IUIAutomationFocusChangedEventHandler
-def _define_IUIAutomationFocusChangedEventHandler():
-    IUIAutomationFocusChangedEventHandler = win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head
-    IUIAutomationFocusChangedEventHandler.HandleFocusChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head)(3, 'HandleFocusChangedEvent', ((1, 'sender'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationFocusChangedEventHandler
-def _define_IUIAutomationGridItemPattern_head():
-    class IUIAutomationGridItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('78f8ef57-66c3-4e09-bd-7c-e7-9b-20-04-89-4d')
-    return IUIAutomationGridItemPattern
-def _define_IUIAutomationGridItemPattern():
-    IUIAutomationGridItemPattern = win32more.UI.Accessibility.IUIAutomationGridItemPattern_head
-    IUIAutomationGridItemPattern.get_CurrentContainingGrid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'get_CurrentContainingGrid', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CurrentRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'get_CurrentRow', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CurrentColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_CurrentColumn', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CurrentRowSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_CurrentRowSpan', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CurrentColumnSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_CurrentColumnSpan', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CachedContainingGrid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(8, 'get_CachedContainingGrid', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CachedRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_CachedRow', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CachedColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_CachedColumn', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CachedRowSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'get_CachedRowSpan', ((1, 'retVal'),)))
-    IUIAutomationGridItemPattern.get_CachedColumnSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_CachedColumnSpan', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationGridItemPattern
-def _define_IUIAutomationGridPattern_head():
-    class IUIAutomationGridPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('414c3cdc-856b-4f5b-85-38-31-31-c6-30-25-50')
-    return IUIAutomationGridPattern
-def _define_IUIAutomationGridPattern():
-    IUIAutomationGridPattern = win32more.UI.Accessibility.IUIAutomationGridPattern_head
-    IUIAutomationGridPattern.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'GetItem', ((1, 'row'),(1, 'column'),(1, 'element'),)))
-    IUIAutomationGridPattern.get_CurrentRowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(4, 'get_CurrentRowCount', ((1, 'retVal'),)))
-    IUIAutomationGridPattern.get_CurrentColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_CurrentColumnCount', ((1, 'retVal'),)))
-    IUIAutomationGridPattern.get_CachedRowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_CachedRowCount', ((1, 'retVal'),)))
-    IUIAutomationGridPattern.get_CachedColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_CachedColumnCount', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationGridPattern
-def _define_IUIAutomationInvokePattern_head():
-    class IUIAutomationInvokePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('fb377fbe-8ea6-46d5-9c-73-64-99-64-2d-30-59')
-    return IUIAutomationInvokePattern
-def _define_IUIAutomationInvokePattern():
-    IUIAutomationInvokePattern = win32more.UI.Accessibility.IUIAutomationInvokePattern_head
-    IUIAutomationInvokePattern.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Invoke', ()))
-    win32more.System.Com.IUnknown
-    return IUIAutomationInvokePattern
-def _define_IUIAutomationItemContainerPattern_head():
-    class IUIAutomationItemContainerPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c690fdb2-27a8-423c-81-2d-42-97-73-c9-08-4e')
-    return IUIAutomationItemContainerPattern
-def _define_IUIAutomationItemContainerPattern():
-    IUIAutomationItemContainerPattern = win32more.UI.Accessibility.IUIAutomationItemContainerPattern_head
-    IUIAutomationItemContainerPattern.FindItemByProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'FindItemByProperty', ((1, 'pStartAfter'),(1, 'propertyId'),(1, 'value'),(1, 'pFound'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationItemContainerPattern
-def _define_IUIAutomationLegacyIAccessiblePattern_head():
-    class IUIAutomationLegacyIAccessiblePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('828055ad-355b-4435-86-d5-3b-51-c1-4a-9b-1b')
-    return IUIAutomationLegacyIAccessiblePattern
-def _define_IUIAutomationLegacyIAccessiblePattern():
-    IUIAutomationLegacyIAccessiblePattern = win32more.UI.Accessibility.IUIAutomationLegacyIAccessiblePattern_head
-    IUIAutomationLegacyIAccessiblePattern.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(3, 'Select', ((1, 'flagsSelect'),)))
-    IUIAutomationLegacyIAccessiblePattern.DoDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'DoDefaultAction', ()))
-    IUIAutomationLegacyIAccessiblePattern.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'SetValue', ((1, 'szValue'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentChildId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_CurrentChildId', ((1, 'pRetVal'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_CurrentName', ((1, 'pszName'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_CurrentValue', ((1, 'pszValue'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_CurrentDescription', ((1, 'pszDescription'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(10, 'get_CurrentRole', ((1, 'pdwRole'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'get_CurrentState', ((1, 'pdwState'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_CurrentHelp', ((1, 'pszHelp'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentKeyboardShortcut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(13, 'get_CurrentKeyboardShortcut', ((1, 'pszKeyboardShortcut'),)))
-    IUIAutomationLegacyIAccessiblePattern.GetCurrentSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(14, 'GetCurrentSelection', ((1, 'pvarSelectedChildren'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CurrentDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_CurrentDefaultAction', ((1, 'pszDefaultAction'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedChildId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_CachedChildId', ((1, 'pRetVal'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_CachedName', ((1, 'pszName'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_CachedValue', ((1, 'pszValue'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_CachedDescription', ((1, 'pszDescription'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(20, 'get_CachedRole', ((1, 'pdwRole'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(21, 'get_CachedState', ((1, 'pdwState'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_CachedHelp', ((1, 'pszHelp'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedKeyboardShortcut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_CachedKeyboardShortcut', ((1, 'pszKeyboardShortcut'),)))
-    IUIAutomationLegacyIAccessiblePattern.GetCachedSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(24, 'GetCachedSelection', ((1, 'pvarSelectedChildren'),)))
-    IUIAutomationLegacyIAccessiblePattern.get_CachedDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(25, 'get_CachedDefaultAction', ((1, 'pszDefaultAction'),)))
-    IUIAutomationLegacyIAccessiblePattern.GetIAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head))(26, 'GetIAccessible', ((1, 'ppAccessible'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationLegacyIAccessiblePattern
-def _define_IUIAutomationMultipleViewPattern_head():
-    class IUIAutomationMultipleViewPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8d253c91-1dc5-4bb5-b1-8f-ad-e1-6f-a4-95-e8')
-    return IUIAutomationMultipleViewPattern
-def _define_IUIAutomationMultipleViewPattern():
-    IUIAutomationMultipleViewPattern = win32more.UI.Accessibility.IUIAutomationMultipleViewPattern_head
-    IUIAutomationMultipleViewPattern.GetViewName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(3, 'GetViewName', ((1, 'view'),(1, 'name'),)))
-    IUIAutomationMultipleViewPattern.SetCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(4, 'SetCurrentView', ((1, 'view'),)))
-    IUIAutomationMultipleViewPattern.get_CurrentCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_CurrentCurrentView', ((1, 'retVal'),)))
-    IUIAutomationMultipleViewPattern.GetCurrentSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(6, 'GetCurrentSupportedViews', ((1, 'retVal'),)))
-    IUIAutomationMultipleViewPattern.get_CachedCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(7, 'get_CachedCurrentView', ((1, 'retVal'),)))
-    IUIAutomationMultipleViewPattern.GetCachedSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'GetCachedSupportedViews', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationMultipleViewPattern
-def _define_IUIAutomationNotCondition_head():
-    class IUIAutomationNotCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
-        Guid = Guid('f528b657-847b-498c-88-96-d5-2b-56-54-07-a1')
-    return IUIAutomationNotCondition
-def _define_IUIAutomationNotCondition():
-    IUIAutomationNotCondition = win32more.UI.Accessibility.IUIAutomationNotCondition_head
-    IUIAutomationNotCondition.GetChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(3, 'GetChild', ((1, 'condition'),)))
-    win32more.UI.Accessibility.IUIAutomationCondition
-    return IUIAutomationNotCondition
-def _define_IUIAutomationNotificationEventHandler_head():
-    class IUIAutomationNotificationEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c7cb2637-e6c2-4d0c-85-de-49-48-c0-21-75-c7')
-    return IUIAutomationNotificationEventHandler
-def _define_IUIAutomationNotificationEventHandler():
-    IUIAutomationNotificationEventHandler = win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head
-    IUIAutomationNotificationEventHandler.HandleNotificationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.NotificationKind,win32more.UI.Accessibility.NotificationProcessing,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(3, 'HandleNotificationEvent', ((1, 'sender'),(1, 'notificationKind'),(1, 'notificationProcessing'),(1, 'displayString'),(1, 'activityId'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationNotificationEventHandler
-def _define_IUIAutomationObjectModelPattern_head():
-    class IUIAutomationObjectModelPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('71c284b3-c14d-4d14-98-1e-19-75-1b-0d-75-6d')
-    return IUIAutomationObjectModelPattern
-def _define_IUIAutomationObjectModelPattern():
-    IUIAutomationObjectModelPattern = win32more.UI.Accessibility.IUIAutomationObjectModelPattern_head
-    IUIAutomationObjectModelPattern.GetUnderlyingObjectModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(3, 'GetUnderlyingObjectModel', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationObjectModelPattern
-def _define_IUIAutomationOrCondition_head():
-    class IUIAutomationOrCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
-        Guid = Guid('8753f032-3db1-47b5-a1-fc-6e-34-a2-66-c7-12')
-    return IUIAutomationOrCondition
-def _define_IUIAutomationOrCondition():
-    IUIAutomationOrCondition = win32more.UI.Accessibility.IUIAutomationOrCondition_head
-    IUIAutomationOrCondition.get_ChildCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_ChildCount', ((1, 'childCount'),)))
-    IUIAutomationOrCondition.GetChildrenAsNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)),POINTER(Int32))(4, 'GetChildrenAsNativeArray', ((1, 'childArray'),(1, 'childArrayCount'),)))
-    IUIAutomationOrCondition.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'GetChildren', ((1, 'childArray'),)))
-    win32more.UI.Accessibility.IUIAutomationCondition
-    return IUIAutomationOrCondition
-def _define_IUIAutomationPatternHandler_head():
-    class IUIAutomationPatternHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d97022f3-a947-465e-8b-2a-ac-43-15-fa-54-e8')
-    return IUIAutomationPatternHandler
-def _define_IUIAutomationPatternHandler():
-    IUIAutomationPatternHandler = win32more.UI.Accessibility.IUIAutomationPatternHandler_head
-    IUIAutomationPatternHandler.CreateClientWrapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationPatternInstance_head,POINTER(win32more.System.Com.IUnknown_head))(3, 'CreateClientWrapper', ((1, 'pPatternInstance'),(1, 'pClientWrapper'),)))
-    IUIAutomationPatternHandler.Dispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Accessibility.UIAutomationParameter_head),UInt32)(4, 'Dispatch', ((1, 'pTarget'),(1, 'index'),(1, 'pParams'),(1, 'cParams'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationPatternHandler
-def _define_IUIAutomationPatternInstance_head():
-    class IUIAutomationPatternInstance(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c03a7fe4-9431-409f-be-d8-ae-7c-22-99-bc-8d')
-    return IUIAutomationPatternInstance
-def _define_IUIAutomationPatternInstance():
-    IUIAutomationPatternInstance = win32more.UI.Accessibility.IUIAutomationPatternInstance_head
-    IUIAutomationPatternInstance.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,win32more.UI.Accessibility.UIAutomationType,c_void_p)(3, 'GetProperty', ((1, 'index'),(1, 'cached'),(1, 'type'),(1, 'pPtr'),)))
-    IUIAutomationPatternInstance.CallMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Accessibility.UIAutomationParameter_head),UInt32)(4, 'CallMethod', ((1, 'index'),(1, 'pParams'),(1, 'cParams'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationPatternInstance
-def _define_IUIAutomationPropertyChangedEventHandler_head():
-    class IUIAutomationPropertyChangedEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('40cd37d4-c756-4b0c-8c-6f-bd-df-ee-b1-3b-50')
-    return IUIAutomationPropertyChangedEventHandler
-def _define_IUIAutomationPropertyChangedEventHandler():
-    IUIAutomationPropertyChangedEventHandler = win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head
-    IUIAutomationPropertyChangedEventHandler.HandlePropertyChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.UIA_PROPERTY_ID,win32more.System.Com.VARIANT)(3, 'HandlePropertyChangedEvent', ((1, 'sender'),(1, 'propertyId'),(1, 'newValue'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationPropertyChangedEventHandler
-def _define_IUIAutomationPropertyCondition_head():
-    class IUIAutomationPropertyCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
-        Guid = Guid('99ebf2cb-5578-4267-9a-d4-af-d6-ea-77-e9-4b')
-    return IUIAutomationPropertyCondition
-def _define_IUIAutomationPropertyCondition():
-    IUIAutomationPropertyCondition = win32more.UI.Accessibility.IUIAutomationPropertyCondition_head
-    IUIAutomationPropertyCondition.get_PropertyId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID))(3, 'get_PropertyId', ((1, 'propertyId'),)))
-    IUIAutomationPropertyCondition.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(4, 'get_PropertyValue', ((1, 'propertyValue'),)))
-    IUIAutomationPropertyCondition.get_PropertyConditionFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.PropertyConditionFlags))(5, 'get_PropertyConditionFlags', ((1, 'flags'),)))
-    win32more.UI.Accessibility.IUIAutomationCondition
-    return IUIAutomationPropertyCondition
-def _define_IUIAutomationProxyFactory_head():
-    class IUIAutomationProxyFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('85b94ecd-849d-42b6-b9-4d-d6-db-23-fd-f5-a4')
-    return IUIAutomationProxyFactory
-def _define_IUIAutomationProxyFactory():
-    IUIAutomationProxyFactory = win32more.UI.Accessibility.IUIAutomationProxyFactory_head
-    IUIAutomationProxyFactory.CreateProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head))(3, 'CreateProvider', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'provider'),)))
-    IUIAutomationProxyFactory.get_ProxyFactoryId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_ProxyFactoryId', ((1, 'factoryId'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationProxyFactory
-def _define_IUIAutomationProxyFactoryEntry_head():
-    class IUIAutomationProxyFactoryEntry(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d50e472e-b64b-490c-bc-a1-d3-06-96-f9-f2-89')
-    return IUIAutomationProxyFactoryEntry
-def _define_IUIAutomationProxyFactoryEntry():
-    IUIAutomationProxyFactoryEntry = win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head
-    IUIAutomationProxyFactoryEntry.get_ProxyFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactory_head))(3, 'get_ProxyFactory', ((1, 'factory'),)))
-    IUIAutomationProxyFactoryEntry.get_ClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_ClassName', ((1, 'className'),)))
-    IUIAutomationProxyFactoryEntry.get_ImageName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(5, 'get_ImageName', ((1, 'imageName'),)))
-    IUIAutomationProxyFactoryEntry.get_AllowSubstringMatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_AllowSubstringMatch', ((1, 'allowSubstringMatch'),)))
-    IUIAutomationProxyFactoryEntry.get_CanCheckBaseClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CanCheckBaseClass', ((1, 'canCheckBaseClass'),)))
-    IUIAutomationProxyFactoryEntry.get_NeedsAdviseEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_NeedsAdviseEvents', ((1, 'adviseEvents'),)))
-    IUIAutomationProxyFactoryEntry.put_ClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(9, 'put_ClassName', ((1, 'className'),)))
-    IUIAutomationProxyFactoryEntry.put_ImageName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'put_ImageName', ((1, 'imageName'),)))
-    IUIAutomationProxyFactoryEntry.put_AllowSubstringMatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(11, 'put_AllowSubstringMatch', ((1, 'allowSubstringMatch'),)))
-    IUIAutomationProxyFactoryEntry.put_CanCheckBaseClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(12, 'put_CanCheckBaseClass', ((1, 'canCheckBaseClass'),)))
-    IUIAutomationProxyFactoryEntry.put_NeedsAdviseEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(13, 'put_NeedsAdviseEvents', ((1, 'adviseEvents'),)))
-    IUIAutomationProxyFactoryEntry.SetWinEventsForAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(win32more.System.Com.SAFEARRAY_head))(14, 'SetWinEventsForAutomationEvent', ((1, 'eventId'),(1, 'propertyId'),(1, 'winEvents'),)))
-    IUIAutomationProxyFactoryEntry.GetWinEventsForAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_EVENT_ID,win32more.UI.Accessibility.UIA_PROPERTY_ID,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(15, 'GetWinEventsForAutomationEvent', ((1, 'eventId'),(1, 'propertyId'),(1, 'winEvents'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationProxyFactoryEntry
-def _define_IUIAutomationProxyFactoryMapping_head():
-    class IUIAutomationProxyFactoryMapping(win32more.System.Com.IUnknown_head):
-        Guid = Guid('09e31e18-872d-4873-93-d1-1e-54-1e-c1-33-fd')
-    return IUIAutomationProxyFactoryMapping
-def _define_IUIAutomationProxyFactoryMapping():
-    IUIAutomationProxyFactoryMapping = win32more.UI.Accessibility.IUIAutomationProxyFactoryMapping_head
-    IUIAutomationProxyFactoryMapping.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'get_Count', ((1, 'count'),)))
-    IUIAutomationProxyFactoryMapping.GetTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(4, 'GetTable', ((1, 'table'),)))
-    IUIAutomationProxyFactoryMapping.GetEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head))(5, 'GetEntry', ((1, 'index'),(1, 'entry'),)))
-    IUIAutomationProxyFactoryMapping.SetTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(6, 'SetTable', ((1, 'factoryList'),)))
-    IUIAutomationProxyFactoryMapping.InsertEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.SAFEARRAY_head))(7, 'InsertEntries', ((1, 'before'),(1, 'factoryList'),)))
-    IUIAutomationProxyFactoryMapping.InsertEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head)(8, 'InsertEntry', ((1, 'before'),(1, 'factory'),)))
-    IUIAutomationProxyFactoryMapping.RemoveEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(9, 'RemoveEntry', ((1, 'index'),)))
-    IUIAutomationProxyFactoryMapping.ClearTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'ClearTable', ()))
-    IUIAutomationProxyFactoryMapping.RestoreDefaultTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'RestoreDefaultTable', ()))
-    win32more.System.Com.IUnknown
-    return IUIAutomationProxyFactoryMapping
-def _define_IUIAutomationRangeValuePattern_head():
-    class IUIAutomationRangeValuePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('59213f4f-7346-49e5-b1-20-80-55-59-87-a1-48')
-    return IUIAutomationRangeValuePattern
-def _define_IUIAutomationRangeValuePattern():
-    IUIAutomationRangeValuePattern = win32more.UI.Accessibility.IUIAutomationRangeValuePattern_head
-    IUIAutomationRangeValuePattern.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(3, 'SetValue', ((1, 'val'),)))
-    IUIAutomationRangeValuePattern.get_CurrentValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(4, 'get_CurrentValue', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CurrentIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_CurrentIsReadOnly', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CurrentMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'get_CurrentMaximum', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CurrentMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(7, 'get_CurrentMinimum', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CurrentLargeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'get_CurrentLargeChange', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CurrentSmallChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(9, 'get_CurrentSmallChange', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(10, 'get_CachedValue', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_CachedIsReadOnly', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_CachedMaximum', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_CachedMinimum', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedLargeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(14, 'get_CachedLargeChange', ((1, 'retVal'),)))
-    IUIAutomationRangeValuePattern.get_CachedSmallChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(15, 'get_CachedSmallChange', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationRangeValuePattern
-def _define_IUIAutomationRegistrar_head():
-    class IUIAutomationRegistrar(win32more.System.Com.IUnknown_head):
-        Guid = Guid('8609c4ec-4a1a-4d88-a3-57-5a-66-e0-60-e1-cf')
-    return IUIAutomationRegistrar
-def _define_IUIAutomationRegistrar():
-    IUIAutomationRegistrar = win32more.UI.Accessibility.IUIAutomationRegistrar_head
-    IUIAutomationRegistrar.RegisterProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head),POINTER(Int32))(3, 'RegisterProperty', ((1, 'property'),(1, 'propertyId'),)))
-    IUIAutomationRegistrar.RegisterEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head),POINTER(Int32))(4, 'RegisterEvent', ((1, 'event'),(1, 'eventId'),)))
-    IUIAutomationRegistrar.RegisterPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationPatternInfo_head),POINTER(Int32),POINTER(Int32),UInt32,POINTER(Int32),UInt32,POINTER(Int32))(5, 'RegisterPattern', ((1, 'pattern'),(1, 'pPatternId'),(1, 'pPatternAvailablePropertyId'),(1, 'propertyIdCount'),(1, 'pPropertyIds'),(1, 'eventIdCount'),(1, 'pEventIds'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationRegistrar
-def _define_IUIAutomationScrollItemPattern_head():
-    class IUIAutomationScrollItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b488300f-d015-4f19-9c-29-bb-59-5e-36-45-ef')
-    return IUIAutomationScrollItemPattern
-def _define_IUIAutomationScrollItemPattern():
-    IUIAutomationScrollItemPattern = win32more.UI.Accessibility.IUIAutomationScrollItemPattern_head
-    IUIAutomationScrollItemPattern.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'ScrollIntoView', ()))
-    win32more.System.Com.IUnknown
-    return IUIAutomationScrollItemPattern
-def _define_IUIAutomationScrollPattern_head():
-    class IUIAutomationScrollPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('88f4d42a-e881-459d-a7-7c-73-bb-bb-7e-02-dc')
-    return IUIAutomationScrollPattern
-def _define_IUIAutomationScrollPattern():
-    IUIAutomationScrollPattern = win32more.UI.Accessibility.IUIAutomationScrollPattern_head
-    IUIAutomationScrollPattern.Scroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ScrollAmount,win32more.UI.Accessibility.ScrollAmount)(3, 'Scroll', ((1, 'horizontalAmount'),(1, 'verticalAmount'),)))
-    IUIAutomationScrollPattern.SetScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(4, 'SetScrollPercent', ((1, 'horizontalPercent'),(1, 'verticalPercent'),)))
-    IUIAutomationScrollPattern.get_CurrentHorizontalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(5, 'get_CurrentHorizontalScrollPercent', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CurrentVerticalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(6, 'get_CurrentVerticalScrollPercent', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CurrentHorizontalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(7, 'get_CurrentHorizontalViewSize', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CurrentVerticalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(8, 'get_CurrentVerticalViewSize', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CurrentHorizontallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_CurrentHorizontallyScrollable', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CurrentVerticallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_CurrentVerticallyScrollable', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedHorizontalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(11, 'get_CachedHorizontalScrollPercent', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedVerticalScrollPercent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(12, 'get_CachedVerticalScrollPercent', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedHorizontalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(13, 'get_CachedHorizontalViewSize', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedVerticalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(14, 'get_CachedVerticalViewSize', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedHorizontallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(15, 'get_CachedHorizontallyScrollable', ((1, 'retVal'),)))
-    IUIAutomationScrollPattern.get_CachedVerticallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(16, 'get_CachedVerticallyScrollable', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationScrollPattern
-def _define_IUIAutomationSelectionItemPattern_head():
-    class IUIAutomationSelectionItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a8efa66a-0fda-421a-91-94-38-02-1f-35-78-ea')
-    return IUIAutomationSelectionItemPattern
-def _define_IUIAutomationSelectionItemPattern():
-    IUIAutomationSelectionItemPattern = win32more.UI.Accessibility.IUIAutomationSelectionItemPattern_head
-    IUIAutomationSelectionItemPattern.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Select', ()))
-    IUIAutomationSelectionItemPattern.AddToSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'AddToSelection', ()))
-    IUIAutomationSelectionItemPattern.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'RemoveFromSelection', ()))
-    IUIAutomationSelectionItemPattern.get_CurrentIsSelected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_CurrentIsSelected', ((1, 'retVal'),)))
-    IUIAutomationSelectionItemPattern.get_CurrentSelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(7, 'get_CurrentSelectionContainer', ((1, 'retVal'),)))
-    IUIAutomationSelectionItemPattern.get_CachedIsSelected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_CachedIsSelected', ((1, 'retVal'),)))
-    IUIAutomationSelectionItemPattern.get_CachedSelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(9, 'get_CachedSelectionContainer', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationSelectionItemPattern
-def _define_IUIAutomationSelectionPattern_head():
-    class IUIAutomationSelectionPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5ed5202e-b2ac-47a6-b6-38-4b-0b-f1-40-d7-8e')
-    return IUIAutomationSelectionPattern
-def _define_IUIAutomationSelectionPattern():
-    IUIAutomationSelectionPattern = win32more.UI.Accessibility.IUIAutomationSelectionPattern_head
-    IUIAutomationSelectionPattern.GetCurrentSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(3, 'GetCurrentSelection', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern.get_CurrentCanSelectMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(4, 'get_CurrentCanSelectMultiple', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern.get_CurrentIsSelectionRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_CurrentIsSelectionRequired', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern.GetCachedSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(6, 'GetCachedSelection', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern.get_CachedCanSelectMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CachedCanSelectMultiple', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern.get_CachedIsSelectionRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_CachedIsSelectionRequired', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationSelectionPattern
-def _define_IUIAutomationSelectionPattern2_head():
-    class IUIAutomationSelectionPattern2(win32more.UI.Accessibility.IUIAutomationSelectionPattern_head):
-        Guid = Guid('0532bfae-c011-4e32-a3-43-6d-64-2d-79-85-55')
-    return IUIAutomationSelectionPattern2
-def _define_IUIAutomationSelectionPattern2():
-    IUIAutomationSelectionPattern2 = win32more.UI.Accessibility.IUIAutomationSelectionPattern2_head
-    IUIAutomationSelectionPattern2.get_CurrentFirstSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(9, 'get_CurrentFirstSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CurrentLastSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(10, 'get_CurrentLastSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CurrentCurrentSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(11, 'get_CurrentCurrentSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CurrentItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(12, 'get_CurrentItemCount', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CachedFirstSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(13, 'get_CachedFirstSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CachedLastSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(14, 'get_CachedLastSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CachedCurrentSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(15, 'get_CachedCurrentSelectedItem', ((1, 'retVal'),)))
-    IUIAutomationSelectionPattern2.get_CachedItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_CachedItemCount', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationSelectionPattern
-    return IUIAutomationSelectionPattern2
-def _define_IUIAutomationSpreadsheetItemPattern_head():
-    class IUIAutomationSpreadsheetItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7d4fb86c-8d34-40e1-8e-83-62-c1-52-04-e3-35')
-    return IUIAutomationSpreadsheetItemPattern
-def _define_IUIAutomationSpreadsheetItemPattern():
-    IUIAutomationSpreadsheetItemPattern = win32more.UI.Accessibility.IUIAutomationSpreadsheetItemPattern_head
-    IUIAutomationSpreadsheetItemPattern.get_CurrentFormula = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(3, 'get_CurrentFormula', ((1, 'retVal'),)))
-    IUIAutomationSpreadsheetItemPattern.GetCurrentAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(4, 'GetCurrentAnnotationObjects', ((1, 'retVal'),)))
-    IUIAutomationSpreadsheetItemPattern.GetCurrentAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(5, 'GetCurrentAnnotationTypes', ((1, 'retVal'),)))
-    IUIAutomationSpreadsheetItemPattern.get_CachedFormula = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_CachedFormula', ((1, 'retVal'),)))
-    IUIAutomationSpreadsheetItemPattern.GetCachedAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(7, 'GetCachedAnnotationObjects', ((1, 'retVal'),)))
-    IUIAutomationSpreadsheetItemPattern.GetCachedAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'GetCachedAnnotationTypes', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationSpreadsheetItemPattern
-def _define_IUIAutomationSpreadsheetPattern_head():
-    class IUIAutomationSpreadsheetPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7517a7c8-faae-4de9-9f-08-29-b9-1e-85-95-c1')
-    return IUIAutomationSpreadsheetPattern
-def _define_IUIAutomationSpreadsheetPattern():
-    IUIAutomationSpreadsheetPattern = win32more.UI.Accessibility.IUIAutomationSpreadsheetPattern_head
-    IUIAutomationSpreadsheetPattern.GetItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'GetItemByName', ((1, 'name'),(1, 'element'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationSpreadsheetPattern
-def _define_IUIAutomationStructureChangedEventHandler_head():
-    class IUIAutomationStructureChangedEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('e81d1b4e-11c5-42f8-97-54-e7-03-6c-79-f0-54')
-    return IUIAutomationStructureChangedEventHandler
-def _define_IUIAutomationStructureChangedEventHandler():
-    IUIAutomationStructureChangedEventHandler = win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head
-    IUIAutomationStructureChangedEventHandler.HandleStructureChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.StructureChangeType,POINTER(win32more.System.Com.SAFEARRAY_head))(3, 'HandleStructureChangedEvent', ((1, 'sender'),(1, 'changeType'),(1, 'runtimeId'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationStructureChangedEventHandler
-def _define_IUIAutomationStylesPattern_head():
-    class IUIAutomationStylesPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('85b5f0a2-bd79-484a-ad-2b-38-8c-98-38-d5-fb')
-    return IUIAutomationStylesPattern
-def _define_IUIAutomationStylesPattern():
-    IUIAutomationStylesPattern = win32more.UI.Accessibility.IUIAutomationStylesPattern_head
-    IUIAutomationStylesPattern.get_CurrentStyleId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_STYLE_ID))(3, 'get_CurrentStyleId', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentStyleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_CurrentStyleName', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentFillColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_CurrentFillColor', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentFillPatternStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_CurrentFillPatternStyle', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_CurrentShape', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentFillPatternColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(8, 'get_CurrentFillPatternColor', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CurrentExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_CurrentExtendedProperties', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.GetCurrentExtendedPropertiesAsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.ExtendedProperty_head)),POINTER(Int32))(10, 'GetCurrentExtendedPropertiesAsArray', ((1, 'propertyArray'),(1, 'propertyCount'),)))
-    IUIAutomationStylesPattern.get_CachedStyleId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_STYLE_ID))(11, 'get_CachedStyleId', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedStyleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_CachedStyleName', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedFillColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(13, 'get_CachedFillColor', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedFillPatternStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_CachedFillPatternStyle', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_CachedShape', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedFillPatternColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(16, 'get_CachedFillPatternColor', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.get_CachedExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(17, 'get_CachedExtendedProperties', ((1, 'retVal'),)))
-    IUIAutomationStylesPattern.GetCachedExtendedPropertiesAsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.ExtendedProperty_head)),POINTER(Int32))(18, 'GetCachedExtendedPropertiesAsArray', ((1, 'propertyArray'),(1, 'propertyCount'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationStylesPattern
-def _define_IUIAutomationSynchronizedInputPattern_head():
-    class IUIAutomationSynchronizedInputPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2233be0b-afb7-448b-9f-da-3b-37-8a-a5-ea-e1')
-    return IUIAutomationSynchronizedInputPattern
-def _define_IUIAutomationSynchronizedInputPattern():
-    IUIAutomationSynchronizedInputPattern = win32more.UI.Accessibility.IUIAutomationSynchronizedInputPattern_head
-    IUIAutomationSynchronizedInputPattern.StartListening = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.SynchronizedInputType)(3, 'StartListening', ((1, 'inputType'),)))
-    IUIAutomationSynchronizedInputPattern.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Cancel', ()))
-    win32more.System.Com.IUnknown
-    return IUIAutomationSynchronizedInputPattern
-def _define_IUIAutomationTableItemPattern_head():
-    class IUIAutomationTableItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0b964eb3-ef2e-4464-9c-79-61-d6-17-37-a2-7e')
-    return IUIAutomationTableItemPattern
-def _define_IUIAutomationTableItemPattern():
-    IUIAutomationTableItemPattern = win32more.UI.Accessibility.IUIAutomationTableItemPattern_head
-    IUIAutomationTableItemPattern.GetCurrentRowHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(3, 'GetCurrentRowHeaderItems', ((1, 'retVal'),)))
-    IUIAutomationTableItemPattern.GetCurrentColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(4, 'GetCurrentColumnHeaderItems', ((1, 'retVal'),)))
-    IUIAutomationTableItemPattern.GetCachedRowHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(5, 'GetCachedRowHeaderItems', ((1, 'retVal'),)))
-    IUIAutomationTableItemPattern.GetCachedColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(6, 'GetCachedColumnHeaderItems', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTableItemPattern
-def _define_IUIAutomationTablePattern_head():
-    class IUIAutomationTablePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('620e691c-ea96-4710-a8-50-75-4b-24-ce-24-17')
-    return IUIAutomationTablePattern
-def _define_IUIAutomationTablePattern():
-    IUIAutomationTablePattern = win32more.UI.Accessibility.IUIAutomationTablePattern_head
-    IUIAutomationTablePattern.GetCurrentRowHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(3, 'GetCurrentRowHeaders', ((1, 'retVal'),)))
-    IUIAutomationTablePattern.GetCurrentColumnHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(4, 'GetCurrentColumnHeaders', ((1, 'retVal'),)))
-    IUIAutomationTablePattern.get_CurrentRowOrColumnMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.RowOrColumnMajor))(5, 'get_CurrentRowOrColumnMajor', ((1, 'retVal'),)))
-    IUIAutomationTablePattern.GetCachedRowHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(6, 'GetCachedRowHeaders', ((1, 'retVal'),)))
-    IUIAutomationTablePattern.GetCachedColumnHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(7, 'GetCachedColumnHeaders', ((1, 'retVal'),)))
-    IUIAutomationTablePattern.get_CachedRowOrColumnMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.RowOrColumnMajor))(8, 'get_CachedRowOrColumnMajor', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTablePattern
-def _define_IUIAutomationTextChildPattern_head():
-    class IUIAutomationTextChildPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6552b038-ae05-40c8-ab-fd-aa-08-35-2a-ab-86')
-    return IUIAutomationTextChildPattern
-def _define_IUIAutomationTextChildPattern():
-    IUIAutomationTextChildPattern = win32more.UI.Accessibility.IUIAutomationTextChildPattern_head
-    IUIAutomationTextChildPattern.get_TextContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'get_TextContainer', ((1, 'container'),)))
-    IUIAutomationTextChildPattern.get_TextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(4, 'get_TextRange', ((1, 'range'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTextChildPattern
-def _define_IUIAutomationTextEditPattern_head():
-    class IUIAutomationTextEditPattern(win32more.UI.Accessibility.IUIAutomationTextPattern_head):
-        Guid = Guid('17e21576-996c-4870-99-d9-bf-f3-23-38-0c-06')
-    return IUIAutomationTextEditPattern
-def _define_IUIAutomationTextEditPattern():
-    IUIAutomationTextEditPattern = win32more.UI.Accessibility.IUIAutomationTextEditPattern_head
-    IUIAutomationTextEditPattern.GetActiveComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(9, 'GetActiveComposition', ((1, 'range'),)))
-    IUIAutomationTextEditPattern.GetConversionTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(10, 'GetConversionTarget', ((1, 'range'),)))
-    win32more.UI.Accessibility.IUIAutomationTextPattern
-    return IUIAutomationTextEditPattern
-def _define_IUIAutomationTextEditTextChangedEventHandler_head():
-    class IUIAutomationTextEditTextChangedEventHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('92faa680-e704-4156-93-1a-e3-2d-5b-b3-8f-3f')
-    return IUIAutomationTextEditTextChangedEventHandler
-def _define_IUIAutomationTextEditTextChangedEventHandler():
-    IUIAutomationTextEditTextChangedEventHandler = win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head
-    IUIAutomationTextEditTextChangedEventHandler.HandleTextEditTextChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TextEditChangeType,POINTER(win32more.System.Com.SAFEARRAY_head))(3, 'HandleTextEditTextChangedEvent', ((1, 'sender'),(1, 'textEditChangeType'),(1, 'eventStrings'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTextEditTextChangedEventHandler
-def _define_IUIAutomationTextPattern_head():
-    class IUIAutomationTextPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('32eba289-3583-42c9-9c-59-3b-6d-9a-1e-9b-6a')
-    return IUIAutomationTextPattern
-def _define_IUIAutomationTextPattern():
-    IUIAutomationTextPattern = win32more.UI.Accessibility.IUIAutomationTextPattern_head
-    IUIAutomationTextPattern.RangeFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(3, 'RangeFromPoint', ((1, 'pt'),(1, 'range'),)))
-    IUIAutomationTextPattern.RangeFromChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(4, 'RangeFromChild', ((1, 'child'),(1, 'range'),)))
-    IUIAutomationTextPattern.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRangeArray_head))(5, 'GetSelection', ((1, 'ranges'),)))
-    IUIAutomationTextPattern.GetVisibleRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRangeArray_head))(6, 'GetVisibleRanges', ((1, 'ranges'),)))
-    IUIAutomationTextPattern.get_DocumentRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(7, 'get_DocumentRange', ((1, 'range'),)))
-    IUIAutomationTextPattern.get_SupportedTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.SupportedTextSelection))(8, 'get_SupportedTextSelection', ((1, 'supportedTextSelection'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTextPattern
-def _define_IUIAutomationTextPattern2_head():
-    class IUIAutomationTextPattern2(win32more.UI.Accessibility.IUIAutomationTextPattern_head):
-        Guid = Guid('506a921a-fcc9-409f-b2-3b-37-eb-74-10-68-72')
-    return IUIAutomationTextPattern2
-def _define_IUIAutomationTextPattern2():
-    IUIAutomationTextPattern2 = win32more.UI.Accessibility.IUIAutomationTextPattern2_head
-    IUIAutomationTextPattern2.RangeFromAnnotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(9, 'RangeFromAnnotation', ((1, 'annotation'),(1, 'range'),)))
-    IUIAutomationTextPattern2.GetCaretRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(10, 'GetCaretRange', ((1, 'isActive'),(1, 'range'),)))
-    win32more.UI.Accessibility.IUIAutomationTextPattern
-    return IUIAutomationTextPattern2
-def _define_IUIAutomationTextRange_head():
-    class IUIAutomationTextRange(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a543cc6a-f4ae-494b-82-39-c8-14-48-11-87-a8')
-    return IUIAutomationTextRange
-def _define_IUIAutomationTextRange():
-    IUIAutomationTextRange = win32more.UI.Accessibility.IUIAutomationTextRange_head
-    IUIAutomationTextRange.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(3, 'Clone', ((1, 'clonedRange'),)))
-    IUIAutomationTextRange.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationTextRange_head,POINTER(win32more.Foundation.BOOL))(4, 'Compare', ((1, 'range'),(1, 'areSame'),)))
-    IUIAutomationTextRange.CompareEndpoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.IUIAutomationTextRange_head,win32more.UI.Accessibility.TextPatternRangeEndpoint,POINTER(Int32))(5, 'CompareEndpoints', ((1, 'srcEndPoint'),(1, 'range'),(1, 'targetEndPoint'),(1, 'compValue'),)))
-    IUIAutomationTextRange.ExpandToEnclosingUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextUnit)(6, 'ExpandToEnclosingUnit', ((1, 'textUnit'),)))
-    IUIAutomationTextRange.FindAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID,win32more.System.Com.VARIANT,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(7, 'FindAttribute', ((1, 'attr'),(1, 'val'),(1, 'backward'),(1, 'found'),)))
-    IUIAutomationTextRange.FindText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(8, 'FindText', ((1, 'text'),(1, 'backward'),(1, 'ignoreCase'),(1, 'found'),)))
-    IUIAutomationTextRange.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID,POINTER(win32more.System.Com.VARIANT_head))(9, 'GetAttributeValue', ((1, 'attr'),(1, 'value'),)))
-    IUIAutomationTextRange.GetBoundingRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(10, 'GetBoundingRectangles', ((1, 'boundingRects'),)))
-    IUIAutomationTextRange.GetEnclosingElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(11, 'GetEnclosingElement', ((1, 'enclosingElement'),)))
-    IUIAutomationTextRange.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR))(12, 'GetText', ((1, 'maxLength'),(1, 'text'),)))
-    IUIAutomationTextRange.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(13, 'Move', ((1, 'unit'),(1, 'count'),(1, 'moved'),)))
-    IUIAutomationTextRange.MoveEndpointByUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.TextUnit,Int32,POINTER(Int32))(14, 'MoveEndpointByUnit', ((1, 'endpoint'),(1, 'unit'),(1, 'count'),(1, 'moved'),)))
-    IUIAutomationTextRange.MoveEndpointByRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TextPatternRangeEndpoint,win32more.UI.Accessibility.IUIAutomationTextRange_head,win32more.UI.Accessibility.TextPatternRangeEndpoint)(15, 'MoveEndpointByRange', ((1, 'srcEndPoint'),(1, 'range'),(1, 'targetEndPoint'),)))
-    IUIAutomationTextRange.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(16, 'Select', ()))
-    IUIAutomationTextRange.AddToSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(17, 'AddToSelection', ()))
-    IUIAutomationTextRange.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(18, 'RemoveFromSelection', ()))
-    IUIAutomationTextRange.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(19, 'ScrollIntoView', ((1, 'alignToTop'),)))
-    IUIAutomationTextRange.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(20, 'GetChildren', ((1, 'children'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTextRange
-def _define_IUIAutomationTextRange2_head():
-    class IUIAutomationTextRange2(win32more.UI.Accessibility.IUIAutomationTextRange_head):
-        Guid = Guid('bb9b40e0-5e04-46bd-9b-e0-4b-60-1b-9a-fa-d4')
-    return IUIAutomationTextRange2
-def _define_IUIAutomationTextRange2():
-    IUIAutomationTextRange2 = win32more.UI.Accessibility.IUIAutomationTextRange2_head
-    IUIAutomationTextRange2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(21, 'ShowContextMenu', ()))
-    win32more.UI.Accessibility.IUIAutomationTextRange
-    return IUIAutomationTextRange2
-def _define_IUIAutomationTextRange3_head():
-    class IUIAutomationTextRange3(win32more.UI.Accessibility.IUIAutomationTextRange2_head):
-        Guid = Guid('6a315d69-5512-4c2e-85-f0-53-fc-e6-dd-4b-c2')
-    return IUIAutomationTextRange3
-def _define_IUIAutomationTextRange3():
-    IUIAutomationTextRange3 = win32more.UI.Accessibility.IUIAutomationTextRange3_head
-    IUIAutomationTextRange3.GetEnclosingElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(22, 'GetEnclosingElementBuildCache', ((1, 'cacheRequest'),(1, 'enclosingElement'),)))
-    IUIAutomationTextRange3.GetChildrenBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head))(23, 'GetChildrenBuildCache', ((1, 'cacheRequest'),(1, 'children'),)))
-    IUIAutomationTextRange3.GetAttributeValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID),Int32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(24, 'GetAttributeValues', ((1, 'attributeIds'),(1, 'attributeIdCount'),(1, 'attributeValues'),)))
-    win32more.UI.Accessibility.IUIAutomationTextRange2
-    return IUIAutomationTextRange3
-def _define_IUIAutomationTextRangeArray_head():
-    class IUIAutomationTextRangeArray(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ce4ae76a-e717-4c98-81-ea-47-37-1d-02-8e-b6')
-    return IUIAutomationTextRangeArray
-def _define_IUIAutomationTextRangeArray():
-    IUIAutomationTextRangeArray = win32more.UI.Accessibility.IUIAutomationTextRangeArray_head
-    IUIAutomationTextRangeArray.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(3, 'get_Length', ((1, 'length'),)))
-    IUIAutomationTextRangeArray.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head))(4, 'GetElement', ((1, 'index'),(1, 'element'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTextRangeArray
-def _define_IUIAutomationTogglePattern_head():
-    class IUIAutomationTogglePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('94cf8058-9b8d-4ab9-8b-fd-4c-d0-a3-3c-8c-70')
-    return IUIAutomationTogglePattern
-def _define_IUIAutomationTogglePattern():
-    IUIAutomationTogglePattern = win32more.UI.Accessibility.IUIAutomationTogglePattern_head
-    IUIAutomationTogglePattern.Toggle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Toggle', ()))
-    IUIAutomationTogglePattern.get_CurrentToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState))(4, 'get_CurrentToggleState', ((1, 'retVal'),)))
-    IUIAutomationTogglePattern.get_CachedToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState))(5, 'get_CachedToggleState', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTogglePattern
-def _define_IUIAutomationTransformPattern_head():
-    class IUIAutomationTransformPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a9b55844-a55d-4ef0-92-6d-56-9c-16-ff-89-bb')
-    return IUIAutomationTransformPattern
-def _define_IUIAutomationTransformPattern():
-    IUIAutomationTransformPattern = win32more.UI.Accessibility.IUIAutomationTransformPattern_head
-    IUIAutomationTransformPattern.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(3, 'Move', ((1, 'x'),(1, 'y'),)))
-    IUIAutomationTransformPattern.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double)(4, 'Resize', ((1, 'width'),(1, 'height'),)))
-    IUIAutomationTransformPattern.Rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(5, 'Rotate', ((1, 'degrees'),)))
-    IUIAutomationTransformPattern.get_CurrentCanMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_CurrentCanMove', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern.get_CurrentCanResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CurrentCanResize', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern.get_CurrentCanRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_CurrentCanRotate', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern.get_CachedCanMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_CachedCanMove', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern.get_CachedCanResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(10, 'get_CachedCanResize', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern.get_CachedCanRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_CachedCanRotate', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTransformPattern
-def _define_IUIAutomationTransformPattern2_head():
-    class IUIAutomationTransformPattern2(win32more.UI.Accessibility.IUIAutomationTransformPattern_head):
-        Guid = Guid('6d74d017-6ecb-4381-b3-8b-3c-17-a4-8f-f1-c2')
-    return IUIAutomationTransformPattern2
-def _define_IUIAutomationTransformPattern2():
-    IUIAutomationTransformPattern2 = win32more.UI.Accessibility.IUIAutomationTransformPattern2_head
-    IUIAutomationTransformPattern2.Zoom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(12, 'Zoom', ((1, 'zoomValue'),)))
-    IUIAutomationTransformPattern2.ZoomByUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ZoomUnit)(13, 'ZoomByUnit', ((1, 'zoomUnit'),)))
-    IUIAutomationTransformPattern2.get_CurrentCanZoom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'get_CurrentCanZoom', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CachedCanZoom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(15, 'get_CachedCanZoom', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CurrentZoomLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(16, 'get_CurrentZoomLevel', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CachedZoomLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(17, 'get_CachedZoomLevel', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CurrentZoomMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(18, 'get_CurrentZoomMinimum', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CachedZoomMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(19, 'get_CachedZoomMinimum', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CurrentZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(20, 'get_CurrentZoomMaximum', ((1, 'retVal'),)))
-    IUIAutomationTransformPattern2.get_CachedZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(21, 'get_CachedZoomMaximum', ((1, 'retVal'),)))
-    win32more.UI.Accessibility.IUIAutomationTransformPattern
-    return IUIAutomationTransformPattern2
-def _define_IUIAutomationTreeWalker_head():
-    class IUIAutomationTreeWalker(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4042c624-389c-4afc-a6-30-9d-f8-54-a5-41-fc')
-    return IUIAutomationTreeWalker
-def _define_IUIAutomationTreeWalker():
-    IUIAutomationTreeWalker = win32more.UI.Accessibility.IUIAutomationTreeWalker_head
-    IUIAutomationTreeWalker.GetParentElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(3, 'GetParentElement', ((1, 'element'),(1, 'parent'),)))
-    IUIAutomationTreeWalker.GetFirstChildElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(4, 'GetFirstChildElement', ((1, 'element'),(1, 'first'),)))
-    IUIAutomationTreeWalker.GetLastChildElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(5, 'GetLastChildElement', ((1, 'element'),(1, 'last'),)))
-    IUIAutomationTreeWalker.GetNextSiblingElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(6, 'GetNextSiblingElement', ((1, 'element'),(1, 'next'),)))
-    IUIAutomationTreeWalker.GetPreviousSiblingElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(7, 'GetPreviousSiblingElement', ((1, 'element'),(1, 'previous'),)))
-    IUIAutomationTreeWalker.NormalizeElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(8, 'NormalizeElement', ((1, 'element'),(1, 'normalized'),)))
-    IUIAutomationTreeWalker.GetParentElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(9, 'GetParentElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'parent'),)))
-    IUIAutomationTreeWalker.GetFirstChildElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(10, 'GetFirstChildElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'first'),)))
-    IUIAutomationTreeWalker.GetLastChildElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(11, 'GetLastChildElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'last'),)))
-    IUIAutomationTreeWalker.GetNextSiblingElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(12, 'GetNextSiblingElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'next'),)))
-    IUIAutomationTreeWalker.GetPreviousSiblingElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(13, 'GetPreviousSiblingElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'previous'),)))
-    IUIAutomationTreeWalker.NormalizeElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head))(14, 'NormalizeElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'normalized'),)))
-    IUIAutomationTreeWalker.get_Condition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head))(15, 'get_Condition', ((1, 'condition'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationTreeWalker
-def _define_IUIAutomationValuePattern_head():
-    class IUIAutomationValuePattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a94cd8b1-0844-4cd6-9d-2d-64-05-37-ab-39-e9')
-    return IUIAutomationValuePattern
-def _define_IUIAutomationValuePattern():
-    IUIAutomationValuePattern = win32more.UI.Accessibility.IUIAutomationValuePattern_head
-    IUIAutomationValuePattern.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(3, 'SetValue', ((1, 'val'),)))
-    IUIAutomationValuePattern.get_CurrentValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_CurrentValue', ((1, 'retVal'),)))
-    IUIAutomationValuePattern.get_CurrentIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_CurrentIsReadOnly', ((1, 'retVal'),)))
-    IUIAutomationValuePattern.get_CachedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(6, 'get_CachedValue', ((1, 'retVal'),)))
-    IUIAutomationValuePattern.get_CachedIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CachedIsReadOnly', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationValuePattern
-def _define_IUIAutomationVirtualizedItemPattern_head():
-    class IUIAutomationVirtualizedItemPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('6ba3d7a6-04cf-4f11-87-93-a8-d1-cd-e9-96-9f')
-    return IUIAutomationVirtualizedItemPattern
-def _define_IUIAutomationVirtualizedItemPattern():
-    IUIAutomationVirtualizedItemPattern = win32more.UI.Accessibility.IUIAutomationVirtualizedItemPattern_head
-    IUIAutomationVirtualizedItemPattern.Realize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Realize', ()))
-    win32more.System.Com.IUnknown
-    return IUIAutomationVirtualizedItemPattern
-def _define_IUIAutomationWindowPattern_head():
-    class IUIAutomationWindowPattern(win32more.System.Com.IUnknown_head):
-        Guid = Guid('0faef453-9208-43ef-bb-b2-3b-48-51-77-86-4f')
-    return IUIAutomationWindowPattern
-def _define_IUIAutomationWindowPattern():
-    IUIAutomationWindowPattern = win32more.UI.Accessibility.IUIAutomationWindowPattern_head
-    IUIAutomationWindowPattern.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Close', ()))
-    IUIAutomationWindowPattern.WaitForInputIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BOOL))(4, 'WaitForInputIdle', ((1, 'milliseconds'),(1, 'success'),)))
-    IUIAutomationWindowPattern.SetWindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.WindowVisualState)(5, 'SetWindowVisualState', ((1, 'state'),)))
-    IUIAutomationWindowPattern.get_CurrentCanMaximize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_CurrentCanMaximize', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CurrentCanMinimize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CurrentCanMinimize', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CurrentIsModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_CurrentIsModal', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CurrentIsTopmost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(9, 'get_CurrentIsTopmost', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CurrentWindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowVisualState))(10, 'get_CurrentWindowVisualState', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CurrentWindowInteractionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowInteractionState))(11, 'get_CurrentWindowInteractionState', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedCanMaximize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_CachedCanMaximize', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedCanMinimize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(13, 'get_CachedCanMinimize', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedIsModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(14, 'get_CachedIsModal', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedIsTopmost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(15, 'get_CachedIsTopmost', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedWindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowVisualState))(16, 'get_CachedWindowVisualState', ((1, 'retVal'),)))
-    IUIAutomationWindowPattern.get_CachedWindowInteractionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowInteractionState))(17, 'get_CachedWindowInteractionState', ((1, 'retVal'),)))
-    win32more.System.Com.IUnknown
-    return IUIAutomationWindowPattern
-def _define_IValueProvider_head():
-    class IValueProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c7935180-6fb3-4201-b1-74-7d-f7-3a-db-f6-4a')
-    return IValueProvider
-def _define_IValueProvider():
-    IValueProvider = win32more.UI.Accessibility.IValueProvider_head
-    IValueProvider.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(3, 'SetValue', ((1, 'val'),)))
-    IValueProvider.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_Value', ((1, 'pRetVal'),)))
-    IValueProvider.get_IsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(5, 'get_IsReadOnly', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IValueProvider
-def _define_IVirtualizedItemProvider_head():
-    class IVirtualizedItemProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('cb98b665-2d35-4fac-ad-35-f3-c6-0d-0c-0b-8b')
-    return IVirtualizedItemProvider
-def _define_IVirtualizedItemProvider():
-    IVirtualizedItemProvider = win32more.UI.Accessibility.IVirtualizedItemProvider_head
-    IVirtualizedItemProvider.Realize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Realize', ()))
-    win32more.System.Com.IUnknown
-    return IVirtualizedItemProvider
-def _define_IWindowProvider_head():
-    class IWindowProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('987df77b-db06-4d77-8f-8a-86-a9-c3-bb-90-b9')
-    return IWindowProvider
-def _define_IWindowProvider():
-    IWindowProvider = win32more.UI.Accessibility.IWindowProvider_head
-    IWindowProvider.SetVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.WindowVisualState)(3, 'SetVisualState', ((1, 'state'),)))
-    IWindowProvider.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Close', ()))
-    IWindowProvider.WaitForInputIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BOOL))(5, 'WaitForInputIdle', ((1, 'milliseconds'),(1, 'pRetVal'),)))
-    IWindowProvider.get_CanMaximize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(6, 'get_CanMaximize', ((1, 'pRetVal'),)))
-    IWindowProvider.get_CanMinimize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(7, 'get_CanMinimize', ((1, 'pRetVal'),)))
-    IWindowProvider.get_IsModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_IsModal', ((1, 'pRetVal'),)))
-    IWindowProvider.get_WindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowVisualState))(9, 'get_WindowVisualState', ((1, 'pRetVal'),)))
-    IWindowProvider.get_WindowInteractionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowInteractionState))(10, 'get_WindowInteractionState', ((1, 'pRetVal'),)))
-    IWindowProvider.get_IsTopmost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_IsTopmost', ((1, 'pRetVal'),)))
-    win32more.System.Com.IUnknown
-    return IWindowProvider
+class IAccessible(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
+    @commethod(7)
+    def get_accParent(ppdispParent: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_accChildCount(pcountChildren: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_accChild(varChild: win32more.System.Com.VARIANT, ppdispChild: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_accName(varChild: win32more.System.Com.VARIANT, pszName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_accValue(varChild: win32more.System.Com.VARIANT, pszValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_accDescription(varChild: win32more.System.Com.VARIANT, pszDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_accRole(varChild: win32more.System.Com.VARIANT, pvarRole: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_accState(varChild: win32more.System.Com.VARIANT, pvarState: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_accHelp(varChild: win32more.System.Com.VARIANT, pszHelp: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_accHelpTopic(pszHelpFile: POINTER(win32more.Foundation.BSTR), varChild: win32more.System.Com.VARIANT, pidTopic: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_accKeyboardShortcut(varChild: win32more.System.Com.VARIANT, pszKeyboardShortcut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_accFocus(pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_accSelection(pvarChildren: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_accDefaultAction(varChild: win32more.System.Com.VARIANT, pszDefaultAction: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def accSelect(flagsSelect: Int32, varChild: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def accLocation(pxLeft: POINTER(Int32), pyTop: POINTER(Int32), pcxWidth: POINTER(Int32), pcyHeight: POINTER(Int32), varChild: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def accNavigate(navDir: Int32, varStart: win32more.System.Com.VARIANT, pvarEndUpAt: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def accHitTest(xLeft: Int32, yTop: Int32, pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def accDoDefaultAction(varChild: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_accName(varChild: win32more.System.Com.VARIANT, szName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_accValue(varChild: win32more.System.Com.VARIANT, szValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IAccessibleEx(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f8b80ada-2c44-48d0-89-be-5f-f2-3c-9c-d8-75')
+    @commethod(3)
+    def GetObjectForChild(idChild: Int32, pRetVal: POINTER(win32more.UI.Accessibility.IAccessibleEx_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetIAccessiblePair(ppAcc: POINTER(win32more.UI.Accessibility.IAccessible_head), pidChild: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRuntimeId(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ConvertReturnedElement(pIn: win32more.UI.Accessibility.IRawElementProviderSimple_head, ppRetValOut: POINTER(win32more.UI.Accessibility.IAccessibleEx_head)) -> win32more.Foundation.HRESULT: ...
+class IAccessibleHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('03022430-abc4-11d0-bd-e2-00-aa-00-1a-19-53')
+    @commethod(3)
+    def AccessibleObjectFromID(hwnd: Int32, lObjectID: Int32, pIAccessible: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
+class IAccessibleHostingElementProviders(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('33ac331b-943e-4020-b2-95-db-37-78-49-74-a3')
+    @commethod(3)
+    def GetEmbeddedFragmentRoots(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetObjectIdForProvider(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, pidObject: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IAccessibleWindowlessSite(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bf3abd9c-76da-4389-9e-b6-14-27-d2-5a-ba-b7')
+    @commethod(3)
+    def AcquireObjectIdRange(rangeSize: Int32, pRangeOwner: win32more.UI.Accessibility.IAccessibleHandler_head, pRangeBase: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ReleaseObjectIdRange(rangeBase: Int32, pRangeOwner: win32more.UI.Accessibility.IAccessibleHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryObjectIdRanges(pRangesOwner: win32more.UI.Accessibility.IAccessibleHandler_head, psaRanges: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetParentAccessible(ppParent: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
+class IAccIdentity(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
+    @commethod(3)
+    def GetIdentityString(dwIDChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAccPropServer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
+    @commethod(3)
+    def GetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, pvarValue: POINTER(win32more.System.Com.VARIANT_head), pfHasProp: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IAccPropServices(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
+    @commethod(3)
+    def SetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPropServer(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ClearProps(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetHwndProp(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetHwndPropStr(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetHwndPropServer(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ClearHwndProps(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ComposeHwndIdentityString(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def DecomposeHwndIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phwnd: POINTER(win32more.Foundation.HWND), pidObject: POINTER(UInt32), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetHmenuProp(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetHmenuPropStr(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetHmenuPropServer(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ClearHmenuProps(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def ComposeHmenuIdentityString(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def DecomposeHmenuIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phmenu: POINTER(win32more.UI.WindowsAndMessaging.HMENU), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAnnotationProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
+    @commethod(3)
+    def get_AnnotationTypeId(retVal: POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_AnnotationTypeName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_Author(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_DateTime(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Target(retVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class ICustomNavigationProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2062a28a-8c07-4b94-8e-12-70-37-c6-22-ae-b8')
+    @commethod(3)
+    def Navigate(direction: win32more.UI.Accessibility.NavigateDirection, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IDockProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('159bc72c-4ad3-485e-96-37-d7-05-2e-df-01-46')
+    @commethod(3)
+    def SetDockPosition(dockPosition: win32more.UI.Accessibility.DockPosition) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_DockPosition(pRetVal: POINTER(win32more.UI.Accessibility.DockPosition)) -> win32more.Foundation.HRESULT: ...
+class IDragProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6aa7bbbb-7ff9-497d-90-4f-d2-0b-89-79-29-d8')
+    @commethod(3)
+    def get_IsGrabbed(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_DropEffect(pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_DropEffects(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetGrabbedItems(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IDropTargetProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bae82bfd-358a-481c-85-a0-d8-b4-d9-0a-5d-61')
+    @commethod(3)
+    def get_DropTargetEffect(pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_DropTargetEffects(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IExpandCollapseProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d847d3a5-cab0-4a98-8c-32-ec-b4-5c-59-ad-24')
+    @commethod(3)
+    def Expand() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Collapse() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_ExpandCollapseState(pRetVal: POINTER(win32more.UI.Accessibility.ExpandCollapseState)) -> win32more.Foundation.HRESULT: ...
+class IGridItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d02541f1-fb81-4d64-ae-32-f5-20-f8-a6-db-d1')
+    @commethod(3)
+    def get_Row(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_Column(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_RowSpan(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_ColumnSpan(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_ContainingGrid(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IGridProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b17d6187-0907-464b-a1-68-0e-f1-7a-15-72-b1')
+    @commethod(3)
+    def GetItem(row: Int32, column: Int32, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_RowCount(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_ColumnCount(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IInvokeProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('54fcb24b-e18e-47a2-b4-d3-ec-cb-e7-75-99-a2')
+    @commethod(3)
+    def Invoke() -> win32more.Foundation.HRESULT: ...
+class IItemContainerProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e747770b-39ce-4382-ab-30-d8-fb-3f-33-6f-24')
+    @commethod(3)
+    def FindItemByProperty(pStartAfter: win32more.UI.Accessibility.IRawElementProviderSimple_head, propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, value: win32more.System.Com.VARIANT, pFound: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class ILegacyIAccessibleProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e44c3566-915d-4070-99-c6-04-7b-ff-5a-08-f5')
+    @commethod(3)
+    def Select(flagsSelect: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DoDefaultAction() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetValue(szValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetIAccessible(ppAccessible: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_ChildId(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Name(pszName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Value(pszValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Description(pszDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Role(pdwRole: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_State(pdwState: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Help(pszHelp: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_KeyboardShortcut(pszKeyboardShortcut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetSelection(pvarSelectedChildren: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_DefaultAction(pszDefaultAction: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IMultipleViewProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6278cab1-b556-4a1a-b4-e0-41-8a-cc-52-32-01')
+    @commethod(3)
+    def GetViewName(viewId: Int32, pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetCurrentView(viewId: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentView(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSupportedViews(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IObjectModelProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3ad86ebd-f5ef-483d-bb-18-b1-04-2a-47-5d-64')
+    @commethod(3)
+    def GetUnderlyingObjectModel(ppUnknown: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IProxyProviderWinEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('89592ad4-f4e0-43d5-a3-b6-ba-d7-e1-11-b4-35')
+    @commethod(3)
+    def RespondToWinEvent(idWinEvent: UInt32, hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, pSink: win32more.UI.Accessibility.IProxyProviderWinEventSink_head) -> win32more.Foundation.HRESULT: ...
+class IProxyProviderWinEventSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4fd82b78-a43e-46ac-98-03-0a-69-69-c7-c1-83')
+    @commethod(3)
+    def AddAutomationPropertyChangedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, id: win32more.UI.Accessibility.UIA_PROPERTY_ID, newValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddAutomationEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, id: win32more.UI.Accessibility.UIA_EVENT_ID) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddStructureChangedEvent(pProvider: win32more.UI.Accessibility.IRawElementProviderSimple_head, structureChangeType: win32more.UI.Accessibility.StructureChangeType, runtimeId: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IRangeValueProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('36dc7aef-33e6-4691-af-e1-2b-e7-27-4b-3d-33')
+    @commethod(3)
+    def SetValue(val: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_Value(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_IsReadOnly(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Maximum(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Minimum(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_LargeChange(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_SmallChange(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderAdviseEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a407b27b-0f6d-4427-92-92-47-3c-7b-f9-32-58')
+    @commethod(3)
+    def AdviseEventAdded(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AdviseEventRemoved(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderFragment(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f7063da8-8359-439c-92-97-bb-c5-29-9a-7d-87')
+    @commethod(3)
+    def Navigate(direction: win32more.UI.Accessibility.NavigateDirection, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRuntimeId(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_BoundingRectangle(pRetVal: POINTER(win32more.UI.Accessibility.UiaRect_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetEmbeddedFragmentRoots(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetFocus() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_FragmentRoot(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderFragmentRoot_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderFragmentRoot(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('620ce2a5-ab8f-40a9-86-cb-de-3c-75-59-9b-58')
+    @commethod(3)
+    def ElementProviderFromPoint(x: Double, y: Double, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFocus(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderHostingAccessibles(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('24be0b07-d37d-487a-98-cf-a1-3e-d4-65-e9-b3')
+    @commethod(3)
+    def GetEmbeddedAccessibles(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderHwndOverride(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1d5df27c-8947-4425-b8-d9-79-78-7b-b4-60-b8')
+    @commethod(3)
+    def GetOverrideProviderForHwnd(hwnd: win32more.Foundation.HWND, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderSimple(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d6dd68d1-86fd-4332-86-66-9a-be-de-a2-d2-4c')
+    @commethod(3)
+    def get_ProviderOptions(pRetVal: POINTER(win32more.UI.Accessibility.ProviderOptions)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPatternProvider(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID, pRetVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyValue(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, pRetVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_HostRawElementProvider(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderSimple2(c_void_p):
+    extends: win32more.UI.Accessibility.IRawElementProviderSimple
+    Guid = Guid('a0a839a9-8da1-4a82-80-6a-8e-0d-44-e7-9f-56')
+    @commethod(7)
+    def ShowContextMenu() -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderSimple3(c_void_p):
+    extends: win32more.UI.Accessibility.IRawElementProviderSimple2
+    Guid = Guid('fcf5d820-d7ec-4613-bd-f6-42-a8-4c-e7-da-af')
+    @commethod(8)
+    def GetMetadataValue(targetId: Int32, metadataId: win32more.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IRawElementProviderWindowlessSite(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0a2a93cc-bfad-42ac-9b-2e-09-91-fb-0d-3e-a0')
+    @commethod(3)
+    def GetAdjacentFragment(direction: win32more.UI.Accessibility.NavigateDirection, ppParent: POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRuntimeIdPrefix(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IRichEditUiaInformation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    @commethod(3)
+    def GetBoundaryRectangle(pUiaRect: POINTER(win32more.UI.Accessibility.UiaRect_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsVisible() -> win32more.Foundation.HRESULT: ...
+class IRicheditWindowlessAccessibility(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    @commethod(3)
+    def CreateProvider(pSite: win32more.UI.Accessibility.IRawElementProviderWindowlessSite_head, ppProvider: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IScrollItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2360c714-4bf1-4b26-ba-65-9b-21-31-61-27-eb')
+    @commethod(3)
+    def ScrollIntoView() -> win32more.Foundation.HRESULT: ...
+class IScrollProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b38b8077-1fc3-42a5-8c-ae-d4-0c-22-15-05-5a')
+    @commethod(3)
+    def Scroll(horizontalAmount: win32more.UI.Accessibility.ScrollAmount, verticalAmount: win32more.UI.Accessibility.ScrollAmount) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetScrollPercent(horizontalPercent: Double, verticalPercent: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_HorizontalScrollPercent(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_VerticalScrollPercent(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_HorizontalViewSize(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_VerticalViewSize(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_HorizontallyScrollable(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_VerticallyScrollable(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ISelectionItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2acad808-b2d4-452d-a4-07-91-ff-1a-d1-67-b2')
+    @commethod(3)
+    def Select() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddToSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RemoveFromSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_IsSelected(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_SelectionContainer(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class ISelectionProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fb8b03af-3bdf-48d4-bd-36-1a-65-79-3b-e1-68')
+    @commethod(3)
+    def GetSelection(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CanSelectMultiple(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_IsSelectionRequired(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ISelectionProvider2(c_void_p):
+    extends: win32more.UI.Accessibility.ISelectionProvider
+    Guid = Guid('14f68475-ee1c-44f6-a8-69-d2-39-38-1f-0f-e7')
+    @commethod(6)
+    def get_FirstSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_LastSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ItemCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class ISpreadsheetItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('eaed4660-7b3d-4879-a2-e6-36-5c-e6-03-f3-d0')
+    @commethod(3)
+    def get_Formula(pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAnnotationObjects(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetAnnotationTypes(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class ISpreadsheetProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6f6b5d35-5525-4f80-b7-58-85-47-38-32-ff-c7')
+    @commethod(3)
+    def GetItemByName(name: win32more.Foundation.PWSTR, pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+class IStylesProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('19b6b649-f5d7-4a6d-bd-cb-12-92-52-be-58-8a')
+    @commethod(3)
+    def get_StyleId(retVal: POINTER(win32more.UI.Accessibility.UIA_STYLE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_StyleName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_FillColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_FillPatternStyle(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Shape(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_FillPatternColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_ExtendedProperties(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class ISynchronizedInputProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('29db1a06-02ce-4cf7-9b-42-56-5d-4f-ab-20-ee')
+    @commethod(3)
+    def StartListening(inputType: win32more.UI.Accessibility.SynchronizedInputType) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+class ITableItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b9734fa6-771f-4d78-9c-90-25-17-99-93-49-cd')
+    @commethod(3)
+    def GetRowHeaderItems(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetColumnHeaderItems(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class ITableProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9c860395-97b3-490a-b5-2a-85-8c-c2-2a-f1-66')
+    @commethod(3)
+    def GetRowHeaders(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetColumnHeaders(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_RowOrColumnMajor(pRetVal: POINTER(win32more.UI.Accessibility.RowOrColumnMajor)) -> win32more.Foundation.HRESULT: ...
+class ITextChildProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4c2de2b9-c88f-4f88-a1-11-f1-d3-36-b7-d1-a9')
+    @commethod(3)
+    def get_TextContainer(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_TextRange(pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+class ITextEditProvider(c_void_p):
+    extends: win32more.UI.Accessibility.ITextProvider
+    Guid = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
+    @commethod(9)
+    def GetActiveComposition(pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetConversionTarget(pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+class ITextProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3589c92c-63f3-4367-99-bb-ad-a6-53-b7-7c-f2')
+    @commethod(3)
+    def GetSelection(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetVisibleRanges(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RangeFromChild(childElement: win32more.UI.Accessibility.IRawElementProviderSimple_head, pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def RangeFromPoint(point: win32more.UI.Accessibility.UiaPoint, pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_DocumentRange(pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_SupportedTextSelection(pRetVal: POINTER(win32more.UI.Accessibility.SupportedTextSelection)) -> win32more.Foundation.HRESULT: ...
+class ITextProvider2(c_void_p):
+    extends: win32more.UI.Accessibility.ITextProvider
+    Guid = Guid('0dc5e6ed-3e16-4bf1-8f-9a-a9-79-87-8b-c1-95')
+    @commethod(9)
+    def RangeFromAnnotation(annotationElement: win32more.UI.Accessibility.IRawElementProviderSimple_head, pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCaretRange(isActive: POINTER(win32more.Foundation.BOOL), pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+class ITextRangeProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5347ad7b-c355-46f8-af-f5-90-90-33-58-2f-63')
+    @commethod(3)
+    def Clone(pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Compare(range: win32more.UI.Accessibility.ITextRangeProvider_head, pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CompareEndpoints(endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, targetRange: win32more.UI.Accessibility.ITextRangeProvider_head, targetEndpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ExpandToEnclosingUnit(unit: win32more.UI.Accessibility.TextUnit) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FindAttribute(attributeId: win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID, val: win32more.System.Com.VARIANT, backward: win32more.Foundation.BOOL, pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def FindText(text: win32more.Foundation.BSTR, backward: win32more.Foundation.BOOL, ignoreCase: win32more.Foundation.BOOL, pRetVal: POINTER(win32more.UI.Accessibility.ITextRangeProvider_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetAttributeValue(attributeId: win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID, pRetVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetBoundingRectangles(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetEnclosingElement(pRetVal: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetText(maxLength: Int32, pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Move(unit: win32more.UI.Accessibility.TextUnit, count: Int32, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def MoveEndpointByUnit(endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, unit: win32more.UI.Accessibility.TextUnit, count: Int32, pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def MoveEndpointByRange(endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, targetRange: win32more.UI.Accessibility.ITextRangeProvider_head, targetEndpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def Select() -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def AddToSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def RemoveFromSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ScrollIntoView(alignToTop: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetChildren(pRetVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class ITextRangeProvider2(c_void_p):
+    extends: win32more.UI.Accessibility.ITextRangeProvider
+    Guid = Guid('9bbce42c-1921-4f18-89-ca-db-a1-91-0a-03-86')
+    @commethod(21)
+    def ShowContextMenu() -> win32more.Foundation.HRESULT: ...
+class IToggleProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('56d00bd0-c4f4-433c-a8-36-1a-52-a5-7e-08-92')
+    @commethod(3)
+    def Toggle() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_ToggleState(pRetVal: POINTER(win32more.UI.Accessibility.ToggleState)) -> win32more.Foundation.HRESULT: ...
+class ITransformProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6829ddc4-4f91-4ffa-b8-6f-bd-3e-29-87-cb-4c')
+    @commethod(3)
+    def Move(x: Double, y: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Resize(width: Double, height: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Rotate(degrees: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CanMove(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CanResize(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CanRotate(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ITransformProvider2(c_void_p):
+    extends: win32more.UI.Accessibility.ITransformProvider
+    Guid = Guid('4758742f-7ac2-460c-bc-48-09-fc-09-30-8a-93')
+    @commethod(9)
+    def Zoom(zoom: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CanZoom(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_ZoomLevel(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_ZoomMinimum(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ZoomMaximum(pRetVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def ZoomByUnit(zoomUnit: win32more.UI.Accessibility.ZoomUnit) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('30cbe57d-d9d0-452a-ab-13-7a-c5-ac-48-25-ee')
+    @commethod(3)
+    def CompareElements(el1: win32more.UI.Accessibility.IUIAutomationElement_head, el2: win32more.UI.Accessibility.IUIAutomationElement_head, areSame: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CompareRuntimeIds(runtimeId1: POINTER(win32more.System.Com.SAFEARRAY_head), runtimeId2: POINTER(win32more.System.Com.SAFEARRAY_head), areSame: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRootElement(root: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ElementFromHandle(hwnd: win32more.Foundation.HWND, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ElementFromPoint(pt: win32more.Foundation.POINT, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetFocusedElement(element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRootElementBuildCache(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, root: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ElementFromHandleBuildCache(hwnd: win32more.Foundation.HWND, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ElementFromPointBuildCache(pt: win32more.Foundation.POINT, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetFocusedElementBuildCache(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateTreeWalker(pCondition: win32more.UI.Accessibility.IUIAutomationCondition_head, walker: POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_ControlViewWalker(walker: POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ContentViewWalker(walker: POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_RawViewWalker(walker: POINTER(win32more.UI.Accessibility.IUIAutomationTreeWalker_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_RawViewCondition(condition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_ControlViewCondition(condition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_ContentViewCondition(condition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CreateCacheRequest(cacheRequest: POINTER(win32more.UI.Accessibility.IUIAutomationCacheRequest_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CreateTrueCondition(newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def CreateFalseCondition(newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def CreatePropertyCondition(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, value: win32more.System.Com.VARIANT, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def CreatePropertyConditionEx(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, value: win32more.System.Com.VARIANT, flags: win32more.UI.Accessibility.PropertyConditionFlags, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def CreateAndCondition(condition1: win32more.UI.Accessibility.IUIAutomationCondition_head, condition2: win32more.UI.Accessibility.IUIAutomationCondition_head, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def CreateAndConditionFromArray(conditions: POINTER(win32more.System.Com.SAFEARRAY_head), newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def CreateAndConditionFromNativeArray(conditions: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head), conditionCount: Int32, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def CreateOrCondition(condition1: win32more.UI.Accessibility.IUIAutomationCondition_head, condition2: win32more.UI.Accessibility.IUIAutomationCondition_head, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def CreateOrConditionFromArray(conditions: POINTER(win32more.System.Com.SAFEARRAY_head), newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def CreateOrConditionFromNativeArray(conditions: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head), conditionCount: Int32, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def CreateNotCondition(condition: win32more.UI.Accessibility.IUIAutomationCondition_head, newCondition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def AddAutomationEventHandler(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def RemoveAutomationEventHandler(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def AddPropertyChangedEventHandlerNativeArray(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head, propertyArray: POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID), propertyCount: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def AddPropertyChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head, propertyArray: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def RemovePropertyChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def AddStructureChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def RemoveStructureChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def AddFocusChangedEventHandler(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def RemoveFocusChangedEventHandler(handler: win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def RemoveAllEventHandlers() -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def IntNativeArrayToSafeArray(array: POINTER(Int32), arrayCount: Int32, safeArray: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def IntSafeArrayToNativeArray(intArray: POINTER(win32more.System.Com.SAFEARRAY_head), array: POINTER(POINTER(Int32)), arrayCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def RectToVariant(rc: win32more.Foundation.RECT, var: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def VariantToRect(var: win32more.System.Com.VARIANT, rc: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def SafeArrayToRectNativeArray(rects: POINTER(win32more.System.Com.SAFEARRAY_head), rectArray: POINTER(POINTER(win32more.Foundation.RECT_head)), rectArrayCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def CreateProxyFactoryEntry(factory: win32more.UI.Accessibility.IUIAutomationProxyFactory_head, factoryEntry: POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def get_ProxyFactoryMapping(factoryMapping: POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryMapping_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def GetPropertyProgrammaticName(property: win32more.UI.Accessibility.UIA_PROPERTY_ID, name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def GetPatternProgrammaticName(pattern: win32more.UI.Accessibility.UIA_PATTERN_ID, name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def PollForPotentialSupportedPatterns(pElement: win32more.UI.Accessibility.IUIAutomationElement_head, patternIds: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), patternNames: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def PollForPotentialSupportedProperties(pElement: win32more.UI.Accessibility.IUIAutomationElement_head, propertyIds: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), propertyNames: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def CheckNotSupported(value: win32more.System.Com.VARIANT, isNotSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def get_ReservedNotSupportedValue(notSupportedValue: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def get_ReservedMixedAttributeValue(mixedAttributeValue: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def ElementFromIAccessible(accessible: win32more.UI.Accessibility.IAccessible_head, childId: Int32, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def ElementFromIAccessibleBuildCache(accessible: win32more.UI.Accessibility.IAccessible_head, childId: Int32, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomation
+    Guid = Guid('34723aff-0c9d-49d0-98-96-7a-b5-2d-f8-cd-8a')
+    @commethod(58)
+    def get_AutoSetFocus(autoSetFocus: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def put_AutoSetFocus(autoSetFocus: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def get_ConnectionTimeout(timeout: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def put_ConnectionTimeout(timeout: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def get_TransactionTimeout(timeout: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def put_TransactionTimeout(timeout: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation3(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomation2
+    Guid = Guid('73d768da-9b51-4b89-93-6e-c2-09-29-09-73-e7')
+    @commethod(64)
+    def AddTextEditTextChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, textEditChangeType: win32more.UI.Accessibility.TextEditChangeType, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def RemoveTextEditTextChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation4(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomation3
+    Guid = Guid('1189c02a-05f8-4319-8e-21-e8-17-e3-db-28-60')
+    @commethod(66)
+    def AddChangesEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, changeTypes: POINTER(Int32), changesCount: Int32, pCacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(67)
+    def RemoveChangesEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation5(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomation4
+    Guid = Guid('25f700c8-d816-4057-a9-dc-3c-bd-ee-77-e2-56')
+    @commethod(68)
+    def AddNotificationEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(69)
+    def RemoveNotificationEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomation6(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomation5
+    Guid = Guid('aae072da-29e3-413d-87-a7-19-2d-bf-81-ed-10')
+    @commethod(70)
+    def CreateEventHandlerGroup(handlerGroup: POINTER(win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(71)
+    def AddEventHandlerGroup(element: win32more.UI.Accessibility.IUIAutomationElement_head, handlerGroup: win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(72)
+    def RemoveEventHandlerGroup(element: win32more.UI.Accessibility.IUIAutomationElement_head, handlerGroup: win32more.UI.Accessibility.IUIAutomationEventHandlerGroup_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(73)
+    def get_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions: POINTER(win32more.UI.Accessibility.ConnectionRecoveryBehaviorOptions)) -> win32more.Foundation.HRESULT: ...
+    @commethod(74)
+    def put_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions: win32more.UI.Accessibility.ConnectionRecoveryBehaviorOptions) -> win32more.Foundation.HRESULT: ...
+    @commethod(75)
+    def get_CoalesceEvents(coalesceEventsOptions: POINTER(win32more.UI.Accessibility.CoalesceEventsOptions)) -> win32more.Foundation.HRESULT: ...
+    @commethod(76)
+    def put_CoalesceEvents(coalesceEventsOptions: win32more.UI.Accessibility.CoalesceEventsOptions) -> win32more.Foundation.HRESULT: ...
+    @commethod(77)
+    def AddActiveTextPositionChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(78)
+    def RemoveActiveTextPositionChangedEventHandler(element: win32more.UI.Accessibility.IUIAutomationElement_head, handler: win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationActiveTextPositionChangedEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f97933b0-8dae-4496-89-97-5b-a0-15-fe-0d-82')
+    @commethod(3)
+    def HandleActiveTextPositionChangedEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, range: win32more.UI.Accessibility.IUIAutomationTextRange_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationAndCondition(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationCondition
+    Guid = Guid('a7d0af36-b912-45fe-98-55-09-1d-dc-17-4a-ec')
+    @commethod(3)
+    def get_ChildCount(childCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetChildrenAsNativeArray(childArray: POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)), childArrayCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetChildren(childArray: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationAnnotationPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9a175b21-339e-41b1-8e-8b-62-3f-6b-68-10-98')
+    @commethod(3)
+    def get_CurrentAnnotationTypeId(retVal: POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentAnnotationTypeName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentAuthor(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentDateTime(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentTarget(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedAnnotationTypeId(retVal: POINTER(win32more.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CachedAnnotationTypeName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CachedAuthor(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedDateTime(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedTarget(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationBoolCondition(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationCondition
+    Guid = Guid('1b4e1f2e-75eb-4d0b-89-52-5a-69-98-8e-23-07')
+    @commethod(3)
+    def get_BooleanValue(boolVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationCacheRequest(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b32a92b5-bc25-4078-9c-08-d7-ee-95-c4-8e-03')
+    @commethod(3)
+    def AddProperty(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddPattern(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Clone(clonedRequest: POINTER(win32more.UI.Accessibility.IUIAutomationCacheRequest_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_TreeScope(scope: POINTER(win32more.UI.Accessibility.TreeScope)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def put_TreeScope(scope: win32more.UI.Accessibility.TreeScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_TreeFilter(filter: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_TreeFilter(filter: win32more.UI.Accessibility.IUIAutomationCondition_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_AutomationElementMode(mode: POINTER(win32more.UI.Accessibility.AutomationElementMode)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_AutomationElementMode(mode: win32more.UI.Accessibility.AutomationElementMode) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationChangesEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('58edca55-2c3e-4980-b1-b9-56-c1-7f-27-a2-a0')
+    @commethod(3)
+    def HandleChangesEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, uiaChanges: POINTER(win32more.UI.Accessibility.UiaChangeInfo_head), changesCount: Int32) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationCondition(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('352ffba8-0973-437c-a6-1f-f6-4c-af-d8-1d-f9')
+class IUIAutomationCustomNavigationPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('01ea217a-1766-47ed-a6-cc-ac-f4-92-85-4b-1f')
+    @commethod(3)
+    def Navigate(direction: win32more.UI.Accessibility.NavigateDirection, pRetVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationDockPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fde5ef97-1464-48f6-90-bf-43-d0-94-8e-86-ec')
+    @commethod(3)
+    def SetDockPosition(dockPos: win32more.UI.Accessibility.DockPosition) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentDockPosition(retVal: POINTER(win32more.UI.Accessibility.DockPosition)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CachedDockPosition(retVal: POINTER(win32more.UI.Accessibility.DockPosition)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationDragPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1dc7b570-1f54-4bad-bc-da-d3-6a-72-2f-b7-bd')
+    @commethod(3)
+    def get_CurrentIsGrabbed(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CachedIsGrabbed(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentDropEffect(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedDropEffect(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentDropEffects(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedDropEffects(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetCurrentGrabbedItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCachedGrabbedItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationDropTargetPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('69a095f7-eee4-430e-a4-6b-fb-73-b1-ae-39-a5')
+    @commethod(3)
+    def get_CurrentDropTargetEffect(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CachedDropTargetEffect(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentDropTargetEffects(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedDropTargetEffects(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d22108aa-8ac5-49a5-83-7b-37-bb-b3-d7-59-1e')
+    @commethod(3)
+    def SetFocus() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRuntimeId(runtimeId: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindFirst(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def FindAll(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FindFirstBuildCache(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def FindAllBuildCache(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def BuildUpdatedCache(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, updatedElement: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCurrentPropertyValue(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, retVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetCurrentPropertyValueEx(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, ignoreDefaultValue: win32more.Foundation.BOOL, retVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetCachedPropertyValue(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, retVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetCachedPropertyValueEx(propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, ignoreDefaultValue: win32more.Foundation.BOOL, retVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetCurrentPatternAs(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID, riid: POINTER(Guid), patternObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetCachedPatternAs(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID, riid: POINTER(Guid), patternObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetCurrentPattern(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID, patternObject: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetCachedPattern(patternId: win32more.UI.Accessibility.UIA_PATTERN_ID, patternObject: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCachedParent(parent: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetCachedChildren(children: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_CurrentProcessId(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_CurrentControlType(retVal: POINTER(win32more.UI.Accessibility.UIA_CONTROLTYPE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_CurrentLocalizedControlType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_CurrentName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_CurrentAcceleratorKey(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_CurrentAccessKey(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_CurrentHasKeyboardFocus(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_CurrentIsKeyboardFocusable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_CurrentIsEnabled(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_CurrentAutomationId(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def get_CurrentClassName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def get_CurrentHelpText(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def get_CurrentCulture(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_CurrentIsControlElement(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def get_CurrentIsContentElement(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_CurrentIsPassword(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def get_CurrentNativeWindowHandle(retVal: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def get_CurrentItemType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def get_CurrentIsOffscreen(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def get_CurrentOrientation(retVal: POINTER(win32more.UI.Accessibility.OrientationType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def get_CurrentFrameworkId(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def get_CurrentIsRequiredForForm(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def get_CurrentItemStatus(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def get_CurrentBoundingRectangle(retVal: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def get_CurrentLabeledBy(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def get_CurrentAriaRole(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def get_CurrentAriaProperties(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def get_CurrentIsDataValidForForm(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def get_CurrentControllerFor(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def get_CurrentDescribedBy(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def get_CurrentFlowsTo(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def get_CurrentProviderDescription(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def get_CachedProcessId(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def get_CachedControlType(retVal: POINTER(win32more.UI.Accessibility.UIA_CONTROLTYPE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def get_CachedLocalizedControlType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def get_CachedName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def get_CachedAcceleratorKey(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def get_CachedAccessKey(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def get_CachedHasKeyboardFocus(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def get_CachedIsKeyboardFocusable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def get_CachedIsEnabled(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(61)
+    def get_CachedAutomationId(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(62)
+    def get_CachedClassName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(63)
+    def get_CachedHelpText(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(64)
+    def get_CachedCulture(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(65)
+    def get_CachedIsControlElement(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(66)
+    def get_CachedIsContentElement(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(67)
+    def get_CachedIsPassword(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(68)
+    def get_CachedNativeWindowHandle(retVal: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(69)
+    def get_CachedItemType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(70)
+    def get_CachedIsOffscreen(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(71)
+    def get_CachedOrientation(retVal: POINTER(win32more.UI.Accessibility.OrientationType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(72)
+    def get_CachedFrameworkId(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(73)
+    def get_CachedIsRequiredForForm(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(74)
+    def get_CachedItemStatus(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(75)
+    def get_CachedBoundingRectangle(retVal: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(76)
+    def get_CachedLabeledBy(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(77)
+    def get_CachedAriaRole(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(78)
+    def get_CachedAriaProperties(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(79)
+    def get_CachedIsDataValidForForm(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(80)
+    def get_CachedControllerFor(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(81)
+    def get_CachedDescribedBy(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(82)
+    def get_CachedFlowsTo(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(83)
+    def get_CachedProviderDescription(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(84)
+    def GetClickablePoint(clickable: POINTER(win32more.Foundation.POINT_head), gotClickable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement
+    Guid = Guid('6749c683-f70d-4487-a6-98-5f-79-d5-52-90-d6')
+    @commethod(85)
+    def get_CurrentOptimizeForVisualContent(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(86)
+    def get_CachedOptimizeForVisualContent(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(87)
+    def get_CurrentLiveSetting(retVal: POINTER(win32more.UI.Accessibility.LiveSetting)) -> win32more.Foundation.HRESULT: ...
+    @commethod(88)
+    def get_CachedLiveSetting(retVal: POINTER(win32more.UI.Accessibility.LiveSetting)) -> win32more.Foundation.HRESULT: ...
+    @commethod(89)
+    def get_CurrentFlowsFrom(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(90)
+    def get_CachedFlowsFrom(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement3(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement2
+    Guid = Guid('8471df34-aee0-4a01-a7-de-7d-b9-af-12-c2-96')
+    @commethod(91)
+    def ShowContextMenu() -> win32more.Foundation.HRESULT: ...
+    @commethod(92)
+    def get_CurrentIsPeripheral(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(93)
+    def get_CachedIsPeripheral(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement4(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement3
+    Guid = Guid('3b6e233c-52fb-4063-a4-c9-77-c0-75-c2-a0-6b')
+    @commethod(94)
+    def get_CurrentPositionInSet(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(95)
+    def get_CurrentSizeOfSet(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(96)
+    def get_CurrentLevel(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(97)
+    def get_CurrentAnnotationTypes(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(98)
+    def get_CurrentAnnotationObjects(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(99)
+    def get_CachedPositionInSet(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(100)
+    def get_CachedSizeOfSet(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(101)
+    def get_CachedLevel(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(102)
+    def get_CachedAnnotationTypes(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(103)
+    def get_CachedAnnotationObjects(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement5(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement4
+    Guid = Guid('98141c1d-0d0e-4175-bb-e2-6b-ff-45-58-42-a7')
+    @commethod(104)
+    def get_CurrentLandmarkType(retVal: POINTER(win32more.UI.Accessibility.UIA_LANDMARKTYPE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(105)
+    def get_CurrentLocalizedLandmarkType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(106)
+    def get_CachedLandmarkType(retVal: POINTER(win32more.UI.Accessibility.UIA_LANDMARKTYPE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(107)
+    def get_CachedLocalizedLandmarkType(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement6(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement5
+    Guid = Guid('4780d450-8bca-4977-af-a5-a4-a5-17-f5-55-e3')
+    @commethod(108)
+    def get_CurrentFullDescription(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(109)
+    def get_CachedFullDescription(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement7(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement6
+    Guid = Guid('204e8572-cfc3-4c11-b0-c8-7d-a7-42-07-50-b7')
+    @commethod(110)
+    def FindFirstWithOptions(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, traversalOptions: win32more.UI.Accessibility.TreeTraversalOptions, root: win32more.UI.Accessibility.IUIAutomationElement_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(111)
+    def FindAllWithOptions(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, traversalOptions: win32more.UI.Accessibility.TreeTraversalOptions, root: win32more.UI.Accessibility.IUIAutomationElement_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(112)
+    def FindFirstWithOptionsBuildCache(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, traversalOptions: win32more.UI.Accessibility.TreeTraversalOptions, root: win32more.UI.Accessibility.IUIAutomationElement_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(113)
+    def FindAllWithOptionsBuildCache(scope: win32more.UI.Accessibility.TreeScope, condition: win32more.UI.Accessibility.IUIAutomationCondition_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, traversalOptions: win32more.UI.Accessibility.TreeTraversalOptions, root: win32more.UI.Accessibility.IUIAutomationElement_head, found: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(114)
+    def GetCurrentMetadataValue(targetId: Int32, metadataId: win32more.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement8(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement7
+    Guid = Guid('8c60217d-5411-4cde-bc-c0-1c-ed-a2-23-83-0c')
+    @commethod(115)
+    def get_CurrentHeadingLevel(retVal: POINTER(win32more.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(116)
+    def get_CachedHeadingLevel(retVal: POINTER(win32more.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElement9(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationElement8
+    Guid = Guid('39325fac-039d-440e-a3-a3-5e-b8-1a-5c-ec-c3')
+    @commethod(117)
+    def get_CurrentIsDialog(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(118)
+    def get_CachedIsDialog(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationElementArray(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('14314595-b4bc-4055-95-f2-58-f2-e4-2c-98-55')
+    @commethod(3)
+    def get_Length(length: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetElement(index: Int32, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('146c3c17-f12e-4e22-8c-27-f8-94-b9-b7-9c-69')
+    @commethod(3)
+    def HandleAutomationEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, eventId: win32more.UI.Accessibility.UIA_EVENT_ID) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationEventHandlerGroup(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c9ee12f2-c13b-4408-99-7c-63-99-14-37-7f-4e')
+    @commethod(3)
+    def AddActiveTextPositionChangedEventHandler(scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddAutomationEventHandler(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddChangesEventHandler(scope: win32more.UI.Accessibility.TreeScope, changeTypes: POINTER(Int32), changesCount: Int32, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def AddNotificationEventHandler(scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AddPropertyChangedEventHandler(scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head, propertyArray: POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID), propertyCount: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def AddStructureChangedEventHandler(scope: win32more.UI.Accessibility.TreeScope, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def AddTextEditTextChangedEventHandler(scope: win32more.UI.Accessibility.TreeScope, textEditChangeType: win32more.UI.Accessibility.TextEditChangeType, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, handler: win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationExpandCollapsePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('619be086-1f4e-4ee4-ba-fa-21-01-28-73-87-30')
+    @commethod(3)
+    def Expand() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Collapse() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentExpandCollapseState(retVal: POINTER(win32more.UI.Accessibility.ExpandCollapseState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedExpandCollapseState(retVal: POINTER(win32more.UI.Accessibility.ExpandCollapseState)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationFocusChangedEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c270f6b5-5c69-4290-97-45-7a-7f-97-16-94-68')
+    @commethod(3)
+    def HandleFocusChangedEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationGridItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('78f8ef57-66c3-4e09-bd-7c-e7-9b-20-04-89-4d')
+    @commethod(3)
+    def get_CurrentContainingGrid(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentRow(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentColumn(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentRowSpan(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentColumnSpan(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedContainingGrid(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CachedRow(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CachedColumn(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedRowSpan(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedColumnSpan(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationGridPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('414c3cdc-856b-4f5b-85-38-31-31-c6-30-25-50')
+    @commethod(3)
+    def GetItem(row: Int32, column: Int32, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentRowCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentColumnCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedRowCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CachedColumnCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationInvokePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fb377fbe-8ea6-46d5-9c-73-64-99-64-2d-30-59')
+    @commethod(3)
+    def Invoke() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationItemContainerPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c690fdb2-27a8-423c-81-2d-42-97-73-c9-08-4e')
+    @commethod(3)
+    def FindItemByProperty(pStartAfter: win32more.UI.Accessibility.IUIAutomationElement_head, propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, value: win32more.System.Com.VARIANT, pFound: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationLegacyIAccessiblePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('828055ad-355b-4435-86-d5-3b-51-c1-4a-9b-1b')
+    @commethod(3)
+    def Select(flagsSelect: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DoDefaultAction() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetValue(szValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentChildId(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentName(pszName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentValue(pszValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentDescription(pszDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CurrentRole(pdwRole: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CurrentState(pdwState: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CurrentHelp(pszHelp: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CurrentKeyboardShortcut(pszKeyboardShortcut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetCurrentSelection(pvarSelectedChildren: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CurrentDefaultAction(pszDefaultAction: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CachedChildId(pRetVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_CachedName(pszName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_CachedValue(pszValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_CachedDescription(pszDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_CachedRole(pdwRole: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_CachedState(pdwState: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_CachedHelp(pszHelp: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_CachedKeyboardShortcut(pszKeyboardShortcut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetCachedSelection(pvarSelectedChildren: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_CachedDefaultAction(pszDefaultAction: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetIAccessible(ppAccessible: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationMultipleViewPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8d253c91-1dc5-4bb5-b1-8f-ad-e1-6f-a4-95-e8')
+    @commethod(3)
+    def GetViewName(view: Int32, name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetCurrentView(view: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentCurrentView(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCurrentSupportedViews(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CachedCurrentView(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetCachedSupportedViews(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationNotCondition(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationCondition
+    Guid = Guid('f528b657-847b-498c-88-96-d5-2b-56-54-07-a1')
+    @commethod(3)
+    def GetChild(condition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationNotificationEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c7cb2637-e6c2-4d0c-85-de-49-48-c0-21-75-c7')
+    @commethod(3)
+    def HandleNotificationEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, notificationKind: win32more.UI.Accessibility.NotificationKind, notificationProcessing: win32more.UI.Accessibility.NotificationProcessing, displayString: win32more.Foundation.BSTR, activityId: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationObjectModelPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('71c284b3-c14d-4d14-98-1e-19-75-1b-0d-75-6d')
+    @commethod(3)
+    def GetUnderlyingObjectModel(retVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationOrCondition(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationCondition
+    Guid = Guid('8753f032-3db1-47b5-a1-fc-6e-34-a2-66-c7-12')
+    @commethod(3)
+    def get_ChildCount(childCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetChildrenAsNativeArray(childArray: POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)), childArrayCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetChildren(childArray: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationPatternHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d97022f3-a947-465e-8b-2a-ac-43-15-fa-54-e8')
+    @commethod(3)
+    def CreateClientWrapper(pPatternInstance: win32more.UI.Accessibility.IUIAutomationPatternInstance_head, pClientWrapper: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Dispatch(pTarget: win32more.System.Com.IUnknown_head, index: UInt32, pParams: POINTER(win32more.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationPatternInstance(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c03a7fe4-9431-409f-be-d8-ae-7c-22-99-bc-8d')
+    @commethod(3)
+    def GetProperty(index: UInt32, cached: win32more.Foundation.BOOL, type: win32more.UI.Accessibility.UIAutomationType, pPtr: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CallMethod(index: UInt32, pParams: POINTER(win32more.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationPropertyChangedEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('40cd37d4-c756-4b0c-8c-6f-bd-df-ee-b1-3b-50')
+    @commethod(3)
+    def HandlePropertyChangedEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, newValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationPropertyCondition(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationCondition
+    Guid = Guid('99ebf2cb-5578-4267-9a-d4-af-d6-ea-77-e9-4b')
+    @commethod(3)
+    def get_PropertyId(propertyId: POINTER(win32more.UI.Accessibility.UIA_PROPERTY_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_PropertyValue(propertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_PropertyConditionFlags(flags: POINTER(win32more.UI.Accessibility.PropertyConditionFlags)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationProxyFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('85b94ecd-849d-42b6-b9-4d-d6-db-23-fd-f5-a4')
+    @commethod(3)
+    def CreateProvider(hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, provider: POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_ProxyFactoryId(factoryId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationProxyFactoryEntry(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d50e472e-b64b-490c-bc-a1-d3-06-96-f9-f2-89')
+    @commethod(3)
+    def get_ProxyFactory(factory: POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactory_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_ClassName(className: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_ImageName(imageName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_AllowSubstringMatch(allowSubstringMatch: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CanCheckBaseClass(canCheckBaseClass: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_NeedsAdviseEvents(adviseEvents: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_ClassName(className: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_ImageName(imageName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_AllowSubstringMatch(allowSubstringMatch: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_CanCheckBaseClass(canCheckBaseClass: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_NeedsAdviseEvents(adviseEvents: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetWinEventsForAutomationEvent(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, winEvents: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetWinEventsForAutomationEvent(eventId: win32more.UI.Accessibility.UIA_EVENT_ID, propertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID, winEvents: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationProxyFactoryMapping(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('09e31e18-872d-4873-93-d1-1e-54-1e-c1-33-fd')
+    @commethod(3)
+    def get_Count(count: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetTable(table: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetEntry(index: UInt32, entry: POINTER(win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetTable(factoryList: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def InsertEntries(before: UInt32, factoryList: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InsertEntry(before: UInt32, factory: win32more.UI.Accessibility.IUIAutomationProxyFactoryEntry_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def RemoveEntry(index: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ClearTable() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def RestoreDefaultTable() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationRangeValuePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('59213f4f-7346-49e5-b1-20-80-55-59-87-a1-48')
+    @commethod(3)
+    def SetValue(val: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentValue(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentIsReadOnly(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentMaximum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentMinimum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentLargeChange(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentSmallChange(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CachedValue(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedIsReadOnly(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedMaximum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CachedMinimum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CachedLargeChange(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedSmallChange(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationRegistrar(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8609c4ec-4a1a-4d88-a3-57-5a-66-e0-60-e1-cf')
+    @commethod(3)
+    def RegisterProperty(property: POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head), propertyId: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RegisterEvent(event: POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head), eventId: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RegisterPattern(pattern: POINTER(win32more.UI.Accessibility.UIAutomationPatternInfo_head), pPatternId: POINTER(Int32), pPatternAvailablePropertyId: POINTER(Int32), propertyIdCount: UInt32, pPropertyIds: POINTER(Int32), eventIdCount: UInt32, pEventIds: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationScrollItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b488300f-d015-4f19-9c-29-bb-59-5e-36-45-ef')
+    @commethod(3)
+    def ScrollIntoView() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationScrollPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('88f4d42a-e881-459d-a7-7c-73-bb-bb-7e-02-dc')
+    @commethod(3)
+    def Scroll(horizontalAmount: win32more.UI.Accessibility.ScrollAmount, verticalAmount: win32more.UI.Accessibility.ScrollAmount) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetScrollPercent(horizontalPercent: Double, verticalPercent: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentHorizontalScrollPercent(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentVerticalScrollPercent(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentHorizontalViewSize(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentVerticalViewSize(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentHorizontallyScrollable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CurrentVerticallyScrollable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedHorizontalScrollPercent(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedVerticalScrollPercent(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CachedHorizontalViewSize(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CachedVerticalViewSize(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedHorizontallyScrollable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CachedVerticallyScrollable(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSelectionItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a8efa66a-0fda-421a-91-94-38-02-1f-35-78-ea')
+    @commethod(3)
+    def Select() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddToSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RemoveFromSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentIsSelected(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentSelectionContainer(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedIsSelected(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CachedSelectionContainer(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSelectionPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5ed5202e-b2ac-47a6-b6-38-4b-0b-f1-40-d7-8e')
+    @commethod(3)
+    def GetCurrentSelection(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentCanSelectMultiple(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentIsSelectionRequired(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCachedSelection(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CachedCanSelectMultiple(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedIsSelectionRequired(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSelectionPattern2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationSelectionPattern
+    Guid = Guid('0532bfae-c011-4e32-a3-43-6d-64-2d-79-85-55')
+    @commethod(9)
+    def get_CurrentFirstSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CurrentLastSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CurrentCurrentSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CurrentItemCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CachedFirstSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CachedLastSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedCurrentSelectedItem(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CachedItemCount(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSpreadsheetItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7d4fb86c-8d34-40e1-8e-83-62-c1-52-04-e3-35')
+    @commethod(3)
+    def get_CurrentFormula(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetCurrentAnnotationObjects(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetCurrentAnnotationTypes(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedFormula(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetCachedAnnotationObjects(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetCachedAnnotationTypes(retVal: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSpreadsheetPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7517a7c8-faae-4de9-9f-08-29-b9-1e-85-95-c1')
+    @commethod(3)
+    def GetItemByName(name: win32more.Foundation.BSTR, element: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationStructureChangedEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e81d1b4e-11c5-42f8-97-54-e7-03-6c-79-f0-54')
+    @commethod(3)
+    def HandleStructureChangedEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, changeType: win32more.UI.Accessibility.StructureChangeType, runtimeId: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationStylesPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('85b5f0a2-bd79-484a-ad-2b-38-8c-98-38-d5-fb')
+    @commethod(3)
+    def get_CurrentStyleId(retVal: POINTER(win32more.UI.Accessibility.UIA_STYLE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentStyleName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentFillColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentFillPatternStyle(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentShape(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentFillPatternColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentExtendedProperties(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCurrentExtendedPropertiesAsArray(propertyArray: POINTER(POINTER(win32more.UI.Accessibility.ExtendedProperty_head)), propertyCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedStyleId(retVal: POINTER(win32more.UI.Accessibility.UIA_STYLE_ID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedStyleName(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CachedFillColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CachedFillPatternStyle(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedShape(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CachedFillPatternColor(retVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_CachedExtendedProperties(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetCachedExtendedPropertiesAsArray(propertyArray: POINTER(POINTER(win32more.UI.Accessibility.ExtendedProperty_head)), propertyCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationSynchronizedInputPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2233be0b-afb7-448b-9f-da-3b-37-8a-a5-ea-e1')
+    @commethod(3)
+    def StartListening(inputType: win32more.UI.Accessibility.SynchronizedInputType) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTableItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0b964eb3-ef2e-4464-9c-79-61-d6-17-37-a2-7e')
+    @commethod(3)
+    def GetCurrentRowHeaderItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetCurrentColumnHeaderItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetCachedRowHeaderItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCachedColumnHeaderItems(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTablePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('620e691c-ea96-4710-a8-50-75-4b-24-ce-24-17')
+    @commethod(3)
+    def GetCurrentRowHeaders(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetCurrentColumnHeaders(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentRowOrColumnMajor(retVal: POINTER(win32more.UI.Accessibility.RowOrColumnMajor)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetCachedRowHeaders(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetCachedColumnHeaders(retVal: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CachedRowOrColumnMajor(retVal: POINTER(win32more.UI.Accessibility.RowOrColumnMajor)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextChildPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6552b038-ae05-40c8-ab-fd-aa-08-35-2a-ab-86')
+    @commethod(3)
+    def get_TextContainer(container: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_TextRange(range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextEditPattern(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationTextPattern
+    Guid = Guid('17e21576-996c-4870-99-d9-bf-f3-23-38-0c-06')
+    @commethod(9)
+    def GetActiveComposition(range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetConversionTarget(range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextEditTextChangedEventHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('92faa680-e704-4156-93-1a-e3-2d-5b-b3-8f-3f')
+    @commethod(3)
+    def HandleTextEditTextChangedEvent(sender: win32more.UI.Accessibility.IUIAutomationElement_head, textEditChangeType: win32more.UI.Accessibility.TextEditChangeType, eventStrings: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('32eba289-3583-42c9-9c-59-3b-6d-9a-1e-9b-6a')
+    @commethod(3)
+    def RangeFromPoint(pt: win32more.Foundation.POINT, range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RangeFromChild(child: win32more.UI.Accessibility.IUIAutomationElement_head, range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetSelection(ranges: POINTER(win32more.UI.Accessibility.IUIAutomationTextRangeArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetVisibleRanges(ranges: POINTER(win32more.UI.Accessibility.IUIAutomationTextRangeArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_DocumentRange(range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_SupportedTextSelection(supportedTextSelection: POINTER(win32more.UI.Accessibility.SupportedTextSelection)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextPattern2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationTextPattern
+    Guid = Guid('506a921a-fcc9-409f-b2-3b-37-eb-74-10-68-72')
+    @commethod(9)
+    def RangeFromAnnotation(annotation: win32more.UI.Accessibility.IUIAutomationElement_head, range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCaretRange(isActive: POINTER(win32more.Foundation.BOOL), range: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextRange(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a543cc6a-f4ae-494b-82-39-c8-14-48-11-87-a8')
+    @commethod(3)
+    def Clone(clonedRange: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Compare(range: win32more.UI.Accessibility.IUIAutomationTextRange_head, areSame: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CompareEndpoints(srcEndPoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, range: win32more.UI.Accessibility.IUIAutomationTextRange_head, targetEndPoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, compValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ExpandToEnclosingUnit(textUnit: win32more.UI.Accessibility.TextUnit) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FindAttribute(attr: win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID, val: win32more.System.Com.VARIANT, backward: win32more.Foundation.BOOL, found: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def FindText(text: win32more.Foundation.BSTR, backward: win32more.Foundation.BOOL, ignoreCase: win32more.Foundation.BOOL, found: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetAttributeValue(attr: win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID, value: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetBoundingRectangles(boundingRects: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetEnclosingElement(enclosingElement: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetText(maxLength: Int32, text: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Move(unit: win32more.UI.Accessibility.TextUnit, count: Int32, moved: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def MoveEndpointByUnit(endpoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, unit: win32more.UI.Accessibility.TextUnit, count: Int32, moved: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def MoveEndpointByRange(srcEndPoint: win32more.UI.Accessibility.TextPatternRangeEndpoint, range: win32more.UI.Accessibility.IUIAutomationTextRange_head, targetEndPoint: win32more.UI.Accessibility.TextPatternRangeEndpoint) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def Select() -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def AddToSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def RemoveFromSelection() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ScrollIntoView(alignToTop: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetChildren(children: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextRange2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationTextRange
+    Guid = Guid('bb9b40e0-5e04-46bd-9b-e0-4b-60-1b-9a-fa-d4')
+    @commethod(21)
+    def ShowContextMenu() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextRange3(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationTextRange2
+    Guid = Guid('6a315d69-5512-4c2e-85-f0-53-fc-e6-dd-4b-c2')
+    @commethod(22)
+    def GetEnclosingElementBuildCache(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, enclosingElement: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def GetChildrenBuildCache(cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, children: POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetAttributeValues(attributeIds: POINTER(win32more.UI.Accessibility.UIA_TEXTATTRIBUTE_ID), attributeIdCount: Int32, attributeValues: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTextRangeArray(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ce4ae76a-e717-4c98-81-ea-47-37-1d-02-8e-b6')
+    @commethod(3)
+    def get_Length(length: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetElement(index: Int32, element: POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTogglePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('94cf8058-9b8d-4ab9-8b-fd-4c-d0-a3-3c-8c-70')
+    @commethod(3)
+    def Toggle() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentToggleState(retVal: POINTER(win32more.UI.Accessibility.ToggleState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CachedToggleState(retVal: POINTER(win32more.UI.Accessibility.ToggleState)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTransformPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a9b55844-a55d-4ef0-92-6d-56-9c-16-ff-89-bb')
+    @commethod(3)
+    def Move(x: Double, y: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Resize(width: Double, height: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Rotate(degrees: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentCanMove(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentCanResize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentCanRotate(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CachedCanMove(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CachedCanResize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CachedCanRotate(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTransformPattern2(c_void_p):
+    extends: win32more.UI.Accessibility.IUIAutomationTransformPattern
+    Guid = Guid('6d74d017-6ecb-4381-b3-8b-3c-17-a4-8f-f1-c2')
+    @commethod(12)
+    def Zoom(zoomValue: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ZoomByUnit(zoomUnit: win32more.UI.Accessibility.ZoomUnit) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CurrentCanZoom(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedCanZoom(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CurrentZoomLevel(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_CachedZoomLevel(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_CurrentZoomMinimum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_CachedZoomMinimum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_CurrentZoomMaximum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_CachedZoomMaximum(retVal: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationTreeWalker(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4042c624-389c-4afc-a6-30-9d-f8-54-a5-41-fc')
+    @commethod(3)
+    def GetParentElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, parent: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetFirstChildElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, first: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetLastChildElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, last: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetNextSiblingElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, next: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPreviousSiblingElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, previous: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def NormalizeElement(element: win32more.UI.Accessibility.IUIAutomationElement_head, normalized: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetParentElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, parent: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetFirstChildElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, first: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetLastChildElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, last: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetNextSiblingElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, next: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetPreviousSiblingElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, previous: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def NormalizeElementBuildCache(element: win32more.UI.Accessibility.IUIAutomationElement_head, cacheRequest: win32more.UI.Accessibility.IUIAutomationCacheRequest_head, normalized: POINTER(win32more.UI.Accessibility.IUIAutomationElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Condition(condition: POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationValuePattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a94cd8b1-0844-4cd6-9d-2d-64-05-37-ab-39-e9')
+    @commethod(3)
+    def SetValue(val: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_CurrentValue(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_CurrentIsReadOnly(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CachedValue(retVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CachedIsReadOnly(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IUIAutomationVirtualizedItemPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6ba3d7a6-04cf-4f11-87-93-a8-d1-cd-e9-96-9f')
+    @commethod(3)
+    def Realize() -> win32more.Foundation.HRESULT: ...
+class IUIAutomationWindowPattern(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0faef453-9208-43ef-bb-b2-3b-48-51-77-86-4f')
+    @commethod(3)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def WaitForInputIdle(milliseconds: Int32, success: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetWindowVisualState(state: win32more.UI.Accessibility.WindowVisualState) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CurrentCanMaximize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CurrentCanMinimize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentIsModal(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentIsTopmost(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CurrentWindowVisualState(retVal: POINTER(win32more.UI.Accessibility.WindowVisualState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_CurrentWindowInteractionState(retVal: POINTER(win32more.UI.Accessibility.WindowInteractionState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CachedCanMaximize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_CachedCanMinimize(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_CachedIsModal(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_CachedIsTopmost(retVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CachedWindowVisualState(retVal: POINTER(win32more.UI.Accessibility.WindowVisualState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_CachedWindowInteractionState(retVal: POINTER(win32more.UI.Accessibility.WindowInteractionState)) -> win32more.Foundation.HRESULT: ...
+class IValueProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c7935180-6fb3-4201-b1-74-7d-f7-3a-db-f6-4a')
+    @commethod(3)
+    def SetValue(val: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_Value(pRetVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_IsReadOnly(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IVirtualizedItemProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cb98b665-2d35-4fac-ad-35-f3-c6-0d-0c-0b-8b')
+    @commethod(3)
+    def Realize() -> win32more.Foundation.HRESULT: ...
+class IWindowProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('987df77b-db06-4d77-8f-8a-86-a9-c3-bb-90-b9')
+    @commethod(3)
+    def SetVisualState(state: win32more.UI.Accessibility.WindowVisualState) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def WaitForInputIdle(milliseconds: Int32, pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_CanMaximize(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_CanMinimize(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_IsModal(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_WindowVisualState(pRetVal: POINTER(win32more.UI.Accessibility.WindowVisualState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_WindowInteractionState(pRetVal: POINTER(win32more.UI.Accessibility.WindowInteractionState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_IsTopmost(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 LiveSetting = Int32
-LiveSetting_Off = 0
-LiveSetting_Polite = 1
-LiveSetting_Assertive = 2
-def _define_LPFNACCESSIBLECHILDREN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32))
-def _define_LPFNACCESSIBLEOBJECTFROMPOINT():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(win32more.System.Com.VARIANT_head))
-def _define_LPFNACCESSIBLEOBJECTFROMWINDOW():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(Guid),POINTER(c_void_p))
-def _define_LPFNCREATESTDACCESSIBLEOBJECT():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,POINTER(Guid),POINTER(c_void_p))
-def _define_LPFNLRESULTFROMOBJECT():
-    return WINFUNCTYPE(win32more.Foundation.LRESULT,POINTER(Guid),win32more.Foundation.WPARAM,win32more.System.Com.IUnknown_head)
-def _define_LPFNOBJECTFROMLRESULT():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LRESULT,POINTER(Guid),win32more.Foundation.WPARAM,POINTER(c_void_p))
-def _define_MOUSEKEYS_head():
-    class MOUSEKEYS(Structure):
-        pass
-    return MOUSEKEYS
-def _define_MOUSEKEYS():
-    MOUSEKEYS = win32more.UI.Accessibility.MOUSEKEYS_head
-    MOUSEKEYS._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', UInt32),
-        ('iMaxSpeed', UInt32),
-        ('iTimeToMaxSpeed', UInt32),
-        ('iCtrlSpeed', UInt32),
-        ('dwReserved1', UInt32),
-        ('dwReserved2', UInt32),
-    ]
-    return MOUSEKEYS
-def _define_MSAAMENUINFO_head():
-    class MSAAMENUINFO(Structure):
-        pass
-    return MSAAMENUINFO
-def _define_MSAAMENUINFO():
-    MSAAMENUINFO = win32more.UI.Accessibility.MSAAMENUINFO_head
-    MSAAMENUINFO._fields_ = [
-        ('dwMSAASignature', UInt32),
-        ('cchWText', UInt32),
-        ('pszWText', win32more.Foundation.PWSTR),
-    ]
-    return MSAAMENUINFO
+LiveSetting_Off: LiveSetting = 0
+LiveSetting_Polite: LiveSetting = 1
+LiveSetting_Assertive: LiveSetting = 2
+@winfunctype_pointer
+def LPFNACCESSIBLECHILDREN(paccContainer: win32more.UI.Accessibility.IAccessible_head, iChildStart: Int32, cChildren: Int32, rgvarChildren: POINTER(win32more.System.Com.VARIANT_head), pcObtained: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def LPFNACCESSIBLEOBJECTFROMPOINT(ptScreen: win32more.Foundation.POINT, ppacc: POINTER(win32more.UI.Accessibility.IAccessible_head), pvarChild: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def LPFNACCESSIBLEOBJECTFROMWINDOW(hwnd: win32more.Foundation.HWND, dwId: UInt32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def LPFNCREATESTDACCESSIBLEOBJECT(hwnd: win32more.Foundation.HWND, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def LPFNLRESULTFROMOBJECT(riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, punk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.LRESULT: ...
+@winfunctype_pointer
+def LPFNOBJECTFROMLRESULT(lResult: win32more.Foundation.LRESULT, riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class MOUSEKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    iMaxSpeed: UInt32
+    iTimeToMaxSpeed: UInt32
+    iCtrlSpeed: UInt32
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+class MSAAMENUINFO(Structure):
+    dwMSAASignature: UInt32
+    cchWText: UInt32
+    pszWText: win32more.Foundation.PWSTR
 NavigateDirection = Int32
-NavigateDirection_Parent = 0
-NavigateDirection_NextSibling = 1
-NavigateDirection_PreviousSibling = 2
-NavigateDirection_FirstChild = 3
-NavigateDirection_LastChild = 4
+NavigateDirection_Parent: NavigateDirection = 0
+NavigateDirection_NextSibling: NavigateDirection = 1
+NavigateDirection_PreviousSibling: NavigateDirection = 2
+NavigateDirection_FirstChild: NavigateDirection = 3
+NavigateDirection_LastChild: NavigateDirection = 4
 NormalizeState = Int32
-NormalizeState_None = 0
-NormalizeState_View = 1
-NormalizeState_Custom = 2
+NormalizeState_None: NormalizeState = 0
+NormalizeState_View: NormalizeState = 1
+NormalizeState_Custom: NormalizeState = 2
 NotificationKind = Int32
-NotificationKind_ItemAdded = 0
-NotificationKind_ItemRemoved = 1
-NotificationKind_ActionCompleted = 2
-NotificationKind_ActionAborted = 3
-NotificationKind_Other = 4
+NotificationKind_ItemAdded: NotificationKind = 0
+NotificationKind_ItemRemoved: NotificationKind = 1
+NotificationKind_ActionCompleted: NotificationKind = 2
+NotificationKind_ActionAborted: NotificationKind = 3
+NotificationKind_Other: NotificationKind = 4
 NotificationProcessing = Int32
-NotificationProcessing_ImportantAll = 0
-NotificationProcessing_ImportantMostRecent = 1
-NotificationProcessing_All = 2
-NotificationProcessing_MostRecent = 3
-NotificationProcessing_CurrentThenMostRecent = 4
+NotificationProcessing_ImportantAll: NotificationProcessing = 0
+NotificationProcessing_ImportantMostRecent: NotificationProcessing = 1
+NotificationProcessing_All: NotificationProcessing = 2
+NotificationProcessing_MostRecent: NotificationProcessing = 3
+NotificationProcessing_CurrentThenMostRecent: NotificationProcessing = 4
 OrientationType = Int32
-OrientationType_None = 0
-OrientationType_Horizontal = 1
-OrientationType_Vertical = 2
+OrientationType_None: OrientationType = 0
+OrientationType_Horizontal: OrientationType = 1
+OrientationType_Vertical: OrientationType = 2
 OutlineStyles = Int32
-OutlineStyles_None = 0
-OutlineStyles_Outline = 1
-OutlineStyles_Shadow = 2
-OutlineStyles_Engraved = 4
-OutlineStyles_Embossed = 8
+OutlineStyles_None: OutlineStyles = 0
+OutlineStyles_Outline: OutlineStyles = 1
+OutlineStyles_Shadow: OutlineStyles = 2
+OutlineStyles_Engraved: OutlineStyles = 4
+OutlineStyles_Embossed: OutlineStyles = 8
 PropertyConditionFlags = Int32
-PropertyConditionFlags_None = 0
-PropertyConditionFlags_IgnoreCase = 1
-PropertyConditionFlags_MatchSubstring = 2
+PropertyConditionFlags_None: PropertyConditionFlags = 0
+PropertyConditionFlags_IgnoreCase: PropertyConditionFlags = 1
+PropertyConditionFlags_MatchSubstring: PropertyConditionFlags = 2
 ProviderOptions = Int32
-ProviderOptions_ClientSideProvider = 1
-ProviderOptions_ServerSideProvider = 2
-ProviderOptions_NonClientAreaProvider = 4
-ProviderOptions_OverrideProvider = 8
-ProviderOptions_ProviderOwnsSetFocus = 16
-ProviderOptions_UseComThreading = 32
-ProviderOptions_RefuseNonClientSupport = 64
-ProviderOptions_HasNativeIAccessible = 128
-ProviderOptions_UseClientCoordinates = 256
+ProviderOptions_ClientSideProvider: ProviderOptions = 1
+ProviderOptions_ServerSideProvider: ProviderOptions = 2
+ProviderOptions_NonClientAreaProvider: ProviderOptions = 4
+ProviderOptions_OverrideProvider: ProviderOptions = 8
+ProviderOptions_ProviderOwnsSetFocus: ProviderOptions = 16
+ProviderOptions_UseComThreading: ProviderOptions = 32
+ProviderOptions_RefuseNonClientSupport: ProviderOptions = 64
+ProviderOptions_HasNativeIAccessible: ProviderOptions = 128
+ProviderOptions_UseClientCoordinates: ProviderOptions = 256
 ProviderType = Int32
-ProviderType_BaseHwnd = 0
-ProviderType_Proxy = 1
-ProviderType_NonClientArea = 2
+ProviderType_BaseHwnd: ProviderType = 0
+ProviderType_Proxy: ProviderType = 1
+ProviderType_NonClientArea: ProviderType = 2
 RowOrColumnMajor = Int32
-RowOrColumnMajor_RowMajor = 0
-RowOrColumnMajor_ColumnMajor = 1
-RowOrColumnMajor_Indeterminate = 2
+RowOrColumnMajor_RowMajor: RowOrColumnMajor = 0
+RowOrColumnMajor_ColumnMajor: RowOrColumnMajor = 1
+RowOrColumnMajor_Indeterminate: RowOrColumnMajor = 2
 SayAsInterpretAs = Int32
-SayAsInterpretAs_None = 0
-SayAsInterpretAs_Spell = 1
-SayAsInterpretAs_Cardinal = 2
-SayAsInterpretAs_Ordinal = 3
-SayAsInterpretAs_Number = 4
-SayAsInterpretAs_Date = 5
-SayAsInterpretAs_Time = 6
-SayAsInterpretAs_Telephone = 7
-SayAsInterpretAs_Currency = 8
-SayAsInterpretAs_Net = 9
-SayAsInterpretAs_Url = 10
-SayAsInterpretAs_Address = 11
-SayAsInterpretAs_Alphanumeric = 12
-SayAsInterpretAs_Name = 13
-SayAsInterpretAs_Media = 14
-SayAsInterpretAs_Date_MonthDayYear = 15
-SayAsInterpretAs_Date_DayMonthYear = 16
-SayAsInterpretAs_Date_YearMonthDay = 17
-SayAsInterpretAs_Date_YearMonth = 18
-SayAsInterpretAs_Date_MonthYear = 19
-SayAsInterpretAs_Date_DayMonth = 20
-SayAsInterpretAs_Date_MonthDay = 21
-SayAsInterpretAs_Date_Year = 22
-SayAsInterpretAs_Time_HoursMinutesSeconds12 = 23
-SayAsInterpretAs_Time_HoursMinutes12 = 24
-SayAsInterpretAs_Time_HoursMinutesSeconds24 = 25
-SayAsInterpretAs_Time_HoursMinutes24 = 26
+SayAsInterpretAs_None: SayAsInterpretAs = 0
+SayAsInterpretAs_Spell: SayAsInterpretAs = 1
+SayAsInterpretAs_Cardinal: SayAsInterpretAs = 2
+SayAsInterpretAs_Ordinal: SayAsInterpretAs = 3
+SayAsInterpretAs_Number: SayAsInterpretAs = 4
+SayAsInterpretAs_Date: SayAsInterpretAs = 5
+SayAsInterpretAs_Time: SayAsInterpretAs = 6
+SayAsInterpretAs_Telephone: SayAsInterpretAs = 7
+SayAsInterpretAs_Currency: SayAsInterpretAs = 8
+SayAsInterpretAs_Net: SayAsInterpretAs = 9
+SayAsInterpretAs_Url: SayAsInterpretAs = 10
+SayAsInterpretAs_Address: SayAsInterpretAs = 11
+SayAsInterpretAs_Alphanumeric: SayAsInterpretAs = 12
+SayAsInterpretAs_Name: SayAsInterpretAs = 13
+SayAsInterpretAs_Media: SayAsInterpretAs = 14
+SayAsInterpretAs_Date_MonthDayYear: SayAsInterpretAs = 15
+SayAsInterpretAs_Date_DayMonthYear: SayAsInterpretAs = 16
+SayAsInterpretAs_Date_YearMonthDay: SayAsInterpretAs = 17
+SayAsInterpretAs_Date_YearMonth: SayAsInterpretAs = 18
+SayAsInterpretAs_Date_MonthYear: SayAsInterpretAs = 19
+SayAsInterpretAs_Date_DayMonth: SayAsInterpretAs = 20
+SayAsInterpretAs_Date_MonthDay: SayAsInterpretAs = 21
+SayAsInterpretAs_Date_Year: SayAsInterpretAs = 22
+SayAsInterpretAs_Time_HoursMinutesSeconds12: SayAsInterpretAs = 23
+SayAsInterpretAs_Time_HoursMinutes12: SayAsInterpretAs = 24
+SayAsInterpretAs_Time_HoursMinutesSeconds24: SayAsInterpretAs = 25
+SayAsInterpretAs_Time_HoursMinutes24: SayAsInterpretAs = 26
 ScrollAmount = Int32
-ScrollAmount_LargeDecrement = 0
-ScrollAmount_SmallDecrement = 1
-ScrollAmount_NoAmount = 2
-ScrollAmount_LargeIncrement = 3
-ScrollAmount_SmallIncrement = 4
+ScrollAmount_LargeDecrement: ScrollAmount = 0
+ScrollAmount_SmallDecrement: ScrollAmount = 1
+ScrollAmount_NoAmount: ScrollAmount = 2
+ScrollAmount_LargeIncrement: ScrollAmount = 3
+ScrollAmount_SmallIncrement: ScrollAmount = 4
 SERIALKEYS_FLAGS = UInt32
-SERKF_AVAILABLE = 2
-SERKF_INDICATOR = 4
-SERKF_SERIALKEYSON = 1
-def _define_SERIALKEYSA_head():
-    class SERIALKEYSA(Structure):
-        pass
-    return SERIALKEYSA
-def _define_SERIALKEYSA():
-    SERIALKEYSA = win32more.UI.Accessibility.SERIALKEYSA_head
-    SERIALKEYSA._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.SERIALKEYS_FLAGS),
-        ('lpszActivePort', win32more.Foundation.PSTR),
-        ('lpszPort', win32more.Foundation.PSTR),
-        ('iBaudRate', UInt32),
-        ('iPortState', UInt32),
-        ('iActive', UInt32),
-    ]
-    return SERIALKEYSA
-def _define_SERIALKEYSW_head():
-    class SERIALKEYSW(Structure):
-        pass
-    return SERIALKEYSW
-def _define_SERIALKEYSW():
-    SERIALKEYSW = win32more.UI.Accessibility.SERIALKEYSW_head
-    SERIALKEYSW._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.SERIALKEYS_FLAGS),
-        ('lpszActivePort', win32more.Foundation.PWSTR),
-        ('lpszPort', win32more.Foundation.PWSTR),
-        ('iBaudRate', UInt32),
-        ('iPortState', UInt32),
-        ('iActive', UInt32),
-    ]
-    return SERIALKEYSW
+SERKF_AVAILABLE: SERIALKEYS_FLAGS = 2
+SERKF_INDICATOR: SERIALKEYS_FLAGS = 4
+SERKF_SERIALKEYSON: SERIALKEYS_FLAGS = 1
+class SERIALKEYSA(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
+    lpszActivePort: win32more.Foundation.PSTR
+    lpszPort: win32more.Foundation.PSTR
+    iBaudRate: UInt32
+    iPortState: UInt32
+    iActive: UInt32
+class SERIALKEYSW(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
+    lpszActivePort: win32more.Foundation.PWSTR
+    lpszPort: win32more.Foundation.PWSTR
+    iBaudRate: UInt32
+    iPortState: UInt32
+    iActive: UInt32
 SOUND_SENTRY_GRAPHICS_EFFECT = UInt32
-SSGF_DISPLAY = 3
-SSGF_NONE = 0
+SSGF_DISPLAY: SOUND_SENTRY_GRAPHICS_EFFECT = 3
+SSGF_NONE: SOUND_SENTRY_GRAPHICS_EFFECT = 0
 SOUNDSENTRY_FLAGS = UInt32
-SSF_SOUNDSENTRYON = 1
-SSF_AVAILABLE = 2
-SSF_INDICATOR = 4
+SSF_SOUNDSENTRYON: SOUNDSENTRY_FLAGS = 1
+SSF_AVAILABLE: SOUNDSENTRY_FLAGS = 2
+SSF_INDICATOR: SOUNDSENTRY_FLAGS = 4
 SOUNDSENTRY_TEXT_EFFECT = UInt32
-SSTF_BORDER = 2
-SSTF_CHARS = 1
-SSTF_DISPLAY = 3
-SSTF_NONE = 0
+SSTF_BORDER: SOUNDSENTRY_TEXT_EFFECT = 2
+SSTF_CHARS: SOUNDSENTRY_TEXT_EFFECT = 1
+SSTF_DISPLAY: SOUNDSENTRY_TEXT_EFFECT = 3
+SSTF_NONE: SOUNDSENTRY_TEXT_EFFECT = 0
 SOUNDSENTRY_WINDOWS_EFFECT = UInt32
-SSWF_CUSTOM = 4
-SSWF_DISPLAY = 3
-SSWF_NONE = 0
-SSWF_TITLE = 1
-SSWF_WINDOW = 2
-def _define_SOUNDSENTRYA_head():
-    class SOUNDSENTRYA(Structure):
-        pass
-    return SOUNDSENTRYA
-def _define_SOUNDSENTRYA():
-    SOUNDSENTRYA = win32more.UI.Accessibility.SOUNDSENTRYA_head
-    SOUNDSENTRYA._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.SOUNDSENTRY_FLAGS),
-        ('iFSTextEffect', win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT),
-        ('iFSTextEffectMSec', UInt32),
-        ('iFSTextEffectColorBits', UInt32),
-        ('iFSGrafEffect', win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT),
-        ('iFSGrafEffectMSec', UInt32),
-        ('iFSGrafEffectColor', UInt32),
-        ('iWindowsEffect', win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT),
-        ('iWindowsEffectMSec', UInt32),
-        ('lpszWindowsEffectDLL', win32more.Foundation.PSTR),
-        ('iWindowsEffectOrdinal', UInt32),
-    ]
-    return SOUNDSENTRYA
-def _define_SOUNDSENTRYW_head():
-    class SOUNDSENTRYW(Structure):
-        pass
-    return SOUNDSENTRYW
-def _define_SOUNDSENTRYW():
-    SOUNDSENTRYW = win32more.UI.Accessibility.SOUNDSENTRYW_head
-    SOUNDSENTRYW._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.SOUNDSENTRY_FLAGS),
-        ('iFSTextEffect', win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT),
-        ('iFSTextEffectMSec', UInt32),
-        ('iFSTextEffectColorBits', UInt32),
-        ('iFSGrafEffect', win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT),
-        ('iFSGrafEffectMSec', UInt32),
-        ('iFSGrafEffectColor', UInt32),
-        ('iWindowsEffect', win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT),
-        ('iWindowsEffectMSec', UInt32),
-        ('lpszWindowsEffectDLL', win32more.Foundation.PWSTR),
-        ('iWindowsEffectOrdinal', UInt32),
-    ]
-    return SOUNDSENTRYW
-def _define_STICKYKEYS_head():
-    class STICKYKEYS(Structure):
-        pass
-    return STICKYKEYS
-def _define_STICKYKEYS():
-    STICKYKEYS = win32more.UI.Accessibility.STICKYKEYS_head
-    STICKYKEYS._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', win32more.UI.Accessibility.STICKYKEYS_FLAGS),
-    ]
-    return STICKYKEYS
+SSWF_CUSTOM: SOUNDSENTRY_WINDOWS_EFFECT = 4
+SSWF_DISPLAY: SOUNDSENTRY_WINDOWS_EFFECT = 3
+SSWF_NONE: SOUNDSENTRY_WINDOWS_EFFECT = 0
+SSWF_TITLE: SOUNDSENTRY_WINDOWS_EFFECT = 1
+SSWF_WINDOW: SOUNDSENTRY_WINDOWS_EFFECT = 2
+class SOUNDSENTRYA(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
+    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
+    iFSTextEffectMSec: UInt32
+    iFSTextEffectColorBits: UInt32
+    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
+    iFSGrafEffectMSec: UInt32
+    iFSGrafEffectColor: UInt32
+    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
+    iWindowsEffectMSec: UInt32
+    lpszWindowsEffectDLL: win32more.Foundation.PSTR
+    iWindowsEffectOrdinal: UInt32
+class SOUNDSENTRYW(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
+    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
+    iFSTextEffectMSec: UInt32
+    iFSTextEffectColorBits: UInt32
+    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
+    iFSGrafEffectMSec: UInt32
+    iFSGrafEffectColor: UInt32
+    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
+    iWindowsEffectMSec: UInt32
+    lpszWindowsEffectDLL: win32more.Foundation.PWSTR
+    iWindowsEffectOrdinal: UInt32
+class STICKYKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.STICKYKEYS_FLAGS
 STICKYKEYS_FLAGS = UInt32
-SKF_STICKYKEYSON = 1
-SKF_AVAILABLE = 2
-SKF_HOTKEYACTIVE = 4
-SKF_CONFIRMHOTKEY = 8
-SKF_HOTKEYSOUND = 16
-SKF_INDICATOR = 32
-SKF_AUDIBLEFEEDBACK = 64
-SKF_TRISTATE = 128
-SKF_TWOKEYSOFF = 256
-SKF_LALTLATCHED = 268435456
-SKF_LCTLLATCHED = 67108864
-SKF_LSHIFTLATCHED = 16777216
-SKF_RALTLATCHED = 536870912
-SKF_RCTLLATCHED = 134217728
-SKF_RSHIFTLATCHED = 33554432
-SKF_LWINLATCHED = 1073741824
-SKF_RWINLATCHED = 2147483648
-SKF_LALTLOCKED = 1048576
-SKF_LCTLLOCKED = 262144
-SKF_LSHIFTLOCKED = 65536
-SKF_RALTLOCKED = 2097152
-SKF_RCTLLOCKED = 524288
-SKF_RSHIFTLOCKED = 131072
-SKF_LWINLOCKED = 4194304
-SKF_RWINLOCKED = 8388608
+SKF_STICKYKEYSON: STICKYKEYS_FLAGS = 1
+SKF_AVAILABLE: STICKYKEYS_FLAGS = 2
+SKF_HOTKEYACTIVE: STICKYKEYS_FLAGS = 4
+SKF_CONFIRMHOTKEY: STICKYKEYS_FLAGS = 8
+SKF_HOTKEYSOUND: STICKYKEYS_FLAGS = 16
+SKF_INDICATOR: STICKYKEYS_FLAGS = 32
+SKF_AUDIBLEFEEDBACK: STICKYKEYS_FLAGS = 64
+SKF_TRISTATE: STICKYKEYS_FLAGS = 128
+SKF_TWOKEYSOFF: STICKYKEYS_FLAGS = 256
+SKF_LALTLATCHED: STICKYKEYS_FLAGS = 268435456
+SKF_LCTLLATCHED: STICKYKEYS_FLAGS = 67108864
+SKF_LSHIFTLATCHED: STICKYKEYS_FLAGS = 16777216
+SKF_RALTLATCHED: STICKYKEYS_FLAGS = 536870912
+SKF_RCTLLATCHED: STICKYKEYS_FLAGS = 134217728
+SKF_RSHIFTLATCHED: STICKYKEYS_FLAGS = 33554432
+SKF_LWINLATCHED: STICKYKEYS_FLAGS = 1073741824
+SKF_RWINLATCHED: STICKYKEYS_FLAGS = 2147483648
+SKF_LALTLOCKED: STICKYKEYS_FLAGS = 1048576
+SKF_LCTLLOCKED: STICKYKEYS_FLAGS = 262144
+SKF_LSHIFTLOCKED: STICKYKEYS_FLAGS = 65536
+SKF_RALTLOCKED: STICKYKEYS_FLAGS = 2097152
+SKF_RCTLLOCKED: STICKYKEYS_FLAGS = 524288
+SKF_RSHIFTLOCKED: STICKYKEYS_FLAGS = 131072
+SKF_LWINLOCKED: STICKYKEYS_FLAGS = 4194304
+SKF_RWINLOCKED: STICKYKEYS_FLAGS = 8388608
 StructureChangeType = Int32
-StructureChangeType_ChildAdded = 0
-StructureChangeType_ChildRemoved = 1
-StructureChangeType_ChildrenInvalidated = 2
-StructureChangeType_ChildrenBulkAdded = 3
-StructureChangeType_ChildrenBulkRemoved = 4
-StructureChangeType_ChildrenReordered = 5
+StructureChangeType_ChildAdded: StructureChangeType = 0
+StructureChangeType_ChildRemoved: StructureChangeType = 1
+StructureChangeType_ChildrenInvalidated: StructureChangeType = 2
+StructureChangeType_ChildrenBulkAdded: StructureChangeType = 3
+StructureChangeType_ChildrenBulkRemoved: StructureChangeType = 4
+StructureChangeType_ChildrenReordered: StructureChangeType = 5
 SupportedTextSelection = Int32
-SupportedTextSelection_None = 0
-SupportedTextSelection_Single = 1
-SupportedTextSelection_Multiple = 2
+SupportedTextSelection_None: SupportedTextSelection = 0
+SupportedTextSelection_Single: SupportedTextSelection = 1
+SupportedTextSelection_Multiple: SupportedTextSelection = 2
 SynchronizedInputType = Int32
-SynchronizedInputType_KeyUp = 1
-SynchronizedInputType_KeyDown = 2
-SynchronizedInputType_LeftMouseUp = 4
-SynchronizedInputType_LeftMouseDown = 8
-SynchronizedInputType_RightMouseUp = 16
-SynchronizedInputType_RightMouseDown = 32
+SynchronizedInputType_KeyUp: SynchronizedInputType = 1
+SynchronizedInputType_KeyDown: SynchronizedInputType = 2
+SynchronizedInputType_LeftMouseUp: SynchronizedInputType = 4
+SynchronizedInputType_LeftMouseDown: SynchronizedInputType = 8
+SynchronizedInputType_RightMouseUp: SynchronizedInputType = 16
+SynchronizedInputType_RightMouseDown: SynchronizedInputType = 32
 TextDecorationLineStyle = Int32
-TextDecorationLineStyle_None = 0
-TextDecorationLineStyle_Single = 1
-TextDecorationLineStyle_WordsOnly = 2
-TextDecorationLineStyle_Double = 3
-TextDecorationLineStyle_Dot = 4
-TextDecorationLineStyle_Dash = 5
-TextDecorationLineStyle_DashDot = 6
-TextDecorationLineStyle_DashDotDot = 7
-TextDecorationLineStyle_Wavy = 8
-TextDecorationLineStyle_ThickSingle = 9
-TextDecorationLineStyle_DoubleWavy = 11
-TextDecorationLineStyle_ThickWavy = 12
-TextDecorationLineStyle_LongDash = 13
-TextDecorationLineStyle_ThickDash = 14
-TextDecorationLineStyle_ThickDashDot = 15
-TextDecorationLineStyle_ThickDashDotDot = 16
-TextDecorationLineStyle_ThickDot = 17
-TextDecorationLineStyle_ThickLongDash = 18
-TextDecorationLineStyle_Other = -1
+TextDecorationLineStyle_None: TextDecorationLineStyle = 0
+TextDecorationLineStyle_Single: TextDecorationLineStyle = 1
+TextDecorationLineStyle_WordsOnly: TextDecorationLineStyle = 2
+TextDecorationLineStyle_Double: TextDecorationLineStyle = 3
+TextDecorationLineStyle_Dot: TextDecorationLineStyle = 4
+TextDecorationLineStyle_Dash: TextDecorationLineStyle = 5
+TextDecorationLineStyle_DashDot: TextDecorationLineStyle = 6
+TextDecorationLineStyle_DashDotDot: TextDecorationLineStyle = 7
+TextDecorationLineStyle_Wavy: TextDecorationLineStyle = 8
+TextDecorationLineStyle_ThickSingle: TextDecorationLineStyle = 9
+TextDecorationLineStyle_DoubleWavy: TextDecorationLineStyle = 11
+TextDecorationLineStyle_ThickWavy: TextDecorationLineStyle = 12
+TextDecorationLineStyle_LongDash: TextDecorationLineStyle = 13
+TextDecorationLineStyle_ThickDash: TextDecorationLineStyle = 14
+TextDecorationLineStyle_ThickDashDot: TextDecorationLineStyle = 15
+TextDecorationLineStyle_ThickDashDotDot: TextDecorationLineStyle = 16
+TextDecorationLineStyle_ThickDot: TextDecorationLineStyle = 17
+TextDecorationLineStyle_ThickLongDash: TextDecorationLineStyle = 18
+TextDecorationLineStyle_Other: TextDecorationLineStyle = -1
 TextEditChangeType = Int32
-TextEditChangeType_None = 0
-TextEditChangeType_AutoCorrect = 1
-TextEditChangeType_Composition = 2
-TextEditChangeType_CompositionFinalized = 3
-TextEditChangeType_AutoComplete = 4
+TextEditChangeType_None: TextEditChangeType = 0
+TextEditChangeType_AutoCorrect: TextEditChangeType = 1
+TextEditChangeType_Composition: TextEditChangeType = 2
+TextEditChangeType_CompositionFinalized: TextEditChangeType = 3
+TextEditChangeType_AutoComplete: TextEditChangeType = 4
 TextPatternRangeEndpoint = Int32
-TextPatternRangeEndpoint_Start = 0
-TextPatternRangeEndpoint_End = 1
+TextPatternRangeEndpoint_Start: TextPatternRangeEndpoint = 0
+TextPatternRangeEndpoint_End: TextPatternRangeEndpoint = 1
 TextUnit = Int32
-TextUnit_Character = 0
-TextUnit_Format = 1
-TextUnit_Word = 2
-TextUnit_Line = 3
-TextUnit_Paragraph = 4
-TextUnit_Page = 5
-TextUnit_Document = 6
-def _define_TOGGLEKEYS_head():
-    class TOGGLEKEYS(Structure):
-        pass
-    return TOGGLEKEYS
-def _define_TOGGLEKEYS():
-    TOGGLEKEYS = win32more.UI.Accessibility.TOGGLEKEYS_head
-    TOGGLEKEYS._fields_ = [
-        ('cbSize', UInt32),
-        ('dwFlags', UInt32),
-    ]
-    return TOGGLEKEYS
+TextUnit_Character: TextUnit = 0
+TextUnit_Format: TextUnit = 1
+TextUnit_Word: TextUnit = 2
+TextUnit_Line: TextUnit = 3
+TextUnit_Paragraph: TextUnit = 4
+TextUnit_Page: TextUnit = 5
+TextUnit_Document: TextUnit = 6
+class TOGGLEKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
 ToggleState = Int32
-ToggleState_Off = 0
-ToggleState_On = 1
-ToggleState_Indeterminate = 2
+ToggleState_Off: ToggleState = 0
+ToggleState_On: ToggleState = 1
+ToggleState_Indeterminate: ToggleState = 2
 TreeScope = Int32
-TreeScope_None = 0
-TreeScope_Element = 1
-TreeScope_Children = 2
-TreeScope_Descendants = 4
-TreeScope_Parent = 8
-TreeScope_Ancestors = 16
-TreeScope_Subtree = 7
+TreeScope_None: TreeScope = 0
+TreeScope_Element: TreeScope = 1
+TreeScope_Children: TreeScope = 2
+TreeScope_Descendants: TreeScope = 4
+TreeScope_Parent: TreeScope = 8
+TreeScope_Ancestors: TreeScope = 16
+TreeScope_Subtree: TreeScope = 7
 TreeTraversalOptions = Int32
-TreeTraversalOptions_Default = 0
-TreeTraversalOptions_PostOrder = 1
-TreeTraversalOptions_LastToFirstOrder = 2
+TreeTraversalOptions_Default: TreeTraversalOptions = 0
+TreeTraversalOptions_PostOrder: TreeTraversalOptions = 1
+TreeTraversalOptions_LastToFirstOrder: TreeTraversalOptions = 2
 UIA_ANNOTATIONTYPE = UInt32
-AnnotationType_Unknown = 60000
-AnnotationType_SpellingError = 60001
-AnnotationType_GrammarError = 60002
-AnnotationType_Comment = 60003
-AnnotationType_FormulaError = 60004
-AnnotationType_TrackChanges = 60005
-AnnotationType_Header = 60006
-AnnotationType_Footer = 60007
-AnnotationType_Highlighted = 60008
-AnnotationType_Endnote = 60009
-AnnotationType_Footnote = 60010
-AnnotationType_InsertionChange = 60011
-AnnotationType_DeletionChange = 60012
-AnnotationType_MoveChange = 60013
-AnnotationType_FormatChange = 60014
-AnnotationType_UnsyncedChange = 60015
-AnnotationType_EditingLockedChange = 60016
-AnnotationType_ExternalChange = 60017
-AnnotationType_ConflictingChange = 60018
-AnnotationType_Author = 60019
-AnnotationType_AdvancedProofingIssue = 60020
-AnnotationType_DataValidationError = 60021
-AnnotationType_CircularReferenceError = 60022
-AnnotationType_Mathematics = 60023
-AnnotationType_Sensitive = 60024
+AnnotationType_Unknown: UIA_ANNOTATIONTYPE = 60000
+AnnotationType_SpellingError: UIA_ANNOTATIONTYPE = 60001
+AnnotationType_GrammarError: UIA_ANNOTATIONTYPE = 60002
+AnnotationType_Comment: UIA_ANNOTATIONTYPE = 60003
+AnnotationType_FormulaError: UIA_ANNOTATIONTYPE = 60004
+AnnotationType_TrackChanges: UIA_ANNOTATIONTYPE = 60005
+AnnotationType_Header: UIA_ANNOTATIONTYPE = 60006
+AnnotationType_Footer: UIA_ANNOTATIONTYPE = 60007
+AnnotationType_Highlighted: UIA_ANNOTATIONTYPE = 60008
+AnnotationType_Endnote: UIA_ANNOTATIONTYPE = 60009
+AnnotationType_Footnote: UIA_ANNOTATIONTYPE = 60010
+AnnotationType_InsertionChange: UIA_ANNOTATIONTYPE = 60011
+AnnotationType_DeletionChange: UIA_ANNOTATIONTYPE = 60012
+AnnotationType_MoveChange: UIA_ANNOTATIONTYPE = 60013
+AnnotationType_FormatChange: UIA_ANNOTATIONTYPE = 60014
+AnnotationType_UnsyncedChange: UIA_ANNOTATIONTYPE = 60015
+AnnotationType_EditingLockedChange: UIA_ANNOTATIONTYPE = 60016
+AnnotationType_ExternalChange: UIA_ANNOTATIONTYPE = 60017
+AnnotationType_ConflictingChange: UIA_ANNOTATIONTYPE = 60018
+AnnotationType_Author: UIA_ANNOTATIONTYPE = 60019
+AnnotationType_AdvancedProofingIssue: UIA_ANNOTATIONTYPE = 60020
+AnnotationType_DataValidationError: UIA_ANNOTATIONTYPE = 60021
+AnnotationType_CircularReferenceError: UIA_ANNOTATIONTYPE = 60022
+AnnotationType_Mathematics: UIA_ANNOTATIONTYPE = 60023
+AnnotationType_Sensitive: UIA_ANNOTATIONTYPE = 60024
 UIA_CHANGE_ID = UInt32
-UIA_SummaryChangeId = 90000
+UIA_SummaryChangeId: UIA_CHANGE_ID = 90000
 UIA_CONTROLTYPE_ID = UInt32
-UIA_ButtonControlTypeId = 50000
-UIA_CalendarControlTypeId = 50001
-UIA_CheckBoxControlTypeId = 50002
-UIA_ComboBoxControlTypeId = 50003
-UIA_EditControlTypeId = 50004
-UIA_HyperlinkControlTypeId = 50005
-UIA_ImageControlTypeId = 50006
-UIA_ListItemControlTypeId = 50007
-UIA_ListControlTypeId = 50008
-UIA_MenuControlTypeId = 50009
-UIA_MenuBarControlTypeId = 50010
-UIA_MenuItemControlTypeId = 50011
-UIA_ProgressBarControlTypeId = 50012
-UIA_RadioButtonControlTypeId = 50013
-UIA_ScrollBarControlTypeId = 50014
-UIA_SliderControlTypeId = 50015
-UIA_SpinnerControlTypeId = 50016
-UIA_StatusBarControlTypeId = 50017
-UIA_TabControlTypeId = 50018
-UIA_TabItemControlTypeId = 50019
-UIA_TextControlTypeId = 50020
-UIA_ToolBarControlTypeId = 50021
-UIA_ToolTipControlTypeId = 50022
-UIA_TreeControlTypeId = 50023
-UIA_TreeItemControlTypeId = 50024
-UIA_CustomControlTypeId = 50025
-UIA_GroupControlTypeId = 50026
-UIA_ThumbControlTypeId = 50027
-UIA_DataGridControlTypeId = 50028
-UIA_DataItemControlTypeId = 50029
-UIA_DocumentControlTypeId = 50030
-UIA_SplitButtonControlTypeId = 50031
-UIA_WindowControlTypeId = 50032
-UIA_PaneControlTypeId = 50033
-UIA_HeaderControlTypeId = 50034
-UIA_HeaderItemControlTypeId = 50035
-UIA_TableControlTypeId = 50036
-UIA_TitleBarControlTypeId = 50037
-UIA_SeparatorControlTypeId = 50038
-UIA_SemanticZoomControlTypeId = 50039
-UIA_AppBarControlTypeId = 50040
+UIA_ButtonControlTypeId: UIA_CONTROLTYPE_ID = 50000
+UIA_CalendarControlTypeId: UIA_CONTROLTYPE_ID = 50001
+UIA_CheckBoxControlTypeId: UIA_CONTROLTYPE_ID = 50002
+UIA_ComboBoxControlTypeId: UIA_CONTROLTYPE_ID = 50003
+UIA_EditControlTypeId: UIA_CONTROLTYPE_ID = 50004
+UIA_HyperlinkControlTypeId: UIA_CONTROLTYPE_ID = 50005
+UIA_ImageControlTypeId: UIA_CONTROLTYPE_ID = 50006
+UIA_ListItemControlTypeId: UIA_CONTROLTYPE_ID = 50007
+UIA_ListControlTypeId: UIA_CONTROLTYPE_ID = 50008
+UIA_MenuControlTypeId: UIA_CONTROLTYPE_ID = 50009
+UIA_MenuBarControlTypeId: UIA_CONTROLTYPE_ID = 50010
+UIA_MenuItemControlTypeId: UIA_CONTROLTYPE_ID = 50011
+UIA_ProgressBarControlTypeId: UIA_CONTROLTYPE_ID = 50012
+UIA_RadioButtonControlTypeId: UIA_CONTROLTYPE_ID = 50013
+UIA_ScrollBarControlTypeId: UIA_CONTROLTYPE_ID = 50014
+UIA_SliderControlTypeId: UIA_CONTROLTYPE_ID = 50015
+UIA_SpinnerControlTypeId: UIA_CONTROLTYPE_ID = 50016
+UIA_StatusBarControlTypeId: UIA_CONTROLTYPE_ID = 50017
+UIA_TabControlTypeId: UIA_CONTROLTYPE_ID = 50018
+UIA_TabItemControlTypeId: UIA_CONTROLTYPE_ID = 50019
+UIA_TextControlTypeId: UIA_CONTROLTYPE_ID = 50020
+UIA_ToolBarControlTypeId: UIA_CONTROLTYPE_ID = 50021
+UIA_ToolTipControlTypeId: UIA_CONTROLTYPE_ID = 50022
+UIA_TreeControlTypeId: UIA_CONTROLTYPE_ID = 50023
+UIA_TreeItemControlTypeId: UIA_CONTROLTYPE_ID = 50024
+UIA_CustomControlTypeId: UIA_CONTROLTYPE_ID = 50025
+UIA_GroupControlTypeId: UIA_CONTROLTYPE_ID = 50026
+UIA_ThumbControlTypeId: UIA_CONTROLTYPE_ID = 50027
+UIA_DataGridControlTypeId: UIA_CONTROLTYPE_ID = 50028
+UIA_DataItemControlTypeId: UIA_CONTROLTYPE_ID = 50029
+UIA_DocumentControlTypeId: UIA_CONTROLTYPE_ID = 50030
+UIA_SplitButtonControlTypeId: UIA_CONTROLTYPE_ID = 50031
+UIA_WindowControlTypeId: UIA_CONTROLTYPE_ID = 50032
+UIA_PaneControlTypeId: UIA_CONTROLTYPE_ID = 50033
+UIA_HeaderControlTypeId: UIA_CONTROLTYPE_ID = 50034
+UIA_HeaderItemControlTypeId: UIA_CONTROLTYPE_ID = 50035
+UIA_TableControlTypeId: UIA_CONTROLTYPE_ID = 50036
+UIA_TitleBarControlTypeId: UIA_CONTROLTYPE_ID = 50037
+UIA_SeparatorControlTypeId: UIA_CONTROLTYPE_ID = 50038
+UIA_SemanticZoomControlTypeId: UIA_CONTROLTYPE_ID = 50039
+UIA_AppBarControlTypeId: UIA_CONTROLTYPE_ID = 50040
 UIA_EVENT_ID = UInt32
-UIA_ToolTipOpenedEventId = 20000
-UIA_ToolTipClosedEventId = 20001
-UIA_StructureChangedEventId = 20002
-UIA_MenuOpenedEventId = 20003
-UIA_AutomationPropertyChangedEventId = 20004
-UIA_AutomationFocusChangedEventId = 20005
-UIA_AsyncContentLoadedEventId = 20006
-UIA_MenuClosedEventId = 20007
-UIA_LayoutInvalidatedEventId = 20008
-UIA_Invoke_InvokedEventId = 20009
-UIA_SelectionItem_ElementAddedToSelectionEventId = 20010
-UIA_SelectionItem_ElementRemovedFromSelectionEventId = 20011
-UIA_SelectionItem_ElementSelectedEventId = 20012
-UIA_Selection_InvalidatedEventId = 20013
-UIA_Text_TextSelectionChangedEventId = 20014
-UIA_Text_TextChangedEventId = 20015
-UIA_Window_WindowOpenedEventId = 20016
-UIA_Window_WindowClosedEventId = 20017
-UIA_MenuModeStartEventId = 20018
-UIA_MenuModeEndEventId = 20019
-UIA_InputReachedTargetEventId = 20020
-UIA_InputReachedOtherElementEventId = 20021
-UIA_InputDiscardedEventId = 20022
-UIA_SystemAlertEventId = 20023
-UIA_LiveRegionChangedEventId = 20024
-UIA_HostedFragmentRootsInvalidatedEventId = 20025
-UIA_Drag_DragStartEventId = 20026
-UIA_Drag_DragCancelEventId = 20027
-UIA_Drag_DragCompleteEventId = 20028
-UIA_DropTarget_DragEnterEventId = 20029
-UIA_DropTarget_DragLeaveEventId = 20030
-UIA_DropTarget_DroppedEventId = 20031
-UIA_TextEdit_TextChangedEventId = 20032
-UIA_TextEdit_ConversionTargetChangedEventId = 20033
-UIA_ChangesEventId = 20034
-UIA_NotificationEventId = 20035
-UIA_ActiveTextPositionChangedEventId = 20036
+UIA_ToolTipOpenedEventId: UIA_EVENT_ID = 20000
+UIA_ToolTipClosedEventId: UIA_EVENT_ID = 20001
+UIA_StructureChangedEventId: UIA_EVENT_ID = 20002
+UIA_MenuOpenedEventId: UIA_EVENT_ID = 20003
+UIA_AutomationPropertyChangedEventId: UIA_EVENT_ID = 20004
+UIA_AutomationFocusChangedEventId: UIA_EVENT_ID = 20005
+UIA_AsyncContentLoadedEventId: UIA_EVENT_ID = 20006
+UIA_MenuClosedEventId: UIA_EVENT_ID = 20007
+UIA_LayoutInvalidatedEventId: UIA_EVENT_ID = 20008
+UIA_Invoke_InvokedEventId: UIA_EVENT_ID = 20009
+UIA_SelectionItem_ElementAddedToSelectionEventId: UIA_EVENT_ID = 20010
+UIA_SelectionItem_ElementRemovedFromSelectionEventId: UIA_EVENT_ID = 20011
+UIA_SelectionItem_ElementSelectedEventId: UIA_EVENT_ID = 20012
+UIA_Selection_InvalidatedEventId: UIA_EVENT_ID = 20013
+UIA_Text_TextSelectionChangedEventId: UIA_EVENT_ID = 20014
+UIA_Text_TextChangedEventId: UIA_EVENT_ID = 20015
+UIA_Window_WindowOpenedEventId: UIA_EVENT_ID = 20016
+UIA_Window_WindowClosedEventId: UIA_EVENT_ID = 20017
+UIA_MenuModeStartEventId: UIA_EVENT_ID = 20018
+UIA_MenuModeEndEventId: UIA_EVENT_ID = 20019
+UIA_InputReachedTargetEventId: UIA_EVENT_ID = 20020
+UIA_InputReachedOtherElementEventId: UIA_EVENT_ID = 20021
+UIA_InputDiscardedEventId: UIA_EVENT_ID = 20022
+UIA_SystemAlertEventId: UIA_EVENT_ID = 20023
+UIA_LiveRegionChangedEventId: UIA_EVENT_ID = 20024
+UIA_HostedFragmentRootsInvalidatedEventId: UIA_EVENT_ID = 20025
+UIA_Drag_DragStartEventId: UIA_EVENT_ID = 20026
+UIA_Drag_DragCancelEventId: UIA_EVENT_ID = 20027
+UIA_Drag_DragCompleteEventId: UIA_EVENT_ID = 20028
+UIA_DropTarget_DragEnterEventId: UIA_EVENT_ID = 20029
+UIA_DropTarget_DragLeaveEventId: UIA_EVENT_ID = 20030
+UIA_DropTarget_DroppedEventId: UIA_EVENT_ID = 20031
+UIA_TextEdit_TextChangedEventId: UIA_EVENT_ID = 20032
+UIA_TextEdit_ConversionTargetChangedEventId: UIA_EVENT_ID = 20033
+UIA_ChangesEventId: UIA_EVENT_ID = 20034
+UIA_NotificationEventId: UIA_EVENT_ID = 20035
+UIA_ActiveTextPositionChangedEventId: UIA_EVENT_ID = 20036
 UIA_HEADINGLEVEL_ID = UInt32
-UIA_HEADINGLEVEL_ID_HeadingLevel_None = 80050
-UIA_HEADINGLEVEL_ID_HeadingLevel1 = 80051
-UIA_HEADINGLEVEL_ID_HeadingLevel2 = 80052
-UIA_HEADINGLEVEL_ID_HeadingLevel3 = 80053
-UIA_HEADINGLEVEL_ID_HeadingLevel4 = 80054
-UIA_HEADINGLEVEL_ID_HeadingLevel5 = 80055
-UIA_HEADINGLEVEL_ID_HeadingLevel6 = 80056
-UIA_HEADINGLEVEL_ID_HeadingLevel7 = 80057
-UIA_HEADINGLEVEL_ID_HeadingLevel8 = 80058
-UIA_HEADINGLEVEL_ID_HeadingLevel9 = 80059
+UIA_HEADINGLEVEL_ID_HeadingLevel_None: UIA_HEADINGLEVEL_ID = 80050
+UIA_HEADINGLEVEL_ID_HeadingLevel1: UIA_HEADINGLEVEL_ID = 80051
+UIA_HEADINGLEVEL_ID_HeadingLevel2: UIA_HEADINGLEVEL_ID = 80052
+UIA_HEADINGLEVEL_ID_HeadingLevel3: UIA_HEADINGLEVEL_ID = 80053
+UIA_HEADINGLEVEL_ID_HeadingLevel4: UIA_HEADINGLEVEL_ID = 80054
+UIA_HEADINGLEVEL_ID_HeadingLevel5: UIA_HEADINGLEVEL_ID = 80055
+UIA_HEADINGLEVEL_ID_HeadingLevel6: UIA_HEADINGLEVEL_ID = 80056
+UIA_HEADINGLEVEL_ID_HeadingLevel7: UIA_HEADINGLEVEL_ID = 80057
+UIA_HEADINGLEVEL_ID_HeadingLevel8: UIA_HEADINGLEVEL_ID = 80058
+UIA_HEADINGLEVEL_ID_HeadingLevel9: UIA_HEADINGLEVEL_ID = 80059
 UIA_LANDMARKTYPE_ID = UInt32
-UIA_CustomLandmarkTypeId = 80000
-UIA_FormLandmarkTypeId = 80001
-UIA_MainLandmarkTypeId = 80002
-UIA_NavigationLandmarkTypeId = 80003
-UIA_SearchLandmarkTypeId = 80004
+UIA_CustomLandmarkTypeId: UIA_LANDMARKTYPE_ID = 80000
+UIA_FormLandmarkTypeId: UIA_LANDMARKTYPE_ID = 80001
+UIA_MainLandmarkTypeId: UIA_LANDMARKTYPE_ID = 80002
+UIA_NavigationLandmarkTypeId: UIA_LANDMARKTYPE_ID = 80003
+UIA_SearchLandmarkTypeId: UIA_LANDMARKTYPE_ID = 80004
 UIA_METADATA_ID = UInt32
-UIA_SayAsInterpretAsMetadataId = 100000
+UIA_SayAsInterpretAsMetadataId: UIA_METADATA_ID = 100000
 UIA_PATTERN_ID = UInt32
-UIA_InvokePatternId = 10000
-UIA_SelectionPatternId = 10001
-UIA_ValuePatternId = 10002
-UIA_RangeValuePatternId = 10003
-UIA_ScrollPatternId = 10004
-UIA_ExpandCollapsePatternId = 10005
-UIA_GridPatternId = 10006
-UIA_GridItemPatternId = 10007
-UIA_MultipleViewPatternId = 10008
-UIA_WindowPatternId = 10009
-UIA_SelectionItemPatternId = 10010
-UIA_DockPatternId = 10011
-UIA_TablePatternId = 10012
-UIA_TableItemPatternId = 10013
-UIA_TextPatternId = 10014
-UIA_TogglePatternId = 10015
-UIA_TransformPatternId = 10016
-UIA_ScrollItemPatternId = 10017
-UIA_LegacyIAccessiblePatternId = 10018
-UIA_ItemContainerPatternId = 10019
-UIA_VirtualizedItemPatternId = 10020
-UIA_SynchronizedInputPatternId = 10021
-UIA_ObjectModelPatternId = 10022
-UIA_AnnotationPatternId = 10023
-UIA_TextPattern2Id = 10024
-UIA_StylesPatternId = 10025
-UIA_SpreadsheetPatternId = 10026
-UIA_SpreadsheetItemPatternId = 10027
-UIA_TransformPattern2Id = 10028
-UIA_TextChildPatternId = 10029
-UIA_DragPatternId = 10030
-UIA_DropTargetPatternId = 10031
-UIA_TextEditPatternId = 10032
-UIA_CustomNavigationPatternId = 10033
-UIA_SelectionPattern2Id = 10034
+UIA_InvokePatternId: UIA_PATTERN_ID = 10000
+UIA_SelectionPatternId: UIA_PATTERN_ID = 10001
+UIA_ValuePatternId: UIA_PATTERN_ID = 10002
+UIA_RangeValuePatternId: UIA_PATTERN_ID = 10003
+UIA_ScrollPatternId: UIA_PATTERN_ID = 10004
+UIA_ExpandCollapsePatternId: UIA_PATTERN_ID = 10005
+UIA_GridPatternId: UIA_PATTERN_ID = 10006
+UIA_GridItemPatternId: UIA_PATTERN_ID = 10007
+UIA_MultipleViewPatternId: UIA_PATTERN_ID = 10008
+UIA_WindowPatternId: UIA_PATTERN_ID = 10009
+UIA_SelectionItemPatternId: UIA_PATTERN_ID = 10010
+UIA_DockPatternId: UIA_PATTERN_ID = 10011
+UIA_TablePatternId: UIA_PATTERN_ID = 10012
+UIA_TableItemPatternId: UIA_PATTERN_ID = 10013
+UIA_TextPatternId: UIA_PATTERN_ID = 10014
+UIA_TogglePatternId: UIA_PATTERN_ID = 10015
+UIA_TransformPatternId: UIA_PATTERN_ID = 10016
+UIA_ScrollItemPatternId: UIA_PATTERN_ID = 10017
+UIA_LegacyIAccessiblePatternId: UIA_PATTERN_ID = 10018
+UIA_ItemContainerPatternId: UIA_PATTERN_ID = 10019
+UIA_VirtualizedItemPatternId: UIA_PATTERN_ID = 10020
+UIA_SynchronizedInputPatternId: UIA_PATTERN_ID = 10021
+UIA_ObjectModelPatternId: UIA_PATTERN_ID = 10022
+UIA_AnnotationPatternId: UIA_PATTERN_ID = 10023
+UIA_TextPattern2Id: UIA_PATTERN_ID = 10024
+UIA_StylesPatternId: UIA_PATTERN_ID = 10025
+UIA_SpreadsheetPatternId: UIA_PATTERN_ID = 10026
+UIA_SpreadsheetItemPatternId: UIA_PATTERN_ID = 10027
+UIA_TransformPattern2Id: UIA_PATTERN_ID = 10028
+UIA_TextChildPatternId: UIA_PATTERN_ID = 10029
+UIA_DragPatternId: UIA_PATTERN_ID = 10030
+UIA_DropTargetPatternId: UIA_PATTERN_ID = 10031
+UIA_TextEditPatternId: UIA_PATTERN_ID = 10032
+UIA_CustomNavigationPatternId: UIA_PATTERN_ID = 10033
+UIA_SelectionPattern2Id: UIA_PATTERN_ID = 10034
 UIA_PROPERTY_ID = UInt32
-UIA_RuntimeIdPropertyId = 30000
-UIA_BoundingRectanglePropertyId = 30001
-UIA_ProcessIdPropertyId = 30002
-UIA_ControlTypePropertyId = 30003
-UIA_LocalizedControlTypePropertyId = 30004
-UIA_NamePropertyId = 30005
-UIA_AcceleratorKeyPropertyId = 30006
-UIA_AccessKeyPropertyId = 30007
-UIA_HasKeyboardFocusPropertyId = 30008
-UIA_IsKeyboardFocusablePropertyId = 30009
-UIA_IsEnabledPropertyId = 30010
-UIA_AutomationIdPropertyId = 30011
-UIA_ClassNamePropertyId = 30012
-UIA_HelpTextPropertyId = 30013
-UIA_ClickablePointPropertyId = 30014
-UIA_CulturePropertyId = 30015
-UIA_IsControlElementPropertyId = 30016
-UIA_IsContentElementPropertyId = 30017
-UIA_LabeledByPropertyId = 30018
-UIA_IsPasswordPropertyId = 30019
-UIA_NativeWindowHandlePropertyId = 30020
-UIA_ItemTypePropertyId = 30021
-UIA_IsOffscreenPropertyId = 30022
-UIA_OrientationPropertyId = 30023
-UIA_FrameworkIdPropertyId = 30024
-UIA_IsRequiredForFormPropertyId = 30025
-UIA_ItemStatusPropertyId = 30026
-UIA_IsDockPatternAvailablePropertyId = 30027
-UIA_IsExpandCollapsePatternAvailablePropertyId = 30028
-UIA_IsGridItemPatternAvailablePropertyId = 30029
-UIA_IsGridPatternAvailablePropertyId = 30030
-UIA_IsInvokePatternAvailablePropertyId = 30031
-UIA_IsMultipleViewPatternAvailablePropertyId = 30032
-UIA_IsRangeValuePatternAvailablePropertyId = 30033
-UIA_IsScrollPatternAvailablePropertyId = 30034
-UIA_IsScrollItemPatternAvailablePropertyId = 30035
-UIA_IsSelectionItemPatternAvailablePropertyId = 30036
-UIA_IsSelectionPatternAvailablePropertyId = 30037
-UIA_IsTablePatternAvailablePropertyId = 30038
-UIA_IsTableItemPatternAvailablePropertyId = 30039
-UIA_IsTextPatternAvailablePropertyId = 30040
-UIA_IsTogglePatternAvailablePropertyId = 30041
-UIA_IsTransformPatternAvailablePropertyId = 30042
-UIA_IsValuePatternAvailablePropertyId = 30043
-UIA_IsWindowPatternAvailablePropertyId = 30044
-UIA_ValueValuePropertyId = 30045
-UIA_ValueIsReadOnlyPropertyId = 30046
-UIA_RangeValueValuePropertyId = 30047
-UIA_RangeValueIsReadOnlyPropertyId = 30048
-UIA_RangeValueMinimumPropertyId = 30049
-UIA_RangeValueMaximumPropertyId = 30050
-UIA_RangeValueLargeChangePropertyId = 30051
-UIA_RangeValueSmallChangePropertyId = 30052
-UIA_ScrollHorizontalScrollPercentPropertyId = 30053
-UIA_ScrollHorizontalViewSizePropertyId = 30054
-UIA_ScrollVerticalScrollPercentPropertyId = 30055
-UIA_ScrollVerticalViewSizePropertyId = 30056
-UIA_ScrollHorizontallyScrollablePropertyId = 30057
-UIA_ScrollVerticallyScrollablePropertyId = 30058
-UIA_SelectionSelectionPropertyId = 30059
-UIA_SelectionCanSelectMultiplePropertyId = 30060
-UIA_SelectionIsSelectionRequiredPropertyId = 30061
-UIA_GridRowCountPropertyId = 30062
-UIA_GridColumnCountPropertyId = 30063
-UIA_GridItemRowPropertyId = 30064
-UIA_GridItemColumnPropertyId = 30065
-UIA_GridItemRowSpanPropertyId = 30066
-UIA_GridItemColumnSpanPropertyId = 30067
-UIA_GridItemContainingGridPropertyId = 30068
-UIA_DockDockPositionPropertyId = 30069
-UIA_ExpandCollapseExpandCollapseStatePropertyId = 30070
-UIA_MultipleViewCurrentViewPropertyId = 30071
-UIA_MultipleViewSupportedViewsPropertyId = 30072
-UIA_WindowCanMaximizePropertyId = 30073
-UIA_WindowCanMinimizePropertyId = 30074
-UIA_WindowWindowVisualStatePropertyId = 30075
-UIA_WindowWindowInteractionStatePropertyId = 30076
-UIA_WindowIsModalPropertyId = 30077
-UIA_WindowIsTopmostPropertyId = 30078
-UIA_SelectionItemIsSelectedPropertyId = 30079
-UIA_SelectionItemSelectionContainerPropertyId = 30080
-UIA_TableRowHeadersPropertyId = 30081
-UIA_TableColumnHeadersPropertyId = 30082
-UIA_TableRowOrColumnMajorPropertyId = 30083
-UIA_TableItemRowHeaderItemsPropertyId = 30084
-UIA_TableItemColumnHeaderItemsPropertyId = 30085
-UIA_ToggleToggleStatePropertyId = 30086
-UIA_TransformCanMovePropertyId = 30087
-UIA_TransformCanResizePropertyId = 30088
-UIA_TransformCanRotatePropertyId = 30089
-UIA_IsLegacyIAccessiblePatternAvailablePropertyId = 30090
-UIA_LegacyIAccessibleChildIdPropertyId = 30091
-UIA_LegacyIAccessibleNamePropertyId = 30092
-UIA_LegacyIAccessibleValuePropertyId = 30093
-UIA_LegacyIAccessibleDescriptionPropertyId = 30094
-UIA_LegacyIAccessibleRolePropertyId = 30095
-UIA_LegacyIAccessibleStatePropertyId = 30096
-UIA_LegacyIAccessibleHelpPropertyId = 30097
-UIA_LegacyIAccessibleKeyboardShortcutPropertyId = 30098
-UIA_LegacyIAccessibleSelectionPropertyId = 30099
-UIA_LegacyIAccessibleDefaultActionPropertyId = 30100
-UIA_AriaRolePropertyId = 30101
-UIA_AriaPropertiesPropertyId = 30102
-UIA_IsDataValidForFormPropertyId = 30103
-UIA_ControllerForPropertyId = 30104
-UIA_DescribedByPropertyId = 30105
-UIA_FlowsToPropertyId = 30106
-UIA_ProviderDescriptionPropertyId = 30107
-UIA_IsItemContainerPatternAvailablePropertyId = 30108
-UIA_IsVirtualizedItemPatternAvailablePropertyId = 30109
-UIA_IsSynchronizedInputPatternAvailablePropertyId = 30110
-UIA_OptimizeForVisualContentPropertyId = 30111
-UIA_IsObjectModelPatternAvailablePropertyId = 30112
-UIA_AnnotationAnnotationTypeIdPropertyId = 30113
-UIA_AnnotationAnnotationTypeNamePropertyId = 30114
-UIA_AnnotationAuthorPropertyId = 30115
-UIA_AnnotationDateTimePropertyId = 30116
-UIA_AnnotationTargetPropertyId = 30117
-UIA_IsAnnotationPatternAvailablePropertyId = 30118
-UIA_IsTextPattern2AvailablePropertyId = 30119
-UIA_StylesStyleIdPropertyId = 30120
-UIA_StylesStyleNamePropertyId = 30121
-UIA_StylesFillColorPropertyId = 30122
-UIA_StylesFillPatternStylePropertyId = 30123
-UIA_StylesShapePropertyId = 30124
-UIA_StylesFillPatternColorPropertyId = 30125
-UIA_StylesExtendedPropertiesPropertyId = 30126
-UIA_IsStylesPatternAvailablePropertyId = 30127
-UIA_IsSpreadsheetPatternAvailablePropertyId = 30128
-UIA_SpreadsheetItemFormulaPropertyId = 30129
-UIA_SpreadsheetItemAnnotationObjectsPropertyId = 30130
-UIA_SpreadsheetItemAnnotationTypesPropertyId = 30131
-UIA_IsSpreadsheetItemPatternAvailablePropertyId = 30132
-UIA_Transform2CanZoomPropertyId = 30133
-UIA_IsTransformPattern2AvailablePropertyId = 30134
-UIA_LiveSettingPropertyId = 30135
-UIA_IsTextChildPatternAvailablePropertyId = 30136
-UIA_IsDragPatternAvailablePropertyId = 30137
-UIA_DragIsGrabbedPropertyId = 30138
-UIA_DragDropEffectPropertyId = 30139
-UIA_DragDropEffectsPropertyId = 30140
-UIA_IsDropTargetPatternAvailablePropertyId = 30141
-UIA_DropTargetDropTargetEffectPropertyId = 30142
-UIA_DropTargetDropTargetEffectsPropertyId = 30143
-UIA_DragGrabbedItemsPropertyId = 30144
-UIA_Transform2ZoomLevelPropertyId = 30145
-UIA_Transform2ZoomMinimumPropertyId = 30146
-UIA_Transform2ZoomMaximumPropertyId = 30147
-UIA_FlowsFromPropertyId = 30148
-UIA_IsTextEditPatternAvailablePropertyId = 30149
-UIA_IsPeripheralPropertyId = 30150
-UIA_IsCustomNavigationPatternAvailablePropertyId = 30151
-UIA_PositionInSetPropertyId = 30152
-UIA_SizeOfSetPropertyId = 30153
-UIA_LevelPropertyId = 30154
-UIA_AnnotationTypesPropertyId = 30155
-UIA_AnnotationObjectsPropertyId = 30156
-UIA_LandmarkTypePropertyId = 30157
-UIA_LocalizedLandmarkTypePropertyId = 30158
-UIA_FullDescriptionPropertyId = 30159
-UIA_FillColorPropertyId = 30160
-UIA_OutlineColorPropertyId = 30161
-UIA_FillTypePropertyId = 30162
-UIA_VisualEffectsPropertyId = 30163
-UIA_OutlineThicknessPropertyId = 30164
-UIA_CenterPointPropertyId = 30165
-UIA_RotationPropertyId = 30166
-UIA_SizePropertyId = 30167
-UIA_IsSelectionPattern2AvailablePropertyId = 30168
-UIA_Selection2FirstSelectedItemPropertyId = 30169
-UIA_Selection2LastSelectedItemPropertyId = 30170
-UIA_Selection2CurrentSelectedItemPropertyId = 30171
-UIA_Selection2ItemCountPropertyId = 30172
-UIA_HeadingLevelPropertyId = 30173
-UIA_IsDialogPropertyId = 30174
+UIA_RuntimeIdPropertyId: UIA_PROPERTY_ID = 30000
+UIA_BoundingRectanglePropertyId: UIA_PROPERTY_ID = 30001
+UIA_ProcessIdPropertyId: UIA_PROPERTY_ID = 30002
+UIA_ControlTypePropertyId: UIA_PROPERTY_ID = 30003
+UIA_LocalizedControlTypePropertyId: UIA_PROPERTY_ID = 30004
+UIA_NamePropertyId: UIA_PROPERTY_ID = 30005
+UIA_AcceleratorKeyPropertyId: UIA_PROPERTY_ID = 30006
+UIA_AccessKeyPropertyId: UIA_PROPERTY_ID = 30007
+UIA_HasKeyboardFocusPropertyId: UIA_PROPERTY_ID = 30008
+UIA_IsKeyboardFocusablePropertyId: UIA_PROPERTY_ID = 30009
+UIA_IsEnabledPropertyId: UIA_PROPERTY_ID = 30010
+UIA_AutomationIdPropertyId: UIA_PROPERTY_ID = 30011
+UIA_ClassNamePropertyId: UIA_PROPERTY_ID = 30012
+UIA_HelpTextPropertyId: UIA_PROPERTY_ID = 30013
+UIA_ClickablePointPropertyId: UIA_PROPERTY_ID = 30014
+UIA_CulturePropertyId: UIA_PROPERTY_ID = 30015
+UIA_IsControlElementPropertyId: UIA_PROPERTY_ID = 30016
+UIA_IsContentElementPropertyId: UIA_PROPERTY_ID = 30017
+UIA_LabeledByPropertyId: UIA_PROPERTY_ID = 30018
+UIA_IsPasswordPropertyId: UIA_PROPERTY_ID = 30019
+UIA_NativeWindowHandlePropertyId: UIA_PROPERTY_ID = 30020
+UIA_ItemTypePropertyId: UIA_PROPERTY_ID = 30021
+UIA_IsOffscreenPropertyId: UIA_PROPERTY_ID = 30022
+UIA_OrientationPropertyId: UIA_PROPERTY_ID = 30023
+UIA_FrameworkIdPropertyId: UIA_PROPERTY_ID = 30024
+UIA_IsRequiredForFormPropertyId: UIA_PROPERTY_ID = 30025
+UIA_ItemStatusPropertyId: UIA_PROPERTY_ID = 30026
+UIA_IsDockPatternAvailablePropertyId: UIA_PROPERTY_ID = 30027
+UIA_IsExpandCollapsePatternAvailablePropertyId: UIA_PROPERTY_ID = 30028
+UIA_IsGridItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30029
+UIA_IsGridPatternAvailablePropertyId: UIA_PROPERTY_ID = 30030
+UIA_IsInvokePatternAvailablePropertyId: UIA_PROPERTY_ID = 30031
+UIA_IsMultipleViewPatternAvailablePropertyId: UIA_PROPERTY_ID = 30032
+UIA_IsRangeValuePatternAvailablePropertyId: UIA_PROPERTY_ID = 30033
+UIA_IsScrollPatternAvailablePropertyId: UIA_PROPERTY_ID = 30034
+UIA_IsScrollItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30035
+UIA_IsSelectionItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30036
+UIA_IsSelectionPatternAvailablePropertyId: UIA_PROPERTY_ID = 30037
+UIA_IsTablePatternAvailablePropertyId: UIA_PROPERTY_ID = 30038
+UIA_IsTableItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30039
+UIA_IsTextPatternAvailablePropertyId: UIA_PROPERTY_ID = 30040
+UIA_IsTogglePatternAvailablePropertyId: UIA_PROPERTY_ID = 30041
+UIA_IsTransformPatternAvailablePropertyId: UIA_PROPERTY_ID = 30042
+UIA_IsValuePatternAvailablePropertyId: UIA_PROPERTY_ID = 30043
+UIA_IsWindowPatternAvailablePropertyId: UIA_PROPERTY_ID = 30044
+UIA_ValueValuePropertyId: UIA_PROPERTY_ID = 30045
+UIA_ValueIsReadOnlyPropertyId: UIA_PROPERTY_ID = 30046
+UIA_RangeValueValuePropertyId: UIA_PROPERTY_ID = 30047
+UIA_RangeValueIsReadOnlyPropertyId: UIA_PROPERTY_ID = 30048
+UIA_RangeValueMinimumPropertyId: UIA_PROPERTY_ID = 30049
+UIA_RangeValueMaximumPropertyId: UIA_PROPERTY_ID = 30050
+UIA_RangeValueLargeChangePropertyId: UIA_PROPERTY_ID = 30051
+UIA_RangeValueSmallChangePropertyId: UIA_PROPERTY_ID = 30052
+UIA_ScrollHorizontalScrollPercentPropertyId: UIA_PROPERTY_ID = 30053
+UIA_ScrollHorizontalViewSizePropertyId: UIA_PROPERTY_ID = 30054
+UIA_ScrollVerticalScrollPercentPropertyId: UIA_PROPERTY_ID = 30055
+UIA_ScrollVerticalViewSizePropertyId: UIA_PROPERTY_ID = 30056
+UIA_ScrollHorizontallyScrollablePropertyId: UIA_PROPERTY_ID = 30057
+UIA_ScrollVerticallyScrollablePropertyId: UIA_PROPERTY_ID = 30058
+UIA_SelectionSelectionPropertyId: UIA_PROPERTY_ID = 30059
+UIA_SelectionCanSelectMultiplePropertyId: UIA_PROPERTY_ID = 30060
+UIA_SelectionIsSelectionRequiredPropertyId: UIA_PROPERTY_ID = 30061
+UIA_GridRowCountPropertyId: UIA_PROPERTY_ID = 30062
+UIA_GridColumnCountPropertyId: UIA_PROPERTY_ID = 30063
+UIA_GridItemRowPropertyId: UIA_PROPERTY_ID = 30064
+UIA_GridItemColumnPropertyId: UIA_PROPERTY_ID = 30065
+UIA_GridItemRowSpanPropertyId: UIA_PROPERTY_ID = 30066
+UIA_GridItemColumnSpanPropertyId: UIA_PROPERTY_ID = 30067
+UIA_GridItemContainingGridPropertyId: UIA_PROPERTY_ID = 30068
+UIA_DockDockPositionPropertyId: UIA_PROPERTY_ID = 30069
+UIA_ExpandCollapseExpandCollapseStatePropertyId: UIA_PROPERTY_ID = 30070
+UIA_MultipleViewCurrentViewPropertyId: UIA_PROPERTY_ID = 30071
+UIA_MultipleViewSupportedViewsPropertyId: UIA_PROPERTY_ID = 30072
+UIA_WindowCanMaximizePropertyId: UIA_PROPERTY_ID = 30073
+UIA_WindowCanMinimizePropertyId: UIA_PROPERTY_ID = 30074
+UIA_WindowWindowVisualStatePropertyId: UIA_PROPERTY_ID = 30075
+UIA_WindowWindowInteractionStatePropertyId: UIA_PROPERTY_ID = 30076
+UIA_WindowIsModalPropertyId: UIA_PROPERTY_ID = 30077
+UIA_WindowIsTopmostPropertyId: UIA_PROPERTY_ID = 30078
+UIA_SelectionItemIsSelectedPropertyId: UIA_PROPERTY_ID = 30079
+UIA_SelectionItemSelectionContainerPropertyId: UIA_PROPERTY_ID = 30080
+UIA_TableRowHeadersPropertyId: UIA_PROPERTY_ID = 30081
+UIA_TableColumnHeadersPropertyId: UIA_PROPERTY_ID = 30082
+UIA_TableRowOrColumnMajorPropertyId: UIA_PROPERTY_ID = 30083
+UIA_TableItemRowHeaderItemsPropertyId: UIA_PROPERTY_ID = 30084
+UIA_TableItemColumnHeaderItemsPropertyId: UIA_PROPERTY_ID = 30085
+UIA_ToggleToggleStatePropertyId: UIA_PROPERTY_ID = 30086
+UIA_TransformCanMovePropertyId: UIA_PROPERTY_ID = 30087
+UIA_TransformCanResizePropertyId: UIA_PROPERTY_ID = 30088
+UIA_TransformCanRotatePropertyId: UIA_PROPERTY_ID = 30089
+UIA_IsLegacyIAccessiblePatternAvailablePropertyId: UIA_PROPERTY_ID = 30090
+UIA_LegacyIAccessibleChildIdPropertyId: UIA_PROPERTY_ID = 30091
+UIA_LegacyIAccessibleNamePropertyId: UIA_PROPERTY_ID = 30092
+UIA_LegacyIAccessibleValuePropertyId: UIA_PROPERTY_ID = 30093
+UIA_LegacyIAccessibleDescriptionPropertyId: UIA_PROPERTY_ID = 30094
+UIA_LegacyIAccessibleRolePropertyId: UIA_PROPERTY_ID = 30095
+UIA_LegacyIAccessibleStatePropertyId: UIA_PROPERTY_ID = 30096
+UIA_LegacyIAccessibleHelpPropertyId: UIA_PROPERTY_ID = 30097
+UIA_LegacyIAccessibleKeyboardShortcutPropertyId: UIA_PROPERTY_ID = 30098
+UIA_LegacyIAccessibleSelectionPropertyId: UIA_PROPERTY_ID = 30099
+UIA_LegacyIAccessibleDefaultActionPropertyId: UIA_PROPERTY_ID = 30100
+UIA_AriaRolePropertyId: UIA_PROPERTY_ID = 30101
+UIA_AriaPropertiesPropertyId: UIA_PROPERTY_ID = 30102
+UIA_IsDataValidForFormPropertyId: UIA_PROPERTY_ID = 30103
+UIA_ControllerForPropertyId: UIA_PROPERTY_ID = 30104
+UIA_DescribedByPropertyId: UIA_PROPERTY_ID = 30105
+UIA_FlowsToPropertyId: UIA_PROPERTY_ID = 30106
+UIA_ProviderDescriptionPropertyId: UIA_PROPERTY_ID = 30107
+UIA_IsItemContainerPatternAvailablePropertyId: UIA_PROPERTY_ID = 30108
+UIA_IsVirtualizedItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30109
+UIA_IsSynchronizedInputPatternAvailablePropertyId: UIA_PROPERTY_ID = 30110
+UIA_OptimizeForVisualContentPropertyId: UIA_PROPERTY_ID = 30111
+UIA_IsObjectModelPatternAvailablePropertyId: UIA_PROPERTY_ID = 30112
+UIA_AnnotationAnnotationTypeIdPropertyId: UIA_PROPERTY_ID = 30113
+UIA_AnnotationAnnotationTypeNamePropertyId: UIA_PROPERTY_ID = 30114
+UIA_AnnotationAuthorPropertyId: UIA_PROPERTY_ID = 30115
+UIA_AnnotationDateTimePropertyId: UIA_PROPERTY_ID = 30116
+UIA_AnnotationTargetPropertyId: UIA_PROPERTY_ID = 30117
+UIA_IsAnnotationPatternAvailablePropertyId: UIA_PROPERTY_ID = 30118
+UIA_IsTextPattern2AvailablePropertyId: UIA_PROPERTY_ID = 30119
+UIA_StylesStyleIdPropertyId: UIA_PROPERTY_ID = 30120
+UIA_StylesStyleNamePropertyId: UIA_PROPERTY_ID = 30121
+UIA_StylesFillColorPropertyId: UIA_PROPERTY_ID = 30122
+UIA_StylesFillPatternStylePropertyId: UIA_PROPERTY_ID = 30123
+UIA_StylesShapePropertyId: UIA_PROPERTY_ID = 30124
+UIA_StylesFillPatternColorPropertyId: UIA_PROPERTY_ID = 30125
+UIA_StylesExtendedPropertiesPropertyId: UIA_PROPERTY_ID = 30126
+UIA_IsStylesPatternAvailablePropertyId: UIA_PROPERTY_ID = 30127
+UIA_IsSpreadsheetPatternAvailablePropertyId: UIA_PROPERTY_ID = 30128
+UIA_SpreadsheetItemFormulaPropertyId: UIA_PROPERTY_ID = 30129
+UIA_SpreadsheetItemAnnotationObjectsPropertyId: UIA_PROPERTY_ID = 30130
+UIA_SpreadsheetItemAnnotationTypesPropertyId: UIA_PROPERTY_ID = 30131
+UIA_IsSpreadsheetItemPatternAvailablePropertyId: UIA_PROPERTY_ID = 30132
+UIA_Transform2CanZoomPropertyId: UIA_PROPERTY_ID = 30133
+UIA_IsTransformPattern2AvailablePropertyId: UIA_PROPERTY_ID = 30134
+UIA_LiveSettingPropertyId: UIA_PROPERTY_ID = 30135
+UIA_IsTextChildPatternAvailablePropertyId: UIA_PROPERTY_ID = 30136
+UIA_IsDragPatternAvailablePropertyId: UIA_PROPERTY_ID = 30137
+UIA_DragIsGrabbedPropertyId: UIA_PROPERTY_ID = 30138
+UIA_DragDropEffectPropertyId: UIA_PROPERTY_ID = 30139
+UIA_DragDropEffectsPropertyId: UIA_PROPERTY_ID = 30140
+UIA_IsDropTargetPatternAvailablePropertyId: UIA_PROPERTY_ID = 30141
+UIA_DropTargetDropTargetEffectPropertyId: UIA_PROPERTY_ID = 30142
+UIA_DropTargetDropTargetEffectsPropertyId: UIA_PROPERTY_ID = 30143
+UIA_DragGrabbedItemsPropertyId: UIA_PROPERTY_ID = 30144
+UIA_Transform2ZoomLevelPropertyId: UIA_PROPERTY_ID = 30145
+UIA_Transform2ZoomMinimumPropertyId: UIA_PROPERTY_ID = 30146
+UIA_Transform2ZoomMaximumPropertyId: UIA_PROPERTY_ID = 30147
+UIA_FlowsFromPropertyId: UIA_PROPERTY_ID = 30148
+UIA_IsTextEditPatternAvailablePropertyId: UIA_PROPERTY_ID = 30149
+UIA_IsPeripheralPropertyId: UIA_PROPERTY_ID = 30150
+UIA_IsCustomNavigationPatternAvailablePropertyId: UIA_PROPERTY_ID = 30151
+UIA_PositionInSetPropertyId: UIA_PROPERTY_ID = 30152
+UIA_SizeOfSetPropertyId: UIA_PROPERTY_ID = 30153
+UIA_LevelPropertyId: UIA_PROPERTY_ID = 30154
+UIA_AnnotationTypesPropertyId: UIA_PROPERTY_ID = 30155
+UIA_AnnotationObjectsPropertyId: UIA_PROPERTY_ID = 30156
+UIA_LandmarkTypePropertyId: UIA_PROPERTY_ID = 30157
+UIA_LocalizedLandmarkTypePropertyId: UIA_PROPERTY_ID = 30158
+UIA_FullDescriptionPropertyId: UIA_PROPERTY_ID = 30159
+UIA_FillColorPropertyId: UIA_PROPERTY_ID = 30160
+UIA_OutlineColorPropertyId: UIA_PROPERTY_ID = 30161
+UIA_FillTypePropertyId: UIA_PROPERTY_ID = 30162
+UIA_VisualEffectsPropertyId: UIA_PROPERTY_ID = 30163
+UIA_OutlineThicknessPropertyId: UIA_PROPERTY_ID = 30164
+UIA_CenterPointPropertyId: UIA_PROPERTY_ID = 30165
+UIA_RotationPropertyId: UIA_PROPERTY_ID = 30166
+UIA_SizePropertyId: UIA_PROPERTY_ID = 30167
+UIA_IsSelectionPattern2AvailablePropertyId: UIA_PROPERTY_ID = 30168
+UIA_Selection2FirstSelectedItemPropertyId: UIA_PROPERTY_ID = 30169
+UIA_Selection2LastSelectedItemPropertyId: UIA_PROPERTY_ID = 30170
+UIA_Selection2CurrentSelectedItemPropertyId: UIA_PROPERTY_ID = 30171
+UIA_Selection2ItemCountPropertyId: UIA_PROPERTY_ID = 30172
+UIA_HeadingLevelPropertyId: UIA_PROPERTY_ID = 30173
+UIA_IsDialogPropertyId: UIA_PROPERTY_ID = 30174
 UIA_STYLE_ID = UInt32
-StyleId_Custom = 70000
-StyleId_Heading1 = 70001
-StyleId_Heading2 = 70002
-StyleId_Heading3 = 70003
-StyleId_Heading4 = 70004
-StyleId_Heading5 = 70005
-StyleId_Heading6 = 70006
-StyleId_Heading7 = 70007
-StyleId_Heading8 = 70008
-StyleId_Heading9 = 70009
-StyleId_Title = 70010
-StyleId_Subtitle = 70011
-StyleId_Normal = 70012
-StyleId_Emphasis = 70013
-StyleId_Quote = 70014
-StyleId_BulletedList = 70015
-StyleId_NumberedList = 70016
+StyleId_Custom: UIA_STYLE_ID = 70000
+StyleId_Heading1: UIA_STYLE_ID = 70001
+StyleId_Heading2: UIA_STYLE_ID = 70002
+StyleId_Heading3: UIA_STYLE_ID = 70003
+StyleId_Heading4: UIA_STYLE_ID = 70004
+StyleId_Heading5: UIA_STYLE_ID = 70005
+StyleId_Heading6: UIA_STYLE_ID = 70006
+StyleId_Heading7: UIA_STYLE_ID = 70007
+StyleId_Heading8: UIA_STYLE_ID = 70008
+StyleId_Heading9: UIA_STYLE_ID = 70009
+StyleId_Title: UIA_STYLE_ID = 70010
+StyleId_Subtitle: UIA_STYLE_ID = 70011
+StyleId_Normal: UIA_STYLE_ID = 70012
+StyleId_Emphasis: UIA_STYLE_ID = 70013
+StyleId_Quote: UIA_STYLE_ID = 70014
+StyleId_BulletedList: UIA_STYLE_ID = 70015
+StyleId_NumberedList: UIA_STYLE_ID = 70016
 UIA_TEXTATTRIBUTE_ID = UInt32
-UIA_AnimationStyleAttributeId = 40000
-UIA_BackgroundColorAttributeId = 40001
-UIA_BulletStyleAttributeId = 40002
-UIA_CapStyleAttributeId = 40003
-UIA_CultureAttributeId = 40004
-UIA_FontNameAttributeId = 40005
-UIA_FontSizeAttributeId = 40006
-UIA_FontWeightAttributeId = 40007
-UIA_ForegroundColorAttributeId = 40008
-UIA_HorizontalTextAlignmentAttributeId = 40009
-UIA_IndentationFirstLineAttributeId = 40010
-UIA_IndentationLeadingAttributeId = 40011
-UIA_IndentationTrailingAttributeId = 40012
-UIA_IsHiddenAttributeId = 40013
-UIA_IsItalicAttributeId = 40014
-UIA_IsReadOnlyAttributeId = 40015
-UIA_IsSubscriptAttributeId = 40016
-UIA_IsSuperscriptAttributeId = 40017
-UIA_MarginBottomAttributeId = 40018
-UIA_MarginLeadingAttributeId = 40019
-UIA_MarginTopAttributeId = 40020
-UIA_MarginTrailingAttributeId = 40021
-UIA_OutlineStylesAttributeId = 40022
-UIA_OverlineColorAttributeId = 40023
-UIA_OverlineStyleAttributeId = 40024
-UIA_StrikethroughColorAttributeId = 40025
-UIA_StrikethroughStyleAttributeId = 40026
-UIA_TabsAttributeId = 40027
-UIA_TextFlowDirectionsAttributeId = 40028
-UIA_UnderlineColorAttributeId = 40029
-UIA_UnderlineStyleAttributeId = 40030
-UIA_AnnotationTypesAttributeId = 40031
-UIA_AnnotationObjectsAttributeId = 40032
-UIA_StyleNameAttributeId = 40033
-UIA_StyleIdAttributeId = 40034
-UIA_LinkAttributeId = 40035
-UIA_IsActiveAttributeId = 40036
-UIA_SelectionActiveEndAttributeId = 40037
-UIA_CaretPositionAttributeId = 40038
-UIA_CaretBidiModeAttributeId = 40039
-UIA_LineSpacingAttributeId = 40040
-UIA_BeforeParagraphSpacingAttributeId = 40041
-UIA_AfterParagraphSpacingAttributeId = 40042
-UIA_SayAsInterpretAsAttributeId = 40043
-def _define_UiaAndOrCondition_head():
-    class UiaAndOrCondition(Structure):
-        pass
-    return UiaAndOrCondition
-def _define_UiaAndOrCondition():
-    UiaAndOrCondition = win32more.UI.Accessibility.UiaAndOrCondition_head
-    UiaAndOrCondition._fields_ = [
-        ('ConditionType', win32more.UI.Accessibility.ConditionType),
-        ('ppConditions', POINTER(POINTER(win32more.UI.Accessibility.UiaCondition_head))),
-        ('cConditions', Int32),
-    ]
-    return UiaAndOrCondition
-def _define_UiaAsyncContentLoadedEventArgs_head():
-    class UiaAsyncContentLoadedEventArgs(Structure):
-        pass
-    return UiaAsyncContentLoadedEventArgs
-def _define_UiaAsyncContentLoadedEventArgs():
-    UiaAsyncContentLoadedEventArgs = win32more.UI.Accessibility.UiaAsyncContentLoadedEventArgs_head
-    UiaAsyncContentLoadedEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-        ('AsyncContentLoadedState', win32more.UI.Accessibility.AsyncContentLoadedState),
-        ('PercentComplete', Double),
-    ]
-    return UiaAsyncContentLoadedEventArgs
-def _define_UiaCacheRequest_head():
-    class UiaCacheRequest(Structure):
-        pass
-    return UiaCacheRequest
-def _define_UiaCacheRequest():
-    UiaCacheRequest = win32more.UI.Accessibility.UiaCacheRequest_head
-    UiaCacheRequest._fields_ = [
-        ('pViewCondition', POINTER(win32more.UI.Accessibility.UiaCondition_head)),
-        ('Scope', win32more.UI.Accessibility.TreeScope),
-        ('pProperties', POINTER(Int32)),
-        ('cProperties', Int32),
-        ('pPatterns', POINTER(Int32)),
-        ('cPatterns', Int32),
-        ('automationElementMode', win32more.UI.Accessibility.AutomationElementMode),
-    ]
-    return UiaCacheRequest
-def _define_UiaChangeInfo_head():
-    class UiaChangeInfo(Structure):
-        pass
-    return UiaChangeInfo
-def _define_UiaChangeInfo():
-    UiaChangeInfo = win32more.UI.Accessibility.UiaChangeInfo_head
-    UiaChangeInfo._fields_ = [
-        ('uiaId', Int32),
-        ('payload', win32more.System.Com.VARIANT),
-        ('extraInfo', win32more.System.Com.VARIANT),
-    ]
-    return UiaChangeInfo
-def _define_UiaChangesEventArgs_head():
-    class UiaChangesEventArgs(Structure):
-        pass
-    return UiaChangesEventArgs
-def _define_UiaChangesEventArgs():
-    UiaChangesEventArgs = win32more.UI.Accessibility.UiaChangesEventArgs_head
-    UiaChangesEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-        ('EventIdCount', Int32),
-        ('pUiaChanges', POINTER(win32more.UI.Accessibility.UiaChangeInfo_head)),
-    ]
-    return UiaChangesEventArgs
-def _define_UiaCondition_head():
-    class UiaCondition(Structure):
-        pass
-    return UiaCondition
-def _define_UiaCondition():
-    UiaCondition = win32more.UI.Accessibility.UiaCondition_head
-    UiaCondition._fields_ = [
-        ('ConditionType', win32more.UI.Accessibility.ConditionType),
-    ]
-    return UiaCondition
-def _define_UiaEventArgs_head():
-    class UiaEventArgs(Structure):
-        pass
-    return UiaEventArgs
-def _define_UiaEventArgs():
-    UiaEventArgs = win32more.UI.Accessibility.UiaEventArgs_head
-    UiaEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-    ]
-    return UiaEventArgs
-def _define_UiaEventCallback():
-    return WINFUNCTYPE(Void,POINTER(win32more.UI.Accessibility.UiaEventArgs_head),POINTER(win32more.System.Com.SAFEARRAY_head),win32more.Foundation.BSTR)
-def _define_UiaFindParams_head():
-    class UiaFindParams(Structure):
-        pass
-    return UiaFindParams
-def _define_UiaFindParams():
-    UiaFindParams = win32more.UI.Accessibility.UiaFindParams_head
-    UiaFindParams._fields_ = [
-        ('MaxDepth', Int32),
-        ('FindFirst', win32more.Foundation.BOOL),
-        ('ExcludeRoot', win32more.Foundation.BOOL),
-        ('pFindCondition', POINTER(win32more.UI.Accessibility.UiaCondition_head)),
-    ]
-    return UiaFindParams
-def _define_UiaNotCondition_head():
-    class UiaNotCondition(Structure):
-        pass
-    return UiaNotCondition
-def _define_UiaNotCondition():
-    UiaNotCondition = win32more.UI.Accessibility.UiaNotCondition_head
-    UiaNotCondition._fields_ = [
-        ('ConditionType', win32more.UI.Accessibility.ConditionType),
-        ('pCondition', POINTER(win32more.UI.Accessibility.UiaCondition_head)),
-    ]
-    return UiaNotCondition
-def _define_UiaPoint_head():
-    class UiaPoint(Structure):
-        pass
-    return UiaPoint
-def _define_UiaPoint():
-    UiaPoint = win32more.UI.Accessibility.UiaPoint_head
-    UiaPoint._fields_ = [
-        ('x', Double),
-        ('y', Double),
-    ]
-    return UiaPoint
-def _define_UiaPropertyChangedEventArgs_head():
-    class UiaPropertyChangedEventArgs(Structure):
-        pass
-    return UiaPropertyChangedEventArgs
-def _define_UiaPropertyChangedEventArgs():
-    UiaPropertyChangedEventArgs = win32more.UI.Accessibility.UiaPropertyChangedEventArgs_head
-    UiaPropertyChangedEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', win32more.UI.Accessibility.UIA_EVENT_ID),
-        ('PropertyId', Int32),
-        ('OldValue', win32more.System.Com.VARIANT),
-        ('NewValue', win32more.System.Com.VARIANT),
-    ]
-    return UiaPropertyChangedEventArgs
-def _define_UiaPropertyCondition_head():
-    class UiaPropertyCondition(Structure):
-        pass
-    return UiaPropertyCondition
-def _define_UiaPropertyCondition():
-    UiaPropertyCondition = win32more.UI.Accessibility.UiaPropertyCondition_head
-    UiaPropertyCondition._fields_ = [
-        ('ConditionType', win32more.UI.Accessibility.ConditionType),
-        ('PropertyId', win32more.UI.Accessibility.UIA_PROPERTY_ID),
-        ('Value', win32more.System.Com.VARIANT),
-        ('Flags', win32more.UI.Accessibility.PropertyConditionFlags),
-    ]
-    return UiaPropertyCondition
-def _define_UiaProviderCallback():
-    return WINFUNCTYPE(POINTER(win32more.System.Com.SAFEARRAY_head),win32more.Foundation.HWND,win32more.UI.Accessibility.ProviderType)
-def _define_UiaRect_head():
-    class UiaRect(Structure):
-        pass
-    return UiaRect
-def _define_UiaRect():
-    UiaRect = win32more.UI.Accessibility.UiaRect_head
-    UiaRect._fields_ = [
-        ('left', Double),
-        ('top', Double),
-        ('width', Double),
-        ('height', Double),
-    ]
-    return UiaRect
-def _define_UiaStructureChangedEventArgs_head():
-    class UiaStructureChangedEventArgs(Structure):
-        pass
-    return UiaStructureChangedEventArgs
-def _define_UiaStructureChangedEventArgs():
-    UiaStructureChangedEventArgs = win32more.UI.Accessibility.UiaStructureChangedEventArgs_head
-    UiaStructureChangedEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-        ('StructureChangeType', win32more.UI.Accessibility.StructureChangeType),
-        ('pRuntimeId', POINTER(Int32)),
-        ('cRuntimeIdLen', Int32),
-    ]
-    return UiaStructureChangedEventArgs
-def _define_UiaTextEditTextChangedEventArgs_head():
-    class UiaTextEditTextChangedEventArgs(Structure):
-        pass
-    return UiaTextEditTextChangedEventArgs
-def _define_UiaTextEditTextChangedEventArgs():
-    UiaTextEditTextChangedEventArgs = win32more.UI.Accessibility.UiaTextEditTextChangedEventArgs_head
-    UiaTextEditTextChangedEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-        ('TextEditChangeType', win32more.UI.Accessibility.TextEditChangeType),
-        ('pTextChange', POINTER(win32more.System.Com.SAFEARRAY_head)),
-    ]
-    return UiaTextEditTextChangedEventArgs
-def _define_UIAutomationEventInfo_head():
-    class UIAutomationEventInfo(Structure):
-        pass
-    return UIAutomationEventInfo
-def _define_UIAutomationEventInfo():
-    UIAutomationEventInfo = win32more.UI.Accessibility.UIAutomationEventInfo_head
-    UIAutomationEventInfo._fields_ = [
-        ('guid', Guid),
-        ('pProgrammaticName', win32more.Foundation.PWSTR),
-    ]
-    return UIAutomationEventInfo
-def _define_UIAutomationMethodInfo_head():
-    class UIAutomationMethodInfo(Structure):
-        pass
-    return UIAutomationMethodInfo
-def _define_UIAutomationMethodInfo():
-    UIAutomationMethodInfo = win32more.UI.Accessibility.UIAutomationMethodInfo_head
-    UIAutomationMethodInfo._fields_ = [
-        ('pProgrammaticName', win32more.Foundation.PWSTR),
-        ('doSetFocus', win32more.Foundation.BOOL),
-        ('cInParameters', UInt32),
-        ('cOutParameters', UInt32),
-        ('pParameterTypes', POINTER(win32more.UI.Accessibility.UIAutomationType)),
-        ('pParameterNames', POINTER(win32more.Foundation.PWSTR)),
-    ]
-    return UIAutomationMethodInfo
-def _define_UIAutomationParameter_head():
-    class UIAutomationParameter(Structure):
-        pass
-    return UIAutomationParameter
-def _define_UIAutomationParameter():
-    UIAutomationParameter = win32more.UI.Accessibility.UIAutomationParameter_head
-    UIAutomationParameter._fields_ = [
-        ('type', win32more.UI.Accessibility.UIAutomationType),
-        ('pData', c_void_p),
-    ]
-    return UIAutomationParameter
-def _define_UIAutomationPatternInfo_head():
-    class UIAutomationPatternInfo(Structure):
-        pass
-    return UIAutomationPatternInfo
-def _define_UIAutomationPatternInfo():
-    UIAutomationPatternInfo = win32more.UI.Accessibility.UIAutomationPatternInfo_head
-    UIAutomationPatternInfo._fields_ = [
-        ('guid', Guid),
-        ('pProgrammaticName', win32more.Foundation.PWSTR),
-        ('providerInterfaceId', Guid),
-        ('clientInterfaceId', Guid),
-        ('cProperties', UInt32),
-        ('pProperties', POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head)),
-        ('cMethods', UInt32),
-        ('pMethods', POINTER(win32more.UI.Accessibility.UIAutomationMethodInfo_head)),
-        ('cEvents', UInt32),
-        ('pEvents', POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head)),
-        ('pPatternHandler', win32more.UI.Accessibility.IUIAutomationPatternHandler_head),
-    ]
-    return UIAutomationPatternInfo
-def _define_UIAutomationPropertyInfo_head():
-    class UIAutomationPropertyInfo(Structure):
-        pass
-    return UIAutomationPropertyInfo
-def _define_UIAutomationPropertyInfo():
-    UIAutomationPropertyInfo = win32more.UI.Accessibility.UIAutomationPropertyInfo_head
-    UIAutomationPropertyInfo._fields_ = [
-        ('guid', Guid),
-        ('pProgrammaticName', win32more.Foundation.PWSTR),
-        ('type', win32more.UI.Accessibility.UIAutomationType),
-    ]
-    return UIAutomationPropertyInfo
+UIA_AnimationStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40000
+UIA_BackgroundColorAttributeId: UIA_TEXTATTRIBUTE_ID = 40001
+UIA_BulletStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40002
+UIA_CapStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40003
+UIA_CultureAttributeId: UIA_TEXTATTRIBUTE_ID = 40004
+UIA_FontNameAttributeId: UIA_TEXTATTRIBUTE_ID = 40005
+UIA_FontSizeAttributeId: UIA_TEXTATTRIBUTE_ID = 40006
+UIA_FontWeightAttributeId: UIA_TEXTATTRIBUTE_ID = 40007
+UIA_ForegroundColorAttributeId: UIA_TEXTATTRIBUTE_ID = 40008
+UIA_HorizontalTextAlignmentAttributeId: UIA_TEXTATTRIBUTE_ID = 40009
+UIA_IndentationFirstLineAttributeId: UIA_TEXTATTRIBUTE_ID = 40010
+UIA_IndentationLeadingAttributeId: UIA_TEXTATTRIBUTE_ID = 40011
+UIA_IndentationTrailingAttributeId: UIA_TEXTATTRIBUTE_ID = 40012
+UIA_IsHiddenAttributeId: UIA_TEXTATTRIBUTE_ID = 40013
+UIA_IsItalicAttributeId: UIA_TEXTATTRIBUTE_ID = 40014
+UIA_IsReadOnlyAttributeId: UIA_TEXTATTRIBUTE_ID = 40015
+UIA_IsSubscriptAttributeId: UIA_TEXTATTRIBUTE_ID = 40016
+UIA_IsSuperscriptAttributeId: UIA_TEXTATTRIBUTE_ID = 40017
+UIA_MarginBottomAttributeId: UIA_TEXTATTRIBUTE_ID = 40018
+UIA_MarginLeadingAttributeId: UIA_TEXTATTRIBUTE_ID = 40019
+UIA_MarginTopAttributeId: UIA_TEXTATTRIBUTE_ID = 40020
+UIA_MarginTrailingAttributeId: UIA_TEXTATTRIBUTE_ID = 40021
+UIA_OutlineStylesAttributeId: UIA_TEXTATTRIBUTE_ID = 40022
+UIA_OverlineColorAttributeId: UIA_TEXTATTRIBUTE_ID = 40023
+UIA_OverlineStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40024
+UIA_StrikethroughColorAttributeId: UIA_TEXTATTRIBUTE_ID = 40025
+UIA_StrikethroughStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40026
+UIA_TabsAttributeId: UIA_TEXTATTRIBUTE_ID = 40027
+UIA_TextFlowDirectionsAttributeId: UIA_TEXTATTRIBUTE_ID = 40028
+UIA_UnderlineColorAttributeId: UIA_TEXTATTRIBUTE_ID = 40029
+UIA_UnderlineStyleAttributeId: UIA_TEXTATTRIBUTE_ID = 40030
+UIA_AnnotationTypesAttributeId: UIA_TEXTATTRIBUTE_ID = 40031
+UIA_AnnotationObjectsAttributeId: UIA_TEXTATTRIBUTE_ID = 40032
+UIA_StyleNameAttributeId: UIA_TEXTATTRIBUTE_ID = 40033
+UIA_StyleIdAttributeId: UIA_TEXTATTRIBUTE_ID = 40034
+UIA_LinkAttributeId: UIA_TEXTATTRIBUTE_ID = 40035
+UIA_IsActiveAttributeId: UIA_TEXTATTRIBUTE_ID = 40036
+UIA_SelectionActiveEndAttributeId: UIA_TEXTATTRIBUTE_ID = 40037
+UIA_CaretPositionAttributeId: UIA_TEXTATTRIBUTE_ID = 40038
+UIA_CaretBidiModeAttributeId: UIA_TEXTATTRIBUTE_ID = 40039
+UIA_LineSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40040
+UIA_BeforeParagraphSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40041
+UIA_AfterParagraphSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40042
+UIA_SayAsInterpretAsAttributeId: UIA_TEXTATTRIBUTE_ID = 40043
+class UiaAndOrCondition(Structure):
+    ConditionType: win32more.UI.Accessibility.ConditionType
+    ppConditions: POINTER(POINTER(win32more.UI.Accessibility.UiaCondition_head))
+    cConditions: Int32
+class UiaAsyncContentLoadedEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+    AsyncContentLoadedState: win32more.UI.Accessibility.AsyncContentLoadedState
+    PercentComplete: Double
+class UiaCacheRequest(Structure):
+    pViewCondition: POINTER(win32more.UI.Accessibility.UiaCondition_head)
+    Scope: win32more.UI.Accessibility.TreeScope
+    pProperties: POINTER(Int32)
+    cProperties: Int32
+    pPatterns: POINTER(Int32)
+    cPatterns: Int32
+    automationElementMode: win32more.UI.Accessibility.AutomationElementMode
+class UiaChangeInfo(Structure):
+    uiaId: Int32
+    payload: win32more.System.Com.VARIANT
+    extraInfo: win32more.System.Com.VARIANT
+class UiaChangesEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+    EventIdCount: Int32
+    pUiaChanges: POINTER(win32more.UI.Accessibility.UiaChangeInfo_head)
+class UiaCondition(Structure):
+    ConditionType: win32more.UI.Accessibility.ConditionType
+class UiaEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+@winfunctype_pointer
+def UiaEventCallback(pArgs: POINTER(win32more.UI.Accessibility.UiaEventArgs_head), pRequestedData: POINTER(win32more.System.Com.SAFEARRAY_head), pTreeStructure: win32more.Foundation.BSTR) -> Void: ...
+class UiaFindParams(Structure):
+    MaxDepth: Int32
+    FindFirst: win32more.Foundation.BOOL
+    ExcludeRoot: win32more.Foundation.BOOL
+    pFindCondition: POINTER(win32more.UI.Accessibility.UiaCondition_head)
+class UiaNotCondition(Structure):
+    ConditionType: win32more.UI.Accessibility.ConditionType
+    pCondition: POINTER(win32more.UI.Accessibility.UiaCondition_head)
+class UiaPoint(Structure):
+    x: Double
+    y: Double
+class UiaPropertyChangedEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: win32more.UI.Accessibility.UIA_EVENT_ID
+    PropertyId: Int32
+    OldValue: win32more.System.Com.VARIANT
+    NewValue: win32more.System.Com.VARIANT
+class UiaPropertyCondition(Structure):
+    ConditionType: win32more.UI.Accessibility.ConditionType
+    PropertyId: win32more.UI.Accessibility.UIA_PROPERTY_ID
+    Value: win32more.System.Com.VARIANT
+    Flags: win32more.UI.Accessibility.PropertyConditionFlags
+@winfunctype_pointer
+def UiaProviderCallback(hwnd: win32more.Foundation.HWND, providerType: win32more.UI.Accessibility.ProviderType) -> POINTER(win32more.System.Com.SAFEARRAY_head): ...
+class UiaRect(Structure):
+    left: Double
+    top: Double
+    width: Double
+    height: Double
+class UiaStructureChangedEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+    StructureChangeType: win32more.UI.Accessibility.StructureChangeType
+    pRuntimeId: POINTER(Int32)
+    cRuntimeIdLen: Int32
+class UiaTextEditTextChangedEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+    TextEditChangeType: win32more.UI.Accessibility.TextEditChangeType
+    pTextChange: POINTER(win32more.System.Com.SAFEARRAY_head)
+class UIAutomationEventInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+class UIAutomationMethodInfo(Structure):
+    pProgrammaticName: win32more.Foundation.PWSTR
+    doSetFocus: win32more.Foundation.BOOL
+    cInParameters: UInt32
+    cOutParameters: UInt32
+    pParameterTypes: POINTER(win32more.UI.Accessibility.UIAutomationType)
+    pParameterNames: POINTER(win32more.Foundation.PWSTR)
+class UIAutomationParameter(Structure):
+    type: win32more.UI.Accessibility.UIAutomationType
+    pData: c_void_p
+class UIAutomationPatternInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+    providerInterfaceId: Guid
+    clientInterfaceId: Guid
+    cProperties: UInt32
+    pProperties: POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head)
+    cMethods: UInt32
+    pMethods: POINTER(win32more.UI.Accessibility.UIAutomationMethodInfo_head)
+    cEvents: UInt32
+    pEvents: POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head)
+    pPatternHandler: win32more.UI.Accessibility.IUIAutomationPatternHandler_head
+class UIAutomationPropertyInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+    type: win32more.UI.Accessibility.UIAutomationType
 UIAutomationType = Int32
-UIAutomationType_Int = 1
-UIAutomationType_Bool = 2
-UIAutomationType_String = 3
-UIAutomationType_Double = 4
-UIAutomationType_Point = 5
-UIAutomationType_Rect = 6
-UIAutomationType_Element = 7
-UIAutomationType_Array = 65536
-UIAutomationType_Out = 131072
-UIAutomationType_IntArray = 65537
-UIAutomationType_BoolArray = 65538
-UIAutomationType_StringArray = 65539
-UIAutomationType_DoubleArray = 65540
-UIAutomationType_PointArray = 65541
-UIAutomationType_RectArray = 65542
-UIAutomationType_ElementArray = 65543
-UIAutomationType_OutInt = 131073
-UIAutomationType_OutBool = 131074
-UIAutomationType_OutString = 131075
-UIAutomationType_OutDouble = 131076
-UIAutomationType_OutPoint = 131077
-UIAutomationType_OutRect = 131078
-UIAutomationType_OutElement = 131079
-UIAutomationType_OutIntArray = 196609
-UIAutomationType_OutBoolArray = 196610
-UIAutomationType_OutStringArray = 196611
-UIAutomationType_OutDoubleArray = 196612
-UIAutomationType_OutPointArray = 196613
-UIAutomationType_OutRectArray = 196614
-UIAutomationType_OutElementArray = 196615
-def _define_UiaWindowClosedEventArgs_head():
-    class UiaWindowClosedEventArgs(Structure):
-        pass
-    return UiaWindowClosedEventArgs
-def _define_UiaWindowClosedEventArgs():
-    UiaWindowClosedEventArgs = win32more.UI.Accessibility.UiaWindowClosedEventArgs_head
-    UiaWindowClosedEventArgs._fields_ = [
-        ('Type', win32more.UI.Accessibility.EventArgsType),
-        ('EventId', Int32),
-        ('pRuntimeId', POINTER(Int32)),
-        ('cRuntimeIdLen', Int32),
-    ]
-    return UiaWindowClosedEventArgs
+UIAutomationType_Int: UIAutomationType = 1
+UIAutomationType_Bool: UIAutomationType = 2
+UIAutomationType_String: UIAutomationType = 3
+UIAutomationType_Double: UIAutomationType = 4
+UIAutomationType_Point: UIAutomationType = 5
+UIAutomationType_Rect: UIAutomationType = 6
+UIAutomationType_Element: UIAutomationType = 7
+UIAutomationType_Array: UIAutomationType = 65536
+UIAutomationType_Out: UIAutomationType = 131072
+UIAutomationType_IntArray: UIAutomationType = 65537
+UIAutomationType_BoolArray: UIAutomationType = 65538
+UIAutomationType_StringArray: UIAutomationType = 65539
+UIAutomationType_DoubleArray: UIAutomationType = 65540
+UIAutomationType_PointArray: UIAutomationType = 65541
+UIAutomationType_RectArray: UIAutomationType = 65542
+UIAutomationType_ElementArray: UIAutomationType = 65543
+UIAutomationType_OutInt: UIAutomationType = 131073
+UIAutomationType_OutBool: UIAutomationType = 131074
+UIAutomationType_OutString: UIAutomationType = 131075
+UIAutomationType_OutDouble: UIAutomationType = 131076
+UIAutomationType_OutPoint: UIAutomationType = 131077
+UIAutomationType_OutRect: UIAutomationType = 131078
+UIAutomationType_OutElement: UIAutomationType = 131079
+UIAutomationType_OutIntArray: UIAutomationType = 196609
+UIAutomationType_OutBoolArray: UIAutomationType = 196610
+UIAutomationType_OutStringArray: UIAutomationType = 196611
+UIAutomationType_OutDoubleArray: UIAutomationType = 196612
+UIAutomationType_OutPointArray: UIAutomationType = 196613
+UIAutomationType_OutRectArray: UIAutomationType = 196614
+UIAutomationType_OutElementArray: UIAutomationType = 196615
+class UiaWindowClosedEventArgs(Structure):
+    Type: win32more.UI.Accessibility.EventArgsType
+    EventId: Int32
+    pRuntimeId: POINTER(Int32)
+    cRuntimeIdLen: Int32
 VisualEffects = Int32
-VisualEffects_None = 0
-VisualEffects_Shadow = 1
-VisualEffects_Reflection = 2
-VisualEffects_Glow = 4
-VisualEffects_SoftEdges = 8
-VisualEffects_Bevel = 16
+VisualEffects_None: VisualEffects = 0
+VisualEffects_Shadow: VisualEffects = 1
+VisualEffects_Reflection: VisualEffects = 2
+VisualEffects_Glow: VisualEffects = 4
+VisualEffects_SoftEdges: VisualEffects = 8
+VisualEffects_Bevel: VisualEffects = 16
 WindowInteractionState = Int32
-WindowInteractionState_Running = 0
-WindowInteractionState_Closing = 1
-WindowInteractionState_ReadyForUserInteraction = 2
-WindowInteractionState_BlockedByModalWindow = 3
-WindowInteractionState_NotResponding = 4
+WindowInteractionState_Running: WindowInteractionState = 0
+WindowInteractionState_Closing: WindowInteractionState = 1
+WindowInteractionState_ReadyForUserInteraction: WindowInteractionState = 2
+WindowInteractionState_BlockedByModalWindow: WindowInteractionState = 3
+WindowInteractionState_NotResponding: WindowInteractionState = 4
 WindowVisualState = Int32
-WindowVisualState_Normal = 0
-WindowVisualState_Maximized = 1
-WindowVisualState_Minimized = 2
-def _define_WINEVENTPROC():
-    return WINFUNCTYPE(Void,win32more.UI.Accessibility.HWINEVENTHOOK,UInt32,win32more.Foundation.HWND,Int32,Int32,UInt32,UInt32)
+WindowVisualState_Normal: WindowVisualState = 0
+WindowVisualState_Maximized: WindowVisualState = 1
+WindowVisualState_Minimized: WindowVisualState = 2
+@winfunctype_pointer
+def WINEVENTPROC(hWinEventHook: win32more.UI.Accessibility.HWINEVENTHOOK, event: UInt32, hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, idEventThread: UInt32, dwmsEventTime: UInt32) -> Void: ...
 ZoomUnit = Int32
-ZoomUnit_NoAmount = 0
-ZoomUnit_LargeDecrement = 1
-ZoomUnit_SmallDecrement = 2
-ZoomUnit_LargeIncrement = 3
-ZoomUnit_SmallIncrement = 4
+ZoomUnit_NoAmount: ZoomUnit = 0
+ZoomUnit_LargeDecrement: ZoomUnit = 1
+ZoomUnit_SmallDecrement: ZoomUnit = 2
+ZoomUnit_LargeIncrement: ZoomUnit = 3
+ZoomUnit_SmallIncrement: ZoomUnit = 4
+make_head(_module, 'ACCESSTIMEOUT')
+make_head(_module, 'ExtendedProperty')
+make_head(_module, 'FILTERKEYS')
+make_head(_module, 'HIGHCONTRASTA')
+make_head(_module, 'HIGHCONTRASTW')
+make_head(_module, 'IAccessible')
+make_head(_module, 'IAccessibleEx')
+make_head(_module, 'IAccessibleHandler')
+make_head(_module, 'IAccessibleHostingElementProviders')
+make_head(_module, 'IAccessibleWindowlessSite')
+make_head(_module, 'IAccIdentity')
+make_head(_module, 'IAccPropServer')
+make_head(_module, 'IAccPropServices')
+make_head(_module, 'IAnnotationProvider')
+make_head(_module, 'ICustomNavigationProvider')
+make_head(_module, 'IDockProvider')
+make_head(_module, 'IDragProvider')
+make_head(_module, 'IDropTargetProvider')
+make_head(_module, 'IExpandCollapseProvider')
+make_head(_module, 'IGridItemProvider')
+make_head(_module, 'IGridProvider')
+make_head(_module, 'IInvokeProvider')
+make_head(_module, 'IItemContainerProvider')
+make_head(_module, 'ILegacyIAccessibleProvider')
+make_head(_module, 'IMultipleViewProvider')
+make_head(_module, 'IObjectModelProvider')
+make_head(_module, 'IProxyProviderWinEventHandler')
+make_head(_module, 'IProxyProviderWinEventSink')
+make_head(_module, 'IRangeValueProvider')
+make_head(_module, 'IRawElementProviderAdviseEvents')
+make_head(_module, 'IRawElementProviderFragment')
+make_head(_module, 'IRawElementProviderFragmentRoot')
+make_head(_module, 'IRawElementProviderHostingAccessibles')
+make_head(_module, 'IRawElementProviderHwndOverride')
+make_head(_module, 'IRawElementProviderSimple')
+make_head(_module, 'IRawElementProviderSimple2')
+make_head(_module, 'IRawElementProviderSimple3')
+make_head(_module, 'IRawElementProviderWindowlessSite')
+make_head(_module, 'IRichEditUiaInformation')
+make_head(_module, 'IRicheditWindowlessAccessibility')
+make_head(_module, 'IScrollItemProvider')
+make_head(_module, 'IScrollProvider')
+make_head(_module, 'ISelectionItemProvider')
+make_head(_module, 'ISelectionProvider')
+make_head(_module, 'ISelectionProvider2')
+make_head(_module, 'ISpreadsheetItemProvider')
+make_head(_module, 'ISpreadsheetProvider')
+make_head(_module, 'IStylesProvider')
+make_head(_module, 'ISynchronizedInputProvider')
+make_head(_module, 'ITableItemProvider')
+make_head(_module, 'ITableProvider')
+make_head(_module, 'ITextChildProvider')
+make_head(_module, 'ITextEditProvider')
+make_head(_module, 'ITextProvider')
+make_head(_module, 'ITextProvider2')
+make_head(_module, 'ITextRangeProvider')
+make_head(_module, 'ITextRangeProvider2')
+make_head(_module, 'IToggleProvider')
+make_head(_module, 'ITransformProvider')
+make_head(_module, 'ITransformProvider2')
+make_head(_module, 'IUIAutomation')
+make_head(_module, 'IUIAutomation2')
+make_head(_module, 'IUIAutomation3')
+make_head(_module, 'IUIAutomation4')
+make_head(_module, 'IUIAutomation5')
+make_head(_module, 'IUIAutomation6')
+make_head(_module, 'IUIAutomationActiveTextPositionChangedEventHandler')
+make_head(_module, 'IUIAutomationAndCondition')
+make_head(_module, 'IUIAutomationAnnotationPattern')
+make_head(_module, 'IUIAutomationBoolCondition')
+make_head(_module, 'IUIAutomationCacheRequest')
+make_head(_module, 'IUIAutomationChangesEventHandler')
+make_head(_module, 'IUIAutomationCondition')
+make_head(_module, 'IUIAutomationCustomNavigationPattern')
+make_head(_module, 'IUIAutomationDockPattern')
+make_head(_module, 'IUIAutomationDragPattern')
+make_head(_module, 'IUIAutomationDropTargetPattern')
+make_head(_module, 'IUIAutomationElement')
+make_head(_module, 'IUIAutomationElement2')
+make_head(_module, 'IUIAutomationElement3')
+make_head(_module, 'IUIAutomationElement4')
+make_head(_module, 'IUIAutomationElement5')
+make_head(_module, 'IUIAutomationElement6')
+make_head(_module, 'IUIAutomationElement7')
+make_head(_module, 'IUIAutomationElement8')
+make_head(_module, 'IUIAutomationElement9')
+make_head(_module, 'IUIAutomationElementArray')
+make_head(_module, 'IUIAutomationEventHandler')
+make_head(_module, 'IUIAutomationEventHandlerGroup')
+make_head(_module, 'IUIAutomationExpandCollapsePattern')
+make_head(_module, 'IUIAutomationFocusChangedEventHandler')
+make_head(_module, 'IUIAutomationGridItemPattern')
+make_head(_module, 'IUIAutomationGridPattern')
+make_head(_module, 'IUIAutomationInvokePattern')
+make_head(_module, 'IUIAutomationItemContainerPattern')
+make_head(_module, 'IUIAutomationLegacyIAccessiblePattern')
+make_head(_module, 'IUIAutomationMultipleViewPattern')
+make_head(_module, 'IUIAutomationNotCondition')
+make_head(_module, 'IUIAutomationNotificationEventHandler')
+make_head(_module, 'IUIAutomationObjectModelPattern')
+make_head(_module, 'IUIAutomationOrCondition')
+make_head(_module, 'IUIAutomationPatternHandler')
+make_head(_module, 'IUIAutomationPatternInstance')
+make_head(_module, 'IUIAutomationPropertyChangedEventHandler')
+make_head(_module, 'IUIAutomationPropertyCondition')
+make_head(_module, 'IUIAutomationProxyFactory')
+make_head(_module, 'IUIAutomationProxyFactoryEntry')
+make_head(_module, 'IUIAutomationProxyFactoryMapping')
+make_head(_module, 'IUIAutomationRangeValuePattern')
+make_head(_module, 'IUIAutomationRegistrar')
+make_head(_module, 'IUIAutomationScrollItemPattern')
+make_head(_module, 'IUIAutomationScrollPattern')
+make_head(_module, 'IUIAutomationSelectionItemPattern')
+make_head(_module, 'IUIAutomationSelectionPattern')
+make_head(_module, 'IUIAutomationSelectionPattern2')
+make_head(_module, 'IUIAutomationSpreadsheetItemPattern')
+make_head(_module, 'IUIAutomationSpreadsheetPattern')
+make_head(_module, 'IUIAutomationStructureChangedEventHandler')
+make_head(_module, 'IUIAutomationStylesPattern')
+make_head(_module, 'IUIAutomationSynchronizedInputPattern')
+make_head(_module, 'IUIAutomationTableItemPattern')
+make_head(_module, 'IUIAutomationTablePattern')
+make_head(_module, 'IUIAutomationTextChildPattern')
+make_head(_module, 'IUIAutomationTextEditPattern')
+make_head(_module, 'IUIAutomationTextEditTextChangedEventHandler')
+make_head(_module, 'IUIAutomationTextPattern')
+make_head(_module, 'IUIAutomationTextPattern2')
+make_head(_module, 'IUIAutomationTextRange')
+make_head(_module, 'IUIAutomationTextRange2')
+make_head(_module, 'IUIAutomationTextRange3')
+make_head(_module, 'IUIAutomationTextRangeArray')
+make_head(_module, 'IUIAutomationTogglePattern')
+make_head(_module, 'IUIAutomationTransformPattern')
+make_head(_module, 'IUIAutomationTransformPattern2')
+make_head(_module, 'IUIAutomationTreeWalker')
+make_head(_module, 'IUIAutomationValuePattern')
+make_head(_module, 'IUIAutomationVirtualizedItemPattern')
+make_head(_module, 'IUIAutomationWindowPattern')
+make_head(_module, 'IValueProvider')
+make_head(_module, 'IVirtualizedItemProvider')
+make_head(_module, 'IWindowProvider')
+make_head(_module, 'LPFNACCESSIBLECHILDREN')
+make_head(_module, 'LPFNACCESSIBLEOBJECTFROMPOINT')
+make_head(_module, 'LPFNACCESSIBLEOBJECTFROMWINDOW')
+make_head(_module, 'LPFNCREATESTDACCESSIBLEOBJECT')
+make_head(_module, 'LPFNLRESULTFROMOBJECT')
+make_head(_module, 'LPFNOBJECTFROMLRESULT')
+make_head(_module, 'MOUSEKEYS')
+make_head(_module, 'MSAAMENUINFO')
+make_head(_module, 'SERIALKEYSA')
+make_head(_module, 'SERIALKEYSW')
+make_head(_module, 'SOUNDSENTRYA')
+make_head(_module, 'SOUNDSENTRYW')
+make_head(_module, 'STICKYKEYS')
+make_head(_module, 'TOGGLEKEYS')
+make_head(_module, 'UiaAndOrCondition')
+make_head(_module, 'UiaAsyncContentLoadedEventArgs')
+make_head(_module, 'UiaCacheRequest')
+make_head(_module, 'UiaChangeInfo')
+make_head(_module, 'UiaChangesEventArgs')
+make_head(_module, 'UiaCondition')
+make_head(_module, 'UiaEventArgs')
+make_head(_module, 'UiaEventCallback')
+make_head(_module, 'UiaFindParams')
+make_head(_module, 'UiaNotCondition')
+make_head(_module, 'UiaPoint')
+make_head(_module, 'UiaPropertyChangedEventArgs')
+make_head(_module, 'UiaPropertyCondition')
+make_head(_module, 'UiaProviderCallback')
+make_head(_module, 'UiaRect')
+make_head(_module, 'UiaStructureChangedEventArgs')
+make_head(_module, 'UiaTextEditTextChangedEventArgs')
+make_head(_module, 'UIAutomationEventInfo')
+make_head(_module, 'UIAutomationMethodInfo')
+make_head(_module, 'UIAutomationParameter')
+make_head(_module, 'UIAutomationPatternInfo')
+make_head(_module, 'UIAutomationPropertyInfo')
+make_head(_module, 'UiaWindowClosedEventArgs')
+make_head(_module, 'WINEVENTPROC')
 __all__ = [
     "ACCESSTIMEOUT",
     "ACC_UTILITY_STATE_FLAGS",

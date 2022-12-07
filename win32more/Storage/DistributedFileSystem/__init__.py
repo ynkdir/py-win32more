@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.Storage.DistributedFileSystem
@@ -7,593 +8,296 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-FSCTL_DFS_BASE = 6
-DFS_VOLUME_STATES = 15
-DFS_VOLUME_STATE_OK = 1
-DFS_VOLUME_STATE_INCONSISTENT = 2
-DFS_VOLUME_STATE_OFFLINE = 3
-DFS_VOLUME_STATE_ONLINE = 4
-DFS_VOLUME_STATE_RESYNCHRONIZE = 16
-DFS_VOLUME_STATE_STANDBY = 32
-DFS_VOLUME_STATE_FORCE_SYNC = 64
-DFS_VOLUME_FLAVORS = 768
-DFS_VOLUME_FLAVOR_UNUSED1 = 0
-DFS_VOLUME_FLAVOR_STANDALONE = 256
-DFS_VOLUME_FLAVOR_AD_BLOB = 512
-DFS_STORAGE_FLAVOR_UNUSED2 = 768
-DFS_STORAGE_STATES = 15
-DFS_STORAGE_STATE_OFFLINE = 1
-DFS_STORAGE_STATE_ONLINE = 2
-DFS_STORAGE_STATE_ACTIVE = 4
-DFS_PROPERTY_FLAG_INSITE_REFERRALS = 1
-DFS_PROPERTY_FLAG_ROOT_SCALABILITY = 2
-DFS_PROPERTY_FLAG_SITE_COSTING = 4
-DFS_PROPERTY_FLAG_TARGET_FAILBACK = 8
-DFS_PROPERTY_FLAG_CLUSTER_ENABLED = 16
-DFS_PROPERTY_FLAG_ABDE = 32
-DFS_ADD_VOLUME = 1
-DFS_RESTORE_VOLUME = 2
-NET_DFS_SETDC_FLAGS = 0
-NET_DFS_SETDC_TIMEOUT = 1
-NET_DFS_SETDC_INITPKT = 2
-DFS_SITE_PRIMARY = 1
-DFS_MOVE_FLAG_REPLACE_IF_EXISTS = 1
-DFS_FORCE_REMOVE = 2147483648
-FSCTL_DFS_GET_PKT_ENTRY_STATE = 401340
-def _define_NetDfsAdd():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsAdd', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),(1, 'Comment'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsAddStdRoot():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsAddStdRoot', windll['NETAPI32.dll']), ((1, 'ServerName'),(1, 'RootShare'),(1, 'Comment'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsRemoveStdRoot():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsRemoveStdRoot', windll['NETAPI32.dll']), ((1, 'ServerName'),(1, 'RootShare'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsAddFtRoot():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsAddFtRoot', windll['NETAPI32.dll']), ((1, 'ServerName'),(1, 'RootShare'),(1, 'FtDfsName'),(1, 'Comment'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsRemoveFtRoot():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsRemoveFtRoot', windll['NETAPI32.dll']), ((1, 'ServerName'),(1, 'RootShare'),(1, 'FtDfsName'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsRemoveFtRootForced():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsRemoveFtRootForced', windll['NETAPI32.dll']), ((1, 'DomainName'),(1, 'ServerName'),(1, 'RootShare'),(1, 'FtDfsName'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsRemove():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('NetDfsRemove', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsEnum():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt32))(('NetDfsEnum', windll['NETAPI32.dll']), ((1, 'DfsName'),(1, 'Level'),(1, 'PrefMaxLen'),(1, 'Buffer'),(1, 'EntriesRead'),(1, 'ResumeHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(c_char_p_no))(('NetDfsGetInfo', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),(1, 'Level'),(1, 'Buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsSetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_char_p_no)(('NetDfsSetInfo', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),(1, 'Level'),(1, 'Buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(c_char_p_no))(('NetDfsGetClientInfo', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),(1, 'Level'),(1, 'Buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsSetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_char_p_no)(('NetDfsSetClientInfo', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'ServerName'),(1, 'ShareName'),(1, 'Level'),(1, 'Buffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsMove():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsMove', windll['NETAPI32.dll']), ((1, 'OldDfsEntryPath'),(1, 'NewDfsEntryPath'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsAddRootTarget():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32)(('NetDfsAddRootTarget', windll['NETAPI32.dll']), ((1, 'pDfsPath'),(1, 'pTargetPath'),(1, 'MajorVersion'),(1, 'pComment'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsRemoveRootTarget():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('NetDfsRemoveRootTarget', windll['NETAPI32.dll']), ((1, 'pDfsPath'),(1, 'pTargetPath'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(UInt32))(('NetDfsGetSecurity', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'SecurityInformation'),(1, 'ppSecurityDescriptor'),(1, 'lpcbSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsSetSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('NetDfsSetSecurity', windll['NETAPI32.dll']), ((1, 'DfsEntryPath'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetStdContainerSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(UInt32))(('NetDfsGetStdContainerSecurity', windll['NETAPI32.dll']), ((1, 'MachineName'),(1, 'SecurityInformation'),(1, 'ppSecurityDescriptor'),(1, 'lpcbSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsSetStdContainerSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('NetDfsSetStdContainerSecurity', windll['NETAPI32.dll']), ((1, 'MachineName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetFtContainerSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Security.PSECURITY_DESCRIPTOR),POINTER(UInt32))(('NetDfsGetFtContainerSecurity', windll['NETAPI32.dll']), ((1, 'DomainName'),(1, 'SecurityInformation'),(1, 'ppSecurityDescriptor'),(1, 'lpcbSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsSetFtContainerSecurity():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Security.PSECURITY_DESCRIPTOR)(('NetDfsSetFtContainerSecurity', windll['NETAPI32.dll']), ((1, 'DomainName'),(1, 'SecurityInformation'),(1, 'pSecurityDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NetDfsGetSupportedNamespaceVersion():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO_head)))(('NetDfsGetSupportedNamespaceVersion', windll['NETAPI32.dll']), ((1, 'Origin'),(1, 'pName'),(1, 'ppVersionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DFS_GET_PKT_ENTRY_STATE_ARG_head():
-    class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
-        pass
-    return DFS_GET_PKT_ENTRY_STATE_ARG
-def _define_DFS_GET_PKT_ENTRY_STATE_ARG():
-    DFS_GET_PKT_ENTRY_STATE_ARG = win32more.Storage.DistributedFileSystem.DFS_GET_PKT_ENTRY_STATE_ARG_head
-    DFS_GET_PKT_ENTRY_STATE_ARG._fields_ = [
-        ('DfsEntryPathLen', UInt16),
-        ('ServerNameLen', UInt16),
-        ('ShareNameLen', UInt16),
-        ('Level', UInt32),
-        ('Buffer', Char * 1),
-    ]
-    return DFS_GET_PKT_ENTRY_STATE_ARG
-def _define_DFS_INFO_1_head():
-    class DFS_INFO_1(Structure):
-        pass
-    return DFS_INFO_1
-def _define_DFS_INFO_1():
-    DFS_INFO_1 = win32more.Storage.DistributedFileSystem.DFS_INFO_1_head
-    DFS_INFO_1._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-    ]
-    return DFS_INFO_1
-def _define_DFS_INFO_1_32_head():
-    class DFS_INFO_1_32(Structure):
-        pass
-    return DFS_INFO_1_32
-def _define_DFS_INFO_1_32():
-    DFS_INFO_1_32 = win32more.Storage.DistributedFileSystem.DFS_INFO_1_32_head
-    DFS_INFO_1_32._fields_ = [
-        ('EntryPath', UInt32),
-    ]
-    return DFS_INFO_1_32
-def _define_DFS_INFO_100_head():
-    class DFS_INFO_100(Structure):
-        pass
-    return DFS_INFO_100
-def _define_DFS_INFO_100():
-    DFS_INFO_100 = win32more.Storage.DistributedFileSystem.DFS_INFO_100_head
-    DFS_INFO_100._fields_ = [
-        ('Comment', win32more.Foundation.PWSTR),
-    ]
-    return DFS_INFO_100
-def _define_DFS_INFO_101_head():
-    class DFS_INFO_101(Structure):
-        pass
-    return DFS_INFO_101
-def _define_DFS_INFO_101():
-    DFS_INFO_101 = win32more.Storage.DistributedFileSystem.DFS_INFO_101_head
-    DFS_INFO_101._fields_ = [
-        ('State', UInt32),
-    ]
-    return DFS_INFO_101
-def _define_DFS_INFO_102_head():
-    class DFS_INFO_102(Structure):
-        pass
-    return DFS_INFO_102
-def _define_DFS_INFO_102():
-    DFS_INFO_102 = win32more.Storage.DistributedFileSystem.DFS_INFO_102_head
-    DFS_INFO_102._fields_ = [
-        ('Timeout', UInt32),
-    ]
-    return DFS_INFO_102
-def _define_DFS_INFO_103_head():
-    class DFS_INFO_103(Structure):
-        pass
-    return DFS_INFO_103
-def _define_DFS_INFO_103():
-    DFS_INFO_103 = win32more.Storage.DistributedFileSystem.DFS_INFO_103_head
-    DFS_INFO_103._fields_ = [
-        ('PropertyFlagMask', UInt32),
-        ('PropertyFlags', UInt32),
-    ]
-    return DFS_INFO_103
-def _define_DFS_INFO_104_head():
-    class DFS_INFO_104(Structure):
-        pass
-    return DFS_INFO_104
-def _define_DFS_INFO_104():
-    DFS_INFO_104 = win32more.Storage.DistributedFileSystem.DFS_INFO_104_head
-    DFS_INFO_104._fields_ = [
-        ('TargetPriority', win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY),
-    ]
-    return DFS_INFO_104
-def _define_DFS_INFO_105_head():
-    class DFS_INFO_105(Structure):
-        pass
-    return DFS_INFO_105
-def _define_DFS_INFO_105():
-    DFS_INFO_105 = win32more.Storage.DistributedFileSystem.DFS_INFO_105_head
-    DFS_INFO_105._fields_ = [
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('PropertyFlagMask', UInt32),
-        ('PropertyFlags', UInt32),
-    ]
-    return DFS_INFO_105
-def _define_DFS_INFO_106_head():
-    class DFS_INFO_106(Structure):
-        pass
-    return DFS_INFO_106
-def _define_DFS_INFO_106():
-    DFS_INFO_106 = win32more.Storage.DistributedFileSystem.DFS_INFO_106_head
-    DFS_INFO_106._fields_ = [
-        ('State', UInt32),
-        ('TargetPriority', win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY),
-    ]
-    return DFS_INFO_106
-def _define_DFS_INFO_107_head():
-    class DFS_INFO_107(Structure):
-        pass
-    return DFS_INFO_107
-def _define_DFS_INFO_107():
-    DFS_INFO_107 = win32more.Storage.DistributedFileSystem.DFS_INFO_107_head
-    DFS_INFO_107._fields_ = [
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('PropertyFlagMask', UInt32),
-        ('PropertyFlags', UInt32),
-        ('SdLengthReserved', UInt32),
-        ('pSecurityDescriptor', win32more.Security.PSECURITY_DESCRIPTOR),
-    ]
-    return DFS_INFO_107
-def _define_DFS_INFO_150_head():
-    class DFS_INFO_150(Structure):
-        pass
-    return DFS_INFO_150
-def _define_DFS_INFO_150():
-    DFS_INFO_150 = win32more.Storage.DistributedFileSystem.DFS_INFO_150_head
-    DFS_INFO_150._fields_ = [
-        ('SdLengthReserved', UInt32),
-        ('pSecurityDescriptor', win32more.Security.PSECURITY_DESCRIPTOR),
-    ]
-    return DFS_INFO_150
-def _define_DFS_INFO_2_head():
-    class DFS_INFO_2(Structure):
-        pass
-    return DFS_INFO_2
-def _define_DFS_INFO_2():
-    DFS_INFO_2 = win32more.Storage.DistributedFileSystem.DFS_INFO_2_head
-    DFS_INFO_2._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('NumberOfStorages', UInt32),
-    ]
-    return DFS_INFO_2
-def _define_DFS_INFO_2_32_head():
-    class DFS_INFO_2_32(Structure):
-        pass
-    return DFS_INFO_2_32
-def _define_DFS_INFO_2_32():
-    DFS_INFO_2_32 = win32more.Storage.DistributedFileSystem.DFS_INFO_2_32_head
-    DFS_INFO_2_32._fields_ = [
-        ('EntryPath', UInt32),
-        ('Comment', UInt32),
-        ('State', UInt32),
-        ('NumberOfStorages', UInt32),
-    ]
-    return DFS_INFO_2_32
-def _define_DFS_INFO_200_head():
-    class DFS_INFO_200(Structure):
-        pass
-    return DFS_INFO_200
-def _define_DFS_INFO_200():
-    DFS_INFO_200 = win32more.Storage.DistributedFileSystem.DFS_INFO_200_head
-    DFS_INFO_200._fields_ = [
-        ('FtDfsName', win32more.Foundation.PWSTR),
-    ]
-    return DFS_INFO_200
-def _define_DFS_INFO_3_head():
-    class DFS_INFO_3(Structure):
-        pass
-    return DFS_INFO_3
-def _define_DFS_INFO_3():
-    DFS_INFO_3 = win32more.Storage.DistributedFileSystem.DFS_INFO_3_head
-    DFS_INFO_3._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('NumberOfStorages', UInt32),
-        ('Storage', POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)),
-    ]
-    return DFS_INFO_3
-def _define_DFS_INFO_3_32_head():
-    class DFS_INFO_3_32(Structure):
-        pass
-    return DFS_INFO_3_32
-def _define_DFS_INFO_3_32():
-    DFS_INFO_3_32 = win32more.Storage.DistributedFileSystem.DFS_INFO_3_32_head
-    DFS_INFO_3_32._fields_ = [
-        ('EntryPath', UInt32),
-        ('Comment', UInt32),
-        ('State', UInt32),
-        ('NumberOfStorages', UInt32),
-        ('Storage', UInt32),
-    ]
-    return DFS_INFO_3_32
-def _define_DFS_INFO_300_head():
-    class DFS_INFO_300(Structure):
-        pass
-    return DFS_INFO_300
-def _define_DFS_INFO_300():
-    DFS_INFO_300 = win32more.Storage.DistributedFileSystem.DFS_INFO_300_head
-    DFS_INFO_300._fields_ = [
-        ('Flags', UInt32),
-        ('DfsName', win32more.Foundation.PWSTR),
-    ]
-    return DFS_INFO_300
-def _define_DFS_INFO_4_head():
-    class DFS_INFO_4(Structure):
-        pass
-    return DFS_INFO_4
-def _define_DFS_INFO_4():
-    DFS_INFO_4 = win32more.Storage.DistributedFileSystem.DFS_INFO_4_head
-    DFS_INFO_4._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('NumberOfStorages', UInt32),
-        ('Storage', POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)),
-    ]
-    return DFS_INFO_4
-def _define_DFS_INFO_4_32_head():
-    class DFS_INFO_4_32(Structure):
-        pass
-    return DFS_INFO_4_32
-def _define_DFS_INFO_4_32():
-    DFS_INFO_4_32 = win32more.Storage.DistributedFileSystem.DFS_INFO_4_32_head
-    DFS_INFO_4_32._fields_ = [
-        ('EntryPath', UInt32),
-        ('Comment', UInt32),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('NumberOfStorages', UInt32),
-        ('Storage', UInt32),
-    ]
-    return DFS_INFO_4_32
-def _define_DFS_INFO_5_head():
-    class DFS_INFO_5(Structure):
-        pass
-    return DFS_INFO_5
-def _define_DFS_INFO_5():
-    DFS_INFO_5 = win32more.Storage.DistributedFileSystem.DFS_INFO_5_head
-    DFS_INFO_5._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('PropertyFlags', UInt32),
-        ('MetadataSize', UInt32),
-        ('NumberOfStorages', UInt32),
-    ]
-    return DFS_INFO_5
-def _define_DFS_INFO_50_head():
-    class DFS_INFO_50(Structure):
-        pass
-    return DFS_INFO_50
-def _define_DFS_INFO_50():
-    DFS_INFO_50 = win32more.Storage.DistributedFileSystem.DFS_INFO_50_head
-    DFS_INFO_50._fields_ = [
-        ('NamespaceMajorVersion', UInt32),
-        ('NamespaceMinorVersion', UInt32),
-        ('NamespaceCapabilities', UInt64),
-    ]
-    return DFS_INFO_50
-def _define_DFS_INFO_6_head():
-    class DFS_INFO_6(Structure):
-        pass
-    return DFS_INFO_6
-def _define_DFS_INFO_6():
-    DFS_INFO_6 = win32more.Storage.DistributedFileSystem.DFS_INFO_6_head
-    DFS_INFO_6._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('PropertyFlags', UInt32),
-        ('MetadataSize', UInt32),
-        ('NumberOfStorages', UInt32),
-        ('Storage', POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)),
-    ]
-    return DFS_INFO_6
-def _define_DFS_INFO_7_head():
-    class DFS_INFO_7(Structure):
-        pass
-    return DFS_INFO_7
-def _define_DFS_INFO_7():
-    DFS_INFO_7 = win32more.Storage.DistributedFileSystem.DFS_INFO_7_head
-    DFS_INFO_7._fields_ = [
-        ('GenerationGuid', Guid),
-    ]
-    return DFS_INFO_7
-def _define_DFS_INFO_8_head():
-    class DFS_INFO_8(Structure):
-        pass
-    return DFS_INFO_8
-def _define_DFS_INFO_8():
-    DFS_INFO_8 = win32more.Storage.DistributedFileSystem.DFS_INFO_8_head
-    DFS_INFO_8._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('PropertyFlags', UInt32),
-        ('MetadataSize', UInt32),
-        ('SdLengthReserved', UInt32),
-        ('pSecurityDescriptor', win32more.Security.PSECURITY_DESCRIPTOR),
-        ('NumberOfStorages', UInt32),
-    ]
-    return DFS_INFO_8
-def _define_DFS_INFO_9_head():
-    class DFS_INFO_9(Structure):
-        pass
-    return DFS_INFO_9
-def _define_DFS_INFO_9():
-    DFS_INFO_9 = win32more.Storage.DistributedFileSystem.DFS_INFO_9_head
-    DFS_INFO_9._fields_ = [
-        ('EntryPath', win32more.Foundation.PWSTR),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('Timeout', UInt32),
-        ('Guid', Guid),
-        ('PropertyFlags', UInt32),
-        ('MetadataSize', UInt32),
-        ('SdLengthReserved', UInt32),
-        ('pSecurityDescriptor', win32more.Security.PSECURITY_DESCRIPTOR),
-        ('NumberOfStorages', UInt32),
-        ('Storage', POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)),
-    ]
-    return DFS_INFO_9
+FSCTL_DFS_BASE: UInt32 = 6
+DFS_VOLUME_STATES: UInt32 = 15
+DFS_VOLUME_STATE_OK: UInt32 = 1
+DFS_VOLUME_STATE_INCONSISTENT: UInt32 = 2
+DFS_VOLUME_STATE_OFFLINE: UInt32 = 3
+DFS_VOLUME_STATE_ONLINE: UInt32 = 4
+DFS_VOLUME_STATE_RESYNCHRONIZE: UInt32 = 16
+DFS_VOLUME_STATE_STANDBY: UInt32 = 32
+DFS_VOLUME_STATE_FORCE_SYNC: UInt32 = 64
+DFS_VOLUME_FLAVORS: UInt32 = 768
+DFS_VOLUME_FLAVOR_UNUSED1: UInt32 = 0
+DFS_VOLUME_FLAVOR_STANDALONE: UInt32 = 256
+DFS_VOLUME_FLAVOR_AD_BLOB: UInt32 = 512
+DFS_STORAGE_FLAVOR_UNUSED2: UInt32 = 768
+DFS_STORAGE_STATES: UInt32 = 15
+DFS_STORAGE_STATE_OFFLINE: UInt32 = 1
+DFS_STORAGE_STATE_ONLINE: UInt32 = 2
+DFS_STORAGE_STATE_ACTIVE: UInt32 = 4
+DFS_PROPERTY_FLAG_INSITE_REFERRALS: UInt32 = 1
+DFS_PROPERTY_FLAG_ROOT_SCALABILITY: UInt32 = 2
+DFS_PROPERTY_FLAG_SITE_COSTING: UInt32 = 4
+DFS_PROPERTY_FLAG_TARGET_FAILBACK: UInt32 = 8
+DFS_PROPERTY_FLAG_CLUSTER_ENABLED: UInt32 = 16
+DFS_PROPERTY_FLAG_ABDE: UInt32 = 32
+DFS_ADD_VOLUME: UInt32 = 1
+DFS_RESTORE_VOLUME: UInt32 = 2
+NET_DFS_SETDC_FLAGS: UInt32 = 0
+NET_DFS_SETDC_TIMEOUT: UInt32 = 1
+NET_DFS_SETDC_INITPKT: UInt32 = 2
+DFS_SITE_PRIMARY: UInt32 = 1
+DFS_MOVE_FLAG_REPLACE_IF_EXISTS: UInt32 = 1
+DFS_FORCE_REMOVE: UInt32 = 2147483648
+FSCTL_DFS_GET_PKT_ENTRY_STATE: UInt32 = 401340
+@winfunctype('NETAPI32.dll')
+def NetDfsAdd(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR, Comment: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsAddStdRoot(ServerName: win32more.Foundation.PWSTR, RootShare: win32more.Foundation.PWSTR, Comment: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsRemoveStdRoot(ServerName: win32more.Foundation.PWSTR, RootShare: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsAddFtRoot(ServerName: win32more.Foundation.PWSTR, RootShare: win32more.Foundation.PWSTR, FtDfsName: win32more.Foundation.PWSTR, Comment: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsRemoveFtRoot(ServerName: win32more.Foundation.PWSTR, RootShare: win32more.Foundation.PWSTR, FtDfsName: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsRemoveFtRootForced(DomainName: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, RootShare: win32more.Foundation.PWSTR, FtDfsName: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsRemove(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsEnum(DfsName: win32more.Foundation.PWSTR, Level: UInt32, PrefMaxLen: UInt32, Buffer: POINTER(c_char_p_no), EntriesRead: POINTER(UInt32), ResumeHandle: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetInfo(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR, Level: UInt32, Buffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsSetInfo(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR, Level: UInt32, Buffer: c_char_p_no) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetClientInfo(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR, Level: UInt32, Buffer: POINTER(c_char_p_no)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsSetClientInfo(DfsEntryPath: win32more.Foundation.PWSTR, ServerName: win32more.Foundation.PWSTR, ShareName: win32more.Foundation.PWSTR, Level: UInt32, Buffer: c_char_p_no) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsMove(OldDfsEntryPath: win32more.Foundation.PWSTR, NewDfsEntryPath: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsAddRootTarget(pDfsPath: win32more.Foundation.PWSTR, pTargetPath: win32more.Foundation.PWSTR, MajorVersion: UInt32, pComment: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsRemoveRootTarget(pDfsPath: win32more.Foundation.PWSTR, pTargetPath: win32more.Foundation.PWSTR, Flags: UInt32) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetSecurity(DfsEntryPath: win32more.Foundation.PWSTR, SecurityInformation: UInt32, ppSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), lpcbSecurityDescriptor: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsSetSecurity(DfsEntryPath: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetStdContainerSecurity(MachineName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, ppSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), lpcbSecurityDescriptor: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsSetStdContainerSecurity(MachineName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetFtContainerSecurity(DomainName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, ppSecurityDescriptor: POINTER(win32more.Security.PSECURITY_DESCRIPTOR), lpcbSecurityDescriptor: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsSetFtContainerSecurity(DomainName: win32more.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
+@winfunctype('NETAPI32.dll')
+def NetDfsGetSupportedNamespaceVersion(Origin: win32more.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN, pName: win32more.Foundation.PWSTR, ppVersionInfo: POINTER(POINTER(win32more.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO_head))) -> UInt32: ...
+class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
+    DfsEntryPathLen: UInt16
+    ServerNameLen: UInt16
+    ShareNameLen: UInt16
+    Level: UInt32
+    Buffer: Char * 1
+class DFS_INFO_1(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+class DFS_INFO_1_32(Structure):
+    EntryPath: UInt32
+class DFS_INFO_100(Structure):
+    Comment: win32more.Foundation.PWSTR
+class DFS_INFO_101(Structure):
+    State: UInt32
+class DFS_INFO_102(Structure):
+    Timeout: UInt32
+class DFS_INFO_103(Structure):
+    PropertyFlagMask: UInt32
+    PropertyFlags: UInt32
+class DFS_INFO_104(Structure):
+    TargetPriority: win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
+class DFS_INFO_105(Structure):
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    PropertyFlagMask: UInt32
+    PropertyFlags: UInt32
+class DFS_INFO_106(Structure):
+    State: UInt32
+    TargetPriority: win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
+class DFS_INFO_107(Structure):
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    PropertyFlagMask: UInt32
+    PropertyFlags: UInt32
+    SdLengthReserved: UInt32
+    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+class DFS_INFO_150(Structure):
+    SdLengthReserved: UInt32
+    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+class DFS_INFO_2(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    NumberOfStorages: UInt32
+class DFS_INFO_2_32(Structure):
+    EntryPath: UInt32
+    Comment: UInt32
+    State: UInt32
+    NumberOfStorages: UInt32
+class DFS_INFO_200(Structure):
+    FtDfsName: win32more.Foundation.PWSTR
+class DFS_INFO_3(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    NumberOfStorages: UInt32
+    Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
+class DFS_INFO_3_32(Structure):
+    EntryPath: UInt32
+    Comment: UInt32
+    State: UInt32
+    NumberOfStorages: UInt32
+    Storage: UInt32
+class DFS_INFO_300(Structure):
+    Flags: UInt32
+    DfsName: win32more.Foundation.PWSTR
+class DFS_INFO_4(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    NumberOfStorages: UInt32
+    Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
+class DFS_INFO_4_32(Structure):
+    EntryPath: UInt32
+    Comment: UInt32
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    NumberOfStorages: UInt32
+    Storage: UInt32
+class DFS_INFO_5(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    PropertyFlags: UInt32
+    MetadataSize: UInt32
+    NumberOfStorages: UInt32
+class DFS_INFO_50(Structure):
+    NamespaceMajorVersion: UInt32
+    NamespaceMinorVersion: UInt32
+    NamespaceCapabilities: UInt64
+class DFS_INFO_6(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    PropertyFlags: UInt32
+    MetadataSize: UInt32
+    NumberOfStorages: UInt32
+    Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)
+class DFS_INFO_7(Structure):
+    GenerationGuid: Guid
+class DFS_INFO_8(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    PropertyFlags: UInt32
+    MetadataSize: UInt32
+    SdLengthReserved: UInt32
+    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+    NumberOfStorages: UInt32
+class DFS_INFO_9(Structure):
+    EntryPath: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    State: UInt32
+    Timeout: UInt32
+    Guid: Guid
+    PropertyFlags: UInt32
+    MetadataSize: UInt32
+    SdLengthReserved: UInt32
+    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+    NumberOfStorages: UInt32
+    Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head)
 DFS_NAMESPACE_VERSION_ORIGIN = Int32
-DFS_NAMESPACE_VERSION_ORIGIN_COMBINED = 0
-DFS_NAMESPACE_VERSION_ORIGIN_SERVER = 1
-DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN = 2
-def _define_DFS_SITELIST_INFO_head():
-    class DFS_SITELIST_INFO(Structure):
-        pass
-    return DFS_SITELIST_INFO
-def _define_DFS_SITELIST_INFO():
-    DFS_SITELIST_INFO = win32more.Storage.DistributedFileSystem.DFS_SITELIST_INFO_head
-    DFS_SITELIST_INFO._fields_ = [
-        ('cSites', UInt32),
-        ('Site', win32more.Storage.DistributedFileSystem.DFS_SITENAME_INFO * 1),
-    ]
-    return DFS_SITELIST_INFO
-def _define_DFS_SITENAME_INFO_head():
-    class DFS_SITENAME_INFO(Structure):
-        pass
-    return DFS_SITENAME_INFO
-def _define_DFS_SITENAME_INFO():
-    DFS_SITENAME_INFO = win32more.Storage.DistributedFileSystem.DFS_SITENAME_INFO_head
-    DFS_SITENAME_INFO._fields_ = [
-        ('SiteFlags', UInt32),
-        ('SiteName', win32more.Foundation.PWSTR),
-    ]
-    return DFS_SITENAME_INFO
-def _define_DFS_STORAGE_INFO_head():
-    class DFS_STORAGE_INFO(Structure):
-        pass
-    return DFS_STORAGE_INFO
-def _define_DFS_STORAGE_INFO():
-    DFS_STORAGE_INFO = win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head
-    DFS_STORAGE_INFO._fields_ = [
-        ('State', UInt32),
-        ('ServerName', win32more.Foundation.PWSTR),
-        ('ShareName', win32more.Foundation.PWSTR),
-    ]
-    return DFS_STORAGE_INFO
-def _define_DFS_STORAGE_INFO_0_32_head():
-    class DFS_STORAGE_INFO_0_32(Structure):
-        pass
-    return DFS_STORAGE_INFO_0_32
-def _define_DFS_STORAGE_INFO_0_32():
-    DFS_STORAGE_INFO_0_32 = win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_0_32_head
-    DFS_STORAGE_INFO_0_32._fields_ = [
-        ('State', UInt32),
-        ('ServerName', UInt32),
-        ('ShareName', UInt32),
-    ]
-    return DFS_STORAGE_INFO_0_32
-def _define_DFS_STORAGE_INFO_1_head():
-    class DFS_STORAGE_INFO_1(Structure):
-        pass
-    return DFS_STORAGE_INFO_1
-def _define_DFS_STORAGE_INFO_1():
-    DFS_STORAGE_INFO_1 = win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1_head
-    DFS_STORAGE_INFO_1._fields_ = [
-        ('State', UInt32),
-        ('ServerName', win32more.Foundation.PWSTR),
-        ('ShareName', win32more.Foundation.PWSTR),
-        ('TargetPriority', win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY),
-    ]
-    return DFS_STORAGE_INFO_1
-def _define_DFS_SUPPORTED_NAMESPACE_VERSION_INFO_head():
-    class DFS_SUPPORTED_NAMESPACE_VERSION_INFO(Structure):
-        pass
-    return DFS_SUPPORTED_NAMESPACE_VERSION_INFO
-def _define_DFS_SUPPORTED_NAMESPACE_VERSION_INFO():
-    DFS_SUPPORTED_NAMESPACE_VERSION_INFO = win32more.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO_head
-    DFS_SUPPORTED_NAMESPACE_VERSION_INFO._fields_ = [
-        ('DomainDfsMajorVersion', UInt32),
-        ('DomainDfsMinorVersion', UInt32),
-        ('DomainDfsCapabilities', UInt64),
-        ('StandaloneDfsMajorVersion', UInt32),
-        ('StandaloneDfsMinorVersion', UInt32),
-        ('StandaloneDfsCapabilities', UInt64),
-    ]
-    return DFS_SUPPORTED_NAMESPACE_VERSION_INFO
-def _define_DFS_TARGET_PRIORITY_head():
-    class DFS_TARGET_PRIORITY(Structure):
-        pass
-    return DFS_TARGET_PRIORITY
-def _define_DFS_TARGET_PRIORITY():
-    DFS_TARGET_PRIORITY = win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_head
-    DFS_TARGET_PRIORITY._fields_ = [
-        ('TargetPriorityClass', win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS),
-        ('TargetPriorityRank', UInt16),
-        ('Reserved', UInt16),
-    ]
-    return DFS_TARGET_PRIORITY
+DFS_NAMESPACE_VERSION_ORIGIN_COMBINED: DFS_NAMESPACE_VERSION_ORIGIN = 0
+DFS_NAMESPACE_VERSION_ORIGIN_SERVER: DFS_NAMESPACE_VERSION_ORIGIN = 1
+DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN: DFS_NAMESPACE_VERSION_ORIGIN = 2
+class DFS_SITELIST_INFO(Structure):
+    cSites: UInt32
+    Site: win32more.Storage.DistributedFileSystem.DFS_SITENAME_INFO * 1
+class DFS_SITENAME_INFO(Structure):
+    SiteFlags: UInt32
+    SiteName: win32more.Foundation.PWSTR
+class DFS_STORAGE_INFO(Structure):
+    State: UInt32
+    ServerName: win32more.Foundation.PWSTR
+    ShareName: win32more.Foundation.PWSTR
+class DFS_STORAGE_INFO_0_32(Structure):
+    State: UInt32
+    ServerName: UInt32
+    ShareName: UInt32
+class DFS_STORAGE_INFO_1(Structure):
+    State: UInt32
+    ServerName: win32more.Foundation.PWSTR
+    ShareName: win32more.Foundation.PWSTR
+    TargetPriority: win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
+class DFS_SUPPORTED_NAMESPACE_VERSION_INFO(Structure):
+    DomainDfsMajorVersion: UInt32
+    DomainDfsMinorVersion: UInt32
+    DomainDfsCapabilities: UInt64
+    StandaloneDfsMajorVersion: UInt32
+    StandaloneDfsMinorVersion: UInt32
+    StandaloneDfsCapabilities: UInt64
+class DFS_TARGET_PRIORITY(Structure):
+    TargetPriorityClass: win32more.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS
+    TargetPriorityRank: UInt16
+    Reserved: UInt16
 DFS_TARGET_PRIORITY_CLASS = Int32
-DFS_TARGET_PRIORITY_CLASS_DfsInvalidPriorityClass = -1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostNormalPriorityClass = 0
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass = 1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass = 2
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass = 3
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass = 4
+DFS_TARGET_PRIORITY_CLASS_DfsInvalidPriorityClass: DFS_TARGET_PRIORITY_CLASS = -1
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostNormalPriorityClass: DFS_TARGET_PRIORITY_CLASS = 0
+DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass: DFS_TARGET_PRIORITY_CLASS = 1
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass: DFS_TARGET_PRIORITY_CLASS = 2
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 3
+DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 4
+make_head(_module, 'DFS_GET_PKT_ENTRY_STATE_ARG')
+make_head(_module, 'DFS_INFO_1')
+make_head(_module, 'DFS_INFO_1_32')
+make_head(_module, 'DFS_INFO_100')
+make_head(_module, 'DFS_INFO_101')
+make_head(_module, 'DFS_INFO_102')
+make_head(_module, 'DFS_INFO_103')
+make_head(_module, 'DFS_INFO_104')
+make_head(_module, 'DFS_INFO_105')
+make_head(_module, 'DFS_INFO_106')
+make_head(_module, 'DFS_INFO_107')
+make_head(_module, 'DFS_INFO_150')
+make_head(_module, 'DFS_INFO_2')
+make_head(_module, 'DFS_INFO_2_32')
+make_head(_module, 'DFS_INFO_200')
+make_head(_module, 'DFS_INFO_3')
+make_head(_module, 'DFS_INFO_3_32')
+make_head(_module, 'DFS_INFO_300')
+make_head(_module, 'DFS_INFO_4')
+make_head(_module, 'DFS_INFO_4_32')
+make_head(_module, 'DFS_INFO_5')
+make_head(_module, 'DFS_INFO_50')
+make_head(_module, 'DFS_INFO_6')
+make_head(_module, 'DFS_INFO_7')
+make_head(_module, 'DFS_INFO_8')
+make_head(_module, 'DFS_INFO_9')
+make_head(_module, 'DFS_SITELIST_INFO')
+make_head(_module, 'DFS_SITENAME_INFO')
+make_head(_module, 'DFS_STORAGE_INFO')
+make_head(_module, 'DFS_STORAGE_INFO_0_32')
+make_head(_module, 'DFS_STORAGE_INFO_1')
+make_head(_module, 'DFS_SUPPORTED_NAMESPACE_VERSION_INFO')
+make_head(_module, 'DFS_TARGET_PRIORITY')
 __all__ = [
     "DFS_ADD_VOLUME",
     "DFS_FORCE_REMOVE",

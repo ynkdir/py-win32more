@@ -1,108 +1,68 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.Compression
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-COMPRESS_ALGORITHM_INVALID = 0
-COMPRESS_ALGORITHM_NULL = 1
-COMPRESS_ALGORITHM_MAX = 6
-COMPRESS_RAW = 536870912
-def _define_CreateCompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESS_ALGORITHM,POINTER(win32more.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head),POINTER(IntPtr))(('CreateCompressor', windll['Cabinet.dll']), ((1, 'Algorithm'),(1, 'AllocationRoutines'),(1, 'CompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCompressorInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESSOR_HANDLE,win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS,c_void_p,UIntPtr)(('SetCompressorInformation', windll['Cabinet.dll']), ((1, 'CompressorHandle'),(1, 'CompressInformationClass'),(1, 'CompressInformation'),(1, 'CompressInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryCompressorInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESSOR_HANDLE,win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS,c_void_p,UIntPtr)(('QueryCompressorInformation', windll['Cabinet.dll']), ((1, 'CompressorHandle'),(1, 'CompressInformationClass'),(1, 'CompressInformation'),(1, 'CompressInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Compress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESSOR_HANDLE,c_void_p,UIntPtr,c_void_p,UIntPtr,POINTER(UIntPtr))(('Compress', windll['Cabinet.dll']), ((1, 'CompressorHandle'),(1, 'UncompressedData'),(1, 'UncompressedDataSize'),(1, 'CompressedBuffer'),(1, 'CompressedBufferSize'),(1, 'CompressedDataSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetCompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESSOR_HANDLE)(('ResetCompressor', windll['Cabinet.dll']), ((1, 'CompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseCompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESSOR_HANDLE)(('CloseCompressor', windll['Cabinet.dll']), ((1, 'CompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDecompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Storage.Compression.COMPRESS_ALGORITHM,POINTER(win32more.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head),POINTER(IntPtr))(('CreateDecompressor', windll['Cabinet.dll']), ((1, 'Algorithm'),(1, 'AllocationRoutines'),(1, 'DecompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDecompressorInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS,c_void_p,UIntPtr)(('SetDecompressorInformation', windll['Cabinet.dll']), ((1, 'DecompressorHandle'),(1, 'CompressInformationClass'),(1, 'CompressInformation'),(1, 'CompressInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryDecompressorInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS,c_void_p,UIntPtr)(('QueryDecompressorInformation', windll['Cabinet.dll']), ((1, 'DecompressorHandle'),(1, 'CompressInformationClass'),(1, 'CompressInformation'),(1, 'CompressInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Decompress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr,c_void_p,UIntPtr,c_void_p,UIntPtr,POINTER(UIntPtr))(('Decompress', windll['Cabinet.dll']), ((1, 'DecompressorHandle'),(1, 'CompressedData'),(1, 'CompressedDataSize'),(1, 'UncompressedBuffer'),(1, 'UncompressedBufferSize'),(1, 'UncompressedDataSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetDecompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('ResetDecompressor', windll['Cabinet.dll']), ((1, 'DecompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseDecompressor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('CloseDecompressor', windll['Cabinet.dll']), ((1, 'DecompressorHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+COMPRESS_ALGORITHM_INVALID: UInt32 = 0
+COMPRESS_ALGORITHM_NULL: UInt32 = 1
+COMPRESS_ALGORITHM_MAX: UInt32 = 6
+COMPRESS_RAW: UInt32 = 536870912
+@winfunctype('Cabinet.dll')
+def CreateCompressor(Algorithm: win32more.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head), CompressorHandle: POINTER(IntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def SetCompressorInformation(CompressorHandle: win32more.Storage.Compression.COMPRESSOR_HANDLE, CompressInformationClass: win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: c_void_p, CompressInformationSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def QueryCompressorInformation(CompressorHandle: win32more.Storage.Compression.COMPRESSOR_HANDLE, CompressInformationClass: win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: c_void_p, CompressInformationSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def Compress(CompressorHandle: win32more.Storage.Compression.COMPRESSOR_HANDLE, UncompressedData: c_void_p, UncompressedDataSize: UIntPtr, CompressedBuffer: c_void_p, CompressedBufferSize: UIntPtr, CompressedDataSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def ResetCompressor(CompressorHandle: win32more.Storage.Compression.COMPRESSOR_HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def CloseCompressor(CompressorHandle: win32more.Storage.Compression.COMPRESSOR_HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def CreateDecompressor(Algorithm: win32more.Storage.Compression.COMPRESS_ALGORITHM, AllocationRoutines: POINTER(win32more.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head), DecompressorHandle: POINTER(IntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def SetDecompressorInformation(DecompressorHandle: IntPtr, CompressInformationClass: win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: c_void_p, CompressInformationSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def QueryDecompressorInformation(DecompressorHandle: IntPtr, CompressInformationClass: win32more.Storage.Compression.COMPRESS_INFORMATION_CLASS, CompressInformation: c_void_p, CompressInformationSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def Decompress(DecompressorHandle: IntPtr, CompressedData: c_void_p, CompressedDataSize: UIntPtr, UncompressedBuffer: c_void_p, UncompressedBufferSize: UIntPtr, UncompressedDataSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def ResetDecompressor(DecompressorHandle: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('Cabinet.dll')
+def CloseDecompressor(DecompressorHandle: IntPtr) -> win32more.Foundation.BOOL: ...
 COMPRESS_ALGORITHM = UInt32
-COMPRESS_ALGORITHM_MSZIP = 2
-COMPRESS_ALGORITHM_XPRESS = 3
-COMPRESS_ALGORITHM_XPRESS_HUFF = 4
-COMPRESS_ALGORITHM_LZMS = 5
-def _define_COMPRESS_ALLOCATION_ROUTINES_head():
-    class COMPRESS_ALLOCATION_ROUTINES(Structure):
-        pass
-    return COMPRESS_ALLOCATION_ROUTINES
-def _define_COMPRESS_ALLOCATION_ROUTINES():
-    COMPRESS_ALLOCATION_ROUTINES = win32more.Storage.Compression.COMPRESS_ALLOCATION_ROUTINES_head
-    COMPRESS_ALLOCATION_ROUTINES._fields_ = [
-        ('Allocate', win32more.Storage.Compression.PFN_COMPRESS_ALLOCATE),
-        ('Free', win32more.Storage.Compression.PFN_COMPRESS_FREE),
-        ('UserContext', c_void_p),
-    ]
-    return COMPRESS_ALLOCATION_ROUTINES
+COMPRESS_ALGORITHM_MSZIP: COMPRESS_ALGORITHM = 2
+COMPRESS_ALGORITHM_XPRESS: COMPRESS_ALGORITHM = 3
+COMPRESS_ALGORITHM_XPRESS_HUFF: COMPRESS_ALGORITHM = 4
+COMPRESS_ALGORITHM_LZMS: COMPRESS_ALGORITHM = 5
+class COMPRESS_ALLOCATION_ROUTINES(Structure):
+    Allocate: win32more.Storage.Compression.PFN_COMPRESS_ALLOCATE
+    Free: win32more.Storage.Compression.PFN_COMPRESS_FREE
+    UserContext: c_void_p
 COMPRESS_INFORMATION_CLASS = Int32
-COMPRESS_INFORMATION_CLASS_INVALID = 0
-COMPRESS_INFORMATION_CLASS_BLOCK_SIZE = 1
-COMPRESS_INFORMATION_CLASS_LEVEL = 2
+COMPRESS_INFORMATION_CLASS_INVALID: COMPRESS_INFORMATION_CLASS = 0
+COMPRESS_INFORMATION_CLASS_BLOCK_SIZE: COMPRESS_INFORMATION_CLASS = 1
+COMPRESS_INFORMATION_CLASS_LEVEL: COMPRESS_INFORMATION_CLASS = 2
 COMPRESSOR_HANDLE = IntPtr
-def _define_PFN_COMPRESS_ALLOCATE():
-    return CFUNCTYPE(c_void_p,c_void_p,UIntPtr)
-def _define_PFN_COMPRESS_FREE():
-    return CFUNCTYPE(Void,c_void_p,c_void_p)
+@cfunctype_pointer
+def PFN_COMPRESS_ALLOCATE(UserContext: c_void_p, Size: UIntPtr) -> c_void_p: ...
+@cfunctype_pointer
+def PFN_COMPRESS_FREE(UserContext: c_void_p, Memory: c_void_p) -> Void: ...
+make_head(_module, 'COMPRESS_ALLOCATION_ROUTINES')
+make_head(_module, 'PFN_COMPRESS_ALLOCATE')
+make_head(_module, 'PFN_COMPRESS_FREE')
 __all__ = [
     "COMPRESSOR_HANDLE",
     "COMPRESS_ALGORITHM",

@@ -1,344 +1,185 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.LibraryLoader
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-FIND_RESOURCE_DIRECTORY_TYPES = 256
-FIND_RESOURCE_DIRECTORY_NAMES = 512
-FIND_RESOURCE_DIRECTORY_LANGUAGES = 1024
-RESOURCE_ENUM_LN = 1
-RESOURCE_ENUM_MUI = 2
-RESOURCE_ENUM_MUI_SYSTEM = 4
-RESOURCE_ENUM_VALIDATE = 8
-RESOURCE_ENUM_MODULE_EXACT = 16
-SUPPORT_LANG_NUMBER = 32
-GET_MODULE_HANDLE_EX_FLAG_PIN = 1
-GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = 2
-GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS = 4
-CURRENT_IMPORT_REDIRECTION_VERSION = 1
-LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY = 32768
-def _define_DisableThreadLibraryCalls():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE)(('DisableThreadLibraryCalls', windll['KERNEL32.dll']), ((1, 'hLibModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindResourceExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRSRC,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16)(('FindResourceExW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'wLanguage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeLibrary():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE)(('FreeLibrary', windll['KERNEL32.dll']), ((1, 'hLibModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeLibraryAndExitThread():
-    try:
-        return WINFUNCTYPE(Void,win32more.Foundation.HINSTANCE,UInt32)(('FreeLibraryAndExitThread', windll['KERNEL32.dll']), ((1, 'hLibModule'),(1, 'dwExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeResource():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,IntPtr)(('FreeResource', windll['KERNEL32.dll']), ((1, 'hResData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleFileNameA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,UInt32)(('GetModuleFileNameA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpFilename'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleFileNameW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,UInt32)(('GetModuleFileNameW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpFilename'),(1, 'nSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleHandleA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('GetModuleHandleA', windll['KERNEL32.dll']), ((1, 'lpModuleName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleHandleW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('GetModuleHandleW', windll['KERNEL32.dll']), ((1, 'lpModuleName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleHandleExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.HINSTANCE))(('GetModuleHandleExA', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpModuleName'),(1, 'phModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetModuleHandleExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HINSTANCE))(('GetModuleHandleExW', windll['KERNEL32.dll']), ((1, 'dwFlags'),(1, 'lpModuleName'),(1, 'phModule'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcAddress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.FARPROC,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('GetProcAddress', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpProcName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadLibraryExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.HANDLE,win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS)(('LoadLibraryExA', windll['KERNEL32.dll']), ((1, 'lpLibFileName'),(1, 'hFile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadLibraryExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.HANDLE,win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS)(('LoadLibraryExW', windll['KERNEL32.dll']), ((1, 'lpLibFileName'),(1, 'hFile'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadResource():
-    try:
-        return WINFUNCTYPE(IntPtr,win32more.Foundation.HINSTANCE,win32more.Foundation.HRSRC)(('LoadResource', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'hResInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LockResource():
-    try:
-        return WINFUNCTYPE(c_void_p,IntPtr)(('LockResource', windll['KERNEL32.dll']), ((1, 'hResData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SizeofResource():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HINSTANCE,win32more.Foundation.HRSRC)(('SizeofResource', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'hResInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddDllDirectory():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR)(('AddDllDirectory', windll['KERNEL32.dll']), ((1, 'NewDirectory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RemoveDllDirectory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('RemoveDllDirectory', windll['KERNEL32.dll']), ((1, 'Cookie'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDefaultDllDirectories():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS)(('SetDefaultDllDirectories', windll['KERNEL32.dll']), ((1, 'DirectoryFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceLanguagesExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.LibraryLoader.ENUMRESLANGPROCA,IntPtr,UInt32,UInt16)(('EnumResourceLanguagesExA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceLanguagesExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.LibraryLoader.ENUMRESLANGPROCW,IntPtr,UInt32,UInt16)(('EnumResourceLanguagesExW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceNamesExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.System.LibraryLoader.ENUMRESNAMEPROCA,IntPtr,UInt32,UInt16)(('EnumResourceNamesExA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceNamesExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.System.LibraryLoader.ENUMRESNAMEPROCW,IntPtr,UInt32,UInt16)(('EnumResourceNamesExW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceTypesExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.System.LibraryLoader.ENUMRESTYPEPROCA,IntPtr,UInt32,UInt16)(('EnumResourceTypesExA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceTypesExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.System.LibraryLoader.ENUMRESTYPEPROCW,IntPtr,UInt32,UInt16)(('EnumResourceTypesExW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpEnumFunc'),(1, 'lParam'),(1, 'dwFlags'),(1, 'LangId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRSRC,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('FindResourceW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpName'),(1, 'lpType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadLibraryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR)(('LoadLibraryA', windll['KERNEL32.dll']), ((1, 'lpLibFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadLibraryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR)(('LoadLibraryW', windll['KERNEL32.dll']), ((1, 'lpLibFileName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceNamesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.System.LibraryLoader.ENUMRESNAMEPROCW,IntPtr)(('EnumResourceNamesW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceNamesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.System.LibraryLoader.ENUMRESNAMEPROCA,IntPtr)(('EnumResourceNamesA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadModule():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,c_void_p)(('LoadModule', windll['KERNEL32.dll']), ((1, 'lpModuleName'),(1, 'lpParameterBlock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LoadPackagedLibrary():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,UInt32)(('LoadPackagedLibrary', windll['KERNEL32.dll']), ((1, 'lpwLibFileName'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRSRC,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR)(('FindResourceA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpName'),(1, 'lpType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FindResourceExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRSRC,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16)(('FindResourceExA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'wLanguage'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceTypesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.System.LibraryLoader.ENUMRESTYPEPROCA,IntPtr)(('EnumResourceTypesA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceTypesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.System.LibraryLoader.ENUMRESTYPEPROCW,IntPtr)(('EnumResourceTypesW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceLanguagesA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.System.LibraryLoader.ENUMRESLANGPROCA,IntPtr)(('EnumResourceLanguagesA', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnumResourceLanguagesW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.LibraryLoader.ENUMRESLANGPROCW,IntPtr)(('EnumResourceLanguagesW', windll['KERNEL32.dll']), ((1, 'hModule'),(1, 'lpType'),(1, 'lpName'),(1, 'lpEnumFunc'),(1, 'lParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BeginUpdateResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.BOOL)(('BeginUpdateResourceA', windll['KERNEL32.dll']), ((1, 'pFileName'),(1, 'bDeleteExistingResources'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_BeginUpdateResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('BeginUpdateResourceW', windll['KERNEL32.dll']), ((1, 'pFileName'),(1, 'bDeleteExistingResources'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16,c_void_p,UInt32)(('UpdateResourceA', windll['KERNEL32.dll']), ((1, 'hUpdate'),(1, 'lpType'),(1, 'lpName'),(1, 'wLanguage'),(1, 'lpData'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,c_void_p,UInt32)(('UpdateResourceW', windll['KERNEL32.dll']), ((1, 'hUpdate'),(1, 'lpType'),(1, 'lpName'),(1, 'wLanguage'),(1, 'lpData'),(1, 'cb'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndUpdateResourceA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('EndUpdateResourceA', windll['KERNEL32.dll']), ((1, 'hUpdate'),(1, 'fDiscard'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EndUpdateResourceW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('EndUpdateResourceW', windll['KERNEL32.dll']), ((1, 'hUpdate'),(1, 'fDiscard'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDllDirectoryA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('SetDllDirectoryA', windll['KERNEL32.dll']), ((1, 'lpPathName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDllDirectoryW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('SetDllDirectoryW', windll['KERNEL32.dll']), ((1, 'lpPathName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDllDirectoryA():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PSTR)(('GetDllDirectoryA', windll['KERNEL32.dll']), ((1, 'nBufferLength'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDllDirectoryW():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR)(('GetDllDirectoryW', windll['KERNEL32.dll']), ((1, 'nBufferLength'),(1, 'lpBuffer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ENUMRESLANGPROCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt16,IntPtr)
-def _define_ENUMRESLANGPROCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,IntPtr)
-def _define_ENUMRESNAMEPROCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,IntPtr)
-def _define_ENUMRESNAMEPROCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,IntPtr)
-def _define_ENUMRESTYPEPROCA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PSTR,IntPtr)
-def _define_ENUMRESTYPEPROCW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HINSTANCE,win32more.Foundation.PWSTR,IntPtr)
-def _define_ENUMUILANG_head():
-    class ENUMUILANG(Structure):
-        pass
-    return ENUMUILANG
-def _define_ENUMUILANG():
-    ENUMUILANG = win32more.System.LibraryLoader.ENUMUILANG_head
-    ENUMUILANG._fields_ = [
-        ('NumOfEnumUILang', UInt32),
-        ('SizeOfEnumUIBuffer', UInt32),
-        ('pEnumUIBuffer', POINTER(UInt16)),
-    ]
-    return ENUMUILANG
+FIND_RESOURCE_DIRECTORY_TYPES: UInt32 = 256
+FIND_RESOURCE_DIRECTORY_NAMES: UInt32 = 512
+FIND_RESOURCE_DIRECTORY_LANGUAGES: UInt32 = 1024
+RESOURCE_ENUM_LN: UInt32 = 1
+RESOURCE_ENUM_MUI: UInt32 = 2
+RESOURCE_ENUM_MUI_SYSTEM: UInt32 = 4
+RESOURCE_ENUM_VALIDATE: UInt32 = 8
+RESOURCE_ENUM_MODULE_EXACT: UInt32 = 16
+SUPPORT_LANG_NUMBER: UInt32 = 32
+GET_MODULE_HANDLE_EX_FLAG_PIN: UInt32 = 1
+GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT: UInt32 = 2
+GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS: UInt32 = 4
+CURRENT_IMPORT_REDIRECTION_VERSION: UInt32 = 1
+LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY: UInt32 = 32768
+@winfunctype('KERNEL32.dll')
+def DisableThreadLibraryCalls(hLibModule: win32more.Foundation.HINSTANCE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FindResourceExW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, wLanguage: UInt16) -> win32more.Foundation.HRSRC: ...
+@winfunctype('KERNEL32.dll')
+def FreeLibrary(hLibModule: win32more.Foundation.HINSTANCE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FreeLibraryAndExitThread(hLibModule: win32more.Foundation.HINSTANCE, dwExitCode: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def FreeResource(hResData: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleFileNameA(hModule: win32more.Foundation.HINSTANCE, lpFilename: win32more.Foundation.PSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleFileNameW(hModule: win32more.Foundation.HINSTANCE, lpFilename: win32more.Foundation.PWSTR, nSize: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleHandleA(lpModuleName: win32more.Foundation.PSTR) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleHandleW(lpModuleName: win32more.Foundation.PWSTR) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleHandleExA(dwFlags: UInt32, lpModuleName: win32more.Foundation.PSTR, phModule: POINTER(win32more.Foundation.HINSTANCE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetModuleHandleExW(dwFlags: UInt32, lpModuleName: win32more.Foundation.PWSTR, phModule: POINTER(win32more.Foundation.HINSTANCE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcAddress(hModule: win32more.Foundation.HINSTANCE, lpProcName: win32more.Foundation.PSTR) -> win32more.Foundation.FARPROC: ...
+@winfunctype('KERNEL32.dll')
+def LoadLibraryExA(lpLibFileName: win32more.Foundation.PSTR, hFile: win32more.Foundation.HANDLE, dwFlags: win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def LoadLibraryExW(lpLibFileName: win32more.Foundation.PWSTR, hFile: win32more.Foundation.HANDLE, dwFlags: win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def LoadResource(hModule: win32more.Foundation.HINSTANCE, hResInfo: win32more.Foundation.HRSRC) -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def LockResource(hResData: IntPtr) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def SizeofResource(hModule: win32more.Foundation.HINSTANCE, hResInfo: win32more.Foundation.HRSRC) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def AddDllDirectory(NewDirectory: win32more.Foundation.PWSTR) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def RemoveDllDirectory(Cookie: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetDefaultDllDirectories(DirectoryFlags: win32more.System.LibraryLoader.LOAD_LIBRARY_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceLanguagesExA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESLANGPROCA, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceLanguagesExW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESLANGPROCW, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceNamesExA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESNAMEPROCA, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceNamesExW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESNAMEPROCW, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceTypesExA(hModule: win32more.Foundation.HINSTANCE, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESTYPEPROCA, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceTypesExW(hModule: win32more.Foundation.HINSTANCE, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESTYPEPROCW, lParam: IntPtr, dwFlags: UInt32, LangId: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FindResourceW(hModule: win32more.Foundation.HINSTANCE, lpName: win32more.Foundation.PWSTR, lpType: win32more.Foundation.PWSTR) -> win32more.Foundation.HRSRC: ...
+@winfunctype('KERNEL32.dll')
+def LoadLibraryA(lpLibFileName: win32more.Foundation.PSTR) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def LoadLibraryW(lpLibFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceNamesW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESNAMEPROCW, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceNamesA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESNAMEPROCA, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def LoadModule(lpModuleName: win32more.Foundation.PSTR, lpParameterBlock: c_void_p) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def LoadPackagedLibrary(lpwLibFileName: win32more.Foundation.PWSTR, Reserved: UInt32) -> win32more.Foundation.HINSTANCE: ...
+@winfunctype('KERNEL32.dll')
+def FindResourceA(hModule: win32more.Foundation.HINSTANCE, lpName: win32more.Foundation.PSTR, lpType: win32more.Foundation.PSTR) -> win32more.Foundation.HRSRC: ...
+@winfunctype('KERNEL32.dll')
+def FindResourceExA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, wLanguage: UInt16) -> win32more.Foundation.HRSRC: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceTypesA(hModule: win32more.Foundation.HINSTANCE, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESTYPEPROCA, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceTypesW(hModule: win32more.Foundation.HINSTANCE, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESTYPEPROCW, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceLanguagesA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESLANGPROCA, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnumResourceLanguagesW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, lpEnumFunc: win32more.System.LibraryLoader.ENUMRESLANGPROCW, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def BeginUpdateResourceA(pFileName: win32more.Foundation.PSTR, bDeleteExistingResources: win32more.Foundation.BOOL) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def BeginUpdateResourceW(pFileName: win32more.Foundation.PWSTR, bDeleteExistingResources: win32more.Foundation.BOOL) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def UpdateResourceA(hUpdate: win32more.Foundation.HANDLE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, wLanguage: UInt16, lpData: c_void_p, cb: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UpdateResourceW(hUpdate: win32more.Foundation.HANDLE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, wLanguage: UInt16, lpData: c_void_p, cb: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EndUpdateResourceA(hUpdate: win32more.Foundation.HANDLE, fDiscard: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EndUpdateResourceW(hUpdate: win32more.Foundation.HANDLE, fDiscard: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetDllDirectoryA(lpPathName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetDllDirectoryW(lpPathName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetDllDirectoryA(nBufferLength: UInt32, lpBuffer: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetDllDirectoryW(nBufferLength: UInt32, lpBuffer: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype_pointer
+def ENUMRESLANGPROCA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, wLanguage: UInt16, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ENUMRESLANGPROCW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, wLanguage: UInt16, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ENUMRESNAMEPROCA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lpName: win32more.Foundation.PSTR, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ENUMRESNAMEPROCW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lpName: win32more.Foundation.PWSTR, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ENUMRESTYPEPROCA(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PSTR, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def ENUMRESTYPEPROCW(hModule: win32more.Foundation.HINSTANCE, lpType: win32more.Foundation.PWSTR, lParam: IntPtr) -> win32more.Foundation.BOOL: ...
+class ENUMUILANG(Structure):
+    NumOfEnumUILang: UInt32
+    SizeOfEnumUIBuffer: UInt32
+    pEnumUIBuffer: POINTER(UInt16)
 LOAD_LIBRARY_FLAGS = UInt32
-DONT_RESOLVE_DLL_REFERENCES = 1
-LOAD_LIBRARY_AS_DATAFILE = 2
-LOAD_WITH_ALTERED_SEARCH_PATH = 8
-LOAD_IGNORE_CODE_AUTHZ_LEVEL = 16
-LOAD_LIBRARY_AS_IMAGE_RESOURCE = 32
-LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = 64
-LOAD_LIBRARY_REQUIRE_SIGNED_TARGET = 128
-LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 256
-LOAD_LIBRARY_SEARCH_APPLICATION_DIR = 512
-LOAD_LIBRARY_SEARCH_USER_DIRS = 1024
-LOAD_LIBRARY_SEARCH_SYSTEM32 = 2048
-LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 4096
-LOAD_LIBRARY_SAFE_CURRENT_DIRS = 8192
-LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER = 16384
-def _define_PGET_MODULE_HANDLE_EXA():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PSTR,POINTER(win32more.Foundation.HINSTANCE))
-def _define_PGET_MODULE_HANDLE_EXW():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HINSTANCE))
-def _define_REDIRECTION_DESCRIPTOR_head():
-    class REDIRECTION_DESCRIPTOR(Structure):
-        pass
-    return REDIRECTION_DESCRIPTOR
-def _define_REDIRECTION_DESCRIPTOR():
-    REDIRECTION_DESCRIPTOR = win32more.System.LibraryLoader.REDIRECTION_DESCRIPTOR_head
-    REDIRECTION_DESCRIPTOR._fields_ = [
-        ('Version', UInt32),
-        ('FunctionCount', UInt32),
-        ('Redirections', POINTER(win32more.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR_head)),
-    ]
-    return REDIRECTION_DESCRIPTOR
-def _define_REDIRECTION_FUNCTION_DESCRIPTOR_head():
-    class REDIRECTION_FUNCTION_DESCRIPTOR(Structure):
-        pass
-    return REDIRECTION_FUNCTION_DESCRIPTOR
-def _define_REDIRECTION_FUNCTION_DESCRIPTOR():
-    REDIRECTION_FUNCTION_DESCRIPTOR = win32more.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR_head
-    REDIRECTION_FUNCTION_DESCRIPTOR._fields_ = [
-        ('DllName', win32more.Foundation.PSTR),
-        ('FunctionName', win32more.Foundation.PSTR),
-        ('RedirectionTarget', c_void_p),
-    ]
-    return REDIRECTION_FUNCTION_DESCRIPTOR
+DONT_RESOLVE_DLL_REFERENCES: LOAD_LIBRARY_FLAGS = 1
+LOAD_LIBRARY_AS_DATAFILE: LOAD_LIBRARY_FLAGS = 2
+LOAD_WITH_ALTERED_SEARCH_PATH: LOAD_LIBRARY_FLAGS = 8
+LOAD_IGNORE_CODE_AUTHZ_LEVEL: LOAD_LIBRARY_FLAGS = 16
+LOAD_LIBRARY_AS_IMAGE_RESOURCE: LOAD_LIBRARY_FLAGS = 32
+LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE: LOAD_LIBRARY_FLAGS = 64
+LOAD_LIBRARY_REQUIRE_SIGNED_TARGET: LOAD_LIBRARY_FLAGS = 128
+LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR: LOAD_LIBRARY_FLAGS = 256
+LOAD_LIBRARY_SEARCH_APPLICATION_DIR: LOAD_LIBRARY_FLAGS = 512
+LOAD_LIBRARY_SEARCH_USER_DIRS: LOAD_LIBRARY_FLAGS = 1024
+LOAD_LIBRARY_SEARCH_SYSTEM32: LOAD_LIBRARY_FLAGS = 2048
+LOAD_LIBRARY_SEARCH_DEFAULT_DIRS: LOAD_LIBRARY_FLAGS = 4096
+LOAD_LIBRARY_SAFE_CURRENT_DIRS: LOAD_LIBRARY_FLAGS = 8192
+LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER: LOAD_LIBRARY_FLAGS = 16384
+@winfunctype_pointer
+def PGET_MODULE_HANDLE_EXA(dwFlags: UInt32, lpModuleName: win32more.Foundation.PSTR, phModule: POINTER(win32more.Foundation.HINSTANCE)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PGET_MODULE_HANDLE_EXW(dwFlags: UInt32, lpModuleName: win32more.Foundation.PWSTR, phModule: POINTER(win32more.Foundation.HINSTANCE)) -> win32more.Foundation.BOOL: ...
+class REDIRECTION_DESCRIPTOR(Structure):
+    Version: UInt32
+    FunctionCount: UInt32
+    Redirections: POINTER(win32more.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR_head)
+class REDIRECTION_FUNCTION_DESCRIPTOR(Structure):
+    DllName: win32more.Foundation.PSTR
+    FunctionName: win32more.Foundation.PSTR
+    RedirectionTarget: c_void_p
+make_head(_module, 'ENUMRESLANGPROCA')
+make_head(_module, 'ENUMRESLANGPROCW')
+make_head(_module, 'ENUMRESNAMEPROCA')
+make_head(_module, 'ENUMRESNAMEPROCW')
+make_head(_module, 'ENUMRESTYPEPROCA')
+make_head(_module, 'ENUMRESTYPEPROCW')
+make_head(_module, 'ENUMUILANG')
+make_head(_module, 'PGET_MODULE_HANDLE_EXA')
+make_head(_module, 'PGET_MODULE_HANDLE_EXW')
+make_head(_module, 'REDIRECTION_DESCRIPTOR')
+make_head(_module, 'REDIRECTION_FUNCTION_DESCRIPTOR')
 __all__ = [
     "AddDllDirectory",
     "BeginUpdateResourceA",

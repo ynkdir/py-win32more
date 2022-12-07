@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Dxgi
 import win32more.Graphics.Dxgi.Common
@@ -10,1597 +11,1364 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-DXGI_MAP_READ = 1
-DXGI_MAP_WRITE = 2
-DXGI_MAP_DISCARD = 4
-DXGI_ENUM_MODES_INTERLACED = 1
-DXGI_ENUM_MODES_SCALING = 2
-DXGI_MAX_SWAP_CHAIN_BUFFERS = 16
-DXGI_PRESENT_TEST = 1
-DXGI_PRESENT_DO_NOT_SEQUENCE = 2
-DXGI_PRESENT_RESTART = 4
-DXGI_PRESENT_DO_NOT_WAIT = 8
-DXGI_PRESENT_STEREO_PREFER_RIGHT = 16
-DXGI_PRESENT_STEREO_TEMPORARY_MONO = 32
-DXGI_PRESENT_RESTRICT_TO_OUTPUT = 64
-DXGI_PRESENT_USE_DURATION = 256
-DXGI_PRESENT_ALLOW_TEARING = 512
-DXGI_MWA_NO_WINDOW_CHANGES = 1
-DXGI_MWA_NO_ALT_ENTER = 2
-DXGI_MWA_NO_PRINT_SCREEN = 4
-DXGI_MWA_VALID = 7
-DXGI_ENUM_MODES_STEREO = 4
-DXGI_ENUM_MODES_DISABLED_STEREO = 8
-DXGI_SHARED_RESOURCE_READ = 2147483648
-DXGI_SHARED_RESOURCE_WRITE = 1
-DXGI_DEBUG_BINARY_VERSION = 1
-def _define_DXGI_DEBUG_ALL():
-    return Guid('e48ae283-da80-490b-87-e6-43-e9-a9-cf-da-08')
-def _define_DXGI_DEBUG_DX():
-    return Guid('35cdd7fc-13b2-421d-a5-d7-7e-44-51-28-7d-64')
-def _define_DXGI_DEBUG_DXGI():
-    return Guid('25cddaa4-b1c6-47e1-ac-3e-98-87-5b-5a-2e-2a')
-def _define_DXGI_DEBUG_APP():
-    return Guid('06cd6e01-4219-4ebd-87-09-27-ed-23-36-0c-62')
-DXGI_INFO_QUEUE_MESSAGE_ID_STRING_FROM_APPLICATION = 0
-DXGI_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT = 1024
-DXGI_CREATE_FACTORY_DEBUG = 1
-DXGI_ERROR_INVALID_CALL = -2005270527
-DXGI_ERROR_NOT_FOUND = -2005270526
-DXGI_ERROR_MORE_DATA = -2005270525
-DXGI_ERROR_UNSUPPORTED = -2005270524
-DXGI_ERROR_DEVICE_REMOVED = -2005270523
-DXGI_ERROR_DEVICE_HUNG = -2005270522
-DXGI_ERROR_DEVICE_RESET = -2005270521
-DXGI_ERROR_WAS_STILL_DRAWING = -2005270518
-DXGI_ERROR_FRAME_STATISTICS_DISJOINT = -2005270517
-DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE = -2005270516
-DXGI_ERROR_DRIVER_INTERNAL_ERROR = -2005270496
-DXGI_ERROR_NONEXCLUSIVE = -2005270495
-DXGI_ERROR_NOT_CURRENTLY_AVAILABLE = -2005270494
-DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED = -2005270493
-DXGI_ERROR_REMOTE_OUTOFMEMORY = -2005270492
-DXGI_ERROR_ACCESS_LOST = -2005270490
-DXGI_ERROR_WAIT_TIMEOUT = -2005270489
-DXGI_ERROR_SESSION_DISCONNECTED = -2005270488
-DXGI_ERROR_RESTRICT_TO_OUTPUT_STALE = -2005270487
-DXGI_ERROR_CANNOT_PROTECT_CONTENT = -2005270486
-DXGI_ERROR_ACCESS_DENIED = -2005270485
-DXGI_ERROR_NAME_ALREADY_EXISTS = -2005270484
-DXGI_ERROR_SDK_COMPONENT_MISSING = -2005270483
-DXGI_ERROR_NOT_CURRENT = -2005270482
-DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY = -2005270480
-DXGI_ERROR_DYNAMIC_CODE_POLICY_VIOLATION = -2005270479
-DXGI_ERROR_NON_COMPOSITED_UI = -2005270478
-DXGI_ERROR_MODE_CHANGE_IN_PROGRESS = -2005270491
-DXGI_ERROR_CACHE_CORRUPT = -2005270477
-DXGI_ERROR_CACHE_FULL = -2005270476
-DXGI_ERROR_CACHE_HASH_COLLISION = -2005270475
-DXGI_ERROR_ALREADY_EXISTS = -2005270474
-def _define_CreateDXGIFactory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('CreateDXGIFactory', windll['dxgi.dll']), ((1, 'riid'),(1, 'ppFactory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDXGIFactory1():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('CreateDXGIFactory1', windll['dxgi.dll']), ((1, 'riid'),(1, 'ppFactory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateDXGIFactory2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(('CreateDXGIFactory2', windll['dxgi.dll']), ((1, 'Flags'),(1, 'riid'),(1, 'ppFactory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DXGIGetDebugInterface1():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(('DXGIGetDebugInterface1', windll['dxgi.dll']), ((1, 'Flags'),(1, 'riid'),(1, 'pDebug'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DXGIDeclareAdapterRemovalSupport():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('DXGIDeclareAdapterRemovalSupport', windll['dxgi.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DXGI_ADAPTER_DESC_head():
-    class DXGI_ADAPTER_DESC(Structure):
-        pass
-    return DXGI_ADAPTER_DESC
-def _define_DXGI_ADAPTER_DESC():
-    DXGI_ADAPTER_DESC = win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC_head
-    DXGI_ADAPTER_DESC._fields_ = [
-        ('Description', Char * 128),
-        ('VendorId', UInt32),
-        ('DeviceId', UInt32),
-        ('SubSysId', UInt32),
-        ('Revision', UInt32),
-        ('DedicatedVideoMemory', UIntPtr),
-        ('DedicatedSystemMemory', UIntPtr),
-        ('SharedSystemMemory', UIntPtr),
-        ('AdapterLuid', win32more.Foundation.LUID),
-    ]
-    return DXGI_ADAPTER_DESC
-def _define_DXGI_ADAPTER_DESC1_head():
-    class DXGI_ADAPTER_DESC1(Structure):
-        pass
-    return DXGI_ADAPTER_DESC1
-def _define_DXGI_ADAPTER_DESC1():
-    DXGI_ADAPTER_DESC1 = win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC1_head
-    DXGI_ADAPTER_DESC1._fields_ = [
-        ('Description', Char * 128),
-        ('VendorId', UInt32),
-        ('DeviceId', UInt32),
-        ('SubSysId', UInt32),
-        ('Revision', UInt32),
-        ('DedicatedVideoMemory', UIntPtr),
-        ('DedicatedSystemMemory', UIntPtr),
-        ('SharedSystemMemory', UIntPtr),
-        ('AdapterLuid', win32more.Foundation.LUID),
-        ('Flags', UInt32),
-    ]
-    return DXGI_ADAPTER_DESC1
-def _define_DXGI_ADAPTER_DESC2_head():
-    class DXGI_ADAPTER_DESC2(Structure):
-        pass
-    return DXGI_ADAPTER_DESC2
-def _define_DXGI_ADAPTER_DESC2():
-    DXGI_ADAPTER_DESC2 = win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC2_head
-    DXGI_ADAPTER_DESC2._fields_ = [
-        ('Description', Char * 128),
-        ('VendorId', UInt32),
-        ('DeviceId', UInt32),
-        ('SubSysId', UInt32),
-        ('Revision', UInt32),
-        ('DedicatedVideoMemory', UIntPtr),
-        ('DedicatedSystemMemory', UIntPtr),
-        ('SharedSystemMemory', UIntPtr),
-        ('AdapterLuid', win32more.Foundation.LUID),
-        ('Flags', UInt32),
-        ('GraphicsPreemptionGranularity', win32more.Graphics.Dxgi.DXGI_GRAPHICS_PREEMPTION_GRANULARITY),
-        ('ComputePreemptionGranularity', win32more.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY),
-    ]
-    return DXGI_ADAPTER_DESC2
-def _define_DXGI_ADAPTER_DESC3_head():
-    class DXGI_ADAPTER_DESC3(Structure):
-        pass
-    return DXGI_ADAPTER_DESC3
-def _define_DXGI_ADAPTER_DESC3():
-    DXGI_ADAPTER_DESC3 = win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC3_head
-    DXGI_ADAPTER_DESC3._fields_ = [
-        ('Description', Char * 128),
-        ('VendorId', UInt32),
-        ('DeviceId', UInt32),
-        ('SubSysId', UInt32),
-        ('Revision', UInt32),
-        ('DedicatedVideoMemory', UIntPtr),
-        ('DedicatedSystemMemory', UIntPtr),
-        ('SharedSystemMemory', UIntPtr),
-        ('AdapterLuid', win32more.Foundation.LUID),
-        ('Flags', win32more.Graphics.Dxgi.DXGI_ADAPTER_FLAG3),
-        ('GraphicsPreemptionGranularity', win32more.Graphics.Dxgi.DXGI_GRAPHICS_PREEMPTION_GRANULARITY),
-        ('ComputePreemptionGranularity', win32more.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY),
-    ]
-    return DXGI_ADAPTER_DESC3
+DXGI_MAP_READ: UInt32 = 1
+DXGI_MAP_WRITE: UInt32 = 2
+DXGI_MAP_DISCARD: UInt32 = 4
+DXGI_ENUM_MODES_INTERLACED: UInt32 = 1
+DXGI_ENUM_MODES_SCALING: UInt32 = 2
+DXGI_MAX_SWAP_CHAIN_BUFFERS: UInt32 = 16
+DXGI_PRESENT_TEST: UInt32 = 1
+DXGI_PRESENT_DO_NOT_SEQUENCE: UInt32 = 2
+DXGI_PRESENT_RESTART: UInt32 = 4
+DXGI_PRESENT_DO_NOT_WAIT: UInt32 = 8
+DXGI_PRESENT_STEREO_PREFER_RIGHT: UInt32 = 16
+DXGI_PRESENT_STEREO_TEMPORARY_MONO: UInt32 = 32
+DXGI_PRESENT_RESTRICT_TO_OUTPUT: UInt32 = 64
+DXGI_PRESENT_USE_DURATION: UInt32 = 256
+DXGI_PRESENT_ALLOW_TEARING: UInt32 = 512
+DXGI_MWA_NO_WINDOW_CHANGES: UInt32 = 1
+DXGI_MWA_NO_ALT_ENTER: UInt32 = 2
+DXGI_MWA_NO_PRINT_SCREEN: UInt32 = 4
+DXGI_MWA_VALID: UInt32 = 7
+DXGI_ENUM_MODES_STEREO: UInt32 = 4
+DXGI_ENUM_MODES_DISABLED_STEREO: UInt32 = 8
+DXGI_SHARED_RESOURCE_READ: UInt32 = 2147483648
+DXGI_SHARED_RESOURCE_WRITE: UInt32 = 1
+DXGI_DEBUG_BINARY_VERSION: UInt32 = 1
+DXGI_DEBUG_ALL: Guid = Guid('e48ae283-da80-490b-87-e6-43-e9-a9-cf-da-08')
+DXGI_DEBUG_DX: Guid = Guid('35cdd7fc-13b2-421d-a5-d7-7e-44-51-28-7d-64')
+DXGI_DEBUG_DXGI: Guid = Guid('25cddaa4-b1c6-47e1-ac-3e-98-87-5b-5a-2e-2a')
+DXGI_DEBUG_APP: Guid = Guid('06cd6e01-4219-4ebd-87-09-27-ed-23-36-0c-62')
+DXGI_INFO_QUEUE_MESSAGE_ID_STRING_FROM_APPLICATION: UInt32 = 0
+DXGI_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT: UInt32 = 1024
+DXGI_CREATE_FACTORY_DEBUG: UInt32 = 1
+DXGI_ERROR_INVALID_CALL: win32more.Foundation.HRESULT = -2005270527
+DXGI_ERROR_NOT_FOUND: win32more.Foundation.HRESULT = -2005270526
+DXGI_ERROR_MORE_DATA: win32more.Foundation.HRESULT = -2005270525
+DXGI_ERROR_UNSUPPORTED: win32more.Foundation.HRESULT = -2005270524
+DXGI_ERROR_DEVICE_REMOVED: win32more.Foundation.HRESULT = -2005270523
+DXGI_ERROR_DEVICE_HUNG: win32more.Foundation.HRESULT = -2005270522
+DXGI_ERROR_DEVICE_RESET: win32more.Foundation.HRESULT = -2005270521
+DXGI_ERROR_WAS_STILL_DRAWING: win32more.Foundation.HRESULT = -2005270518
+DXGI_ERROR_FRAME_STATISTICS_DISJOINT: win32more.Foundation.HRESULT = -2005270517
+DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE: win32more.Foundation.HRESULT = -2005270516
+DXGI_ERROR_DRIVER_INTERNAL_ERROR: win32more.Foundation.HRESULT = -2005270496
+DXGI_ERROR_NONEXCLUSIVE: win32more.Foundation.HRESULT = -2005270495
+DXGI_ERROR_NOT_CURRENTLY_AVAILABLE: win32more.Foundation.HRESULT = -2005270494
+DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED: win32more.Foundation.HRESULT = -2005270493
+DXGI_ERROR_REMOTE_OUTOFMEMORY: win32more.Foundation.HRESULT = -2005270492
+DXGI_ERROR_ACCESS_LOST: win32more.Foundation.HRESULT = -2005270490
+DXGI_ERROR_WAIT_TIMEOUT: win32more.Foundation.HRESULT = -2005270489
+DXGI_ERROR_SESSION_DISCONNECTED: win32more.Foundation.HRESULT = -2005270488
+DXGI_ERROR_RESTRICT_TO_OUTPUT_STALE: win32more.Foundation.HRESULT = -2005270487
+DXGI_ERROR_CANNOT_PROTECT_CONTENT: win32more.Foundation.HRESULT = -2005270486
+DXGI_ERROR_ACCESS_DENIED: win32more.Foundation.HRESULT = -2005270485
+DXGI_ERROR_NAME_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2005270484
+DXGI_ERROR_SDK_COMPONENT_MISSING: win32more.Foundation.HRESULT = -2005270483
+DXGI_ERROR_NOT_CURRENT: win32more.Foundation.HRESULT = -2005270482
+DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY: win32more.Foundation.HRESULT = -2005270480
+DXGI_ERROR_DYNAMIC_CODE_POLICY_VIOLATION: win32more.Foundation.HRESULT = -2005270479
+DXGI_ERROR_NON_COMPOSITED_UI: win32more.Foundation.HRESULT = -2005270478
+DXGI_ERROR_MODE_CHANGE_IN_PROGRESS: win32more.Foundation.HRESULT = -2005270491
+DXGI_ERROR_CACHE_CORRUPT: win32more.Foundation.HRESULT = -2005270477
+DXGI_ERROR_CACHE_FULL: win32more.Foundation.HRESULT = -2005270476
+DXGI_ERROR_CACHE_HASH_COLLISION: win32more.Foundation.HRESULT = -2005270475
+DXGI_ERROR_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2005270474
+@winfunctype('dxgi.dll')
+def CreateDXGIFactory(riid: POINTER(Guid), ppFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('dxgi.dll')
+def CreateDXGIFactory1(riid: POINTER(Guid), ppFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('dxgi.dll')
+def CreateDXGIFactory2(Flags: UInt32, riid: POINTER(Guid), ppFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('dxgi.dll')
+def DXGIGetDebugInterface1(Flags: UInt32, riid: POINTER(Guid), pDebug: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('dxgi.dll')
+def DXGIDeclareAdapterRemovalSupport() -> win32more.Foundation.HRESULT: ...
+class DXGI_ADAPTER_DESC(Structure):
+    Description: Char * 128
+    VendorId: UInt32
+    DeviceId: UInt32
+    SubSysId: UInt32
+    Revision: UInt32
+    DedicatedVideoMemory: UIntPtr
+    DedicatedSystemMemory: UIntPtr
+    SharedSystemMemory: UIntPtr
+    AdapterLuid: win32more.Foundation.LUID
+class DXGI_ADAPTER_DESC1(Structure):
+    Description: Char * 128
+    VendorId: UInt32
+    DeviceId: UInt32
+    SubSysId: UInt32
+    Revision: UInt32
+    DedicatedVideoMemory: UIntPtr
+    DedicatedSystemMemory: UIntPtr
+    SharedSystemMemory: UIntPtr
+    AdapterLuid: win32more.Foundation.LUID
+    Flags: UInt32
+class DXGI_ADAPTER_DESC2(Structure):
+    Description: Char * 128
+    VendorId: UInt32
+    DeviceId: UInt32
+    SubSysId: UInt32
+    Revision: UInt32
+    DedicatedVideoMemory: UIntPtr
+    DedicatedSystemMemory: UIntPtr
+    SharedSystemMemory: UIntPtr
+    AdapterLuid: win32more.Foundation.LUID
+    Flags: UInt32
+    GraphicsPreemptionGranularity: win32more.Graphics.Dxgi.DXGI_GRAPHICS_PREEMPTION_GRANULARITY
+    ComputePreemptionGranularity: win32more.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY
+class DXGI_ADAPTER_DESC3(Structure):
+    Description: Char * 128
+    VendorId: UInt32
+    DeviceId: UInt32
+    SubSysId: UInt32
+    Revision: UInt32
+    DedicatedVideoMemory: UIntPtr
+    DedicatedSystemMemory: UIntPtr
+    SharedSystemMemory: UIntPtr
+    AdapterLuid: win32more.Foundation.LUID
+    Flags: win32more.Graphics.Dxgi.DXGI_ADAPTER_FLAG3
+    GraphicsPreemptionGranularity: win32more.Graphics.Dxgi.DXGI_GRAPHICS_PREEMPTION_GRANULARITY
+    ComputePreemptionGranularity: win32more.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY
 DXGI_ADAPTER_FLAG = UInt32
-DXGI_ADAPTER_FLAG_NONE = 0
-DXGI_ADAPTER_FLAG_REMOTE = 1
-DXGI_ADAPTER_FLAG_SOFTWARE = 2
+DXGI_ADAPTER_FLAG_NONE: DXGI_ADAPTER_FLAG = 0
+DXGI_ADAPTER_FLAG_REMOTE: DXGI_ADAPTER_FLAG = 1
+DXGI_ADAPTER_FLAG_SOFTWARE: DXGI_ADAPTER_FLAG = 2
 DXGI_ADAPTER_FLAG3 = UInt32
-DXGI_ADAPTER_FLAG3_NONE = 0
-DXGI_ADAPTER_FLAG3_REMOTE = 1
-DXGI_ADAPTER_FLAG3_SOFTWARE = 2
-DXGI_ADAPTER_FLAG3_ACG_COMPATIBLE = 4
-DXGI_ADAPTER_FLAG3_SUPPORT_MONITORED_FENCES = 8
-DXGI_ADAPTER_FLAG3_SUPPORT_NON_MONITORED_FENCES = 16
-DXGI_ADAPTER_FLAG3_KEYED_MUTEX_CONFORMANCE = 32
-DXGI_ADAPTER_FLAG3_FORCE_DWORD = 4294967295
+DXGI_ADAPTER_FLAG3_NONE: DXGI_ADAPTER_FLAG3 = 0
+DXGI_ADAPTER_FLAG3_REMOTE: DXGI_ADAPTER_FLAG3 = 1
+DXGI_ADAPTER_FLAG3_SOFTWARE: DXGI_ADAPTER_FLAG3 = 2
+DXGI_ADAPTER_FLAG3_ACG_COMPATIBLE: DXGI_ADAPTER_FLAG3 = 4
+DXGI_ADAPTER_FLAG3_SUPPORT_MONITORED_FENCES: DXGI_ADAPTER_FLAG3 = 8
+DXGI_ADAPTER_FLAG3_SUPPORT_NON_MONITORED_FENCES: DXGI_ADAPTER_FLAG3 = 16
+DXGI_ADAPTER_FLAG3_KEYED_MUTEX_CONFORMANCE: DXGI_ADAPTER_FLAG3 = 32
+DXGI_ADAPTER_FLAG3_FORCE_DWORD: DXGI_ADAPTER_FLAG3 = 4294967295
 DXGI_COMPUTE_PREEMPTION_GRANULARITY = Int32
-DXGI_COMPUTE_PREEMPTION_DMA_BUFFER_BOUNDARY = 0
-DXGI_COMPUTE_PREEMPTION_DISPATCH_BOUNDARY = 1
-DXGI_COMPUTE_PREEMPTION_THREAD_GROUP_BOUNDARY = 2
-DXGI_COMPUTE_PREEMPTION_THREAD_BOUNDARY = 3
-DXGI_COMPUTE_PREEMPTION_INSTRUCTION_BOUNDARY = 4
+DXGI_COMPUTE_PREEMPTION_DMA_BUFFER_BOUNDARY: DXGI_COMPUTE_PREEMPTION_GRANULARITY = 0
+DXGI_COMPUTE_PREEMPTION_DISPATCH_BOUNDARY: DXGI_COMPUTE_PREEMPTION_GRANULARITY = 1
+DXGI_COMPUTE_PREEMPTION_THREAD_GROUP_BOUNDARY: DXGI_COMPUTE_PREEMPTION_GRANULARITY = 2
+DXGI_COMPUTE_PREEMPTION_THREAD_BOUNDARY: DXGI_COMPUTE_PREEMPTION_GRANULARITY = 3
+DXGI_COMPUTE_PREEMPTION_INSTRUCTION_BOUNDARY: DXGI_COMPUTE_PREEMPTION_GRANULARITY = 4
 DXGI_DEBUG_RLO_FLAGS = UInt32
-DXGI_DEBUG_RLO_SUMMARY = 1
-DXGI_DEBUG_RLO_DETAIL = 2
-DXGI_DEBUG_RLO_IGNORE_INTERNAL = 4
-DXGI_DEBUG_RLO_ALL = 7
-def _define_DXGI_DECODE_SWAP_CHAIN_DESC_head():
-    class DXGI_DECODE_SWAP_CHAIN_DESC(Structure):
-        pass
-    return DXGI_DECODE_SWAP_CHAIN_DESC
-def _define_DXGI_DECODE_SWAP_CHAIN_DESC():
-    DXGI_DECODE_SWAP_CHAIN_DESC = win32more.Graphics.Dxgi.DXGI_DECODE_SWAP_CHAIN_DESC_head
-    DXGI_DECODE_SWAP_CHAIN_DESC._fields_ = [
-        ('Flags', UInt32),
-    ]
-    return DXGI_DECODE_SWAP_CHAIN_DESC
-def _define_DXGI_DISPLAY_COLOR_SPACE_head():
-    class DXGI_DISPLAY_COLOR_SPACE(Structure):
-        pass
-    return DXGI_DISPLAY_COLOR_SPACE
-def _define_DXGI_DISPLAY_COLOR_SPACE():
-    DXGI_DISPLAY_COLOR_SPACE = win32more.Graphics.Dxgi.DXGI_DISPLAY_COLOR_SPACE_head
-    DXGI_DISPLAY_COLOR_SPACE._fields_ = [
-        ('PrimaryCoordinates', Single * 16),
-        ('WhitePoints', Single * 32),
-    ]
-    return DXGI_DISPLAY_COLOR_SPACE
+DXGI_DEBUG_RLO_SUMMARY: DXGI_DEBUG_RLO_FLAGS = 1
+DXGI_DEBUG_RLO_DETAIL: DXGI_DEBUG_RLO_FLAGS = 2
+DXGI_DEBUG_RLO_IGNORE_INTERNAL: DXGI_DEBUG_RLO_FLAGS = 4
+DXGI_DEBUG_RLO_ALL: DXGI_DEBUG_RLO_FLAGS = 7
+class DXGI_DECODE_SWAP_CHAIN_DESC(Structure):
+    Flags: UInt32
+class DXGI_DISPLAY_COLOR_SPACE(Structure):
+    PrimaryCoordinates: Single * 16
+    WhitePoints: Single * 32
 DXGI_FEATURE = Int32
-DXGI_FEATURE_PRESENT_ALLOW_TEARING = 0
+DXGI_FEATURE_PRESENT_ALLOW_TEARING: DXGI_FEATURE = 0
 DXGI_FRAME_PRESENTATION_MODE = Int32
-DXGI_FRAME_PRESENTATION_MODE_COMPOSED = 0
-DXGI_FRAME_PRESENTATION_MODE_OVERLAY = 1
-DXGI_FRAME_PRESENTATION_MODE_NONE = 2
-DXGI_FRAME_PRESENTATION_MODE_COMPOSITION_FAILURE = 3
-def _define_DXGI_FRAME_STATISTICS_head():
-    class DXGI_FRAME_STATISTICS(Structure):
-        pass
-    return DXGI_FRAME_STATISTICS
-def _define_DXGI_FRAME_STATISTICS():
-    DXGI_FRAME_STATISTICS = win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head
-    DXGI_FRAME_STATISTICS._fields_ = [
-        ('PresentCount', UInt32),
-        ('PresentRefreshCount', UInt32),
-        ('SyncRefreshCount', UInt32),
-        ('SyncQPCTime', win32more.Foundation.LARGE_INTEGER),
-        ('SyncGPUTime', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return DXGI_FRAME_STATISTICS
-def _define_DXGI_FRAME_STATISTICS_MEDIA_head():
-    class DXGI_FRAME_STATISTICS_MEDIA(Structure):
-        pass
-    return DXGI_FRAME_STATISTICS_MEDIA
-def _define_DXGI_FRAME_STATISTICS_MEDIA():
-    DXGI_FRAME_STATISTICS_MEDIA = win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_MEDIA_head
-    DXGI_FRAME_STATISTICS_MEDIA._fields_ = [
-        ('PresentCount', UInt32),
-        ('PresentRefreshCount', UInt32),
-        ('SyncRefreshCount', UInt32),
-        ('SyncQPCTime', win32more.Foundation.LARGE_INTEGER),
-        ('SyncGPUTime', win32more.Foundation.LARGE_INTEGER),
-        ('CompositionMode', win32more.Graphics.Dxgi.DXGI_FRAME_PRESENTATION_MODE),
-        ('ApprovedPresentDuration', UInt32),
-    ]
-    return DXGI_FRAME_STATISTICS_MEDIA
+DXGI_FRAME_PRESENTATION_MODE_COMPOSED: DXGI_FRAME_PRESENTATION_MODE = 0
+DXGI_FRAME_PRESENTATION_MODE_OVERLAY: DXGI_FRAME_PRESENTATION_MODE = 1
+DXGI_FRAME_PRESENTATION_MODE_NONE: DXGI_FRAME_PRESENTATION_MODE = 2
+DXGI_FRAME_PRESENTATION_MODE_COMPOSITION_FAILURE: DXGI_FRAME_PRESENTATION_MODE = 3
+class DXGI_FRAME_STATISTICS(Structure):
+    PresentCount: UInt32
+    PresentRefreshCount: UInt32
+    SyncRefreshCount: UInt32
+    SyncQPCTime: win32more.Foundation.LARGE_INTEGER
+    SyncGPUTime: win32more.Foundation.LARGE_INTEGER
+class DXGI_FRAME_STATISTICS_MEDIA(Structure):
+    PresentCount: UInt32
+    PresentRefreshCount: UInt32
+    SyncRefreshCount: UInt32
+    SyncQPCTime: win32more.Foundation.LARGE_INTEGER
+    SyncGPUTime: win32more.Foundation.LARGE_INTEGER
+    CompositionMode: win32more.Graphics.Dxgi.DXGI_FRAME_PRESENTATION_MODE
+    ApprovedPresentDuration: UInt32
 DXGI_GPU_PREFERENCE = Int32
-DXGI_GPU_PREFERENCE_UNSPECIFIED = 0
-DXGI_GPU_PREFERENCE_MINIMUM_POWER = 1
-DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE = 2
+DXGI_GPU_PREFERENCE_UNSPECIFIED: DXGI_GPU_PREFERENCE = 0
+DXGI_GPU_PREFERENCE_MINIMUM_POWER: DXGI_GPU_PREFERENCE = 1
+DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE: DXGI_GPU_PREFERENCE = 2
 DXGI_GRAPHICS_PREEMPTION_GRANULARITY = Int32
-DXGI_GRAPHICS_PREEMPTION_DMA_BUFFER_BOUNDARY = 0
-DXGI_GRAPHICS_PREEMPTION_PRIMITIVE_BOUNDARY = 1
-DXGI_GRAPHICS_PREEMPTION_TRIANGLE_BOUNDARY = 2
-DXGI_GRAPHICS_PREEMPTION_PIXEL_BOUNDARY = 3
-DXGI_GRAPHICS_PREEMPTION_INSTRUCTION_BOUNDARY = 4
+DXGI_GRAPHICS_PREEMPTION_DMA_BUFFER_BOUNDARY: DXGI_GRAPHICS_PREEMPTION_GRANULARITY = 0
+DXGI_GRAPHICS_PREEMPTION_PRIMITIVE_BOUNDARY: DXGI_GRAPHICS_PREEMPTION_GRANULARITY = 1
+DXGI_GRAPHICS_PREEMPTION_TRIANGLE_BOUNDARY: DXGI_GRAPHICS_PREEMPTION_GRANULARITY = 2
+DXGI_GRAPHICS_PREEMPTION_PIXEL_BOUNDARY: DXGI_GRAPHICS_PREEMPTION_GRANULARITY = 3
+DXGI_GRAPHICS_PREEMPTION_INSTRUCTION_BOUNDARY: DXGI_GRAPHICS_PREEMPTION_GRANULARITY = 4
 DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = UInt32
-DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_FULLSCREEN = 1
-DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_WINDOWED = 2
-DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_CURSOR_STRETCHED = 4
-def _define_DXGI_HDR_METADATA_HDR10_head():
-    class DXGI_HDR_METADATA_HDR10(Structure):
-        pass
-    return DXGI_HDR_METADATA_HDR10
-def _define_DXGI_HDR_METADATA_HDR10():
-    DXGI_HDR_METADATA_HDR10 = win32more.Graphics.Dxgi.DXGI_HDR_METADATA_HDR10_head
-    DXGI_HDR_METADATA_HDR10._fields_ = [
-        ('RedPrimary', UInt16 * 2),
-        ('GreenPrimary', UInt16 * 2),
-        ('BluePrimary', UInt16 * 2),
-        ('WhitePoint', UInt16 * 2),
-        ('MaxMasteringLuminance', UInt32),
-        ('MinMasteringLuminance', UInt32),
-        ('MaxContentLightLevel', UInt16),
-        ('MaxFrameAverageLightLevel', UInt16),
-    ]
-    return DXGI_HDR_METADATA_HDR10
-def _define_DXGI_HDR_METADATA_HDR10PLUS_head():
-    class DXGI_HDR_METADATA_HDR10PLUS(Structure):
-        pass
-    return DXGI_HDR_METADATA_HDR10PLUS
-def _define_DXGI_HDR_METADATA_HDR10PLUS():
-    DXGI_HDR_METADATA_HDR10PLUS = win32more.Graphics.Dxgi.DXGI_HDR_METADATA_HDR10PLUS_head
-    DXGI_HDR_METADATA_HDR10PLUS._fields_ = [
-        ('Data', Byte * 72),
-    ]
-    return DXGI_HDR_METADATA_HDR10PLUS
+DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_FULLSCREEN: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 1
+DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_WINDOWED: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 2
+DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_CURSOR_STRETCHED: DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 4
+class DXGI_HDR_METADATA_HDR10(Structure):
+    RedPrimary: UInt16 * 2
+    GreenPrimary: UInt16 * 2
+    BluePrimary: UInt16 * 2
+    WhitePoint: UInt16 * 2
+    MaxMasteringLuminance: UInt32
+    MinMasteringLuminance: UInt32
+    MaxContentLightLevel: UInt16
+    MaxFrameAverageLightLevel: UInt16
+class DXGI_HDR_METADATA_HDR10PLUS(Structure):
+    Data: Byte * 72
 DXGI_HDR_METADATA_TYPE = Int32
-DXGI_HDR_METADATA_TYPE_NONE = 0
-DXGI_HDR_METADATA_TYPE_HDR10 = 1
-DXGI_HDR_METADATA_TYPE_HDR10PLUS = 2
-def _define_DXGI_INFO_QUEUE_FILTER_head():
-    class DXGI_INFO_QUEUE_FILTER(Structure):
-        pass
-    return DXGI_INFO_QUEUE_FILTER
-def _define_DXGI_INFO_QUEUE_FILTER():
-    DXGI_INFO_QUEUE_FILTER = win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head
-    DXGI_INFO_QUEUE_FILTER._fields_ = [
-        ('AllowList', win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC),
-        ('DenyList', win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC),
-    ]
-    return DXGI_INFO_QUEUE_FILTER
-def _define_DXGI_INFO_QUEUE_FILTER_DESC_head():
-    class DXGI_INFO_QUEUE_FILTER_DESC(Structure):
-        pass
-    return DXGI_INFO_QUEUE_FILTER_DESC
-def _define_DXGI_INFO_QUEUE_FILTER_DESC():
-    DXGI_INFO_QUEUE_FILTER_DESC = win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC_head
-    DXGI_INFO_QUEUE_FILTER_DESC._fields_ = [
-        ('NumCategories', UInt32),
-        ('pCategoryList', POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY)),
-        ('NumSeverities', UInt32),
-        ('pSeverityList', POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY)),
-        ('NumIDs', UInt32),
-        ('pIDList', POINTER(Int32)),
-    ]
-    return DXGI_INFO_QUEUE_FILTER_DESC
-def _define_DXGI_INFO_QUEUE_MESSAGE_head():
-    class DXGI_INFO_QUEUE_MESSAGE(Structure):
-        pass
-    return DXGI_INFO_QUEUE_MESSAGE
-def _define_DXGI_INFO_QUEUE_MESSAGE():
-    DXGI_INFO_QUEUE_MESSAGE = win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_head
-    DXGI_INFO_QUEUE_MESSAGE._fields_ = [
-        ('Producer', Guid),
-        ('Category', win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY),
-        ('Severity', win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY),
-        ('ID', Int32),
-        ('pDescription', c_char_p_no),
-        ('DescriptionByteLength', UIntPtr),
-    ]
-    return DXGI_INFO_QUEUE_MESSAGE
+DXGI_HDR_METADATA_TYPE_NONE: DXGI_HDR_METADATA_TYPE = 0
+DXGI_HDR_METADATA_TYPE_HDR10: DXGI_HDR_METADATA_TYPE = 1
+DXGI_HDR_METADATA_TYPE_HDR10PLUS: DXGI_HDR_METADATA_TYPE = 2
+class DXGI_INFO_QUEUE_FILTER(Structure):
+    AllowList: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC
+    DenyList: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC
+class DXGI_INFO_QUEUE_FILTER_DESC(Structure):
+    NumCategories: UInt32
+    pCategoryList: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY)
+    NumSeverities: UInt32
+    pSeverityList: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY)
+    NumIDs: UInt32
+    pIDList: POINTER(Int32)
+class DXGI_INFO_QUEUE_MESSAGE(Structure):
+    Producer: Guid
+    Category: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY
+    Severity: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY
+    ID: Int32
+    pDescription: c_char_p_no
+    DescriptionByteLength: UIntPtr
 DXGI_INFO_QUEUE_MESSAGE_CATEGORY = Int32
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_UNKNOWN = 0
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_MISCELLANEOUS = 1
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_INITIALIZATION = 2
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_CLEANUP = 3
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_COMPILATION = 4
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_CREATION = 5
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_SETTING = 6
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_GETTING = 7
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_RESOURCE_MANIPULATION = 8
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_EXECUTION = 9
-DXGI_INFO_QUEUE_MESSAGE_CATEGORY_SHADER = 10
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_UNKNOWN: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 0
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_MISCELLANEOUS: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 1
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_INITIALIZATION: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 2
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_CLEANUP: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 3
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_COMPILATION: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 4
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_CREATION: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 5
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_SETTING: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 6
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_STATE_GETTING: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 7
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_RESOURCE_MANIPULATION: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 8
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_EXECUTION: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 9
+DXGI_INFO_QUEUE_MESSAGE_CATEGORY_SHADER: DXGI_INFO_QUEUE_MESSAGE_CATEGORY = 10
 DXGI_INFO_QUEUE_MESSAGE_SEVERITY = Int32
-DXGI_INFO_QUEUE_MESSAGE_SEVERITY_CORRUPTION = 0
-DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR = 1
-DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING = 2
-DXGI_INFO_QUEUE_MESSAGE_SEVERITY_INFO = 3
-DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE = 4
-def _define_DXGI_MAPPED_RECT_head():
-    class DXGI_MAPPED_RECT(Structure):
-        pass
-    return DXGI_MAPPED_RECT
-def _define_DXGI_MAPPED_RECT():
-    DXGI_MAPPED_RECT = win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head
-    DXGI_MAPPED_RECT._fields_ = [
-        ('Pitch', Int32),
-        ('pBits', c_char_p_no),
-    ]
-    return DXGI_MAPPED_RECT
-def _define_DXGI_MATRIX_3X2_F_head():
-    class DXGI_MATRIX_3X2_F(Structure):
-        pass
-    return DXGI_MATRIX_3X2_F
-def _define_DXGI_MATRIX_3X2_F():
-    DXGI_MATRIX_3X2_F = win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head
-    DXGI_MATRIX_3X2_F._fields_ = [
-        ('_11', Single),
-        ('_12', Single),
-        ('_21', Single),
-        ('_22', Single),
-        ('_31', Single),
-        ('_32', Single),
-    ]
-    return DXGI_MATRIX_3X2_F
+DXGI_INFO_QUEUE_MESSAGE_SEVERITY_CORRUPTION: DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 0
+DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR: DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 1
+DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING: DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 2
+DXGI_INFO_QUEUE_MESSAGE_SEVERITY_INFO: DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 3
+DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE: DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 4
+class DXGI_MAPPED_RECT(Structure):
+    Pitch: Int32
+    pBits: c_char_p_no
+class DXGI_MATRIX_3X2_F(Structure):
+    _11: Single
+    _12: Single
+    _21: Single
+    _22: Single
+    _31: Single
+    _32: Single
 DXGI_MEMORY_SEGMENT_GROUP = Int32
-DXGI_MEMORY_SEGMENT_GROUP_LOCAL = 0
-DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL = 1
+DXGI_MEMORY_SEGMENT_GROUP_LOCAL: DXGI_MEMORY_SEGMENT_GROUP = 0
+DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL: DXGI_MEMORY_SEGMENT_GROUP = 1
 DXGI_Message_Id = Int32
-DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_InvalidOutputWindow = 0
-DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferWidthInferred = 1
-DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferHeightInferred = 2
-DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_NoScanoutFlagChanged = 3
-DXGI_MSG_IDXGISwapChain_Creation_MaxBufferCountExceeded = 4
-DXGI_MSG_IDXGISwapChain_Creation_TooFewBuffers = 5
-DXGI_MSG_IDXGISwapChain_Creation_NoOutputWindow = 6
-DXGI_MSG_IDXGISwapChain_Destruction_OtherMethodsCalled = 7
-DXGI_MSG_IDXGISwapChain_GetDesc_pDescIsNULL = 8
-DXGI_MSG_IDXGISwapChain_GetBuffer_ppSurfaceIsNULL = 9
-DXGI_MSG_IDXGISwapChain_GetBuffer_NoAllocatedBuffers = 10
-DXGI_MSG_IDXGISwapChain_GetBuffer_iBufferMustBeZero = 11
-DXGI_MSG_IDXGISwapChain_GetBuffer_iBufferOOB = 12
-DXGI_MSG_IDXGISwapChain_GetContainingOutput_ppOutputIsNULL = 13
-DXGI_MSG_IDXGISwapChain_Present_SyncIntervalOOB = 14
-DXGI_MSG_IDXGISwapChain_Present_InvalidNonPreRotatedFlag = 15
-DXGI_MSG_IDXGISwapChain_Present_NoAllocatedBuffers = 16
-DXGI_MSG_IDXGISwapChain_Present_GetDXGIAdapterFailed = 17
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_BufferCountOOB = 18
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_UnreleasedReferences = 19
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidSwapChainFlag = 20
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidNonPreRotatedFlag = 21
-DXGI_MSG_IDXGISwapChain_ResizeTarget_RefreshRateDivideByZero = 22
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_InvalidTarget = 23
-DXGI_MSG_IDXGISwapChain_GetFrameStatistics_pStatsIsNULL = 24
-DXGI_MSG_IDXGISwapChain_GetLastPresentCount_pLastPresentCountIsNULL = 25
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_RemoteNotSupported = 26
-DXGI_MSG_IDXGIOutput_TakeOwnership_FailedToAcquireFullscreenMutex = 27
-DXGI_MSG_IDXGIFactory_CreateSoftwareAdapter_ppAdapterInterfaceIsNULL = 28
-DXGI_MSG_IDXGIFactory_EnumAdapters_ppAdapterInterfaceIsNULL = 29
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ppSwapChainIsNULL = 30
-DXGI_MSG_IDXGIFactory_CreateSwapChain_pDescIsNULL = 31
-DXGI_MSG_IDXGIFactory_CreateSwapChain_UnknownSwapEffect = 32
-DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidFlags = 33
-DXGI_MSG_IDXGIFactory_CreateSwapChain_NonPreRotatedFlagAndWindowed = 34
-DXGI_MSG_IDXGIFactory_CreateSwapChain_NullDeviceInterface = 35
-DXGI_MSG_IDXGIFactory_GetWindowAssociation_phWndIsNULL = 36
-DXGI_MSG_IDXGIFactory_MakeWindowAssociation_InvalidFlags = 37
-DXGI_MSG_IDXGISurface_Map_InvalidSurface = 38
-DXGI_MSG_IDXGISurface_Map_FlagsSetToZero = 39
-DXGI_MSG_IDXGISurface_Map_DiscardAndReadFlagSet = 40
-DXGI_MSG_IDXGISurface_Map_DiscardButNotWriteFlagSet = 41
-DXGI_MSG_IDXGISurface_Map_NoCPUAccess = 42
-DXGI_MSG_IDXGISurface_Map_ReadFlagSetButCPUAccessIsDynamic = 43
-DXGI_MSG_IDXGISurface_Map_DiscardFlagSetButCPUAccessIsNotDynamic = 44
-DXGI_MSG_IDXGIOutput_GetDisplayModeList_pNumModesIsNULL = 45
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_ModeHasInvalidWidthOrHeight = 46
-DXGI_MSG_IDXGIOutput_GetCammaControlCapabilities_NoOwnerDevice = 47
-DXGI_MSG_IDXGIOutput_TakeOwnership_pDeviceIsNULL = 48
-DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_NoOwnerDevice = 49
-DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_pDestinationIsNULL = 50
-DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_MapOfDestinationFailed = 51
-DXGI_MSG_IDXGIOutput_GetFrameStatistics_NoOwnerDevice = 52
-DXGI_MSG_IDXGIOutput_GetFrameStatistics_pStatsIsNULL = 53
-DXGI_MSG_IDXGIOutput_SetGammaControl_NoOwnerDevice = 54
-DXGI_MSG_IDXGIOutput_GetGammaControl_NoOwnerDevice = 55
-DXGI_MSG_IDXGIOutput_GetGammaControl_NoGammaControls = 56
-DXGI_MSG_IDXGIOutput_SetDisplaySurface_IDXGIResourceNotSupportedBypPrimary = 57
-DXGI_MSG_IDXGIOutput_SetDisplaySurface_pPrimaryIsInvalid = 58
-DXGI_MSG_IDXGIOutput_SetDisplaySurface_NoOwnerDevice = 59
-DXGI_MSG_IDXGIOutput_TakeOwnership_RemoteDeviceNotSupported = 60
-DXGI_MSG_IDXGIOutput_GetDisplayModeList_RemoteDeviceNotSupported = 61
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_RemoteDeviceNotSupported = 62
-DXGI_MSG_IDXGIDevice_CreateSurface_InvalidParametersWithpSharedResource = 63
-DXGI_MSG_IDXGIObject_GetPrivateData_puiDataSizeIsNULL = 64
-DXGI_MSG_IDXGISwapChain_Creation_InvalidOutputWindow = 65
-DXGI_MSG_IDXGISwapChain_Release_SwapChainIsFullscreen = 66
-DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_InvalidTargetSurfaceFormat = 67
-DXGI_MSG_IDXGIFactory_CreateSoftwareAdapter_ModuleIsNULL = 68
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_IDXGIDeviceNotSupportedBypConcernedDevice = 69
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_pModeToMatchOrpClosestMatchIsNULL = 70
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_ModeHasRefreshRateDenominatorZero = 71
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_UnknownFormatIsInvalidForConfiguration = 72
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeScanlineOrdering = 73
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeScaling = 74
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeFormatAndDeviceCombination = 75
-DXGI_MSG_IDXGIFactory_Creation_CalledFromDllMain = 76
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_OutputNotOwnedBySwapChainDevice = 77
-DXGI_MSG_IDXGISwapChain_Creation_InvalidWindowStyle = 78
-DXGI_MSG_IDXGISwapChain_GetFrameStatistics_UnsupportedStatistics = 79
-DXGI_MSG_IDXGISwapChain_GetContainingOutput_SwapchainAdapterDoesNotControlOutput = 80
-DXGI_MSG_IDXGIOutput_SetOrGetGammaControl_pArrayIsNULL = 81
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_FullscreenInvalidForChildWindows = 82
-DXGI_MSG_IDXGIFactory_Release_CalledFromDllMain = 83
-DXGI_MSG_IDXGISwapChain_Present_UnreleasedHDC = 84
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_NonPreRotatedAndGDICompatibleFlags = 85
-DXGI_MSG_IDXGIFactory_CreateSwapChain_NonPreRotatedAndGDICompatibleFlags = 86
-DXGI_MSG_IDXGISurface1_GetDC_pHdcIsNULL = 87
-DXGI_MSG_IDXGISurface1_GetDC_SurfaceNotTexture2D = 88
-DXGI_MSG_IDXGISurface1_GetDC_GDICompatibleFlagNotSet = 89
-DXGI_MSG_IDXGISurface1_GetDC_UnreleasedHDC = 90
-DXGI_MSG_IDXGISurface_Map_NoCPUAccess2 = 91
-DXGI_MSG_IDXGISurface1_ReleaseDC_GetDCNotCalled = 92
-DXGI_MSG_IDXGISurface1_ReleaseDC_InvalidRectangleDimensions = 93
-DXGI_MSG_IDXGIOutput_TakeOwnership_RemoteOutputNotSupported = 94
-DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_RemoteOutputNotSupported = 95
-DXGI_MSG_IDXGIOutput_GetDisplayModeList_RemoteOutputNotSupported = 96
-DXGI_MSG_IDXGIFactory_CreateSwapChain_pDeviceHasMismatchedDXGIFactory = 97
-DXGI_MSG_IDXGISwapChain_Present_NonOptimalFSConfiguration = 98
-DXGI_MSG_IDXGIFactory_CreateSwapChain_FlipSequentialNotSupportedOnD3D10 = 99
-DXGI_MSG_IDXGIFactory_CreateSwapChain_BufferCountOOBForFlipSequential = 100
-DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidFormatForFlipSequential = 101
-DXGI_MSG_IDXGIFactory_CreateSwapChain_MultiSamplingNotSupportedForFlipSequential = 102
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_BufferCountOOBForFlipSequential = 103
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidFormatForFlipSequential = 104
-DXGI_MSG_IDXGISwapChain_Present_PartialPresentationBeforeStandardPresentation = 105
-DXGI_MSG_IDXGISwapChain_Present_FullscreenPartialPresentIsInvalid = 106
-DXGI_MSG_IDXGISwapChain_Present_InvalidPresentTestOrDoNotSequenceFlag = 107
-DXGI_MSG_IDXGISwapChain_Present_ScrollInfoWithNoDirtyRectsSpecified = 108
-DXGI_MSG_IDXGISwapChain_Present_EmptyScrollRect = 109
-DXGI_MSG_IDXGISwapChain_Present_ScrollRectOutOfBackbufferBounds = 110
-DXGI_MSG_IDXGISwapChain_Present_ScrollRectOutOfBackbufferBoundsWithOffset = 111
-DXGI_MSG_IDXGISwapChain_Present_EmptyDirtyRect = 112
-DXGI_MSG_IDXGISwapChain_Present_DirtyRectOutOfBackbufferBounds = 113
-DXGI_MSG_IDXGIFactory_CreateSwapChain_UnsupportedBufferUsageFlags = 114
-DXGI_MSG_IDXGISwapChain_Present_DoNotSequenceFlagSetButPreviousBufferIsUndefined = 115
-DXGI_MSG_IDXGISwapChain_Present_UnsupportedFlags = 116
-DXGI_MSG_IDXGISwapChain_Present_FlipModelChainMustResizeOrCreateOnFSTransition = 117
-DXGI_MSG_IDXGIFactory_CreateSwapChain_pRestrictToOutputFromOtherIDXGIFactory = 118
-DXGI_MSG_IDXGIFactory_CreateSwapChain_RestrictOutputNotSupportedOnAdapter = 119
-DXGI_MSG_IDXGISwapChain_Present_RestrictToOutputFlagSetButInvalidpRestrictToOutput = 120
-DXGI_MSG_IDXGISwapChain_Present_RestrictToOutputFlagdWithFullscreen = 121
-DXGI_MSG_IDXGISwapChain_Present_RestrictOutputFlagWithStaleSwapChain = 122
-DXGI_MSG_IDXGISwapChain_Present_OtherFlagsCausingInvalidPresentTestFlag = 123
-DXGI_MSG_IDXGIFactory_CreateSwapChain_UnavailableInSession0 = 124
-DXGI_MSG_IDXGIFactory_MakeWindowAssociation_UnavailableInSession0 = 125
-DXGI_MSG_IDXGIFactory_GetWindowAssociation_UnavailableInSession0 = 126
-DXGI_MSG_IDXGIAdapter_EnumOutputs_UnavailableInSession0 = 127
-DXGI_MSG_IDXGISwapChain_CreationOrSetFullscreenState_StereoDisabled = 128
-DXGI_MSG_IDXGIFactory2_UnregisterStatus_CookieNotFound = 129
-DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithoutFSOrOverlay = 130
-DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithoutFlipSequential = 131
-DXGI_MSG_IDXGISwapChain_Present_ProtectedContentWithRDPDriver = 132
-DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithDWMOffOrInvalidDisplayAffinity = 133
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_WidthOrHeightIsZero = 134
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_OnlyFlipSequentialSupported = 135
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_UnsupportedOnAdapter = 136
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_UnsupportedOnWindows7 = 137
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_FSTransitionWithCompositionSwapChain = 138
-DXGI_MSG_IDXGISwapChain_ResizeTarget_InvalidWithCompositionSwapChain = 139
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_WidthOrHeightIsZero = 140
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingNoneIsFlipModelOnly = 141
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingUnrecognized = 142
-DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyFullscreenUnsupported = 143
-DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyUnsupported = 144
-DXGI_MSG_IDXGISwapChain_Present_RestartIsFullscreenOnly = 145
-DXGI_MSG_IDXGISwapChain_Present_ProtectedWindowlessPresentationRequiresDisplayOnly = 146
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_DisplayOnlyUnsupported = 147
-DXGI_MSG_IDXGISwapChain1_SetBackgroundColor_OutOfRange = 148
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyFullscreenUnsupported = 149
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyUnsupported = 150
-DXGI_MSG_IDXGISwapchain_Present_ScrollUnsupported = 151
-DXGI_MSG_IDXGISwapChain1_SetRotation_UnsupportedOS = 152
-DXGI_MSG_IDXGISwapChain1_GetRotation_UnsupportedOS = 153
-DXGI_MSG_IDXGISwapchain_Present_FullscreenRotation = 154
-DXGI_MSG_IDXGISwapChain_Present_PartialPresentationWithMSAABuffers = 155
-DXGI_MSG_IDXGISwapChain1_SetRotation_FlipSequentialRequired = 156
-DXGI_MSG_IDXGISwapChain1_SetRotation_InvalidRotation = 157
-DXGI_MSG_IDXGISwapChain1_GetRotation_FlipSequentialRequired = 158
-DXGI_MSG_IDXGISwapChain_GetHwnd_WrongType = 159
-DXGI_MSG_IDXGISwapChain_GetCompositionSurface_WrongType = 160
-DXGI_MSG_IDXGISwapChain_GetCoreWindow_WrongType = 161
-DXGI_MSG_IDXGISwapChain_GetFullscreenDesc_NonHwnd = 162
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_CoreWindow = 163
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_UnsupportedOnWindows7 = 164
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_pWindowIsNULL = 165
-DXGI_MSG_IDXGIFactory_CreateSwapChain_FSUnsupportedForModernApps = 166
-DXGI_MSG_IDXGIFactory_MakeWindowAssociation_ModernApp = 167
-DXGI_MSG_IDXGISwapChain_ResizeTarget_ModernApp = 168
-DXGI_MSG_IDXGISwapChain_ResizeTarget_pNewTargetParametersIsNULL = 169
-DXGI_MSG_IDXGIOutput_SetDisplaySurface_ModernApp = 170
-DXGI_MSG_IDXGIOutput_TakeOwnership_ModernApp = 171
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_pWindowIsInvalid = 172
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCompositionSurface_InvalidHandle = 173
-DXGI_MSG_IDXGISurface1_GetDC_ModernApp = 174
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingNoneRequiresWindows8OrNewer = 175
-DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoAndPreferRight = 176
-DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoOrPreferRightWithDoNotSequence = 177
-DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoOrPreferRightWithoutStereo = 178
-DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoUnsupported = 179
-DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_ArraySizeMismatch = 180
-DXGI_MSG_IDXGISwapChain_Present_PartialPresentationWithSwapEffectDiscard = 181
-DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaUnrecognized = 182
-DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaIsWindowlessOnly = 183
-DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaIsFlipModelOnly = 184
-DXGI_MSG_IDXGIFactory_CreateSwapChain_RestrictToOutputAdapterMismatch = 185
-DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyOnLegacy = 186
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyOnLegacy = 187
-DXGI_MSG_IDXGIResource1_CreateSubresourceSurface_InvalidIndex = 188
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_InvalidScaling = 189
-DXGI_MSG_IDXGIFactory_CreateSwapChainForCoreWindow_InvalidSwapEffect = 190
-DXGI_MSG_IDXGIResource1_CreateSharedHandle_UnsupportedOS = 191
-DXGI_MSG_IDXGIFactory2_RegisterOcclusionStatusWindow_UnsupportedOS = 192
-DXGI_MSG_IDXGIFactory2_RegisterOcclusionStatusEvent_UnsupportedOS = 193
-DXGI_MSG_IDXGIOutput1_DuplicateOutput_UnsupportedOS = 194
-DXGI_MSG_IDXGIDisplayControl_IsStereoEnabled_UnsupportedOS = 195
-DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_InvalidAlphaMode = 196
-DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_InvalidResource = 197
-DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_InvalidLUID = 198
-DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_UnsupportedOS = 199
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_2DOnly = 200
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_StagingOnly = 201
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_NeedCPUAccessWrite = 202
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_NoShared = 203
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_OnlyMipLevels1 = 204
-DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_MappedOrOfferedResource = 205
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_FSUnsupportedForModernApps = 206
-DXGI_MSG_IDXGIFactory_CreateSwapChain_FailedToGoFSButNonPreRotated = 207
-DXGI_MSG_IDXGIFactory_CreateSwapChainOrRegisterOcclusionStatus_BlitModelUsedWhileRegisteredForOcclusionStatusEvents = 208
-DXGI_MSG_IDXGISwapChain_Present_BlitModelUsedWhileRegisteredForOcclusionStatusEvents = 209
-DXGI_MSG_IDXGIFactory_CreateSwapChain_WaitableSwapChainsAreFlipModelOnly = 210
-DXGI_MSG_IDXGIFactory_CreateSwapChain_WaitableSwapChainsAreNotFullscreen = 211
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_Waitable = 212
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveWaitableFlag = 213
-DXGI_MSG_IDXGISwapChain_GetFrameLatencyWaitableObject_OnlyWaitable = 214
-DXGI_MSG_IDXGISwapChain_GetMaximumFrameLatency_OnlyWaitable = 215
-DXGI_MSG_IDXGISwapChain_GetMaximumFrameLatency_pMaxLatencyIsNULL = 216
-DXGI_MSG_IDXGISwapChain_SetMaximumFrameLatency_OnlyWaitable = 217
-DXGI_MSG_IDXGISwapChain_SetMaximumFrameLatency_MaxLatencyIsOutOfBounds = 218
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ForegroundIsCoreWindowOnly = 219
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_ForegroundUnsupportedOnAdapter = 220
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_InvalidScaling = 221
-DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_InvalidAlphaMode = 222
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveForegroundFlag = 223
-DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixPointerCannotBeNull = 224
-DXGI_MSG_IDXGISwapChain_SetMatrixTransform_RequiresCompositionSwapChain = 225
-DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixMustBeFinite = 226
-DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixMustBeTranslateAndOrScale = 227
-DXGI_MSG_IDXGISwapChain_GetMatrixTransform_MatrixPointerCannotBeNull = 228
-DXGI_MSG_IDXGISwapChain_GetMatrixTransform_RequiresCompositionSwapChain = 229
-DXGI_MSG_DXGIGetDebugInterface1_NULL_ppDebug = 230
-DXGI_MSG_DXGIGetDebugInterface1_InvalidFlags = 231
-DXGI_MSG_IDXGISwapChain_Present_Decode = 232
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_Decode = 233
-DXGI_MSG_IDXGISwapChain_SetSourceSize_FlipModel = 234
-DXGI_MSG_IDXGISwapChain_SetSourceSize_Decode = 235
-DXGI_MSG_IDXGISwapChain_SetSourceSize_WidthHeight = 236
-DXGI_MSG_IDXGISwapChain_GetSourceSize_NullPointers = 237
-DXGI_MSG_IDXGISwapChain_GetSourceSize_Decode = 238
-DXGI_MSG_IDXGIDecodeSwapChain_SetColorSpace_InvalidFlags = 239
-DXGI_MSG_IDXGIDecodeSwapChain_SetSourceRect_InvalidRect = 240
-DXGI_MSG_IDXGIDecodeSwapChain_SetTargetRect_InvalidRect = 241
-DXGI_MSG_IDXGIDecodeSwapChain_SetDestSize_InvalidSize = 242
-DXGI_MSG_IDXGIDecodeSwapChain_GetSourceRect_InvalidPointer = 243
-DXGI_MSG_IDXGIDecodeSwapChain_GetTargetRect_InvalidPointer = 244
-DXGI_MSG_IDXGIDecodeSwapChain_GetDestSize_InvalidPointer = 245
-DXGI_MSG_IDXGISwapChain_PresentBuffer_YUV = 246
-DXGI_MSG_IDXGISwapChain_SetSourceSize_YUV = 247
-DXGI_MSG_IDXGISwapChain_GetSourceSize_YUV = 248
-DXGI_MSG_IDXGISwapChain_SetMatrixTransform_YUV = 249
-DXGI_MSG_IDXGISwapChain_GetMatrixTransform_YUV = 250
-DXGI_MSG_IDXGISwapChain_Present_PartialPresentation_YUV = 251
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveFlag_YUV = 252
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_Alignment_YUV = 253
-DXGI_MSG_IDXGIFactory_CreateSwapChain_ShaderInputUnsupported_YUV = 254
-DXGI_MSG_IDXGIOutput3_CheckOverlaySupport_NullPointers = 255
-DXGI_MSG_IDXGIOutput3_CheckOverlaySupport_IDXGIDeviceNotSupportedBypConcernedDevice = 256
-DXGI_MSG_IDXGIAdapter_EnumOutputs2_InvalidEnumOutputs2Flag = 257
-DXGI_MSG_IDXGISwapChain_CreationOrSetFullscreenState_FSUnsupportedForFlipDiscard = 258
-DXGI_MSG_IDXGIOutput4_CheckOverlayColorSpaceSupport_NullPointers = 259
-DXGI_MSG_IDXGIOutput4_CheckOverlayColorSpaceSupport_IDXGIDeviceNotSupportedBypConcernedDevice = 260
-DXGI_MSG_IDXGISwapChain3_CheckColorSpaceSupport_NullPointers = 261
-DXGI_MSG_IDXGISwapChain3_SetColorSpace1_InvalidColorSpace = 262
-DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidHwProtect = 263
-DXGI_MSG_IDXGIFactory_CreateSwapChain_HwProtectUnsupported = 264
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidHwProtect = 265
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_HwProtectUnsupported = 266
-DXGI_MSG_IDXGISwapChain_ResizeBuffers1_D3D12Only = 267
-DXGI_MSG_IDXGISwapChain_ResizeBuffers1_FlipModel = 268
-DXGI_MSG_IDXGISwapChain_ResizeBuffers1_NodeMaskAndQueueRequired = 269
-DXGI_MSG_IDXGISwapChain_CreateSwapChain_InvalidHwProtectGdiFlag = 270
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidHwProtectGdiFlag = 271
-DXGI_MSG_IDXGIFactory_CreateSwapChain_10BitFormatNotSupported = 272
-DXGI_MSG_IDXGIFactory_CreateSwapChain_FlipSwapEffectRequired = 273
-DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidDevice = 274
-DXGI_MSG_IDXGIOutput_TakeOwnership_Unsupported = 275
-DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidQueue = 276
-DXGI_MSG_IDXGISwapChain3_ResizeBuffers1_InvalidQueue = 277
-DXGI_MSG_IDXGIFactory_CreateSwapChainForHwnd_InvalidScaling = 278
-DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidSize = 279
-DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidPointer = 280
-DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidType = 281
-DXGI_MSG_IDXGISwapChain_Present_FullscreenAllowTearingIsInvalid = 282
-DXGI_MSG_IDXGISwapChain_Present_AllowTearingRequiresPresentIntervalZero = 283
-DXGI_MSG_IDXGISwapChain_Present_AllowTearingRequiresCreationFlag = 284
-DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveAllowTearingFlag = 285
-DXGI_MSG_IDXGIFactory_CreateSwapChain_AllowTearingFlagIsFlipModelOnly = 286
-DXGI_MSG_IDXGIFactory_CheckFeatureSupport_InvalidFeature = 287
-DXGI_MSG_IDXGIFactory_CheckFeatureSupport_InvalidSize = 288
-DXGI_MSG_IDXGIOutput6_CheckHardwareCompositionSupport_NullPointer = 289
-DXGI_MSG_IDXGISwapChain_SetFullscreenState_PerMonitorDpiShimApplied = 290
-DXGI_MSG_IDXGIOutput_DuplicateOutput_PerMonitorDpiShimApplied = 291
-DXGI_MSG_IDXGIOutput_DuplicateOutput1_PerMonitorDpiRequired = 292
-DXGI_MSG_IDXGIFactory7_UnregisterAdaptersChangedEvent_CookieNotFound = 293
-DXGI_MSG_IDXGIFactory_CreateSwapChain_LegacyBltModelSwapEffect = 294
-DXGI_MSG_IDXGISwapChain4_SetHDRMetaData_MetadataUnchanged = 295
-DXGI_MSG_IDXGISwapChain_Present_11On12_Released_Resource = 296
-DXGI_MSG_IDXGIFactory_CreateSwapChain_MultipleSwapchainRefToSurface_DeferredDtr = 297
-DXGI_MSG_IDXGIFactory_MakeWindowAssociation_NoOpBehavior = 298
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_NotForegroundWindow = 1000
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_DISCARD_BufferCount = 1001
-DXGI_MSG_Phone_IDXGISwapChain_SetFullscreenState_NotAvailable = 1002
-DXGI_MSG_Phone_IDXGISwapChain_ResizeBuffers_NotAvailable = 1003
-DXGI_MSG_Phone_IDXGISwapChain_ResizeTarget_NotAvailable = 1004
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidLayerIndex = 1005
-DXGI_MSG_Phone_IDXGISwapChain_Present_MultipleLayerIndex = 1006
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidLayerFlag = 1007
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidRotation = 1008
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidBlend = 1009
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidResource = 1010
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidMultiPlaneOverlayResource = 1011
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidIndexForPrimary = 1012
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidIndexForOverlay = 1013
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidSubResourceIndex = 1014
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidSourceRect = 1015
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidDestinationRect = 1016
-DXGI_MSG_Phone_IDXGISwapChain_Present_MultipleResource = 1017
-DXGI_MSG_Phone_IDXGISwapChain_Present_NotSharedResource = 1018
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidFlag = 1019
-DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidInterval = 1020
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_MSAA_NotSupported = 1021
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_ScalingAspectRatioStretch_Supported_ModernApp = 1022
-DXGI_MSG_Phone_IDXGISwapChain_GetFrameStatistics_NotAvailable_ModernApp = 1023
-DXGI_MSG_Phone_IDXGISwapChain_Present_ReplaceInterval0With1 = 1024
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FailedRegisterWithCompositor = 1025
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_NotForegroundWindow_AtRendering = 1026
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FLIP_SEQUENTIAL_BufferCount = 1027
-DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FLIP_Modern_CoreWindow_Only = 1028
-DXGI_MSG_Phone_IDXGISwapChain_Present1_RequiresOverlays = 1029
-DXGI_MSG_Phone_IDXGISwapChain_SetBackgroundColor_FlipSequentialRequired = 1030
-DXGI_MSG_Phone_IDXGISwapChain_GetBackgroundColor_FlipSequentialRequired = 1031
-def _define_DXGI_MODE_DESC1_head():
-    class DXGI_MODE_DESC1(Structure):
-        pass
-    return DXGI_MODE_DESC1
-def _define_DXGI_MODE_DESC1():
-    DXGI_MODE_DESC1 = win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head
-    DXGI_MODE_DESC1._fields_ = [
-        ('Width', UInt32),
-        ('Height', UInt32),
-        ('RefreshRate', win32more.Graphics.Dxgi.Common.DXGI_RATIONAL),
-        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ('ScanlineOrdering', win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER),
-        ('Scaling', win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING),
-        ('Stereo', win32more.Foundation.BOOL),
-    ]
-    return DXGI_MODE_DESC1
+DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_InvalidOutputWindow: DXGI_Message_Id = 0
+DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferWidthInferred: DXGI_Message_Id = 1
+DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferHeightInferred: DXGI_Message_Id = 2
+DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_NoScanoutFlagChanged: DXGI_Message_Id = 3
+DXGI_MSG_IDXGISwapChain_Creation_MaxBufferCountExceeded: DXGI_Message_Id = 4
+DXGI_MSG_IDXGISwapChain_Creation_TooFewBuffers: DXGI_Message_Id = 5
+DXGI_MSG_IDXGISwapChain_Creation_NoOutputWindow: DXGI_Message_Id = 6
+DXGI_MSG_IDXGISwapChain_Destruction_OtherMethodsCalled: DXGI_Message_Id = 7
+DXGI_MSG_IDXGISwapChain_GetDesc_pDescIsNULL: DXGI_Message_Id = 8
+DXGI_MSG_IDXGISwapChain_GetBuffer_ppSurfaceIsNULL: DXGI_Message_Id = 9
+DXGI_MSG_IDXGISwapChain_GetBuffer_NoAllocatedBuffers: DXGI_Message_Id = 10
+DXGI_MSG_IDXGISwapChain_GetBuffer_iBufferMustBeZero: DXGI_Message_Id = 11
+DXGI_MSG_IDXGISwapChain_GetBuffer_iBufferOOB: DXGI_Message_Id = 12
+DXGI_MSG_IDXGISwapChain_GetContainingOutput_ppOutputIsNULL: DXGI_Message_Id = 13
+DXGI_MSG_IDXGISwapChain_Present_SyncIntervalOOB: DXGI_Message_Id = 14
+DXGI_MSG_IDXGISwapChain_Present_InvalidNonPreRotatedFlag: DXGI_Message_Id = 15
+DXGI_MSG_IDXGISwapChain_Present_NoAllocatedBuffers: DXGI_Message_Id = 16
+DXGI_MSG_IDXGISwapChain_Present_GetDXGIAdapterFailed: DXGI_Message_Id = 17
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_BufferCountOOB: DXGI_Message_Id = 18
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_UnreleasedReferences: DXGI_Message_Id = 19
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidSwapChainFlag: DXGI_Message_Id = 20
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidNonPreRotatedFlag: DXGI_Message_Id = 21
+DXGI_MSG_IDXGISwapChain_ResizeTarget_RefreshRateDivideByZero: DXGI_Message_Id = 22
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_InvalidTarget: DXGI_Message_Id = 23
+DXGI_MSG_IDXGISwapChain_GetFrameStatistics_pStatsIsNULL: DXGI_Message_Id = 24
+DXGI_MSG_IDXGISwapChain_GetLastPresentCount_pLastPresentCountIsNULL: DXGI_Message_Id = 25
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_RemoteNotSupported: DXGI_Message_Id = 26
+DXGI_MSG_IDXGIOutput_TakeOwnership_FailedToAcquireFullscreenMutex: DXGI_Message_Id = 27
+DXGI_MSG_IDXGIFactory_CreateSoftwareAdapter_ppAdapterInterfaceIsNULL: DXGI_Message_Id = 28
+DXGI_MSG_IDXGIFactory_EnumAdapters_ppAdapterInterfaceIsNULL: DXGI_Message_Id = 29
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ppSwapChainIsNULL: DXGI_Message_Id = 30
+DXGI_MSG_IDXGIFactory_CreateSwapChain_pDescIsNULL: DXGI_Message_Id = 31
+DXGI_MSG_IDXGIFactory_CreateSwapChain_UnknownSwapEffect: DXGI_Message_Id = 32
+DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidFlags: DXGI_Message_Id = 33
+DXGI_MSG_IDXGIFactory_CreateSwapChain_NonPreRotatedFlagAndWindowed: DXGI_Message_Id = 34
+DXGI_MSG_IDXGIFactory_CreateSwapChain_NullDeviceInterface: DXGI_Message_Id = 35
+DXGI_MSG_IDXGIFactory_GetWindowAssociation_phWndIsNULL: DXGI_Message_Id = 36
+DXGI_MSG_IDXGIFactory_MakeWindowAssociation_InvalidFlags: DXGI_Message_Id = 37
+DXGI_MSG_IDXGISurface_Map_InvalidSurface: DXGI_Message_Id = 38
+DXGI_MSG_IDXGISurface_Map_FlagsSetToZero: DXGI_Message_Id = 39
+DXGI_MSG_IDXGISurface_Map_DiscardAndReadFlagSet: DXGI_Message_Id = 40
+DXGI_MSG_IDXGISurface_Map_DiscardButNotWriteFlagSet: DXGI_Message_Id = 41
+DXGI_MSG_IDXGISurface_Map_NoCPUAccess: DXGI_Message_Id = 42
+DXGI_MSG_IDXGISurface_Map_ReadFlagSetButCPUAccessIsDynamic: DXGI_Message_Id = 43
+DXGI_MSG_IDXGISurface_Map_DiscardFlagSetButCPUAccessIsNotDynamic: DXGI_Message_Id = 44
+DXGI_MSG_IDXGIOutput_GetDisplayModeList_pNumModesIsNULL: DXGI_Message_Id = 45
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_ModeHasInvalidWidthOrHeight: DXGI_Message_Id = 46
+DXGI_MSG_IDXGIOutput_GetCammaControlCapabilities_NoOwnerDevice: DXGI_Message_Id = 47
+DXGI_MSG_IDXGIOutput_TakeOwnership_pDeviceIsNULL: DXGI_Message_Id = 48
+DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_NoOwnerDevice: DXGI_Message_Id = 49
+DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_pDestinationIsNULL: DXGI_Message_Id = 50
+DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_MapOfDestinationFailed: DXGI_Message_Id = 51
+DXGI_MSG_IDXGIOutput_GetFrameStatistics_NoOwnerDevice: DXGI_Message_Id = 52
+DXGI_MSG_IDXGIOutput_GetFrameStatistics_pStatsIsNULL: DXGI_Message_Id = 53
+DXGI_MSG_IDXGIOutput_SetGammaControl_NoOwnerDevice: DXGI_Message_Id = 54
+DXGI_MSG_IDXGIOutput_GetGammaControl_NoOwnerDevice: DXGI_Message_Id = 55
+DXGI_MSG_IDXGIOutput_GetGammaControl_NoGammaControls: DXGI_Message_Id = 56
+DXGI_MSG_IDXGIOutput_SetDisplaySurface_IDXGIResourceNotSupportedBypPrimary: DXGI_Message_Id = 57
+DXGI_MSG_IDXGIOutput_SetDisplaySurface_pPrimaryIsInvalid: DXGI_Message_Id = 58
+DXGI_MSG_IDXGIOutput_SetDisplaySurface_NoOwnerDevice: DXGI_Message_Id = 59
+DXGI_MSG_IDXGIOutput_TakeOwnership_RemoteDeviceNotSupported: DXGI_Message_Id = 60
+DXGI_MSG_IDXGIOutput_GetDisplayModeList_RemoteDeviceNotSupported: DXGI_Message_Id = 61
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_RemoteDeviceNotSupported: DXGI_Message_Id = 62
+DXGI_MSG_IDXGIDevice_CreateSurface_InvalidParametersWithpSharedResource: DXGI_Message_Id = 63
+DXGI_MSG_IDXGIObject_GetPrivateData_puiDataSizeIsNULL: DXGI_Message_Id = 64
+DXGI_MSG_IDXGISwapChain_Creation_InvalidOutputWindow: DXGI_Message_Id = 65
+DXGI_MSG_IDXGISwapChain_Release_SwapChainIsFullscreen: DXGI_Message_Id = 66
+DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_InvalidTargetSurfaceFormat: DXGI_Message_Id = 67
+DXGI_MSG_IDXGIFactory_CreateSoftwareAdapter_ModuleIsNULL: DXGI_Message_Id = 68
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_IDXGIDeviceNotSupportedBypConcernedDevice: DXGI_Message_Id = 69
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_pModeToMatchOrpClosestMatchIsNULL: DXGI_Message_Id = 70
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_ModeHasRefreshRateDenominatorZero: DXGI_Message_Id = 71
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_UnknownFormatIsInvalidForConfiguration: DXGI_Message_Id = 72
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeScanlineOrdering: DXGI_Message_Id = 73
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeScaling: DXGI_Message_Id = 74
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_InvalidDisplayModeFormatAndDeviceCombination: DXGI_Message_Id = 75
+DXGI_MSG_IDXGIFactory_Creation_CalledFromDllMain: DXGI_Message_Id = 76
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_OutputNotOwnedBySwapChainDevice: DXGI_Message_Id = 77
+DXGI_MSG_IDXGISwapChain_Creation_InvalidWindowStyle: DXGI_Message_Id = 78
+DXGI_MSG_IDXGISwapChain_GetFrameStatistics_UnsupportedStatistics: DXGI_Message_Id = 79
+DXGI_MSG_IDXGISwapChain_GetContainingOutput_SwapchainAdapterDoesNotControlOutput: DXGI_Message_Id = 80
+DXGI_MSG_IDXGIOutput_SetOrGetGammaControl_pArrayIsNULL: DXGI_Message_Id = 81
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_FullscreenInvalidForChildWindows: DXGI_Message_Id = 82
+DXGI_MSG_IDXGIFactory_Release_CalledFromDllMain: DXGI_Message_Id = 83
+DXGI_MSG_IDXGISwapChain_Present_UnreleasedHDC: DXGI_Message_Id = 84
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_NonPreRotatedAndGDICompatibleFlags: DXGI_Message_Id = 85
+DXGI_MSG_IDXGIFactory_CreateSwapChain_NonPreRotatedAndGDICompatibleFlags: DXGI_Message_Id = 86
+DXGI_MSG_IDXGISurface1_GetDC_pHdcIsNULL: DXGI_Message_Id = 87
+DXGI_MSG_IDXGISurface1_GetDC_SurfaceNotTexture2D: DXGI_Message_Id = 88
+DXGI_MSG_IDXGISurface1_GetDC_GDICompatibleFlagNotSet: DXGI_Message_Id = 89
+DXGI_MSG_IDXGISurface1_GetDC_UnreleasedHDC: DXGI_Message_Id = 90
+DXGI_MSG_IDXGISurface_Map_NoCPUAccess2: DXGI_Message_Id = 91
+DXGI_MSG_IDXGISurface1_ReleaseDC_GetDCNotCalled: DXGI_Message_Id = 92
+DXGI_MSG_IDXGISurface1_ReleaseDC_InvalidRectangleDimensions: DXGI_Message_Id = 93
+DXGI_MSG_IDXGIOutput_TakeOwnership_RemoteOutputNotSupported: DXGI_Message_Id = 94
+DXGI_MSG_IDXGIOutput_FindClosestMatchingMode_RemoteOutputNotSupported: DXGI_Message_Id = 95
+DXGI_MSG_IDXGIOutput_GetDisplayModeList_RemoteOutputNotSupported: DXGI_Message_Id = 96
+DXGI_MSG_IDXGIFactory_CreateSwapChain_pDeviceHasMismatchedDXGIFactory: DXGI_Message_Id = 97
+DXGI_MSG_IDXGISwapChain_Present_NonOptimalFSConfiguration: DXGI_Message_Id = 98
+DXGI_MSG_IDXGIFactory_CreateSwapChain_FlipSequentialNotSupportedOnD3D10: DXGI_Message_Id = 99
+DXGI_MSG_IDXGIFactory_CreateSwapChain_BufferCountOOBForFlipSequential: DXGI_Message_Id = 100
+DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidFormatForFlipSequential: DXGI_Message_Id = 101
+DXGI_MSG_IDXGIFactory_CreateSwapChain_MultiSamplingNotSupportedForFlipSequential: DXGI_Message_Id = 102
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_BufferCountOOBForFlipSequential: DXGI_Message_Id = 103
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidFormatForFlipSequential: DXGI_Message_Id = 104
+DXGI_MSG_IDXGISwapChain_Present_PartialPresentationBeforeStandardPresentation: DXGI_Message_Id = 105
+DXGI_MSG_IDXGISwapChain_Present_FullscreenPartialPresentIsInvalid: DXGI_Message_Id = 106
+DXGI_MSG_IDXGISwapChain_Present_InvalidPresentTestOrDoNotSequenceFlag: DXGI_Message_Id = 107
+DXGI_MSG_IDXGISwapChain_Present_ScrollInfoWithNoDirtyRectsSpecified: DXGI_Message_Id = 108
+DXGI_MSG_IDXGISwapChain_Present_EmptyScrollRect: DXGI_Message_Id = 109
+DXGI_MSG_IDXGISwapChain_Present_ScrollRectOutOfBackbufferBounds: DXGI_Message_Id = 110
+DXGI_MSG_IDXGISwapChain_Present_ScrollRectOutOfBackbufferBoundsWithOffset: DXGI_Message_Id = 111
+DXGI_MSG_IDXGISwapChain_Present_EmptyDirtyRect: DXGI_Message_Id = 112
+DXGI_MSG_IDXGISwapChain_Present_DirtyRectOutOfBackbufferBounds: DXGI_Message_Id = 113
+DXGI_MSG_IDXGIFactory_CreateSwapChain_UnsupportedBufferUsageFlags: DXGI_Message_Id = 114
+DXGI_MSG_IDXGISwapChain_Present_DoNotSequenceFlagSetButPreviousBufferIsUndefined: DXGI_Message_Id = 115
+DXGI_MSG_IDXGISwapChain_Present_UnsupportedFlags: DXGI_Message_Id = 116
+DXGI_MSG_IDXGISwapChain_Present_FlipModelChainMustResizeOrCreateOnFSTransition: DXGI_Message_Id = 117
+DXGI_MSG_IDXGIFactory_CreateSwapChain_pRestrictToOutputFromOtherIDXGIFactory: DXGI_Message_Id = 118
+DXGI_MSG_IDXGIFactory_CreateSwapChain_RestrictOutputNotSupportedOnAdapter: DXGI_Message_Id = 119
+DXGI_MSG_IDXGISwapChain_Present_RestrictToOutputFlagSetButInvalidpRestrictToOutput: DXGI_Message_Id = 120
+DXGI_MSG_IDXGISwapChain_Present_RestrictToOutputFlagdWithFullscreen: DXGI_Message_Id = 121
+DXGI_MSG_IDXGISwapChain_Present_RestrictOutputFlagWithStaleSwapChain: DXGI_Message_Id = 122
+DXGI_MSG_IDXGISwapChain_Present_OtherFlagsCausingInvalidPresentTestFlag: DXGI_Message_Id = 123
+DXGI_MSG_IDXGIFactory_CreateSwapChain_UnavailableInSession0: DXGI_Message_Id = 124
+DXGI_MSG_IDXGIFactory_MakeWindowAssociation_UnavailableInSession0: DXGI_Message_Id = 125
+DXGI_MSG_IDXGIFactory_GetWindowAssociation_UnavailableInSession0: DXGI_Message_Id = 126
+DXGI_MSG_IDXGIAdapter_EnumOutputs_UnavailableInSession0: DXGI_Message_Id = 127
+DXGI_MSG_IDXGISwapChain_CreationOrSetFullscreenState_StereoDisabled: DXGI_Message_Id = 128
+DXGI_MSG_IDXGIFactory2_UnregisterStatus_CookieNotFound: DXGI_Message_Id = 129
+DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithoutFSOrOverlay: DXGI_Message_Id = 130
+DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithoutFlipSequential: DXGI_Message_Id = 131
+DXGI_MSG_IDXGISwapChain_Present_ProtectedContentWithRDPDriver: DXGI_Message_Id = 132
+DXGI_MSG_IDXGISwapChain_Present_ProtectedContentInWindowedModeWithDWMOffOrInvalidDisplayAffinity: DXGI_Message_Id = 133
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_WidthOrHeightIsZero: DXGI_Message_Id = 134
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_OnlyFlipSequentialSupported: DXGI_Message_Id = 135
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_UnsupportedOnAdapter: DXGI_Message_Id = 136
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_UnsupportedOnWindows7: DXGI_Message_Id = 137
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_FSTransitionWithCompositionSwapChain: DXGI_Message_Id = 138
+DXGI_MSG_IDXGISwapChain_ResizeTarget_InvalidWithCompositionSwapChain: DXGI_Message_Id = 139
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_WidthOrHeightIsZero: DXGI_Message_Id = 140
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingNoneIsFlipModelOnly: DXGI_Message_Id = 141
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingUnrecognized: DXGI_Message_Id = 142
+DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyFullscreenUnsupported: DXGI_Message_Id = 143
+DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyUnsupported: DXGI_Message_Id = 144
+DXGI_MSG_IDXGISwapChain_Present_RestartIsFullscreenOnly: DXGI_Message_Id = 145
+DXGI_MSG_IDXGISwapChain_Present_ProtectedWindowlessPresentationRequiresDisplayOnly: DXGI_Message_Id = 146
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_DisplayOnlyUnsupported: DXGI_Message_Id = 147
+DXGI_MSG_IDXGISwapChain1_SetBackgroundColor_OutOfRange: DXGI_Message_Id = 148
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyFullscreenUnsupported: DXGI_Message_Id = 149
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyUnsupported: DXGI_Message_Id = 150
+DXGI_MSG_IDXGISwapchain_Present_ScrollUnsupported: DXGI_Message_Id = 151
+DXGI_MSG_IDXGISwapChain1_SetRotation_UnsupportedOS: DXGI_Message_Id = 152
+DXGI_MSG_IDXGISwapChain1_GetRotation_UnsupportedOS: DXGI_Message_Id = 153
+DXGI_MSG_IDXGISwapchain_Present_FullscreenRotation: DXGI_Message_Id = 154
+DXGI_MSG_IDXGISwapChain_Present_PartialPresentationWithMSAABuffers: DXGI_Message_Id = 155
+DXGI_MSG_IDXGISwapChain1_SetRotation_FlipSequentialRequired: DXGI_Message_Id = 156
+DXGI_MSG_IDXGISwapChain1_SetRotation_InvalidRotation: DXGI_Message_Id = 157
+DXGI_MSG_IDXGISwapChain1_GetRotation_FlipSequentialRequired: DXGI_Message_Id = 158
+DXGI_MSG_IDXGISwapChain_GetHwnd_WrongType: DXGI_Message_Id = 159
+DXGI_MSG_IDXGISwapChain_GetCompositionSurface_WrongType: DXGI_Message_Id = 160
+DXGI_MSG_IDXGISwapChain_GetCoreWindow_WrongType: DXGI_Message_Id = 161
+DXGI_MSG_IDXGISwapChain_GetFullscreenDesc_NonHwnd: DXGI_Message_Id = 162
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_CoreWindow: DXGI_Message_Id = 163
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_UnsupportedOnWindows7: DXGI_Message_Id = 164
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_pWindowIsNULL: DXGI_Message_Id = 165
+DXGI_MSG_IDXGIFactory_CreateSwapChain_FSUnsupportedForModernApps: DXGI_Message_Id = 166
+DXGI_MSG_IDXGIFactory_MakeWindowAssociation_ModernApp: DXGI_Message_Id = 167
+DXGI_MSG_IDXGISwapChain_ResizeTarget_ModernApp: DXGI_Message_Id = 168
+DXGI_MSG_IDXGISwapChain_ResizeTarget_pNewTargetParametersIsNULL: DXGI_Message_Id = 169
+DXGI_MSG_IDXGIOutput_SetDisplaySurface_ModernApp: DXGI_Message_Id = 170
+DXGI_MSG_IDXGIOutput_TakeOwnership_ModernApp: DXGI_Message_Id = 171
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_pWindowIsInvalid: DXGI_Message_Id = 172
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCompositionSurface_InvalidHandle: DXGI_Message_Id = 173
+DXGI_MSG_IDXGISurface1_GetDC_ModernApp: DXGI_Message_Id = 174
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ScalingNoneRequiresWindows8OrNewer: DXGI_Message_Id = 175
+DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoAndPreferRight: DXGI_Message_Id = 176
+DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoOrPreferRightWithDoNotSequence: DXGI_Message_Id = 177
+DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoOrPreferRightWithoutStereo: DXGI_Message_Id = 178
+DXGI_MSG_IDXGISwapChain_Present_TemporaryMonoUnsupported: DXGI_Message_Id = 179
+DXGI_MSG_IDXGIOutput_GetDisplaySurfaceData_ArraySizeMismatch: DXGI_Message_Id = 180
+DXGI_MSG_IDXGISwapChain_Present_PartialPresentationWithSwapEffectDiscard: DXGI_Message_Id = 181
+DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaUnrecognized: DXGI_Message_Id = 182
+DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaIsWindowlessOnly: DXGI_Message_Id = 183
+DXGI_MSG_IDXGIFactory_CreateSwapChain_AlphaIsFlipModelOnly: DXGI_Message_Id = 184
+DXGI_MSG_IDXGIFactory_CreateSwapChain_RestrictToOutputAdapterMismatch: DXGI_Message_Id = 185
+DXGI_MSG_IDXGIFactory_CreateSwapChain_DisplayOnlyOnLegacy: DXGI_Message_Id = 186
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_DisplayOnlyOnLegacy: DXGI_Message_Id = 187
+DXGI_MSG_IDXGIResource1_CreateSubresourceSurface_InvalidIndex: DXGI_Message_Id = 188
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_InvalidScaling: DXGI_Message_Id = 189
+DXGI_MSG_IDXGIFactory_CreateSwapChainForCoreWindow_InvalidSwapEffect: DXGI_Message_Id = 190
+DXGI_MSG_IDXGIResource1_CreateSharedHandle_UnsupportedOS: DXGI_Message_Id = 191
+DXGI_MSG_IDXGIFactory2_RegisterOcclusionStatusWindow_UnsupportedOS: DXGI_Message_Id = 192
+DXGI_MSG_IDXGIFactory2_RegisterOcclusionStatusEvent_UnsupportedOS: DXGI_Message_Id = 193
+DXGI_MSG_IDXGIOutput1_DuplicateOutput_UnsupportedOS: DXGI_Message_Id = 194
+DXGI_MSG_IDXGIDisplayControl_IsStereoEnabled_UnsupportedOS: DXGI_Message_Id = 195
+DXGI_MSG_IDXGIFactory_CreateSwapChainForComposition_InvalidAlphaMode: DXGI_Message_Id = 196
+DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_InvalidResource: DXGI_Message_Id = 197
+DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_InvalidLUID: DXGI_Message_Id = 198
+DXGI_MSG_IDXGIFactory_GetSharedResourceAdapterLuid_UnsupportedOS: DXGI_Message_Id = 199
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_2DOnly: DXGI_Message_Id = 200
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_StagingOnly: DXGI_Message_Id = 201
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_NeedCPUAccessWrite: DXGI_Message_Id = 202
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_NoShared: DXGI_Message_Id = 203
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_OnlyMipLevels1: DXGI_Message_Id = 204
+DXGI_MSG_IDXGIOutput1_GetDisplaySurfaceData1_MappedOrOfferedResource: DXGI_Message_Id = 205
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_FSUnsupportedForModernApps: DXGI_Message_Id = 206
+DXGI_MSG_IDXGIFactory_CreateSwapChain_FailedToGoFSButNonPreRotated: DXGI_Message_Id = 207
+DXGI_MSG_IDXGIFactory_CreateSwapChainOrRegisterOcclusionStatus_BlitModelUsedWhileRegisteredForOcclusionStatusEvents: DXGI_Message_Id = 208
+DXGI_MSG_IDXGISwapChain_Present_BlitModelUsedWhileRegisteredForOcclusionStatusEvents: DXGI_Message_Id = 209
+DXGI_MSG_IDXGIFactory_CreateSwapChain_WaitableSwapChainsAreFlipModelOnly: DXGI_Message_Id = 210
+DXGI_MSG_IDXGIFactory_CreateSwapChain_WaitableSwapChainsAreNotFullscreen: DXGI_Message_Id = 211
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_Waitable: DXGI_Message_Id = 212
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveWaitableFlag: DXGI_Message_Id = 213
+DXGI_MSG_IDXGISwapChain_GetFrameLatencyWaitableObject_OnlyWaitable: DXGI_Message_Id = 214
+DXGI_MSG_IDXGISwapChain_GetMaximumFrameLatency_OnlyWaitable: DXGI_Message_Id = 215
+DXGI_MSG_IDXGISwapChain_GetMaximumFrameLatency_pMaxLatencyIsNULL: DXGI_Message_Id = 216
+DXGI_MSG_IDXGISwapChain_SetMaximumFrameLatency_OnlyWaitable: DXGI_Message_Id = 217
+DXGI_MSG_IDXGISwapChain_SetMaximumFrameLatency_MaxLatencyIsOutOfBounds: DXGI_Message_Id = 218
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ForegroundIsCoreWindowOnly: DXGI_Message_Id = 219
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_ForegroundUnsupportedOnAdapter: DXGI_Message_Id = 220
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_InvalidScaling: DXGI_Message_Id = 221
+DXGI_MSG_IDXGIFactory2_CreateSwapChainForCoreWindow_InvalidAlphaMode: DXGI_Message_Id = 222
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveForegroundFlag: DXGI_Message_Id = 223
+DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixPointerCannotBeNull: DXGI_Message_Id = 224
+DXGI_MSG_IDXGISwapChain_SetMatrixTransform_RequiresCompositionSwapChain: DXGI_Message_Id = 225
+DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixMustBeFinite: DXGI_Message_Id = 226
+DXGI_MSG_IDXGISwapChain_SetMatrixTransform_MatrixMustBeTranslateAndOrScale: DXGI_Message_Id = 227
+DXGI_MSG_IDXGISwapChain_GetMatrixTransform_MatrixPointerCannotBeNull: DXGI_Message_Id = 228
+DXGI_MSG_IDXGISwapChain_GetMatrixTransform_RequiresCompositionSwapChain: DXGI_Message_Id = 229
+DXGI_MSG_DXGIGetDebugInterface1_NULL_ppDebug: DXGI_Message_Id = 230
+DXGI_MSG_DXGIGetDebugInterface1_InvalidFlags: DXGI_Message_Id = 231
+DXGI_MSG_IDXGISwapChain_Present_Decode: DXGI_Message_Id = 232
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_Decode: DXGI_Message_Id = 233
+DXGI_MSG_IDXGISwapChain_SetSourceSize_FlipModel: DXGI_Message_Id = 234
+DXGI_MSG_IDXGISwapChain_SetSourceSize_Decode: DXGI_Message_Id = 235
+DXGI_MSG_IDXGISwapChain_SetSourceSize_WidthHeight: DXGI_Message_Id = 236
+DXGI_MSG_IDXGISwapChain_GetSourceSize_NullPointers: DXGI_Message_Id = 237
+DXGI_MSG_IDXGISwapChain_GetSourceSize_Decode: DXGI_Message_Id = 238
+DXGI_MSG_IDXGIDecodeSwapChain_SetColorSpace_InvalidFlags: DXGI_Message_Id = 239
+DXGI_MSG_IDXGIDecodeSwapChain_SetSourceRect_InvalidRect: DXGI_Message_Id = 240
+DXGI_MSG_IDXGIDecodeSwapChain_SetTargetRect_InvalidRect: DXGI_Message_Id = 241
+DXGI_MSG_IDXGIDecodeSwapChain_SetDestSize_InvalidSize: DXGI_Message_Id = 242
+DXGI_MSG_IDXGIDecodeSwapChain_GetSourceRect_InvalidPointer: DXGI_Message_Id = 243
+DXGI_MSG_IDXGIDecodeSwapChain_GetTargetRect_InvalidPointer: DXGI_Message_Id = 244
+DXGI_MSG_IDXGIDecodeSwapChain_GetDestSize_InvalidPointer: DXGI_Message_Id = 245
+DXGI_MSG_IDXGISwapChain_PresentBuffer_YUV: DXGI_Message_Id = 246
+DXGI_MSG_IDXGISwapChain_SetSourceSize_YUV: DXGI_Message_Id = 247
+DXGI_MSG_IDXGISwapChain_GetSourceSize_YUV: DXGI_Message_Id = 248
+DXGI_MSG_IDXGISwapChain_SetMatrixTransform_YUV: DXGI_Message_Id = 249
+DXGI_MSG_IDXGISwapChain_GetMatrixTransform_YUV: DXGI_Message_Id = 250
+DXGI_MSG_IDXGISwapChain_Present_PartialPresentation_YUV: DXGI_Message_Id = 251
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveFlag_YUV: DXGI_Message_Id = 252
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_Alignment_YUV: DXGI_Message_Id = 253
+DXGI_MSG_IDXGIFactory_CreateSwapChain_ShaderInputUnsupported_YUV: DXGI_Message_Id = 254
+DXGI_MSG_IDXGIOutput3_CheckOverlaySupport_NullPointers: DXGI_Message_Id = 255
+DXGI_MSG_IDXGIOutput3_CheckOverlaySupport_IDXGIDeviceNotSupportedBypConcernedDevice: DXGI_Message_Id = 256
+DXGI_MSG_IDXGIAdapter_EnumOutputs2_InvalidEnumOutputs2Flag: DXGI_Message_Id = 257
+DXGI_MSG_IDXGISwapChain_CreationOrSetFullscreenState_FSUnsupportedForFlipDiscard: DXGI_Message_Id = 258
+DXGI_MSG_IDXGIOutput4_CheckOverlayColorSpaceSupport_NullPointers: DXGI_Message_Id = 259
+DXGI_MSG_IDXGIOutput4_CheckOverlayColorSpaceSupport_IDXGIDeviceNotSupportedBypConcernedDevice: DXGI_Message_Id = 260
+DXGI_MSG_IDXGISwapChain3_CheckColorSpaceSupport_NullPointers: DXGI_Message_Id = 261
+DXGI_MSG_IDXGISwapChain3_SetColorSpace1_InvalidColorSpace: DXGI_Message_Id = 262
+DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidHwProtect: DXGI_Message_Id = 263
+DXGI_MSG_IDXGIFactory_CreateSwapChain_HwProtectUnsupported: DXGI_Message_Id = 264
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidHwProtect: DXGI_Message_Id = 265
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_HwProtectUnsupported: DXGI_Message_Id = 266
+DXGI_MSG_IDXGISwapChain_ResizeBuffers1_D3D12Only: DXGI_Message_Id = 267
+DXGI_MSG_IDXGISwapChain_ResizeBuffers1_FlipModel: DXGI_Message_Id = 268
+DXGI_MSG_IDXGISwapChain_ResizeBuffers1_NodeMaskAndQueueRequired: DXGI_Message_Id = 269
+DXGI_MSG_IDXGISwapChain_CreateSwapChain_InvalidHwProtectGdiFlag: DXGI_Message_Id = 270
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_InvalidHwProtectGdiFlag: DXGI_Message_Id = 271
+DXGI_MSG_IDXGIFactory_CreateSwapChain_10BitFormatNotSupported: DXGI_Message_Id = 272
+DXGI_MSG_IDXGIFactory_CreateSwapChain_FlipSwapEffectRequired: DXGI_Message_Id = 273
+DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidDevice: DXGI_Message_Id = 274
+DXGI_MSG_IDXGIOutput_TakeOwnership_Unsupported: DXGI_Message_Id = 275
+DXGI_MSG_IDXGIFactory_CreateSwapChain_InvalidQueue: DXGI_Message_Id = 276
+DXGI_MSG_IDXGISwapChain3_ResizeBuffers1_InvalidQueue: DXGI_Message_Id = 277
+DXGI_MSG_IDXGIFactory_CreateSwapChainForHwnd_InvalidScaling: DXGI_Message_Id = 278
+DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidSize: DXGI_Message_Id = 279
+DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidPointer: DXGI_Message_Id = 280
+DXGI_MSG_IDXGISwapChain3_SetHDRMetaData_InvalidType: DXGI_Message_Id = 281
+DXGI_MSG_IDXGISwapChain_Present_FullscreenAllowTearingIsInvalid: DXGI_Message_Id = 282
+DXGI_MSG_IDXGISwapChain_Present_AllowTearingRequiresPresentIntervalZero: DXGI_Message_Id = 283
+DXGI_MSG_IDXGISwapChain_Present_AllowTearingRequiresCreationFlag: DXGI_Message_Id = 284
+DXGI_MSG_IDXGISwapChain_ResizeBuffers_CannotAddOrRemoveAllowTearingFlag: DXGI_Message_Id = 285
+DXGI_MSG_IDXGIFactory_CreateSwapChain_AllowTearingFlagIsFlipModelOnly: DXGI_Message_Id = 286
+DXGI_MSG_IDXGIFactory_CheckFeatureSupport_InvalidFeature: DXGI_Message_Id = 287
+DXGI_MSG_IDXGIFactory_CheckFeatureSupport_InvalidSize: DXGI_Message_Id = 288
+DXGI_MSG_IDXGIOutput6_CheckHardwareCompositionSupport_NullPointer: DXGI_Message_Id = 289
+DXGI_MSG_IDXGISwapChain_SetFullscreenState_PerMonitorDpiShimApplied: DXGI_Message_Id = 290
+DXGI_MSG_IDXGIOutput_DuplicateOutput_PerMonitorDpiShimApplied: DXGI_Message_Id = 291
+DXGI_MSG_IDXGIOutput_DuplicateOutput1_PerMonitorDpiRequired: DXGI_Message_Id = 292
+DXGI_MSG_IDXGIFactory7_UnregisterAdaptersChangedEvent_CookieNotFound: DXGI_Message_Id = 293
+DXGI_MSG_IDXGIFactory_CreateSwapChain_LegacyBltModelSwapEffect: DXGI_Message_Id = 294
+DXGI_MSG_IDXGISwapChain4_SetHDRMetaData_MetadataUnchanged: DXGI_Message_Id = 295
+DXGI_MSG_IDXGISwapChain_Present_11On12_Released_Resource: DXGI_Message_Id = 296
+DXGI_MSG_IDXGIFactory_CreateSwapChain_MultipleSwapchainRefToSurface_DeferredDtr: DXGI_Message_Id = 297
+DXGI_MSG_IDXGIFactory_MakeWindowAssociation_NoOpBehavior: DXGI_Message_Id = 298
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_NotForegroundWindow: DXGI_Message_Id = 1000
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_DISCARD_BufferCount: DXGI_Message_Id = 1001
+DXGI_MSG_Phone_IDXGISwapChain_SetFullscreenState_NotAvailable: DXGI_Message_Id = 1002
+DXGI_MSG_Phone_IDXGISwapChain_ResizeBuffers_NotAvailable: DXGI_Message_Id = 1003
+DXGI_MSG_Phone_IDXGISwapChain_ResizeTarget_NotAvailable: DXGI_Message_Id = 1004
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidLayerIndex: DXGI_Message_Id = 1005
+DXGI_MSG_Phone_IDXGISwapChain_Present_MultipleLayerIndex: DXGI_Message_Id = 1006
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidLayerFlag: DXGI_Message_Id = 1007
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidRotation: DXGI_Message_Id = 1008
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidBlend: DXGI_Message_Id = 1009
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidResource: DXGI_Message_Id = 1010
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidMultiPlaneOverlayResource: DXGI_Message_Id = 1011
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidIndexForPrimary: DXGI_Message_Id = 1012
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidIndexForOverlay: DXGI_Message_Id = 1013
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidSubResourceIndex: DXGI_Message_Id = 1014
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidSourceRect: DXGI_Message_Id = 1015
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidDestinationRect: DXGI_Message_Id = 1016
+DXGI_MSG_Phone_IDXGISwapChain_Present_MultipleResource: DXGI_Message_Id = 1017
+DXGI_MSG_Phone_IDXGISwapChain_Present_NotSharedResource: DXGI_Message_Id = 1018
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidFlag: DXGI_Message_Id = 1019
+DXGI_MSG_Phone_IDXGISwapChain_Present_InvalidInterval: DXGI_Message_Id = 1020
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_MSAA_NotSupported: DXGI_Message_Id = 1021
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_ScalingAspectRatioStretch_Supported_ModernApp: DXGI_Message_Id = 1022
+DXGI_MSG_Phone_IDXGISwapChain_GetFrameStatistics_NotAvailable_ModernApp: DXGI_Message_Id = 1023
+DXGI_MSG_Phone_IDXGISwapChain_Present_ReplaceInterval0With1: DXGI_Message_Id = 1024
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FailedRegisterWithCompositor: DXGI_Message_Id = 1025
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_NotForegroundWindow_AtRendering: DXGI_Message_Id = 1026
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FLIP_SEQUENTIAL_BufferCount: DXGI_Message_Id = 1027
+DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FLIP_Modern_CoreWindow_Only: DXGI_Message_Id = 1028
+DXGI_MSG_Phone_IDXGISwapChain_Present1_RequiresOverlays: DXGI_Message_Id = 1029
+DXGI_MSG_Phone_IDXGISwapChain_SetBackgroundColor_FlipSequentialRequired: DXGI_Message_Id = 1030
+DXGI_MSG_Phone_IDXGISwapChain_GetBackgroundColor_FlipSequentialRequired: DXGI_Message_Id = 1031
+class DXGI_MODE_DESC1(Structure):
+    Width: UInt32
+    Height: UInt32
+    RefreshRate: win32more.Graphics.Dxgi.Common.DXGI_RATIONAL
+    Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
+    ScanlineOrdering: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER
+    Scaling: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING
+    Stereo: win32more.Foundation.BOOL
 DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = Int32
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE = 1
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709 = 2
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC = 4
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 1
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 2
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 4
 DXGI_OFFER_RESOURCE_FLAGS = Int32
-DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT = 1
+DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT: DXGI_OFFER_RESOURCE_FLAGS = 1
 DXGI_OFFER_RESOURCE_PRIORITY = Int32
-DXGI_OFFER_RESOURCE_PRIORITY_LOW = 1
-DXGI_OFFER_RESOURCE_PRIORITY_NORMAL = 2
-DXGI_OFFER_RESOURCE_PRIORITY_HIGH = 3
-def _define_DXGI_OUTDUPL_DESC_head():
-    class DXGI_OUTDUPL_DESC(Structure):
-        pass
-    return DXGI_OUTDUPL_DESC
-def _define_DXGI_OUTDUPL_DESC():
-    DXGI_OUTDUPL_DESC = win32more.Graphics.Dxgi.DXGI_OUTDUPL_DESC_head
-    DXGI_OUTDUPL_DESC._fields_ = [
-        ('ModeDesc', win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC),
-        ('Rotation', win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION),
-        ('DesktopImageInSystemMemory', win32more.Foundation.BOOL),
-    ]
-    return DXGI_OUTDUPL_DESC
+DXGI_OFFER_RESOURCE_PRIORITY_LOW: DXGI_OFFER_RESOURCE_PRIORITY = 1
+DXGI_OFFER_RESOURCE_PRIORITY_NORMAL: DXGI_OFFER_RESOURCE_PRIORITY = 2
+DXGI_OFFER_RESOURCE_PRIORITY_HIGH: DXGI_OFFER_RESOURCE_PRIORITY = 3
+class DXGI_OUTDUPL_DESC(Structure):
+    ModeDesc: win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC
+    Rotation: win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION
+    DesktopImageInSystemMemory: win32more.Foundation.BOOL
 DXGI_OUTDUPL_FLAG = Int32
-DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY = 1
-def _define_DXGI_OUTDUPL_FRAME_INFO_head():
-    class DXGI_OUTDUPL_FRAME_INFO(Structure):
-        pass
-    return DXGI_OUTDUPL_FRAME_INFO
-def _define_DXGI_OUTDUPL_FRAME_INFO():
-    DXGI_OUTDUPL_FRAME_INFO = win32more.Graphics.Dxgi.DXGI_OUTDUPL_FRAME_INFO_head
-    DXGI_OUTDUPL_FRAME_INFO._fields_ = [
-        ('LastPresentTime', win32more.Foundation.LARGE_INTEGER),
-        ('LastMouseUpdateTime', win32more.Foundation.LARGE_INTEGER),
-        ('AccumulatedFrames', UInt32),
-        ('RectsCoalesced', win32more.Foundation.BOOL),
-        ('ProtectedContentMaskedOut', win32more.Foundation.BOOL),
-        ('PointerPosition', win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_POSITION),
-        ('TotalMetadataBufferSize', UInt32),
-        ('PointerShapeBufferSize', UInt32),
-    ]
-    return DXGI_OUTDUPL_FRAME_INFO
-def _define_DXGI_OUTDUPL_MOVE_RECT_head():
-    class DXGI_OUTDUPL_MOVE_RECT(Structure):
-        pass
-    return DXGI_OUTDUPL_MOVE_RECT
-def _define_DXGI_OUTDUPL_MOVE_RECT():
-    DXGI_OUTDUPL_MOVE_RECT = win32more.Graphics.Dxgi.DXGI_OUTDUPL_MOVE_RECT_head
-    DXGI_OUTDUPL_MOVE_RECT._fields_ = [
-        ('SourcePoint', win32more.Foundation.POINT),
-        ('DestinationRect', win32more.Foundation.RECT),
-    ]
-    return DXGI_OUTDUPL_MOVE_RECT
-def _define_DXGI_OUTDUPL_POINTER_POSITION_head():
-    class DXGI_OUTDUPL_POINTER_POSITION(Structure):
-        pass
-    return DXGI_OUTDUPL_POINTER_POSITION
-def _define_DXGI_OUTDUPL_POINTER_POSITION():
-    DXGI_OUTDUPL_POINTER_POSITION = win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_POSITION_head
-    DXGI_OUTDUPL_POINTER_POSITION._fields_ = [
-        ('Position', win32more.Foundation.POINT),
-        ('Visible', win32more.Foundation.BOOL),
-    ]
-    return DXGI_OUTDUPL_POINTER_POSITION
-def _define_DXGI_OUTDUPL_POINTER_SHAPE_INFO_head():
-    class DXGI_OUTDUPL_POINTER_SHAPE_INFO(Structure):
-        pass
-    return DXGI_OUTDUPL_POINTER_SHAPE_INFO
-def _define_DXGI_OUTDUPL_POINTER_SHAPE_INFO():
-    DXGI_OUTDUPL_POINTER_SHAPE_INFO = win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_INFO_head
-    DXGI_OUTDUPL_POINTER_SHAPE_INFO._fields_ = [
-        ('Type', UInt32),
-        ('Width', UInt32),
-        ('Height', UInt32),
-        ('Pitch', UInt32),
-        ('HotSpot', win32more.Foundation.POINT),
-    ]
-    return DXGI_OUTDUPL_POINTER_SHAPE_INFO
+DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY: DXGI_OUTDUPL_FLAG = 1
+class DXGI_OUTDUPL_FRAME_INFO(Structure):
+    LastPresentTime: win32more.Foundation.LARGE_INTEGER
+    LastMouseUpdateTime: win32more.Foundation.LARGE_INTEGER
+    AccumulatedFrames: UInt32
+    RectsCoalesced: win32more.Foundation.BOOL
+    ProtectedContentMaskedOut: win32more.Foundation.BOOL
+    PointerPosition: win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_POSITION
+    TotalMetadataBufferSize: UInt32
+    PointerShapeBufferSize: UInt32
+class DXGI_OUTDUPL_MOVE_RECT(Structure):
+    SourcePoint: win32more.Foundation.POINT
+    DestinationRect: win32more.Foundation.RECT
+class DXGI_OUTDUPL_POINTER_POSITION(Structure):
+    Position: win32more.Foundation.POINT
+    Visible: win32more.Foundation.BOOL
+class DXGI_OUTDUPL_POINTER_SHAPE_INFO(Structure):
+    Type: UInt32
+    Width: UInt32
+    Height: UInt32
+    Pitch: UInt32
+    HotSpot: win32more.Foundation.POINT
 DXGI_OUTDUPL_POINTER_SHAPE_TYPE = Int32
-DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MONOCHROME = 1
-DXGI_OUTDUPL_POINTER_SHAPE_TYPE_COLOR = 2
-DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MASKED_COLOR = 4
-def _define_DXGI_OUTPUT_DESC_head():
-    class DXGI_OUTPUT_DESC(Structure):
-        pass
-    return DXGI_OUTPUT_DESC
-def _define_DXGI_OUTPUT_DESC():
-    DXGI_OUTPUT_DESC = win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC_head
-    DXGI_OUTPUT_DESC._fields_ = [
-        ('DeviceName', Char * 32),
-        ('DesktopCoordinates', win32more.Foundation.RECT),
-        ('AttachedToDesktop', win32more.Foundation.BOOL),
-        ('Rotation', win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION),
-        ('Monitor', win32more.Graphics.Gdi.HMONITOR),
-    ]
-    return DXGI_OUTPUT_DESC
-def _define_DXGI_OUTPUT_DESC1_head():
-    class DXGI_OUTPUT_DESC1(Structure):
-        pass
-    return DXGI_OUTPUT_DESC1
-def _define_DXGI_OUTPUT_DESC1():
-    DXGI_OUTPUT_DESC1 = win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC1_head
-    DXGI_OUTPUT_DESC1._fields_ = [
-        ('DeviceName', Char * 32),
-        ('DesktopCoordinates', win32more.Foundation.RECT),
-        ('AttachedToDesktop', win32more.Foundation.BOOL),
-        ('Rotation', win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION),
-        ('Monitor', win32more.Graphics.Gdi.HMONITOR),
-        ('BitsPerColor', UInt32),
-        ('ColorSpace', win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE),
-        ('RedPrimary', Single * 2),
-        ('GreenPrimary', Single * 2),
-        ('BluePrimary', Single * 2),
-        ('WhitePoint', Single * 2),
-        ('MinLuminance', Single),
-        ('MaxLuminance', Single),
-        ('MaxFullFrameLuminance', Single),
-    ]
-    return DXGI_OUTPUT_DESC1
+DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MONOCHROME: DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 1
+DXGI_OUTDUPL_POINTER_SHAPE_TYPE_COLOR: DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 2
+DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MASKED_COLOR: DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 4
+class DXGI_OUTPUT_DESC(Structure):
+    DeviceName: Char * 32
+    DesktopCoordinates: win32more.Foundation.RECT
+    AttachedToDesktop: win32more.Foundation.BOOL
+    Rotation: win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION
+    Monitor: win32more.Graphics.Gdi.HMONITOR
+class DXGI_OUTPUT_DESC1(Structure):
+    DeviceName: Char * 32
+    DesktopCoordinates: win32more.Foundation.RECT
+    AttachedToDesktop: win32more.Foundation.BOOL
+    Rotation: win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION
+    Monitor: win32more.Graphics.Gdi.HMONITOR
+    BitsPerColor: UInt32
+    ColorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
+    RedPrimary: Single * 2
+    GreenPrimary: Single * 2
+    BluePrimary: Single * 2
+    WhitePoint: Single * 2
+    MinLuminance: Single
+    MaxLuminance: Single
+    MaxFullFrameLuminance: Single
 DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG = Int32
-DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT = 1
+DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT: DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG = 1
 DXGI_OVERLAY_SUPPORT_FLAG = Int32
-DXGI_OVERLAY_SUPPORT_FLAG_DIRECT = 1
-DXGI_OVERLAY_SUPPORT_FLAG_SCALING = 2
-def _define_DXGI_PRESENT_PARAMETERS_head():
-    class DXGI_PRESENT_PARAMETERS(Structure):
-        pass
-    return DXGI_PRESENT_PARAMETERS
-def _define_DXGI_PRESENT_PARAMETERS():
-    DXGI_PRESENT_PARAMETERS = win32more.Graphics.Dxgi.DXGI_PRESENT_PARAMETERS_head
-    DXGI_PRESENT_PARAMETERS._fields_ = [
-        ('DirtyRectsCount', UInt32),
-        ('pDirtyRects', POINTER(win32more.Foundation.RECT_head)),
-        ('pScrollRect', POINTER(win32more.Foundation.RECT_head)),
-        ('pScrollOffset', POINTER(win32more.Foundation.POINT_head)),
-    ]
-    return DXGI_PRESENT_PARAMETERS
-def _define_DXGI_QUERY_VIDEO_MEMORY_INFO_head():
-    class DXGI_QUERY_VIDEO_MEMORY_INFO(Structure):
-        pass
-    return DXGI_QUERY_VIDEO_MEMORY_INFO
-def _define_DXGI_QUERY_VIDEO_MEMORY_INFO():
-    DXGI_QUERY_VIDEO_MEMORY_INFO = win32more.Graphics.Dxgi.DXGI_QUERY_VIDEO_MEMORY_INFO_head
-    DXGI_QUERY_VIDEO_MEMORY_INFO._fields_ = [
-        ('Budget', UInt64),
-        ('CurrentUsage', UInt64),
-        ('AvailableForReservation', UInt64),
-        ('CurrentReservation', UInt64),
-    ]
-    return DXGI_QUERY_VIDEO_MEMORY_INFO
+DXGI_OVERLAY_SUPPORT_FLAG_DIRECT: DXGI_OVERLAY_SUPPORT_FLAG = 1
+DXGI_OVERLAY_SUPPORT_FLAG_SCALING: DXGI_OVERLAY_SUPPORT_FLAG = 2
+class DXGI_PRESENT_PARAMETERS(Structure):
+    DirtyRectsCount: UInt32
+    pDirtyRects: POINTER(win32more.Foundation.RECT_head)
+    pScrollRect: POINTER(win32more.Foundation.RECT_head)
+    pScrollOffset: POINTER(win32more.Foundation.POINT_head)
+class DXGI_QUERY_VIDEO_MEMORY_INFO(Structure):
+    Budget: UInt64
+    CurrentUsage: UInt64
+    AvailableForReservation: UInt64
+    CurrentReservation: UInt64
 DXGI_RECLAIM_RESOURCE_RESULTS = Int32
-DXGI_RECLAIM_RESOURCE_RESULT_OK = 0
-DXGI_RECLAIM_RESOURCE_RESULT_DISCARDED = 1
-DXGI_RECLAIM_RESOURCE_RESULT_NOT_COMMITTED = 2
+DXGI_RECLAIM_RESOURCE_RESULT_OK: DXGI_RECLAIM_RESOURCE_RESULTS = 0
+DXGI_RECLAIM_RESOURCE_RESULT_DISCARDED: DXGI_RECLAIM_RESOURCE_RESULTS = 1
+DXGI_RECLAIM_RESOURCE_RESULT_NOT_COMMITTED: DXGI_RECLAIM_RESOURCE_RESULTS = 2
 DXGI_RESIDENCY = Int32
-DXGI_RESIDENCY_FULLY_RESIDENT = 1
-DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY = 2
-DXGI_RESIDENCY_EVICTED_TO_DISK = 3
+DXGI_RESIDENCY_FULLY_RESIDENT: DXGI_RESIDENCY = 1
+DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY: DXGI_RESIDENCY = 2
+DXGI_RESIDENCY_EVICTED_TO_DISK: DXGI_RESIDENCY = 3
 DXGI_RESOURCE_PRIORITY = UInt32
-DXGI_RESOURCE_PRIORITY_MINIMUM = 671088640
-DXGI_RESOURCE_PRIORITY_LOW = 1342177280
-DXGI_RESOURCE_PRIORITY_NORMAL = 2013265920
-DXGI_RESOURCE_PRIORITY_HIGH = 2684354560
-DXGI_RESOURCE_PRIORITY_MAXIMUM = 3355443200
-def _define_DXGI_RGBA_head():
-    class DXGI_RGBA(Structure):
-        pass
-    return DXGI_RGBA
-def _define_DXGI_RGBA():
-    DXGI_RGBA = win32more.Graphics.Dxgi.DXGI_RGBA_head
-    DXGI_RGBA._fields_ = [
-        ('r', Single),
-        ('g', Single),
-        ('b', Single),
-        ('a', Single),
-    ]
-    return DXGI_RGBA
+DXGI_RESOURCE_PRIORITY_MINIMUM: DXGI_RESOURCE_PRIORITY = 671088640
+DXGI_RESOURCE_PRIORITY_LOW: DXGI_RESOURCE_PRIORITY = 1342177280
+DXGI_RESOURCE_PRIORITY_NORMAL: DXGI_RESOURCE_PRIORITY = 2013265920
+DXGI_RESOURCE_PRIORITY_HIGH: DXGI_RESOURCE_PRIORITY = 2684354560
+DXGI_RESOURCE_PRIORITY_MAXIMUM: DXGI_RESOURCE_PRIORITY = 3355443200
+class DXGI_RGBA(Structure):
+    r: Single
+    g: Single
+    b: Single
+    a: Single
 DXGI_SCALING = Int32
-DXGI_SCALING_STRETCH = 0
-DXGI_SCALING_NONE = 1
-DXGI_SCALING_ASPECT_RATIO_STRETCH = 2
-def _define_DXGI_SHARED_RESOURCE_head():
-    class DXGI_SHARED_RESOURCE(Structure):
-        pass
-    return DXGI_SHARED_RESOURCE
-def _define_DXGI_SHARED_RESOURCE():
-    DXGI_SHARED_RESOURCE = win32more.Graphics.Dxgi.DXGI_SHARED_RESOURCE_head
-    DXGI_SHARED_RESOURCE._fields_ = [
-        ('Handle', win32more.Foundation.HANDLE),
-    ]
-    return DXGI_SHARED_RESOURCE
-def _define_DXGI_SURFACE_DESC_head():
-    class DXGI_SURFACE_DESC(Structure):
-        pass
-    return DXGI_SURFACE_DESC
-def _define_DXGI_SURFACE_DESC():
-    DXGI_SURFACE_DESC = win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head
-    DXGI_SURFACE_DESC._fields_ = [
-        ('Width', UInt32),
-        ('Height', UInt32),
-        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-    ]
-    return DXGI_SURFACE_DESC
+DXGI_SCALING_STRETCH: DXGI_SCALING = 0
+DXGI_SCALING_NONE: DXGI_SCALING = 1
+DXGI_SCALING_ASPECT_RATIO_STRETCH: DXGI_SCALING = 2
+class DXGI_SHARED_RESOURCE(Structure):
+    Handle: win32more.Foundation.HANDLE
+class DXGI_SURFACE_DESC(Structure):
+    Width: UInt32
+    Height: UInt32
+    Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
+    SampleDesc: win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = Int32
-DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT = 1
-DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_OVERLAY_PRESENT = 2
-def _define_DXGI_SWAP_CHAIN_DESC_head():
-    class DXGI_SWAP_CHAIN_DESC(Structure):
-        pass
-    return DXGI_SWAP_CHAIN_DESC
-def _define_DXGI_SWAP_CHAIN_DESC():
-    DXGI_SWAP_CHAIN_DESC = win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head
-    DXGI_SWAP_CHAIN_DESC._fields_ = [
-        ('BufferDesc', win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC),
-        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-        ('BufferUsage', win32more.Graphics.Dxgi.DXGI_USAGE),
-        ('BufferCount', UInt32),
-        ('OutputWindow', win32more.Foundation.HWND),
-        ('Windowed', win32more.Foundation.BOOL),
-        ('SwapEffect', win32more.Graphics.Dxgi.DXGI_SWAP_EFFECT),
-        ('Flags', UInt32),
-    ]
-    return DXGI_SWAP_CHAIN_DESC
-def _define_DXGI_SWAP_CHAIN_DESC1_head():
-    class DXGI_SWAP_CHAIN_DESC1(Structure):
-        pass
-    return DXGI_SWAP_CHAIN_DESC1
-def _define_DXGI_SWAP_CHAIN_DESC1():
-    DXGI_SWAP_CHAIN_DESC1 = win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head
-    DXGI_SWAP_CHAIN_DESC1._fields_ = [
-        ('Width', UInt32),
-        ('Height', UInt32),
-        ('Format', win32more.Graphics.Dxgi.Common.DXGI_FORMAT),
-        ('Stereo', win32more.Foundation.BOOL),
-        ('SampleDesc', win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC),
-        ('BufferUsage', win32more.Graphics.Dxgi.DXGI_USAGE),
-        ('BufferCount', UInt32),
-        ('Scaling', win32more.Graphics.Dxgi.DXGI_SCALING),
-        ('SwapEffect', win32more.Graphics.Dxgi.DXGI_SWAP_EFFECT),
-        ('AlphaMode', win32more.Graphics.Dxgi.Common.DXGI_ALPHA_MODE),
-        ('Flags', UInt32),
-    ]
-    return DXGI_SWAP_CHAIN_DESC1
+DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT: DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = 1
+DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_OVERLAY_PRESENT: DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = 2
+class DXGI_SWAP_CHAIN_DESC(Structure):
+    BufferDesc: win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC
+    SampleDesc: win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
+    BufferUsage: win32more.Graphics.Dxgi.DXGI_USAGE
+    BufferCount: UInt32
+    OutputWindow: win32more.Foundation.HWND
+    Windowed: win32more.Foundation.BOOL
+    SwapEffect: win32more.Graphics.Dxgi.DXGI_SWAP_EFFECT
+    Flags: UInt32
+class DXGI_SWAP_CHAIN_DESC1(Structure):
+    Width: UInt32
+    Height: UInt32
+    Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
+    Stereo: win32more.Foundation.BOOL
+    SampleDesc: win32more.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
+    BufferUsage: win32more.Graphics.Dxgi.DXGI_USAGE
+    BufferCount: UInt32
+    Scaling: win32more.Graphics.Dxgi.DXGI_SCALING
+    SwapEffect: win32more.Graphics.Dxgi.DXGI_SWAP_EFFECT
+    AlphaMode: win32more.Graphics.Dxgi.Common.DXGI_ALPHA_MODE
+    Flags: UInt32
 DXGI_SWAP_CHAIN_FLAG = Int32
-DXGI_SWAP_CHAIN_FLAG_NONPREROTATED = 1
-DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH = 2
-DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE = 4
-DXGI_SWAP_CHAIN_FLAG_RESTRICTED_CONTENT = 8
-DXGI_SWAP_CHAIN_FLAG_RESTRICT_SHARED_RESOURCE_DRIVER = 16
-DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY = 32
-DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT = 64
-DXGI_SWAP_CHAIN_FLAG_FOREGROUND_LAYER = 128
-DXGI_SWAP_CHAIN_FLAG_FULLSCREEN_VIDEO = 256
-DXGI_SWAP_CHAIN_FLAG_YUV_VIDEO = 512
-DXGI_SWAP_CHAIN_FLAG_HW_PROTECTED = 1024
-DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING = 2048
-DXGI_SWAP_CHAIN_FLAG_RESTRICTED_TO_ALL_HOLOGRAPHIC_DISPLAYS = 4096
-def _define_DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head():
-    class DXGI_SWAP_CHAIN_FULLSCREEN_DESC(Structure):
-        pass
-    return DXGI_SWAP_CHAIN_FULLSCREEN_DESC
-def _define_DXGI_SWAP_CHAIN_FULLSCREEN_DESC():
-    DXGI_SWAP_CHAIN_FULLSCREEN_DESC = win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head
-    DXGI_SWAP_CHAIN_FULLSCREEN_DESC._fields_ = [
-        ('RefreshRate', win32more.Graphics.Dxgi.Common.DXGI_RATIONAL),
-        ('ScanlineOrdering', win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER),
-        ('Scaling', win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING),
-        ('Windowed', win32more.Foundation.BOOL),
-    ]
-    return DXGI_SWAP_CHAIN_FULLSCREEN_DESC
+DXGI_SWAP_CHAIN_FLAG_NONPREROTATED: DXGI_SWAP_CHAIN_FLAG = 1
+DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH: DXGI_SWAP_CHAIN_FLAG = 2
+DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE: DXGI_SWAP_CHAIN_FLAG = 4
+DXGI_SWAP_CHAIN_FLAG_RESTRICTED_CONTENT: DXGI_SWAP_CHAIN_FLAG = 8
+DXGI_SWAP_CHAIN_FLAG_RESTRICT_SHARED_RESOURCE_DRIVER: DXGI_SWAP_CHAIN_FLAG = 16
+DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY: DXGI_SWAP_CHAIN_FLAG = 32
+DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT: DXGI_SWAP_CHAIN_FLAG = 64
+DXGI_SWAP_CHAIN_FLAG_FOREGROUND_LAYER: DXGI_SWAP_CHAIN_FLAG = 128
+DXGI_SWAP_CHAIN_FLAG_FULLSCREEN_VIDEO: DXGI_SWAP_CHAIN_FLAG = 256
+DXGI_SWAP_CHAIN_FLAG_YUV_VIDEO: DXGI_SWAP_CHAIN_FLAG = 512
+DXGI_SWAP_CHAIN_FLAG_HW_PROTECTED: DXGI_SWAP_CHAIN_FLAG = 1024
+DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING: DXGI_SWAP_CHAIN_FLAG = 2048
+DXGI_SWAP_CHAIN_FLAG_RESTRICTED_TO_ALL_HOLOGRAPHIC_DISPLAYS: DXGI_SWAP_CHAIN_FLAG = 4096
+class DXGI_SWAP_CHAIN_FULLSCREEN_DESC(Structure):
+    RefreshRate: win32more.Graphics.Dxgi.Common.DXGI_RATIONAL
+    ScanlineOrdering: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER
+    Scaling: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING
+    Windowed: win32more.Foundation.BOOL
 DXGI_SWAP_EFFECT = Int32
-DXGI_SWAP_EFFECT_DISCARD = 0
-DXGI_SWAP_EFFECT_SEQUENTIAL = 1
-DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL = 3
-DXGI_SWAP_EFFECT_FLIP_DISCARD = 4
+DXGI_SWAP_EFFECT_DISCARD: DXGI_SWAP_EFFECT = 0
+DXGI_SWAP_EFFECT_SEQUENTIAL: DXGI_SWAP_EFFECT = 1
+DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL: DXGI_SWAP_EFFECT = 3
+DXGI_SWAP_EFFECT_FLIP_DISCARD: DXGI_SWAP_EFFECT = 4
 DXGI_USAGE = UInt32
-DXGI_USAGE_SHADER_INPUT = 16
-DXGI_USAGE_RENDER_TARGET_OUTPUT = 32
-DXGI_USAGE_BACK_BUFFER = 64
-DXGI_USAGE_SHARED = 128
-DXGI_USAGE_READ_ONLY = 256
-DXGI_USAGE_DISCARD_ON_PRESENT = 512
-DXGI_USAGE_UNORDERED_ACCESS = 1024
-def _define_IDXGIAdapter_head():
-    class IDXGIAdapter(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('2411e7e1-12ac-4ccf-bd-14-97-98-e8-53-4d-c0')
-    return IDXGIAdapter
-def _define_IDXGIAdapter():
-    IDXGIAdapter = win32more.Graphics.Dxgi.IDXGIAdapter_head
-    IDXGIAdapter.EnumOutputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head))(7, 'EnumOutputs', ((1, 'Output'),(1, 'ppOutput'),)))
-    IDXGIAdapter.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC_head))(8, 'GetDesc', ((1, 'pDesc'),)))
-    IDXGIAdapter.CheckInterfaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.LARGE_INTEGER_head))(9, 'CheckInterfaceSupport', ((1, 'InterfaceName'),(1, 'pUMDVersion'),)))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIAdapter
-def _define_IDXGIAdapter1_head():
-    class IDXGIAdapter1(win32more.Graphics.Dxgi.IDXGIAdapter_head):
-        Guid = Guid('29038f61-3839-4626-91-fd-08-68-79-01-1a-05')
-    return IDXGIAdapter1
-def _define_IDXGIAdapter1():
-    IDXGIAdapter1 = win32more.Graphics.Dxgi.IDXGIAdapter1_head
-    IDXGIAdapter1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC1_head))(10, 'GetDesc1', ((1, 'pDesc'),)))
-    win32more.Graphics.Dxgi.IDXGIAdapter
-    return IDXGIAdapter1
-def _define_IDXGIAdapter2_head():
-    class IDXGIAdapter2(win32more.Graphics.Dxgi.IDXGIAdapter1_head):
-        Guid = Guid('0aa1ae0a-fa0e-4b84-86-44-e0-5f-f8-e5-ac-b5')
-    return IDXGIAdapter2
-def _define_IDXGIAdapter2():
-    IDXGIAdapter2 = win32more.Graphics.Dxgi.IDXGIAdapter2_head
-    IDXGIAdapter2.GetDesc2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC2_head))(11, 'GetDesc2', ((1, 'pDesc'),)))
-    win32more.Graphics.Dxgi.IDXGIAdapter1
-    return IDXGIAdapter2
-def _define_IDXGIAdapter3_head():
-    class IDXGIAdapter3(win32more.Graphics.Dxgi.IDXGIAdapter2_head):
-        Guid = Guid('645967a4-1392-4310-a7-98-80-53-ce-3e-93-fd')
-    return IDXGIAdapter3
-def _define_IDXGIAdapter3():
-    IDXGIAdapter3 = win32more.Graphics.Dxgi.IDXGIAdapter3_head
-    IDXGIAdapter3.RegisterHardwareContentProtectionTeardownStatusEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32))(12, 'RegisterHardwareContentProtectionTeardownStatusEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
-    IDXGIAdapter3.UnregisterHardwareContentProtectionTeardownStatus = COMMETHOD(WINFUNCTYPE(Void,UInt32)(13, 'UnregisterHardwareContentProtectionTeardownStatus', ((1, 'dwCookie'),)))
-    IDXGIAdapter3.QueryVideoMemoryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP,POINTER(win32more.Graphics.Dxgi.DXGI_QUERY_VIDEO_MEMORY_INFO_head))(14, 'QueryVideoMemoryInfo', ((1, 'NodeIndex'),(1, 'MemorySegmentGroup'),(1, 'pVideoMemoryInfo'),)))
-    IDXGIAdapter3.SetVideoMemoryReservation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP,UInt64)(15, 'SetVideoMemoryReservation', ((1, 'NodeIndex'),(1, 'MemorySegmentGroup'),(1, 'Reservation'),)))
-    IDXGIAdapter3.RegisterVideoMemoryBudgetChangeNotificationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32))(16, 'RegisterVideoMemoryBudgetChangeNotificationEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
-    IDXGIAdapter3.UnregisterVideoMemoryBudgetChangeNotification = COMMETHOD(WINFUNCTYPE(Void,UInt32)(17, 'UnregisterVideoMemoryBudgetChangeNotification', ((1, 'dwCookie'),)))
-    win32more.Graphics.Dxgi.IDXGIAdapter2
-    return IDXGIAdapter3
-def _define_IDXGIAdapter4_head():
-    class IDXGIAdapter4(win32more.Graphics.Dxgi.IDXGIAdapter3_head):
-        Guid = Guid('3c8d99d1-4fbf-4181-a8-2c-af-66-bf-7b-d2-4e')
-    return IDXGIAdapter4
-def _define_IDXGIAdapter4():
-    IDXGIAdapter4 = win32more.Graphics.Dxgi.IDXGIAdapter4_head
-    IDXGIAdapter4.GetDesc3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC3_head))(18, 'GetDesc3', ((1, 'pDesc'),)))
-    win32more.Graphics.Dxgi.IDXGIAdapter3
-    return IDXGIAdapter4
-def _define_IDXGIDebug_head():
-    class IDXGIDebug(win32more.System.Com.IUnknown_head):
-        Guid = Guid('119e7452-de9e-40fe-88-06-88-f9-0c-12-b4-41')
-    return IDXGIDebug
-def _define_IDXGIDebug():
-    IDXGIDebug = win32more.Graphics.Dxgi.IDXGIDebug_head
-    IDXGIDebug.ReportLiveObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS)(3, 'ReportLiveObjects', ((1, 'apiid'),(1, 'flags'),)))
-    win32more.System.Com.IUnknown
-    return IDXGIDebug
-def _define_IDXGIDebug1_head():
-    class IDXGIDebug1(win32more.Graphics.Dxgi.IDXGIDebug_head):
-        Guid = Guid('c5a05f0c-16f2-4adf-9f-4d-a8-c4-d5-8a-c5-50')
-    return IDXGIDebug1
-def _define_IDXGIDebug1():
-    IDXGIDebug1 = win32more.Graphics.Dxgi.IDXGIDebug1_head
-    IDXGIDebug1.EnableLeakTrackingForThread = COMMETHOD(WINFUNCTYPE(Void,)(4, 'EnableLeakTrackingForThread', ()))
-    IDXGIDebug1.DisableLeakTrackingForThread = COMMETHOD(WINFUNCTYPE(Void,)(5, 'DisableLeakTrackingForThread', ()))
-    IDXGIDebug1.IsLeakTrackingEnabledForThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(6, 'IsLeakTrackingEnabledForThread', ()))
-    win32more.Graphics.Dxgi.IDXGIDebug
-    return IDXGIDebug1
-def _define_IDXGIDecodeSwapChain_head():
-    class IDXGIDecodeSwapChain(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2633066b-4514-4c7a-8f-d8-12-ea-98-05-9d-18')
-    return IDXGIDecodeSwapChain
-def _define_IDXGIDecodeSwapChain():
-    IDXGIDecodeSwapChain = win32more.Graphics.Dxgi.IDXGIDecodeSwapChain_head
-    IDXGIDecodeSwapChain.PresentBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32)(3, 'PresentBuffer', ((1, 'BufferToPresent'),(1, 'SyncInterval'),(1, 'Flags'),)))
-    IDXGIDecodeSwapChain.SetSourceRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(4, 'SetSourceRect', ((1, 'pRect'),)))
-    IDXGIDecodeSwapChain.SetTargetRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(5, 'SetTargetRect', ((1, 'pRect'),)))
-    IDXGIDecodeSwapChain.SetDestSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(6, 'SetDestSize', ((1, 'Width'),(1, 'Height'),)))
-    IDXGIDecodeSwapChain.GetSourceRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(7, 'GetSourceRect', ((1, 'pRect'),)))
-    IDXGIDecodeSwapChain.GetTargetRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(8, 'GetTargetRect', ((1, 'pRect'),)))
-    IDXGIDecodeSwapChain.GetDestSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(9, 'GetDestSize', ((1, 'pWidth'),(1, 'pHeight'),)))
-    IDXGIDecodeSwapChain.SetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS)(10, 'SetColorSpace', ((1, 'ColorSpace'),)))
-    IDXGIDecodeSwapChain.GetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS,)(11, 'GetColorSpace', ()))
-    win32more.System.Com.IUnknown
-    return IDXGIDecodeSwapChain
-def _define_IDXGIDevice_head():
-    class IDXGIDevice(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('54ec77fa-1377-44e6-8c-32-88-fd-5f-44-c8-4c')
-    return IDXGIDevice
-def _define_IDXGIDevice():
-    IDXGIDevice = win32more.Graphics.Dxgi.IDXGIDevice_head
-    IDXGIDevice.GetAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head))(7, 'GetAdapter', ((1, 'pAdapter'),)))
-    IDXGIDevice.CreateSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head),UInt32,win32more.Graphics.Dxgi.DXGI_USAGE,POINTER(win32more.Graphics.Dxgi.DXGI_SHARED_RESOURCE_head),POINTER(win32more.Graphics.Dxgi.IDXGISurface_head))(8, 'CreateSurface', ((1, 'pDesc'),(1, 'NumSurfaces'),(1, 'Usage'),(1, 'pSharedResource'),(1, 'ppSurface'),)))
-    IDXGIDevice.QueryResourceResidency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.Graphics.Dxgi.DXGI_RESIDENCY),UInt32)(9, 'QueryResourceResidency', ((1, 'ppResources'),(1, 'pResidencyStatus'),(1, 'NumResources'),)))
-    IDXGIDevice.SetGPUThreadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'SetGPUThreadPriority', ((1, 'Priority'),)))
-    IDXGIDevice.GetGPUThreadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(11, 'GetGPUThreadPriority', ((1, 'pPriority'),)))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIDevice
-def _define_IDXGIDevice1_head():
-    class IDXGIDevice1(win32more.Graphics.Dxgi.IDXGIDevice_head):
-        Guid = Guid('77db970f-6276-48ba-ba-28-07-01-43-b4-39-2c')
-    return IDXGIDevice1
-def _define_IDXGIDevice1():
-    IDXGIDevice1 = win32more.Graphics.Dxgi.IDXGIDevice1_head
-    IDXGIDevice1.SetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(12, 'SetMaximumFrameLatency', ((1, 'MaxLatency'),)))
-    IDXGIDevice1.GetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(13, 'GetMaximumFrameLatency', ((1, 'pMaxLatency'),)))
-    win32more.Graphics.Dxgi.IDXGIDevice
-    return IDXGIDevice1
-def _define_IDXGIDevice2_head():
-    class IDXGIDevice2(win32more.Graphics.Dxgi.IDXGIDevice1_head):
-        Guid = Guid('05008617-fbfd-4051-a7-90-14-48-84-b4-f6-a9')
-    return IDXGIDevice2
-def _define_IDXGIDevice2():
-    IDXGIDevice2 = win32more.Graphics.Dxgi.IDXGIDevice2_head
-    IDXGIDevice2.OfferResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY)(14, 'OfferResources', ((1, 'NumResources'),(1, 'ppResources'),(1, 'Priority'),)))
-    IDXGIDevice2.ReclaimResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),POINTER(win32more.Foundation.BOOL))(15, 'ReclaimResources', ((1, 'NumResources'),(1, 'ppResources'),(1, 'pDiscarded'),)))
-    IDXGIDevice2.EnqueueSetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(16, 'EnqueueSetEvent', ((1, 'hEvent'),)))
-    win32more.Graphics.Dxgi.IDXGIDevice1
-    return IDXGIDevice2
-def _define_IDXGIDevice3_head():
-    class IDXGIDevice3(win32more.Graphics.Dxgi.IDXGIDevice2_head):
-        Guid = Guid('6007896c-3244-4afd-bf-18-a6-d3-be-da-50-23')
-    return IDXGIDevice3
-def _define_IDXGIDevice3():
-    IDXGIDevice3 = win32more.Graphics.Dxgi.IDXGIDevice3_head
-    IDXGIDevice3.Trim = COMMETHOD(WINFUNCTYPE(Void,)(17, 'Trim', ()))
-    win32more.Graphics.Dxgi.IDXGIDevice2
-    return IDXGIDevice3
-def _define_IDXGIDevice4_head():
-    class IDXGIDevice4(win32more.Graphics.Dxgi.IDXGIDevice3_head):
-        Guid = Guid('95b4f95f-d8da-4ca4-9e-e6-3b-76-d5-96-8a-10')
-    return IDXGIDevice4
-def _define_IDXGIDevice4():
-    IDXGIDevice4 = win32more.Graphics.Dxgi.IDXGIDevice4_head
-    IDXGIDevice4.OfferResources1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY,UInt32)(18, 'OfferResources1', ((1, 'NumResources'),(1, 'ppResources'),(1, 'Priority'),(1, 'Flags'),)))
-    IDXGIDevice4.ReclaimResources1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),POINTER(win32more.Graphics.Dxgi.DXGI_RECLAIM_RESOURCE_RESULTS))(19, 'ReclaimResources1', ((1, 'NumResources'),(1, 'ppResources'),(1, 'pResults'),)))
-    win32more.Graphics.Dxgi.IDXGIDevice3
-    return IDXGIDevice4
-def _define_IDXGIDeviceSubObject_head():
-    class IDXGIDeviceSubObject(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('3d3e0379-f9de-4d58-bb-6c-18-d6-29-92-f1-a6')
-    return IDXGIDeviceSubObject
-def _define_IDXGIDeviceSubObject():
-    IDXGIDeviceSubObject = win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head
-    IDXGIDeviceSubObject.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(7, 'GetDevice', ((1, 'riid'),(1, 'ppDevice'),)))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIDeviceSubObject
-def _define_IDXGIDisplayControl_head():
-    class IDXGIDisplayControl(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ea9dbf1a-c88e-4486-85-4a-98-aa-01-38-f3-0c')
-    return IDXGIDisplayControl
-def _define_IDXGIDisplayControl():
-    IDXGIDisplayControl = win32more.Graphics.Dxgi.IDXGIDisplayControl_head
-    IDXGIDisplayControl.IsStereoEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(3, 'IsStereoEnabled', ()))
-    IDXGIDisplayControl.SetStereoEnabled = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL)(4, 'SetStereoEnabled', ((1, 'enabled'),)))
-    win32more.System.Com.IUnknown
-    return IDXGIDisplayControl
-def _define_IDXGIFactory_head():
-    class IDXGIFactory(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('7b7166ec-21c7-44ae-b2-1a-c9-ae-32-1a-e3-69')
-    return IDXGIFactory
-def _define_IDXGIFactory():
-    IDXGIFactory = win32more.Graphics.Dxgi.IDXGIFactory_head
-    IDXGIFactory.EnumAdapters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head))(7, 'EnumAdapters', ((1, 'Adapter'),(1, 'ppAdapter'),)))
-    IDXGIFactory.MakeWindowAssociation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32)(8, 'MakeWindowAssociation', ((1, 'WindowHandle'),(1, 'Flags'),)))
-    IDXGIFactory.GetWindowAssociation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(9, 'GetWindowAssociation', ((1, 'pWindowHandle'),)))
-    IDXGIFactory.CreateSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head),POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head))(10, 'CreateSwapChain', ((1, 'pDevice'),(1, 'pDesc'),(1, 'ppSwapChain'),)))
-    IDXGIFactory.CreateSoftwareAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head))(11, 'CreateSoftwareAdapter', ((1, 'Module'),(1, 'ppAdapter'),)))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIFactory
-def _define_IDXGIFactory1_head():
-    class IDXGIFactory1(win32more.Graphics.Dxgi.IDXGIFactory_head):
-        Guid = Guid('770aae78-f26f-4dba-a8-29-25-3c-83-d1-b3-87')
-    return IDXGIFactory1
-def _define_IDXGIFactory1():
-    IDXGIFactory1 = win32more.Graphics.Dxgi.IDXGIFactory1_head
-    IDXGIFactory1.EnumAdapters1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter1_head))(12, 'EnumAdapters1', ((1, 'Adapter'),(1, 'ppAdapter'),)))
-    IDXGIFactory1.IsCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(13, 'IsCurrent', ()))
-    win32more.Graphics.Dxgi.IDXGIFactory
-    return IDXGIFactory1
-def _define_IDXGIFactory2_head():
-    class IDXGIFactory2(win32more.Graphics.Dxgi.IDXGIFactory1_head):
-        Guid = Guid('50c83a1c-e072-4c48-87-b0-36-30-fa-36-a6-d0')
-    return IDXGIFactory2
-def _define_IDXGIFactory2():
-    IDXGIFactory2 = win32more.Graphics.Dxgi.IDXGIFactory2_head
-    IDXGIFactory2.IsWindowedStereoEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(14, 'IsWindowedStereoEnabled', ()))
-    IDXGIFactory2.CreateSwapChainForHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HWND,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head))(15, 'CreateSwapChainForHwnd', ((1, 'pDevice'),(1, 'hWnd'),(1, 'pDesc'),(1, 'pFullscreenDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
-    IDXGIFactory2.CreateSwapChainForCoreWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head))(16, 'CreateSwapChainForCoreWindow', ((1, 'pDevice'),(1, 'pWindow'),(1, 'pDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
-    IDXGIFactory2.GetSharedResourceAdapterLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.LUID_head))(17, 'GetSharedResourceAdapterLuid', ((1, 'hResource'),(1, 'pLuid'),)))
-    IDXGIFactory2.RegisterStereoStatusWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(UInt32))(18, 'RegisterStereoStatusWindow', ((1, 'WindowHandle'),(1, 'wMsg'),(1, 'pdwCookie'),)))
-    IDXGIFactory2.RegisterStereoStatusEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32))(19, 'RegisterStereoStatusEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
-    IDXGIFactory2.UnregisterStereoStatus = COMMETHOD(WINFUNCTYPE(Void,UInt32)(20, 'UnregisterStereoStatus', ((1, 'dwCookie'),)))
-    IDXGIFactory2.RegisterOcclusionStatusWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(UInt32))(21, 'RegisterOcclusionStatusWindow', ((1, 'WindowHandle'),(1, 'wMsg'),(1, 'pdwCookie'),)))
-    IDXGIFactory2.RegisterOcclusionStatusEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32))(22, 'RegisterOcclusionStatusEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
-    IDXGIFactory2.UnregisterOcclusionStatus = COMMETHOD(WINFUNCTYPE(Void,UInt32)(23, 'UnregisterOcclusionStatus', ((1, 'dwCookie'),)))
-    IDXGIFactory2.CreateSwapChainForComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head))(24, 'CreateSwapChainForComposition', ((1, 'pDevice'),(1, 'pDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
-    win32more.Graphics.Dxgi.IDXGIFactory1
-    return IDXGIFactory2
-def _define_IDXGIFactory3_head():
-    class IDXGIFactory3(win32more.Graphics.Dxgi.IDXGIFactory2_head):
-        Guid = Guid('25483823-cd46-4c7d-86-ca-47-aa-95-b8-37-bd')
-    return IDXGIFactory3
-def _define_IDXGIFactory3():
-    IDXGIFactory3 = win32more.Graphics.Dxgi.IDXGIFactory3_head
-    IDXGIFactory3.GetCreationFlags = COMMETHOD(WINFUNCTYPE(UInt32,)(25, 'GetCreationFlags', ()))
-    win32more.Graphics.Dxgi.IDXGIFactory2
-    return IDXGIFactory3
-def _define_IDXGIFactory4_head():
-    class IDXGIFactory4(win32more.Graphics.Dxgi.IDXGIFactory3_head):
-        Guid = Guid('1bc6ea02-ef36-464f-bf-0c-21-ca-39-e5-16-8a')
-    return IDXGIFactory4
-def _define_IDXGIFactory4():
-    IDXGIFactory4 = win32more.Graphics.Dxgi.IDXGIFactory4_head
-    IDXGIFactory4.EnumAdapterByLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LUID,POINTER(Guid),POINTER(c_void_p))(26, 'EnumAdapterByLuid', ((1, 'AdapterLuid'),(1, 'riid'),(1, 'ppvAdapter'),)))
-    IDXGIFactory4.EnumWarpAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(27, 'EnumWarpAdapter', ((1, 'riid'),(1, 'ppvAdapter'),)))
-    win32more.Graphics.Dxgi.IDXGIFactory3
-    return IDXGIFactory4
-def _define_IDXGIFactory5_head():
-    class IDXGIFactory5(win32more.Graphics.Dxgi.IDXGIFactory4_head):
-        Guid = Guid('7632e1f5-ee65-4dca-87-fd-84-cd-75-f8-83-8d')
-    return IDXGIFactory5
-def _define_IDXGIFactory5():
-    IDXGIFactory5 = win32more.Graphics.Dxgi.IDXGIFactory5_head
-    IDXGIFactory5.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_FEATURE,c_void_p,UInt32)(28, 'CheckFeatureSupport', ((1, 'Feature'),(1, 'pFeatureSupportData'),(1, 'FeatureSupportDataSize'),)))
-    win32more.Graphics.Dxgi.IDXGIFactory4
-    return IDXGIFactory5
-def _define_IDXGIFactory6_head():
-    class IDXGIFactory6(win32more.Graphics.Dxgi.IDXGIFactory5_head):
-        Guid = Guid('c1b6694f-ff09-44a9-b0-3c-77-90-0a-0a-1d-17')
-    return IDXGIFactory6
-def _define_IDXGIFactory6():
-    IDXGIFactory6 = win32more.Graphics.Dxgi.IDXGIFactory6_head
-    IDXGIFactory6.EnumAdapterByGpuPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.DXGI_GPU_PREFERENCE,POINTER(Guid),POINTER(c_void_p))(29, 'EnumAdapterByGpuPreference', ((1, 'Adapter'),(1, 'GpuPreference'),(1, 'riid'),(1, 'ppvAdapter'),)))
-    win32more.Graphics.Dxgi.IDXGIFactory5
-    return IDXGIFactory6
-def _define_IDXGIFactory7_head():
-    class IDXGIFactory7(win32more.Graphics.Dxgi.IDXGIFactory6_head):
-        Guid = Guid('a4966eed-76db-44da-84-c1-ee-9a-7a-fb-20-a8')
-    return IDXGIFactory7
-def _define_IDXGIFactory7():
-    IDXGIFactory7 = win32more.Graphics.Dxgi.IDXGIFactory7_head
-    IDXGIFactory7.RegisterAdaptersChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32))(30, 'RegisterAdaptersChangedEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
-    IDXGIFactory7.UnregisterAdaptersChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(31, 'UnregisterAdaptersChangedEvent', ((1, 'dwCookie'),)))
-    win32more.Graphics.Dxgi.IDXGIFactory6
-    return IDXGIFactory7
-def _define_IDXGIFactoryMedia_head():
-    class IDXGIFactoryMedia(win32more.System.Com.IUnknown_head):
-        Guid = Guid('41e7d1f2-a591-4f7b-a2-e5-fa-9c-84-3e-1c-12')
-    return IDXGIFactoryMedia
-def _define_IDXGIFactoryMedia():
-    IDXGIFactoryMedia = win32more.Graphics.Dxgi.IDXGIFactoryMedia_head
-    IDXGIFactoryMedia.CreateSwapChainForCompositionSurfaceHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head))(3, 'CreateSwapChainForCompositionSurfaceHandle', ((1, 'pDevice'),(1, 'hSurface'),(1, 'pDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
-    IDXGIFactoryMedia.CreateDecodeSwapChainForCompositionSurfaceHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Dxgi.DXGI_DECODE_SWAP_CHAIN_DESC_head),win32more.Graphics.Dxgi.IDXGIResource_head,win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGIDecodeSwapChain_head))(4, 'CreateDecodeSwapChainForCompositionSurfaceHandle', ((1, 'pDevice'),(1, 'hSurface'),(1, 'pDesc'),(1, 'pYuvDecodeBuffers'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
-    win32more.System.Com.IUnknown
-    return IDXGIFactoryMedia
-def _define_IDXGIInfoQueue_head():
-    class IDXGIInfoQueue(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d67441c7-672a-476f-9e-82-cd-55-b4-49-49-ce')
-    return IDXGIInfoQueue
-def _define_IDXGIInfoQueue():
-    IDXGIInfoQueue = win32more.Graphics.Dxgi.IDXGIInfoQueue_head
-    IDXGIInfoQueue.SetMessageCountLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt64)(3, 'SetMessageCountLimit', ((1, 'Producer'),(1, 'MessageCountLimit'),)))
-    IDXGIInfoQueue.ClearStoredMessages = COMMETHOD(WINFUNCTYPE(Void,Guid)(4, 'ClearStoredMessages', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt64,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_head),POINTER(UIntPtr))(5, 'GetMessage', ((1, 'Producer'),(1, 'MessageIndex'),(1, 'pMessage'),(1, 'pMessageByteLength'),)))
-    IDXGIInfoQueue.GetNumStoredMessagesAllowedByRetrievalFilters = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(6, 'GetNumStoredMessagesAllowedByRetrievalFilters', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetNumStoredMessages = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(7, 'GetNumStoredMessages', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetNumMessagesDiscardedByMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(8, 'GetNumMessagesDiscardedByMessageCountLimit', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetMessageCountLimit = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(9, 'GetMessageCountLimit', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetNumMessagesAllowedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(10, 'GetNumMessagesAllowedByStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetNumMessagesDeniedByStorageFilter = COMMETHOD(WINFUNCTYPE(UInt64,Guid)(11, 'GetNumMessagesDeniedByStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.AddStorageFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head))(12, 'AddStorageFilterEntries', ((1, 'Producer'),(1, 'pFilter'),)))
-    IDXGIInfoQueue.GetStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head),POINTER(UIntPtr))(13, 'GetStorageFilter', ((1, 'Producer'),(1, 'pFilter'),(1, 'pFilterByteLength'),)))
-    IDXGIInfoQueue.ClearStorageFilter = COMMETHOD(WINFUNCTYPE(Void,Guid)(14, 'ClearStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushEmptyStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(15, 'PushEmptyStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushDenyAllStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(16, 'PushDenyAllStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushCopyOfStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(17, 'PushCopyOfStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushStorageFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head))(18, 'PushStorageFilter', ((1, 'Producer'),(1, 'pFilter'),)))
-    IDXGIInfoQueue.PopStorageFilter = COMMETHOD(WINFUNCTYPE(Void,Guid)(19, 'PopStorageFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetStorageFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32,Guid)(20, 'GetStorageFilterStackSize', ((1, 'Producer'),)))
-    IDXGIInfoQueue.AddRetrievalFilterEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head))(21, 'AddRetrievalFilterEntries', ((1, 'Producer'),(1, 'pFilter'),)))
-    IDXGIInfoQueue.GetRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head),POINTER(UIntPtr))(22, 'GetRetrievalFilter', ((1, 'Producer'),(1, 'pFilter'),(1, 'pFilterByteLength'),)))
-    IDXGIInfoQueue.ClearRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void,Guid)(23, 'ClearRetrievalFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushEmptyRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(24, 'PushEmptyRetrievalFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushDenyAllRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(25, 'PushDenyAllRetrievalFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushCopyOfRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(26, 'PushCopyOfRetrievalFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.PushRetrievalFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head))(27, 'PushRetrievalFilter', ((1, 'Producer'),(1, 'pFilter'),)))
-    IDXGIInfoQueue.PopRetrievalFilter = COMMETHOD(WINFUNCTYPE(Void,Guid)(28, 'PopRetrievalFilter', ((1, 'Producer'),)))
-    IDXGIInfoQueue.GetRetrievalFilterStackSize = COMMETHOD(WINFUNCTYPE(UInt32,Guid)(29, 'GetRetrievalFilterStackSize', ((1, 'Producer'),)))
-    IDXGIInfoQueue.AddMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY,Int32,win32more.Foundation.PSTR)(30, 'AddMessage', ((1, 'Producer'),(1, 'Category'),(1, 'Severity'),(1, 'ID'),(1, 'pDescription'),)))
-    IDXGIInfoQueue.AddApplicationMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY,win32more.Foundation.PSTR)(31, 'AddApplicationMessage', ((1, 'Severity'),(1, 'pDescription'),)))
-    IDXGIInfoQueue.SetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY,win32more.Foundation.BOOL)(32, 'SetBreakOnCategory', ((1, 'Producer'),(1, 'Category'),(1, 'bEnable'),)))
-    IDXGIInfoQueue.SetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY,win32more.Foundation.BOOL)(33, 'SetBreakOnSeverity', ((1, 'Producer'),(1, 'Severity'),(1, 'bEnable'),)))
-    IDXGIInfoQueue.SetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,win32more.Foundation.BOOL)(34, 'SetBreakOnID', ((1, 'Producer'),(1, 'ID'),(1, 'bEnable'),)))
-    IDXGIInfoQueue.GetBreakOnCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY)(35, 'GetBreakOnCategory', ((1, 'Producer'),(1, 'Category'),)))
-    IDXGIInfoQueue.GetBreakOnSeverity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid,win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY)(36, 'GetBreakOnSeverity', ((1, 'Producer'),(1, 'Severity'),)))
-    IDXGIInfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid,Int32)(37, 'GetBreakOnID', ((1, 'Producer'),(1, 'ID'),)))
-    IDXGIInfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,Guid,win32more.Foundation.BOOL)(38, 'SetMuteDebugOutput', ((1, 'Producer'),(1, 'bMute'),)))
-    IDXGIInfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid)(39, 'GetMuteDebugOutput', ((1, 'Producer'),)))
-    win32more.System.Com.IUnknown
-    return IDXGIInfoQueue
-def _define_IDXGIKeyedMutex_head():
-    class IDXGIKeyedMutex(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
-        Guid = Guid('9d8e1289-d7b3-465f-81-26-25-0e-34-9a-f8-5d')
-    return IDXGIKeyedMutex
-def _define_IDXGIKeyedMutex():
-    IDXGIKeyedMutex = win32more.Graphics.Dxgi.IDXGIKeyedMutex_head
-    IDXGIKeyedMutex.AcquireSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32)(8, 'AcquireSync', ((1, 'Key'),(1, 'dwMilliseconds'),)))
-    IDXGIKeyedMutex.ReleaseSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64)(9, 'ReleaseSync', ((1, 'Key'),)))
-    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
-    return IDXGIKeyedMutex
-def _define_IDXGIObject_head():
-    class IDXGIObject(win32more.System.Com.IUnknown_head):
-        Guid = Guid('aec22fb8-76f3-4639-9b-e0-28-eb-43-a6-7a-2e')
-    return IDXGIObject
-def _define_IDXGIObject():
-    IDXGIObject = win32more.Graphics.Dxgi.IDXGIObject_head
-    IDXGIObject.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p)(3, 'SetPrivateData', ((1, 'Name'),(1, 'DataSize'),(1, 'pData'),)))
-    IDXGIObject.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head)(4, 'SetPrivateDataInterface', ((1, 'Name'),(1, 'pUnknown'),)))
-    IDXGIObject.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p)(5, 'GetPrivateData', ((1, 'Name'),(1, 'pDataSize'),(1, 'pData'),)))
-    IDXGIObject.GetParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(6, 'GetParent', ((1, 'riid'),(1, 'ppParent'),)))
-    win32more.System.Com.IUnknown
-    return IDXGIObject
-def _define_IDXGIOutput_head():
-    class IDXGIOutput(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('ae02eedb-c735-4690-8d-52-5a-8d-c2-02-13-aa')
-    return IDXGIOutput
-def _define_IDXGIOutput():
-    IDXGIOutput = win32more.Graphics.Dxgi.IDXGIOutput_head
-    IDXGIOutput.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC_head))(7, 'GetDesc', ((1, 'pDesc'),)))
-    IDXGIOutput.GetDisplayModeList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head))(8, 'GetDisplayModeList', ((1, 'EnumFormat'),(1, 'Flags'),(1, 'pNumModes'),(1, 'pDesc'),)))
-    IDXGIOutput.FindClosestMatchingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head),POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head),win32more.System.Com.IUnknown_head)(9, 'FindClosestMatchingMode', ((1, 'pModeToMatch'),(1, 'pClosestMatch'),(1, 'pConcernedDevice'),)))
-    IDXGIOutput.WaitForVBlank = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'WaitForVBlank', ()))
-    IDXGIOutput.TakeOwnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL)(11, 'TakeOwnership', ((1, 'pDevice'),(1, 'Exclusive'),)))
-    IDXGIOutput.ReleaseOwnership = COMMETHOD(WINFUNCTYPE(Void,)(12, 'ReleaseOwnership', ()))
-    IDXGIOutput.GetGammaControlCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_CAPABILITIES_head))(13, 'GetGammaControlCapabilities', ((1, 'pGammaCaps'),)))
-    IDXGIOutput.SetGammaControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_head))(14, 'SetGammaControl', ((1, 'pArray'),)))
-    IDXGIOutput.GetGammaControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_head))(15, 'GetGammaControl', ((1, 'pArray'),)))
-    IDXGIOutput.SetDisplaySurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head)(16, 'SetDisplaySurface', ((1, 'pScanoutSurface'),)))
-    IDXGIOutput.GetDisplaySurfaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head)(17, 'GetDisplaySurfaceData', ((1, 'pDestination'),)))
-    IDXGIOutput.GetFrameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head))(18, 'GetFrameStatistics', ((1, 'pStats'),)))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIOutput
-def _define_IDXGIOutput1_head():
-    class IDXGIOutput1(win32more.Graphics.Dxgi.IDXGIOutput_head):
-        Guid = Guid('00cddea8-939b-4b83-a3-40-a6-85-22-66-66-cc')
-    return IDXGIOutput1
-def _define_IDXGIOutput1():
-    IDXGIOutput1 = win32more.Graphics.Dxgi.IDXGIOutput1_head
-    IDXGIOutput1.GetDisplayModeList1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head))(19, 'GetDisplayModeList1', ((1, 'EnumFormat'),(1, 'Flags'),(1, 'pNumModes'),(1, 'pDesc'),)))
-    IDXGIOutput1.FindClosestMatchingMode1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head),POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head),win32more.System.Com.IUnknown_head)(20, 'FindClosestMatchingMode1', ((1, 'pModeToMatch'),(1, 'pClosestMatch'),(1, 'pConcernedDevice'),)))
-    IDXGIOutput1.GetDisplaySurfaceData1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIResource_head)(21, 'GetDisplaySurfaceData1', ((1, 'pDestination'),)))
-    IDXGIOutput1.DuplicateOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head))(22, 'DuplicateOutput', ((1, 'pDevice'),(1, 'ppOutputDuplication'),)))
-    win32more.Graphics.Dxgi.IDXGIOutput
-    return IDXGIOutput1
-def _define_IDXGIOutput2_head():
-    class IDXGIOutput2(win32more.Graphics.Dxgi.IDXGIOutput1_head):
-        Guid = Guid('595e39d1-2724-4663-99-b1-da-96-9d-e2-83-64')
-    return IDXGIOutput2
-def _define_IDXGIOutput2():
-    IDXGIOutput2 = win32more.Graphics.Dxgi.IDXGIOutput2_head
-    IDXGIOutput2.SupportsOverlays = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(23, 'SupportsOverlays', ()))
-    win32more.Graphics.Dxgi.IDXGIOutput1
-    return IDXGIOutput2
-def _define_IDXGIOutput3_head():
-    class IDXGIOutput3(win32more.Graphics.Dxgi.IDXGIOutput2_head):
-        Guid = Guid('8a6bb301-7e7e-41f4-a8-e0-5b-32-f7-f9-9b-18')
-    return IDXGIOutput3
-def _define_IDXGIOutput3():
-    IDXGIOutput3 = win32more.Graphics.Dxgi.IDXGIOutput3_head
-    IDXGIOutput3.CheckOverlaySupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.System.Com.IUnknown_head,POINTER(UInt32))(24, 'CheckOverlaySupport', ((1, 'EnumFormat'),(1, 'pConcernedDevice'),(1, 'pFlags'),)))
-    win32more.Graphics.Dxgi.IDXGIOutput2
-    return IDXGIOutput3
-def _define_IDXGIOutput4_head():
-    class IDXGIOutput4(win32more.Graphics.Dxgi.IDXGIOutput3_head):
-        Guid = Guid('dc7dca35-2196-414d-9f-53-61-78-84-03-2a-60')
-    return IDXGIOutput4
-def _define_IDXGIOutput4():
-    IDXGIOutput4 = win32more.Graphics.Dxgi.IDXGIOutput4_head
-    IDXGIOutput4.CheckOverlayColorSpaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,win32more.System.Com.IUnknown_head,POINTER(UInt32))(25, 'CheckOverlayColorSpaceSupport', ((1, 'Format'),(1, 'ColorSpace'),(1, 'pConcernedDevice'),(1, 'pFlags'),)))
-    win32more.Graphics.Dxgi.IDXGIOutput3
-    return IDXGIOutput4
-def _define_IDXGIOutput5_head():
-    class IDXGIOutput5(win32more.Graphics.Dxgi.IDXGIOutput4_head):
-        Guid = Guid('80a07424-ab52-42eb-83-3c-0c-42-fd-28-2d-98')
-    return IDXGIOutput5
-def _define_IDXGIOutput5():
-    IDXGIOutput5 = win32more.Graphics.Dxgi.IDXGIOutput5_head
-    IDXGIOutput5.DuplicateOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_FORMAT),POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head))(26, 'DuplicateOutput1', ((1, 'pDevice'),(1, 'Flags'),(1, 'SupportedFormatsCount'),(1, 'pSupportedFormats'),(1, 'ppOutputDuplication'),)))
-    win32more.Graphics.Dxgi.IDXGIOutput4
-    return IDXGIOutput5
-def _define_IDXGIOutput6_head():
-    class IDXGIOutput6(win32more.Graphics.Dxgi.IDXGIOutput5_head):
-        Guid = Guid('068346e8-aaec-4b84-ad-d7-13-7f-51-3f-77-a1')
-    return IDXGIOutput6
-def _define_IDXGIOutput6():
-    IDXGIOutput6 = win32more.Graphics.Dxgi.IDXGIOutput6_head
-    IDXGIOutput6.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC1_head))(27, 'GetDesc1', ((1, 'pDesc'),)))
-    IDXGIOutput6.CheckHardwareCompositionSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(28, 'CheckHardwareCompositionSupport', ((1, 'pFlags'),)))
-    win32more.Graphics.Dxgi.IDXGIOutput5
-    return IDXGIOutput6
-def _define_IDXGIOutputDuplication_head():
-    class IDXGIOutputDuplication(win32more.Graphics.Dxgi.IDXGIObject_head):
-        Guid = Guid('191cfac3-a341-470d-b2-6e-a8-64-f4-28-31-9c')
-    return IDXGIOutputDuplication
-def _define_IDXGIOutputDuplication():
-    IDXGIOutputDuplication = win32more.Graphics.Dxgi.IDXGIOutputDuplication_head
-    IDXGIOutputDuplication.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_DESC_head))(7, 'GetDesc', ((1, 'pDesc'),)))
-    IDXGIOutputDuplication.AcquireNextFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_FRAME_INFO_head),POINTER(win32more.Graphics.Dxgi.IDXGIResource_head))(8, 'AcquireNextFrame', ((1, 'TimeoutInMilliseconds'),(1, 'pFrameInfo'),(1, 'ppDesktopResource'),)))
-    IDXGIOutputDuplication.GetFrameDirtyRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.RECT_head),POINTER(UInt32))(9, 'GetFrameDirtyRects', ((1, 'DirtyRectsBufferSize'),(1, 'pDirtyRectsBuffer'),(1, 'pDirtyRectsBufferSizeRequired'),)))
-    IDXGIOutputDuplication.GetFrameMoveRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_MOVE_RECT_head),POINTER(UInt32))(10, 'GetFrameMoveRects', ((1, 'MoveRectsBufferSize'),(1, 'pMoveRectBuffer'),(1, 'pMoveRectsBufferSizeRequired'),)))
-    IDXGIOutputDuplication.GetFramePointerShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32),POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_INFO_head))(11, 'GetFramePointerShape', ((1, 'PointerShapeBufferSize'),(1, 'pPointerShapeBuffer'),(1, 'pPointerShapeBufferSizeRequired'),(1, 'pPointerShapeInfo'),)))
-    IDXGIOutputDuplication.MapDesktopSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head))(12, 'MapDesktopSurface', ((1, 'pLockedRect'),)))
-    IDXGIOutputDuplication.UnMapDesktopSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'UnMapDesktopSurface', ()))
-    IDXGIOutputDuplication.ReleaseFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'ReleaseFrame', ()))
-    win32more.Graphics.Dxgi.IDXGIObject
-    return IDXGIOutputDuplication
-def _define_IDXGIResource_head():
-    class IDXGIResource(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
-        Guid = Guid('035f3ab4-482e-4e50-b4-1f-8a-7f-8b-d8-96-0b')
-    return IDXGIResource
-def _define_IDXGIResource():
-    IDXGIResource = win32more.Graphics.Dxgi.IDXGIResource_head
-    IDXGIResource.GetSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE))(8, 'GetSharedHandle', ((1, 'pSharedHandle'),)))
-    IDXGIResource.GetUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_USAGE))(9, 'GetUsage', ((1, 'pUsage'),)))
-    IDXGIResource.SetEvictionPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY)(10, 'SetEvictionPriority', ((1, 'EvictionPriority'),)))
-    IDXGIResource.GetEvictionPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'GetEvictionPriority', ((1, 'pEvictionPriority'),)))
-    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
-    return IDXGIResource
-def _define_IDXGIResource1_head():
-    class IDXGIResource1(win32more.Graphics.Dxgi.IDXGIResource_head):
-        Guid = Guid('30961379-4609-4a41-99-8e-54-fe-56-7e-e0-c1')
-    return IDXGIResource1
-def _define_IDXGIResource1():
-    IDXGIResource1 = win32more.Graphics.Dxgi.IDXGIResource1_head
-    IDXGIResource1.CreateSubresourceSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGISurface2_head))(12, 'CreateSubresourceSurface', ((1, 'index'),(1, 'ppSurface'),)))
-    IDXGIResource1.CreateSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE))(13, 'CreateSharedHandle', ((1, 'pAttributes'),(1, 'dwAccess'),(1, 'lpName'),(1, 'pHandle'),)))
-    win32more.Graphics.Dxgi.IDXGIResource
-    return IDXGIResource1
-def _define_IDXGISurface_head():
-    class IDXGISurface(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
-        Guid = Guid('cafcb56c-6ac3-4889-bf-47-9e-23-bb-d2-60-ec')
-    return IDXGISurface
-def _define_IDXGISurface():
-    IDXGISurface = win32more.Graphics.Dxgi.IDXGISurface_head
-    IDXGISurface.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head))(8, 'GetDesc', ((1, 'pDesc'),)))
-    IDXGISurface.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head),UInt32)(9, 'Map', ((1, 'pLockedRect'),(1, 'MapFlags'),)))
-    IDXGISurface.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Unmap', ()))
-    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
-    return IDXGISurface
-def _define_IDXGISurface1_head():
-    class IDXGISurface1(win32more.Graphics.Dxgi.IDXGISurface_head):
-        Guid = Guid('4ae63092-6327-4c1b-80-ae-bf-e1-2e-a3-2b-86')
-    return IDXGISurface1
-def _define_IDXGISurface1():
-    IDXGISurface1 = win32more.Graphics.Dxgi.IDXGISurface1_head
-    IDXGISurface1.GetDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Gdi.HDC))(11, 'GetDC', ((1, 'Discard'),(1, 'phdc'),)))
-    IDXGISurface1.ReleaseDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head))(12, 'ReleaseDC', ((1, 'pDirtyRect'),)))
-    win32more.Graphics.Dxgi.IDXGISurface
-    return IDXGISurface1
-def _define_IDXGISurface2_head():
-    class IDXGISurface2(win32more.Graphics.Dxgi.IDXGISurface1_head):
-        Guid = Guid('aba496dd-b617-4cb8-a8-66-bc-44-d7-eb-1f-a2')
-    return IDXGISurface2
-def _define_IDXGISurface2():
-    IDXGISurface2 = win32more.Graphics.Dxgi.IDXGISurface2_head
-    IDXGISurface2.GetResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32))(13, 'GetResource', ((1, 'riid'),(1, 'ppParentResource'),(1, 'pSubresourceIndex'),)))
-    win32more.Graphics.Dxgi.IDXGISurface1
-    return IDXGISurface2
-def _define_IDXGISwapChain_head():
-    class IDXGISwapChain(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
-        Guid = Guid('310d36a0-d2e7-4c0a-aa-04-6a-9d-23-b8-88-6a')
-    return IDXGISwapChain
-def _define_IDXGISwapChain():
-    IDXGISwapChain = win32more.Graphics.Dxgi.IDXGISwapChain_head
-    IDXGISwapChain.Present = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(8, 'Present', ((1, 'SyncInterval'),(1, 'Flags'),)))
-    IDXGISwapChain.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(9, 'GetBuffer', ((1, 'Buffer'),(1, 'riid'),(1, 'ppSurface'),)))
-    IDXGISwapChain.SetFullscreenState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Graphics.Dxgi.IDXGIOutput_head)(10, 'SetFullscreenState', ((1, 'Fullscreen'),(1, 'pTarget'),)))
-    IDXGISwapChain.GetFullscreenState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head))(11, 'GetFullscreenState', ((1, 'pFullscreen'),(1, 'ppTarget'),)))
-    IDXGISwapChain.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head))(12, 'GetDesc', ((1, 'pDesc'),)))
-    IDXGISwapChain.ResizeBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32)(13, 'ResizeBuffers', ((1, 'BufferCount'),(1, 'Width'),(1, 'Height'),(1, 'NewFormat'),(1, 'SwapChainFlags'),)))
-    IDXGISwapChain.ResizeTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head))(14, 'ResizeTarget', ((1, 'pNewTargetParameters'),)))
-    IDXGISwapChain.GetContainingOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head))(15, 'GetContainingOutput', ((1, 'ppOutput'),)))
-    IDXGISwapChain.GetFrameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head))(16, 'GetFrameStatistics', ((1, 'pStats'),)))
-    IDXGISwapChain.GetLastPresentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(17, 'GetLastPresentCount', ((1, 'pLastPresentCount'),)))
-    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
-    return IDXGISwapChain
-def _define_IDXGISwapChain1_head():
-    class IDXGISwapChain1(win32more.Graphics.Dxgi.IDXGISwapChain_head):
-        Guid = Guid('790a45f7-0d42-4876-98-3a-0a-55-cf-e6-f4-aa')
-    return IDXGISwapChain1
-def _define_IDXGISwapChain1():
-    IDXGISwapChain1 = win32more.Graphics.Dxgi.IDXGISwapChain1_head
-    IDXGISwapChain1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head))(18, 'GetDesc1', ((1, 'pDesc'),)))
-    IDXGISwapChain1.GetFullscreenDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head))(19, 'GetFullscreenDesc', ((1, 'pDesc'),)))
-    IDXGISwapChain1.GetHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND))(20, 'GetHwnd', ((1, 'pHwnd'),)))
-    IDXGISwapChain1.GetCoreWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(21, 'GetCoreWindow', ((1, 'refiid'),(1, 'ppUnk'),)))
-    IDXGISwapChain1.Present1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.DXGI_PRESENT_PARAMETERS_head))(22, 'Present1', ((1, 'SyncInterval'),(1, 'PresentFlags'),(1, 'pPresentParameters'),)))
-    IDXGISwapChain1.IsTemporaryMonoSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,)(23, 'IsTemporaryMonoSupported', ()))
-    IDXGISwapChain1.GetRestrictToOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head))(24, 'GetRestrictToOutput', ((1, 'ppRestrictToOutput'),)))
-    IDXGISwapChain1.SetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_RGBA_head))(25, 'SetBackgroundColor', ((1, 'pColor'),)))
-    IDXGISwapChain1.GetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_RGBA_head))(26, 'GetBackgroundColor', ((1, 'pColor'),)))
-    IDXGISwapChain1.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION)(27, 'SetRotation', ((1, 'Rotation'),)))
-    IDXGISwapChain1.GetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION))(28, 'GetRotation', ((1, 'pRotation'),)))
-    win32more.Graphics.Dxgi.IDXGISwapChain
-    return IDXGISwapChain1
-def _define_IDXGISwapChain2_head():
-    class IDXGISwapChain2(win32more.Graphics.Dxgi.IDXGISwapChain1_head):
-        Guid = Guid('a8be2ac4-199f-4946-b3-31-79-59-9f-b9-8d-e7')
-    return IDXGISwapChain2
-def _define_IDXGISwapChain2():
-    IDXGISwapChain2 = win32more.Graphics.Dxgi.IDXGISwapChain2_head
-    IDXGISwapChain2.SetSourceSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(29, 'SetSourceSize', ((1, 'Width'),(1, 'Height'),)))
-    IDXGISwapChain2.GetSourceSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32))(30, 'GetSourceSize', ((1, 'pWidth'),(1, 'pHeight'),)))
-    IDXGISwapChain2.SetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(31, 'SetMaximumFrameLatency', ((1, 'MaxLatency'),)))
-    IDXGISwapChain2.GetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(32, 'GetMaximumFrameLatency', ((1, 'pMaxLatency'),)))
-    IDXGISwapChain2.GetFrameLatencyWaitableObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE,)(33, 'GetFrameLatencyWaitableObject', ()))
-    IDXGISwapChain2.SetMatrixTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head))(34, 'SetMatrixTransform', ((1, 'pMatrix'),)))
-    IDXGISwapChain2.GetMatrixTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head))(35, 'GetMatrixTransform', ((1, 'pMatrix'),)))
-    win32more.Graphics.Dxgi.IDXGISwapChain1
-    return IDXGISwapChain2
-def _define_IDXGISwapChain3_head():
-    class IDXGISwapChain3(win32more.Graphics.Dxgi.IDXGISwapChain2_head):
-        Guid = Guid('94d99bdb-f1f8-4ab0-b2-36-7d-a0-17-0e-da-b1')
-    return IDXGISwapChain3
-def _define_IDXGISwapChain3():
-    IDXGISwapChain3 = win32more.Graphics.Dxgi.IDXGISwapChain3_head
-    IDXGISwapChain3.GetCurrentBackBufferIndex = COMMETHOD(WINFUNCTYPE(UInt32,)(36, 'GetCurrentBackBufferIndex', ()))
-    IDXGISwapChain3.CheckColorSpaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(UInt32))(37, 'CheckColorSpaceSupport', ((1, 'ColorSpace'),(1, 'pColorSpaceSupport'),)))
-    IDXGISwapChain3.SetColorSpace1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE)(38, 'SetColorSpace1', ((1, 'ColorSpace'),)))
-    IDXGISwapChain3.ResizeBuffers1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head))(39, 'ResizeBuffers1', ((1, 'BufferCount'),(1, 'Width'),(1, 'Height'),(1, 'Format'),(1, 'SwapChainFlags'),(1, 'pCreationNodeMask'),(1, 'ppPresentQueue'),)))
-    win32more.Graphics.Dxgi.IDXGISwapChain2
-    return IDXGISwapChain3
-def _define_IDXGISwapChain4_head():
-    class IDXGISwapChain4(win32more.Graphics.Dxgi.IDXGISwapChain3_head):
-        Guid = Guid('3d585d5a-bd4a-489e-b1-f4-3d-bc-b6-45-2f-fb')
-    return IDXGISwapChain4
-def _define_IDXGISwapChain4():
-    IDXGISwapChain4 = win32more.Graphics.Dxgi.IDXGISwapChain4_head
-    IDXGISwapChain4.SetHDRMetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE,UInt32,c_void_p)(40, 'SetHDRMetaData', ((1, 'Type'),(1, 'Size'),(1, 'pMetaData'),)))
-    win32more.Graphics.Dxgi.IDXGISwapChain3
-    return IDXGISwapChain4
-def _define_IDXGISwapChainMedia_head():
-    class IDXGISwapChainMedia(win32more.System.Com.IUnknown_head):
-        Guid = Guid('dd95b90b-f05f-4f6a-bd-65-25-bf-b2-64-bd-84')
-    return IDXGISwapChainMedia
-def _define_IDXGISwapChainMedia():
-    IDXGISwapChainMedia = win32more.Graphics.Dxgi.IDXGISwapChainMedia_head
-    IDXGISwapChainMedia.GetFrameStatisticsMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_MEDIA_head))(3, 'GetFrameStatisticsMedia', ((1, 'pStats'),)))
-    IDXGISwapChainMedia.SetPresentDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(4, 'SetPresentDuration', ((1, 'Duration'),)))
-    IDXGISwapChainMedia.CheckPresentDurationSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32))(5, 'CheckPresentDurationSupport', ((1, 'DesiredPresentDuration'),(1, 'pClosestSmallerPresentDuration'),(1, 'pClosestLargerPresentDuration'),)))
-    win32more.System.Com.IUnknown
-    return IDXGISwapChainMedia
-def _define_IDXGraphicsAnalysis_head():
-    class IDXGraphicsAnalysis(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9f251514-9d4d-4902-9d-60-18-98-8a-b7-d4-b5')
-    return IDXGraphicsAnalysis
-def _define_IDXGraphicsAnalysis():
-    IDXGraphicsAnalysis = win32more.Graphics.Dxgi.IDXGraphicsAnalysis_head
-    IDXGraphicsAnalysis.BeginCapture = COMMETHOD(WINFUNCTYPE(Void,)(3, 'BeginCapture', ()))
-    IDXGraphicsAnalysis.EndCapture = COMMETHOD(WINFUNCTYPE(Void,)(4, 'EndCapture', ()))
-    win32more.System.Com.IUnknown
-    return IDXGraphicsAnalysis
+DXGI_USAGE_SHADER_INPUT: DXGI_USAGE = 16
+DXGI_USAGE_RENDER_TARGET_OUTPUT: DXGI_USAGE = 32
+DXGI_USAGE_BACK_BUFFER: DXGI_USAGE = 64
+DXGI_USAGE_SHARED: DXGI_USAGE = 128
+DXGI_USAGE_READ_ONLY: DXGI_USAGE = 256
+DXGI_USAGE_DISCARD_ON_PRESENT: DXGI_USAGE = 512
+DXGI_USAGE_UNORDERED_ACCESS: DXGI_USAGE = 1024
+class IDXGIAdapter(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('2411e7e1-12ac-4ccf-bd-14-97-98-e8-53-4d-c0')
+    @commethod(7)
+    def EnumOutputs(Output: UInt32, ppOutput: POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CheckInterfaceSupport(InterfaceName: POINTER(Guid), pUMDVersion: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIAdapter1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIAdapter
+    Guid = Guid('29038f61-3839-4626-91-fd-08-68-79-01-1a-05')
+    @commethod(10)
+    def GetDesc1(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC1_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIAdapter2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIAdapter1
+    Guid = Guid('0aa1ae0a-fa0e-4b84-86-44-e0-5f-f8-e5-ac-b5')
+    @commethod(11)
+    def GetDesc2(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC2_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIAdapter3(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIAdapter2
+    Guid = Guid('645967a4-1392-4310-a7-98-80-53-ce-3e-93-fd')
+    @commethod(12)
+    def RegisterHardwareContentProtectionTeardownStatusEvent(hEvent: win32more.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def UnregisterHardwareContentProtectionTeardownStatus(dwCookie: UInt32) -> Void: ...
+    @commethod(14)
+    def QueryVideoMemoryInfo(NodeIndex: UInt32, MemorySegmentGroup: win32more.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP, pVideoMemoryInfo: POINTER(win32more.Graphics.Dxgi.DXGI_QUERY_VIDEO_MEMORY_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def SetVideoMemoryReservation(NodeIndex: UInt32, MemorySegmentGroup: win32more.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP, Reservation: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent: win32more.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def UnregisterVideoMemoryBudgetChangeNotification(dwCookie: UInt32) -> Void: ...
+class IDXGIAdapter4(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIAdapter3
+    Guid = Guid('3c8d99d1-4fbf-4181-a8-2c-af-66-bf-7b-d2-4e')
+    @commethod(18)
+    def GetDesc3(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC3_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIDebug(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('119e7452-de9e-40fe-88-06-88-f9-0c-12-b4-41')
+    @commethod(3)
+    def ReportLiveObjects(apiid: Guid, flags: win32more.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS) -> win32more.Foundation.HRESULT: ...
+class IDXGIDebug1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDebug
+    Guid = Guid('c5a05f0c-16f2-4adf-9f-4d-a8-c4-d5-8a-c5-50')
+    @commethod(4)
+    def EnableLeakTrackingForThread() -> Void: ...
+    @commethod(5)
+    def DisableLeakTrackingForThread() -> Void: ...
+    @commethod(6)
+    def IsLeakTrackingEnabledForThread() -> win32more.Foundation.BOOL: ...
+class IDXGIDecodeSwapChain(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2633066b-4514-4c7a-8f-d8-12-ea-98-05-9d-18')
+    @commethod(3)
+    def PresentBuffer(BufferToPresent: UInt32, SyncInterval: UInt32, Flags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSourceRect(pRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetTargetRect(pRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetDestSize(Width: UInt32, Height: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetSourceRect(pRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTargetRect(pRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDestSize(pWidth: POINTER(UInt32), pHeight: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetColorSpace(ColorSpace: win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetColorSpace() -> win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS: ...
+class IDXGIDevice(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('54ec77fa-1377-44e6-8c-32-88-fd-5f-44-c8-4c')
+    @commethod(7)
+    def GetAdapter(pAdapter: POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateSurface(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head), NumSurfaces: UInt32, Usage: win32more.Graphics.Dxgi.DXGI_USAGE, pSharedResource: POINTER(win32more.Graphics.Dxgi.DXGI_SHARED_RESOURCE_head), ppSurface: POINTER(win32more.Graphics.Dxgi.IDXGISurface_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def QueryResourceResidency(ppResources: POINTER(win32more.System.Com.IUnknown_head), pResidencyStatus: POINTER(win32more.Graphics.Dxgi.DXGI_RESIDENCY), NumResources: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetGPUThreadPriority(Priority: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetGPUThreadPriority(pPriority: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIDevice1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDevice
+    Guid = Guid('77db970f-6276-48ba-ba-28-07-01-43-b4-39-2c')
+    @commethod(12)
+    def SetMaximumFrameLatency(MaxLatency: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetMaximumFrameLatency(pMaxLatency: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIDevice2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDevice1
+    Guid = Guid('05008617-fbfd-4051-a7-90-14-48-84-b4-f6-a9')
+    @commethod(14)
+    def OfferResources(NumResources: UInt32, ppResources: POINTER(win32more.Graphics.Dxgi.IDXGIResource_head), Priority: win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ReclaimResources(NumResources: UInt32, ppResources: POINTER(win32more.Graphics.Dxgi.IDXGIResource_head), pDiscarded: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def EnqueueSetEvent(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+class IDXGIDevice3(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDevice2
+    Guid = Guid('6007896c-3244-4afd-bf-18-a6-d3-be-da-50-23')
+    @commethod(17)
+    def Trim() -> Void: ...
+class IDXGIDevice4(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDevice3
+    Guid = Guid('95b4f95f-d8da-4ca4-9e-e6-3b-76-d5-96-8a-10')
+    @commethod(18)
+    def OfferResources1(NumResources: UInt32, ppResources: POINTER(win32more.Graphics.Dxgi.IDXGIResource_head), Priority: win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY, Flags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ReclaimResources1(NumResources: UInt32, ppResources: POINTER(win32more.Graphics.Dxgi.IDXGIResource_head), pResults: POINTER(win32more.Graphics.Dxgi.DXGI_RECLAIM_RESOURCE_RESULTS)) -> win32more.Foundation.HRESULT: ...
+class IDXGIDeviceSubObject(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('3d3e0379-f9de-4d58-bb-6c-18-d6-29-92-f1-a6')
+    @commethod(7)
+    def GetDevice(riid: POINTER(Guid), ppDevice: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDXGIDisplayControl(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ea9dbf1a-c88e-4486-85-4a-98-aa-01-38-f3-0c')
+    @commethod(3)
+    def IsStereoEnabled() -> win32more.Foundation.BOOL: ...
+    @commethod(4)
+    def SetStereoEnabled(enabled: win32more.Foundation.BOOL) -> Void: ...
+class IDXGIFactory(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('7b7166ec-21c7-44ae-b2-1a-c9-ae-32-1a-e3-69')
+    @commethod(7)
+    def EnumAdapters(Adapter: UInt32, ppAdapter: POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def MakeWindowAssociation(WindowHandle: win32more.Foundation.HWND, Flags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetWindowAssociation(pWindowHandle: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateSwapChain(pDevice: win32more.System.Com.IUnknown_head, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head), ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateSoftwareAdapter(Module: win32more.Foundation.HINSTANCE, ppAdapter: POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactory1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory
+    Guid = Guid('770aae78-f26f-4dba-a8-29-25-3c-83-d1-b3-87')
+    @commethod(12)
+    def EnumAdapters1(Adapter: UInt32, ppAdapter: POINTER(win32more.Graphics.Dxgi.IDXGIAdapter1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def IsCurrent() -> win32more.Foundation.BOOL: ...
+class IDXGIFactory2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory1
+    Guid = Guid('50c83a1c-e072-4c48-87-b0-36-30-fa-36-a6-d0')
+    @commethod(14)
+    def IsWindowedStereoEnabled() -> win32more.Foundation.BOOL: ...
+    @commethod(15)
+    def CreateSwapChainForHwnd(pDevice: win32more.System.Com.IUnknown_head, hWnd: win32more.Foundation.HWND, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pFullscreenDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head), pRestrictToOutput: win32more.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def CreateSwapChainForCoreWindow(pDevice: win32more.System.Com.IUnknown_head, pWindow: win32more.System.Com.IUnknown_head, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pRestrictToOutput: win32more.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetSharedResourceAdapterLuid(hResource: win32more.Foundation.HANDLE, pLuid: POINTER(win32more.Foundation.LUID_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def RegisterStereoStatusWindow(WindowHandle: win32more.Foundation.HWND, wMsg: UInt32, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def RegisterStereoStatusEvent(hEvent: win32more.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def UnregisterStereoStatus(dwCookie: UInt32) -> Void: ...
+    @commethod(21)
+    def RegisterOcclusionStatusWindow(WindowHandle: win32more.Foundation.HWND, wMsg: UInt32, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def RegisterOcclusionStatusEvent(hEvent: win32more.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def UnregisterOcclusionStatus(dwCookie: UInt32) -> Void: ...
+    @commethod(24)
+    def CreateSwapChainForComposition(pDevice: win32more.System.Com.IUnknown_head, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pRestrictToOutput: win32more.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactory3(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory2
+    Guid = Guid('25483823-cd46-4c7d-86-ca-47-aa-95-b8-37-bd')
+    @commethod(25)
+    def GetCreationFlags() -> UInt32: ...
+class IDXGIFactory4(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory3
+    Guid = Guid('1bc6ea02-ef36-464f-bf-0c-21-ca-39-e5-16-8a')
+    @commethod(26)
+    def EnumAdapterByLuid(AdapterLuid: win32more.Foundation.LUID, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def EnumWarpAdapter(riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactory5(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory4
+    Guid = Guid('7632e1f5-ee65-4dca-87-fd-84-cd-75-f8-83-8d')
+    @commethod(28)
+    def CheckFeatureSupport(Feature: win32more.Graphics.Dxgi.DXGI_FEATURE, pFeatureSupportData: c_void_p, FeatureSupportDataSize: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactory6(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory5
+    Guid = Guid('c1b6694f-ff09-44a9-b0-3c-77-90-0a-0a-1d-17')
+    @commethod(29)
+    def EnumAdapterByGpuPreference(Adapter: UInt32, GpuPreference: win32more.Graphics.Dxgi.DXGI_GPU_PREFERENCE, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactory7(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIFactory6
+    Guid = Guid('a4966eed-76db-44da-84-c1-ee-9a-7a-fb-20-a8')
+    @commethod(30)
+    def RegisterAdaptersChangedEvent(hEvent: win32more.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def UnregisterAdaptersChangedEvent(dwCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDXGIFactoryMedia(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('41e7d1f2-a591-4f7b-a2-e5-fa-9c-84-3e-1c-12')
+    @commethod(3)
+    def CreateSwapChainForCompositionSurfaceHandle(pDevice: win32more.System.Com.IUnknown_head, hSurface: win32more.Foundation.HANDLE, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pRestrictToOutput: win32more.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice: win32more.System.Com.IUnknown_head, hSurface: win32more.Foundation.HANDLE, pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_DECODE_SWAP_CHAIN_DESC_head), pYuvDecodeBuffers: win32more.Graphics.Dxgi.IDXGIResource_head, pRestrictToOutput: win32more.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(win32more.Graphics.Dxgi.IDXGIDecodeSwapChain_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIInfoQueue(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d67441c7-672a-476f-9e-82-cd-55-b4-49-49-ce')
+    @commethod(3)
+    def SetMessageCountLimit(Producer: Guid, MessageCountLimit: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ClearStoredMessages(Producer: Guid) -> Void: ...
+    @commethod(5)
+    def GetMessage(Producer: Guid, MessageIndex: UInt64, pMessage: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_head), pMessageByteLength: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetNumStoredMessagesAllowedByRetrievalFilters(Producer: Guid) -> UInt64: ...
+    @commethod(7)
+    def GetNumStoredMessages(Producer: Guid) -> UInt64: ...
+    @commethod(8)
+    def GetNumMessagesDiscardedByMessageCountLimit(Producer: Guid) -> UInt64: ...
+    @commethod(9)
+    def GetMessageCountLimit(Producer: Guid) -> UInt64: ...
+    @commethod(10)
+    def GetNumMessagesAllowedByStorageFilter(Producer: Guid) -> UInt64: ...
+    @commethod(11)
+    def GetNumMessagesDeniedByStorageFilter(Producer: Guid) -> UInt64: ...
+    @commethod(12)
+    def AddStorageFilterEntries(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetStorageFilter(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def ClearStorageFilter(Producer: Guid) -> Void: ...
+    @commethod(15)
+    def PushEmptyStorageFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def PushDenyAllStorageFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def PushCopyOfStorageFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def PushStorageFilter(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def PopStorageFilter(Producer: Guid) -> Void: ...
+    @commethod(20)
+    def GetStorageFilterStackSize(Producer: Guid) -> UInt32: ...
+    @commethod(21)
+    def AddRetrievalFilterEntries(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetRetrievalFilter(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head), pFilterByteLength: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def ClearRetrievalFilter(Producer: Guid) -> Void: ...
+    @commethod(24)
+    def PushEmptyRetrievalFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def PushDenyAllRetrievalFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def PushCopyOfRetrievalFilter(Producer: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def PushRetrievalFilter(Producer: Guid, pFilter: POINTER(win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def PopRetrievalFilter(Producer: Guid) -> Void: ...
+    @commethod(29)
+    def GetRetrievalFilterStackSize(Producer: Guid) -> UInt32: ...
+    @commethod(30)
+    def AddMessage(Producer: Guid, Category: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Severity: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY, ID: Int32, pDescription: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def AddApplicationMessage(Severity: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY, pDescription: win32more.Foundation.PSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def SetBreakOnCategory(Producer: Guid, Category: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY, bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def SetBreakOnSeverity(Producer: Guid, Severity: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY, bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def SetBreakOnID(Producer: Guid, ID: Int32, bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def GetBreakOnCategory(Producer: Guid, Category: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY) -> win32more.Foundation.BOOL: ...
+    @commethod(36)
+    def GetBreakOnSeverity(Producer: Guid, Severity: win32more.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY) -> win32more.Foundation.BOOL: ...
+    @commethod(37)
+    def GetBreakOnID(Producer: Guid, ID: Int32) -> win32more.Foundation.BOOL: ...
+    @commethod(38)
+    def SetMuteDebugOutput(Producer: Guid, bMute: win32more.Foundation.BOOL) -> Void: ...
+    @commethod(39)
+    def GetMuteDebugOutput(Producer: Guid) -> win32more.Foundation.BOOL: ...
+class IDXGIKeyedMutex(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDeviceSubObject
+    Guid = Guid('9d8e1289-d7b3-465f-81-26-25-0e-34-9a-f8-5d')
+    @commethod(8)
+    def AcquireSync(Key: UInt64, dwMilliseconds: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ReleaseSync(Key: UInt64) -> win32more.Foundation.HRESULT: ...
+class IDXGIObject(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('aec22fb8-76f3-4639-9b-e0-28-eb-43-a6-7a-2e')
+    @commethod(3)
+    def SetPrivateData(Name: POINTER(Guid), DataSize: UInt32, pData: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPrivateDataInterface(Name: POINTER(Guid), pUnknown: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPrivateData(Name: POINTER(Guid), pDataSize: POINTER(UInt32), pData: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetParent(riid: POINTER(Guid), ppParent: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('ae02eedb-c735-4690-8d-52-5a-8d-c2-02-13-aa')
+    @commethod(7)
+    def GetDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetDisplayModeList(EnumFormat: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: UInt32, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def FindClosestMatchingMode(pModeToMatch: POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head), pClosestMatch: POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head), pConcernedDevice: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def WaitForVBlank() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def TakeOwnership(pDevice: win32more.System.Com.IUnknown_head, Exclusive: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ReleaseOwnership() -> Void: ...
+    @commethod(13)
+    def GetGammaControlCapabilities(pGammaCaps: POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_CAPABILITIES_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetGammaControl(pArray: POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetGammaControl(pArray: POINTER(win32more.Graphics.Dxgi.Common.DXGI_GAMMA_CONTROL_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetDisplaySurface(pScanoutSurface: win32more.Graphics.Dxgi.IDXGISurface_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetDisplaySurfaceData(pDestination: win32more.Graphics.Dxgi.IDXGISurface_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetFrameStatistics(pStats: POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput
+    Guid = Guid('00cddea8-939b-4b83-a3-40-a6-85-22-66-66-cc')
+    @commethod(19)
+    def GetDisplayModeList1(EnumFormat: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: UInt32, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def FindClosestMatchingMode1(pModeToMatch: POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head), pClosestMatch: POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head), pConcernedDevice: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetDisplaySurfaceData1(pDestination: win32more.Graphics.Dxgi.IDXGIResource_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def DuplicateOutput(pDevice: win32more.System.Com.IUnknown_head, ppOutputDuplication: POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput1
+    Guid = Guid('595e39d1-2724-4663-99-b1-da-96-9d-e2-83-64')
+    @commethod(23)
+    def SupportsOverlays() -> win32more.Foundation.BOOL: ...
+class IDXGIOutput3(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput2
+    Guid = Guid('8a6bb301-7e7e-41f4-a8-e0-5b-32-f7-f9-9b-18')
+    @commethod(24)
+    def CheckOverlaySupport(EnumFormat: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, pConcernedDevice: win32more.System.Com.IUnknown_head, pFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput4(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput3
+    Guid = Guid('dc7dca35-2196-414d-9f-53-61-78-84-03-2a-60')
+    @commethod(25)
+    def CheckOverlayColorSpaceSupport(Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, ColorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, pConcernedDevice: win32more.System.Com.IUnknown_head, pFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput5(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput4
+    Guid = Guid('80a07424-ab52-42eb-83-3c-0c-42-fd-28-2d-98')
+    @commethod(26)
+    def DuplicateOutput1(pDevice: win32more.System.Com.IUnknown_head, Flags: UInt32, SupportedFormatsCount: UInt32, pSupportedFormats: POINTER(win32more.Graphics.Dxgi.Common.DXGI_FORMAT), ppOutputDuplication: POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutput6(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIOutput5
+    Guid = Guid('068346e8-aaec-4b84-ad-d7-13-7f-51-3f-77-a1')
+    @commethod(27)
+    def GetDesc1(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def CheckHardwareCompositionSupport(pFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIOutputDuplication(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIObject
+    Guid = Guid('191cfac3-a341-470d-b2-6e-a8-64-f4-28-31-9c')
+    @commethod(7)
+    def GetDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_DESC_head)) -> Void: ...
+    @commethod(8)
+    def AcquireNextFrame(TimeoutInMilliseconds: UInt32, pFrameInfo: POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_FRAME_INFO_head), ppDesktopResource: POINTER(win32more.Graphics.Dxgi.IDXGIResource_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetFrameDirtyRects(DirtyRectsBufferSize: UInt32, pDirtyRectsBuffer: POINTER(win32more.Foundation.RECT_head), pDirtyRectsBufferSizeRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetFrameMoveRects(MoveRectsBufferSize: UInt32, pMoveRectBuffer: POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_MOVE_RECT_head), pMoveRectsBufferSizeRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetFramePointerShape(PointerShapeBufferSize: UInt32, pPointerShapeBuffer: c_void_p, pPointerShapeBufferSizeRequired: POINTER(UInt32), pPointerShapeInfo: POINTER(win32more.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_INFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def MapDesktopSurface(pLockedRect: POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def UnMapDesktopSurface() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def ReleaseFrame() -> win32more.Foundation.HRESULT: ...
+class IDXGIResource(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDeviceSubObject
+    Guid = Guid('035f3ab4-482e-4e50-b4-1f-8a-7f-8b-d8-96-0b')
+    @commethod(8)
+    def GetSharedHandle(pSharedHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetUsage(pUsage: POINTER(win32more.Graphics.Dxgi.DXGI_USAGE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetEvictionPriority(EvictionPriority: win32more.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetEvictionPriority(pEvictionPriority: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGIResource1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIResource
+    Guid = Guid('30961379-4609-4a41-99-8e-54-fe-56-7e-e0-c1')
+    @commethod(12)
+    def CreateSubresourceSurface(index: UInt32, ppSurface: POINTER(win32more.Graphics.Dxgi.IDXGISurface2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def CreateSharedHandle(pAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), dwAccess: UInt32, lpName: win32more.Foundation.PWSTR, pHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IDXGISurface(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDeviceSubObject
+    Guid = Guid('cafcb56c-6ac3-4889-bf-47-9e-23-bb-d2-60-ec')
+    @commethod(8)
+    def GetDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Map(pLockedRect: POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head), MapFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Unmap() -> win32more.Foundation.HRESULT: ...
+class IDXGISurface1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISurface
+    Guid = Guid('4ae63092-6327-4c1b-80-ae-bf-e1-2e-a3-2b-86')
+    @commethod(11)
+    def GetDC(Discard: win32more.Foundation.BOOL, phdc: POINTER(win32more.Graphics.Gdi.HDC)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ReleaseDC(pDirtyRect: POINTER(win32more.Foundation.RECT_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGISurface2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISurface1
+    Guid = Guid('aba496dd-b617-4cb8-a8-66-bc-44-d7-eb-1f-a2')
+    @commethod(13)
+    def GetResource(riid: POINTER(Guid), ppParentResource: POINTER(c_void_p), pSubresourceIndex: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChain(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGIDeviceSubObject
+    Guid = Guid('310d36a0-d2e7-4c0a-aa-04-6a-9d-23-b8-88-6a')
+    @commethod(8)
+    def Present(SyncInterval: UInt32, Flags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetBuffer(Buffer: UInt32, riid: POINTER(Guid), ppSurface: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetFullscreenState(Fullscreen: win32more.Foundation.BOOL, pTarget: win32more.Graphics.Dxgi.IDXGIOutput_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetFullscreenState(pFullscreen: POINTER(win32more.Foundation.BOOL), ppTarget: POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ResizeBuffers(BufferCount: UInt32, Width: UInt32, Height: UInt32, NewFormat: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, SwapChainFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def ResizeTarget(pNewTargetParameters: POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetContainingOutput(ppOutput: POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetFrameStatistics(pStats: POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetLastPresentCount(pLastPresentCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChain1(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISwapChain
+    Guid = Guid('790a45f7-0d42-4876-98-3a-0a-55-cf-e6-f4-aa')
+    @commethod(18)
+    def GetDesc1(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetFullscreenDesc(pDesc: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_FULLSCREEN_DESC_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetHwnd(pHwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def GetCoreWindow(refiid: POINTER(Guid), ppUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def Present1(SyncInterval: UInt32, PresentFlags: UInt32, pPresentParameters: POINTER(win32more.Graphics.Dxgi.DXGI_PRESENT_PARAMETERS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def IsTemporaryMonoSupported() -> win32more.Foundation.BOOL: ...
+    @commethod(24)
+    def GetRestrictToOutput(ppRestrictToOutput: POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def SetBackgroundColor(pColor: POINTER(win32more.Graphics.Dxgi.DXGI_RGBA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetBackgroundColor(pColor: POINTER(win32more.Graphics.Dxgi.DXGI_RGBA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SetRotation(Rotation: win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetRotation(pRotation: POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION)) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChain2(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISwapChain1
+    Guid = Guid('a8be2ac4-199f-4946-b3-31-79-59-9f-b9-8d-e7')
+    @commethod(29)
+    def SetSourceSize(Width: UInt32, Height: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetSourceSize(pWidth: POINTER(UInt32), pHeight: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def SetMaximumFrameLatency(MaxLatency: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def GetMaximumFrameLatency(pMaxLatency: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def GetFrameLatencyWaitableObject() -> win32more.Foundation.HANDLE: ...
+    @commethod(34)
+    def SetMatrixTransform(pMatrix: POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def GetMatrixTransform(pMatrix: POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChain3(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISwapChain2
+    Guid = Guid('94d99bdb-f1f8-4ab0-b2-36-7d-a0-17-0e-da-b1')
+    @commethod(36)
+    def GetCurrentBackBufferIndex() -> UInt32: ...
+    @commethod(37)
+    def CheckColorSpaceSupport(ColorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, pColorSpaceSupport: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def SetColorSpace1(ColorSpace: win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def ResizeBuffers1(BufferCount: UInt32, Width: UInt32, Height: UInt32, Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT, SwapChainFlags: UInt32, pCreationNodeMask: POINTER(UInt32), ppPresentQueue: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChain4(c_void_p):
+    extends: win32more.Graphics.Dxgi.IDXGISwapChain3
+    Guid = Guid('3d585d5a-bd4a-489e-b1-f4-3d-bc-b6-45-2f-fb')
+    @commethod(40)
+    def SetHDRMetaData(Type: win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE, Size: UInt32, pMetaData: c_void_p) -> win32more.Foundation.HRESULT: ...
+class IDXGISwapChainMedia(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('dd95b90b-f05f-4f6a-bd-65-25-bf-b2-64-bd-84')
+    @commethod(3)
+    def GetFrameStatisticsMedia(pStats: POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_MEDIA_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPresentDuration(Duration: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CheckPresentDurationSupport(DesiredPresentDuration: UInt32, pClosestSmallerPresentDuration: POINTER(UInt32), pClosestLargerPresentDuration: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IDXGraphicsAnalysis(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9f251514-9d4d-4902-9d-60-18-98-8a-b7-d4-b5')
+    @commethod(3)
+    def BeginCapture() -> Void: ...
+    @commethod(4)
+    def EndCapture() -> Void: ...
+make_head(_module, 'DXGI_ADAPTER_DESC')
+make_head(_module, 'DXGI_ADAPTER_DESC1')
+make_head(_module, 'DXGI_ADAPTER_DESC2')
+make_head(_module, 'DXGI_ADAPTER_DESC3')
+make_head(_module, 'DXGI_DECODE_SWAP_CHAIN_DESC')
+make_head(_module, 'DXGI_DISPLAY_COLOR_SPACE')
+make_head(_module, 'DXGI_FRAME_STATISTICS')
+make_head(_module, 'DXGI_FRAME_STATISTICS_MEDIA')
+make_head(_module, 'DXGI_HDR_METADATA_HDR10')
+make_head(_module, 'DXGI_HDR_METADATA_HDR10PLUS')
+make_head(_module, 'DXGI_INFO_QUEUE_FILTER')
+make_head(_module, 'DXGI_INFO_QUEUE_FILTER_DESC')
+make_head(_module, 'DXGI_INFO_QUEUE_MESSAGE')
+make_head(_module, 'DXGI_MAPPED_RECT')
+make_head(_module, 'DXGI_MATRIX_3X2_F')
+make_head(_module, 'DXGI_MODE_DESC1')
+make_head(_module, 'DXGI_OUTDUPL_DESC')
+make_head(_module, 'DXGI_OUTDUPL_FRAME_INFO')
+make_head(_module, 'DXGI_OUTDUPL_MOVE_RECT')
+make_head(_module, 'DXGI_OUTDUPL_POINTER_POSITION')
+make_head(_module, 'DXGI_OUTDUPL_POINTER_SHAPE_INFO')
+make_head(_module, 'DXGI_OUTPUT_DESC')
+make_head(_module, 'DXGI_OUTPUT_DESC1')
+make_head(_module, 'DXGI_PRESENT_PARAMETERS')
+make_head(_module, 'DXGI_QUERY_VIDEO_MEMORY_INFO')
+make_head(_module, 'DXGI_RGBA')
+make_head(_module, 'DXGI_SHARED_RESOURCE')
+make_head(_module, 'DXGI_SURFACE_DESC')
+make_head(_module, 'DXGI_SWAP_CHAIN_DESC')
+make_head(_module, 'DXGI_SWAP_CHAIN_DESC1')
+make_head(_module, 'DXGI_SWAP_CHAIN_FULLSCREEN_DESC')
+make_head(_module, 'IDXGIAdapter')
+make_head(_module, 'IDXGIAdapter1')
+make_head(_module, 'IDXGIAdapter2')
+make_head(_module, 'IDXGIAdapter3')
+make_head(_module, 'IDXGIAdapter4')
+make_head(_module, 'IDXGIDebug')
+make_head(_module, 'IDXGIDebug1')
+make_head(_module, 'IDXGIDecodeSwapChain')
+make_head(_module, 'IDXGIDevice')
+make_head(_module, 'IDXGIDevice1')
+make_head(_module, 'IDXGIDevice2')
+make_head(_module, 'IDXGIDevice3')
+make_head(_module, 'IDXGIDevice4')
+make_head(_module, 'IDXGIDeviceSubObject')
+make_head(_module, 'IDXGIDisplayControl')
+make_head(_module, 'IDXGIFactory')
+make_head(_module, 'IDXGIFactory1')
+make_head(_module, 'IDXGIFactory2')
+make_head(_module, 'IDXGIFactory3')
+make_head(_module, 'IDXGIFactory4')
+make_head(_module, 'IDXGIFactory5')
+make_head(_module, 'IDXGIFactory6')
+make_head(_module, 'IDXGIFactory7')
+make_head(_module, 'IDXGIFactoryMedia')
+make_head(_module, 'IDXGIInfoQueue')
+make_head(_module, 'IDXGIKeyedMutex')
+make_head(_module, 'IDXGIObject')
+make_head(_module, 'IDXGIOutput')
+make_head(_module, 'IDXGIOutput1')
+make_head(_module, 'IDXGIOutput2')
+make_head(_module, 'IDXGIOutput3')
+make_head(_module, 'IDXGIOutput4')
+make_head(_module, 'IDXGIOutput5')
+make_head(_module, 'IDXGIOutput6')
+make_head(_module, 'IDXGIOutputDuplication')
+make_head(_module, 'IDXGIResource')
+make_head(_module, 'IDXGIResource1')
+make_head(_module, 'IDXGISurface')
+make_head(_module, 'IDXGISurface1')
+make_head(_module, 'IDXGISurface2')
+make_head(_module, 'IDXGISwapChain')
+make_head(_module, 'IDXGISwapChain1')
+make_head(_module, 'IDXGISwapChain2')
+make_head(_module, 'IDXGISwapChain3')
+make_head(_module, 'IDXGISwapChain4')
+make_head(_module, 'IDXGISwapChainMedia')
+make_head(_module, 'IDXGraphicsAnalysis')
 __all__ = [
     "CreateDXGIFactory",
     "CreateDXGIFactory1",

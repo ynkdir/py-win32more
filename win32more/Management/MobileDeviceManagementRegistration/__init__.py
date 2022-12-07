@@ -1,201 +1,134 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Management.MobileDeviceManagementRegistration
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR = -2145910783
-MENROLL_E_DEVICE_AUTHENTICATION_ERROR = -2145910782
-MENROLL_E_DEVICE_AUTHORIZATION_ERROR = -2145910781
-MENROLL_E_DEVICE_CERTIFICATEREQUEST_ERROR = -2145910780
-MENROLL_E_DEVICE_CONFIGMGRSERVER_ERROR = -2145910779
-MENROLL_E_DEVICE_INTERNALSERVICE_ERROR = -2145910778
-MENROLL_E_DEVICE_INVALIDSECURITY_ERROR = -2145910777
-MENROLL_E_DEVICE_UNKNOWN_ERROR = -2145910776
-MENROLL_E_ENROLLMENT_IN_PROGRESS = -2145910775
-MENROLL_E_DEVICE_ALREADY_ENROLLED = -2145910774
-MENROLL_E_DISCOVERY_SEC_CERT_DATE_INVALID = -2145910771
-MENROLL_E_PASSWORD_NEEDED = -2145910770
-MENROLL_E_WAB_ERROR = -2145910769
-MENROLL_E_CONNECTIVITY = -2145910768
-MENROLL_E_INVALIDSSLCERT = -2145910766
-MENROLL_E_DEVICEAPREACHED = -2145910765
-MENROLL_E_DEVICENOTSUPPORTED = -2145910764
-MENROLL_E_NOT_SUPPORTED = -2145910763
-MENROLL_E_NOTELIGIBLETORENEW = -2145910762
-MENROLL_E_INMAINTENANCE = -2145910761
-MENROLL_E_USER_LICENSE = -2145910760
-MENROLL_E_ENROLLMENTDATAINVALID = -2145910759
-MENROLL_E_INSECUREREDIRECT = -2145910758
-MENROLL_E_PLATFORM_WRONG_STATE = -2145910757
-MENROLL_E_PLATFORM_LICENSE_ERROR = -2145910756
-MENROLL_E_PLATFORM_UNKNOWN_ERROR = -2145910755
-MENROLL_E_PROV_CSP_CERTSTORE = -2145910754
-MENROLL_E_PROV_CSP_W7 = -2145910753
-MENROLL_E_PROV_CSP_DMCLIENT = -2145910752
-MENROLL_E_PROV_CSP_PFW = -2145910751
-MENROLL_E_PROV_CSP_MISC = -2145910750
-MENROLL_E_PROV_UNKNOWN = -2145910749
-MENROLL_E_PROV_SSLCERTNOTFOUND = -2145910748
-MENROLL_E_PROV_CSP_APPMGMT = -2145910747
-MENROLL_E_DEVICE_MANAGEMENT_BLOCKED = -2145910746
-MENROLL_E_CERTPOLICY_PRIVATEKEYCREATION_FAILED = -2145910745
-MENROLL_E_CERTAUTH_FAILED_TO_FIND_CERT = -2145910744
-MENROLL_E_EMPTY_MESSAGE = -2145910743
-MENROLL_E_USER_CANCELLED = -2145910736
-MENROLL_E_MDM_NOT_CONFIGURED = -2145910735
-MDM_REGISTRATION_FACILITY_CODE = 25
-DEVICE_ENROLLER_FACILITY_CODE = 24
-MREGISTER_E_DEVICE_MESSAGE_FORMAT_ERROR = -2145845247
-MREGISTER_E_DEVICE_AUTHENTICATION_ERROR = -2145845246
-MREGISTER_E_DEVICE_AUTHORIZATION_ERROR = -2145845245
-MREGISTER_E_DEVICE_CERTIFCATEREQUEST_ERROR = -2145845244
-MENROLL_E_DEVICE_CERTIFCATEREQUEST_ERROR = -2145910780
-MREGISTER_E_DEVICE_CONFIGMGRSERVER_ERROR = -2145845243
-MREGISTER_E_DEVICE_INTERNALSERVICE_ERROR = -2145845242
-MREGISTER_E_DEVICE_INVALIDSECURITY_ERROR = -2145845241
-MREGISTER_E_DEVICE_UNKNOWN_ERROR = -2145845240
-MREGISTER_E_REGISTRATION_IN_PROGRESS = -2145845239
-MREGISTER_E_DEVICE_ALREADY_REGISTERED = -2145845238
-MREGISTER_E_DEVICE_NOT_REGISTERED = -2145845237
-MENROLL_E_DEVICE_NOT_ENROLLED = -2145910773
-MREGISTER_E_DISCOVERY_REDIRECTED = -2145845236
-MREGISTER_E_DEVICE_NOT_AD_REGISTERED_ERROR = -2145845235
-MREGISTER_E_DISCOVERY_FAILED = -2145845234
-MENROLL_E_DEVICECAPREACHED = -2145910765
-MENROLL_E_NOTSUPPORTED = -2145910763
-MENROLL_E_USERLICENSE = -2145910760
-MENROLL_E_USER_CANCELED = -2145910742
-DEVICEREGISTRATIONTYPE_MDM_ONLY = 0
-DEVICEREGISTRATIONTYPE_MAM = 5
-DEVICEREGISTRATIONTYPE_MDM_DEVICEWIDE_WITH_AAD = 6
-DEVICEREGISTRATIONTYPE_MDM_USERSPECIFIC_WITH_AAD = 13
-def _define_GetDeviceRegistrationInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS,POINTER(c_void_p))(('GetDeviceRegistrationInfo', windll['MDMRegistration.dll']), ((1, 'DeviceInformationClass'),(1, 'ppDeviceRegistrationInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsDeviceRegisteredWithManagement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,win32more.Foundation.PWSTR)(('IsDeviceRegisteredWithManagement', windll['MDMRegistration.dll']), ((1, 'pfIsDeviceRegisteredWithManagement'),(1, 'cchUPN'),(1, 'pszUPN'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsManagementRegistrationAllowed():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(('IsManagementRegistrationAllowed', windll['MDMRegistration.dll']), ((1, 'pfIsManagementRegistrationAllowed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsMdmUxWithoutAadAllowed():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(('IsMdmUxWithoutAadAllowed', windll['MDMRegistration.dll']), ((1, 'isEnrollmentAllowed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetManagedExternally():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(('SetManagedExternally', windll['MDMRegistration.dll']), ((1, 'IsManagedExternally'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DiscoverManagementService():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head)))(('DiscoverManagementService', windll['MDMRegistration.dll']), ((1, 'pszUPN'),(1, 'ppMgmtInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceWithManagementUsingAADCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE)(('RegisterDeviceWithManagementUsingAADCredentials', windll['MDMRegistration.dll']), ((1, 'UserToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceWithManagementUsingAADDeviceCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('RegisterDeviceWithManagementUsingAADDeviceCredentials', windll['MDMRegistration.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceWithManagementUsingAADDeviceCredentials2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('RegisterDeviceWithManagementUsingAADDeviceCredentials2', windll['MDMRegistration.dll']), ((1, 'MDMApplicationID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceWithManagement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('RegisterDeviceWithManagement', windll['MDMRegistration.dll']), ((1, 'pszUPN'),(1, 'ppszMDMServiceUri'),(1, 'ppzsAccessToken'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterDeviceWithManagement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(('UnregisterDeviceWithManagement', windll['MDMRegistration.dll']), ((1, 'enrollmentID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDeviceManagementConfigInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),win32more.Foundation.PWSTR)(('GetDeviceManagementConfigInfo', windll['MDMRegistration.dll']), ((1, 'providerID'),(1, 'configStringBufferLength'),(1, 'configString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDeviceManagementConfigInfo():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('SetDeviceManagementConfigInfo', windll['MDMRegistration.dll']), ((1, 'providerID'),(1, 'configString'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetManagementAppHyperlink():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR)(('GetManagementAppHyperlink', windll['MDMRegistration.dll']), ((1, 'cchHyperlink'),(1, 'pszHyperlink'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DiscoverManagementServiceEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head)))(('DiscoverManagementServiceEx', windll['MDMRegistration.dll']), ((1, 'pszUPN'),(1, 'pszDiscoveryServiceCandidate'),(1, 'ppMgmtInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterDeviceWithLocalManagement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(('RegisterDeviceWithLocalManagement', windll['MDMLocalManagement.dll']), ((1, 'alreadyRegistered'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ApplyLocalManagementSyncML():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR))(('ApplyLocalManagementSyncML', windll['MDMLocalManagement.dll']), ((1, 'syncMLRequest'),(1, 'syncMLResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterDeviceWithLocalManagement():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('UnregisterDeviceWithLocalManagement', windll['MDMLocalManagement.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_MANAGEMENT_REGISTRATION_INFO_head():
-    class MANAGEMENT_REGISTRATION_INFO(Structure):
-        pass
-    return MANAGEMENT_REGISTRATION_INFO
-def _define_MANAGEMENT_REGISTRATION_INFO():
-    MANAGEMENT_REGISTRATION_INFO = win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_REGISTRATION_INFO_head
-    MANAGEMENT_REGISTRATION_INFO._fields_ = [
-        ('fDeviceRegisteredWithManagement', win32more.Foundation.BOOL),
-        ('dwDeviceRegistionKind', UInt32),
-        ('pszUPN', win32more.Foundation.PWSTR),
-        ('pszMDMServiceUri', win32more.Foundation.PWSTR),
-    ]
-    return MANAGEMENT_REGISTRATION_INFO
-def _define_MANAGEMENT_SERVICE_INFO_head():
-    class MANAGEMENT_SERVICE_INFO(Structure):
-        pass
-    return MANAGEMENT_SERVICE_INFO
-def _define_MANAGEMENT_SERVICE_INFO():
-    MANAGEMENT_SERVICE_INFO = win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head
-    MANAGEMENT_SERVICE_INFO._fields_ = [
-        ('pszMDMServiceUri', win32more.Foundation.PWSTR),
-        ('pszAuthenticationUri', win32more.Foundation.PWSTR),
-    ]
-    return MANAGEMENT_SERVICE_INFO
+MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Foundation.HRESULT = -2145910783
+MENROLL_E_DEVICE_AUTHENTICATION_ERROR: win32more.Foundation.HRESULT = -2145910782
+MENROLL_E_DEVICE_AUTHORIZATION_ERROR: win32more.Foundation.HRESULT = -2145910781
+MENROLL_E_DEVICE_CERTIFICATEREQUEST_ERROR: win32more.Foundation.HRESULT = -2145910780
+MENROLL_E_DEVICE_CONFIGMGRSERVER_ERROR: win32more.Foundation.HRESULT = -2145910779
+MENROLL_E_DEVICE_INTERNALSERVICE_ERROR: win32more.Foundation.HRESULT = -2145910778
+MENROLL_E_DEVICE_INVALIDSECURITY_ERROR: win32more.Foundation.HRESULT = -2145910777
+MENROLL_E_DEVICE_UNKNOWN_ERROR: win32more.Foundation.HRESULT = -2145910776
+MENROLL_E_ENROLLMENT_IN_PROGRESS: win32more.Foundation.HRESULT = -2145910775
+MENROLL_E_DEVICE_ALREADY_ENROLLED: win32more.Foundation.HRESULT = -2145910774
+MENROLL_E_DISCOVERY_SEC_CERT_DATE_INVALID: win32more.Foundation.HRESULT = -2145910771
+MENROLL_E_PASSWORD_NEEDED: win32more.Foundation.HRESULT = -2145910770
+MENROLL_E_WAB_ERROR: win32more.Foundation.HRESULT = -2145910769
+MENROLL_E_CONNECTIVITY: win32more.Foundation.HRESULT = -2145910768
+MENROLL_E_INVALIDSSLCERT: win32more.Foundation.HRESULT = -2145910766
+MENROLL_E_DEVICEAPREACHED: win32more.Foundation.HRESULT = -2145910765
+MENROLL_E_DEVICENOTSUPPORTED: win32more.Foundation.HRESULT = -2145910764
+MENROLL_E_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2145910763
+MENROLL_E_NOTELIGIBLETORENEW: win32more.Foundation.HRESULT = -2145910762
+MENROLL_E_INMAINTENANCE: win32more.Foundation.HRESULT = -2145910761
+MENROLL_E_USER_LICENSE: win32more.Foundation.HRESULT = -2145910760
+MENROLL_E_ENROLLMENTDATAINVALID: win32more.Foundation.HRESULT = -2145910759
+MENROLL_E_INSECUREREDIRECT: win32more.Foundation.HRESULT = -2145910758
+MENROLL_E_PLATFORM_WRONG_STATE: win32more.Foundation.HRESULT = -2145910757
+MENROLL_E_PLATFORM_LICENSE_ERROR: win32more.Foundation.HRESULT = -2145910756
+MENROLL_E_PLATFORM_UNKNOWN_ERROR: win32more.Foundation.HRESULT = -2145910755
+MENROLL_E_PROV_CSP_CERTSTORE: win32more.Foundation.HRESULT = -2145910754
+MENROLL_E_PROV_CSP_W7: win32more.Foundation.HRESULT = -2145910753
+MENROLL_E_PROV_CSP_DMCLIENT: win32more.Foundation.HRESULT = -2145910752
+MENROLL_E_PROV_CSP_PFW: win32more.Foundation.HRESULT = -2145910751
+MENROLL_E_PROV_CSP_MISC: win32more.Foundation.HRESULT = -2145910750
+MENROLL_E_PROV_UNKNOWN: win32more.Foundation.HRESULT = -2145910749
+MENROLL_E_PROV_SSLCERTNOTFOUND: win32more.Foundation.HRESULT = -2145910748
+MENROLL_E_PROV_CSP_APPMGMT: win32more.Foundation.HRESULT = -2145910747
+MENROLL_E_DEVICE_MANAGEMENT_BLOCKED: win32more.Foundation.HRESULT = -2145910746
+MENROLL_E_CERTPOLICY_PRIVATEKEYCREATION_FAILED: win32more.Foundation.HRESULT = -2145910745
+MENROLL_E_CERTAUTH_FAILED_TO_FIND_CERT: win32more.Foundation.HRESULT = -2145910744
+MENROLL_E_EMPTY_MESSAGE: win32more.Foundation.HRESULT = -2145910743
+MENROLL_E_USER_CANCELLED: win32more.Foundation.HRESULT = -2145910736
+MENROLL_E_MDM_NOT_CONFIGURED: win32more.Foundation.HRESULT = -2145910735
+MDM_REGISTRATION_FACILITY_CODE: UInt32 = 25
+DEVICE_ENROLLER_FACILITY_CODE: UInt32 = 24
+MREGISTER_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Foundation.HRESULT = -2145845247
+MREGISTER_E_DEVICE_AUTHENTICATION_ERROR: win32more.Foundation.HRESULT = -2145845246
+MREGISTER_E_DEVICE_AUTHORIZATION_ERROR: win32more.Foundation.HRESULT = -2145845245
+MREGISTER_E_DEVICE_CERTIFCATEREQUEST_ERROR: win32more.Foundation.HRESULT = -2145845244
+MENROLL_E_DEVICE_CERTIFCATEREQUEST_ERROR: win32more.Foundation.HRESULT = -2145910780
+MREGISTER_E_DEVICE_CONFIGMGRSERVER_ERROR: win32more.Foundation.HRESULT = -2145845243
+MREGISTER_E_DEVICE_INTERNALSERVICE_ERROR: win32more.Foundation.HRESULT = -2145845242
+MREGISTER_E_DEVICE_INVALIDSECURITY_ERROR: win32more.Foundation.HRESULT = -2145845241
+MREGISTER_E_DEVICE_UNKNOWN_ERROR: win32more.Foundation.HRESULT = -2145845240
+MREGISTER_E_REGISTRATION_IN_PROGRESS: win32more.Foundation.HRESULT = -2145845239
+MREGISTER_E_DEVICE_ALREADY_REGISTERED: win32more.Foundation.HRESULT = -2145845238
+MREGISTER_E_DEVICE_NOT_REGISTERED: win32more.Foundation.HRESULT = -2145845237
+MENROLL_E_DEVICE_NOT_ENROLLED: win32more.Foundation.HRESULT = -2145910773
+MREGISTER_E_DISCOVERY_REDIRECTED: win32more.Foundation.HRESULT = -2145845236
+MREGISTER_E_DEVICE_NOT_AD_REGISTERED_ERROR: win32more.Foundation.HRESULT = -2145845235
+MREGISTER_E_DISCOVERY_FAILED: win32more.Foundation.HRESULT = -2145845234
+MENROLL_E_DEVICECAPREACHED: win32more.Foundation.HRESULT = -2145910765
+MENROLL_E_NOTSUPPORTED: win32more.Foundation.HRESULT = -2145910763
+MENROLL_E_USERLICENSE: win32more.Foundation.HRESULT = -2145910760
+MENROLL_E_USER_CANCELED: win32more.Foundation.HRESULT = -2145910742
+DEVICEREGISTRATIONTYPE_MDM_ONLY: UInt32 = 0
+DEVICEREGISTRATIONTYPE_MAM: UInt32 = 5
+DEVICEREGISTRATIONTYPE_MDM_DEVICEWIDE_WITH_AAD: UInt32 = 6
+DEVICEREGISTRATIONTYPE_MDM_USERSPECIFIC_WITH_AAD: UInt32 = 13
+@winfunctype('MDMRegistration.dll')
+def GetDeviceRegistrationInfo(DeviceInformationClass: win32more.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS, ppDeviceRegistrationInfo: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def IsDeviceRegisteredWithManagement(pfIsDeviceRegisteredWithManagement: POINTER(win32more.Foundation.BOOL), cchUPN: UInt32, pszUPN: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def IsManagementRegistrationAllowed(pfIsManagementRegistrationAllowed: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def IsMdmUxWithoutAadAllowed(isEnrollmentAllowed: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def SetManagedExternally(IsManagedExternally: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def DiscoverManagementService(pszUPN: win32more.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def RegisterDeviceWithManagementUsingAADCredentials(UserToken: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def RegisterDeviceWithManagementUsingAADDeviceCredentials() -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def RegisterDeviceWithManagement(pszUPN: win32more.Foundation.PWSTR, ppszMDMServiceUri: win32more.Foundation.PWSTR, ppzsAccessToken: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def UnregisterDeviceWithManagement(enrollmentID: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def GetDeviceManagementConfigInfo(providerID: win32more.Foundation.PWSTR, configStringBufferLength: POINTER(UInt32), configString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def SetDeviceManagementConfigInfo(providerID: win32more.Foundation.PWSTR, configString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def GetManagementAppHyperlink(cchHyperlink: UInt32, pszHyperlink: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMRegistration.dll')
+def DiscoverManagementServiceEx(pszUPN: win32more.Foundation.PWSTR, pszDiscoveryServiceCandidate: win32more.Foundation.PWSTR, ppMgmtInfo: POINTER(POINTER(win32more.Management.MobileDeviceManagementRegistration.MANAGEMENT_SERVICE_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMLocalManagement.dll')
+def RegisterDeviceWithLocalManagement(alreadyRegistered: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMLocalManagement.dll')
+def ApplyLocalManagementSyncML(syncMLRequest: win32more.Foundation.PWSTR, syncMLResult: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('MDMLocalManagement.dll')
+def UnregisterDeviceWithLocalManagement() -> win32more.Foundation.HRESULT: ...
+class MANAGEMENT_REGISTRATION_INFO(Structure):
+    fDeviceRegisteredWithManagement: win32more.Foundation.BOOL
+    dwDeviceRegistionKind: UInt32
+    pszUPN: win32more.Foundation.PWSTR
+    pszMDMServiceUri: win32more.Foundation.PWSTR
+class MANAGEMENT_SERVICE_INFO(Structure):
+    pszMDMServiceUri: win32more.Foundation.PWSTR
+    pszAuthenticationUri: win32more.Foundation.PWSTR
 REGISTRATION_INFORMATION_CLASS = Int32
-REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo = 1
-REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass = 2
+REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo: REGISTRATION_INFORMATION_CLASS = 1
+REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass: REGISTRATION_INFORMATION_CLASS = 2
+make_head(_module, 'MANAGEMENT_REGISTRATION_INFO')
+make_head(_module, 'MANAGEMENT_SERVICE_INFO')
 __all__ = [
     "ApplyLocalManagementSyncML",
     "DEVICEREGISTRATIONTYPE_MAM",

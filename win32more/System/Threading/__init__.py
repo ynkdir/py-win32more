@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.System.Kernel
@@ -10,2410 +11,1255 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-PRIVATE_NAMESPACE_FLAG_DESTROY = 1
-PROC_THREAD_ATTRIBUTE_REPLACE_VALUE = 1
-THREAD_POWER_THROTTLING_CURRENT_VERSION = 1
-THREAD_POWER_THROTTLING_EXECUTION_SPEED = 1
-THREAD_POWER_THROTTLING_VALID_FLAGS = 1
-PME_CURRENT_VERSION = 1
-PME_FAILFAST_ON_COMMIT_FAIL_DISABLE = 0
-PME_FAILFAST_ON_COMMIT_FAIL_ENABLE = 1
-PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1
-PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 1
-PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION = 4
-PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 1
-PROCESS_LEAP_SECOND_INFO_VALID_FLAGS = 1
-INIT_ONCE_CHECK_ONLY = 1
-INIT_ONCE_ASYNC = 2
-INIT_ONCE_INIT_FAILED = 4
-INIT_ONCE_CTX_RESERVED_BITS = 2
-CONDITION_VARIABLE_LOCKMODE_SHARED = 1
-CREATE_MUTEX_INITIAL_OWNER = 1
-CREATE_WAITABLE_TIMER_MANUAL_RESET = 1
-CREATE_WAITABLE_TIMER_HIGH_RESOLUTION = 2
-SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY = 1
-SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY = 2
-SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE = 4
-PROC_THREAD_ATTRIBUTE_PARENT_PROCESS = 131072
-PROC_THREAD_ATTRIBUTE_HANDLE_LIST = 131074
-PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY = 196611
-PROC_THREAD_ATTRIBUTE_PREFERRED_NODE = 131076
-PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR = 196613
-PROC_THREAD_ATTRIBUTE_UMS_THREAD = 196614
-PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY = 131079
-PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES = 131081
-PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL = 131083
-PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE = 131094
-PROC_THREAD_ATTRIBUTE_MACHINE_TYPE = 131097
-PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES = 196635
-PROC_THREAD_ATTRIBUTE_WIN32K_FILTER = 131088
-PROC_THREAD_ATTRIBUTE_JOB_LIST = 131085
-PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY = 131086
-PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY = 131087
-PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY = 131090
-PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY = 131096
-PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER = 131098
-def _define_GetProcessWorkingSetSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr))(('GetProcessWorkingSetSize', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpMinimumWorkingSetSize'),(1, 'lpMaximumWorkingSetSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessWorkingSetSize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UIntPtr,UIntPtr)(('SetProcessWorkingSetSize', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwMinimumWorkingSetSize'),(1, 'dwMaximumWorkingSetSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlsAlloc():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.System.Threading.PFLS_CALLBACK_FUNCTION)(('FlsAlloc', windll['KERNEL32.dll']), ((1, 'lpCallback'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlsGetValue():
-    try:
-        return WINFUNCTYPE(c_void_p,UInt32)(('FlsGetValue', windll['KERNEL32.dll']), ((1, 'dwFlsIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlsSetValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,c_void_p)(('FlsSetValue', windll['KERNEL32.dll']), ((1, 'dwFlsIndex'),(1, 'lpFlsData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlsFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('FlsFree', windll['KERNEL32.dll']), ((1, 'dwFlsIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsThreadAFiber():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('IsThreadAFiber', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeSRWLock():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('InitializeSRWLock', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseSRWLockExclusive():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('ReleaseSRWLockExclusive', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseSRWLockShared():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('ReleaseSRWLockShared', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AcquireSRWLockExclusive():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('AcquireSRWLockExclusive', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AcquireSRWLockShared():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('AcquireSRWLockShared', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TryAcquireSRWLockExclusive():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('TryAcquireSRWLockExclusive', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TryAcquireSRWLockShared():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,POINTER(win32more.System.Threading.RTL_SRWLOCK_head))(('TryAcquireSRWLockShared', windll['KERNEL32.dll']), ((1, 'SRWLock'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeCriticalSection():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('InitializeCriticalSection', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnterCriticalSection():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('EnterCriticalSection', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LeaveCriticalSection():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('LeaveCriticalSection', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeCriticalSectionAndSpinCount():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head),UInt32)(('InitializeCriticalSectionAndSpinCount', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),(1, 'dwSpinCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeCriticalSectionEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head),UInt32,UInt32)(('InitializeCriticalSectionEx', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),(1, 'dwSpinCount'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCriticalSectionSpinCount():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head),UInt32)(('SetCriticalSectionSpinCount', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),(1, 'dwSpinCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TryEnterCriticalSection():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('TryEnterCriticalSection', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteCriticalSection():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('DeleteCriticalSection', windll['KERNEL32.dll']), ((1, 'lpCriticalSection'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitOnceInitialize():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_RUN_ONCE_head))(('InitOnceInitialize', windll['KERNEL32.dll']), ((1, 'InitOnce'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitOnceExecuteOnce():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_RUN_ONCE_head),win32more.System.Threading.PINIT_ONCE_FN,c_void_p,POINTER(c_void_p))(('InitOnceExecuteOnce', windll['KERNEL32.dll']), ((1, 'InitOnce'),(1, 'InitFn'),(1, 'Parameter'),(1, 'Context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitOnceBeginInitialize():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_RUN_ONCE_head),UInt32,POINTER(win32more.Foundation.BOOL),POINTER(c_void_p))(('InitOnceBeginInitialize', windll['KERNEL32.dll']), ((1, 'lpInitOnce'),(1, 'dwFlags'),(1, 'fPending'),(1, 'lpContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitOnceComplete():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_RUN_ONCE_head),UInt32,c_void_p)(('InitOnceComplete', windll['KERNEL32.dll']), ((1, 'lpInitOnce'),(1, 'dwFlags'),(1, 'lpContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeConditionVariable():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head))(('InitializeConditionVariable', windll['KERNEL32.dll']), ((1, 'ConditionVariable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WakeConditionVariable():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head))(('WakeConditionVariable', windll['KERNEL32.dll']), ((1, 'ConditionVariable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WakeAllConditionVariable():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head))(('WakeAllConditionVariable', windll['KERNEL32.dll']), ((1, 'ConditionVariable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SleepConditionVariableCS():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head),POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head),UInt32)(('SleepConditionVariableCS', windll['KERNEL32.dll']), ((1, 'ConditionVariable'),(1, 'CriticalSection'),(1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SleepConditionVariableSRW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head),POINTER(win32more.System.Threading.RTL_SRWLOCK_head),UInt32,UInt32)(('SleepConditionVariableSRW', windll['KERNEL32.dll']), ((1, 'ConditionVariable'),(1, 'SRWLock'),(1, 'dwMilliseconds'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('SetEvent', windll['KERNEL32.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResetEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('ResetEvent', windll['KERNEL32.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseSemaphore():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,Int32,POINTER(Int32))(('ReleaseSemaphore', windll['KERNEL32.dll']), ((1, 'hSemaphore'),(1, 'lReleaseCount'),(1, 'lpPreviousCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseMutex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('ReleaseMutex', windll['KERNEL32.dll']), ((1, 'hMutex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForSingleObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,win32more.Foundation.HANDLE,UInt32)(('WaitForSingleObject', windll['KERNEL32.dll']), ((1, 'hHandle'),(1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SleepEx():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.BOOL)(('SleepEx', windll['KERNEL32.dll']), ((1, 'dwMilliseconds'),(1, 'bAlertable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForSingleObjectEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,win32more.Foundation.HANDLE,UInt32,win32more.Foundation.BOOL)(('WaitForSingleObjectEx', windll['KERNEL32.dll']), ((1, 'hHandle'),(1, 'dwMilliseconds'),(1, 'bAlertable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForMultipleObjectsEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32,win32more.Foundation.BOOL)(('WaitForMultipleObjectsEx', windll['KERNEL32.dll']), ((1, 'nCount'),(1, 'lpHandles'),(1, 'bWaitAll'),(1, 'dwMilliseconds'),(1, 'bAlertable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMutexA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('CreateMutexA', windll['KERNEL32.dll']), ((1, 'lpMutexAttributes'),(1, 'bInitialOwner'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMutexW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('CreateMutexW', windll['KERNEL32.dll']), ((1, 'lpMutexAttributes'),(1, 'bInitialOwner'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenMutexW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenMutexW', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEventA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('CreateEventA', windll['KERNEL32.dll']), ((1, 'lpEventAttributes'),(1, 'bManualReset'),(1, 'bInitialState'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEventW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('CreateEventW', windll['KERNEL32.dll']), ((1, 'lpEventAttributes'),(1, 'bManualReset'),(1, 'bInitialState'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenEventA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS,win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('OpenEventA', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenEventW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenEventW', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenSemaphoreW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenSemaphoreW', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenWaitableTimerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS,win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('OpenWaitableTimerW', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'lpTimerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWaitableTimerEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.LARGE_INTEGER_head),Int32,win32more.System.Threading.PTIMERAPCROUTINE,c_void_p,POINTER(win32more.System.Threading.REASON_CONTEXT_head),UInt32)(('SetWaitableTimerEx', windll['KERNEL32.dll']), ((1, 'hTimer'),(1, 'lpDueTime'),(1, 'lPeriod'),(1, 'pfnCompletionRoutine'),(1, 'lpArgToCompletionRoutine'),(1, 'WakeContext'),(1, 'TolerableDelay'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetWaitableTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.LARGE_INTEGER_head),Int32,win32more.System.Threading.PTIMERAPCROUTINE,c_void_p,win32more.Foundation.BOOL)(('SetWaitableTimer', windll['KERNEL32.dll']), ((1, 'hTimer'),(1, 'lpDueTime'),(1, 'lPeriod'),(1, 'pfnCompletionRoutine'),(1, 'lpArgToCompletionRoutine'),(1, 'fResume'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelWaitableTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('CancelWaitableTimer', windll['KERNEL32.dll']), ((1, 'hTimer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMutexExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PSTR,UInt32,UInt32)(('CreateMutexExA', windll['KERNEL32.dll']), ((1, 'lpMutexAttributes'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateMutexExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PWSTR,UInt32,UInt32)(('CreateMutexExW', windll['KERNEL32.dll']), ((1, 'lpMutexAttributes'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEventExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PSTR,win32more.System.Threading.CREATE_EVENT,UInt32)(('CreateEventExA', windll['KERNEL32.dll']), ((1, 'lpEventAttributes'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateEventExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PWSTR,win32more.System.Threading.CREATE_EVENT,UInt32)(('CreateEventExW', windll['KERNEL32.dll']), ((1, 'lpEventAttributes'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSemaphoreExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),Int32,Int32,win32more.Foundation.PWSTR,UInt32,UInt32)(('CreateSemaphoreExW', windll['KERNEL32.dll']), ((1, 'lpSemaphoreAttributes'),(1, 'lInitialCount'),(1, 'lMaximumCount'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWaitableTimerExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.PWSTR,UInt32,UInt32)(('CreateWaitableTimerExW', windll['KERNEL32.dll']), ((1, 'lpTimerAttributes'),(1, 'lpTimerName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnterSynchronizationBarrier():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_BARRIER_head),UInt32)(('EnterSynchronizationBarrier', windll['KERNEL32.dll']), ((1, 'lpBarrier'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeSynchronizationBarrier():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_BARRIER_head),Int32,Int32)(('InitializeSynchronizationBarrier', windll['KERNEL32.dll']), ((1, 'lpBarrier'),(1, 'lTotalThreads'),(1, 'lSpinCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteSynchronizationBarrier():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_BARRIER_head))(('DeleteSynchronizationBarrier', windll['KERNEL32.dll']), ((1, 'lpBarrier'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Sleep():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('Sleep', windll['KERNEL32.dll']), ((1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitOnAddress():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UIntPtr,UInt32)(('WaitOnAddress', windll['api-ms-win-core-synch-l1-2-0.dll']), ((1, 'Address'),(1, 'CompareAddress'),(1, 'AddressSize'),(1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WakeByAddressSingle():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('WakeByAddressSingle', windll['api-ms-win-core-synch-l1-2-0.dll']), ((1, 'Address'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WakeByAddressAll():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('WakeByAddressAll', windll['api-ms-win-core-synch-l1-2-0.dll']), ((1, 'Address'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForMultipleObjects():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,UInt32,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.BOOL,UInt32)(('WaitForMultipleObjects', windll['KERNEL32.dll']), ((1, 'nCount'),(1, 'lpHandles'),(1, 'bWaitAll'),(1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSemaphoreW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),Int32,Int32,win32more.Foundation.PWSTR)(('CreateSemaphoreW', windll['KERNEL32.dll']), ((1, 'lpSemaphoreAttributes'),(1, 'lInitialCount'),(1, 'lMaximumCount'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateWaitableTimerW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('CreateWaitableTimerW', windll['KERNEL32.dll']), ((1, 'lpTimerAttributes'),(1, 'bManualReset'),(1, 'lpTimerName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeSListHead():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.SLIST_HEADER_head))(('InitializeSListHead', windll['KERNEL32.dll']), ((1, 'ListHead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InterlockedPopEntrySList():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Kernel.SLIST_ENTRY_head),POINTER(win32more.System.Kernel.SLIST_HEADER_head))(('InterlockedPopEntrySList', windll['KERNEL32.dll']), ((1, 'ListHead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InterlockedPushEntrySList():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Kernel.SLIST_ENTRY_head),POINTER(win32more.System.Kernel.SLIST_HEADER_head),POINTER(win32more.System.Kernel.SLIST_ENTRY_head))(('InterlockedPushEntrySList', windll['KERNEL32.dll']), ((1, 'ListHead'),(1, 'ListEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InterlockedPushListSListEx():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Kernel.SLIST_ENTRY_head),POINTER(win32more.System.Kernel.SLIST_HEADER_head),POINTER(win32more.System.Kernel.SLIST_ENTRY_head),POINTER(win32more.System.Kernel.SLIST_ENTRY_head),UInt32)(('InterlockedPushListSListEx', windll['KERNEL32.dll']), ((1, 'ListHead'),(1, 'List'),(1, 'ListEnd'),(1, 'Count'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InterlockedFlushSList():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Kernel.SLIST_ENTRY_head),POINTER(win32more.System.Kernel.SLIST_HEADER_head))(('InterlockedFlushSList', windll['KERNEL32.dll']), ((1, 'ListHead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryDepthSList():
-    try:
-        return WINFUNCTYPE(UInt16,POINTER(win32more.System.Kernel.SLIST_HEADER_head))(('QueryDepthSList', windll['KERNEL32.dll']), ((1, 'ListHead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueueUserAPC():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PAPCFUNC,win32more.Foundation.HANDLE,UIntPtr)(('QueueUserAPC', windll['KERNEL32.dll']), ((1, 'pfnAPC'),(1, 'hThread'),(1, 'dwData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueueUserAPC2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PAPCFUNC,win32more.Foundation.HANDLE,UIntPtr,win32more.System.Threading.QUEUE_USER_APC_FLAGS)(('QueueUserAPC2', windll['KERNEL32.dll']), ((1, 'ApcRoutine'),(1, 'Thread'),(1, 'Data'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessTimes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('GetProcessTimes', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpCreationTime'),(1, 'lpExitTime'),(1, 'lpKernelTime'),(1, 'lpUserTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,)(('GetCurrentProcess', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentProcessId():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetCurrentProcessId', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExitProcess():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('ExitProcess', windll['KERNEL32.dll']), ((1, 'uExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TerminateProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('TerminateProcess', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'uExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetExitCodeProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32))(('GetExitCodeProcess', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwitchToThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('SwitchToThread', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UIntPtr,win32more.System.Threading.LPTHREAD_START_ROUTINE,c_void_p,win32more.System.Threading.THREAD_CREATION_FLAGS,POINTER(UInt32))(('CreateThread', windll['KERNEL32.dll']), ((1, 'lpThreadAttributes'),(1, 'dwStackSize'),(1, 'lpStartAddress'),(1, 'lpParameter'),(1, 'dwCreationFlags'),(1, 'lpThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRemoteThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UIntPtr,win32more.System.Threading.LPTHREAD_START_ROUTINE,c_void_p,UInt32,POINTER(UInt32))(('CreateRemoteThread', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpThreadAttributes'),(1, 'dwStackSize'),(1, 'lpStartAddress'),(1, 'lpParameter'),(1, 'dwCreationFlags'),(1, 'lpThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,)(('GetCurrentThread', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentThreadId():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetCurrentThreadId', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.THREAD_ACCESS_RIGHTS,win32more.Foundation.BOOL,UInt32)(('OpenThread', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'dwThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadPriority():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.THREAD_PRIORITY)(('SetThreadPriority', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'nPriority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadPriorityBoost():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('SetThreadPriorityBoost', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'bDisablePriorityBoost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadPriorityBoost():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('GetThreadPriorityBoost', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'pDisablePriorityBoost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadPriority():
-    try:
-        return WINFUNCTYPE(Int32,win32more.Foundation.HANDLE)(('GetThreadPriority', windll['KERNEL32.dll']), ((1, 'hThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExitThread():
-    try:
-        return WINFUNCTYPE(Void,UInt32)(('ExitThread', windll['KERNEL32.dll']), ((1, 'dwExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TerminateThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('TerminateThread', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'dwExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetExitCodeThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32))(('GetExitCodeThread', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpExitCode'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SuspendThread():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('SuspendThread', windll['KERNEL32.dll']), ((1, 'hThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResumeThread():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('ResumeThread', windll['KERNEL32.dll']), ((1, 'hThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TlsAlloc():
-    try:
-        return WINFUNCTYPE(UInt32,)(('TlsAlloc', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TlsGetValue():
-    try:
-        return WINFUNCTYPE(c_void_p,UInt32)(('TlsGetValue', windll['KERNEL32.dll']), ((1, 'dwTlsIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TlsSetValue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,c_void_p)(('TlsSetValue', windll['KERNEL32.dll']), ((1, 'dwTlsIndex'),(1, 'lpTlsValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TlsFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32)(('TlsFree', windll['KERNEL32.dll']), ((1, 'dwTlsIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.System.Threading.PROCESS_CREATION_FLAGS,c_void_p,win32more.Foundation.PSTR,POINTER(win32more.System.Threading.STARTUPINFOA_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessA', windll['KERNEL32.dll']), ((1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'lpProcessAttributes'),(1, 'lpThreadAttributes'),(1, 'bInheritHandles'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,win32more.System.Threading.PROCESS_CREATION_FLAGS,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.Threading.STARTUPINFOW_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessW', windll['KERNEL32.dll']), ((1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'lpProcessAttributes'),(1, 'lpThreadAttributes'),(1, 'bInheritHandles'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessShutdownParameters():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32)(('SetProcessShutdownParameters', windll['KERNEL32.dll']), ((1, 'dwLevel'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessVersion():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('GetProcessVersion', windll['KERNEL32.dll']), ((1, 'ProcessId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStartupInfoW():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.STARTUPINFOW_head))(('GetStartupInfoW', windll['KERNEL32.dll']), ((1, 'lpStartupInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessAsUserW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.Threading.STARTUPINFOW_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessAsUserW', windll['ADVAPI32.dll']), ((1, 'hToken'),(1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'lpProcessAttributes'),(1, 'lpThreadAttributes'),(1, 'bInheritHandles'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.HANDLE)(('SetThreadToken', windll['ADVAPI32.dll']), ((1, 'Thread'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenProcessToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.TOKEN_ACCESS_MASK,POINTER(win32more.Foundation.HANDLE))(('OpenProcessToken', windll['ADVAPI32.dll']), ((1, 'ProcessHandle'),(1, 'DesiredAccess'),(1, 'TokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenThreadToken():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Security.TOKEN_ACCESS_MASK,win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE))(('OpenThreadToken', windll['ADVAPI32.dll']), ((1, 'ThreadHandle'),(1, 'DesiredAccess'),(1, 'OpenAsSelf'),(1, 'TokenHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPriorityClass():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_CREATION_FLAGS)(('SetPriorityClass', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwPriorityClass'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPriorityClass():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('GetPriorityClass', windll['KERNEL32.dll']), ((1, 'hProcess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadStackGuarantee():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32))(('SetThreadStackGuarantee', windll['KERNEL32.dll']), ((1, 'StackSizeInBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessId():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('GetProcessId', windll['KERNEL32.dll']), ((1, 'Process'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadId():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('GetThreadId', windll['KERNEL32.dll']), ((1, 'Thread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlushProcessWriteBuffers():
-    try:
-        return WINFUNCTYPE(Void,)(('FlushProcessWriteBuffers', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessIdOfThread():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('GetProcessIdOfThread', windll['KERNEL32.dll']), ((1, 'Thread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeProcThreadAttributeList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST,UInt32,UInt32,POINTER(UIntPtr))(('InitializeProcThreadAttributeList', windll['KERNEL32.dll']), ((1, 'lpAttributeList'),(1, 'dwAttributeCount'),(1, 'dwFlags'),(1, 'lpSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteProcThreadAttributeList():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST)(('DeleteProcThreadAttributeList', windll['KERNEL32.dll']), ((1, 'lpAttributeList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UpdateProcThreadAttribute():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST,UInt32,UIntPtr,c_void_p,UIntPtr,c_void_p,POINTER(UIntPtr))(('UpdateProcThreadAttribute', windll['KERNEL32.dll']), ((1, 'lpAttributeList'),(1, 'dwFlags'),(1, 'Attribute'),(1, 'lpValue'),(1, 'cbSize'),(1, 'lpPreviousValue'),(1, 'lpReturnSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDynamicEHContinuationTargets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt16,POINTER(win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head))(('SetProcessDynamicEHContinuationTargets', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'NumberOfTargets'),(1, 'Targets'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDynamicEnforcedCetCompatibleRanges():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt16,POINTER(win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head))(('SetProcessDynamicEnforcedCetCompatibleRanges', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'NumberOfRanges'),(1, 'Ranges'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessAffinityUpdateMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS)(('SetProcessAffinityUpdateMode', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryProcessAffinityUpdateMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS))(('QueryProcessAffinityUpdateMode', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateRemoteThreadEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UIntPtr,win32more.System.Threading.LPTHREAD_START_ROUTINE,c_void_p,UInt32,win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST,POINTER(UInt32))(('CreateRemoteThreadEx', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpThreadAttributes'),(1, 'dwStackSize'),(1, 'lpStartAddress'),(1, 'lpParameter'),(1, 'dwCreationFlags'),(1, 'lpAttributeList'),(1, 'lpThreadId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentThreadStackLimits():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UIntPtr),POINTER(UIntPtr))(('GetCurrentThreadStackLimits', windll['KERNEL32.dll']), ((1, 'LowLimit'),(1, 'HighLimit'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessMitigationPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_MITIGATION_POLICY,c_void_p,UIntPtr)(('GetProcessMitigationPolicy', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'MitigationPolicy'),(1, 'lpBuffer'),(1, 'dwLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessMitigationPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PROCESS_MITIGATION_POLICY,c_void_p,UIntPtr)(('SetProcessMitigationPolicy', windll['KERNEL32.dll']), ((1, 'MitigationPolicy'),(1, 'lpBuffer'),(1, 'dwLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadTimes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('GetThreadTimes', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpCreationTime'),(1, 'lpExitTime'),(1, 'lpKernelTime'),(1, 'lpUserTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_ACCESS_RIGHTS,win32more.Foundation.BOOL,UInt32)(('OpenProcess', windll['KERNEL32.dll']), ((1, 'dwDesiredAccess'),(1, 'bInheritHandle'),(1, 'dwProcessId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsProcessorFeaturePresent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PROCESSOR_FEATURE_ID)(('IsProcessorFeaturePresent', windll['KERNEL32.dll']), ((1, 'ProcessorFeature'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessHandleCount():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32))(('GetProcessHandleCount', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'pdwHandleCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentProcessorNumber():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetCurrentProcessorNumber', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadIdealProcessorEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head),POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head))(('SetThreadIdealProcessorEx', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpIdealProcessor'),(1, 'lpPreviousIdealProcessor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadIdealProcessorEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head))(('GetThreadIdealProcessorEx', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpIdealProcessor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentProcessorNumberEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head))(('GetCurrentProcessorNumberEx', windll['KERNEL32.dll']), ((1, 'ProcNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessPriorityBoost():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('GetProcessPriorityBoost', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'pDisablePriorityBoost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessPriorityBoost():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.BOOL)(('SetProcessPriorityBoost', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'bDisablePriorityBoost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadIOPendingFlag():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('GetThreadIOPendingFlag', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpIOIsPending'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSystemTimes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head))(('GetSystemTimes', windll['KERNEL32.dll']), ((1, 'lpIdleTime'),(1, 'lpKernelTime'),(1, 'lpUserTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.THREAD_INFORMATION_CLASS,c_void_p,UInt32)(('GetThreadInformation', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'ThreadInformationClass'),(1, 'ThreadInformation'),(1, 'ThreadInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.THREAD_INFORMATION_CLASS,c_void_p,UInt32)(('SetThreadInformation', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'ThreadInformationClass'),(1, 'ThreadInformation'),(1, 'ThreadInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsProcessCritical():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('IsProcessCritical', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'Critical'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProtectedPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Guid),UIntPtr,POINTER(UIntPtr))(('SetProtectedPolicy', windll['KERNEL32.dll']), ((1, 'PolicyGuid'),(1, 'PolicyValue'),(1, 'OldPolicyValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryProtectedPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(Guid),POINTER(UIntPtr))(('QueryProtectedPolicy', windll['KERNEL32.dll']), ((1, 'PolicyGuid'),(1, 'PolicyValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadIdealProcessor():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)(('SetThreadIdealProcessor', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'dwIdealProcessor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_INFORMATION_CLASS,c_void_p,UInt32)(('SetProcessInformation', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'ProcessInformationClass'),(1, 'ProcessInformation'),(1, 'ProcessInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_INFORMATION_CLASS,c_void_p,UInt32)(('GetProcessInformation', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'ProcessInformationClass'),(1, 'ProcessInformation'),(1, 'ProcessInformationSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessDefaultCpuSets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(UInt32))(('GetProcessDefaultCpuSets', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'CpuSetIds'),(1, 'CpuSetIdCount'),(1, 'RequiredIdCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDefaultCpuSets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32)(('SetProcessDefaultCpuSets', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'CpuSetIds'),(1, 'CpuSetIdCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadSelectedCpuSets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32,POINTER(UInt32))(('GetThreadSelectedCpuSets', windll['KERNEL32.dll']), ((1, 'Thread'),(1, 'CpuSetIds'),(1, 'CpuSetIdCount'),(1, 'RequiredIdCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadSelectedCpuSets():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),UInt32)(('SetThreadSelectedCpuSets', windll['KERNEL32.dll']), ((1, 'Thread'),(1, 'CpuSetIds'),(1, 'CpuSetIdCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessAsUserA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),win32more.Foundation.BOOL,UInt32,c_void_p,win32more.Foundation.PSTR,POINTER(win32more.System.Threading.STARTUPINFOA_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessAsUserA', windll['ADVAPI32.dll']), ((1, 'hToken'),(1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'lpProcessAttributes'),(1, 'lpThreadAttributes'),(1, 'bInheritHandles'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessShutdownParameters():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32),POINTER(UInt32))(('GetProcessShutdownParameters', windll['KERNEL32.dll']), ((1, 'lpdwLevel'),(1, 'lpdwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessDefaultCpuSetMasks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),UInt16,POINTER(UInt16))(('GetProcessDefaultCpuSetMasks', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'CpuSetMasks'),(1, 'CpuSetMaskCount'),(1, 'RequiredMaskCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDefaultCpuSetMasks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),UInt16)(('SetProcessDefaultCpuSetMasks', windll['KERNEL32.dll']), ((1, 'Process'),(1, 'CpuSetMasks'),(1, 'CpuSetMaskCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadSelectedCpuSetMasks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),UInt16,POINTER(UInt16))(('GetThreadSelectedCpuSetMasks', windll['KERNEL32.dll']), ((1, 'Thread'),(1, 'CpuSetMasks'),(1, 'CpuSetMaskCount'),(1, 'RequiredMaskCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadSelectedCpuSetMasks():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),UInt16)(('SetThreadSelectedCpuSetMasks', windll['KERNEL32.dll']), ((1, 'Thread'),(1, 'CpuSetMasks'),(1, 'CpuSetMaskCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMachineTypeAttributes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.System.Threading.MACHINE_ATTRIBUTES))(('GetMachineTypeAttributes', windll['KERNEL32.dll']), ((1, 'Machine'),(1, 'MachineTypeAttributes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadDescription():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR)(('SetThreadDescription', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'lpThreadDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadDescription():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.PWSTR))(('GetThreadDescription', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'ppszThreadDescription'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueueUserWorkItem():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.LPTHREAD_START_ROUTINE,c_void_p,win32more.System.Threading.WORKER_THREAD_FLAGS)(('QueueUserWorkItem', windll['KERNEL32.dll']), ((1, 'Function'),(1, 'Context'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterWaitEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('UnregisterWaitEx', windll['KERNEL32.dll']), ((1, 'WaitHandle'),(1, 'CompletionEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateTimerQueue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,)(('CreateTimerQueue', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateTimerQueueTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.HANDLE,win32more.System.Threading.WAITORTIMERCALLBACK,c_void_p,UInt32,UInt32,win32more.System.Threading.WORKER_THREAD_FLAGS)(('CreateTimerQueueTimer', windll['KERNEL32.dll']), ((1, 'phNewTimer'),(1, 'TimerQueue'),(1, 'Callback'),(1, 'Parameter'),(1, 'DueTime'),(1, 'Period'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ChangeTimerQueueTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,UInt32,UInt32)(('ChangeTimerQueueTimer', windll['KERNEL32.dll']), ((1, 'TimerQueue'),(1, 'Timer'),(1, 'DueTime'),(1, 'Period'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteTimerQueueTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('DeleteTimerQueueTimer', windll['KERNEL32.dll']), ((1, 'TimerQueue'),(1, 'Timer'),(1, 'CompletionEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteTimerQueue():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('DeleteTimerQueue', windll['KERNEL32.dll']), ((1, 'TimerQueue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteTimerQueueEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE)(('DeleteTimerQueueEx', windll['KERNEL32.dll']), ((1, 'TimerQueue'),(1, 'CompletionEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpool():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.PTP_POOL,c_void_p)(('CreateThreadpool', windll['KERNEL32.dll']), ((1, 'reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolThreadMaximum():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.Threading.PTP_POOL,UInt32)(('SetThreadpoolThreadMaximum', windll['KERNEL32.dll']), ((1, 'ptpp'),(1, 'cthrdMost'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolThreadMinimum():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PTP_POOL,UInt32)(('SetThreadpoolThreadMinimum', windll['KERNEL32.dll']), ((1, 'ptpp'),(1, 'cthrdMic'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolStackInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PTP_POOL,POINTER(win32more.System.Threading.TP_POOL_STACK_INFORMATION_head))(('SetThreadpoolStackInformation', windll['KERNEL32.dll']), ((1, 'ptpp'),(1, 'ptpsi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryThreadpoolStackInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PTP_POOL,POINTER(win32more.System.Threading.TP_POOL_STACK_INFORMATION_head))(('QueryThreadpoolStackInformation', windll['KERNEL32.dll']), ((1, 'ptpp'),(1, 'ptpsi'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpool():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.Threading.PTP_POOL)(('CloseThreadpool', windll['KERNEL32.dll']), ((1, 'ptpp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpoolCleanupGroup():
-    try:
-        return WINFUNCTYPE(IntPtr,)(('CreateThreadpoolCleanupGroup', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolCleanupGroupMembers():
-    try:
-        return WINFUNCTYPE(Void,IntPtr,win32more.Foundation.BOOL,c_void_p)(('CloseThreadpoolCleanupGroupMembers', windll['KERNEL32.dll']), ((1, 'ptpcg'),(1, 'fCancelPendingCallbacks'),(1, 'pvCleanupContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolCleanupGroup():
-    try:
-        return WINFUNCTYPE(Void,IntPtr)(('CloseThreadpoolCleanupGroup', windll['KERNEL32.dll']), ((1, 'ptpcg'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetEventWhenCallbackReturns():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),win32more.Foundation.HANDLE)(('SetEventWhenCallbackReturns', windll['KERNEL32.dll']), ((1, 'pci'),(1, 'evt'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseSemaphoreWhenCallbackReturns():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),win32more.Foundation.HANDLE,UInt32)(('ReleaseSemaphoreWhenCallbackReturns', windll['KERNEL32.dll']), ((1, 'pci'),(1, 'sem'),(1, 'crel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ReleaseMutexWhenCallbackReturns():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),win32more.Foundation.HANDLE)(('ReleaseMutexWhenCallbackReturns', windll['KERNEL32.dll']), ((1, 'pci'),(1, 'mut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LeaveCriticalSectionWhenCallbackReturns():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head))(('LeaveCriticalSectionWhenCallbackReturns', windll['KERNEL32.dll']), ((1, 'pci'),(1, 'pcs'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeLibraryWhenCallbackReturns():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),win32more.Foundation.HINSTANCE)(('FreeLibraryWhenCallbackReturns', windll['KERNEL32.dll']), ((1, 'pci'),(1, 'mod'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CallbackMayRunLong():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head))(('CallbackMayRunLong', windll['KERNEL32.dll']), ((1, 'pci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DisassociateCurrentThreadFromCallback():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head))(('DisassociateCurrentThreadFromCallback', windll['KERNEL32.dll']), ((1, 'pci'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_TrySubmitThreadpoolCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PTP_SIMPLE_CALLBACK,c_void_p,POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head))(('TrySubmitThreadpoolCallback', windll['KERNEL32.dll']), ((1, 'pfns'),(1, 'pv'),(1, 'pcbe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpoolWork():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Threading.TP_WORK_head),win32more.System.Threading.PTP_WORK_CALLBACK,c_void_p,POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head))(('CreateThreadpoolWork', windll['KERNEL32.dll']), ((1, 'pfnwk'),(1, 'pv'),(1, 'pcbe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SubmitThreadpoolWork():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WORK_head))(('SubmitThreadpoolWork', windll['KERNEL32.dll']), ((1, 'pwk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForThreadpoolWorkCallbacks():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WORK_head),win32more.Foundation.BOOL)(('WaitForThreadpoolWorkCallbacks', windll['KERNEL32.dll']), ((1, 'pwk'),(1, 'fCancelPendingCallbacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolWork():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WORK_head))(('CloseThreadpoolWork', windll['KERNEL32.dll']), ((1, 'pwk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpoolTimer():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Threading.TP_TIMER_head),win32more.System.Threading.PTP_TIMER_CALLBACK,c_void_p,POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head))(('CreateThreadpoolTimer', windll['KERNEL32.dll']), ((1, 'pfnti'),(1, 'pv'),(1, 'pcbe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolTimer():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_TIMER_head),POINTER(win32more.Foundation.FILETIME_head),UInt32,UInt32)(('SetThreadpoolTimer', windll['KERNEL32.dll']), ((1, 'pti'),(1, 'pftDueTime'),(1, 'msPeriod'),(1, 'msWindowLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsThreadpoolTimerSet():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.TP_TIMER_head))(('IsThreadpoolTimerSet', windll['KERNEL32.dll']), ((1, 'pti'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForThreadpoolTimerCallbacks():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_TIMER_head),win32more.Foundation.BOOL)(('WaitForThreadpoolTimerCallbacks', windll['KERNEL32.dll']), ((1, 'pti'),(1, 'fCancelPendingCallbacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolTimer():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_TIMER_head))(('CloseThreadpoolTimer', windll['KERNEL32.dll']), ((1, 'pti'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpoolWait():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Threading.TP_WAIT_head),win32more.System.Threading.PTP_WAIT_CALLBACK,c_void_p,POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head))(('CreateThreadpoolWait', windll['KERNEL32.dll']), ((1, 'pfnwa'),(1, 'pv'),(1, 'pcbe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolWait():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WAIT_head),win32more.Foundation.HANDLE,POINTER(win32more.Foundation.FILETIME_head))(('SetThreadpoolWait', windll['KERNEL32.dll']), ((1, 'pwa'),(1, 'h'),(1, 'pftTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForThreadpoolWaitCallbacks():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WAIT_head),win32more.Foundation.BOOL)(('WaitForThreadpoolWaitCallbacks', windll['KERNEL32.dll']), ((1, 'pwa'),(1, 'fCancelPendingCallbacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolWait():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_WAIT_head))(('CloseThreadpoolWait', windll['KERNEL32.dll']), ((1, 'pwa'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateThreadpoolIo():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.System.Threading.TP_IO_head),win32more.Foundation.HANDLE,win32more.System.Threading.PTP_WIN32_IO_CALLBACK,c_void_p,POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head))(('CreateThreadpoolIo', windll['KERNEL32.dll']), ((1, 'fl'),(1, 'pfnio'),(1, 'pv'),(1, 'pcbe'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_StartThreadpoolIo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_IO_head))(('StartThreadpoolIo', windll['KERNEL32.dll']), ((1, 'pio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelThreadpoolIo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_IO_head))(('CancelThreadpoolIo', windll['KERNEL32.dll']), ((1, 'pio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForThreadpoolIoCallbacks():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_IO_head),win32more.Foundation.BOOL)(('WaitForThreadpoolIoCallbacks', windll['KERNEL32.dll']), ((1, 'pio'),(1, 'fCancelPendingCallbacks'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CloseThreadpoolIo():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_IO_head))(('CloseThreadpoolIo', windll['KERNEL32.dll']), ((1, 'pio'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolTimerEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.TP_TIMER_head),POINTER(win32more.Foundation.FILETIME_head),UInt32,UInt32)(('SetThreadpoolTimerEx', windll['KERNEL32.dll']), ((1, 'pti'),(1, 'pftDueTime'),(1, 'msPeriod'),(1, 'msWindowLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadpoolWaitEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.TP_WAIT_head),win32more.Foundation.HANDLE,POINTER(win32more.Foundation.FILETIME_head),c_void_p)(('SetThreadpoolWaitEx', windll['KERNEL32.dll']), ((1, 'pwa'),(1, 'h'),(1, 'pftTimeout'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWow64Process():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL))(('IsWow64Process', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'Wow64Process'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Wow64SetThreadDefaultGuestMachine():
-    try:
-        return WINFUNCTYPE(UInt16,UInt16)(('Wow64SetThreadDefaultGuestMachine', windll['api-ms-win-core-wow64-l1-1-1.dll']), ((1, 'Machine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsWow64Process2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.IMAGE_FILE_MACHINE),POINTER(win32more.System.SystemInformation.IMAGE_FILE_MACHINE))(('IsWow64Process2', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'pProcessMachine'),(1, 'pNativeMachine'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Wow64SuspendThread():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('Wow64SuspendThread', windll['KERNEL32.dll']), ((1, 'hThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePrivateNamespaceW():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.NamespaceHandle,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),c_void_p,win32more.Foundation.PWSTR)(('CreatePrivateNamespaceW', windll['KERNEL32.dll']), ((1, 'lpPrivateNamespaceAttributes'),(1, 'lpBoundaryDescriptor'),(1, 'lpAliasPrefix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenPrivateNamespaceW():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.NamespaceHandle,c_void_p,win32more.Foundation.PWSTR)(('OpenPrivateNamespaceW', windll['KERNEL32.dll']), ((1, 'lpBoundaryDescriptor'),(1, 'lpAliasPrefix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ClosePrivateNamespace():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOLEAN,win32more.System.Threading.NamespaceHandle,UInt32)(('ClosePrivateNamespace', windll['KERNEL32.dll']), ((1, 'Handle'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateBoundaryDescriptorW():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.BoundaryDescriptorHandle,win32more.Foundation.PWSTR,UInt32)(('CreateBoundaryDescriptorW', windll['KERNEL32.dll']), ((1, 'Name'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddSIDToBoundaryDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.PSID)(('AddSIDToBoundaryDescriptor', windll['KERNEL32.dll']), ((1, 'BoundaryDescriptor'),(1, 'RequiredSid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteBoundaryDescriptor():
-    try:
-        return WINFUNCTYPE(Void,win32more.System.Threading.BoundaryDescriptorHandle)(('DeleteBoundaryDescriptor', windll['KERNEL32.dll']), ((1, 'BoundaryDescriptor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaHighestNodeNumber():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(UInt32))(('GetNumaHighestNodeNumber', windll['KERNEL32.dll']), ((1, 'HighestNodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaNodeProcessorMaskEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt16,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head))(('GetNumaNodeProcessorMaskEx', windll['KERNEL32.dll']), ((1, 'Node'),(1, 'ProcessorMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaNodeProcessorMask2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt16,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),UInt16,POINTER(UInt16))(('GetNumaNodeProcessorMask2', windll['KERNEL32.dll']), ((1, 'NodeNumber'),(1, 'ProcessorMasks'),(1, 'ProcessorMaskCount'),(1, 'RequiredMaskCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaProximityNodeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt16))(('GetNumaProximityNodeEx', windll['KERNEL32.dll']), ((1, 'ProximityId'),(1, 'NodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessGroupAffinity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt16),POINTER(UInt16))(('GetProcessGroupAffinity', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'GroupCount'),(1, 'GroupArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetThreadGroupAffinity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head))(('GetThreadGroupAffinity', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'GroupAffinity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadGroupAffinity():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head),POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head))(('SetThreadGroupAffinity', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'GroupAffinity'),(1, 'PreviousGroupAffinity'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvSetMmThreadCharacteristicsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,POINTER(UInt32))(('AvSetMmThreadCharacteristicsA', windll['AVRT.dll']), ((1, 'TaskName'),(1, 'TaskIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvSetMmThreadCharacteristicsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,POINTER(UInt32))(('AvSetMmThreadCharacteristicsW', windll['AVRT.dll']), ((1, 'TaskName'),(1, 'TaskIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvSetMmMaxThreadCharacteristicsA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32))(('AvSetMmMaxThreadCharacteristicsA', windll['AVRT.dll']), ((1, 'FirstTask'),(1, 'SecondTask'),(1, 'TaskIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvSetMmMaxThreadCharacteristicsW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32))(('AvSetMmMaxThreadCharacteristicsW', windll['AVRT.dll']), ((1, 'FirstTask'),(1, 'SecondTask'),(1, 'TaskIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRevertMmThreadCharacteristics():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('AvRevertMmThreadCharacteristics', windll['AVRT.dll']), ((1, 'AvrtHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvSetMmThreadPriority():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.AVRT_PRIORITY)(('AvSetMmThreadPriority', windll['AVRT.dll']), ((1, 'AvrtHandle'),(1, 'Priority'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtCreateThreadOrderingGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Foundation.LARGE_INTEGER_head),POINTER(Guid),POINTER(win32more.Foundation.LARGE_INTEGER_head))(('AvRtCreateThreadOrderingGroup', windll['AVRT.dll']), ((1, 'Context'),(1, 'Period'),(1, 'ThreadOrderingGuid'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtCreateThreadOrderingGroupExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Foundation.LARGE_INTEGER_head),POINTER(Guid),POINTER(win32more.Foundation.LARGE_INTEGER_head),win32more.Foundation.PSTR)(('AvRtCreateThreadOrderingGroupExA', windll['AVRT.dll']), ((1, 'Context'),(1, 'Period'),(1, 'ThreadOrderingGuid'),(1, 'Timeout'),(1, 'TaskName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtCreateThreadOrderingGroupExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Foundation.LARGE_INTEGER_head),POINTER(Guid),POINTER(win32more.Foundation.LARGE_INTEGER_head),win32more.Foundation.PWSTR)(('AvRtCreateThreadOrderingGroupExW', windll['AVRT.dll']), ((1, 'Context'),(1, 'Period'),(1, 'ThreadOrderingGuid'),(1, 'Timeout'),(1, 'TaskName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtJoinThreadOrderingGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),POINTER(Guid),win32more.Foundation.BOOL)(('AvRtJoinThreadOrderingGroup', windll['AVRT.dll']), ((1, 'Context'),(1, 'ThreadOrderingGuid'),(1, 'Before'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtWaitOnThreadOrderingGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('AvRtWaitOnThreadOrderingGroup', windll['AVRT.dll']), ((1, 'Context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtLeaveThreadOrderingGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('AvRtLeaveThreadOrderingGroup', windll['AVRT.dll']), ((1, 'Context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvRtDeleteThreadOrderingGroup():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('AvRtDeleteThreadOrderingGroup', windll['AVRT.dll']), ((1, 'Context'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AvQuerySystemResponsiveness():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32))(('AvQuerySystemResponsiveness', windll['AVRT.dll']), ((1, 'AvrtHandle'),(1, 'SystemResponsivenessValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AttachThreadInput():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,UInt32,win32more.Foundation.BOOL)(('AttachThreadInput', windll['USER32.dll']), ((1, 'idAttach'),(1, 'idAttachTo'),(1, 'fAttach'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WaitForInputIdle():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,UInt32)(('WaitForInputIdle', windll['USER32.dll']), ((1, 'hProcess'),(1, 'dwMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetGuiResources():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,win32more.System.Threading.GET_GUI_RESOURCES_FLAGS)(('GetGuiResources', windll['USER32.dll']), ((1, 'hProcess'),(1, 'uiFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IsImmersiveProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('IsImmersiveProcess', windll['USER32.dll']), ((1, 'hProcess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessRestrictionExemption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('SetProcessRestrictionExemption', windll['USER32.dll']), ((1, 'fEnableExemption'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessAffinityMask():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UIntPtr),POINTER(UIntPtr))(('GetProcessAffinityMask', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpProcessAffinityMask'),(1, 'lpSystemAffinityMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessAffinityMask():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UIntPtr)(('SetProcessAffinityMask', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwProcessAffinityMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessIoCounters():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.Threading.IO_COUNTERS_head))(('GetProcessIoCounters', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpIoCounters'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SwitchToFiber():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('SwitchToFiber', windll['KERNEL32.dll']), ((1, 'lpFiber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteFiber():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('DeleteFiber', windll['KERNEL32.dll']), ((1, 'lpFiber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertFiberToThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('ConvertFiberToThread', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFiberEx():
-    try:
-        return WINFUNCTYPE(c_void_p,UIntPtr,UIntPtr,UInt32,win32more.System.Threading.LPFIBER_START_ROUTINE,c_void_p)(('CreateFiberEx', windll['KERNEL32.dll']), ((1, 'dwStackCommitSize'),(1, 'dwStackReserveSize'),(1, 'dwFlags'),(1, 'lpStartAddress'),(1, 'lpParameter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertThreadToFiberEx():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UInt32)(('ConvertThreadToFiberEx', windll['KERNEL32.dll']), ((1, 'lpParameter'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateFiber():
-    try:
-        return WINFUNCTYPE(c_void_p,UIntPtr,win32more.System.Threading.LPFIBER_START_ROUTINE,c_void_p)(('CreateFiber', windll['KERNEL32.dll']), ((1, 'dwStackSize'),(1, 'lpStartAddress'),(1, 'lpParameter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertThreadToFiber():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p)(('ConvertThreadToFiber', windll['KERNEL32.dll']), ((1, 'lpParameter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUmsCompletionList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(c_void_p))(('CreateUmsCompletionList', windll['KERNEL32.dll']), ((1, 'UmsCompletionList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DequeueUmsCompletionListItems():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,POINTER(c_void_p))(('DequeueUmsCompletionListItems', windll['KERNEL32.dll']), ((1, 'UmsCompletionList'),(1, 'WaitTimeOut'),(1, 'UmsThreadList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUmsCompletionListEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(win32more.Foundation.HANDLE))(('GetUmsCompletionListEvent', windll['KERNEL32.dll']), ((1, 'UmsCompletionList'),(1, 'UmsCompletionEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExecuteUmsThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('ExecuteUmsThread', windll['KERNEL32.dll']), ((1, 'UmsThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UmsThreadYield():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('UmsThreadYield', windll['KERNEL32.dll']), ((1, 'SchedulerParam'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUmsCompletionList():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('DeleteUmsCompletionList', windll['KERNEL32.dll']), ((1, 'UmsCompletionList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentUmsThread():
-    try:
-        return WINFUNCTYPE(c_void_p,)(('GetCurrentUmsThread', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNextUmsListItem():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p)(('GetNextUmsListItem', windll['KERNEL32.dll']), ((1, 'UmsContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryUmsThreadInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.System.Threading.RTL_UMS_THREAD_INFO_CLASS,c_void_p,UInt32,POINTER(UInt32))(('QueryUmsThreadInformation', windll['KERNEL32.dll']), ((1, 'UmsThread'),(1, 'UmsThreadInfoClass'),(1, 'UmsThreadInformation'),(1, 'UmsThreadInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUmsThreadInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.System.Threading.RTL_UMS_THREAD_INFO_CLASS,c_void_p,UInt32)(('SetUmsThreadInformation', windll['KERNEL32.dll']), ((1, 'UmsThread'),(1, 'UmsThreadInfoClass'),(1, 'UmsThreadInformation'),(1, 'UmsThreadInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUmsThreadContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('DeleteUmsThreadContext', windll['KERNEL32.dll']), ((1, 'UmsThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUmsThreadContext():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(c_void_p))(('CreateUmsThreadContext', windll['KERNEL32.dll']), ((1, 'lpUmsThread'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnterUmsSchedulingMode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.UMS_SCHEDULER_STARTUP_INFO_head))(('EnterUmsSchedulingMode', windll['KERNEL32.dll']), ((1, 'SchedulerStartupInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUmsSystemThreadInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(win32more.System.Threading.UMS_SYSTEM_THREAD_INFORMATION_head))(('GetUmsSystemThreadInformation', windll['KERNEL32.dll']), ((1, 'ThreadHandle'),(1, 'SystemThreadInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetThreadAffinityMask():
-    try:
-        return WINFUNCTYPE(UIntPtr,win32more.Foundation.HANDLE,UIntPtr)(('SetThreadAffinityMask', windll['KERNEL32.dll']), ((1, 'hThread'),(1, 'dwThreadAffinityMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetProcessDEPPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Threading.PROCESS_DEP_FLAGS)(('SetProcessDEPPolicy', windll['KERNEL32.dll']), ((1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetProcessDEPPolicy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt32),POINTER(win32more.Foundation.BOOL))(('GetProcessDEPPolicy', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'lpFlags'),(1, 'lpPermanent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PulseEvent():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('PulseEvent', windll['KERNEL32.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinExec():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,UInt32)(('WinExec', windll['KERNEL32.dll']), ((1, 'lpCmdLine'),(1, 'uCmdShow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSemaphoreA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),Int32,Int32,win32more.Foundation.PSTR)(('CreateSemaphoreA', windll['KERNEL32.dll']), ((1, 'lpSemaphoreAttributes'),(1, 'lInitialCount'),(1, 'lMaximumCount'),(1, 'lpName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSemaphoreExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),Int32,Int32,win32more.Foundation.PSTR,UInt32,UInt32)(('CreateSemaphoreExA', windll['KERNEL32.dll']), ((1, 'lpSemaphoreAttributes'),(1, 'lInitialCount'),(1, 'lMaximumCount'),(1, 'lpName'),(1, 'dwFlags'),(1, 'dwDesiredAccess'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryFullProcessImageNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_NAME_FORMAT,win32more.Foundation.PSTR,POINTER(UInt32))(('QueryFullProcessImageNameA', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwFlags'),(1, 'lpExeName'),(1, 'lpdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_QueryFullProcessImageNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESS_NAME_FORMAT,win32more.Foundation.PWSTR,POINTER(UInt32))(('QueryFullProcessImageNameW', windll['KERNEL32.dll']), ((1, 'hProcess'),(1, 'dwFlags'),(1, 'lpExeName'),(1, 'lpdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetStartupInfoA():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.STARTUPINFOA_head))(('GetStartupInfoA', windll['KERNEL32.dll']), ((1, 'lpStartupInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessWithLogonW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.Threading.STARTUPINFOW_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessWithLogonW', windll['ADVAPI32.dll']), ((1, 'lpUsername'),(1, 'lpDomain'),(1, 'lpPassword'),(1, 'dwLogonFlags'),(1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProcessWithTokenW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.System.Threading.STARTUPINFOW_head),POINTER(win32more.System.Threading.PROCESS_INFORMATION_head))(('CreateProcessWithTokenW', windll['ADVAPI32.dll']), ((1, 'hToken'),(1, 'dwLogonFlags'),(1, 'lpApplicationName'),(1, 'lpCommandLine'),(1, 'dwCreationFlags'),(1, 'lpEnvironment'),(1, 'lpCurrentDirectory'),(1, 'lpStartupInfo'),(1, 'lpProcessInformation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterWaitForSingleObject():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.HANDLE,win32more.System.Threading.WAITORTIMERCALLBACK,c_void_p,UInt32,win32more.System.Threading.WORKER_THREAD_FLAGS)(('RegisterWaitForSingleObject', windll['KERNEL32.dll']), ((1, 'phNewWaitObject'),(1, 'hObject'),(1, 'Callback'),(1, 'Context'),(1, 'dwMilliseconds'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterWait():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE)(('UnregisterWait', windll['KERNEL32.dll']), ((1, 'WaitHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTimerQueueTimer():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.System.Threading.WAITORTIMERCALLBACK,c_void_p,UInt32,UInt32,win32more.Foundation.BOOL)(('SetTimerQueueTimer', windll['KERNEL32.dll']), ((1, 'TimerQueue'),(1, 'Callback'),(1, 'Parameter'),(1, 'DueTime'),(1, 'Period'),(1, 'PreferIo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePrivateNamespaceA():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.NamespaceHandle,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),c_void_p,win32more.Foundation.PSTR)(('CreatePrivateNamespaceA', windll['KERNEL32.dll']), ((1, 'lpPrivateNamespaceAttributes'),(1, 'lpBoundaryDescriptor'),(1, 'lpAliasPrefix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_OpenPrivateNamespaceA():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.NamespaceHandle,c_void_p,win32more.Foundation.PSTR)(('OpenPrivateNamespaceA', windll['KERNEL32.dll']), ((1, 'lpBoundaryDescriptor'),(1, 'lpAliasPrefix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateBoundaryDescriptorA():
-    try:
-        return WINFUNCTYPE(win32more.System.Threading.BoundaryDescriptorHandle,win32more.Foundation.PSTR,UInt32)(('CreateBoundaryDescriptorA', windll['KERNEL32.dll']), ((1, 'Name'),(1, 'Flags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddIntegrityLabelToBoundaryDescriptor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.HANDLE),win32more.Foundation.PSID)(('AddIntegrityLabelToBoundaryDescriptor', windll['KERNEL32.dll']), ((1, 'BoundaryDescriptor'),(1, 'IntegrityLabel'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetActiveProcessorGroupCount():
-    try:
-        return WINFUNCTYPE(UInt16,)(('GetActiveProcessorGroupCount', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMaximumProcessorGroupCount():
-    try:
-        return WINFUNCTYPE(UInt16,)(('GetMaximumProcessorGroupCount', windll['KERNEL32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetActiveProcessorCount():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16)(('GetActiveProcessorCount', windll['KERNEL32.dll']), ((1, 'GroupNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMaximumProcessorCount():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16)(('GetMaximumProcessorCount', windll['KERNEL32.dll']), ((1, 'GroupNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaProcessorNode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,c_char_p_no)(('GetNumaProcessorNode', windll['KERNEL32.dll']), ((1, 'Processor'),(1, 'NodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaNodeNumberFromHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HANDLE,POINTER(UInt16))(('GetNumaNodeNumberFromHandle', windll['KERNEL32.dll']), ((1, 'hFile'),(1, 'NodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaProcessorNodeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head),POINTER(UInt16))(('GetNumaProcessorNodeEx', windll['KERNEL32.dll']), ((1, 'Processor'),(1, 'NodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaNodeProcessorMask():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,POINTER(UInt64))(('GetNumaNodeProcessorMask', windll['KERNEL32.dll']), ((1, 'Node'),(1, 'ProcessorMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaAvailableMemoryNode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,Byte,POINTER(UInt64))(('GetNumaAvailableMemoryNode', windll['KERNEL32.dll']), ((1, 'Node'),(1, 'AvailableBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaAvailableMemoryNodeEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt16,POINTER(UInt64))(('GetNumaAvailableMemoryNodeEx', windll['KERNEL32.dll']), ((1, 'Node'),(1, 'AvailableBytes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumaProximityNode():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,c_char_p_no)(('GetNumaProximityNode', windll['KERNEL32.dll']), ((1, 'ProximityId'),(1, 'NodeNumber'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQueryInformationProcess():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.System.Threading.PROCESSINFOCLASS,c_void_p,UInt32,POINTER(UInt32))(('NtQueryInformationProcess', windll['ntdll.dll']), ((1, 'ProcessHandle'),(1, 'ProcessInformationClass'),(1, 'ProcessInformation'),(1, 'ProcessInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtQueryInformationThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.System.Threading.THREADINFOCLASS,c_void_p,UInt32,POINTER(UInt32))(('NtQueryInformationThread', windll['ntdll.dll']), ((1, 'ThreadHandle'),(1, 'ThreadInformationClass'),(1, 'ThreadInformation'),(1, 'ThreadInformationLength'),(1, 'ReturnLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NtSetInformationThread():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,win32more.System.Threading.THREADINFOCLASS,c_void_p,UInt32)(('NtSetInformationThread', windll['ntdll.dll']), ((1, 'ThreadHandle'),(1, 'ThreadInformationClass'),(1, 'ThreadInformation'),(1, 'ThreadInformationLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_APP_MEMORY_INFORMATION_head():
-    class APP_MEMORY_INFORMATION(Structure):
-        pass
-    return APP_MEMORY_INFORMATION
-def _define_APP_MEMORY_INFORMATION():
-    APP_MEMORY_INFORMATION = win32more.System.Threading.APP_MEMORY_INFORMATION_head
-    APP_MEMORY_INFORMATION._fields_ = [
-        ('AvailableCommit', UInt64),
-        ('PrivateCommitUsage', UInt64),
-        ('PeakPrivateCommitUsage', UInt64),
-        ('TotalCommitUsage', UInt64),
-    ]
-    return APP_MEMORY_INFORMATION
+PRIVATE_NAMESPACE_FLAG_DESTROY: UInt32 = 1
+PROC_THREAD_ATTRIBUTE_REPLACE_VALUE: UInt32 = 1
+THREAD_POWER_THROTTLING_CURRENT_VERSION: UInt32 = 1
+THREAD_POWER_THROTTLING_EXECUTION_SPEED: UInt32 = 1
+THREAD_POWER_THROTTLING_VALID_FLAGS: UInt32 = 1
+PME_CURRENT_VERSION: UInt32 = 1
+PME_FAILFAST_ON_COMMIT_FAIL_DISABLE: UInt32 = 0
+PME_FAILFAST_ON_COMMIT_FAIL_ENABLE: UInt32 = 1
+PROCESS_POWER_THROTTLING_CURRENT_VERSION: UInt32 = 1
+PROCESS_POWER_THROTTLING_EXECUTION_SPEED: UInt32 = 1
+PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION: UInt32 = 4
+PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND: UInt32 = 1
+PROCESS_LEAP_SECOND_INFO_VALID_FLAGS: UInt32 = 1
+INIT_ONCE_CHECK_ONLY: UInt32 = 1
+INIT_ONCE_ASYNC: UInt32 = 2
+INIT_ONCE_INIT_FAILED: UInt32 = 4
+INIT_ONCE_CTX_RESERVED_BITS: UInt32 = 2
+CONDITION_VARIABLE_LOCKMODE_SHARED: UInt32 = 1
+CREATE_MUTEX_INITIAL_OWNER: UInt32 = 1
+CREATE_WAITABLE_TIMER_MANUAL_RESET: UInt32 = 1
+CREATE_WAITABLE_TIMER_HIGH_RESOLUTION: UInt32 = 2
+SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY: UInt32 = 1
+SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY: UInt32 = 2
+SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE: UInt32 = 4
+PROC_THREAD_ATTRIBUTE_PARENT_PROCESS: UInt32 = 131072
+PROC_THREAD_ATTRIBUTE_HANDLE_LIST: UInt32 = 131074
+PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY: UInt32 = 196611
+PROC_THREAD_ATTRIBUTE_PREFERRED_NODE: UInt32 = 131076
+PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR: UInt32 = 196613
+PROC_THREAD_ATTRIBUTE_UMS_THREAD: UInt32 = 196614
+PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY: UInt32 = 131079
+PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES: UInt32 = 131081
+PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL: UInt32 = 131083
+PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE: UInt32 = 131094
+PROC_THREAD_ATTRIBUTE_MACHINE_TYPE: UInt32 = 131097
+PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES: UInt32 = 196635
+PROC_THREAD_ATTRIBUTE_WIN32K_FILTER: UInt32 = 131088
+PROC_THREAD_ATTRIBUTE_JOB_LIST: UInt32 = 131085
+PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY: UInt32 = 131086
+PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY: UInt32 = 131087
+PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY: UInt32 = 131090
+PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY: UInt32 = 131096
+PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER: UInt32 = 131098
+@winfunctype('KERNEL32.dll')
+def GetProcessWorkingSetSize(hProcess: win32more.Foundation.HANDLE, lpMinimumWorkingSetSize: POINTER(UIntPtr), lpMaximumWorkingSetSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessWorkingSetSize(hProcess: win32more.Foundation.HANDLE, dwMinimumWorkingSetSize: UIntPtr, dwMaximumWorkingSetSize: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FlsAlloc(lpCallback: win32more.System.Threading.PFLS_CALLBACK_FUNCTION) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def FlsGetValue(dwFlsIndex: UInt32) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def FlsSetValue(dwFlsIndex: UInt32, lpFlsData: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def FlsFree(dwFlsIndex: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsThreadAFiber() -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitializeSRWLock(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseSRWLockExclusive(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseSRWLockShared(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def AcquireSRWLockExclusive(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def AcquireSRWLockShared(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def TryAcquireSRWLockExclusive(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('KERNEL32.dll')
+def TryAcquireSRWLockShared(SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head)) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('KERNEL32.dll')
+def InitializeCriticalSection(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def EnterCriticalSection(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def LeaveCriticalSection(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def InitializeCriticalSectionAndSpinCount(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitializeCriticalSectionEx(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32, Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetCriticalSectionSpinCount(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def TryEnterCriticalSection(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteCriticalSection(lpCriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def InitOnceInitialize(InitOnce: POINTER(win32more.System.Threading.RTL_RUN_ONCE_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def InitOnceExecuteOnce(InitOnce: POINTER(win32more.System.Threading.RTL_RUN_ONCE_head), InitFn: win32more.System.Threading.PINIT_ONCE_FN, Parameter: c_void_p, Context: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitOnceBeginInitialize(lpInitOnce: POINTER(win32more.System.Threading.RTL_RUN_ONCE_head), dwFlags: UInt32, fPending: POINTER(win32more.Foundation.BOOL), lpContext: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitOnceComplete(lpInitOnce: POINTER(win32more.System.Threading.RTL_RUN_ONCE_head), dwFlags: UInt32, lpContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitializeConditionVariable(ConditionVariable: POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WakeConditionVariable(ConditionVariable: POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WakeAllConditionVariable(ConditionVariable: POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def SleepConditionVariableCS(ConditionVariable: POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head), CriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head), dwMilliseconds: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SleepConditionVariableSRW(ConditionVariable: POINTER(win32more.System.Threading.RTL_CONDITION_VARIABLE_head), SRWLock: POINTER(win32more.System.Threading.RTL_SRWLOCK_head), dwMilliseconds: UInt32, Flags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetEvent(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ResetEvent(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseSemaphore(hSemaphore: win32more.Foundation.HANDLE, lReleaseCount: Int32, lpPreviousCount: POINTER(Int32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseMutex(hMutex: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WaitForSingleObject(hHandle: win32more.Foundation.HANDLE, dwMilliseconds: UInt32) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('KERNEL32.dll')
+def SleepEx(dwMilliseconds: UInt32, bAlertable: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def WaitForSingleObjectEx(hHandle: win32more.Foundation.HANDLE, dwMilliseconds: UInt32, bAlertable: win32more.Foundation.BOOL) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('KERNEL32.dll')
+def WaitForMultipleObjectsEx(nCount: UInt32, lpHandles: POINTER(win32more.Foundation.HANDLE), bWaitAll: win32more.Foundation.BOOL, dwMilliseconds: UInt32, bAlertable: win32more.Foundation.BOOL) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('KERNEL32.dll')
+def CreateMutexA(lpMutexAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInitialOwner: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateMutexW(lpMutexAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInitialOwner: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenMutexW(dwDesiredAccess: win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateEventA(lpEventAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bManualReset: win32more.Foundation.BOOL, bInitialState: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateEventW(lpEventAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bManualReset: win32more.Foundation.BOOL, bInitialState: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenEventA(dwDesiredAccess: win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenEventW(dwDesiredAccess: win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenSemaphoreW(dwDesiredAccess: win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def OpenWaitableTimerW(dwDesiredAccess: win32more.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, lpTimerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def SetWaitableTimerEx(hTimer: win32more.Foundation.HANDLE, lpDueTime: POINTER(win32more.Foundation.LARGE_INTEGER_head), lPeriod: Int32, pfnCompletionRoutine: win32more.System.Threading.PTIMERAPCROUTINE, lpArgToCompletionRoutine: c_void_p, WakeContext: POINTER(win32more.System.Threading.REASON_CONTEXT_head), TolerableDelay: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetWaitableTimer(hTimer: win32more.Foundation.HANDLE, lpDueTime: POINTER(win32more.Foundation.LARGE_INTEGER_head), lPeriod: Int32, pfnCompletionRoutine: win32more.System.Threading.PTIMERAPCROUTINE, lpArgToCompletionRoutine: c_void_p, fResume: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CancelWaitableTimer(hTimer: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateMutexExA(lpMutexAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateMutexExW(lpMutexAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Foundation.PWSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateEventExA(lpEventAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Foundation.PSTR, dwFlags: win32more.System.Threading.CREATE_EVENT, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateEventExW(lpEventAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpName: win32more.Foundation.PWSTR, dwFlags: win32more.System.Threading.CREATE_EVENT, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateSemaphoreExW(lpSemaphoreAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: win32more.Foundation.PWSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateWaitableTimerExW(lpTimerAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpTimerName: win32more.Foundation.PWSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def EnterSynchronizationBarrier(lpBarrier: POINTER(win32more.System.Threading.RTL_BARRIER_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def InitializeSynchronizationBarrier(lpBarrier: POINTER(win32more.System.Threading.RTL_BARRIER_head), lTotalThreads: Int32, lSpinCount: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteSynchronizationBarrier(lpBarrier: POINTER(win32more.System.Threading.RTL_BARRIER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def Sleep(dwMilliseconds: UInt32) -> Void: ...
+@winfunctype('api-ms-win-core-synch-l1-2-0.dll')
+def WaitOnAddress(Address: c_void_p, CompareAddress: c_void_p, AddressSize: UIntPtr, dwMilliseconds: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-synch-l1-2-0.dll')
+def WakeByAddressSingle(Address: c_void_p) -> Void: ...
+@winfunctype('api-ms-win-core-synch-l1-2-0.dll')
+def WakeByAddressAll(Address: c_void_p) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WaitForMultipleObjects(nCount: UInt32, lpHandles: POINTER(win32more.Foundation.HANDLE), bWaitAll: win32more.Foundation.BOOL, dwMilliseconds: UInt32) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('KERNEL32.dll')
+def CreateSemaphoreW(lpSemaphoreAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateWaitableTimerW(lpTimerAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bManualReset: win32more.Foundation.BOOL, lpTimerName: win32more.Foundation.PWSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def InitializeSListHead(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def InterlockedPopEntrySList(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head)) -> POINTER(win32more.System.Kernel.SLIST_ENTRY_head): ...
+@winfunctype('KERNEL32.dll')
+def InterlockedPushEntrySList(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head), ListEntry: POINTER(win32more.System.Kernel.SLIST_ENTRY_head)) -> POINTER(win32more.System.Kernel.SLIST_ENTRY_head): ...
+@winfunctype('KERNEL32.dll')
+def InterlockedPushListSListEx(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head), List: POINTER(win32more.System.Kernel.SLIST_ENTRY_head), ListEnd: POINTER(win32more.System.Kernel.SLIST_ENTRY_head), Count: UInt32) -> POINTER(win32more.System.Kernel.SLIST_ENTRY_head): ...
+@winfunctype('KERNEL32.dll')
+def InterlockedFlushSList(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head)) -> POINTER(win32more.System.Kernel.SLIST_ENTRY_head): ...
+@winfunctype('KERNEL32.dll')
+def QueryDepthSList(ListHead: POINTER(win32more.System.Kernel.SLIST_HEADER_head)) -> UInt16: ...
+@winfunctype('KERNEL32.dll')
+def QueueUserAPC(pfnAPC: win32more.Foundation.PAPCFUNC, hThread: win32more.Foundation.HANDLE, dwData: UIntPtr) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def QueueUserAPC2(ApcRoutine: win32more.Foundation.PAPCFUNC, Thread: win32more.Foundation.HANDLE, Data: UIntPtr, Flags: win32more.System.Threading.QUEUE_USER_APC_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessTimes(hProcess: win32more.Foundation.HANDLE, lpCreationTime: POINTER(win32more.Foundation.FILETIME_head), lpExitTime: POINTER(win32more.Foundation.FILETIME_head), lpKernelTime: POINTER(win32more.Foundation.FILETIME_head), lpUserTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentProcess() -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentProcessId() -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def ExitProcess(uExitCode: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def TerminateProcess(hProcess: win32more.Foundation.HANDLE, uExitCode: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetExitCodeProcess(hProcess: win32more.Foundation.HANDLE, lpExitCode: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SwitchToThread() -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateThread(lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), dwStackSize: UIntPtr, lpStartAddress: win32more.System.Threading.LPTHREAD_START_ROUTINE, lpParameter: c_void_p, dwCreationFlags: win32more.System.Threading.THREAD_CREATION_FLAGS, lpThreadId: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateRemoteThread(hProcess: win32more.Foundation.HANDLE, lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), dwStackSize: UIntPtr, lpStartAddress: win32more.System.Threading.LPTHREAD_START_ROUTINE, lpParameter: c_void_p, dwCreationFlags: UInt32, lpThreadId: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentThread() -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentThreadId() -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def OpenThread(dwDesiredAccess: win32more.System.Threading.THREAD_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, dwThreadId: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadPriority(hThread: win32more.Foundation.HANDLE, nPriority: win32more.System.Threading.THREAD_PRIORITY) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadPriorityBoost(hThread: win32more.Foundation.HANDLE, bDisablePriorityBoost: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadPriorityBoost(hThread: win32more.Foundation.HANDLE, pDisablePriorityBoost: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadPriority(hThread: win32more.Foundation.HANDLE) -> Int32: ...
+@winfunctype('KERNEL32.dll')
+def ExitThread(dwExitCode: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def TerminateThread(hThread: win32more.Foundation.HANDLE, dwExitCode: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetExitCodeThread(hThread: win32more.Foundation.HANDLE, lpExitCode: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SuspendThread(hThread: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def ResumeThread(hThread: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def TlsAlloc() -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def TlsGetValue(dwTlsIndex: UInt32) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def TlsSetValue(dwTlsIndex: UInt32, lpTlsValue: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def TlsFree(dwTlsIndex: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateProcessA(lpApplicationName: win32more.Foundation.PSTR, lpCommandLine: win32more.Foundation.PSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateProcessW(lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessShutdownParameters(dwLevel: UInt32, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessVersion(ProcessId: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetStartupInfoW(lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def CreateProcessAsUserW(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def SetThreadToken(Thread: POINTER(win32more.Foundation.HANDLE), Token: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def OpenProcessToken(ProcessHandle: win32more.Foundation.HANDLE, DesiredAccess: win32more.Security.TOKEN_ACCESS_MASK, TokenHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def OpenThreadToken(ThreadHandle: win32more.Foundation.HANDLE, DesiredAccess: win32more.Security.TOKEN_ACCESS_MASK, OpenAsSelf: win32more.Foundation.BOOL, TokenHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetPriorityClass(hProcess: win32more.Foundation.HANDLE, dwPriorityClass: win32more.System.Threading.PROCESS_CREATION_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetPriorityClass(hProcess: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadStackGuarantee(StackSizeInBytes: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessId(Process: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadId(Thread: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def FlushProcessWriteBuffers() -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessIdOfThread(Thread: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def InitializeProcThreadAttributeList(lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST, dwAttributeCount: UInt32, dwFlags: UInt32, lpSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteProcThreadAttributeList(lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def UpdateProcThreadAttribute(lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST, dwFlags: UInt32, Attribute: UIntPtr, lpValue: c_void_p, cbSize: UIntPtr, lpPreviousValue: c_void_p, lpReturnSize: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessDynamicEHContinuationTargets(Process: win32more.Foundation.HANDLE, NumberOfTargets: UInt16, Targets: POINTER(win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessDynamicEnforcedCetCompatibleRanges(Process: win32more.Foundation.HANDLE, NumberOfRanges: UInt16, Ranges: POINTER(win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessAffinityUpdateMode(hProcess: win32more.Foundation.HANDLE, dwFlags: win32more.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryProcessAffinityUpdateMode(hProcess: win32more.Foundation.HANDLE, lpdwFlags: POINTER(win32more.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateRemoteThreadEx(hProcess: win32more.Foundation.HANDLE, lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), dwStackSize: UIntPtr, lpStartAddress: win32more.System.Threading.LPTHREAD_START_ROUTINE, lpParameter: c_void_p, dwCreationFlags: UInt32, lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST, lpThreadId: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentThreadStackLimits(LowLimit: POINTER(UIntPtr), HighLimit: POINTER(UIntPtr)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessMitigationPolicy(hProcess: win32more.Foundation.HANDLE, MitigationPolicy: win32more.System.Threading.PROCESS_MITIGATION_POLICY, lpBuffer: c_void_p, dwLength: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessMitigationPolicy(MitigationPolicy: win32more.System.Threading.PROCESS_MITIGATION_POLICY, lpBuffer: c_void_p, dwLength: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadTimes(hThread: win32more.Foundation.HANDLE, lpCreationTime: POINTER(win32more.Foundation.FILETIME_head), lpExitTime: POINTER(win32more.Foundation.FILETIME_head), lpKernelTime: POINTER(win32more.Foundation.FILETIME_head), lpUserTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def OpenProcess(dwDesiredAccess: win32more.System.Threading.PROCESS_ACCESS_RIGHTS, bInheritHandle: win32more.Foundation.BOOL, dwProcessId: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def IsProcessorFeaturePresent(ProcessorFeature: win32more.System.Threading.PROCESSOR_FEATURE_ID) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessHandleCount(hProcess: win32more.Foundation.HANDLE, pdwHandleCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentProcessorNumber() -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadIdealProcessorEx(hThread: win32more.Foundation.HANDLE, lpIdealProcessor: POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head), lpPreviousIdealProcessor: POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadIdealProcessorEx(hThread: win32more.Foundation.HANDLE, lpIdealProcessor: POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentProcessorNumberEx(ProcNumber: POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessPriorityBoost(hProcess: win32more.Foundation.HANDLE, pDisablePriorityBoost: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessPriorityBoost(hProcess: win32more.Foundation.HANDLE, bDisablePriorityBoost: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadIOPendingFlag(hThread: win32more.Foundation.HANDLE, lpIOIsPending: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetSystemTimes(lpIdleTime: POINTER(win32more.Foundation.FILETIME_head), lpKernelTime: POINTER(win32more.Foundation.FILETIME_head), lpUserTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadInformation(hThread: win32more.Foundation.HANDLE, ThreadInformationClass: win32more.System.Threading.THREAD_INFORMATION_CLASS, ThreadInformation: c_void_p, ThreadInformationSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadInformation(hThread: win32more.Foundation.HANDLE, ThreadInformationClass: win32more.System.Threading.THREAD_INFORMATION_CLASS, ThreadInformation: c_void_p, ThreadInformationSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsProcessCritical(hProcess: win32more.Foundation.HANDLE, Critical: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProtectedPolicy(PolicyGuid: POINTER(Guid), PolicyValue: UIntPtr, OldPolicyValue: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryProtectedPolicy(PolicyGuid: POINTER(Guid), PolicyValue: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadIdealProcessor(hThread: win32more.Foundation.HANDLE, dwIdealProcessor: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessInformation(hProcess: win32more.Foundation.HANDLE, ProcessInformationClass: win32more.System.Threading.PROCESS_INFORMATION_CLASS, ProcessInformation: c_void_p, ProcessInformationSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessInformation(hProcess: win32more.Foundation.HANDLE, ProcessInformationClass: win32more.System.Threading.PROCESS_INFORMATION_CLASS, ProcessInformation: c_void_p, ProcessInformationSize: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessDefaultCpuSets(Process: win32more.Foundation.HANDLE, CpuSetIds: POINTER(UInt32), CpuSetIdCount: UInt32, RequiredIdCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessDefaultCpuSets(Process: win32more.Foundation.HANDLE, CpuSetIds: POINTER(UInt32), CpuSetIdCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadSelectedCpuSets(Thread: win32more.Foundation.HANDLE, CpuSetIds: POINTER(UInt32), CpuSetIdCount: UInt32, RequiredIdCount: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadSelectedCpuSets(Thread: win32more.Foundation.HANDLE, CpuSetIds: POINTER(UInt32), CpuSetIdCount: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreateProcessAsUserA(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PSTR, lpCommandLine: win32more.Foundation.PSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessShutdownParameters(lpdwLevel: POINTER(UInt32), lpdwFlags: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessDefaultCpuSetMasks(Process: win32more.Foundation.HANDLE, CpuSetMasks: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), CpuSetMaskCount: UInt16, RequiredMaskCount: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessDefaultCpuSetMasks(Process: win32more.Foundation.HANDLE, CpuSetMasks: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), CpuSetMaskCount: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadSelectedCpuSetMasks(Thread: win32more.Foundation.HANDLE, CpuSetMasks: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), CpuSetMaskCount: UInt16, RequiredMaskCount: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadSelectedCpuSetMasks(Thread: win32more.Foundation.HANDLE, CpuSetMasks: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), CpuSetMaskCount: UInt16) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetMachineTypeAttributes(Machine: UInt16, MachineTypeAttributes: POINTER(win32more.System.Threading.MACHINE_ATTRIBUTES)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadDescription(hThread: win32more.Foundation.HANDLE, lpThreadDescription: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadDescription(hThread: win32more.Foundation.HANDLE, ppszThreadDescription: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def QueueUserWorkItem(Function: win32more.System.Threading.LPTHREAD_START_ROUTINE, Context: c_void_p, Flags: win32more.System.Threading.WORKER_THREAD_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UnregisterWaitEx(WaitHandle: win32more.Foundation.HANDLE, CompletionEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateTimerQueue() -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateTimerQueueTimer(phNewTimer: POINTER(win32more.Foundation.HANDLE), TimerQueue: win32more.Foundation.HANDLE, Callback: win32more.System.Threading.WAITORTIMERCALLBACK, Parameter: c_void_p, DueTime: UInt32, Period: UInt32, Flags: win32more.System.Threading.WORKER_THREAD_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ChangeTimerQueueTimer(TimerQueue: win32more.Foundation.HANDLE, Timer: win32more.Foundation.HANDLE, DueTime: UInt32, Period: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteTimerQueueTimer(TimerQueue: win32more.Foundation.HANDLE, Timer: win32more.Foundation.HANDLE, CompletionEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteTimerQueue(TimerQueue: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteTimerQueueEx(TimerQueue: win32more.Foundation.HANDLE, CompletionEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpool(reserved: c_void_p) -> win32more.System.Threading.PTP_POOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolThreadMaximum(ptpp: win32more.System.Threading.PTP_POOL, cthrdMost: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolThreadMinimum(ptpp: win32more.System.Threading.PTP_POOL, cthrdMic: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolStackInformation(ptpp: win32more.System.Threading.PTP_POOL, ptpsi: POINTER(win32more.System.Threading.TP_POOL_STACK_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryThreadpoolStackInformation(ptpp: win32more.System.Threading.PTP_POOL, ptpsi: POINTER(win32more.System.Threading.TP_POOL_STACK_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpool(ptpp: win32more.System.Threading.PTP_POOL) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpoolCleanupGroup() -> IntPtr: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolCleanupGroupMembers(ptpcg: IntPtr, fCancelPendingCallbacks: win32more.Foundation.BOOL, pvCleanupContext: c_void_p) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolCleanupGroup(ptpcg: IntPtr) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def SetEventWhenCallbackReturns(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), evt: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseSemaphoreWhenCallbackReturns(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), sem: win32more.Foundation.HANDLE, crel: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def ReleaseMutexWhenCallbackReturns(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), mut: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def LeaveCriticalSectionWhenCallbackReturns(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), pcs: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def FreeLibraryWhenCallbackReturns(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), mod: win32more.Foundation.HINSTANCE) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CallbackMayRunLong(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DisassociateCurrentThreadFromCallback(pci: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def TrySubmitThreadpoolCallback(pfns: win32more.System.Threading.PTP_SIMPLE_CALLBACK, pv: c_void_p, pcbe: POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpoolWork(pfnwk: win32more.System.Threading.PTP_WORK_CALLBACK, pv: c_void_p, pcbe: POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head)) -> POINTER(win32more.System.Threading.TP_WORK_head): ...
+@winfunctype('KERNEL32.dll')
+def SubmitThreadpoolWork(pwk: POINTER(win32more.System.Threading.TP_WORK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WaitForThreadpoolWorkCallbacks(pwk: POINTER(win32more.System.Threading.TP_WORK_head), fCancelPendingCallbacks: win32more.Foundation.BOOL) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolWork(pwk: POINTER(win32more.System.Threading.TP_WORK_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpoolTimer(pfnti: win32more.System.Threading.PTP_TIMER_CALLBACK, pv: c_void_p, pcbe: POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head)) -> POINTER(win32more.System.Threading.TP_TIMER_head): ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolTimer(pti: POINTER(win32more.System.Threading.TP_TIMER_head), pftDueTime: POINTER(win32more.Foundation.FILETIME_head), msPeriod: UInt32, msWindowLength: UInt32) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def IsThreadpoolTimerSet(pti: POINTER(win32more.System.Threading.TP_TIMER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WaitForThreadpoolTimerCallbacks(pti: POINTER(win32more.System.Threading.TP_TIMER_head), fCancelPendingCallbacks: win32more.Foundation.BOOL) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolTimer(pti: POINTER(win32more.System.Threading.TP_TIMER_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpoolWait(pfnwa: win32more.System.Threading.PTP_WAIT_CALLBACK, pv: c_void_p, pcbe: POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head)) -> POINTER(win32more.System.Threading.TP_WAIT_head): ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolWait(pwa: POINTER(win32more.System.Threading.TP_WAIT_head), h: win32more.Foundation.HANDLE, pftTimeout: POINTER(win32more.Foundation.FILETIME_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WaitForThreadpoolWaitCallbacks(pwa: POINTER(win32more.System.Threading.TP_WAIT_head), fCancelPendingCallbacks: win32more.Foundation.BOOL) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolWait(pwa: POINTER(win32more.System.Threading.TP_WAIT_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CreateThreadpoolIo(fl: win32more.Foundation.HANDLE, pfnio: win32more.System.Threading.PTP_WIN32_IO_CALLBACK, pv: c_void_p, pcbe: POINTER(win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head)) -> POINTER(win32more.System.Threading.TP_IO_head): ...
+@winfunctype('KERNEL32.dll')
+def StartThreadpoolIo(pio: POINTER(win32more.System.Threading.TP_IO_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CancelThreadpoolIo(pio: POINTER(win32more.System.Threading.TP_IO_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def WaitForThreadpoolIoCallbacks(pio: POINTER(win32more.System.Threading.TP_IO_head), fCancelPendingCallbacks: win32more.Foundation.BOOL) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def CloseThreadpoolIo(pio: POINTER(win32more.System.Threading.TP_IO_head)) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolTimerEx(pti: POINTER(win32more.System.Threading.TP_TIMER_head), pftDueTime: POINTER(win32more.Foundation.FILETIME_head), msPeriod: UInt32, msWindowLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadpoolWaitEx(pwa: POINTER(win32more.System.Threading.TP_WAIT_head), h: win32more.Foundation.HANDLE, pftTimeout: POINTER(win32more.Foundation.FILETIME_head), Reserved: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsWow64Process(hProcess: win32more.Foundation.HANDLE, Wow64Process: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-wow64-l1-1-1.dll')
+def Wow64SetThreadDefaultGuestMachine(Machine: UInt16) -> UInt16: ...
+@winfunctype('KERNEL32.dll')
+def IsWow64Process2(hProcess: win32more.Foundation.HANDLE, pProcessMachine: POINTER(win32more.System.SystemInformation.IMAGE_FILE_MACHINE), pNativeMachine: POINTER(win32more.System.SystemInformation.IMAGE_FILE_MACHINE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def Wow64SuspendThread(hThread: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def CreatePrivateNamespaceW(lpPrivateNamespaceAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: win32more.Foundation.PWSTR) -> win32more.System.Threading.NamespaceHandle: ...
+@winfunctype('KERNEL32.dll')
+def OpenPrivateNamespaceW(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: win32more.Foundation.PWSTR) -> win32more.System.Threading.NamespaceHandle: ...
+@winfunctype('KERNEL32.dll')
+def ClosePrivateNamespace(Handle: win32more.System.Threading.NamespaceHandle, Flags: UInt32) -> win32more.Foundation.BOOLEAN: ...
+@winfunctype('KERNEL32.dll')
+def CreateBoundaryDescriptorW(Name: win32more.Foundation.PWSTR, Flags: UInt32) -> win32more.System.Threading.BoundaryDescriptorHandle: ...
+@winfunctype('KERNEL32.dll')
+def AddSIDToBoundaryDescriptor(BoundaryDescriptor: POINTER(win32more.Foundation.HANDLE), RequiredSid: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteBoundaryDescriptor(BoundaryDescriptor: win32more.System.Threading.BoundaryDescriptorHandle) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaHighestNodeNumber(HighestNodeNumber: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaNodeProcessorMaskEx(Node: UInt16, ProcessorMask: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaNodeProcessorMask2(NodeNumber: UInt16, ProcessorMasks: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), ProcessorMaskCount: UInt16, RequiredMaskCount: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaProximityNodeEx(ProximityId: UInt32, NodeNumber: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessGroupAffinity(hProcess: win32more.Foundation.HANDLE, GroupCount: POINTER(UInt16), GroupArray: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetThreadGroupAffinity(hThread: win32more.Foundation.HANDLE, GroupAffinity: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadGroupAffinity(hThread: win32more.Foundation.HANDLE, GroupAffinity: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head), PreviousGroupAffinity: POINTER(win32more.System.SystemInformation.GROUP_AFFINITY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvSetMmThreadCharacteristicsA(TaskName: win32more.Foundation.PSTR, TaskIndex: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('AVRT.dll')
+def AvSetMmThreadCharacteristicsW(TaskName: win32more.Foundation.PWSTR, TaskIndex: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('AVRT.dll')
+def AvSetMmMaxThreadCharacteristicsA(FirstTask: win32more.Foundation.PSTR, SecondTask: win32more.Foundation.PSTR, TaskIndex: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('AVRT.dll')
+def AvSetMmMaxThreadCharacteristicsW(FirstTask: win32more.Foundation.PWSTR, SecondTask: win32more.Foundation.PWSTR, TaskIndex: POINTER(UInt32)) -> win32more.Foundation.HANDLE: ...
+@winfunctype('AVRT.dll')
+def AvRevertMmThreadCharacteristics(AvrtHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvSetMmThreadPriority(AvrtHandle: win32more.Foundation.HANDLE, Priority: win32more.System.Threading.AVRT_PRIORITY) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtCreateThreadOrderingGroup(Context: POINTER(win32more.Foundation.HANDLE), Period: POINTER(win32more.Foundation.LARGE_INTEGER_head), ThreadOrderingGuid: POINTER(Guid), Timeout: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtCreateThreadOrderingGroupExA(Context: POINTER(win32more.Foundation.HANDLE), Period: POINTER(win32more.Foundation.LARGE_INTEGER_head), ThreadOrderingGuid: POINTER(Guid), Timeout: POINTER(win32more.Foundation.LARGE_INTEGER_head), TaskName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtCreateThreadOrderingGroupExW(Context: POINTER(win32more.Foundation.HANDLE), Period: POINTER(win32more.Foundation.LARGE_INTEGER_head), ThreadOrderingGuid: POINTER(Guid), Timeout: POINTER(win32more.Foundation.LARGE_INTEGER_head), TaskName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtJoinThreadOrderingGroup(Context: POINTER(win32more.Foundation.HANDLE), ThreadOrderingGuid: POINTER(Guid), Before: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtWaitOnThreadOrderingGroup(Context: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtLeaveThreadOrderingGroup(Context: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvRtDeleteThreadOrderingGroup(Context: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('AVRT.dll')
+def AvQuerySystemResponsiveness(AvrtHandle: win32more.Foundation.HANDLE, SystemResponsivenessValue: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def AttachThreadInput(idAttach: UInt32, idAttachTo: UInt32, fAttach: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def WaitForInputIdle(hProcess: win32more.Foundation.HANDLE, dwMilliseconds: UInt32) -> UInt32: ...
+@winfunctype('USER32.dll')
+def GetGuiResources(hProcess: win32more.Foundation.HANDLE, uiFlags: win32more.System.Threading.GET_GUI_RESOURCES_FLAGS) -> UInt32: ...
+@winfunctype('USER32.dll')
+def IsImmersiveProcess(hProcess: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def SetProcessRestrictionExemption(fEnableExemption: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessAffinityMask(hProcess: win32more.Foundation.HANDLE, lpProcessAffinityMask: POINTER(UIntPtr), lpSystemAffinityMask: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessAffinityMask(hProcess: win32more.Foundation.HANDLE, dwProcessAffinityMask: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessIoCounters(hProcess: win32more.Foundation.HANDLE, lpIoCounters: POINTER(win32more.System.Threading.IO_COUNTERS_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SwitchToFiber(lpFiber: c_void_p) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def DeleteFiber(lpFiber: c_void_p) -> Void: ...
+@winfunctype('KERNEL32.dll')
+def ConvertFiberToThread() -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateFiberEx(dwStackCommitSize: UIntPtr, dwStackReserveSize: UIntPtr, dwFlags: UInt32, lpStartAddress: win32more.System.Threading.LPFIBER_START_ROUTINE, lpParameter: c_void_p) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def ConvertThreadToFiberEx(lpParameter: c_void_p, dwFlags: UInt32) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def CreateFiber(dwStackSize: UIntPtr, lpStartAddress: win32more.System.Threading.LPFIBER_START_ROUTINE, lpParameter: c_void_p) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def ConvertThreadToFiber(lpParameter: c_void_p) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def CreateUmsCompletionList(UmsCompletionList: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DequeueUmsCompletionListItems(UmsCompletionList: c_void_p, WaitTimeOut: UInt32, UmsThreadList: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetUmsCompletionListEvent(UmsCompletionList: c_void_p, UmsCompletionEvent: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ExecuteUmsThread(UmsThread: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UmsThreadYield(SchedulerParam: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteUmsCompletionList(UmsCompletionList: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentUmsThread() -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def GetNextUmsListItem(UmsContext: c_void_p) -> c_void_p: ...
+@winfunctype('KERNEL32.dll')
+def QueryUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: win32more.System.Threading.RTL_UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: win32more.System.Threading.RTL_UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def DeleteUmsThreadContext(UmsThread: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def CreateUmsThreadContext(lpUmsThread: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def EnterUmsSchedulingMode(SchedulerStartupInfo: POINTER(win32more.System.Threading.UMS_SCHEDULER_STARTUP_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetUmsSystemThreadInformation(ThreadHandle: win32more.Foundation.HANDLE, SystemThreadInfo: POINTER(win32more.System.Threading.UMS_SYSTEM_THREAD_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetThreadAffinityMask(hThread: win32more.Foundation.HANDLE, dwThreadAffinityMask: UIntPtr) -> UIntPtr: ...
+@winfunctype('KERNEL32.dll')
+def SetProcessDEPPolicy(dwFlags: win32more.System.Threading.PROCESS_DEP_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetProcessDEPPolicy(hProcess: win32more.Foundation.HANDLE, lpFlags: POINTER(UInt32), lpPermanent: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def PulseEvent(hEvent: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def WinExec(lpCmdLine: win32more.Foundation.PSTR, uCmdShow: UInt32) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def CreateSemaphoreA(lpSemaphoreAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: win32more.Foundation.PSTR) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreateSemaphoreExA(lpSemaphoreAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lInitialCount: Int32, lMaximumCount: Int32, lpName: win32more.Foundation.PSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def QueryFullProcessImageNameA(hProcess: win32more.Foundation.HANDLE, dwFlags: win32more.System.Threading.PROCESS_NAME_FORMAT, lpExeName: win32more.Foundation.PSTR, lpdwSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def QueryFullProcessImageNameW(hProcess: win32more.Foundation.HANDLE, dwFlags: win32more.System.Threading.PROCESS_NAME_FORMAT, lpExeName: win32more.Foundation.PWSTR, lpdwSize: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetStartupInfoA(lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head)) -> Void: ...
+@winfunctype('ADVAPI32.dll')
+def CreateProcessWithLogonW(lpUsername: win32more.Foundation.PWSTR, lpDomain: win32more.Foundation.PWSTR, lpPassword: win32more.Foundation.PWSTR, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def CreateProcessWithTokenW(hToken: win32more.Foundation.HANDLE, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def RegisterWaitForSingleObject(phNewWaitObject: POINTER(win32more.Foundation.HANDLE), hObject: win32more.Foundation.HANDLE, Callback: win32more.System.Threading.WAITORTIMERCALLBACK, Context: c_void_p, dwMilliseconds: UInt32, dwFlags: win32more.System.Threading.WORKER_THREAD_FLAGS) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UnregisterWait(WaitHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def SetTimerQueueTimer(TimerQueue: win32more.Foundation.HANDLE, Callback: win32more.System.Threading.WAITORTIMERCALLBACK, Parameter: c_void_p, DueTime: UInt32, Period: UInt32, PreferIo: win32more.Foundation.BOOL) -> win32more.Foundation.HANDLE: ...
+@winfunctype('KERNEL32.dll')
+def CreatePrivateNamespaceA(lpPrivateNamespaceAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpBoundaryDescriptor: c_void_p, lpAliasPrefix: win32more.Foundation.PSTR) -> win32more.System.Threading.NamespaceHandle: ...
+@winfunctype('KERNEL32.dll')
+def OpenPrivateNamespaceA(lpBoundaryDescriptor: c_void_p, lpAliasPrefix: win32more.Foundation.PSTR) -> win32more.System.Threading.NamespaceHandle: ...
+@winfunctype('KERNEL32.dll')
+def CreateBoundaryDescriptorA(Name: win32more.Foundation.PSTR, Flags: UInt32) -> win32more.System.Threading.BoundaryDescriptorHandle: ...
+@winfunctype('KERNEL32.dll')
+def AddIntegrityLabelToBoundaryDescriptor(BoundaryDescriptor: POINTER(win32more.Foundation.HANDLE), IntegrityLabel: win32more.Foundation.PSID) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetActiveProcessorGroupCount() -> UInt16: ...
+@winfunctype('KERNEL32.dll')
+def GetMaximumProcessorGroupCount() -> UInt16: ...
+@winfunctype('KERNEL32.dll')
+def GetActiveProcessorCount(GroupNumber: UInt16) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetMaximumProcessorCount(GroupNumber: UInt16) -> UInt32: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaProcessorNode(Processor: Byte, NodeNumber: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaNodeNumberFromHandle(hFile: win32more.Foundation.HANDLE, NodeNumber: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaProcessorNodeEx(Processor: POINTER(win32more.System.Kernel.PROCESSOR_NUMBER_head), NodeNumber: POINTER(UInt16)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaNodeProcessorMask(Node: Byte, ProcessorMask: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaAvailableMemoryNode(Node: Byte, AvailableBytes: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaAvailableMemoryNodeEx(Node: UInt16, AvailableBytes: POINTER(UInt64)) -> win32more.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetNumaProximityNode(ProximityId: UInt32, NodeNumber: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype('ntdll.dll')
+def NtQueryInformationProcess(ProcessHandle: win32more.Foundation.HANDLE, ProcessInformationClass: win32more.System.Threading.PROCESSINFOCLASS, ProcessInformation: c_void_p, ProcessInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtQueryInformationThread(ThreadHandle: win32more.Foundation.HANDLE, ThreadInformationClass: win32more.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('ntdll.dll')
+def NtSetInformationThread(ThreadHandle: win32more.Foundation.HANDLE, ThreadInformationClass: win32more.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32) -> win32more.Foundation.NTSTATUS: ...
+class APP_MEMORY_INFORMATION(Structure):
+    AvailableCommit: UInt64
+    PrivateCommitUsage: UInt64
+    PeakPrivateCommitUsage: UInt64
+    TotalCommitUsage: UInt64
 AVRT_PRIORITY = Int32
-AVRT_PRIORITY_VERYLOW = -2
-AVRT_PRIORITY_LOW = -1
-AVRT_PRIORITY_NORMAL = 0
-AVRT_PRIORITY_HIGH = 1
-AVRT_PRIORITY_CRITICAL = 2
+AVRT_PRIORITY_VERYLOW: AVRT_PRIORITY = -2
+AVRT_PRIORITY_LOW: AVRT_PRIORITY = -1
+AVRT_PRIORITY_NORMAL: AVRT_PRIORITY = 0
+AVRT_PRIORITY_HIGH: AVRT_PRIORITY = 1
+AVRT_PRIORITY_CRITICAL: AVRT_PRIORITY = 2
 BoundaryDescriptorHandle = IntPtr
 CREATE_EVENT = UInt32
-CREATE_EVENT_INITIAL_SET = 2
-CREATE_EVENT_MANUAL_RESET = 1
+CREATE_EVENT_INITIAL_SET: CREATE_EVENT = 2
+CREATE_EVENT_MANUAL_RESET: CREATE_EVENT = 1
 CREATE_PROCESS_LOGON_FLAGS = UInt32
-LOGON_WITH_PROFILE = 1
-LOGON_NETCREDENTIALS_ONLY = 2
+LOGON_WITH_PROFILE: CREATE_PROCESS_LOGON_FLAGS = 1
+LOGON_NETCREDENTIALS_ONLY: CREATE_PROCESS_LOGON_FLAGS = 2
 GET_GUI_RESOURCES_FLAGS = UInt32
-GR_GDIOBJECTS = 0
-GR_GDIOBJECTS_PEAK = 2
-GR_USEROBJECTS = 1
-GR_USEROBJECTS_PEAK = 4
-def _define_IO_COUNTERS_head():
-    class IO_COUNTERS(Structure):
-        pass
-    return IO_COUNTERS
-def _define_IO_COUNTERS():
-    IO_COUNTERS = win32more.System.Threading.IO_COUNTERS_head
-    IO_COUNTERS._fields_ = [
-        ('ReadOperationCount', UInt64),
-        ('WriteOperationCount', UInt64),
-        ('OtherOperationCount', UInt64),
-        ('ReadTransferCount', UInt64),
-        ('WriteTransferCount', UInt64),
-        ('OtherTransferCount', UInt64),
-    ]
-    return IO_COUNTERS
-def _define_LPFIBER_START_ROUTINE():
-    return WINFUNCTYPE(Void,c_void_p)
+GR_GDIOBJECTS: GET_GUI_RESOURCES_FLAGS = 0
+GR_GDIOBJECTS_PEAK: GET_GUI_RESOURCES_FLAGS = 2
+GR_USEROBJECTS: GET_GUI_RESOURCES_FLAGS = 1
+GR_USEROBJECTS_PEAK: GET_GUI_RESOURCES_FLAGS = 4
+class IO_COUNTERS(Structure):
+    ReadOperationCount: UInt64
+    WriteOperationCount: UInt64
+    OtherOperationCount: UInt64
+    ReadTransferCount: UInt64
+    WriteTransferCount: UInt64
+    OtherTransferCount: UInt64
+@winfunctype_pointer
+def LPFIBER_START_ROUTINE(lpFiberParameter: c_void_p) -> Void: ...
 LPPROC_THREAD_ATTRIBUTE_LIST = c_void_p
-def _define_LPTHREAD_START_ROUTINE():
-    return WINFUNCTYPE(UInt32,c_void_p)
+@winfunctype_pointer
+def LPTHREAD_START_ROUTINE(lpThreadParameter: c_void_p) -> UInt32: ...
 MACHINE_ATTRIBUTES = UInt32
-MACHINE_ATTRIBUTES_UserEnabled = 1
-MACHINE_ATTRIBUTES_KernelEnabled = 2
-MACHINE_ATTRIBUTES_Wow64Container = 4
+MACHINE_ATTRIBUTES_UserEnabled: MACHINE_ATTRIBUTES = 1
+MACHINE_ATTRIBUTES_KernelEnabled: MACHINE_ATTRIBUTES = 2
+MACHINE_ATTRIBUTES_Wow64Container: MACHINE_ATTRIBUTES = 4
 MEMORY_PRIORITY = UInt32
-MEMORY_PRIORITY_VERY_LOW = 1
-MEMORY_PRIORITY_LOW = 2
-MEMORY_PRIORITY_MEDIUM = 3
-MEMORY_PRIORITY_BELOW_NORMAL = 4
-MEMORY_PRIORITY_NORMAL = 5
-def _define_MEMORY_PRIORITY_INFORMATION_head():
-    class MEMORY_PRIORITY_INFORMATION(Structure):
-        pass
-    return MEMORY_PRIORITY_INFORMATION
-def _define_MEMORY_PRIORITY_INFORMATION():
-    MEMORY_PRIORITY_INFORMATION = win32more.System.Threading.MEMORY_PRIORITY_INFORMATION_head
-    MEMORY_PRIORITY_INFORMATION._fields_ = [
-        ('MemoryPriority', win32more.System.Threading.MEMORY_PRIORITY),
-    ]
-    return MEMORY_PRIORITY_INFORMATION
+MEMORY_PRIORITY_VERY_LOW: MEMORY_PRIORITY = 1
+MEMORY_PRIORITY_LOW: MEMORY_PRIORITY = 2
+MEMORY_PRIORITY_MEDIUM: MEMORY_PRIORITY = 3
+MEMORY_PRIORITY_BELOW_NORMAL: MEMORY_PRIORITY = 4
+MEMORY_PRIORITY_NORMAL: MEMORY_PRIORITY = 5
+class MEMORY_PRIORITY_INFORMATION(Structure):
+    MemoryPriority: win32more.System.Threading.MEMORY_PRIORITY
 NamespaceHandle = IntPtr
-def _define_PEB_head():
-    class PEB(Structure):
-        pass
-    return PEB
-def _define_PEB():
-    PEB = win32more.System.Threading.PEB_head
-    PEB._fields_ = [
-        ('Reserved1', Byte * 2),
-        ('BeingDebugged', Byte),
-        ('Reserved2', Byte * 1),
-        ('Reserved3', c_void_p * 2),
-        ('Ldr', POINTER(win32more.System.Threading.PEB_LDR_DATA_head)),
-        ('ProcessParameters', POINTER(win32more.System.Threading.RTL_USER_PROCESS_PARAMETERS_head)),
-        ('Reserved4', c_void_p * 3),
-        ('AtlThunkSListPtr', c_void_p),
-        ('Reserved5', c_void_p),
-        ('Reserved6', UInt32),
-        ('Reserved7', c_void_p),
-        ('Reserved8', UInt32),
-        ('AtlThunkSListPtr32', UInt32),
-        ('Reserved9', c_void_p * 45),
-        ('Reserved10', Byte * 96),
-        ('PostProcessInitRoutine', win32more.System.Threading.PPS_POST_PROCESS_INIT_ROUTINE),
-        ('Reserved11', Byte * 128),
-        ('Reserved12', c_void_p * 1),
-        ('SessionId', UInt32),
-    ]
-    return PEB
-def _define_PEB_LDR_DATA_head():
-    class PEB_LDR_DATA(Structure):
-        pass
-    return PEB_LDR_DATA
-def _define_PEB_LDR_DATA():
-    PEB_LDR_DATA = win32more.System.Threading.PEB_LDR_DATA_head
-    PEB_LDR_DATA._fields_ = [
-        ('Reserved1', Byte * 8),
-        ('Reserved2', c_void_p * 3),
-        ('InMemoryOrderModuleList', win32more.System.Kernel.LIST_ENTRY),
-    ]
-    return PEB_LDR_DATA
-def _define_PFLS_CALLBACK_FUNCTION():
-    return WINFUNCTYPE(Void,c_void_p)
-def _define_PINIT_ONCE_FN():
-    return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.Threading.RTL_RUN_ONCE_head),c_void_p,POINTER(c_void_p))
+class PEB(Structure):
+    Reserved1: Byte * 2
+    BeingDebugged: Byte
+    Reserved2: Byte * 1
+    Reserved3: c_void_p * 2
+    Ldr: POINTER(win32more.System.Threading.PEB_LDR_DATA_head)
+    ProcessParameters: POINTER(win32more.System.Threading.RTL_USER_PROCESS_PARAMETERS_head)
+    Reserved4: c_void_p * 3
+    AtlThunkSListPtr: c_void_p
+    Reserved5: c_void_p
+    Reserved6: UInt32
+    Reserved7: c_void_p
+    Reserved8: UInt32
+    AtlThunkSListPtr32: UInt32
+    Reserved9: c_void_p * 45
+    Reserved10: Byte * 96
+    PostProcessInitRoutine: win32more.System.Threading.PPS_POST_PROCESS_INIT_ROUTINE
+    Reserved11: Byte * 128
+    Reserved12: c_void_p * 1
+    SessionId: UInt32
+class PEB_LDR_DATA(Structure):
+    Reserved1: Byte * 8
+    Reserved2: c_void_p * 3
+    InMemoryOrderModuleList: win32more.System.Kernel.LIST_ENTRY
+@winfunctype_pointer
+def PFLS_CALLBACK_FUNCTION(lpFlsData: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PINIT_ONCE_FN(InitOnce: POINTER(win32more.System.Threading.RTL_RUN_ONCE_head), Parameter: c_void_p, Context: POINTER(c_void_p)) -> win32more.Foundation.BOOL: ...
 POWER_REQUEST_CONTEXT_FLAGS = UInt32
-POWER_REQUEST_CONTEXT_DETAILED_STRING = 2
-POWER_REQUEST_CONTEXT_SIMPLE_STRING = 1
-def _define_PPS_POST_PROCESS_INIT_ROUTINE():
-    return WINFUNCTYPE(Void,)
+POWER_REQUEST_CONTEXT_DETAILED_STRING: POWER_REQUEST_CONTEXT_FLAGS = 2
+POWER_REQUEST_CONTEXT_SIMPLE_STRING: POWER_REQUEST_CONTEXT_FLAGS = 1
+@winfunctype_pointer
+def PPS_POST_PROCESS_INIT_ROUTINE() -> Void: ...
 PROC_THREAD_ATTRIBUTE_NUM = UInt32
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeParentProcess = 0
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeHandleList = 2
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeGroupAffinity = 3
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributePreferredNode = 4
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeIdealProcessor = 5
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeUmsThread = 6
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMitigationPolicy = 7
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeSecurityCapabilities = 9
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeProtectionLevel = 11
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeJobList = 13
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeChildProcessPolicy = 14
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeAllApplicationPackagesPolicy = 15
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeWin32kFilter = 16
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeSafeOpenPromptOriginClaim = 17
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeDesktopAppPolicy = 18
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributePseudoConsole = 22
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMitigationAuditPolicy = 24
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMachineType = 25
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeComponentFilter = 26
-PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeEnableOptionalXStateFeatures = 27
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeParentProcess: PROC_THREAD_ATTRIBUTE_NUM = 0
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeHandleList: PROC_THREAD_ATTRIBUTE_NUM = 2
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeGroupAffinity: PROC_THREAD_ATTRIBUTE_NUM = 3
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributePreferredNode: PROC_THREAD_ATTRIBUTE_NUM = 4
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeIdealProcessor: PROC_THREAD_ATTRIBUTE_NUM = 5
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeUmsThread: PROC_THREAD_ATTRIBUTE_NUM = 6
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMitigationPolicy: PROC_THREAD_ATTRIBUTE_NUM = 7
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeSecurityCapabilities: PROC_THREAD_ATTRIBUTE_NUM = 9
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeProtectionLevel: PROC_THREAD_ATTRIBUTE_NUM = 11
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeJobList: PROC_THREAD_ATTRIBUTE_NUM = 13
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeChildProcessPolicy: PROC_THREAD_ATTRIBUTE_NUM = 14
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeAllApplicationPackagesPolicy: PROC_THREAD_ATTRIBUTE_NUM = 15
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeWin32kFilter: PROC_THREAD_ATTRIBUTE_NUM = 16
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeSafeOpenPromptOriginClaim: PROC_THREAD_ATTRIBUTE_NUM = 17
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeDesktopAppPolicy: PROC_THREAD_ATTRIBUTE_NUM = 18
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributePseudoConsole: PROC_THREAD_ATTRIBUTE_NUM = 22
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMitigationAuditPolicy: PROC_THREAD_ATTRIBUTE_NUM = 24
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeMachineType: PROC_THREAD_ATTRIBUTE_NUM = 25
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeComponentFilter: PROC_THREAD_ATTRIBUTE_NUM = 26
+PROC_THREAD_ATTRIBUTE_NUM_ProcThreadAttributeEnableOptionalXStateFeatures: PROC_THREAD_ATTRIBUTE_NUM = 27
 PROCESS_ACCESS_RIGHTS = UInt32
-PROCESS_TERMINATE = 1
-PROCESS_CREATE_THREAD = 2
-PROCESS_SET_SESSIONID = 4
-PROCESS_VM_OPERATION = 8
-PROCESS_VM_READ = 16
-PROCESS_VM_WRITE = 32
-PROCESS_DUP_HANDLE = 64
-PROCESS_CREATE_PROCESS = 128
-PROCESS_SET_QUOTA = 256
-PROCESS_SET_INFORMATION = 512
-PROCESS_QUERY_INFORMATION = 1024
-PROCESS_SUSPEND_RESUME = 2048
-PROCESS_QUERY_LIMITED_INFORMATION = 4096
-PROCESS_SET_LIMITED_INFORMATION = 8192
-PROCESS_ALL_ACCESS = 2097151
-PROCESS_DELETE = 65536
-PROCESS_READ_CONTROL = 131072
-PROCESS_WRITE_DAC = 262144
-PROCESS_WRITE_OWNER = 524288
-PROCESS_SYNCHRONIZE = 1048576
-PROCESS_STANDARD_RIGHTS_REQUIRED = 983040
+PROCESS_TERMINATE: PROCESS_ACCESS_RIGHTS = 1
+PROCESS_CREATE_THREAD: PROCESS_ACCESS_RIGHTS = 2
+PROCESS_SET_SESSIONID: PROCESS_ACCESS_RIGHTS = 4
+PROCESS_VM_OPERATION: PROCESS_ACCESS_RIGHTS = 8
+PROCESS_VM_READ: PROCESS_ACCESS_RIGHTS = 16
+PROCESS_VM_WRITE: PROCESS_ACCESS_RIGHTS = 32
+PROCESS_DUP_HANDLE: PROCESS_ACCESS_RIGHTS = 64
+PROCESS_CREATE_PROCESS: PROCESS_ACCESS_RIGHTS = 128
+PROCESS_SET_QUOTA: PROCESS_ACCESS_RIGHTS = 256
+PROCESS_SET_INFORMATION: PROCESS_ACCESS_RIGHTS = 512
+PROCESS_QUERY_INFORMATION: PROCESS_ACCESS_RIGHTS = 1024
+PROCESS_SUSPEND_RESUME: PROCESS_ACCESS_RIGHTS = 2048
+PROCESS_QUERY_LIMITED_INFORMATION: PROCESS_ACCESS_RIGHTS = 4096
+PROCESS_SET_LIMITED_INFORMATION: PROCESS_ACCESS_RIGHTS = 8192
+PROCESS_ALL_ACCESS: PROCESS_ACCESS_RIGHTS = 2097151
+PROCESS_DELETE: PROCESS_ACCESS_RIGHTS = 65536
+PROCESS_READ_CONTROL: PROCESS_ACCESS_RIGHTS = 131072
+PROCESS_WRITE_DAC: PROCESS_ACCESS_RIGHTS = 262144
+PROCESS_WRITE_OWNER: PROCESS_ACCESS_RIGHTS = 524288
+PROCESS_SYNCHRONIZE: PROCESS_ACCESS_RIGHTS = 1048576
+PROCESS_STANDARD_RIGHTS_REQUIRED: PROCESS_ACCESS_RIGHTS = 983040
 PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = UInt32
-PROCESS_AFFINITY_DISABLE_AUTO_UPDATE = 0
-PROCESS_AFFINITY_ENABLE_AUTO_UPDATE = 1
-def _define_PROCESS_BASIC_INFORMATION_head():
-    class PROCESS_BASIC_INFORMATION(Structure):
-        pass
-    return PROCESS_BASIC_INFORMATION
-def _define_PROCESS_BASIC_INFORMATION():
-    PROCESS_BASIC_INFORMATION = win32more.System.Threading.PROCESS_BASIC_INFORMATION_head
-    PROCESS_BASIC_INFORMATION._fields_ = [
-        ('Reserved1', c_void_p),
-        ('PebBaseAddress', POINTER(win32more.System.Threading.PEB_head)),
-        ('Reserved2', c_void_p * 2),
-        ('UniqueProcessId', UIntPtr),
-        ('Reserved3', c_void_p),
-    ]
-    return PROCESS_BASIC_INFORMATION
+PROCESS_AFFINITY_DISABLE_AUTO_UPDATE: PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = 0
+PROCESS_AFFINITY_ENABLE_AUTO_UPDATE: PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = 1
+class PROCESS_BASIC_INFORMATION(Structure):
+    Reserved1: c_void_p
+    PebBaseAddress: POINTER(win32more.System.Threading.PEB_head)
+    Reserved2: c_void_p * 2
+    UniqueProcessId: UIntPtr
+    Reserved3: c_void_p
 PROCESS_CREATION_FLAGS = UInt32
-DEBUG_PROCESS = 1
-DEBUG_ONLY_THIS_PROCESS = 2
-CREATE_SUSPENDED = 4
-DETACHED_PROCESS = 8
-CREATE_NEW_CONSOLE = 16
-NORMAL_PRIORITY_CLASS = 32
-IDLE_PRIORITY_CLASS = 64
-HIGH_PRIORITY_CLASS = 128
-REALTIME_PRIORITY_CLASS = 256
-CREATE_NEW_PROCESS_GROUP = 512
-CREATE_UNICODE_ENVIRONMENT = 1024
-CREATE_SEPARATE_WOW_VDM = 2048
-CREATE_SHARED_WOW_VDM = 4096
-CREATE_FORCEDOS = 8192
-BELOW_NORMAL_PRIORITY_CLASS = 16384
-ABOVE_NORMAL_PRIORITY_CLASS = 32768
-INHERIT_PARENT_AFFINITY = 65536
-INHERIT_CALLER_PRIORITY = 131072
-CREATE_PROTECTED_PROCESS = 262144
-EXTENDED_STARTUPINFO_PRESENT = 524288
-PROCESS_MODE_BACKGROUND_BEGIN = 1048576
-PROCESS_MODE_BACKGROUND_END = 2097152
-CREATE_SECURE_PROCESS = 4194304
-CREATE_BREAKAWAY_FROM_JOB = 16777216
-CREATE_PRESERVE_CODE_AUTHZ_LEVEL = 33554432
-CREATE_DEFAULT_ERROR_MODE = 67108864
-CREATE_NO_WINDOW = 134217728
-PROFILE_USER = 268435456
-PROFILE_KERNEL = 536870912
-PROFILE_SERVER = 1073741824
-CREATE_IGNORE_SYSTEM_DEFAULT = 2147483648
+DEBUG_PROCESS: PROCESS_CREATION_FLAGS = 1
+DEBUG_ONLY_THIS_PROCESS: PROCESS_CREATION_FLAGS = 2
+CREATE_SUSPENDED: PROCESS_CREATION_FLAGS = 4
+DETACHED_PROCESS: PROCESS_CREATION_FLAGS = 8
+CREATE_NEW_CONSOLE: PROCESS_CREATION_FLAGS = 16
+NORMAL_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 32
+IDLE_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 64
+HIGH_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 128
+REALTIME_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 256
+CREATE_NEW_PROCESS_GROUP: PROCESS_CREATION_FLAGS = 512
+CREATE_UNICODE_ENVIRONMENT: PROCESS_CREATION_FLAGS = 1024
+CREATE_SEPARATE_WOW_VDM: PROCESS_CREATION_FLAGS = 2048
+CREATE_SHARED_WOW_VDM: PROCESS_CREATION_FLAGS = 4096
+CREATE_FORCEDOS: PROCESS_CREATION_FLAGS = 8192
+BELOW_NORMAL_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 16384
+ABOVE_NORMAL_PRIORITY_CLASS: PROCESS_CREATION_FLAGS = 32768
+INHERIT_PARENT_AFFINITY: PROCESS_CREATION_FLAGS = 65536
+INHERIT_CALLER_PRIORITY: PROCESS_CREATION_FLAGS = 131072
+CREATE_PROTECTED_PROCESS: PROCESS_CREATION_FLAGS = 262144
+EXTENDED_STARTUPINFO_PRESENT: PROCESS_CREATION_FLAGS = 524288
+PROCESS_MODE_BACKGROUND_BEGIN: PROCESS_CREATION_FLAGS = 1048576
+PROCESS_MODE_BACKGROUND_END: PROCESS_CREATION_FLAGS = 2097152
+CREATE_SECURE_PROCESS: PROCESS_CREATION_FLAGS = 4194304
+CREATE_BREAKAWAY_FROM_JOB: PROCESS_CREATION_FLAGS = 16777216
+CREATE_PRESERVE_CODE_AUTHZ_LEVEL: PROCESS_CREATION_FLAGS = 33554432
+CREATE_DEFAULT_ERROR_MODE: PROCESS_CREATION_FLAGS = 67108864
+CREATE_NO_WINDOW: PROCESS_CREATION_FLAGS = 134217728
+PROFILE_USER: PROCESS_CREATION_FLAGS = 268435456
+PROFILE_KERNEL: PROCESS_CREATION_FLAGS = 536870912
+PROFILE_SERVER: PROCESS_CREATION_FLAGS = 1073741824
+CREATE_IGNORE_SYSTEM_DEFAULT: PROCESS_CREATION_FLAGS = 2147483648
 PROCESS_DEP_FLAGS = UInt32
-PROCESS_DEP_ENABLE = 1
-PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION = 2
-PROCESS_DEP_NONE = 0
-def _define_PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head():
-    class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET(Structure):
-        pass
-    return PROCESS_DYNAMIC_EH_CONTINUATION_TARGET
-def _define_PROCESS_DYNAMIC_EH_CONTINUATION_TARGET():
-    PROCESS_DYNAMIC_EH_CONTINUATION_TARGET = win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head
-    PROCESS_DYNAMIC_EH_CONTINUATION_TARGET._fields_ = [
-        ('TargetAddress', UIntPtr),
-        ('Flags', UIntPtr),
-    ]
-    return PROCESS_DYNAMIC_EH_CONTINUATION_TARGET
-def _define_PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION_head():
-    class PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION(Structure):
-        pass
-    return PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION
-def _define_PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION():
-    PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION = win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION_head
-    PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION._fields_ = [
-        ('NumberOfTargets', UInt16),
-        ('Reserved', UInt16),
-        ('Reserved2', UInt32),
-        ('Targets', POINTER(win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head)),
-    ]
-    return PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION
-def _define_PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head():
-    class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE(Structure):
-        pass
-    return PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE
-def _define_PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE():
-    PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE = win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head
-    PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE._fields_ = [
-        ('BaseAddress', UIntPtr),
-        ('Size', UIntPtr),
-        ('Flags', UInt32),
-    ]
-    return PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE
-def _define_PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION_head():
-    class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION(Structure):
-        pass
-    return PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION
-def _define_PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION():
-    PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION = win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION_head
-    PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION._fields_ = [
-        ('NumberOfRanges', UInt16),
-        ('Reserved', UInt16),
-        ('Reserved2', UInt32),
-        ('Ranges', POINTER(win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head)),
-    ]
-    return PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION
-def _define_PROCESS_INFORMATION_head():
-    class PROCESS_INFORMATION(Structure):
-        pass
-    return PROCESS_INFORMATION
-def _define_PROCESS_INFORMATION():
-    PROCESS_INFORMATION = win32more.System.Threading.PROCESS_INFORMATION_head
-    PROCESS_INFORMATION._fields_ = [
-        ('hProcess', win32more.Foundation.HANDLE),
-        ('hThread', win32more.Foundation.HANDLE),
-        ('dwProcessId', UInt32),
-        ('dwThreadId', UInt32),
-    ]
-    return PROCESS_INFORMATION
+PROCESS_DEP_ENABLE: PROCESS_DEP_FLAGS = 1
+PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION: PROCESS_DEP_FLAGS = 2
+PROCESS_DEP_NONE: PROCESS_DEP_FLAGS = 0
+class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET(Structure):
+    TargetAddress: UIntPtr
+    Flags: UIntPtr
+class PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION(Structure):
+    NumberOfTargets: UInt16
+    Reserved: UInt16
+    Reserved2: UInt32
+    Targets: POINTER(win32more.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET_head)
+class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE(Structure):
+    BaseAddress: UIntPtr
+    Size: UIntPtr
+    Flags: UInt32
+class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION(Structure):
+    NumberOfRanges: UInt16
+    Reserved: UInt16
+    Reserved2: UInt32
+    Ranges: POINTER(win32more.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE_head)
+class PROCESS_INFORMATION(Structure):
+    hProcess: win32more.Foundation.HANDLE
+    hThread: win32more.Foundation.HANDLE
+    dwProcessId: UInt32
+    dwThreadId: UInt32
 PROCESS_INFORMATION_CLASS = Int32
-PROCESS_INFORMATION_CLASS_ProcessMemoryPriority = 0
-PROCESS_INFORMATION_CLASS_ProcessMemoryExhaustionInfo = 1
-PROCESS_INFORMATION_CLASS_ProcessAppMemoryInfo = 2
-PROCESS_INFORMATION_CLASS_ProcessInPrivateInfo = 3
-PROCESS_INFORMATION_CLASS_ProcessPowerThrottling = 4
-PROCESS_INFORMATION_CLASS_ProcessReservedValue1 = 5
-PROCESS_INFORMATION_CLASS_ProcessTelemetryCoverageInfo = 6
-PROCESS_INFORMATION_CLASS_ProcessProtectionLevelInfo = 7
-PROCESS_INFORMATION_CLASS_ProcessLeapSecondInfo = 8
-PROCESS_INFORMATION_CLASS_ProcessMachineTypeInfo = 9
-PROCESS_INFORMATION_CLASS_ProcessInformationClassMax = 10
-def _define_PROCESS_LEAP_SECOND_INFO_head():
-    class PROCESS_LEAP_SECOND_INFO(Structure):
-        pass
-    return PROCESS_LEAP_SECOND_INFO
-def _define_PROCESS_LEAP_SECOND_INFO():
-    PROCESS_LEAP_SECOND_INFO = win32more.System.Threading.PROCESS_LEAP_SECOND_INFO_head
-    PROCESS_LEAP_SECOND_INFO._fields_ = [
-        ('Flags', UInt32),
-        ('Reserved', UInt32),
-    ]
-    return PROCESS_LEAP_SECOND_INFO
-def _define_PROCESS_MACHINE_INFORMATION_head():
-    class PROCESS_MACHINE_INFORMATION(Structure):
-        pass
-    return PROCESS_MACHINE_INFORMATION
-def _define_PROCESS_MACHINE_INFORMATION():
-    PROCESS_MACHINE_INFORMATION = win32more.System.Threading.PROCESS_MACHINE_INFORMATION_head
-    PROCESS_MACHINE_INFORMATION._fields_ = [
-        ('ProcessMachine', win32more.System.SystemInformation.IMAGE_FILE_MACHINE),
-        ('Res0', UInt16),
-        ('MachineAttributes', win32more.System.Threading.MACHINE_ATTRIBUTES),
-    ]
-    return PROCESS_MACHINE_INFORMATION
-def _define_PROCESS_MEMORY_EXHAUSTION_INFO_head():
-    class PROCESS_MEMORY_EXHAUSTION_INFO(Structure):
-        pass
-    return PROCESS_MEMORY_EXHAUSTION_INFO
-def _define_PROCESS_MEMORY_EXHAUSTION_INFO():
-    PROCESS_MEMORY_EXHAUSTION_INFO = win32more.System.Threading.PROCESS_MEMORY_EXHAUSTION_INFO_head
-    PROCESS_MEMORY_EXHAUSTION_INFO._fields_ = [
-        ('Version', UInt16),
-        ('Reserved', UInt16),
-        ('Type', win32more.System.Threading.PROCESS_MEMORY_EXHAUSTION_TYPE),
-        ('Value', UIntPtr),
-    ]
-    return PROCESS_MEMORY_EXHAUSTION_INFO
+PROCESS_INFORMATION_CLASS_ProcessMemoryPriority: PROCESS_INFORMATION_CLASS = 0
+PROCESS_INFORMATION_CLASS_ProcessMemoryExhaustionInfo: PROCESS_INFORMATION_CLASS = 1
+PROCESS_INFORMATION_CLASS_ProcessAppMemoryInfo: PROCESS_INFORMATION_CLASS = 2
+PROCESS_INFORMATION_CLASS_ProcessInPrivateInfo: PROCESS_INFORMATION_CLASS = 3
+PROCESS_INFORMATION_CLASS_ProcessPowerThrottling: PROCESS_INFORMATION_CLASS = 4
+PROCESS_INFORMATION_CLASS_ProcessReservedValue1: PROCESS_INFORMATION_CLASS = 5
+PROCESS_INFORMATION_CLASS_ProcessTelemetryCoverageInfo: PROCESS_INFORMATION_CLASS = 6
+PROCESS_INFORMATION_CLASS_ProcessProtectionLevelInfo: PROCESS_INFORMATION_CLASS = 7
+PROCESS_INFORMATION_CLASS_ProcessLeapSecondInfo: PROCESS_INFORMATION_CLASS = 8
+PROCESS_INFORMATION_CLASS_ProcessMachineTypeInfo: PROCESS_INFORMATION_CLASS = 9
+PROCESS_INFORMATION_CLASS_ProcessInformationClassMax: PROCESS_INFORMATION_CLASS = 10
+class PROCESS_LEAP_SECOND_INFO(Structure):
+    Flags: UInt32
+    Reserved: UInt32
+class PROCESS_MACHINE_INFORMATION(Structure):
+    ProcessMachine: win32more.System.SystemInformation.IMAGE_FILE_MACHINE
+    Res0: UInt16
+    MachineAttributes: win32more.System.Threading.MACHINE_ATTRIBUTES
+class PROCESS_MEMORY_EXHAUSTION_INFO(Structure):
+    Version: UInt16
+    Reserved: UInt16
+    Type: win32more.System.Threading.PROCESS_MEMORY_EXHAUSTION_TYPE
+    Value: UIntPtr
 PROCESS_MEMORY_EXHAUSTION_TYPE = Int32
-PROCESS_MEMORY_EXHAUSTION_TYPE_PMETypeFailFastOnCommitFailure = 0
-PROCESS_MEMORY_EXHAUSTION_TYPE_PMETypeMax = 1
+PROCESS_MEMORY_EXHAUSTION_TYPE_PMETypeFailFastOnCommitFailure: PROCESS_MEMORY_EXHAUSTION_TYPE = 0
+PROCESS_MEMORY_EXHAUSTION_TYPE_PMETypeMax: PROCESS_MEMORY_EXHAUSTION_TYPE = 1
 PROCESS_MITIGATION_POLICY = Int32
-PROCESS_MITIGATION_POLICY_ProcessDEPPolicy = 0
-PROCESS_MITIGATION_POLICY_ProcessASLRPolicy = 1
-PROCESS_MITIGATION_POLICY_ProcessDynamicCodePolicy = 2
-PROCESS_MITIGATION_POLICY_ProcessStrictHandleCheckPolicy = 3
-PROCESS_MITIGATION_POLICY_ProcessSystemCallDisablePolicy = 4
-PROCESS_MITIGATION_POLICY_ProcessMitigationOptionsMask = 5
-PROCESS_MITIGATION_POLICY_ProcessExtensionPointDisablePolicy = 6
-PROCESS_MITIGATION_POLICY_ProcessControlFlowGuardPolicy = 7
-PROCESS_MITIGATION_POLICY_ProcessSignaturePolicy = 8
-PROCESS_MITIGATION_POLICY_ProcessFontDisablePolicy = 9
-PROCESS_MITIGATION_POLICY_ProcessImageLoadPolicy = 10
-PROCESS_MITIGATION_POLICY_ProcessSystemCallFilterPolicy = 11
-PROCESS_MITIGATION_POLICY_ProcessPayloadRestrictionPolicy = 12
-PROCESS_MITIGATION_POLICY_ProcessChildProcessPolicy = 13
-PROCESS_MITIGATION_POLICY_ProcessSideChannelIsolationPolicy = 14
-PROCESS_MITIGATION_POLICY_ProcessUserShadowStackPolicy = 15
-PROCESS_MITIGATION_POLICY_ProcessRedirectionTrustPolicy = 16
-PROCESS_MITIGATION_POLICY_MaxProcessMitigationPolicy = 17
+PROCESS_MITIGATION_POLICY_ProcessDEPPolicy: PROCESS_MITIGATION_POLICY = 0
+PROCESS_MITIGATION_POLICY_ProcessASLRPolicy: PROCESS_MITIGATION_POLICY = 1
+PROCESS_MITIGATION_POLICY_ProcessDynamicCodePolicy: PROCESS_MITIGATION_POLICY = 2
+PROCESS_MITIGATION_POLICY_ProcessStrictHandleCheckPolicy: PROCESS_MITIGATION_POLICY = 3
+PROCESS_MITIGATION_POLICY_ProcessSystemCallDisablePolicy: PROCESS_MITIGATION_POLICY = 4
+PROCESS_MITIGATION_POLICY_ProcessMitigationOptionsMask: PROCESS_MITIGATION_POLICY = 5
+PROCESS_MITIGATION_POLICY_ProcessExtensionPointDisablePolicy: PROCESS_MITIGATION_POLICY = 6
+PROCESS_MITIGATION_POLICY_ProcessControlFlowGuardPolicy: PROCESS_MITIGATION_POLICY = 7
+PROCESS_MITIGATION_POLICY_ProcessSignaturePolicy: PROCESS_MITIGATION_POLICY = 8
+PROCESS_MITIGATION_POLICY_ProcessFontDisablePolicy: PROCESS_MITIGATION_POLICY = 9
+PROCESS_MITIGATION_POLICY_ProcessImageLoadPolicy: PROCESS_MITIGATION_POLICY = 10
+PROCESS_MITIGATION_POLICY_ProcessSystemCallFilterPolicy: PROCESS_MITIGATION_POLICY = 11
+PROCESS_MITIGATION_POLICY_ProcessPayloadRestrictionPolicy: PROCESS_MITIGATION_POLICY = 12
+PROCESS_MITIGATION_POLICY_ProcessChildProcessPolicy: PROCESS_MITIGATION_POLICY = 13
+PROCESS_MITIGATION_POLICY_ProcessSideChannelIsolationPolicy: PROCESS_MITIGATION_POLICY = 14
+PROCESS_MITIGATION_POLICY_ProcessUserShadowStackPolicy: PROCESS_MITIGATION_POLICY = 15
+PROCESS_MITIGATION_POLICY_ProcessRedirectionTrustPolicy: PROCESS_MITIGATION_POLICY = 16
+PROCESS_MITIGATION_POLICY_MaxProcessMitigationPolicy: PROCESS_MITIGATION_POLICY = 17
 PROCESS_NAME_FORMAT = UInt32
-PROCESS_NAME_WIN32 = 0
-PROCESS_NAME_NATIVE = 1
-def _define_PROCESS_POWER_THROTTLING_STATE_head():
-    class PROCESS_POWER_THROTTLING_STATE(Structure):
-        pass
-    return PROCESS_POWER_THROTTLING_STATE
-def _define_PROCESS_POWER_THROTTLING_STATE():
-    PROCESS_POWER_THROTTLING_STATE = win32more.System.Threading.PROCESS_POWER_THROTTLING_STATE_head
-    PROCESS_POWER_THROTTLING_STATE._fields_ = [
-        ('Version', UInt32),
-        ('ControlMask', UInt32),
-        ('StateMask', UInt32),
-    ]
-    return PROCESS_POWER_THROTTLING_STATE
+PROCESS_NAME_WIN32: PROCESS_NAME_FORMAT = 0
+PROCESS_NAME_NATIVE: PROCESS_NAME_FORMAT = 1
+class PROCESS_POWER_THROTTLING_STATE(Structure):
+    Version: UInt32
+    ControlMask: UInt32
+    StateMask: UInt32
 PROCESS_PROTECTION_LEVEL = UInt32
-PROTECTION_LEVEL_WINTCB_LIGHT = 0
-PROTECTION_LEVEL_WINDOWS = 1
-PROTECTION_LEVEL_WINDOWS_LIGHT = 2
-PROTECTION_LEVEL_ANTIMALWARE_LIGHT = 3
-PROTECTION_LEVEL_LSA_LIGHT = 4
-PROTECTION_LEVEL_WINTCB = 5
-PROTECTION_LEVEL_CODEGEN_LIGHT = 6
-PROTECTION_LEVEL_AUTHENTICODE = 7
-PROTECTION_LEVEL_PPL_APP = 8
-PROTECTION_LEVEL_NONE = 4294967294
-def _define_PROCESS_PROTECTION_LEVEL_INFORMATION_head():
-    class PROCESS_PROTECTION_LEVEL_INFORMATION(Structure):
-        pass
-    return PROCESS_PROTECTION_LEVEL_INFORMATION
-def _define_PROCESS_PROTECTION_LEVEL_INFORMATION():
-    PROCESS_PROTECTION_LEVEL_INFORMATION = win32more.System.Threading.PROCESS_PROTECTION_LEVEL_INFORMATION_head
-    PROCESS_PROTECTION_LEVEL_INFORMATION._fields_ = [
-        ('ProtectionLevel', win32more.System.Threading.PROCESS_PROTECTION_LEVEL),
-    ]
-    return PROCESS_PROTECTION_LEVEL_INFORMATION
+PROTECTION_LEVEL_WINTCB_LIGHT: PROCESS_PROTECTION_LEVEL = 0
+PROTECTION_LEVEL_WINDOWS: PROCESS_PROTECTION_LEVEL = 1
+PROTECTION_LEVEL_WINDOWS_LIGHT: PROCESS_PROTECTION_LEVEL = 2
+PROTECTION_LEVEL_ANTIMALWARE_LIGHT: PROCESS_PROTECTION_LEVEL = 3
+PROTECTION_LEVEL_LSA_LIGHT: PROCESS_PROTECTION_LEVEL = 4
+PROTECTION_LEVEL_WINTCB: PROCESS_PROTECTION_LEVEL = 5
+PROTECTION_LEVEL_CODEGEN_LIGHT: PROCESS_PROTECTION_LEVEL = 6
+PROTECTION_LEVEL_AUTHENTICODE: PROCESS_PROTECTION_LEVEL = 7
+PROTECTION_LEVEL_PPL_APP: PROCESS_PROTECTION_LEVEL = 8
+PROTECTION_LEVEL_NONE: PROCESS_PROTECTION_LEVEL = 4294967294
+class PROCESS_PROTECTION_LEVEL_INFORMATION(Structure):
+    ProtectionLevel: win32more.System.Threading.PROCESS_PROTECTION_LEVEL
 PROCESSINFOCLASS = Int32
-PROCESSINFOCLASS_ProcessBasicInformation = 0
-PROCESSINFOCLASS_ProcessDebugPort = 7
-PROCESSINFOCLASS_ProcessWow64Information = 26
-PROCESSINFOCLASS_ProcessImageFileName = 27
-PROCESSINFOCLASS_ProcessBreakOnTermination = 29
+PROCESSINFOCLASS_ProcessBasicInformation: PROCESSINFOCLASS = 0
+PROCESSINFOCLASS_ProcessDebugPort: PROCESSINFOCLASS = 7
+PROCESSINFOCLASS_ProcessWow64Information: PROCESSINFOCLASS = 26
+PROCESSINFOCLASS_ProcessImageFileName: PROCESSINFOCLASS = 27
+PROCESSINFOCLASS_ProcessBreakOnTermination: PROCESSINFOCLASS = 29
 PROCESSOR_FEATURE_ID = UInt32
-PF_ARM_64BIT_LOADSTORE_ATOMIC = 25
-PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE = 24
-PF_ARM_EXTERNAL_CACHE_AVAILABLE = 26
-PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE = 27
-PF_ARM_VFP_32_REGISTERS_AVAILABLE = 18
-PF_3DNOW_INSTRUCTIONS_AVAILABLE = 7
-PF_CHANNELS_ENABLED = 16
-PF_COMPARE_EXCHANGE_DOUBLE = 2
-PF_COMPARE_EXCHANGE128 = 14
-PF_COMPARE64_EXCHANGE128 = 15
-PF_FASTFAIL_AVAILABLE = 23
-PF_FLOATING_POINT_EMULATED = 1
-PF_FLOATING_POINT_PRECISION_ERRATA = 0
-PF_MMX_INSTRUCTIONS_AVAILABLE = 3
-PF_NX_ENABLED = 12
-PF_PAE_ENABLED = 9
-PF_RDTSC_INSTRUCTION_AVAILABLE = 8
-PF_RDWRFSGSBASE_AVAILABLE = 22
-PF_SECOND_LEVEL_ADDRESS_TRANSLATION = 20
-PF_SSE3_INSTRUCTIONS_AVAILABLE = 13
-PF_VIRT_FIRMWARE_ENABLED = 21
-PF_XMMI_INSTRUCTIONS_AVAILABLE = 6
-PF_XMMI64_INSTRUCTIONS_AVAILABLE = 10
-PF_XSAVE_ENABLED = 17
-PF_ARM_V8_INSTRUCTIONS_AVAILABLE = 29
-PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE = 30
-PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE = 31
-PF_ARM_V81_ATOMIC_INSTRUCTIONS_AVAILABLE = 34
-def _define_PRTL_UMS_SCHEDULER_ENTRY_POINT():
-    return WINFUNCTYPE(Void,win32more.System.SystemServices.RTL_UMS_SCHEDULER_REASON,UIntPtr,c_void_p)
-def _define_PTIMERAPCROUTINE():
-    return WINFUNCTYPE(Void,c_void_p,UInt32,UInt32)
-def _define_PTP_CLEANUP_GROUP_CANCEL_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,c_void_p)
+PF_ARM_64BIT_LOADSTORE_ATOMIC: PROCESSOR_FEATURE_ID = 25
+PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = 24
+PF_ARM_EXTERNAL_CACHE_AVAILABLE: PROCESSOR_FEATURE_ID = 26
+PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 27
+PF_ARM_VFP_32_REGISTERS_AVAILABLE: PROCESSOR_FEATURE_ID = 18
+PF_3DNOW_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 7
+PF_CHANNELS_ENABLED: PROCESSOR_FEATURE_ID = 16
+PF_COMPARE_EXCHANGE_DOUBLE: PROCESSOR_FEATURE_ID = 2
+PF_COMPARE_EXCHANGE128: PROCESSOR_FEATURE_ID = 14
+PF_COMPARE64_EXCHANGE128: PROCESSOR_FEATURE_ID = 15
+PF_FASTFAIL_AVAILABLE: PROCESSOR_FEATURE_ID = 23
+PF_FLOATING_POINT_EMULATED: PROCESSOR_FEATURE_ID = 1
+PF_FLOATING_POINT_PRECISION_ERRATA: PROCESSOR_FEATURE_ID = 0
+PF_MMX_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 3
+PF_NX_ENABLED: PROCESSOR_FEATURE_ID = 12
+PF_PAE_ENABLED: PROCESSOR_FEATURE_ID = 9
+PF_RDTSC_INSTRUCTION_AVAILABLE: PROCESSOR_FEATURE_ID = 8
+PF_RDWRFSGSBASE_AVAILABLE: PROCESSOR_FEATURE_ID = 22
+PF_SECOND_LEVEL_ADDRESS_TRANSLATION: PROCESSOR_FEATURE_ID = 20
+PF_SSE3_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 13
+PF_VIRT_FIRMWARE_ENABLED: PROCESSOR_FEATURE_ID = 21
+PF_XMMI_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 6
+PF_XMMI64_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 10
+PF_XSAVE_ENABLED: PROCESSOR_FEATURE_ID = 17
+PF_ARM_V8_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 29
+PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 30
+PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 31
+PF_ARM_V81_ATOMIC_INSTRUCTIONS_AVAILABLE: PROCESSOR_FEATURE_ID = 34
+@winfunctype_pointer
+def PRTL_UMS_SCHEDULER_ENTRY_POINT(Reason: win32more.System.SystemServices.RTL_UMS_SCHEDULER_REASON, ActivationPayload: UIntPtr, SchedulerParam: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PTIMERAPCROUTINE(lpArgToCompletionRoutine: c_void_p, dwTimerLowValue: UInt32, dwTimerHighValue: UInt32) -> Void: ...
+@winfunctype_pointer
+def PTP_CLEANUP_GROUP_CANCEL_CALLBACK(ObjectContext: c_void_p, CleanupContext: c_void_p) -> Void: ...
 PTP_POOL = IntPtr
-def _define_PTP_SIMPLE_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),c_void_p)
-def _define_PTP_TIMER_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),c_void_p,POINTER(win32more.System.Threading.TP_TIMER_head))
-def _define_PTP_WAIT_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),c_void_p,POINTER(win32more.System.Threading.TP_WAIT_head),UInt32)
-def _define_PTP_WIN32_IO_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),c_void_p,c_void_p,UInt32,UIntPtr,POINTER(win32more.System.Threading.TP_IO_head))
-def _define_PTP_WORK_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head),c_void_p,POINTER(win32more.System.Threading.TP_WORK_head))
+@winfunctype_pointer
+def PTP_SIMPLE_CALLBACK(Instance: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), Context: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PTP_TIMER_CALLBACK(Instance: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), Context: c_void_p, Timer: POINTER(win32more.System.Threading.TP_TIMER_head)) -> Void: ...
+@winfunctype_pointer
+def PTP_WAIT_CALLBACK(Instance: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), Context: c_void_p, Wait: POINTER(win32more.System.Threading.TP_WAIT_head), WaitResult: UInt32) -> Void: ...
+@winfunctype_pointer
+def PTP_WIN32_IO_CALLBACK(Instance: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), Context: c_void_p, Overlapped: c_void_p, IoResult: UInt32, NumberOfBytesTransferred: UIntPtr, Io: POINTER(win32more.System.Threading.TP_IO_head)) -> Void: ...
+@winfunctype_pointer
+def PTP_WORK_CALLBACK(Instance: POINTER(win32more.System.Threading.TP_CALLBACK_INSTANCE_head), Context: c_void_p, Work: POINTER(win32more.System.Threading.TP_WORK_head)) -> Void: ...
 QUEUE_USER_APC_FLAGS = Int32
-QUEUE_USER_APC_FLAGS_NONE = 0
-QUEUE_USER_APC_FLAGS_SPECIAL_USER_APC = 1
-def _define_REASON_CONTEXT_head():
-    class REASON_CONTEXT(Structure):
-        pass
-    return REASON_CONTEXT
-def _define_REASON_CONTEXT():
-    REASON_CONTEXT = win32more.System.Threading.REASON_CONTEXT_head
-    class REASON_CONTEXT__Reason_e__Union(Union):
-        pass
-    class REASON_CONTEXT__Reason_e__Union__Detailed_e__Struct(Structure):
-        pass
-    REASON_CONTEXT__Reason_e__Union__Detailed_e__Struct._fields_ = [
-        ('LocalizedReasonModule', win32more.Foundation.HINSTANCE),
-        ('LocalizedReasonId', UInt32),
-        ('ReasonStringCount', UInt32),
-        ('ReasonStrings', POINTER(win32more.Foundation.PWSTR)),
-    ]
-    REASON_CONTEXT__Reason_e__Union._fields_ = [
-        ('Detailed', REASON_CONTEXT__Reason_e__Union__Detailed_e__Struct),
-        ('SimpleReasonString', win32more.Foundation.PWSTR),
-    ]
-    REASON_CONTEXT._fields_ = [
-        ('Version', UInt32),
-        ('Flags', win32more.System.Threading.POWER_REQUEST_CONTEXT_FLAGS),
-        ('Reason', REASON_CONTEXT__Reason_e__Union),
-    ]
-    return REASON_CONTEXT
-def _define_RTL_BARRIER_head():
-    class RTL_BARRIER(Structure):
-        pass
-    return RTL_BARRIER
-def _define_RTL_BARRIER():
-    RTL_BARRIER = win32more.System.Threading.RTL_BARRIER_head
-    RTL_BARRIER._fields_ = [
-        ('Reserved1', UInt32),
-        ('Reserved2', UInt32),
-        ('Reserved3', UIntPtr * 2),
-        ('Reserved4', UInt32),
-        ('Reserved5', UInt32),
-    ]
-    return RTL_BARRIER
-def _define_RTL_CONDITION_VARIABLE_head():
-    class RTL_CONDITION_VARIABLE(Structure):
-        pass
-    return RTL_CONDITION_VARIABLE
-def _define_RTL_CONDITION_VARIABLE():
-    RTL_CONDITION_VARIABLE = win32more.System.Threading.RTL_CONDITION_VARIABLE_head
-    RTL_CONDITION_VARIABLE._fields_ = [
-        ('Ptr', c_void_p),
-    ]
-    return RTL_CONDITION_VARIABLE
-def _define_RTL_CRITICAL_SECTION_head():
-    class RTL_CRITICAL_SECTION(Structure):
-        pass
-    return RTL_CRITICAL_SECTION
-def _define_RTL_CRITICAL_SECTION():
-    RTL_CRITICAL_SECTION = win32more.System.Threading.RTL_CRITICAL_SECTION_head
-    RTL_CRITICAL_SECTION._fields_ = [
-        ('DebugInfo', POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_DEBUG_head)),
-        ('LockCount', Int32),
-        ('RecursionCount', Int32),
-        ('OwningThread', win32more.Foundation.HANDLE),
-        ('LockSemaphore', win32more.Foundation.HANDLE),
-        ('SpinCount', UIntPtr),
-    ]
-    return RTL_CRITICAL_SECTION
-def _define_RTL_CRITICAL_SECTION_DEBUG_head():
-    class RTL_CRITICAL_SECTION_DEBUG(Structure):
-        pass
-    return RTL_CRITICAL_SECTION_DEBUG
-def _define_RTL_CRITICAL_SECTION_DEBUG():
-    RTL_CRITICAL_SECTION_DEBUG = win32more.System.Threading.RTL_CRITICAL_SECTION_DEBUG_head
-    RTL_CRITICAL_SECTION_DEBUG._fields_ = [
-        ('Type', UInt16),
-        ('CreatorBackTraceIndex', UInt16),
-        ('CriticalSection', POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)),
-        ('ProcessLocksList', win32more.System.Kernel.LIST_ENTRY),
-        ('EntryCount', UInt32),
-        ('ContentionCount', UInt32),
-        ('Flags', UInt32),
-        ('CreatorBackTraceIndexHigh', UInt16),
-        ('SpareWORD', UInt16),
-    ]
-    return RTL_CRITICAL_SECTION_DEBUG
-def _define_RTL_RUN_ONCE_head():
-    class RTL_RUN_ONCE(Union):
-        pass
-    return RTL_RUN_ONCE
-def _define_RTL_RUN_ONCE():
-    RTL_RUN_ONCE = win32more.System.Threading.RTL_RUN_ONCE_head
-    RTL_RUN_ONCE._fields_ = [
-        ('Ptr', c_void_p),
-    ]
-    return RTL_RUN_ONCE
-def _define_RTL_SRWLOCK_head():
-    class RTL_SRWLOCK(Structure):
-        pass
-    return RTL_SRWLOCK
-def _define_RTL_SRWLOCK():
-    RTL_SRWLOCK = win32more.System.Threading.RTL_SRWLOCK_head
-    RTL_SRWLOCK._fields_ = [
-        ('Ptr', c_void_p),
-    ]
-    return RTL_SRWLOCK
+QUEUE_USER_APC_FLAGS_NONE: QUEUE_USER_APC_FLAGS = 0
+QUEUE_USER_APC_FLAGS_SPECIAL_USER_APC: QUEUE_USER_APC_FLAGS = 1
+class REASON_CONTEXT(Structure):
+    Version: UInt32
+    Flags: win32more.System.Threading.POWER_REQUEST_CONTEXT_FLAGS
+    Reason: _Reason_e__Union
+    class _Reason_e__Union(Union):
+        Detailed: _Detailed_e__Struct
+        SimpleReasonString: win32more.Foundation.PWSTR
+        class _Detailed_e__Struct(Structure):
+            LocalizedReasonModule: win32more.Foundation.HINSTANCE
+            LocalizedReasonId: UInt32
+            ReasonStringCount: UInt32
+            ReasonStrings: POINTER(win32more.Foundation.PWSTR)
+class RTL_BARRIER(Structure):
+    Reserved1: UInt32
+    Reserved2: UInt32
+    Reserved3: UIntPtr * 2
+    Reserved4: UInt32
+    Reserved5: UInt32
+class RTL_CONDITION_VARIABLE(Structure):
+    Ptr: c_void_p
+class RTL_CRITICAL_SECTION(Structure):
+    DebugInfo: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_DEBUG_head)
+    LockCount: Int32
+    RecursionCount: Int32
+    OwningThread: win32more.Foundation.HANDLE
+    LockSemaphore: win32more.Foundation.HANDLE
+    SpinCount: UIntPtr
+class RTL_CRITICAL_SECTION_DEBUG(Structure):
+    Type: UInt16
+    CreatorBackTraceIndex: UInt16
+    CriticalSection: POINTER(win32more.System.Threading.RTL_CRITICAL_SECTION_head)
+    ProcessLocksList: win32more.System.Kernel.LIST_ENTRY
+    EntryCount: UInt32
+    ContentionCount: UInt32
+    Flags: UInt32
+    CreatorBackTraceIndexHigh: UInt16
+    SpareWORD: UInt16
+class RTL_RUN_ONCE(Union):
+    Ptr: c_void_p
+class RTL_SRWLOCK(Structure):
+    Ptr: c_void_p
 RTL_UMS_THREAD_INFO_CLASS = Int32
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadInvalidInfoClass = 0
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadUserContext = 1
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadPriority = 2
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadAffinity = 3
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadTeb = 4
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsSuspended = 5
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsTerminated = 6
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadMaxInfoClass = 7
-def _define_RTL_USER_PROCESS_PARAMETERS_head():
-    class RTL_USER_PROCESS_PARAMETERS(Structure):
-        pass
-    return RTL_USER_PROCESS_PARAMETERS
-def _define_RTL_USER_PROCESS_PARAMETERS():
-    RTL_USER_PROCESS_PARAMETERS = win32more.System.Threading.RTL_USER_PROCESS_PARAMETERS_head
-    RTL_USER_PROCESS_PARAMETERS._fields_ = [
-        ('Reserved1', Byte * 16),
-        ('Reserved2', c_void_p * 10),
-        ('ImagePathName', win32more.Foundation.UNICODE_STRING),
-        ('CommandLine', win32more.Foundation.UNICODE_STRING),
-    ]
-    return RTL_USER_PROCESS_PARAMETERS
-def _define_STARTUPINFOA_head():
-    class STARTUPINFOA(Structure):
-        pass
-    return STARTUPINFOA
-def _define_STARTUPINFOA():
-    STARTUPINFOA = win32more.System.Threading.STARTUPINFOA_head
-    STARTUPINFOA._fields_ = [
-        ('cb', UInt32),
-        ('lpReserved', win32more.Foundation.PSTR),
-        ('lpDesktop', win32more.Foundation.PSTR),
-        ('lpTitle', win32more.Foundation.PSTR),
-        ('dwX', UInt32),
-        ('dwY', UInt32),
-        ('dwXSize', UInt32),
-        ('dwYSize', UInt32),
-        ('dwXCountChars', UInt32),
-        ('dwYCountChars', UInt32),
-        ('dwFillAttribute', UInt32),
-        ('dwFlags', win32more.System.Threading.STARTUPINFOW_FLAGS),
-        ('wShowWindow', UInt16),
-        ('cbReserved2', UInt16),
-        ('lpReserved2', c_char_p_no),
-        ('hStdInput', win32more.Foundation.HANDLE),
-        ('hStdOutput', win32more.Foundation.HANDLE),
-        ('hStdError', win32more.Foundation.HANDLE),
-    ]
-    return STARTUPINFOA
-def _define_STARTUPINFOEXA_head():
-    class STARTUPINFOEXA(Structure):
-        pass
-    return STARTUPINFOEXA
-def _define_STARTUPINFOEXA():
-    STARTUPINFOEXA = win32more.System.Threading.STARTUPINFOEXA_head
-    STARTUPINFOEXA._fields_ = [
-        ('StartupInfo', win32more.System.Threading.STARTUPINFOA),
-        ('lpAttributeList', win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST),
-    ]
-    return STARTUPINFOEXA
-def _define_STARTUPINFOEXW_head():
-    class STARTUPINFOEXW(Structure):
-        pass
-    return STARTUPINFOEXW
-def _define_STARTUPINFOEXW():
-    STARTUPINFOEXW = win32more.System.Threading.STARTUPINFOEXW_head
-    STARTUPINFOEXW._fields_ = [
-        ('StartupInfo', win32more.System.Threading.STARTUPINFOW),
-        ('lpAttributeList', win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST),
-    ]
-    return STARTUPINFOEXW
-def _define_STARTUPINFOW_head():
-    class STARTUPINFOW(Structure):
-        pass
-    return STARTUPINFOW
-def _define_STARTUPINFOW():
-    STARTUPINFOW = win32more.System.Threading.STARTUPINFOW_head
-    STARTUPINFOW._fields_ = [
-        ('cb', UInt32),
-        ('lpReserved', win32more.Foundation.PWSTR),
-        ('lpDesktop', win32more.Foundation.PWSTR),
-        ('lpTitle', win32more.Foundation.PWSTR),
-        ('dwX', UInt32),
-        ('dwY', UInt32),
-        ('dwXSize', UInt32),
-        ('dwYSize', UInt32),
-        ('dwXCountChars', UInt32),
-        ('dwYCountChars', UInt32),
-        ('dwFillAttribute', UInt32),
-        ('dwFlags', win32more.System.Threading.STARTUPINFOW_FLAGS),
-        ('wShowWindow', UInt16),
-        ('cbReserved2', UInt16),
-        ('lpReserved2', c_char_p_no),
-        ('hStdInput', win32more.Foundation.HANDLE),
-        ('hStdOutput', win32more.Foundation.HANDLE),
-        ('hStdError', win32more.Foundation.HANDLE),
-    ]
-    return STARTUPINFOW
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadInvalidInfoClass: RTL_UMS_THREAD_INFO_CLASS = 0
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadUserContext: RTL_UMS_THREAD_INFO_CLASS = 1
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadPriority: RTL_UMS_THREAD_INFO_CLASS = 2
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadAffinity: RTL_UMS_THREAD_INFO_CLASS = 3
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadTeb: RTL_UMS_THREAD_INFO_CLASS = 4
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsSuspended: RTL_UMS_THREAD_INFO_CLASS = 5
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsTerminated: RTL_UMS_THREAD_INFO_CLASS = 6
+RTL_UMS_THREAD_INFO_CLASS_UmsThreadMaxInfoClass: RTL_UMS_THREAD_INFO_CLASS = 7
+class RTL_USER_PROCESS_PARAMETERS(Structure):
+    Reserved1: Byte * 16
+    Reserved2: c_void_p * 10
+    ImagePathName: win32more.Foundation.UNICODE_STRING
+    CommandLine: win32more.Foundation.UNICODE_STRING
+class STARTUPINFOA(Structure):
+    cb: UInt32
+    lpReserved: win32more.Foundation.PSTR
+    lpDesktop: win32more.Foundation.PSTR
+    lpTitle: win32more.Foundation.PSTR
+    dwX: UInt32
+    dwY: UInt32
+    dwXSize: UInt32
+    dwYSize: UInt32
+    dwXCountChars: UInt32
+    dwYCountChars: UInt32
+    dwFillAttribute: UInt32
+    dwFlags: win32more.System.Threading.STARTUPINFOW_FLAGS
+    wShowWindow: UInt16
+    cbReserved2: UInt16
+    lpReserved2: c_char_p_no
+    hStdInput: win32more.Foundation.HANDLE
+    hStdOutput: win32more.Foundation.HANDLE
+    hStdError: win32more.Foundation.HANDLE
+class STARTUPINFOEXA(Structure):
+    StartupInfo: win32more.System.Threading.STARTUPINFOA
+    lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST
+class STARTUPINFOEXW(Structure):
+    StartupInfo: win32more.System.Threading.STARTUPINFOW
+    lpAttributeList: win32more.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST
+class STARTUPINFOW(Structure):
+    cb: UInt32
+    lpReserved: win32more.Foundation.PWSTR
+    lpDesktop: win32more.Foundation.PWSTR
+    lpTitle: win32more.Foundation.PWSTR
+    dwX: UInt32
+    dwY: UInt32
+    dwXSize: UInt32
+    dwYSize: UInt32
+    dwXCountChars: UInt32
+    dwYCountChars: UInt32
+    dwFillAttribute: UInt32
+    dwFlags: win32more.System.Threading.STARTUPINFOW_FLAGS
+    wShowWindow: UInt16
+    cbReserved2: UInt16
+    lpReserved2: c_char_p_no
+    hStdInput: win32more.Foundation.HANDLE
+    hStdOutput: win32more.Foundation.HANDLE
+    hStdError: win32more.Foundation.HANDLE
 STARTUPINFOW_FLAGS = UInt32
-STARTF_FORCEONFEEDBACK = 64
-STARTF_FORCEOFFFEEDBACK = 128
-STARTF_PREVENTPINNING = 8192
-STARTF_RUNFULLSCREEN = 32
-STARTF_TITLEISAPPID = 4096
-STARTF_TITLEISLINKNAME = 2048
-STARTF_UNTRUSTEDSOURCE = 32768
-STARTF_USECOUNTCHARS = 8
-STARTF_USEFILLATTRIBUTE = 16
-STARTF_USEHOTKEY = 512
-STARTF_USEPOSITION = 4
-STARTF_USESHOWWINDOW = 1
-STARTF_USESIZE = 2
-STARTF_USESTDHANDLES = 256
+STARTF_FORCEONFEEDBACK: STARTUPINFOW_FLAGS = 64
+STARTF_FORCEOFFFEEDBACK: STARTUPINFOW_FLAGS = 128
+STARTF_PREVENTPINNING: STARTUPINFOW_FLAGS = 8192
+STARTF_RUNFULLSCREEN: STARTUPINFOW_FLAGS = 32
+STARTF_TITLEISAPPID: STARTUPINFOW_FLAGS = 4096
+STARTF_TITLEISLINKNAME: STARTUPINFOW_FLAGS = 2048
+STARTF_UNTRUSTEDSOURCE: STARTUPINFOW_FLAGS = 32768
+STARTF_USECOUNTCHARS: STARTUPINFOW_FLAGS = 8
+STARTF_USEFILLATTRIBUTE: STARTUPINFOW_FLAGS = 16
+STARTF_USEHOTKEY: STARTUPINFOW_FLAGS = 512
+STARTF_USEPOSITION: STARTUPINFOW_FLAGS = 4
+STARTF_USESHOWWINDOW: STARTUPINFOW_FLAGS = 1
+STARTF_USESIZE: STARTUPINFOW_FLAGS = 2
+STARTF_USESTDHANDLES: STARTUPINFOW_FLAGS = 256
 SYNCHRONIZATION_ACCESS_RIGHTS = UInt32
-EVENT_ALL_ACCESS = 2031619
-EVENT_MODIFY_STATE = 2
-MUTEX_ALL_ACCESS = 2031617
-MUTEX_MODIFY_STATE = 1
-SEMAPHORE_ALL_ACCESS = 2031619
-SEMAPHORE_MODIFY_STATE = 2
-TIMER_ALL_ACCESS = 2031619
-TIMER_MODIFY_STATE = 2
-TIMER_QUERY_STATE = 1
-SYNCHRONIZATION_DELETE = 65536
-SYNCHRONIZATION_READ_CONTROL = 131072
-SYNCHRONIZATION_WRITE_DAC = 262144
-SYNCHRONIZATION_WRITE_OWNER = 524288
-SYNCHRONIZATION_SYNCHRONIZE = 1048576
+EVENT_ALL_ACCESS: SYNCHRONIZATION_ACCESS_RIGHTS = 2031619
+EVENT_MODIFY_STATE: SYNCHRONIZATION_ACCESS_RIGHTS = 2
+MUTEX_ALL_ACCESS: SYNCHRONIZATION_ACCESS_RIGHTS = 2031617
+MUTEX_MODIFY_STATE: SYNCHRONIZATION_ACCESS_RIGHTS = 1
+SEMAPHORE_ALL_ACCESS: SYNCHRONIZATION_ACCESS_RIGHTS = 2031619
+SEMAPHORE_MODIFY_STATE: SYNCHRONIZATION_ACCESS_RIGHTS = 2
+TIMER_ALL_ACCESS: SYNCHRONIZATION_ACCESS_RIGHTS = 2031619
+TIMER_MODIFY_STATE: SYNCHRONIZATION_ACCESS_RIGHTS = 2
+TIMER_QUERY_STATE: SYNCHRONIZATION_ACCESS_RIGHTS = 1
+SYNCHRONIZATION_DELETE: SYNCHRONIZATION_ACCESS_RIGHTS = 65536
+SYNCHRONIZATION_READ_CONTROL: SYNCHRONIZATION_ACCESS_RIGHTS = 131072
+SYNCHRONIZATION_WRITE_DAC: SYNCHRONIZATION_ACCESS_RIGHTS = 262144
+SYNCHRONIZATION_WRITE_OWNER: SYNCHRONIZATION_ACCESS_RIGHTS = 524288
+SYNCHRONIZATION_SYNCHRONIZE: SYNCHRONIZATION_ACCESS_RIGHTS = 1048576
 THREAD_ACCESS_RIGHTS = UInt32
-THREAD_TERMINATE = 1
-THREAD_SUSPEND_RESUME = 2
-THREAD_GET_CONTEXT = 8
-THREAD_SET_CONTEXT = 16
-THREAD_SET_INFORMATION = 32
-THREAD_QUERY_INFORMATION = 64
-THREAD_SET_THREAD_TOKEN = 128
-THREAD_IMPERSONATE = 256
-THREAD_DIRECT_IMPERSONATION = 512
-THREAD_SET_LIMITED_INFORMATION = 1024
-THREAD_QUERY_LIMITED_INFORMATION = 2048
-THREAD_RESUME = 4096
-THREAD_ALL_ACCESS = 2097151
-THREAD_DELETE = 65536
-THREAD_READ_CONTROL = 131072
-THREAD_WRITE_DAC = 262144
-THREAD_WRITE_OWNER = 524288
-THREAD_SYNCHRONIZE = 1048576
-THREAD_STANDARD_RIGHTS_REQUIRED = 983040
+THREAD_TERMINATE: THREAD_ACCESS_RIGHTS = 1
+THREAD_SUSPEND_RESUME: THREAD_ACCESS_RIGHTS = 2
+THREAD_GET_CONTEXT: THREAD_ACCESS_RIGHTS = 8
+THREAD_SET_CONTEXT: THREAD_ACCESS_RIGHTS = 16
+THREAD_SET_INFORMATION: THREAD_ACCESS_RIGHTS = 32
+THREAD_QUERY_INFORMATION: THREAD_ACCESS_RIGHTS = 64
+THREAD_SET_THREAD_TOKEN: THREAD_ACCESS_RIGHTS = 128
+THREAD_IMPERSONATE: THREAD_ACCESS_RIGHTS = 256
+THREAD_DIRECT_IMPERSONATION: THREAD_ACCESS_RIGHTS = 512
+THREAD_SET_LIMITED_INFORMATION: THREAD_ACCESS_RIGHTS = 1024
+THREAD_QUERY_LIMITED_INFORMATION: THREAD_ACCESS_RIGHTS = 2048
+THREAD_RESUME: THREAD_ACCESS_RIGHTS = 4096
+THREAD_ALL_ACCESS: THREAD_ACCESS_RIGHTS = 2097151
+THREAD_DELETE: THREAD_ACCESS_RIGHTS = 65536
+THREAD_READ_CONTROL: THREAD_ACCESS_RIGHTS = 131072
+THREAD_WRITE_DAC: THREAD_ACCESS_RIGHTS = 262144
+THREAD_WRITE_OWNER: THREAD_ACCESS_RIGHTS = 524288
+THREAD_SYNCHRONIZE: THREAD_ACCESS_RIGHTS = 1048576
+THREAD_STANDARD_RIGHTS_REQUIRED: THREAD_ACCESS_RIGHTS = 983040
 THREAD_CREATION_FLAGS = UInt32
-THREAD_CREATE_RUN_IMMEDIATELY = 0
-THREAD_CREATE_SUSPENDED = 4
-STACK_SIZE_PARAM_IS_A_RESERVATION = 65536
+THREAD_CREATE_RUN_IMMEDIATELY: THREAD_CREATION_FLAGS = 0
+THREAD_CREATE_SUSPENDED: THREAD_CREATION_FLAGS = 4
+STACK_SIZE_PARAM_IS_A_RESERVATION: THREAD_CREATION_FLAGS = 65536
 THREAD_INFORMATION_CLASS = Int32
-THREAD_INFORMATION_CLASS_ThreadMemoryPriority = 0
-THREAD_INFORMATION_CLASS_ThreadAbsoluteCpuPriority = 1
-THREAD_INFORMATION_CLASS_ThreadDynamicCodePolicy = 2
-THREAD_INFORMATION_CLASS_ThreadPowerThrottling = 3
-THREAD_INFORMATION_CLASS_ThreadInformationClassMax = 4
-def _define_THREAD_POWER_THROTTLING_STATE_head():
-    class THREAD_POWER_THROTTLING_STATE(Structure):
-        pass
-    return THREAD_POWER_THROTTLING_STATE
-def _define_THREAD_POWER_THROTTLING_STATE():
-    THREAD_POWER_THROTTLING_STATE = win32more.System.Threading.THREAD_POWER_THROTTLING_STATE_head
-    THREAD_POWER_THROTTLING_STATE._fields_ = [
-        ('Version', UInt32),
-        ('ControlMask', UInt32),
-        ('StateMask', UInt32),
-    ]
-    return THREAD_POWER_THROTTLING_STATE
+THREAD_INFORMATION_CLASS_ThreadMemoryPriority: THREAD_INFORMATION_CLASS = 0
+THREAD_INFORMATION_CLASS_ThreadAbsoluteCpuPriority: THREAD_INFORMATION_CLASS = 1
+THREAD_INFORMATION_CLASS_ThreadDynamicCodePolicy: THREAD_INFORMATION_CLASS = 2
+THREAD_INFORMATION_CLASS_ThreadPowerThrottling: THREAD_INFORMATION_CLASS = 3
+THREAD_INFORMATION_CLASS_ThreadInformationClassMax: THREAD_INFORMATION_CLASS = 4
+class THREAD_POWER_THROTTLING_STATE(Structure):
+    Version: UInt32
+    ControlMask: UInt32
+    StateMask: UInt32
 THREAD_PRIORITY = Int32
-THREAD_MODE_BACKGROUND_BEGIN = 65536
-THREAD_MODE_BACKGROUND_END = 131072
-THREAD_PRIORITY_ABOVE_NORMAL = 1
-THREAD_PRIORITY_BELOW_NORMAL = -1
-THREAD_PRIORITY_HIGHEST = 2
-THREAD_PRIORITY_IDLE = -15
-THREAD_PRIORITY_MIN = -2
-THREAD_PRIORITY_LOWEST = -2
-THREAD_PRIORITY_NORMAL = 0
-THREAD_PRIORITY_TIME_CRITICAL = 15
+THREAD_MODE_BACKGROUND_BEGIN: THREAD_PRIORITY = 65536
+THREAD_MODE_BACKGROUND_END: THREAD_PRIORITY = 131072
+THREAD_PRIORITY_ABOVE_NORMAL: THREAD_PRIORITY = 1
+THREAD_PRIORITY_BELOW_NORMAL: THREAD_PRIORITY = -1
+THREAD_PRIORITY_HIGHEST: THREAD_PRIORITY = 2
+THREAD_PRIORITY_IDLE: THREAD_PRIORITY = -15
+THREAD_PRIORITY_MIN: THREAD_PRIORITY = -2
+THREAD_PRIORITY_LOWEST: THREAD_PRIORITY = -2
+THREAD_PRIORITY_NORMAL: THREAD_PRIORITY = 0
+THREAD_PRIORITY_TIME_CRITICAL: THREAD_PRIORITY = 15
 THREADINFOCLASS = Int32
-THREADINFOCLASS_ThreadIsIoPending = 16
-THREADINFOCLASS_ThreadNameInformation = 38
+THREADINFOCLASS_ThreadIsIoPending: THREADINFOCLASS = 16
+THREADINFOCLASS_ThreadNameInformation: THREADINFOCLASS = 38
 TimerQueueHandle = IntPtr
-def _define_TP_CALLBACK_ENVIRON_V3_head():
-    class TP_CALLBACK_ENVIRON_V3(Structure):
+class TP_CALLBACK_ENVIRON_V3(Structure):
+    Version: UInt32
+    Pool: win32more.System.Threading.PTP_POOL
+    CleanupGroup: IntPtr
+    CleanupGroupCancelCallback: win32more.System.Threading.PTP_CLEANUP_GROUP_CANCEL_CALLBACK
+    RaceDll: c_void_p
+    ActivationContext: IntPtr
+    FinalizationCallback: win32more.System.Threading.PTP_SIMPLE_CALLBACK
+    u: _u_e__Union
+    CallbackPriority: win32more.System.Threading.TP_CALLBACK_PRIORITY
+    Size: UInt32
+    class _ACTIVATION_CONTEXT(Structure):
         pass
-    return TP_CALLBACK_ENVIRON_V3
-def _define_TP_CALLBACK_ENVIRON_V3():
-    TP_CALLBACK_ENVIRON_V3 = win32more.System.Threading.TP_CALLBACK_ENVIRON_V3_head
-    class TP_CALLBACK_ENVIRON_V3__ACTIVATION_CONTEXT(Structure):
-        pass
-    class TP_CALLBACK_ENVIRON_V3__u_e__Union(Union):
-        pass
-    class TP_CALLBACK_ENVIRON_V3__u_e__Union__s_e__Struct(Structure):
-        pass
-    TP_CALLBACK_ENVIRON_V3__u_e__Union__s_e__Struct._fields_ = [
-        ('_bitfield', UInt32),
-    ]
-    TP_CALLBACK_ENVIRON_V3__u_e__Union._fields_ = [
-        ('Flags', UInt32),
-        ('s', TP_CALLBACK_ENVIRON_V3__u_e__Union__s_e__Struct),
-    ]
-    TP_CALLBACK_ENVIRON_V3._fields_ = [
-        ('Version', UInt32),
-        ('Pool', win32more.System.Threading.PTP_POOL),
-        ('CleanupGroup', IntPtr),
-        ('CleanupGroupCancelCallback', win32more.System.Threading.PTP_CLEANUP_GROUP_CANCEL_CALLBACK),
-        ('RaceDll', c_void_p),
-        ('ActivationContext', IntPtr),
-        ('FinalizationCallback', win32more.System.Threading.PTP_SIMPLE_CALLBACK),
-        ('u', TP_CALLBACK_ENVIRON_V3__u_e__Union),
-        ('CallbackPriority', win32more.System.Threading.TP_CALLBACK_PRIORITY),
-        ('Size', UInt32),
-    ]
-    return TP_CALLBACK_ENVIRON_V3
-def _define_TP_CALLBACK_INSTANCE_head():
-    class TP_CALLBACK_INSTANCE(Structure):
-        pass
-    return TP_CALLBACK_INSTANCE
-def _define_TP_CALLBACK_INSTANCE():
-    TP_CALLBACK_INSTANCE = win32more.System.Threading.TP_CALLBACK_INSTANCE_head
-    return TP_CALLBACK_INSTANCE
+    class _u_e__Union(Union):
+        Flags: UInt32
+        s: _s_e__Struct
+        class _s_e__Struct(Structure):
+            _bitfield: UInt32
+class TP_CALLBACK_INSTANCE(Structure):
+    pass
 TP_CALLBACK_PRIORITY = Int32
-TP_CALLBACK_PRIORITY_HIGH = 0
-TP_CALLBACK_PRIORITY_NORMAL = 1
-TP_CALLBACK_PRIORITY_LOW = 2
-TP_CALLBACK_PRIORITY_INVALID = 3
-TP_CALLBACK_PRIORITY_COUNT = 3
-def _define_TP_IO_head():
-    class TP_IO(Structure):
-        pass
-    return TP_IO
-def _define_TP_IO():
-    TP_IO = win32more.System.Threading.TP_IO_head
-    return TP_IO
-def _define_TP_POOL_STACK_INFORMATION_head():
-    class TP_POOL_STACK_INFORMATION(Structure):
-        pass
-    return TP_POOL_STACK_INFORMATION
-def _define_TP_POOL_STACK_INFORMATION():
-    TP_POOL_STACK_INFORMATION = win32more.System.Threading.TP_POOL_STACK_INFORMATION_head
-    TP_POOL_STACK_INFORMATION._fields_ = [
-        ('StackReserve', UIntPtr),
-        ('StackCommit', UIntPtr),
-    ]
-    return TP_POOL_STACK_INFORMATION
-def _define_TP_TIMER_head():
-    class TP_TIMER(Structure):
-        pass
-    return TP_TIMER
-def _define_TP_TIMER():
-    TP_TIMER = win32more.System.Threading.TP_TIMER_head
-    return TP_TIMER
-def _define_TP_WAIT_head():
-    class TP_WAIT(Structure):
-        pass
-    return TP_WAIT
-def _define_TP_WAIT():
-    TP_WAIT = win32more.System.Threading.TP_WAIT_head
-    return TP_WAIT
-def _define_TP_WORK_head():
-    class TP_WORK(Structure):
-        pass
-    return TP_WORK
-def _define_TP_WORK():
-    TP_WORK = win32more.System.Threading.TP_WORK_head
-    return TP_WORK
-def _define_UMS_SCHEDULER_STARTUP_INFO_head():
-    class UMS_SCHEDULER_STARTUP_INFO(Structure):
-        pass
-    return UMS_SCHEDULER_STARTUP_INFO
-def _define_UMS_SCHEDULER_STARTUP_INFO():
-    UMS_SCHEDULER_STARTUP_INFO = win32more.System.Threading.UMS_SCHEDULER_STARTUP_INFO_head
-    UMS_SCHEDULER_STARTUP_INFO._fields_ = [
-        ('UmsVersion', UInt32),
-        ('CompletionList', c_void_p),
-        ('SchedulerProc', win32more.System.Threading.PRTL_UMS_SCHEDULER_ENTRY_POINT),
-        ('SchedulerParam', c_void_p),
-    ]
-    return UMS_SCHEDULER_STARTUP_INFO
-def _define_UMS_SYSTEM_THREAD_INFORMATION_head():
-    class UMS_SYSTEM_THREAD_INFORMATION(Structure):
-        pass
-    return UMS_SYSTEM_THREAD_INFORMATION
-def _define_UMS_SYSTEM_THREAD_INFORMATION():
-    UMS_SYSTEM_THREAD_INFORMATION = win32more.System.Threading.UMS_SYSTEM_THREAD_INFORMATION_head
-    class UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union(Union):
-        pass
-    class UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', UInt32),
-    ]
-    UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union._fields_ = [
-        ('Anonymous', UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union__Anonymous_e__Struct),
-        ('ThreadUmsFlags', UInt32),
-    ]
-    UMS_SYSTEM_THREAD_INFORMATION._anonymous_ = [
-        'Anonymous',
-    ]
-    UMS_SYSTEM_THREAD_INFORMATION._fields_ = [
-        ('UmsVersion', UInt32),
-        ('Anonymous', UMS_SYSTEM_THREAD_INFORMATION__Anonymous_e__Union),
-    ]
-    return UMS_SYSTEM_THREAD_INFORMATION
-def _define_WAITORTIMERCALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.BOOLEAN)
+TP_CALLBACK_PRIORITY_HIGH: TP_CALLBACK_PRIORITY = 0
+TP_CALLBACK_PRIORITY_NORMAL: TP_CALLBACK_PRIORITY = 1
+TP_CALLBACK_PRIORITY_LOW: TP_CALLBACK_PRIORITY = 2
+TP_CALLBACK_PRIORITY_INVALID: TP_CALLBACK_PRIORITY = 3
+TP_CALLBACK_PRIORITY_COUNT: TP_CALLBACK_PRIORITY = 3
+class TP_IO(Structure):
+    pass
+class TP_POOL_STACK_INFORMATION(Structure):
+    StackReserve: UIntPtr
+    StackCommit: UIntPtr
+class TP_TIMER(Structure):
+    pass
+class TP_WAIT(Structure):
+    pass
+class TP_WORK(Structure):
+    pass
+class UMS_SCHEDULER_STARTUP_INFO(Structure):
+    UmsVersion: UInt32
+    CompletionList: c_void_p
+    SchedulerProc: win32more.System.Threading.PRTL_UMS_SCHEDULER_ENTRY_POINT
+    SchedulerParam: c_void_p
+class UMS_SYSTEM_THREAD_INFORMATION(Structure):
+    UmsVersion: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        ThreadUmsFlags: UInt32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: UInt32
+@winfunctype_pointer
+def WAITORTIMERCALLBACK(param0: c_void_p, param1: win32more.Foundation.BOOLEAN) -> Void: ...
 WORKER_THREAD_FLAGS = UInt32
-WT_EXECUTEDEFAULT = 0
-WT_EXECUTEINIOTHREAD = 1
-WT_EXECUTEINPERSISTENTTHREAD = 128
-WT_EXECUTEINWAITTHREAD = 4
-WT_EXECUTELONGFUNCTION = 16
-WT_EXECUTEONLYONCE = 8
-WT_TRANSFER_IMPERSONATION = 256
-WT_EXECUTEINTIMERTHREAD = 32
+WT_EXECUTEDEFAULT: WORKER_THREAD_FLAGS = 0
+WT_EXECUTEINIOTHREAD: WORKER_THREAD_FLAGS = 1
+WT_EXECUTEINPERSISTENTTHREAD: WORKER_THREAD_FLAGS = 128
+WT_EXECUTEINWAITTHREAD: WORKER_THREAD_FLAGS = 4
+WT_EXECUTELONGFUNCTION: WORKER_THREAD_FLAGS = 16
+WT_EXECUTEONLYONCE: WORKER_THREAD_FLAGS = 8
+WT_TRANSFER_IMPERSONATION: WORKER_THREAD_FLAGS = 256
+WT_EXECUTEINTIMERTHREAD: WORKER_THREAD_FLAGS = 32
+make_head(_module, 'APP_MEMORY_INFORMATION')
+make_head(_module, 'IO_COUNTERS')
+make_head(_module, 'LPFIBER_START_ROUTINE')
+make_head(_module, 'LPTHREAD_START_ROUTINE')
+make_head(_module, 'MEMORY_PRIORITY_INFORMATION')
+make_head(_module, 'PEB')
+make_head(_module, 'PEB_LDR_DATA')
+make_head(_module, 'PFLS_CALLBACK_FUNCTION')
+make_head(_module, 'PINIT_ONCE_FN')
+make_head(_module, 'PPS_POST_PROCESS_INIT_ROUTINE')
+make_head(_module, 'PROCESS_BASIC_INFORMATION')
+make_head(_module, 'PROCESS_DYNAMIC_EH_CONTINUATION_TARGET')
+make_head(_module, 'PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION')
+make_head(_module, 'PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE')
+make_head(_module, 'PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION')
+make_head(_module, 'PROCESS_INFORMATION')
+make_head(_module, 'PROCESS_LEAP_SECOND_INFO')
+make_head(_module, 'PROCESS_MACHINE_INFORMATION')
+make_head(_module, 'PROCESS_MEMORY_EXHAUSTION_INFO')
+make_head(_module, 'PROCESS_POWER_THROTTLING_STATE')
+make_head(_module, 'PROCESS_PROTECTION_LEVEL_INFORMATION')
+make_head(_module, 'PRTL_UMS_SCHEDULER_ENTRY_POINT')
+make_head(_module, 'PTIMERAPCROUTINE')
+make_head(_module, 'PTP_CLEANUP_GROUP_CANCEL_CALLBACK')
+make_head(_module, 'PTP_SIMPLE_CALLBACK')
+make_head(_module, 'PTP_TIMER_CALLBACK')
+make_head(_module, 'PTP_WAIT_CALLBACK')
+make_head(_module, 'PTP_WIN32_IO_CALLBACK')
+make_head(_module, 'PTP_WORK_CALLBACK')
+make_head(_module, 'REASON_CONTEXT')
+make_head(_module, 'RTL_BARRIER')
+make_head(_module, 'RTL_CONDITION_VARIABLE')
+make_head(_module, 'RTL_CRITICAL_SECTION')
+make_head(_module, 'RTL_CRITICAL_SECTION_DEBUG')
+make_head(_module, 'RTL_RUN_ONCE')
+make_head(_module, 'RTL_SRWLOCK')
+make_head(_module, 'RTL_USER_PROCESS_PARAMETERS')
+make_head(_module, 'STARTUPINFOA')
+make_head(_module, 'STARTUPINFOEXA')
+make_head(_module, 'STARTUPINFOEXW')
+make_head(_module, 'STARTUPINFOW')
+make_head(_module, 'THREAD_POWER_THROTTLING_STATE')
+make_head(_module, 'TP_CALLBACK_ENVIRON_V3')
+make_head(_module, 'TP_CALLBACK_INSTANCE')
+make_head(_module, 'TP_IO')
+make_head(_module, 'TP_POOL_STACK_INFORMATION')
+make_head(_module, 'TP_TIMER')
+make_head(_module, 'TP_WAIT')
+make_head(_module, 'TP_WORK')
+make_head(_module, 'UMS_SCHEDULER_STARTUP_INFO')
+make_head(_module, 'UMS_SYSTEM_THREAD_INFORMATION')
+make_head(_module, 'WAITORTIMERCALLBACK')
 __all__ = [
     "ABOVE_NORMAL_PRIORITY_CLASS",
     "APP_MEMORY_INFORMATION",

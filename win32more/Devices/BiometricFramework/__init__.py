@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.BiometricFramework
 import win32more.Foundation
 import win32more.System.IO
@@ -7,1959 +8,1384 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-def _define__WINIBIO_ENGINE_CONTEXT_head():
-    class _WINIBIO_ENGINE_CONTEXT(Structure):
-        pass
-    return _WINIBIO_ENGINE_CONTEXT
-def _define__WINIBIO_ENGINE_CONTEXT():
-    _WINIBIO_ENGINE_CONTEXT = win32more.Devices.BiometricFramework._WINIBIO_ENGINE_CONTEXT_head
-    return _WINIBIO_ENGINE_CONTEXT
-def _define__WINIBIO_SENSOR_CONTEXT_head():
-    class _WINIBIO_SENSOR_CONTEXT(Structure):
-        pass
-    return _WINIBIO_SENSOR_CONTEXT
-def _define__WINIBIO_SENSOR_CONTEXT():
-    _WINIBIO_SENSOR_CONTEXT = win32more.Devices.BiometricFramework._WINIBIO_SENSOR_CONTEXT_head
-    return _WINIBIO_SENSOR_CONTEXT
-def _define__WINIBIO_STORAGE_CONTEXT_head():
-    class _WINIBIO_STORAGE_CONTEXT(Structure):
-        pass
-    return _WINIBIO_STORAGE_CONTEXT
-def _define__WINIBIO_STORAGE_CONTEXT():
-    _WINIBIO_STORAGE_CONTEXT = win32more.Devices.BiometricFramework._WINIBIO_STORAGE_CONTEXT_head
-    return _WINIBIO_STORAGE_CONTEXT
-WINBIO_MAX_STRING_LEN = 256
-WINBIO_SCP_VERSION_1 = 1
-WINBIO_SCP_RANDOM_SIZE_V1 = 32
-WINBIO_SCP_DIGEST_SIZE_V1 = 32
-WINBIO_SCP_CURVE_FIELD_SIZE_V1 = 32
-WINBIO_SCP_PUBLIC_KEY_SIZE_V1 = 65
-WINBIO_SCP_PRIVATE_KEY_SIZE_V1 = 32
-WINBIO_SCP_SIGNATURE_SIZE_V1 = 64
-WINBIO_SCP_ENCRYPTION_BLOCK_SIZE_V1 = 16
-WINBIO_SCP_ENCRYPTION_KEY_SIZE_V1 = 32
-WINBIO_BIR_ALIGN_SIZE = 8
-WINBIO_BIR_ALGIN_SIZE = 8
-FACILITY_WINBIO = 9
-FACILITY_NONE = 0
-WINBIO_E_UNSUPPORTED_FACTOR = -2146861055
-WINBIO_E_INVALID_UNIT = -2146861054
-WINBIO_E_UNKNOWN_ID = -2146861053
-WINBIO_E_CANCELED = -2146861052
-WINBIO_E_NO_MATCH = -2146861051
-WINBIO_E_CAPTURE_ABORTED = -2146861050
-WINBIO_E_ENROLLMENT_IN_PROGRESS = -2146861049
-WINBIO_E_BAD_CAPTURE = -2146861048
-WINBIO_E_INVALID_CONTROL_CODE = -2146861047
-WINBIO_E_DATA_COLLECTION_IN_PROGRESS = -2146861045
-WINBIO_E_UNSUPPORTED_DATA_FORMAT = -2146861044
-WINBIO_E_UNSUPPORTED_DATA_TYPE = -2146861043
-WINBIO_E_UNSUPPORTED_PURPOSE = -2146861042
-WINBIO_E_INVALID_DEVICE_STATE = -2146861041
-WINBIO_E_DEVICE_BUSY = -2146861040
-WINBIO_E_DATABASE_CANT_CREATE = -2146861039
-WINBIO_E_DATABASE_CANT_OPEN = -2146861038
-WINBIO_E_DATABASE_CANT_CLOSE = -2146861037
-WINBIO_E_DATABASE_CANT_ERASE = -2146861036
-WINBIO_E_DATABASE_CANT_FIND = -2146861035
-WINBIO_E_DATABASE_ALREADY_EXISTS = -2146861034
-WINBIO_E_DATABASE_FULL = -2146861032
-WINBIO_E_DATABASE_LOCKED = -2146861031
-WINBIO_E_DATABASE_CORRUPTED = -2146861030
-WINBIO_E_DATABASE_NO_SUCH_RECORD = -2146861029
-WINBIO_E_DUPLICATE_ENROLLMENT = -2146861028
-WINBIO_E_DATABASE_READ_ERROR = -2146861027
-WINBIO_E_DATABASE_WRITE_ERROR = -2146861026
-WINBIO_E_DATABASE_NO_RESULTS = -2146861025
-WINBIO_E_DATABASE_NO_MORE_RECORDS = -2146861024
-WINBIO_E_DATABASE_EOF = -2146861023
-WINBIO_E_DATABASE_BAD_INDEX_VECTOR = -2146861022
-WINBIO_E_INCORRECT_BSP = -2146861020
-WINBIO_E_INCORRECT_SENSOR_POOL = -2146861019
-WINBIO_E_NO_CAPTURE_DATA = -2146861018
-WINBIO_E_INVALID_SENSOR_MODE = -2146861017
-WINBIO_E_LOCK_VIOLATION = -2146861014
-WINBIO_E_DUPLICATE_TEMPLATE = -2146861013
-WINBIO_E_INVALID_OPERATION = -2146861012
-WINBIO_E_SESSION_BUSY = -2146861011
-WINBIO_E_CRED_PROV_DISABLED = -2146861008
-WINBIO_E_CRED_PROV_NO_CREDENTIAL = -2146861007
-WINBIO_E_DISABLED = -2146861006
-WINBIO_E_CONFIGURATION_FAILURE = -2146861005
-WINBIO_E_SENSOR_UNAVAILABLE = -2146861004
-WINBIO_E_SAS_ENABLED = -2146861003
-WINBIO_E_DEVICE_FAILURE = -2146861002
-WINBIO_E_FAST_USER_SWITCH_DISABLED = -2146861001
-WINBIO_E_NOT_ACTIVE_CONSOLE = -2146861000
-WINBIO_E_EVENT_MONITOR_ACTIVE = -2146860999
-WINBIO_E_INVALID_PROPERTY_TYPE = -2146860998
-WINBIO_E_INVALID_PROPERTY_ID = -2146860997
-WINBIO_E_UNSUPPORTED_PROPERTY = -2146860996
-WINBIO_E_ADAPTER_INTEGRITY_FAILURE = -2146860995
-WINBIO_E_INCORRECT_SESSION_TYPE = -2146860994
-WINBIO_E_SESSION_HANDLE_CLOSED = -2146860993
-WINBIO_E_DEADLOCK_DETECTED = -2146860992
-WINBIO_E_NO_PREBOOT_IDENTITY = -2146860991
-WINBIO_E_MAX_ERROR_COUNT_EXCEEDED = -2146860990
-WINBIO_E_AUTO_LOGON_DISABLED = -2146860989
-WINBIO_E_INVALID_TICKET = -2146860988
-WINBIO_E_TICKET_QUOTA_EXCEEDED = -2146860987
-WINBIO_E_DATA_PROTECTION_FAILURE = -2146860986
-WINBIO_E_CRED_PROV_SECURITY_LOCKOUT = -2146860985
-WINBIO_E_UNSUPPORTED_POOL_TYPE = -2146860984
-WINBIO_E_SELECTION_REQUIRED = -2146860983
-WINBIO_E_PRESENCE_MONITOR_ACTIVE = -2146860982
-WINBIO_E_INVALID_SUBFACTOR = -2146860981
-WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY = -2146860980
-WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT = -2146860979
-WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT = -2146860978
-WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL = -2146860977
-WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE = -2146860976
-WINBIO_E_CALIBRATION_BUFFER_INVALID = -2146860975
-WINBIO_E_INVALID_KEY_IDENTIFIER = -2146860974
-WINBIO_E_KEY_CREATION_FAILED = -2146860973
-WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL = -2146860972
-WINBIO_E_PROPERTY_UNAVAILABLE = -2146860971
-WINBIO_E_POLICY_PROTECTION_UNAVAILABLE = -2146860970
-WINBIO_E_INSECURE_SENSOR = -2146860969
-WINBIO_E_INVALID_BUFFER_ID = -2146860968
-WINBIO_E_INVALID_BUFFER = -2146860967
-WINBIO_E_TRUSTLET_INTEGRITY_FAIL = -2146860966
-WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND = -2146860965
-WINBIO_I_MORE_DATA = 589825
-WINBIO_I_EXTENDED_STATUS_INFORMATION = 589826
-def _define_GUID_DEVINTERFACE_BIOMETRIC_READER():
-    return Guid('e2b5183a-99ea-4cc3-ad-6b-80-ca-8d-71-5b-80')
-IOCTL_BIOMETRIC_VENDOR = 4464640
-WINBIO_WBDI_MAJOR_VERSION = 1
-WINBIO_WBDI_MINOR_VERSION = 0
-def _define_WinBioEnumServiceProviders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BSP_SCHEMA_head)),POINTER(UIntPtr))(('WinBioEnumServiceProviders', windll['winbio.dll']), ((1, 'Factor'),(1, 'BspSchemaArray'),(1, 'BspCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnumBiometricUnits():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA_head)),POINTER(UIntPtr))(('WinBioEnumBiometricUnits', windll['winbio.dll']), ((1, 'Factor'),(1, 'UnitSchemaArray'),(1, 'UnitCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnumDatabases():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA_head)),POINTER(UIntPtr))(('WinBioEnumDatabases', windll['winbio.dll']), ((1, 'Factor'),(1, 'StorageSchemaArray'),(1, 'StorageCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncOpenFramework():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD,win32more.Foundation.HWND,UInt32,win32more.Devices.BiometricFramework.PWINBIO_ASYNC_COMPLETION_CALLBACK,c_void_p,win32more.Foundation.BOOL,POINTER(UInt32))(('WinBioAsyncOpenFramework', windll['winbio.dll']), ((1, 'NotificationMethod'),(1, 'TargetWindow'),(1, 'MessageCode'),(1, 'CallbackRoutine'),(1, 'UserData'),(1, 'AsynchronousOpen'),(1, 'FrameworkHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioCloseFramework():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioCloseFramework', windll['winbio.dll']), ((1, 'FrameworkHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncEnumServiceProviders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioAsyncEnumServiceProviders', windll['winbio.dll']), ((1, 'FrameworkHandle'),(1, 'Factor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncEnumBiometricUnits():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioAsyncEnumBiometricUnits', windll['winbio.dll']), ((1, 'FrameworkHandle'),(1, 'Factor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncEnumDatabases():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioAsyncEnumDatabases', windll['winbio.dll']), ((1, 'FrameworkHandle'),(1, 'Factor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncMonitorFrameworkChanges():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioAsyncMonitorFrameworkChanges', windll['winbio.dll']), ((1, 'FrameworkHandle'),(1, 'ChangeTypes'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioOpenSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.BiometricFramework.WINBIO_POOL,UInt32,POINTER(UInt32),UIntPtr,POINTER(Guid),POINTER(UInt32))(('WinBioOpenSession', windll['winbio.dll']), ((1, 'Factor'),(1, 'PoolType'),(1, 'Flags'),(1, 'UnitArray'),(1, 'UnitCount'),(1, 'DatabaseId'),(1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAsyncOpenSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.BiometricFramework.WINBIO_POOL,UInt32,POINTER(UInt32),UIntPtr,POINTER(Guid),win32more.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD,win32more.Foundation.HWND,UInt32,win32more.Devices.BiometricFramework.PWINBIO_ASYNC_COMPLETION_CALLBACK,c_void_p,win32more.Foundation.BOOL,POINTER(UInt32))(('WinBioAsyncOpenSession', windll['winbio.dll']), ((1, 'Factor'),(1, 'PoolType'),(1, 'Flags'),(1, 'UnitArray'),(1, 'UnitCount'),(1, 'DatabaseId'),(1, 'NotificationMethod'),(1, 'TargetWindow'),(1, 'MessageCode'),(1, 'CallbackRoutine'),(1, 'UserData'),(1, 'AsynchronousOpen'),(1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioCloseSession():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioCloseSession', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioVerify():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,POINTER(UInt32),c_char_p_no,POINTER(UInt32))(('WinBioVerify', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'Identity'),(1, 'SubFactor'),(1, 'UnitId'),(1, 'Match'),(1, 'RejectDetail'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioVerifyWithCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,win32more.Devices.BiometricFramework.PWINBIO_VERIFY_CALLBACK,c_void_p)(('WinBioVerifyWithCallback', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'Identity'),(1, 'SubFactor'),(1, 'VerifyCallback'),(1, 'VerifyCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioIdentify():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no,POINTER(UInt32))(('WinBioIdentify', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),(1, 'Identity'),(1, 'SubFactor'),(1, 'RejectDetail'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioIdentifyWithCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.BiometricFramework.PWINBIO_IDENTIFY_CALLBACK,c_void_p)(('WinBioIdentifyWithCallback', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'IdentifyCallback'),(1, 'IdentifyCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioWait():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioWait', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioCancel():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioCancel', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioLocateSensor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(('WinBioLocateSensor', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioLocateSensorWithCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.BiometricFramework.PWINBIO_LOCATE_SENSOR_CALLBACK,c_void_p)(('WinBioLocateSensorWithCallback', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'LocateCallback'),(1, 'LocateCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollBegin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Byte,UInt32)(('WinBioEnrollBegin', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'SubFactor'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollSelect():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64)(('WinBioEnrollSelect', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'SelectorValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollCapture():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32))(('WinBioEnrollCapture', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'RejectDetail'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollCaptureWithCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.BiometricFramework.PWINBIO_ENROLL_CAPTURE_CALLBACK,c_void_p)(('WinBioEnrollCaptureWithCallback', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'EnrollCallback'),(1, 'EnrollCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollCommit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no)(('WinBioEnrollCommit', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'Identity'),(1, 'IsNewTemplate'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnrollDiscard():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioEnrollDiscard', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioEnumEnrollments():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),POINTER(c_char_p_no),POINTER(UIntPtr))(('WinBioEnumEnrollments', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),(1, 'Identity'),(1, 'SubFactorArray'),(1, 'SubFactorCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioImproveBegin():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioImproveBegin', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioImproveEnd():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioImproveEnd', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioRegisterEventMonitor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Devices.BiometricFramework.PWINBIO_EVENT_CALLBACK,c_void_p)(('WinBioRegisterEventMonitor', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'EventMask'),(1, 'EventCallback'),(1, 'EventCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioUnregisterEventMonitor():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioUnregisterEventMonitor', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioMonitorPresence():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioMonitorPresence', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioCaptureSample():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Byte,Byte,POINTER(UInt32),POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)),POINTER(UIntPtr),POINTER(UInt32))(('WinBioCaptureSample', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'Purpose'),(1, 'Flags'),(1, 'UnitId'),(1, 'Sample'),(1, 'SampleSize'),(1, 'RejectDetail'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioCaptureSampleWithCallback():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Byte,Byte,win32more.Devices.BiometricFramework.PWINBIO_CAPTURE_CALLBACK,c_void_p)(('WinBioCaptureSampleWithCallback', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'Purpose'),(1, 'Flags'),(1, 'CaptureCallback'),(1, 'CaptureCallbackContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioDeleteTemplate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte)(('WinBioDeleteTemplate', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),(1, 'Identity'),(1, 'SubFactor'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioLockUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioLockUnit', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioUnlockUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32)(('WinBioUnlockUnit', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioControlUnit():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Devices.BiometricFramework.WINBIO_COMPONENT,UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))(('WinBioControlUnit', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),(1, 'Component'),(1, 'ControlCode'),(1, 'SendBuffer'),(1, 'SendBufferSize'),(1, 'ReceiveBuffer'),(1, 'ReceiveBufferSize'),(1, 'ReceiveDataSize'),(1, 'OperationStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioControlUnitPrivileged():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Devices.BiometricFramework.WINBIO_COMPONENT,UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))(('WinBioControlUnitPrivileged', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'UnitId'),(1, 'Component'),(1, 'ControlCode'),(1, 'SendBuffer'),(1, 'SendBufferSize'),(1, 'ReceiveBuffer'),(1, 'ReceiveBufferSize'),(1, 'ReceiveDataSize'),(1, 'OperationStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetProperty():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,POINTER(c_void_p),POINTER(UIntPtr))(('WinBioGetProperty', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'PropertyType'),(1, 'PropertyId'),(1, 'UnitId'),(1, 'Identity'),(1, 'SubFactor'),(1, 'PropertyBuffer'),(1, 'PropertyBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioSetProperty():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,c_void_p,UIntPtr)(('WinBioSetProperty', windll['winbio.dll']), ((1, 'SessionHandle'),(1, 'PropertyType'),(1, 'PropertyId'),(1, 'UnitId'),(1, 'Identity'),(1, 'SubFactor'),(1, 'PropertyBuffer'),(1, 'PropertyBufferSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioFree():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('WinBioFree', windll['winbio.dll']), ((1, 'Address'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioSetCredential():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE,c_char_p_no,UIntPtr,win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_FORMAT)(('WinBioSetCredential', windll['winbio.dll']), ((1, 'Type'),(1, 'Credential'),(1, 'CredentialSize'),(1, 'Format'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioRemoveCredential():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.BiometricFramework.WINBIO_IDENTITY,win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE)(('WinBioRemoveCredential', windll['winbio.dll']), ((1, 'Identity'),(1, 'Type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioRemoveAllCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('WinBioRemoveAllCredentials', windll['winbio.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioRemoveAllDomainCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('WinBioRemoveAllDomainCredentials', windll['winbio.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetCredentialState():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.BiometricFramework.WINBIO_IDENTITY,win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE,POINTER(win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_STATE))(('WinBioGetCredentialState', windll['winbio.dll']), ((1, 'Identity'),(1, 'Type'),(1, 'CredentialState'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioLogonIdentifiedUser():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(('WinBioLogonIdentifiedUser', windll['winbio.dll']), ((1, 'SessionHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetEnrolledFactors():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),POINTER(UInt32))(('WinBioGetEnrolledFactors', windll['winbio.dll']), ((1, 'AccountOwner'),(1, 'EnrolledFactors'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetEnabledSetting():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no,POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE))(('WinBioGetEnabledSetting', windll['winbio.dll']), ((1, 'Value'),(1, 'Source'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetLogonSetting():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no,POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE))(('WinBioGetLogonSetting', windll['winbio.dll']), ((1, 'Value'),(1, 'Source'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioGetDomainLogonSetting():
-    try:
-        return WINFUNCTYPE(Void,c_char_p_no,POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE))(('WinBioGetDomainLogonSetting', windll['winbio.dll']), ((1, 'Value'),(1, 'Source'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioAcquireFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('WinBioAcquireFocus', windll['winbio.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinBioReleaseFocus():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,)(('WinBioReleaseFocus', windll['winbio.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr)
-def _define_PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head),UIntPtr,Byte,POINTER(UInt32))
-def _define_PIBIO_ENGINE_ACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_ATTACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no,POINTER(win32more.Foundation.BOOLEAN))
-def _define_PIBIO_ENGINE_CLEAR_CONTEXT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_COMMIT_ENROLLMENT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,c_char_p_no,UIntPtr)
-def _define_PIBIO_ENGINE_CONTROL_UNIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_CREATE_ENROLLMENT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_CREATE_KEY_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_DEACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_DETACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_DISCARD_ENROLLMENT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Byte,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_ENGINE_IDENTIFY_ALL_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr),POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_PRESENCE_head)))
-def _define_PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no,POINTER(UInt32),POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no,POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),c_char_p_no,POINTER(UInt32),POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32)
-def _define_PIBIO_ENGINE_PIPELINE_CLEANUP_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_PIPELINE_INIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Foundation.BOOLEAN),c_char_p_no,POINTER(UIntPtr),UIntPtr)
-def _define_PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_STATUS_head),UIntPtr)
-def _define_PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENGINE_INFO_head),UIntPtr)
-def _define_PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(c_char_p_no))
-def _define_PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT_head),POINTER(Guid))
-def _define_PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_REFRESH_CACHE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_ENGINE_RESERVED_1_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head))
-def _define_PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),UIntPtr,POINTER(Guid),POINTER(UIntPtr))
-def _define_PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_ACCOUNT_POLICY_head),UIntPtr)
-def _define_PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_PARAMETERS_head))
-def _define_PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt64)
-def _define_PIBIO_ENGINE_SET_HASH_ALGORITHM_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UIntPtr,c_char_p_no)
-def _define_PIBIO_ENGINE_UPDATE_ENROLLMENT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_ENGINE_VERIFY_FEATURE_SET_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,POINTER(win32more.Foundation.BOOLEAN),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UIntPtr,POINTER(c_void_p))
-def _define_PIBIO_FRAMEWORK_FREE_MEMORY_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_void_p)
-def _define_PIBIO_FRAMEWORK_GET_PROPERTY_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,POINTER(c_void_p),POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Guid,POINTER(c_void_p),POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Guid)
-def _define_PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS_head),UIntPtr)
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr),POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr)
-def _define_PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr)
-def _define_PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),POINTER(UIntPtr),POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head)))
-def _define_PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr)
-def _define_PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr)
-def _define_PIBIO_SENSOR_ACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Guid,c_char_p_no,UIntPtr,POINTER(c_char_p_no),POINTER(UIntPtr))
-def _define_PIBIO_SENSOR_ATTACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_CANCEL_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_CLEAR_CONTEXT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_CONNECT_SECURE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_PARAMS_head),POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_DATA_head)))
-def _define_PIBIO_SENSOR_CONTROL_UNIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_SENSOR_DEACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_DETACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)),POINTER(UIntPtr))
-def _define_PIBIO_SENSOR_FINISH_CAPTURE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_SENSOR_GET_INDICATOR_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32)
-def _define_PIBIO_SENSOR_PIPELINE_CLEANUP_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_PIPELINE_INIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Byte,Byte,POINTER(UInt32))
-def _define_PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_SENSOR_INFO_head),UIntPtr)
-def _define_PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),c_char_p_no,UIntPtr,POINTER(UIntPtr))
-def _define_PIBIO_SENSOR_QUERY_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UInt32))
-def _define_PIBIO_SENSOR_RESET_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid))
-def _define_PIBIO_SENSOR_SET_INDICATOR_STATUS_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32)
-def _define_PIBIO_SENSOR_SET_MODE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32)
-def _define_PIBIO_SENSOR_START_CAPTURE_EX_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Byte,c_char_p_no,UIntPtr,Byte,POINTER(POINTER(win32more.System.IO.OVERLAPPED_head)))
-def _define_PIBIO_SENSOR_START_CAPTURE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Byte,POINTER(POINTER(win32more.System.IO.OVERLAPPED_head)))
-def _define_PIBIO_SENSOR_START_NOTIFY_WAKE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(POINTER(win32more.System.IO.OVERLAPPED_head)))
-def _define_PIBIO_STORAGE_ACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_ADD_RECORD_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head))
-def _define_PIBIO_STORAGE_ATTACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_CLEAR_CONTEXT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_CLOSE_DATABASE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_CONTROL_UNIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32,c_char_p_no,UIntPtr,c_char_p_no,UIntPtr,POINTER(UIntPtr),POINTER(UInt32))
-def _define_PIBIO_STORAGE_CREATE_DATABASE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),UInt32,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UIntPtr,UIntPtr)
-def _define_PIBIO_STORAGE_DEACTIVATE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_DELETE_RECORD_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte)
-def _define_PIBIO_STORAGE_DETACH_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_ERASE_DATABASE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
-def _define_PIBIO_STORAGE_FIRST_RECORD_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_GET_CURRENT_RECORD_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head))
-def _define_PIBIO_STORAGE_GET_DATA_FORMAT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),POINTER(win32more.Devices.BiometricFramework.WINBIO_VERSION_head))
-def _define_PIBIO_STORAGE_GET_DATABASE_SIZE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr),POINTER(UIntPtr))
-def _define_PIBIO_STORAGE_GET_RECORD_COUNT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(UIntPtr))
-def _define_PIBIO_STORAGE_NEXT_RECORD_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),win32more.Foundation.BOOLEAN)
-def _define_PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),UInt32)
-def _define_PIBIO_STORAGE_OPEN_DATABASE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)
-def _define_PIBIO_STORAGE_PIPELINE_CLEANUP_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_PIPELINE_INIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head))
-def _define_PIBIO_STORAGE_QUERY_BY_CONTENT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),Byte,POINTER(UInt32),UIntPtr)
-def _define_PIBIO_STORAGE_QUERY_BY_SUBJECT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte)
-def _define_PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_STORAGE_INFO_head),UIntPtr)
-def _define_PIBIO_STORAGE_RESERVED_1_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),POINTER(UInt64),POINTER(UInt64))
-def _define_PIBIO_STORAGE_RESERVED_2_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head))
-def _define_PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head))
-def _define_PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head),POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head))
-def _define_PWINBIO_ASYNC_COMPLETION_CALLBACK():
-    return WINFUNCTYPE(Void,POINTER(win32more.Devices.BiometricFramework.WINBIO_ASYNC_RESULT_head))
-def _define_PWINBIO_CAPTURE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head),UIntPtr,UInt32)
-def _define_PWINBIO_ENROLL_CAPTURE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,UInt32)
-def _define_PWINBIO_EVENT_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,POINTER(win32more.Devices.BiometricFramework.WINBIO_EVENT_head))
-def _define_PWINBIO_IDENTIFY_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head),Byte,UInt32)
-def _define_PWINBIO_LOCATE_SENSOR_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,UInt32)
-def _define_PWINBIO_QUERY_ENGINE_INTERFACE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head)))
-def _define_PWINBIO_QUERY_SENSOR_INTERFACE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head)))
-def _define_PWINBIO_QUERY_STORAGE_INTERFACE_FN():
-    return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head)))
-def _define_PWINBIO_VERIFY_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOLEAN,UInt32)
-def _define_WINBIO_ACCOUNT_POLICY_head():
-    class WINBIO_ACCOUNT_POLICY(Structure):
-        pass
-    return WINBIO_ACCOUNT_POLICY
-def _define_WINBIO_ACCOUNT_POLICY():
-    WINBIO_ACCOUNT_POLICY = win32more.Devices.BiometricFramework.WINBIO_ACCOUNT_POLICY_head
-    WINBIO_ACCOUNT_POLICY._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('AntiSpoofBehavior', win32more.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION),
-    ]
-    return WINBIO_ACCOUNT_POLICY
-def _define_WINBIO_ADAPTER_INTERFACE_VERSION_head():
-    class WINBIO_ADAPTER_INTERFACE_VERSION(Structure):
-        pass
-    return WINBIO_ADAPTER_INTERFACE_VERSION
-def _define_WINBIO_ADAPTER_INTERFACE_VERSION():
-    WINBIO_ADAPTER_INTERFACE_VERSION = win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION_head
-    WINBIO_ADAPTER_INTERFACE_VERSION._fields_ = [
-        ('MajorVersion', UInt16),
-        ('MinorVersion', UInt16),
-    ]
-    return WINBIO_ADAPTER_INTERFACE_VERSION
-def _define_WINBIO_ANTI_SPOOF_POLICY_head():
-    class WINBIO_ANTI_SPOOF_POLICY(Structure):
-        pass
-    return WINBIO_ANTI_SPOOF_POLICY
-def _define_WINBIO_ANTI_SPOOF_POLICY():
-    WINBIO_ANTI_SPOOF_POLICY = win32more.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_head
-    WINBIO_ANTI_SPOOF_POLICY._fields_ = [
-        ('Action', win32more.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION),
-        ('Source', win32more.Devices.BiometricFramework.WINBIO_POLICY_SOURCE),
-    ]
-    return WINBIO_ANTI_SPOOF_POLICY
+class _WINIBIO_ENGINE_CONTEXT(Structure):
+    pass
+class _WINIBIO_SENSOR_CONTEXT(Structure):
+    pass
+class _WINIBIO_STORAGE_CONTEXT(Structure):
+    pass
+WINBIO_MAX_STRING_LEN: UInt32 = 256
+WINBIO_SCP_VERSION_1: UInt32 = 1
+WINBIO_SCP_RANDOM_SIZE_V1: UInt32 = 32
+WINBIO_SCP_DIGEST_SIZE_V1: UInt32 = 32
+WINBIO_SCP_CURVE_FIELD_SIZE_V1: UInt32 = 32
+WINBIO_SCP_PUBLIC_KEY_SIZE_V1: UInt32 = 65
+WINBIO_SCP_PRIVATE_KEY_SIZE_V1: UInt32 = 32
+WINBIO_SCP_SIGNATURE_SIZE_V1: UInt32 = 64
+WINBIO_SCP_ENCRYPTION_BLOCK_SIZE_V1: UInt32 = 16
+WINBIO_SCP_ENCRYPTION_KEY_SIZE_V1: UInt32 = 32
+WINBIO_BIR_ALIGN_SIZE: UInt32 = 8
+WINBIO_BIR_ALGIN_SIZE: UInt32 = 8
+FACILITY_WINBIO: UInt32 = 9
+FACILITY_NONE: UInt32 = 0
+WINBIO_E_UNSUPPORTED_FACTOR: win32more.Foundation.HRESULT = -2146861055
+WINBIO_E_INVALID_UNIT: win32more.Foundation.HRESULT = -2146861054
+WINBIO_E_UNKNOWN_ID: win32more.Foundation.HRESULT = -2146861053
+WINBIO_E_CANCELED: win32more.Foundation.HRESULT = -2146861052
+WINBIO_E_NO_MATCH: win32more.Foundation.HRESULT = -2146861051
+WINBIO_E_CAPTURE_ABORTED: win32more.Foundation.HRESULT = -2146861050
+WINBIO_E_ENROLLMENT_IN_PROGRESS: win32more.Foundation.HRESULT = -2146861049
+WINBIO_E_BAD_CAPTURE: win32more.Foundation.HRESULT = -2146861048
+WINBIO_E_INVALID_CONTROL_CODE: win32more.Foundation.HRESULT = -2146861047
+WINBIO_E_DATA_COLLECTION_IN_PROGRESS: win32more.Foundation.HRESULT = -2146861045
+WINBIO_E_UNSUPPORTED_DATA_FORMAT: win32more.Foundation.HRESULT = -2146861044
+WINBIO_E_UNSUPPORTED_DATA_TYPE: win32more.Foundation.HRESULT = -2146861043
+WINBIO_E_UNSUPPORTED_PURPOSE: win32more.Foundation.HRESULT = -2146861042
+WINBIO_E_INVALID_DEVICE_STATE: win32more.Foundation.HRESULT = -2146861041
+WINBIO_E_DEVICE_BUSY: win32more.Foundation.HRESULT = -2146861040
+WINBIO_E_DATABASE_CANT_CREATE: win32more.Foundation.HRESULT = -2146861039
+WINBIO_E_DATABASE_CANT_OPEN: win32more.Foundation.HRESULT = -2146861038
+WINBIO_E_DATABASE_CANT_CLOSE: win32more.Foundation.HRESULT = -2146861037
+WINBIO_E_DATABASE_CANT_ERASE: win32more.Foundation.HRESULT = -2146861036
+WINBIO_E_DATABASE_CANT_FIND: win32more.Foundation.HRESULT = -2146861035
+WINBIO_E_DATABASE_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2146861034
+WINBIO_E_DATABASE_FULL: win32more.Foundation.HRESULT = -2146861032
+WINBIO_E_DATABASE_LOCKED: win32more.Foundation.HRESULT = -2146861031
+WINBIO_E_DATABASE_CORRUPTED: win32more.Foundation.HRESULT = -2146861030
+WINBIO_E_DATABASE_NO_SUCH_RECORD: win32more.Foundation.HRESULT = -2146861029
+WINBIO_E_DUPLICATE_ENROLLMENT: win32more.Foundation.HRESULT = -2146861028
+WINBIO_E_DATABASE_READ_ERROR: win32more.Foundation.HRESULT = -2146861027
+WINBIO_E_DATABASE_WRITE_ERROR: win32more.Foundation.HRESULT = -2146861026
+WINBIO_E_DATABASE_NO_RESULTS: win32more.Foundation.HRESULT = -2146861025
+WINBIO_E_DATABASE_NO_MORE_RECORDS: win32more.Foundation.HRESULT = -2146861024
+WINBIO_E_DATABASE_EOF: win32more.Foundation.HRESULT = -2146861023
+WINBIO_E_DATABASE_BAD_INDEX_VECTOR: win32more.Foundation.HRESULT = -2146861022
+WINBIO_E_INCORRECT_BSP: win32more.Foundation.HRESULT = -2146861020
+WINBIO_E_INCORRECT_SENSOR_POOL: win32more.Foundation.HRESULT = -2146861019
+WINBIO_E_NO_CAPTURE_DATA: win32more.Foundation.HRESULT = -2146861018
+WINBIO_E_INVALID_SENSOR_MODE: win32more.Foundation.HRESULT = -2146861017
+WINBIO_E_LOCK_VIOLATION: win32more.Foundation.HRESULT = -2146861014
+WINBIO_E_DUPLICATE_TEMPLATE: win32more.Foundation.HRESULT = -2146861013
+WINBIO_E_INVALID_OPERATION: win32more.Foundation.HRESULT = -2146861012
+WINBIO_E_SESSION_BUSY: win32more.Foundation.HRESULT = -2146861011
+WINBIO_E_CRED_PROV_DISABLED: win32more.Foundation.HRESULT = -2146861008
+WINBIO_E_CRED_PROV_NO_CREDENTIAL: win32more.Foundation.HRESULT = -2146861007
+WINBIO_E_DISABLED: win32more.Foundation.HRESULT = -2146861006
+WINBIO_E_CONFIGURATION_FAILURE: win32more.Foundation.HRESULT = -2146861005
+WINBIO_E_SENSOR_UNAVAILABLE: win32more.Foundation.HRESULT = -2146861004
+WINBIO_E_SAS_ENABLED: win32more.Foundation.HRESULT = -2146861003
+WINBIO_E_DEVICE_FAILURE: win32more.Foundation.HRESULT = -2146861002
+WINBIO_E_FAST_USER_SWITCH_DISABLED: win32more.Foundation.HRESULT = -2146861001
+WINBIO_E_NOT_ACTIVE_CONSOLE: win32more.Foundation.HRESULT = -2146861000
+WINBIO_E_EVENT_MONITOR_ACTIVE: win32more.Foundation.HRESULT = -2146860999
+WINBIO_E_INVALID_PROPERTY_TYPE: win32more.Foundation.HRESULT = -2146860998
+WINBIO_E_INVALID_PROPERTY_ID: win32more.Foundation.HRESULT = -2146860997
+WINBIO_E_UNSUPPORTED_PROPERTY: win32more.Foundation.HRESULT = -2146860996
+WINBIO_E_ADAPTER_INTEGRITY_FAILURE: win32more.Foundation.HRESULT = -2146860995
+WINBIO_E_INCORRECT_SESSION_TYPE: win32more.Foundation.HRESULT = -2146860994
+WINBIO_E_SESSION_HANDLE_CLOSED: win32more.Foundation.HRESULT = -2146860993
+WINBIO_E_DEADLOCK_DETECTED: win32more.Foundation.HRESULT = -2146860992
+WINBIO_E_NO_PREBOOT_IDENTITY: win32more.Foundation.HRESULT = -2146860991
+WINBIO_E_MAX_ERROR_COUNT_EXCEEDED: win32more.Foundation.HRESULT = -2146860990
+WINBIO_E_AUTO_LOGON_DISABLED: win32more.Foundation.HRESULT = -2146860989
+WINBIO_E_INVALID_TICKET: win32more.Foundation.HRESULT = -2146860988
+WINBIO_E_TICKET_QUOTA_EXCEEDED: win32more.Foundation.HRESULT = -2146860987
+WINBIO_E_DATA_PROTECTION_FAILURE: win32more.Foundation.HRESULT = -2146860986
+WINBIO_E_CRED_PROV_SECURITY_LOCKOUT: win32more.Foundation.HRESULT = -2146860985
+WINBIO_E_UNSUPPORTED_POOL_TYPE: win32more.Foundation.HRESULT = -2146860984
+WINBIO_E_SELECTION_REQUIRED: win32more.Foundation.HRESULT = -2146860983
+WINBIO_E_PRESENCE_MONITOR_ACTIVE: win32more.Foundation.HRESULT = -2146860982
+WINBIO_E_INVALID_SUBFACTOR: win32more.Foundation.HRESULT = -2146860981
+WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY: win32more.Foundation.HRESULT = -2146860980
+WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT: win32more.Foundation.HRESULT = -2146860979
+WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT: win32more.Foundation.HRESULT = -2146860978
+WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL: win32more.Foundation.HRESULT = -2146860977
+WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE: win32more.Foundation.HRESULT = -2146860976
+WINBIO_E_CALIBRATION_BUFFER_INVALID: win32more.Foundation.HRESULT = -2146860975
+WINBIO_E_INVALID_KEY_IDENTIFIER: win32more.Foundation.HRESULT = -2146860974
+WINBIO_E_KEY_CREATION_FAILED: win32more.Foundation.HRESULT = -2146860973
+WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL: win32more.Foundation.HRESULT = -2146860972
+WINBIO_E_PROPERTY_UNAVAILABLE: win32more.Foundation.HRESULT = -2146860971
+WINBIO_E_POLICY_PROTECTION_UNAVAILABLE: win32more.Foundation.HRESULT = -2146860970
+WINBIO_E_INSECURE_SENSOR: win32more.Foundation.HRESULT = -2146860969
+WINBIO_E_INVALID_BUFFER_ID: win32more.Foundation.HRESULT = -2146860968
+WINBIO_E_INVALID_BUFFER: win32more.Foundation.HRESULT = -2146860967
+WINBIO_E_TRUSTLET_INTEGRITY_FAIL: win32more.Foundation.HRESULT = -2146860966
+WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND: win32more.Foundation.HRESULT = -2146860965
+WINBIO_I_MORE_DATA: win32more.Foundation.HRESULT = 589825
+WINBIO_I_EXTENDED_STATUS_INFORMATION: win32more.Foundation.HRESULT = 589826
+GUID_DEVINTERFACE_BIOMETRIC_READER: Guid = Guid('e2b5183a-99ea-4cc3-ad-6b-80-ca-8d-71-5b-80')
+IOCTL_BIOMETRIC_VENDOR: UInt32 = 4464640
+WINBIO_WBDI_MAJOR_VERSION: UInt32 = 1
+WINBIO_WBDI_MINOR_VERSION: UInt32 = 0
+@winfunctype('winbio.dll')
+def WinBioEnumServiceProviders(Factor: UInt32, BspSchemaArray: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BSP_SCHEMA_head)), BspCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnumBiometricUnits(Factor: UInt32, UnitSchemaArray: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA_head)), UnitCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnumDatabases(Factor: UInt32, StorageSchemaArray: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA_head)), StorageCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncOpenFramework(NotificationMethod: win32more.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD, TargetWindow: win32more.Foundation.HWND, MessageCode: UInt32, CallbackRoutine: win32more.Devices.BiometricFramework.PWINBIO_ASYNC_COMPLETION_CALLBACK, UserData: c_void_p, AsynchronousOpen: win32more.Foundation.BOOL, FrameworkHandle: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioCloseFramework(FrameworkHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncEnumServiceProviders(FrameworkHandle: UInt32, Factor: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncEnumBiometricUnits(FrameworkHandle: UInt32, Factor: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncEnumDatabases(FrameworkHandle: UInt32, Factor: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncMonitorFrameworkChanges(FrameworkHandle: UInt32, ChangeTypes: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioOpenSession(Factor: UInt32, PoolType: win32more.Devices.BiometricFramework.WINBIO_POOL, Flags: UInt32, UnitArray: POINTER(UInt32), UnitCount: UIntPtr, DatabaseId: POINTER(Guid), SessionHandle: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioAsyncOpenSession(Factor: UInt32, PoolType: win32more.Devices.BiometricFramework.WINBIO_POOL, Flags: UInt32, UnitArray: POINTER(UInt32), UnitCount: UIntPtr, DatabaseId: POINTER(Guid), NotificationMethod: win32more.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD, TargetWindow: win32more.Foundation.HWND, MessageCode: UInt32, CallbackRoutine: win32more.Devices.BiometricFramework.PWINBIO_ASYNC_COMPLETION_CALLBACK, UserData: c_void_p, AsynchronousOpen: win32more.Foundation.BOOL, SessionHandle: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioCloseSession(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioVerify(SessionHandle: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, UnitId: POINTER(UInt32), Match: c_char_p_no, RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioVerifyWithCallback(SessionHandle: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, VerifyCallback: win32more.Devices.BiometricFramework.PWINBIO_VERIFY_CALLBACK, VerifyCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioIdentify(SessionHandle: UInt32, UnitId: POINTER(UInt32), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: c_char_p_no, RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioIdentifyWithCallback(SessionHandle: UInt32, IdentifyCallback: win32more.Devices.BiometricFramework.PWINBIO_IDENTIFY_CALLBACK, IdentifyCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioWait(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioCancel(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioLocateSensor(SessionHandle: UInt32, UnitId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioLocateSensorWithCallback(SessionHandle: UInt32, LocateCallback: win32more.Devices.BiometricFramework.PWINBIO_LOCATE_SENSOR_CALLBACK, LocateCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollBegin(SessionHandle: UInt32, SubFactor: Byte, UnitId: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollSelect(SessionHandle: UInt32, SelectorValue: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollCapture(SessionHandle: UInt32, RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollCaptureWithCallback(SessionHandle: UInt32, EnrollCallback: win32more.Devices.BiometricFramework.PWINBIO_ENROLL_CAPTURE_CALLBACK, EnrollCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollCommit(SessionHandle: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), IsNewTemplate: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnrollDiscard(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioEnumEnrollments(SessionHandle: UInt32, UnitId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactorArray: POINTER(c_char_p_no), SubFactorCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioImproveBegin(SessionHandle: UInt32, UnitId: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioImproveEnd(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioRegisterEventMonitor(SessionHandle: UInt32, EventMask: UInt32, EventCallback: win32more.Devices.BiometricFramework.PWINBIO_EVENT_CALLBACK, EventCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioUnregisterEventMonitor(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioMonitorPresence(SessionHandle: UInt32, UnitId: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioCaptureSample(SessionHandle: UInt32, Purpose: Byte, Flags: Byte, UnitId: POINTER(UInt32), Sample: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)), SampleSize: POINTER(UIntPtr), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioCaptureSampleWithCallback(SessionHandle: UInt32, Purpose: Byte, Flags: Byte, CaptureCallback: win32more.Devices.BiometricFramework.PWINBIO_CAPTURE_CALLBACK, CaptureCallbackContext: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioDeleteTemplate(SessionHandle: UInt32, UnitId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioLockUnit(SessionHandle: UInt32, UnitId: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioUnlockUnit(SessionHandle: UInt32, UnitId: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioControlUnit(SessionHandle: UInt32, UnitId: UInt32, Component: win32more.Devices.BiometricFramework.WINBIO_COMPONENT, ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioControlUnitPrivileged(SessionHandle: UInt32, UnitId: UInt32, Component: win32more.Devices.BiometricFramework.WINBIO_COMPONENT, ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioGetProperty(SessionHandle: UInt32, PropertyType: UInt32, PropertyId: UInt32, UnitId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, PropertyBuffer: POINTER(c_void_p), PropertyBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioSetProperty(SessionHandle: UInt32, PropertyType: UInt32, PropertyId: UInt32, UnitId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, PropertyBuffer: c_void_p, PropertyBufferSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioFree(Address: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioSetCredential(Type: win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE, Credential: c_char_p_no, CredentialSize: UIntPtr, Format: win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_FORMAT) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioRemoveCredential(Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY, Type: win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioRemoveAllCredentials() -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioRemoveAllDomainCredentials() -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioGetCredentialState(Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY, Type: win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE, CredentialState: POINTER(win32more.Devices.BiometricFramework.WINBIO_CREDENTIAL_STATE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioLogonIdentifiedUser(SessionHandle: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioGetEnrolledFactors(AccountOwner: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), EnrolledFactors: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioGetEnabledSetting(Value: c_char_p_no, Source: POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE)) -> Void: ...
+@winfunctype('winbio.dll')
+def WinBioGetLogonSetting(Value: c_char_p_no, Source: POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE)) -> Void: ...
+@winfunctype('winbio.dll')
+def WinBioGetDomainLogonSetting(Value: c_char_p_no, Source: POINTER(win32more.Devices.BiometricFramework.WINBIO_SETTING_SOURCE)) -> Void: ...
+@winfunctype('winbio.dll')
+def WinBioAcquireFocus() -> win32more.Foundation.HRESULT: ...
+@winfunctype('winbio.dll')
+def WinBioReleaseFocus() -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), TypeInfoBufferAddress: c_char_p_no, TypeInfoBufferSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SampleBuffer: POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head), SampleSize: UIntPtr, Purpose: Byte, RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_ACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_ATTACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: c_char_p_no, Duplicate: POINTER(win32more.Foundation.BOOLEAN)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CLEAR_CONTEXT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_COMMIT_ENROLLMENT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, PayloadBlob: c_char_p_no, PayloadBlobSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CONTROL_UNIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Nonce: POINTER(c_char_p_no), NonceSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CREATE_ENROLLMENT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_CREATE_KEY_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Key: c_char_p_no, KeySize: UIntPtr, KeyIdentifier: c_char_p_no, KeyIdentifierSize: UIntPtr, ResultSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_DEACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_DETACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_DISCARD_ENROLLMENT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Flags: Byte, SampleBuffer: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)), SampleSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), HashValue: POINTER(c_char_p_no), HashSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_IDENTIFY_ALL_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PresenceCount: POINTER(UIntPtr), PresenceArray: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_PRESENCE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Nonce: c_char_p_no, NonceSize: UIntPtr, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: c_char_p_no, RejectDetail: POINTER(UInt32), Authentication: POINTER(c_char_p_no), AuthenticationSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: c_char_p_no, PayloadBlob: POINTER(c_char_p_no), PayloadBlobSize: POINTER(UIntPtr), HashValue: POINTER(c_char_p_no), HashSize: POINTER(UIntPtr), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Nonce: c_char_p_no, NonceSize: UIntPtr, KeyIdentifier: c_char_p_no, KeyIdentifierSize: UIntPtr, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: c_char_p_no, RejectDetail: POINTER(UInt32), Authorization: POINTER(c_char_p_no), AuthorizationSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PowerEventType: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_PIPELINE_CLEANUP_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_PIPELINE_INIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), DiscardAndRepeatCapture: POINTER(win32more.Foundation.BOOLEAN), CalibrationBuffer: c_char_p_no, CalibrationBufferSize: POINTER(UIntPtr), MaxBufferSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), EnrollmentStatus: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_STATUS_head), EnrollmentStatusSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), EngineInfo: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENGINE_INFO_head), EngineInfoSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), AlgorithmCount: POINTER(UIntPtr), AlgorithmBufferSize: POINTER(UIntPtr), AlgorithmBuffer: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), IndexElementCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), StandardFormat: POINTER(win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT_head), VendorFormat: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SampleHint: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_REFRESH_CACHE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_RESERVED_1_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), FormatArray: POINTER(Guid), FormatCount: UIntPtr, SelectedFormat: POINTER(Guid), MaxBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PolicyItemArray: POINTER(win32more.Devices.BiometricFramework.WINBIO_ACCOUNT_POLICY_head), PolicyItemCount: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Parameters: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_PARAMETERS_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SelectorValue: UInt64) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_SET_HASH_ALGORITHM_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), AlgorithmBufferSize: UIntPtr, AlgorithmBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_UPDATE_ENROLLMENT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_ENGINE_VERIFY_FEATURE_SET_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, Match: POINTER(win32more.Foundation.BOOLEAN), PayloadBlob: POINTER(c_char_p_no), PayloadBlobSize: POINTER(UIntPtr), HashValue: POINTER(c_char_p_no), HashSize: POINTER(UIntPtr), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), AllocationSize: UIntPtr, Address: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_FREE_MEMORY_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Address: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_GET_PROPERTY_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PropertyType: UInt32, PropertyId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, PropertyBuffer: POINTER(c_void_p), PropertyBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SecureBufferIdentifier: Guid, SecureBufferAddress: POINTER(c_void_p), SecureBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SecureBufferIdentifier: Guid) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ExtendedStatus: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS_head), ExtendedStatusSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RequiredCapacity: POINTER(UIntPtr), MaxBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), BufferAddress: c_char_p_no, BufferSize: UIntPtr, ReturnedDataSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RequiredCapacity: UIntPtr, MaxBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), BufferAddress: c_char_p_no, BufferSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Authentication: c_char_p_no, AuthenticationSize: UIntPtr, Iv: c_char_p_no, IvSize: UIntPtr, EncryptedData: c_char_p_no, EncryptedDataSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SecureIdentityCount: POINTER(UIntPtr), SecureIdentities: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Reserved1: UIntPtr, Reserved2: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Reserved1: c_char_p_no, Reserved2: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), CalibrationBuffer: c_char_p_no, CalibrationBufferSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_ACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RawBufferAddress: c_char_p_no, RawBufferSize: UIntPtr, ResultBufferAddress: POINTER(c_char_p_no), ResultBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SecureBufferIdentifier: Guid, MetadataBufferAddress: c_char_p_no, MetadataBufferSize: UIntPtr, ResultBufferAddress: POINTER(c_char_p_no), ResultBufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_ATTACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_CANCEL_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_CLEAR_CONTEXT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_CONNECT_SECURE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ConnectionParams: POINTER(win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_PARAMS_head), ConnectionData: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_DATA_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_CONTROL_UNIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_DEACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_DETACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SampleBuffer: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)), SampleSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_FINISH_CAPTURE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Reason: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_GET_INDICATOR_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), IndicatorStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PowerEventType: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_PIPELINE_CLEANUP_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_PIPELINE_INIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Purpose: Byte, Flags: Byte, RejectDetail: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), FormatArray: POINTER(Guid), FormatArraySize: UIntPtr, FormatCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SensorInfo: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_SENSOR_INFO_head), SensorInfoSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), TypeInfoBufferAddress: c_char_p_no, TypeInfoBufferSize: UIntPtr, TypeInfoDataSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_QUERY_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Status: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_RESET_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Format: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_SET_INDICATOR_STATUS_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), IndicatorStatus: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_SET_MODE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Mode: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_START_CAPTURE_EX_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Purpose: Byte, Nonce: c_char_p_no, NonceSize: UIntPtr, Flags: Byte, Overlapped: POINTER(POINTER(win32more.System.IO.OVERLAPPED_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_START_CAPTURE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Purpose: Byte, Overlapped: POINTER(POINTER(win32more.System.IO.OVERLAPPED_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_SENSOR_START_NOTIFY_WAKE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Overlapped: POINTER(POINTER(win32more.System.IO.OVERLAPPED_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_ACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_ADD_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordContents: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_ATTACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_CLEAR_CONTEXT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_CLOSE_DATABASE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_CONTROL_UNIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), ControlCode: UInt32, SendBuffer: c_char_p_no, SendBufferSize: UIntPtr, ReceiveBuffer: c_char_p_no, ReceiveBufferSize: UIntPtr, ReceiveDataSize: POINTER(UIntPtr), OperationStatus: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_CREATE_DATABASE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), DatabaseId: POINTER(Guid), Factor: UInt32, Format: POINTER(Guid), FilePath: win32more.Foundation.PWSTR, ConnectString: win32more.Foundation.PWSTR, IndexElementCount: UIntPtr, InitialSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_DEACTIVATE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_DELETE_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_DETACH_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_ERASE_DATABASE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), DatabaseId: POINTER(Guid), FilePath: win32more.Foundation.PWSTR, ConnectString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_FIRST_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_GET_CURRENT_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordContents: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_GET_DATA_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Format: POINTER(Guid), Version: POINTER(win32more.Devices.BiometricFramework.WINBIO_VERSION_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_GET_DATABASE_SIZE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), AvailableRecordCount: POINTER(UIntPtr), TotalRecordCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_GET_RECORD_COUNT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_NEXT_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordsAdded: win32more.Foundation.BOOLEAN) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), PowerEventType: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_OPEN_DATABASE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), DatabaseId: POINTER(Guid), FilePath: win32more.Foundation.PWSTR, ConnectString: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_PIPELINE_CLEANUP_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_PIPELINE_INIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_QUERY_BY_CONTENT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), SubFactor: Byte, IndexVector: POINTER(UInt32), IndexElementCount: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_QUERY_BY_SUBJECT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), StorageInfo: POINTER(win32more.Devices.BiometricFramework.WINBIO_EXTENDED_STORAGE_INFO_head), StorageInfoSize: UIntPtr) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_RESERVED_1_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), Reserved1: POINTER(UInt64), Reserved2: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_RESERVED_2_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, RecordContents: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordContents: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWINBIO_ASYNC_COMPLETION_CALLBACK(AsyncResult: POINTER(win32more.Devices.BiometricFramework.WINBIO_ASYNC_RESULT_head)) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_CAPTURE_CALLBACK(CaptureCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, UnitId: UInt32, Sample: POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head), SampleSize: UIntPtr, RejectDetail: UInt32) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_ENROLL_CAPTURE_CALLBACK(EnrollCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, RejectDetail: UInt32) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_EVENT_CALLBACK(EventCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, Event: POINTER(win32more.Devices.BiometricFramework.WINBIO_EVENT_head)) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_IDENTIFY_CALLBACK(IdentifyCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, UnitId: UInt32, Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head), SubFactor: Byte, RejectDetail: UInt32) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_LOCATE_SENSOR_CALLBACK(LocateCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, UnitId: UInt32) -> Void: ...
+@winfunctype_pointer
+def PWINBIO_QUERY_ENGINE_INTERFACE_FN(EngineInterface: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWINBIO_QUERY_SENSOR_INTERFACE_FN(SensorInterface: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWINBIO_QUERY_STORAGE_INTERFACE_FN(StorageInterface: POINTER(POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWINBIO_VERIFY_CALLBACK(VerifyCallbackContext: c_void_p, OperationStatus: win32more.Foundation.HRESULT, UnitId: UInt32, Match: win32more.Foundation.BOOLEAN, RejectDetail: UInt32) -> Void: ...
+class WINBIO_ACCOUNT_POLICY(Structure):
+    Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+    AntiSpoofBehavior: win32more.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION
+class WINBIO_ADAPTER_INTERFACE_VERSION(Structure):
+    MajorVersion: UInt16
+    MinorVersion: UInt16
+class WINBIO_ANTI_SPOOF_POLICY(Structure):
+    Action: win32more.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION
+    Source: win32more.Devices.BiometricFramework.WINBIO_POLICY_SOURCE
 WINBIO_ANTI_SPOOF_POLICY_ACTION = Int32
-WINBIO_ANTI_SPOOF_DISABLE = 0
-WINBIO_ANTI_SPOOF_ENABLE = 1
-WINBIO_ANTI_SPOOF_REMOVE = 2
+WINBIO_ANTI_SPOOF_DISABLE: WINBIO_ANTI_SPOOF_POLICY_ACTION = 0
+WINBIO_ANTI_SPOOF_ENABLE: WINBIO_ANTI_SPOOF_POLICY_ACTION = 1
+WINBIO_ANTI_SPOOF_REMOVE: WINBIO_ANTI_SPOOF_POLICY_ACTION = 2
 WINBIO_ASYNC_NOTIFICATION_METHOD = Int32
-WINBIO_ASYNC_NOTIFY_NONE = 0
-WINBIO_ASYNC_NOTIFY_CALLBACK = 1
-WINBIO_ASYNC_NOTIFY_MESSAGE = 2
-WINBIO_ASYNC_NOTIFY_MAXIMUM_VALUE = 3
-def _define_WINBIO_ASYNC_RESULT_head():
-    class WINBIO_ASYNC_RESULT(Structure):
-        pass
-    return WINBIO_ASYNC_RESULT
-def _define_WINBIO_ASYNC_RESULT():
-    WINBIO_ASYNC_RESULT = win32more.Devices.BiometricFramework.WINBIO_ASYNC_RESULT_head
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union(Union):
-        pass
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__Verify_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__Verify_e__Struct._fields_ = [
-        ('Match', win32more.Foundation.BOOLEAN),
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__Identify_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__Identify_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollBegin_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollBegin_e__Struct._fields_ = [
-        ('SubFactor', Byte),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCapture_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCapture_e__Struct._fields_ = [
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCommit_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCommit_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('IsNewTemplate', win32more.Foundation.BOOLEAN),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumEnrollments_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumEnrollments_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactorCount', UIntPtr),
-        ('SubFactorArray', c_char_p_no),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__CaptureSample_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__CaptureSample_e__Struct._fields_ = [
-        ('Sample', POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)),
-        ('SampleSize', UIntPtr),
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__DeleteTemplate_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__DeleteTemplate_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProperty_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProperty_e__Struct._fields_ = [
-        ('PropertyType', UInt32),
-        ('PropertyId', UInt32),
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-        ('PropertyBufferSize', UIntPtr),
-        ('PropertyBuffer', c_void_p),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__SetProperty_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__SetProperty_e__Struct._fields_ = [
-        ('PropertyType', UInt32),
-        ('PropertyId', UInt32),
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-        ('PropertyBufferSize', UIntPtr),
-        ('PropertyBuffer', c_void_p),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__GetEvent_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__GetEvent_e__Struct._fields_ = [
-        ('Event', win32more.Devices.BiometricFramework.WINBIO_EVENT),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__ControlUnit_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__ControlUnit_e__Struct._fields_ = [
-        ('Component', win32more.Devices.BiometricFramework.WINBIO_COMPONENT),
-        ('ControlCode', UInt32),
-        ('OperationStatus', UInt32),
-        ('SendBuffer', c_char_p_no),
-        ('SendBufferSize', UIntPtr),
-        ('ReceiveBuffer', c_char_p_no),
-        ('ReceiveBufferSize', UIntPtr),
-        ('ReceiveDataSize', UIntPtr),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumServiceProviders_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumServiceProviders_e__Struct._fields_ = [
-        ('BspCount', UIntPtr),
-        ('BspSchemaArray', POINTER(win32more.Devices.BiometricFramework.WINBIO_BSP_SCHEMA_head)),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumBiometricUnits_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumBiometricUnits_e__Struct._fields_ = [
-        ('UnitCount', UIntPtr),
-        ('UnitSchemaArray', POINTER(win32more.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA_head)),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumDatabases_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumDatabases_e__Struct._fields_ = [
-        ('StorageCount', UIntPtr),
-        ('StorageSchemaArray', POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA_head)),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__VerifyAndReleaseTicket_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__VerifyAndReleaseTicket_e__Struct._fields_ = [
-        ('Match', win32more.Foundation.BOOLEAN),
-        ('RejectDetail', UInt32),
-        ('Ticket', UInt64),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__IdentifyAndReleaseTicket_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__IdentifyAndReleaseTicket_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-        ('RejectDetail', UInt32),
-        ('Ticket', UInt64),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollSelect_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollSelect_e__Struct._fields_ = [
-        ('SelectorValue', UInt64),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__MonitorPresence_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__MonitorPresence_e__Struct._fields_ = [
-        ('ChangeType', UInt32),
-        ('PresenceCount', UIntPtr),
-        ('PresenceArray', POINTER(win32more.Devices.BiometricFramework.WINBIO_PRESENCE_head)),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProtectionPolicy_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProtectionPolicy_e__Struct._fields_ = [
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('Policy', win32more.Devices.BiometricFramework.WINBIO_PROTECTION_POLICY),
-    ]
-    class WINBIO_ASYNC_RESULT__Parameters_e__Union__NotifyUnitStatusChange_e__Struct(Structure):
-        pass
-    WINBIO_ASYNC_RESULT__Parameters_e__Union__NotifyUnitStatusChange_e__Struct._fields_ = [
-        ('ExtendedStatus', win32more.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS),
-    ]
-    WINBIO_ASYNC_RESULT__Parameters_e__Union._fields_ = [
-        ('Verify', WINBIO_ASYNC_RESULT__Parameters_e__Union__Verify_e__Struct),
-        ('Identify', WINBIO_ASYNC_RESULT__Parameters_e__Union__Identify_e__Struct),
-        ('EnrollBegin', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollBegin_e__Struct),
-        ('EnrollCapture', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCapture_e__Struct),
-        ('EnrollCommit', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollCommit_e__Struct),
-        ('EnumEnrollments', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumEnrollments_e__Struct),
-        ('CaptureSample', WINBIO_ASYNC_RESULT__Parameters_e__Union__CaptureSample_e__Struct),
-        ('DeleteTemplate', WINBIO_ASYNC_RESULT__Parameters_e__Union__DeleteTemplate_e__Struct),
-        ('GetProperty', WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProperty_e__Struct),
-        ('SetProperty', WINBIO_ASYNC_RESULT__Parameters_e__Union__SetProperty_e__Struct),
-        ('GetEvent', WINBIO_ASYNC_RESULT__Parameters_e__Union__GetEvent_e__Struct),
-        ('ControlUnit', WINBIO_ASYNC_RESULT__Parameters_e__Union__ControlUnit_e__Struct),
-        ('EnumServiceProviders', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumServiceProviders_e__Struct),
-        ('EnumBiometricUnits', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumBiometricUnits_e__Struct),
-        ('EnumDatabases', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnumDatabases_e__Struct),
-        ('VerifyAndReleaseTicket', WINBIO_ASYNC_RESULT__Parameters_e__Union__VerifyAndReleaseTicket_e__Struct),
-        ('IdentifyAndReleaseTicket', WINBIO_ASYNC_RESULT__Parameters_e__Union__IdentifyAndReleaseTicket_e__Struct),
-        ('EnrollSelect', WINBIO_ASYNC_RESULT__Parameters_e__Union__EnrollSelect_e__Struct),
-        ('MonitorPresence', WINBIO_ASYNC_RESULT__Parameters_e__Union__MonitorPresence_e__Struct),
-        ('GetProtectionPolicy', WINBIO_ASYNC_RESULT__Parameters_e__Union__GetProtectionPolicy_e__Struct),
-        ('NotifyUnitStatusChange', WINBIO_ASYNC_RESULT__Parameters_e__Union__NotifyUnitStatusChange_e__Struct),
-    ]
-    WINBIO_ASYNC_RESULT._fields_ = [
-        ('SessionHandle', UInt32),
-        ('Operation', UInt32),
-        ('SequenceNumber', UInt64),
-        ('TimeStamp', Int64),
-        ('ApiStatus', win32more.Foundation.HRESULT),
-        ('UnitId', UInt32),
-        ('UserData', c_void_p),
-        ('Parameters', WINBIO_ASYNC_RESULT__Parameters_e__Union),
-    ]
-    return WINBIO_ASYNC_RESULT
-def _define_WINBIO_BDB_ANSI_381_HEADER_head():
-    class WINBIO_BDB_ANSI_381_HEADER(Structure):
-        pass
-    return WINBIO_BDB_ANSI_381_HEADER
-def _define_WINBIO_BDB_ANSI_381_HEADER():
-    WINBIO_BDB_ANSI_381_HEADER = win32more.Devices.BiometricFramework.WINBIO_BDB_ANSI_381_HEADER_head
-    WINBIO_BDB_ANSI_381_HEADER._fields_ = [
-        ('RecordLength', UInt64),
-        ('FormatIdentifier', UInt32),
-        ('VersionNumber', UInt32),
-        ('ProductId', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT),
-        ('CaptureDeviceId', UInt16),
-        ('ImageAcquisitionLevel', UInt16),
-        ('HorizontalScanResolution', UInt16),
-        ('VerticalScanResolution', UInt16),
-        ('HorizontalImageResolution', UInt16),
-        ('VerticalImageResolution', UInt16),
-        ('ElementCount', Byte),
-        ('ScaleUnits', Byte),
-        ('PixelDepth', Byte),
-        ('ImageCompressionAlg', Byte),
-        ('Reserved', UInt16),
-    ]
-    return WINBIO_BDB_ANSI_381_HEADER
-def _define_WINBIO_BDB_ANSI_381_RECORD_head():
-    class WINBIO_BDB_ANSI_381_RECORD(Structure):
-        pass
-    return WINBIO_BDB_ANSI_381_RECORD
-def _define_WINBIO_BDB_ANSI_381_RECORD():
-    WINBIO_BDB_ANSI_381_RECORD = win32more.Devices.BiometricFramework.WINBIO_BDB_ANSI_381_RECORD_head
-    WINBIO_BDB_ANSI_381_RECORD._fields_ = [
-        ('BlockLength', UInt32),
-        ('HorizontalLineLength', UInt16),
-        ('VerticalLineLength', UInt16),
-        ('Position', Byte),
-        ('CountOfViews', Byte),
-        ('ViewNumber', Byte),
-        ('ImageQuality', Byte),
-        ('ImpressionType', Byte),
-        ('Reserved', Byte),
-    ]
-    return WINBIO_BDB_ANSI_381_RECORD
-def _define_WINBIO_BIR_head():
-    class WINBIO_BIR(Structure):
-        pass
-    return WINBIO_BIR
-def _define_WINBIO_BIR():
-    WINBIO_BIR = win32more.Devices.BiometricFramework.WINBIO_BIR_head
-    WINBIO_BIR._fields_ = [
-        ('HeaderBlock', win32more.Devices.BiometricFramework.WINBIO_BIR_DATA),
-        ('StandardDataBlock', win32more.Devices.BiometricFramework.WINBIO_BIR_DATA),
-        ('VendorDataBlock', win32more.Devices.BiometricFramework.WINBIO_BIR_DATA),
-        ('SignatureBlock', win32more.Devices.BiometricFramework.WINBIO_BIR_DATA),
-    ]
-    return WINBIO_BIR
-def _define_WINBIO_BIR_DATA_head():
-    class WINBIO_BIR_DATA(Structure):
-        pass
-    return WINBIO_BIR_DATA
-def _define_WINBIO_BIR_DATA():
-    WINBIO_BIR_DATA = win32more.Devices.BiometricFramework.WINBIO_BIR_DATA_head
-    WINBIO_BIR_DATA._fields_ = [
-        ('Size', UInt32),
-        ('Offset', UInt32),
-    ]
-    return WINBIO_BIR_DATA
-def _define_WINBIO_BIR_HEADER_head():
-    class WINBIO_BIR_HEADER(Structure):
-        pass
-    return WINBIO_BIR_HEADER
-def _define_WINBIO_BIR_HEADER():
-    WINBIO_BIR_HEADER = win32more.Devices.BiometricFramework.WINBIO_BIR_HEADER_head
-    class WINBIO_BIR_HEADER__ValidityPeriod_e__Struct(Structure):
-        pass
-    WINBIO_BIR_HEADER__ValidityPeriod_e__Struct._fields_ = [
-        ('BeginDate', win32more.Foundation.LARGE_INTEGER),
-        ('EndDate', win32more.Foundation.LARGE_INTEGER),
-    ]
-    WINBIO_BIR_HEADER._fields_ = [
-        ('ValidFields', UInt16),
-        ('HeaderVersion', Byte),
-        ('PatronHeaderVersion', Byte),
-        ('DataFlags', Byte),
-        ('Type', UInt32),
-        ('Subtype', Byte),
-        ('Purpose', Byte),
-        ('DataQuality', SByte),
-        ('CreationDate', win32more.Foundation.LARGE_INTEGER),
-        ('ValidityPeriod', WINBIO_BIR_HEADER__ValidityPeriod_e__Struct),
-        ('BiometricDataFormat', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT),
-        ('ProductId', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT),
-    ]
-    return WINBIO_BIR_HEADER
-def _define_WINBIO_BLANK_PAYLOAD_head():
-    class WINBIO_BLANK_PAYLOAD(Structure):
-        pass
-    return WINBIO_BLANK_PAYLOAD
-def _define_WINBIO_BLANK_PAYLOAD():
-    WINBIO_BLANK_PAYLOAD = win32more.Devices.BiometricFramework.WINBIO_BLANK_PAYLOAD_head
-    WINBIO_BLANK_PAYLOAD._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-    ]
-    return WINBIO_BLANK_PAYLOAD
-def _define_WINBIO_BSP_SCHEMA_head():
-    class WINBIO_BSP_SCHEMA(Structure):
-        pass
-    return WINBIO_BSP_SCHEMA
-def _define_WINBIO_BSP_SCHEMA():
-    WINBIO_BSP_SCHEMA = win32more.Devices.BiometricFramework.WINBIO_BSP_SCHEMA_head
-    WINBIO_BSP_SCHEMA._fields_ = [
-        ('BiometricFactor', UInt32),
-        ('BspId', Guid),
-        ('Description', UInt16 * 256),
-        ('Vendor', UInt16 * 256),
-        ('Version', win32more.Devices.BiometricFramework.WINBIO_VERSION),
-    ]
-    return WINBIO_BSP_SCHEMA
-def _define_WINBIO_CALIBRATION_INFO_head():
-    class WINBIO_CALIBRATION_INFO(Structure):
-        pass
-    return WINBIO_CALIBRATION_INFO
-def _define_WINBIO_CALIBRATION_INFO():
-    WINBIO_CALIBRATION_INFO = win32more.Devices.BiometricFramework.WINBIO_CALIBRATION_INFO_head
-    WINBIO_CALIBRATION_INFO._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('CalibrationData', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_CALIBRATION_INFO
-def _define_WINBIO_CAPTURE_DATA_head():
-    class WINBIO_CAPTURE_DATA(Structure):
-        pass
-    return WINBIO_CAPTURE_DATA
-def _define_WINBIO_CAPTURE_DATA():
-    WINBIO_CAPTURE_DATA = win32more.Devices.BiometricFramework.WINBIO_CAPTURE_DATA_head
-    WINBIO_CAPTURE_DATA._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('SensorStatus', UInt32),
-        ('RejectDetail', UInt32),
-        ('CaptureData', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_CAPTURE_DATA
-def _define_WINBIO_CAPTURE_PARAMETERS_head():
-    class WINBIO_CAPTURE_PARAMETERS(Structure):
-        pass
-    return WINBIO_CAPTURE_PARAMETERS
-def _define_WINBIO_CAPTURE_PARAMETERS():
-    WINBIO_CAPTURE_PARAMETERS = win32more.Devices.BiometricFramework.WINBIO_CAPTURE_PARAMETERS_head
-    WINBIO_CAPTURE_PARAMETERS._fields_ = [
-        ('PayloadSize', UInt32),
-        ('Purpose', Byte),
-        ('Format', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT),
-        ('VendorFormat', Guid),
-        ('Flags', Byte),
-    ]
-    return WINBIO_CAPTURE_PARAMETERS
+WINBIO_ASYNC_NOTIFY_NONE: WINBIO_ASYNC_NOTIFICATION_METHOD = 0
+WINBIO_ASYNC_NOTIFY_CALLBACK: WINBIO_ASYNC_NOTIFICATION_METHOD = 1
+WINBIO_ASYNC_NOTIFY_MESSAGE: WINBIO_ASYNC_NOTIFICATION_METHOD = 2
+WINBIO_ASYNC_NOTIFY_MAXIMUM_VALUE: WINBIO_ASYNC_NOTIFICATION_METHOD = 3
+class WINBIO_ASYNC_RESULT(Structure):
+    SessionHandle: UInt32
+    Operation: UInt32
+    SequenceNumber: UInt64
+    TimeStamp: Int64
+    ApiStatus: win32more.Foundation.HRESULT
+    UnitId: UInt32
+    UserData: c_void_p
+    Parameters: _Parameters_e__Union
+    class _Parameters_e__Union(Union):
+        Verify: _Verify_e__Struct
+        Identify: _Identify_e__Struct
+        EnrollBegin: _EnrollBegin_e__Struct
+        EnrollCapture: _EnrollCapture_e__Struct
+        EnrollCommit: _EnrollCommit_e__Struct
+        EnumEnrollments: _EnumEnrollments_e__Struct
+        CaptureSample: _CaptureSample_e__Struct
+        DeleteTemplate: _DeleteTemplate_e__Struct
+        GetProperty: _GetProperty_e__Struct
+        SetProperty: _SetProperty_e__Struct
+        GetEvent: _GetEvent_e__Struct
+        ControlUnit: _ControlUnit_e__Struct
+        EnumServiceProviders: _EnumServiceProviders_e__Struct
+        EnumBiometricUnits: _EnumBiometricUnits_e__Struct
+        EnumDatabases: _EnumDatabases_e__Struct
+        VerifyAndReleaseTicket: _VerifyAndReleaseTicket_e__Struct
+        IdentifyAndReleaseTicket: _IdentifyAndReleaseTicket_e__Struct
+        EnrollSelect: _EnrollSelect_e__Struct
+        MonitorPresence: _MonitorPresence_e__Struct
+        GetProtectionPolicy: _GetProtectionPolicy_e__Struct
+        NotifyUnitStatusChange: _NotifyUnitStatusChange_e__Struct
+        class _Verify_e__Struct(Structure):
+            Match: win32more.Foundation.BOOLEAN
+            RejectDetail: UInt32
+        class _Identify_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+            RejectDetail: UInt32
+        class _EnrollBegin_e__Struct(Structure):
+            SubFactor: Byte
+        class _EnrollCapture_e__Struct(Structure):
+            RejectDetail: UInt32
+        class _EnrollCommit_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            IsNewTemplate: win32more.Foundation.BOOLEAN
+        class _EnumEnrollments_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactorCount: UIntPtr
+            SubFactorArray: c_char_p_no
+        class _CaptureSample_e__Struct(Structure):
+            Sample: POINTER(win32more.Devices.BiometricFramework.WINBIO_BIR_head)
+            SampleSize: UIntPtr
+            RejectDetail: UInt32
+        class _DeleteTemplate_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+        class _GetProperty_e__Struct(Structure):
+            PropertyType: UInt32
+            PropertyId: UInt32
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+            PropertyBufferSize: UIntPtr
+            PropertyBuffer: c_void_p
+        class _SetProperty_e__Struct(Structure):
+            PropertyType: UInt32
+            PropertyId: UInt32
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+            PropertyBufferSize: UIntPtr
+            PropertyBuffer: c_void_p
+        class _GetEvent_e__Struct(Structure):
+            Event: win32more.Devices.BiometricFramework.WINBIO_EVENT
+        class _ControlUnit_e__Struct(Structure):
+            Component: win32more.Devices.BiometricFramework.WINBIO_COMPONENT
+            ControlCode: UInt32
+            OperationStatus: UInt32
+            SendBuffer: c_char_p_no
+            SendBufferSize: UIntPtr
+            ReceiveBuffer: c_char_p_no
+            ReceiveBufferSize: UIntPtr
+            ReceiveDataSize: UIntPtr
+        class _EnumServiceProviders_e__Struct(Structure):
+            BspCount: UIntPtr
+            BspSchemaArray: POINTER(win32more.Devices.BiometricFramework.WINBIO_BSP_SCHEMA_head)
+        class _EnumBiometricUnits_e__Struct(Structure):
+            UnitCount: UIntPtr
+            UnitSchemaArray: POINTER(win32more.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA_head)
+        class _EnumDatabases_e__Struct(Structure):
+            StorageCount: UIntPtr
+            StorageSchemaArray: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA_head)
+        class _VerifyAndReleaseTicket_e__Struct(Structure):
+            Match: win32more.Foundation.BOOLEAN
+            RejectDetail: UInt32
+            Ticket: UInt64
+        class _IdentifyAndReleaseTicket_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+            RejectDetail: UInt32
+            Ticket: UInt64
+        class _EnrollSelect_e__Struct(Structure):
+            SelectorValue: UInt64
+        class _MonitorPresence_e__Struct(Structure):
+            ChangeType: UInt32
+            PresenceCount: UIntPtr
+            PresenceArray: POINTER(win32more.Devices.BiometricFramework.WINBIO_PRESENCE_head)
+        class _GetProtectionPolicy_e__Struct(Structure):
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            Policy: win32more.Devices.BiometricFramework.WINBIO_PROTECTION_POLICY
+        class _NotifyUnitStatusChange_e__Struct(Structure):
+            ExtendedStatus: win32more.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS
+class WINBIO_BDB_ANSI_381_HEADER(Structure):
+    RecordLength: UInt64
+    FormatIdentifier: UInt32
+    VersionNumber: UInt32
+    ProductId: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
+    CaptureDeviceId: UInt16
+    ImageAcquisitionLevel: UInt16
+    HorizontalScanResolution: UInt16
+    VerticalScanResolution: UInt16
+    HorizontalImageResolution: UInt16
+    VerticalImageResolution: UInt16
+    ElementCount: Byte
+    ScaleUnits: Byte
+    PixelDepth: Byte
+    ImageCompressionAlg: Byte
+    Reserved: UInt16
+class WINBIO_BDB_ANSI_381_RECORD(Structure):
+    BlockLength: UInt32
+    HorizontalLineLength: UInt16
+    VerticalLineLength: UInt16
+    Position: Byte
+    CountOfViews: Byte
+    ViewNumber: Byte
+    ImageQuality: Byte
+    ImpressionType: Byte
+    Reserved: Byte
+class WINBIO_BIR(Structure):
+    HeaderBlock: win32more.Devices.BiometricFramework.WINBIO_BIR_DATA
+    StandardDataBlock: win32more.Devices.BiometricFramework.WINBIO_BIR_DATA
+    VendorDataBlock: win32more.Devices.BiometricFramework.WINBIO_BIR_DATA
+    SignatureBlock: win32more.Devices.BiometricFramework.WINBIO_BIR_DATA
+class WINBIO_BIR_DATA(Structure):
+    Size: UInt32
+    Offset: UInt32
+class WINBIO_BIR_HEADER(Structure):
+    ValidFields: UInt16
+    HeaderVersion: Byte
+    PatronHeaderVersion: Byte
+    DataFlags: Byte
+    Type: UInt32
+    Subtype: Byte
+    Purpose: Byte
+    DataQuality: SByte
+    CreationDate: win32more.Foundation.LARGE_INTEGER
+    ValidityPeriod: _ValidityPeriod_e__Struct
+    BiometricDataFormat: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
+    ProductId: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
+    class _ValidityPeriod_e__Struct(Structure):
+        BeginDate: win32more.Foundation.LARGE_INTEGER
+        EndDate: win32more.Foundation.LARGE_INTEGER
+class WINBIO_BLANK_PAYLOAD(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+class WINBIO_BSP_SCHEMA(Structure):
+    BiometricFactor: UInt32
+    BspId: Guid
+    Description: UInt16 * 256
+    Vendor: UInt16 * 256
+    Version: win32more.Devices.BiometricFramework.WINBIO_VERSION
+class WINBIO_CALIBRATION_INFO(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    CalibrationData: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_CAPTURE_DATA(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    SensorStatus: UInt32
+    RejectDetail: UInt32
+    CaptureData: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_CAPTURE_PARAMETERS(Structure):
+    PayloadSize: UInt32
+    Purpose: Byte
+    Format: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
+    VendorFormat: Guid
+    Flags: Byte
 WINBIO_COMPONENT = UInt32
-WINBIO_COMPONENT_SENSOR = 1
-WINBIO_COMPONENT_ENGINE = 2
-WINBIO_COMPONENT_STORAGE = 3
+WINBIO_COMPONENT_SENSOR: WINBIO_COMPONENT = 1
+WINBIO_COMPONENT_ENGINE: WINBIO_COMPONENT = 2
+WINBIO_COMPONENT_STORAGE: WINBIO_COMPONENT = 3
 WINBIO_CREDENTIAL_FORMAT = Int32
-WINBIO_PASSWORD_GENERIC = 1
-WINBIO_PASSWORD_PACKED = 2
-WINBIO_PASSWORD_PROTECTED = 3
+WINBIO_PASSWORD_GENERIC: WINBIO_CREDENTIAL_FORMAT = 1
+WINBIO_PASSWORD_PACKED: WINBIO_CREDENTIAL_FORMAT = 2
+WINBIO_PASSWORD_PROTECTED: WINBIO_CREDENTIAL_FORMAT = 3
 WINBIO_CREDENTIAL_STATE = Int32
-WINBIO_CREDENTIAL_NOT_SET = 1
-WINBIO_CREDENTIAL_SET = 2
+WINBIO_CREDENTIAL_NOT_SET: WINBIO_CREDENTIAL_STATE = 1
+WINBIO_CREDENTIAL_SET: WINBIO_CREDENTIAL_STATE = 2
 WINBIO_CREDENTIAL_TYPE = Int32
-WINBIO_CREDENTIAL_PASSWORD = 1
-WINBIO_CREDENTIAL_ALL = -1
-def _define_WINBIO_DATA_head():
-    class WINBIO_DATA(Structure):
-        pass
-    return WINBIO_DATA
-def _define_WINBIO_DATA():
-    WINBIO_DATA = win32more.Devices.BiometricFramework.WINBIO_DATA_head
-    WINBIO_DATA._fields_ = [
-        ('Size', UInt32),
-        ('Data', Byte * 1),
-    ]
-    return WINBIO_DATA
-def _define_WINBIO_DIAGNOSTICS_head():
-    class WINBIO_DIAGNOSTICS(Structure):
-        pass
-    return WINBIO_DIAGNOSTICS
-def _define_WINBIO_DIAGNOSTICS():
-    WINBIO_DIAGNOSTICS = win32more.Devices.BiometricFramework.WINBIO_DIAGNOSTICS_head
-    WINBIO_DIAGNOSTICS._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('SensorStatus', UInt32),
-        ('VendorDiagnostics', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_DIAGNOSTICS
-def _define_WINBIO_ENCRYPTED_CAPTURE_PARAMS_head():
-    class WINBIO_ENCRYPTED_CAPTURE_PARAMS(Structure):
-        pass
-    return WINBIO_ENCRYPTED_CAPTURE_PARAMS
-def _define_WINBIO_ENCRYPTED_CAPTURE_PARAMS():
-    WINBIO_ENCRYPTED_CAPTURE_PARAMS = win32more.Devices.BiometricFramework.WINBIO_ENCRYPTED_CAPTURE_PARAMS_head
-    WINBIO_ENCRYPTED_CAPTURE_PARAMS._fields_ = [
-        ('PayloadSize', UInt32),
-        ('Purpose', Byte),
-        ('Format', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT),
-        ('VendorFormat', Guid),
-        ('Flags', Byte),
-        ('NonceSize', UInt32),
-    ]
-    return WINBIO_ENCRYPTED_CAPTURE_PARAMS
-def _define_WINBIO_ENGINE_INTERFACE_head():
-    class WINBIO_ENGINE_INTERFACE(Structure):
-        pass
-    return WINBIO_ENGINE_INTERFACE
-def _define_WINBIO_ENGINE_INTERFACE():
-    WINBIO_ENGINE_INTERFACE = win32more.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head
-    WINBIO_ENGINE_INTERFACE._fields_ = [
-        ('Version', win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION),
-        ('Type', UInt32),
-        ('Size', UIntPtr),
-        ('AdapterId', Guid),
-        ('Attach', win32more.Devices.BiometricFramework.PIBIO_ENGINE_ATTACH_FN),
-        ('Detach', win32more.Devices.BiometricFramework.PIBIO_ENGINE_DETACH_FN),
-        ('ClearContext', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CLEAR_CONTEXT_FN),
-        ('QueryPreferredFormat', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN),
-        ('QueryIndexVectorSize', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN),
-        ('QueryHashAlgorithms', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN),
-        ('SetHashAlgorithm', win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_HASH_ALGORITHM_FN),
-        ('QuerySampleHint', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN),
-        ('AcceptSampleData', win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN),
-        ('ExportEngineData', win32more.Devices.BiometricFramework.PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN),
-        ('VerifyFeatureSet', win32more.Devices.BiometricFramework.PIBIO_ENGINE_VERIFY_FEATURE_SET_FN),
-        ('IdentifyFeatureSet', win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN),
-        ('CreateEnrollment', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_ENROLLMENT_FN),
-        ('UpdateEnrollment', win32more.Devices.BiometricFramework.PIBIO_ENGINE_UPDATE_ENROLLMENT_FN),
-        ('GetEnrollmentStatus', win32more.Devices.BiometricFramework.PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN),
-        ('GetEnrollmentHash', win32more.Devices.BiometricFramework.PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN),
-        ('CheckForDuplicate', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN),
-        ('CommitEnrollment', win32more.Devices.BiometricFramework.PIBIO_ENGINE_COMMIT_ENROLLMENT_FN),
-        ('DiscardEnrollment', win32more.Devices.BiometricFramework.PIBIO_ENGINE_DISCARD_ENROLLMENT_FN),
-        ('ControlUnit', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CONTROL_UNIT_FN),
-        ('ControlUnitPrivileged', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN),
-        ('NotifyPowerChange', win32more.Devices.BiometricFramework.PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN),
-        ('Reserved_1', win32more.Devices.BiometricFramework.PIBIO_ENGINE_RESERVED_1_FN),
-        ('PipelineInit', win32more.Devices.BiometricFramework.PIBIO_ENGINE_PIPELINE_INIT_FN),
-        ('PipelineCleanup', win32more.Devices.BiometricFramework.PIBIO_ENGINE_PIPELINE_CLEANUP_FN),
-        ('Activate', win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACTIVATE_FN),
-        ('Deactivate', win32more.Devices.BiometricFramework.PIBIO_ENGINE_DEACTIVATE_FN),
-        ('QueryExtendedInfo', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN),
-        ('IdentifyAll', win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_ALL_FN),
-        ('SetEnrollmentSelector', win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN),
-        ('SetEnrollmentParameters', win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN),
-        ('QueryExtendedEnrollmentStatus', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN),
-        ('RefreshCache', win32more.Devices.BiometricFramework.PIBIO_ENGINE_REFRESH_CACHE_FN),
-        ('SelectCalibrationFormat', win32more.Devices.BiometricFramework.PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN),
-        ('QueryCalibrationData', win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN),
-        ('SetAccountPolicy', win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN),
-        ('CreateKey', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_KEY_FN),
-        ('IdentifyFeatureSetSecure', win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN),
-        ('AcceptPrivateSensorTypeInfo', win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN),
-        ('CreateEnrollmentAuthenticated', win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN),
-        ('IdentifyFeatureSetAuthenticated', win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN),
-    ]
-    return WINBIO_ENGINE_INTERFACE
-def _define_WINBIO_EVENT_head():
-    class WINBIO_EVENT(Structure):
-        pass
-    return WINBIO_EVENT
-def _define_WINBIO_EVENT():
-    WINBIO_EVENT = win32more.Devices.BiometricFramework.WINBIO_EVENT_head
-    class WINBIO_EVENT__Parameters_e__Union(Union):
-        pass
-    class WINBIO_EVENT__Parameters_e__Union__Unclaimed_e__Struct(Structure):
-        pass
-    WINBIO_EVENT__Parameters_e__Union__Unclaimed_e__Struct._fields_ = [
-        ('UnitId', UInt32),
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_EVENT__Parameters_e__Union__UnclaimedIdentify_e__Struct(Structure):
-        pass
-    WINBIO_EVENT__Parameters_e__Union__UnclaimedIdentify_e__Struct._fields_ = [
-        ('UnitId', UInt32),
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('SubFactor', Byte),
-        ('RejectDetail', UInt32),
-    ]
-    class WINBIO_EVENT__Parameters_e__Union__Error_e__Struct(Structure):
-        pass
-    WINBIO_EVENT__Parameters_e__Union__Error_e__Struct._fields_ = [
-        ('ErrorCode', win32more.Foundation.HRESULT),
-    ]
-    WINBIO_EVENT__Parameters_e__Union._fields_ = [
-        ('Unclaimed', WINBIO_EVENT__Parameters_e__Union__Unclaimed_e__Struct),
-        ('UnclaimedIdentify', WINBIO_EVENT__Parameters_e__Union__UnclaimedIdentify_e__Struct),
-        ('Error', WINBIO_EVENT__Parameters_e__Union__Error_e__Struct),
-    ]
-    WINBIO_EVENT._fields_ = [
-        ('Type', UInt32),
-        ('Parameters', WINBIO_EVENT__Parameters_e__Union),
-    ]
-    return WINBIO_EVENT
-def _define_WINBIO_EXTENDED_ENGINE_INFO_head():
-    class WINBIO_EXTENDED_ENGINE_INFO(Structure):
-        pass
-    return WINBIO_EXTENDED_ENGINE_INFO
-def _define_WINBIO_EXTENDED_ENGINE_INFO():
-    WINBIO_EXTENDED_ENGINE_INFO = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENGINE_INFO_head
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union(Union):
-        pass
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct__EnrollmentRequirements_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct__EnrollmentRequirements_e__Struct._fields_ = [
-        ('Null', UInt32),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-        ('EnrollmentRequirements', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct__EnrollmentRequirements_e__Struct),
-    ]
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct__EnrollmentRequirements_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct__EnrollmentRequirements_e__Struct._fields_ = [
-        ('GeneralSamples', UInt32),
-        ('Center', UInt32),
-        ('TopEdge', UInt32),
-        ('BottomEdge', UInt32),
-        ('LeftEdge', UInt32),
-        ('RightEdge', UInt32),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-        ('EnrollmentRequirements', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct__EnrollmentRequirements_e__Struct),
-    ]
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct__EnrollmentRequirements_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct__EnrollmentRequirements_e__Struct._fields_ = [
-        ('Null', UInt32),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-        ('EnrollmentRequirements', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct__EnrollmentRequirements_e__Struct),
-    ]
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct__EnrollmentRequirements_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct__EnrollmentRequirements_e__Struct._fields_ = [
-        ('Null', UInt32),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-        ('EnrollmentRequirements', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct__EnrollmentRequirements_e__Struct),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union._fields_ = [
-        ('Null', UInt32),
-        ('FacialFeatures', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__FacialFeatures_e__Struct),
-        ('Fingerprint', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Fingerprint_e__Struct),
-        ('Iris', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Iris_e__Struct),
-        ('Voice', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union__Voice_e__Struct),
-    ]
-    WINBIO_EXTENDED_ENGINE_INFO._fields_ = [
-        ('GenericEngineCapabilities', UInt32),
-        ('Factor', UInt32),
-        ('Specific', WINBIO_EXTENDED_ENGINE_INFO__Specific_e__Union),
-    ]
-    return WINBIO_EXTENDED_ENGINE_INFO
-def _define_WINBIO_EXTENDED_ENROLLMENT_PARAMETERS_head():
-    class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS(Structure):
-        pass
-    return WINBIO_EXTENDED_ENROLLMENT_PARAMETERS
-def _define_WINBIO_EXTENDED_ENROLLMENT_PARAMETERS():
-    WINBIO_EXTENDED_ENROLLMENT_PARAMETERS = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_PARAMETERS_head
-    WINBIO_EXTENDED_ENROLLMENT_PARAMETERS._fields_ = [
-        ('Size', UIntPtr),
-        ('SubFactor', Byte),
-    ]
-    return WINBIO_EXTENDED_ENROLLMENT_PARAMETERS
-def _define_WINBIO_EXTENDED_ENROLLMENT_STATUS_head():
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS(Structure):
-        pass
-    return WINBIO_EXTENDED_ENROLLMENT_STATUS
-def _define_WINBIO_EXTENDED_ENROLLMENT_STATUS():
-    WINBIO_EXTENDED_ENROLLMENT_STATUS = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_ENROLLMENT_STATUS_head
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union(Union):
-        pass
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct._fields_ = [
-        ('AdapterId', Guid),
-        ('Data', UInt32 * 78),
-    ]
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct._fields_ = [
-        ('BoundingBox', win32more.Foundation.RECT),
-        ('Distance', Int32),
-        ('OpaqueEngineData', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct),
-    ]
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Fingerprint_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Fingerprint_e__Struct._fields_ = [
-        ('GeneralSamples', UInt32),
-        ('Center', UInt32),
-        ('TopEdge', UInt32),
-        ('BottomEdge', UInt32),
-        ('LeftEdge', UInt32),
-        ('RightEdge', UInt32),
-    ]
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct__Point3D_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct__Point3D_e__Struct._fields_ = [
-        ('X', Double),
-        ('Y', Double),
-        ('Z', Double),
-    ]
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct._fields_ = [
-        ('EyeBoundingBox_1', win32more.Foundation.RECT),
-        ('EyeBoundingBox_2', win32more.Foundation.RECT),
-        ('PupilCenter_1', win32more.Foundation.POINT),
-        ('PupilCenter_2', win32more.Foundation.POINT),
-        ('Distance', Int32),
-        ('GridPointCompletionPercent', UInt32),
-        ('GridPointIndex', UInt16),
-        ('Point3D', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct__Point3D_e__Struct),
-        ('StopCaptureAndShowCriticalFeedback', win32more.Foundation.BOOL),
-    ]
-    class WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Voice_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Voice_e__Struct._fields_ = [
-        ('Reserved', UInt32),
-    ]
-    WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union._fields_ = [
-        ('Null', UInt32),
-        ('FacialFeatures', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__FacialFeatures_e__Struct),
-        ('Fingerprint', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Fingerprint_e__Struct),
-        ('Iris', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Iris_e__Struct),
-        ('Voice', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union__Voice_e__Struct),
-    ]
-    WINBIO_EXTENDED_ENROLLMENT_STATUS._fields_ = [
-        ('TemplateStatus', win32more.Foundation.HRESULT),
-        ('RejectDetail', UInt32),
-        ('PercentComplete', UInt32),
-        ('Factor', UInt32),
-        ('SubFactor', Byte),
-        ('Specific', WINBIO_EXTENDED_ENROLLMENT_STATUS__Specific_e__Union),
-    ]
-    return WINBIO_EXTENDED_ENROLLMENT_STATUS
-def _define_WINBIO_EXTENDED_SENSOR_INFO_head():
-    class WINBIO_EXTENDED_SENSOR_INFO(Structure):
-        pass
-    return WINBIO_EXTENDED_SENSOR_INFO
-def _define_WINBIO_EXTENDED_SENSOR_INFO():
-    WINBIO_EXTENDED_SENSOR_INFO = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_SENSOR_INFO_head
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union(Union):
-        pass
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct(Structure):
-        pass
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct__HardwareInfo_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct__HardwareInfo_e__Struct._fields_ = [
-        ('ColorSensorId', Char * 260),
-        ('InfraredSensorId', Char * 260),
-        ('InfraredSensorRotationAngle', UInt32),
-    ]
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct._fields_ = [
-        ('FrameSize', win32more.Foundation.RECT),
-        ('FrameOffset', win32more.Foundation.POINT),
-        ('MandatoryOrientation', UInt32),
-        ('HardwareInfo', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct__HardwareInfo_e__Struct),
-    ]
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Fingerprint_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Fingerprint_e__Struct._fields_ = [
-        ('Reserved', UInt32),
-    ]
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Iris_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Iris_e__Struct._fields_ = [
-        ('FrameSize', win32more.Foundation.RECT),
-        ('FrameOffset', win32more.Foundation.POINT),
-        ('MandatoryOrientation', UInt32),
-    ]
-    class WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Voice_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Voice_e__Struct._fields_ = [
-        ('Reserved', UInt32),
-    ]
-    WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union._fields_ = [
-        ('Null', UInt32),
-        ('FacialFeatures', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__FacialFeatures_e__Struct),
-        ('Fingerprint', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Fingerprint_e__Struct),
-        ('Iris', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Iris_e__Struct),
-        ('Voice', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union__Voice_e__Struct),
-    ]
-    WINBIO_EXTENDED_SENSOR_INFO._fields_ = [
-        ('GenericSensorCapabilities', UInt32),
-        ('Factor', UInt32),
-        ('Specific', WINBIO_EXTENDED_SENSOR_INFO__Specific_e__Union),
-    ]
-    return WINBIO_EXTENDED_SENSOR_INFO
-def _define_WINBIO_EXTENDED_STORAGE_INFO_head():
-    class WINBIO_EXTENDED_STORAGE_INFO(Structure):
-        pass
-    return WINBIO_EXTENDED_STORAGE_INFO
-def _define_WINBIO_EXTENDED_STORAGE_INFO():
-    WINBIO_EXTENDED_STORAGE_INFO = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_STORAGE_INFO_head
-    class WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union(Union):
-        pass
-    class WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__FacialFeatures_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__FacialFeatures_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-    ]
-    class WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Fingerprint_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Fingerprint_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-    ]
-    class WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Iris_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Iris_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-    ]
-    class WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Voice_e__Struct(Structure):
-        pass
-    WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Voice_e__Struct._fields_ = [
-        ('Capabilities', UInt32),
-    ]
-    WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union._fields_ = [
-        ('Null', UInt32),
-        ('FacialFeatures', WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__FacialFeatures_e__Struct),
-        ('Fingerprint', WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Fingerprint_e__Struct),
-        ('Iris', WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Iris_e__Struct),
-        ('Voice', WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union__Voice_e__Struct),
-    ]
-    WINBIO_EXTENDED_STORAGE_INFO._fields_ = [
-        ('GenericStorageCapabilities', UInt32),
-        ('Factor', UInt32),
-        ('Specific', WINBIO_EXTENDED_STORAGE_INFO__Specific_e__Union),
-    ]
-    return WINBIO_EXTENDED_STORAGE_INFO
-def _define_WINBIO_EXTENDED_UNIT_STATUS_head():
-    class WINBIO_EXTENDED_UNIT_STATUS(Structure):
-        pass
-    return WINBIO_EXTENDED_UNIT_STATUS
-def _define_WINBIO_EXTENDED_UNIT_STATUS():
-    WINBIO_EXTENDED_UNIT_STATUS = win32more.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS_head
-    WINBIO_EXTENDED_UNIT_STATUS._fields_ = [
-        ('Availability', UInt32),
-        ('ReasonCode', UInt32),
-    ]
-    return WINBIO_EXTENDED_UNIT_STATUS
-def _define_WINBIO_FP_BU_STATE_head():
-    class WINBIO_FP_BU_STATE(Structure):
-        pass
-    return WINBIO_FP_BU_STATE
-def _define_WINBIO_FP_BU_STATE():
-    WINBIO_FP_BU_STATE = win32more.Devices.BiometricFramework.WINBIO_FP_BU_STATE_head
-    WINBIO_FP_BU_STATE._fields_ = [
-        ('SensorAttached', win32more.Foundation.BOOL),
-        ('CreationResult', win32more.Foundation.HRESULT),
-    ]
-    return WINBIO_FP_BU_STATE
-def _define_WINBIO_FRAMEWORK_INTERFACE_head():
-    class WINBIO_FRAMEWORK_INTERFACE(Structure):
-        pass
-    return WINBIO_FRAMEWORK_INTERFACE
-def _define_WINBIO_FRAMEWORK_INTERFACE():
-    WINBIO_FRAMEWORK_INTERFACE = win32more.Devices.BiometricFramework.WINBIO_FRAMEWORK_INTERFACE_head
-    WINBIO_FRAMEWORK_INTERFACE._fields_ = [
-        ('Version', win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION),
-        ('Type', UInt32),
-        ('Size', UIntPtr),
-        ('AdapterId', Guid),
-        ('SetUnitStatus', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN),
-        ('VsmStorageAttach', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ATTACH_FN),
-        ('VsmStorageDetach', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DETACH_FN),
-        ('VsmStorageClearContext', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLEAR_CONTEXT_FN),
-        ('VsmStorageCreateDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CREATE_DATABASE_FN),
-        ('VsmStorageOpenDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_OPEN_DATABASE_FN),
-        ('VsmStorageCloseDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLOSE_DATABASE_FN),
-        ('VsmStorageDeleteRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DELETE_RECORD_FN),
-        ('VsmStorageNotifyPowerChange', win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN),
-        ('VsmStoragePipelineInit', win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_INIT_FN),
-        ('VsmStoragePipelineCleanup', win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_CLEANUP_FN),
-        ('VsmStorageActivate', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ACTIVATE_FN),
-        ('VsmStorageDeactivate', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DEACTIVATE_FN),
-        ('VsmStorageQueryExtendedInfo', win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN),
-        ('VsmStorageCacheClear', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN),
-        ('VsmStorageCacheImportBegin', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN),
-        ('VsmStorageCacheImportNext', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN),
-        ('VsmStorageCacheImportEnd', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN),
-        ('VsmStorageCacheExportBegin', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN),
-        ('VsmStorageCacheExportNext', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN),
-        ('VsmStorageCacheExportEnd', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN),
-        ('VsmSensorAttach', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ATTACH_FN),
-        ('VsmSensorDetach', win32more.Devices.BiometricFramework.PIBIO_SENSOR_DETACH_FN),
-        ('VsmSensorClearContext', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CLEAR_CONTEXT_FN),
-        ('VsmSensorPushDataToEngine', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN),
-        ('VsmSensorNotifyPowerChange', win32more.Devices.BiometricFramework.PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN),
-        ('VsmSensorPipelineInit', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_INIT_FN),
-        ('VsmSensorPipelineCleanup', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_CLEANUP_FN),
-        ('VsmSensorActivate', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACTIVATE_FN),
-        ('VsmSensorDeactivate', win32more.Devices.BiometricFramework.PIBIO_SENSOR_DEACTIVATE_FN),
-        ('VsmSensorAsyncImportRawBuffer', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN),
-        ('VsmSensorAsyncImportSecureBuffer', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN),
-        ('Reserved1', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN),
-        ('Reserved2', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN),
-        ('Reserved3', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN),
-        ('Reserved4', win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_1_FN),
-        ('Reserved5', win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_2_FN),
-        ('AllocateMemory', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN),
-        ('FreeMemory', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_FREE_MEMORY_FN),
-        ('GetProperty', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_GET_PROPERTY_FN),
-        ('LockAndValidateSecureBuffer', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN),
-        ('ReleaseSecureBuffer', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN),
-        ('QueryAuthorizedEnrollments', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN),
-        ('DecryptSample', win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN),
-    ]
-    return WINBIO_FRAMEWORK_INTERFACE
-def _define_WINBIO_GESTURE_METADATA_head():
-    class WINBIO_GESTURE_METADATA(Structure):
-        pass
-    return WINBIO_GESTURE_METADATA
-def _define_WINBIO_GESTURE_METADATA():
-    WINBIO_GESTURE_METADATA = win32more.Devices.BiometricFramework.WINBIO_GESTURE_METADATA_head
-    WINBIO_GESTURE_METADATA._fields_ = [
-        ('Size', UIntPtr),
-        ('BiometricType', UInt32),
-        ('MatchType', UInt32),
-        ('ProtectionType', UInt32),
-    ]
-    return WINBIO_GESTURE_METADATA
-def _define_WINBIO_GET_INDICATOR_head():
-    class WINBIO_GET_INDICATOR(Structure):
-        pass
-    return WINBIO_GET_INDICATOR
-def _define_WINBIO_GET_INDICATOR():
-    WINBIO_GET_INDICATOR = win32more.Devices.BiometricFramework.WINBIO_GET_INDICATOR_head
-    WINBIO_GET_INDICATOR._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('IndicatorStatus', UInt32),
-    ]
-    return WINBIO_GET_INDICATOR
-def _define_WINBIO_IDENTITY_head():
-    class WINBIO_IDENTITY(Structure):
-        pass
-    return WINBIO_IDENTITY
-def _define_WINBIO_IDENTITY():
-    WINBIO_IDENTITY = win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head
-    class WINBIO_IDENTITY__Value_e__Union(Union):
-        pass
-    class WINBIO_IDENTITY__Value_e__Union__AccountSid_e__Struct(Structure):
-        pass
-    WINBIO_IDENTITY__Value_e__Union__AccountSid_e__Struct._fields_ = [
-        ('Size', UInt32),
-        ('Data', Byte * 68),
-    ]
-    WINBIO_IDENTITY__Value_e__Union._fields_ = [
-        ('Null', UInt32),
-        ('Wildcard', UInt32),
-        ('TemplateGuid', Guid),
-        ('AccountSid', WINBIO_IDENTITY__Value_e__Union__AccountSid_e__Struct),
-        ('SecureId', Byte * 32),
-    ]
-    WINBIO_IDENTITY._fields_ = [
-        ('Type', UInt32),
-        ('Value', WINBIO_IDENTITY__Value_e__Union),
-    ]
-    return WINBIO_IDENTITY
-def _define_WINBIO_NOTIFY_WAKE_head():
-    class WINBIO_NOTIFY_WAKE(Structure):
-        pass
-    return WINBIO_NOTIFY_WAKE
-def _define_WINBIO_NOTIFY_WAKE():
-    WINBIO_NOTIFY_WAKE = win32more.Devices.BiometricFramework.WINBIO_NOTIFY_WAKE_head
-    WINBIO_NOTIFY_WAKE._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('Reason', UInt32),
-    ]
-    return WINBIO_NOTIFY_WAKE
-def _define_WINBIO_PIPELINE_head():
-    class WINBIO_PIPELINE(Structure):
-        pass
-    return WINBIO_PIPELINE
-def _define_WINBIO_PIPELINE():
-    WINBIO_PIPELINE = win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head
-    WINBIO_PIPELINE._fields_ = [
-        ('SensorHandle', win32more.Foundation.HANDLE),
-        ('EngineHandle', win32more.Foundation.HANDLE),
-        ('StorageHandle', win32more.Foundation.HANDLE),
-        ('SensorInterface', POINTER(win32more.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head)),
-        ('EngineInterface', POINTER(win32more.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head)),
-        ('StorageInterface', POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head)),
-        ('SensorContext', POINTER(win32more.Devices.BiometricFramework._WINIBIO_SENSOR_CONTEXT_head)),
-        ('EngineContext', POINTER(win32more.Devices.BiometricFramework._WINIBIO_ENGINE_CONTEXT_head)),
-        ('StorageContext', POINTER(win32more.Devices.BiometricFramework._WINIBIO_STORAGE_CONTEXT_head)),
-        ('FrameworkInterface', POINTER(win32more.Devices.BiometricFramework.WINBIO_FRAMEWORK_INTERFACE_head)),
-    ]
-    return WINBIO_PIPELINE
+WINBIO_CREDENTIAL_PASSWORD: WINBIO_CREDENTIAL_TYPE = 1
+WINBIO_CREDENTIAL_ALL: WINBIO_CREDENTIAL_TYPE = -1
+class WINBIO_DATA(Structure):
+    Size: UInt32
+    Data: Byte * 1
+class WINBIO_DIAGNOSTICS(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    SensorStatus: UInt32
+    VendorDiagnostics: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_ENCRYPTED_CAPTURE_PARAMS(Structure):
+    PayloadSize: UInt32
+    Purpose: Byte
+    Format: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
+    VendorFormat: Guid
+    Flags: Byte
+    NonceSize: UInt32
+class WINBIO_ENGINE_INTERFACE(Structure):
+    Version: win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
+    Type: UInt32
+    Size: UIntPtr
+    AdapterId: Guid
+    Attach: win32more.Devices.BiometricFramework.PIBIO_ENGINE_ATTACH_FN
+    Detach: win32more.Devices.BiometricFramework.PIBIO_ENGINE_DETACH_FN
+    ClearContext: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CLEAR_CONTEXT_FN
+    QueryPreferredFormat: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN
+    QueryIndexVectorSize: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN
+    QueryHashAlgorithms: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN
+    SetHashAlgorithm: win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_HASH_ALGORITHM_FN
+    QuerySampleHint: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN
+    AcceptSampleData: win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN
+    ExportEngineData: win32more.Devices.BiometricFramework.PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN
+    VerifyFeatureSet: win32more.Devices.BiometricFramework.PIBIO_ENGINE_VERIFY_FEATURE_SET_FN
+    IdentifyFeatureSet: win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN
+    CreateEnrollment: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_ENROLLMENT_FN
+    UpdateEnrollment: win32more.Devices.BiometricFramework.PIBIO_ENGINE_UPDATE_ENROLLMENT_FN
+    GetEnrollmentStatus: win32more.Devices.BiometricFramework.PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN
+    GetEnrollmentHash: win32more.Devices.BiometricFramework.PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN
+    CheckForDuplicate: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN
+    CommitEnrollment: win32more.Devices.BiometricFramework.PIBIO_ENGINE_COMMIT_ENROLLMENT_FN
+    DiscardEnrollment: win32more.Devices.BiometricFramework.PIBIO_ENGINE_DISCARD_ENROLLMENT_FN
+    ControlUnit: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CONTROL_UNIT_FN
+    ControlUnitPrivileged: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN
+    NotifyPowerChange: win32more.Devices.BiometricFramework.PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN
+    Reserved_1: win32more.Devices.BiometricFramework.PIBIO_ENGINE_RESERVED_1_FN
+    PipelineInit: win32more.Devices.BiometricFramework.PIBIO_ENGINE_PIPELINE_INIT_FN
+    PipelineCleanup: win32more.Devices.BiometricFramework.PIBIO_ENGINE_PIPELINE_CLEANUP_FN
+    Activate: win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACTIVATE_FN
+    Deactivate: win32more.Devices.BiometricFramework.PIBIO_ENGINE_DEACTIVATE_FN
+    QueryExtendedInfo: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN
+    IdentifyAll: win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_ALL_FN
+    SetEnrollmentSelector: win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN
+    SetEnrollmentParameters: win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN
+    QueryExtendedEnrollmentStatus: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN
+    RefreshCache: win32more.Devices.BiometricFramework.PIBIO_ENGINE_REFRESH_CACHE_FN
+    SelectCalibrationFormat: win32more.Devices.BiometricFramework.PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN
+    QueryCalibrationData: win32more.Devices.BiometricFramework.PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN
+    SetAccountPolicy: win32more.Devices.BiometricFramework.PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN
+    CreateKey: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_KEY_FN
+    IdentifyFeatureSetSecure: win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN
+    AcceptPrivateSensorTypeInfo: win32more.Devices.BiometricFramework.PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN
+    CreateEnrollmentAuthenticated: win32more.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN
+    IdentifyFeatureSetAuthenticated: win32more.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN
+class WINBIO_EVENT(Structure):
+    Type: UInt32
+    Parameters: _Parameters_e__Union
+    class _Parameters_e__Union(Union):
+        Unclaimed: _Unclaimed_e__Struct
+        UnclaimedIdentify: _UnclaimedIdentify_e__Struct
+        Error: _Error_e__Struct
+        class _Unclaimed_e__Struct(Structure):
+            UnitId: UInt32
+            RejectDetail: UInt32
+        class _UnclaimedIdentify_e__Struct(Structure):
+            UnitId: UInt32
+            Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+            SubFactor: Byte
+            RejectDetail: UInt32
+        class _Error_e__Struct(Structure):
+            ErrorCode: win32more.Foundation.HRESULT
+class WINBIO_EXTENDED_ENGINE_INFO(Structure):
+    GenericEngineCapabilities: UInt32
+    Factor: UInt32
+    Specific: _Specific_e__Union
+    class _Specific_e__Union(Union):
+        Null: UInt32
+        FacialFeatures: _FacialFeatures_e__Struct
+        Fingerprint: _Fingerprint_e__Struct
+        Iris: _Iris_e__Struct
+        Voice: _Voice_e__Struct
+        class _FacialFeatures_e__Struct(Structure):
+            Capabilities: UInt32
+            EnrollmentRequirements: _EnrollmentRequirements_e__Struct
+            class _EnrollmentRequirements_e__Struct(Structure):
+                Null: UInt32
+        class _Fingerprint_e__Struct(Structure):
+            Capabilities: UInt32
+            EnrollmentRequirements: _EnrollmentRequirements_e__Struct
+            class _EnrollmentRequirements_e__Struct(Structure):
+                GeneralSamples: UInt32
+                Center: UInt32
+                TopEdge: UInt32
+                BottomEdge: UInt32
+                LeftEdge: UInt32
+                RightEdge: UInt32
+        class _Iris_e__Struct(Structure):
+            Capabilities: UInt32
+            EnrollmentRequirements: _EnrollmentRequirements_e__Struct
+            class _EnrollmentRequirements_e__Struct(Structure):
+                Null: UInt32
+        class _Voice_e__Struct(Structure):
+            Capabilities: UInt32
+            EnrollmentRequirements: _EnrollmentRequirements_e__Struct
+            class _EnrollmentRequirements_e__Struct(Structure):
+                Null: UInt32
+class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS(Structure):
+    Size: UIntPtr
+    SubFactor: Byte
+class WINBIO_EXTENDED_ENROLLMENT_STATUS(Structure):
+    TemplateStatus: win32more.Foundation.HRESULT
+    RejectDetail: UInt32
+    PercentComplete: UInt32
+    Factor: UInt32
+    SubFactor: Byte
+    Specific: _Specific_e__Union
+    class _Specific_e__Union(Union):
+        Null: UInt32
+        FacialFeatures: _FacialFeatures_e__Struct
+        Fingerprint: _Fingerprint_e__Struct
+        Iris: _Iris_e__Struct
+        Voice: _Voice_e__Struct
+        class _FacialFeatures_e__Struct(Structure):
+            BoundingBox: win32more.Foundation.RECT
+            Distance: Int32
+            OpaqueEngineData: _OpaqueEngineData_e__Struct
+            class _OpaqueEngineData_e__Struct(Structure):
+                AdapterId: Guid
+                Data: UInt32 * 78
+        class _Fingerprint_e__Struct(Structure):
+            GeneralSamples: UInt32
+            Center: UInt32
+            TopEdge: UInt32
+            BottomEdge: UInt32
+            LeftEdge: UInt32
+            RightEdge: UInt32
+        class _Iris_e__Struct(Structure):
+            EyeBoundingBox_1: win32more.Foundation.RECT
+            EyeBoundingBox_2: win32more.Foundation.RECT
+            PupilCenter_1: win32more.Foundation.POINT
+            PupilCenter_2: win32more.Foundation.POINT
+            Distance: Int32
+            GridPointCompletionPercent: UInt32
+            GridPointIndex: UInt16
+            Point3D: _Point3D_e__Struct
+            StopCaptureAndShowCriticalFeedback: win32more.Foundation.BOOL
+            class _Point3D_e__Struct(Structure):
+                X: Double
+                Y: Double
+                Z: Double
+        class _Voice_e__Struct(Structure):
+            Reserved: UInt32
+class WINBIO_EXTENDED_SENSOR_INFO(Structure):
+    GenericSensorCapabilities: UInt32
+    Factor: UInt32
+    Specific: _Specific_e__Union
+    class _Specific_e__Union(Union):
+        Null: UInt32
+        FacialFeatures: _FacialFeatures_e__Struct
+        Fingerprint: _Fingerprint_e__Struct
+        Iris: _Iris_e__Struct
+        Voice: _Voice_e__Struct
+        class _FacialFeatures_e__Struct(Structure):
+            FrameSize: win32more.Foundation.RECT
+            FrameOffset: win32more.Foundation.POINT
+            MandatoryOrientation: UInt32
+            HardwareInfo: _HardwareInfo_e__Struct
+            class _HardwareInfo_e__Struct(Structure):
+                ColorSensorId: Char * 260
+                InfraredSensorId: Char * 260
+                InfraredSensorRotationAngle: UInt32
+        class _Fingerprint_e__Struct(Structure):
+            Reserved: UInt32
+        class _Iris_e__Struct(Structure):
+            FrameSize: win32more.Foundation.RECT
+            FrameOffset: win32more.Foundation.POINT
+            MandatoryOrientation: UInt32
+        class _Voice_e__Struct(Structure):
+            Reserved: UInt32
+class WINBIO_EXTENDED_STORAGE_INFO(Structure):
+    GenericStorageCapabilities: UInt32
+    Factor: UInt32
+    Specific: _Specific_e__Union
+    class _Specific_e__Union(Union):
+        Null: UInt32
+        FacialFeatures: _FacialFeatures_e__Struct
+        Fingerprint: _Fingerprint_e__Struct
+        Iris: _Iris_e__Struct
+        Voice: _Voice_e__Struct
+        class _FacialFeatures_e__Struct(Structure):
+            Capabilities: UInt32
+        class _Fingerprint_e__Struct(Structure):
+            Capabilities: UInt32
+        class _Iris_e__Struct(Structure):
+            Capabilities: UInt32
+        class _Voice_e__Struct(Structure):
+            Capabilities: UInt32
+class WINBIO_EXTENDED_UNIT_STATUS(Structure):
+    Availability: UInt32
+    ReasonCode: UInt32
+class WINBIO_FP_BU_STATE(Structure):
+    SensorAttached: win32more.Foundation.BOOL
+    CreationResult: win32more.Foundation.HRESULT
+class WINBIO_FRAMEWORK_INTERFACE(Structure):
+    Version: win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
+    Type: UInt32
+    Size: UIntPtr
+    AdapterId: Guid
+    SetUnitStatus: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN
+    VsmStorageAttach: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ATTACH_FN
+    VsmStorageDetach: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DETACH_FN
+    VsmStorageClearContext: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLEAR_CONTEXT_FN
+    VsmStorageCreateDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CREATE_DATABASE_FN
+    VsmStorageOpenDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_OPEN_DATABASE_FN
+    VsmStorageCloseDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLOSE_DATABASE_FN
+    VsmStorageDeleteRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DELETE_RECORD_FN
+    VsmStorageNotifyPowerChange: win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN
+    VsmStoragePipelineInit: win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_INIT_FN
+    VsmStoragePipelineCleanup: win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_CLEANUP_FN
+    VsmStorageActivate: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ACTIVATE_FN
+    VsmStorageDeactivate: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DEACTIVATE_FN
+    VsmStorageQueryExtendedInfo: win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN
+    VsmStorageCacheClear: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN
+    VsmStorageCacheImportBegin: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN
+    VsmStorageCacheImportNext: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN
+    VsmStorageCacheImportEnd: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN
+    VsmStorageCacheExportBegin: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN
+    VsmStorageCacheExportNext: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN
+    VsmStorageCacheExportEnd: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN
+    VsmSensorAttach: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ATTACH_FN
+    VsmSensorDetach: win32more.Devices.BiometricFramework.PIBIO_SENSOR_DETACH_FN
+    VsmSensorClearContext: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CLEAR_CONTEXT_FN
+    VsmSensorPushDataToEngine: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN
+    VsmSensorNotifyPowerChange: win32more.Devices.BiometricFramework.PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN
+    VsmSensorPipelineInit: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_INIT_FN
+    VsmSensorPipelineCleanup: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_CLEANUP_FN
+    VsmSensorActivate: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACTIVATE_FN
+    VsmSensorDeactivate: win32more.Devices.BiometricFramework.PIBIO_SENSOR_DEACTIVATE_FN
+    VsmSensorAsyncImportRawBuffer: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN
+    VsmSensorAsyncImportSecureBuffer: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN
+    Reserved1: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN
+    Reserved2: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN
+    Reserved3: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN
+    Reserved4: win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_1_FN
+    Reserved5: win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_2_FN
+    AllocateMemory: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN
+    FreeMemory: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_FREE_MEMORY_FN
+    GetProperty: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_GET_PROPERTY_FN
+    LockAndValidateSecureBuffer: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN
+    ReleaseSecureBuffer: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN
+    QueryAuthorizedEnrollments: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN
+    DecryptSample: win32more.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN
+class WINBIO_GESTURE_METADATA(Structure):
+    Size: UIntPtr
+    BiometricType: UInt32
+    MatchType: UInt32
+    ProtectionType: UInt32
+class WINBIO_GET_INDICATOR(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    IndicatorStatus: UInt32
+class WINBIO_IDENTITY(Structure):
+    Type: UInt32
+    Value: _Value_e__Union
+    class _Value_e__Union(Union):
+        Null: UInt32
+        Wildcard: UInt32
+        TemplateGuid: Guid
+        AccountSid: _AccountSid_e__Struct
+        SecureId: Byte * 32
+        class _AccountSid_e__Struct(Structure):
+            Size: UInt32
+            Data: Byte * 68
+class WINBIO_NOTIFY_WAKE(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    Reason: UInt32
+class WINBIO_PIPELINE(Structure):
+    SensorHandle: win32more.Foundation.HANDLE
+    EngineHandle: win32more.Foundation.HANDLE
+    StorageHandle: win32more.Foundation.HANDLE
+    SensorInterface: POINTER(win32more.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head)
+    EngineInterface: POINTER(win32more.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head)
+    StorageInterface: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head)
+    SensorContext: POINTER(win32more.Devices.BiometricFramework._WINIBIO_SENSOR_CONTEXT_head)
+    EngineContext: POINTER(win32more.Devices.BiometricFramework._WINIBIO_ENGINE_CONTEXT_head)
+    StorageContext: POINTER(win32more.Devices.BiometricFramework._WINIBIO_STORAGE_CONTEXT_head)
+    FrameworkInterface: POINTER(win32more.Devices.BiometricFramework.WINBIO_FRAMEWORK_INTERFACE_head)
 WINBIO_POLICY_SOURCE = Int32
-WINBIO_POLICY_UNKNOWN = 0
-WINBIO_POLICY_DEFAULT = 1
-WINBIO_POLICY_LOCAL = 2
-WINBIO_POLICY_ADMIN = 3
+WINBIO_POLICY_UNKNOWN: WINBIO_POLICY_SOURCE = 0
+WINBIO_POLICY_DEFAULT: WINBIO_POLICY_SOURCE = 1
+WINBIO_POLICY_LOCAL: WINBIO_POLICY_SOURCE = 2
+WINBIO_POLICY_ADMIN: WINBIO_POLICY_SOURCE = 3
 WINBIO_POOL = UInt32
-WINBIO_POOL_SYSTEM = 1
-WINBIO_POOL_PRIVATE = 2
-def _define_WINBIO_PRESENCE_head():
-    class WINBIO_PRESENCE(Structure):
-        pass
-    return WINBIO_PRESENCE
-def _define_WINBIO_PRESENCE():
-    WINBIO_PRESENCE = win32more.Devices.BiometricFramework.WINBIO_PRESENCE_head
-    class WINBIO_PRESENCE__Authorization_e__Struct(Structure):
-        pass
-    WINBIO_PRESENCE__Authorization_e__Struct._fields_ = [
-        ('Size', UInt32),
-        ('Data', Byte * 32),
-    ]
-    WINBIO_PRESENCE._fields_ = [
-        ('Factor', UInt32),
-        ('SubFactor', Byte),
-        ('Status', win32more.Foundation.HRESULT),
-        ('RejectDetail', UInt32),
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('TrackingId', UInt64),
-        ('Ticket', UInt64),
-        ('Properties', win32more.Devices.BiometricFramework.WINBIO_PRESENCE_PROPERTIES),
-        ('Authorization', WINBIO_PRESENCE__Authorization_e__Struct),
-    ]
-    return WINBIO_PRESENCE
-def _define_WINBIO_PRESENCE_PROPERTIES_head():
-    class WINBIO_PRESENCE_PROPERTIES(Union):
-        pass
-    return WINBIO_PRESENCE_PROPERTIES
-def _define_WINBIO_PRESENCE_PROPERTIES():
-    WINBIO_PRESENCE_PROPERTIES = win32more.Devices.BiometricFramework.WINBIO_PRESENCE_PROPERTIES_head
-    class WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct(Structure):
-        pass
-    class WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct(Structure):
-        pass
-    WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct._fields_ = [
-        ('AdapterId', Guid),
-        ('Data', UInt32 * 78),
-    ]
-    WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct._fields_ = [
-        ('BoundingBox', win32more.Foundation.RECT),
-        ('Distance', Int32),
-        ('OpaqueEngineData', WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct__OpaqueEngineData_e__Struct),
-    ]
-    class WINBIO_PRESENCE_PROPERTIES__Iris_e__Struct(Structure):
-        pass
-    WINBIO_PRESENCE_PROPERTIES__Iris_e__Struct._fields_ = [
-        ('EyeBoundingBox_1', win32more.Foundation.RECT),
-        ('EyeBoundingBox_2', win32more.Foundation.RECT),
-        ('PupilCenter_1', win32more.Foundation.POINT),
-        ('PupilCenter_2', win32more.Foundation.POINT),
-        ('Distance', Int32),
-    ]
-    WINBIO_PRESENCE_PROPERTIES._fields_ = [
-        ('FacialFeatures', WINBIO_PRESENCE_PROPERTIES__FacialFeatures_e__Struct),
-        ('Iris', WINBIO_PRESENCE_PROPERTIES__Iris_e__Struct),
-    ]
-    return WINBIO_PRESENCE_PROPERTIES
-def _define_WINBIO_PRIVATE_SENSOR_TYPE_INFO_head():
-    class WINBIO_PRIVATE_SENSOR_TYPE_INFO(Structure):
-        pass
-    return WINBIO_PRIVATE_SENSOR_TYPE_INFO
-def _define_WINBIO_PRIVATE_SENSOR_TYPE_INFO():
-    WINBIO_PRIVATE_SENSOR_TYPE_INFO = win32more.Devices.BiometricFramework.WINBIO_PRIVATE_SENSOR_TYPE_INFO_head
-    WINBIO_PRIVATE_SENSOR_TYPE_INFO._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('PrivateSensorTypeInfo', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_PRIVATE_SENSOR_TYPE_INFO
-def _define_WINBIO_PROTECTION_POLICY_head():
-    class WINBIO_PROTECTION_POLICY(Structure):
-        pass
-    return WINBIO_PROTECTION_POLICY
-def _define_WINBIO_PROTECTION_POLICY():
-    WINBIO_PROTECTION_POLICY = win32more.Devices.BiometricFramework.WINBIO_PROTECTION_POLICY_head
-    WINBIO_PROTECTION_POLICY._fields_ = [
-        ('Version', UInt32),
-        ('Identity', win32more.Devices.BiometricFramework.WINBIO_IDENTITY),
-        ('DatabaseId', Guid),
-        ('UserState', UInt64),
-        ('PolicySize', UIntPtr),
-        ('Policy', Byte * 128),
-    ]
-    return WINBIO_PROTECTION_POLICY
-def _define_WINBIO_REGISTERED_FORMAT_head():
-    class WINBIO_REGISTERED_FORMAT(Structure):
-        pass
-    return WINBIO_REGISTERED_FORMAT
-def _define_WINBIO_REGISTERED_FORMAT():
-    WINBIO_REGISTERED_FORMAT = win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT_head
-    WINBIO_REGISTERED_FORMAT._fields_ = [
-        ('Owner', UInt16),
-        ('Type', UInt16),
-    ]
-    return WINBIO_REGISTERED_FORMAT
-def _define_WINBIO_SECURE_BUFFER_HEADER_V1_head():
-    class WINBIO_SECURE_BUFFER_HEADER_V1(Structure):
-        pass
-    return WINBIO_SECURE_BUFFER_HEADER_V1
-def _define_WINBIO_SECURE_BUFFER_HEADER_V1():
-    WINBIO_SECURE_BUFFER_HEADER_V1 = win32more.Devices.BiometricFramework.WINBIO_SECURE_BUFFER_HEADER_V1_head
-    WINBIO_SECURE_BUFFER_HEADER_V1._fields_ = [
-        ('Type', UInt32),
-        ('Size', UInt32),
-        ('Flags', UInt32),
-        ('ValidationTag', UInt64),
-    ]
-    return WINBIO_SECURE_BUFFER_HEADER_V1
-def _define_WINBIO_SECURE_CONNECTION_DATA_head():
-    class WINBIO_SECURE_CONNECTION_DATA(Structure):
-        pass
-    return WINBIO_SECURE_CONNECTION_DATA
-def _define_WINBIO_SECURE_CONNECTION_DATA():
-    WINBIO_SECURE_CONNECTION_DATA = win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_DATA_head
-    WINBIO_SECURE_CONNECTION_DATA._fields_ = [
-        ('Size', UInt32),
-        ('Version', UInt16),
-        ('Flags', UInt16),
-        ('ModelCertificateSize', UInt32),
-        ('IntermediateCA1Size', UInt32),
-        ('IntermediateCA2Size', UInt32),
-    ]
-    return WINBIO_SECURE_CONNECTION_DATA
-def _define_WINBIO_SECURE_CONNECTION_PARAMS_head():
-    class WINBIO_SECURE_CONNECTION_PARAMS(Structure):
-        pass
-    return WINBIO_SECURE_CONNECTION_PARAMS
-def _define_WINBIO_SECURE_CONNECTION_PARAMS():
-    WINBIO_SECURE_CONNECTION_PARAMS = win32more.Devices.BiometricFramework.WINBIO_SECURE_CONNECTION_PARAMS_head
-    WINBIO_SECURE_CONNECTION_PARAMS._fields_ = [
-        ('PayloadSize', UInt32),
-        ('Version', UInt16),
-        ('Flags', UInt16),
-    ]
-    return WINBIO_SECURE_CONNECTION_PARAMS
-def _define_WINBIO_SENSOR_ATTRIBUTES_head():
-    class WINBIO_SENSOR_ATTRIBUTES(Structure):
-        pass
-    return WINBIO_SENSOR_ATTRIBUTES
-def _define_WINBIO_SENSOR_ATTRIBUTES():
-    WINBIO_SENSOR_ATTRIBUTES = win32more.Devices.BiometricFramework.WINBIO_SENSOR_ATTRIBUTES_head
-    WINBIO_SENSOR_ATTRIBUTES._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('WinBioVersion', win32more.Devices.BiometricFramework.WINBIO_VERSION),
-        ('SensorType', UInt32),
-        ('SensorSubType', UInt32),
-        ('Capabilities', UInt32),
-        ('ManufacturerName', UInt16 * 256),
-        ('ModelName', UInt16 * 256),
-        ('SerialNumber', UInt16 * 256),
-        ('FirmwareVersion', win32more.Devices.BiometricFramework.WINBIO_VERSION),
-        ('SupportedFormatEntries', UInt32),
-        ('SupportedFormat', win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT * 1),
-    ]
-    return WINBIO_SENSOR_ATTRIBUTES
-def _define_WINBIO_SENSOR_INTERFACE_head():
-    class WINBIO_SENSOR_INTERFACE(Structure):
-        pass
-    return WINBIO_SENSOR_INTERFACE
-def _define_WINBIO_SENSOR_INTERFACE():
-    WINBIO_SENSOR_INTERFACE = win32more.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head
-    WINBIO_SENSOR_INTERFACE._fields_ = [
-        ('Version', win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION),
-        ('Type', UInt32),
-        ('Size', UIntPtr),
-        ('AdapterId', Guid),
-        ('Attach', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ATTACH_FN),
-        ('Detach', win32more.Devices.BiometricFramework.PIBIO_SENSOR_DETACH_FN),
-        ('ClearContext', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CLEAR_CONTEXT_FN),
-        ('QueryStatus', win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_STATUS_FN),
-        ('Reset', win32more.Devices.BiometricFramework.PIBIO_SENSOR_RESET_FN),
-        ('SetMode', win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_MODE_FN),
-        ('SetIndicatorStatus', win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_INDICATOR_STATUS_FN),
-        ('GetIndicatorStatus', win32more.Devices.BiometricFramework.PIBIO_SENSOR_GET_INDICATOR_STATUS_FN),
-        ('StartCapture', win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_CAPTURE_FN),
-        ('FinishCapture', win32more.Devices.BiometricFramework.PIBIO_SENSOR_FINISH_CAPTURE_FN),
-        ('ExportSensorData', win32more.Devices.BiometricFramework.PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN),
-        ('Cancel', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CANCEL_FN),
-        ('PushDataToEngine', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN),
-        ('ControlUnit', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONTROL_UNIT_FN),
-        ('ControlUnitPrivileged', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN),
-        ('NotifyPowerChange', win32more.Devices.BiometricFramework.PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN),
-        ('PipelineInit', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_INIT_FN),
-        ('PipelineCleanup', win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_CLEANUP_FN),
-        ('Activate', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACTIVATE_FN),
-        ('Deactivate', win32more.Devices.BiometricFramework.PIBIO_SENSOR_DEACTIVATE_FN),
-        ('QueryExtendedInfo', win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN),
-        ('QueryCalibrationFormats', win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN),
-        ('SetCalibrationFormat', win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN),
-        ('AcceptCalibrationData', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN),
-        ('AsyncImportRawBuffer', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN),
-        ('AsyncImportSecureBuffer', win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN),
-        ('QueryPrivateSensorType', win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN),
-        ('ConnectSecure', win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONNECT_SECURE_FN),
-        ('StartCaptureEx', win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_CAPTURE_EX_FN),
-        ('StartNotifyWake', win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_NOTIFY_WAKE_FN),
-        ('FinishNotifyWake', win32more.Devices.BiometricFramework.PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN),
-    ]
-    return WINBIO_SENSOR_INTERFACE
-def _define_WINBIO_SET_INDICATOR_head():
-    class WINBIO_SET_INDICATOR(Structure):
-        pass
-    return WINBIO_SET_INDICATOR
-def _define_WINBIO_SET_INDICATOR():
-    WINBIO_SET_INDICATOR = win32more.Devices.BiometricFramework.WINBIO_SET_INDICATOR_head
-    WINBIO_SET_INDICATOR._fields_ = [
-        ('PayloadSize', UInt32),
-        ('IndicatorStatus', UInt32),
-    ]
-    return WINBIO_SET_INDICATOR
+WINBIO_POOL_SYSTEM: WINBIO_POOL = 1
+WINBIO_POOL_PRIVATE: WINBIO_POOL = 2
+class WINBIO_PRESENCE(Structure):
+    Factor: UInt32
+    SubFactor: Byte
+    Status: win32more.Foundation.HRESULT
+    RejectDetail: UInt32
+    Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+    TrackingId: UInt64
+    Ticket: UInt64
+    Properties: win32more.Devices.BiometricFramework.WINBIO_PRESENCE_PROPERTIES
+    Authorization: _Authorization_e__Struct
+    class _Authorization_e__Struct(Structure):
+        Size: UInt32
+        Data: Byte * 32
+class WINBIO_PRESENCE_PROPERTIES(Union):
+    FacialFeatures: _FacialFeatures_e__Struct
+    Iris: _Iris_e__Struct
+    class _FacialFeatures_e__Struct(Structure):
+        BoundingBox: win32more.Foundation.RECT
+        Distance: Int32
+        OpaqueEngineData: _OpaqueEngineData_e__Struct
+        class _OpaqueEngineData_e__Struct(Structure):
+            AdapterId: Guid
+            Data: UInt32 * 78
+    class _Iris_e__Struct(Structure):
+        EyeBoundingBox_1: win32more.Foundation.RECT
+        EyeBoundingBox_2: win32more.Foundation.RECT
+        PupilCenter_1: win32more.Foundation.POINT
+        PupilCenter_2: win32more.Foundation.POINT
+        Distance: Int32
+class WINBIO_PRIVATE_SENSOR_TYPE_INFO(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    PrivateSensorTypeInfo: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_PROTECTION_POLICY(Structure):
+    Version: UInt32
+    Identity: win32more.Devices.BiometricFramework.WINBIO_IDENTITY
+    DatabaseId: Guid
+    UserState: UInt64
+    PolicySize: UIntPtr
+    Policy: Byte * 128
+class WINBIO_REGISTERED_FORMAT(Structure):
+    Owner: UInt16
+    Type: UInt16
+class WINBIO_SECURE_BUFFER_HEADER_V1(Structure):
+    Type: UInt32
+    Size: UInt32
+    Flags: UInt32
+    ValidationTag: UInt64
+class WINBIO_SECURE_CONNECTION_DATA(Structure):
+    Size: UInt32
+    Version: UInt16
+    Flags: UInt16
+    ModelCertificateSize: UInt32
+    IntermediateCA1Size: UInt32
+    IntermediateCA2Size: UInt32
+class WINBIO_SECURE_CONNECTION_PARAMS(Structure):
+    PayloadSize: UInt32
+    Version: UInt16
+    Flags: UInt16
+class WINBIO_SENSOR_ATTRIBUTES(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    WinBioVersion: win32more.Devices.BiometricFramework.WINBIO_VERSION
+    SensorType: UInt32
+    SensorSubType: UInt32
+    Capabilities: UInt32
+    ManufacturerName: UInt16 * 256
+    ModelName: UInt16 * 256
+    SerialNumber: UInt16 * 256
+    FirmwareVersion: win32more.Devices.BiometricFramework.WINBIO_VERSION
+    SupportedFormatEntries: UInt32
+    SupportedFormat: win32more.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT * 1
+class WINBIO_SENSOR_INTERFACE(Structure):
+    Version: win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
+    Type: UInt32
+    Size: UIntPtr
+    AdapterId: Guid
+    Attach: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ATTACH_FN
+    Detach: win32more.Devices.BiometricFramework.PIBIO_SENSOR_DETACH_FN
+    ClearContext: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CLEAR_CONTEXT_FN
+    QueryStatus: win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_STATUS_FN
+    Reset: win32more.Devices.BiometricFramework.PIBIO_SENSOR_RESET_FN
+    SetMode: win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_MODE_FN
+    SetIndicatorStatus: win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_INDICATOR_STATUS_FN
+    GetIndicatorStatus: win32more.Devices.BiometricFramework.PIBIO_SENSOR_GET_INDICATOR_STATUS_FN
+    StartCapture: win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_CAPTURE_FN
+    FinishCapture: win32more.Devices.BiometricFramework.PIBIO_SENSOR_FINISH_CAPTURE_FN
+    ExportSensorData: win32more.Devices.BiometricFramework.PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN
+    Cancel: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CANCEL_FN
+    PushDataToEngine: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN
+    ControlUnit: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONTROL_UNIT_FN
+    ControlUnitPrivileged: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN
+    NotifyPowerChange: win32more.Devices.BiometricFramework.PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN
+    PipelineInit: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_INIT_FN
+    PipelineCleanup: win32more.Devices.BiometricFramework.PIBIO_SENSOR_PIPELINE_CLEANUP_FN
+    Activate: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACTIVATE_FN
+    Deactivate: win32more.Devices.BiometricFramework.PIBIO_SENSOR_DEACTIVATE_FN
+    QueryExtendedInfo: win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN
+    QueryCalibrationFormats: win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN
+    SetCalibrationFormat: win32more.Devices.BiometricFramework.PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN
+    AcceptCalibrationData: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN
+    AsyncImportRawBuffer: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN
+    AsyncImportSecureBuffer: win32more.Devices.BiometricFramework.PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN
+    QueryPrivateSensorType: win32more.Devices.BiometricFramework.PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN
+    ConnectSecure: win32more.Devices.BiometricFramework.PIBIO_SENSOR_CONNECT_SECURE_FN
+    StartCaptureEx: win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_CAPTURE_EX_FN
+    StartNotifyWake: win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_NOTIFY_WAKE_FN
+    FinishNotifyWake: win32more.Devices.BiometricFramework.PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN
+class WINBIO_SET_INDICATOR(Structure):
+    PayloadSize: UInt32
+    IndicatorStatus: UInt32
 WINBIO_SETTING_SOURCE = UInt32
-WINBIO_SETTING_SOURCE_INVALID = 0
-WINBIO_SETTING_SOURCE_DEFAULT = 1
-WINBIO_SETTING_SOURCE_LOCAL = 3
-WINBIO_SETTING_SOURCE_POLICY = 2
-def _define_WINBIO_STORAGE_INTERFACE_head():
-    class WINBIO_STORAGE_INTERFACE(Structure):
-        pass
-    return WINBIO_STORAGE_INTERFACE
-def _define_WINBIO_STORAGE_INTERFACE():
-    WINBIO_STORAGE_INTERFACE = win32more.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head
-    WINBIO_STORAGE_INTERFACE._fields_ = [
-        ('Version', win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION),
-        ('Type', UInt32),
-        ('Size', UIntPtr),
-        ('AdapterId', Guid),
-        ('Attach', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ATTACH_FN),
-        ('Detach', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DETACH_FN),
-        ('ClearContext', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLEAR_CONTEXT_FN),
-        ('CreateDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CREATE_DATABASE_FN),
-        ('EraseDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ERASE_DATABASE_FN),
-        ('OpenDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_OPEN_DATABASE_FN),
-        ('CloseDatabase', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLOSE_DATABASE_FN),
-        ('GetDataFormat', win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_DATA_FORMAT_FN),
-        ('GetDatabaseSize', win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_DATABASE_SIZE_FN),
-        ('AddRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ADD_RECORD_FN),
-        ('DeleteRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DELETE_RECORD_FN),
-        ('QueryBySubject', win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_BY_SUBJECT_FN),
-        ('QueryByContent', win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_BY_CONTENT_FN),
-        ('GetRecordCount', win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_RECORD_COUNT_FN),
-        ('FirstRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_FIRST_RECORD_FN),
-        ('NextRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_NEXT_RECORD_FN),
-        ('GetCurrentRecord', win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_CURRENT_RECORD_FN),
-        ('ControlUnit', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CONTROL_UNIT_FN),
-        ('ControlUnitPrivileged', win32more.Devices.BiometricFramework.PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN),
-        ('NotifyPowerChange', win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN),
-        ('PipelineInit', win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_INIT_FN),
-        ('PipelineCleanup', win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_CLEANUP_FN),
-        ('Activate', win32more.Devices.BiometricFramework.PIBIO_STORAGE_ACTIVATE_FN),
-        ('Deactivate', win32more.Devices.BiometricFramework.PIBIO_STORAGE_DEACTIVATE_FN),
-        ('QueryExtendedInfo', win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN),
-        ('NotifyDatabaseChange', win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN),
-        ('Reserved1', win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_1_FN),
-        ('Reserved2', win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_2_FN),
-        ('UpdateRecordBegin', win32more.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN),
-        ('UpdateRecordCommit', win32more.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN),
-    ]
-    return WINBIO_STORAGE_INTERFACE
-def _define_WINBIO_STORAGE_RECORD_head():
-    class WINBIO_STORAGE_RECORD(Structure):
-        pass
-    return WINBIO_STORAGE_RECORD
-def _define_WINBIO_STORAGE_RECORD():
-    WINBIO_STORAGE_RECORD = win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head
-    WINBIO_STORAGE_RECORD._fields_ = [
-        ('Identity', POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head)),
-        ('SubFactor', Byte),
-        ('IndexVector', POINTER(UInt32)),
-        ('IndexElementCount', UIntPtr),
-        ('TemplateBlob', c_char_p_no),
-        ('TemplateBlobSize', UIntPtr),
-        ('PayloadBlob', c_char_p_no),
-        ('PayloadBlobSize', UIntPtr),
-    ]
-    return WINBIO_STORAGE_RECORD
-def _define_WINBIO_STORAGE_SCHEMA_head():
-    class WINBIO_STORAGE_SCHEMA(Structure):
-        pass
-    return WINBIO_STORAGE_SCHEMA
-def _define_WINBIO_STORAGE_SCHEMA():
-    WINBIO_STORAGE_SCHEMA = win32more.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA_head
-    WINBIO_STORAGE_SCHEMA._fields_ = [
-        ('BiometricFactor', UInt32),
-        ('DatabaseId', Guid),
-        ('DataFormat', Guid),
-        ('Attributes', UInt32),
-        ('FilePath', UInt16 * 256),
-        ('ConnectionString', UInt16 * 256),
-    ]
-    return WINBIO_STORAGE_SCHEMA
-def _define_WINBIO_SUPPORTED_ALGORITHMS_head():
-    class WINBIO_SUPPORTED_ALGORITHMS(Structure):
-        pass
-    return WINBIO_SUPPORTED_ALGORITHMS
-def _define_WINBIO_SUPPORTED_ALGORITHMS():
-    WINBIO_SUPPORTED_ALGORITHMS = win32more.Devices.BiometricFramework.WINBIO_SUPPORTED_ALGORITHMS_head
-    WINBIO_SUPPORTED_ALGORITHMS._fields_ = [
-        ('PayloadSize', UInt32),
-        ('WinBioHresult', win32more.Foundation.HRESULT),
-        ('NumberOfAlgorithms', UInt32),
-        ('AlgorithmData', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_SUPPORTED_ALGORITHMS
-def _define_WINBIO_UNIT_SCHEMA_head():
-    class WINBIO_UNIT_SCHEMA(Structure):
-        pass
-    return WINBIO_UNIT_SCHEMA
-def _define_WINBIO_UNIT_SCHEMA():
-    WINBIO_UNIT_SCHEMA = win32more.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA_head
-    WINBIO_UNIT_SCHEMA._fields_ = [
-        ('UnitId', UInt32),
-        ('PoolType', UInt32),
-        ('BiometricFactor', UInt32),
-        ('SensorSubType', UInt32),
-        ('Capabilities', UInt32),
-        ('DeviceInstanceId', UInt16 * 256),
-        ('Description', UInt16 * 256),
-        ('Manufacturer', UInt16 * 256),
-        ('Model', UInt16 * 256),
-        ('SerialNumber', UInt16 * 256),
-        ('FirmwareVersion', win32more.Devices.BiometricFramework.WINBIO_VERSION),
-    ]
-    return WINBIO_UNIT_SCHEMA
-def _define_WINBIO_UPDATE_FIRMWARE_head():
-    class WINBIO_UPDATE_FIRMWARE(Structure):
-        pass
-    return WINBIO_UPDATE_FIRMWARE
-def _define_WINBIO_UPDATE_FIRMWARE():
-    WINBIO_UPDATE_FIRMWARE = win32more.Devices.BiometricFramework.WINBIO_UPDATE_FIRMWARE_head
-    WINBIO_UPDATE_FIRMWARE._fields_ = [
-        ('PayloadSize', UInt32),
-        ('FirmwareData', win32more.Devices.BiometricFramework.WINBIO_DATA),
-    ]
-    return WINBIO_UPDATE_FIRMWARE
-def _define_WINBIO_VERSION_head():
-    class WINBIO_VERSION(Structure):
-        pass
-    return WINBIO_VERSION
-def _define_WINBIO_VERSION():
-    WINBIO_VERSION = win32more.Devices.BiometricFramework.WINBIO_VERSION_head
-    WINBIO_VERSION._fields_ = [
-        ('MajorVersion', UInt32),
-        ('MinorVersion', UInt32),
-    ]
-    return WINBIO_VERSION
+WINBIO_SETTING_SOURCE_INVALID: WINBIO_SETTING_SOURCE = 0
+WINBIO_SETTING_SOURCE_DEFAULT: WINBIO_SETTING_SOURCE = 1
+WINBIO_SETTING_SOURCE_LOCAL: WINBIO_SETTING_SOURCE = 3
+WINBIO_SETTING_SOURCE_POLICY: WINBIO_SETTING_SOURCE = 2
+class WINBIO_STORAGE_INTERFACE(Structure):
+    Version: win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
+    Type: UInt32
+    Size: UIntPtr
+    AdapterId: Guid
+    Attach: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ATTACH_FN
+    Detach: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DETACH_FN
+    ClearContext: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLEAR_CONTEXT_FN
+    CreateDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CREATE_DATABASE_FN
+    EraseDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ERASE_DATABASE_FN
+    OpenDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_OPEN_DATABASE_FN
+    CloseDatabase: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CLOSE_DATABASE_FN
+    GetDataFormat: win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_DATA_FORMAT_FN
+    GetDatabaseSize: win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_DATABASE_SIZE_FN
+    AddRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ADD_RECORD_FN
+    DeleteRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DELETE_RECORD_FN
+    QueryBySubject: win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_BY_SUBJECT_FN
+    QueryByContent: win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_BY_CONTENT_FN
+    GetRecordCount: win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_RECORD_COUNT_FN
+    FirstRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_FIRST_RECORD_FN
+    NextRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_NEXT_RECORD_FN
+    GetCurrentRecord: win32more.Devices.BiometricFramework.PIBIO_STORAGE_GET_CURRENT_RECORD_FN
+    ControlUnit: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CONTROL_UNIT_FN
+    ControlUnitPrivileged: win32more.Devices.BiometricFramework.PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN
+    NotifyPowerChange: win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN
+    PipelineInit: win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_INIT_FN
+    PipelineCleanup: win32more.Devices.BiometricFramework.PIBIO_STORAGE_PIPELINE_CLEANUP_FN
+    Activate: win32more.Devices.BiometricFramework.PIBIO_STORAGE_ACTIVATE_FN
+    Deactivate: win32more.Devices.BiometricFramework.PIBIO_STORAGE_DEACTIVATE_FN
+    QueryExtendedInfo: win32more.Devices.BiometricFramework.PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN
+    NotifyDatabaseChange: win32more.Devices.BiometricFramework.PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN
+    Reserved1: win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_1_FN
+    Reserved2: win32more.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_2_FN
+    UpdateRecordBegin: win32more.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN
+    UpdateRecordCommit: win32more.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN
+class WINBIO_STORAGE_RECORD(Structure):
+    Identity: POINTER(win32more.Devices.BiometricFramework.WINBIO_IDENTITY_head)
+    SubFactor: Byte
+    IndexVector: POINTER(UInt32)
+    IndexElementCount: UIntPtr
+    TemplateBlob: c_char_p_no
+    TemplateBlobSize: UIntPtr
+    PayloadBlob: c_char_p_no
+    PayloadBlobSize: UIntPtr
+class WINBIO_STORAGE_SCHEMA(Structure):
+    BiometricFactor: UInt32
+    DatabaseId: Guid
+    DataFormat: Guid
+    Attributes: UInt32
+    FilePath: UInt16 * 256
+    ConnectionString: UInt16 * 256
+class WINBIO_SUPPORTED_ALGORITHMS(Structure):
+    PayloadSize: UInt32
+    WinBioHresult: win32more.Foundation.HRESULT
+    NumberOfAlgorithms: UInt32
+    AlgorithmData: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_UNIT_SCHEMA(Structure):
+    UnitId: UInt32
+    PoolType: UInt32
+    BiometricFactor: UInt32
+    SensorSubType: UInt32
+    Capabilities: UInt32
+    DeviceInstanceId: UInt16 * 256
+    Description: UInt16 * 256
+    Manufacturer: UInt16 * 256
+    Model: UInt16 * 256
+    SerialNumber: UInt16 * 256
+    FirmwareVersion: win32more.Devices.BiometricFramework.WINBIO_VERSION
+class WINBIO_UPDATE_FIRMWARE(Structure):
+    PayloadSize: UInt32
+    FirmwareData: win32more.Devices.BiometricFramework.WINBIO_DATA
+class WINBIO_VERSION(Structure):
+    MajorVersion: UInt32
+    MinorVersion: UInt32
+make_head(_module, '_WINIBIO_ENGINE_CONTEXT')
+make_head(_module, '_WINIBIO_SENSOR_CONTEXT')
+make_head(_module, '_WINIBIO_STORAGE_CONTEXT')
+make_head(_module, 'PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN')
+make_head(_module, 'PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN')
+make_head(_module, 'PIBIO_ENGINE_ACTIVATE_FN')
+make_head(_module, 'PIBIO_ENGINE_ATTACH_FN')
+make_head(_module, 'PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN')
+make_head(_module, 'PIBIO_ENGINE_CLEAR_CONTEXT_FN')
+make_head(_module, 'PIBIO_ENGINE_COMMIT_ENROLLMENT_FN')
+make_head(_module, 'PIBIO_ENGINE_CONTROL_UNIT_FN')
+make_head(_module, 'PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN')
+make_head(_module, 'PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN')
+make_head(_module, 'PIBIO_ENGINE_CREATE_ENROLLMENT_FN')
+make_head(_module, 'PIBIO_ENGINE_CREATE_KEY_FN')
+make_head(_module, 'PIBIO_ENGINE_DEACTIVATE_FN')
+make_head(_module, 'PIBIO_ENGINE_DETACH_FN')
+make_head(_module, 'PIBIO_ENGINE_DISCARD_ENROLLMENT_FN')
+make_head(_module, 'PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN')
+make_head(_module, 'PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN')
+make_head(_module, 'PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN')
+make_head(_module, 'PIBIO_ENGINE_IDENTIFY_ALL_FN')
+make_head(_module, 'PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN')
+make_head(_module, 'PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN')
+make_head(_module, 'PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN')
+make_head(_module, 'PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN')
+make_head(_module, 'PIBIO_ENGINE_PIPELINE_CLEANUP_FN')
+make_head(_module, 'PIBIO_ENGINE_PIPELINE_INIT_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN')
+make_head(_module, 'PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN')
+make_head(_module, 'PIBIO_ENGINE_REFRESH_CACHE_FN')
+make_head(_module, 'PIBIO_ENGINE_RESERVED_1_FN')
+make_head(_module, 'PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN')
+make_head(_module, 'PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN')
+make_head(_module, 'PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN')
+make_head(_module, 'PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN')
+make_head(_module, 'PIBIO_ENGINE_SET_HASH_ALGORITHM_FN')
+make_head(_module, 'PIBIO_ENGINE_UPDATE_ENROLLMENT_FN')
+make_head(_module, 'PIBIO_ENGINE_VERIFY_FEATURE_SET_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_FREE_MEMORY_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_GET_PROPERTY_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN')
+make_head(_module, 'PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN')
+make_head(_module, 'PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN')
+make_head(_module, 'PIBIO_SENSOR_ACTIVATE_FN')
+make_head(_module, 'PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN')
+make_head(_module, 'PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN')
+make_head(_module, 'PIBIO_SENSOR_ATTACH_FN')
+make_head(_module, 'PIBIO_SENSOR_CANCEL_FN')
+make_head(_module, 'PIBIO_SENSOR_CLEAR_CONTEXT_FN')
+make_head(_module, 'PIBIO_SENSOR_CONNECT_SECURE_FN')
+make_head(_module, 'PIBIO_SENSOR_CONTROL_UNIT_FN')
+make_head(_module, 'PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN')
+make_head(_module, 'PIBIO_SENSOR_DEACTIVATE_FN')
+make_head(_module, 'PIBIO_SENSOR_DETACH_FN')
+make_head(_module, 'PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN')
+make_head(_module, 'PIBIO_SENSOR_FINISH_CAPTURE_FN')
+make_head(_module, 'PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN')
+make_head(_module, 'PIBIO_SENSOR_GET_INDICATOR_STATUS_FN')
+make_head(_module, 'PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN')
+make_head(_module, 'PIBIO_SENSOR_PIPELINE_CLEANUP_FN')
+make_head(_module, 'PIBIO_SENSOR_PIPELINE_INIT_FN')
+make_head(_module, 'PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN')
+make_head(_module, 'PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN')
+make_head(_module, 'PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN')
+make_head(_module, 'PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN')
+make_head(_module, 'PIBIO_SENSOR_QUERY_STATUS_FN')
+make_head(_module, 'PIBIO_SENSOR_RESET_FN')
+make_head(_module, 'PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN')
+make_head(_module, 'PIBIO_SENSOR_SET_INDICATOR_STATUS_FN')
+make_head(_module, 'PIBIO_SENSOR_SET_MODE_FN')
+make_head(_module, 'PIBIO_SENSOR_START_CAPTURE_EX_FN')
+make_head(_module, 'PIBIO_SENSOR_START_CAPTURE_FN')
+make_head(_module, 'PIBIO_SENSOR_START_NOTIFY_WAKE_FN')
+make_head(_module, 'PIBIO_STORAGE_ACTIVATE_FN')
+make_head(_module, 'PIBIO_STORAGE_ADD_RECORD_FN')
+make_head(_module, 'PIBIO_STORAGE_ATTACH_FN')
+make_head(_module, 'PIBIO_STORAGE_CLEAR_CONTEXT_FN')
+make_head(_module, 'PIBIO_STORAGE_CLOSE_DATABASE_FN')
+make_head(_module, 'PIBIO_STORAGE_CONTROL_UNIT_FN')
+make_head(_module, 'PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN')
+make_head(_module, 'PIBIO_STORAGE_CREATE_DATABASE_FN')
+make_head(_module, 'PIBIO_STORAGE_DEACTIVATE_FN')
+make_head(_module, 'PIBIO_STORAGE_DELETE_RECORD_FN')
+make_head(_module, 'PIBIO_STORAGE_DETACH_FN')
+make_head(_module, 'PIBIO_STORAGE_ERASE_DATABASE_FN')
+make_head(_module, 'PIBIO_STORAGE_FIRST_RECORD_FN')
+make_head(_module, 'PIBIO_STORAGE_GET_CURRENT_RECORD_FN')
+make_head(_module, 'PIBIO_STORAGE_GET_DATA_FORMAT_FN')
+make_head(_module, 'PIBIO_STORAGE_GET_DATABASE_SIZE_FN')
+make_head(_module, 'PIBIO_STORAGE_GET_RECORD_COUNT_FN')
+make_head(_module, 'PIBIO_STORAGE_NEXT_RECORD_FN')
+make_head(_module, 'PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN')
+make_head(_module, 'PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN')
+make_head(_module, 'PIBIO_STORAGE_OPEN_DATABASE_FN')
+make_head(_module, 'PIBIO_STORAGE_PIPELINE_CLEANUP_FN')
+make_head(_module, 'PIBIO_STORAGE_PIPELINE_INIT_FN')
+make_head(_module, 'PIBIO_STORAGE_QUERY_BY_CONTENT_FN')
+make_head(_module, 'PIBIO_STORAGE_QUERY_BY_SUBJECT_FN')
+make_head(_module, 'PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN')
+make_head(_module, 'PIBIO_STORAGE_RESERVED_1_FN')
+make_head(_module, 'PIBIO_STORAGE_RESERVED_2_FN')
+make_head(_module, 'PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN')
+make_head(_module, 'PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN')
+make_head(_module, 'PWINBIO_ASYNC_COMPLETION_CALLBACK')
+make_head(_module, 'PWINBIO_CAPTURE_CALLBACK')
+make_head(_module, 'PWINBIO_ENROLL_CAPTURE_CALLBACK')
+make_head(_module, 'PWINBIO_EVENT_CALLBACK')
+make_head(_module, 'PWINBIO_IDENTIFY_CALLBACK')
+make_head(_module, 'PWINBIO_LOCATE_SENSOR_CALLBACK')
+make_head(_module, 'PWINBIO_QUERY_ENGINE_INTERFACE_FN')
+make_head(_module, 'PWINBIO_QUERY_SENSOR_INTERFACE_FN')
+make_head(_module, 'PWINBIO_QUERY_STORAGE_INTERFACE_FN')
+make_head(_module, 'PWINBIO_VERIFY_CALLBACK')
+make_head(_module, 'WINBIO_ACCOUNT_POLICY')
+make_head(_module, 'WINBIO_ADAPTER_INTERFACE_VERSION')
+make_head(_module, 'WINBIO_ANTI_SPOOF_POLICY')
+make_head(_module, 'WINBIO_ASYNC_RESULT')
+make_head(_module, 'WINBIO_BDB_ANSI_381_HEADER')
+make_head(_module, 'WINBIO_BDB_ANSI_381_RECORD')
+make_head(_module, 'WINBIO_BIR')
+make_head(_module, 'WINBIO_BIR_DATA')
+make_head(_module, 'WINBIO_BIR_HEADER')
+make_head(_module, 'WINBIO_BLANK_PAYLOAD')
+make_head(_module, 'WINBIO_BSP_SCHEMA')
+make_head(_module, 'WINBIO_CALIBRATION_INFO')
+make_head(_module, 'WINBIO_CAPTURE_DATA')
+make_head(_module, 'WINBIO_CAPTURE_PARAMETERS')
+make_head(_module, 'WINBIO_DATA')
+make_head(_module, 'WINBIO_DIAGNOSTICS')
+make_head(_module, 'WINBIO_ENCRYPTED_CAPTURE_PARAMS')
+make_head(_module, 'WINBIO_ENGINE_INTERFACE')
+make_head(_module, 'WINBIO_EVENT')
+make_head(_module, 'WINBIO_EXTENDED_ENGINE_INFO')
+make_head(_module, 'WINBIO_EXTENDED_ENROLLMENT_PARAMETERS')
+make_head(_module, 'WINBIO_EXTENDED_ENROLLMENT_STATUS')
+make_head(_module, 'WINBIO_EXTENDED_SENSOR_INFO')
+make_head(_module, 'WINBIO_EXTENDED_STORAGE_INFO')
+make_head(_module, 'WINBIO_EXTENDED_UNIT_STATUS')
+make_head(_module, 'WINBIO_FP_BU_STATE')
+make_head(_module, 'WINBIO_FRAMEWORK_INTERFACE')
+make_head(_module, 'WINBIO_GESTURE_METADATA')
+make_head(_module, 'WINBIO_GET_INDICATOR')
+make_head(_module, 'WINBIO_IDENTITY')
+make_head(_module, 'WINBIO_NOTIFY_WAKE')
+make_head(_module, 'WINBIO_PIPELINE')
+make_head(_module, 'WINBIO_PRESENCE')
+make_head(_module, 'WINBIO_PRESENCE_PROPERTIES')
+make_head(_module, 'WINBIO_PRIVATE_SENSOR_TYPE_INFO')
+make_head(_module, 'WINBIO_PROTECTION_POLICY')
+make_head(_module, 'WINBIO_REGISTERED_FORMAT')
+make_head(_module, 'WINBIO_SECURE_BUFFER_HEADER_V1')
+make_head(_module, 'WINBIO_SECURE_CONNECTION_DATA')
+make_head(_module, 'WINBIO_SECURE_CONNECTION_PARAMS')
+make_head(_module, 'WINBIO_SENSOR_ATTRIBUTES')
+make_head(_module, 'WINBIO_SENSOR_INTERFACE')
+make_head(_module, 'WINBIO_SET_INDICATOR')
+make_head(_module, 'WINBIO_STORAGE_INTERFACE')
+make_head(_module, 'WINBIO_STORAGE_RECORD')
+make_head(_module, 'WINBIO_STORAGE_SCHEMA')
+make_head(_module, 'WINBIO_SUPPORTED_ALGORITHMS')
+make_head(_module, 'WINBIO_UNIT_SCHEMA')
+make_head(_module, 'WINBIO_UPDATE_FIRMWARE')
+make_head(_module, 'WINBIO_VERSION')
 __all__ = [
     "FACILITY_NONE",
     "FACILITY_WINBIO",

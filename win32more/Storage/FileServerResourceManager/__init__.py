@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.FileServerResourceManager
 import win32more.System.Com
@@ -7,1348 +8,1535 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 AdrClientDisplayFlags = Int32
-AdrClientDisplayFlags_AllowEmailRequests = 1
-AdrClientDisplayFlags_ShowDeviceTroubleshooting = 2
+AdrClientDisplayFlags_AllowEmailRequests: AdrClientDisplayFlags = 1
+AdrClientDisplayFlags_ShowDeviceTroubleshooting: AdrClientDisplayFlags = 2
 AdrClientErrorType = Int32
-AdrClientErrorType_Unknown = 0
-AdrClientErrorType_AccessDenied = 1
-AdrClientErrorType_FileNotFound = 2
+AdrClientErrorType_Unknown: AdrClientErrorType = 0
+AdrClientErrorType_AccessDenied: AdrClientErrorType = 1
+AdrClientErrorType_FileNotFound: AdrClientErrorType = 2
 AdrClientFlags = Int32
-AdrClientFlags_None = 0
-AdrClientFlags_FailForLocalPaths = 1
-AdrClientFlags_FailIfNotSupportedByServer = 2
-AdrClientFlags_FailIfNotDomainJoined = 4
+AdrClientFlags_None: AdrClientFlags = 0
+AdrClientFlags_FailForLocalPaths: AdrClientFlags = 1
+AdrClientFlags_FailIfNotSupportedByServer: AdrClientFlags = 2
+AdrClientFlags_FailIfNotDomainJoined: AdrClientFlags = 4
 AdrEmailFlags = Int32
-AdrEmailFlags_PutDataOwnerOnToLine = 1
-AdrEmailFlags_PutAdminOnToLine = 2
-AdrEmailFlags_IncludeDeviceClaims = 4
-AdrEmailFlags_IncludeUserInfo = 8
-AdrEmailFlags_GenerateEventLog = 16
+AdrEmailFlags_PutDataOwnerOnToLine: AdrEmailFlags = 1
+AdrEmailFlags_PutAdminOnToLine: AdrEmailFlags = 2
+AdrEmailFlags_IncludeDeviceClaims: AdrEmailFlags = 4
+AdrEmailFlags_IncludeUserInfo: AdrEmailFlags = 8
+AdrEmailFlags_GenerateEventLog: AdrEmailFlags = 16
 AdSyncTask = Guid('2ae64751-b728-4d6b-97-a0-b2-da-2e-7d-2a-3b')
-FSRM_DISPID_FEATURE_MASK = 251658240
-FSRM_DISPID_INTERFACE_A_MASK = 15728640
-FSRM_DISPID_INTERFACE_B_MASK = 983040
-FSRM_DISPID_INTERFACE_C_MASK = 61440
-FSRM_DISPID_INTERFACE_D_MASK = 3840
-FSRM_DISPID_IS_PROPERTY = 128
-FSRM_DISPID_METHOD_NUM_MASK = 127
-FSRM_DISPID_FEATURE_GENERAL = 16777216
-FSRM_DISPID_FEATURE_QUOTA = 33554432
-FSRM_DISPID_FEATURE_FILESCREEN = 50331648
-FSRM_DISPID_FEATURE_REPORTS = 67108864
-FSRM_DISPID_FEATURE_CLASSIFICATION = 83886080
-FSRM_DISPID_FEATURE_PIPELINE = 100663296
-FsrmMaxNumberThresholds = 16
-FsrmMinThresholdValue = 1
-FsrmMaxThresholdValue = 250
-FsrmMinQuotaLimit = 1024
-FsrmMaxExcludeFolders = 32
-FsrmMaxNumberPropertyDefinitions = 100
-MessageSizeLimit = 4096
-FsrmDaysNotSpecified = -1
-FSRM_S_PARTIAL_BATCH = 283396
-FSRM_S_PARTIAL_CLASSIFICATION = 283397
-FSRM_S_CLASSIFICATION_SCAN_FAILURES = 283398
-FSRM_E_NOT_FOUND = -2147200255
-FSRM_E_INVALID_SCHEDULER_ARGUMENT = -2147200254
-FSRM_E_ALREADY_EXISTS = -2147200253
-FSRM_E_PATH_NOT_FOUND = -2147200252
-FSRM_E_INVALID_USER = -2147200251
-FSRM_E_INVALID_PATH = -2147200250
-FSRM_E_INVALID_LIMIT = -2147200249
-FSRM_E_INVALID_NAME = -2147200248
-FSRM_E_FAIL_BATCH = -2147200247
-FSRM_E_INVALID_TEXT = -2147200246
-FSRM_E_INVALID_IMPORT_VERSION = -2147200245
-FSRM_E_OUT_OF_RANGE = -2147200243
-FSRM_E_REQD_PARAM_MISSING = -2147200242
-FSRM_E_INVALID_COMBINATION = -2147200241
-FSRM_E_DUPLICATE_NAME = -2147200240
-FSRM_E_NOT_SUPPORTED = -2147200239
-FSRM_E_DRIVER_NOT_READY = -2147200237
-FSRM_E_INSUFFICIENT_DISK = -2147200236
-FSRM_E_VOLUME_UNSUPPORTED = -2147200235
-FSRM_E_UNEXPECTED = -2147200234
-FSRM_E_INSECURE_PATH = -2147200233
-FSRM_E_INVALID_SMTP_SERVER = -2147200232
-FSRM_E_AUTO_QUOTA = 283419
-FSRM_E_EMAIL_NOT_SENT = -2147200228
-FSRM_E_INVALID_EMAIL_ADDRESS = -2147200226
-FSRM_E_FILE_SYSTEM_CORRUPT = -2147200225
-FSRM_E_LONG_CMDLINE = -2147200224
-FSRM_E_INVALID_FILEGROUP_DEFINITION = -2147200223
-FSRM_E_INVALID_DATASCREEN_DEFINITION = -2147200220
-FSRM_E_INVALID_REPORT_FORMAT = -2147200216
-FSRM_E_INVALID_REPORT_DESC = -2147200215
-FSRM_E_INVALID_FILENAME = -2147200214
-FSRM_E_SHADOW_COPY = -2147200212
-FSRM_E_XML_CORRUPTED = -2147200211
-FSRM_E_CLUSTER_NOT_RUNNING = -2147200210
-FSRM_E_STORE_NOT_INSTALLED = -2147200209
-FSRM_E_NOT_CLUSTER_VOLUME = -2147200208
-FSRM_E_DIFFERENT_CLUSTER_GROUP = -2147200207
-FSRM_E_REPORT_TYPE_ALREADY_EXISTS = -2147200206
-FSRM_E_REPORT_JOB_ALREADY_RUNNING = -2147200205
-FSRM_E_REPORT_GENERATION_ERR = -2147200204
-FSRM_E_REPORT_TASK_TRIGGER = -2147200203
-FSRM_E_LOADING_DISABLED_MODULE = -2147200202
-FSRM_E_CANNOT_AGGREGATE = -2147200201
-FSRM_E_MESSAGE_LIMIT_EXCEEDED = -2147200200
-FSRM_E_OBJECT_IN_USE = -2147200199
-FSRM_E_CANNOT_RENAME_PROPERTY = -2147200198
-FSRM_E_CANNOT_CHANGE_PROPERTY_TYPE = -2147200197
-FSRM_E_MAX_PROPERTY_DEFINITIONS = -2147200196
-FSRM_E_CLASSIFICATION_ALREADY_RUNNING = -2147200195
-FSRM_E_CLASSIFICATION_NOT_RUNNING = -2147200194
-FSRM_E_FILE_MANAGEMENT_JOB_ALREADY_RUNNING = -2147200193
-FSRM_E_FILE_MANAGEMENT_JOB_EXPIRATION = -2147200192
-FSRM_E_FILE_MANAGEMENT_JOB_CUSTOM = -2147200191
-FSRM_E_FILE_MANAGEMENT_JOB_NOTIFICATION = -2147200190
-FSRM_E_FILE_OPEN_ERROR = -2147200189
-FSRM_E_UNSECURE_LINK_TO_HOSTED_MODULE = -2147200188
-FSRM_E_CACHE_INVALID = -2147200187
-FSRM_E_CACHE_MODULE_ALREADY_EXISTS = -2147200186
-FSRM_E_FILE_MANAGEMENT_EXPIRATION_DIR_IN_SCOPE = -2147200185
-FSRM_E_FILE_MANAGEMENT_JOB_ALREADY_EXISTS = -2147200184
-FSRM_E_PROPERTY_DELETED = -2147200183
-FSRM_E_LAST_ACCESS_UPDATE_DISABLED = -2147200176
-FSRM_E_NO_PROPERTY_VALUE = -2147200175
-FSRM_E_INPROC_MODULE_BLOCKED = -2147200174
-FSRM_E_ENUM_PROPERTIES_FAILED = -2147200173
-FSRM_E_SET_PROPERTY_FAILED = -2147200172
-FSRM_E_CANNOT_STORE_PROPERTIES = -2147200171
-FSRM_E_CANNOT_ALLOW_REPARSE_POINT_TAG = -2147200170
-FSRM_E_PARTIAL_CLASSIFICATION_PROPERTY_NOT_FOUND = -2147200169
-FSRM_E_TEXTREADER_NOT_INITIALIZED = -2147200168
-FSRM_E_TEXTREADER_IFILTER_NOT_FOUND = -2147200167
-FSRM_E_PERSIST_PROPERTIES_FAILED_ENCRYPTED = -2147200166
-FSRM_E_TEXTREADER_IFILTER_CLSID_MALFORMED = -2147200160
-FSRM_E_TEXTREADER_STREAM_ERROR = -2147200159
-FSRM_E_TEXTREADER_FILENAME_TOO_LONG = -2147200158
-FSRM_E_INCOMPATIBLE_FORMAT = -2147200157
-FSRM_E_FILE_ENCRYPTED = -2147200156
-FSRM_E_PERSIST_PROPERTIES_FAILED = -2147200155
-FSRM_E_VOLUME_OFFLINE = -2147200154
-FSRM_E_FILE_MANAGEMENT_ACTION_TIMEOUT = -2147200153
-FSRM_E_FILE_MANAGEMENT_ACTION_GET_EXITCODE_FAILED = -2147200152
-FSRM_E_MODULE_INVALID_PARAM = -2147200151
-FSRM_E_MODULE_INITIALIZATION = -2147200150
-FSRM_E_MODULE_SESSION_INITIALIZATION = -2147200149
-FSRM_E_CLASSIFICATION_SCAN_FAIL = -2147200148
-FSRM_E_FILE_MANAGEMENT_JOB_NOT_LEGACY_ACCESSIBLE = -2147200147
-FSRM_E_FILE_MANAGEMENT_JOB_MAX_FILE_CONDITIONS = -2147200146
-FSRM_E_CANNOT_USE_DEPRECATED_PROPERTY = -2147200145
-FSRM_E_SYNC_TASK_TIMEOUT = -2147200144
-FSRM_E_CANNOT_USE_DELETED_PROPERTY = -2147200143
-FSRM_E_INVALID_AD_CLAIM = -2147200142
-FSRM_E_CLASSIFICATION_CANCELED = -2147200141
-FSRM_E_INVALID_FOLDER_PROPERTY_STORE = -2147200140
-FSRM_E_REBUILDING_FODLER_TYPE_INDEX = -2147200139
-FSRM_E_PROPERTY_MUST_APPLY_TO_FILES = -2147200138
-FSRM_E_CLASSIFICATION_TIMEOUT = -2147200137
-FSRM_E_CLASSIFICATION_PARTIAL_BATCH = -2147200136
-FSRM_E_CANNOT_DELETE_SYSTEM_PROPERTY = -2147200135
-FSRM_E_FILE_IN_USE = -2147200134
-FSRM_E_ERROR_NOT_ENABLED = -2147200133
-FSRM_E_CANNOT_CREATE_TEMP_COPY = -2147200132
-FSRM_E_NO_EMAIL_ADDRESS = -2147200131
-FSRM_E_ADR_MAX_EMAILS_SENT = -2147200130
-FSRM_E_PATH_NOT_IN_NAMESPACE = -2147200129
-FSRM_E_RMS_TEMPLATE_NOT_FOUND = -2147200128
-FSRM_E_SECURE_PROPERTIES_NOT_SUPPORTED = -2147200127
-FSRM_E_RMS_NO_PROTECTORS_INSTALLED = -2147200126
-FSRM_E_RMS_NO_PROTECTOR_INSTALLED_FOR_FILE = -2147200125
-FSRM_E_PROPERTY_MUST_APPLY_TO_FOLDERS = -2147200124
-FSRM_E_PROPERTY_MUST_BE_SECURE = -2147200123
-FSRM_E_PROPERTY_MUST_BE_GLOBAL = -2147200122
-FSRM_E_WMI_FAILURE = -2147200121
-FSRM_E_FILE_MANAGEMENT_JOB_RMS = -2147200120
-FSRM_E_SYNC_TASK_HAD_ERRORS = -2147200119
-FSRM_E_ADR_SRV_NOT_SUPPORTED = -2147200112
-FSRM_E_ADR_PATH_IS_LOCAL = -2147200111
-FSRM_E_ADR_NOT_DOMAIN_JOINED = -2147200110
-FSRM_E_CANNOT_REMOVE_READONLY = -2147200109
-FSRM_E_FILE_MANAGEMENT_JOB_INVALID_CONTINUOUS_CONFIG = -2147200108
-FSRM_E_LEGACY_SCHEDULE = -2147200107
-FSRM_E_CSC_PATH_NOT_SUPPORTED = -2147200106
-FSRM_E_EXPIRATION_PATH_NOT_WRITEABLE = -2147200105
-FSRM_E_EXPIRATION_PATH_TOO_LONG = -2147200104
-FSRM_E_EXPIRATION_VOLUME_NOT_NTFS = -2147200103
-FSRM_E_FILE_MANAGEMENT_JOB_DEPRECATED = -2147200102
-FSRM_E_MODULE_TIMEOUT = -2147200101
-def _define_DIFsrmClassificationEvents_head():
-    class DIFsrmClassificationEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('26942db0-dabf-41d8-bb-dd-b1-29-a9-f7-04-24')
-    return DIFsrmClassificationEvents
-def _define_DIFsrmClassificationEvents():
-    DIFsrmClassificationEvents = win32more.Storage.FileServerResourceManager.DIFsrmClassificationEvents_head
-    win32more.System.Com.IDispatch
-    return DIFsrmClassificationEvents
+FSRM_DISPID_FEATURE_MASK: UInt32 = 251658240
+FSRM_DISPID_INTERFACE_A_MASK: UInt32 = 15728640
+FSRM_DISPID_INTERFACE_B_MASK: UInt32 = 983040
+FSRM_DISPID_INTERFACE_C_MASK: UInt32 = 61440
+FSRM_DISPID_INTERFACE_D_MASK: UInt32 = 3840
+FSRM_DISPID_IS_PROPERTY: UInt32 = 128
+FSRM_DISPID_METHOD_NUM_MASK: UInt32 = 127
+FSRM_DISPID_FEATURE_GENERAL: UInt32 = 16777216
+FSRM_DISPID_FEATURE_QUOTA: UInt32 = 33554432
+FSRM_DISPID_FEATURE_FILESCREEN: UInt32 = 50331648
+FSRM_DISPID_FEATURE_REPORTS: UInt32 = 67108864
+FSRM_DISPID_FEATURE_CLASSIFICATION: UInt32 = 83886080
+FSRM_DISPID_FEATURE_PIPELINE: UInt32 = 100663296
+FsrmMaxNumberThresholds: UInt32 = 16
+FsrmMinThresholdValue: UInt32 = 1
+FsrmMaxThresholdValue: UInt32 = 250
+FsrmMinQuotaLimit: UInt32 = 1024
+FsrmMaxExcludeFolders: UInt32 = 32
+FsrmMaxNumberPropertyDefinitions: UInt32 = 100
+MessageSizeLimit: UInt32 = 4096
+FsrmDaysNotSpecified: Int32 = -1
+FSRM_S_PARTIAL_BATCH: win32more.Foundation.HRESULT = 283396
+FSRM_S_PARTIAL_CLASSIFICATION: win32more.Foundation.HRESULT = 283397
+FSRM_S_CLASSIFICATION_SCAN_FAILURES: win32more.Foundation.HRESULT = 283398
+FSRM_E_NOT_FOUND: win32more.Foundation.HRESULT = -2147200255
+FSRM_E_INVALID_SCHEDULER_ARGUMENT: win32more.Foundation.HRESULT = -2147200254
+FSRM_E_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2147200253
+FSRM_E_PATH_NOT_FOUND: win32more.Foundation.HRESULT = -2147200252
+FSRM_E_INVALID_USER: win32more.Foundation.HRESULT = -2147200251
+FSRM_E_INVALID_PATH: win32more.Foundation.HRESULT = -2147200250
+FSRM_E_INVALID_LIMIT: win32more.Foundation.HRESULT = -2147200249
+FSRM_E_INVALID_NAME: win32more.Foundation.HRESULT = -2147200248
+FSRM_E_FAIL_BATCH: win32more.Foundation.HRESULT = -2147200247
+FSRM_E_INVALID_TEXT: win32more.Foundation.HRESULT = -2147200246
+FSRM_E_INVALID_IMPORT_VERSION: win32more.Foundation.HRESULT = -2147200245
+FSRM_E_OUT_OF_RANGE: win32more.Foundation.HRESULT = -2147200243
+FSRM_E_REQD_PARAM_MISSING: win32more.Foundation.HRESULT = -2147200242
+FSRM_E_INVALID_COMBINATION: win32more.Foundation.HRESULT = -2147200241
+FSRM_E_DUPLICATE_NAME: win32more.Foundation.HRESULT = -2147200240
+FSRM_E_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147200239
+FSRM_E_DRIVER_NOT_READY: win32more.Foundation.HRESULT = -2147200237
+FSRM_E_INSUFFICIENT_DISK: win32more.Foundation.HRESULT = -2147200236
+FSRM_E_VOLUME_UNSUPPORTED: win32more.Foundation.HRESULT = -2147200235
+FSRM_E_UNEXPECTED: win32more.Foundation.HRESULT = -2147200234
+FSRM_E_INSECURE_PATH: win32more.Foundation.HRESULT = -2147200233
+FSRM_E_INVALID_SMTP_SERVER: win32more.Foundation.HRESULT = -2147200232
+FSRM_E_AUTO_QUOTA: win32more.Foundation.HRESULT = 283419
+FSRM_E_EMAIL_NOT_SENT: win32more.Foundation.HRESULT = -2147200228
+FSRM_E_INVALID_EMAIL_ADDRESS: win32more.Foundation.HRESULT = -2147200226
+FSRM_E_FILE_SYSTEM_CORRUPT: win32more.Foundation.HRESULT = -2147200225
+FSRM_E_LONG_CMDLINE: win32more.Foundation.HRESULT = -2147200224
+FSRM_E_INVALID_FILEGROUP_DEFINITION: win32more.Foundation.HRESULT = -2147200223
+FSRM_E_INVALID_DATASCREEN_DEFINITION: win32more.Foundation.HRESULT = -2147200220
+FSRM_E_INVALID_REPORT_FORMAT: win32more.Foundation.HRESULT = -2147200216
+FSRM_E_INVALID_REPORT_DESC: win32more.Foundation.HRESULT = -2147200215
+FSRM_E_INVALID_FILENAME: win32more.Foundation.HRESULT = -2147200214
+FSRM_E_SHADOW_COPY: win32more.Foundation.HRESULT = -2147200212
+FSRM_E_XML_CORRUPTED: win32more.Foundation.HRESULT = -2147200211
+FSRM_E_CLUSTER_NOT_RUNNING: win32more.Foundation.HRESULT = -2147200210
+FSRM_E_STORE_NOT_INSTALLED: win32more.Foundation.HRESULT = -2147200209
+FSRM_E_NOT_CLUSTER_VOLUME: win32more.Foundation.HRESULT = -2147200208
+FSRM_E_DIFFERENT_CLUSTER_GROUP: win32more.Foundation.HRESULT = -2147200207
+FSRM_E_REPORT_TYPE_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2147200206
+FSRM_E_REPORT_JOB_ALREADY_RUNNING: win32more.Foundation.HRESULT = -2147200205
+FSRM_E_REPORT_GENERATION_ERR: win32more.Foundation.HRESULT = -2147200204
+FSRM_E_REPORT_TASK_TRIGGER: win32more.Foundation.HRESULT = -2147200203
+FSRM_E_LOADING_DISABLED_MODULE: win32more.Foundation.HRESULT = -2147200202
+FSRM_E_CANNOT_AGGREGATE: win32more.Foundation.HRESULT = -2147200201
+FSRM_E_MESSAGE_LIMIT_EXCEEDED: win32more.Foundation.HRESULT = -2147200200
+FSRM_E_OBJECT_IN_USE: win32more.Foundation.HRESULT = -2147200199
+FSRM_E_CANNOT_RENAME_PROPERTY: win32more.Foundation.HRESULT = -2147200198
+FSRM_E_CANNOT_CHANGE_PROPERTY_TYPE: win32more.Foundation.HRESULT = -2147200197
+FSRM_E_MAX_PROPERTY_DEFINITIONS: win32more.Foundation.HRESULT = -2147200196
+FSRM_E_CLASSIFICATION_ALREADY_RUNNING: win32more.Foundation.HRESULT = -2147200195
+FSRM_E_CLASSIFICATION_NOT_RUNNING: win32more.Foundation.HRESULT = -2147200194
+FSRM_E_FILE_MANAGEMENT_JOB_ALREADY_RUNNING: win32more.Foundation.HRESULT = -2147200193
+FSRM_E_FILE_MANAGEMENT_JOB_EXPIRATION: win32more.Foundation.HRESULT = -2147200192
+FSRM_E_FILE_MANAGEMENT_JOB_CUSTOM: win32more.Foundation.HRESULT = -2147200191
+FSRM_E_FILE_MANAGEMENT_JOB_NOTIFICATION: win32more.Foundation.HRESULT = -2147200190
+FSRM_E_FILE_OPEN_ERROR: win32more.Foundation.HRESULT = -2147200189
+FSRM_E_UNSECURE_LINK_TO_HOSTED_MODULE: win32more.Foundation.HRESULT = -2147200188
+FSRM_E_CACHE_INVALID: win32more.Foundation.HRESULT = -2147200187
+FSRM_E_CACHE_MODULE_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2147200186
+FSRM_E_FILE_MANAGEMENT_EXPIRATION_DIR_IN_SCOPE: win32more.Foundation.HRESULT = -2147200185
+FSRM_E_FILE_MANAGEMENT_JOB_ALREADY_EXISTS: win32more.Foundation.HRESULT = -2147200184
+FSRM_E_PROPERTY_DELETED: win32more.Foundation.HRESULT = -2147200183
+FSRM_E_LAST_ACCESS_UPDATE_DISABLED: win32more.Foundation.HRESULT = -2147200176
+FSRM_E_NO_PROPERTY_VALUE: win32more.Foundation.HRESULT = -2147200175
+FSRM_E_INPROC_MODULE_BLOCKED: win32more.Foundation.HRESULT = -2147200174
+FSRM_E_ENUM_PROPERTIES_FAILED: win32more.Foundation.HRESULT = -2147200173
+FSRM_E_SET_PROPERTY_FAILED: win32more.Foundation.HRESULT = -2147200172
+FSRM_E_CANNOT_STORE_PROPERTIES: win32more.Foundation.HRESULT = -2147200171
+FSRM_E_CANNOT_ALLOW_REPARSE_POINT_TAG: win32more.Foundation.HRESULT = -2147200170
+FSRM_E_PARTIAL_CLASSIFICATION_PROPERTY_NOT_FOUND: win32more.Foundation.HRESULT = -2147200169
+FSRM_E_TEXTREADER_NOT_INITIALIZED: win32more.Foundation.HRESULT = -2147200168
+FSRM_E_TEXTREADER_IFILTER_NOT_FOUND: win32more.Foundation.HRESULT = -2147200167
+FSRM_E_PERSIST_PROPERTIES_FAILED_ENCRYPTED: win32more.Foundation.HRESULT = -2147200166
+FSRM_E_TEXTREADER_IFILTER_CLSID_MALFORMED: win32more.Foundation.HRESULT = -2147200160
+FSRM_E_TEXTREADER_STREAM_ERROR: win32more.Foundation.HRESULT = -2147200159
+FSRM_E_TEXTREADER_FILENAME_TOO_LONG: win32more.Foundation.HRESULT = -2147200158
+FSRM_E_INCOMPATIBLE_FORMAT: win32more.Foundation.HRESULT = -2147200157
+FSRM_E_FILE_ENCRYPTED: win32more.Foundation.HRESULT = -2147200156
+FSRM_E_PERSIST_PROPERTIES_FAILED: win32more.Foundation.HRESULT = -2147200155
+FSRM_E_VOLUME_OFFLINE: win32more.Foundation.HRESULT = -2147200154
+FSRM_E_FILE_MANAGEMENT_ACTION_TIMEOUT: win32more.Foundation.HRESULT = -2147200153
+FSRM_E_FILE_MANAGEMENT_ACTION_GET_EXITCODE_FAILED: win32more.Foundation.HRESULT = -2147200152
+FSRM_E_MODULE_INVALID_PARAM: win32more.Foundation.HRESULT = -2147200151
+FSRM_E_MODULE_INITIALIZATION: win32more.Foundation.HRESULT = -2147200150
+FSRM_E_MODULE_SESSION_INITIALIZATION: win32more.Foundation.HRESULT = -2147200149
+FSRM_E_CLASSIFICATION_SCAN_FAIL: win32more.Foundation.HRESULT = -2147200148
+FSRM_E_FILE_MANAGEMENT_JOB_NOT_LEGACY_ACCESSIBLE: win32more.Foundation.HRESULT = -2147200147
+FSRM_E_FILE_MANAGEMENT_JOB_MAX_FILE_CONDITIONS: win32more.Foundation.HRESULT = -2147200146
+FSRM_E_CANNOT_USE_DEPRECATED_PROPERTY: win32more.Foundation.HRESULT = -2147200145
+FSRM_E_SYNC_TASK_TIMEOUT: win32more.Foundation.HRESULT = -2147200144
+FSRM_E_CANNOT_USE_DELETED_PROPERTY: win32more.Foundation.HRESULT = -2147200143
+FSRM_E_INVALID_AD_CLAIM: win32more.Foundation.HRESULT = -2147200142
+FSRM_E_CLASSIFICATION_CANCELED: win32more.Foundation.HRESULT = -2147200141
+FSRM_E_INVALID_FOLDER_PROPERTY_STORE: win32more.Foundation.HRESULT = -2147200140
+FSRM_E_REBUILDING_FODLER_TYPE_INDEX: win32more.Foundation.HRESULT = -2147200139
+FSRM_E_PROPERTY_MUST_APPLY_TO_FILES: win32more.Foundation.HRESULT = -2147200138
+FSRM_E_CLASSIFICATION_TIMEOUT: win32more.Foundation.HRESULT = -2147200137
+FSRM_E_CLASSIFICATION_PARTIAL_BATCH: win32more.Foundation.HRESULT = -2147200136
+FSRM_E_CANNOT_DELETE_SYSTEM_PROPERTY: win32more.Foundation.HRESULT = -2147200135
+FSRM_E_FILE_IN_USE: win32more.Foundation.HRESULT = -2147200134
+FSRM_E_ERROR_NOT_ENABLED: win32more.Foundation.HRESULT = -2147200133
+FSRM_E_CANNOT_CREATE_TEMP_COPY: win32more.Foundation.HRESULT = -2147200132
+FSRM_E_NO_EMAIL_ADDRESS: win32more.Foundation.HRESULT = -2147200131
+FSRM_E_ADR_MAX_EMAILS_SENT: win32more.Foundation.HRESULT = -2147200130
+FSRM_E_PATH_NOT_IN_NAMESPACE: win32more.Foundation.HRESULT = -2147200129
+FSRM_E_RMS_TEMPLATE_NOT_FOUND: win32more.Foundation.HRESULT = -2147200128
+FSRM_E_SECURE_PROPERTIES_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147200127
+FSRM_E_RMS_NO_PROTECTORS_INSTALLED: win32more.Foundation.HRESULT = -2147200126
+FSRM_E_RMS_NO_PROTECTOR_INSTALLED_FOR_FILE: win32more.Foundation.HRESULT = -2147200125
+FSRM_E_PROPERTY_MUST_APPLY_TO_FOLDERS: win32more.Foundation.HRESULT = -2147200124
+FSRM_E_PROPERTY_MUST_BE_SECURE: win32more.Foundation.HRESULT = -2147200123
+FSRM_E_PROPERTY_MUST_BE_GLOBAL: win32more.Foundation.HRESULT = -2147200122
+FSRM_E_WMI_FAILURE: win32more.Foundation.HRESULT = -2147200121
+FSRM_E_FILE_MANAGEMENT_JOB_RMS: win32more.Foundation.HRESULT = -2147200120
+FSRM_E_SYNC_TASK_HAD_ERRORS: win32more.Foundation.HRESULT = -2147200119
+FSRM_E_ADR_SRV_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147200112
+FSRM_E_ADR_PATH_IS_LOCAL: win32more.Foundation.HRESULT = -2147200111
+FSRM_E_ADR_NOT_DOMAIN_JOINED: win32more.Foundation.HRESULT = -2147200110
+FSRM_E_CANNOT_REMOVE_READONLY: win32more.Foundation.HRESULT = -2147200109
+FSRM_E_FILE_MANAGEMENT_JOB_INVALID_CONTINUOUS_CONFIG: win32more.Foundation.HRESULT = -2147200108
+FSRM_E_LEGACY_SCHEDULE: win32more.Foundation.HRESULT = -2147200107
+FSRM_E_CSC_PATH_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2147200106
+FSRM_E_EXPIRATION_PATH_NOT_WRITEABLE: win32more.Foundation.HRESULT = -2147200105
+FSRM_E_EXPIRATION_PATH_TOO_LONG: win32more.Foundation.HRESULT = -2147200104
+FSRM_E_EXPIRATION_VOLUME_NOT_NTFS: win32more.Foundation.HRESULT = -2147200103
+FSRM_E_FILE_MANAGEMENT_JOB_DEPRECATED: win32more.Foundation.HRESULT = -2147200102
+FSRM_E_MODULE_TIMEOUT: win32more.Foundation.HRESULT = -2147200101
+class DIFsrmClassificationEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('26942db0-dabf-41d8-bb-dd-b1-29-a9-f7-04-24')
 FsrmAccessDeniedRemediationClient = Guid('100b4fc8-74c1-470f-b1-b7-dd-7b-6b-ae-79-bd')
 FsrmAccountType = Int32
-FsrmAccountType_Unknown = 0
-FsrmAccountType_NetworkService = 1
-FsrmAccountType_LocalService = 2
-FsrmAccountType_LocalSystem = 3
-FsrmAccountType_InProc = 4
-FsrmAccountType_External = 5
-FsrmAccountType_Automatic = 500
+FsrmAccountType_Unknown: FsrmAccountType = 0
+FsrmAccountType_NetworkService: FsrmAccountType = 1
+FsrmAccountType_LocalService: FsrmAccountType = 2
+FsrmAccountType_LocalSystem: FsrmAccountType = 3
+FsrmAccountType_InProc: FsrmAccountType = 4
+FsrmAccountType_External: FsrmAccountType = 5
+FsrmAccountType_Automatic: FsrmAccountType = 500
 FsrmActionType = Int32
-FsrmActionType_Unknown = 0
-FsrmActionType_EventLog = 1
-FsrmActionType_Email = 2
-FsrmActionType_Command = 3
-FsrmActionType_Report = 4
+FsrmActionType_Unknown: FsrmActionType = 0
+FsrmActionType_EventLog: FsrmActionType = 1
+FsrmActionType_Email: FsrmActionType = 2
+FsrmActionType_Command: FsrmActionType = 3
+FsrmActionType_Report: FsrmActionType = 4
 FsrmClassificationLoggingFlags = Int32
-FsrmClassificationLoggingFlags_None = 0
-FsrmClassificationLoggingFlags_ClassificationsInLogFile = 1
-FsrmClassificationLoggingFlags_ErrorsInLogFile = 2
-FsrmClassificationLoggingFlags_ClassificationsInSystemLog = 4
-FsrmClassificationLoggingFlags_ErrorsInSystemLog = 8
+FsrmClassificationLoggingFlags_None: FsrmClassificationLoggingFlags = 0
+FsrmClassificationLoggingFlags_ClassificationsInLogFile: FsrmClassificationLoggingFlags = 1
+FsrmClassificationLoggingFlags_ErrorsInLogFile: FsrmClassificationLoggingFlags = 2
+FsrmClassificationLoggingFlags_ClassificationsInSystemLog: FsrmClassificationLoggingFlags = 4
+FsrmClassificationLoggingFlags_ErrorsInSystemLog: FsrmClassificationLoggingFlags = 8
 FsrmClassificationManager = Guid('b15c0e47-c391-45b9-95-c8-eb-59-6c-85-3f-3a')
 FsrmCollectionState = Int32
-FsrmCollectionState_Fetching = 1
-FsrmCollectionState_Committing = 2
-FsrmCollectionState_Complete = 3
-FsrmCollectionState_Cancelled = 4
+FsrmCollectionState_Fetching: FsrmCollectionState = 1
+FsrmCollectionState_Committing: FsrmCollectionState = 2
+FsrmCollectionState_Complete: FsrmCollectionState = 3
+FsrmCollectionState_Cancelled: FsrmCollectionState = 4
 FsrmCommitOptions = Int32
-FsrmCommitOptions_None = 0
-FsrmCommitOptions_Asynchronous = 1
+FsrmCommitOptions_None: FsrmCommitOptions = 0
+FsrmCommitOptions_Asynchronous: FsrmCommitOptions = 1
 FsrmEnumOptions = Int32
-FsrmEnumOptions_None = 0
-FsrmEnumOptions_Asynchronous = 1
-FsrmEnumOptions_CheckRecycleBin = 2
-FsrmEnumOptions_IncludeClusterNodes = 4
-FsrmEnumOptions_IncludeDeprecatedObjects = 8
+FsrmEnumOptions_None: FsrmEnumOptions = 0
+FsrmEnumOptions_Asynchronous: FsrmEnumOptions = 1
+FsrmEnumOptions_CheckRecycleBin: FsrmEnumOptions = 2
+FsrmEnumOptions_IncludeClusterNodes: FsrmEnumOptions = 4
+FsrmEnumOptions_IncludeDeprecatedObjects: FsrmEnumOptions = 8
 FsrmEventType = Int32
-FsrmEventType_Unknown = 0
-FsrmEventType_Information = 1
-FsrmEventType_Warning = 2
-FsrmEventType_Error = 3
+FsrmEventType_Unknown: FsrmEventType = 0
+FsrmEventType_Information: FsrmEventType = 1
+FsrmEventType_Warning: FsrmEventType = 2
+FsrmEventType_Error: FsrmEventType = 3
 FsrmExecutionOption = Int32
-FsrmExecutionOption_Unknown = 0
-FsrmExecutionOption_EvaluateUnset = 1
-FsrmExecutionOption_ReEvaluate_ConsiderExistingValue = 2
-FsrmExecutionOption_ReEvaluate_IgnoreExistingValue = 3
+FsrmExecutionOption_Unknown: FsrmExecutionOption = 0
+FsrmExecutionOption_EvaluateUnset: FsrmExecutionOption = 1
+FsrmExecutionOption_ReEvaluate_ConsiderExistingValue: FsrmExecutionOption = 2
+FsrmExecutionOption_ReEvaluate_IgnoreExistingValue: FsrmExecutionOption = 3
 FsrmExportImport = Guid('1482dc37-fae9-4787-90-25-8c-e4-e0-24-ab-56')
 FsrmFileConditionType = Int32
-FsrmFileConditionType_Unknown = 0
-FsrmFileConditionType_Property = 1
+FsrmFileConditionType_Unknown: FsrmFileConditionType = 0
+FsrmFileConditionType_Property: FsrmFileConditionType = 1
 FsrmFileGroupManager = Guid('8f1363f6-656f-4496-92-26-13-ae-cb-d7-71-8f')
 FsrmFileManagementJobManager = Guid('eb18f9b2-4c3a-4321-b2-03-20-51-20-cf-f6-14')
 FsrmFileManagementLoggingFlags = Int32
-FsrmFileManagementLoggingFlags_None = 0
-FsrmFileManagementLoggingFlags_Error = 1
-FsrmFileManagementLoggingFlags_Information = 2
-FsrmFileManagementLoggingFlags_Audit = 4
+FsrmFileManagementLoggingFlags_None: FsrmFileManagementLoggingFlags = 0
+FsrmFileManagementLoggingFlags_Error: FsrmFileManagementLoggingFlags = 1
+FsrmFileManagementLoggingFlags_Information: FsrmFileManagementLoggingFlags = 2
+FsrmFileManagementLoggingFlags_Audit: FsrmFileManagementLoggingFlags = 4
 FsrmFileManagementType = Int32
-FsrmFileManagementType_Unknown = 0
-FsrmFileManagementType_Expiration = 1
-FsrmFileManagementType_Custom = 2
-FsrmFileManagementType_Rms = 3
+FsrmFileManagementType_Unknown: FsrmFileManagementType = 0
+FsrmFileManagementType_Expiration: FsrmFileManagementType = 1
+FsrmFileManagementType_Custom: FsrmFileManagementType = 2
+FsrmFileManagementType_Rms: FsrmFileManagementType = 3
 FsrmFileScreenFlags = Int32
-FsrmFileScreenFlags_Enforce = 1
+FsrmFileScreenFlags_Enforce: FsrmFileScreenFlags = 1
 FsrmFileScreenManager = Guid('95941183-db53-4c5f-b3-7b-7d-09-21-cf-9d-c7')
 FsrmFileScreenTemplateManager = Guid('243111df-e474-46aa-a0-54-ea-a3-3e-dc-29-2a')
 FsrmFileStreamingInterfaceType = Int32
-FsrmFileStreamingInterfaceType_Unknown = 0
-FsrmFileStreamingInterfaceType_ILockBytes = 1
-FsrmFileStreamingInterfaceType_IStream = 2
+FsrmFileStreamingInterfaceType_Unknown: FsrmFileStreamingInterfaceType = 0
+FsrmFileStreamingInterfaceType_ILockBytes: FsrmFileStreamingInterfaceType = 1
+FsrmFileStreamingInterfaceType_IStream: FsrmFileStreamingInterfaceType = 2
 FsrmFileStreamingMode = Int32
-FsrmFileStreamingMode_Unknown = 0
-FsrmFileStreamingMode_Read = 1
-FsrmFileStreamingMode_Write = 2
+FsrmFileStreamingMode_Unknown: FsrmFileStreamingMode = 0
+FsrmFileStreamingMode_Read: FsrmFileStreamingMode = 1
+FsrmFileStreamingMode_Write: FsrmFileStreamingMode = 2
 FsrmFileSystemPropertyId = Int32
-FsrmFileSystemPropertyId_Undefined = 0
-FsrmFileSystemPropertyId_FileName = 1
-FsrmFileSystemPropertyId_DateCreated = 2
-FsrmFileSystemPropertyId_DateLastAccessed = 3
-FsrmFileSystemPropertyId_DateLastModified = 4
-FsrmFileSystemPropertyId_DateNow = 5
+FsrmFileSystemPropertyId_Undefined: FsrmFileSystemPropertyId = 0
+FsrmFileSystemPropertyId_FileName: FsrmFileSystemPropertyId = 1
+FsrmFileSystemPropertyId_DateCreated: FsrmFileSystemPropertyId = 2
+FsrmFileSystemPropertyId_DateLastAccessed: FsrmFileSystemPropertyId = 3
+FsrmFileSystemPropertyId_DateLastModified: FsrmFileSystemPropertyId = 4
+FsrmFileSystemPropertyId_DateNow: FsrmFileSystemPropertyId = 5
 FsrmGetFilePropertyOptions = Int32
-FsrmGetFilePropertyOptions_None = 0
-FsrmGetFilePropertyOptions_NoRuleEvaluation = 1
-FsrmGetFilePropertyOptions_Persistent = 2
-FsrmGetFilePropertyOptions_FailOnPersistErrors = 4
-FsrmGetFilePropertyOptions_SkipOrphaned = 8
+FsrmGetFilePropertyOptions_None: FsrmGetFilePropertyOptions = 0
+FsrmGetFilePropertyOptions_NoRuleEvaluation: FsrmGetFilePropertyOptions = 1
+FsrmGetFilePropertyOptions_Persistent: FsrmGetFilePropertyOptions = 2
+FsrmGetFilePropertyOptions_FailOnPersistErrors: FsrmGetFilePropertyOptions = 4
+FsrmGetFilePropertyOptions_SkipOrphaned: FsrmGetFilePropertyOptions = 8
 FsrmPathMapper = Guid('f3be42bd-8ac2-409e-bb-d8-fa-f9-b6-b4-1f-eb')
 FsrmPipelineModuleConnector = Guid('c7643375-1eb5-44de-a0-62-62-35-47-d9-33-bc')
 FsrmPipelineModuleType = Int32
-FsrmPipelineModuleType_Unknown = 0
-FsrmPipelineModuleType_Storage = 1
-FsrmPipelineModuleType_Classifier = 2
+FsrmPipelineModuleType_Unknown: FsrmPipelineModuleType = 0
+FsrmPipelineModuleType_Storage: FsrmPipelineModuleType = 1
+FsrmPipelineModuleType_Classifier: FsrmPipelineModuleType = 2
 FsrmPropertyBagField = Int32
-FsrmPropertyBagField_AccessVolume = 0
-FsrmPropertyBagField_VolumeGuidName = 1
+FsrmPropertyBagField_AccessVolume: FsrmPropertyBagField = 0
+FsrmPropertyBagField_VolumeGuidName: FsrmPropertyBagField = 1
 FsrmPropertyBagFlags = Int32
-FsrmPropertyBagFlags_UpdatedByClassifier = 1
-FsrmPropertyBagFlags_FailedLoadingProperties = 2
-FsrmPropertyBagFlags_FailedSavingProperties = 4
-FsrmPropertyBagFlags_FailedClassifyingProperties = 8
+FsrmPropertyBagFlags_UpdatedByClassifier: FsrmPropertyBagFlags = 1
+FsrmPropertyBagFlags_FailedLoadingProperties: FsrmPropertyBagFlags = 2
+FsrmPropertyBagFlags_FailedSavingProperties: FsrmPropertyBagFlags = 4
+FsrmPropertyBagFlags_FailedClassifyingProperties: FsrmPropertyBagFlags = 8
 FsrmPropertyConditionType = Int32
-FsrmPropertyConditionType_Unknown = 0
-FsrmPropertyConditionType_Equal = 1
-FsrmPropertyConditionType_NotEqual = 2
-FsrmPropertyConditionType_GreaterThan = 3
-FsrmPropertyConditionType_LessThan = 4
-FsrmPropertyConditionType_Contain = 5
-FsrmPropertyConditionType_Exist = 6
-FsrmPropertyConditionType_NotExist = 7
-FsrmPropertyConditionType_StartWith = 8
-FsrmPropertyConditionType_EndWith = 9
-FsrmPropertyConditionType_ContainedIn = 10
-FsrmPropertyConditionType_PrefixOf = 11
-FsrmPropertyConditionType_SuffixOf = 12
-FsrmPropertyConditionType_MatchesPattern = 13
+FsrmPropertyConditionType_Unknown: FsrmPropertyConditionType = 0
+FsrmPropertyConditionType_Equal: FsrmPropertyConditionType = 1
+FsrmPropertyConditionType_NotEqual: FsrmPropertyConditionType = 2
+FsrmPropertyConditionType_GreaterThan: FsrmPropertyConditionType = 3
+FsrmPropertyConditionType_LessThan: FsrmPropertyConditionType = 4
+FsrmPropertyConditionType_Contain: FsrmPropertyConditionType = 5
+FsrmPropertyConditionType_Exist: FsrmPropertyConditionType = 6
+FsrmPropertyConditionType_NotExist: FsrmPropertyConditionType = 7
+FsrmPropertyConditionType_StartWith: FsrmPropertyConditionType = 8
+FsrmPropertyConditionType_EndWith: FsrmPropertyConditionType = 9
+FsrmPropertyConditionType_ContainedIn: FsrmPropertyConditionType = 10
+FsrmPropertyConditionType_PrefixOf: FsrmPropertyConditionType = 11
+FsrmPropertyConditionType_SuffixOf: FsrmPropertyConditionType = 12
+FsrmPropertyConditionType_MatchesPattern: FsrmPropertyConditionType = 13
 FsrmPropertyDefinitionAppliesTo = Int32
-FsrmPropertyDefinitionAppliesTo_Files = 1
-FsrmPropertyDefinitionAppliesTo_Folders = 2
+FsrmPropertyDefinitionAppliesTo_Files: FsrmPropertyDefinitionAppliesTo = 1
+FsrmPropertyDefinitionAppliesTo_Folders: FsrmPropertyDefinitionAppliesTo = 2
 FsrmPropertyDefinitionFlags = Int32
-FsrmPropertyDefinitionFlags_Global = 1
-FsrmPropertyDefinitionFlags_Deprecated = 2
-FsrmPropertyDefinitionFlags_Secure = 4
+FsrmPropertyDefinitionFlags_Global: FsrmPropertyDefinitionFlags = 1
+FsrmPropertyDefinitionFlags_Deprecated: FsrmPropertyDefinitionFlags = 2
+FsrmPropertyDefinitionFlags_Secure: FsrmPropertyDefinitionFlags = 4
 FsrmPropertyDefinitionType = Int32
-FsrmPropertyDefinitionType_Unknown = 0
-FsrmPropertyDefinitionType_OrderedList = 1
-FsrmPropertyDefinitionType_MultiChoiceList = 2
-FsrmPropertyDefinitionType_SingleChoiceList = 3
-FsrmPropertyDefinitionType_String = 4
-FsrmPropertyDefinitionType_MultiString = 5
-FsrmPropertyDefinitionType_Int = 6
-FsrmPropertyDefinitionType_Bool = 7
-FsrmPropertyDefinitionType_Date = 8
+FsrmPropertyDefinitionType_Unknown: FsrmPropertyDefinitionType = 0
+FsrmPropertyDefinitionType_OrderedList: FsrmPropertyDefinitionType = 1
+FsrmPropertyDefinitionType_MultiChoiceList: FsrmPropertyDefinitionType = 2
+FsrmPropertyDefinitionType_SingleChoiceList: FsrmPropertyDefinitionType = 3
+FsrmPropertyDefinitionType_String: FsrmPropertyDefinitionType = 4
+FsrmPropertyDefinitionType_MultiString: FsrmPropertyDefinitionType = 5
+FsrmPropertyDefinitionType_Int: FsrmPropertyDefinitionType = 6
+FsrmPropertyDefinitionType_Bool: FsrmPropertyDefinitionType = 7
+FsrmPropertyDefinitionType_Date: FsrmPropertyDefinitionType = 8
 FsrmPropertyFlags = Int32
-FsrmPropertyFlags_None = 0
-FsrmPropertyFlags_Orphaned = 1
-FsrmPropertyFlags_RetrievedFromCache = 2
-FsrmPropertyFlags_RetrievedFromStorage = 4
-FsrmPropertyFlags_SetByClassifier = 8
-FsrmPropertyFlags_Deleted = 16
-FsrmPropertyFlags_Reclassified = 32
-FsrmPropertyFlags_AggregationFailed = 64
-FsrmPropertyFlags_Existing = 128
-FsrmPropertyFlags_FailedLoadingProperties = 256
-FsrmPropertyFlags_FailedClassifyingProperties = 512
-FsrmPropertyFlags_FailedSavingProperties = 1024
-FsrmPropertyFlags_Secure = 2048
-FsrmPropertyFlags_PolicyDerived = 4096
-FsrmPropertyFlags_Inherited = 8192
-FsrmPropertyFlags_Manual = 16384
-FsrmPropertyFlags_ExplicitValueDeleted = 32768
-FsrmPropertyFlags_PropertyDeletedFromClear = 65536
-FsrmPropertyFlags_PropertySourceMask = 14
-FsrmPropertyFlags_PersistentMask = 20480
+FsrmPropertyFlags_None: FsrmPropertyFlags = 0
+FsrmPropertyFlags_Orphaned: FsrmPropertyFlags = 1
+FsrmPropertyFlags_RetrievedFromCache: FsrmPropertyFlags = 2
+FsrmPropertyFlags_RetrievedFromStorage: FsrmPropertyFlags = 4
+FsrmPropertyFlags_SetByClassifier: FsrmPropertyFlags = 8
+FsrmPropertyFlags_Deleted: FsrmPropertyFlags = 16
+FsrmPropertyFlags_Reclassified: FsrmPropertyFlags = 32
+FsrmPropertyFlags_AggregationFailed: FsrmPropertyFlags = 64
+FsrmPropertyFlags_Existing: FsrmPropertyFlags = 128
+FsrmPropertyFlags_FailedLoadingProperties: FsrmPropertyFlags = 256
+FsrmPropertyFlags_FailedClassifyingProperties: FsrmPropertyFlags = 512
+FsrmPropertyFlags_FailedSavingProperties: FsrmPropertyFlags = 1024
+FsrmPropertyFlags_Secure: FsrmPropertyFlags = 2048
+FsrmPropertyFlags_PolicyDerived: FsrmPropertyFlags = 4096
+FsrmPropertyFlags_Inherited: FsrmPropertyFlags = 8192
+FsrmPropertyFlags_Manual: FsrmPropertyFlags = 16384
+FsrmPropertyFlags_ExplicitValueDeleted: FsrmPropertyFlags = 32768
+FsrmPropertyFlags_PropertyDeletedFromClear: FsrmPropertyFlags = 65536
+FsrmPropertyFlags_PropertySourceMask: FsrmPropertyFlags = 14
+FsrmPropertyFlags_PersistentMask: FsrmPropertyFlags = 20480
 FsrmPropertyValueType = Int32
-FsrmPropertyValueType_Undefined = 0
-FsrmPropertyValueType_Literal = 1
-FsrmPropertyValueType_DateOffset = 2
+FsrmPropertyValueType_Undefined: FsrmPropertyValueType = 0
+FsrmPropertyValueType_Literal: FsrmPropertyValueType = 1
+FsrmPropertyValueType_DateOffset: FsrmPropertyValueType = 2
 FsrmQuotaFlags = Int32
-FsrmQuotaFlags_Enforce = 256
-FsrmQuotaFlags_Disable = 512
-FsrmQuotaFlags_StatusIncomplete = 65536
-FsrmQuotaFlags_StatusRebuilding = 131072
+FsrmQuotaFlags_Enforce: FsrmQuotaFlags = 256
+FsrmQuotaFlags_Disable: FsrmQuotaFlags = 512
+FsrmQuotaFlags_StatusIncomplete: FsrmQuotaFlags = 65536
+FsrmQuotaFlags_StatusRebuilding: FsrmQuotaFlags = 131072
 FsrmQuotaManager = Guid('90dcab7f-347c-4bfc-b5-43-54-03-26-30-5f-be')
 FsrmQuotaTemplateManager = Guid('97d3d443-251c-4337-81-e7-b3-2e-8f-4e-e6-5e')
 FsrmReportFilter = Int32
-FsrmReportFilter_MinSize = 1
-FsrmReportFilter_MinAgeDays = 2
-FsrmReportFilter_MaxAgeDays = 3
-FsrmReportFilter_MinQuotaUsage = 4
-FsrmReportFilter_FileGroups = 5
-FsrmReportFilter_Owners = 6
-FsrmReportFilter_NamePattern = 7
-FsrmReportFilter_Property = 8
+FsrmReportFilter_MinSize: FsrmReportFilter = 1
+FsrmReportFilter_MinAgeDays: FsrmReportFilter = 2
+FsrmReportFilter_MaxAgeDays: FsrmReportFilter = 3
+FsrmReportFilter_MinQuotaUsage: FsrmReportFilter = 4
+FsrmReportFilter_FileGroups: FsrmReportFilter = 5
+FsrmReportFilter_Owners: FsrmReportFilter = 6
+FsrmReportFilter_NamePattern: FsrmReportFilter = 7
+FsrmReportFilter_Property: FsrmReportFilter = 8
 FsrmReportFormat = Int32
-FsrmReportFormat_Unknown = 0
-FsrmReportFormat_DHtml = 1
-FsrmReportFormat_Html = 2
-FsrmReportFormat_Txt = 3
-FsrmReportFormat_Csv = 4
-FsrmReportFormat_Xml = 5
+FsrmReportFormat_Unknown: FsrmReportFormat = 0
+FsrmReportFormat_DHtml: FsrmReportFormat = 1
+FsrmReportFormat_Html: FsrmReportFormat = 2
+FsrmReportFormat_Txt: FsrmReportFormat = 3
+FsrmReportFormat_Csv: FsrmReportFormat = 4
+FsrmReportFormat_Xml: FsrmReportFormat = 5
 FsrmReportGenerationContext = Int32
-FsrmReportGenerationContext_Undefined = 1
-FsrmReportGenerationContext_ScheduledReport = 2
-FsrmReportGenerationContext_InteractiveReport = 3
-FsrmReportGenerationContext_IncidentReport = 4
+FsrmReportGenerationContext_Undefined: FsrmReportGenerationContext = 1
+FsrmReportGenerationContext_ScheduledReport: FsrmReportGenerationContext = 2
+FsrmReportGenerationContext_InteractiveReport: FsrmReportGenerationContext = 3
+FsrmReportGenerationContext_IncidentReport: FsrmReportGenerationContext = 4
 FsrmReportLimit = Int32
-FsrmReportLimit_MaxFiles = 1
-FsrmReportLimit_MaxFileGroups = 2
-FsrmReportLimit_MaxOwners = 3
-FsrmReportLimit_MaxFilesPerFileGroup = 4
-FsrmReportLimit_MaxFilesPerOwner = 5
-FsrmReportLimit_MaxFilesPerDuplGroup = 6
-FsrmReportLimit_MaxDuplicateGroups = 7
-FsrmReportLimit_MaxQuotas = 8
-FsrmReportLimit_MaxFileScreenEvents = 9
-FsrmReportLimit_MaxPropertyValues = 10
-FsrmReportLimit_MaxFilesPerPropertyValue = 11
-FsrmReportLimit_MaxFolders = 12
+FsrmReportLimit_MaxFiles: FsrmReportLimit = 1
+FsrmReportLimit_MaxFileGroups: FsrmReportLimit = 2
+FsrmReportLimit_MaxOwners: FsrmReportLimit = 3
+FsrmReportLimit_MaxFilesPerFileGroup: FsrmReportLimit = 4
+FsrmReportLimit_MaxFilesPerOwner: FsrmReportLimit = 5
+FsrmReportLimit_MaxFilesPerDuplGroup: FsrmReportLimit = 6
+FsrmReportLimit_MaxDuplicateGroups: FsrmReportLimit = 7
+FsrmReportLimit_MaxQuotas: FsrmReportLimit = 8
+FsrmReportLimit_MaxFileScreenEvents: FsrmReportLimit = 9
+FsrmReportLimit_MaxPropertyValues: FsrmReportLimit = 10
+FsrmReportLimit_MaxFilesPerPropertyValue: FsrmReportLimit = 11
+FsrmReportLimit_MaxFolders: FsrmReportLimit = 12
 FsrmReportManager = Guid('0058ef37-aa66-4c48-bd-5b-2f-ce-43-2a-b0-c8')
 FsrmReportRunningStatus = Int32
-FsrmReportRunningStatus_Unknown = 0
-FsrmReportRunningStatus_NotRunning = 1
-FsrmReportRunningStatus_Queued = 2
-FsrmReportRunningStatus_Running = 3
+FsrmReportRunningStatus_Unknown: FsrmReportRunningStatus = 0
+FsrmReportRunningStatus_NotRunning: FsrmReportRunningStatus = 1
+FsrmReportRunningStatus_Queued: FsrmReportRunningStatus = 2
+FsrmReportRunningStatus_Running: FsrmReportRunningStatus = 3
 FsrmReportScheduler = Guid('ea25f1b8-1b8d-4290-8e-e8-e1-7c-12-c2-fe-20')
 FsrmReportType = Int32
-FsrmReportType_Unknown = 0
-FsrmReportType_LargeFiles = 1
-FsrmReportType_FilesByType = 2
-FsrmReportType_LeastRecentlyAccessed = 3
-FsrmReportType_MostRecentlyAccessed = 4
-FsrmReportType_QuotaUsage = 5
-FsrmReportType_FilesByOwner = 6
-FsrmReportType_ExportReport = 7
-FsrmReportType_DuplicateFiles = 8
-FsrmReportType_FileScreenAudit = 9
-FsrmReportType_FilesByProperty = 10
-FsrmReportType_AutomaticClassification = 11
-FsrmReportType_Expiration = 12
-FsrmReportType_FoldersByProperty = 13
+FsrmReportType_Unknown: FsrmReportType = 0
+FsrmReportType_LargeFiles: FsrmReportType = 1
+FsrmReportType_FilesByType: FsrmReportType = 2
+FsrmReportType_LeastRecentlyAccessed: FsrmReportType = 3
+FsrmReportType_MostRecentlyAccessed: FsrmReportType = 4
+FsrmReportType_QuotaUsage: FsrmReportType = 5
+FsrmReportType_FilesByOwner: FsrmReportType = 6
+FsrmReportType_ExportReport: FsrmReportType = 7
+FsrmReportType_DuplicateFiles: FsrmReportType = 8
+FsrmReportType_FileScreenAudit: FsrmReportType = 9
+FsrmReportType_FilesByProperty: FsrmReportType = 10
+FsrmReportType_AutomaticClassification: FsrmReportType = 11
+FsrmReportType_Expiration: FsrmReportType = 12
+FsrmReportType_FoldersByProperty: FsrmReportType = 13
 FsrmRuleFlags = Int32
-FsrmRuleFlags_Disabled = 256
-FsrmRuleFlags_ClearAutomaticallyClassifiedProperty = 1024
-FsrmRuleFlags_ClearManuallyClassifiedProperty = 2048
-FsrmRuleFlags_Invalid = 4096
+FsrmRuleFlags_Disabled: FsrmRuleFlags = 256
+FsrmRuleFlags_ClearAutomaticallyClassifiedProperty: FsrmRuleFlags = 1024
+FsrmRuleFlags_ClearManuallyClassifiedProperty: FsrmRuleFlags = 2048
+FsrmRuleFlags_Invalid: FsrmRuleFlags = 4096
 FsrmRuleType = Int32
-FsrmRuleType_Unknown = 0
-FsrmRuleType_Classification = 1
-FsrmRuleType_Generic = 2
+FsrmRuleType_Unknown: FsrmRuleType = 0
+FsrmRuleType_Classification: FsrmRuleType = 1
+FsrmRuleType_Generic: FsrmRuleType = 2
 FsrmSetting = Guid('f556d708-6d4d-4594-9c-61-7d-bb-0d-ae-2a-46')
 FsrmStorageModuleCaps = Int32
-FsrmStorageModuleCaps_Unknown = 0
-FsrmStorageModuleCaps_CanGet = 1
-FsrmStorageModuleCaps_CanSet = 2
-FsrmStorageModuleCaps_CanHandleDirectories = 4
-FsrmStorageModuleCaps_CanHandleFiles = 8
+FsrmStorageModuleCaps_Unknown: FsrmStorageModuleCaps = 0
+FsrmStorageModuleCaps_CanGet: FsrmStorageModuleCaps = 1
+FsrmStorageModuleCaps_CanSet: FsrmStorageModuleCaps = 2
+FsrmStorageModuleCaps_CanHandleDirectories: FsrmStorageModuleCaps = 4
+FsrmStorageModuleCaps_CanHandleFiles: FsrmStorageModuleCaps = 8
 FsrmStorageModuleType = Int32
-FsrmStorageModuleType_Unknown = 0
-FsrmStorageModuleType_Cache = 1
-FsrmStorageModuleType_InFile = 2
-FsrmStorageModuleType_Database = 3
-FsrmStorageModuleType_System = 100
+FsrmStorageModuleType_Unknown: FsrmStorageModuleType = 0
+FsrmStorageModuleType_Cache: FsrmStorageModuleType = 1
+FsrmStorageModuleType_InFile: FsrmStorageModuleType = 2
+FsrmStorageModuleType_Database: FsrmStorageModuleType = 3
+FsrmStorageModuleType_System: FsrmStorageModuleType = 100
 FsrmTemplateApplyOptions = Int32
-FsrmTemplateApplyOptions_ApplyToDerivedMatching = 1
-FsrmTemplateApplyOptions_ApplyToDerivedAll = 2
-def _define_IFsrmAccessDeniedRemediationClient_head():
-    class IFsrmAccessDeniedRemediationClient(win32more.System.Com.IDispatch_head):
-        Guid = Guid('40002314-590b-45a5-8e-1b-8c-05-da-52-7e-52')
-    return IFsrmAccessDeniedRemediationClient
-def _define_IFsrmAccessDeniedRemediationClient():
-    IFsrmAccessDeniedRemediationClient = win32more.Storage.FileServerResourceManager.IFsrmAccessDeniedRemediationClient_head
-    IFsrmAccessDeniedRemediationClient.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.AdrClientErrorType,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32))(7, 'Show', ((1, 'parentWnd'),(1, 'accessPath'),(1, 'errorType'),(1, 'flags'),(1, 'windowTitle'),(1, 'windowMessage'),(1, 'result'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmAccessDeniedRemediationClient
-def _define_IFsrmAction_head():
-    class IFsrmAction(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6cd6408a-ae60-463b-9e-f1-e1-17-53-4d-69-dc')
-    return IFsrmAction
-def _define_IFsrmAction():
-    IFsrmAction = win32more.Storage.FileServerResourceManager.IFsrmAction_head
-    IFsrmAction.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(7, 'get_Id', ((1, 'id'),)))
-    IFsrmAction.get_ActionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmActionType))(8, 'get_ActionType', ((1, 'actionType'),)))
-    IFsrmAction.get_RunLimitInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_RunLimitInterval', ((1, 'minutes'),)))
-    IFsrmAction.put_RunLimitInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'put_RunLimitInterval', ((1, 'minutes'),)))
-    IFsrmAction.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmAction
-def _define_IFsrmActionCommand_head():
-    class IFsrmActionCommand(win32more.Storage.FileServerResourceManager.IFsrmAction_head):
-        Guid = Guid('12937789-e247-4917-9c-20-f3-ee-9c-7e-e7-83')
-    return IFsrmActionCommand
-def _define_IFsrmActionCommand():
-    IFsrmActionCommand = win32more.Storage.FileServerResourceManager.IFsrmActionCommand_head
-    IFsrmActionCommand.get_ExecutablePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_ExecutablePath', ((1, 'executablePath'),)))
-    IFsrmActionCommand.put_ExecutablePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_ExecutablePath', ((1, 'executablePath'),)))
-    IFsrmActionCommand.get_Arguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Arguments', ((1, 'arguments'),)))
-    IFsrmActionCommand.put_Arguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_Arguments', ((1, 'arguments'),)))
-    IFsrmActionCommand.get_Account = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmAccountType))(16, 'get_Account', ((1, 'account'),)))
-    IFsrmActionCommand.put_Account = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmAccountType)(17, 'put_Account', ((1, 'account'),)))
-    IFsrmActionCommand.get_WorkingDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_WorkingDirectory', ((1, 'workingDirectory'),)))
-    IFsrmActionCommand.put_WorkingDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_WorkingDirectory', ((1, 'workingDirectory'),)))
-    IFsrmActionCommand.get_MonitorCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(20, 'get_MonitorCommand', ((1, 'monitorCommand'),)))
-    IFsrmActionCommand.put_MonitorCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(21, 'put_MonitorCommand', ((1, 'monitorCommand'),)))
-    IFsrmActionCommand.get_KillTimeOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_KillTimeOut', ((1, 'minutes'),)))
-    IFsrmActionCommand.put_KillTimeOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(23, 'put_KillTimeOut', ((1, 'minutes'),)))
-    IFsrmActionCommand.get_LogResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(24, 'get_LogResult', ((1, 'logResults'),)))
-    IFsrmActionCommand.put_LogResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(25, 'put_LogResult', ((1, 'logResults'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmAction
-    return IFsrmActionCommand
-def _define_IFsrmActionEmail_head():
-    class IFsrmActionEmail(win32more.Storage.FileServerResourceManager.IFsrmAction_head):
-        Guid = Guid('d646567d-26ae-4caa-9f-84-4e-0a-ad-20-7f-ca')
-    return IFsrmActionEmail
-def _define_IFsrmActionEmail():
-    IFsrmActionEmail = win32more.Storage.FileServerResourceManager.IFsrmActionEmail_head
-    IFsrmActionEmail.get_MailFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_MailFrom', ((1, 'mailFrom'),)))
-    IFsrmActionEmail.put_MailFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_MailFrom', ((1, 'mailFrom'),)))
-    IFsrmActionEmail.get_MailReplyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_MailReplyTo', ((1, 'mailReplyTo'),)))
-    IFsrmActionEmail.put_MailReplyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_MailReplyTo', ((1, 'mailReplyTo'),)))
-    IFsrmActionEmail.get_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_MailTo', ((1, 'mailTo'),)))
-    IFsrmActionEmail.put_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'put_MailTo', ((1, 'mailTo'),)))
-    IFsrmActionEmail.get_MailCc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_MailCc', ((1, 'mailCc'),)))
-    IFsrmActionEmail.put_MailCc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_MailCc', ((1, 'mailCc'),)))
-    IFsrmActionEmail.get_MailBcc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(20, 'get_MailBcc', ((1, 'mailBcc'),)))
-    IFsrmActionEmail.put_MailBcc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(21, 'put_MailBcc', ((1, 'mailBcc'),)))
-    IFsrmActionEmail.get_MailSubject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_MailSubject', ((1, 'mailSubject'),)))
-    IFsrmActionEmail.put_MailSubject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(23, 'put_MailSubject', ((1, 'mailSubject'),)))
-    IFsrmActionEmail.get_MessageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_MessageText', ((1, 'messageText'),)))
-    IFsrmActionEmail.put_MessageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(25, 'put_MessageText', ((1, 'messageText'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmAction
-    return IFsrmActionEmail
-def _define_IFsrmActionEmail2_head():
-    class IFsrmActionEmail2(win32more.Storage.FileServerResourceManager.IFsrmActionEmail_head):
-        Guid = Guid('8276702f-2532-4839-89-bf-48-72-60-9a-2e-a4')
-    return IFsrmActionEmail2
-def _define_IFsrmActionEmail2():
-    IFsrmActionEmail2 = win32more.Storage.FileServerResourceManager.IFsrmActionEmail2_head
-    IFsrmActionEmail2.get_AttachmentFileListSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(26, 'get_AttachmentFileListSize', ((1, 'attachmentFileListSize'),)))
-    IFsrmActionEmail2.put_AttachmentFileListSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(27, 'put_AttachmentFileListSize', ((1, 'attachmentFileListSize'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmActionEmail
-    return IFsrmActionEmail2
-def _define_IFsrmActionEventLog_head():
-    class IFsrmActionEventLog(win32more.Storage.FileServerResourceManager.IFsrmAction_head):
-        Guid = Guid('4c8f96c3-5d94-4f37-a4-f4-f5-6a-b4-63-54-6f')
-    return IFsrmActionEventLog
-def _define_IFsrmActionEventLog():
-    IFsrmActionEventLog = win32more.Storage.FileServerResourceManager.IFsrmActionEventLog_head
-    IFsrmActionEventLog.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmEventType))(12, 'get_EventType', ((1, 'eventType'),)))
-    IFsrmActionEventLog.put_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEventType)(13, 'put_EventType', ((1, 'eventType'),)))
-    IFsrmActionEventLog.get_MessageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_MessageText', ((1, 'messageText'),)))
-    IFsrmActionEventLog.put_MessageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_MessageText', ((1, 'messageText'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmAction
-    return IFsrmActionEventLog
-def _define_IFsrmActionReport_head():
-    class IFsrmActionReport(win32more.Storage.FileServerResourceManager.IFsrmAction_head):
-        Guid = Guid('2dbe63c4-b340-48a0-a5-b0-15-8e-07-fc-56-7e')
-    return IFsrmActionReport
-def _define_IFsrmActionReport():
-    IFsrmActionReport = win32more.Storage.FileServerResourceManager.IFsrmActionReport_head
-    IFsrmActionReport.get_ReportTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(12, 'get_ReportTypes', ((1, 'reportTypes'),)))
-    IFsrmActionReport.put_ReportTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(13, 'put_ReportTypes', ((1, 'reportTypes'),)))
-    IFsrmActionReport.get_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_MailTo', ((1, 'mailTo'),)))
-    IFsrmActionReport.put_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_MailTo', ((1, 'mailTo'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmAction
-    return IFsrmActionReport
-def _define_IFsrmAutoApplyQuota_head():
-    class IFsrmAutoApplyQuota(win32more.Storage.FileServerResourceManager.IFsrmQuotaObject_head):
-        Guid = Guid('f82e5729-6aba-4740-bf-c7-c7-f5-8f-75-fb-7b')
-    return IFsrmAutoApplyQuota
-def _define_IFsrmAutoApplyQuota():
-    IFsrmAutoApplyQuota = win32more.Storage.FileServerResourceManager.IFsrmAutoApplyQuota_head
-    IFsrmAutoApplyQuota.get_ExcludeFolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(28, 'get_ExcludeFolders', ((1, 'folders'),)))
-    IFsrmAutoApplyQuota.put_ExcludeFolders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(29, 'put_ExcludeFolders', ((1, 'folders'),)))
-    IFsrmAutoApplyQuota.CommitAndUpdateDerived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmCommitOptions,win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head))(30, 'CommitAndUpdateDerived', ((1, 'commitOptions'),(1, 'applyOptions'),(1, 'derivedObjectsResult'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaObject
-    return IFsrmAutoApplyQuota
-def _define_IFsrmClassificationManager_head():
-    class IFsrmClassificationManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d2dc89da-ee91-48a0-85-d8-cc-72-a5-6f-7d-04')
-    return IFsrmClassificationManager
-def _define_IFsrmClassificationManager():
-    IFsrmClassificationManager = win32more.Storage.FileServerResourceManager.IFsrmClassificationManager_head
-    IFsrmClassificationManager.get_ClassificationReportFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'get_ClassificationReportFormats', ((1, 'formats'),)))
-    IFsrmClassificationManager.put_ClassificationReportFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(8, 'put_ClassificationReportFormats', ((1, 'formats'),)))
-    IFsrmClassificationManager.get_Logging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Logging', ((1, 'logging'),)))
-    IFsrmClassificationManager.put_Logging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(10, 'put_Logging', ((1, 'logging'),)))
-    IFsrmClassificationManager.get_ClassificationReportMailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_ClassificationReportMailTo', ((1, 'mailTo'),)))
-    IFsrmClassificationManager.put_ClassificationReportMailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_ClassificationReportMailTo', ((1, 'mailTo'),)))
-    IFsrmClassificationManager.get_ClassificationReportEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'get_ClassificationReportEnabled', ((1, 'reportEnabled'),)))
-    IFsrmClassificationManager.put_ClassificationReportEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(14, 'put_ClassificationReportEnabled', ((1, 'reportEnabled'),)))
-    IFsrmClassificationManager.get_ClassificationLastReportPathWithoutExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_ClassificationLastReportPathWithoutExtension', ((1, 'lastReportPath'),)))
-    IFsrmClassificationManager.get_ClassificationLastError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_ClassificationLastError', ((1, 'lastError'),)))
-    IFsrmClassificationManager.get_ClassificationRunningStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus))(17, 'get_ClassificationRunningStatus', ((1, 'runningStatus'),)))
-    IFsrmClassificationManager.EnumPropertyDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(18, 'EnumPropertyDefinitions', ((1, 'options'),(1, 'propertyDefinitions'),)))
-    IFsrmClassificationManager.CreatePropertyDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head))(19, 'CreatePropertyDefinition', ((1, 'propertyDefinition'),)))
-    IFsrmClassificationManager.GetPropertyDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head))(20, 'GetPropertyDefinition', ((1, 'propertyName'),(1, 'propertyDefinition'),)))
-    IFsrmClassificationManager.EnumRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmRuleType,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(21, 'EnumRules', ((1, 'ruleType'),(1, 'options'),(1, 'Rules'),)))
-    IFsrmClassificationManager.CreateRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmRuleType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmRule_head))(22, 'CreateRule', ((1, 'ruleType'),(1, 'Rule'),)))
-    IFsrmClassificationManager.GetRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmRuleType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmRule_head))(23, 'GetRule', ((1, 'ruleName'),(1, 'ruleType'),(1, 'Rule'),)))
-    IFsrmClassificationManager.EnumModuleDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(24, 'EnumModuleDefinitions', ((1, 'moduleType'),(1, 'options'),(1, 'moduleDefinitions'),)))
-    IFsrmClassificationManager.CreateModuleDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head))(25, 'CreateModuleDefinition', ((1, 'moduleType'),(1, 'moduleDefinition'),)))
-    IFsrmClassificationManager.GetModuleDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head))(26, 'GetModuleDefinition', ((1, 'moduleName'),(1, 'moduleType'),(1, 'moduleDefinition'),)))
-    IFsrmClassificationManager.RunClassification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext,win32more.Foundation.BSTR)(27, 'RunClassification', ((1, 'context'),(1, 'reserved'),)))
-    IFsrmClassificationManager.WaitForClassificationCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(28, 'WaitForClassificationCompletion', ((1, 'waitSeconds'),(1, 'completed'),)))
-    IFsrmClassificationManager.CancelClassification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(29, 'CancelClassification', ()))
-    IFsrmClassificationManager.EnumFileProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(30, 'EnumFileProperties', ((1, 'filePath'),(1, 'options'),(1, 'fileProperties'),)))
-    IFsrmClassificationManager.GetFileProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmProperty_head))(31, 'GetFileProperty', ((1, 'filePath'),(1, 'propertyName'),(1, 'options'),(1, 'property'),)))
-    IFsrmClassificationManager.SetFileProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(32, 'SetFileProperty', ((1, 'filePath'),(1, 'propertyName'),(1, 'propertyValue'),)))
-    IFsrmClassificationManager.ClearFileProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(33, 'ClearFileProperty', ((1, 'filePath'),(1, 'property'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmClassificationManager
-def _define_IFsrmClassificationManager2_head():
-    class IFsrmClassificationManager2(win32more.Storage.FileServerResourceManager.IFsrmClassificationManager_head):
-        Guid = Guid('0004c1c9-127e-4765-ba-07-6a-31-47-bc-a1-12')
-    return IFsrmClassificationManager2
-def _define_IFsrmClassificationManager2():
-    IFsrmClassificationManager2 = win32more.Storage.FileServerResourceManager.IFsrmClassificationManager2_head
-    IFsrmClassificationManager2.ClassifyFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(win32more.System.Com.SAFEARRAY_head),win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions)(34, 'ClassifyFiles', ((1, 'filePaths'),(1, 'propertyNames'),(1, 'propertyValues'),(1, 'options'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmClassificationManager
-    return IFsrmClassificationManager2
-def _define_IFsrmClassificationRule_head():
-    class IFsrmClassificationRule(win32more.Storage.FileServerResourceManager.IFsrmRule_head):
-        Guid = Guid('afc052c2-5315-45ab-84-1b-c6-db-0e-12-01-48')
-    return IFsrmClassificationRule
-def _define_IFsrmClassificationRule():
-    IFsrmClassificationRule = win32more.Storage.FileServerResourceManager.IFsrmClassificationRule_head
-    IFsrmClassificationRule.get_ExecutionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmExecutionOption))(24, 'get_ExecutionOption', ((1, 'executionOption'),)))
-    IFsrmClassificationRule.put_ExecutionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmExecutionOption)(25, 'put_ExecutionOption', ((1, 'executionOption'),)))
-    IFsrmClassificationRule.get_PropertyAffected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(26, 'get_PropertyAffected', ((1, 'property'),)))
-    IFsrmClassificationRule.put_PropertyAffected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(27, 'put_PropertyAffected', ((1, 'property'),)))
-    IFsrmClassificationRule.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(28, 'get_Value', ((1, 'value'),)))
-    IFsrmClassificationRule.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(29, 'put_Value', ((1, 'value'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmRule
-    return IFsrmClassificationRule
-def _define_IFsrmClassifierModuleDefinition_head():
-    class IFsrmClassifierModuleDefinition(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head):
-        Guid = Guid('bb36ea26-6318-4b8c-85-92-f7-2d-d6-02-e7-a5')
-    return IFsrmClassifierModuleDefinition
-def _define_IFsrmClassifierModuleDefinition():
-    IFsrmClassifierModuleDefinition = win32more.Storage.FileServerResourceManager.IFsrmClassifierModuleDefinition_head
-    IFsrmClassifierModuleDefinition.get_PropertiesAffected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(31, 'get_PropertiesAffected', ((1, 'propertiesAffected'),)))
-    IFsrmClassifierModuleDefinition.put_PropertiesAffected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(32, 'put_PropertiesAffected', ((1, 'propertiesAffected'),)))
-    IFsrmClassifierModuleDefinition.get_PropertiesUsed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(33, 'get_PropertiesUsed', ((1, 'propertiesUsed'),)))
-    IFsrmClassifierModuleDefinition.put_PropertiesUsed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(34, 'put_PropertiesUsed', ((1, 'propertiesUsed'),)))
-    IFsrmClassifierModuleDefinition.get_NeedsExplicitValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(35, 'get_NeedsExplicitValue', ((1, 'needsExplicitValue'),)))
-    IFsrmClassifierModuleDefinition.put_NeedsExplicitValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(36, 'put_NeedsExplicitValue', ((1, 'needsExplicitValue'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
-    return IFsrmClassifierModuleDefinition
-def _define_IFsrmClassifierModuleImplementation_head():
-    class IFsrmClassifierModuleImplementation(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head):
-        Guid = Guid('4c968fc6-6edb-4051-9c-18-73-b7-29-1a-e1-06')
-    return IFsrmClassifierModuleImplementation
-def _define_IFsrmClassifierModuleImplementation():
-    IFsrmClassifierModuleImplementation = win32more.Storage.FileServerResourceManager.IFsrmClassifierModuleImplementation_head
-    IFsrmClassifierModuleImplementation.get_LastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(9, 'get_LastModified', ((1, 'lastModified'),)))
-    IFsrmClassifierModuleImplementation.UseRulesAndDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmCollection_head,win32more.Storage.FileServerResourceManager.IFsrmCollection_head)(10, 'UseRulesAndDefinitions', ((1, 'rules'),(1, 'propertyDefinitions'),)))
-    IFsrmClassifierModuleImplementation.OnBeginFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head,POINTER(win32more.System.Com.SAFEARRAY_head))(11, 'OnBeginFile', ((1, 'propertyBag'),(1, 'arrayRuleIds'),)))
-    IFsrmClassifierModuleImplementation.DoesPropertyValueApply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.VARIANT_BOOL),Guid,Guid)(12, 'DoesPropertyValueApply', ((1, 'property'),(1, 'value'),(1, 'applyValue'),(1, 'idRule'),(1, 'idPropDef'),)))
-    IFsrmClassifierModuleImplementation.GetPropertyValueToApply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),Guid,Guid)(13, 'GetPropertyValueToApply', ((1, 'property'),(1, 'value'),(1, 'idRule'),(1, 'idPropDef'),)))
-    IFsrmClassifierModuleImplementation.OnEndFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(14, 'OnEndFile', ()))
-    win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
-    return IFsrmClassifierModuleImplementation
-def _define_IFsrmCollection_head():
-    class IFsrmCollection(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f76fbf3b-8ddd-4b42-b0-5a-cb-1c-3f-f1-fe-e8')
-    return IFsrmCollection
-def _define_IFsrmCollection():
-    IFsrmCollection = win32more.Storage.FileServerResourceManager.IFsrmCollection_head
-    IFsrmCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head))(7, 'get__NewEnum', ((1, 'unknown'),)))
-    IFsrmCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head))(8, 'get_Item', ((1, 'index'),(1, 'item'),)))
-    IFsrmCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(9, 'get_Count', ((1, 'count'),)))
-    IFsrmCollection.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmCollectionState))(10, 'get_State', ((1, 'state'),)))
-    IFsrmCollection.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Cancel', ()))
-    IFsrmCollection.WaitForCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'WaitForCompletion', ((1, 'waitSeconds'),(1, 'completed'),)))
-    IFsrmCollection.GetById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.VARIANT_head))(13, 'GetById', ((1, 'id'),(1, 'entry'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmCollection
-def _define_IFsrmCommittableCollection_head():
-    class IFsrmCommittableCollection(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head):
-        Guid = Guid('96deb3b5-8b91-4a2a-9d-93-80-a3-5d-8a-a8-47')
-    return IFsrmCommittableCollection
-def _define_IFsrmCommittableCollection():
-    IFsrmCommittableCollection = win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head
-    IFsrmCommittableCollection.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmCommitOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(18, 'Commit', ((1, 'options'),(1, 'results'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmMutableCollection
-    return IFsrmCommittableCollection
-def _define_IFsrmDerivedObjectsResult_head():
-    class IFsrmDerivedObjectsResult(win32more.System.Com.IDispatch_head):
-        Guid = Guid('39322a2d-38ee-4d0d-80-95-42-1a-80-84-9a-82')
-    return IFsrmDerivedObjectsResult
-def _define_IFsrmDerivedObjectsResult():
-    IFsrmDerivedObjectsResult = win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head
-    IFsrmDerivedObjectsResult.get_DerivedObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(7, 'get_DerivedObjects', ((1, 'derivedObjects'),)))
-    IFsrmDerivedObjectsResult.get_Results = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(8, 'get_Results', ((1, 'results'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmDerivedObjectsResult
-def _define_IFsrmExportImport_head():
-    class IFsrmExportImport(win32more.System.Com.IDispatch_head):
-        Guid = Guid('efcb0ab1-16c4-4a79-81-2c-72-56-14-c3-30-6b')
-    return IFsrmExportImport
-def _define_IFsrmExportImport():
-    IFsrmExportImport = win32more.Storage.FileServerResourceManager.IFsrmExportImport_head
-    IFsrmExportImport.ExportFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR)(7, 'ExportFileGroups', ((1, 'filePath'),(1, 'fileGroupNamesSafeArray'),(1, 'remoteHost'),)))
-    IFsrmExportImport.ImportFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(8, 'ImportFileGroups', ((1, 'filePath'),(1, 'fileGroupNamesSafeArray'),(1, 'remoteHost'),(1, 'fileGroups'),)))
-    IFsrmExportImport.ExportFileScreenTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR)(9, 'ExportFileScreenTemplates', ((1, 'filePath'),(1, 'templateNamesSafeArray'),(1, 'remoteHost'),)))
-    IFsrmExportImport.ImportFileScreenTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(10, 'ImportFileScreenTemplates', ((1, 'filePath'),(1, 'templateNamesSafeArray'),(1, 'remoteHost'),(1, 'templates'),)))
-    IFsrmExportImport.ExportQuotaTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR)(11, 'ExportQuotaTemplates', ((1, 'filePath'),(1, 'templateNamesSafeArray'),(1, 'remoteHost'),)))
-    IFsrmExportImport.ImportQuotaTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(12, 'ImportQuotaTemplates', ((1, 'filePath'),(1, 'templateNamesSafeArray'),(1, 'remoteHost'),(1, 'templates'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmExportImport
-def _define_IFsrmFileCondition_head():
-    class IFsrmFileCondition(win32more.System.Com.IDispatch_head):
-        Guid = Guid('70684ffc-691a-4a1a-b9-22-97-75-2e-13-8c-c1')
-    return IFsrmFileCondition
-def _define_IFsrmFileCondition():
-    IFsrmFileCondition = win32more.Storage.FileServerResourceManager.IFsrmFileCondition_head
-    IFsrmFileCondition.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmFileConditionType))(7, 'get_Type', ((1, 'pVal'),)))
-    IFsrmFileCondition.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmFileCondition
-def _define_IFsrmFileConditionProperty_head():
-    class IFsrmFileConditionProperty(win32more.Storage.FileServerResourceManager.IFsrmFileCondition_head):
-        Guid = Guid('81926775-b981-4479-98-8f-da-17-1d-62-73-60')
-    return IFsrmFileConditionProperty
-def _define_IFsrmFileConditionProperty():
-    IFsrmFileConditionProperty = win32more.Storage.FileServerResourceManager.IFsrmFileConditionProperty_head
-    IFsrmFileConditionProperty.get_PropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_PropertyName', ((1, 'pVal'),)))
-    IFsrmFileConditionProperty.put_PropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_PropertyName', ((1, 'newVal'),)))
-    IFsrmFileConditionProperty.get_PropertyId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmFileSystemPropertyId))(11, 'get_PropertyId', ((1, 'pVal'),)))
-    IFsrmFileConditionProperty.put_PropertyId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmFileSystemPropertyId)(12, 'put_PropertyId', ((1, 'newVal'),)))
-    IFsrmFileConditionProperty.get_Operator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType))(13, 'get_Operator', ((1, 'pVal'),)))
-    IFsrmFileConditionProperty.put_Operator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType)(14, 'put_Operator', ((1, 'newVal'),)))
-    IFsrmFileConditionProperty.get_ValueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyValueType))(15, 'get_ValueType', ((1, 'pVal'),)))
-    IFsrmFileConditionProperty.put_ValueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPropertyValueType)(16, 'put_ValueType', ((1, 'newVal'),)))
-    IFsrmFileConditionProperty.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(17, 'get_Value', ((1, 'pVal'),)))
-    IFsrmFileConditionProperty.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(18, 'put_Value', ((1, 'newVal'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmFileCondition
-    return IFsrmFileConditionProperty
-def _define_IFsrmFileGroup_head():
-    class IFsrmFileGroup(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('8dd04909-0e34-4d55-af-aa-89-e1-f1-a1-bb-b9')
-    return IFsrmFileGroup
-def _define_IFsrmFileGroup():
-    IFsrmFileGroup = win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head
-    IFsrmFileGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Name', ((1, 'name'),)))
-    IFsrmFileGroup.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Name', ((1, 'name'),)))
-    IFsrmFileGroup.get_Members = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head))(14, 'get_Members', ((1, 'members'),)))
-    IFsrmFileGroup.put_Members = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)(15, 'put_Members', ((1, 'members'),)))
-    IFsrmFileGroup.get_NonMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head))(16, 'get_NonMembers', ((1, 'nonMembers'),)))
-    IFsrmFileGroup.put_NonMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)(17, 'put_NonMembers', ((1, 'nonMembers'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmFileGroup
-def _define_IFsrmFileGroupImported_head():
-    class IFsrmFileGroupImported(win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head):
-        Guid = Guid('ad55f10b-5f11-4be7-94-ef-d9-ee-2e-47-0d-ed')
-    return IFsrmFileGroupImported
-def _define_IFsrmFileGroupImported():
-    IFsrmFileGroupImported = win32more.Storage.FileServerResourceManager.IFsrmFileGroupImported_head
-    IFsrmFileGroupImported.get_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(18, 'get_OverwriteOnCommit', ((1, 'overwrite'),)))
-    IFsrmFileGroupImported.put_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(19, 'put_OverwriteOnCommit', ((1, 'overwrite'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmFileGroup
-    return IFsrmFileGroupImported
-def _define_IFsrmFileGroupManager_head():
-    class IFsrmFileGroupManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('426677d5-018c-485c-8a-51-20-b8-6d-00-bd-c4')
-    return IFsrmFileGroupManager
-def _define_IFsrmFileGroupManager():
-    IFsrmFileGroupManager = win32more.Storage.FileServerResourceManager.IFsrmFileGroupManager_head
-    IFsrmFileGroupManager.CreateFileGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head))(7, 'CreateFileGroup', ((1, 'fileGroup'),)))
-    IFsrmFileGroupManager.GetFileGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head))(8, 'GetFileGroup', ((1, 'name'),(1, 'fileGroup'),)))
-    IFsrmFileGroupManager.EnumFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(9, 'EnumFileGroups', ((1, 'options'),(1, 'fileGroups'),)))
-    IFsrmFileGroupManager.ExportFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR))(10, 'ExportFileGroups', ((1, 'fileGroupNamesArray'),(1, 'serializedFileGroups'),)))
-    IFsrmFileGroupManager.ImportFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(11, 'ImportFileGroups', ((1, 'serializedFileGroups'),(1, 'fileGroupNamesArray'),(1, 'fileGroups'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmFileGroupManager
-def _define_IFsrmFileManagementJob_head():
-    class IFsrmFileManagementJob(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('0770687e-9f36-4d6f-87-78-59-9d-18-84-61-c9')
-    return IFsrmFileManagementJob
-def _define_IFsrmFileManagementJob():
-    IFsrmFileManagementJob = win32more.Storage.FileServerResourceManager.IFsrmFileManagementJob_head
-    IFsrmFileManagementJob.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Name', ((1, 'name'),)))
-    IFsrmFileManagementJob.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Name', ((1, 'name'),)))
-    IFsrmFileManagementJob.get_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(14, 'get_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmFileManagementJob.put_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(15, 'put_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmFileManagementJob.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(16, 'get_Enabled', ((1, 'enabled'),)))
-    IFsrmFileManagementJob.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(17, 'put_Enabled', ((1, 'enabled'),)))
-    IFsrmFileManagementJob.get_OperationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmFileManagementType))(18, 'get_OperationType', ((1, 'operationType'),)))
-    IFsrmFileManagementJob.put_OperationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmFileManagementType)(19, 'put_OperationType', ((1, 'operationType'),)))
-    IFsrmFileManagementJob.get_ExpirationDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(20, 'get_ExpirationDirectory', ((1, 'expirationDirectory'),)))
-    IFsrmFileManagementJob.put_ExpirationDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(21, 'put_ExpirationDirectory', ((1, 'expirationDirectory'),)))
-    IFsrmFileManagementJob.get_CustomAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmActionCommand_head))(22, 'get_CustomAction', ((1, 'action'),)))
-    IFsrmFileManagementJob.get_Notifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(23, 'get_Notifications', ((1, 'notifications'),)))
-    IFsrmFileManagementJob.get_Logging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(24, 'get_Logging', ((1, 'loggingFlags'),)))
-    IFsrmFileManagementJob.put_Logging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(25, 'put_Logging', ((1, 'loggingFlags'),)))
-    IFsrmFileManagementJob.get_ReportEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(26, 'get_ReportEnabled', ((1, 'reportEnabled'),)))
-    IFsrmFileManagementJob.put_ReportEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(27, 'put_ReportEnabled', ((1, 'reportEnabled'),)))
-    IFsrmFileManagementJob.get_Formats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(28, 'get_Formats', ((1, 'formats'),)))
-    IFsrmFileManagementJob.put_Formats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(29, 'put_Formats', ((1, 'formats'),)))
-    IFsrmFileManagementJob.get_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(30, 'get_MailTo', ((1, 'mailTo'),)))
-    IFsrmFileManagementJob.put_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(31, 'put_MailTo', ((1, 'mailTo'),)))
-    IFsrmFileManagementJob.get_DaysSinceFileCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(32, 'get_DaysSinceFileCreated', ((1, 'daysSinceCreation'),)))
-    IFsrmFileManagementJob.put_DaysSinceFileCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(33, 'put_DaysSinceFileCreated', ((1, 'daysSinceCreation'),)))
-    IFsrmFileManagementJob.get_DaysSinceFileLastAccessed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(34, 'get_DaysSinceFileLastAccessed', ((1, 'daysSinceAccess'),)))
-    IFsrmFileManagementJob.put_DaysSinceFileLastAccessed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(35, 'put_DaysSinceFileLastAccessed', ((1, 'daysSinceAccess'),)))
-    IFsrmFileManagementJob.get_DaysSinceFileLastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(36, 'get_DaysSinceFileLastModified', ((1, 'daysSinceModify'),)))
-    IFsrmFileManagementJob.put_DaysSinceFileLastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(37, 'put_DaysSinceFileLastModified', ((1, 'daysSinceModify'),)))
-    IFsrmFileManagementJob.get_PropertyConditions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(38, 'get_PropertyConditions', ((1, 'propertyConditions'),)))
-    IFsrmFileManagementJob.get_FromDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(39, 'get_FromDate', ((1, 'fromDate'),)))
-    IFsrmFileManagementJob.put_FromDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double)(40, 'put_FromDate', ((1, 'fromDate'),)))
-    IFsrmFileManagementJob.get_Task = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(41, 'get_Task', ((1, 'taskName'),)))
-    IFsrmFileManagementJob.put_Task = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(42, 'put_Task', ((1, 'taskName'),)))
-    IFsrmFileManagementJob.get_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(43, 'get_Parameters', ((1, 'parameters'),)))
-    IFsrmFileManagementJob.put_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(44, 'put_Parameters', ((1, 'parameters'),)))
-    IFsrmFileManagementJob.get_RunningStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus))(45, 'get_RunningStatus', ((1, 'runningStatus'),)))
-    IFsrmFileManagementJob.get_LastError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(46, 'get_LastError', ((1, 'lastError'),)))
-    IFsrmFileManagementJob.get_LastReportPathWithoutExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(47, 'get_LastReportPathWithoutExtension', ((1, 'path'),)))
-    IFsrmFileManagementJob.get_LastRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(48, 'get_LastRun', ((1, 'lastRun'),)))
-    IFsrmFileManagementJob.get_FileNamePattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(49, 'get_FileNamePattern', ((1, 'fileNamePattern'),)))
-    IFsrmFileManagementJob.put_FileNamePattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(50, 'put_FileNamePattern', ((1, 'fileNamePattern'),)))
-    IFsrmFileManagementJob.Run = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext)(51, 'Run', ((1, 'context'),)))
-    IFsrmFileManagementJob.WaitForCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(52, 'WaitForCompletion', ((1, 'waitSeconds'),(1, 'completed'),)))
-    IFsrmFileManagementJob.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(53, 'Cancel', ()))
-    IFsrmFileManagementJob.AddNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(54, 'AddNotification', ((1, 'days'),)))
-    IFsrmFileManagementJob.DeleteNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(55, 'DeleteNotification', ((1, 'days'),)))
-    IFsrmFileManagementJob.ModifyNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(56, 'ModifyNotification', ((1, 'days'),(1, 'newDays'),)))
-    IFsrmFileManagementJob.CreateNotificationAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Storage.FileServerResourceManager.FsrmActionType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head))(57, 'CreateNotificationAction', ((1, 'days'),(1, 'actionType'),(1, 'action'),)))
-    IFsrmFileManagementJob.EnumNotificationActions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(58, 'EnumNotificationActions', ((1, 'days'),(1, 'actions'),)))
-    IFsrmFileManagementJob.CreatePropertyCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyCondition_head))(59, 'CreatePropertyCondition', ((1, 'name'),(1, 'propertyCondition'),)))
-    IFsrmFileManagementJob.CreateCustomAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmActionCommand_head))(60, 'CreateCustomAction', ((1, 'customAction'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmFileManagementJob
-def _define_IFsrmFileManagementJobManager_head():
-    class IFsrmFileManagementJobManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ee321ecb-d95e-48e9-90-7c-c7-68-5a-01-32-35')
-    return IFsrmFileManagementJobManager
-def _define_IFsrmFileManagementJobManager():
-    IFsrmFileManagementJobManager = win32more.Storage.FileServerResourceManager.IFsrmFileManagementJobManager_head
-    IFsrmFileManagementJobManager.get_ActionVariables = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'get_ActionVariables', ((1, 'variables'),)))
-    IFsrmFileManagementJobManager.get_ActionVariableDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'get_ActionVariableDescriptions', ((1, 'descriptions'),)))
-    IFsrmFileManagementJobManager.EnumFileManagementJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(9, 'EnumFileManagementJobs', ((1, 'options'),(1, 'fileManagementJobs'),)))
-    IFsrmFileManagementJobManager.CreateFileManagementJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileManagementJob_head))(10, 'CreateFileManagementJob', ((1, 'fileManagementJob'),)))
-    IFsrmFileManagementJobManager.GetFileManagementJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileManagementJob_head))(11, 'GetFileManagementJob', ((1, 'name'),(1, 'fileManagementJob'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmFileManagementJobManager
-def _define_IFsrmFileScreen_head():
-    class IFsrmFileScreen(win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase_head):
-        Guid = Guid('5f6325d3-ce88-4733-84-c1-2d-6a-ef-c5-ea-07')
-    return IFsrmFileScreen
-def _define_IFsrmFileScreen():
-    IFsrmFileScreen = win32more.Storage.FileServerResourceManager.IFsrmFileScreen_head
-    IFsrmFileScreen.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_Path', ((1, 'path'),)))
-    IFsrmFileScreen.get_SourceTemplateName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(19, 'get_SourceTemplateName', ((1, 'fileScreenTemplateName'),)))
-    IFsrmFileScreen.get_MatchesSourceTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(20, 'get_MatchesSourceTemplate', ((1, 'matches'),)))
-    IFsrmFileScreen.get_UserSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(21, 'get_UserSid', ((1, 'userSid'),)))
-    IFsrmFileScreen.get_UserAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_UserAccount', ((1, 'userAccount'),)))
-    IFsrmFileScreen.ApplyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(23, 'ApplyTemplate', ((1, 'fileScreenTemplateName'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase
-    return IFsrmFileScreen
-def _define_IFsrmFileScreenBase_head():
-    class IFsrmFileScreenBase(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('f3637e80-5b22-4a2b-a6-37-bb-b6-42-b4-1c-fc')
-    return IFsrmFileScreenBase
-def _define_IFsrmFileScreenBase():
-    IFsrmFileScreenBase = win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase_head
-    IFsrmFileScreenBase.get_BlockedFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head))(12, 'get_BlockedFileGroups', ((1, 'blockList'),)))
-    IFsrmFileScreenBase.put_BlockedFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)(13, 'put_BlockedFileGroups', ((1, 'blockList'),)))
-    IFsrmFileScreenBase.get_FileScreenFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_FileScreenFlags', ((1, 'fileScreenFlags'),)))
-    IFsrmFileScreenBase.put_FileScreenFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(15, 'put_FileScreenFlags', ((1, 'fileScreenFlags'),)))
-    IFsrmFileScreenBase.CreateAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmActionType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head))(16, 'CreateAction', ((1, 'actionType'),(1, 'action'),)))
-    IFsrmFileScreenBase.EnumActions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(17, 'EnumActions', ((1, 'actions'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmFileScreenBase
-def _define_IFsrmFileScreenException_head():
-    class IFsrmFileScreenException(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('bee7ce02-df77-4515-93-89-78-f0-1c-5a-fc-1a')
-    return IFsrmFileScreenException
-def _define_IFsrmFileScreenException():
-    IFsrmFileScreenException = win32more.Storage.FileServerResourceManager.IFsrmFileScreenException_head
-    IFsrmFileScreenException.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Path', ((1, 'path'),)))
-    IFsrmFileScreenException.get_AllowedFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head))(13, 'get_AllowedFileGroups', ((1, 'allowList'),)))
-    IFsrmFileScreenException.put_AllowedFileGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)(14, 'put_AllowedFileGroups', ((1, 'allowList'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmFileScreenException
-def _define_IFsrmFileScreenManager_head():
-    class IFsrmFileScreenManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('ff4fa04e-5a94-4bda-a3-a0-d5-b4-d3-c5-2e-ba')
-    return IFsrmFileScreenManager
-def _define_IFsrmFileScreenManager():
-    IFsrmFileScreenManager = win32more.Storage.FileServerResourceManager.IFsrmFileScreenManager_head
-    IFsrmFileScreenManager.get_ActionVariables = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'get_ActionVariables', ((1, 'variables'),)))
-    IFsrmFileScreenManager.get_ActionVariableDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'get_ActionVariableDescriptions', ((1, 'descriptions'),)))
-    IFsrmFileScreenManager.CreateFileScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreen_head))(9, 'CreateFileScreen', ((1, 'path'),(1, 'fileScreen'),)))
-    IFsrmFileScreenManager.GetFileScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreen_head))(10, 'GetFileScreen', ((1, 'path'),(1, 'fileScreen'),)))
-    IFsrmFileScreenManager.EnumFileScreens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(11, 'EnumFileScreens', ((1, 'path'),(1, 'options'),(1, 'fileScreens'),)))
-    IFsrmFileScreenManager.CreateFileScreenException = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenException_head))(12, 'CreateFileScreenException', ((1, 'path'),(1, 'fileScreenException'),)))
-    IFsrmFileScreenManager.GetFileScreenException = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenException_head))(13, 'GetFileScreenException', ((1, 'path'),(1, 'fileScreenException'),)))
-    IFsrmFileScreenManager.EnumFileScreenExceptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(14, 'EnumFileScreenExceptions', ((1, 'path'),(1, 'options'),(1, 'fileScreenExceptions'),)))
-    IFsrmFileScreenManager.CreateFileScreenCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(15, 'CreateFileScreenCollection', ((1, 'collection'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmFileScreenManager
-def _define_IFsrmFileScreenTemplate_head():
-    class IFsrmFileScreenTemplate(win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase_head):
-        Guid = Guid('205bebf8-dd93-452a-95-a6-32-b5-66-b3-58-28')
-    return IFsrmFileScreenTemplate
-def _define_IFsrmFileScreenTemplate():
-    IFsrmFileScreenTemplate = win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head
-    IFsrmFileScreenTemplate.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_Name', ((1, 'name'),)))
-    IFsrmFileScreenTemplate.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_Name', ((1, 'name'),)))
-    IFsrmFileScreenTemplate.CopyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(20, 'CopyTemplate', ((1, 'fileScreenTemplateName'),)))
-    IFsrmFileScreenTemplate.CommitAndUpdateDerived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmCommitOptions,win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head))(21, 'CommitAndUpdateDerived', ((1, 'commitOptions'),(1, 'applyOptions'),(1, 'derivedObjectsResult'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase
-    return IFsrmFileScreenTemplate
-def _define_IFsrmFileScreenTemplateImported_head():
-    class IFsrmFileScreenTemplateImported(win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head):
-        Guid = Guid('e1010359-3e5d-4ecd-9f-e4-ef-48-62-2f-df-30')
-    return IFsrmFileScreenTemplateImported
-def _define_IFsrmFileScreenTemplateImported():
-    IFsrmFileScreenTemplateImported = win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplateImported_head
-    IFsrmFileScreenTemplateImported.get_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(22, 'get_OverwriteOnCommit', ((1, 'overwrite'),)))
-    IFsrmFileScreenTemplateImported.put_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(23, 'put_OverwriteOnCommit', ((1, 'overwrite'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate
-    return IFsrmFileScreenTemplateImported
-def _define_IFsrmFileScreenTemplateManager_head():
-    class IFsrmFileScreenTemplateManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('cfe36cba-1949-4e74-a1-4f-f1-d5-80-ce-af-13')
-    return IFsrmFileScreenTemplateManager
-def _define_IFsrmFileScreenTemplateManager():
-    IFsrmFileScreenTemplateManager = win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplateManager_head
-    IFsrmFileScreenTemplateManager.CreateTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head))(7, 'CreateTemplate', ((1, 'fileScreenTemplate'),)))
-    IFsrmFileScreenTemplateManager.GetTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head))(8, 'GetTemplate', ((1, 'name'),(1, 'fileScreenTemplate'),)))
-    IFsrmFileScreenTemplateManager.EnumTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(9, 'EnumTemplates', ((1, 'options'),(1, 'fileScreenTemplates'),)))
-    IFsrmFileScreenTemplateManager.ExportTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR))(10, 'ExportTemplates', ((1, 'fileScreenTemplateNamesArray'),(1, 'serializedFileScreenTemplates'),)))
-    IFsrmFileScreenTemplateManager.ImportTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(11, 'ImportTemplates', ((1, 'serializedFileScreenTemplates'),(1, 'fileScreenTemplateNamesArray'),(1, 'fileScreenTemplates'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmFileScreenTemplateManager
-def _define_IFsrmMutableCollection_head():
-    class IFsrmMutableCollection(win32more.Storage.FileServerResourceManager.IFsrmCollection_head):
-        Guid = Guid('1bb617b8-3886-49dc-af-82-a6-c9-0f-a3-5d-da')
-    return IFsrmMutableCollection
-def _define_IFsrmMutableCollection():
-    IFsrmMutableCollection = win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head
-    IFsrmMutableCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(14, 'Add', ((1, 'item'),)))
-    IFsrmMutableCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(15, 'Remove', ((1, 'index'),)))
-    IFsrmMutableCollection.RemoveById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid)(16, 'RemoveById', ((1, 'id'),)))
-    IFsrmMutableCollection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head))(17, 'Clone', ((1, 'collection'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmCollection
-    return IFsrmMutableCollection
-def _define_IFsrmObject_head():
-    class IFsrmObject(win32more.System.Com.IDispatch_head):
-        Guid = Guid('22bcef93-4a3f-4183-89-f9-2f-8b-8a-62-8a-ee')
-    return IFsrmObject
-def _define_IFsrmObject():
-    IFsrmObject = win32more.Storage.FileServerResourceManager.IFsrmObject_head
-    IFsrmObject.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(7, 'get_Id', ((1, 'id'),)))
-    IFsrmObject.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Description', ((1, 'description'),)))
-    IFsrmObject.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_Description', ((1, 'description'),)))
-    IFsrmObject.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(10, 'Delete', ()))
-    IFsrmObject.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(11, 'Commit', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmObject
-def _define_IFsrmPathMapper_head():
-    class IFsrmPathMapper(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6f4dbfff-6920-4821-a6-c3-b7-e9-4c-1f-d6-0c')
-    return IFsrmPathMapper
-def _define_IFsrmPathMapper():
-    IFsrmPathMapper = win32more.Storage.FileServerResourceManager.IFsrmPathMapper_head
-    IFsrmPathMapper.GetSharePathsForLocalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'GetSharePathsForLocalPath', ((1, 'localPath'),(1, 'sharePaths'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmPathMapper
-def _define_IFsrmPipelineModuleConnector_head():
-    class IFsrmPipelineModuleConnector(win32more.System.Com.IDispatch_head):
-        Guid = Guid('c16014f3-9aa1-46b3-b0-a7-ab-14-6e-b2-05-f2')
-    return IFsrmPipelineModuleConnector
-def _define_IFsrmPipelineModuleConnector():
-    IFsrmPipelineModuleConnector = win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleConnector_head
-    IFsrmPipelineModuleConnector.get_ModuleImplementation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head))(7, 'get_ModuleImplementation', ((1, 'pipelineModuleImplementation'),)))
-    IFsrmPipelineModuleConnector.get_ModuleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_ModuleName', ((1, 'userName'),)))
-    IFsrmPipelineModuleConnector.get_HostingUserAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_HostingUserAccount', ((1, 'userAccount'),)))
-    IFsrmPipelineModuleConnector.get_HostingProcessPid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_HostingProcessPid', ((1, 'pid'),)))
-    IFsrmPipelineModuleConnector.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head,win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head)(11, 'Bind', ((1, 'moduleDefinition'),(1, 'moduleImplementation'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmPipelineModuleConnector
-def _define_IFsrmPipelineModuleDefinition_head():
-    class IFsrmPipelineModuleDefinition(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('515c1277-2c81-440e-8f-cf-36-79-21-ed-4f-59')
-    return IFsrmPipelineModuleDefinition
-def _define_IFsrmPipelineModuleDefinition():
-    IFsrmPipelineModuleDefinition = win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head
-    IFsrmPipelineModuleDefinition.get_ModuleClsid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_ModuleClsid', ((1, 'moduleClsid'),)))
-    IFsrmPipelineModuleDefinition.put_ModuleClsid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_ModuleClsid', ((1, 'moduleClsid'),)))
-    IFsrmPipelineModuleDefinition.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(14, 'get_Name', ((1, 'name'),)))
-    IFsrmPipelineModuleDefinition.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(15, 'put_Name', ((1, 'name'),)))
-    IFsrmPipelineModuleDefinition.get_Company = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(16, 'get_Company', ((1, 'company'),)))
-    IFsrmPipelineModuleDefinition.put_Company = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'put_Company', ((1, 'company'),)))
-    IFsrmPipelineModuleDefinition.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_Version', ((1, 'version'),)))
-    IFsrmPipelineModuleDefinition.put_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_Version', ((1, 'version'),)))
-    IFsrmPipelineModuleDefinition.get_ModuleType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType))(20, 'get_ModuleType', ((1, 'moduleType'),)))
-    IFsrmPipelineModuleDefinition.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(21, 'get_Enabled', ((1, 'enabled'),)))
-    IFsrmPipelineModuleDefinition.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(22, 'put_Enabled', ((1, 'enabled'),)))
-    IFsrmPipelineModuleDefinition.get_NeedsFileContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(23, 'get_NeedsFileContent', ((1, 'needsFileContent'),)))
-    IFsrmPipelineModuleDefinition.put_NeedsFileContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(24, 'put_NeedsFileContent', ((1, 'needsFileContent'),)))
-    IFsrmPipelineModuleDefinition.get_Account = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmAccountType))(25, 'get_Account', ((1, 'retrievalAccount'),)))
-    IFsrmPipelineModuleDefinition.put_Account = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmAccountType)(26, 'put_Account', ((1, 'retrievalAccount'),)))
-    IFsrmPipelineModuleDefinition.get_SupportedExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(27, 'get_SupportedExtensions', ((1, 'supportedExtensions'),)))
-    IFsrmPipelineModuleDefinition.put_SupportedExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(28, 'put_SupportedExtensions', ((1, 'supportedExtensions'),)))
-    IFsrmPipelineModuleDefinition.get_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(29, 'get_Parameters', ((1, 'parameters'),)))
-    IFsrmPipelineModuleDefinition.put_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(30, 'put_Parameters', ((1, 'parameters'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmPipelineModuleDefinition
-def _define_IFsrmPipelineModuleImplementation_head():
-    class IFsrmPipelineModuleImplementation(win32more.System.Com.IDispatch_head):
-        Guid = Guid('b7907906-2b02-4cb5-84-a9-fd-f5-46-13-d6-cd')
-    return IFsrmPipelineModuleImplementation
-def _define_IFsrmPipelineModuleImplementation():
-    IFsrmPipelineModuleImplementation = win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head
-    IFsrmPipelineModuleImplementation.OnLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head,POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleConnector_head))(7, 'OnLoad', ((1, 'moduleDefinition'),(1, 'moduleConnector'),)))
-    IFsrmPipelineModuleImplementation.OnUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'OnUnload', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmPipelineModuleImplementation
-def _define_IFsrmProperty_head():
-    class IFsrmProperty(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4a73fee4-4102-4fcc-9f-fb-38-61-4f-9e-e7-68')
-    return IFsrmProperty
-def _define_IFsrmProperty():
-    IFsrmProperty = win32more.Storage.FileServerResourceManager.IFsrmProperty_head
-    IFsrmProperty.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    IFsrmProperty.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Value', ((1, 'value'),)))
-    IFsrmProperty.get_Sources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(9, 'get_Sources', ((1, 'sources'),)))
-    IFsrmProperty.get_PropertyFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(10, 'get_PropertyFlags', ((1, 'flags'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmProperty
-def _define_IFsrmPropertyBag_head():
-    class IFsrmPropertyBag(win32more.System.Com.IDispatch_head):
-        Guid = Guid('774589d1-d300-4f7a-9a-24-f7-b7-66-80-02-50')
-    return IFsrmPropertyBag
-def _define_IFsrmPropertyBag():
-    IFsrmPropertyBag = win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head
-    IFsrmPropertyBag.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    IFsrmPropertyBag.get_RelativePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_RelativePath', ((1, 'path'),)))
-    IFsrmPropertyBag.get_VolumeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_VolumeName', ((1, 'volumeName'),)))
-    IFsrmPropertyBag.get_RelativeNamespaceRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_RelativeNamespaceRoot', ((1, 'relativeNamespaceRoot'),)))
-    IFsrmPropertyBag.get_VolumeIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'get_VolumeIndex', ((1, 'volumeId'),)))
-    IFsrmPropertyBag.get_FileId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'get_FileId', ((1, 'fileId'),)))
-    IFsrmPropertyBag.get_ParentDirectoryId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(13, 'get_ParentDirectoryId', ((1, 'parentDirectoryId'),)))
-    IFsrmPropertyBag.get_Size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(14, 'get_Size', ((1, 'size'),)))
-    IFsrmPropertyBag.get_SizeAllocated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(15, 'get_SizeAllocated', ((1, 'sizeAllocated'),)))
-    IFsrmPropertyBag.get_CreationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(16, 'get_CreationTime', ((1, 'creationTime'),)))
-    IFsrmPropertyBag.get_LastAccessTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(17, 'get_LastAccessTime', ((1, 'lastAccessTime'),)))
-    IFsrmPropertyBag.get_LastModificationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(18, 'get_LastModificationTime', ((1, 'lastModificationTime'),)))
-    IFsrmPropertyBag.get_Attributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(19, 'get_Attributes', ((1, 'attributes'),)))
-    IFsrmPropertyBag.get_OwnerSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(20, 'get_OwnerSid', ((1, 'ownerSid'),)))
-    IFsrmPropertyBag.get_FilePropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(21, 'get_FilePropertyNames', ((1, 'filePropertyNames'),)))
-    IFsrmPropertyBag.get_Messages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(22, 'get_Messages', ((1, 'messages'),)))
-    IFsrmPropertyBag.get_PropertyBagFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(23, 'get_PropertyBagFlags', ((1, 'flags'),)))
-    IFsrmPropertyBag.GetFileProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmProperty_head))(24, 'GetFileProperty', ((1, 'name'),(1, 'fileProperty'),)))
-    IFsrmPropertyBag.SetFileProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR)(25, 'SetFileProperty', ((1, 'name'),(1, 'value'),)))
-    IFsrmPropertyBag.AddMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(26, 'AddMessage', ((1, 'message'),)))
-    IFsrmPropertyBag.GetFileStreamInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmFileStreamingMode,win32more.Storage.FileServerResourceManager.FsrmFileStreamingInterfaceType,POINTER(win32more.System.Com.VARIANT_head))(27, 'GetFileStreamInterface', ((1, 'accessMode'),(1, 'interfaceType'),(1, 'pStreamInterface'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmPropertyBag
-def _define_IFsrmPropertyBag2_head():
-    class IFsrmPropertyBag2(win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head):
-        Guid = Guid('0e46bdbd-2402-4fed-9c-30-92-66-e6-eb-2c-c9')
-    return IFsrmPropertyBag2
-def _define_IFsrmPropertyBag2():
-    IFsrmPropertyBag2 = win32more.Storage.FileServerResourceManager.IFsrmPropertyBag2_head
-    IFsrmPropertyBag2.GetFieldValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPropertyBagField,POINTER(win32more.System.Com.VARIANT_head))(28, 'GetFieldValue', ((1, 'field'),(1, 'value'),)))
-    IFsrmPropertyBag2.GetUntrustedInFileProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(29, 'GetUntrustedInFileProperties', ((1, 'props'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmPropertyBag
-    return IFsrmPropertyBag2
-def _define_IFsrmPropertyCondition_head():
-    class IFsrmPropertyCondition(win32more.System.Com.IDispatch_head):
-        Guid = Guid('326af66f-2ac0-4f68-bf-8c-47-59-f0-54-fa-29')
-    return IFsrmPropertyCondition
-def _define_IFsrmPropertyCondition():
-    IFsrmPropertyCondition = win32more.Storage.FileServerResourceManager.IFsrmPropertyCondition_head
-    IFsrmPropertyCondition.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    IFsrmPropertyCondition.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_Name', ((1, 'name'),)))
-    IFsrmPropertyCondition.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType))(9, 'get_Type', ((1, 'type'),)))
-    IFsrmPropertyCondition.put_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType)(10, 'put_Type', ((1, 'type'),)))
-    IFsrmPropertyCondition.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_Value', ((1, 'value'),)))
-    IFsrmPropertyCondition.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_Value', ((1, 'value'),)))
-    IFsrmPropertyCondition.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(13, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmPropertyCondition
-def _define_IFsrmPropertyDefinition_head():
-    class IFsrmPropertyDefinition(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('ede0150f-e9a3-419c-87-7c-01-fe-5d-24-c5-d3')
-    return IFsrmPropertyDefinition
-def _define_IFsrmPropertyDefinition():
-    IFsrmPropertyDefinition = win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head
-    IFsrmPropertyDefinition.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Name', ((1, 'name'),)))
-    IFsrmPropertyDefinition.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Name', ((1, 'name'),)))
-    IFsrmPropertyDefinition.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyDefinitionType))(14, 'get_Type', ((1, 'type'),)))
-    IFsrmPropertyDefinition.put_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmPropertyDefinitionType)(15, 'put_Type', ((1, 'type'),)))
-    IFsrmPropertyDefinition.get_PossibleValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(16, 'get_PossibleValues', ((1, 'possibleValues'),)))
-    IFsrmPropertyDefinition.put_PossibleValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(17, 'put_PossibleValues', ((1, 'possibleValues'),)))
-    IFsrmPropertyDefinition.get_ValueDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(18, 'get_ValueDescriptions', ((1, 'valueDescriptions'),)))
-    IFsrmPropertyDefinition.put_ValueDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(19, 'put_ValueDescriptions', ((1, 'valueDescriptions'),)))
-    IFsrmPropertyDefinition.get_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(20, 'get_Parameters', ((1, 'parameters'),)))
-    IFsrmPropertyDefinition.put_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(21, 'put_Parameters', ((1, 'parameters'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmPropertyDefinition
-def _define_IFsrmPropertyDefinition2_head():
-    class IFsrmPropertyDefinition2(win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head):
-        Guid = Guid('47782152-d16c-4229-b4-e1-0d-df-e3-08-b9-f6')
-    return IFsrmPropertyDefinition2
-def _define_IFsrmPropertyDefinition2():
-    IFsrmPropertyDefinition2 = win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition2_head
-    IFsrmPropertyDefinition2.get_PropertyDefinitionFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(22, 'get_PropertyDefinitionFlags', ((1, 'propertyDefinitionFlags'),)))
-    IFsrmPropertyDefinition2.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_DisplayName', ((1, 'name'),)))
-    IFsrmPropertyDefinition2.put_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(24, 'put_DisplayName', ((1, 'name'),)))
-    IFsrmPropertyDefinition2.get_AppliesTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(25, 'get_AppliesTo', ((1, 'appliesTo'),)))
-    IFsrmPropertyDefinition2.get_ValueDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(26, 'get_ValueDefinitions', ((1, 'valueDefinitions'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition
-    return IFsrmPropertyDefinition2
-def _define_IFsrmPropertyDefinitionValue_head():
-    class IFsrmPropertyDefinitionValue(win32more.System.Com.IDispatch_head):
-        Guid = Guid('e946d148-bd67-4178-8e-22-1c-44-92-5e-d7-10')
-    return IFsrmPropertyDefinitionValue
-def _define_IFsrmPropertyDefinitionValue():
-    IFsrmPropertyDefinitionValue = win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinitionValue_head
-    IFsrmPropertyDefinitionValue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_Name', ((1, 'name'),)))
-    IFsrmPropertyDefinitionValue.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_DisplayName', ((1, 'displayName'),)))
-    IFsrmPropertyDefinitionValue.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_Description', ((1, 'description'),)))
-    IFsrmPropertyDefinitionValue.get_UniqueID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_UniqueID', ((1, 'uniqueID'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmPropertyDefinitionValue
-def _define_IFsrmQuota_head():
-    class IFsrmQuota(win32more.Storage.FileServerResourceManager.IFsrmQuotaObject_head):
-        Guid = Guid('377f739d-9647-4b8e-97-d2-5f-fc-e6-d7-59-cd')
-    return IFsrmQuota
-def _define_IFsrmQuota():
-    IFsrmQuota = win32more.Storage.FileServerResourceManager.IFsrmQuota_head
-    IFsrmQuota.get_QuotaUsed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(28, 'get_QuotaUsed', ((1, 'used'),)))
-    IFsrmQuota.get_QuotaPeakUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(29, 'get_QuotaPeakUsage', ((1, 'peakUsage'),)))
-    IFsrmQuota.get_QuotaPeakUsageTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(30, 'get_QuotaPeakUsageTime', ((1, 'peakUsageDateTime'),)))
-    IFsrmQuota.ResetPeakUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(31, 'ResetPeakUsage', ()))
-    IFsrmQuota.RefreshUsageProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(32, 'RefreshUsageProperties', ()))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaObject
-    return IFsrmQuota
-def _define_IFsrmQuotaBase_head():
-    class IFsrmQuotaBase(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('1568a795-3924-4118-b7-4b-68-d8-f0-fa-5d-af')
-    return IFsrmQuotaBase
-def _define_IFsrmQuotaBase():
-    IFsrmQuotaBase = win32more.Storage.FileServerResourceManager.IFsrmQuotaBase_head
-    IFsrmQuotaBase.get_QuotaLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(12, 'get_QuotaLimit', ((1, 'quotaLimit'),)))
-    IFsrmQuotaBase.put_QuotaLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT)(13, 'put_QuotaLimit', ((1, 'quotaLimit'),)))
-    IFsrmQuotaBase.get_QuotaFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(14, 'get_QuotaFlags', ((1, 'quotaFlags'),)))
-    IFsrmQuotaBase.put_QuotaFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(15, 'put_QuotaFlags', ((1, 'quotaFlags'),)))
-    IFsrmQuotaBase.get_Thresholds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(16, 'get_Thresholds', ((1, 'thresholds'),)))
-    IFsrmQuotaBase.AddThreshold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(17, 'AddThreshold', ((1, 'threshold'),)))
-    IFsrmQuotaBase.DeleteThreshold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(18, 'DeleteThreshold', ((1, 'threshold'),)))
-    IFsrmQuotaBase.ModifyThreshold = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32)(19, 'ModifyThreshold', ((1, 'threshold'),(1, 'newThreshold'),)))
-    IFsrmQuotaBase.CreateThresholdAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Storage.FileServerResourceManager.FsrmActionType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head))(20, 'CreateThresholdAction', ((1, 'threshold'),(1, 'actionType'),(1, 'action'),)))
-    IFsrmQuotaBase.EnumThresholdActions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(21, 'EnumThresholdActions', ((1, 'threshold'),(1, 'actions'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmQuotaBase
-def _define_IFsrmQuotaManager_head():
-    class IFsrmQuotaManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('8bb68c7d-19d8-4ffb-80-9e-be-4f-c1-73-40-14')
-    return IFsrmQuotaManager
-def _define_IFsrmQuotaManager():
-    IFsrmQuotaManager = win32more.Storage.FileServerResourceManager.IFsrmQuotaManager_head
-    IFsrmQuotaManager.get_ActionVariables = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(7, 'get_ActionVariables', ((1, 'variables'),)))
-    IFsrmQuotaManager.get_ActionVariableDescriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(8, 'get_ActionVariableDescriptions', ((1, 'descriptions'),)))
-    IFsrmQuotaManager.CreateQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head))(9, 'CreateQuota', ((1, 'path'),(1, 'quota'),)))
-    IFsrmQuotaManager.CreateAutoApplyQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmAutoApplyQuota_head))(10, 'CreateAutoApplyQuota', ((1, 'quotaTemplateName'),(1, 'path'),(1, 'quota'),)))
-    IFsrmQuotaManager.GetQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head))(11, 'GetQuota', ((1, 'path'),(1, 'quota'),)))
-    IFsrmQuotaManager.GetAutoApplyQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmAutoApplyQuota_head))(12, 'GetAutoApplyQuota', ((1, 'path'),(1, 'quota'),)))
-    IFsrmQuotaManager.GetRestrictiveQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head))(13, 'GetRestrictiveQuota', ((1, 'path'),(1, 'quota'),)))
-    IFsrmQuotaManager.EnumQuotas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(14, 'EnumQuotas', ((1, 'path'),(1, 'options'),(1, 'quotas'),)))
-    IFsrmQuotaManager.EnumAutoApplyQuotas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(15, 'EnumAutoApplyQuotas', ((1, 'path'),(1, 'options'),(1, 'quotas'),)))
-    IFsrmQuotaManager.EnumEffectiveQuotas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(16, 'EnumEffectiveQuotas', ((1, 'path'),(1, 'options'),(1, 'quotas'),)))
-    IFsrmQuotaManager.Scan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'Scan', ((1, 'strPath'),)))
-    IFsrmQuotaManager.CreateQuotaCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(18, 'CreateQuotaCollection', ((1, 'collection'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmQuotaManager
-def _define_IFsrmQuotaManagerEx_head():
-    class IFsrmQuotaManagerEx(win32more.Storage.FileServerResourceManager.IFsrmQuotaManager_head):
-        Guid = Guid('4846cb01-d430-494f-ab-b4-b1-05-49-99-fb-09')
-    return IFsrmQuotaManagerEx
-def _define_IFsrmQuotaManagerEx():
-    IFsrmQuotaManagerEx = win32more.Storage.FileServerResourceManager.IFsrmQuotaManagerEx_head
-    IFsrmQuotaManagerEx.IsAffectedByQuota = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Foundation.VARIANT_BOOL))(19, 'IsAffectedByQuota', ((1, 'path'),(1, 'options'),(1, 'affected'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaManager
-    return IFsrmQuotaManagerEx
-def _define_IFsrmQuotaObject_head():
-    class IFsrmQuotaObject(win32more.Storage.FileServerResourceManager.IFsrmQuotaBase_head):
-        Guid = Guid('42dc3511-61d5-48ae-b6-dc-59-fc-00-c0-a8-d6')
-    return IFsrmQuotaObject
-def _define_IFsrmQuotaObject():
-    IFsrmQuotaObject = win32more.Storage.FileServerResourceManager.IFsrmQuotaObject_head
-    IFsrmQuotaObject.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_Path', ((1, 'path'),)))
-    IFsrmQuotaObject.get_UserSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_UserSid', ((1, 'userSid'),)))
-    IFsrmQuotaObject.get_UserAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(24, 'get_UserAccount', ((1, 'userAccount'),)))
-    IFsrmQuotaObject.get_SourceTemplateName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(25, 'get_SourceTemplateName', ((1, 'quotaTemplateName'),)))
-    IFsrmQuotaObject.get_MatchesSourceTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(26, 'get_MatchesSourceTemplate', ((1, 'matches'),)))
-    IFsrmQuotaObject.ApplyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(27, 'ApplyTemplate', ((1, 'quotaTemplateName'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaBase
-    return IFsrmQuotaObject
-def _define_IFsrmQuotaTemplate_head():
-    class IFsrmQuotaTemplate(win32more.Storage.FileServerResourceManager.IFsrmQuotaBase_head):
-        Guid = Guid('a2efab31-295e-46bb-b9-76-e8-6d-58-b5-2e-8b')
-    return IFsrmQuotaTemplate
-def _define_IFsrmQuotaTemplate():
-    IFsrmQuotaTemplate = win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head
-    IFsrmQuotaTemplate.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_Name', ((1, 'name'),)))
-    IFsrmQuotaTemplate.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(23, 'put_Name', ((1, 'name'),)))
-    IFsrmQuotaTemplate.CopyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(24, 'CopyTemplate', ((1, 'quotaTemplateName'),)))
-    IFsrmQuotaTemplate.CommitAndUpdateDerived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmCommitOptions,win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head))(25, 'CommitAndUpdateDerived', ((1, 'commitOptions'),(1, 'applyOptions'),(1, 'derivedObjectsResult'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaBase
-    return IFsrmQuotaTemplate
-def _define_IFsrmQuotaTemplateImported_head():
-    class IFsrmQuotaTemplateImported(win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head):
-        Guid = Guid('9a2bf113-a329-44cc-80-9a-5c-00-fc-e8-da-40')
-    return IFsrmQuotaTemplateImported
-def _define_IFsrmQuotaTemplateImported():
-    IFsrmQuotaTemplateImported = win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplateImported_head
-    IFsrmQuotaTemplateImported.get_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(26, 'get_OverwriteOnCommit', ((1, 'overwrite'),)))
-    IFsrmQuotaTemplateImported.put_OverwriteOnCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(27, 'put_OverwriteOnCommit', ((1, 'overwrite'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate
-    return IFsrmQuotaTemplateImported
-def _define_IFsrmQuotaTemplateManager_head():
-    class IFsrmQuotaTemplateManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('4173ac41-172d-4d52-96-3c-fd-c7-e4-15-f7-17')
-    return IFsrmQuotaTemplateManager
-def _define_IFsrmQuotaTemplateManager():
-    IFsrmQuotaTemplateManager = win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplateManager_head
-    IFsrmQuotaTemplateManager.CreateTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head))(7, 'CreateTemplate', ((1, 'quotaTemplate'),)))
-    IFsrmQuotaTemplateManager.GetTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head))(8, 'GetTemplate', ((1, 'name'),(1, 'quotaTemplate'),)))
-    IFsrmQuotaTemplateManager.EnumTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(9, 'EnumTemplates', ((1, 'options'),(1, 'quotaTemplates'),)))
-    IFsrmQuotaTemplateManager.ExportTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR))(10, 'ExportTemplates', ((1, 'quotaTemplateNamesArray'),(1, 'serializedQuotaTemplates'),)))
-    IFsrmQuotaTemplateManager.ImportTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head))(11, 'ImportTemplates', ((1, 'serializedQuotaTemplates'),(1, 'quotaTemplateNamesArray'),(1, 'quotaTemplates'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmQuotaTemplateManager
-def _define_IFsrmReport_head():
-    class IFsrmReport(win32more.System.Com.IDispatch_head):
-        Guid = Guid('d8cc81d9-46b8-4fa4-bf-a5-4a-a9-de-c9-b6-38')
-    return IFsrmReport
-def _define_IFsrmReport():
-    IFsrmReport = win32more.Storage.FileServerResourceManager.IFsrmReport_head
-    IFsrmReport.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmReportType))(7, 'get_Type', ((1, 'reportType'),)))
-    IFsrmReport.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(8, 'get_Name', ((1, 'name'),)))
-    IFsrmReport.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(9, 'put_Name', ((1, 'name'),)))
-    IFsrmReport.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(10, 'get_Description', ((1, 'description'),)))
-    IFsrmReport.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(11, 'put_Description', ((1, 'description'),)))
-    IFsrmReport.get_LastGeneratedFileNamePrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_LastGeneratedFileNamePrefix', ((1, 'prefix'),)))
-    IFsrmReport.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportFilter,POINTER(win32more.System.Com.VARIANT_head))(13, 'GetFilter', ((1, 'filter'),(1, 'filterValue'),)))
-    IFsrmReport.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportFilter,win32more.System.Com.VARIANT)(14, 'SetFilter', ((1, 'filter'),(1, 'filterValue'),)))
-    IFsrmReport.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(15, 'Delete', ()))
-    win32more.System.Com.IDispatch
-    return IFsrmReport
-def _define_IFsrmReportJob_head():
-    class IFsrmReportJob(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('38e87280-715c-4c7d-a2-80-ea-16-51-a1-9f-ef')
-    return IFsrmReportJob
-def _define_IFsrmReportJob():
-    IFsrmReportJob = win32more.Storage.FileServerResourceManager.IFsrmReportJob_head
-    IFsrmReportJob.get_Task = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Task', ((1, 'taskName'),)))
-    IFsrmReportJob.put_Task = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Task', ((1, 'taskName'),)))
-    IFsrmReportJob.get_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(14, 'get_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmReportJob.put_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(15, 'put_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmReportJob.get_Formats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(16, 'get_Formats', ((1, 'formats'),)))
-    IFsrmReportJob.put_Formats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(17, 'put_Formats', ((1, 'formats'),)))
-    IFsrmReportJob.get_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(18, 'get_MailTo', ((1, 'mailTo'),)))
-    IFsrmReportJob.put_MailTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(19, 'put_MailTo', ((1, 'mailTo'),)))
-    IFsrmReportJob.get_RunningStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus))(20, 'get_RunningStatus', ((1, 'runningStatus'),)))
-    IFsrmReportJob.get_LastRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double))(21, 'get_LastRun', ((1, 'lastRun'),)))
-    IFsrmReportJob.get_LastError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(22, 'get_LastError', ((1, 'lastError'),)))
-    IFsrmReportJob.get_LastGeneratedInDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(23, 'get_LastGeneratedInDirectory', ((1, 'path'),)))
-    IFsrmReportJob.EnumReports = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(24, 'EnumReports', ((1, 'reports'),)))
-    IFsrmReportJob.CreateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportType,POINTER(win32more.Storage.FileServerResourceManager.IFsrmReport_head))(25, 'CreateReport', ((1, 'reportType'),(1, 'report'),)))
-    IFsrmReportJob.Run = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext)(26, 'Run', ((1, 'context'),)))
-    IFsrmReportJob.WaitForCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.VARIANT_BOOL))(27, 'WaitForCompletion', ((1, 'waitSeconds'),(1, 'completed'),)))
-    IFsrmReportJob.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(28, 'Cancel', ()))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmReportJob
-def _define_IFsrmReportManager_head():
-    class IFsrmReportManager(win32more.System.Com.IDispatch_head):
-        Guid = Guid('27b899fe-6ffa-4481-a1-84-d3-da-ad-e8-a0-2b')
-    return IFsrmReportManager
-def _define_IFsrmReportManager():
-    IFsrmReportManager = win32more.Storage.FileServerResourceManager.IFsrmReportManager_head
-    IFsrmReportManager.EnumReportJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmEnumOptions,POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head))(7, 'EnumReportJobs', ((1, 'options'),(1, 'reportJobs'),)))
-    IFsrmReportManager.CreateReportJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.IFsrmReportJob_head))(8, 'CreateReportJob', ((1, 'reportJob'),)))
-    IFsrmReportManager.GetReportJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.FileServerResourceManager.IFsrmReportJob_head))(9, 'GetReportJob', ((1, 'taskName'),(1, 'reportJob'),)))
-    IFsrmReportManager.GetOutputDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext,POINTER(win32more.Foundation.BSTR))(10, 'GetOutputDirectory', ((1, 'context'),(1, 'path'),)))
-    IFsrmReportManager.SetOutputDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext,win32more.Foundation.BSTR)(11, 'SetOutputDirectory', ((1, 'context'),(1, 'path'),)))
-    IFsrmReportManager.IsFilterValidForReportType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportType,win32more.Storage.FileServerResourceManager.FsrmReportFilter,POINTER(win32more.Foundation.VARIANT_BOOL))(12, 'IsFilterValidForReportType', ((1, 'reportType'),(1, 'filter'),(1, 'valid'),)))
-    IFsrmReportManager.GetDefaultFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportType,win32more.Storage.FileServerResourceManager.FsrmReportFilter,POINTER(win32more.System.Com.VARIANT_head))(13, 'GetDefaultFilter', ((1, 'reportType'),(1, 'filter'),(1, 'filterValue'),)))
-    IFsrmReportManager.SetDefaultFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportType,win32more.Storage.FileServerResourceManager.FsrmReportFilter,win32more.System.Com.VARIANT)(14, 'SetDefaultFilter', ((1, 'reportType'),(1, 'filter'),(1, 'filterValue'),)))
-    IFsrmReportManager.GetReportSizeLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportLimit,POINTER(win32more.System.Com.VARIANT_head))(15, 'GetReportSizeLimit', ((1, 'limit'),(1, 'limitValue'),)))
-    IFsrmReportManager.SetReportSizeLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmReportLimit,win32more.System.Com.VARIANT)(16, 'SetReportSizeLimit', ((1, 'limit'),(1, 'limitValue'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmReportManager
-def _define_IFsrmReportScheduler_head():
-    class IFsrmReportScheduler(win32more.System.Com.IDispatch_head):
-        Guid = Guid('6879caf9-6617-4484-87-19-71-c3-d8-64-5f-94')
-    return IFsrmReportScheduler
-def _define_IFsrmReportScheduler():
-    IFsrmReportScheduler = win32more.Storage.FileServerResourceManager.IFsrmReportScheduler_head
-    IFsrmReportScheduler.VerifyNamespaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(7, 'VerifyNamespaces', ((1, 'namespacesSafeArray'),)))
-    IFsrmReportScheduler.CreateScheduleTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR)(8, 'CreateScheduleTask', ((1, 'taskName'),(1, 'namespacesSafeArray'),(1, 'serializedTask'),)))
-    IFsrmReportScheduler.ModifyScheduleTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR)(9, 'ModifyScheduleTask', ((1, 'taskName'),(1, 'namespacesSafeArray'),(1, 'serializedTask'),)))
-    IFsrmReportScheduler.DeleteScheduleTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'DeleteScheduleTask', ((1, 'taskName'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmReportScheduler
-def _define_IFsrmRule_head():
-    class IFsrmRule(win32more.Storage.FileServerResourceManager.IFsrmObject_head):
-        Guid = Guid('cb0df960-16f5-4495-90-79-3f-93-60-d8-31-df')
-    return IFsrmRule
-def _define_IFsrmRule():
-    IFsrmRule = win32more.Storage.FileServerResourceManager.IFsrmRule_head
-    IFsrmRule.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(12, 'get_Name', ((1, 'name'),)))
-    IFsrmRule.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(13, 'put_Name', ((1, 'name'),)))
-    IFsrmRule.get_RuleType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmRuleType))(14, 'get_RuleType', ((1, 'ruleType'),)))
-    IFsrmRule.get_ModuleDefinitionName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(15, 'get_ModuleDefinitionName', ((1, 'moduleDefinitionName'),)))
-    IFsrmRule.put_ModuleDefinitionName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(16, 'put_ModuleDefinitionName', ((1, 'moduleDefinitionName'),)))
-    IFsrmRule.get_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(17, 'get_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmRule.put_NamespaceRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(18, 'put_NamespaceRoots', ((1, 'namespaceRoots'),)))
-    IFsrmRule.get_RuleFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(19, 'get_RuleFlags', ((1, 'ruleFlags'),)))
-    IFsrmRule.put_RuleFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32)(20, 'put_RuleFlags', ((1, 'ruleFlags'),)))
-    IFsrmRule.get_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)))(21, 'get_Parameters', ((1, 'parameters'),)))
-    IFsrmRule.put_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head))(22, 'put_Parameters', ((1, 'parameters'),)))
-    IFsrmRule.get_LastModified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head))(23, 'get_LastModified', ((1, 'lastModified'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmObject
-    return IFsrmRule
-def _define_IFsrmSetting_head():
-    class IFsrmSetting(win32more.System.Com.IDispatch_head):
-        Guid = Guid('f411d4fd-14be-4260-8c-40-03-b7-c9-5e-60-8a')
-    return IFsrmSetting
-def _define_IFsrmSetting():
-    IFsrmSetting = win32more.Storage.FileServerResourceManager.IFsrmSetting_head
-    IFsrmSetting.get_SmtpServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(7, 'get_SmtpServer', ((1, 'smtpServer'),)))
-    IFsrmSetting.put_SmtpServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(8, 'put_SmtpServer', ((1, 'smtpServer'),)))
-    IFsrmSetting.get_MailFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(9, 'get_MailFrom', ((1, 'mailFrom'),)))
-    IFsrmSetting.put_MailFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(10, 'put_MailFrom', ((1, 'mailFrom'),)))
-    IFsrmSetting.get_AdminEmail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(11, 'get_AdminEmail', ((1, 'adminEmail'),)))
-    IFsrmSetting.put_AdminEmail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(12, 'put_AdminEmail', ((1, 'adminEmail'),)))
-    IFsrmSetting.get_DisableCommandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(13, 'get_DisableCommandLine', ((1, 'disableCommandLine'),)))
-    IFsrmSetting.put_DisableCommandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(14, 'put_DisableCommandLine', ((1, 'disableCommandLine'),)))
-    IFsrmSetting.get_EnableScreeningAudit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(15, 'get_EnableScreeningAudit', ((1, 'enableScreeningAudit'),)))
-    IFsrmSetting.put_EnableScreeningAudit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(16, 'put_EnableScreeningAudit', ((1, 'enableScreeningAudit'),)))
-    IFsrmSetting.EmailTest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(17, 'EmailTest', ((1, 'mailTo'),)))
-    IFsrmSetting.SetActionRunLimitInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmActionType,Int32)(18, 'SetActionRunLimitInterval', ((1, 'actionType'),(1, 'delayTimeMinutes'),)))
-    IFsrmSetting.GetActionRunLimitInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmActionType,POINTER(Int32))(19, 'GetActionRunLimitInterval', ((1, 'actionType'),(1, 'delayTimeMinutes'),)))
-    win32more.System.Com.IDispatch
-    return IFsrmSetting
-def _define_IFsrmStorageModuleDefinition_head():
-    class IFsrmStorageModuleDefinition(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head):
-        Guid = Guid('15a81350-497d-4aba-80-e9-d4-db-cc-55-21-fe')
-    return IFsrmStorageModuleDefinition
-def _define_IFsrmStorageModuleDefinition():
-    IFsrmStorageModuleDefinition = win32more.Storage.FileServerResourceManager.IFsrmStorageModuleDefinition_head
-    IFsrmStorageModuleDefinition.get_Capabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmStorageModuleCaps))(31, 'get_Capabilities', ((1, 'capabilities'),)))
-    IFsrmStorageModuleDefinition.put_Capabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmStorageModuleCaps)(32, 'put_Capabilities', ((1, 'capabilities'),)))
-    IFsrmStorageModuleDefinition.get_StorageType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileServerResourceManager.FsrmStorageModuleType))(33, 'get_StorageType', ((1, 'storageType'),)))
-    IFsrmStorageModuleDefinition.put_StorageType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.FsrmStorageModuleType)(34, 'put_StorageType', ((1, 'storageType'),)))
-    IFsrmStorageModuleDefinition.get_UpdatesFileContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.VARIANT_BOOL))(35, 'get_UpdatesFileContent', ((1, 'updatesFileContent'),)))
-    IFsrmStorageModuleDefinition.put_UpdatesFileContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.VARIANT_BOOL)(36, 'put_UpdatesFileContent', ((1, 'updatesFileContent'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
-    return IFsrmStorageModuleDefinition
-def _define_IFsrmStorageModuleImplementation_head():
-    class IFsrmStorageModuleImplementation(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head):
-        Guid = Guid('0af4a0da-895a-4e50-87-12-a9-67-24-bc-ec-64')
-    return IFsrmStorageModuleImplementation
-def _define_IFsrmStorageModuleImplementation():
-    IFsrmStorageModuleImplementation = win32more.Storage.FileServerResourceManager.IFsrmStorageModuleImplementation_head
-    IFsrmStorageModuleImplementation.UseDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmCollection_head)(9, 'UseDefinitions', ((1, 'propertyDefinitions'),)))
-    IFsrmStorageModuleImplementation.LoadProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head)(10, 'LoadProperties', ((1, 'propertyBag'),)))
-    IFsrmStorageModuleImplementation.SaveProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head)(11, 'SaveProperties', ((1, 'propertyBag'),)))
-    win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
-    return IFsrmStorageModuleImplementation
+FsrmTemplateApplyOptions_ApplyToDerivedMatching: FsrmTemplateApplyOptions = 1
+FsrmTemplateApplyOptions_ApplyToDerivedAll: FsrmTemplateApplyOptions = 2
+class IFsrmAccessDeniedRemediationClient(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('40002314-590b-45a5-8e-1b-8c-05-da-52-7e-52')
+    @commethod(7)
+    def Show(parentWnd: UIntPtr, accessPath: win32more.Foundation.BSTR, errorType: win32more.Storage.FileServerResourceManager.AdrClientErrorType, flags: Int32, windowTitle: win32more.Foundation.BSTR, windowMessage: win32more.Foundation.BSTR, result: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IFsrmAction(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6cd6408a-ae60-463b-9e-f1-e1-17-53-4d-69-dc')
+    @commethod(7)
+    def get_Id(id: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ActionType(actionType: POINTER(win32more.Storage.FileServerResourceManager.FsrmActionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_RunLimitInterval(minutes: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_RunLimitInterval(minutes: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class IFsrmActionCommand(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmAction
+    Guid = Guid('12937789-e247-4917-9c-20-f3-ee-9c-7e-e7-83')
+    @commethod(12)
+    def get_ExecutablePath(executablePath: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_ExecutablePath(executablePath: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Arguments(arguments: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_Arguments(arguments: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Account(account: POINTER(win32more.Storage.FileServerResourceManager.FsrmAccountType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_Account(account: win32more.Storage.FileServerResourceManager.FsrmAccountType) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_WorkingDirectory(workingDirectory: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_WorkingDirectory(workingDirectory: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_MonitorCommand(monitorCommand: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_MonitorCommand(monitorCommand: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_KillTimeOut(minutes: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_KillTimeOut(minutes: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_LogResult(logResults: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_LogResult(logResults: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmActionEmail(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmAction
+    Guid = Guid('d646567d-26ae-4caa-9f-84-4e-0a-ad-20-7f-ca')
+    @commethod(12)
+    def get_MailFrom(mailFrom: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_MailFrom(mailFrom: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_MailReplyTo(mailReplyTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_MailReplyTo(mailReplyTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_MailTo(mailTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_MailTo(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_MailCc(mailCc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_MailCc(mailCc: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_MailBcc(mailBcc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_MailBcc(mailBcc: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_MailSubject(mailSubject: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_MailSubject(mailSubject: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_MessageText(messageText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_MessageText(messageText: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmActionEmail2(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmActionEmail
+    Guid = Guid('8276702f-2532-4839-89-bf-48-72-60-9a-2e-a4')
+    @commethod(26)
+    def get_AttachmentFileListSize(attachmentFileListSize: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_AttachmentFileListSize(attachmentFileListSize: Int32) -> win32more.Foundation.HRESULT: ...
+class IFsrmActionEventLog(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmAction
+    Guid = Guid('4c8f96c3-5d94-4f37-a4-f4-f5-6a-b4-63-54-6f')
+    @commethod(12)
+    def get_EventType(eventType: POINTER(win32more.Storage.FileServerResourceManager.FsrmEventType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_EventType(eventType: win32more.Storage.FileServerResourceManager.FsrmEventType) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_MessageText(messageText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_MessageText(messageText: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmActionReport(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmAction
+    Guid = Guid('2dbe63c4-b340-48a0-a5-b0-15-8e-07-fc-56-7e')
+    @commethod(12)
+    def get_ReportTypes(reportTypes: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_ReportTypes(reportTypes: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_MailTo(mailTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_MailTo(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmAutoApplyQuota(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaObject
+    Guid = Guid('f82e5729-6aba-4740-bf-c7-c7-f5-8f-75-fb-7b')
+    @commethod(28)
+    def get_ExcludeFolders(folders: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def put_ExcludeFolders(folders: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def CommitAndUpdateDerived(commitOptions: win32more.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmClassificationManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d2dc89da-ee91-48a0-85-d8-cc-72-a5-6f-7d-04')
+    @commethod(7)
+    def get_ClassificationReportFormats(formats: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_ClassificationReportFormats(formats: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Logging(logging: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Logging(logging: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_ClassificationReportMailTo(mailTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_ClassificationReportMailTo(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ClassificationReportEnabled(reportEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_ClassificationReportEnabled(reportEnabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ClassificationLastReportPathWithoutExtension(lastReportPath: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ClassificationLastError(lastError: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ClassificationRunningStatus(runningStatus: POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def EnumPropertyDefinitions(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, propertyDefinitions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def CreatePropertyDefinition(propertyDefinition: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetPropertyDefinition(propertyName: win32more.Foundation.BSTR, propertyDefinition: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def EnumRules(ruleType: win32more.Storage.FileServerResourceManager.FsrmRuleType, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, Rules: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def CreateRule(ruleType: win32more.Storage.FileServerResourceManager.FsrmRuleType, Rule: POINTER(win32more.Storage.FileServerResourceManager.IFsrmRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def GetRule(ruleName: win32more.Foundation.BSTR, ruleType: win32more.Storage.FileServerResourceManager.FsrmRuleType, Rule: POINTER(win32more.Storage.FileServerResourceManager.IFsrmRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def EnumModuleDefinitions(moduleType: win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, moduleDefinitions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def CreateModuleDefinition(moduleType: win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType, moduleDefinition: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetModuleDefinition(moduleName: win32more.Foundation.BSTR, moduleType: win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType, moduleDefinition: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def RunClassification(context: win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext, reserved: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def WaitForClassificationCompletion(waitSeconds: Int32, completed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def CancelClassification() -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def EnumFileProperties(filePath: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions, fileProperties: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetFileProperty(filePath: win32more.Foundation.BSTR, propertyName: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions, property: POINTER(win32more.Storage.FileServerResourceManager.IFsrmProperty_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def SetFileProperty(filePath: win32more.Foundation.BSTR, propertyName: win32more.Foundation.BSTR, propertyValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def ClearFileProperty(filePath: win32more.Foundation.BSTR, property: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmClassificationManager2(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmClassificationManager
+    Guid = Guid('0004c1c9-127e-4765-ba-07-6a-31-47-bc-a1-12')
+    @commethod(34)
+    def ClassifyFiles(filePaths: POINTER(win32more.System.Com.SAFEARRAY_head), propertyNames: POINTER(win32more.System.Com.SAFEARRAY_head), propertyValues: POINTER(win32more.System.Com.SAFEARRAY_head), options: win32more.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions) -> win32more.Foundation.HRESULT: ...
+class IFsrmClassificationRule(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmRule
+    Guid = Guid('afc052c2-5315-45ab-84-1b-c6-db-0e-12-01-48')
+    @commethod(24)
+    def get_ExecutionOption(executionOption: POINTER(win32more.Storage.FileServerResourceManager.FsrmExecutionOption)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_ExecutionOption(executionOption: win32more.Storage.FileServerResourceManager.FsrmExecutionOption) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_PropertyAffected(property: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_PropertyAffected(property: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_Value(value: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def put_Value(value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmClassifierModuleDefinition(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
+    Guid = Guid('bb36ea26-6318-4b8c-85-92-f7-2d-d6-02-e7-a5')
+    @commethod(31)
+    def get_PropertiesAffected(propertiesAffected: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def put_PropertiesAffected(propertiesAffected: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_PropertiesUsed(propertiesUsed: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def put_PropertiesUsed(propertiesUsed: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_NeedsExplicitValue(needsExplicitValue: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def put_NeedsExplicitValue(needsExplicitValue: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmClassifierModuleImplementation(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
+    Guid = Guid('4c968fc6-6edb-4051-9c-18-73-b7-29-1a-e1-06')
+    @commethod(9)
+    def get_LastModified(lastModified: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def UseRulesAndDefinitions(rules: win32more.Storage.FileServerResourceManager.IFsrmCollection_head, propertyDefinitions: win32more.Storage.FileServerResourceManager.IFsrmCollection_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def OnBeginFile(propertyBag: win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head, arrayRuleIds: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DoesPropertyValueApply(property: win32more.Foundation.BSTR, value: win32more.Foundation.BSTR, applyValue: POINTER(win32more.Foundation.VARIANT_BOOL), idRule: Guid, idPropDef: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetPropertyValueToApply(property: win32more.Foundation.BSTR, value: POINTER(win32more.Foundation.BSTR), idRule: Guid, idPropDef: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def OnEndFile() -> win32more.Foundation.HRESULT: ...
+class IFsrmCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f76fbf3b-8ddd-4b42-b0-5a-cb-1c-3f-f1-fe-e8')
+    @commethod(7)
+    def get__NewEnum(unknown: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(index: Int32, item: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Count(count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_State(state: POINTER(win32more.Storage.FileServerResourceManager.FsrmCollectionState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def WaitForCompletion(waitSeconds: Int32, completed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetById(id: Guid, entry: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmCommittableCollection(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmMutableCollection
+    Guid = Guid('96deb3b5-8b91-4a2a-9d-93-80-a3-5d-8a-a8-47')
+    @commethod(18)
+    def Commit(options: win32more.Storage.FileServerResourceManager.FsrmCommitOptions, results: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmDerivedObjectsResult(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('39322a2d-38ee-4d0d-80-95-42-1a-80-84-9a-82')
+    @commethod(7)
+    def get_DerivedObjects(derivedObjects: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Results(results: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmExportImport(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('efcb0ab1-16c4-4a79-81-2c-72-56-14-c3-30-6b')
+    @commethod(7)
+    def ExportFileGroups(filePath: win32more.Foundation.BSTR, fileGroupNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def ImportFileGroups(filePath: win32more.Foundation.BSTR, fileGroupNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR, fileGroups: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ExportFileScreenTemplates(filePath: win32more.Foundation.BSTR, templateNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ImportFileScreenTemplates(filePath: win32more.Foundation.BSTR, templateNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR, templates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ExportQuotaTemplates(filePath: win32more.Foundation.BSTR, templateNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ImportQuotaTemplates(filePath: win32more.Foundation.BSTR, templateNamesSafeArray: POINTER(win32more.System.Com.VARIANT_head), remoteHost: win32more.Foundation.BSTR, templates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileCondition(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('70684ffc-691a-4a1a-b9-22-97-75-2e-13-8c-c1')
+    @commethod(7)
+    def get_Type(pVal: POINTER(win32more.Storage.FileServerResourceManager.FsrmFileConditionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class IFsrmFileConditionProperty(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmFileCondition
+    Guid = Guid('81926775-b981-4479-98-8f-da-17-1d-62-73-60')
+    @commethod(9)
+    def get_PropertyName(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_PropertyName(newVal: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_PropertyId(pVal: POINTER(win32more.Storage.FileServerResourceManager.FsrmFileSystemPropertyId)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_PropertyId(newVal: win32more.Storage.FileServerResourceManager.FsrmFileSystemPropertyId) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Operator(pVal: POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_Operator(newVal: win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ValueType(pVal: POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyValueType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_ValueType(newVal: win32more.Storage.FileServerResourceManager.FsrmPropertyValueType) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_Value(pVal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_Value(newVal: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileGroup(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('8dd04909-0e34-4d55-af-aa-89-e1-f1-a1-bb-b9')
+    @commethod(12)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Members(members: POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_Members(members: win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_NonMembers(nonMembers: POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_NonMembers(nonMembers: win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileGroupImported(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmFileGroup
+    Guid = Guid('ad55f10b-5f11-4be7-94-ef-d9-ee-2e-47-0d-ed')
+    @commethod(18)
+    def get_OverwriteOnCommit(overwrite: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_OverwriteOnCommit(overwrite: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileGroupManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('426677d5-018c-485c-8a-51-20-b8-6d-00-bd-c4')
+    @commethod(7)
+    def CreateFileGroup(fileGroup: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetFileGroup(name: win32more.Foundation.BSTR, fileGroup: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumFileGroups(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, fileGroups: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ExportFileGroups(fileGroupNamesArray: POINTER(win32more.System.Com.VARIANT_head), serializedFileGroups: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ImportFileGroups(serializedFileGroups: win32more.Foundation.BSTR, fileGroupNamesArray: POINTER(win32more.System.Com.VARIANT_head), fileGroups: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileManagementJob(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('0770687e-9f36-4d6f-87-78-59-9d-18-84-61-c9')
+    @commethod(12)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_NamespaceRoots(namespaceRoots: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_NamespaceRoots(namespaceRoots: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_OperationType(operationType: POINTER(win32more.Storage.FileServerResourceManager.FsrmFileManagementType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_OperationType(operationType: win32more.Storage.FileServerResourceManager.FsrmFileManagementType) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_ExpirationDirectory(expirationDirectory: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_ExpirationDirectory(expirationDirectory: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_CustomAction(action: POINTER(win32more.Storage.FileServerResourceManager.IFsrmActionCommand_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_Notifications(notifications: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_Logging(loggingFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_Logging(loggingFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_ReportEnabled(reportEnabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_ReportEnabled(reportEnabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def get_Formats(formats: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def put_Formats(formats: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def get_MailTo(mailTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def put_MailTo(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def get_DaysSinceFileCreated(daysSinceCreation: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def put_DaysSinceFileCreated(daysSinceCreation: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def get_DaysSinceFileLastAccessed(daysSinceAccess: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def put_DaysSinceFileLastAccessed(daysSinceAccess: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def get_DaysSinceFileLastModified(daysSinceModify: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def put_DaysSinceFileLastModified(daysSinceModify: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(38)
+    def get_PropertyConditions(propertyConditions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(39)
+    def get_FromDate(fromDate: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(40)
+    def put_FromDate(fromDate: Double) -> win32more.Foundation.HRESULT: ...
+    @commethod(41)
+    def get_Task(taskName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(42)
+    def put_Task(taskName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(43)
+    def get_Parameters(parameters: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(44)
+    def put_Parameters(parameters: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(45)
+    def get_RunningStatus(runningStatus: POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus)) -> win32more.Foundation.HRESULT: ...
+    @commethod(46)
+    def get_LastError(lastError: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(47)
+    def get_LastReportPathWithoutExtension(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(48)
+    def get_LastRun(lastRun: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(49)
+    def get_FileNamePattern(fileNamePattern: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(50)
+    def put_FileNamePattern(fileNamePattern: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(51)
+    def Run(context: win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext) -> win32more.Foundation.HRESULT: ...
+    @commethod(52)
+    def WaitForCompletion(waitSeconds: Int32, completed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(53)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+    @commethod(54)
+    def AddNotification(days: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(55)
+    def DeleteNotification(days: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(56)
+    def ModifyNotification(days: Int32, newDays: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(57)
+    def CreateNotificationAction(days: Int32, actionType: win32more.Storage.FileServerResourceManager.FsrmActionType, action: POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(58)
+    def EnumNotificationActions(days: Int32, actions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(59)
+    def CreatePropertyCondition(name: win32more.Foundation.BSTR, propertyCondition: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPropertyCondition_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(60)
+    def CreateCustomAction(customAction: POINTER(win32more.Storage.FileServerResourceManager.IFsrmActionCommand_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileManagementJobManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ee321ecb-d95e-48e9-90-7c-c7-68-5a-01-32-35')
+    @commethod(7)
+    def get_ActionVariables(variables: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ActionVariableDescriptions(descriptions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumFileManagementJobs(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, fileManagementJobs: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateFileManagementJob(fileManagementJob: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileManagementJob_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetFileManagementJob(name: win32more.Foundation.BSTR, fileManagementJob: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileManagementJob_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreen(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase
+    Guid = Guid('5f6325d3-ce88-4733-84-c1-2d-6a-ef-c5-ea-07')
+    @commethod(18)
+    def get_Path(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_SourceTemplateName(fileScreenTemplateName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_MatchesSourceTemplate(matches: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_UserSid(userSid: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_UserAccount(userAccount: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def ApplyTemplate(fileScreenTemplateName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenBase(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('f3637e80-5b22-4a2b-a6-37-bb-b6-42-b4-1c-fc')
+    @commethod(12)
+    def get_BlockedFileGroups(blockList: POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_BlockedFileGroups(blockList: win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_FileScreenFlags(fileScreenFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_FileScreenFlags(fileScreenFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def CreateAction(actionType: win32more.Storage.FileServerResourceManager.FsrmActionType, action: POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def EnumActions(actions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenException(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('bee7ce02-df77-4515-93-89-78-f0-1c-5a-fc-1a')
+    @commethod(12)
+    def get_Path(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_AllowedFileGroups(allowList: POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_AllowedFileGroups(allowList: win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ff4fa04e-5a94-4bda-a3-a0-d5-b4-d3-c5-2e-ba')
+    @commethod(7)
+    def get_ActionVariables(variables: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ActionVariableDescriptions(descriptions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateFileScreen(path: win32more.Foundation.BSTR, fileScreen: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreen_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetFileScreen(path: win32more.Foundation.BSTR, fileScreen: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreen_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def EnumFileScreens(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, fileScreens: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateFileScreenException(path: win32more.Foundation.BSTR, fileScreenException: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenException_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetFileScreenException(path: win32more.Foundation.BSTR, fileScreenException: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenException_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def EnumFileScreenExceptions(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, fileScreenExceptions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def CreateFileScreenCollection(collection: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenTemplate(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmFileScreenBase
+    Guid = Guid('205bebf8-dd93-452a-95-a6-32-b5-66-b3-58-28')
+    @commethod(18)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CopyTemplate(fileScreenTemplateName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def CommitAndUpdateDerived(commitOptions: win32more.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenTemplateImported(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate
+    Guid = Guid('e1010359-3e5d-4ecd-9f-e4-ef-48-62-2f-df-30')
+    @commethod(22)
+    def get_OverwriteOnCommit(overwrite: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_OverwriteOnCommit(overwrite: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmFileScreenTemplateManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('cfe36cba-1949-4e74-a1-4f-f1-d5-80-ce-af-13')
+    @commethod(7)
+    def CreateTemplate(fileScreenTemplate: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTemplate(name: win32more.Foundation.BSTR, fileScreenTemplate: POINTER(win32more.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumTemplates(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, fileScreenTemplates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ExportTemplates(fileScreenTemplateNamesArray: POINTER(win32more.System.Com.VARIANT_head), serializedFileScreenTemplates: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ImportTemplates(serializedFileScreenTemplates: win32more.Foundation.BSTR, fileScreenTemplateNamesArray: POINTER(win32more.System.Com.VARIANT_head), fileScreenTemplates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmMutableCollection(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmCollection
+    Guid = Guid('1bb617b8-3886-49dc-af-82-a6-c9-0f-a3-5d-da')
+    @commethod(14)
+    def Add(item: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Remove(index: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def RemoveById(id: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def Clone(collection: POINTER(win32more.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmObject(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('22bcef93-4a3f-4183-89-f9-2f-8b-8a-62-8a-ee')
+    @commethod(7)
+    def get_Id(id: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Description(description: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_Description(description: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Commit() -> win32more.Foundation.HRESULT: ...
+class IFsrmPathMapper(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6f4dbfff-6920-4821-a6-c3-b7-e9-4c-1f-d6-0c')
+    @commethod(7)
+    def GetSharePathsForLocalPath(localPath: win32more.Foundation.BSTR, sharePaths: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+class IFsrmPipelineModuleConnector(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c16014f3-9aa1-46b3-b0-a7-ab-14-6e-b2-05-f2')
+    @commethod(7)
+    def get_ModuleImplementation(pipelineModuleImplementation: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ModuleName(userName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_HostingUserAccount(userAccount: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_HostingProcessPid(pid: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Bind(moduleDefinition: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head, moduleImplementation: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head) -> win32more.Foundation.HRESULT: ...
+class IFsrmPipelineModuleDefinition(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('515c1277-2c81-440e-8f-cf-36-79-21-ed-4f-59')
+    @commethod(12)
+    def get_ModuleClsid(moduleClsid: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_ModuleClsid(moduleClsid: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Company(company: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_Company(company: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_Version(version: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_Version(version: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_ModuleType(moduleType: POINTER(win32more.Storage.FileServerResourceManager.FsrmPipelineModuleType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_Enabled(enabled: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_Enabled(enabled: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_NeedsFileContent(needsFileContent: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_NeedsFileContent(needsFileContent: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_Account(retrievalAccount: POINTER(win32more.Storage.FileServerResourceManager.FsrmAccountType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def put_Account(retrievalAccount: win32more.Storage.FileServerResourceManager.FsrmAccountType) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def get_SupportedExtensions(supportedExtensions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def put_SupportedExtensions(supportedExtensions: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_Parameters(parameters: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def put_Parameters(parameters: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPipelineModuleImplementation(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b7907906-2b02-4cb5-84-a9-fd-f5-46-13-d6-cd')
+    @commethod(7)
+    def OnLoad(moduleDefinition: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head, moduleConnector: POINTER(win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleConnector_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnUnload() -> win32more.Foundation.HRESULT: ...
+class IFsrmProperty(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('4a73fee4-4102-4fcc-9f-fb-38-61-4f-9e-e7-68')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Value(value: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Sources(sources: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_PropertyFlags(flags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyBag(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('774589d1-d300-4f7a-9a-24-f7-b7-66-80-02-50')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_RelativePath(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_VolumeName(volumeName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_RelativeNamespaceRoot(relativeNamespaceRoot: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_VolumeIndex(volumeId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_FileId(fileId: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ParentDirectoryId(parentDirectoryId: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Size(size: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_SizeAllocated(sizeAllocated: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_CreationTime(creationTime: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_LastAccessTime(lastAccessTime: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_LastModificationTime(lastModificationTime: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_Attributes(attributes: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_OwnerSid(ownerSid: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_FilePropertyNames(filePropertyNames: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_Messages(messages: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_PropertyBagFlags(flags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def GetFileProperty(name: win32more.Foundation.BSTR, fileProperty: POINTER(win32more.Storage.FileServerResourceManager.IFsrmProperty_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def SetFileProperty(name: win32more.Foundation.BSTR, value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def AddMessage(message: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetFileStreamInterface(accessMode: win32more.Storage.FileServerResourceManager.FsrmFileStreamingMode, interfaceType: win32more.Storage.FileServerResourceManager.FsrmFileStreamingInterfaceType, pStreamInterface: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyBag2(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPropertyBag
+    Guid = Guid('0e46bdbd-2402-4fed-9c-30-92-66-e6-eb-2c-c9')
+    @commethod(28)
+    def GetFieldValue(field: win32more.Storage.FileServerResourceManager.FsrmPropertyBagField, value: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetUntrustedInFileProperties(props: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyCondition(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('326af66f-2ac0-4f68-bf-8c-47-59-f0-54-fa-29')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Type(type: POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Type(type: win32more.Storage.FileServerResourceManager.FsrmPropertyConditionType) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Value(value: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_Value(value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyDefinition(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('ede0150f-e9a3-419c-87-7c-01-fe-5d-24-c5-d3')
+    @commethod(12)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Type(type: POINTER(win32more.Storage.FileServerResourceManager.FsrmPropertyDefinitionType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_Type(type: win32more.Storage.FileServerResourceManager.FsrmPropertyDefinitionType) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_PossibleValues(possibleValues: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_PossibleValues(possibleValues: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_ValueDescriptions(valueDescriptions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_ValueDescriptions(valueDescriptions: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_Parameters(parameters: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_Parameters(parameters: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyDefinition2(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPropertyDefinition
+    Guid = Guid('47782152-d16c-4229-b4-e1-0d-df-e3-08-b9-f6')
+    @commethod(22)
+    def get_PropertyDefinitionFlags(propertyDefinitionFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_DisplayName(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def put_DisplayName(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_AppliesTo(appliesTo: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_ValueDefinitions(valueDefinitions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmPropertyDefinitionValue(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('e946d148-bd67-4178-8e-22-1c-44-92-5e-d7-10')
+    @commethod(7)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_DisplayName(displayName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Description(description: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_UniqueID(uniqueID: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuota(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaObject
+    Guid = Guid('377f739d-9647-4b8e-97-d2-5f-fc-e6-d7-59-cd')
+    @commethod(28)
+    def get_QuotaUsed(used: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def get_QuotaPeakUsage(peakUsage: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def get_QuotaPeakUsageTime(peakUsageDateTime: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def ResetPeakUsage() -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def RefreshUsageProperties() -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaBase(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('1568a795-3924-4118-b7-4b-68-d8-f0-fa-5d-af')
+    @commethod(12)
+    def get_QuotaLimit(quotaLimit: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_QuotaLimit(quotaLimit: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_QuotaFlags(quotaFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_QuotaFlags(quotaFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Thresholds(thresholds: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def AddThreshold(threshold: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def DeleteThreshold(threshold: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ModifyThreshold(threshold: Int32, newThreshold: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def CreateThresholdAction(threshold: Int32, actionType: win32more.Storage.FileServerResourceManager.FsrmActionType, action: POINTER(win32more.Storage.FileServerResourceManager.IFsrmAction_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def EnumThresholdActions(threshold: Int32, actions: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('8bb68c7d-19d8-4ffb-80-9e-be-4f-c1-73-40-14')
+    @commethod(7)
+    def get_ActionVariables(variables: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ActionVariableDescriptions(descriptions: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def CreateQuota(path: win32more.Foundation.BSTR, quota: POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateAutoApplyQuota(quotaTemplateName: win32more.Foundation.BSTR, path: win32more.Foundation.BSTR, quota: POINTER(win32more.Storage.FileServerResourceManager.IFsrmAutoApplyQuota_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetQuota(path: win32more.Foundation.BSTR, quota: POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetAutoApplyQuota(path: win32more.Foundation.BSTR, quota: POINTER(win32more.Storage.FileServerResourceManager.IFsrmAutoApplyQuota_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetRestrictiveQuota(path: win32more.Foundation.BSTR, quota: POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuota_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def EnumQuotas(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, quotas: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def EnumAutoApplyQuotas(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, quotas: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def EnumEffectiveQuotas(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, quotas: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def Scan(strPath: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateQuotaCollection(collection: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaManagerEx(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaManager
+    Guid = Guid('4846cb01-d430-494f-ab-b4-b1-05-49-99-fb-09')
+    @commethod(19)
+    def IsAffectedByQuota(path: win32more.Foundation.BSTR, options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, affected: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaObject(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaBase
+    Guid = Guid('42dc3511-61d5-48ae-b6-dc-59-fc-00-c0-a8-d6')
+    @commethod(22)
+    def get_Path(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_UserSid(userSid: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_UserAccount(userAccount: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def get_SourceTemplateName(quotaTemplateName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def get_MatchesSourceTemplate(matches: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def ApplyTemplate(quotaTemplateName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaTemplate(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaBase
+    Guid = Guid('a2efab31-295e-46bb-b9-76-e8-6d-58-b5-2e-8b')
+    @commethod(22)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def CopyTemplate(quotaTemplateName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def CommitAndUpdateDerived(commitOptions: win32more.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: win32more.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(win32more.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaTemplateImported(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate
+    Guid = Guid('9a2bf113-a329-44cc-80-9a-5c-00-fc-e8-da-40')
+    @commethod(26)
+    def get_OverwriteOnCommit(overwrite: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def put_OverwriteOnCommit(overwrite: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmQuotaTemplateManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('4173ac41-172d-4d52-96-3c-fd-c7-e4-15-f7-17')
+    @commethod(7)
+    def CreateTemplate(quotaTemplate: POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTemplate(name: win32more.Foundation.BSTR, quotaTemplate: POINTER(win32more.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def EnumTemplates(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, quotaTemplates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ExportTemplates(quotaTemplateNamesArray: POINTER(win32more.System.Com.VARIANT_head), serializedQuotaTemplates: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def ImportTemplates(serializedQuotaTemplates: win32more.Foundation.BSTR, quotaTemplateNamesArray: POINTER(win32more.System.Com.VARIANT_head), quotaTemplates: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmReport(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d8cc81d9-46b8-4fa4-bf-a5-4a-a9-de-c9-b6-38')
+    @commethod(7)
+    def get_Type(reportType: POINTER(win32more.Storage.FileServerResourceManager.FsrmReportType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Description(description: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_Description(description: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_LastGeneratedFileNamePrefix(prefix: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetFilter(filter: win32more.Storage.FileServerResourceManager.FsrmReportFilter, filterValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetFilter(filter: win32more.Storage.FileServerResourceManager.FsrmReportFilter, filterValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+class IFsrmReportJob(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('38e87280-715c-4c7d-a2-80-ea-16-51-a1-9f-ef')
+    @commethod(12)
+    def get_Task(taskName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Task(taskName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_NamespaceRoots(namespaceRoots: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_NamespaceRoots(namespaceRoots: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_Formats(formats: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_Formats(formats: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_MailTo(mailTo: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_MailTo(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_RunningStatus(runningStatus: POINTER(win32more.Storage.FileServerResourceManager.FsrmReportRunningStatus)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_LastRun(lastRun: POINTER(Double)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_LastError(lastError: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_LastGeneratedInDirectory(path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def EnumReports(reports: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def CreateReport(reportType: win32more.Storage.FileServerResourceManager.FsrmReportType, report: POINTER(win32more.Storage.FileServerResourceManager.IFsrmReport_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def Run(context: win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def WaitForCompletion(waitSeconds: Int32, completed: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+class IFsrmReportManager(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('27b899fe-6ffa-4481-a1-84-d3-da-ad-e8-a0-2b')
+    @commethod(7)
+    def EnumReportJobs(options: win32more.Storage.FileServerResourceManager.FsrmEnumOptions, reportJobs: POINTER(win32more.Storage.FileServerResourceManager.IFsrmCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateReportJob(reportJob: POINTER(win32more.Storage.FileServerResourceManager.IFsrmReportJob_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetReportJob(taskName: win32more.Foundation.BSTR, reportJob: POINTER(win32more.Storage.FileServerResourceManager.IFsrmReportJob_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetOutputDirectory(context: win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext, path: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetOutputDirectory(context: win32more.Storage.FileServerResourceManager.FsrmReportGenerationContext, path: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def IsFilterValidForReportType(reportType: win32more.Storage.FileServerResourceManager.FsrmReportType, filter: win32more.Storage.FileServerResourceManager.FsrmReportFilter, valid: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetDefaultFilter(reportType: win32more.Storage.FileServerResourceManager.FsrmReportType, filter: win32more.Storage.FileServerResourceManager.FsrmReportFilter, filterValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetDefaultFilter(reportType: win32more.Storage.FileServerResourceManager.FsrmReportType, filter: win32more.Storage.FileServerResourceManager.FsrmReportFilter, filterValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetReportSizeLimit(limit: win32more.Storage.FileServerResourceManager.FsrmReportLimit, limitValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetReportSizeLimit(limit: win32more.Storage.FileServerResourceManager.FsrmReportLimit, limitValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IFsrmReportScheduler(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6879caf9-6617-4484-87-19-71-c3-d8-64-5f-94')
+    @commethod(7)
+    def VerifyNamespaces(namespacesSafeArray: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def CreateScheduleTask(taskName: win32more.Foundation.BSTR, namespacesSafeArray: POINTER(win32more.System.Com.VARIANT_head), serializedTask: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ModifyScheduleTask(taskName: win32more.Foundation.BSTR, namespacesSafeArray: POINTER(win32more.System.Com.VARIANT_head), serializedTask: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def DeleteScheduleTask(taskName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFsrmRule(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmObject
+    Guid = Guid('cb0df960-16f5-4495-90-79-3f-93-60-d8-31-df')
+    @commethod(12)
+    def get_Name(name: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_Name(name: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_RuleType(ruleType: POINTER(win32more.Storage.FileServerResourceManager.FsrmRuleType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_ModuleDefinitionName(moduleDefinitionName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_ModuleDefinitionName(moduleDefinitionName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_NamespaceRoots(namespaceRoots: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_NamespaceRoots(namespaceRoots: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_RuleFlags(ruleFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_RuleFlags(ruleFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_Parameters(parameters: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_Parameters(parameters: POINTER(win32more.System.Com.SAFEARRAY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def get_LastModified(lastModified: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IFsrmSetting(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f411d4fd-14be-4260-8c-40-03-b7-c9-5e-60-8a')
+    @commethod(7)
+    def get_SmtpServer(smtpServer: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_SmtpServer(smtpServer: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_MailFrom(mailFrom: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_MailFrom(mailFrom: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_AdminEmail(adminEmail: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_AdminEmail(adminEmail: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_DisableCommandLine(disableCommandLine: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_DisableCommandLine(disableCommandLine: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_EnableScreeningAudit(enableScreeningAudit: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_EnableScreeningAudit(enableScreeningAudit: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def EmailTest(mailTo: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetActionRunLimitInterval(actionType: win32more.Storage.FileServerResourceManager.FsrmActionType, delayTimeMinutes: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetActionRunLimitInterval(actionType: win32more.Storage.FileServerResourceManager.FsrmActionType, delayTimeMinutes: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IFsrmStorageModuleDefinition(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
+    Guid = Guid('15a81350-497d-4aba-80-e9-d4-db-cc-55-21-fe')
+    @commethod(31)
+    def get_Capabilities(capabilities: POINTER(win32more.Storage.FileServerResourceManager.FsrmStorageModuleCaps)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def put_Capabilities(capabilities: win32more.Storage.FileServerResourceManager.FsrmStorageModuleCaps) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def get_StorageType(storageType: POINTER(win32more.Storage.FileServerResourceManager.FsrmStorageModuleType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def put_StorageType(storageType: win32more.Storage.FileServerResourceManager.FsrmStorageModuleType) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def get_UpdatesFileContent(updatesFileContent: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(36)
+    def put_UpdatesFileContent(updatesFileContent: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+class IFsrmStorageModuleImplementation(c_void_p):
+    extends: win32more.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
+    Guid = Guid('0af4a0da-895a-4e50-87-12-a9-67-24-bc-ec-64')
+    @commethod(9)
+    def UseDefinitions(propertyDefinitions: win32more.Storage.FileServerResourceManager.IFsrmCollection_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def LoadProperties(propertyBag: win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SaveProperties(propertyBag: win32more.Storage.FileServerResourceManager.IFsrmPropertyBag_head) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'DIFsrmClassificationEvents')
+make_head(_module, 'IFsrmAccessDeniedRemediationClient')
+make_head(_module, 'IFsrmAction')
+make_head(_module, 'IFsrmActionCommand')
+make_head(_module, 'IFsrmActionEmail')
+make_head(_module, 'IFsrmActionEmail2')
+make_head(_module, 'IFsrmActionEventLog')
+make_head(_module, 'IFsrmActionReport')
+make_head(_module, 'IFsrmAutoApplyQuota')
+make_head(_module, 'IFsrmClassificationManager')
+make_head(_module, 'IFsrmClassificationManager2')
+make_head(_module, 'IFsrmClassificationRule')
+make_head(_module, 'IFsrmClassifierModuleDefinition')
+make_head(_module, 'IFsrmClassifierModuleImplementation')
+make_head(_module, 'IFsrmCollection')
+make_head(_module, 'IFsrmCommittableCollection')
+make_head(_module, 'IFsrmDerivedObjectsResult')
+make_head(_module, 'IFsrmExportImport')
+make_head(_module, 'IFsrmFileCondition')
+make_head(_module, 'IFsrmFileConditionProperty')
+make_head(_module, 'IFsrmFileGroup')
+make_head(_module, 'IFsrmFileGroupImported')
+make_head(_module, 'IFsrmFileGroupManager')
+make_head(_module, 'IFsrmFileManagementJob')
+make_head(_module, 'IFsrmFileManagementJobManager')
+make_head(_module, 'IFsrmFileScreen')
+make_head(_module, 'IFsrmFileScreenBase')
+make_head(_module, 'IFsrmFileScreenException')
+make_head(_module, 'IFsrmFileScreenManager')
+make_head(_module, 'IFsrmFileScreenTemplate')
+make_head(_module, 'IFsrmFileScreenTemplateImported')
+make_head(_module, 'IFsrmFileScreenTemplateManager')
+make_head(_module, 'IFsrmMutableCollection')
+make_head(_module, 'IFsrmObject')
+make_head(_module, 'IFsrmPathMapper')
+make_head(_module, 'IFsrmPipelineModuleConnector')
+make_head(_module, 'IFsrmPipelineModuleDefinition')
+make_head(_module, 'IFsrmPipelineModuleImplementation')
+make_head(_module, 'IFsrmProperty')
+make_head(_module, 'IFsrmPropertyBag')
+make_head(_module, 'IFsrmPropertyBag2')
+make_head(_module, 'IFsrmPropertyCondition')
+make_head(_module, 'IFsrmPropertyDefinition')
+make_head(_module, 'IFsrmPropertyDefinition2')
+make_head(_module, 'IFsrmPropertyDefinitionValue')
+make_head(_module, 'IFsrmQuota')
+make_head(_module, 'IFsrmQuotaBase')
+make_head(_module, 'IFsrmQuotaManager')
+make_head(_module, 'IFsrmQuotaManagerEx')
+make_head(_module, 'IFsrmQuotaObject')
+make_head(_module, 'IFsrmQuotaTemplate')
+make_head(_module, 'IFsrmQuotaTemplateImported')
+make_head(_module, 'IFsrmQuotaTemplateManager')
+make_head(_module, 'IFsrmReport')
+make_head(_module, 'IFsrmReportJob')
+make_head(_module, 'IFsrmReportManager')
+make_head(_module, 'IFsrmReportScheduler')
+make_head(_module, 'IFsrmRule')
+make_head(_module, 'IFsrmSetting')
+make_head(_module, 'IFsrmStorageModuleDefinition')
+make_head(_module, 'IFsrmStorageModuleImplementation')
 __all__ = [
     "AdSyncTask",
     "AdrClientDisplayFlags",

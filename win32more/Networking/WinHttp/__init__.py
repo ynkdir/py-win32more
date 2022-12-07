@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Networking.WinHttp
 import win32more.Networking.WinSock
@@ -7,1241 +8,883 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-WINHTTP_FLAG_ASYNC = 268435456
-WINHTTP_FLAG_SECURE_DEFAULTS = 805306368
-SECURITY_FLAG_IGNORE_UNKNOWN_CA = 256
-SECURITY_FLAG_IGNORE_CERT_DATE_INVALID = 8192
-SECURITY_FLAG_IGNORE_CERT_CN_INVALID = 4096
-SECURITY_FLAG_IGNORE_CERT_WRONG_USAGE = 512
-WINHTTP_AUTOPROXY_AUTO_DETECT = 1
-WINHTTP_AUTOPROXY_CONFIG_URL = 2
-WINHTTP_AUTOPROXY_HOST_KEEPCASE = 4
-WINHTTP_AUTOPROXY_HOST_LOWERCASE = 8
-WINHTTP_AUTOPROXY_ALLOW_AUTOCONFIG = 256
-WINHTTP_AUTOPROXY_ALLOW_STATIC = 512
-WINHTTP_AUTOPROXY_ALLOW_CM = 1024
-WINHTTP_AUTOPROXY_RUN_INPROCESS = 65536
-WINHTTP_AUTOPROXY_RUN_OUTPROCESS_ONLY = 131072
-WINHTTP_AUTOPROXY_NO_DIRECTACCESS = 262144
-WINHTTP_AUTOPROXY_NO_CACHE_CLIENT = 524288
-WINHTTP_AUTOPROXY_NO_CACHE_SVC = 1048576
-WINHTTP_AUTOPROXY_SORT_RESULTS = 4194304
-WINHTTP_AUTO_DETECT_TYPE_DHCP = 1
-WINHTTP_AUTO_DETECT_TYPE_DNS_A = 2
-NETWORKING_KEY_BUFSIZE = 128
-WINHTTP_PROXY_TYPE_DIRECT = 1
-WINHTTP_PROXY_TYPE_PROXY = 2
-WINHTTP_PROXY_TYPE_AUTO_PROXY_URL = 4
-WINHTTP_PROXY_TYPE_AUTO_DETECT = 8
-WINHTTP_REQUEST_STAT_FLAG_TCP_FAST_OPEN = 1
-WINHTTP_REQUEST_STAT_FLAG_TLS_SESSION_RESUMPTION = 2
-WINHTTP_REQUEST_STAT_FLAG_TLS_FALSE_START = 4
-WINHTTP_REQUEST_STAT_FLAG_PROXY_TLS_SESSION_RESUMPTION = 8
-WINHTTP_REQUEST_STAT_FLAG_PROXY_TLS_FALSE_START = 16
-WINHTTP_REQUEST_STAT_FLAG_FIRST_REQUEST = 32
-WINHTTP_MATCH_CONNECTION_GUID_FLAG_REQUIRE_MARKED_CONNECTION = 1
-WINHTTP_MATCH_CONNECTION_GUID_FLAGS_MASK = 1
-WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_SOFT_LIMIT = 1
-WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_BYPASS_CACHE = 2
-WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_USE_DNS_TTL = 4
-WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_CONN_USE_TTL = 8
-WINHTTP_TIME_FORMAT_BUFSIZE = 62
-WINHTTP_OPTION_CALLBACK = 1
-WINHTTP_OPTION_RESOLVE_TIMEOUT = 2
-WINHTTP_OPTION_CONNECT_TIMEOUT = 3
-WINHTTP_OPTION_CONNECT_RETRIES = 4
-WINHTTP_OPTION_SEND_TIMEOUT = 5
-WINHTTP_OPTION_RECEIVE_TIMEOUT = 6
-WINHTTP_OPTION_RECEIVE_RESPONSE_TIMEOUT = 7
-WINHTTP_OPTION_HANDLE_TYPE = 9
-WINHTTP_OPTION_READ_BUFFER_SIZE = 12
-WINHTTP_OPTION_WRITE_BUFFER_SIZE = 13
-WINHTTP_OPTION_PARENT_HANDLE = 21
-WINHTTP_OPTION_EXTENDED_ERROR = 24
-WINHTTP_OPTION_SECURITY_FLAGS = 31
-WINHTTP_OPTION_SECURITY_CERTIFICATE_STRUCT = 32
-WINHTTP_OPTION_URL = 34
-WINHTTP_OPTION_SECURITY_KEY_BITNESS = 36
-WINHTTP_OPTION_PROXY = 38
-WINHTTP_OPTION_PROXY_RESULT_ENTRY = 39
-WINHTTP_OPTION_USER_AGENT = 41
-WINHTTP_OPTION_CONTEXT_VALUE = 45
-WINHTTP_OPTION_CLIENT_CERT_CONTEXT = 47
-WINHTTP_OPTION_REQUEST_PRIORITY = 58
-WINHTTP_OPTION_HTTP_VERSION = 59
-WINHTTP_OPTION_DISABLE_FEATURE = 63
-WINHTTP_OPTION_CODEPAGE = 68
-WINHTTP_OPTION_MAX_CONNS_PER_SERVER = 73
-WINHTTP_OPTION_MAX_CONNS_PER_1_0_SERVER = 74
-WINHTTP_OPTION_AUTOLOGON_POLICY = 77
-WINHTTP_OPTION_SERVER_CERT_CONTEXT = 78
-WINHTTP_OPTION_ENABLE_FEATURE = 79
-WINHTTP_OPTION_WORKER_THREAD_COUNT = 80
-WINHTTP_OPTION_PASSPORT_COBRANDING_TEXT = 81
-WINHTTP_OPTION_PASSPORT_COBRANDING_URL = 82
-WINHTTP_OPTION_CONFIGURE_PASSPORT_AUTH = 83
-WINHTTP_OPTION_SECURE_PROTOCOLS = 84
-WINHTTP_OPTION_ENABLETRACING = 85
-WINHTTP_OPTION_PASSPORT_SIGN_OUT = 86
-WINHTTP_OPTION_PASSPORT_RETURN_URL = 87
-WINHTTP_OPTION_REDIRECT_POLICY = 88
-WINHTTP_OPTION_MAX_HTTP_AUTOMATIC_REDIRECTS = 89
-WINHTTP_OPTION_MAX_HTTP_STATUS_CONTINUE = 90
-WINHTTP_OPTION_MAX_RESPONSE_HEADER_SIZE = 91
-WINHTTP_OPTION_MAX_RESPONSE_DRAIN_SIZE = 92
-WINHTTP_OPTION_CONNECTION_INFO = 93
-WINHTTP_OPTION_CLIENT_CERT_ISSUER_LIST = 94
-WINHTTP_OPTION_SPN = 96
-WINHTTP_OPTION_GLOBAL_PROXY_CREDS = 97
-WINHTTP_OPTION_GLOBAL_SERVER_CREDS = 98
-WINHTTP_OPTION_UNLOAD_NOTIFY_EVENT = 99
-WINHTTP_OPTION_REJECT_USERPWD_IN_URL = 100
-WINHTTP_OPTION_USE_GLOBAL_SERVER_CREDENTIALS = 101
-WINHTTP_OPTION_RECEIVE_PROXY_CONNECT_RESPONSE = 103
-WINHTTP_OPTION_IS_PROXY_CONNECT_RESPONSE = 104
-WINHTTP_OPTION_SERVER_SPN_USED = 106
-WINHTTP_OPTION_PROXY_SPN_USED = 107
-WINHTTP_OPTION_SERVER_CBT = 108
-WINHTTP_OPTION_UNSAFE_HEADER_PARSING = 110
-WINHTTP_OPTION_ASSURED_NON_BLOCKING_CALLBACKS = 111
-WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET = 114
-WINHTTP_OPTION_WEB_SOCKET_CLOSE_TIMEOUT = 115
-WINHTTP_OPTION_WEB_SOCKET_KEEPALIVE_INTERVAL = 116
-WINHTTP_OPTION_DECOMPRESSION = 118
-WINHTTP_OPTION_WEB_SOCKET_RECEIVE_BUFFER_SIZE = 122
-WINHTTP_OPTION_WEB_SOCKET_SEND_BUFFER_SIZE = 123
-WINHTTP_OPTION_TCP_PRIORITY_HINT = 128
-WINHTTP_OPTION_CONNECTION_FILTER = 131
-WINHTTP_OPTION_ENABLE_HTTP_PROTOCOL = 133
-WINHTTP_OPTION_HTTP_PROTOCOL_USED = 134
-WINHTTP_OPTION_KDC_PROXY_SETTINGS = 136
-WINHTTP_OPTION_PROXY_DISABLE_SERVICE_CALLS = 137
-WINHTTP_OPTION_ENCODE_EXTRA = 138
-WINHTTP_OPTION_DISABLE_STREAM_QUEUE = 139
-WINHTTP_OPTION_IPV6_FAST_FALLBACK = 140
-WINHTTP_OPTION_CONNECTION_STATS_V0 = 141
-WINHTTP_OPTION_REQUEST_TIMES = 142
-WINHTTP_OPTION_EXPIRE_CONNECTION = 143
-WINHTTP_OPTION_DISABLE_SECURE_PROTOCOL_FALLBACK = 144
-WINHTTP_OPTION_HTTP_PROTOCOL_REQUIRED = 145
-WINHTTP_OPTION_REQUEST_STATS = 146
-WINHTTP_OPTION_SERVER_CERT_CHAIN_CONTEXT = 147
-WINHTTP_OPTION_CONNECTION_STATS_V1 = 150
-WINHTTP_OPTION_SECURITY_INFO = 151
-WINHTTP_OPTION_TCP_KEEPALIVE = 152
-WINHTTP_OPTION_TCP_FAST_OPEN = 153
-WINHTTP_OPTION_TLS_FALSE_START = 154
-WINHTTP_OPTION_IGNORE_CERT_REVOCATION_OFFLINE = 155
-WINHTTP_OPTION_SOURCE_ADDRESS = 156
-WINHTTP_OPTION_HEAP_EXTENSION = 157
-WINHTTP_OPTION_TLS_PROTOCOL_INSECURE_FALLBACK = 158
-WINHTTP_OPTION_STREAM_ERROR_CODE = 159
-WINHTTP_OPTION_REQUIRE_STREAM_END = 160
-WINHTTP_OPTION_ENABLE_HTTP2_PLUS_CLIENT_CERT = 161
-WINHTTP_OPTION_FAILED_CONNECTION_RETRIES = 162
-WINHTTP_OPTION_SET_GLOBAL_CALLBACK = 163
-WINHTTP_OPTION_HTTP2_KEEPALIVE = 164
-WINHTTP_OPTION_RESOLUTION_HOSTNAME = 165
-WINHTTP_OPTION_SET_TOKEN_BINDING = 166
-WINHTTP_OPTION_TOKEN_BINDING_PUBLIC_KEY = 167
-WINHTTP_OPTION_REFERER_TOKEN_BINDING_HOSTNAME = 168
-WINHTTP_OPTION_HTTP2_PLUS_TRANSFER_ENCODING = 169
-WINHTTP_OPTION_RESOLVER_CACHE_CONFIG = 170
-WINHTTP_OPTION_DISABLE_CERT_CHAIN_BUILDING = 171
-WINHTTP_OPTION_BACKGROUND_CONNECTIONS = 172
-WINHTTP_OPTION_FIRST_AVAILABLE_CONNECTION = 173
-WINHTTP_OPTION_ENABLE_TEST_SIGNING = 174
-WINHTTP_OPTION_NTSERVICE_FLAG_TEST = 175
-WINHTTP_OPTION_DISABLE_PROXY_LINK_LOCAL_NAME_RESOLUTION = 176
-WINHTTP_OPTION_TCP_PRIORITY_STATUS = 177
-WINHTTP_OPTION_CONNECTION_GUID = 178
-WINHTTP_OPTION_MATCH_CONNECTION_GUID = 179
-WINHTTP_OPTION_PROXY_CONFIG_INFO = 180
-WINHTTP_OPTION_AGGREGATE_PROXY_CONFIG = 181
-WINHTTP_OPTION_SELECTED_PROXY_CONFIG_INFO = 182
-WINHTTP_OPTION_HTTP2_RECEIVE_WINDOW = 183
-WINHTTP_LAST_OPTION = 183
-WINHTTP_OPTION_USERNAME = 4096
-WINHTTP_OPTION_PASSWORD = 4097
-WINHTTP_OPTION_PROXY_USERNAME = 4098
-WINHTTP_OPTION_PROXY_PASSWORD = 4099
-WINHTTP_CONNS_PER_SERVER_UNLIMITED = 4294967295
-WINHTTP_CONNECTION_RETRY_CONDITION_408 = 1
-WINHTTP_CONNECTION_RETRY_CONDITION_SSL_HANDSHAKE = 2
-WINHTTP_CONNECTION_RETRY_CONDITION_STALE_CONNECTION = 4
-WINHTTP_DECOMPRESSION_FLAG_GZIP = 1
-WINHTTP_DECOMPRESSION_FLAG_DEFLATE = 2
-WINHTTP_PROTOCOL_FLAG_HTTP2 = 1
-WINHTTP_PROTOCOL_FLAG_HTTP3 = 2
-WINHTTP_AUTOLOGON_SECURITY_LEVEL_MEDIUM = 0
-WINHTTP_AUTOLOGON_SECURITY_LEVEL_LOW = 1
-WINHTTP_AUTOLOGON_SECURITY_LEVEL_HIGH = 2
-WINHTTP_AUTOLOGON_SECURITY_LEVEL_DEFAULT = 0
-WINHTTP_OPTION_REDIRECT_POLICY_NEVER = 0
-WINHTTP_OPTION_REDIRECT_POLICY_DISALLOW_HTTPS_TO_HTTP = 1
-WINHTTP_OPTION_REDIRECT_POLICY_ALWAYS = 2
-WINHTTP_OPTION_REDIRECT_POLICY_LAST = 2
-WINHTTP_OPTION_REDIRECT_POLICY_DEFAULT = 1
-WINHTTP_DISABLE_PASSPORT_AUTH = 0
-WINHTTP_ENABLE_PASSPORT_AUTH = 268435456
-WINHTTP_DISABLE_PASSPORT_KEYRING = 536870912
-WINHTTP_ENABLE_PASSPORT_KEYRING = 1073741824
-WINHTTP_DISABLE_COOKIES = 1
-WINHTTP_DISABLE_REDIRECTS = 2
-WINHTTP_DISABLE_AUTHENTICATION = 4
-WINHTTP_DISABLE_KEEP_ALIVE = 8
-WINHTTP_ENABLE_SSL_REVOCATION = 1
-WINHTTP_ENABLE_SSL_REVERT_IMPERSONATION = 2
-WINHTTP_DISABLE_SPN_SERVER_PORT = 0
-WINHTTP_ENABLE_SPN_SERVER_PORT = 1
-WINHTTP_OPTION_SPN_MASK = 1
-WINHTTP_HANDLE_TYPE_SESSION = 1
-WINHTTP_HANDLE_TYPE_CONNECT = 2
-WINHTTP_HANDLE_TYPE_REQUEST = 3
-WINHTTP_AUTH_SCHEME_PASSPORT = 4
-WINHTTP_AUTH_SCHEME_DIGEST = 8
-WINHTTP_AUTH_TARGET_SERVER = 0
-WINHTTP_AUTH_TARGET_PROXY = 1
-SECURITY_FLAG_SECURE = 1
-SECURITY_FLAG_STRENGTH_WEAK = 268435456
-SECURITY_FLAG_STRENGTH_MEDIUM = 1073741824
-SECURITY_FLAG_STRENGTH_STRONG = 536870912
-WINHTTP_CALLBACK_STATUS_FLAG_CERT_REV_FAILED = 1
-WINHTTP_CALLBACK_STATUS_FLAG_INVALID_CERT = 2
-WINHTTP_CALLBACK_STATUS_FLAG_CERT_REVOKED = 4
-WINHTTP_CALLBACK_STATUS_FLAG_INVALID_CA = 8
-WINHTTP_CALLBACK_STATUS_FLAG_CERT_CN_INVALID = 16
-WINHTTP_CALLBACK_STATUS_FLAG_CERT_DATE_INVALID = 32
-WINHTTP_CALLBACK_STATUS_FLAG_CERT_WRONG_USAGE = 64
-WINHTTP_CALLBACK_STATUS_FLAG_SECURITY_CHANNEL_ERROR = 2147483648
-WINHTTP_FLAG_SECURE_PROTOCOL_SSL2 = 8
-WINHTTP_FLAG_SECURE_PROTOCOL_SSL3 = 32
-WINHTTP_FLAG_SECURE_PROTOCOL_TLS1 = 128
-WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_1 = 512
-WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_2 = 2048
-WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_3 = 8192
-WINHTTP_CALLBACK_STATUS_RESOLVING_NAME = 1
-WINHTTP_CALLBACK_STATUS_NAME_RESOLVED = 2
-WINHTTP_CALLBACK_STATUS_CONNECTING_TO_SERVER = 4
-WINHTTP_CALLBACK_STATUS_CONNECTED_TO_SERVER = 8
-WINHTTP_CALLBACK_STATUS_SENDING_REQUEST = 16
-WINHTTP_CALLBACK_STATUS_REQUEST_SENT = 32
-WINHTTP_CALLBACK_STATUS_RECEIVING_RESPONSE = 64
-WINHTTP_CALLBACK_STATUS_RESPONSE_RECEIVED = 128
-WINHTTP_CALLBACK_STATUS_CLOSING_CONNECTION = 256
-WINHTTP_CALLBACK_STATUS_CONNECTION_CLOSED = 512
-WINHTTP_CALLBACK_STATUS_HANDLE_CREATED = 1024
-WINHTTP_CALLBACK_STATUS_HANDLE_CLOSING = 2048
-WINHTTP_CALLBACK_STATUS_DETECTING_PROXY = 4096
-WINHTTP_CALLBACK_STATUS_REDIRECT = 16384
-WINHTTP_CALLBACK_STATUS_INTERMEDIATE_RESPONSE = 32768
-WINHTTP_CALLBACK_STATUS_SECURE_FAILURE = 65536
-WINHTTP_CALLBACK_STATUS_HEADERS_AVAILABLE = 131072
-WINHTTP_CALLBACK_STATUS_DATA_AVAILABLE = 262144
-WINHTTP_CALLBACK_STATUS_READ_COMPLETE = 524288
-WINHTTP_CALLBACK_STATUS_WRITE_COMPLETE = 1048576
-WINHTTP_CALLBACK_STATUS_REQUEST_ERROR = 2097152
-WINHTTP_CALLBACK_STATUS_SENDREQUEST_COMPLETE = 4194304
-WINHTTP_CALLBACK_STATUS_GETPROXYFORURL_COMPLETE = 16777216
-WINHTTP_CALLBACK_STATUS_CLOSE_COMPLETE = 33554432
-WINHTTP_CALLBACK_STATUS_SHUTDOWN_COMPLETE = 67108864
-WINHTTP_CALLBACK_STATUS_SETTINGS_WRITE_COMPLETE = 268435456
-WINHTTP_CALLBACK_STATUS_SETTINGS_READ_COMPLETE = 536870912
-API_RECEIVE_RESPONSE = 1
-API_QUERY_DATA_AVAILABLE = 2
-API_READ_DATA = 3
-API_WRITE_DATA = 4
-API_SEND_REQUEST = 5
-API_GET_PROXY_FOR_URL = 6
-WINHTTP_CALLBACK_FLAG_DETECTING_PROXY = 4096
-WINHTTP_CALLBACK_FLAG_REDIRECT = 16384
-WINHTTP_CALLBACK_FLAG_INTERMEDIATE_RESPONSE = 32768
-WINHTTP_CALLBACK_FLAG_SECURE_FAILURE = 65536
-WINHTTP_CALLBACK_FLAG_SENDREQUEST_COMPLETE = 4194304
-WINHTTP_CALLBACK_FLAG_HEADERS_AVAILABLE = 131072
-WINHTTP_CALLBACK_FLAG_DATA_AVAILABLE = 262144
-WINHTTP_CALLBACK_FLAG_READ_COMPLETE = 524288
-WINHTTP_CALLBACK_FLAG_WRITE_COMPLETE = 1048576
-WINHTTP_CALLBACK_FLAG_REQUEST_ERROR = 2097152
-WINHTTP_CALLBACK_FLAG_GETPROXYFORURL_COMPLETE = 16777216
-WINHTTP_CALLBACK_FLAG_ALL_NOTIFICATIONS = 4294967295
-WINHTTP_QUERY_MIME_VERSION = 0
-WINHTTP_QUERY_CONTENT_TYPE = 1
-WINHTTP_QUERY_CONTENT_TRANSFER_ENCODING = 2
-WINHTTP_QUERY_CONTENT_ID = 3
-WINHTTP_QUERY_CONTENT_DESCRIPTION = 4
-WINHTTP_QUERY_CONTENT_LENGTH = 5
-WINHTTP_QUERY_CONTENT_LANGUAGE = 6
-WINHTTP_QUERY_ALLOW = 7
-WINHTTP_QUERY_PUBLIC = 8
-WINHTTP_QUERY_DATE = 9
-WINHTTP_QUERY_EXPIRES = 10
-WINHTTP_QUERY_LAST_MODIFIED = 11
-WINHTTP_QUERY_MESSAGE_ID = 12
-WINHTTP_QUERY_URI = 13
-WINHTTP_QUERY_DERIVED_FROM = 14
-WINHTTP_QUERY_COST = 15
-WINHTTP_QUERY_LINK = 16
-WINHTTP_QUERY_PRAGMA = 17
-WINHTTP_QUERY_VERSION = 18
-WINHTTP_QUERY_STATUS_CODE = 19
-WINHTTP_QUERY_STATUS_TEXT = 20
-WINHTTP_QUERY_RAW_HEADERS = 21
-WINHTTP_QUERY_RAW_HEADERS_CRLF = 22
-WINHTTP_QUERY_CONNECTION = 23
-WINHTTP_QUERY_ACCEPT = 24
-WINHTTP_QUERY_ACCEPT_CHARSET = 25
-WINHTTP_QUERY_ACCEPT_ENCODING = 26
-WINHTTP_QUERY_ACCEPT_LANGUAGE = 27
-WINHTTP_QUERY_AUTHORIZATION = 28
-WINHTTP_QUERY_CONTENT_ENCODING = 29
-WINHTTP_QUERY_FORWARDED = 30
-WINHTTP_QUERY_FROM = 31
-WINHTTP_QUERY_IF_MODIFIED_SINCE = 32
-WINHTTP_QUERY_LOCATION = 33
-WINHTTP_QUERY_ORIG_URI = 34
-WINHTTP_QUERY_REFERER = 35
-WINHTTP_QUERY_RETRY_AFTER = 36
-WINHTTP_QUERY_SERVER = 37
-WINHTTP_QUERY_TITLE = 38
-WINHTTP_QUERY_USER_AGENT = 39
-WINHTTP_QUERY_WWW_AUTHENTICATE = 40
-WINHTTP_QUERY_PROXY_AUTHENTICATE = 41
-WINHTTP_QUERY_ACCEPT_RANGES = 42
-WINHTTP_QUERY_SET_COOKIE = 43
-WINHTTP_QUERY_COOKIE = 44
-WINHTTP_QUERY_REQUEST_METHOD = 45
-WINHTTP_QUERY_REFRESH = 46
-WINHTTP_QUERY_CONTENT_DISPOSITION = 47
-WINHTTP_QUERY_AGE = 48
-WINHTTP_QUERY_CACHE_CONTROL = 49
-WINHTTP_QUERY_CONTENT_BASE = 50
-WINHTTP_QUERY_CONTENT_LOCATION = 51
-WINHTTP_QUERY_CONTENT_MD5 = 52
-WINHTTP_QUERY_CONTENT_RANGE = 53
-WINHTTP_QUERY_ETAG = 54
-WINHTTP_QUERY_HOST = 55
-WINHTTP_QUERY_IF_MATCH = 56
-WINHTTP_QUERY_IF_NONE_MATCH = 57
-WINHTTP_QUERY_IF_RANGE = 58
-WINHTTP_QUERY_IF_UNMODIFIED_SINCE = 59
-WINHTTP_QUERY_MAX_FORWARDS = 60
-WINHTTP_QUERY_PROXY_AUTHORIZATION = 61
-WINHTTP_QUERY_RANGE = 62
-WINHTTP_QUERY_TRANSFER_ENCODING = 63
-WINHTTP_QUERY_UPGRADE = 64
-WINHTTP_QUERY_VARY = 65
-WINHTTP_QUERY_VIA = 66
-WINHTTP_QUERY_WARNING = 67
-WINHTTP_QUERY_EXPECT = 68
-WINHTTP_QUERY_PROXY_CONNECTION = 69
-WINHTTP_QUERY_UNLESS_MODIFIED_SINCE = 70
-WINHTTP_QUERY_PROXY_SUPPORT = 75
-WINHTTP_QUERY_AUTHENTICATION_INFO = 76
-WINHTTP_QUERY_PASSPORT_URLS = 77
-WINHTTP_QUERY_PASSPORT_CONFIG = 78
-WINHTTP_QUERY_MAX = 78
-WINHTTP_QUERY_EX_ALL_HEADERS = 21
-WINHTTP_QUERY_CUSTOM = 65535
-WINHTTP_QUERY_FLAG_REQUEST_HEADERS = 2147483648
-WINHTTP_QUERY_FLAG_SYSTEMTIME = 1073741824
-WINHTTP_QUERY_FLAG_NUMBER = 536870912
-WINHTTP_QUERY_FLAG_NUMBER64 = 134217728
-WINHTTP_QUERY_FLAG_TRAILERS = 33554432
-WINHTTP_QUERY_FLAG_WIRE_ENCODING = 16777216
-HTTP_STATUS_CONTINUE = 100
-HTTP_STATUS_SWITCH_PROTOCOLS = 101
-HTTP_STATUS_OK = 200
-HTTP_STATUS_CREATED = 201
-HTTP_STATUS_ACCEPTED = 202
-HTTP_STATUS_PARTIAL = 203
-HTTP_STATUS_NO_CONTENT = 204
-HTTP_STATUS_RESET_CONTENT = 205
-HTTP_STATUS_PARTIAL_CONTENT = 206
-HTTP_STATUS_WEBDAV_MULTI_STATUS = 207
-HTTP_STATUS_AMBIGUOUS = 300
-HTTP_STATUS_MOVED = 301
-HTTP_STATUS_REDIRECT = 302
-HTTP_STATUS_REDIRECT_METHOD = 303
-HTTP_STATUS_NOT_MODIFIED = 304
-HTTP_STATUS_USE_PROXY = 305
-HTTP_STATUS_REDIRECT_KEEP_VERB = 307
-HTTP_STATUS_PERMANENT_REDIRECT = 308
-HTTP_STATUS_BAD_REQUEST = 400
-HTTP_STATUS_DENIED = 401
-HTTP_STATUS_PAYMENT_REQ = 402
-HTTP_STATUS_FORBIDDEN = 403
-HTTP_STATUS_NOT_FOUND = 404
-HTTP_STATUS_BAD_METHOD = 405
-HTTP_STATUS_NONE_ACCEPTABLE = 406
-HTTP_STATUS_PROXY_AUTH_REQ = 407
-HTTP_STATUS_REQUEST_TIMEOUT = 408
-HTTP_STATUS_CONFLICT = 409
-HTTP_STATUS_GONE = 410
-HTTP_STATUS_LENGTH_REQUIRED = 411
-HTTP_STATUS_PRECOND_FAILED = 412
-HTTP_STATUS_REQUEST_TOO_LARGE = 413
-HTTP_STATUS_URI_TOO_LONG = 414
-HTTP_STATUS_UNSUPPORTED_MEDIA = 415
-HTTP_STATUS_RETRY_WITH = 449
-HTTP_STATUS_SERVER_ERROR = 500
-HTTP_STATUS_NOT_SUPPORTED = 501
-HTTP_STATUS_BAD_GATEWAY = 502
-HTTP_STATUS_SERVICE_UNAVAIL = 503
-HTTP_STATUS_GATEWAY_TIMEOUT = 504
-HTTP_STATUS_VERSION_NOT_SUP = 505
-HTTP_STATUS_FIRST = 100
-HTTP_STATUS_LAST = 505
-ICU_NO_ENCODE = 536870912
-ICU_NO_META = 134217728
-ICU_ENCODE_SPACES_ONLY = 67108864
-ICU_BROWSER_MODE = 33554432
-ICU_ENCODE_PERCENT = 4096
-ICU_ESCAPE_AUTHORITY = 8192
-WINHTTP_ADDREQ_INDEX_MASK = 65535
-WINHTTP_ADDREQ_FLAGS_MASK = 4294901760
-WINHTTP_ADDREQ_FLAG_ADD_IF_NEW = 268435456
-WINHTTP_ADDREQ_FLAG_ADD = 536870912
-WINHTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA = 1073741824
-WINHTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON = 16777216
-WINHTTP_ADDREQ_FLAG_COALESCE = 1073741824
-WINHTTP_ADDREQ_FLAG_REPLACE = 2147483648
-WINHTTP_EXTENDED_HEADER_FLAG_UNICODE = 1
-WINHTTP_IGNORE_REQUEST_TOTAL_LENGTH = 0
-WINHTTP_ERROR_BASE = 12000
-ERROR_WINHTTP_OUT_OF_HANDLES = 12001
-ERROR_WINHTTP_TIMEOUT = 12002
-ERROR_WINHTTP_INTERNAL_ERROR = 12004
-ERROR_WINHTTP_INVALID_URL = 12005
-ERROR_WINHTTP_UNRECOGNIZED_SCHEME = 12006
-ERROR_WINHTTP_NAME_NOT_RESOLVED = 12007
-ERROR_WINHTTP_INVALID_OPTION = 12009
-ERROR_WINHTTP_OPTION_NOT_SETTABLE = 12011
-ERROR_WINHTTP_SHUTDOWN = 12012
-ERROR_WINHTTP_LOGIN_FAILURE = 12015
-ERROR_WINHTTP_OPERATION_CANCELLED = 12017
-ERROR_WINHTTP_INCORRECT_HANDLE_TYPE = 12018
-ERROR_WINHTTP_INCORRECT_HANDLE_STATE = 12019
-ERROR_WINHTTP_CANNOT_CONNECT = 12029
-ERROR_WINHTTP_CONNECTION_ERROR = 12030
-ERROR_WINHTTP_RESEND_REQUEST = 12032
-ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED = 12044
-ERROR_WINHTTP_CANNOT_CALL_BEFORE_OPEN = 12100
-ERROR_WINHTTP_CANNOT_CALL_BEFORE_SEND = 12101
-ERROR_WINHTTP_CANNOT_CALL_AFTER_SEND = 12102
-ERROR_WINHTTP_CANNOT_CALL_AFTER_OPEN = 12103
-ERROR_WINHTTP_HEADER_NOT_FOUND = 12150
-ERROR_WINHTTP_INVALID_SERVER_RESPONSE = 12152
-ERROR_WINHTTP_INVALID_HEADER = 12153
-ERROR_WINHTTP_INVALID_QUERY_REQUEST = 12154
-ERROR_WINHTTP_HEADER_ALREADY_EXISTS = 12155
-ERROR_WINHTTP_REDIRECT_FAILED = 12156
-ERROR_WINHTTP_AUTO_PROXY_SERVICE_ERROR = 12178
-ERROR_WINHTTP_BAD_AUTO_PROXY_SCRIPT = 12166
-ERROR_WINHTTP_UNABLE_TO_DOWNLOAD_SCRIPT = 12167
-ERROR_WINHTTP_UNHANDLED_SCRIPT_TYPE = 12176
-ERROR_WINHTTP_SCRIPT_EXECUTION_ERROR = 12177
-ERROR_WINHTTP_NOT_INITIALIZED = 12172
-ERROR_WINHTTP_SECURE_FAILURE = 12175
-ERROR_WINHTTP_SECURE_CERT_DATE_INVALID = 12037
-ERROR_WINHTTP_SECURE_CERT_CN_INVALID = 12038
-ERROR_WINHTTP_SECURE_INVALID_CA = 12045
-ERROR_WINHTTP_SECURE_CERT_REV_FAILED = 12057
-ERROR_WINHTTP_SECURE_CHANNEL_ERROR = 12157
-ERROR_WINHTTP_SECURE_INVALID_CERT = 12169
-ERROR_WINHTTP_SECURE_CERT_REVOKED = 12170
-ERROR_WINHTTP_SECURE_CERT_WRONG_USAGE = 12179
-ERROR_WINHTTP_AUTODETECTION_FAILED = 12180
-ERROR_WINHTTP_HEADER_COUNT_EXCEEDED = 12181
-ERROR_WINHTTP_HEADER_SIZE_OVERFLOW = 12182
-ERROR_WINHTTP_CHUNKED_ENCODING_HEADER_SIZE_OVERFLOW = 12183
-ERROR_WINHTTP_RESPONSE_DRAIN_OVERFLOW = 12184
-ERROR_WINHTTP_CLIENT_CERT_NO_PRIVATE_KEY = 12185
-ERROR_WINHTTP_CLIENT_CERT_NO_ACCESS_PRIVATE_KEY = 12186
-ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED_PROXY = 12187
-ERROR_WINHTTP_SECURE_FAILURE_PROXY = 12188
-ERROR_WINHTTP_RESERVED_189 = 12189
-ERROR_WINHTTP_HTTP_PROTOCOL_MISMATCH = 12190
-ERROR_WINHTTP_GLOBAL_CALLBACK_FAILED = 12191
-ERROR_WINHTTP_FEATURE_DISABLED = 12192
-WINHTTP_ERROR_LAST = 12192
-WINHTTP_RESET_STATE = 1
-WINHTTP_RESET_SWPAD_CURRENT_NETWORK = 2
-WINHTTP_RESET_SWPAD_ALL = 4
-WINHTTP_RESET_SCRIPT_CACHE = 8
-WINHTTP_RESET_ALL = 65535
-WINHTTP_RESET_NOTIFY_NETWORK_CHANGED = 65536
-WINHTTP_RESET_OUT_OF_PROC = 131072
-WINHTTP_RESET_DISCARD_RESOLVERS = 262144
-WINHTTP_WEB_SOCKET_MAX_CLOSE_REASON_LENGTH = 123
-WINHTTP_WEB_SOCKET_MIN_KEEPALIVE_VALUE = 15000
-def _define_WinHttpSetStatusCallback():
-    try:
-        return WINFUNCTYPE(win32more.Networking.WinHttp.WINHTTP_STATUS_CALLBACK,c_void_p,win32more.Networking.WinHttp.WINHTTP_STATUS_CALLBACK,UInt32,UIntPtr)(('WinHttpSetStatusCallback', windll['WINHTTP.dll']), ((1, 'hInternet'),(1, 'lpfnInternetCallback'),(1, 'dwNotificationFlags'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpTimeFromSystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Foundation.SYSTEMTIME_head),win32more.Foundation.PWSTR)(('WinHttpTimeFromSystemTime', windll['WINHTTP.dll']), ((1, 'pst'),(1, 'pwszTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpTimeToSystemTime():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.SYSTEMTIME_head))(('WinHttpTimeToSystemTime', windll['WINHTTP.dll']), ((1, 'pwszTime'),(1, 'pst'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpCrackUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Networking.WinHttp.URL_COMPONENTS_head))(('WinHttpCrackUrl', windll['WINHTTP.dll']), ((1, 'pwszUrl'),(1, 'dwUrlLength'),(1, 'dwFlags'),(1, 'lpUrlComponents'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpCreateUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinHttp.URL_COMPONENTS_head),win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS,win32more.Foundation.PWSTR,POINTER(UInt32))(('WinHttpCreateUrl', windll['WINHTTP.dll']), ((1, 'lpUrlComponents'),(1, 'dwFlags'),(1, 'pwszUrl'),(1, 'pdwUrlLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpCheckPlatform():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('WinHttpCheckPlatform', windll['WINHTTP.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetDefaultProxyConfiguration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head))(('WinHttpGetDefaultProxyConfiguration', windll['WINHTTP.dll']), ((1, 'pProxyInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSetDefaultProxyConfiguration():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head))(('WinHttpSetDefaultProxyConfiguration', windll['WINHTTP.dll']), ((1, 'pProxyInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpOpen():
-    try:
-        return WINFUNCTYPE(c_void_p,win32more.Foundation.PWSTR,win32more.Networking.WinHttp.WINHTTP_ACCESS_TYPE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32)(('WinHttpOpen', windll['WINHTTP.dll']), ((1, 'pszAgentW'),(1, 'dwAccessType'),(1, 'pszProxyW'),(1, 'pszProxyBypassW'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpCloseHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p)(('WinHttpCloseHandle', windll['WINHTTP.dll']), ((1, 'hInternet'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpConnect():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Networking.WinHttp.INTERNET_PORT,UInt32)(('WinHttpConnect', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'pswzServerName'),(1, 'nServerPort'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpReadData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32))(('WinHttpReadData', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToRead'),(1, 'lpdwNumberOfBytesRead'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpReadDataEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,c_void_p,UInt32,POINTER(UInt32),UInt64,UInt32,c_void_p)(('WinHttpReadDataEx', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToRead'),(1, 'lpdwNumberOfBytesRead'),(1, 'ullFlags'),(1, 'cbProperty'),(1, 'pvProperty'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWriteData():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p,UInt32,POINTER(UInt32))(('WinHttpWriteData', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpBuffer'),(1, 'dwNumberOfBytesToWrite'),(1, 'lpdwNumberOfBytesWritten'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryDataAvailable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt32))(('WinHttpQueryDataAvailable', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpdwNumberOfBytesAvailable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryOption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,POINTER(UInt32))(('WinHttpQueryOption', windll['WINHTTP.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSetOption():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,c_void_p,UInt32)(('WinHttpSetOption', windll['WINHTTP.dll']), ((1, 'hInternet'),(1, 'dwOption'),(1, 'lpBuffer'),(1, 'dwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSetTimeouts():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,Int32,Int32,Int32,Int32)(('WinHttpSetTimeouts', windll['WINHTTP.dll']), ((1, 'hInternet'),(1, 'nResolveTimeout'),(1, 'nConnectTimeout'),(1, 'nSendTimeout'),(1, 'nReceiveTimeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpOpenRequest():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),win32more.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS)(('WinHttpOpenRequest', windll['WINHTTP.dll']), ((1, 'hConnect'),(1, 'pwszVerb'),(1, 'pwszObjectName'),(1, 'pwszVersion'),(1, 'pwszReferrer'),(1, 'ppwszAcceptTypes'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpAddRequestHeaders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,UInt32,UInt32)(('WinHttpAddRequestHeaders', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'dwModifiers'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpAddRequestHeadersEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,UInt64,UInt64,UInt32,POINTER(win32more.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head))(('WinHttpAddRequestHeadersEx', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'dwModifiers'),(1, 'ullFlags'),(1, 'ullExtra'),(1, 'cHeaders'),(1, 'pHeaders'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSendRequest():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32,UInt32,UIntPtr)(('WinHttpSendRequest', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpszHeaders'),(1, 'dwHeadersLength'),(1, 'lpOptional'),(1, 'dwOptionalLength'),(1, 'dwTotalLength'),(1, 'dwContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSetCredentials():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p)(('WinHttpSetCredentials', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'AuthTargets'),(1, 'AuthScheme'),(1, 'pwszUserName'),(1, 'pwszPassword'),(1, 'pAuthParams'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryAuthSchemes():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('WinHttpQueryAuthSchemes', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpdwSupportedSchemes'),(1, 'lpdwFirstScheme'),(1, 'pdwAuthTarget'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpReceiveResponse():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,c_void_p)(('WinHttpReceiveResponse', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'lpReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryHeaders():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,win32more.Foundation.PWSTR,c_void_p,POINTER(UInt32),POINTER(UInt32))(('WinHttpQueryHeaders', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'pwszName'),(1, 'lpBuffer'),(1, 'lpdwBufferLength'),(1, 'lpdwIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryHeadersEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,UInt64,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinHttp.WINHTTP_HEADER_NAME_head),c_void_p,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head)),POINTER(UInt32))(('WinHttpQueryHeadersEx', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'dwInfoLevel'),(1, 'ullFlags'),(1, 'uiCodePage'),(1, 'pdwIndex'),(1, 'pHeaderName'),(1, 'pBuffer'),(1, 'pdwBufferLength'),(1, 'ppHeaders'),(1, 'pdwHeadersCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpQueryConnectionGroup():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(Guid),UInt64,POINTER(POINTER(win32more.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head)))(('WinHttpQueryConnectionGroup', windll['WINHTTP.dll']), ((1, 'hInternet'),(1, 'pGuidConnection'),(1, 'ullFlags'),(1, 'ppResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpFreeQueryConnectionGroupResult():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head))(('WinHttpFreeQueryConnectionGroupResult', windll['WINHTTP.dll']), ((1, 'pResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpDetectAutoProxyConfigUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.PWSTR))(('WinHttpDetectAutoProxyConfigUrl', windll['WINHTTP.dll']), ((1, 'dwAutoDetectFlags'),(1, 'ppwstrAutoConfigUrl'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxyForUrl():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head),POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head))(('WinHttpGetProxyForUrl', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'lpcwszUrl'),(1, 'pAutoProxyOptions'),(1, 'pProxyInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpCreateProxyResolver():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(c_void_p))(('WinHttpCreateProxyResolver', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'phResolver'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxyForUrlEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head),UIntPtr)(('WinHttpGetProxyForUrlEx', windll['WINHTTP.dll']), ((1, 'hResolver'),(1, 'pcwszUrl'),(1, 'pAutoProxyOptions'),(1, 'pContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxyForUrlEx2():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head),UInt32,c_char_p_no,UIntPtr)(('WinHttpGetProxyForUrlEx2', windll['WINHTTP.dll']), ((1, 'hResolver'),(1, 'pcwszUrl'),(1, 'pAutoProxyOptions'),(1, 'cbInterfaceSelectionContext'),(1, 'pInterfaceSelectionContext'),(1, 'pContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxyResult():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_head))(('WinHttpGetProxyResult', windll['WINHTTP.dll']), ((1, 'hResolver'),(1, 'pProxyResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxyResultEx():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head))(('WinHttpGetProxyResultEx', windll['WINHTTP.dll']), ((1, 'hResolver'),(1, 'pProxyResultEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpFreeProxyResult():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_head))(('WinHttpFreeProxyResult', windll['WINHTTP.dll']), ((1, 'pProxyResult'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpFreeProxyResultEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head))(('WinHttpFreeProxyResultEx', windll['WINHTTP.dll']), ((1, 'pProxyResultEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpResetAutoProxy():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32)(('WinHttpResetAutoProxy', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetIEProxyConfigForCurrentUser():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Networking.WinHttp.WINHTTP_CURRENT_USER_IE_PROXY_CONFIG_head))(('WinHttpGetIEProxyConfigForCurrentUser', windll['WINHTTP.dll']), ((1, 'pProxyConfig'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWriteProxySettings():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.BOOL,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head))(('WinHttpWriteProxySettings', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'fForceUpdate'),(1, 'pWinHttpProxySettings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpReadProxySettings():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head))(('WinHttpReadProxySettings', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'pcwszConnectionName'),(1, 'fFallBackToDefaultSettings'),(1, 'fSetAutoDiscoverForDefaultSettings'),(1, 'pdwSettingsVersion'),(1, 'pfDefaultSettingsAreReturned'),(1, 'pWinHttpProxySettings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpFreeProxySettings():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head))(('WinHttpFreeProxySettings', windll['WINHTTP.dll']), ((1, 'pWinHttpProxySettings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpGetProxySettingsVersion():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32))(('WinHttpGetProxySettingsVersion', windll['WINHTTP.dll']), ((1, 'hSession'),(1, 'pdwProxySettingsVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpSetProxySettingsPerUser():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL)(('WinHttpSetProxySettingsPerUser', windll['WINHTTP.dll']), ((1, 'fProxySettingsPerUser'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketCompleteUpgrade():
-    try:
-        return WINFUNCTYPE(c_void_p,c_void_p,UIntPtr)(('WinHttpWebSocketCompleteUpgrade', windll['WINHTTP.dll']), ((1, 'hRequest'),(1, 'pContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketSend():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE,c_void_p,UInt32)(('WinHttpWebSocketSend', windll['WINHTTP.dll']), ((1, 'hWebSocket'),(1, 'eBufferType'),(1, 'pvBuffer'),(1, 'dwBufferLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketReceive():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE))(('WinHttpWebSocketReceive', windll['WINHTTP.dll']), ((1, 'hWebSocket'),(1, 'pvBuffer'),(1, 'dwBufferLength'),(1, 'pdwBytesRead'),(1, 'peBufferType'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketShutdown():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt16,c_void_p,UInt32)(('WinHttpWebSocketShutdown', windll['WINHTTP.dll']), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketClose():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt16,c_void_p,UInt32)(('WinHttpWebSocketClose', windll['WINHTTP.dll']), ((1, 'hWebSocket'),(1, 'usStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WinHttpWebSocketQueryCloseStatus():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt16),c_void_p,UInt32,POINTER(UInt32))(('WinHttpWebSocketQueryCloseStatus', windll['WINHTTP.dll']), ((1, 'hWebSocket'),(1, 'pusStatus'),(1, 'pvReason'),(1, 'dwReasonLength'),(1, 'pdwReasonLengthConsumed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_HTTP_VERSION_INFO_head():
-    class HTTP_VERSION_INFO(Structure):
-        pass
-    return HTTP_VERSION_INFO
-def _define_HTTP_VERSION_INFO():
-    HTTP_VERSION_INFO = win32more.Networking.WinHttp.HTTP_VERSION_INFO_head
-    HTTP_VERSION_INFO._fields_ = [
-        ('dwMajorVersion', UInt32),
-        ('dwMinorVersion', UInt32),
-    ]
-    return HTTP_VERSION_INFO
+WINHTTP_FLAG_ASYNC: UInt32 = 268435456
+WINHTTP_FLAG_SECURE_DEFAULTS: UInt32 = 805306368
+SECURITY_FLAG_IGNORE_UNKNOWN_CA: UInt32 = 256
+SECURITY_FLAG_IGNORE_CERT_DATE_INVALID: UInt32 = 8192
+SECURITY_FLAG_IGNORE_CERT_CN_INVALID: UInt32 = 4096
+SECURITY_FLAG_IGNORE_CERT_WRONG_USAGE: UInt32 = 512
+WINHTTP_AUTOPROXY_AUTO_DETECT: UInt32 = 1
+WINHTTP_AUTOPROXY_CONFIG_URL: UInt32 = 2
+WINHTTP_AUTOPROXY_HOST_KEEPCASE: UInt32 = 4
+WINHTTP_AUTOPROXY_HOST_LOWERCASE: UInt32 = 8
+WINHTTP_AUTOPROXY_ALLOW_AUTOCONFIG: UInt32 = 256
+WINHTTP_AUTOPROXY_ALLOW_STATIC: UInt32 = 512
+WINHTTP_AUTOPROXY_ALLOW_CM: UInt32 = 1024
+WINHTTP_AUTOPROXY_RUN_INPROCESS: UInt32 = 65536
+WINHTTP_AUTOPROXY_RUN_OUTPROCESS_ONLY: UInt32 = 131072
+WINHTTP_AUTOPROXY_NO_DIRECTACCESS: UInt32 = 262144
+WINHTTP_AUTOPROXY_NO_CACHE_CLIENT: UInt32 = 524288
+WINHTTP_AUTOPROXY_NO_CACHE_SVC: UInt32 = 1048576
+WINHTTP_AUTOPROXY_SORT_RESULTS: UInt32 = 4194304
+WINHTTP_AUTO_DETECT_TYPE_DHCP: UInt32 = 1
+WINHTTP_AUTO_DETECT_TYPE_DNS_A: UInt32 = 2
+NETWORKING_KEY_BUFSIZE: UInt32 = 128
+WINHTTP_PROXY_TYPE_DIRECT: UInt32 = 1
+WINHTTP_PROXY_TYPE_PROXY: UInt32 = 2
+WINHTTP_PROXY_TYPE_AUTO_PROXY_URL: UInt32 = 4
+WINHTTP_PROXY_TYPE_AUTO_DETECT: UInt32 = 8
+WINHTTP_REQUEST_STAT_FLAG_TCP_FAST_OPEN: UInt32 = 1
+WINHTTP_REQUEST_STAT_FLAG_TLS_SESSION_RESUMPTION: UInt32 = 2
+WINHTTP_REQUEST_STAT_FLAG_TLS_FALSE_START: UInt32 = 4
+WINHTTP_REQUEST_STAT_FLAG_PROXY_TLS_SESSION_RESUMPTION: UInt32 = 8
+WINHTTP_REQUEST_STAT_FLAG_PROXY_TLS_FALSE_START: UInt32 = 16
+WINHTTP_REQUEST_STAT_FLAG_FIRST_REQUEST: UInt32 = 32
+WINHTTP_MATCH_CONNECTION_GUID_FLAG_REQUIRE_MARKED_CONNECTION: UInt32 = 1
+WINHTTP_MATCH_CONNECTION_GUID_FLAGS_MASK: UInt32 = 1
+WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_SOFT_LIMIT: UInt32 = 1
+WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_BYPASS_CACHE: UInt32 = 2
+WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_USE_DNS_TTL: UInt32 = 4
+WINHTTP_RESOLVER_CACHE_CONFIG_FLAG_CONN_USE_TTL: UInt32 = 8
+WINHTTP_TIME_FORMAT_BUFSIZE: UInt32 = 62
+WINHTTP_OPTION_CALLBACK: UInt32 = 1
+WINHTTP_OPTION_RESOLVE_TIMEOUT: UInt32 = 2
+WINHTTP_OPTION_CONNECT_TIMEOUT: UInt32 = 3
+WINHTTP_OPTION_CONNECT_RETRIES: UInt32 = 4
+WINHTTP_OPTION_SEND_TIMEOUT: UInt32 = 5
+WINHTTP_OPTION_RECEIVE_TIMEOUT: UInt32 = 6
+WINHTTP_OPTION_RECEIVE_RESPONSE_TIMEOUT: UInt32 = 7
+WINHTTP_OPTION_HANDLE_TYPE: UInt32 = 9
+WINHTTP_OPTION_READ_BUFFER_SIZE: UInt32 = 12
+WINHTTP_OPTION_WRITE_BUFFER_SIZE: UInt32 = 13
+WINHTTP_OPTION_PARENT_HANDLE: UInt32 = 21
+WINHTTP_OPTION_EXTENDED_ERROR: UInt32 = 24
+WINHTTP_OPTION_SECURITY_FLAGS: UInt32 = 31
+WINHTTP_OPTION_SECURITY_CERTIFICATE_STRUCT: UInt32 = 32
+WINHTTP_OPTION_URL: UInt32 = 34
+WINHTTP_OPTION_SECURITY_KEY_BITNESS: UInt32 = 36
+WINHTTP_OPTION_PROXY: UInt32 = 38
+WINHTTP_OPTION_PROXY_RESULT_ENTRY: UInt32 = 39
+WINHTTP_OPTION_USER_AGENT: UInt32 = 41
+WINHTTP_OPTION_CONTEXT_VALUE: UInt32 = 45
+WINHTTP_OPTION_CLIENT_CERT_CONTEXT: UInt32 = 47
+WINHTTP_OPTION_REQUEST_PRIORITY: UInt32 = 58
+WINHTTP_OPTION_HTTP_VERSION: UInt32 = 59
+WINHTTP_OPTION_DISABLE_FEATURE: UInt32 = 63
+WINHTTP_OPTION_CODEPAGE: UInt32 = 68
+WINHTTP_OPTION_MAX_CONNS_PER_SERVER: UInt32 = 73
+WINHTTP_OPTION_MAX_CONNS_PER_1_0_SERVER: UInt32 = 74
+WINHTTP_OPTION_AUTOLOGON_POLICY: UInt32 = 77
+WINHTTP_OPTION_SERVER_CERT_CONTEXT: UInt32 = 78
+WINHTTP_OPTION_ENABLE_FEATURE: UInt32 = 79
+WINHTTP_OPTION_WORKER_THREAD_COUNT: UInt32 = 80
+WINHTTP_OPTION_PASSPORT_COBRANDING_TEXT: UInt32 = 81
+WINHTTP_OPTION_PASSPORT_COBRANDING_URL: UInt32 = 82
+WINHTTP_OPTION_CONFIGURE_PASSPORT_AUTH: UInt32 = 83
+WINHTTP_OPTION_SECURE_PROTOCOLS: UInt32 = 84
+WINHTTP_OPTION_ENABLETRACING: UInt32 = 85
+WINHTTP_OPTION_PASSPORT_SIGN_OUT: UInt32 = 86
+WINHTTP_OPTION_PASSPORT_RETURN_URL: UInt32 = 87
+WINHTTP_OPTION_REDIRECT_POLICY: UInt32 = 88
+WINHTTP_OPTION_MAX_HTTP_AUTOMATIC_REDIRECTS: UInt32 = 89
+WINHTTP_OPTION_MAX_HTTP_STATUS_CONTINUE: UInt32 = 90
+WINHTTP_OPTION_MAX_RESPONSE_HEADER_SIZE: UInt32 = 91
+WINHTTP_OPTION_MAX_RESPONSE_DRAIN_SIZE: UInt32 = 92
+WINHTTP_OPTION_CONNECTION_INFO: UInt32 = 93
+WINHTTP_OPTION_CLIENT_CERT_ISSUER_LIST: UInt32 = 94
+WINHTTP_OPTION_SPN: UInt32 = 96
+WINHTTP_OPTION_GLOBAL_PROXY_CREDS: UInt32 = 97
+WINHTTP_OPTION_GLOBAL_SERVER_CREDS: UInt32 = 98
+WINHTTP_OPTION_UNLOAD_NOTIFY_EVENT: UInt32 = 99
+WINHTTP_OPTION_REJECT_USERPWD_IN_URL: UInt32 = 100
+WINHTTP_OPTION_USE_GLOBAL_SERVER_CREDENTIALS: UInt32 = 101
+WINHTTP_OPTION_RECEIVE_PROXY_CONNECT_RESPONSE: UInt32 = 103
+WINHTTP_OPTION_IS_PROXY_CONNECT_RESPONSE: UInt32 = 104
+WINHTTP_OPTION_SERVER_SPN_USED: UInt32 = 106
+WINHTTP_OPTION_PROXY_SPN_USED: UInt32 = 107
+WINHTTP_OPTION_SERVER_CBT: UInt32 = 108
+WINHTTP_OPTION_UNSAFE_HEADER_PARSING: UInt32 = 110
+WINHTTP_OPTION_ASSURED_NON_BLOCKING_CALLBACKS: UInt32 = 111
+WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET: UInt32 = 114
+WINHTTP_OPTION_WEB_SOCKET_CLOSE_TIMEOUT: UInt32 = 115
+WINHTTP_OPTION_WEB_SOCKET_KEEPALIVE_INTERVAL: UInt32 = 116
+WINHTTP_OPTION_DECOMPRESSION: UInt32 = 118
+WINHTTP_OPTION_WEB_SOCKET_RECEIVE_BUFFER_SIZE: UInt32 = 122
+WINHTTP_OPTION_WEB_SOCKET_SEND_BUFFER_SIZE: UInt32 = 123
+WINHTTP_OPTION_TCP_PRIORITY_HINT: UInt32 = 128
+WINHTTP_OPTION_CONNECTION_FILTER: UInt32 = 131
+WINHTTP_OPTION_ENABLE_HTTP_PROTOCOL: UInt32 = 133
+WINHTTP_OPTION_HTTP_PROTOCOL_USED: UInt32 = 134
+WINHTTP_OPTION_KDC_PROXY_SETTINGS: UInt32 = 136
+WINHTTP_OPTION_PROXY_DISABLE_SERVICE_CALLS: UInt32 = 137
+WINHTTP_OPTION_ENCODE_EXTRA: UInt32 = 138
+WINHTTP_OPTION_DISABLE_STREAM_QUEUE: UInt32 = 139
+WINHTTP_OPTION_IPV6_FAST_FALLBACK: UInt32 = 140
+WINHTTP_OPTION_CONNECTION_STATS_V0: UInt32 = 141
+WINHTTP_OPTION_REQUEST_TIMES: UInt32 = 142
+WINHTTP_OPTION_EXPIRE_CONNECTION: UInt32 = 143
+WINHTTP_OPTION_DISABLE_SECURE_PROTOCOL_FALLBACK: UInt32 = 144
+WINHTTP_OPTION_HTTP_PROTOCOL_REQUIRED: UInt32 = 145
+WINHTTP_OPTION_REQUEST_STATS: UInt32 = 146
+WINHTTP_OPTION_SERVER_CERT_CHAIN_CONTEXT: UInt32 = 147
+WINHTTP_OPTION_CONNECTION_STATS_V1: UInt32 = 150
+WINHTTP_OPTION_SECURITY_INFO: UInt32 = 151
+WINHTTP_OPTION_TCP_KEEPALIVE: UInt32 = 152
+WINHTTP_OPTION_TCP_FAST_OPEN: UInt32 = 153
+WINHTTP_OPTION_TLS_FALSE_START: UInt32 = 154
+WINHTTP_OPTION_IGNORE_CERT_REVOCATION_OFFLINE: UInt32 = 155
+WINHTTP_OPTION_SOURCE_ADDRESS: UInt32 = 156
+WINHTTP_OPTION_HEAP_EXTENSION: UInt32 = 157
+WINHTTP_OPTION_TLS_PROTOCOL_INSECURE_FALLBACK: UInt32 = 158
+WINHTTP_OPTION_STREAM_ERROR_CODE: UInt32 = 159
+WINHTTP_OPTION_REQUIRE_STREAM_END: UInt32 = 160
+WINHTTP_OPTION_ENABLE_HTTP2_PLUS_CLIENT_CERT: UInt32 = 161
+WINHTTP_OPTION_FAILED_CONNECTION_RETRIES: UInt32 = 162
+WINHTTP_OPTION_SET_GLOBAL_CALLBACK: UInt32 = 163
+WINHTTP_OPTION_HTTP2_KEEPALIVE: UInt32 = 164
+WINHTTP_OPTION_RESOLUTION_HOSTNAME: UInt32 = 165
+WINHTTP_OPTION_SET_TOKEN_BINDING: UInt32 = 166
+WINHTTP_OPTION_TOKEN_BINDING_PUBLIC_KEY: UInt32 = 167
+WINHTTP_OPTION_REFERER_TOKEN_BINDING_HOSTNAME: UInt32 = 168
+WINHTTP_OPTION_HTTP2_PLUS_TRANSFER_ENCODING: UInt32 = 169
+WINHTTP_OPTION_RESOLVER_CACHE_CONFIG: UInt32 = 170
+WINHTTP_OPTION_DISABLE_CERT_CHAIN_BUILDING: UInt32 = 171
+WINHTTP_OPTION_BACKGROUND_CONNECTIONS: UInt32 = 172
+WINHTTP_OPTION_FIRST_AVAILABLE_CONNECTION: UInt32 = 173
+WINHTTP_OPTION_ENABLE_TEST_SIGNING: UInt32 = 174
+WINHTTP_OPTION_NTSERVICE_FLAG_TEST: UInt32 = 175
+WINHTTP_OPTION_DISABLE_PROXY_LINK_LOCAL_NAME_RESOLUTION: UInt32 = 176
+WINHTTP_OPTION_TCP_PRIORITY_STATUS: UInt32 = 177
+WINHTTP_OPTION_CONNECTION_GUID: UInt32 = 178
+WINHTTP_OPTION_MATCH_CONNECTION_GUID: UInt32 = 179
+WINHTTP_OPTION_PROXY_CONFIG_INFO: UInt32 = 180
+WINHTTP_OPTION_AGGREGATE_PROXY_CONFIG: UInt32 = 181
+WINHTTP_OPTION_SELECTED_PROXY_CONFIG_INFO: UInt32 = 182
+WINHTTP_OPTION_HTTP2_RECEIVE_WINDOW: UInt32 = 183
+WINHTTP_LAST_OPTION: UInt32 = 183
+WINHTTP_OPTION_USERNAME: UInt32 = 4096
+WINHTTP_OPTION_PASSWORD: UInt32 = 4097
+WINHTTP_OPTION_PROXY_USERNAME: UInt32 = 4098
+WINHTTP_OPTION_PROXY_PASSWORD: UInt32 = 4099
+WINHTTP_CONNS_PER_SERVER_UNLIMITED: UInt32 = 4294967295
+WINHTTP_CONNECTION_RETRY_CONDITION_408: UInt32 = 1
+WINHTTP_CONNECTION_RETRY_CONDITION_SSL_HANDSHAKE: UInt32 = 2
+WINHTTP_CONNECTION_RETRY_CONDITION_STALE_CONNECTION: UInt32 = 4
+WINHTTP_DECOMPRESSION_FLAG_GZIP: UInt32 = 1
+WINHTTP_DECOMPRESSION_FLAG_DEFLATE: UInt32 = 2
+WINHTTP_PROTOCOL_FLAG_HTTP2: UInt32 = 1
+WINHTTP_PROTOCOL_FLAG_HTTP3: UInt32 = 2
+WINHTTP_AUTOLOGON_SECURITY_LEVEL_MEDIUM: UInt32 = 0
+WINHTTP_AUTOLOGON_SECURITY_LEVEL_LOW: UInt32 = 1
+WINHTTP_AUTOLOGON_SECURITY_LEVEL_HIGH: UInt32 = 2
+WINHTTP_AUTOLOGON_SECURITY_LEVEL_DEFAULT: UInt32 = 0
+WINHTTP_OPTION_REDIRECT_POLICY_NEVER: UInt32 = 0
+WINHTTP_OPTION_REDIRECT_POLICY_DISALLOW_HTTPS_TO_HTTP: UInt32 = 1
+WINHTTP_OPTION_REDIRECT_POLICY_ALWAYS: UInt32 = 2
+WINHTTP_OPTION_REDIRECT_POLICY_LAST: UInt32 = 2
+WINHTTP_OPTION_REDIRECT_POLICY_DEFAULT: UInt32 = 1
+WINHTTP_DISABLE_PASSPORT_AUTH: UInt32 = 0
+WINHTTP_ENABLE_PASSPORT_AUTH: UInt32 = 268435456
+WINHTTP_DISABLE_PASSPORT_KEYRING: UInt32 = 536870912
+WINHTTP_ENABLE_PASSPORT_KEYRING: UInt32 = 1073741824
+WINHTTP_DISABLE_COOKIES: UInt32 = 1
+WINHTTP_DISABLE_REDIRECTS: UInt32 = 2
+WINHTTP_DISABLE_AUTHENTICATION: UInt32 = 4
+WINHTTP_DISABLE_KEEP_ALIVE: UInt32 = 8
+WINHTTP_ENABLE_SSL_REVOCATION: UInt32 = 1
+WINHTTP_ENABLE_SSL_REVERT_IMPERSONATION: UInt32 = 2
+WINHTTP_DISABLE_SPN_SERVER_PORT: UInt32 = 0
+WINHTTP_ENABLE_SPN_SERVER_PORT: UInt32 = 1
+WINHTTP_OPTION_SPN_MASK: UInt32 = 1
+WINHTTP_HANDLE_TYPE_SESSION: UInt32 = 1
+WINHTTP_HANDLE_TYPE_CONNECT: UInt32 = 2
+WINHTTP_HANDLE_TYPE_REQUEST: UInt32 = 3
+WINHTTP_AUTH_SCHEME_PASSPORT: UInt32 = 4
+WINHTTP_AUTH_SCHEME_DIGEST: UInt32 = 8
+WINHTTP_AUTH_TARGET_SERVER: UInt32 = 0
+WINHTTP_AUTH_TARGET_PROXY: UInt32 = 1
+SECURITY_FLAG_SECURE: UInt32 = 1
+SECURITY_FLAG_STRENGTH_WEAK: UInt32 = 268435456
+SECURITY_FLAG_STRENGTH_MEDIUM: UInt32 = 1073741824
+SECURITY_FLAG_STRENGTH_STRONG: UInt32 = 536870912
+WINHTTP_CALLBACK_STATUS_FLAG_CERT_REV_FAILED: UInt32 = 1
+WINHTTP_CALLBACK_STATUS_FLAG_INVALID_CERT: UInt32 = 2
+WINHTTP_CALLBACK_STATUS_FLAG_CERT_REVOKED: UInt32 = 4
+WINHTTP_CALLBACK_STATUS_FLAG_INVALID_CA: UInt32 = 8
+WINHTTP_CALLBACK_STATUS_FLAG_CERT_CN_INVALID: UInt32 = 16
+WINHTTP_CALLBACK_STATUS_FLAG_CERT_DATE_INVALID: UInt32 = 32
+WINHTTP_CALLBACK_STATUS_FLAG_CERT_WRONG_USAGE: UInt32 = 64
+WINHTTP_CALLBACK_STATUS_FLAG_SECURITY_CHANNEL_ERROR: UInt32 = 2147483648
+WINHTTP_FLAG_SECURE_PROTOCOL_SSL2: UInt32 = 8
+WINHTTP_FLAG_SECURE_PROTOCOL_SSL3: UInt32 = 32
+WINHTTP_FLAG_SECURE_PROTOCOL_TLS1: UInt32 = 128
+WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_1: UInt32 = 512
+WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_2: UInt32 = 2048
+WINHTTP_FLAG_SECURE_PROTOCOL_TLS1_3: UInt32 = 8192
+WINHTTP_CALLBACK_STATUS_RESOLVING_NAME: UInt32 = 1
+WINHTTP_CALLBACK_STATUS_NAME_RESOLVED: UInt32 = 2
+WINHTTP_CALLBACK_STATUS_CONNECTING_TO_SERVER: UInt32 = 4
+WINHTTP_CALLBACK_STATUS_CONNECTED_TO_SERVER: UInt32 = 8
+WINHTTP_CALLBACK_STATUS_SENDING_REQUEST: UInt32 = 16
+WINHTTP_CALLBACK_STATUS_REQUEST_SENT: UInt32 = 32
+WINHTTP_CALLBACK_STATUS_RECEIVING_RESPONSE: UInt32 = 64
+WINHTTP_CALLBACK_STATUS_RESPONSE_RECEIVED: UInt32 = 128
+WINHTTP_CALLBACK_STATUS_CLOSING_CONNECTION: UInt32 = 256
+WINHTTP_CALLBACK_STATUS_CONNECTION_CLOSED: UInt32 = 512
+WINHTTP_CALLBACK_STATUS_HANDLE_CREATED: UInt32 = 1024
+WINHTTP_CALLBACK_STATUS_HANDLE_CLOSING: UInt32 = 2048
+WINHTTP_CALLBACK_STATUS_DETECTING_PROXY: UInt32 = 4096
+WINHTTP_CALLBACK_STATUS_REDIRECT: UInt32 = 16384
+WINHTTP_CALLBACK_STATUS_INTERMEDIATE_RESPONSE: UInt32 = 32768
+WINHTTP_CALLBACK_STATUS_SECURE_FAILURE: UInt32 = 65536
+WINHTTP_CALLBACK_STATUS_HEADERS_AVAILABLE: UInt32 = 131072
+WINHTTP_CALLBACK_STATUS_DATA_AVAILABLE: UInt32 = 262144
+WINHTTP_CALLBACK_STATUS_READ_COMPLETE: UInt32 = 524288
+WINHTTP_CALLBACK_STATUS_WRITE_COMPLETE: UInt32 = 1048576
+WINHTTP_CALLBACK_STATUS_REQUEST_ERROR: UInt32 = 2097152
+WINHTTP_CALLBACK_STATUS_SENDREQUEST_COMPLETE: UInt32 = 4194304
+WINHTTP_CALLBACK_STATUS_GETPROXYFORURL_COMPLETE: UInt32 = 16777216
+WINHTTP_CALLBACK_STATUS_CLOSE_COMPLETE: UInt32 = 33554432
+WINHTTP_CALLBACK_STATUS_SHUTDOWN_COMPLETE: UInt32 = 67108864
+WINHTTP_CALLBACK_STATUS_SETTINGS_WRITE_COMPLETE: UInt32 = 268435456
+WINHTTP_CALLBACK_STATUS_SETTINGS_READ_COMPLETE: UInt32 = 536870912
+API_RECEIVE_RESPONSE: UInt32 = 1
+API_QUERY_DATA_AVAILABLE: UInt32 = 2
+API_READ_DATA: UInt32 = 3
+API_WRITE_DATA: UInt32 = 4
+API_SEND_REQUEST: UInt32 = 5
+API_GET_PROXY_FOR_URL: UInt32 = 6
+WINHTTP_CALLBACK_FLAG_DETECTING_PROXY: UInt32 = 4096
+WINHTTP_CALLBACK_FLAG_REDIRECT: UInt32 = 16384
+WINHTTP_CALLBACK_FLAG_INTERMEDIATE_RESPONSE: UInt32 = 32768
+WINHTTP_CALLBACK_FLAG_SECURE_FAILURE: UInt32 = 65536
+WINHTTP_CALLBACK_FLAG_SENDREQUEST_COMPLETE: UInt32 = 4194304
+WINHTTP_CALLBACK_FLAG_HEADERS_AVAILABLE: UInt32 = 131072
+WINHTTP_CALLBACK_FLAG_DATA_AVAILABLE: UInt32 = 262144
+WINHTTP_CALLBACK_FLAG_READ_COMPLETE: UInt32 = 524288
+WINHTTP_CALLBACK_FLAG_WRITE_COMPLETE: UInt32 = 1048576
+WINHTTP_CALLBACK_FLAG_REQUEST_ERROR: UInt32 = 2097152
+WINHTTP_CALLBACK_FLAG_GETPROXYFORURL_COMPLETE: UInt32 = 16777216
+WINHTTP_CALLBACK_FLAG_ALL_NOTIFICATIONS: UInt32 = 4294967295
+WINHTTP_QUERY_MIME_VERSION: UInt32 = 0
+WINHTTP_QUERY_CONTENT_TYPE: UInt32 = 1
+WINHTTP_QUERY_CONTENT_TRANSFER_ENCODING: UInt32 = 2
+WINHTTP_QUERY_CONTENT_ID: UInt32 = 3
+WINHTTP_QUERY_CONTENT_DESCRIPTION: UInt32 = 4
+WINHTTP_QUERY_CONTENT_LENGTH: UInt32 = 5
+WINHTTP_QUERY_CONTENT_LANGUAGE: UInt32 = 6
+WINHTTP_QUERY_ALLOW: UInt32 = 7
+WINHTTP_QUERY_PUBLIC: UInt32 = 8
+WINHTTP_QUERY_DATE: UInt32 = 9
+WINHTTP_QUERY_EXPIRES: UInt32 = 10
+WINHTTP_QUERY_LAST_MODIFIED: UInt32 = 11
+WINHTTP_QUERY_MESSAGE_ID: UInt32 = 12
+WINHTTP_QUERY_URI: UInt32 = 13
+WINHTTP_QUERY_DERIVED_FROM: UInt32 = 14
+WINHTTP_QUERY_COST: UInt32 = 15
+WINHTTP_QUERY_LINK: UInt32 = 16
+WINHTTP_QUERY_PRAGMA: UInt32 = 17
+WINHTTP_QUERY_VERSION: UInt32 = 18
+WINHTTP_QUERY_STATUS_CODE: UInt32 = 19
+WINHTTP_QUERY_STATUS_TEXT: UInt32 = 20
+WINHTTP_QUERY_RAW_HEADERS: UInt32 = 21
+WINHTTP_QUERY_RAW_HEADERS_CRLF: UInt32 = 22
+WINHTTP_QUERY_CONNECTION: UInt32 = 23
+WINHTTP_QUERY_ACCEPT: UInt32 = 24
+WINHTTP_QUERY_ACCEPT_CHARSET: UInt32 = 25
+WINHTTP_QUERY_ACCEPT_ENCODING: UInt32 = 26
+WINHTTP_QUERY_ACCEPT_LANGUAGE: UInt32 = 27
+WINHTTP_QUERY_AUTHORIZATION: UInt32 = 28
+WINHTTP_QUERY_CONTENT_ENCODING: UInt32 = 29
+WINHTTP_QUERY_FORWARDED: UInt32 = 30
+WINHTTP_QUERY_FROM: UInt32 = 31
+WINHTTP_QUERY_IF_MODIFIED_SINCE: UInt32 = 32
+WINHTTP_QUERY_LOCATION: UInt32 = 33
+WINHTTP_QUERY_ORIG_URI: UInt32 = 34
+WINHTTP_QUERY_REFERER: UInt32 = 35
+WINHTTP_QUERY_RETRY_AFTER: UInt32 = 36
+WINHTTP_QUERY_SERVER: UInt32 = 37
+WINHTTP_QUERY_TITLE: UInt32 = 38
+WINHTTP_QUERY_USER_AGENT: UInt32 = 39
+WINHTTP_QUERY_WWW_AUTHENTICATE: UInt32 = 40
+WINHTTP_QUERY_PROXY_AUTHENTICATE: UInt32 = 41
+WINHTTP_QUERY_ACCEPT_RANGES: UInt32 = 42
+WINHTTP_QUERY_SET_COOKIE: UInt32 = 43
+WINHTTP_QUERY_COOKIE: UInt32 = 44
+WINHTTP_QUERY_REQUEST_METHOD: UInt32 = 45
+WINHTTP_QUERY_REFRESH: UInt32 = 46
+WINHTTP_QUERY_CONTENT_DISPOSITION: UInt32 = 47
+WINHTTP_QUERY_AGE: UInt32 = 48
+WINHTTP_QUERY_CACHE_CONTROL: UInt32 = 49
+WINHTTP_QUERY_CONTENT_BASE: UInt32 = 50
+WINHTTP_QUERY_CONTENT_LOCATION: UInt32 = 51
+WINHTTP_QUERY_CONTENT_MD5: UInt32 = 52
+WINHTTP_QUERY_CONTENT_RANGE: UInt32 = 53
+WINHTTP_QUERY_ETAG: UInt32 = 54
+WINHTTP_QUERY_HOST: UInt32 = 55
+WINHTTP_QUERY_IF_MATCH: UInt32 = 56
+WINHTTP_QUERY_IF_NONE_MATCH: UInt32 = 57
+WINHTTP_QUERY_IF_RANGE: UInt32 = 58
+WINHTTP_QUERY_IF_UNMODIFIED_SINCE: UInt32 = 59
+WINHTTP_QUERY_MAX_FORWARDS: UInt32 = 60
+WINHTTP_QUERY_PROXY_AUTHORIZATION: UInt32 = 61
+WINHTTP_QUERY_RANGE: UInt32 = 62
+WINHTTP_QUERY_TRANSFER_ENCODING: UInt32 = 63
+WINHTTP_QUERY_UPGRADE: UInt32 = 64
+WINHTTP_QUERY_VARY: UInt32 = 65
+WINHTTP_QUERY_VIA: UInt32 = 66
+WINHTTP_QUERY_WARNING: UInt32 = 67
+WINHTTP_QUERY_EXPECT: UInt32 = 68
+WINHTTP_QUERY_PROXY_CONNECTION: UInt32 = 69
+WINHTTP_QUERY_UNLESS_MODIFIED_SINCE: UInt32 = 70
+WINHTTP_QUERY_PROXY_SUPPORT: UInt32 = 75
+WINHTTP_QUERY_AUTHENTICATION_INFO: UInt32 = 76
+WINHTTP_QUERY_PASSPORT_URLS: UInt32 = 77
+WINHTTP_QUERY_PASSPORT_CONFIG: UInt32 = 78
+WINHTTP_QUERY_MAX: UInt32 = 78
+WINHTTP_QUERY_EX_ALL_HEADERS: UInt32 = 21
+WINHTTP_QUERY_CUSTOM: UInt32 = 65535
+WINHTTP_QUERY_FLAG_REQUEST_HEADERS: UInt32 = 2147483648
+WINHTTP_QUERY_FLAG_SYSTEMTIME: UInt32 = 1073741824
+WINHTTP_QUERY_FLAG_NUMBER: UInt32 = 536870912
+WINHTTP_QUERY_FLAG_NUMBER64: UInt32 = 134217728
+WINHTTP_QUERY_FLAG_TRAILERS: UInt32 = 33554432
+WINHTTP_QUERY_FLAG_WIRE_ENCODING: UInt32 = 16777216
+HTTP_STATUS_CONTINUE: UInt32 = 100
+HTTP_STATUS_SWITCH_PROTOCOLS: UInt32 = 101
+HTTP_STATUS_OK: UInt32 = 200
+HTTP_STATUS_CREATED: UInt32 = 201
+HTTP_STATUS_ACCEPTED: UInt32 = 202
+HTTP_STATUS_PARTIAL: UInt32 = 203
+HTTP_STATUS_NO_CONTENT: UInt32 = 204
+HTTP_STATUS_RESET_CONTENT: UInt32 = 205
+HTTP_STATUS_PARTIAL_CONTENT: UInt32 = 206
+HTTP_STATUS_WEBDAV_MULTI_STATUS: UInt32 = 207
+HTTP_STATUS_AMBIGUOUS: UInt32 = 300
+HTTP_STATUS_MOVED: UInt32 = 301
+HTTP_STATUS_REDIRECT: UInt32 = 302
+HTTP_STATUS_REDIRECT_METHOD: UInt32 = 303
+HTTP_STATUS_NOT_MODIFIED: UInt32 = 304
+HTTP_STATUS_USE_PROXY: UInt32 = 305
+HTTP_STATUS_REDIRECT_KEEP_VERB: UInt32 = 307
+HTTP_STATUS_PERMANENT_REDIRECT: UInt32 = 308
+HTTP_STATUS_BAD_REQUEST: UInt32 = 400
+HTTP_STATUS_DENIED: UInt32 = 401
+HTTP_STATUS_PAYMENT_REQ: UInt32 = 402
+HTTP_STATUS_FORBIDDEN: UInt32 = 403
+HTTP_STATUS_NOT_FOUND: UInt32 = 404
+HTTP_STATUS_BAD_METHOD: UInt32 = 405
+HTTP_STATUS_NONE_ACCEPTABLE: UInt32 = 406
+HTTP_STATUS_PROXY_AUTH_REQ: UInt32 = 407
+HTTP_STATUS_REQUEST_TIMEOUT: UInt32 = 408
+HTTP_STATUS_CONFLICT: UInt32 = 409
+HTTP_STATUS_GONE: UInt32 = 410
+HTTP_STATUS_LENGTH_REQUIRED: UInt32 = 411
+HTTP_STATUS_PRECOND_FAILED: UInt32 = 412
+HTTP_STATUS_REQUEST_TOO_LARGE: UInt32 = 413
+HTTP_STATUS_URI_TOO_LONG: UInt32 = 414
+HTTP_STATUS_UNSUPPORTED_MEDIA: UInt32 = 415
+HTTP_STATUS_RETRY_WITH: UInt32 = 449
+HTTP_STATUS_SERVER_ERROR: UInt32 = 500
+HTTP_STATUS_NOT_SUPPORTED: UInt32 = 501
+HTTP_STATUS_BAD_GATEWAY: UInt32 = 502
+HTTP_STATUS_SERVICE_UNAVAIL: UInt32 = 503
+HTTP_STATUS_GATEWAY_TIMEOUT: UInt32 = 504
+HTTP_STATUS_VERSION_NOT_SUP: UInt32 = 505
+HTTP_STATUS_FIRST: UInt32 = 100
+HTTP_STATUS_LAST: UInt32 = 505
+ICU_NO_ENCODE: UInt32 = 536870912
+ICU_NO_META: UInt32 = 134217728
+ICU_ENCODE_SPACES_ONLY: UInt32 = 67108864
+ICU_BROWSER_MODE: UInt32 = 33554432
+ICU_ENCODE_PERCENT: UInt32 = 4096
+ICU_ESCAPE_AUTHORITY: UInt32 = 8192
+WINHTTP_ADDREQ_INDEX_MASK: UInt32 = 65535
+WINHTTP_ADDREQ_FLAGS_MASK: UInt32 = 4294901760
+WINHTTP_ADDREQ_FLAG_ADD_IF_NEW: UInt32 = 268435456
+WINHTTP_ADDREQ_FLAG_ADD: UInt32 = 536870912
+WINHTTP_ADDREQ_FLAG_COALESCE_WITH_COMMA: UInt32 = 1073741824
+WINHTTP_ADDREQ_FLAG_COALESCE_WITH_SEMICOLON: UInt32 = 16777216
+WINHTTP_ADDREQ_FLAG_COALESCE: UInt32 = 1073741824
+WINHTTP_ADDREQ_FLAG_REPLACE: UInt32 = 2147483648
+WINHTTP_EXTENDED_HEADER_FLAG_UNICODE: UInt32 = 1
+WINHTTP_IGNORE_REQUEST_TOTAL_LENGTH: UInt32 = 0
+WINHTTP_ERROR_BASE: UInt32 = 12000
+ERROR_WINHTTP_OUT_OF_HANDLES: UInt32 = 12001
+ERROR_WINHTTP_TIMEOUT: UInt32 = 12002
+ERROR_WINHTTP_INTERNAL_ERROR: UInt32 = 12004
+ERROR_WINHTTP_INVALID_URL: UInt32 = 12005
+ERROR_WINHTTP_UNRECOGNIZED_SCHEME: UInt32 = 12006
+ERROR_WINHTTP_NAME_NOT_RESOLVED: UInt32 = 12007
+ERROR_WINHTTP_INVALID_OPTION: UInt32 = 12009
+ERROR_WINHTTP_OPTION_NOT_SETTABLE: UInt32 = 12011
+ERROR_WINHTTP_SHUTDOWN: UInt32 = 12012
+ERROR_WINHTTP_LOGIN_FAILURE: UInt32 = 12015
+ERROR_WINHTTP_OPERATION_CANCELLED: UInt32 = 12017
+ERROR_WINHTTP_INCORRECT_HANDLE_TYPE: UInt32 = 12018
+ERROR_WINHTTP_INCORRECT_HANDLE_STATE: UInt32 = 12019
+ERROR_WINHTTP_CANNOT_CONNECT: UInt32 = 12029
+ERROR_WINHTTP_CONNECTION_ERROR: UInt32 = 12030
+ERROR_WINHTTP_RESEND_REQUEST: UInt32 = 12032
+ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED: UInt32 = 12044
+ERROR_WINHTTP_CANNOT_CALL_BEFORE_OPEN: UInt32 = 12100
+ERROR_WINHTTP_CANNOT_CALL_BEFORE_SEND: UInt32 = 12101
+ERROR_WINHTTP_CANNOT_CALL_AFTER_SEND: UInt32 = 12102
+ERROR_WINHTTP_CANNOT_CALL_AFTER_OPEN: UInt32 = 12103
+ERROR_WINHTTP_HEADER_NOT_FOUND: UInt32 = 12150
+ERROR_WINHTTP_INVALID_SERVER_RESPONSE: UInt32 = 12152
+ERROR_WINHTTP_INVALID_HEADER: UInt32 = 12153
+ERROR_WINHTTP_INVALID_QUERY_REQUEST: UInt32 = 12154
+ERROR_WINHTTP_HEADER_ALREADY_EXISTS: UInt32 = 12155
+ERROR_WINHTTP_REDIRECT_FAILED: UInt32 = 12156
+ERROR_WINHTTP_AUTO_PROXY_SERVICE_ERROR: UInt32 = 12178
+ERROR_WINHTTP_BAD_AUTO_PROXY_SCRIPT: UInt32 = 12166
+ERROR_WINHTTP_UNABLE_TO_DOWNLOAD_SCRIPT: UInt32 = 12167
+ERROR_WINHTTP_UNHANDLED_SCRIPT_TYPE: UInt32 = 12176
+ERROR_WINHTTP_SCRIPT_EXECUTION_ERROR: UInt32 = 12177
+ERROR_WINHTTP_NOT_INITIALIZED: UInt32 = 12172
+ERROR_WINHTTP_SECURE_FAILURE: UInt32 = 12175
+ERROR_WINHTTP_SECURE_CERT_DATE_INVALID: UInt32 = 12037
+ERROR_WINHTTP_SECURE_CERT_CN_INVALID: UInt32 = 12038
+ERROR_WINHTTP_SECURE_INVALID_CA: UInt32 = 12045
+ERROR_WINHTTP_SECURE_CERT_REV_FAILED: UInt32 = 12057
+ERROR_WINHTTP_SECURE_CHANNEL_ERROR: UInt32 = 12157
+ERROR_WINHTTP_SECURE_INVALID_CERT: UInt32 = 12169
+ERROR_WINHTTP_SECURE_CERT_REVOKED: UInt32 = 12170
+ERROR_WINHTTP_SECURE_CERT_WRONG_USAGE: UInt32 = 12179
+ERROR_WINHTTP_AUTODETECTION_FAILED: UInt32 = 12180
+ERROR_WINHTTP_HEADER_COUNT_EXCEEDED: UInt32 = 12181
+ERROR_WINHTTP_HEADER_SIZE_OVERFLOW: UInt32 = 12182
+ERROR_WINHTTP_CHUNKED_ENCODING_HEADER_SIZE_OVERFLOW: UInt32 = 12183
+ERROR_WINHTTP_RESPONSE_DRAIN_OVERFLOW: UInt32 = 12184
+ERROR_WINHTTP_CLIENT_CERT_NO_PRIVATE_KEY: UInt32 = 12185
+ERROR_WINHTTP_CLIENT_CERT_NO_ACCESS_PRIVATE_KEY: UInt32 = 12186
+ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED_PROXY: UInt32 = 12187
+ERROR_WINHTTP_SECURE_FAILURE_PROXY: UInt32 = 12188
+ERROR_WINHTTP_RESERVED_189: UInt32 = 12189
+ERROR_WINHTTP_HTTP_PROTOCOL_MISMATCH: UInt32 = 12190
+ERROR_WINHTTP_GLOBAL_CALLBACK_FAILED: UInt32 = 12191
+ERROR_WINHTTP_FEATURE_DISABLED: UInt32 = 12192
+WINHTTP_ERROR_LAST: UInt32 = 12192
+WINHTTP_RESET_STATE: UInt32 = 1
+WINHTTP_RESET_SWPAD_CURRENT_NETWORK: UInt32 = 2
+WINHTTP_RESET_SWPAD_ALL: UInt32 = 4
+WINHTTP_RESET_SCRIPT_CACHE: UInt32 = 8
+WINHTTP_RESET_ALL: UInt32 = 65535
+WINHTTP_RESET_NOTIFY_NETWORK_CHANGED: UInt32 = 65536
+WINHTTP_RESET_OUT_OF_PROC: UInt32 = 131072
+WINHTTP_RESET_DISCARD_RESOLVERS: UInt32 = 262144
+WINHTTP_WEB_SOCKET_MAX_CLOSE_REASON_LENGTH: UInt32 = 123
+WINHTTP_WEB_SOCKET_MIN_KEEPALIVE_VALUE: UInt32 = 15000
+@winfunctype('WINHTTP.dll')
+def WinHttpSetStatusCallback(hInternet: c_void_p, lpfnInternetCallback: win32more.Networking.WinHttp.WINHTTP_STATUS_CALLBACK, dwNotificationFlags: UInt32, dwReserved: UIntPtr) -> win32more.Networking.WinHttp.WINHTTP_STATUS_CALLBACK: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpTimeFromSystemTime(pst: POINTER(win32more.Foundation.SYSTEMTIME_head), pwszTime: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpTimeToSystemTime(pwszTime: win32more.Foundation.PWSTR, pst: POINTER(win32more.Foundation.SYSTEMTIME_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpCrackUrl(pwszUrl: win32more.Foundation.PWSTR, dwUrlLength: UInt32, dwFlags: UInt32, lpUrlComponents: POINTER(win32more.Networking.WinHttp.URL_COMPONENTS_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpCreateUrl(lpUrlComponents: POINTER(win32more.Networking.WinHttp.URL_COMPONENTS_head), dwFlags: win32more.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS, pwszUrl: win32more.Foundation.PWSTR, pdwUrlLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpCheckPlatform() -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSetDefaultProxyConfiguration(pProxyInfo: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpOpen(pszAgentW: win32more.Foundation.PWSTR, dwAccessType: win32more.Networking.WinHttp.WINHTTP_ACCESS_TYPE, pszProxyW: win32more.Foundation.PWSTR, pszProxyBypassW: win32more.Foundation.PWSTR, dwFlags: UInt32) -> c_void_p: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpCloseHandle(hInternet: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpConnect(hSession: c_void_p, pswzServerName: win32more.Foundation.PWSTR, nServerPort: win32more.Networking.WinHttp.INTERNET_PORT, dwReserved: UInt32) -> c_void_p: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpReadData(hRequest: c_void_p, lpBuffer: c_void_p, dwNumberOfBytesToRead: UInt32, lpdwNumberOfBytesRead: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpReadDataEx(hRequest: c_void_p, lpBuffer: c_void_p, dwNumberOfBytesToRead: UInt32, lpdwNumberOfBytesRead: POINTER(UInt32), ullFlags: UInt64, cbProperty: UInt32, pvProperty: c_void_p) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWriteData(hRequest: c_void_p, lpBuffer: c_void_p, dwNumberOfBytesToWrite: UInt32, lpdwNumberOfBytesWritten: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryDataAvailable(hRequest: c_void_p, lpdwNumberOfBytesAvailable: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryOption(hInternet: c_void_p, dwOption: UInt32, lpBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSetOption(hInternet: c_void_p, dwOption: UInt32, lpBuffer: c_void_p, dwBufferLength: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSetTimeouts(hInternet: c_void_p, nResolveTimeout: Int32, nConnectTimeout: Int32, nSendTimeout: Int32, nReceiveTimeout: Int32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpOpenRequest(hConnect: c_void_p, pwszVerb: win32more.Foundation.PWSTR, pwszObjectName: win32more.Foundation.PWSTR, pwszVersion: win32more.Foundation.PWSTR, pwszReferrer: win32more.Foundation.PWSTR, ppwszAcceptTypes: POINTER(win32more.Foundation.PWSTR), dwFlags: win32more.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS) -> c_void_p: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpAddRequestHeaders(hRequest: c_void_p, lpszHeaders: win32more.Foundation.PWSTR, dwHeadersLength: UInt32, dwModifiers: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpAddRequestHeadersEx(hRequest: c_void_p, dwModifiers: UInt32, ullFlags: UInt64, ullExtra: UInt64, cHeaders: UInt32, pHeaders: POINTER(win32more.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSendRequest(hRequest: c_void_p, lpszHeaders: win32more.Foundation.PWSTR, dwHeadersLength: UInt32, lpOptional: c_void_p, dwOptionalLength: UInt32, dwTotalLength: UInt32, dwContext: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSetCredentials(hRequest: c_void_p, AuthTargets: UInt32, AuthScheme: UInt32, pwszUserName: win32more.Foundation.PWSTR, pwszPassword: win32more.Foundation.PWSTR, pAuthParams: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryAuthSchemes(hRequest: c_void_p, lpdwSupportedSchemes: POINTER(UInt32), lpdwFirstScheme: POINTER(UInt32), pdwAuthTarget: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpReceiveResponse(hRequest: c_void_p, lpReserved: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryHeaders(hRequest: c_void_p, dwInfoLevel: UInt32, pwszName: win32more.Foundation.PWSTR, lpBuffer: c_void_p, lpdwBufferLength: POINTER(UInt32), lpdwIndex: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryHeadersEx(hRequest: c_void_p, dwInfoLevel: UInt32, ullFlags: UInt64, uiCodePage: UInt32, pdwIndex: POINTER(UInt32), pHeaderName: POINTER(win32more.Networking.WinHttp.WINHTTP_HEADER_NAME_head), pBuffer: c_void_p, pdwBufferLength: POINTER(UInt32), ppHeaders: POINTER(POINTER(win32more.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head)), pdwHeadersCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpQueryConnectionGroup(hInternet: c_void_p, pGuidConnection: POINTER(Guid), ullFlags: UInt64, ppResult: POINTER(POINTER(win32more.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head))) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpFreeQueryConnectionGroupResult(pResult: POINTER(win32more.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head)) -> Void: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags: UInt32, ppwstrAutoConfigUrl: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxyForUrl(hSession: c_void_p, lpcwszUrl: win32more.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), pProxyInfo: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpCreateProxyResolver(hSession: c_void_p, phResolver: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxyForUrlEx(hResolver: c_void_p, pcwszUrl: win32more.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), pContext: UIntPtr) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxyForUrlEx2(hResolver: c_void_p, pcwszUrl: win32more.Foundation.PWSTR, pAutoProxyOptions: POINTER(win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head), cbInterfaceSelectionContext: UInt32, pInterfaceSelectionContext: c_char_p_no, pContext: UIntPtr) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxyResult(hResolver: c_void_p, pProxyResult: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_head)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxyResultEx(hResolver: c_void_p, pProxyResultEx: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpFreeProxyResult(pProxyResult: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_head)) -> Void: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpFreeProxyResultEx(pProxyResultEx: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head)) -> Void: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpResetAutoProxy(hSession: c_void_p, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetIEProxyConfigForCurrentUser(pProxyConfig: POINTER(win32more.Networking.WinHttp.WINHTTP_CURRENT_USER_IE_PROXY_CONFIG_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWriteProxySettings(hSession: c_void_p, fForceUpdate: win32more.Foundation.BOOL, pWinHttpProxySettings: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpReadProxySettings(hSession: c_void_p, pcwszConnectionName: win32more.Foundation.PWSTR, fFallBackToDefaultSettings: win32more.Foundation.BOOL, fSetAutoDiscoverForDefaultSettings: win32more.Foundation.BOOL, pdwSettingsVersion: POINTER(UInt32), pfDefaultSettingsAreReturned: POINTER(win32more.Foundation.BOOL), pWinHttpProxySettings: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpFreeProxySettings(pWinHttpProxySettings: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head)) -> Void: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpGetProxySettingsVersion(hSession: c_void_p, pdwProxySettingsVersion: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpSetProxySettingsPerUser(fProxySettingsPerUser: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketCompleteUpgrade(hRequest: c_void_p, pContext: UIntPtr) -> c_void_p: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketSend(hWebSocket: c_void_p, eBufferType: win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE, pvBuffer: c_void_p, dwBufferLength: UInt32) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketReceive(hWebSocket: c_void_p, pvBuffer: c_void_p, dwBufferLength: UInt32, pdwBytesRead: POINTER(UInt32), peBufferType: POINTER(win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE)) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketShutdown(hWebSocket: c_void_p, usStatus: UInt16, pvReason: c_void_p, dwReasonLength: UInt32) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketClose(hWebSocket: c_void_p, usStatus: UInt16, pvReason: c_void_p, dwReasonLength: UInt32) -> UInt32: ...
+@winfunctype('WINHTTP.dll')
+def WinHttpWebSocketQueryCloseStatus(hWebSocket: c_void_p, pusStatus: POINTER(UInt16), pvReason: c_void_p, dwReasonLength: UInt32, pdwReasonLengthConsumed: POINTER(UInt32)) -> UInt32: ...
+class HTTP_VERSION_INFO(Structure):
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
 INTERNET_PORT = UInt32
-INTERNET_DEFAULT_HTTP_PORT = 80
-INTERNET_DEFAULT_HTTPS_PORT = 443
-INTERNET_DEFAULT_PORT = 0
-def _define_URL_COMPONENTS_head():
-    class URL_COMPONENTS(Structure):
-        pass
-    return URL_COMPONENTS
-def _define_URL_COMPONENTS():
-    URL_COMPONENTS = win32more.Networking.WinHttp.URL_COMPONENTS_head
-    URL_COMPONENTS._fields_ = [
-        ('dwStructSize', UInt32),
-        ('lpszScheme', win32more.Foundation.PWSTR),
-        ('dwSchemeLength', UInt32),
-        ('nScheme', win32more.Networking.WinHttp.WINHTTP_INTERNET_SCHEME),
-        ('lpszHostName', win32more.Foundation.PWSTR),
-        ('dwHostNameLength', UInt32),
-        ('nPort', UInt16),
-        ('lpszUserName', win32more.Foundation.PWSTR),
-        ('dwUserNameLength', UInt32),
-        ('lpszPassword', win32more.Foundation.PWSTR),
-        ('dwPasswordLength', UInt32),
-        ('lpszUrlPath', win32more.Foundation.PWSTR),
-        ('dwUrlPathLength', UInt32),
-        ('lpszExtraInfo', win32more.Foundation.PWSTR),
-        ('dwExtraInfoLength', UInt32),
-    ]
-    return URL_COMPONENTS
+INTERNET_DEFAULT_HTTP_PORT: INTERNET_PORT = 80
+INTERNET_DEFAULT_HTTPS_PORT: INTERNET_PORT = 443
+INTERNET_DEFAULT_PORT: INTERNET_PORT = 0
+class URL_COMPONENTS(Structure):
+    dwStructSize: UInt32
+    lpszScheme: win32more.Foundation.PWSTR
+    dwSchemeLength: UInt32
+    nScheme: win32more.Networking.WinHttp.WINHTTP_INTERNET_SCHEME
+    lpszHostName: win32more.Foundation.PWSTR
+    dwHostNameLength: UInt32
+    nPort: UInt16
+    lpszUserName: win32more.Foundation.PWSTR
+    dwUserNameLength: UInt32
+    lpszPassword: win32more.Foundation.PWSTR
+    dwPasswordLength: UInt32
+    lpszUrlPath: win32more.Foundation.PWSTR
+    dwUrlPathLength: UInt32
+    lpszExtraInfo: win32more.Foundation.PWSTR
+    dwExtraInfoLength: UInt32
 WIN_HTTP_CREATE_URL_FLAGS = UInt32
-ICU_ESCAPE = 2147483648
-ICU_REJECT_USERPWD = 16384
-ICU_DECODE = 268435456
+ICU_ESCAPE: WIN_HTTP_CREATE_URL_FLAGS = 2147483648
+ICU_REJECT_USERPWD: WIN_HTTP_CREATE_URL_FLAGS = 16384
+ICU_DECODE: WIN_HTTP_CREATE_URL_FLAGS = 268435456
 WINHTTP_ACCESS_TYPE = UInt32
-WINHTTP_ACCESS_TYPE_NO_PROXY = 1
-WINHTTP_ACCESS_TYPE_DEFAULT_PROXY = 0
-WINHTTP_ACCESS_TYPE_NAMED_PROXY = 3
-WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY = 4
-def _define_WINHTTP_ASYNC_RESULT_head():
-    class WINHTTP_ASYNC_RESULT(Structure):
-        pass
-    return WINHTTP_ASYNC_RESULT
-def _define_WINHTTP_ASYNC_RESULT():
-    WINHTTP_ASYNC_RESULT = win32more.Networking.WinHttp.WINHTTP_ASYNC_RESULT_head
-    WINHTTP_ASYNC_RESULT._fields_ = [
-        ('dwResult', UIntPtr),
-        ('dwError', UInt32),
-    ]
-    return WINHTTP_ASYNC_RESULT
-def _define_WINHTTP_AUTOPROXY_OPTIONS_head():
-    class WINHTTP_AUTOPROXY_OPTIONS(Structure):
-        pass
-    return WINHTTP_AUTOPROXY_OPTIONS
-def _define_WINHTTP_AUTOPROXY_OPTIONS():
-    WINHTTP_AUTOPROXY_OPTIONS = win32more.Networking.WinHttp.WINHTTP_AUTOPROXY_OPTIONS_head
-    WINHTTP_AUTOPROXY_OPTIONS._fields_ = [
-        ('dwFlags', UInt32),
-        ('dwAutoDetectFlags', UInt32),
-        ('lpszAutoConfigUrl', win32more.Foundation.PWSTR),
-        ('lpvReserved', c_void_p),
-        ('dwReserved', UInt32),
-        ('fAutoLogonIfChallenged', win32more.Foundation.BOOL),
-    ]
-    return WINHTTP_AUTOPROXY_OPTIONS
-def _define_WINHTTP_CERTIFICATE_INFO_head():
-    class WINHTTP_CERTIFICATE_INFO(Structure):
-        pass
-    return WINHTTP_CERTIFICATE_INFO
-def _define_WINHTTP_CERTIFICATE_INFO():
-    WINHTTP_CERTIFICATE_INFO = win32more.Networking.WinHttp.WINHTTP_CERTIFICATE_INFO_head
-    WINHTTP_CERTIFICATE_INFO._fields_ = [
-        ('ftExpiry', win32more.Foundation.FILETIME),
-        ('ftStart', win32more.Foundation.FILETIME),
-        ('lpszSubjectInfo', win32more.Foundation.PWSTR),
-        ('lpszIssuerInfo', win32more.Foundation.PWSTR),
-        ('lpszProtocolName', win32more.Foundation.PWSTR),
-        ('lpszSignatureAlgName', win32more.Foundation.PWSTR),
-        ('lpszEncryptionAlgName', win32more.Foundation.PWSTR),
-        ('dwKeySize', UInt32),
-    ]
-    return WINHTTP_CERTIFICATE_INFO
-def _define_WINHTTP_CONNECTION_GROUP_head():
-    class WINHTTP_CONNECTION_GROUP(Structure):
-        pass
-    return WINHTTP_CONNECTION_GROUP
-def _define_WINHTTP_CONNECTION_GROUP():
-    WINHTTP_CONNECTION_GROUP = win32more.Networking.WinHttp.WINHTTP_CONNECTION_GROUP_head
-    WINHTTP_CONNECTION_GROUP._fields_ = [
-        ('cConnections', UInt32),
-        ('guidGroup', Guid),
-    ]
-    return WINHTTP_CONNECTION_GROUP
-def _define_WINHTTP_CONNECTION_INFO_head():
-    class WINHTTP_CONNECTION_INFO(Structure):
-        pass
-    return WINHTTP_CONNECTION_INFO
-def _define_WINHTTP_CONNECTION_INFO():
-    WINHTTP_CONNECTION_INFO = win32more.Networking.WinHttp.WINHTTP_CONNECTION_INFO_head
-    WINHTTP_CONNECTION_INFO._fields_ = [
-        ('cbSize', UInt32),
-        ('LocalAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
-        ('RemoteAddress', win32more.Networking.WinSock.SOCKADDR_STORAGE),
-    ]
-    return WINHTTP_CONNECTION_INFO
-def _define_WINHTTP_CREDS_head():
-    class WINHTTP_CREDS(Structure):
-        pass
-    return WINHTTP_CREDS
-def _define_WINHTTP_CREDS():
-    WINHTTP_CREDS = win32more.Networking.WinHttp.WINHTTP_CREDS_head
-    WINHTTP_CREDS._fields_ = [
-        ('lpszUserName', win32more.Foundation.PSTR),
-        ('lpszPassword', win32more.Foundation.PSTR),
-        ('lpszRealm', win32more.Foundation.PSTR),
-        ('dwAuthScheme', win32more.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME),
-        ('lpszHostName', win32more.Foundation.PSTR),
-        ('dwPort', UInt32),
-    ]
-    return WINHTTP_CREDS
+WINHTTP_ACCESS_TYPE_NO_PROXY: WINHTTP_ACCESS_TYPE = 1
+WINHTTP_ACCESS_TYPE_DEFAULT_PROXY: WINHTTP_ACCESS_TYPE = 0
+WINHTTP_ACCESS_TYPE_NAMED_PROXY: WINHTTP_ACCESS_TYPE = 3
+WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY: WINHTTP_ACCESS_TYPE = 4
+class WINHTTP_ASYNC_RESULT(Structure):
+    dwResult: UIntPtr
+    dwError: UInt32
+class WINHTTP_AUTOPROXY_OPTIONS(Structure):
+    dwFlags: UInt32
+    dwAutoDetectFlags: UInt32
+    lpszAutoConfigUrl: win32more.Foundation.PWSTR
+    lpvReserved: c_void_p
+    dwReserved: UInt32
+    fAutoLogonIfChallenged: win32more.Foundation.BOOL
+class WINHTTP_CERTIFICATE_INFO(Structure):
+    ftExpiry: win32more.Foundation.FILETIME
+    ftStart: win32more.Foundation.FILETIME
+    lpszSubjectInfo: win32more.Foundation.PWSTR
+    lpszIssuerInfo: win32more.Foundation.PWSTR
+    lpszProtocolName: win32more.Foundation.PWSTR
+    lpszSignatureAlgName: win32more.Foundation.PWSTR
+    lpszEncryptionAlgName: win32more.Foundation.PWSTR
+    dwKeySize: UInt32
+class WINHTTP_CONNECTION_GROUP(Structure):
+    cConnections: UInt32
+    guidGroup: Guid
+class WINHTTP_CONNECTION_INFO(Structure):
+    cbSize: UInt32
+    LocalAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+    RemoteAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+class WINHTTP_CREDS(Structure):
+    lpszUserName: win32more.Foundation.PSTR
+    lpszPassword: win32more.Foundation.PSTR
+    lpszRealm: win32more.Foundation.PSTR
+    dwAuthScheme: win32more.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME
+    lpszHostName: win32more.Foundation.PSTR
+    dwPort: UInt32
 WINHTTP_CREDS_AUTHSCHEME = UInt32
-WINHTTP_AUTH_SCHEME_BASIC = 1
-WINHTTP_AUTH_SCHEME_NTLM = 2
-WINHTTP_AUTH_SCHEME_NEGOTIATE = 16
-def _define_WINHTTP_CREDS_EX_head():
-    class WINHTTP_CREDS_EX(Structure):
-        pass
-    return WINHTTP_CREDS_EX
-def _define_WINHTTP_CREDS_EX():
-    WINHTTP_CREDS_EX = win32more.Networking.WinHttp.WINHTTP_CREDS_EX_head
-    WINHTTP_CREDS_EX._fields_ = [
-        ('lpszUserName', win32more.Foundation.PSTR),
-        ('lpszPassword', win32more.Foundation.PSTR),
-        ('lpszRealm', win32more.Foundation.PSTR),
-        ('dwAuthScheme', win32more.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME),
-        ('lpszHostName', win32more.Foundation.PSTR),
-        ('dwPort', UInt32),
-        ('lpszUrl', win32more.Foundation.PSTR),
-    ]
-    return WINHTTP_CREDS_EX
-def _define_WINHTTP_CURRENT_USER_IE_PROXY_CONFIG_head():
-    class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG(Structure):
-        pass
-    return WINHTTP_CURRENT_USER_IE_PROXY_CONFIG
-def _define_WINHTTP_CURRENT_USER_IE_PROXY_CONFIG():
-    WINHTTP_CURRENT_USER_IE_PROXY_CONFIG = win32more.Networking.WinHttp.WINHTTP_CURRENT_USER_IE_PROXY_CONFIG_head
-    WINHTTP_CURRENT_USER_IE_PROXY_CONFIG._fields_ = [
-        ('fAutoDetect', win32more.Foundation.BOOL),
-        ('lpszAutoConfigUrl', win32more.Foundation.PWSTR),
-        ('lpszProxy', win32more.Foundation.PWSTR),
-        ('lpszProxyBypass', win32more.Foundation.PWSTR),
-    ]
-    return WINHTTP_CURRENT_USER_IE_PROXY_CONFIG
-def _define_WINHTTP_EXTENDED_HEADER_head():
-    class WINHTTP_EXTENDED_HEADER(Structure):
-        pass
-    return WINHTTP_EXTENDED_HEADER
-def _define_WINHTTP_EXTENDED_HEADER():
-    WINHTTP_EXTENDED_HEADER = win32more.Networking.WinHttp.WINHTTP_EXTENDED_HEADER_head
-    class WINHTTP_EXTENDED_HEADER__Anonymous1_e__Union(Union):
-        pass
-    WINHTTP_EXTENDED_HEADER__Anonymous1_e__Union._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('pszName', win32more.Foundation.PSTR),
-    ]
-    class WINHTTP_EXTENDED_HEADER__Anonymous2_e__Union(Union):
-        pass
-    WINHTTP_EXTENDED_HEADER__Anonymous2_e__Union._fields_ = [
-        ('pwszValue', win32more.Foundation.PWSTR),
-        ('pszValue', win32more.Foundation.PSTR),
-    ]
-    WINHTTP_EXTENDED_HEADER._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    WINHTTP_EXTENDED_HEADER._fields_ = [
-        ('Anonymous1', WINHTTP_EXTENDED_HEADER__Anonymous1_e__Union),
-        ('Anonymous2', WINHTTP_EXTENDED_HEADER__Anonymous2_e__Union),
-    ]
-    return WINHTTP_EXTENDED_HEADER
-def _define_WINHTTP_FAILED_CONNECTION_RETRIES_head():
-    class WINHTTP_FAILED_CONNECTION_RETRIES(Structure):
-        pass
-    return WINHTTP_FAILED_CONNECTION_RETRIES
-def _define_WINHTTP_FAILED_CONNECTION_RETRIES():
-    WINHTTP_FAILED_CONNECTION_RETRIES = win32more.Networking.WinHttp.WINHTTP_FAILED_CONNECTION_RETRIES_head
-    WINHTTP_FAILED_CONNECTION_RETRIES._fields_ = [
-        ('dwMaxRetries', UInt32),
-        ('dwAllowedRetryConditions', UInt32),
-    ]
-    return WINHTTP_FAILED_CONNECTION_RETRIES
-def _define_WINHTTP_HEADER_NAME_head():
-    class WINHTTP_HEADER_NAME(Union):
-        pass
-    return WINHTTP_HEADER_NAME
-def _define_WINHTTP_HEADER_NAME():
-    WINHTTP_HEADER_NAME = win32more.Networking.WinHttp.WINHTTP_HEADER_NAME_head
-    WINHTTP_HEADER_NAME._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('pszName', win32more.Foundation.PSTR),
-    ]
-    return WINHTTP_HEADER_NAME
-def _define_WINHTTP_HOST_CONNECTION_GROUP_head():
-    class WINHTTP_HOST_CONNECTION_GROUP(Structure):
-        pass
-    return WINHTTP_HOST_CONNECTION_GROUP
-def _define_WINHTTP_HOST_CONNECTION_GROUP():
-    WINHTTP_HOST_CONNECTION_GROUP = win32more.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP_head
-    WINHTTP_HOST_CONNECTION_GROUP._fields_ = [
-        ('pwszHost', win32more.Foundation.PWSTR),
-        ('cConnectionGroups', UInt32),
-        ('pConnectionGroups', POINTER(win32more.Networking.WinHttp.WINHTTP_CONNECTION_GROUP_head)),
-    ]
-    return WINHTTP_HOST_CONNECTION_GROUP
-def _define_WINHTTP_HTTP2_RECEIVE_WINDOW_head():
-    class WINHTTP_HTTP2_RECEIVE_WINDOW(Structure):
-        pass
-    return WINHTTP_HTTP2_RECEIVE_WINDOW
-def _define_WINHTTP_HTTP2_RECEIVE_WINDOW():
-    WINHTTP_HTTP2_RECEIVE_WINDOW = win32more.Networking.WinHttp.WINHTTP_HTTP2_RECEIVE_WINDOW_head
-    WINHTTP_HTTP2_RECEIVE_WINDOW._fields_ = [
-        ('ulStreamWindow', UInt32),
-        ('ulStreamWindowUpdateDelta', UInt32),
-    ]
-    return WINHTTP_HTTP2_RECEIVE_WINDOW
+WINHTTP_AUTH_SCHEME_BASIC: WINHTTP_CREDS_AUTHSCHEME = 1
+WINHTTP_AUTH_SCHEME_NTLM: WINHTTP_CREDS_AUTHSCHEME = 2
+WINHTTP_AUTH_SCHEME_NEGOTIATE: WINHTTP_CREDS_AUTHSCHEME = 16
+class WINHTTP_CREDS_EX(Structure):
+    lpszUserName: win32more.Foundation.PSTR
+    lpszPassword: win32more.Foundation.PSTR
+    lpszRealm: win32more.Foundation.PSTR
+    dwAuthScheme: win32more.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME
+    lpszHostName: win32more.Foundation.PSTR
+    dwPort: UInt32
+    lpszUrl: win32more.Foundation.PSTR
+class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG(Structure):
+    fAutoDetect: win32more.Foundation.BOOL
+    lpszAutoConfigUrl: win32more.Foundation.PWSTR
+    lpszProxy: win32more.Foundation.PWSTR
+    lpszProxyBypass: win32more.Foundation.PWSTR
+class WINHTTP_EXTENDED_HEADER(Structure):
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    class _Anonymous1_e__Union(Union):
+        pwszName: win32more.Foundation.PWSTR
+        pszName: win32more.Foundation.PSTR
+    class _Anonymous2_e__Union(Union):
+        pwszValue: win32more.Foundation.PWSTR
+        pszValue: win32more.Foundation.PSTR
+class WINHTTP_FAILED_CONNECTION_RETRIES(Structure):
+    dwMaxRetries: UInt32
+    dwAllowedRetryConditions: UInt32
+class WINHTTP_HEADER_NAME(Union):
+    pwszName: win32more.Foundation.PWSTR
+    pszName: win32more.Foundation.PSTR
+class WINHTTP_HOST_CONNECTION_GROUP(Structure):
+    pwszHost: win32more.Foundation.PWSTR
+    cConnectionGroups: UInt32
+    pConnectionGroups: POINTER(win32more.Networking.WinHttp.WINHTTP_CONNECTION_GROUP_head)
+class WINHTTP_HTTP2_RECEIVE_WINDOW(Structure):
+    ulStreamWindow: UInt32
+    ulStreamWindowUpdateDelta: UInt32
 WINHTTP_INTERNET_SCHEME = UInt32
-WINHTTP_INTERNET_SCHEME_HTTP = 1
-WINHTTP_INTERNET_SCHEME_HTTPS = 2
-WINHTTP_INTERNET_SCHEME_FTP = 3
-WINHTTP_INTERNET_SCHEME_SOCKS = 4
-def _define_WINHTTP_MATCH_CONNECTION_GUID_head():
-    class WINHTTP_MATCH_CONNECTION_GUID(Structure):
-        pass
-    return WINHTTP_MATCH_CONNECTION_GUID
-def _define_WINHTTP_MATCH_CONNECTION_GUID():
-    WINHTTP_MATCH_CONNECTION_GUID = win32more.Networking.WinHttp.WINHTTP_MATCH_CONNECTION_GUID_head
-    WINHTTP_MATCH_CONNECTION_GUID._fields_ = [
-        ('ConnectionGuid', Guid),
-        ('ullFlags', UInt64),
-    ]
-    return WINHTTP_MATCH_CONNECTION_GUID
+WINHTTP_INTERNET_SCHEME_HTTP: WINHTTP_INTERNET_SCHEME = 1
+WINHTTP_INTERNET_SCHEME_HTTPS: WINHTTP_INTERNET_SCHEME = 2
+WINHTTP_INTERNET_SCHEME_FTP: WINHTTP_INTERNET_SCHEME = 3
+WINHTTP_INTERNET_SCHEME_SOCKS: WINHTTP_INTERNET_SCHEME = 4
+class WINHTTP_MATCH_CONNECTION_GUID(Structure):
+    ConnectionGuid: Guid
+    ullFlags: UInt64
 WINHTTP_OPEN_REQUEST_FLAGS = UInt32
-WINHTTP_FLAG_BYPASS_PROXY_CACHE = 256
-WINHTTP_FLAG_ESCAPE_DISABLE = 64
-WINHTTP_FLAG_ESCAPE_DISABLE_QUERY = 128
-WINHTTP_FLAG_ESCAPE_PERCENT = 4
-WINHTTP_FLAG_NULL_CODEPAGE = 8
-WINHTTP_FLAG_REFRESH = 256
-WINHTTP_FLAG_SECURE = 8388608
-def _define_WINHTTP_PROXY_INFO_head():
-    class WINHTTP_PROXY_INFO(Structure):
-        pass
-    return WINHTTP_PROXY_INFO
-def _define_WINHTTP_PROXY_INFO():
-    WINHTTP_PROXY_INFO = win32more.Networking.WinHttp.WINHTTP_PROXY_INFO_head
-    WINHTTP_PROXY_INFO._fields_ = [
-        ('dwAccessType', win32more.Networking.WinHttp.WINHTTP_ACCESS_TYPE),
-        ('lpszProxy', win32more.Foundation.PWSTR),
-        ('lpszProxyBypass', win32more.Foundation.PWSTR),
-    ]
-    return WINHTTP_PROXY_INFO
-def _define_WINHTTP_PROXY_NETWORKING_KEY_head():
-    class WINHTTP_PROXY_NETWORKING_KEY(Structure):
-        pass
-    return WINHTTP_PROXY_NETWORKING_KEY
-def _define_WINHTTP_PROXY_NETWORKING_KEY():
-    WINHTTP_PROXY_NETWORKING_KEY = win32more.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY_head
-    WINHTTP_PROXY_NETWORKING_KEY._fields_ = [
-        ('pbBuffer', Byte * 128),
-    ]
-    return WINHTTP_PROXY_NETWORKING_KEY
-def _define_WINHTTP_PROXY_RESULT_head():
-    class WINHTTP_PROXY_RESULT(Structure):
-        pass
-    return WINHTTP_PROXY_RESULT
-def _define_WINHTTP_PROXY_RESULT():
-    WINHTTP_PROXY_RESULT = win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_head
-    WINHTTP_PROXY_RESULT._fields_ = [
-        ('cEntries', UInt32),
-        ('pEntries', POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)),
-    ]
-    return WINHTTP_PROXY_RESULT
-def _define_WINHTTP_PROXY_RESULT_ENTRY_head():
-    class WINHTTP_PROXY_RESULT_ENTRY(Structure):
-        pass
-    return WINHTTP_PROXY_RESULT_ENTRY
-def _define_WINHTTP_PROXY_RESULT_ENTRY():
-    WINHTTP_PROXY_RESULT_ENTRY = win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head
-    WINHTTP_PROXY_RESULT_ENTRY._fields_ = [
-        ('fProxy', win32more.Foundation.BOOL),
-        ('fBypass', win32more.Foundation.BOOL),
-        ('ProxyScheme', win32more.Networking.WinHttp.WINHTTP_INTERNET_SCHEME),
-        ('pwszProxy', win32more.Foundation.PWSTR),
-        ('ProxyPort', UInt16),
-    ]
-    return WINHTTP_PROXY_RESULT_ENTRY
-def _define_WINHTTP_PROXY_RESULT_EX_head():
-    class WINHTTP_PROXY_RESULT_EX(Structure):
-        pass
-    return WINHTTP_PROXY_RESULT_EX
-def _define_WINHTTP_PROXY_RESULT_EX():
-    WINHTTP_PROXY_RESULT_EX = win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_EX_head
-    WINHTTP_PROXY_RESULT_EX._fields_ = [
-        ('cEntries', UInt32),
-        ('pEntries', POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)),
-        ('hProxyDetectionHandle', win32more.Foundation.HANDLE),
-        ('dwProxyInterfaceAffinity', UInt32),
-    ]
-    return WINHTTP_PROXY_RESULT_EX
-def _define_WINHTTP_PROXY_SETTINGS_head():
-    class WINHTTP_PROXY_SETTINGS(Structure):
-        pass
-    return WINHTTP_PROXY_SETTINGS
-def _define_WINHTTP_PROXY_SETTINGS():
-    WINHTTP_PROXY_SETTINGS = win32more.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_head
-    WINHTTP_PROXY_SETTINGS._fields_ = [
-        ('dwStructSize', UInt32),
-        ('dwFlags', UInt32),
-        ('dwCurrentSettingsVersion', UInt32),
-        ('pwszConnectionName', win32more.Foundation.PWSTR),
-        ('pwszProxy', win32more.Foundation.PWSTR),
-        ('pwszProxyBypass', win32more.Foundation.PWSTR),
-        ('pwszAutoconfigUrl', win32more.Foundation.PWSTR),
-        ('pwszAutoconfigSecondaryUrl', win32more.Foundation.PWSTR),
-        ('dwAutoDiscoveryFlags', UInt32),
-        ('pwszLastKnownGoodAutoConfigUrl', win32more.Foundation.PWSTR),
-        ('dwAutoconfigReloadDelayMins', UInt32),
-        ('ftLastKnownDetectTime', win32more.Foundation.FILETIME),
-        ('dwDetectedInterfaceIpCount', UInt32),
-        ('pdwDetectedInterfaceIp', POINTER(UInt32)),
-        ('cNetworkKeys', UInt32),
-        ('pNetworkKeys', POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY_head)),
-    ]
-    return WINHTTP_PROXY_SETTINGS
-def _define_WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head():
-    class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(Structure):
-        pass
-    return WINHTTP_QUERY_CONNECTION_GROUP_RESULT
-def _define_WINHTTP_QUERY_CONNECTION_GROUP_RESULT():
-    WINHTTP_QUERY_CONNECTION_GROUP_RESULT = win32more.Networking.WinHttp.WINHTTP_QUERY_CONNECTION_GROUP_RESULT_head
-    WINHTTP_QUERY_CONNECTION_GROUP_RESULT._fields_ = [
-        ('cHosts', UInt32),
-        ('pHostConnectionGroups', POINTER(win32more.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP_head)),
-    ]
-    return WINHTTP_QUERY_CONNECTION_GROUP_RESULT
+WINHTTP_FLAG_BYPASS_PROXY_CACHE: WINHTTP_OPEN_REQUEST_FLAGS = 256
+WINHTTP_FLAG_ESCAPE_DISABLE: WINHTTP_OPEN_REQUEST_FLAGS = 64
+WINHTTP_FLAG_ESCAPE_DISABLE_QUERY: WINHTTP_OPEN_REQUEST_FLAGS = 128
+WINHTTP_FLAG_ESCAPE_PERCENT: WINHTTP_OPEN_REQUEST_FLAGS = 4
+WINHTTP_FLAG_NULL_CODEPAGE: WINHTTP_OPEN_REQUEST_FLAGS = 8
+WINHTTP_FLAG_REFRESH: WINHTTP_OPEN_REQUEST_FLAGS = 256
+WINHTTP_FLAG_SECURE: WINHTTP_OPEN_REQUEST_FLAGS = 8388608
+class WINHTTP_PROXY_INFO(Structure):
+    dwAccessType: win32more.Networking.WinHttp.WINHTTP_ACCESS_TYPE
+    lpszProxy: win32more.Foundation.PWSTR
+    lpszProxyBypass: win32more.Foundation.PWSTR
+class WINHTTP_PROXY_NETWORKING_KEY(Structure):
+    pbBuffer: Byte * 128
+class WINHTTP_PROXY_RESULT(Structure):
+    cEntries: UInt32
+    pEntries: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)
+class WINHTTP_PROXY_RESULT_ENTRY(Structure):
+    fProxy: win32more.Foundation.BOOL
+    fBypass: win32more.Foundation.BOOL
+    ProxyScheme: win32more.Networking.WinHttp.WINHTTP_INTERNET_SCHEME
+    pwszProxy: win32more.Foundation.PWSTR
+    ProxyPort: UInt16
+class WINHTTP_PROXY_RESULT_EX(Structure):
+    cEntries: UInt32
+    pEntries: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY_head)
+    hProxyDetectionHandle: win32more.Foundation.HANDLE
+    dwProxyInterfaceAffinity: UInt32
+class WINHTTP_PROXY_SETTINGS(Structure):
+    dwStructSize: UInt32
+    dwFlags: UInt32
+    dwCurrentSettingsVersion: UInt32
+    pwszConnectionName: win32more.Foundation.PWSTR
+    pwszProxy: win32more.Foundation.PWSTR
+    pwszProxyBypass: win32more.Foundation.PWSTR
+    pwszAutoconfigUrl: win32more.Foundation.PWSTR
+    pwszAutoconfigSecondaryUrl: win32more.Foundation.PWSTR
+    dwAutoDiscoveryFlags: UInt32
+    pwszLastKnownGoodAutoConfigUrl: win32more.Foundation.PWSTR
+    dwAutoconfigReloadDelayMins: UInt32
+    ftLastKnownDetectTime: win32more.Foundation.FILETIME
+    dwDetectedInterfaceIpCount: UInt32
+    pdwDetectedInterfaceIp: POINTER(UInt32)
+    cNetworkKeys: UInt32
+    pNetworkKeys: POINTER(win32more.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY_head)
+class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(Structure):
+    cHosts: UInt32
+    pHostConnectionGroups: POINTER(win32more.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP_head)
 WINHTTP_REQUEST_STAT_ENTRY = Int32
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpConnectFailureCount = 0
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyFailureCount = 1
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg1Size = 2
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg1Size = 3
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg2Size = 4
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg2Size = 5
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersSize = 6
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersCompressedSize = 7
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersSize = 8
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersCompressedSize = 9
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodySize = 10
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodyCompressedSize = 11
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Size = 12
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg1Size = 13
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Size = 14
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size = 15
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast = 16
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax = 32
-def _define_WINHTTP_REQUEST_STATS_head():
-    class WINHTTP_REQUEST_STATS(Structure):
-        pass
-    return WINHTTP_REQUEST_STATS
-def _define_WINHTTP_REQUEST_STATS():
-    WINHTTP_REQUEST_STATS = win32more.Networking.WinHttp.WINHTTP_REQUEST_STATS_head
-    WINHTTP_REQUEST_STATS._fields_ = [
-        ('ullFlags', UInt64),
-        ('ulIndex', UInt32),
-        ('cStats', UInt32),
-        ('rgullStats', UInt64 * 32),
-    ]
-    return WINHTTP_REQUEST_STATS
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpConnectFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 0
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 1
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 2
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 3
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 4
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 5
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersSize: WINHTTP_REQUEST_STAT_ENTRY = 6
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 7
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersSize: WINHTTP_REQUEST_STAT_ENTRY = 8
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 9
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodySize: WINHTTP_REQUEST_STAT_ENTRY = 10
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodyCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 11
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 12
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 13
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 14
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 15
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast: WINHTTP_REQUEST_STAT_ENTRY = 16
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax: WINHTTP_REQUEST_STAT_ENTRY = 32
+class WINHTTP_REQUEST_STATS(Structure):
+    ullFlags: UInt64
+    ulIndex: UInt32
+    cStats: UInt32
+    rgullStats: UInt64 * 32
 WINHTTP_REQUEST_TIME_ENTRY = Int32
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart = 0
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionEnd = 1
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireStart = 2
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireWaitEnd = 3
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireEnd = 4
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionStart = 5
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionEnd = 6
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentStart = 7
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentEnd = 8
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1Start = 9
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1End = 10
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2Start = 11
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2End = 12
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3Start = 13
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3End = 14
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitStart = 15
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitEnd = 16
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestStart = 17
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionStart = 18
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionEnd = 19
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersEnd = 20
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestEnd = 21
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseStart = 22
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionStart = 23
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionEnd = 24
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersEnd = 25
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseBodyDecompressionDelta = 26
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseEnd = 27
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelStart = 28
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelEnd = 29
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Start = 30
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1End = 31
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Start = 32
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2End = 33
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start = 34
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End = 35
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast = 36
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax = 64
-def _define_WINHTTP_REQUEST_TIMES_head():
-    class WINHTTP_REQUEST_TIMES(Structure):
-        pass
-    return WINHTTP_REQUEST_TIMES
-def _define_WINHTTP_REQUEST_TIMES():
-    WINHTTP_REQUEST_TIMES = win32more.Networking.WinHttp.WINHTTP_REQUEST_TIMES_head
-    WINHTTP_REQUEST_TIMES._fields_ = [
-        ('cTimes', UInt32),
-        ('rgullTimes', UInt64 * 64),
-    ]
-    return WINHTTP_REQUEST_TIMES
-def _define_WINHTTP_RESOLVER_CACHE_CONFIG_head():
-    class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
-        pass
-    return WINHTTP_RESOLVER_CACHE_CONFIG
-def _define_WINHTTP_RESOLVER_CACHE_CONFIG():
-    WINHTTP_RESOLVER_CACHE_CONFIG = win32more.Networking.WinHttp.WINHTTP_RESOLVER_CACHE_CONFIG_head
-    WINHTTP_RESOLVER_CACHE_CONFIG._fields_ = [
-        ('ulMaxResolverCacheEntries', UInt32),
-        ('ulMaxCacheEntryAge', UInt32),
-        ('ulMinCacheEntryTtl', UInt32),
-        ('SecureDnsSetting', win32more.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING),
-        ('ullConnResolutionWaitTime', UInt64),
-        ('ullFlags', UInt64),
-    ]
-    return WINHTTP_RESOLVER_CACHE_CONFIG
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart: WINHTTP_REQUEST_TIME_ENTRY = 0
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionEnd: WINHTTP_REQUEST_TIME_ENTRY = 1
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireStart: WINHTTP_REQUEST_TIME_ENTRY = 2
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireWaitEnd: WINHTTP_REQUEST_TIME_ENTRY = 3
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireEnd: WINHTTP_REQUEST_TIME_ENTRY = 4
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionStart: WINHTTP_REQUEST_TIME_ENTRY = 5
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionEnd: WINHTTP_REQUEST_TIME_ENTRY = 6
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentStart: WINHTTP_REQUEST_TIME_ENTRY = 7
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentEnd: WINHTTP_REQUEST_TIME_ENTRY = 8
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1Start: WINHTTP_REQUEST_TIME_ENTRY = 9
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1End: WINHTTP_REQUEST_TIME_ENTRY = 10
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2Start: WINHTTP_REQUEST_TIME_ENTRY = 11
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2End: WINHTTP_REQUEST_TIME_ENTRY = 12
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3Start: WINHTTP_REQUEST_TIME_ENTRY = 13
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 14
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitStart: WINHTTP_REQUEST_TIME_ENTRY = 15
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitEnd: WINHTTP_REQUEST_TIME_ENTRY = 16
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestStart: WINHTTP_REQUEST_TIME_ENTRY = 17
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionStart: WINHTTP_REQUEST_TIME_ENTRY = 18
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionEnd: WINHTTP_REQUEST_TIME_ENTRY = 19
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersEnd: WINHTTP_REQUEST_TIME_ENTRY = 20
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestEnd: WINHTTP_REQUEST_TIME_ENTRY = 21
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseStart: WINHTTP_REQUEST_TIME_ENTRY = 22
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionStart: WINHTTP_REQUEST_TIME_ENTRY = 23
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionEnd: WINHTTP_REQUEST_TIME_ENTRY = 24
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersEnd: WINHTTP_REQUEST_TIME_ENTRY = 25
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseBodyDecompressionDelta: WINHTTP_REQUEST_TIME_ENTRY = 26
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseEnd: WINHTTP_REQUEST_TIME_ENTRY = 27
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelStart: WINHTTP_REQUEST_TIME_ENTRY = 28
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelEnd: WINHTTP_REQUEST_TIME_ENTRY = 29
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Start: WINHTTP_REQUEST_TIME_ENTRY = 30
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1End: WINHTTP_REQUEST_TIME_ENTRY = 31
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Start: WINHTTP_REQUEST_TIME_ENTRY = 32
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2End: WINHTTP_REQUEST_TIME_ENTRY = 33
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start: WINHTTP_REQUEST_TIME_ENTRY = 34
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 35
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast: WINHTTP_REQUEST_TIME_ENTRY = 36
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax: WINHTTP_REQUEST_TIME_ENTRY = 64
+class WINHTTP_REQUEST_TIMES(Structure):
+    cTimes: UInt32
+    rgullTimes: UInt64 * 64
+class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
+    ulMaxResolverCacheEntries: UInt32
+    ulMaxCacheEntryAge: UInt32
+    ulMinCacheEntryTtl: UInt32
+    SecureDnsSetting: win32more.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING
+    ullConnResolutionWaitTime: UInt64
+    ullFlags: UInt64
 WINHTTP_SECURE_DNS_SETTING = Int32
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingDefault = 0
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingForcePlaintext = 1
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingRequireEncryption = 2
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingTryEncryptionWithFallback = 3
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingMax = 4
-def _define_WINHTTP_STATUS_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,UIntPtr,UInt32,c_void_p,UInt32)
-def _define_WINHTTP_WEB_SOCKET_ASYNC_RESULT_head():
-    class WINHTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
-        pass
-    return WINHTTP_WEB_SOCKET_ASYNC_RESULT
-def _define_WINHTTP_WEB_SOCKET_ASYNC_RESULT():
-    WINHTTP_WEB_SOCKET_ASYNC_RESULT = win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_ASYNC_RESULT_head
-    WINHTTP_WEB_SOCKET_ASYNC_RESULT._fields_ = [
-        ('AsyncResult', win32more.Networking.WinHttp.WINHTTP_ASYNC_RESULT),
-        ('Operation', win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION),
-    ]
-    return WINHTTP_WEB_SOCKET_ASYNC_RESULT
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingDefault: WINHTTP_SECURE_DNS_SETTING = 0
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingForcePlaintext: WINHTTP_SECURE_DNS_SETTING = 1
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingRequireEncryption: WINHTTP_SECURE_DNS_SETTING = 2
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingTryEncryptionWithFallback: WINHTTP_SECURE_DNS_SETTING = 3
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingMax: WINHTTP_SECURE_DNS_SETTING = 4
+@winfunctype_pointer
+def WINHTTP_STATUS_CALLBACK(hInternet: c_void_p, dwContext: UIntPtr, dwInternetStatus: UInt32, lpvStatusInformation: c_void_p, dwStatusInformationLength: UInt32) -> Void: ...
+class WINHTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
+    AsyncResult: win32more.Networking.WinHttp.WINHTTP_ASYNC_RESULT
+    Operation: win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION
 WINHTTP_WEB_SOCKET_BUFFER_TYPE = Int32
-WINHTTP_WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE = 0
-WINHTTP_WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE = 1
-WINHTTP_WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE = 2
-WINHTTP_WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE = 3
-WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE = 4
+WINHTTP_WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 0
+WINHTTP_WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 1
+WINHTTP_WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 2
+WINHTTP_WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 3
+WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 4
 WINHTTP_WEB_SOCKET_CLOSE_STATUS = Int32
-WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS = 1000
-WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS = 1001
-WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS = 1002
-WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS = 1003
-WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS = 1005
-WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS = 1006
-WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS = 1007
-WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS = 1008
-WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS = 1009
-WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS = 1010
-WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS = 1011
-WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS = 1015
+WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1000
+WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1001
+WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1002
+WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1003
+WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1005
+WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1006
+WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1007
+WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1008
+WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1009
+WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1010
+WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1011
+WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1015
 WINHTTP_WEB_SOCKET_OPERATION = Int32
-WINHTTP_WEB_SOCKET_SEND_OPERATION = 0
-WINHTTP_WEB_SOCKET_RECEIVE_OPERATION = 1
-WINHTTP_WEB_SOCKET_CLOSE_OPERATION = 2
-WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION = 3
-def _define_WINHTTP_WEB_SOCKET_STATUS_head():
-    class WINHTTP_WEB_SOCKET_STATUS(Structure):
-        pass
-    return WINHTTP_WEB_SOCKET_STATUS
-def _define_WINHTTP_WEB_SOCKET_STATUS():
-    WINHTTP_WEB_SOCKET_STATUS = win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_STATUS_head
-    WINHTTP_WEB_SOCKET_STATUS._fields_ = [
-        ('dwBytesTransferred', UInt32),
-        ('eBufferType', win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE),
-    ]
-    return WINHTTP_WEB_SOCKET_STATUS
+WINHTTP_WEB_SOCKET_SEND_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 0
+WINHTTP_WEB_SOCKET_RECEIVE_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 1
+WINHTTP_WEB_SOCKET_CLOSE_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 2
+WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 3
+class WINHTTP_WEB_SOCKET_STATUS(Structure):
+    dwBytesTransferred: UInt32
+    eBufferType: win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE
+make_head(_module, 'HTTP_VERSION_INFO')
+make_head(_module, 'URL_COMPONENTS')
+make_head(_module, 'WINHTTP_ASYNC_RESULT')
+make_head(_module, 'WINHTTP_AUTOPROXY_OPTIONS')
+make_head(_module, 'WINHTTP_CERTIFICATE_INFO')
+make_head(_module, 'WINHTTP_CONNECTION_GROUP')
+make_head(_module, 'WINHTTP_CONNECTION_INFO')
+make_head(_module, 'WINHTTP_CREDS')
+make_head(_module, 'WINHTTP_CREDS_EX')
+make_head(_module, 'WINHTTP_CURRENT_USER_IE_PROXY_CONFIG')
+make_head(_module, 'WINHTTP_EXTENDED_HEADER')
+make_head(_module, 'WINHTTP_FAILED_CONNECTION_RETRIES')
+make_head(_module, 'WINHTTP_HEADER_NAME')
+make_head(_module, 'WINHTTP_HOST_CONNECTION_GROUP')
+make_head(_module, 'WINHTTP_HTTP2_RECEIVE_WINDOW')
+make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
+make_head(_module, 'WINHTTP_PROXY_INFO')
+make_head(_module, 'WINHTTP_PROXY_NETWORKING_KEY')
+make_head(_module, 'WINHTTP_PROXY_RESULT')
+make_head(_module, 'WINHTTP_PROXY_RESULT_ENTRY')
+make_head(_module, 'WINHTTP_PROXY_RESULT_EX')
+make_head(_module, 'WINHTTP_PROXY_SETTINGS')
+make_head(_module, 'WINHTTP_QUERY_CONNECTION_GROUP_RESULT')
+make_head(_module, 'WINHTTP_REQUEST_STATS')
+make_head(_module, 'WINHTTP_REQUEST_TIMES')
+make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
+make_head(_module, 'WINHTTP_STATUS_CALLBACK')
+make_head(_module, 'WINHTTP_WEB_SOCKET_ASYNC_RESULT')
+make_head(_module, 'WINHTTP_WEB_SOCKET_STATUS')
 __all__ = [
     "API_GET_PROXY_FOR_URL",
     "API_QUERY_DATA_AVAILABLE",

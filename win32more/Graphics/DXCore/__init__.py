@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.DXCore
 import win32more.System.Com
@@ -7,154 +8,130 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-_FACDXCORE = 2176
-def _define_DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS():
-    return Guid('8c47866b-7583-450d-f0-f0-6b-ad-a8-95-af-4b')
-def _define_DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS():
-    return Guid('0c9ece4d-2f6e-4f01-8c-96-e8-9e-33-1b-47-b1')
-def _define_DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE():
-    return Guid('248e2800-a793-4724-ab-aa-23-a6-de-1b-e0-90')
-def _define_DXCoreCreateAdapterFactory():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(('DXCoreCreateAdapterFactory', windll['DXCORE.dll']), ((1, 'riid'),(1, 'ppvFactory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DXCoreAdapterMemoryBudget_head():
-    class DXCoreAdapterMemoryBudget(Structure):
-        pass
-    return DXCoreAdapterMemoryBudget
-def _define_DXCoreAdapterMemoryBudget():
-    DXCoreAdapterMemoryBudget = win32more.Graphics.DXCore.DXCoreAdapterMemoryBudget_head
-    DXCoreAdapterMemoryBudget._fields_ = [
-        ('budget', UInt64),
-        ('currentUsage', UInt64),
-        ('availableForReservation', UInt64),
-        ('currentReservation', UInt64),
-    ]
-    return DXCoreAdapterMemoryBudget
-def _define_DXCoreAdapterMemoryBudgetNodeSegmentGroup_head():
-    class DXCoreAdapterMemoryBudgetNodeSegmentGroup(Structure):
-        pass
-    return DXCoreAdapterMemoryBudgetNodeSegmentGroup
-def _define_DXCoreAdapterMemoryBudgetNodeSegmentGroup():
-    DXCoreAdapterMemoryBudgetNodeSegmentGroup = win32more.Graphics.DXCore.DXCoreAdapterMemoryBudgetNodeSegmentGroup_head
-    DXCoreAdapterMemoryBudgetNodeSegmentGroup._fields_ = [
-        ('nodeIndex', UInt32),
-        ('segmentGroup', win32more.Graphics.DXCore.DXCoreSegmentGroup),
-    ]
-    return DXCoreAdapterMemoryBudgetNodeSegmentGroup
+_FACDXCORE: UInt32 = 2176
+DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS: Guid = Guid('8c47866b-7583-450d-f0-f0-6b-ad-a8-95-af-4b')
+DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS: Guid = Guid('0c9ece4d-2f6e-4f01-8c-96-e8-9e-33-1b-47-b1')
+DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE: Guid = Guid('248e2800-a793-4724-ab-aa-23-a6-de-1b-e0-90')
+@winfunctype('DXCORE.dll')
+def DXCoreCreateAdapterFactory(riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class DXCoreAdapterMemoryBudget(Structure):
+    budget: UInt64
+    currentUsage: UInt64
+    availableForReservation: UInt64
+    currentReservation: UInt64
+class DXCoreAdapterMemoryBudgetNodeSegmentGroup(Structure):
+    nodeIndex: UInt32
+    segmentGroup: win32more.Graphics.DXCore.DXCoreSegmentGroup
 DXCoreAdapterPreference = UInt32
-DXCoreAdapterPreference_Hardware = 0
-DXCoreAdapterPreference_MinimumPower = 1
-DXCoreAdapterPreference_HighPerformance = 2
+DXCoreAdapterPreference_Hardware: DXCoreAdapterPreference = 0
+DXCoreAdapterPreference_MinimumPower: DXCoreAdapterPreference = 1
+DXCoreAdapterPreference_HighPerformance: DXCoreAdapterPreference = 2
 DXCoreAdapterProperty = UInt32
-DXCoreAdapterProperty_InstanceLuid = 0
-DXCoreAdapterProperty_DriverVersion = 1
-DXCoreAdapterProperty_DriverDescription = 2
-DXCoreAdapterProperty_HardwareID = 3
-DXCoreAdapterProperty_KmdModelVersion = 4
-DXCoreAdapterProperty_ComputePreemptionGranularity = 5
-DXCoreAdapterProperty_GraphicsPreemptionGranularity = 6
-DXCoreAdapterProperty_DedicatedAdapterMemory = 7
-DXCoreAdapterProperty_DedicatedSystemMemory = 8
-DXCoreAdapterProperty_SharedSystemMemory = 9
-DXCoreAdapterProperty_AcgCompatible = 10
-DXCoreAdapterProperty_IsHardware = 11
-DXCoreAdapterProperty_IsIntegrated = 12
-DXCoreAdapterProperty_IsDetachable = 13
-DXCoreAdapterProperty_HardwareIDParts = 14
+DXCoreAdapterProperty_InstanceLuid: DXCoreAdapterProperty = 0
+DXCoreAdapterProperty_DriverVersion: DXCoreAdapterProperty = 1
+DXCoreAdapterProperty_DriverDescription: DXCoreAdapterProperty = 2
+DXCoreAdapterProperty_HardwareID: DXCoreAdapterProperty = 3
+DXCoreAdapterProperty_KmdModelVersion: DXCoreAdapterProperty = 4
+DXCoreAdapterProperty_ComputePreemptionGranularity: DXCoreAdapterProperty = 5
+DXCoreAdapterProperty_GraphicsPreemptionGranularity: DXCoreAdapterProperty = 6
+DXCoreAdapterProperty_DedicatedAdapterMemory: DXCoreAdapterProperty = 7
+DXCoreAdapterProperty_DedicatedSystemMemory: DXCoreAdapterProperty = 8
+DXCoreAdapterProperty_SharedSystemMemory: DXCoreAdapterProperty = 9
+DXCoreAdapterProperty_AcgCompatible: DXCoreAdapterProperty = 10
+DXCoreAdapterProperty_IsHardware: DXCoreAdapterProperty = 11
+DXCoreAdapterProperty_IsIntegrated: DXCoreAdapterProperty = 12
+DXCoreAdapterProperty_IsDetachable: DXCoreAdapterProperty = 13
+DXCoreAdapterProperty_HardwareIDParts: DXCoreAdapterProperty = 14
 DXCoreAdapterState = UInt32
-DXCoreAdapterState_IsDriverUpdateInProgress = 0
-DXCoreAdapterState_AdapterMemoryBudget = 1
-def _define_DXCoreHardwareID_head():
-    class DXCoreHardwareID(Structure):
-        pass
-    return DXCoreHardwareID
-def _define_DXCoreHardwareID():
-    DXCoreHardwareID = win32more.Graphics.DXCore.DXCoreHardwareID_head
-    DXCoreHardwareID._fields_ = [
-        ('vendorID', UInt32),
-        ('deviceID', UInt32),
-        ('subSysID', UInt32),
-        ('revision', UInt32),
-    ]
-    return DXCoreHardwareID
-def _define_DXCoreHardwareIDParts_head():
-    class DXCoreHardwareIDParts(Structure):
-        pass
-    return DXCoreHardwareIDParts
-def _define_DXCoreHardwareIDParts():
-    DXCoreHardwareIDParts = win32more.Graphics.DXCore.DXCoreHardwareIDParts_head
-    DXCoreHardwareIDParts._fields_ = [
-        ('vendorID', UInt32),
-        ('deviceID', UInt32),
-        ('subSystemID', UInt32),
-        ('subVendorID', UInt32),
-        ('revisionID', UInt32),
-    ]
-    return DXCoreHardwareIDParts
+DXCoreAdapterState_IsDriverUpdateInProgress: DXCoreAdapterState = 0
+DXCoreAdapterState_AdapterMemoryBudget: DXCoreAdapterState = 1
+class DXCoreHardwareID(Structure):
+    vendorID: UInt32
+    deviceID: UInt32
+    subSysID: UInt32
+    revision: UInt32
+class DXCoreHardwareIDParts(Structure):
+    vendorID: UInt32
+    deviceID: UInt32
+    subSystemID: UInt32
+    subVendorID: UInt32
+    revisionID: UInt32
 DXCoreNotificationType = UInt32
-DXCoreNotificationType_AdapterListStale = 0
-DXCoreNotificationType_AdapterNoLongerValid = 1
-DXCoreNotificationType_AdapterBudgetChange = 2
-DXCoreNotificationType_AdapterHardwareContentProtectionTeardown = 3
+DXCoreNotificationType_AdapterListStale: DXCoreNotificationType = 0
+DXCoreNotificationType_AdapterNoLongerValid: DXCoreNotificationType = 1
+DXCoreNotificationType_AdapterBudgetChange: DXCoreNotificationType = 2
+DXCoreNotificationType_AdapterHardwareContentProtectionTeardown: DXCoreNotificationType = 3
 DXCoreSegmentGroup = UInt32
-DXCoreSegmentGroup_Local = 0
-DXCoreSegmentGroup_NonLocal = 1
-def _define_IDXCoreAdapter_head():
-    class IDXCoreAdapter(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f0db4c7f-fe5a-42a2-bd-62-f2-a6-cf-6f-c8-3e')
-    return IDXCoreAdapter
-def _define_IDXCoreAdapter():
-    IDXCoreAdapter = win32more.Graphics.DXCore.IDXCoreAdapter_head
-    IDXCoreAdapter.IsValid = COMMETHOD(WINFUNCTYPE(Boolean,)(3, 'IsValid', ()))
-    IDXCoreAdapter.IsAttributeSupported = COMMETHOD(WINFUNCTYPE(Boolean,POINTER(Guid))(4, 'IsAttributeSupported', ((1, 'attributeGUID'),)))
-    IDXCoreAdapter.IsPropertySupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterProperty)(5, 'IsPropertySupported', ((1, 'property'),)))
-    IDXCoreAdapter.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DXCore.DXCoreAdapterProperty,UIntPtr,c_void_p)(6, 'GetProperty', ((1, 'property'),(1, 'bufferSize'),(1, 'propertyData'),)))
-    IDXCoreAdapter.GetPropertySize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DXCore.DXCoreAdapterProperty,POINTER(UIntPtr))(7, 'GetPropertySize', ((1, 'property'),(1, 'bufferSize'),)))
-    IDXCoreAdapter.IsQueryStateSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterState)(8, 'IsQueryStateSupported', ((1, 'property'),)))
-    IDXCoreAdapter.QueryState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DXCore.DXCoreAdapterState,UIntPtr,c_void_p,UIntPtr,c_void_p)(9, 'QueryState', ((1, 'state'),(1, 'inputStateDetailsSize'),(1, 'inputStateDetails'),(1, 'outputBufferSize'),(1, 'outputBuffer'),)))
-    IDXCoreAdapter.IsSetStateSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterState)(10, 'IsSetStateSupported', ((1, 'property'),)))
-    IDXCoreAdapter.SetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DXCore.DXCoreAdapterState,UIntPtr,c_void_p,UIntPtr,c_void_p)(11, 'SetState', ((1, 'state'),(1, 'inputStateDetailsSize'),(1, 'inputStateDetails'),(1, 'inputDataSize'),(1, 'inputData'),)))
-    IDXCoreAdapter.GetFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(12, 'GetFactory', ((1, 'riid'),(1, 'ppvFactory'),)))
-    win32more.System.Com.IUnknown
-    return IDXCoreAdapter
-def _define_IDXCoreAdapterFactory_head():
-    class IDXCoreAdapterFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('78ee5945-c36e-4b13-a6-69-00-5d-d1-1c-0f-06')
-    return IDXCoreAdapterFactory
-def _define_IDXCoreAdapterFactory():
-    IDXCoreAdapterFactory = win32more.Graphics.DXCore.IDXCoreAdapterFactory_head
-    IDXCoreAdapterFactory.CreateAdapterList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(Guid),POINTER(c_void_p))(3, 'CreateAdapterList', ((1, 'numAttributes'),(1, 'filterAttributes'),(1, 'riid'),(1, 'ppvAdapterList'),)))
-    IDXCoreAdapterFactory.GetAdapterByLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LUID_head),POINTER(Guid),POINTER(c_void_p))(4, 'GetAdapterByLuid', ((1, 'adapterLUID'),(1, 'riid'),(1, 'ppvAdapter'),)))
-    IDXCoreAdapterFactory.IsNotificationTypeSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreNotificationType)(5, 'IsNotificationTypeSupported', ((1, 'notificationType'),)))
-    IDXCoreAdapterFactory.RegisterEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.DXCore.DXCoreNotificationType,win32more.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK,c_void_p,POINTER(UInt32))(6, 'RegisterEventNotification', ((1, 'dxCoreObject'),(1, 'notificationType'),(1, 'callbackFunction'),(1, 'callbackContext'),(1, 'eventCookie'),)))
-    IDXCoreAdapterFactory.UnregisterEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(7, 'UnregisterEventNotification', ((1, 'eventCookie'),)))
-    win32more.System.Com.IUnknown
-    return IDXCoreAdapterFactory
-def _define_IDXCoreAdapterList_head():
-    class IDXCoreAdapterList(win32more.System.Com.IUnknown_head):
-        Guid = Guid('526c7776-40e9-459b-b7-11-f3-2a-d7-6d-fc-28')
-    return IDXCoreAdapterList
-def _define_IDXCoreAdapterList():
-    IDXCoreAdapterList = win32more.Graphics.DXCore.IDXCoreAdapterList_head
-    IDXCoreAdapterList.GetAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p))(3, 'GetAdapter', ((1, 'index'),(1, 'riid'),(1, 'ppvAdapter'),)))
-    IDXCoreAdapterList.GetAdapterCount = COMMETHOD(WINFUNCTYPE(UInt32,)(4, 'GetAdapterCount', ()))
-    IDXCoreAdapterList.IsStale = COMMETHOD(WINFUNCTYPE(Boolean,)(5, 'IsStale', ()))
-    IDXCoreAdapterList.GetFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(6, 'GetFactory', ((1, 'riid'),(1, 'ppvFactory'),)))
-    IDXCoreAdapterList.Sort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DXCore.DXCoreAdapterPreference))(7, 'Sort', ((1, 'numPreferences'),(1, 'preferences'),)))
-    IDXCoreAdapterList.IsAdapterPreferenceSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterPreference)(8, 'IsAdapterPreferenceSupported', ((1, 'preference'),)))
-    win32more.System.Com.IUnknown
-    return IDXCoreAdapterList
-def _define_PFN_DXCORE_NOTIFICATION_CALLBACK():
-    return WINFUNCTYPE(Void,win32more.Graphics.DXCore.DXCoreNotificationType,win32more.System.Com.IUnknown_head,c_void_p)
+DXCoreSegmentGroup_Local: DXCoreSegmentGroup = 0
+DXCoreSegmentGroup_NonLocal: DXCoreSegmentGroup = 1
+class IDXCoreAdapter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f0db4c7f-fe5a-42a2-bd-62-f2-a6-cf-6f-c8-3e')
+    @commethod(3)
+    def IsValid() -> Boolean: ...
+    @commethod(4)
+    def IsAttributeSupported(attributeGUID: POINTER(Guid)) -> Boolean: ...
+    @commethod(5)
+    def IsPropertySupported(property: win32more.Graphics.DXCore.DXCoreAdapterProperty) -> Boolean: ...
+    @commethod(6)
+    def GetProperty(property: win32more.Graphics.DXCore.DXCoreAdapterProperty, bufferSize: UIntPtr, propertyData: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPropertySize(property: win32more.Graphics.DXCore.DXCoreAdapterProperty, bufferSize: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def IsQueryStateSupported(property: win32more.Graphics.DXCore.DXCoreAdapterState) -> Boolean: ...
+    @commethod(9)
+    def QueryState(state: win32more.Graphics.DXCore.DXCoreAdapterState, inputStateDetailsSize: UIntPtr, inputStateDetails: c_void_p, outputBufferSize: UIntPtr, outputBuffer: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def IsSetStateSupported(property: win32more.Graphics.DXCore.DXCoreAdapterState) -> Boolean: ...
+    @commethod(11)
+    def SetState(state: win32more.Graphics.DXCore.DXCoreAdapterState, inputStateDetailsSize: UIntPtr, inputStateDetails: c_void_p, inputDataSize: UIntPtr, inputData: c_void_p) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetFactory(riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IDXCoreAdapterFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('78ee5945-c36e-4b13-a6-69-00-5d-d1-1c-0f-06')
+    @commethod(3)
+    def CreateAdapterList(numAttributes: UInt32, filterAttributes: POINTER(Guid), riid: POINTER(Guid), ppvAdapterList: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAdapterByLuid(adapterLUID: POINTER(win32more.Foundation.LUID_head), riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IsNotificationTypeSupported(notificationType: win32more.Graphics.DXCore.DXCoreNotificationType) -> Boolean: ...
+    @commethod(6)
+    def RegisterEventNotification(dxCoreObject: win32more.System.Com.IUnknown_head, notificationType: win32more.Graphics.DXCore.DXCoreNotificationType, callbackFunction: win32more.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK, callbackContext: c_void_p, eventCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def UnregisterEventNotification(eventCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDXCoreAdapterList(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('526c7776-40e9-459b-b7-11-f3-2a-d7-6d-fc-28')
+    @commethod(3)
+    def GetAdapter(index: UInt32, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAdapterCount() -> UInt32: ...
+    @commethod(5)
+    def IsStale() -> Boolean: ...
+    @commethod(6)
+    def GetFactory(riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Sort(numPreferences: UInt32, preferences: POINTER(win32more.Graphics.DXCore.DXCoreAdapterPreference)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def IsAdapterPreferenceSupported(preference: win32more.Graphics.DXCore.DXCoreAdapterPreference) -> Boolean: ...
+@winfunctype_pointer
+def PFN_DXCORE_NOTIFICATION_CALLBACK(notificationType: win32more.Graphics.DXCore.DXCoreNotificationType, object: win32more.System.Com.IUnknown_head, context: c_void_p) -> Void: ...
+make_head(_module, 'DXCoreAdapterMemoryBudget')
+make_head(_module, 'DXCoreAdapterMemoryBudgetNodeSegmentGroup')
+make_head(_module, 'DXCoreHardwareID')
+make_head(_module, 'DXCoreHardwareIDParts')
+make_head(_module, 'IDXCoreAdapter')
+make_head(_module, 'IDXCoreAdapterFactory')
+make_head(_module, 'IDXCoreAdapterList')
+make_head(_module, 'PFN_DXCORE_NOTIFICATION_CALLBACK')
 __all__ = [
     "DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS",
     "DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE",

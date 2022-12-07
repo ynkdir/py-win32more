@@ -1,3462 +1,1897 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.Dhcp
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-OPTION_PAD = 0
-OPTION_SUBNET_MASK = 1
-OPTION_TIME_OFFSET = 2
-OPTION_ROUTER_ADDRESS = 3
-OPTION_TIME_SERVERS = 4
-OPTION_IEN116_NAME_SERVERS = 5
-OPTION_DOMAIN_NAME_SERVERS = 6
-OPTION_LOG_SERVERS = 7
-OPTION_COOKIE_SERVERS = 8
-OPTION_LPR_SERVERS = 9
-OPTION_IMPRESS_SERVERS = 10
-OPTION_RLP_SERVERS = 11
-OPTION_HOST_NAME = 12
-OPTION_BOOT_FILE_SIZE = 13
-OPTION_MERIT_DUMP_FILE = 14
-OPTION_DOMAIN_NAME = 15
-OPTION_SWAP_SERVER = 16
-OPTION_ROOT_DISK = 17
-OPTION_EXTENSIONS_PATH = 18
-OPTION_BE_A_ROUTER = 19
-OPTION_NON_LOCAL_SOURCE_ROUTING = 20
-OPTION_POLICY_FILTER_FOR_NLSR = 21
-OPTION_MAX_REASSEMBLY_SIZE = 22
-OPTION_DEFAULT_TTL = 23
-OPTION_PMTU_AGING_TIMEOUT = 24
-OPTION_PMTU_PLATEAU_TABLE = 25
-OPTION_MTU = 26
-OPTION_ALL_SUBNETS_MTU = 27
-OPTION_BROADCAST_ADDRESS = 28
-OPTION_PERFORM_MASK_DISCOVERY = 29
-OPTION_BE_A_MASK_SUPPLIER = 30
-OPTION_PERFORM_ROUTER_DISCOVERY = 31
-OPTION_ROUTER_SOLICITATION_ADDR = 32
-OPTION_STATIC_ROUTES = 33
-OPTION_TRAILERS = 34
-OPTION_ARP_CACHE_TIMEOUT = 35
-OPTION_ETHERNET_ENCAPSULATION = 36
-OPTION_TTL = 37
-OPTION_KEEP_ALIVE_INTERVAL = 38
-OPTION_KEEP_ALIVE_DATA_SIZE = 39
-OPTION_NETWORK_INFO_SERVICE_DOM = 40
-OPTION_NETWORK_INFO_SERVERS = 41
-OPTION_NETWORK_TIME_SERVERS = 42
-OPTION_VENDOR_SPEC_INFO = 43
-OPTION_NETBIOS_NAME_SERVER = 44
-OPTION_NETBIOS_DATAGRAM_SERVER = 45
-OPTION_NETBIOS_NODE_TYPE = 46
-OPTION_NETBIOS_SCOPE_OPTION = 47
-OPTION_XWINDOW_FONT_SERVER = 48
-OPTION_XWINDOW_DISPLAY_MANAGER = 49
-OPTION_REQUESTED_ADDRESS = 50
-OPTION_LEASE_TIME = 51
-OPTION_OK_TO_OVERLAY = 52
-OPTION_MESSAGE_TYPE = 53
-OPTION_SERVER_IDENTIFIER = 54
-OPTION_PARAMETER_REQUEST_LIST = 55
-OPTION_MESSAGE = 56
-OPTION_MESSAGE_LENGTH = 57
-OPTION_RENEWAL_TIME = 58
-OPTION_REBIND_TIME = 59
-OPTION_CLIENT_CLASS_INFO = 60
-OPTION_CLIENT_ID = 61
-OPTION_TFTP_SERVER_NAME = 66
-OPTION_BOOTFILE_NAME = 67
-OPTION_MSFT_IE_PROXY = 252
-OPTION_END = 255
-DHCPCAPI_REQUEST_PERSISTENT = 1
-DHCPCAPI_REQUEST_SYNCHRONOUS = 2
-DHCPCAPI_REQUEST_ASYNCHRONOUS = 4
-DHCPCAPI_REQUEST_CANCEL = 8
-DHCPCAPI_REQUEST_MASK = 15
-DHCPCAPI_REGISTER_HANDLE_EVENT = 1
-DHCPCAPI_DEREGISTER_HANDLE_EVENT = 1
-ERROR_DHCP_REGISTRY_INIT_FAILED = 20000
-ERROR_DHCP_DATABASE_INIT_FAILED = 20001
-ERROR_DHCP_RPC_INIT_FAILED = 20002
-ERROR_DHCP_NETWORK_INIT_FAILED = 20003
-ERROR_DHCP_SUBNET_EXITS = 20004
-ERROR_DHCP_SUBNET_NOT_PRESENT = 20005
-ERROR_DHCP_PRIMARY_NOT_FOUND = 20006
-ERROR_DHCP_ELEMENT_CANT_REMOVE = 20007
-ERROR_DHCP_OPTION_EXITS = 20009
-ERROR_DHCP_OPTION_NOT_PRESENT = 20010
-ERROR_DHCP_ADDRESS_NOT_AVAILABLE = 20011
-ERROR_DHCP_RANGE_FULL = 20012
-ERROR_DHCP_JET_ERROR = 20013
-ERROR_DHCP_CLIENT_EXISTS = 20014
-ERROR_DHCP_INVALID_DHCP_MESSAGE = 20015
-ERROR_DHCP_INVALID_DHCP_CLIENT = 20016
-ERROR_DHCP_SERVICE_PAUSED = 20017
-ERROR_DHCP_NOT_RESERVED_CLIENT = 20018
-ERROR_DHCP_RESERVED_CLIENT = 20019
-ERROR_DHCP_RANGE_TOO_SMALL = 20020
-ERROR_DHCP_IPRANGE_EXITS = 20021
-ERROR_DHCP_RESERVEDIP_EXITS = 20022
-ERROR_DHCP_INVALID_RANGE = 20023
-ERROR_DHCP_RANGE_EXTENDED = 20024
-ERROR_EXTEND_TOO_SMALL = 20025
-WARNING_EXTENDED_LESS = 20026
-ERROR_DHCP_JET_CONV_REQUIRED = 20027
-ERROR_SERVER_INVALID_BOOT_FILE_TABLE = 20028
-ERROR_SERVER_UNKNOWN_BOOT_FILE_NAME = 20029
-ERROR_DHCP_SUPER_SCOPE_NAME_TOO_LONG = 20030
-ERROR_DHCP_IP_ADDRESS_IN_USE = 20032
-ERROR_DHCP_LOG_FILE_PATH_TOO_LONG = 20033
-ERROR_DHCP_UNSUPPORTED_CLIENT = 20034
-ERROR_DHCP_JET97_CONV_REQUIRED = 20036
-ERROR_DHCP_ROGUE_INIT_FAILED = 20037
-ERROR_DHCP_ROGUE_SAMSHUTDOWN = 20038
-ERROR_DHCP_ROGUE_NOT_AUTHORIZED = 20039
-ERROR_DHCP_ROGUE_DS_UNREACHABLE = 20040
-ERROR_DHCP_ROGUE_DS_CONFLICT = 20041
-ERROR_DHCP_ROGUE_NOT_OUR_ENTERPRISE = 20042
-ERROR_DHCP_ROGUE_STANDALONE_IN_DS = 20043
-ERROR_DHCP_CLASS_NOT_FOUND = 20044
-ERROR_DHCP_CLASS_ALREADY_EXISTS = 20045
-ERROR_DHCP_SCOPE_NAME_TOO_LONG = 20046
-ERROR_DHCP_DEFAULT_SCOPE_EXITS = 20047
-ERROR_DHCP_CANT_CHANGE_ATTRIBUTE = 20048
-ERROR_DHCP_IPRANGE_CONV_ILLEGAL = 20049
-ERROR_DHCP_NETWORK_CHANGED = 20050
-ERROR_DHCP_CANNOT_MODIFY_BINDINGS = 20051
-ERROR_DHCP_SUBNET_EXISTS = 20052
-ERROR_DHCP_MSCOPE_EXISTS = 20053
-ERROR_MSCOPE_RANGE_TOO_SMALL = 20054
-ERROR_DHCP_EXEMPTION_EXISTS = 20055
-ERROR_DHCP_EXEMPTION_NOT_PRESENT = 20056
-ERROR_DHCP_INVALID_PARAMETER_OPTION32 = 20057
-ERROR_DDS_NO_DS_AVAILABLE = 20070
-ERROR_DDS_NO_DHCP_ROOT = 20071
-ERROR_DDS_UNEXPECTED_ERROR = 20072
-ERROR_DDS_TOO_MANY_ERRORS = 20073
-ERROR_DDS_DHCP_SERVER_NOT_FOUND = 20074
-ERROR_DDS_OPTION_ALREADY_EXISTS = 20075
-ERROR_DDS_OPTION_DOES_NOT_EXIST = 20076
-ERROR_DDS_CLASS_EXISTS = 20077
-ERROR_DDS_CLASS_DOES_NOT_EXIST = 20078
-ERROR_DDS_SERVER_ALREADY_EXISTS = 20079
-ERROR_DDS_SERVER_DOES_NOT_EXIST = 20080
-ERROR_DDS_SERVER_ADDRESS_MISMATCH = 20081
-ERROR_DDS_SUBNET_EXISTS = 20082
-ERROR_DDS_SUBNET_HAS_DIFF_SSCOPE = 20083
-ERROR_DDS_SUBNET_NOT_PRESENT = 20084
-ERROR_DDS_RESERVATION_NOT_PRESENT = 20085
-ERROR_DDS_RESERVATION_CONFLICT = 20086
-ERROR_DDS_POSSIBLE_RANGE_CONFLICT = 20087
-ERROR_DDS_RANGE_DOES_NOT_EXIST = 20088
-ERROR_DHCP_DELETE_BUILTIN_CLASS = 20089
-ERROR_DHCP_INVALID_SUBNET_PREFIX = 20091
-ERROR_DHCP_INVALID_DELAY = 20092
-ERROR_DHCP_LINKLAYER_ADDRESS_EXISTS = 20093
-ERROR_DHCP_LINKLAYER_ADDRESS_RESERVATION_EXISTS = 20094
-ERROR_DHCP_LINKLAYER_ADDRESS_DOES_NOT_EXIST = 20095
-ERROR_DHCP_HARDWARE_ADDRESS_TYPE_ALREADY_EXEMPT = 20101
-ERROR_DHCP_UNDEFINED_HARDWARE_ADDRESS_TYPE = 20102
-ERROR_DHCP_OPTION_TYPE_MISMATCH = 20103
-ERROR_DHCP_POLICY_BAD_PARENT_EXPR = 20104
-ERROR_DHCP_POLICY_EXISTS = 20105
-ERROR_DHCP_POLICY_RANGE_EXISTS = 20106
-ERROR_DHCP_POLICY_RANGE_BAD = 20107
-ERROR_DHCP_RANGE_INVALID_IN_SERVER_POLICY = 20108
-ERROR_DHCP_INVALID_POLICY_EXPRESSION = 20109
-ERROR_DHCP_INVALID_PROCESSING_ORDER = 20110
-ERROR_DHCP_POLICY_NOT_FOUND = 20111
-ERROR_SCOPE_RANGE_POLICY_RANGE_CONFLICT = 20112
-ERROR_DHCP_FO_SCOPE_ALREADY_IN_RELATIONSHIP = 20113
-ERROR_DHCP_FO_RELATIONSHIP_EXISTS = 20114
-ERROR_DHCP_FO_RELATIONSHIP_DOES_NOT_EXIST = 20115
-ERROR_DHCP_FO_SCOPE_NOT_IN_RELATIONSHIP = 20116
-ERROR_DHCP_FO_RELATION_IS_SECONDARY = 20117
-ERROR_DHCP_FO_NOT_SUPPORTED = 20118
-ERROR_DHCP_FO_TIME_OUT_OF_SYNC = 20119
-ERROR_DHCP_FO_STATE_NOT_NORMAL = 20120
-ERROR_DHCP_NO_ADMIN_PERMISSION = 20121
-ERROR_DHCP_SERVER_NOT_REACHABLE = 20122
-ERROR_DHCP_SERVER_NOT_RUNNING = 20123
-ERROR_DHCP_SERVER_NAME_NOT_RESOLVED = 20124
-ERROR_DHCP_FO_RELATIONSHIP_NAME_TOO_LONG = 20125
-ERROR_DHCP_REACHED_END_OF_SELECTION = 20126
-ERROR_DHCP_FO_ADDSCOPE_LEASES_NOT_SYNCED = 20127
-ERROR_DHCP_FO_MAX_RELATIONSHIPS = 20128
-ERROR_DHCP_FO_IPRANGE_TYPE_CONV_ILLEGAL = 20129
-ERROR_DHCP_FO_MAX_ADD_SCOPES = 20130
-ERROR_DHCP_FO_BOOT_NOT_SUPPORTED = 20131
-ERROR_DHCP_FO_RANGE_PART_OF_REL = 20132
-ERROR_DHCP_FO_SCOPE_SYNC_IN_PROGRESS = 20133
-ERROR_DHCP_FO_FEATURE_NOT_SUPPORTED = 20134
-ERROR_DHCP_POLICY_FQDN_RANGE_UNSUPPORTED = 20135
-ERROR_DHCP_POLICY_FQDN_OPTION_UNSUPPORTED = 20136
-ERROR_DHCP_POLICY_EDIT_FQDN_UNSUPPORTED = 20137
-ERROR_DHCP_NAP_NOT_SUPPORTED = 20138
-ERROR_LAST_DHCP_SERVER_ERROR = 20139
-DHCP_SUBNET_INFO_VQ_FLAG_QUARANTINE = 1
-MAX_PATTERN_LENGTH = 255
-MAC_ADDRESS_LENGTH = 6
-HWTYPE_ETHERNET_10MB = 1
-FILTER_STATUS_NONE = 1
-FILTER_STATUS_FULL_MATCH_IN_ALLOW_LIST = 2
-FILTER_STATUS_FULL_MATCH_IN_DENY_LIST = 4
-FILTER_STATUS_WILDCARD_MATCH_IN_ALLOW_LIST = 8
-FILTER_STATUS_WILDCARD_MATCH_IN_DENY_LIST = 16
-Set_APIProtocolSupport = 1
-Set_DatabaseName = 2
-Set_DatabasePath = 4
-Set_BackupPath = 8
-Set_BackupInterval = 16
-Set_DatabaseLoggingFlag = 32
-Set_RestoreFlag = 64
-Set_DatabaseCleanupInterval = 128
-Set_DebugFlag = 256
-Set_PingRetries = 512
-Set_BootFileTable = 1024
-Set_AuditLogState = 2048
-Set_QuarantineON = 4096
-Set_QuarantineDefFail = 8192
-CLIENT_TYPE_UNSPECIFIED = 0
-CLIENT_TYPE_DHCP = 1
-CLIENT_TYPE_BOOTP = 2
-CLIENT_TYPE_RESERVATION_FLAG = 4
-CLIENT_TYPE_NONE = 100
-Set_UnicastFlag = 1
-Set_RapidCommitFlag = 2
-Set_PreferredLifetime = 4
-Set_ValidLifetime = 8
-Set_T1 = 16
-Set_T2 = 32
-Set_PreferredLifetimeIATA = 64
-Set_ValidLifetimeIATA = 128
-V5_ADDRESS_STATE_OFFERED = 0
-V5_ADDRESS_STATE_ACTIVE = 1
-V5_ADDRESS_STATE_DECLINED = 2
-V5_ADDRESS_STATE_DOOM = 3
-V5_ADDRESS_BIT_DELETED = 128
-V5_ADDRESS_BIT_UNREGISTERED = 64
-V5_ADDRESS_BIT_BOTH_REC = 32
-V5_ADDRESS_EX_BIT_DISABLE_PTR_RR = 1
-DNS_FLAG_ENABLED = 1
-DNS_FLAG_UPDATE_DOWNLEVEL = 2
-DNS_FLAG_CLEANUP_EXPIRED = 4
-DNS_FLAG_UPDATE_BOTH_ALWAYS = 16
-DNS_FLAG_UPDATE_DHCID = 32
-DNS_FLAG_DISABLE_PTR_UPDATE = 64
-DNS_FLAG_HAS_DNS_SUFFIX = 128
-DHCP_OPT_ENUM_IGNORE_VENDOR = 1
-DHCP_OPT_ENUM_USE_CLASSNAME = 2
-DHCP_FLAGS_DONT_ACCESS_DS = 1
-DHCP_FLAGS_DONT_DO_RPC = 2
-DHCP_FLAGS_OPTION_IS_VENDOR = 3
-DHCP_ATTRIB_BOOL_IS_ROGUE = 1
-DHCP_ATTRIB_BOOL_IS_DYNBOOTP = 2
-DHCP_ATTRIB_BOOL_IS_PART_OF_DSDC = 3
-DHCP_ATTRIB_BOOL_IS_BINDING_AWARE = 4
-DHCP_ATTRIB_BOOL_IS_ADMIN = 5
-DHCP_ATTRIB_ULONG_RESTORE_STATUS = 6
-DHCP_ATTRIB_TYPE_BOOL = 1
-DHCP_ATTRIB_TYPE_ULONG = 2
-DHCP_ENDPOINT_FLAG_CANT_MODIFY = 1
-QUARANTIN_OPTION_BASE = 43220
-QUARANTINE_SCOPE_QUARPROFILE_OPTION = 43221
-QUARANTINE_CONFIG_OPTION = 43222
-ADDRESS_TYPE_IANA = 0
-ADDRESS_TYPE_IATA = 1
-DHCP_MIN_DELAY = 0
-DHCP_MAX_DELAY = 1000
-DHCP_FAILOVER_DELETE_SCOPES = 1
-DHCP_FAILOVER_MAX_NUM_ADD_SCOPES = 400
-DHCP_FAILOVER_MAX_NUM_REL = 31
-MCLT = 1
-SAFEPERIOD = 2
-CHANGESTATE = 4
-PERCENTAGE = 8
-MODE = 16
-PREVSTATE = 32
-SHAREDSECRET = 64
-DHCP_CALLOUT_LIST_KEY = 'System\\CurrentControlSet\\Services\\DHCPServer\\Parameters'
-DHCP_CALLOUT_LIST_VALUE = 'CalloutDlls'
-DHCP_CALLOUT_ENTRY_POINT = 'DhcpServerCalloutEntry'
-DHCP_CONTROL_START = 1
-DHCP_CONTROL_STOP = 2
-DHCP_CONTROL_PAUSE = 3
-DHCP_CONTROL_CONTINUE = 4
-DHCP_DROP_DUPLICATE = 1
-DHCP_DROP_NOMEM = 2
-DHCP_DROP_INTERNAL_ERROR = 3
-DHCP_DROP_TIMEOUT = 4
-DHCP_DROP_UNAUTH = 5
-DHCP_DROP_PAUSED = 6
-DHCP_DROP_NO_SUBNETS = 7
-DHCP_DROP_INVALID = 8
-DHCP_DROP_WRONG_SERVER = 9
-DHCP_DROP_NOADDRESS = 10
-DHCP_DROP_PROCESSED = 11
-DHCP_DROP_GEN_FAILURE = 256
-DHCP_SEND_PACKET = 268435456
-DHCP_PROB_CONFLICT = 536870913
-DHCP_PROB_DECLINE = 536870914
-DHCP_PROB_RELEASE = 536870915
-DHCP_PROB_NACKED = 536870916
-DHCP_GIVE_ADDRESS_NEW = 805306369
-DHCP_GIVE_ADDRESS_OLD = 805306370
-DHCP_CLIENT_BOOTP = 805306371
-DHCP_CLIENT_DHCP = 805306372
-DHCPV6_OPTION_CLIENTID = 1
-DHCPV6_OPTION_SERVERID = 2
-DHCPV6_OPTION_IA_NA = 3
-DHCPV6_OPTION_IA_TA = 4
-DHCPV6_OPTION_ORO = 6
-DHCPV6_OPTION_PREFERENCE = 7
-DHCPV6_OPTION_UNICAST = 12
-DHCPV6_OPTION_RAPID_COMMIT = 14
-DHCPV6_OPTION_USER_CLASS = 15
-DHCPV6_OPTION_VENDOR_CLASS = 16
-DHCPV6_OPTION_VENDOR_OPTS = 17
-DHCPV6_OPTION_RECONF_MSG = 19
-DHCPV6_OPTION_SIP_SERVERS_NAMES = 21
-DHCPV6_OPTION_SIP_SERVERS_ADDRS = 22
-DHCPV6_OPTION_DNS_SERVERS = 23
-DHCPV6_OPTION_DOMAIN_LIST = 24
-DHCPV6_OPTION_IA_PD = 25
-DHCPV6_OPTION_NIS_SERVERS = 27
-DHCPV6_OPTION_NISP_SERVERS = 28
-DHCPV6_OPTION_NIS_DOMAIN_NAME = 29
-DHCPV6_OPTION_NISP_DOMAIN_NAME = 30
-def _define_Dhcpv6CApiInitialize():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32))(('Dhcpv6CApiInitialize', windll['dhcpcsvc6.dll']), ((1, 'Version'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Dhcpv6CApiCleanup():
-    try:
-        return WINFUNCTYPE(Void,)(('Dhcpv6CApiCleanup', windll['dhcpcsvc6.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Dhcpv6RequestParams():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.BOOL,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head),win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_ARRAY,c_char_p_no,POINTER(UInt32))(('Dhcpv6RequestParams', windll['dhcpcsvc6.dll']), ((1, 'forceNewInform'),(1, 'reserved'),(1, 'adapterName'),(1, 'classId'),(1, 'recdParams'),(1, 'buffer'),(1, 'pSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Dhcpv6RequestPrefix():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head),POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head),POINTER(UInt32))(('Dhcpv6RequestPrefix', windll['dhcpcsvc6.dll']), ((1, 'adapterName'),(1, 'pclassId'),(1, 'prefixleaseInfo'),(1, 'pdwTimeToWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Dhcpv6RenewPrefix():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head),POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head),POINTER(UInt32),UInt32)(('Dhcpv6RenewPrefix', windll['dhcpcsvc6.dll']), ((1, 'adapterName'),(1, 'pclassId'),(1, 'prefixleaseInfo'),(1, 'pdwTimeToWait'),(1, 'bValidatePrefix'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Dhcpv6ReleasePrefix():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head),POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head))(('Dhcpv6ReleasePrefix', windll['dhcpcsvc6.dll']), ((1, 'adapterName'),(1, 'classId'),(1, 'leaseInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCApiInitialize():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32))(('DhcpCApiInitialize', windll['dhcpcsvc.dll']), ((1, 'Version'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCApiCleanup():
-    try:
-        return WINFUNCTYPE(Void,)(('DhcpCApiCleanup', windll['dhcpcsvc.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRequestParams():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPCAPI_CLASSID_head),win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY,win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY,c_char_p_no,POINTER(UInt32),win32more.Foundation.PWSTR)(('DhcpRequestParams', windll['dhcpcsvc.dll']), ((1, 'Flags'),(1, 'Reserved'),(1, 'AdapterName'),(1, 'ClassId'),(1, 'SendParams'),(1, 'RecdParams'),(1, 'Buffer'),(1, 'pSize'),(1, 'RequestIdStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpUndoRequestParams():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpUndoRequestParams', windll['dhcpcsvc.dll']), ((1, 'Flags'),(1, 'Reserved'),(1, 'AdapterName'),(1, 'RequestIdStr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRegisterParamChange():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCPCAPI_CLASSID_head),win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY,c_void_p)(('DhcpRegisterParamChange', windll['dhcpcsvc.dll']), ((1, 'Flags'),(1, 'Reserved'),(1, 'AdapterName'),(1, 'ClassId'),(1, 'Params'),(1, 'Handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeRegisterParamChange():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,c_void_p)(('DhcpDeRegisterParamChange', windll['dhcpcsvc.dll']), ((1, 'Flags'),(1, 'Reserved'),(1, 'Event'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveDNSRegistrations():
-    try:
-        return WINFUNCTYPE(UInt32,)(('DhcpRemoveDNSRegistrations', windll['dhcpcsvc.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOriginalSubnetMask():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('DhcpGetOriginalSubnetMask', windll['dhcpcsvc.dll']), ((1, 'sAdapterName'),(1, 'dwSubnetMask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddFilterV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_ADD_INFO_head),win32more.Foundation.BOOL)(('DhcpAddFilterV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'AddFilterInfo'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteFilterV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN_head))(('DhcpDeleteFilterV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'DeleteFilterInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetFilterV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_GLOBAL_INFO_head))(('DhcpSetFilterV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'GlobalFilterInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetFilterV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_GLOBAL_INFO_head))(('DhcpGetFilterV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'GlobalFilterInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumFilterV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN_head),UInt32,win32more.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_ENUM_INFO_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumFilterV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ListType'),(1, 'EnumFilterInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateSubnet():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head))(('DhcpCreateSubnet', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetSubnetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head))(('DhcpSetSubnetInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetSubnetInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head)))(('DhcpGetSubnetInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnets():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnets', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddSubnetElement():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head))(('DhcpAddSubnetElement', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'AddElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetElements():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetElements', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'EnumElementType'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumElementInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveSubnetElement():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head),win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpRemoveSubnetElement', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'RemoveElementInfo'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteSubnet():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpDeleteSubnet', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateOption():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpCreateOption', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpSetOptionInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)))(('DhcpGetOptionInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptions():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptions', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'Options'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOption():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('DhcpRemoveOption', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head))(('DhcpSetOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionValues():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head))(('DhcpSetOptionValues', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeInfo'),(1, 'OptionValues'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)))(('DhcpGetOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptionValues():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptionValues', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeInfo'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'OptionValues'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head))(('DhcpRemoveOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'OptionID'),(1, 'ScopeInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateClientInfoVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head))(('DhcpCreateClientInfoVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetClientInfoVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head))(('DhcpSetClientInfoVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClientInfoVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head)))(('DhcpGetClientInfoVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClientsVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_VQ_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClientsVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClientsFilterStatusInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClientsFilterStatusInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head))(('DhcpCreateClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head))(('DhcpSetClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head)))(('DhcpGetClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head))(('DhcpDeleteClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClients():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClients', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClientOptions():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_LIST_head)))(('DhcpGetClientOptions', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientIpAddress'),(1, 'ClientSubnetMask'),(1, 'ClientOptions'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetMibInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_head)))(('DhcpGetMibInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'MibInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetConfig():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_head))(('DhcpServerSetConfig', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'FieldsToSet'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerGetConfig():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_head)))(('DhcpServerGetConfig', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpScanDatabase():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SCAN_LIST_head)))(('DhcpScanDatabase', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'FixFlag'),(1, 'ScanList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRpcFreeMemory():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('DhcpRpcFreeMemory', windll['DHCPSAPI.dll']), ((1, 'BufferPointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetVersion():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('DhcpGetVersion', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'MajorVersion'),(1, 'MinorVersion'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddSubnetElementV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head))(('DhcpAddSubnetElementV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'AddElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetElementsV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetElementsV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'EnumElementType'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumElementInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveSubnetElementV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head),win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpRemoveSubnetElementV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'RemoveElementInfo'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateClientInfoV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head))(('DhcpCreateClientInfoV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetClientInfoV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head))(('DhcpSetClientInfoV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClientInfoV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head)))(('DhcpGetClientInfoV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClientsV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V4_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClientsV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetConfigV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V4_head))(('DhcpServerSetConfigV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'FieldsToSet'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerGetConfigV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V4_head)))(('DhcpServerGetConfigV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetSuperScopeV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL)(('DhcpSetSuperScopeV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SuperScopeName'),(1, 'ChangeExisting'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteSuperScopeV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpDeleteSuperScopeV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SuperScopeName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetSuperScopeInfoV4():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_head)))(('DhcpGetSuperScopeInfoV4', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SuperScopeTable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClientsV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V5_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClientsV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateOptionV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpCreateOptionV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionId'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionInfoV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpSetOptionInfoV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionInfoV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)))(('DhcpGetOptionInfoV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptionsV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptionsV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'Options'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOptionV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpRemoveOptionV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionValueV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head))(('DhcpSetOptionValueV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionId'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionValuesV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head))(('DhcpSetOptionValuesV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValues'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionValueV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)))(('DhcpGetOptionValueV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionValueV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)))(('DhcpGetOptionValueV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptionValuesV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptionValuesV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'OptionValues'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOptionValueV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head))(('DhcpRemoveOptionValueV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateClass():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head))(('DhcpCreateClass', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpModifyClass():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head))(('DhcpModifyClass', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteClass():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('DhcpDeleteClass', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClassInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head)))(('DhcpGetClassInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'PartialClassInfo'),(1, 'FilledClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumClasses():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumClasses', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClassInfoArray'),(1, 'nRead'),(1, 'nTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetAllOptions():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTIONS_head)))(('DhcpGetAllOptions', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetAllOptionsV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTIONS_head)))(('DhcpGetAllOptionsV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionStruct'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetAllOptionValues():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_head)))(('DhcpGetAllOptionValues', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ScopeInfo'),(1, 'Values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetAllOptionValuesV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_head)))(('DhcpGetAllOptionValuesV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ScopeInfo'),(1, 'Values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumServers():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVERS_head)),c_void_p,c_void_p)(('DhcpEnumServers', windll['DHCPSAPI.dll']), ((1, 'Flags'),(1, 'IdInfo'),(1, 'Servers'),(1, 'CallbackFn'),(1, 'CallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddServer():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head),c_void_p,c_void_p)(('DhcpAddServer', windll['DHCPSAPI.dll']), ((1, 'Flags'),(1, 'IdInfo'),(1, 'NewServer'),(1, 'CallbackFn'),(1, 'CallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteServer():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p,POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head),c_void_p,c_void_p)(('DhcpDeleteServer', windll['DHCPSAPI.dll']), ((1, 'Flags'),(1, 'IdInfo'),(1, 'NewServer'),(1, 'CallbackFn'),(1, 'CallbackData'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetServerBindingInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_ARRAY_head)))(('DhcpGetServerBindingInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'BindElementsInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetServerBindingInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_ARRAY_head))(('DhcpSetServerBindingInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'BindElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddSubnetElementV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head))(('DhcpAddSubnetElementV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'AddElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetElementsV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetElementsV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'EnumElementType'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumElementInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveSubnetElementV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head),win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpRemoveSubnetElementV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'RemoveElementInfo'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4EnumSubnetReservations():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_RESERVATION_INFO_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4EnumSubnetReservations', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumElementInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateOptionV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpCreateOptionV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionId'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOptionV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpRemoveOptionV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptionsV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptionsV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'Options'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveOptionValueV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head))(('DhcpRemoveOptionValueV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetOptionInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)))(('DhcpGetOptionInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))(('DhcpSetOptionInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'ClassName'),(1, 'VendorName'),(1, 'OptionInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetOptionValueV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head))(('DhcpSetOptionValueV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionId'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetSubnetInfoVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head)))(('DhcpGetSubnetInfoVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateSubnetVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head))(('DhcpCreateSubnetVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetSubnetInfoVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head))(('DhcpSetSubnetInfoVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumOptionValuesV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumOptionValuesV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ClassName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'OptionValues'),(1, 'OptionsRead'),(1, 'OptionsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDsInit():
-    try:
-        return WINFUNCTYPE(UInt32,)(('DhcpDsInit', windll['DHCPSAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDsCleanup():
-    try:
-        return WINFUNCTYPE(Void,)(('DhcpDsCleanup', windll['DHCPSAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetThreadOptions():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,c_void_p)(('DhcpSetThreadOptions', windll['DHCPSAPI.dll']), ((1, 'Flags'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetThreadOptions():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32),c_void_p)(('DhcpGetThreadOptions', windll['DHCPSAPI.dll']), ((1, 'pFlags'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerQueryAttribute():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_head)))(('DhcpServerQueryAttribute', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddr'),(1, 'dwReserved'),(1, 'DhcpAttribId'),(1, 'pDhcpAttrib'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerQueryAttributes():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_ARRAY_head)))(('DhcpServerQueryAttributes', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddr'),(1, 'dwReserved'),(1, 'dwAttribCount'),(1, 'pDhcpAttribs'),(1, 'pDhcpAttribArr'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerRedoAuthorization():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32)(('DhcpServerRedoAuthorization', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddr'),(1, 'dwReserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAuditLogSetParams():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32)(('DhcpAuditLogSetParams', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'AuditLogDir'),(1, 'DiskCheckInterval'),(1, 'MaxLogFilesSize'),(1, 'MinSpaceOnDisk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAuditLogGetParams():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('DhcpAuditLogGetParams', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'AuditLogDir'),(1, 'DiskCheckInterval'),(1, 'MaxLogFilesSize'),(1, 'MinSpaceOnDisk'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerQueryDnsRegCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('DhcpServerQueryDnsRegCredentials', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'UnameSize'),(1, 'Uname'),(1, 'DomainSize'),(1, 'Domain'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetDnsRegCredentials():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpServerSetDnsRegCredentials', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Uname'),(1, 'Domain'),(1, 'Passwd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetDnsRegCredentialsV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpServerSetDnsRegCredentialsV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Uname'),(1, 'Domain'),(1, 'Passwd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerBackupDatabase():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpServerBackupDatabase', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Path'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerRestoreDatabase():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpServerRestoreDatabase', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Path'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetConfigVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head))(('DhcpServerSetConfigVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'FieldsToSet'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerGetConfigVQ():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head)))(('DhcpServerGetConfigVQ', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetServerSpecificStrings():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_SPECIFIC_STRINGS_head)))(('DhcpGetServerSpecificStrings', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ServerSpecificStrings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerAuditlogParamsFree():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head))(('DhcpServerAuditlogParamsFree', windll['DHCPSAPI.dll']), ((1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateSubnetV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head))(('DhcpCreateSubnetV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteSubnetV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpDeleteSubnetV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetsV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_IP_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetsV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddSubnetElementV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head))(('DhcpAddSubnetElementV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'AddElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpRemoveSubnetElementV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head),win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG)(('DhcpRemoveSubnetElementV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'RemoveElementInfo'),(1, 'ForceFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetElementsV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetElementsV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'EnumElementType'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'EnumElementInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetSubnetInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head)))(('DhcpGetSubnetInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumSubnetClientsV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V6_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumSubnetClientsV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerGetConfigV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V6_head)))(('DhcpServerGetConfigV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeInfo'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpServerSetConfigV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head),UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V6_head))(('DhcpServerSetConfigV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeInfo'),(1, 'FieldsToSet'),(1, 'ConfigInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetSubnetInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head))(('DhcpSetSubnetInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'SubnetInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetMibInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V6_head)))(('DhcpGetMibInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'MibInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetServerBindingInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_ARRAY_head)))(('DhcpGetServerBindingInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'BindElementsInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetServerBindingInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_ARRAY_head))(('DhcpSetServerBindingInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'BindElementInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetClientInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head))(('DhcpSetClientInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetClientInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_V6_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head)))(('DhcpGetClientInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteClientInfoV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_V6_head))(('DhcpDeleteClientInfoV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpCreateClassV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head))(('DhcpCreateClassV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpModifyClassV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head))(('DhcpModifyClassV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpDeleteClassV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(('DhcpDeleteClassV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ClassName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpEnumClassesV6():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_V6_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpEnumClassesV6', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ReservedMustBeZero'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClassInfoArray'),(1, 'nRead'),(1, 'nTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpSetSubnetDelayOffer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt16)(('DhcpSetSubnetDelayOffer', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'TimeDelayInMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetSubnetDelayOffer():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt16))(('DhcpGetSubnetDelayOffer', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'TimeDelayInMilliseconds'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpGetMibInfoV5():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V5_head)))(('DhcpGetMibInfoV5', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'MibInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpAddSecurityGroup():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR)(('DhcpAddSecurityGroup', windll['DHCPSAPI.dll']), ((1, 'pServer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)))(('DhcpV4GetOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'PolicyName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4SetOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head))(('DhcpV4SetOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionId'),(1, 'PolicyName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValue'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4SetOptionValues():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head))(('DhcpV4SetOptionValues', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'PolicyName'),(1, 'VendorName'),(1, 'ScopeInfo'),(1, 'OptionValues'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4RemoveOptionValue():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head))(('DhcpV4RemoveOptionValue', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'OptionID'),(1, 'PolicyName'),(1, 'VendorName'),(1, 'ScopeInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetAllOptionValues():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_PB_head)))(('DhcpV4GetAllOptionValues', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'ScopeInfo'),(1, 'Values'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverCreateRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))(('DhcpV4FailoverCreateRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverSetRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))(('DhcpV4FailoverSetRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'Flags'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverDeleteRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpV4FailoverDeleteRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pRelationshipName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)))(('DhcpV4FailoverGetRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pRelationshipName'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverEnumRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4FailoverEnumRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'pRelationship'),(1, 'RelationshipRead'),(1, 'RelationshipTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverAddScopeToRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))(('DhcpV4FailoverAddScopeToRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverDeleteScopeFromRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))(('DhcpV4FailoverDeleteScopeFromRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetScopeRelationship():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)))(('DhcpV4FailoverGetScopeRelationship', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeId'),(1, 'pRelationship'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetScopeStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_STATISTICS_head)))(('DhcpV4FailoverGetScopeStatistics', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeId'),(1, 'pStats'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head)))(('DhcpV4FailoverGetClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetSystemTime():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32))(('DhcpV4FailoverGetSystemTime', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pTime'),(1, 'pMaxAllowedDeltaTime'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverGetAddressStatus():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(('DhcpV4FailoverGetAddressStatus', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'pStatus'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4FailoverTriggerAddrAllocation():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(('DhcpV4FailoverTriggerAddrAllocation', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pFailRelName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprCreateV4Policy():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)))(('DhcpHlprCreateV4Policy', windll['DHCPSAPI.dll']), ((1, 'PolicyName'),(1, 'fGlobalPolicy'),(1, 'Subnet'),(1, 'ProcessingOrder'),(1, 'RootOperator'),(1, 'Description'),(1, 'Enabled'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprCreateV4PolicyEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32,win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)))(('DhcpHlprCreateV4PolicyEx', windll['DHCPSAPI.dll']), ((1, 'PolicyName'),(1, 'fGlobalPolicy'),(1, 'Subnet'),(1, 'ProcessingOrder'),(1, 'RootOperator'),(1, 'Description'),(1, 'Enabled'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprAddV4PolicyExpr():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head),UInt32,win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER,POINTER(UInt32))(('DhcpHlprAddV4PolicyExpr', windll['DHCPSAPI.dll']), ((1, 'Policy'),(1, 'ParentExpr'),(1, 'Operator'),(1, 'ExprIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprAddV4PolicyCondition():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head),UInt32,win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR,c_char_p_no,UInt32,POINTER(UInt32))(('DhcpHlprAddV4PolicyCondition', windll['DHCPSAPI.dll']), ((1, 'Policy'),(1, 'ParentExpr'),(1, 'Type'),(1, 'OptionID'),(1, 'SubOptionID'),(1, 'VendorName'),(1, 'Operator'),(1, 'Value'),(1, 'ValueLength'),(1, 'ConditionIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprAddV4PolicyRange():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head))(('DhcpHlprAddV4PolicyRange', windll['DHCPSAPI.dll']), ((1, 'Policy'),(1, 'Range'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprResetV4PolicyExpr():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpHlprResetV4PolicyExpr', windll['DHCPSAPI.dll']), ((1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprModifyV4PolicyExpr():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head),win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER)(('DhcpHlprModifyV4PolicyExpr', windll['DHCPSAPI.dll']), ((1, 'Policy'),(1, 'Operator'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4Policy():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpHlprFreeV4Policy', windll['DHCPSAPI.dll']), ((1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4PolicyArray():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_ARRAY_head))(('DhcpHlprFreeV4PolicyArray', windll['DHCPSAPI.dll']), ((1, 'PolicyArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4PolicyEx():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head))(('DhcpHlprFreeV4PolicyEx', windll['DHCPSAPI.dll']), ((1, 'PolicyEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4PolicyExArray():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY_head))(('DhcpHlprFreeV4PolicyExArray', windll['DHCPSAPI.dll']), ((1, 'PolicyExArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4DhcpProperty():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head))(('DhcpHlprFreeV4DhcpProperty', windll['DHCPSAPI.dll']), ((1, 'Property'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFreeV4DhcpPropertyArray():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head))(('DhcpHlprFreeV4DhcpPropertyArray', windll['DHCPSAPI.dll']), ((1, 'PropertyArray'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprFindV4DhcpProperty():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head),POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head),win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ID,win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE)(('DhcpHlprFindV4DhcpProperty', windll['DHCPSAPI.dll']), ((1, 'PropertyArray'),(1, 'ID'),(1, 'Type'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprIsV4PolicySingleUC():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpHlprIsV4PolicySingleUC', windll['DHCPSAPI.dll']), ((1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4QueryPolicyEnforcement():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Foundation.BOOL))(('DhcpV4QueryPolicyEnforcement', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'Enabled'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4SetPolicyEnforcement():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,win32more.Foundation.BOOL)(('DhcpV4SetPolicyEnforcement', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'Enable'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprIsV4PolicyWellFormed():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpHlprIsV4PolicyWellFormed', windll['DHCPSAPI.dll']), ((1, 'pPolicy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpHlprIsV4PolicyValid():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpHlprIsV4PolicyValid', windll['DHCPSAPI.dll']), ((1, 'pPolicy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4CreatePolicy():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpV4CreatePolicy', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'pPolicy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetPolicy():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)))(('DhcpV4GetPolicy', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4SetPolicy():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))(('DhcpV4SetPolicy', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'FieldsModified'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4DeletePolicy():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR)(('DhcpV4DeletePolicy', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'PolicyName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4EnumPolicies():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,win32more.Foundation.BOOL,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4EnumPolicies', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'fGlobalPolicy'),(1, 'SubnetAddress'),(1, 'EnumInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4AddPolicyRange():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head))(('DhcpV4AddPolicyRange', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Range'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4RemovePolicyRange():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head))(('DhcpV4RemovePolicyRange', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Range'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV6SetStatelessStoreParams():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAMS_head))(('DhcpV6SetStatelessStoreParams', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fServerLevel'),(1, 'SubnetAddress'),(1, 'FieldModified'),(1, 'Params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV6GetStatelessStoreParams():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAMS_head)))(('DhcpV6GetStatelessStoreParams', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'fServerLevel'),(1, 'SubnetAddress'),(1, 'Params'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV6GetStatelessStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_STATS_head)))(('DhcpV6GetStatelessStatistics', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'StatelessStats'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4CreateClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head))(('DhcpV4CreateClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4EnumSubnetClients():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4EnumSubnetClients', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head)))(('DhcpV4GetClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV6CreateClientInfo():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head))(('DhcpV6CreateClientInfo', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetFreeIPAddress():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head)))(('DhcpV4GetFreeIPAddress', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeId'),(1, 'StartIP'),(1, 'EndIP'),(1, 'NumFreeAddrReq'),(1, 'IPAddrList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV6GetFreeIPAddress():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_IP_ARRAY_head)))(('DhcpV6GetFreeIPAddress', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ScopeId'),(1, 'StartIP'),(1, 'EndIP'),(1, 'NumFreeAddrReq'),(1, 'IPAddrList'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4CreateClientInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head))(('DhcpV4CreateClientInfoEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4EnumSubnetClientsEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4EnumSubnetClientsEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SubnetAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'ClientInfo'),(1, 'ClientsRead'),(1, 'ClientsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetClientInfoEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head),POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head)))(('DhcpV4GetClientInfoEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'SearchInfo'),(1, 'ClientInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4CreatePolicyEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head))(('DhcpV4CreatePolicyEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'PolicyEx'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4GetPolicyEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)))(('DhcpV4GetPolicyEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'GlobalPolicy'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4SetPolicyEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head))(('DhcpV4SetPolicyEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'FieldsModified'),(1, 'GlobalPolicy'),(1, 'SubnetAddress'),(1, 'PolicyName'),(1, 'Policy'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DhcpV4EnumPoliciesEx():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32,win32more.Foundation.BOOL,UInt32,POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY_head)),POINTER(UInt32),POINTER(UInt32))(('DhcpV4EnumPoliciesEx', windll['DHCPSAPI.dll']), ((1, 'ServerIpAddress'),(1, 'ResumeHandle'),(1, 'PreferredMaximum'),(1, 'GlobalPolicy'),(1, 'SubnetAddress'),(1, 'EnumInfo'),(1, 'ElementsRead'),(1, 'ElementsTotal'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DATE_TIME_head():
-    class DATE_TIME(Structure):
-        pass
-    return DATE_TIME
-def _define_DATE_TIME():
-    DATE_TIME = win32more.NetworkManagement.Dhcp.DATE_TIME_head
-    DATE_TIME._fields_ = [
-        ('dwLowDateTime', UInt32),
-        ('dwHighDateTime', UInt32),
-    ]
-    return DATE_TIME
-def _define_DHCP_ADDR_PATTERN_head():
-    class DHCP_ADDR_PATTERN(Structure):
-        pass
-    return DHCP_ADDR_PATTERN
-def _define_DHCP_ADDR_PATTERN():
-    DHCP_ADDR_PATTERN = win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN_head
-    DHCP_ADDR_PATTERN._fields_ = [
-        ('MatchHWType', win32more.Foundation.BOOL),
-        ('HWType', Byte),
-        ('IsWildcard', win32more.Foundation.BOOL),
-        ('Length', Byte),
-        ('Pattern', Byte * 255),
-    ]
-    return DHCP_ADDR_PATTERN
-def _define_DHCP_ALL_OPTION_VALUES_head():
-    class DHCP_ALL_OPTION_VALUES(Structure):
-        pass
-    return DHCP_ALL_OPTION_VALUES
-def _define_DHCP_ALL_OPTION_VALUES():
-    DHCP_ALL_OPTION_VALUES = win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_head
-    class DHCP_ALL_OPTION_VALUES__Anonymous_e__Struct(Structure):
-        pass
-    DHCP_ALL_OPTION_VALUES__Anonymous_e__Struct._fields_ = [
-        ('ClassName', win32more.Foundation.PWSTR),
-        ('VendorName', win32more.Foundation.PWSTR),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('OptionsArray', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)),
-    ]
-    DHCP_ALL_OPTION_VALUES._fields_ = [
-        ('Flags', UInt32),
-        ('NumElements', UInt32),
-        ('Options', POINTER(DHCP_ALL_OPTION_VALUES__Anonymous_e__Struct)),
-    ]
-    return DHCP_ALL_OPTION_VALUES
-def _define_DHCP_ALL_OPTION_VALUES_PB_head():
-    class DHCP_ALL_OPTION_VALUES_PB(Structure):
-        pass
-    return DHCP_ALL_OPTION_VALUES_PB
-def _define_DHCP_ALL_OPTION_VALUES_PB():
-    DHCP_ALL_OPTION_VALUES_PB = win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_PB_head
-    class DHCP_ALL_OPTION_VALUES_PB__Anonymous_e__Struct(Structure):
-        pass
-    DHCP_ALL_OPTION_VALUES_PB__Anonymous_e__Struct._fields_ = [
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('VendorName', win32more.Foundation.PWSTR),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('OptionsArray', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)),
-    ]
-    DHCP_ALL_OPTION_VALUES_PB._fields_ = [
-        ('Flags', UInt32),
-        ('NumElements', UInt32),
-        ('Options', POINTER(DHCP_ALL_OPTION_VALUES_PB__Anonymous_e__Struct)),
-    ]
-    return DHCP_ALL_OPTION_VALUES_PB
-def _define_DHCP_ALL_OPTIONS_head():
-    class DHCP_ALL_OPTIONS(Structure):
-        pass
-    return DHCP_ALL_OPTIONS
-def _define_DHCP_ALL_OPTIONS():
-    DHCP_ALL_OPTIONS = win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTIONS_head
-    class DHCP_ALL_OPTIONS__Anonymous_e__Struct(Structure):
-        pass
-    DHCP_ALL_OPTIONS__Anonymous_e__Struct._fields_ = [
-        ('Option', win32more.NetworkManagement.Dhcp.DHCP_OPTION),
-        ('VendorName', win32more.Foundation.PWSTR),
-        ('ClassName', win32more.Foundation.PWSTR),
-    ]
-    DHCP_ALL_OPTIONS._fields_ = [
-        ('Flags', UInt32),
-        ('NonVendorOptions', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)),
-        ('NumVendorOptions', UInt32),
-        ('VendorOptions', POINTER(DHCP_ALL_OPTIONS__Anonymous_e__Struct)),
-    ]
-    return DHCP_ALL_OPTIONS
-def _define_DHCP_ATTRIB_head():
-    class DHCP_ATTRIB(Structure):
-        pass
-    return DHCP_ATTRIB
-def _define_DHCP_ATTRIB():
-    DHCP_ATTRIB = win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_head
-    class DHCP_ATTRIB__Anonymous_e__Union(Union):
-        pass
-    DHCP_ATTRIB__Anonymous_e__Union._fields_ = [
-        ('DhcpAttribBool', win32more.Foundation.BOOL),
-        ('DhcpAttribUlong', UInt32),
-    ]
-    DHCP_ATTRIB._anonymous_ = [
-        'Anonymous',
-    ]
-    DHCP_ATTRIB._fields_ = [
-        ('DhcpAttribId', UInt32),
-        ('DhcpAttribType', UInt32),
-        ('Anonymous', DHCP_ATTRIB__Anonymous_e__Union),
-    ]
-    return DHCP_ATTRIB
-def _define_DHCP_ATTRIB_ARRAY_head():
-    class DHCP_ATTRIB_ARRAY(Structure):
-        pass
-    return DHCP_ATTRIB_ARRAY
-def _define_DHCP_ATTRIB_ARRAY():
-    DHCP_ATTRIB_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_ARRAY_head
-    DHCP_ATTRIB_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('DhcpAttribs', POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_head)),
-    ]
-    return DHCP_ATTRIB_ARRAY
-def _define_DHCP_BINARY_DATA_head():
-    class DHCP_BINARY_DATA(Structure):
-        pass
-    return DHCP_BINARY_DATA
-def _define_DHCP_BINARY_DATA():
-    DHCP_BINARY_DATA = win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head
-    DHCP_BINARY_DATA._fields_ = [
-        ('DataLength', UInt32),
-        ('Data', c_char_p_no),
-    ]
-    return DHCP_BINARY_DATA
-def _define_DHCP_BIND_ELEMENT_head():
-    class DHCP_BIND_ELEMENT(Structure):
-        pass
-    return DHCP_BIND_ELEMENT
-def _define_DHCP_BIND_ELEMENT():
-    DHCP_BIND_ELEMENT = win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_head
-    DHCP_BIND_ELEMENT._fields_ = [
-        ('Flags', UInt32),
-        ('fBoundToDHCPServer', win32more.Foundation.BOOL),
-        ('AdapterPrimaryAddress', UInt32),
-        ('AdapterSubnetAddress', UInt32),
-        ('IfDescription', win32more.Foundation.PWSTR),
-        ('IfIdSize', UInt32),
-        ('IfId', c_char_p_no),
-    ]
-    return DHCP_BIND_ELEMENT
-def _define_DHCP_BIND_ELEMENT_ARRAY_head():
-    class DHCP_BIND_ELEMENT_ARRAY(Structure):
-        pass
-    return DHCP_BIND_ELEMENT_ARRAY
-def _define_DHCP_BIND_ELEMENT_ARRAY():
-    DHCP_BIND_ELEMENT_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_ARRAY_head
-    DHCP_BIND_ELEMENT_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_head)),
-    ]
-    return DHCP_BIND_ELEMENT_ARRAY
-def _define_DHCP_BOOTP_IP_RANGE_head():
-    class DHCP_BOOTP_IP_RANGE(Structure):
-        pass
-    return DHCP_BOOTP_IP_RANGE
-def _define_DHCP_BOOTP_IP_RANGE():
-    DHCP_BOOTP_IP_RANGE = win32more.NetworkManagement.Dhcp.DHCP_BOOTP_IP_RANGE_head
-    DHCP_BOOTP_IP_RANGE._fields_ = [
-        ('StartAddress', UInt32),
-        ('EndAddress', UInt32),
-        ('BootpAllocated', UInt32),
-        ('MaxBootpAllowed', UInt32),
-    ]
-    return DHCP_BOOTP_IP_RANGE
-def _define_DHCP_CALLOUT_TABLE_head():
-    class DHCP_CALLOUT_TABLE(Structure):
-        pass
-    return DHCP_CALLOUT_TABLE
-def _define_DHCP_CALLOUT_TABLE():
-    DHCP_CALLOUT_TABLE = win32more.NetworkManagement.Dhcp.DHCP_CALLOUT_TABLE_head
-    DHCP_CALLOUT_TABLE._fields_ = [
-        ('DhcpControlHook', win32more.NetworkManagement.Dhcp.LPDHCP_CONTROL),
-        ('DhcpNewPktHook', win32more.NetworkManagement.Dhcp.LPDHCP_NEWPKT),
-        ('DhcpPktDropHook', win32more.NetworkManagement.Dhcp.LPDHCP_DROP_SEND),
-        ('DhcpPktSendHook', win32more.NetworkManagement.Dhcp.LPDHCP_DROP_SEND),
-        ('DhcpAddressDelHook', win32more.NetworkManagement.Dhcp.LPDHCP_PROB),
-        ('DhcpAddressOfferHook', win32more.NetworkManagement.Dhcp.LPDHCP_GIVE_ADDRESS),
-        ('DhcpHandleOptionsHook', win32more.NetworkManagement.Dhcp.LPDHCP_HANDLE_OPTIONS),
-        ('DhcpDeleteClientHook', win32more.NetworkManagement.Dhcp.LPDHCP_DELETE_CLIENT),
-        ('DhcpExtensionHook', c_void_p),
-        ('DhcpReservedHook', c_void_p),
-    ]
-    return DHCP_CALLOUT_TABLE
-def _define_DHCP_CLASS_INFO_head():
-    class DHCP_CLASS_INFO(Structure):
-        pass
-    return DHCP_CLASS_INFO
-def _define_DHCP_CLASS_INFO():
-    DHCP_CLASS_INFO = win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head
-    DHCP_CLASS_INFO._fields_ = [
-        ('ClassName', win32more.Foundation.PWSTR),
-        ('ClassComment', win32more.Foundation.PWSTR),
-        ('ClassDataLength', UInt32),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('Flags', UInt32),
-        ('ClassData', c_char_p_no),
-    ]
-    return DHCP_CLASS_INFO
-def _define_DHCP_CLASS_INFO_ARRAY_head():
-    class DHCP_CLASS_INFO_ARRAY(Structure):
-        pass
-    return DHCP_CLASS_INFO_ARRAY
-def _define_DHCP_CLASS_INFO_ARRAY():
-    DHCP_CLASS_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_head
-    DHCP_CLASS_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Classes', POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head)),
-    ]
-    return DHCP_CLASS_INFO_ARRAY
-def _define_DHCP_CLASS_INFO_ARRAY_V6_head():
-    class DHCP_CLASS_INFO_ARRAY_V6(Structure):
-        pass
-    return DHCP_CLASS_INFO_ARRAY_V6
-def _define_DHCP_CLASS_INFO_ARRAY_V6():
-    DHCP_CLASS_INFO_ARRAY_V6 = win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_V6_head
-    DHCP_CLASS_INFO_ARRAY_V6._fields_ = [
-        ('NumElements', UInt32),
-        ('Classes', POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head)),
-    ]
-    return DHCP_CLASS_INFO_ARRAY_V6
-def _define_DHCP_CLASS_INFO_V6_head():
-    class DHCP_CLASS_INFO_V6(Structure):
-        pass
-    return DHCP_CLASS_INFO_V6
-def _define_DHCP_CLASS_INFO_V6():
-    DHCP_CLASS_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head
-    DHCP_CLASS_INFO_V6._fields_ = [
-        ('ClassName', win32more.Foundation.PWSTR),
-        ('ClassComment', win32more.Foundation.PWSTR),
-        ('ClassDataLength', UInt32),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('EnterpriseNumber', UInt32),
-        ('Flags', UInt32),
-        ('ClassData', c_char_p_no),
-    ]
-    return DHCP_CLASS_INFO_V6
-def _define_DHCP_CLIENT_FILTER_STATUS_INFO_head():
-    class DHCP_CLIENT_FILTER_STATUS_INFO(Structure):
-        pass
-    return DHCP_CLIENT_FILTER_STATUS_INFO
-def _define_DHCP_CLIENT_FILTER_STATUS_INFO():
-    DHCP_CLIENT_FILTER_STATUS_INFO = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_head
-    DHCP_CLIENT_FILTER_STATUS_INFO._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-        ('FilterStatus', UInt32),
-    ]
-    return DHCP_CLIENT_FILTER_STATUS_INFO
-def _define_DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY_head():
-    class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY(Structure):
-        pass
-    return DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY
-def _define_DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY():
-    DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY_head
-    DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_head))),
-    ]
-    return DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY
-def _define_DHCP_CLIENT_INFO_head():
-    class DHCP_CLIENT_INFO(Structure):
-        pass
-    return DHCP_CLIENT_INFO
-def _define_DHCP_CLIENT_INFO():
-    DHCP_CLIENT_INFO = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head
-    DHCP_CLIENT_INFO._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-    ]
-    return DHCP_CLIENT_INFO
-def _define_DHCP_CLIENT_INFO_ARRAY_head():
-    class DHCP_CLIENT_INFO_ARRAY(Structure):
-        pass
-    return DHCP_CLIENT_INFO_ARRAY
-def _define_DHCP_CLIENT_INFO_ARRAY():
-    DHCP_CLIENT_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_head
-    DHCP_CLIENT_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head))),
-    ]
-    return DHCP_CLIENT_INFO_ARRAY
-def _define_DHCP_CLIENT_INFO_ARRAY_V4_head():
-    class DHCP_CLIENT_INFO_ARRAY_V4(Structure):
-        pass
-    return DHCP_CLIENT_INFO_ARRAY_V4
-def _define_DHCP_CLIENT_INFO_ARRAY_V4():
-    DHCP_CLIENT_INFO_ARRAY_V4 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V4_head
-    DHCP_CLIENT_INFO_ARRAY_V4._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head))),
-    ]
-    return DHCP_CLIENT_INFO_ARRAY_V4
-def _define_DHCP_CLIENT_INFO_ARRAY_V5_head():
-    class DHCP_CLIENT_INFO_ARRAY_V5(Structure):
-        pass
-    return DHCP_CLIENT_INFO_ARRAY_V5
-def _define_DHCP_CLIENT_INFO_ARRAY_V5():
-    DHCP_CLIENT_INFO_ARRAY_V5 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V5_head
-    DHCP_CLIENT_INFO_ARRAY_V5._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V5_head))),
-    ]
-    return DHCP_CLIENT_INFO_ARRAY_V5
-def _define_DHCP_CLIENT_INFO_ARRAY_V6_head():
-    class DHCP_CLIENT_INFO_ARRAY_V6(Structure):
-        pass
-    return DHCP_CLIENT_INFO_ARRAY_V6
-def _define_DHCP_CLIENT_INFO_ARRAY_V6():
-    DHCP_CLIENT_INFO_ARRAY_V6 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V6_head
-    DHCP_CLIENT_INFO_ARRAY_V6._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head))),
-    ]
-    return DHCP_CLIENT_INFO_ARRAY_V6
-def _define_DHCP_CLIENT_INFO_ARRAY_VQ_head():
-    class DHCP_CLIENT_INFO_ARRAY_VQ(Structure):
-        pass
-    return DHCP_CLIENT_INFO_ARRAY_VQ
-def _define_DHCP_CLIENT_INFO_ARRAY_VQ():
-    DHCP_CLIENT_INFO_ARRAY_VQ = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_VQ_head
-    DHCP_CLIENT_INFO_ARRAY_VQ._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head))),
-    ]
-    return DHCP_CLIENT_INFO_ARRAY_VQ
-def _define_DHCP_CLIENT_INFO_EX_head():
-    class DHCP_CLIENT_INFO_EX(Structure):
-        pass
-    return DHCP_CLIENT_INFO_EX
-def _define_DHCP_CLIENT_INFO_EX():
-    DHCP_CLIENT_INFO_EX = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head
-    DHCP_CLIENT_INFO_EX._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-        ('FilterStatus', UInt32),
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('Properties', POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head)),
-    ]
-    return DHCP_CLIENT_INFO_EX
-def _define_DHCP_CLIENT_INFO_EX_ARRAY_head():
-    class DHCP_CLIENT_INFO_EX_ARRAY(Structure):
-        pass
-    return DHCP_CLIENT_INFO_EX_ARRAY
-def _define_DHCP_CLIENT_INFO_EX_ARRAY():
-    DHCP_CLIENT_INFO_EX_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_ARRAY_head
-    DHCP_CLIENT_INFO_EX_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head))),
-    ]
-    return DHCP_CLIENT_INFO_EX_ARRAY
-def _define_DHCP_CLIENT_INFO_PB_head():
-    class DHCP_CLIENT_INFO_PB(Structure):
-        pass
-    return DHCP_CLIENT_INFO_PB
-def _define_DHCP_CLIENT_INFO_PB():
-    DHCP_CLIENT_INFO_PB = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head
-    DHCP_CLIENT_INFO_PB._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-        ('FilterStatus', UInt32),
-        ('PolicyName', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_CLIENT_INFO_PB
-def _define_DHCP_CLIENT_INFO_PB_ARRAY_head():
-    class DHCP_CLIENT_INFO_PB_ARRAY(Structure):
-        pass
-    return DHCP_CLIENT_INFO_PB_ARRAY
-def _define_DHCP_CLIENT_INFO_PB_ARRAY():
-    DHCP_CLIENT_INFO_PB_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_ARRAY_head
-    DHCP_CLIENT_INFO_PB_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head))),
-    ]
-    return DHCP_CLIENT_INFO_PB_ARRAY
-def _define_DHCP_CLIENT_INFO_V4_head():
-    class DHCP_CLIENT_INFO_V4(Structure):
-        pass
-    return DHCP_CLIENT_INFO_V4
-def _define_DHCP_CLIENT_INFO_V4():
-    DHCP_CLIENT_INFO_V4 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head
-    DHCP_CLIENT_INFO_V4._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-    ]
-    return DHCP_CLIENT_INFO_V4
-def _define_DHCP_CLIENT_INFO_V5_head():
-    class DHCP_CLIENT_INFO_V5(Structure):
-        pass
-    return DHCP_CLIENT_INFO_V5
-def _define_DHCP_CLIENT_INFO_V5():
-    DHCP_CLIENT_INFO_V5 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V5_head
-    DHCP_CLIENT_INFO_V5._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-    ]
-    return DHCP_CLIENT_INFO_V5
-def _define_DHCP_CLIENT_INFO_V6_head():
-    class DHCP_CLIENT_INFO_V6(Structure):
-        pass
-    return DHCP_CLIENT_INFO_V6
-def _define_DHCP_CLIENT_INFO_V6():
-    DHCP_CLIENT_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head
-    DHCP_CLIENT_INFO_V6._fields_ = [
-        ('ClientIpAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('ClientDUID', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('AddressType', UInt32),
-        ('IAID', UInt32),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientValidLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('ClientPrefLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_V6),
-    ]
-    return DHCP_CLIENT_INFO_V6
-def _define_DHCP_CLIENT_INFO_VQ_head():
-    class DHCP_CLIENT_INFO_VQ(Structure):
-        pass
-    return DHCP_CLIENT_INFO_VQ
-def _define_DHCP_CLIENT_INFO_VQ():
-    DHCP_CLIENT_INFO_VQ = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head
-    DHCP_CLIENT_INFO_VQ._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-    ]
-    return DHCP_CLIENT_INFO_VQ
-def _define_DHCP_CLIENT_SEARCH_UNION_head():
-    class DHCP_CLIENT_SEARCH_UNION(Union):
-        pass
-    return DHCP_CLIENT_SEARCH_UNION
-def _define_DHCP_CLIENT_SEARCH_UNION():
-    DHCP_CLIENT_SEARCH_UNION = win32more.NetworkManagement.Dhcp.DHCP_CLIENT_SEARCH_UNION_head
-    return DHCP_CLIENT_SEARCH_UNION
+OPTION_PAD: UInt32 = 0
+OPTION_SUBNET_MASK: UInt32 = 1
+OPTION_TIME_OFFSET: UInt32 = 2
+OPTION_ROUTER_ADDRESS: UInt32 = 3
+OPTION_TIME_SERVERS: UInt32 = 4
+OPTION_IEN116_NAME_SERVERS: UInt32 = 5
+OPTION_DOMAIN_NAME_SERVERS: UInt32 = 6
+OPTION_LOG_SERVERS: UInt32 = 7
+OPTION_COOKIE_SERVERS: UInt32 = 8
+OPTION_LPR_SERVERS: UInt32 = 9
+OPTION_IMPRESS_SERVERS: UInt32 = 10
+OPTION_RLP_SERVERS: UInt32 = 11
+OPTION_HOST_NAME: UInt32 = 12
+OPTION_BOOT_FILE_SIZE: UInt32 = 13
+OPTION_MERIT_DUMP_FILE: UInt32 = 14
+OPTION_DOMAIN_NAME: UInt32 = 15
+OPTION_SWAP_SERVER: UInt32 = 16
+OPTION_ROOT_DISK: UInt32 = 17
+OPTION_EXTENSIONS_PATH: UInt32 = 18
+OPTION_BE_A_ROUTER: UInt32 = 19
+OPTION_NON_LOCAL_SOURCE_ROUTING: UInt32 = 20
+OPTION_POLICY_FILTER_FOR_NLSR: UInt32 = 21
+OPTION_MAX_REASSEMBLY_SIZE: UInt32 = 22
+OPTION_DEFAULT_TTL: UInt32 = 23
+OPTION_PMTU_AGING_TIMEOUT: UInt32 = 24
+OPTION_PMTU_PLATEAU_TABLE: UInt32 = 25
+OPTION_MTU: UInt32 = 26
+OPTION_ALL_SUBNETS_MTU: UInt32 = 27
+OPTION_BROADCAST_ADDRESS: UInt32 = 28
+OPTION_PERFORM_MASK_DISCOVERY: UInt32 = 29
+OPTION_BE_A_MASK_SUPPLIER: UInt32 = 30
+OPTION_PERFORM_ROUTER_DISCOVERY: UInt32 = 31
+OPTION_ROUTER_SOLICITATION_ADDR: UInt32 = 32
+OPTION_STATIC_ROUTES: UInt32 = 33
+OPTION_TRAILERS: UInt32 = 34
+OPTION_ARP_CACHE_TIMEOUT: UInt32 = 35
+OPTION_ETHERNET_ENCAPSULATION: UInt32 = 36
+OPTION_TTL: UInt32 = 37
+OPTION_KEEP_ALIVE_INTERVAL: UInt32 = 38
+OPTION_KEEP_ALIVE_DATA_SIZE: UInt32 = 39
+OPTION_NETWORK_INFO_SERVICE_DOM: UInt32 = 40
+OPTION_NETWORK_INFO_SERVERS: UInt32 = 41
+OPTION_NETWORK_TIME_SERVERS: UInt32 = 42
+OPTION_VENDOR_SPEC_INFO: UInt32 = 43
+OPTION_NETBIOS_NAME_SERVER: UInt32 = 44
+OPTION_NETBIOS_DATAGRAM_SERVER: UInt32 = 45
+OPTION_NETBIOS_NODE_TYPE: UInt32 = 46
+OPTION_NETBIOS_SCOPE_OPTION: UInt32 = 47
+OPTION_XWINDOW_FONT_SERVER: UInt32 = 48
+OPTION_XWINDOW_DISPLAY_MANAGER: UInt32 = 49
+OPTION_REQUESTED_ADDRESS: UInt32 = 50
+OPTION_LEASE_TIME: UInt32 = 51
+OPTION_OK_TO_OVERLAY: UInt32 = 52
+OPTION_MESSAGE_TYPE: UInt32 = 53
+OPTION_SERVER_IDENTIFIER: UInt32 = 54
+OPTION_PARAMETER_REQUEST_LIST: UInt32 = 55
+OPTION_MESSAGE: UInt32 = 56
+OPTION_MESSAGE_LENGTH: UInt32 = 57
+OPTION_RENEWAL_TIME: UInt32 = 58
+OPTION_REBIND_TIME: UInt32 = 59
+OPTION_CLIENT_CLASS_INFO: UInt32 = 60
+OPTION_CLIENT_ID: UInt32 = 61
+OPTION_TFTP_SERVER_NAME: UInt32 = 66
+OPTION_BOOTFILE_NAME: UInt32 = 67
+OPTION_MSFT_IE_PROXY: UInt32 = 252
+OPTION_END: UInt32 = 255
+DHCPCAPI_REQUEST_PERSISTENT: UInt32 = 1
+DHCPCAPI_REQUEST_SYNCHRONOUS: UInt32 = 2
+DHCPCAPI_REQUEST_ASYNCHRONOUS: UInt32 = 4
+DHCPCAPI_REQUEST_CANCEL: UInt32 = 8
+DHCPCAPI_REQUEST_MASK: UInt32 = 15
+DHCPCAPI_REGISTER_HANDLE_EVENT: UInt32 = 1
+DHCPCAPI_DEREGISTER_HANDLE_EVENT: UInt32 = 1
+ERROR_DHCP_REGISTRY_INIT_FAILED: UInt32 = 20000
+ERROR_DHCP_DATABASE_INIT_FAILED: UInt32 = 20001
+ERROR_DHCP_RPC_INIT_FAILED: UInt32 = 20002
+ERROR_DHCP_NETWORK_INIT_FAILED: UInt32 = 20003
+ERROR_DHCP_SUBNET_EXITS: UInt32 = 20004
+ERROR_DHCP_SUBNET_NOT_PRESENT: UInt32 = 20005
+ERROR_DHCP_PRIMARY_NOT_FOUND: UInt32 = 20006
+ERROR_DHCP_ELEMENT_CANT_REMOVE: UInt32 = 20007
+ERROR_DHCP_OPTION_EXITS: UInt32 = 20009
+ERROR_DHCP_OPTION_NOT_PRESENT: UInt32 = 20010
+ERROR_DHCP_ADDRESS_NOT_AVAILABLE: UInt32 = 20011
+ERROR_DHCP_RANGE_FULL: UInt32 = 20012
+ERROR_DHCP_JET_ERROR: UInt32 = 20013
+ERROR_DHCP_CLIENT_EXISTS: UInt32 = 20014
+ERROR_DHCP_INVALID_DHCP_MESSAGE: UInt32 = 20015
+ERROR_DHCP_INVALID_DHCP_CLIENT: UInt32 = 20016
+ERROR_DHCP_SERVICE_PAUSED: UInt32 = 20017
+ERROR_DHCP_NOT_RESERVED_CLIENT: UInt32 = 20018
+ERROR_DHCP_RESERVED_CLIENT: UInt32 = 20019
+ERROR_DHCP_RANGE_TOO_SMALL: UInt32 = 20020
+ERROR_DHCP_IPRANGE_EXITS: UInt32 = 20021
+ERROR_DHCP_RESERVEDIP_EXITS: UInt32 = 20022
+ERROR_DHCP_INVALID_RANGE: UInt32 = 20023
+ERROR_DHCP_RANGE_EXTENDED: UInt32 = 20024
+ERROR_EXTEND_TOO_SMALL: UInt32 = 20025
+WARNING_EXTENDED_LESS: Int32 = 20026
+ERROR_DHCP_JET_CONV_REQUIRED: UInt32 = 20027
+ERROR_SERVER_INVALID_BOOT_FILE_TABLE: UInt32 = 20028
+ERROR_SERVER_UNKNOWN_BOOT_FILE_NAME: UInt32 = 20029
+ERROR_DHCP_SUPER_SCOPE_NAME_TOO_LONG: UInt32 = 20030
+ERROR_DHCP_IP_ADDRESS_IN_USE: UInt32 = 20032
+ERROR_DHCP_LOG_FILE_PATH_TOO_LONG: UInt32 = 20033
+ERROR_DHCP_UNSUPPORTED_CLIENT: UInt32 = 20034
+ERROR_DHCP_JET97_CONV_REQUIRED: UInt32 = 20036
+ERROR_DHCP_ROGUE_INIT_FAILED: UInt32 = 20037
+ERROR_DHCP_ROGUE_SAMSHUTDOWN: UInt32 = 20038
+ERROR_DHCP_ROGUE_NOT_AUTHORIZED: UInt32 = 20039
+ERROR_DHCP_ROGUE_DS_UNREACHABLE: UInt32 = 20040
+ERROR_DHCP_ROGUE_DS_CONFLICT: UInt32 = 20041
+ERROR_DHCP_ROGUE_NOT_OUR_ENTERPRISE: UInt32 = 20042
+ERROR_DHCP_ROGUE_STANDALONE_IN_DS: UInt32 = 20043
+ERROR_DHCP_CLASS_NOT_FOUND: UInt32 = 20044
+ERROR_DHCP_CLASS_ALREADY_EXISTS: UInt32 = 20045
+ERROR_DHCP_SCOPE_NAME_TOO_LONG: UInt32 = 20046
+ERROR_DHCP_DEFAULT_SCOPE_EXITS: UInt32 = 20047
+ERROR_DHCP_CANT_CHANGE_ATTRIBUTE: UInt32 = 20048
+ERROR_DHCP_IPRANGE_CONV_ILLEGAL: UInt32 = 20049
+ERROR_DHCP_NETWORK_CHANGED: UInt32 = 20050
+ERROR_DHCP_CANNOT_MODIFY_BINDINGS: UInt32 = 20051
+ERROR_DHCP_SUBNET_EXISTS: UInt32 = 20052
+ERROR_DHCP_MSCOPE_EXISTS: UInt32 = 20053
+ERROR_MSCOPE_RANGE_TOO_SMALL: UInt32 = 20054
+ERROR_DHCP_EXEMPTION_EXISTS: UInt32 = 20055
+ERROR_DHCP_EXEMPTION_NOT_PRESENT: UInt32 = 20056
+ERROR_DHCP_INVALID_PARAMETER_OPTION32: UInt32 = 20057
+ERROR_DDS_NO_DS_AVAILABLE: UInt32 = 20070
+ERROR_DDS_NO_DHCP_ROOT: UInt32 = 20071
+ERROR_DDS_UNEXPECTED_ERROR: UInt32 = 20072
+ERROR_DDS_TOO_MANY_ERRORS: UInt32 = 20073
+ERROR_DDS_DHCP_SERVER_NOT_FOUND: UInt32 = 20074
+ERROR_DDS_OPTION_ALREADY_EXISTS: UInt32 = 20075
+ERROR_DDS_OPTION_DOES_NOT_EXIST: UInt32 = 20076
+ERROR_DDS_CLASS_EXISTS: UInt32 = 20077
+ERROR_DDS_CLASS_DOES_NOT_EXIST: UInt32 = 20078
+ERROR_DDS_SERVER_ALREADY_EXISTS: UInt32 = 20079
+ERROR_DDS_SERVER_DOES_NOT_EXIST: UInt32 = 20080
+ERROR_DDS_SERVER_ADDRESS_MISMATCH: UInt32 = 20081
+ERROR_DDS_SUBNET_EXISTS: UInt32 = 20082
+ERROR_DDS_SUBNET_HAS_DIFF_SSCOPE: UInt32 = 20083
+ERROR_DDS_SUBNET_NOT_PRESENT: UInt32 = 20084
+ERROR_DDS_RESERVATION_NOT_PRESENT: UInt32 = 20085
+ERROR_DDS_RESERVATION_CONFLICT: UInt32 = 20086
+ERROR_DDS_POSSIBLE_RANGE_CONFLICT: UInt32 = 20087
+ERROR_DDS_RANGE_DOES_NOT_EXIST: UInt32 = 20088
+ERROR_DHCP_DELETE_BUILTIN_CLASS: UInt32 = 20089
+ERROR_DHCP_INVALID_SUBNET_PREFIX: UInt32 = 20091
+ERROR_DHCP_INVALID_DELAY: UInt32 = 20092
+ERROR_DHCP_LINKLAYER_ADDRESS_EXISTS: UInt32 = 20093
+ERROR_DHCP_LINKLAYER_ADDRESS_RESERVATION_EXISTS: UInt32 = 20094
+ERROR_DHCP_LINKLAYER_ADDRESS_DOES_NOT_EXIST: UInt32 = 20095
+ERROR_DHCP_HARDWARE_ADDRESS_TYPE_ALREADY_EXEMPT: UInt32 = 20101
+ERROR_DHCP_UNDEFINED_HARDWARE_ADDRESS_TYPE: UInt32 = 20102
+ERROR_DHCP_OPTION_TYPE_MISMATCH: UInt32 = 20103
+ERROR_DHCP_POLICY_BAD_PARENT_EXPR: UInt32 = 20104
+ERROR_DHCP_POLICY_EXISTS: UInt32 = 20105
+ERROR_DHCP_POLICY_RANGE_EXISTS: UInt32 = 20106
+ERROR_DHCP_POLICY_RANGE_BAD: UInt32 = 20107
+ERROR_DHCP_RANGE_INVALID_IN_SERVER_POLICY: UInt32 = 20108
+ERROR_DHCP_INVALID_POLICY_EXPRESSION: UInt32 = 20109
+ERROR_DHCP_INVALID_PROCESSING_ORDER: UInt32 = 20110
+ERROR_DHCP_POLICY_NOT_FOUND: UInt32 = 20111
+ERROR_SCOPE_RANGE_POLICY_RANGE_CONFLICT: UInt32 = 20112
+ERROR_DHCP_FO_SCOPE_ALREADY_IN_RELATIONSHIP: UInt32 = 20113
+ERROR_DHCP_FO_RELATIONSHIP_EXISTS: UInt32 = 20114
+ERROR_DHCP_FO_RELATIONSHIP_DOES_NOT_EXIST: UInt32 = 20115
+ERROR_DHCP_FO_SCOPE_NOT_IN_RELATIONSHIP: UInt32 = 20116
+ERROR_DHCP_FO_RELATION_IS_SECONDARY: UInt32 = 20117
+ERROR_DHCP_FO_NOT_SUPPORTED: UInt32 = 20118
+ERROR_DHCP_FO_TIME_OUT_OF_SYNC: UInt32 = 20119
+ERROR_DHCP_FO_STATE_NOT_NORMAL: UInt32 = 20120
+ERROR_DHCP_NO_ADMIN_PERMISSION: UInt32 = 20121
+ERROR_DHCP_SERVER_NOT_REACHABLE: UInt32 = 20122
+ERROR_DHCP_SERVER_NOT_RUNNING: UInt32 = 20123
+ERROR_DHCP_SERVER_NAME_NOT_RESOLVED: UInt32 = 20124
+ERROR_DHCP_FO_RELATIONSHIP_NAME_TOO_LONG: UInt32 = 20125
+ERROR_DHCP_REACHED_END_OF_SELECTION: UInt32 = 20126
+ERROR_DHCP_FO_ADDSCOPE_LEASES_NOT_SYNCED: UInt32 = 20127
+ERROR_DHCP_FO_MAX_RELATIONSHIPS: UInt32 = 20128
+ERROR_DHCP_FO_IPRANGE_TYPE_CONV_ILLEGAL: UInt32 = 20129
+ERROR_DHCP_FO_MAX_ADD_SCOPES: UInt32 = 20130
+ERROR_DHCP_FO_BOOT_NOT_SUPPORTED: UInt32 = 20131
+ERROR_DHCP_FO_RANGE_PART_OF_REL: UInt32 = 20132
+ERROR_DHCP_FO_SCOPE_SYNC_IN_PROGRESS: UInt32 = 20133
+ERROR_DHCP_FO_FEATURE_NOT_SUPPORTED: UInt32 = 20134
+ERROR_DHCP_POLICY_FQDN_RANGE_UNSUPPORTED: UInt32 = 20135
+ERROR_DHCP_POLICY_FQDN_OPTION_UNSUPPORTED: UInt32 = 20136
+ERROR_DHCP_POLICY_EDIT_FQDN_UNSUPPORTED: UInt32 = 20137
+ERROR_DHCP_NAP_NOT_SUPPORTED: UInt32 = 20138
+ERROR_LAST_DHCP_SERVER_ERROR: UInt32 = 20139
+DHCP_SUBNET_INFO_VQ_FLAG_QUARANTINE: UInt32 = 1
+MAX_PATTERN_LENGTH: UInt32 = 255
+MAC_ADDRESS_LENGTH: UInt32 = 6
+HWTYPE_ETHERNET_10MB: UInt32 = 1
+FILTER_STATUS_NONE: UInt32 = 1
+FILTER_STATUS_FULL_MATCH_IN_ALLOW_LIST: UInt32 = 2
+FILTER_STATUS_FULL_MATCH_IN_DENY_LIST: UInt32 = 4
+FILTER_STATUS_WILDCARD_MATCH_IN_ALLOW_LIST: UInt32 = 8
+FILTER_STATUS_WILDCARD_MATCH_IN_DENY_LIST: UInt32 = 16
+Set_APIProtocolSupport: UInt32 = 1
+Set_DatabaseName: UInt32 = 2
+Set_DatabasePath: UInt32 = 4
+Set_BackupPath: UInt32 = 8
+Set_BackupInterval: UInt32 = 16
+Set_DatabaseLoggingFlag: UInt32 = 32
+Set_RestoreFlag: UInt32 = 64
+Set_DatabaseCleanupInterval: UInt32 = 128
+Set_DebugFlag: UInt32 = 256
+Set_PingRetries: UInt32 = 512
+Set_BootFileTable: UInt32 = 1024
+Set_AuditLogState: UInt32 = 2048
+Set_QuarantineON: UInt32 = 4096
+Set_QuarantineDefFail: UInt32 = 8192
+CLIENT_TYPE_UNSPECIFIED: UInt32 = 0
+CLIENT_TYPE_DHCP: UInt32 = 1
+CLIENT_TYPE_BOOTP: UInt32 = 2
+CLIENT_TYPE_RESERVATION_FLAG: UInt32 = 4
+CLIENT_TYPE_NONE: UInt32 = 100
+Set_UnicastFlag: UInt32 = 1
+Set_RapidCommitFlag: UInt32 = 2
+Set_PreferredLifetime: UInt32 = 4
+Set_ValidLifetime: UInt32 = 8
+Set_T1: UInt32 = 16
+Set_T2: UInt32 = 32
+Set_PreferredLifetimeIATA: UInt32 = 64
+Set_ValidLifetimeIATA: UInt32 = 128
+V5_ADDRESS_STATE_OFFERED: UInt32 = 0
+V5_ADDRESS_STATE_ACTIVE: UInt32 = 1
+V5_ADDRESS_STATE_DECLINED: UInt32 = 2
+V5_ADDRESS_STATE_DOOM: UInt32 = 3
+V5_ADDRESS_BIT_DELETED: UInt32 = 128
+V5_ADDRESS_BIT_UNREGISTERED: UInt32 = 64
+V5_ADDRESS_BIT_BOTH_REC: UInt32 = 32
+V5_ADDRESS_EX_BIT_DISABLE_PTR_RR: UInt32 = 1
+DNS_FLAG_ENABLED: UInt32 = 1
+DNS_FLAG_UPDATE_DOWNLEVEL: UInt32 = 2
+DNS_FLAG_CLEANUP_EXPIRED: UInt32 = 4
+DNS_FLAG_UPDATE_BOTH_ALWAYS: UInt32 = 16
+DNS_FLAG_UPDATE_DHCID: UInt32 = 32
+DNS_FLAG_DISABLE_PTR_UPDATE: UInt32 = 64
+DNS_FLAG_HAS_DNS_SUFFIX: UInt32 = 128
+DHCP_OPT_ENUM_IGNORE_VENDOR: UInt32 = 1
+DHCP_OPT_ENUM_USE_CLASSNAME: UInt32 = 2
+DHCP_FLAGS_DONT_ACCESS_DS: UInt32 = 1
+DHCP_FLAGS_DONT_DO_RPC: UInt32 = 2
+DHCP_FLAGS_OPTION_IS_VENDOR: UInt32 = 3
+DHCP_ATTRIB_BOOL_IS_ROGUE: UInt32 = 1
+DHCP_ATTRIB_BOOL_IS_DYNBOOTP: UInt32 = 2
+DHCP_ATTRIB_BOOL_IS_PART_OF_DSDC: UInt32 = 3
+DHCP_ATTRIB_BOOL_IS_BINDING_AWARE: UInt32 = 4
+DHCP_ATTRIB_BOOL_IS_ADMIN: UInt32 = 5
+DHCP_ATTRIB_ULONG_RESTORE_STATUS: UInt32 = 6
+DHCP_ATTRIB_TYPE_BOOL: UInt32 = 1
+DHCP_ATTRIB_TYPE_ULONG: UInt32 = 2
+DHCP_ENDPOINT_FLAG_CANT_MODIFY: UInt32 = 1
+QUARANTIN_OPTION_BASE: UInt32 = 43220
+QUARANTINE_SCOPE_QUARPROFILE_OPTION: UInt32 = 43221
+QUARANTINE_CONFIG_OPTION: UInt32 = 43222
+ADDRESS_TYPE_IANA: UInt32 = 0
+ADDRESS_TYPE_IATA: UInt32 = 1
+DHCP_MIN_DELAY: UInt32 = 0
+DHCP_MAX_DELAY: UInt32 = 1000
+DHCP_FAILOVER_DELETE_SCOPES: UInt32 = 1
+DHCP_FAILOVER_MAX_NUM_ADD_SCOPES: UInt32 = 400
+DHCP_FAILOVER_MAX_NUM_REL: UInt32 = 31
+MCLT: UInt32 = 1
+SAFEPERIOD: UInt32 = 2
+CHANGESTATE: UInt32 = 4
+PERCENTAGE: UInt32 = 8
+MODE: UInt32 = 16
+PREVSTATE: UInt32 = 32
+SHAREDSECRET: UInt32 = 64
+DHCP_CALLOUT_LIST_KEY: String = 'System\\CurrentControlSet\\Services\\DHCPServer\\Parameters'
+DHCP_CALLOUT_LIST_VALUE: String = 'CalloutDlls'
+DHCP_CALLOUT_ENTRY_POINT: String = 'DhcpServerCalloutEntry'
+DHCP_CONTROL_START: UInt32 = 1
+DHCP_CONTROL_STOP: UInt32 = 2
+DHCP_CONTROL_PAUSE: UInt32 = 3
+DHCP_CONTROL_CONTINUE: UInt32 = 4
+DHCP_DROP_DUPLICATE: UInt32 = 1
+DHCP_DROP_NOMEM: UInt32 = 2
+DHCP_DROP_INTERNAL_ERROR: UInt32 = 3
+DHCP_DROP_TIMEOUT: UInt32 = 4
+DHCP_DROP_UNAUTH: UInt32 = 5
+DHCP_DROP_PAUSED: UInt32 = 6
+DHCP_DROP_NO_SUBNETS: UInt32 = 7
+DHCP_DROP_INVALID: UInt32 = 8
+DHCP_DROP_WRONG_SERVER: UInt32 = 9
+DHCP_DROP_NOADDRESS: UInt32 = 10
+DHCP_DROP_PROCESSED: UInt32 = 11
+DHCP_DROP_GEN_FAILURE: UInt32 = 256
+DHCP_SEND_PACKET: UInt32 = 268435456
+DHCP_PROB_CONFLICT: UInt32 = 536870913
+DHCP_PROB_DECLINE: UInt32 = 536870914
+DHCP_PROB_RELEASE: UInt32 = 536870915
+DHCP_PROB_NACKED: UInt32 = 536870916
+DHCP_GIVE_ADDRESS_NEW: UInt32 = 805306369
+DHCP_GIVE_ADDRESS_OLD: UInt32 = 805306370
+DHCP_CLIENT_BOOTP: UInt32 = 805306371
+DHCP_CLIENT_DHCP: UInt32 = 805306372
+DHCPV6_OPTION_CLIENTID: UInt32 = 1
+DHCPV6_OPTION_SERVERID: UInt32 = 2
+DHCPV6_OPTION_IA_NA: UInt32 = 3
+DHCPV6_OPTION_IA_TA: UInt32 = 4
+DHCPV6_OPTION_ORO: UInt32 = 6
+DHCPV6_OPTION_PREFERENCE: UInt32 = 7
+DHCPV6_OPTION_UNICAST: UInt32 = 12
+DHCPV6_OPTION_RAPID_COMMIT: UInt32 = 14
+DHCPV6_OPTION_USER_CLASS: UInt32 = 15
+DHCPV6_OPTION_VENDOR_CLASS: UInt32 = 16
+DHCPV6_OPTION_VENDOR_OPTS: UInt32 = 17
+DHCPV6_OPTION_RECONF_MSG: UInt32 = 19
+DHCPV6_OPTION_SIP_SERVERS_NAMES: UInt32 = 21
+DHCPV6_OPTION_SIP_SERVERS_ADDRS: UInt32 = 22
+DHCPV6_OPTION_DNS_SERVERS: UInt32 = 23
+DHCPV6_OPTION_DOMAIN_LIST: UInt32 = 24
+DHCPV6_OPTION_IA_PD: UInt32 = 25
+DHCPV6_OPTION_NIS_SERVERS: UInt32 = 27
+DHCPV6_OPTION_NISP_SERVERS: UInt32 = 28
+DHCPV6_OPTION_NIS_DOMAIN_NAME: UInt32 = 29
+DHCPV6_OPTION_NISP_DOMAIN_NAME: UInt32 = 30
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6CApiInitialize(Version: POINTER(UInt32)) -> Void: ...
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6CApiCleanup() -> Void: ...
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6RequestParams(forceNewInform: win32more.Foundation.BOOL, reserved: c_void_p, adapterName: win32more.Foundation.PWSTR, classId: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head), recdParams: win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_ARRAY, buffer: c_char_p_no, pSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6RequestPrefix(adapterName: win32more.Foundation.PWSTR, pclassId: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head), prefixleaseInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head), pdwTimeToWait: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6RenewPrefix(adapterName: win32more.Foundation.PWSTR, pclassId: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head), prefixleaseInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head), pdwTimeToWait: POINTER(UInt32), bValidatePrefix: UInt32) -> UInt32: ...
+@winfunctype('dhcpcsvc6.dll')
+def Dhcpv6ReleasePrefix(adapterName: win32more.Foundation.PWSTR, classId: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head), leaseInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head)) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpCApiInitialize(Version: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpCApiCleanup() -> Void: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpRequestParams(Flags: UInt32, Reserved: c_void_p, AdapterName: win32more.Foundation.PWSTR, ClassId: POINTER(win32more.NetworkManagement.Dhcp.DHCPCAPI_CLASSID_head), SendParams: win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY, RecdParams: win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY, Buffer: c_char_p_no, pSize: POINTER(UInt32), RequestIdStr: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpUndoRequestParams(Flags: UInt32, Reserved: c_void_p, AdapterName: win32more.Foundation.PWSTR, RequestIdStr: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpRegisterParamChange(Flags: UInt32, Reserved: c_void_p, AdapterName: win32more.Foundation.PWSTR, ClassId: POINTER(win32more.NetworkManagement.Dhcp.DHCPCAPI_CLASSID_head), Params: win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY, Handle: c_void_p) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpDeRegisterParamChange(Flags: UInt32, Reserved: c_void_p, Event: c_void_p) -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpRemoveDNSRegistrations() -> UInt32: ...
+@winfunctype('dhcpcsvc.dll')
+def DhcpGetOriginalSubnetMask(sAdapterName: win32more.Foundation.PWSTR, dwSubnetMask: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddFilterV4(ServerIpAddress: win32more.Foundation.PWSTR, AddFilterInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_ADD_INFO_head), ForceFlag: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteFilterV4(ServerIpAddress: win32more.Foundation.PWSTR, DeleteFilterInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetFilterV4(ServerIpAddress: win32more.Foundation.PWSTR, GlobalFilterInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_GLOBAL_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetFilterV4(ServerIpAddress: win32more.Foundation.PWSTR, GlobalFilterInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_GLOBAL_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumFilterV4(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN_head), PreferredMaximum: UInt32, ListType: win32more.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE, EnumFilterInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_ENUM_INFO_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateSubnet(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetSubnetInfo(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetSubnetInfo(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnets(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddSubnetElement(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, AddElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetElements(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, EnumElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumElementInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveSubnetElement(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, RemoveElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head), ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteSubnet(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateOption(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionInfo(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionInfo(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, OptionInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptions(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, Options: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOption(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionValues(ServerIpAddress: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValues: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptionValues(ServerIpAddress: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, OptionValues: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, OptionID: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateClientInfoVQ(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetClientInfoVQ(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClientInfoVQ(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClientsVQ(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_VQ_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClients(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClientOptions(ServerIpAddress: win32more.Foundation.PWSTR, ClientIpAddress: UInt32, ClientSubnetMask: UInt32, ClientOptions: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_LIST_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetMibInfo(ServerIpAddress: win32more.Foundation.PWSTR, MibInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetConfig(ServerIpAddress: win32more.Foundation.PWSTR, FieldsToSet: UInt32, ConfigInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerGetConfig(ServerIpAddress: win32more.Foundation.PWSTR, ConfigInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpScanDatabase(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, FixFlag: UInt32, ScanList: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SCAN_LIST_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRpcFreeMemory(BufferPointer: c_void_p) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetVersion(ServerIpAddress: win32more.Foundation.PWSTR, MajorVersion: POINTER(UInt32), MinorVersion: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddSubnetElementV4(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, AddElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetElementsV4(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, EnumElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumElementInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveSubnetElementV4(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, RemoveElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head), ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateClientInfoV4(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetClientInfoV4(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClientInfoV4(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClientsV4(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V4_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetConfigV4(ServerIpAddress: win32more.Foundation.PWSTR, FieldsToSet: UInt32, ConfigInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V4_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerGetConfigV4(ServerIpAddress: win32more.Foundation.PWSTR, ConfigInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V4_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetSuperScopeV4(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SuperScopeName: win32more.Foundation.PWSTR, ChangeExisting: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteSuperScopeV4(ServerIpAddress: win32more.Foundation.PWSTR, SuperScopeName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetSuperScopeInfoV4(ServerIpAddress: win32more.Foundation.PWSTR, SuperScopeTable: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClientsV5(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V5_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateOptionV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionId: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionInfoV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionInfoV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptionsV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, Options: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOptionV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionValueV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionId: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionValuesV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValues: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionValueV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionValueV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), OptionValue: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptionValuesV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, OptionValues: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOptionValueV5(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateClass(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpModifyClass(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteClass(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClassInfo(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, PartialClassInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head), FilledClassInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumClasses(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClassInfoArray: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_head)), nRead: POINTER(UInt32), nTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetAllOptions(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionStruct: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTIONS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetAllOptionsV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionStruct: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTIONS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetAllOptionValues(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), Values: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetAllOptionValuesV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), Values: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumServers(Flags: UInt32, IdInfo: c_void_p, Servers: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVERS_head)), CallbackFn: c_void_p, CallbackData: c_void_p) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddServer(Flags: UInt32, IdInfo: c_void_p, NewServer: POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head), CallbackFn: c_void_p, CallbackData: c_void_p) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteServer(Flags: UInt32, IdInfo: c_void_p, NewServer: POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head), CallbackFn: c_void_p, CallbackData: c_void_p) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetServerBindingInfo(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, BindElementsInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_ARRAY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetServerBindingInfo(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, BindElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_ARRAY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddSubnetElementV5(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, AddElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetElementsV5(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, EnumElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumElementInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveSubnetElementV5(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, RemoveElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head), ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4EnumSubnetReservations(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumElementInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_RESERVATION_INFO_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateOptionV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionId: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOptionV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptionsV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, Options: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveOptionValueV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetOptionInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, OptionInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetOptionValueV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionId: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), OptionValue: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetSubnetInfoVQ(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateSubnetVQ(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetSubnetInfoVQ(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumOptionValuesV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ClassName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, OptionValues: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)), OptionsRead: POINTER(UInt32), OptionsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDsInit() -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDsCleanup() -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetThreadOptions(Flags: UInt32, Reserved: c_void_p) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetThreadOptions(pFlags: POINTER(UInt32), Reserved: c_void_p) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerQueryAttribute(ServerIpAddr: win32more.Foundation.PWSTR, dwReserved: UInt32, DhcpAttribId: UInt32, pDhcpAttrib: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerQueryAttributes(ServerIpAddr: win32more.Foundation.PWSTR, dwReserved: UInt32, dwAttribCount: UInt32, pDhcpAttribs: POINTER(UInt32), pDhcpAttribArr: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_ARRAY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerRedoAuthorization(ServerIpAddr: win32more.Foundation.PWSTR, dwReserved: UInt32) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAuditLogSetParams(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, AuditLogDir: win32more.Foundation.PWSTR, DiskCheckInterval: UInt32, MaxLogFilesSize: UInt32, MinSpaceOnDisk: UInt32) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAuditLogGetParams(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, AuditLogDir: POINTER(win32more.Foundation.PWSTR), DiskCheckInterval: POINTER(UInt32), MaxLogFilesSize: POINTER(UInt32), MinSpaceOnDisk: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerQueryDnsRegCredentials(ServerIpAddress: win32more.Foundation.PWSTR, UnameSize: UInt32, Uname: win32more.Foundation.PWSTR, DomainSize: UInt32, Domain: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetDnsRegCredentials(ServerIpAddress: win32more.Foundation.PWSTR, Uname: win32more.Foundation.PWSTR, Domain: win32more.Foundation.PWSTR, Passwd: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetDnsRegCredentialsV5(ServerIpAddress: win32more.Foundation.PWSTR, Uname: win32more.Foundation.PWSTR, Domain: win32more.Foundation.PWSTR, Passwd: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerBackupDatabase(ServerIpAddress: win32more.Foundation.PWSTR, Path: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerRestoreDatabase(ServerIpAddress: win32more.Foundation.PWSTR, Path: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetConfigVQ(ServerIpAddress: win32more.Foundation.PWSTR, FieldsToSet: UInt32, ConfigInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerGetConfigVQ(ServerIpAddress: win32more.Foundation.PWSTR, ConfigInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetServerSpecificStrings(ServerIpAddress: win32more.Foundation.PWSTR, ServerSpecificStrings: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_SPECIFIC_STRINGS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerAuditlogParamsFree(ConfigInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateSubnetV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteSubnetV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetsV6(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_IP_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddSubnetElementV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, AddElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpRemoveSubnetElementV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, RemoveElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head), ForceFlag: win32more.NetworkManagement.Dhcp.DHCP_FORCE_FLAG) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetElementsV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, EnumElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, EnumElementInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetSubnetInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, SubnetInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumSubnetClientsV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, ResumeHandle: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_ARRAY_V6_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerGetConfigV6(ServerIpAddress: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), ConfigInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V6_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpServerSetConfigV6(ServerIpAddress: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head), FieldsToSet: UInt32, ConfigInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetSubnetInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, SubnetInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetMibInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, MibInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V6_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetServerBindingInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, BindElementsInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_ARRAY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetServerBindingInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, BindElementInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_ARRAY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetClientInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetClientInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_V6_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteClientInfoV6(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpCreateClassV6(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpModifyClassV6(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpDeleteClassV6(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ClassName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpEnumClassesV6(ServerIpAddress: win32more.Foundation.PWSTR, ReservedMustBeZero: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClassInfoArray: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_ARRAY_V6_head)), nRead: POINTER(UInt32), nTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpSetSubnetDelayOffer(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, TimeDelayInMilliseconds: UInt16) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetSubnetDelayOffer(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, TimeDelayInMilliseconds: POINTER(UInt16)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpGetMibInfoV5(ServerIpAddress: win32more.Foundation.PWSTR, MibInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V5_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpAddSecurityGroup(pServer: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, PolicyName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4SetOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionId: UInt32, PolicyName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValue: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4SetOptionValues(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, PolicyName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), OptionValues: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4RemoveOptionValue(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, OptionID: UInt32, PolicyName: win32more.Foundation.PWSTR, VendorName: win32more.Foundation.PWSTR, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetAllOptionValues(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head), Values: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_ALL_OPTION_VALUES_PB_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverCreateRelationship(ServerIpAddress: win32more.Foundation.PWSTR, pRelationship: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverSetRelationship(ServerIpAddress: win32more.Foundation.PWSTR, Flags: UInt32, pRelationship: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverDeleteRelationship(ServerIpAddress: win32more.Foundation.PWSTR, pRelationshipName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetRelationship(ServerIpAddress: win32more.Foundation.PWSTR, pRelationshipName: win32more.Foundation.PWSTR, pRelationship: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverEnumRelationship(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, pRelationship: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_ARRAY_head)), RelationshipRead: POINTER(UInt32), RelationshipTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverAddScopeToRelationship(ServerIpAddress: win32more.Foundation.PWSTR, pRelationship: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverDeleteScopeFromRelationship(ServerIpAddress: win32more.Foundation.PWSTR, pRelationship: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetScopeRelationship(ServerIpAddress: win32more.Foundation.PWSTR, ScopeId: UInt32, pRelationship: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetScopeStatistics(ServerIpAddress: win32more.Foundation.PWSTR, ScopeId: UInt32, pStats: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_STATISTICS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetSystemTime(ServerIpAddress: win32more.Foundation.PWSTR, pTime: POINTER(UInt32), pMaxAllowedDeltaTime: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverGetAddressStatus(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, pStatus: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4FailoverTriggerAddrAllocation(ServerIpAddress: win32more.Foundation.PWSTR, pFailRelName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprCreateV4Policy(PolicyName: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, Subnet: UInt32, ProcessingOrder: UInt32, RootOperator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER, Description: win32more.Foundation.PWSTR, Enabled: win32more.Foundation.BOOL, Policy: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprCreateV4PolicyEx(PolicyName: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, Subnet: UInt32, ProcessingOrder: UInt32, RootOperator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER, Description: win32more.Foundation.PWSTR, Enabled: win32more.Foundation.BOOL, Policy: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprAddV4PolicyExpr(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head), ParentExpr: UInt32, Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER, ExprIndex: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprAddV4PolicyCondition(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head), ParentExpr: UInt32, Type: win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE, OptionID: UInt32, SubOptionID: UInt32, VendorName: win32more.Foundation.PWSTR, Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR, Value: c_char_p_no, ValueLength: UInt32, ConditionIndex: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprAddV4PolicyRange(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head), Range: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprResetV4PolicyExpr(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprModifyV4PolicyExpr(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head), Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4Policy(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4PolicyArray(PolicyArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_ARRAY_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4PolicyEx(PolicyEx: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4PolicyExArray(PolicyExArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4DhcpProperty(Property: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFreeV4DhcpPropertyArray(PropertyArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head)) -> Void: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprFindV4DhcpProperty(PropertyArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head), ID: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ID, Type: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE) -> POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head): ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprIsV4PolicySingleUC(Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4QueryPolicyEnforcement(ServerIpAddress: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, Enabled: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4SetPolicyEnforcement(ServerIpAddress: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, Enable: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprIsV4PolicyWellFormed(pPolicy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpHlprIsV4PolicyValid(pPolicy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4CreatePolicy(ServerIpAddress: win32more.Foundation.PWSTR, pPolicy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetPolicy(ServerIpAddress: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Policy: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4SetPolicy(ServerIpAddress: win32more.Foundation.PWSTR, FieldsModified: UInt32, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4DeletePolicy(ServerIpAddress: win32more.Foundation.PWSTR, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4EnumPolicies(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, fGlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, EnumInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4AddPolicyRange(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Range: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4RemovePolicyRange(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Range: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV6SetStatelessStoreParams(ServerIpAddress: win32more.Foundation.PWSTR, fServerLevel: win32more.Foundation.BOOL, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, FieldModified: UInt32, Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAMS_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV6GetStatelessStoreParams(ServerIpAddress: win32more.Foundation.PWSTR, fServerLevel: win32more.Foundation.BOOL, SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, Params: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAMS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV6GetStatelessStatistics(ServerIpAddress: win32more.Foundation.PWSTR, StatelessStats: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_STATS_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4CreateClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4EnumSubnetClients(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_ARRAY_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV6CreateClientInfo(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetFreeIPAddress(ServerIpAddress: win32more.Foundation.PWSTR, ScopeId: UInt32, StartIP: UInt32, EndIP: UInt32, NumFreeAddrReq: UInt32, IPAddrList: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV6GetFreeIPAddress(ServerIpAddress: win32more.Foundation.PWSTR, ScopeId: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, StartIP: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, EndIP: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS, NumFreeAddrReq: UInt32, IPAddrList: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_IP_ARRAY_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4CreateClientInfoEx(ServerIpAddress: win32more.Foundation.PWSTR, ClientInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4EnumSubnetClientsEx(ServerIpAddress: win32more.Foundation.PWSTR, SubnetAddress: UInt32, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_ARRAY_head)), ClientsRead: POINTER(UInt32), ClientsTotal: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetClientInfoEx(ServerIpAddress: win32more.Foundation.PWSTR, SearchInfo: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head), ClientInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4CreatePolicyEx(ServerIpAddress: win32more.Foundation.PWSTR, PolicyEx: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4GetPolicyEx(ServerIpAddress: win32more.Foundation.PWSTR, GlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Policy: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head))) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4SetPolicyEx(ServerIpAddress: win32more.Foundation.PWSTR, FieldsModified: UInt32, GlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Foundation.PWSTR, Policy: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)) -> UInt32: ...
+@winfunctype('DHCPSAPI.dll')
+def DhcpV4EnumPoliciesEx(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, GlobalPolicy: win32more.Foundation.BOOL, SubnetAddress: UInt32, EnumInfo: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY_head)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
+class DATE_TIME(Structure):
+    dwLowDateTime: UInt32
+    dwHighDateTime: UInt32
+class DHCP_ADDR_PATTERN(Structure):
+    MatchHWType: win32more.Foundation.BOOL
+    HWType: Byte
+    IsWildcard: win32more.Foundation.BOOL
+    Length: Byte
+    Pattern: Byte * 255
+class DHCP_ALL_OPTION_VALUES(Structure):
+    Flags: UInt32
+    NumElements: UInt32
+    Options: POINTER(_Anonymous_e__Struct)
+    class _Anonymous_e__Struct(Structure):
+        ClassName: win32more.Foundation.PWSTR
+        VendorName: win32more.Foundation.PWSTR
+        IsVendor: win32more.Foundation.BOOL
+        OptionsArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)
+class DHCP_ALL_OPTION_VALUES_PB(Structure):
+    Flags: UInt32
+    NumElements: UInt32
+    Options: POINTER(_Anonymous_e__Struct)
+    class _Anonymous_e__Struct(Structure):
+        PolicyName: win32more.Foundation.PWSTR
+        VendorName: win32more.Foundation.PWSTR
+        IsVendor: win32more.Foundation.BOOL
+        OptionsArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)
+class DHCP_ALL_OPTIONS(Structure):
+    Flags: UInt32
+    NonVendorOptions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)
+    NumVendorOptions: UInt32
+    VendorOptions: POINTER(_Anonymous_e__Struct)
+    class _Anonymous_e__Struct(Structure):
+        Option: win32more.NetworkManagement.Dhcp.DHCP_OPTION
+        VendorName: win32more.Foundation.PWSTR
+        ClassName: win32more.Foundation.PWSTR
+class DHCP_ATTRIB(Structure):
+    DhcpAttribId: UInt32
+    DhcpAttribType: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        DhcpAttribBool: win32more.Foundation.BOOL
+        DhcpAttribUlong: UInt32
+class DHCP_ATTRIB_ARRAY(Structure):
+    NumElements: UInt32
+    DhcpAttribs: POINTER(win32more.NetworkManagement.Dhcp.DHCP_ATTRIB_head)
+class DHCP_BINARY_DATA(Structure):
+    DataLength: UInt32
+    Data: c_char_p_no
+class DHCP_BIND_ELEMENT(Structure):
+    Flags: UInt32
+    fBoundToDHCPServer: win32more.Foundation.BOOL
+    AdapterPrimaryAddress: UInt32
+    AdapterSubnetAddress: UInt32
+    IfDescription: win32more.Foundation.PWSTR
+    IfIdSize: UInt32
+    IfId: c_char_p_no
+class DHCP_BIND_ELEMENT_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT_head)
+class DHCP_BOOTP_IP_RANGE(Structure):
+    StartAddress: UInt32
+    EndAddress: UInt32
+    BootpAllocated: UInt32
+    MaxBootpAllowed: UInt32
+class DHCP_CALLOUT_TABLE(Structure):
+    DhcpControlHook: win32more.NetworkManagement.Dhcp.LPDHCP_CONTROL
+    DhcpNewPktHook: win32more.NetworkManagement.Dhcp.LPDHCP_NEWPKT
+    DhcpPktDropHook: win32more.NetworkManagement.Dhcp.LPDHCP_DROP_SEND
+    DhcpPktSendHook: win32more.NetworkManagement.Dhcp.LPDHCP_DROP_SEND
+    DhcpAddressDelHook: win32more.NetworkManagement.Dhcp.LPDHCP_PROB
+    DhcpAddressOfferHook: win32more.NetworkManagement.Dhcp.LPDHCP_GIVE_ADDRESS
+    DhcpHandleOptionsHook: win32more.NetworkManagement.Dhcp.LPDHCP_HANDLE_OPTIONS
+    DhcpDeleteClientHook: win32more.NetworkManagement.Dhcp.LPDHCP_DELETE_CLIENT
+    DhcpExtensionHook: c_void_p
+    DhcpReservedHook: c_void_p
+class DHCP_CLASS_INFO(Structure):
+    ClassName: win32more.Foundation.PWSTR
+    ClassComment: win32more.Foundation.PWSTR
+    ClassDataLength: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    Flags: UInt32
+    ClassData: c_char_p_no
+class DHCP_CLASS_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Classes: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_head)
+class DHCP_CLASS_INFO_ARRAY_V6(Structure):
+    NumElements: UInt32
+    Classes: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6_head)
+class DHCP_CLASS_INFO_V6(Structure):
+    ClassName: win32more.Foundation.PWSTR
+    ClassComment: win32more.Foundation.PWSTR
+    ClassDataLength: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    EnterpriseNumber: UInt32
+    Flags: UInt32
+    ClassData: c_char_p_no
+class DHCP_CLIENT_FILTER_STATUS_INFO(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    FilterStatus: UInt32
+class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO_head))
+class DHCP_CLIENT_INFO(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+class DHCP_CLIENT_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_head))
+class DHCP_CLIENT_INFO_ARRAY_V4(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4_head))
+class DHCP_CLIENT_INFO_ARRAY_V5(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V5_head))
+class DHCP_CLIENT_INFO_ARRAY_V6(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6_head))
+class DHCP_CLIENT_INFO_ARRAY_VQ(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ_head))
+class DHCP_CLIENT_INFO_EX(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    FilterStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+    Properties: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head)
+class DHCP_CLIENT_INFO_EX_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX_head))
+class DHCP_CLIENT_INFO_PB(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    FilterStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+class DHCP_CLIENT_INFO_PB_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB_head))
+class DHCP_CLIENT_INFO_V4(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+class DHCP_CLIENT_INFO_V5(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+class DHCP_CLIENT_INFO_V6(Structure):
+    ClientIpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    ClientDUID: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    AddressType: UInt32
+    IAID: UInt32
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientValidLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    ClientPrefLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_V6
+class DHCP_CLIENT_INFO_VQ(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+class DHCP_CLIENT_SEARCH_UNION(Union):
+    pass
 DHCP_FAILOVER_MODE = Int32
-DHCP_FAILOVER_MODE_LoadBalance = 0
-DHCP_FAILOVER_MODE_HotStandby = 1
-def _define_DHCP_FAILOVER_RELATIONSHIP_head():
-    class DHCP_FAILOVER_RELATIONSHIP(Structure):
-        pass
-    return DHCP_FAILOVER_RELATIONSHIP
-def _define_DHCP_FAILOVER_RELATIONSHIP():
-    DHCP_FAILOVER_RELATIONSHIP = win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head
-    DHCP_FAILOVER_RELATIONSHIP._fields_ = [
-        ('PrimaryServer', UInt32),
-        ('SecondaryServer', UInt32),
-        ('Mode', win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE),
-        ('ServerType', win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER),
-        ('State', win32more.NetworkManagement.Dhcp.FSM_STATE),
-        ('PrevState', win32more.NetworkManagement.Dhcp.FSM_STATE),
-        ('Mclt', UInt32),
-        ('SafePeriod', UInt32),
-        ('RelationshipName', win32more.Foundation.PWSTR),
-        ('PrimaryServerName', win32more.Foundation.PWSTR),
-        ('SecondaryServerName', win32more.Foundation.PWSTR),
-        ('pScopes', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head)),
-        ('Percentage', Byte),
-        ('SharedSecret', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_FAILOVER_RELATIONSHIP
-def _define_DHCP_FAILOVER_RELATIONSHIP_ARRAY_head():
-    class DHCP_FAILOVER_RELATIONSHIP_ARRAY(Structure):
-        pass
-    return DHCP_FAILOVER_RELATIONSHIP_ARRAY
-def _define_DHCP_FAILOVER_RELATIONSHIP_ARRAY():
-    DHCP_FAILOVER_RELATIONSHIP_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_ARRAY_head
-    DHCP_FAILOVER_RELATIONSHIP_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('pRelationships', POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)),
-    ]
-    return DHCP_FAILOVER_RELATIONSHIP_ARRAY
+DHCP_FAILOVER_MODE_LoadBalance: DHCP_FAILOVER_MODE = 0
+DHCP_FAILOVER_MODE_HotStandby: DHCP_FAILOVER_MODE = 1
+class DHCP_FAILOVER_RELATIONSHIP(Structure):
+    PrimaryServer: UInt32
+    SecondaryServer: UInt32
+    Mode: win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE
+    ServerType: win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER
+    State: win32more.NetworkManagement.Dhcp.FSM_STATE
+    PrevState: win32more.NetworkManagement.Dhcp.FSM_STATE
+    Mclt: UInt32
+    SafePeriod: UInt32
+    RelationshipName: win32more.Foundation.PWSTR
+    PrimaryServerName: win32more.Foundation.PWSTR
+    SecondaryServerName: win32more.Foundation.PWSTR
+    pScopes: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head)
+    Percentage: Byte
+    SharedSecret: win32more.Foundation.PWSTR
+class DHCP_FAILOVER_RELATIONSHIP_ARRAY(Structure):
+    NumElements: UInt32
+    pRelationships: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP_head)
 DHCP_FAILOVER_SERVER = Int32
-DHCP_FAILOVER_SERVER_PrimaryServer = 0
-DHCP_FAILOVER_SERVER_SecondaryServer = 1
-def _define_DHCP_FAILOVER_STATISTICS_head():
-    class DHCP_FAILOVER_STATISTICS(Structure):
-        pass
-    return DHCP_FAILOVER_STATISTICS
-def _define_DHCP_FAILOVER_STATISTICS():
-    DHCP_FAILOVER_STATISTICS = win32more.NetworkManagement.Dhcp.DHCP_FAILOVER_STATISTICS_head
-    DHCP_FAILOVER_STATISTICS._fields_ = [
-        ('NumAddr', UInt32),
-        ('AddrFree', UInt32),
-        ('AddrInUse', UInt32),
-        ('PartnerAddrFree', UInt32),
-        ('ThisAddrFree', UInt32),
-        ('PartnerAddrInUse', UInt32),
-        ('ThisAddrInUse', UInt32),
-    ]
-    return DHCP_FAILOVER_STATISTICS
-def _define_DHCP_FILTER_ADD_INFO_head():
-    class DHCP_FILTER_ADD_INFO(Structure):
-        pass
-    return DHCP_FILTER_ADD_INFO
-def _define_DHCP_FILTER_ADD_INFO():
-    DHCP_FILTER_ADD_INFO = win32more.NetworkManagement.Dhcp.DHCP_FILTER_ADD_INFO_head
-    DHCP_FILTER_ADD_INFO._fields_ = [
-        ('AddrPatt', win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN),
-        ('Comment', win32more.Foundation.PWSTR),
-        ('ListType', win32more.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE),
-    ]
-    return DHCP_FILTER_ADD_INFO
-def _define_DHCP_FILTER_ENUM_INFO_head():
-    class DHCP_FILTER_ENUM_INFO(Structure):
-        pass
-    return DHCP_FILTER_ENUM_INFO
-def _define_DHCP_FILTER_ENUM_INFO():
-    DHCP_FILTER_ENUM_INFO = win32more.NetworkManagement.Dhcp.DHCP_FILTER_ENUM_INFO_head
-    DHCP_FILTER_ENUM_INFO._fields_ = [
-        ('NumElements', UInt32),
-        ('pEnumRecords', POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_RECORD_head)),
-    ]
-    return DHCP_FILTER_ENUM_INFO
-def _define_DHCP_FILTER_GLOBAL_INFO_head():
-    class DHCP_FILTER_GLOBAL_INFO(Structure):
-        pass
-    return DHCP_FILTER_GLOBAL_INFO
-def _define_DHCP_FILTER_GLOBAL_INFO():
-    DHCP_FILTER_GLOBAL_INFO = win32more.NetworkManagement.Dhcp.DHCP_FILTER_GLOBAL_INFO_head
-    DHCP_FILTER_GLOBAL_INFO._fields_ = [
-        ('EnforceAllowList', win32more.Foundation.BOOL),
-        ('EnforceDenyList', win32more.Foundation.BOOL),
-    ]
-    return DHCP_FILTER_GLOBAL_INFO
+DHCP_FAILOVER_SERVER_PrimaryServer: DHCP_FAILOVER_SERVER = 0
+DHCP_FAILOVER_SERVER_SecondaryServer: DHCP_FAILOVER_SERVER = 1
+class DHCP_FAILOVER_STATISTICS(Structure):
+    NumAddr: UInt32
+    AddrFree: UInt32
+    AddrInUse: UInt32
+    PartnerAddrFree: UInt32
+    ThisAddrFree: UInt32
+    PartnerAddrInUse: UInt32
+    ThisAddrInUse: UInt32
+class DHCP_FILTER_ADD_INFO(Structure):
+    AddrPatt: win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN
+    Comment: win32more.Foundation.PWSTR
+    ListType: win32more.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE
+class DHCP_FILTER_ENUM_INFO(Structure):
+    NumElements: UInt32
+    pEnumRecords: POINTER(win32more.NetworkManagement.Dhcp.DHCP_FILTER_RECORD_head)
+class DHCP_FILTER_GLOBAL_INFO(Structure):
+    EnforceAllowList: win32more.Foundation.BOOL
+    EnforceDenyList: win32more.Foundation.BOOL
 DHCP_FILTER_LIST_TYPE = Int32
-DHCP_FILTER_LIST_TYPE_Deny = 0
-DHCP_FILTER_LIST_TYPE_Allow = 1
-def _define_DHCP_FILTER_RECORD_head():
-    class DHCP_FILTER_RECORD(Structure):
-        pass
-    return DHCP_FILTER_RECORD
-def _define_DHCP_FILTER_RECORD():
-    DHCP_FILTER_RECORD = win32more.NetworkManagement.Dhcp.DHCP_FILTER_RECORD_head
-    DHCP_FILTER_RECORD._fields_ = [
-        ('AddrPatt', win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN),
-        ('Comment', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_FILTER_RECORD
+DHCP_FILTER_LIST_TYPE_Deny: DHCP_FILTER_LIST_TYPE = 0
+DHCP_FILTER_LIST_TYPE_Allow: DHCP_FILTER_LIST_TYPE = 1
+class DHCP_FILTER_RECORD(Structure):
+    AddrPatt: win32more.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN
+    Comment: win32more.Foundation.PWSTR
 DHCP_FORCE_FLAG = Int32
-DHCP_FORCE_FLAG_DhcpFullForce = 0
-DHCP_FORCE_FLAG_DhcpNoForce = 1
-DHCP_FORCE_FLAG_DhcpFailoverForce = 2
-def _define_DHCP_HOST_INFO_head():
-    class DHCP_HOST_INFO(Structure):
-        pass
-    return DHCP_HOST_INFO
-def _define_DHCP_HOST_INFO():
-    DHCP_HOST_INFO = win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head
-    DHCP_HOST_INFO._fields_ = [
-        ('IpAddress', UInt32),
-        ('NetBiosName', win32more.Foundation.PWSTR),
-        ('HostName', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_HOST_INFO
-def _define_DHCP_HOST_INFO_V6_head():
-    class DHCP_HOST_INFO_V6(Structure):
-        pass
-    return DHCP_HOST_INFO_V6
-def _define_DHCP_HOST_INFO_V6():
-    DHCP_HOST_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_V6_head
-    DHCP_HOST_INFO_V6._fields_ = [
-        ('IpAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('NetBiosName', win32more.Foundation.PWSTR),
-        ('HostName', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_HOST_INFO_V6
-def _define_DHCP_IP_ARRAY_head():
-    class DHCP_IP_ARRAY(Structure):
-        pass
-    return DHCP_IP_ARRAY
-def _define_DHCP_IP_ARRAY():
-    DHCP_IP_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_IP_ARRAY_head
-    DHCP_IP_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(UInt32)),
-    ]
-    return DHCP_IP_ARRAY
-def _define_DHCP_IP_CLUSTER_head():
-    class DHCP_IP_CLUSTER(Structure):
-        pass
-    return DHCP_IP_CLUSTER
-def _define_DHCP_IP_CLUSTER():
-    DHCP_IP_CLUSTER = win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head
-    DHCP_IP_CLUSTER._fields_ = [
-        ('ClusterAddress', UInt32),
-        ('ClusterMask', UInt32),
-    ]
-    return DHCP_IP_CLUSTER
-def _define_DHCP_IP_RANGE_head():
-    class DHCP_IP_RANGE(Structure):
-        pass
-    return DHCP_IP_RANGE
-def _define_DHCP_IP_RANGE():
-    DHCP_IP_RANGE = win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head
-    DHCP_IP_RANGE._fields_ = [
-        ('StartAddress', UInt32),
-        ('EndAddress', UInt32),
-    ]
-    return DHCP_IP_RANGE
-def _define_DHCP_IP_RANGE_ARRAY_head():
-    class DHCP_IP_RANGE_ARRAY(Structure):
-        pass
-    return DHCP_IP_RANGE_ARRAY
-def _define_DHCP_IP_RANGE_ARRAY():
-    DHCP_IP_RANGE_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY_head
-    DHCP_IP_RANGE_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-    ]
-    return DHCP_IP_RANGE_ARRAY
-def _define_DHCP_IP_RANGE_V6_head():
-    class DHCP_IP_RANGE_V6(Structure):
-        pass
-    return DHCP_IP_RANGE_V6
-def _define_DHCP_IP_RANGE_V6():
-    DHCP_IP_RANGE_V6 = win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6_head
-    DHCP_IP_RANGE_V6._fields_ = [
-        ('StartAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('EndAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-    ]
-    return DHCP_IP_RANGE_V6
-def _define_DHCP_IP_RESERVATION_head():
-    class DHCP_IP_RESERVATION(Structure):
-        pass
-    return DHCP_IP_RESERVATION
-def _define_DHCP_IP_RESERVATION():
-    DHCP_IP_RESERVATION = win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_head
-    DHCP_IP_RESERVATION._fields_ = [
-        ('ReservedIpAddress', UInt32),
-        ('ReservedForClient', POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)),
-    ]
-    return DHCP_IP_RESERVATION
-def _define_DHCP_IP_RESERVATION_INFO_head():
-    class DHCP_IP_RESERVATION_INFO(Structure):
-        pass
-    return DHCP_IP_RESERVATION_INFO
-def _define_DHCP_IP_RESERVATION_INFO():
-    DHCP_IP_RESERVATION_INFO = win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_INFO_head
-    DHCP_IP_RESERVATION_INFO._fields_ = [
-        ('ReservedIpAddress', UInt32),
-        ('ReservedForClient', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ReservedClientName', win32more.Foundation.PWSTR),
-        ('ReservedClientDesc', win32more.Foundation.PWSTR),
-        ('bAllowedClientTypes', Byte),
-        ('fOptionsPresent', Byte),
-    ]
-    return DHCP_IP_RESERVATION_INFO
-def _define_DHCP_IP_RESERVATION_V4_head():
-    class DHCP_IP_RESERVATION_V4(Structure):
-        pass
-    return DHCP_IP_RESERVATION_V4
-def _define_DHCP_IP_RESERVATION_V4():
-    DHCP_IP_RESERVATION_V4 = win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4_head
-    DHCP_IP_RESERVATION_V4._fields_ = [
-        ('ReservedIpAddress', UInt32),
-        ('ReservedForClient', POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)),
-        ('bAllowedClientTypes', Byte),
-    ]
-    return DHCP_IP_RESERVATION_V4
-def _define_DHCP_IP_RESERVATION_V6_head():
-    class DHCP_IP_RESERVATION_V6(Structure):
-        pass
-    return DHCP_IP_RESERVATION_V6
-def _define_DHCP_IP_RESERVATION_V6():
-    DHCP_IP_RESERVATION_V6 = win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V6_head
-    DHCP_IP_RESERVATION_V6._fields_ = [
-        ('ReservedIpAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('ReservedForClient', POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)),
-        ('InterfaceId', UInt32),
-    ]
-    return DHCP_IP_RESERVATION_V6
-def _define_DHCP_IPV6_ADDRESS_head():
-    class DHCP_IPV6_ADDRESS(Structure):
-        pass
-    return DHCP_IPV6_ADDRESS
-def _define_DHCP_IPV6_ADDRESS():
-    DHCP_IPV6_ADDRESS = win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head
-    DHCP_IPV6_ADDRESS._fields_ = [
-        ('HighOrderBits', UInt64),
-        ('LowOrderBits', UInt64),
-    ]
-    return DHCP_IPV6_ADDRESS
-def _define_DHCP_MIB_INFO_head():
-    class DHCP_MIB_INFO(Structure):
-        pass
-    return DHCP_MIB_INFO
-def _define_DHCP_MIB_INFO():
-    DHCP_MIB_INFO = win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_head
-    DHCP_MIB_INFO._fields_ = [
-        ('Discovers', UInt32),
-        ('Offers', UInt32),
-        ('Requests', UInt32),
-        ('Acks', UInt32),
-        ('Naks', UInt32),
-        ('Declines', UInt32),
-        ('Releases', UInt32),
-        ('ServerStartTime', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('Scopes', UInt32),
-        ('ScopeInfo', POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_head)),
-    ]
-    return DHCP_MIB_INFO
-def _define_DHCP_MIB_INFO_V5_head():
-    class DHCP_MIB_INFO_V5(Structure):
-        pass
-    return DHCP_MIB_INFO_V5
-def _define_DHCP_MIB_INFO_V5():
-    DHCP_MIB_INFO_V5 = win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V5_head
-    DHCP_MIB_INFO_V5._fields_ = [
-        ('Discovers', UInt32),
-        ('Offers', UInt32),
-        ('Requests', UInt32),
-        ('Acks', UInt32),
-        ('Naks', UInt32),
-        ('Declines', UInt32),
-        ('Releases', UInt32),
-        ('ServerStartTime', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QtnNumLeases', UInt32),
-        ('QtnPctQtnLeases', UInt32),
-        ('QtnProbationLeases', UInt32),
-        ('QtnNonQtnLeases', UInt32),
-        ('QtnExemptLeases', UInt32),
-        ('QtnCapableClients', UInt32),
-        ('QtnIASErrors', UInt32),
-        ('DelayedOffers', UInt32),
-        ('ScopesWithDelayedOffers', UInt32),
-        ('Scopes', UInt32),
-        ('ScopeInfo', POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V5_head)),
-    ]
-    return DHCP_MIB_INFO_V5
-def _define_DHCP_MIB_INFO_V6_head():
-    class DHCP_MIB_INFO_V6(Structure):
-        pass
-    return DHCP_MIB_INFO_V6
-def _define_DHCP_MIB_INFO_V6():
-    DHCP_MIB_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_V6_head
-    DHCP_MIB_INFO_V6._fields_ = [
-        ('Solicits', UInt32),
-        ('Advertises', UInt32),
-        ('Requests', UInt32),
-        ('Renews', UInt32),
-        ('Rebinds', UInt32),
-        ('Replies', UInt32),
-        ('Confirms', UInt32),
-        ('Declines', UInt32),
-        ('Releases', UInt32),
-        ('Informs', UInt32),
-        ('ServerStartTime', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('Scopes', UInt32),
-        ('ScopeInfo', POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V6_head)),
-    ]
-    return DHCP_MIB_INFO_V6
-def _define_DHCP_MIB_INFO_VQ_head():
-    class DHCP_MIB_INFO_VQ(Structure):
-        pass
-    return DHCP_MIB_INFO_VQ
-def _define_DHCP_MIB_INFO_VQ():
-    DHCP_MIB_INFO_VQ = win32more.NetworkManagement.Dhcp.DHCP_MIB_INFO_VQ_head
-    DHCP_MIB_INFO_VQ._fields_ = [
-        ('Discovers', UInt32),
-        ('Offers', UInt32),
-        ('Requests', UInt32),
-        ('Acks', UInt32),
-        ('Naks', UInt32),
-        ('Declines', UInt32),
-        ('Releases', UInt32),
-        ('ServerStartTime', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QtnNumLeases', UInt32),
-        ('QtnPctQtnLeases', UInt32),
-        ('QtnProbationLeases', UInt32),
-        ('QtnNonQtnLeases', UInt32),
-        ('QtnExemptLeases', UInt32),
-        ('QtnCapableClients', UInt32),
-        ('QtnIASErrors', UInt32),
-        ('Scopes', UInt32),
-        ('ScopeInfo', POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_VQ_head)),
-    ]
-    return DHCP_MIB_INFO_VQ
-def _define_DHCP_OPTION_head():
-    class DHCP_OPTION(Structure):
-        pass
-    return DHCP_OPTION
-def _define_DHCP_OPTION():
-    DHCP_OPTION = win32more.NetworkManagement.Dhcp.DHCP_OPTION_head
-    DHCP_OPTION._fields_ = [
-        ('OptionID', UInt32),
-        ('OptionName', win32more.Foundation.PWSTR),
-        ('OptionComment', win32more.Foundation.PWSTR),
-        ('DefaultValue', win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA),
-        ('OptionType', win32more.NetworkManagement.Dhcp.DHCP_OPTION_TYPE),
-    ]
-    return DHCP_OPTION
-def _define_DHCP_OPTION_ARRAY_head():
-    class DHCP_OPTION_ARRAY(Structure):
-        pass
-    return DHCP_OPTION_ARRAY
-def _define_DHCP_OPTION_ARRAY():
-    DHCP_OPTION_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head
-    DHCP_OPTION_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Options', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)),
-    ]
-    return DHCP_OPTION_ARRAY
-def _define_DHCP_OPTION_DATA_head():
-    class DHCP_OPTION_DATA(Structure):
-        pass
-    return DHCP_OPTION_DATA
-def _define_DHCP_OPTION_DATA():
-    DHCP_OPTION_DATA = win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_head
-    DHCP_OPTION_DATA._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_ELEMENT_head)),
-    ]
-    return DHCP_OPTION_DATA
-def _define_DHCP_OPTION_DATA_ELEMENT_head():
-    class DHCP_OPTION_DATA_ELEMENT(Structure):
-        pass
-    return DHCP_OPTION_DATA_ELEMENT
-def _define_DHCP_OPTION_DATA_ELEMENT():
-    DHCP_OPTION_DATA_ELEMENT = win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_ELEMENT_head
-    class DHCP_OPTION_DATA_ELEMENT_DHCP_OPTION_ELEMENT_UNION(Union):
-        pass
-    DHCP_OPTION_DATA_ELEMENT_DHCP_OPTION_ELEMENT_UNION._fields_ = [
-        ('ByteOption', Byte),
-        ('WordOption', UInt16),
-        ('DWordOption', UInt32),
-        ('DWordDWordOption', win32more.NetworkManagement.Dhcp.DWORD_DWORD),
-        ('IpAddressOption', UInt32),
-        ('StringDataOption', win32more.Foundation.PWSTR),
-        ('BinaryDataOption', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('EncapsulatedDataOption', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('Ipv6AddressDataOption', win32more.Foundation.PWSTR),
-    ]
-    DHCP_OPTION_DATA_ELEMENT._fields_ = [
-        ('OptionType', win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE),
-        ('Element', DHCP_OPTION_DATA_ELEMENT_DHCP_OPTION_ELEMENT_UNION),
-    ]
-    return DHCP_OPTION_DATA_ELEMENT
-DHCP_OPTION_DATA_TYPE = Int32
-DHCP_OPTION_DATA_TYPE_DhcpByteOption = 0
-DHCP_OPTION_DATA_TYPE_DhcpWordOption = 1
-DHCP_OPTION_DATA_TYPE_DhcpDWordOption = 2
-DHCP_OPTION_DATA_TYPE_DhcpDWordDWordOption = 3
-DHCP_OPTION_DATA_TYPE_DhcpIpAddressOption = 4
-DHCP_OPTION_DATA_TYPE_DhcpStringDataOption = 5
-DHCP_OPTION_DATA_TYPE_DhcpBinaryDataOption = 6
-DHCP_OPTION_DATA_TYPE_DhcpEncapsulatedDataOption = 7
-DHCP_OPTION_DATA_TYPE_DhcpIpv6AddressOption = 8
-def _define_DHCP_OPTION_ELEMENT_UNION_head():
+DHCP_FORCE_FLAG_DhcpFullForce: DHCP_FORCE_FLAG = 0
+DHCP_FORCE_FLAG_DhcpNoForce: DHCP_FORCE_FLAG = 1
+DHCP_FORCE_FLAG_DhcpFailoverForce: DHCP_FORCE_FLAG = 2
+class DHCP_HOST_INFO(Structure):
+    IpAddress: UInt32
+    NetBiosName: win32more.Foundation.PWSTR
+    HostName: win32more.Foundation.PWSTR
+class DHCP_HOST_INFO_V6(Structure):
+    IpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    NetBiosName: win32more.Foundation.PWSTR
+    HostName: win32more.Foundation.PWSTR
+class DHCP_IP_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(UInt32)
+class DHCP_IP_CLUSTER(Structure):
+    ClusterAddress: UInt32
+    ClusterMask: UInt32
+class DHCP_IP_RANGE(Structure):
+    StartAddress: UInt32
+    EndAddress: UInt32
+class DHCP_IP_RANGE_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+class DHCP_IP_RANGE_V6(Structure):
+    StartAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    EndAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+class DHCP_IP_RESERVATION(Structure):
+    ReservedIpAddress: UInt32
+    ReservedForClient: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)
+class DHCP_IP_RESERVATION_INFO(Structure):
+    ReservedIpAddress: UInt32
+    ReservedForClient: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ReservedClientName: win32more.Foundation.PWSTR
+    ReservedClientDesc: win32more.Foundation.PWSTR
+    bAllowedClientTypes: Byte
+    fOptionsPresent: Byte
+class DHCP_IP_RESERVATION_V4(Structure):
+    ReservedIpAddress: UInt32
+    ReservedForClient: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)
+    bAllowedClientTypes: Byte
+class DHCP_IP_RESERVATION_V6(Structure):
+    ReservedIpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    ReservedForClient: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)
+    InterfaceId: UInt32
+class DHCP_IPV6_ADDRESS(Structure):
+    HighOrderBits: UInt64
+    LowOrderBits: UInt64
+class DHCP_MIB_INFO(Structure):
+    Discovers: UInt32
+    Offers: UInt32
+    Requests: UInt32
+    Acks: UInt32
+    Naks: UInt32
+    Declines: UInt32
+    Releases: UInt32
+    ServerStartTime: win32more.NetworkManagement.Dhcp.DATE_TIME
+    Scopes: UInt32
+    ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_head)
+class DHCP_MIB_INFO_V5(Structure):
+    Discovers: UInt32
+    Offers: UInt32
+    Requests: UInt32
+    Acks: UInt32
+    Naks: UInt32
+    Declines: UInt32
+    Releases: UInt32
+    ServerStartTime: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QtnNumLeases: UInt32
+    QtnPctQtnLeases: UInt32
+    QtnProbationLeases: UInt32
+    QtnNonQtnLeases: UInt32
+    QtnExemptLeases: UInt32
+    QtnCapableClients: UInt32
+    QtnIASErrors: UInt32
+    DelayedOffers: UInt32
+    ScopesWithDelayedOffers: UInt32
+    Scopes: UInt32
+    ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V5_head)
+class DHCP_MIB_INFO_V6(Structure):
+    Solicits: UInt32
+    Advertises: UInt32
+    Requests: UInt32
+    Renews: UInt32
+    Rebinds: UInt32
+    Replies: UInt32
+    Confirms: UInt32
+    Declines: UInt32
+    Releases: UInt32
+    Informs: UInt32
+    ServerStartTime: win32more.NetworkManagement.Dhcp.DATE_TIME
+    Scopes: UInt32
+    ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V6_head)
+class DHCP_MIB_INFO_VQ(Structure):
+    Discovers: UInt32
+    Offers: UInt32
+    Requests: UInt32
+    Acks: UInt32
+    Naks: UInt32
+    Declines: UInt32
+    Releases: UInt32
+    ServerStartTime: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QtnNumLeases: UInt32
+    QtnPctQtnLeases: UInt32
+    QtnProbationLeases: UInt32
+    QtnNonQtnLeases: UInt32
+    QtnExemptLeases: UInt32
+    QtnCapableClients: UInt32
+    QtnIASErrors: UInt32
+    Scopes: UInt32
+    ScopeInfo: POINTER(win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_VQ_head)
+class DHCP_OPTION(Structure):
+    OptionID: UInt32
+    OptionName: win32more.Foundation.PWSTR
+    OptionComment: win32more.Foundation.PWSTR
+    DefaultValue: win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA
+    OptionType: win32more.NetworkManagement.Dhcp.DHCP_OPTION_TYPE
+class DHCP_OPTION_ARRAY(Structure):
+    NumElements: UInt32
+    Options: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_head)
+class DHCP_OPTION_DATA(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_ELEMENT_head)
+class DHCP_OPTION_DATA_ELEMENT(Structure):
+    OptionType: win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE
+    Element: DHCP_OPTION_ELEMENT_UNION
     class DHCP_OPTION_ELEMENT_UNION(Union):
-        pass
-    return DHCP_OPTION_ELEMENT_UNION
-def _define_DHCP_OPTION_ELEMENT_UNION():
-    DHCP_OPTION_ELEMENT_UNION = win32more.NetworkManagement.Dhcp.DHCP_OPTION_ELEMENT_UNION_head
-    return DHCP_OPTION_ELEMENT_UNION
-def _define_DHCP_OPTION_LIST_head():
-    class DHCP_OPTION_LIST(Structure):
-        pass
-    return DHCP_OPTION_LIST
-def _define_DHCP_OPTION_LIST():
-    DHCP_OPTION_LIST = win32more.NetworkManagement.Dhcp.DHCP_OPTION_LIST_head
-    DHCP_OPTION_LIST._fields_ = [
-        ('NumOptions', UInt32),
-        ('Options', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)),
-    ]
-    return DHCP_OPTION_LIST
-def _define_DHCP_OPTION_SCOPE_INFO_head():
-    class DHCP_OPTION_SCOPE_INFO(Structure):
-        pass
-    return DHCP_OPTION_SCOPE_INFO
-def _define_DHCP_OPTION_SCOPE_INFO():
-    DHCP_OPTION_SCOPE_INFO = win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO_head
-    class DHCP_OPTION_SCOPE_INFO__DHCP_OPTION_SCOPE_UNION(Union):
-        pass
-    DHCP_OPTION_SCOPE_INFO__DHCP_OPTION_SCOPE_UNION._fields_ = [
-        ('DefaultScopeInfo', c_void_p),
-        ('GlobalScopeInfo', c_void_p),
-        ('SubnetScopeInfo', UInt32),
-        ('ReservedScopeInfo', win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE),
-        ('MScopeInfo', win32more.Foundation.PWSTR),
-    ]
-    DHCP_OPTION_SCOPE_INFO._fields_ = [
-        ('ScopeType', win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE),
-        ('ScopeInfo', DHCP_OPTION_SCOPE_INFO__DHCP_OPTION_SCOPE_UNION),
-    ]
-    return DHCP_OPTION_SCOPE_INFO
-def _define_DHCP_OPTION_SCOPE_INFO6_head():
-    class DHCP_OPTION_SCOPE_INFO6(Structure):
-        pass
-    return DHCP_OPTION_SCOPE_INFO6
-def _define_DHCP_OPTION_SCOPE_INFO6():
-    DHCP_OPTION_SCOPE_INFO6 = win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_INFO6_head
-    class DHCP_OPTION_SCOPE_INFO6_DHCP_OPTION_SCOPE_UNION6(Union):
-        pass
-    DHCP_OPTION_SCOPE_INFO6_DHCP_OPTION_SCOPE_UNION6._fields_ = [
-        ('DefaultScopeInfo', c_void_p),
-        ('SubnetScopeInfo', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('ReservedScopeInfo', win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE6),
-    ]
-    DHCP_OPTION_SCOPE_INFO6._fields_ = [
-        ('ScopeType', win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6),
-        ('ScopeInfo', DHCP_OPTION_SCOPE_INFO6_DHCP_OPTION_SCOPE_UNION6),
-    ]
-    return DHCP_OPTION_SCOPE_INFO6
-DHCP_OPTION_SCOPE_TYPE = Int32
-DHCP_OPTION_SCOPE_TYPE_DhcpDefaultOptions = 0
-DHCP_OPTION_SCOPE_TYPE_DhcpGlobalOptions = 1
-DHCP_OPTION_SCOPE_TYPE_DhcpSubnetOptions = 2
-DHCP_OPTION_SCOPE_TYPE_DhcpReservedOptions = 3
-DHCP_OPTION_SCOPE_TYPE_DhcpMScopeOptions = 4
-DHCP_OPTION_SCOPE_TYPE6 = Int32
-DHCP_OPTION_SCOPE_TYPE6_DhcpDefaultOptions6 = 0
-DHCP_OPTION_SCOPE_TYPE6_DhcpScopeOptions6 = 1
-DHCP_OPTION_SCOPE_TYPE6_DhcpReservedOptions6 = 2
-DHCP_OPTION_SCOPE_TYPE6_DhcpGlobalOptions6 = 3
-def _define_DHCP_OPTION_SCOPE_UNION6_head():
+        ByteOption: Byte
+        WordOption: UInt16
+        DWordOption: UInt32
+        DWordDWordOption: win32more.NetworkManagement.Dhcp.DWORD_DWORD
+        IpAddressOption: UInt32
+        StringDataOption: win32more.Foundation.PWSTR
+        BinaryDataOption: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+        EncapsulatedDataOption: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+        Ipv6AddressDataOption: win32more.Foundation.PWSTR
+DHCP_OPTION_DATA_TYPE = Int32
+DHCP_OPTION_DATA_TYPE_DhcpByteOption: DHCP_OPTION_DATA_TYPE = 0
+DHCP_OPTION_DATA_TYPE_DhcpWordOption: DHCP_OPTION_DATA_TYPE = 1
+DHCP_OPTION_DATA_TYPE_DhcpDWordOption: DHCP_OPTION_DATA_TYPE = 2
+DHCP_OPTION_DATA_TYPE_DhcpDWordDWordOption: DHCP_OPTION_DATA_TYPE = 3
+DHCP_OPTION_DATA_TYPE_DhcpIpAddressOption: DHCP_OPTION_DATA_TYPE = 4
+DHCP_OPTION_DATA_TYPE_DhcpStringDataOption: DHCP_OPTION_DATA_TYPE = 5
+DHCP_OPTION_DATA_TYPE_DhcpBinaryDataOption: DHCP_OPTION_DATA_TYPE = 6
+DHCP_OPTION_DATA_TYPE_DhcpEncapsulatedDataOption: DHCP_OPTION_DATA_TYPE = 7
+DHCP_OPTION_DATA_TYPE_DhcpIpv6AddressOption: DHCP_OPTION_DATA_TYPE = 8
+class DHCP_OPTION_ELEMENT_UNION(Union):
+    pass
+class DHCP_OPTION_LIST(Structure):
+    NumOptions: UInt32
+    Options: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)
+class DHCP_OPTION_SCOPE_INFO(Structure):
+    ScopeType: win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE
+    ScopeInfo: _DHCP_OPTION_SCOPE_UNION
+    class _DHCP_OPTION_SCOPE_UNION(Union):
+        DefaultScopeInfo: c_void_p
+        GlobalScopeInfo: c_void_p
+        SubnetScopeInfo: UInt32
+        ReservedScopeInfo: win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE
+        MScopeInfo: win32more.Foundation.PWSTR
+class DHCP_OPTION_SCOPE_INFO6(Structure):
+    ScopeType: win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6
+    ScopeInfo: DHCP_OPTION_SCOPE_UNION6
     class DHCP_OPTION_SCOPE_UNION6(Union):
-        pass
-    return DHCP_OPTION_SCOPE_UNION6
-def _define_DHCP_OPTION_SCOPE_UNION6():
-    DHCP_OPTION_SCOPE_UNION6 = win32more.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_UNION6_head
-    return DHCP_OPTION_SCOPE_UNION6
+        DefaultScopeInfo: c_void_p
+        SubnetScopeInfo: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+        ReservedScopeInfo: win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE6
+DHCP_OPTION_SCOPE_TYPE = Int32
+DHCP_OPTION_SCOPE_TYPE_DhcpDefaultOptions: DHCP_OPTION_SCOPE_TYPE = 0
+DHCP_OPTION_SCOPE_TYPE_DhcpGlobalOptions: DHCP_OPTION_SCOPE_TYPE = 1
+DHCP_OPTION_SCOPE_TYPE_DhcpSubnetOptions: DHCP_OPTION_SCOPE_TYPE = 2
+DHCP_OPTION_SCOPE_TYPE_DhcpReservedOptions: DHCP_OPTION_SCOPE_TYPE = 3
+DHCP_OPTION_SCOPE_TYPE_DhcpMScopeOptions: DHCP_OPTION_SCOPE_TYPE = 4
+DHCP_OPTION_SCOPE_TYPE6 = Int32
+DHCP_OPTION_SCOPE_TYPE6_DhcpDefaultOptions6: DHCP_OPTION_SCOPE_TYPE6 = 0
+DHCP_OPTION_SCOPE_TYPE6_DhcpScopeOptions6: DHCP_OPTION_SCOPE_TYPE6 = 1
+DHCP_OPTION_SCOPE_TYPE6_DhcpReservedOptions6: DHCP_OPTION_SCOPE_TYPE6 = 2
+DHCP_OPTION_SCOPE_TYPE6_DhcpGlobalOptions6: DHCP_OPTION_SCOPE_TYPE6 = 3
+class DHCP_OPTION_SCOPE_UNION6(Union):
+    pass
 DHCP_OPTION_TYPE = Int32
-DHCP_OPTION_TYPE_DhcpUnaryElementTypeOption = 0
-DHCP_OPTION_TYPE_DhcpArrayTypeOption = 1
-def _define_DHCP_OPTION_VALUE_head():
-    class DHCP_OPTION_VALUE(Structure):
-        pass
-    return DHCP_OPTION_VALUE
-def _define_DHCP_OPTION_VALUE():
-    DHCP_OPTION_VALUE = win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head
-    DHCP_OPTION_VALUE._fields_ = [
-        ('OptionID', UInt32),
-        ('Value', win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA),
-    ]
-    return DHCP_OPTION_VALUE
-def _define_DHCP_OPTION_VALUE_ARRAY_head():
-    class DHCP_OPTION_VALUE_ARRAY(Structure):
-        pass
-    return DHCP_OPTION_VALUE_ARRAY
-def _define_DHCP_OPTION_VALUE_ARRAY():
-    DHCP_OPTION_VALUE_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head
-    DHCP_OPTION_VALUE_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Values', POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)),
-    ]
-    return DHCP_OPTION_VALUE_ARRAY
-def _define_DHCP_PERF_STATS_head():
-    class DHCP_PERF_STATS(Structure):
-        pass
-    return DHCP_PERF_STATS
-def _define_DHCP_PERF_STATS():
-    DHCP_PERF_STATS = win32more.NetworkManagement.Dhcp.DHCP_PERF_STATS_head
-    DHCP_PERF_STATS._fields_ = [
-        ('dwNumPacketsReceived', UInt32),
-        ('dwNumPacketsDuplicate', UInt32),
-        ('dwNumPacketsExpired', UInt32),
-        ('dwNumMilliSecondsProcessed', UInt32),
-        ('dwNumPacketsInActiveQueue', UInt32),
-        ('dwNumPacketsInPingQueue', UInt32),
-        ('dwNumDiscoversReceived', UInt32),
-        ('dwNumOffersSent', UInt32),
-        ('dwNumRequestsReceived', UInt32),
-        ('dwNumInformsReceived', UInt32),
-        ('dwNumAcksSent', UInt32),
-        ('dwNumNacksSent', UInt32),
-        ('dwNumDeclinesReceived', UInt32),
-        ('dwNumReleasesReceived', UInt32),
-        ('dwNumDelayedOfferInQueue', UInt32),
-        ('dwNumPacketsProcessed', UInt32),
-        ('dwNumPacketsInQuarWaitingQueue', UInt32),
-        ('dwNumPacketsInQuarReadyQueue', UInt32),
-        ('dwNumPacketsInQuarDecisionQueue', UInt32),
-    ]
-    return DHCP_PERF_STATS
+DHCP_OPTION_TYPE_DhcpUnaryElementTypeOption: DHCP_OPTION_TYPE = 0
+DHCP_OPTION_TYPE_DhcpArrayTypeOption: DHCP_OPTION_TYPE = 1
+class DHCP_OPTION_VALUE(Structure):
+    OptionID: UInt32
+    Value: win32more.NetworkManagement.Dhcp.DHCP_OPTION_DATA
+class DHCP_OPTION_VALUE_ARRAY(Structure):
+    NumElements: UInt32
+    Values: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)
+class DHCP_PERF_STATS(Structure):
+    dwNumPacketsReceived: UInt32
+    dwNumPacketsDuplicate: UInt32
+    dwNumPacketsExpired: UInt32
+    dwNumMilliSecondsProcessed: UInt32
+    dwNumPacketsInActiveQueue: UInt32
+    dwNumPacketsInPingQueue: UInt32
+    dwNumDiscoversReceived: UInt32
+    dwNumOffersSent: UInt32
+    dwNumRequestsReceived: UInt32
+    dwNumInformsReceived: UInt32
+    dwNumAcksSent: UInt32
+    dwNumNacksSent: UInt32
+    dwNumDeclinesReceived: UInt32
+    dwNumReleasesReceived: UInt32
+    dwNumDelayedOfferInQueue: UInt32
+    dwNumPacketsProcessed: UInt32
+    dwNumPacketsInQuarWaitingQueue: UInt32
+    dwNumPacketsInQuarReadyQueue: UInt32
+    dwNumPacketsInQuarDecisionQueue: UInt32
 DHCP_POL_ATTR_TYPE = Int32
-DHCP_POL_ATTR_TYPE_DhcpAttrHWAddr = 0
-DHCP_POL_ATTR_TYPE_DhcpAttrOption = 1
-DHCP_POL_ATTR_TYPE_DhcpAttrSubOption = 2
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdn = 3
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdnSingleLabel = 4
+DHCP_POL_ATTR_TYPE_DhcpAttrHWAddr: DHCP_POL_ATTR_TYPE = 0
+DHCP_POL_ATTR_TYPE_DhcpAttrOption: DHCP_POL_ATTR_TYPE = 1
+DHCP_POL_ATTR_TYPE_DhcpAttrSubOption: DHCP_POL_ATTR_TYPE = 2
+DHCP_POL_ATTR_TYPE_DhcpAttrFqdn: DHCP_POL_ATTR_TYPE = 3
+DHCP_POL_ATTR_TYPE_DhcpAttrFqdnSingleLabel: DHCP_POL_ATTR_TYPE = 4
 DHCP_POL_COMPARATOR = Int32
-DHCP_POL_COMPARATOR_DhcpCompEqual = 0
-DHCP_POL_COMPARATOR_DhcpCompNotEqual = 1
-DHCP_POL_COMPARATOR_DhcpCompBeginsWith = 2
-DHCP_POL_COMPARATOR_DhcpCompNotBeginWith = 3
-DHCP_POL_COMPARATOR_DhcpCompEndsWith = 4
-DHCP_POL_COMPARATOR_DhcpCompNotEndWith = 5
-def _define_DHCP_POL_COND_head():
-    class DHCP_POL_COND(Structure):
-        pass
-    return DHCP_POL_COND
-def _define_DHCP_POL_COND():
-    DHCP_POL_COND = win32more.NetworkManagement.Dhcp.DHCP_POL_COND_head
-    DHCP_POL_COND._fields_ = [
-        ('ParentExpr', UInt32),
-        ('Type', win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE),
-        ('OptionID', UInt32),
-        ('SubOptionID', UInt32),
-        ('VendorName', win32more.Foundation.PWSTR),
-        ('Operator', win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR),
-        ('Value', c_char_p_no),
-        ('ValueLength', UInt32),
-    ]
-    return DHCP_POL_COND
-def _define_DHCP_POL_COND_ARRAY_head():
-    class DHCP_POL_COND_ARRAY(Structure):
-        pass
-    return DHCP_POL_COND_ARRAY
-def _define_DHCP_POL_COND_ARRAY():
-    DHCP_POL_COND_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_POL_COND_ARRAY_head
-    DHCP_POL_COND_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_head)),
-    ]
-    return DHCP_POL_COND_ARRAY
-def _define_DHCP_POL_EXPR_head():
-    class DHCP_POL_EXPR(Structure):
-        pass
-    return DHCP_POL_EXPR
-def _define_DHCP_POL_EXPR():
-    DHCP_POL_EXPR = win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_head
-    DHCP_POL_EXPR._fields_ = [
-        ('ParentExpr', UInt32),
-        ('Operator', win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER),
-    ]
-    return DHCP_POL_EXPR
-def _define_DHCP_POL_EXPR_ARRAY_head():
-    class DHCP_POL_EXPR_ARRAY(Structure):
-        pass
-    return DHCP_POL_EXPR_ARRAY
-def _define_DHCP_POL_EXPR_ARRAY():
-    DHCP_POL_EXPR_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_ARRAY_head
-    DHCP_POL_EXPR_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_head)),
-    ]
-    return DHCP_POL_EXPR_ARRAY
+DHCP_POL_COMPARATOR_DhcpCompEqual: DHCP_POL_COMPARATOR = 0
+DHCP_POL_COMPARATOR_DhcpCompNotEqual: DHCP_POL_COMPARATOR = 1
+DHCP_POL_COMPARATOR_DhcpCompBeginsWith: DHCP_POL_COMPARATOR = 2
+DHCP_POL_COMPARATOR_DhcpCompNotBeginWith: DHCP_POL_COMPARATOR = 3
+DHCP_POL_COMPARATOR_DhcpCompEndsWith: DHCP_POL_COMPARATOR = 4
+DHCP_POL_COMPARATOR_DhcpCompNotEndWith: DHCP_POL_COMPARATOR = 5
+class DHCP_POL_COND(Structure):
+    ParentExpr: UInt32
+    Type: win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE
+    OptionID: UInt32
+    SubOptionID: UInt32
+    VendorName: win32more.Foundation.PWSTR
+    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR
+    Value: c_char_p_no
+    ValueLength: UInt32
+class DHCP_POL_COND_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_head)
+class DHCP_POL_EXPR(Structure):
+    ParentExpr: UInt32
+    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER
+class DHCP_POL_EXPR_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_head)
 DHCP_POL_LOGIC_OPER = Int32
-DHCP_POL_LOGIC_OPER_DhcpLogicalOr = 0
-DHCP_POL_LOGIC_OPER_DhcpLogicalAnd = 1
-def _define_DHCP_POLICY_head():
-    class DHCP_POLICY(Structure):
-        pass
-    return DHCP_POLICY
-def _define_DHCP_POLICY():
-    DHCP_POLICY = win32more.NetworkManagement.Dhcp.DHCP_POLICY_head
-    DHCP_POLICY._fields_ = [
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('IsGlobalPolicy', win32more.Foundation.BOOL),
-        ('Subnet', UInt32),
-        ('ProcessingOrder', UInt32),
-        ('Conditions', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_ARRAY_head)),
-        ('Expressions', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_ARRAY_head)),
-        ('Ranges', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY_head)),
-        ('Description', win32more.Foundation.PWSTR),
-        ('Enabled', win32more.Foundation.BOOL),
-    ]
-    return DHCP_POLICY
-def _define_DHCP_POLICY_ARRAY_head():
-    class DHCP_POLICY_ARRAY(Structure):
-        pass
-    return DHCP_POLICY_ARRAY
-def _define_DHCP_POLICY_ARRAY():
-    DHCP_POLICY_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_POLICY_ARRAY_head
-    DHCP_POLICY_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)),
-    ]
-    return DHCP_POLICY_ARRAY
-def _define_DHCP_POLICY_EX_head():
-    class DHCP_POLICY_EX(Structure):
-        pass
-    return DHCP_POLICY_EX
-def _define_DHCP_POLICY_EX():
-    DHCP_POLICY_EX = win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head
-    DHCP_POLICY_EX._fields_ = [
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('IsGlobalPolicy', win32more.Foundation.BOOL),
-        ('Subnet', UInt32),
-        ('ProcessingOrder', UInt32),
-        ('Conditions', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_ARRAY_head)),
-        ('Expressions', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_ARRAY_head)),
-        ('Ranges', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY_head)),
-        ('Description', win32more.Foundation.PWSTR),
-        ('Enabled', win32more.Foundation.BOOL),
-        ('Properties', POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head)),
-    ]
-    return DHCP_POLICY_EX
-def _define_DHCP_POLICY_EX_ARRAY_head():
-    class DHCP_POLICY_EX_ARRAY(Structure):
-        pass
-    return DHCP_POLICY_EX_ARRAY
-def _define_DHCP_POLICY_EX_ARRAY():
-    DHCP_POLICY_EX_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY_head
-    DHCP_POLICY_EX_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)),
-    ]
-    return DHCP_POLICY_EX_ARRAY
+DHCP_POL_LOGIC_OPER_DhcpLogicalOr: DHCP_POL_LOGIC_OPER = 0
+DHCP_POL_LOGIC_OPER_DhcpLogicalAnd: DHCP_POL_LOGIC_OPER = 1
+class DHCP_POLICY(Structure):
+    PolicyName: win32more.Foundation.PWSTR
+    IsGlobalPolicy: win32more.Foundation.BOOL
+    Subnet: UInt32
+    ProcessingOrder: UInt32
+    Conditions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_ARRAY_head)
+    Expressions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_ARRAY_head)
+    Ranges: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY_head)
+    Description: win32more.Foundation.PWSTR
+    Enabled: win32more.Foundation.BOOL
+class DHCP_POLICY_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_head)
+class DHCP_POLICY_EX(Structure):
+    PolicyName: win32more.Foundation.PWSTR
+    IsGlobalPolicy: win32more.Foundation.BOOL
+    Subnet: UInt32
+    ProcessingOrder: UInt32
+    Conditions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_ARRAY_head)
+    Expressions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_ARRAY_head)
+    Ranges: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY_head)
+    Description: win32more.Foundation.PWSTR
+    Enabled: win32more.Foundation.BOOL
+    Properties: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head)
+class DHCP_POLICY_EX_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POLICY_EX_head)
 DHCP_POLICY_FIELDS_TO_UPDATE = Int32
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyName = 1
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyOrder = 2
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyExpr = 4
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyRanges = 8
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDescr = 16
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyStatus = 32
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDnsSuffix = 64
-def _define_DHCP_PROPERTY_head():
-    class DHCP_PROPERTY(Structure):
-        pass
-    return DHCP_PROPERTY
-def _define_DHCP_PROPERTY():
-    DHCP_PROPERTY = win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head
-    class DHCP_PROPERTY__DHCP_PROPERTY_VALUE_UNION(Union):
-        pass
-    DHCP_PROPERTY__DHCP_PROPERTY_VALUE_UNION._fields_ = [
-        ('ByteValue', Byte),
-        ('WordValue', UInt16),
-        ('DWordValue', UInt32),
-        ('StringValue', win32more.Foundation.PWSTR),
-        ('BinaryValue', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-    ]
-    DHCP_PROPERTY._fields_ = [
-        ('ID', win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ID),
-        ('Type', win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE),
-        ('Value', DHCP_PROPERTY__DHCP_PROPERTY_VALUE_UNION),
-    ]
-    return DHCP_PROPERTY
-def _define_DHCP_PROPERTY_ARRAY_head():
-    class DHCP_PROPERTY_ARRAY(Structure):
-        pass
-    return DHCP_PROPERTY_ARRAY
-def _define_DHCP_PROPERTY_ARRAY():
-    DHCP_PROPERTY_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY_head
-    DHCP_PROPERTY_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head)),
-    ]
-    return DHCP_PROPERTY_ARRAY
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyName: DHCP_POLICY_FIELDS_TO_UPDATE = 1
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyOrder: DHCP_POLICY_FIELDS_TO_UPDATE = 2
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyExpr: DHCP_POLICY_FIELDS_TO_UPDATE = 4
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyRanges: DHCP_POLICY_FIELDS_TO_UPDATE = 8
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDescr: DHCP_POLICY_FIELDS_TO_UPDATE = 16
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyStatus: DHCP_POLICY_FIELDS_TO_UPDATE = 32
+DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDnsSuffix: DHCP_POLICY_FIELDS_TO_UPDATE = 64
+class DHCP_PROPERTY(Structure):
+    ID: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ID
+    Type: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE
+    Value: _DHCP_PROPERTY_VALUE_UNION
+    class _DHCP_PROPERTY_VALUE_UNION(Union):
+        ByteValue: Byte
+        WordValue: UInt16
+        DWordValue: UInt32
+        StringValue: win32more.Foundation.PWSTR
+        BinaryValue: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+class DHCP_PROPERTY_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_head)
 DHCP_PROPERTY_ID = Int32
-DHCP_PROPERTY_ID_DhcpPropIdPolicyDnsSuffix = 0
-DHCP_PROPERTY_ID_DhcpPropIdClientAddressStateEx = 1
+DHCP_PROPERTY_ID_DhcpPropIdPolicyDnsSuffix: DHCP_PROPERTY_ID = 0
+DHCP_PROPERTY_ID_DhcpPropIdClientAddressStateEx: DHCP_PROPERTY_ID = 1
 DHCP_PROPERTY_TYPE = Int32
-DHCP_PROPERTY_TYPE_DhcpPropTypeByte = 0
-DHCP_PROPERTY_TYPE_DhcpPropTypeWord = 1
-DHCP_PROPERTY_TYPE_DhcpPropTypeDword = 2
-DHCP_PROPERTY_TYPE_DhcpPropTypeString = 3
-DHCP_PROPERTY_TYPE_DhcpPropTypeBinary = 4
-def _define_DHCP_RESERVATION_INFO_ARRAY_head():
-    class DHCP_RESERVATION_INFO_ARRAY(Structure):
-        pass
-    return DHCP_RESERVATION_INFO_ARRAY
-def _define_DHCP_RESERVATION_INFO_ARRAY():
-    DHCP_RESERVATION_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_RESERVATION_INFO_ARRAY_head
-    DHCP_RESERVATION_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_INFO_head))),
-    ]
-    return DHCP_RESERVATION_INFO_ARRAY
-def _define_DHCP_RESERVED_SCOPE_head():
-    class DHCP_RESERVED_SCOPE(Structure):
-        pass
-    return DHCP_RESERVED_SCOPE
-def _define_DHCP_RESERVED_SCOPE():
-    DHCP_RESERVED_SCOPE = win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE_head
-    DHCP_RESERVED_SCOPE._fields_ = [
-        ('ReservedIpAddress', UInt32),
-        ('ReservedIpSubnetAddress', UInt32),
-    ]
-    return DHCP_RESERVED_SCOPE
-def _define_DHCP_RESERVED_SCOPE6_head():
-    class DHCP_RESERVED_SCOPE6(Structure):
-        pass
-    return DHCP_RESERVED_SCOPE6
-def _define_DHCP_RESERVED_SCOPE6():
-    DHCP_RESERVED_SCOPE6 = win32more.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE6_head
-    DHCP_RESERVED_SCOPE6._fields_ = [
-        ('ReservedIpAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('ReservedIpSubnetAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-    ]
-    return DHCP_RESERVED_SCOPE6
+DHCP_PROPERTY_TYPE_DhcpPropTypeByte: DHCP_PROPERTY_TYPE = 0
+DHCP_PROPERTY_TYPE_DhcpPropTypeWord: DHCP_PROPERTY_TYPE = 1
+DHCP_PROPERTY_TYPE_DhcpPropTypeDword: DHCP_PROPERTY_TYPE = 2
+DHCP_PROPERTY_TYPE_DhcpPropTypeString: DHCP_PROPERTY_TYPE = 3
+DHCP_PROPERTY_TYPE_DhcpPropTypeBinary: DHCP_PROPERTY_TYPE = 4
+class DHCP_RESERVATION_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_INFO_head))
+class DHCP_RESERVED_SCOPE(Structure):
+    ReservedIpAddress: UInt32
+    ReservedIpSubnetAddress: UInt32
+class DHCP_RESERVED_SCOPE6(Structure):
+    ReservedIpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    ReservedIpSubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
 DHCP_SCAN_FLAG = Int32
-DHCP_SCAN_FLAG_DhcpRegistryFix = 0
-DHCP_SCAN_FLAG_DhcpDatabaseFix = 1
-def _define_DHCP_SCAN_ITEM_head():
-    class DHCP_SCAN_ITEM(Structure):
-        pass
-    return DHCP_SCAN_ITEM
-def _define_DHCP_SCAN_ITEM():
-    DHCP_SCAN_ITEM = win32more.NetworkManagement.Dhcp.DHCP_SCAN_ITEM_head
-    DHCP_SCAN_ITEM._fields_ = [
-        ('IpAddress', UInt32),
-        ('ScanFlag', win32more.NetworkManagement.Dhcp.DHCP_SCAN_FLAG),
-    ]
-    return DHCP_SCAN_ITEM
-def _define_DHCP_SCAN_LIST_head():
-    class DHCP_SCAN_LIST(Structure):
-        pass
-    return DHCP_SCAN_LIST
-def _define_DHCP_SCAN_LIST():
-    DHCP_SCAN_LIST = win32more.NetworkManagement.Dhcp.DHCP_SCAN_LIST_head
-    DHCP_SCAN_LIST._fields_ = [
-        ('NumScanItems', UInt32),
-        ('ScanItems', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SCAN_ITEM_head)),
-    ]
-    return DHCP_SCAN_LIST
-def _define_DHCP_SEARCH_INFO_head():
-    class DHCP_SEARCH_INFO(Structure):
-        pass
-    return DHCP_SEARCH_INFO
-def _define_DHCP_SEARCH_INFO():
-    DHCP_SEARCH_INFO = win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_head
-    class DHCP_SEARCH_INFO_DHCP_CLIENT_SEARCH_UNION(Union):
-        pass
-    DHCP_SEARCH_INFO_DHCP_CLIENT_SEARCH_UNION._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-    ]
-    DHCP_SEARCH_INFO._fields_ = [
-        ('SearchType', win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE),
-        ('SearchInfo', DHCP_SEARCH_INFO_DHCP_CLIENT_SEARCH_UNION),
-    ]
-    return DHCP_SEARCH_INFO
+DHCP_SCAN_FLAG_DhcpRegistryFix: DHCP_SCAN_FLAG = 0
+DHCP_SCAN_FLAG_DhcpDatabaseFix: DHCP_SCAN_FLAG = 1
+class DHCP_SCAN_ITEM(Structure):
+    IpAddress: UInt32
+    ScanFlag: win32more.NetworkManagement.Dhcp.DHCP_SCAN_FLAG
+class DHCP_SCAN_LIST(Structure):
+    NumScanItems: UInt32
+    ScanItems: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SCAN_ITEM_head)
+class DHCP_SEARCH_INFO(Structure):
+    SearchType: win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE
+    SearchInfo: DHCP_CLIENT_SEARCH_UNION
+    class DHCP_CLIENT_SEARCH_UNION(Union):
+        ClientIpAddress: UInt32
+        ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+        ClientName: win32more.Foundation.PWSTR
 DHCP_SEARCH_INFO_TYPE = Int32
-DHCP_SEARCH_INFO_TYPE_DhcpClientIpAddress = 0
-DHCP_SEARCH_INFO_TYPE_DhcpClientHardwareAddress = 1
-DHCP_SEARCH_INFO_TYPE_DhcpClientName = 2
+DHCP_SEARCH_INFO_TYPE_DhcpClientIpAddress: DHCP_SEARCH_INFO_TYPE = 0
+DHCP_SEARCH_INFO_TYPE_DhcpClientHardwareAddress: DHCP_SEARCH_INFO_TYPE = 1
+DHCP_SEARCH_INFO_TYPE_DhcpClientName: DHCP_SEARCH_INFO_TYPE = 2
 DHCP_SEARCH_INFO_TYPE_V6 = Int32
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientIpAddress = 0
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientDUID = 1
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientName = 2
-def _define_DHCP_SEARCH_INFO_V6_head():
-    class DHCP_SEARCH_INFO_V6(Structure):
-        pass
-    return DHCP_SEARCH_INFO_V6
-def _define_DHCP_SEARCH_INFO_V6():
-    DHCP_SEARCH_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_V6_head
-    class DHCP_SEARCH_INFO_V6__DHCP_CLIENT_SEARCH_UNION_V6(Union):
-        pass
-    DHCP_SEARCH_INFO_V6__DHCP_CLIENT_SEARCH_UNION_V6._fields_ = [
-        ('ClientIpAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('ClientDUID', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-    ]
-    DHCP_SEARCH_INFO_V6._fields_ = [
-        ('SearchType', win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6),
-        ('SearchInfo', DHCP_SEARCH_INFO_V6__DHCP_CLIENT_SEARCH_UNION_V6),
-    ]
-    return DHCP_SEARCH_INFO_V6
-def _define_DHCP_SERVER_CONFIG_INFO_head():
-    class DHCP_SERVER_CONFIG_INFO(Structure):
-        pass
-    return DHCP_SERVER_CONFIG_INFO
-def _define_DHCP_SERVER_CONFIG_INFO():
-    DHCP_SERVER_CONFIG_INFO = win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_head
-    DHCP_SERVER_CONFIG_INFO._fields_ = [
-        ('APIProtocolSupport', UInt32),
-        ('DatabaseName', win32more.Foundation.PWSTR),
-        ('DatabasePath', win32more.Foundation.PWSTR),
-        ('BackupPath', win32more.Foundation.PWSTR),
-        ('BackupInterval', UInt32),
-        ('DatabaseLoggingFlag', UInt32),
-        ('RestoreFlag', UInt32),
-        ('DatabaseCleanupInterval', UInt32),
-        ('DebugFlag', UInt32),
-    ]
-    return DHCP_SERVER_CONFIG_INFO
-def _define_DHCP_SERVER_CONFIG_INFO_V4_head():
-    class DHCP_SERVER_CONFIG_INFO_V4(Structure):
-        pass
-    return DHCP_SERVER_CONFIG_INFO_V4
-def _define_DHCP_SERVER_CONFIG_INFO_V4():
-    DHCP_SERVER_CONFIG_INFO_V4 = win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V4_head
-    DHCP_SERVER_CONFIG_INFO_V4._fields_ = [
-        ('APIProtocolSupport', UInt32),
-        ('DatabaseName', win32more.Foundation.PWSTR),
-        ('DatabasePath', win32more.Foundation.PWSTR),
-        ('BackupPath', win32more.Foundation.PWSTR),
-        ('BackupInterval', UInt32),
-        ('DatabaseLoggingFlag', UInt32),
-        ('RestoreFlag', UInt32),
-        ('DatabaseCleanupInterval', UInt32),
-        ('DebugFlag', UInt32),
-        ('dwPingRetries', UInt32),
-        ('cbBootTableString', UInt32),
-        ('wszBootTableString', win32more.Foundation.PWSTR),
-        ('fAuditLog', win32more.Foundation.BOOL),
-    ]
-    return DHCP_SERVER_CONFIG_INFO_V4
-def _define_DHCP_SERVER_CONFIG_INFO_V6_head():
-    class DHCP_SERVER_CONFIG_INFO_V6(Structure):
-        pass
-    return DHCP_SERVER_CONFIG_INFO_V6
-def _define_DHCP_SERVER_CONFIG_INFO_V6():
-    DHCP_SERVER_CONFIG_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_V6_head
-    DHCP_SERVER_CONFIG_INFO_V6._fields_ = [
-        ('UnicastFlag', win32more.Foundation.BOOL),
-        ('RapidCommitFlag', win32more.Foundation.BOOL),
-        ('PreferredLifetime', UInt32),
-        ('ValidLifetime', UInt32),
-        ('T1', UInt32),
-        ('T2', UInt32),
-        ('PreferredLifetimeIATA', UInt32),
-        ('ValidLifetimeIATA', UInt32),
-        ('fAuditLog', win32more.Foundation.BOOL),
-    ]
-    return DHCP_SERVER_CONFIG_INFO_V6
-def _define_DHCP_SERVER_CONFIG_INFO_VQ_head():
-    class DHCP_SERVER_CONFIG_INFO_VQ(Structure):
-        pass
-    return DHCP_SERVER_CONFIG_INFO_VQ
-def _define_DHCP_SERVER_CONFIG_INFO_VQ():
-    DHCP_SERVER_CONFIG_INFO_VQ = win32more.NetworkManagement.Dhcp.DHCP_SERVER_CONFIG_INFO_VQ_head
-    DHCP_SERVER_CONFIG_INFO_VQ._fields_ = [
-        ('APIProtocolSupport', UInt32),
-        ('DatabaseName', win32more.Foundation.PWSTR),
-        ('DatabasePath', win32more.Foundation.PWSTR),
-        ('BackupPath', win32more.Foundation.PWSTR),
-        ('BackupInterval', UInt32),
-        ('DatabaseLoggingFlag', UInt32),
-        ('RestoreFlag', UInt32),
-        ('DatabaseCleanupInterval', UInt32),
-        ('DebugFlag', UInt32),
-        ('dwPingRetries', UInt32),
-        ('cbBootTableString', UInt32),
-        ('wszBootTableString', win32more.Foundation.PWSTR),
-        ('fAuditLog', win32more.Foundation.BOOL),
-        ('QuarantineOn', win32more.Foundation.BOOL),
-        ('QuarDefFail', UInt32),
-        ('QuarRuntimeStatus', win32more.Foundation.BOOL),
-    ]
-    return DHCP_SERVER_CONFIG_INFO_VQ
-def _define_DHCP_SERVER_OPTIONS_head():
-    class DHCP_SERVER_OPTIONS(Structure):
-        pass
-    return DHCP_SERVER_OPTIONS
-def _define_DHCP_SERVER_OPTIONS():
-    DHCP_SERVER_OPTIONS = win32more.NetworkManagement.Dhcp.DHCP_SERVER_OPTIONS_head
-    DHCP_SERVER_OPTIONS._fields_ = [
-        ('MessageType', c_char_p_no),
-        ('SubnetMask', POINTER(UInt32)),
-        ('RequestedAddress', POINTER(UInt32)),
-        ('RequestLeaseTime', POINTER(UInt32)),
-        ('OverlayFields', c_char_p_no),
-        ('RouterAddress', POINTER(UInt32)),
-        ('Server', POINTER(UInt32)),
-        ('ParameterRequestList', c_char_p_no),
-        ('ParameterRequestListLength', UInt32),
-        ('MachineName', win32more.Foundation.PSTR),
-        ('MachineNameLength', UInt32),
-        ('ClientHardwareAddressType', Byte),
-        ('ClientHardwareAddressLength', Byte),
-        ('ClientHardwareAddress', c_char_p_no),
-        ('ClassIdentifier', win32more.Foundation.PSTR),
-        ('ClassIdentifierLength', UInt32),
-        ('VendorClass', c_char_p_no),
-        ('VendorClassLength', UInt32),
-        ('DNSFlags', UInt32),
-        ('DNSNameLength', UInt32),
-        ('DNSName', c_char_p_no),
-        ('DSDomainNameRequested', win32more.Foundation.BOOLEAN),
-        ('DSDomainName', win32more.Foundation.PSTR),
-        ('DSDomainNameLen', UInt32),
-        ('ScopeId', POINTER(UInt32)),
-    ]
-    return DHCP_SERVER_OPTIONS
-def _define_DHCP_SERVER_SPECIFIC_STRINGS_head():
-    class DHCP_SERVER_SPECIFIC_STRINGS(Structure):
-        pass
-    return DHCP_SERVER_SPECIFIC_STRINGS
-def _define_DHCP_SERVER_SPECIFIC_STRINGS():
-    DHCP_SERVER_SPECIFIC_STRINGS = win32more.NetworkManagement.Dhcp.DHCP_SERVER_SPECIFIC_STRINGS_head
-    DHCP_SERVER_SPECIFIC_STRINGS._fields_ = [
-        ('DefaultVendorClassName', win32more.Foundation.PWSTR),
-        ('DefaultUserClassName', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_SERVER_SPECIFIC_STRINGS
-def _define_DHCP_SUBNET_ELEMENT_DATA_head():
-    class DHCP_SUBNET_ELEMENT_DATA(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_DATA
-def _define_DHCP_SUBNET_ELEMENT_DATA():
-    DHCP_SUBNET_ELEMENT_DATA = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head
-    class DHCP_SUBNET_ELEMENT_DATA_DHCP_SUBNET_ELEMENT_UNION(Union):
-        pass
-    DHCP_SUBNET_ELEMENT_DATA_DHCP_SUBNET_ELEMENT_UNION._fields_ = [
-        ('IpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-        ('SecondaryHost', POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)),
-        ('ReservedIp', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_head)),
-        ('ExcludeIpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-        ('IpUsedCluster', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)),
-    ]
-    DHCP_SUBNET_ELEMENT_DATA._fields_ = [
-        ('ElementType', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE),
-        ('Element', DHCP_SUBNET_ELEMENT_DATA_DHCP_SUBNET_ELEMENT_UNION),
-    ]
-    return DHCP_SUBNET_ELEMENT_DATA
-def _define_DHCP_SUBNET_ELEMENT_DATA_V4_head():
-    class DHCP_SUBNET_ELEMENT_DATA_V4(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_DATA_V4
-def _define_DHCP_SUBNET_ELEMENT_DATA_V4():
-    DHCP_SUBNET_ELEMENT_DATA_V4 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head
-    class DHCP_SUBNET_ELEMENT_DATA_V4_DHCP_SUBNET_ELEMENT_UNION_V4(Union):
-        pass
-    DHCP_SUBNET_ELEMENT_DATA_V4_DHCP_SUBNET_ELEMENT_UNION_V4._fields_ = [
-        ('IpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-        ('SecondaryHost', POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)),
-        ('ReservedIp', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4_head)),
-        ('ExcludeIpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-        ('IpUsedCluster', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)),
-    ]
-    DHCP_SUBNET_ELEMENT_DATA_V4._fields_ = [
-        ('ElementType', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE),
-        ('Element', DHCP_SUBNET_ELEMENT_DATA_V4_DHCP_SUBNET_ELEMENT_UNION_V4),
-    ]
-    return DHCP_SUBNET_ELEMENT_DATA_V4
-def _define_DHCP_SUBNET_ELEMENT_DATA_V5_head():
-    class DHCP_SUBNET_ELEMENT_DATA_V5(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_DATA_V5
-def _define_DHCP_SUBNET_ELEMENT_DATA_V5():
-    DHCP_SUBNET_ELEMENT_DATA_V5 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head
-    class DHCP_SUBNET_ELEMENT_DATA_V5__DHCP_SUBNET_ELEMENT_UNION_V5(Union):
-        pass
-    DHCP_SUBNET_ELEMENT_DATA_V5__DHCP_SUBNET_ELEMENT_UNION_V5._fields_ = [
-        ('IpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_BOOTP_IP_RANGE_head)),
-        ('SecondaryHost', POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)),
-        ('ReservedIp', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4_head)),
-        ('ExcludeIpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)),
-        ('IpUsedCluster', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)),
-    ]
-    DHCP_SUBNET_ELEMENT_DATA_V5._fields_ = [
-        ('ElementType', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE),
-        ('Element', DHCP_SUBNET_ELEMENT_DATA_V5__DHCP_SUBNET_ELEMENT_UNION_V5),
-    ]
-    return DHCP_SUBNET_ELEMENT_DATA_V5
-def _define_DHCP_SUBNET_ELEMENT_DATA_V6_head():
-    class DHCP_SUBNET_ELEMENT_DATA_V6(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_DATA_V6
-def _define_DHCP_SUBNET_ELEMENT_DATA_V6():
-    DHCP_SUBNET_ELEMENT_DATA_V6 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head
-    class DHCP_SUBNET_ELEMENT_DATA_V6_DHCP_SUBNET_ELEMENT_UNION_V6(Union):
-        pass
-    DHCP_SUBNET_ELEMENT_DATA_V6_DHCP_SUBNET_ELEMENT_UNION_V6._fields_ = [
-        ('IpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6_head)),
-        ('ReservedIp', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V6_head)),
-        ('ExcludeIpRange', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6_head)),
-    ]
-    DHCP_SUBNET_ELEMENT_DATA_V6._fields_ = [
-        ('ElementType', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6),
-        ('Element', DHCP_SUBNET_ELEMENT_DATA_V6_DHCP_SUBNET_ELEMENT_UNION_V6),
-    ]
-    return DHCP_SUBNET_ELEMENT_DATA_V6
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_head():
-    class DHCP_SUBNET_ELEMENT_INFO_ARRAY(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY():
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_head
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head)),
-    ]
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4_head():
-    class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4():
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4_head
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head)),
-    ]
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5_head():
-    class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5():
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5_head
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head)),
-    ]
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6_head():
-    class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6(Structure):
-        pass
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6
-def _define_DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6():
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6_head
-    DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head)),
-    ]
-    return DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6
-DHCP_SUBNET_ELEMENT_TYPE = Int32
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRanges = 0
-DHCP_SUBNET_ELEMENT_TYPE_DhcpSecondaryHosts = 1
-DHCP_SUBNET_ELEMENT_TYPE_DhcpReservedIps = 2
-DHCP_SUBNET_ELEMENT_TYPE_DhcpExcludedIpRanges = 3
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpUsedClusters = 4
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpOnly = 5
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpBootp = 6
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesBootpOnly = 7
-DHCP_SUBNET_ELEMENT_TYPE_V6 = Int32
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6IpRanges = 0
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ReservedIps = 1
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ExcludedIpRanges = 2
-def _define_DHCP_SUBNET_ELEMENT_UNION_head():
+DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientIpAddress: DHCP_SEARCH_INFO_TYPE_V6 = 0
+DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientDUID: DHCP_SEARCH_INFO_TYPE_V6 = 1
+DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientName: DHCP_SEARCH_INFO_TYPE_V6 = 2
+class DHCP_SEARCH_INFO_V6(Structure):
+    SearchType: win32more.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6
+    SearchInfo: _DHCP_CLIENT_SEARCH_UNION_V6
+    class _DHCP_CLIENT_SEARCH_UNION_V6(Union):
+        ClientIpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+        ClientDUID: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+        ClientName: win32more.Foundation.PWSTR
+class DHCP_SERVER_CONFIG_INFO(Structure):
+    APIProtocolSupport: UInt32
+    DatabaseName: win32more.Foundation.PWSTR
+    DatabasePath: win32more.Foundation.PWSTR
+    BackupPath: win32more.Foundation.PWSTR
+    BackupInterval: UInt32
+    DatabaseLoggingFlag: UInt32
+    RestoreFlag: UInt32
+    DatabaseCleanupInterval: UInt32
+    DebugFlag: UInt32
+class DHCP_SERVER_CONFIG_INFO_V4(Structure):
+    APIProtocolSupport: UInt32
+    DatabaseName: win32more.Foundation.PWSTR
+    DatabasePath: win32more.Foundation.PWSTR
+    BackupPath: win32more.Foundation.PWSTR
+    BackupInterval: UInt32
+    DatabaseLoggingFlag: UInt32
+    RestoreFlag: UInt32
+    DatabaseCleanupInterval: UInt32
+    DebugFlag: UInt32
+    dwPingRetries: UInt32
+    cbBootTableString: UInt32
+    wszBootTableString: win32more.Foundation.PWSTR
+    fAuditLog: win32more.Foundation.BOOL
+class DHCP_SERVER_CONFIG_INFO_V6(Structure):
+    UnicastFlag: win32more.Foundation.BOOL
+    RapidCommitFlag: win32more.Foundation.BOOL
+    PreferredLifetime: UInt32
+    ValidLifetime: UInt32
+    T1: UInt32
+    T2: UInt32
+    PreferredLifetimeIATA: UInt32
+    ValidLifetimeIATA: UInt32
+    fAuditLog: win32more.Foundation.BOOL
+class DHCP_SERVER_CONFIG_INFO_VQ(Structure):
+    APIProtocolSupport: UInt32
+    DatabaseName: win32more.Foundation.PWSTR
+    DatabasePath: win32more.Foundation.PWSTR
+    BackupPath: win32more.Foundation.PWSTR
+    BackupInterval: UInt32
+    DatabaseLoggingFlag: UInt32
+    RestoreFlag: UInt32
+    DatabaseCleanupInterval: UInt32
+    DebugFlag: UInt32
+    dwPingRetries: UInt32
+    cbBootTableString: UInt32
+    wszBootTableString: win32more.Foundation.PWSTR
+    fAuditLog: win32more.Foundation.BOOL
+    QuarantineOn: win32more.Foundation.BOOL
+    QuarDefFail: UInt32
+    QuarRuntimeStatus: win32more.Foundation.BOOL
+class DHCP_SERVER_OPTIONS(Structure):
+    MessageType: c_char_p_no
+    SubnetMask: POINTER(UInt32)
+    RequestedAddress: POINTER(UInt32)
+    RequestLeaseTime: POINTER(UInt32)
+    OverlayFields: c_char_p_no
+    RouterAddress: POINTER(UInt32)
+    Server: POINTER(UInt32)
+    ParameterRequestList: c_char_p_no
+    ParameterRequestListLength: UInt32
+    MachineName: win32more.Foundation.PSTR
+    MachineNameLength: UInt32
+    ClientHardwareAddressType: Byte
+    ClientHardwareAddressLength: Byte
+    ClientHardwareAddress: c_char_p_no
+    ClassIdentifier: win32more.Foundation.PSTR
+    ClassIdentifierLength: UInt32
+    VendorClass: c_char_p_no
+    VendorClassLength: UInt32
+    DNSFlags: UInt32
+    DNSNameLength: UInt32
+    DNSName: c_char_p_no
+    DSDomainNameRequested: win32more.Foundation.BOOLEAN
+    DSDomainName: win32more.Foundation.PSTR
+    DSDomainNameLen: UInt32
+    ScopeId: POINTER(UInt32)
+class DHCP_SERVER_SPECIFIC_STRINGS(Structure):
+    DefaultVendorClassName: win32more.Foundation.PWSTR
+    DefaultUserClassName: win32more.Foundation.PWSTR
+class DHCP_SUBNET_ELEMENT_DATA(Structure):
+    ElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
+    Element: DHCP_SUBNET_ELEMENT_UNION
     class DHCP_SUBNET_ELEMENT_UNION(Union):
-        pass
-    return DHCP_SUBNET_ELEMENT_UNION
-def _define_DHCP_SUBNET_ELEMENT_UNION():
-    DHCP_SUBNET_ELEMENT_UNION = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_UNION_head
-    return DHCP_SUBNET_ELEMENT_UNION
-def _define_DHCP_SUBNET_ELEMENT_UNION_V4_head():
+        IpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+        SecondaryHost: POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)
+        ReservedIp: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_head)
+        ExcludeIpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+        IpUsedCluster: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)
+class DHCP_SUBNET_ELEMENT_DATA_V4(Structure):
+    ElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
+    Element: DHCP_SUBNET_ELEMENT_UNION_V4
     class DHCP_SUBNET_ELEMENT_UNION_V4(Union):
-        pass
-    return DHCP_SUBNET_ELEMENT_UNION_V4
-def _define_DHCP_SUBNET_ELEMENT_UNION_V4():
-    DHCP_SUBNET_ELEMENT_UNION_V4 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_UNION_V4_head
-    return DHCP_SUBNET_ELEMENT_UNION_V4
-def _define_DHCP_SUBNET_ELEMENT_UNION_V6_head():
+        IpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+        SecondaryHost: POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)
+        ReservedIp: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4_head)
+        ExcludeIpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+        IpUsedCluster: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)
+class DHCP_SUBNET_ELEMENT_DATA_V5(Structure):
+    ElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
+    Element: _DHCP_SUBNET_ELEMENT_UNION_V5
+    class _DHCP_SUBNET_ELEMENT_UNION_V5(Union):
+        IpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BOOTP_IP_RANGE_head)
+        SecondaryHost: POINTER(win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO_head)
+        ReservedIp: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4_head)
+        ExcludeIpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_head)
+        IpUsedCluster: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_CLUSTER_head)
+class DHCP_SUBNET_ELEMENT_DATA_V6(Structure):
+    ElementType: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6
+    Element: DHCP_SUBNET_ELEMENT_UNION_V6
     class DHCP_SUBNET_ELEMENT_UNION_V6(Union):
-        pass
-    return DHCP_SUBNET_ELEMENT_UNION_V6
-def _define_DHCP_SUBNET_ELEMENT_UNION_V6():
-    DHCP_SUBNET_ELEMENT_UNION_V6 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_UNION_V6_head
-    return DHCP_SUBNET_ELEMENT_UNION_V6
-def _define_DHCP_SUBNET_INFO_head():
-    class DHCP_SUBNET_INFO(Structure):
-        pass
-    return DHCP_SUBNET_INFO
-def _define_DHCP_SUBNET_INFO():
-    DHCP_SUBNET_INFO = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_head
-    DHCP_SUBNET_INFO._fields_ = [
-        ('SubnetAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('SubnetName', win32more.Foundation.PWSTR),
-        ('SubnetComment', win32more.Foundation.PWSTR),
-        ('PrimaryHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('SubnetState', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_STATE),
-    ]
-    return DHCP_SUBNET_INFO
-def _define_DHCP_SUBNET_INFO_V6_head():
-    class DHCP_SUBNET_INFO_V6(Structure):
-        pass
-    return DHCP_SUBNET_INFO_V6
-def _define_DHCP_SUBNET_INFO_V6():
-    DHCP_SUBNET_INFO_V6 = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_V6_head
-    DHCP_SUBNET_INFO_V6._fields_ = [
-        ('SubnetAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('Prefix', UInt32),
-        ('Preference', UInt16),
-        ('SubnetName', win32more.Foundation.PWSTR),
-        ('SubnetComment', win32more.Foundation.PWSTR),
-        ('State', UInt32),
-        ('ScopeId', UInt32),
-    ]
-    return DHCP_SUBNET_INFO_V6
-def _define_DHCP_SUBNET_INFO_VQ_head():
-    class DHCP_SUBNET_INFO_VQ(Structure):
-        pass
-    return DHCP_SUBNET_INFO_VQ
-def _define_DHCP_SUBNET_INFO_VQ():
-    DHCP_SUBNET_INFO_VQ = win32more.NetworkManagement.Dhcp.DHCP_SUBNET_INFO_VQ_head
-    DHCP_SUBNET_INFO_VQ._fields_ = [
-        ('SubnetAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('SubnetName', win32more.Foundation.PWSTR),
-        ('SubnetComment', win32more.Foundation.PWSTR),
-        ('PrimaryHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('SubnetState', win32more.NetworkManagement.Dhcp.DHCP_SUBNET_STATE),
-        ('QuarantineOn', UInt32),
-        ('Reserved1', UInt32),
-        ('Reserved2', UInt32),
-        ('Reserved3', Int64),
-        ('Reserved4', Int64),
-    ]
-    return DHCP_SUBNET_INFO_VQ
+        IpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6_head)
+        ReservedIp: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V6_head)
+        ExcludeIpRange: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6_head)
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_head)
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4_head)
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5_head)
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6_head)
+DHCP_SUBNET_ELEMENT_TYPE = Int32
+DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRanges: DHCP_SUBNET_ELEMENT_TYPE = 0
+DHCP_SUBNET_ELEMENT_TYPE_DhcpSecondaryHosts: DHCP_SUBNET_ELEMENT_TYPE = 1
+DHCP_SUBNET_ELEMENT_TYPE_DhcpReservedIps: DHCP_SUBNET_ELEMENT_TYPE = 2
+DHCP_SUBNET_ELEMENT_TYPE_DhcpExcludedIpRanges: DHCP_SUBNET_ELEMENT_TYPE = 3
+DHCP_SUBNET_ELEMENT_TYPE_DhcpIpUsedClusters: DHCP_SUBNET_ELEMENT_TYPE = 4
+DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpOnly: DHCP_SUBNET_ELEMENT_TYPE = 5
+DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpBootp: DHCP_SUBNET_ELEMENT_TYPE = 6
+DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesBootpOnly: DHCP_SUBNET_ELEMENT_TYPE = 7
+DHCP_SUBNET_ELEMENT_TYPE_V6 = Int32
+DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6IpRanges: DHCP_SUBNET_ELEMENT_TYPE_V6 = 0
+DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ReservedIps: DHCP_SUBNET_ELEMENT_TYPE_V6 = 1
+DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ExcludedIpRanges: DHCP_SUBNET_ELEMENT_TYPE_V6 = 2
+class DHCP_SUBNET_ELEMENT_UNION(Union):
+    pass
+class DHCP_SUBNET_ELEMENT_UNION_V4(Union):
+    pass
+class DHCP_SUBNET_ELEMENT_UNION_V6(Union):
+    pass
+class DHCP_SUBNET_INFO(Structure):
+    SubnetAddress: UInt32
+    SubnetMask: UInt32
+    SubnetName: win32more.Foundation.PWSTR
+    SubnetComment: win32more.Foundation.PWSTR
+    PrimaryHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    SubnetState: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_STATE
+class DHCP_SUBNET_INFO_V6(Structure):
+    SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    Prefix: UInt32
+    Preference: UInt16
+    SubnetName: win32more.Foundation.PWSTR
+    SubnetComment: win32more.Foundation.PWSTR
+    State: UInt32
+    ScopeId: UInt32
+class DHCP_SUBNET_INFO_VQ(Structure):
+    SubnetAddress: UInt32
+    SubnetMask: UInt32
+    SubnetName: win32more.Foundation.PWSTR
+    SubnetComment: win32more.Foundation.PWSTR
+    PrimaryHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    SubnetState: win32more.NetworkManagement.Dhcp.DHCP_SUBNET_STATE
+    QuarantineOn: UInt32
+    Reserved1: UInt32
+    Reserved2: UInt32
+    Reserved3: Int64
+    Reserved4: Int64
 DHCP_SUBNET_STATE = Int32
-DHCP_SUBNET_STATE_DhcpSubnetEnabled = 0
-DHCP_SUBNET_STATE_DhcpSubnetDisabled = 1
-DHCP_SUBNET_STATE_DhcpSubnetEnabledSwitched = 2
-DHCP_SUBNET_STATE_DhcpSubnetDisabledSwitched = 3
-DHCP_SUBNET_STATE_DhcpSubnetInvalidState = 4
-def _define_DHCP_SUPER_SCOPE_TABLE_head():
-    class DHCP_SUPER_SCOPE_TABLE(Structure):
-        pass
-    return DHCP_SUPER_SCOPE_TABLE
-def _define_DHCP_SUPER_SCOPE_TABLE():
-    DHCP_SUPER_SCOPE_TABLE = win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_head
-    DHCP_SUPER_SCOPE_TABLE._fields_ = [
-        ('cEntries', UInt32),
-        ('pEntries', POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_ENTRY_head)),
-    ]
-    return DHCP_SUPER_SCOPE_TABLE
-def _define_DHCP_SUPER_SCOPE_TABLE_ENTRY_head():
-    class DHCP_SUPER_SCOPE_TABLE_ENTRY(Structure):
-        pass
-    return DHCP_SUPER_SCOPE_TABLE_ENTRY
-def _define_DHCP_SUPER_SCOPE_TABLE_ENTRY():
-    DHCP_SUPER_SCOPE_TABLE_ENTRY = win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_ENTRY_head
-    DHCP_SUPER_SCOPE_TABLE_ENTRY._fields_ = [
-        ('SubnetAddress', UInt32),
-        ('SuperScopeNumber', UInt32),
-        ('NextInSuperScope', UInt32),
-        ('SuperScopeName', win32more.Foundation.PWSTR),
-    ]
-    return DHCP_SUPER_SCOPE_TABLE_ENTRY
-def _define_DHCPAPI_PARAMS_head():
-    class DHCPAPI_PARAMS(Structure):
-        pass
-    return DHCPAPI_PARAMS
-def _define_DHCPAPI_PARAMS():
-    DHCPAPI_PARAMS = win32more.NetworkManagement.Dhcp.DHCPAPI_PARAMS_head
-    DHCPAPI_PARAMS._fields_ = [
-        ('Flags', UInt32),
-        ('OptionId', UInt32),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('Data', c_char_p_no),
-        ('nBytesData', UInt32),
-    ]
-    return DHCPAPI_PARAMS
-def _define_DHCPCAPI_CLASSID_head():
-    class DHCPCAPI_CLASSID(Structure):
-        pass
-    return DHCPCAPI_CLASSID
-def _define_DHCPCAPI_CLASSID():
-    DHCPCAPI_CLASSID = win32more.NetworkManagement.Dhcp.DHCPCAPI_CLASSID_head
-    DHCPCAPI_CLASSID._fields_ = [
-        ('Flags', UInt32),
-        ('Data', c_char_p_no),
-        ('nBytesData', UInt32),
-    ]
-    return DHCPCAPI_CLASSID
-def _define_DHCPCAPI_PARAMS_ARRAY_head():
-    class DHCPCAPI_PARAMS_ARRAY(Structure):
-        pass
-    return DHCPCAPI_PARAMS_ARRAY
-def _define_DHCPCAPI_PARAMS_ARRAY():
-    DHCPCAPI_PARAMS_ARRAY = win32more.NetworkManagement.Dhcp.DHCPCAPI_PARAMS_ARRAY_head
-    DHCPCAPI_PARAMS_ARRAY._fields_ = [
-        ('nParams', UInt32),
-        ('Params', POINTER(win32more.NetworkManagement.Dhcp.DHCPAPI_PARAMS_head)),
-    ]
-    return DHCPCAPI_PARAMS_ARRAY
-def _define_DHCPDS_SERVER_head():
-    class DHCPDS_SERVER(Structure):
-        pass
-    return DHCPDS_SERVER
-def _define_DHCPDS_SERVER():
-    DHCPDS_SERVER = win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head
-    DHCPDS_SERVER._fields_ = [
-        ('Version', UInt32),
-        ('ServerName', win32more.Foundation.PWSTR),
-        ('ServerAddress', UInt32),
-        ('Flags', UInt32),
-        ('State', UInt32),
-        ('DsLocation', win32more.Foundation.PWSTR),
-        ('DsLocType', UInt32),
-    ]
-    return DHCPDS_SERVER
-def _define_DHCPDS_SERVERS_head():
-    class DHCPDS_SERVERS(Structure):
-        pass
-    return DHCPDS_SERVERS
-def _define_DHCPDS_SERVERS():
-    DHCPDS_SERVERS = win32more.NetworkManagement.Dhcp.DHCPDS_SERVERS_head
-    DHCPDS_SERVERS._fields_ = [
-        ('Flags', UInt32),
-        ('NumElements', UInt32),
-        ('Servers', POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head)),
-    ]
-    return DHCPDS_SERVERS
-def _define_DHCPV4_FAILOVER_CLIENT_INFO_head():
-    class DHCPV4_FAILOVER_CLIENT_INFO(Structure):
-        pass
-    return DHCPV4_FAILOVER_CLIENT_INFO
-def _define_DHCPV4_FAILOVER_CLIENT_INFO():
-    DHCPV4_FAILOVER_CLIENT_INFO = win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head
-    DHCPV4_FAILOVER_CLIENT_INFO._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-        ('SentPotExpTime', UInt32),
-        ('AckPotExpTime', UInt32),
-        ('RecvPotExpTime', UInt32),
-        ('StartTime', UInt32),
-        ('CltLastTransTime', UInt32),
-        ('LastBndUpdTime', UInt32),
-        ('BndMsgStatus', UInt32),
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('Flags', Byte),
-    ]
-    return DHCPV4_FAILOVER_CLIENT_INFO
-def _define_DHCPV4_FAILOVER_CLIENT_INFO_ARRAY_head():
-    class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(Structure):
-        pass
-    return DHCPV4_FAILOVER_CLIENT_INFO_ARRAY
-def _define_DHCPV4_FAILOVER_CLIENT_INFO_ARRAY():
-    DHCPV4_FAILOVER_CLIENT_INFO_ARRAY = win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_ARRAY_head
-    DHCPV4_FAILOVER_CLIENT_INFO_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Clients', POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head))),
-    ]
-    return DHCPV4_FAILOVER_CLIENT_INFO_ARRAY
-def _define_DHCPV4_FAILOVER_CLIENT_INFO_EX_head():
-    class DHCPV4_FAILOVER_CLIENT_INFO_EX(Structure):
-        pass
-    return DHCPV4_FAILOVER_CLIENT_INFO_EX
-def _define_DHCPV4_FAILOVER_CLIENT_INFO_EX():
-    DHCPV4_FAILOVER_CLIENT_INFO_EX = win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_EX_head
-    DHCPV4_FAILOVER_CLIENT_INFO_EX._fields_ = [
-        ('ClientIpAddress', UInt32),
-        ('SubnetMask', UInt32),
-        ('ClientHardwareAddress', win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA),
-        ('ClientName', win32more.Foundation.PWSTR),
-        ('ClientComment', win32more.Foundation.PWSTR),
-        ('ClientLeaseExpires', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('OwnerHost', win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO),
-        ('bClientType', Byte),
-        ('AddressState', Byte),
-        ('Status', win32more.NetworkManagement.Dhcp.QuarantineStatus),
-        ('ProbationEnds', win32more.NetworkManagement.Dhcp.DATE_TIME),
-        ('QuarantineCapable', win32more.Foundation.BOOL),
-        ('SentPotExpTime', UInt32),
-        ('AckPotExpTime', UInt32),
-        ('RecvPotExpTime', UInt32),
-        ('StartTime', UInt32),
-        ('CltLastTransTime', UInt32),
-        ('LastBndUpdTime', UInt32),
-        ('BndMsgStatus', UInt32),
-        ('PolicyName', win32more.Foundation.PWSTR),
-        ('Flags', Byte),
-        ('AddressStateEx', UInt32),
-    ]
-    return DHCPV4_FAILOVER_CLIENT_INFO_EX
-def _define_DHCPV6_BIND_ELEMENT_head():
-    class DHCPV6_BIND_ELEMENT(Structure):
-        pass
-    return DHCPV6_BIND_ELEMENT
-def _define_DHCPV6_BIND_ELEMENT():
-    DHCPV6_BIND_ELEMENT = win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_head
-    DHCPV6_BIND_ELEMENT._fields_ = [
-        ('Flags', UInt32),
-        ('fBoundToDHCPServer', win32more.Foundation.BOOL),
-        ('AdapterPrimaryAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('AdapterSubnetAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('IfDescription', win32more.Foundation.PWSTR),
-        ('IpV6IfIndex', UInt32),
-        ('IfIdSize', UInt32),
-        ('IfId', c_char_p_no),
-    ]
-    return DHCPV6_BIND_ELEMENT
-def _define_DHCPV6_BIND_ELEMENT_ARRAY_head():
-    class DHCPV6_BIND_ELEMENT_ARRAY(Structure):
-        pass
-    return DHCPV6_BIND_ELEMENT_ARRAY
-def _define_DHCPV6_BIND_ELEMENT_ARRAY():
-    DHCPV6_BIND_ELEMENT_ARRAY = win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_ARRAY_head
-    DHCPV6_BIND_ELEMENT_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_head)),
-    ]
-    return DHCPV6_BIND_ELEMENT_ARRAY
-def _define_DHCPV6_IP_ARRAY_head():
-    class DHCPV6_IP_ARRAY(Structure):
-        pass
-    return DHCPV6_IP_ARRAY
-def _define_DHCPV6_IP_ARRAY():
-    DHCPV6_IP_ARRAY = win32more.NetworkManagement.Dhcp.DHCPV6_IP_ARRAY_head
-    DHCPV6_IP_ARRAY._fields_ = [
-        ('NumElements', UInt32),
-        ('Elements', POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head)),
-    ]
-    return DHCPV6_IP_ARRAY
+DHCP_SUBNET_STATE_DhcpSubnetEnabled: DHCP_SUBNET_STATE = 0
+DHCP_SUBNET_STATE_DhcpSubnetDisabled: DHCP_SUBNET_STATE = 1
+DHCP_SUBNET_STATE_DhcpSubnetEnabledSwitched: DHCP_SUBNET_STATE = 2
+DHCP_SUBNET_STATE_DhcpSubnetDisabledSwitched: DHCP_SUBNET_STATE = 3
+DHCP_SUBNET_STATE_DhcpSubnetInvalidState: DHCP_SUBNET_STATE = 4
+class DHCP_SUPER_SCOPE_TABLE(Structure):
+    cEntries: UInt32
+    pEntries: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_ENTRY_head)
+class DHCP_SUPER_SCOPE_TABLE_ENTRY(Structure):
+    SubnetAddress: UInt32
+    SuperScopeNumber: UInt32
+    NextInSuperScope: UInt32
+    SuperScopeName: win32more.Foundation.PWSTR
+class DHCPAPI_PARAMS(Structure):
+    Flags: UInt32
+    OptionId: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPCAPI_CLASSID(Structure):
+    Flags: UInt32
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPCAPI_PARAMS_ARRAY(Structure):
+    nParams: UInt32
+    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPAPI_PARAMS_head)
+class DHCPDS_SERVER(Structure):
+    Version: UInt32
+    ServerName: win32more.Foundation.PWSTR
+    ServerAddress: UInt32
+    Flags: UInt32
+    State: UInt32
+    DsLocation: win32more.Foundation.PWSTR
+    DsLocType: UInt32
+class DHCPDS_SERVERS(Structure):
+    Flags: UInt32
+    NumElements: UInt32
+    Servers: POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head)
+class DHCPV4_FAILOVER_CLIENT_INFO(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    SentPotExpTime: UInt32
+    AckPotExpTime: UInt32
+    RecvPotExpTime: UInt32
+    StartTime: UInt32
+    CltLastTransTime: UInt32
+    LastBndUpdTime: UInt32
+    BndMsgStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+    Flags: Byte
+class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head))
+class DHCPV4_FAILOVER_CLIENT_INFO_EX(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    SentPotExpTime: UInt32
+    AckPotExpTime: UInt32
+    RecvPotExpTime: UInt32
+    StartTime: UInt32
+    CltLastTransTime: UInt32
+    LastBndUpdTime: UInt32
+    BndMsgStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+    Flags: Byte
+    AddressStateEx: UInt32
+class DHCPV6_BIND_ELEMENT(Structure):
+    Flags: UInt32
+    fBoundToDHCPServer: win32more.Foundation.BOOL
+    AdapterPrimaryAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    AdapterSubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    IfDescription: win32more.Foundation.PWSTR
+    IpV6IfIndex: UInt32
+    IfIdSize: UInt32
+    IfId: c_char_p_no
+class DHCPV6_BIND_ELEMENT_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_head)
+class DHCPV6_IP_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head)
 DHCPV6_STATELESS_PARAM_TYPE = Int32
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessPurgeInterval = 1
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessStatus = 2
-def _define_DHCPV6_STATELESS_PARAMS_head():
-    class DHCPV6_STATELESS_PARAMS(Structure):
-        pass
-    return DHCPV6_STATELESS_PARAMS
-def _define_DHCPV6_STATELESS_PARAMS():
-    DHCPV6_STATELESS_PARAMS = win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAMS_head
-    DHCPV6_STATELESS_PARAMS._fields_ = [
-        ('Status', win32more.Foundation.BOOL),
-        ('PurgeInterval', UInt32),
-    ]
-    return DHCPV6_STATELESS_PARAMS
-def _define_DHCPV6_STATELESS_SCOPE_STATS_head():
-    class DHCPV6_STATELESS_SCOPE_STATS(Structure):
-        pass
-    return DHCPV6_STATELESS_SCOPE_STATS
-def _define_DHCPV6_STATELESS_SCOPE_STATS():
-    DHCPV6_STATELESS_SCOPE_STATS = win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS_head
-    DHCPV6_STATELESS_SCOPE_STATS._fields_ = [
-        ('SubnetAddress', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('NumStatelessClientsAdded', UInt64),
-        ('NumStatelessClientsRemoved', UInt64),
-    ]
-    return DHCPV6_STATELESS_SCOPE_STATS
-def _define_DHCPV6_STATELESS_STATS_head():
-    class DHCPV6_STATELESS_STATS(Structure):
-        pass
-    return DHCPV6_STATELESS_STATS
-def _define_DHCPV6_STATELESS_STATS():
-    DHCPV6_STATELESS_STATS = win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_STATS_head
-    DHCPV6_STATELESS_STATS._fields_ = [
-        ('NumScopes', UInt32),
-        ('ScopeStats', POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS_head)),
-    ]
-    return DHCPV6_STATELESS_STATS
-def _define_DHCPV6CAPI_CLASSID_head():
-    class DHCPV6CAPI_CLASSID(Structure):
-        pass
-    return DHCPV6CAPI_CLASSID
-def _define_DHCPV6CAPI_CLASSID():
-    DHCPV6CAPI_CLASSID = win32more.NetworkManagement.Dhcp.DHCPV6CAPI_CLASSID_head
-    DHCPV6CAPI_CLASSID._fields_ = [
-        ('Flags', UInt32),
-        ('Data', c_char_p_no),
-        ('nBytesData', UInt32),
-    ]
-    return DHCPV6CAPI_CLASSID
-def _define_DHCPV6CAPI_PARAMS_head():
-    class DHCPV6CAPI_PARAMS(Structure):
-        pass
-    return DHCPV6CAPI_PARAMS
-def _define_DHCPV6CAPI_PARAMS():
-    DHCPV6CAPI_PARAMS = win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_head
-    DHCPV6CAPI_PARAMS._fields_ = [
-        ('Flags', UInt32),
-        ('OptionId', UInt32),
-        ('IsVendor', win32more.Foundation.BOOL),
-        ('Data', c_char_p_no),
-        ('nBytesData', UInt32),
-    ]
-    return DHCPV6CAPI_PARAMS
-def _define_DHCPV6CAPI_PARAMS_ARRAY_head():
-    class DHCPV6CAPI_PARAMS_ARRAY(Structure):
-        pass
-    return DHCPV6CAPI_PARAMS_ARRAY
-def _define_DHCPV6CAPI_PARAMS_ARRAY():
-    DHCPV6CAPI_PARAMS_ARRAY = win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_ARRAY_head
-    DHCPV6CAPI_PARAMS_ARRAY._fields_ = [
-        ('nParams', UInt32),
-        ('Params', POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_head)),
-    ]
-    return DHCPV6CAPI_PARAMS_ARRAY
-def _define_DHCPV6Prefix_head():
-    class DHCPV6Prefix(Structure):
-        pass
-    return DHCPV6Prefix
-def _define_DHCPV6Prefix():
-    DHCPV6Prefix = win32more.NetworkManagement.Dhcp.DHCPV6Prefix_head
-    DHCPV6Prefix._fields_ = [
-        ('prefix', Byte * 16),
-        ('prefixLength', UInt32),
-        ('preferredLifeTime', UInt32),
-        ('validLifeTime', UInt32),
-        ('status', win32more.NetworkManagement.Dhcp.StatusCode),
-    ]
-    return DHCPV6Prefix
-def _define_DHCPV6PrefixLeaseInformation_head():
-    class DHCPV6PrefixLeaseInformation(Structure):
-        pass
-    return DHCPV6PrefixLeaseInformation
-def _define_DHCPV6PrefixLeaseInformation():
-    DHCPV6PrefixLeaseInformation = win32more.NetworkManagement.Dhcp.DHCPV6PrefixLeaseInformation_head
-    DHCPV6PrefixLeaseInformation._fields_ = [
-        ('nPrefixes', UInt32),
-        ('prefixArray', POINTER(win32more.NetworkManagement.Dhcp.DHCPV6Prefix_head)),
-        ('iaid', UInt32),
-        ('T1', Int64),
-        ('T2', Int64),
-        ('MaxLeaseExpirationTime', Int64),
-        ('LastRenewalTime', Int64),
-        ('status', win32more.NetworkManagement.Dhcp.StatusCode),
-        ('ServerId', c_char_p_no),
-        ('ServerIdLen', UInt32),
-    ]
-    return DHCPV6PrefixLeaseInformation
-def _define_DWORD_DWORD_head():
-    class DWORD_DWORD(Structure):
-        pass
-    return DWORD_DWORD
-def _define_DWORD_DWORD():
-    DWORD_DWORD = win32more.NetworkManagement.Dhcp.DWORD_DWORD_head
-    DWORD_DWORD._fields_ = [
-        ('DWord1', UInt32),
-        ('DWord2', UInt32),
-    ]
-    return DWORD_DWORD
+DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessPurgeInterval: DHCPV6_STATELESS_PARAM_TYPE = 1
+DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessStatus: DHCPV6_STATELESS_PARAM_TYPE = 2
+class DHCPV6_STATELESS_PARAMS(Structure):
+    Status: win32more.Foundation.BOOL
+    PurgeInterval: UInt32
+class DHCPV6_STATELESS_SCOPE_STATS(Structure):
+    SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    NumStatelessClientsAdded: UInt64
+    NumStatelessClientsRemoved: UInt64
+class DHCPV6_STATELESS_STATS(Structure):
+    NumScopes: UInt32
+    ScopeStats: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS_head)
+class DHCPV6CAPI_CLASSID(Structure):
+    Flags: UInt32
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPV6CAPI_PARAMS(Structure):
+    Flags: UInt32
+    OptionId: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPV6CAPI_PARAMS_ARRAY(Structure):
+    nParams: UInt32
+    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_head)
+class DHCPV6Prefix(Structure):
+    prefix: Byte * 16
+    prefixLength: UInt32
+    preferredLifeTime: UInt32
+    validLifeTime: UInt32
+    status: win32more.NetworkManagement.Dhcp.StatusCode
+class DHCPV6PrefixLeaseInformation(Structure):
+    nPrefixes: UInt32
+    prefixArray: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6Prefix_head)
+    iaid: UInt32
+    T1: Int64
+    T2: Int64
+    MaxLeaseExpirationTime: Int64
+    LastRenewalTime: Int64
+    status: win32more.NetworkManagement.Dhcp.StatusCode
+    ServerId: c_char_p_no
+    ServerIdLen: UInt32
+class DWORD_DWORD(Structure):
+    DWord1: UInt32
+    DWord2: UInt32
 FSM_STATE = Int32
-NO_STATE = 0
-INIT = 1
-STARTUP = 2
-NORMAL = 3
-COMMUNICATION_INT = 4
-PARTNER_DOWN = 5
-POTENTIAL_CONFLICT = 6
-CONFLICT_DONE = 7
-RESOLUTION_INT = 8
-RECOVER = 9
-RECOVER_WAIT = 10
-RECOVER_DONE = 11
-PAUSED = 12
-SHUTDOWN = 13
-def _define_LPDHCP_CONTROL():
-    return WINFUNCTYPE(UInt32,UInt32,c_void_p)
-def _define_LPDHCP_DELETE_CLIENT():
-    return WINFUNCTYPE(UInt32,UInt32,c_char_p_no,UInt32,UInt32,UInt32)
-def _define_LPDHCP_DROP_SEND():
-    return WINFUNCTYPE(UInt32,POINTER(c_char_p_no),POINTER(UInt32),UInt32,UInt32,c_void_p,c_void_p)
-def _define_LPDHCP_ENTRY_POINT_FUNC():
-    return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.Dhcp.DHCP_CALLOUT_TABLE_head))
-def _define_LPDHCP_GIVE_ADDRESS():
-    return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,UInt32,UInt32,UInt32,UInt32,UInt32,c_void_p,c_void_p)
-def _define_LPDHCP_HANDLE_OPTIONS():
-    return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,c_void_p,c_void_p,POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_OPTIONS_head))
-def _define_LPDHCP_NEWPKT():
-    return WINFUNCTYPE(UInt32,POINTER(c_char_p_no),POINTER(UInt32),UInt32,c_void_p,POINTER(c_void_p),POINTER(Int32))
-def _define_LPDHCP_PROB():
-    return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,UInt32,UInt32,UInt32,c_void_p,c_void_p)
+NO_STATE: FSM_STATE = 0
+INIT: FSM_STATE = 1
+STARTUP: FSM_STATE = 2
+NORMAL: FSM_STATE = 3
+COMMUNICATION_INT: FSM_STATE = 4
+PARTNER_DOWN: FSM_STATE = 5
+POTENTIAL_CONFLICT: FSM_STATE = 6
+CONFLICT_DONE: FSM_STATE = 7
+RESOLUTION_INT: FSM_STATE = 8
+RECOVER: FSM_STATE = 9
+RECOVER_WAIT: FSM_STATE = 10
+RECOVER_DONE: FSM_STATE = 11
+PAUSED: FSM_STATE = 12
+SHUTDOWN: FSM_STATE = 13
+@winfunctype_pointer
+def LPDHCP_CONTROL(dwControlCode: UInt32, lpReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_DELETE_CLIENT(IpAddress: UInt32, HwAddress: c_char_p_no, HwAddressLength: UInt32, Reserved: UInt32, ClientType: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_DROP_SEND(Packet: POINTER(c_char_p_no), PacketSize: POINTER(UInt32), ControlCode: UInt32, IpAddress: UInt32, Reserved: c_void_p, PktContext: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_ENTRY_POINT_FUNC(ChainDlls: win32more.Foundation.PWSTR, CalloutVersion: UInt32, CalloutTbl: POINTER(win32more.NetworkManagement.Dhcp.DHCP_CALLOUT_TABLE_head)) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_GIVE_ADDRESS(Packet: c_char_p_no, PacketSize: UInt32, ControlCode: UInt32, IpAddress: UInt32, AltAddress: UInt32, AddrType: UInt32, LeaseTime: UInt32, Reserved: c_void_p, PktContext: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_HANDLE_OPTIONS(Packet: c_char_p_no, PacketSize: UInt32, Reserved: c_void_p, PktContext: c_void_p, ServerOptions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_SERVER_OPTIONS_head)) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_NEWPKT(Packet: POINTER(c_char_p_no), PacketSize: POINTER(UInt32), IpAddress: UInt32, Reserved: c_void_p, PktContext: POINTER(c_void_p), ProcessIt: POINTER(Int32)) -> UInt32: ...
+@winfunctype_pointer
+def LPDHCP_PROB(Packet: c_char_p_no, PacketSize: UInt32, ControlCode: UInt32, IpAddress: UInt32, AltAddress: UInt32, Reserved: c_void_p, PktContext: c_void_p) -> UInt32: ...
 QuarantineStatus = Int32
-NOQUARANTINE = 0
-RESTRICTEDACCESS = 1
-DROPPACKET = 2
-PROBATION = 3
-EXEMPT = 4
-DEFAULTQUARSETTING = 5
-NOQUARINFO = 6
-def _define_SCOPE_MIB_INFO_head():
-    class SCOPE_MIB_INFO(Structure):
-        pass
-    return SCOPE_MIB_INFO
-def _define_SCOPE_MIB_INFO():
-    SCOPE_MIB_INFO = win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_head
-    SCOPE_MIB_INFO._fields_ = [
-        ('Subnet', UInt32),
-        ('NumAddressesInuse', UInt32),
-        ('NumAddressesFree', UInt32),
-        ('NumPendingOffers', UInt32),
-    ]
-    return SCOPE_MIB_INFO
-def _define_SCOPE_MIB_INFO_V5_head():
-    class SCOPE_MIB_INFO_V5(Structure):
-        pass
-    return SCOPE_MIB_INFO_V5
-def _define_SCOPE_MIB_INFO_V5():
-    SCOPE_MIB_INFO_V5 = win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V5_head
-    SCOPE_MIB_INFO_V5._fields_ = [
-        ('Subnet', UInt32),
-        ('NumAddressesInuse', UInt32),
-        ('NumAddressesFree', UInt32),
-        ('NumPendingOffers', UInt32),
-    ]
-    return SCOPE_MIB_INFO_V5
-def _define_SCOPE_MIB_INFO_V6_head():
-    class SCOPE_MIB_INFO_V6(Structure):
-        pass
-    return SCOPE_MIB_INFO_V6
-def _define_SCOPE_MIB_INFO_V6():
-    SCOPE_MIB_INFO_V6 = win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V6_head
-    SCOPE_MIB_INFO_V6._fields_ = [
-        ('Subnet', win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS),
-        ('NumAddressesInuse', UInt64),
-        ('NumAddressesFree', UInt64),
-        ('NumPendingAdvertises', UInt64),
-    ]
-    return SCOPE_MIB_INFO_V6
-def _define_SCOPE_MIB_INFO_VQ_head():
-    class SCOPE_MIB_INFO_VQ(Structure):
-        pass
-    return SCOPE_MIB_INFO_VQ
-def _define_SCOPE_MIB_INFO_VQ():
-    SCOPE_MIB_INFO_VQ = win32more.NetworkManagement.Dhcp.SCOPE_MIB_INFO_VQ_head
-    SCOPE_MIB_INFO_VQ._fields_ = [
-        ('Subnet', UInt32),
-        ('NumAddressesInuse', UInt32),
-        ('NumAddressesFree', UInt32),
-        ('NumPendingOffers', UInt32),
-        ('QtnNumLeases', UInt32),
-        ('QtnPctQtnLeases', UInt32),
-        ('QtnProbationLeases', UInt32),
-        ('QtnNonQtnLeases', UInt32),
-        ('QtnExemptLeases', UInt32),
-        ('QtnCapableClients', UInt32),
-    ]
-    return SCOPE_MIB_INFO_VQ
+NOQUARANTINE: QuarantineStatus = 0
+RESTRICTEDACCESS: QuarantineStatus = 1
+DROPPACKET: QuarantineStatus = 2
+PROBATION: QuarantineStatus = 3
+EXEMPT: QuarantineStatus = 4
+DEFAULTQUARSETTING: QuarantineStatus = 5
+NOQUARINFO: QuarantineStatus = 6
+class SCOPE_MIB_INFO(Structure):
+    Subnet: UInt32
+    NumAddressesInuse: UInt32
+    NumAddressesFree: UInt32
+    NumPendingOffers: UInt32
+class SCOPE_MIB_INFO_V5(Structure):
+    Subnet: UInt32
+    NumAddressesInuse: UInt32
+    NumAddressesFree: UInt32
+    NumPendingOffers: UInt32
+class SCOPE_MIB_INFO_V6(Structure):
+    Subnet: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    NumAddressesInuse: UInt64
+    NumAddressesFree: UInt64
+    NumPendingAdvertises: UInt64
+class SCOPE_MIB_INFO_VQ(Structure):
+    Subnet: UInt32
+    NumAddressesInuse: UInt32
+    NumAddressesFree: UInt32
+    NumPendingOffers: UInt32
+    QtnNumLeases: UInt32
+    QtnPctQtnLeases: UInt32
+    QtnProbationLeases: UInt32
+    QtnNonQtnLeases: UInt32
+    QtnExemptLeases: UInt32
+    QtnCapableClients: UInt32
 StatusCode = Int32
-STATUS_NO_ERROR = 0
-STATUS_UNSPECIFIED_FAILURE = 1
-STATUS_NO_BINDING = 3
-STATUS_NOPREFIX_AVAIL = 6
+STATUS_NO_ERROR: StatusCode = 0
+STATUS_UNSPECIFIED_FAILURE: StatusCode = 1
+STATUS_NO_BINDING: StatusCode = 3
+STATUS_NOPREFIX_AVAIL: StatusCode = 6
+make_head(_module, 'DATE_TIME')
+make_head(_module, 'DHCP_ADDR_PATTERN')
+make_head(_module, 'DHCP_ALL_OPTION_VALUES')
+make_head(_module, 'DHCP_ALL_OPTION_VALUES_PB')
+make_head(_module, 'DHCP_ALL_OPTIONS')
+make_head(_module, 'DHCP_ATTRIB')
+make_head(_module, 'DHCP_ATTRIB_ARRAY')
+make_head(_module, 'DHCP_BINARY_DATA')
+make_head(_module, 'DHCP_BIND_ELEMENT')
+make_head(_module, 'DHCP_BIND_ELEMENT_ARRAY')
+make_head(_module, 'DHCP_BOOTP_IP_RANGE')
+make_head(_module, 'DHCP_CALLOUT_TABLE')
+make_head(_module, 'DHCP_CLASS_INFO')
+make_head(_module, 'DHCP_CLASS_INFO_ARRAY')
+make_head(_module, 'DHCP_CLASS_INFO_ARRAY_V6')
+make_head(_module, 'DHCP_CLASS_INFO_V6')
+make_head(_module, 'DHCP_CLIENT_FILTER_STATUS_INFO')
+make_head(_module, 'DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY')
+make_head(_module, 'DHCP_CLIENT_INFO')
+make_head(_module, 'DHCP_CLIENT_INFO_ARRAY')
+make_head(_module, 'DHCP_CLIENT_INFO_ARRAY_V4')
+make_head(_module, 'DHCP_CLIENT_INFO_ARRAY_V5')
+make_head(_module, 'DHCP_CLIENT_INFO_ARRAY_V6')
+make_head(_module, 'DHCP_CLIENT_INFO_ARRAY_VQ')
+make_head(_module, 'DHCP_CLIENT_INFO_EX')
+make_head(_module, 'DHCP_CLIENT_INFO_EX_ARRAY')
+make_head(_module, 'DHCP_CLIENT_INFO_PB')
+make_head(_module, 'DHCP_CLIENT_INFO_PB_ARRAY')
+make_head(_module, 'DHCP_CLIENT_INFO_V4')
+make_head(_module, 'DHCP_CLIENT_INFO_V5')
+make_head(_module, 'DHCP_CLIENT_INFO_V6')
+make_head(_module, 'DHCP_CLIENT_INFO_VQ')
+make_head(_module, 'DHCP_CLIENT_SEARCH_UNION')
+make_head(_module, 'DHCP_FAILOVER_RELATIONSHIP')
+make_head(_module, 'DHCP_FAILOVER_RELATIONSHIP_ARRAY')
+make_head(_module, 'DHCP_FAILOVER_STATISTICS')
+make_head(_module, 'DHCP_FILTER_ADD_INFO')
+make_head(_module, 'DHCP_FILTER_ENUM_INFO')
+make_head(_module, 'DHCP_FILTER_GLOBAL_INFO')
+make_head(_module, 'DHCP_FILTER_RECORD')
+make_head(_module, 'DHCP_HOST_INFO')
+make_head(_module, 'DHCP_HOST_INFO_V6')
+make_head(_module, 'DHCP_IP_ARRAY')
+make_head(_module, 'DHCP_IP_CLUSTER')
+make_head(_module, 'DHCP_IP_RANGE')
+make_head(_module, 'DHCP_IP_RANGE_ARRAY')
+make_head(_module, 'DHCP_IP_RANGE_V6')
+make_head(_module, 'DHCP_IP_RESERVATION')
+make_head(_module, 'DHCP_IP_RESERVATION_INFO')
+make_head(_module, 'DHCP_IP_RESERVATION_V4')
+make_head(_module, 'DHCP_IP_RESERVATION_V6')
+make_head(_module, 'DHCP_IPV6_ADDRESS')
+make_head(_module, 'DHCP_MIB_INFO')
+make_head(_module, 'DHCP_MIB_INFO_V5')
+make_head(_module, 'DHCP_MIB_INFO_V6')
+make_head(_module, 'DHCP_MIB_INFO_VQ')
+make_head(_module, 'DHCP_OPTION')
+make_head(_module, 'DHCP_OPTION_ARRAY')
+make_head(_module, 'DHCP_OPTION_DATA')
+make_head(_module, 'DHCP_OPTION_DATA_ELEMENT')
+make_head(_module, 'DHCP_OPTION_ELEMENT_UNION')
+make_head(_module, 'DHCP_OPTION_LIST')
+make_head(_module, 'DHCP_OPTION_SCOPE_INFO')
+make_head(_module, 'DHCP_OPTION_SCOPE_INFO6')
+make_head(_module, 'DHCP_OPTION_SCOPE_UNION6')
+make_head(_module, 'DHCP_OPTION_VALUE')
+make_head(_module, 'DHCP_OPTION_VALUE_ARRAY')
+make_head(_module, 'DHCP_PERF_STATS')
+make_head(_module, 'DHCP_POL_COND')
+make_head(_module, 'DHCP_POL_COND_ARRAY')
+make_head(_module, 'DHCP_POL_EXPR')
+make_head(_module, 'DHCP_POL_EXPR_ARRAY')
+make_head(_module, 'DHCP_POLICY')
+make_head(_module, 'DHCP_POLICY_ARRAY')
+make_head(_module, 'DHCP_POLICY_EX')
+make_head(_module, 'DHCP_POLICY_EX_ARRAY')
+make_head(_module, 'DHCP_PROPERTY')
+make_head(_module, 'DHCP_PROPERTY_ARRAY')
+make_head(_module, 'DHCP_RESERVATION_INFO_ARRAY')
+make_head(_module, 'DHCP_RESERVED_SCOPE')
+make_head(_module, 'DHCP_RESERVED_SCOPE6')
+make_head(_module, 'DHCP_SCAN_ITEM')
+make_head(_module, 'DHCP_SCAN_LIST')
+make_head(_module, 'DHCP_SEARCH_INFO')
+make_head(_module, 'DHCP_SEARCH_INFO_V6')
+make_head(_module, 'DHCP_SERVER_CONFIG_INFO')
+make_head(_module, 'DHCP_SERVER_CONFIG_INFO_V4')
+make_head(_module, 'DHCP_SERVER_CONFIG_INFO_V6')
+make_head(_module, 'DHCP_SERVER_CONFIG_INFO_VQ')
+make_head(_module, 'DHCP_SERVER_OPTIONS')
+make_head(_module, 'DHCP_SERVER_SPECIFIC_STRINGS')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_DATA')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_DATA_V4')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_DATA_V5')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_DATA_V6')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION_V4')
+make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION_V6')
+make_head(_module, 'DHCP_SUBNET_INFO')
+make_head(_module, 'DHCP_SUBNET_INFO_V6')
+make_head(_module, 'DHCP_SUBNET_INFO_VQ')
+make_head(_module, 'DHCP_SUPER_SCOPE_TABLE')
+make_head(_module, 'DHCP_SUPER_SCOPE_TABLE_ENTRY')
+make_head(_module, 'DHCPAPI_PARAMS')
+make_head(_module, 'DHCPCAPI_CLASSID')
+make_head(_module, 'DHCPCAPI_PARAMS_ARRAY')
+make_head(_module, 'DHCPDS_SERVER')
+make_head(_module, 'DHCPDS_SERVERS')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_ARRAY')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_EX')
+make_head(_module, 'DHCPV6_BIND_ELEMENT')
+make_head(_module, 'DHCPV6_BIND_ELEMENT_ARRAY')
+make_head(_module, 'DHCPV6_IP_ARRAY')
+make_head(_module, 'DHCPV6_STATELESS_PARAMS')
+make_head(_module, 'DHCPV6_STATELESS_SCOPE_STATS')
+make_head(_module, 'DHCPV6_STATELESS_STATS')
+make_head(_module, 'DHCPV6CAPI_CLASSID')
+make_head(_module, 'DHCPV6CAPI_PARAMS')
+make_head(_module, 'DHCPV6CAPI_PARAMS_ARRAY')
+make_head(_module, 'DHCPV6Prefix')
+make_head(_module, 'DHCPV6PrefixLeaseInformation')
+make_head(_module, 'DWORD_DWORD')
+make_head(_module, 'LPDHCP_CONTROL')
+make_head(_module, 'LPDHCP_DELETE_CLIENT')
+make_head(_module, 'LPDHCP_DROP_SEND')
+make_head(_module, 'LPDHCP_ENTRY_POINT_FUNC')
+make_head(_module, 'LPDHCP_GIVE_ADDRESS')
+make_head(_module, 'LPDHCP_HANDLE_OPTIONS')
+make_head(_module, 'LPDHCP_NEWPKT')
+make_head(_module, 'LPDHCP_PROB')
+make_head(_module, 'SCOPE_MIB_INFO')
+make_head(_module, 'SCOPE_MIB_INFO_V5')
+make_head(_module, 'SCOPE_MIB_INFO_V6')
+make_head(_module, 'SCOPE_MIB_INFO_VQ')
 __all__ = [
     "ADDRESS_TYPE_IANA",
     "ADDRESS_TYPE_IATA",

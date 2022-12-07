@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Contacts
@@ -7,414 +8,489 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-CGD_DEFAULT = 0
-CGD_UNKNOWN_PROPERTY = 0
-CGD_STRING_PROPERTY = 1
-CGD_DATE_PROPERTY = 2
-CGD_BINARY_PROPERTY = 4
-CGD_ARRAY_NODE = 8
-def _define_CLSID_ContactAggregationManager():
-    return Guid('96c8ad95-c199-44de-b3-4e-ac-33-c4-42-df-39')
-CONTACTPROP_PUB_NOTES = 'Notes'
-CONTACTPROP_PUB_MAILER = 'Mailer'
-CONTACTPROP_PUB_PROGID = 'ProgID'
-CONTACTPROP_PUB_GENDER = 'Gender'
-CONTACTPROP_PUB_GENDER_UNSPECIFIED = 'Unspecified'
-CONTACTPROP_PUB_GENDER_MALE = 'Male'
-CONTACTPROP_PUB_GENDER_FEMALE = 'Female'
-CONTACTPROP_PUB_CREATIONDATE = 'CreationDate'
-CONTACTPROP_PUB_L1_CONTACTIDCOLLECTION = 'ContactIDCollection'
-CONTACTPROP_PUB_L2_CONTACTID = '/ContactID'
-CONTACTPROP_PUB_L3_VALUE = '/Value'
-CONTACTPROP_PUB_L1_NAMECOLLECTION = 'NameCollection'
-CONTACTPROP_PUB_L2_NAME = '/Name'
-CONTACTPROP_PUB_L3_FORMATTEDNAME = '/FormattedName'
-CONTACTPROP_PUB_L3_PHONETIC = '/Phonetic'
-CONTACTPROP_PUB_L3_PREFIX = '/Prefix'
-CONTACTPROP_PUB_L3_TITLE = '/Title'
-CONTACTPROP_PUB_L3_GIVENNAME = '/GivenName'
-CONTACTPROP_PUB_L3_FAMILYNAME = '/FamilyName'
-CONTACTPROP_PUB_L3_MIDDLENAME = '/MiddleName'
-CONTACTPROP_PUB_L3_GENERATION = '/Generation'
-CONTACTPROP_PUB_L3_SUFFIX = '/Suffix'
-CONTACTPROP_PUB_L3_NICKNAME = '/NickName'
-CONTACTPROP_PUB_L1_POSITIONCOLLECTION = 'PositionCollection'
-CONTACTPROP_PUB_L2_POSITION = '/Position'
-CONTACTPROP_PUB_L3_ORGANIZATION = '/Organization'
-CONTACTPROP_PUB_L3_COMPANY = '/Company'
-CONTACTPROP_PUB_L3_DEPARTMENT = '/Department'
-CONTACTPROP_PUB_L3_OFFICE = '/Office'
-CONTACTPROP_PUB_L3_JOB_TITLE = '/JobTitle'
-CONTACTPROP_PUB_L3_PROFESSION = '/Profession'
-CONTACTPROP_PUB_L3_ROLE = '/Role'
-CONTACTPROP_PUB_L1_PERSONCOLLECTION = 'PersonCollection'
-CONTACTPROP_PUB_L2_PERSON = '/Person'
-CONTACTPROP_PUB_L3_PERSONID = '/PersonID'
-CONTACTPROP_PUB_L1_DATECOLLECTION = 'DateCollection'
-CONTACTPROP_PUB_L2_DATE = '/Date'
-CONTACTPROP_PUB_L1_EMAILADDRESSCOLLECTION = 'EmailAddressCollection'
-CONTACTPROP_PUB_L2_EMAILADDRESS = '/EmailAddress'
-CONTACTPROP_PUB_L3_ADDRESS = '/Address'
-CONTACTPROP_PUB_L3_TYPE = '/Type'
-CONTACTPROP_PUB_L1_CERTIFICATECOLLECTION = 'CertificateCollection'
-CONTACTPROP_PUB_L2_CERTIFICATE = '/Certificate'
-CONTACTPROP_PUB_L3_THUMBPRINT = '/ThumbPrint'
-CONTACTPROP_PUB_L1_PHONENUMBERCOLLECTION = 'PhoneNumberCollection'
-CONTACTPROP_PUB_L2_PHONENUMBER = '/PhoneNumber'
-CONTACTPROP_PUB_L3_NUMBER = '/Number'
-CONTACTPROP_PUB_L3_ALTERNATE = '/Alternate'
-CONTACTPROP_PUB_L1_PHYSICALADDRESSCOLLECTION = 'PhysicalAddressCollection'
-CONTACTPROP_PUB_L2_PHYSICALADDRESS = '/PhysicalAddress'
-CONTACTPROP_PUB_L3_ADDRESSLABEL = '/AddressLabel'
-CONTACTPROP_PUB_L3_STREET = '/Street'
-CONTACTPROP_PUB_L3_LOCALITY = '/Locality'
-CONTACTPROP_PUB_L3_REGION = '/Region'
-CONTACTPROP_PUB_L3_POSTALCODE = '/PostalCode'
-CONTACTPROP_PUB_L3_COUNTRY = '/Country'
-CONTACTPROP_PUB_L3_POBOX = '/POBox'
-CONTACTPROP_PUB_L3_EXTENDEDADDRESS = '/ExtendedAddress'
-CONTACTPROP_PUB_L1_IMADDRESSCOLLECTION = 'IMAddressCollection'
-CONTACTPROP_PUB_L2_IMADDRESSENTRY = '/IMAddress'
-CONTACTPROP_PUB_L3_PROTOCOL = '/Protocol'
-CONTACTPROP_PUB_L1_URLCOLLECTION = 'UrlCollection'
-CONTACTPROP_PUB_L2_URL = '/Url'
-CONTACTPROP_PUB_L1_PHOTOCOLLECTION = 'PhotoCollection'
-CONTACTPROP_PUB_L2_PHOTO = '/Photo'
-CONTACTPROP_PUB_L3_URL = '/Url'
-CONTACTLABEL_PUB_PREFERRED = 'Preferred'
-CONTACTLABEL_PUB_PERSONAL = 'Personal'
-CONTACTLABEL_PUB_BUSINESS = 'Business'
-CONTACTLABEL_PUB_OTHER = 'Other'
-CONTACTLABEL_PUB_VOICE = 'Voice'
-CONTACTLABEL_PUB_MOBILE = 'Mobile'
-CONTACTLABEL_PUB_PCS = 'PCS'
-CONTACTLABEL_PUB_CELLULAR = 'Cellular'
-CONTACTLABEL_PUB_CAR = 'Car'
-CONTACTLABEL_PUB_PAGER = 'Pager'
-CONTACTLABEL_PUB_TTY = 'TTY'
-CONTACTLABEL_PUB_FAX = 'Fax'
-CONTACTLABEL_PUB_VIDEO = 'Video'
-CONTACTLABEL_PUB_MODEM = 'Modem'
-CONTACTLABEL_PUB_BBS = 'BBS'
-CONTACTLABEL_PUB_ISDN = 'ISDN'
-CONTACTLABEL_PUB_AGENT = 'Agent'
-CONTACTLABEL_PUB_DOMESTIC = 'Domestic'
-CONTACTLABEL_PUB_INTERNATIONAL = 'International'
-CONTACTLABEL_PUB_POSTAL = 'Postal'
-CONTACTLABEL_PUB_PARCEL = 'Parcel'
-CONTACTLABEL_PUB_USERTILE = 'UserTile'
-CONTACTLABEL_PUB_LOGO = 'Logo'
-CONTACTLABEL_WAB_SPOUSE = 'wab:Spouse'
-CONTACTLABEL_WAB_CHILD = 'wab:Child'
-CONTACTLABEL_WAB_MANAGER = 'wab:Manager'
-CONTACTLABEL_WAB_ASSISTANT = 'wab:Assistant'
-CONTACTLABEL_WAB_BIRTHDAY = 'wab:Birthday'
-CONTACTLABEL_WAB_ANNIVERSARY = 'wab:Anniversary'
-CONTACTLABEL_WAB_SOCIALNETWORK = 'wab:SocialNetwork'
-CONTACTLABEL_WAB_SCHOOL = 'wab:School'
-CONTACTLABEL_WAB_WISHLIST = 'wab:WishList'
+CGD_DEFAULT: UInt32 = 0
+CGD_UNKNOWN_PROPERTY: UInt32 = 0
+CGD_STRING_PROPERTY: UInt32 = 1
+CGD_DATE_PROPERTY: UInt32 = 2
+CGD_BINARY_PROPERTY: UInt32 = 4
+CGD_ARRAY_NODE: UInt32 = 8
+CLSID_ContactAggregationManager: Guid = Guid('96c8ad95-c199-44de-b3-4e-ac-33-c4-42-df-39')
+CONTACTPROP_PUB_NOTES: String = 'Notes'
+CONTACTPROP_PUB_MAILER: String = 'Mailer'
+CONTACTPROP_PUB_PROGID: String = 'ProgID'
+CONTACTPROP_PUB_GENDER: String = 'Gender'
+CONTACTPROP_PUB_GENDER_UNSPECIFIED: String = 'Unspecified'
+CONTACTPROP_PUB_GENDER_MALE: String = 'Male'
+CONTACTPROP_PUB_GENDER_FEMALE: String = 'Female'
+CONTACTPROP_PUB_CREATIONDATE: String = 'CreationDate'
+CONTACTPROP_PUB_L1_CONTACTIDCOLLECTION: String = 'ContactIDCollection'
+CONTACTPROP_PUB_L2_CONTACTID: String = '/ContactID'
+CONTACTPROP_PUB_L3_VALUE: String = '/Value'
+CONTACTPROP_PUB_L1_NAMECOLLECTION: String = 'NameCollection'
+CONTACTPROP_PUB_L2_NAME: String = '/Name'
+CONTACTPROP_PUB_L3_FORMATTEDNAME: String = '/FormattedName'
+CONTACTPROP_PUB_L3_PHONETIC: String = '/Phonetic'
+CONTACTPROP_PUB_L3_PREFIX: String = '/Prefix'
+CONTACTPROP_PUB_L3_TITLE: String = '/Title'
+CONTACTPROP_PUB_L3_GIVENNAME: String = '/GivenName'
+CONTACTPROP_PUB_L3_FAMILYNAME: String = '/FamilyName'
+CONTACTPROP_PUB_L3_MIDDLENAME: String = '/MiddleName'
+CONTACTPROP_PUB_L3_GENERATION: String = '/Generation'
+CONTACTPROP_PUB_L3_SUFFIX: String = '/Suffix'
+CONTACTPROP_PUB_L3_NICKNAME: String = '/NickName'
+CONTACTPROP_PUB_L1_POSITIONCOLLECTION: String = 'PositionCollection'
+CONTACTPROP_PUB_L2_POSITION: String = '/Position'
+CONTACTPROP_PUB_L3_ORGANIZATION: String = '/Organization'
+CONTACTPROP_PUB_L3_COMPANY: String = '/Company'
+CONTACTPROP_PUB_L3_DEPARTMENT: String = '/Department'
+CONTACTPROP_PUB_L3_OFFICE: String = '/Office'
+CONTACTPROP_PUB_L3_JOB_TITLE: String = '/JobTitle'
+CONTACTPROP_PUB_L3_PROFESSION: String = '/Profession'
+CONTACTPROP_PUB_L3_ROLE: String = '/Role'
+CONTACTPROP_PUB_L1_PERSONCOLLECTION: String = 'PersonCollection'
+CONTACTPROP_PUB_L2_PERSON: String = '/Person'
+CONTACTPROP_PUB_L3_PERSONID: String = '/PersonID'
+CONTACTPROP_PUB_L1_DATECOLLECTION: String = 'DateCollection'
+CONTACTPROP_PUB_L2_DATE: String = '/Date'
+CONTACTPROP_PUB_L1_EMAILADDRESSCOLLECTION: String = 'EmailAddressCollection'
+CONTACTPROP_PUB_L2_EMAILADDRESS: String = '/EmailAddress'
+CONTACTPROP_PUB_L3_ADDRESS: String = '/Address'
+CONTACTPROP_PUB_L3_TYPE: String = '/Type'
+CONTACTPROP_PUB_L1_CERTIFICATECOLLECTION: String = 'CertificateCollection'
+CONTACTPROP_PUB_L2_CERTIFICATE: String = '/Certificate'
+CONTACTPROP_PUB_L3_THUMBPRINT: String = '/ThumbPrint'
+CONTACTPROP_PUB_L1_PHONENUMBERCOLLECTION: String = 'PhoneNumberCollection'
+CONTACTPROP_PUB_L2_PHONENUMBER: String = '/PhoneNumber'
+CONTACTPROP_PUB_L3_NUMBER: String = '/Number'
+CONTACTPROP_PUB_L3_ALTERNATE: String = '/Alternate'
+CONTACTPROP_PUB_L1_PHYSICALADDRESSCOLLECTION: String = 'PhysicalAddressCollection'
+CONTACTPROP_PUB_L2_PHYSICALADDRESS: String = '/PhysicalAddress'
+CONTACTPROP_PUB_L3_ADDRESSLABEL: String = '/AddressLabel'
+CONTACTPROP_PUB_L3_STREET: String = '/Street'
+CONTACTPROP_PUB_L3_LOCALITY: String = '/Locality'
+CONTACTPROP_PUB_L3_REGION: String = '/Region'
+CONTACTPROP_PUB_L3_POSTALCODE: String = '/PostalCode'
+CONTACTPROP_PUB_L3_COUNTRY: String = '/Country'
+CONTACTPROP_PUB_L3_POBOX: String = '/POBox'
+CONTACTPROP_PUB_L3_EXTENDEDADDRESS: String = '/ExtendedAddress'
+CONTACTPROP_PUB_L1_IMADDRESSCOLLECTION: String = 'IMAddressCollection'
+CONTACTPROP_PUB_L2_IMADDRESSENTRY: String = '/IMAddress'
+CONTACTPROP_PUB_L3_PROTOCOL: String = '/Protocol'
+CONTACTPROP_PUB_L1_URLCOLLECTION: String = 'UrlCollection'
+CONTACTPROP_PUB_L2_URL: String = '/Url'
+CONTACTPROP_PUB_L1_PHOTOCOLLECTION: String = 'PhotoCollection'
+CONTACTPROP_PUB_L2_PHOTO: String = '/Photo'
+CONTACTPROP_PUB_L3_URL: String = '/Url'
+CONTACTLABEL_PUB_PREFERRED: String = 'Preferred'
+CONTACTLABEL_PUB_PERSONAL: String = 'Personal'
+CONTACTLABEL_PUB_BUSINESS: String = 'Business'
+CONTACTLABEL_PUB_OTHER: String = 'Other'
+CONTACTLABEL_PUB_VOICE: String = 'Voice'
+CONTACTLABEL_PUB_MOBILE: String = 'Mobile'
+CONTACTLABEL_PUB_PCS: String = 'PCS'
+CONTACTLABEL_PUB_CELLULAR: String = 'Cellular'
+CONTACTLABEL_PUB_CAR: String = 'Car'
+CONTACTLABEL_PUB_PAGER: String = 'Pager'
+CONTACTLABEL_PUB_TTY: String = 'TTY'
+CONTACTLABEL_PUB_FAX: String = 'Fax'
+CONTACTLABEL_PUB_VIDEO: String = 'Video'
+CONTACTLABEL_PUB_MODEM: String = 'Modem'
+CONTACTLABEL_PUB_BBS: String = 'BBS'
+CONTACTLABEL_PUB_ISDN: String = 'ISDN'
+CONTACTLABEL_PUB_AGENT: String = 'Agent'
+CONTACTLABEL_PUB_DOMESTIC: String = 'Domestic'
+CONTACTLABEL_PUB_INTERNATIONAL: String = 'International'
+CONTACTLABEL_PUB_POSTAL: String = 'Postal'
+CONTACTLABEL_PUB_PARCEL: String = 'Parcel'
+CONTACTLABEL_PUB_USERTILE: String = 'UserTile'
+CONTACTLABEL_PUB_LOGO: String = 'Logo'
+CONTACTLABEL_WAB_SPOUSE: String = 'wab:Spouse'
+CONTACTLABEL_WAB_CHILD: String = 'wab:Child'
+CONTACTLABEL_WAB_MANAGER: String = 'wab:Manager'
+CONTACTLABEL_WAB_ASSISTANT: String = 'wab:Assistant'
+CONTACTLABEL_WAB_BIRTHDAY: String = 'wab:Birthday'
+CONTACTLABEL_WAB_ANNIVERSARY: String = 'wab:Anniversary'
+CONTACTLABEL_WAB_SOCIALNETWORK: String = 'wab:SocialNetwork'
+CONTACTLABEL_WAB_SCHOOL: String = 'wab:School'
+CONTACTLABEL_WAB_WISHLIST: String = 'wab:WishList'
 Contact = Guid('61b68808-8eee-4fd1-ac-b8-3d-80-4c-8d-b0-56')
-def _define_CONTACT_AGGREGATION_BLOB_head():
-    class CONTACT_AGGREGATION_BLOB(Structure):
-        pass
-    return CONTACT_AGGREGATION_BLOB
-def _define_CONTACT_AGGREGATION_BLOB():
-    CONTACT_AGGREGATION_BLOB = win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head
-    CONTACT_AGGREGATION_BLOB._fields_ = [
-        ('dwCount', UInt32),
-        ('lpb', c_char_p_no),
-    ]
-    return CONTACT_AGGREGATION_BLOB
+class CONTACT_AGGREGATION_BLOB(Structure):
+    dwCount: UInt32
+    lpb: c_char_p_no
 CONTACT_AGGREGATION_COLLECTION_OPTIONS = Int32
-CACO_DEFAULT = 0
-CACO_INCLUDE_EXTERNAL = 1
-CACO_EXTERNAL_ONLY = 2
+CACO_DEFAULT: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 0
+CACO_INCLUDE_EXTERNAL: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 1
+CACO_EXTERNAL_ONLY: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 2
 CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = Int32
-CA_CREATE_LOCAL = 0
-CA_CREATE_EXTERNAL = 1
+CA_CREATE_LOCAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 0
+CA_CREATE_EXTERNAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 1
 ContactManager = Guid('7165c8ab-af88-42bd-86-fd-53-10-b4-28-5a-02')
-def _define_IContact_head():
-    class IContact(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f941b671-bda7-4f77-88-4a-f4-64-62-f2-26-a7')
-    return IContact
-def _define_IContact():
-    IContact = win32more.System.Contacts.IContact_head
-    IContact.GetContactID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(3, 'GetContactID', ((1, 'pszContactID'),(1, 'cchContactID'),(1, 'pdwcchContactIDRequired'),)))
-    IContact.GetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(4, 'GetPath', ((1, 'pszPath'),(1, 'cchPath'),(1, 'pdwcchPathRequired'),)))
-    IContact.CommitChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(5, 'CommitChanges', ((1, 'dwCommitFlags'),)))
-    win32more.System.Com.IUnknown
-    return IContact
-def _define_IContactAggregationAggregate_head():
-    class IContactAggregationAggregate(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7ed1c814-cd30-43c8-9b-8d-2e-48-9e-53-d5-4b')
-    return IContactAggregationAggregate
-def _define_IContactAggregationAggregate():
-    IContactAggregationAggregate = win32more.System.Contacts.IContactAggregationAggregate_head
-    IContactAggregationAggregate.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Save', ()))
-    IContactAggregationAggregate.GetComponentItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationContactCollection_head))(4, 'GetComponentItems', ((1, 'pComponentItems'),)))
-    IContactAggregationAggregate.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'Link', ((1, 'pAggregateId'),)))
-    IContactAggregationAggregate.get_Groups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS,POINTER(win32more.System.Contacts.IContactAggregationGroupCollection_head))(6, 'get_Groups', ((1, 'options'),(1, 'ppGroups'),)))
-    IContactAggregationAggregate.get_AntiLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'get_AntiLink', ((1, 'ppAntiLink'),)))
-    IContactAggregationAggregate.put_AntiLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(8, 'put_AntiLink', ((1, 'pAntiLink'),)))
-    IContactAggregationAggregate.get_FavoriteOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(9, 'get_FavoriteOrder', ((1, 'pFavoriteOrder'),)))
-    IContactAggregationAggregate.put_FavoriteOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(10, 'put_FavoriteOrder', ((1, 'favoriteOrder'),)))
-    IContactAggregationAggregate.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(11, 'get_Id', ((1, 'ppItemId'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationAggregate
-def _define_IContactAggregationAggregateCollection_head():
-    class IContactAggregationAggregateCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('2359f3a6-3a68-40af-98-db-0f-9e-b1-43-c3-bb')
-    return IContactAggregationAggregateCollection
-def _define_IContactAggregationAggregateCollection():
-    IContactAggregationAggregateCollection = win32more.System.Contacts.IContactAggregationAggregateCollection_head
-    IContactAggregationAggregateCollection.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationAggregate_head))(3, 'FindFirst', ((1, 'ppAggregate'),)))
-    IContactAggregationAggregateCollection.FindFirstByAntiLinkId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationAggregate_head))(4, 'FindFirstByAntiLinkId', ((1, 'pAntiLinkId'),(1, 'ppAggregate'),)))
-    IContactAggregationAggregateCollection.FindNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationAggregate_head))(5, 'FindNext', ((1, 'ppAggregate'),)))
-    IContactAggregationAggregateCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_Count', ((1, 'pCount'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationAggregateCollection
-def _define_IContactAggregationContact_head():
-    class IContactAggregationContact(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1eb22e86-4c86-41f0-9f-9f-c2-51-e9-fd-a6-c3')
-    return IContactAggregationContact
-def _define_IContactAggregationContact():
-    IContactAggregationContact = win32more.System.Contacts.IContactAggregationContact_head
-    IContactAggregationContact.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Delete', ()))
-    IContactAggregationContact.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Save', ()))
-    IContactAggregationContact.MoveToAggregate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'MoveToAggregate', ((1, 'pAggregateId'),)))
-    IContactAggregationContact.Unlink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(6, 'Unlink', ()))
-    IContactAggregationContact.get_AccountId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'get_AccountId', ((1, 'ppAccountId'),)))
-    IContactAggregationContact.put_AccountId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(8, 'put_AccountId', ((1, 'pAccountId'),)))
-    IContactAggregationContact.get_AggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'get_AggregateId', ((1, 'ppAggregateId'),)))
-    IContactAggregationContact.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'get_Id', ((1, 'ppItemId'),)))
-    IContactAggregationContact.get_IsMe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(11, 'get_IsMe', ((1, 'pIsMe'),)))
-    IContactAggregationContact.get_IsExternal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(12, 'get_IsExternal', ((1, 'pIsExternal'),)))
-    IContactAggregationContact.get_NetworkSourceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(13, 'get_NetworkSourceId', ((1, 'pNetworkSourceId'),)))
-    IContactAggregationContact.put_NetworkSourceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(14, 'put_NetworkSourceId', ((1, 'networkSourceId'),)))
-    IContactAggregationContact.get_NetworkSourceIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(15, 'get_NetworkSourceIdString', ((1, 'ppNetworkSourceId'),)))
-    IContactAggregationContact.put_NetworkSourceIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(16, 'put_NetworkSourceIdString', ((1, 'pNetworkSourceId'),)))
-    IContactAggregationContact.get_RemoteObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(17, 'get_RemoteObjectId', ((1, 'ppRemoteObjectId'),)))
-    IContactAggregationContact.put_RemoteObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(18, 'put_RemoteObjectId', ((1, 'pRemoteObjectId'),)))
-    IContactAggregationContact.get_SyncIdentityHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(19, 'get_SyncIdentityHash', ((1, 'ppSyncIdentityHash'),)))
-    IContactAggregationContact.put_SyncIdentityHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(20, 'put_SyncIdentityHash', ((1, 'pSyncIdentityHash'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationContact
-def _define_IContactAggregationContactCollection_head():
-    class IContactAggregationContactCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('826e66fa-81de-43ca-a6-fb-8c-78-5c-d9-96-c6')
-    return IContactAggregationContactCollection
-def _define_IContactAggregationContactCollection():
-    IContactAggregationContactCollection = win32more.System.Contacts.IContactAggregationContactCollection_head
-    IContactAggregationContactCollection.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationContact_head))(3, 'FindFirst', ((1, 'ppItem'),)))
-    IContactAggregationContactCollection.FindNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationContact_head))(4, 'FindNext', ((1, 'ppItem'),)))
-    IContactAggregationContactCollection.FindFirstByIdentityHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head),POINTER(win32more.System.Contacts.IContactAggregationContact_head))(5, 'FindFirstByIdentityHash', ((1, 'pSourceType'),(1, 'pAccountId'),(1, 'pIdentityHash'),(1, 'ppItem'),)))
-    IContactAggregationContactCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(6, 'get_Count', ((1, 'pCount'),)))
-    IContactAggregationContactCollection.FindFirstByRemoteId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head),POINTER(win32more.System.Contacts.IContactAggregationContact_head))(7, 'FindFirstByRemoteId', ((1, 'pSourceType'),(1, 'pAccountId'),(1, 'pRemoteObjectId'),(1, 'ppItem'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationContactCollection
-def _define_IContactAggregationGroup_head():
-    class IContactAggregationGroup(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c93c545f-1284-499b-96-af-07-37-2a-f4-73-e0')
-    return IContactAggregationGroup
-def _define_IContactAggregationGroup():
-    IContactAggregationGroup = win32more.System.Contacts.IContactAggregationGroup_head
-    IContactAggregationGroup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Delete', ()))
-    IContactAggregationGroup.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Save', ()))
-    IContactAggregationGroup.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(5, 'Add', ((1, 'pAggregateId'),)))
-    IContactAggregationGroup.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'Remove', ((1, 'pAggregateId'),)))
-    IContactAggregationGroup.get_Members = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationAggregateCollection_head))(7, 'get_Members', ((1, 'ppAggregateContactCollection'),)))
-    IContactAggregationGroup.get_GlobalObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(8, 'get_GlobalObjectId', ((1, 'pGlobalObjectId'),)))
-    IContactAggregationGroup.put_GlobalObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid))(9, 'put_GlobalObjectId', ((1, 'pGlobalObjectId'),)))
-    IContactAggregationGroup.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'get_Id', ((1, 'ppItemId'),)))
-    IContactAggregationGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(11, 'get_Name', ((1, 'ppName'),)))
-    IContactAggregationGroup.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(12, 'put_Name', ((1, 'pName'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationGroup
-def _define_IContactAggregationGroupCollection_head():
-    class IContactAggregationGroupCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('20a19a9c-d2f3-4b83-91-43-be-ff-d2-cc-22-6d')
-    return IContactAggregationGroupCollection
-def _define_IContactAggregationGroupCollection():
-    IContactAggregationGroupCollection = win32more.System.Contacts.IContactAggregationGroupCollection_head
-    IContactAggregationGroupCollection.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationGroup_head))(3, 'FindFirst', ((1, 'ppGroup'),)))
-    IContactAggregationGroupCollection.FindFirstByGlobalObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Contacts.IContactAggregationGroup_head))(4, 'FindFirstByGlobalObjectId', ((1, 'pGlobalObjectId'),(1, 'ppGroup'),)))
-    IContactAggregationGroupCollection.FindNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationGroup_head))(5, 'FindNext', ((1, 'ppGroup'),)))
-    IContactAggregationGroupCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'get_Count', ((1, 'pCount'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationGroupCollection
-def _define_IContactAggregationLink_head():
-    class IContactAggregationLink(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b6813323-a183-4654-86-27-79-b3-0d-e3-a0-ec')
-    return IContactAggregationLink
-def _define_IContactAggregationLink():
-    IContactAggregationLink = win32more.System.Contacts.IContactAggregationLink_head
-    IContactAggregationLink.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Delete', ()))
-    IContactAggregationLink.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Save', ()))
-    IContactAggregationLink.get_AccountId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(5, 'get_AccountId', ((1, 'ppAccountId'),)))
-    IContactAggregationLink.put_AccountId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'put_AccountId', ((1, 'pAccountId'),)))
-    IContactAggregationLink.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'get_Id', ((1, 'ppItemId'),)))
-    IContactAggregationLink.get_IsLinkResolved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(8, 'get_IsLinkResolved', ((1, 'pIsLinkResolved'),)))
-    IContactAggregationLink.put_IsLinkResolved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(9, 'put_IsLinkResolved', ((1, 'isLinkResolved'),)))
-    IContactAggregationLink.get_NetworkSourceIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(10, 'get_NetworkSourceIdString', ((1, 'ppNetworkSourceId'),)))
-    IContactAggregationLink.put_NetworkSourceIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(11, 'put_NetworkSourceIdString', ((1, 'pNetworkSourceId'),)))
-    IContactAggregationLink.get_RemoteObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(12, 'get_RemoteObjectId', ((1, 'ppRemoteObjectId'),)))
-    IContactAggregationLink.put_RemoteObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(13, 'put_RemoteObjectId', ((1, 'pRemoteObjectId'),)))
-    IContactAggregationLink.get_ServerPerson = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(14, 'get_ServerPerson', ((1, 'ppServerPersonId'),)))
-    IContactAggregationLink.put_ServerPerson = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(15, 'put_ServerPerson', ((1, 'pServerPersonId'),)))
-    IContactAggregationLink.get_ServerPersonBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(16, 'get_ServerPersonBaseline', ((1, 'ppServerPersonId'),)))
-    IContactAggregationLink.put_ServerPersonBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(17, 'put_ServerPersonBaseline', ((1, 'pServerPersonId'),)))
-    IContactAggregationLink.get_SyncIdentityHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(18, 'get_SyncIdentityHash', ((1, 'ppSyncIdentityHash'),)))
-    IContactAggregationLink.put_SyncIdentityHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(19, 'put_SyncIdentityHash', ((1, 'pSyncIdentityHash'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationLink
-def _define_IContactAggregationLinkCollection_head():
-    class IContactAggregationLinkCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('f8bc0e93-fb55-4f28-b9-fa-b1-c2-74-15-32-92')
-    return IContactAggregationLinkCollection
-def _define_IContactAggregationLinkCollection():
-    IContactAggregationLinkCollection = win32more.System.Contacts.IContactAggregationLinkCollection_head
-    IContactAggregationLinkCollection.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationLink_head))(3, 'FindFirst', ((1, 'ppServerContactLink'),)))
-    IContactAggregationLinkCollection.FindFirstByRemoteId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head),POINTER(win32more.System.Contacts.IContactAggregationLink_head))(4, 'FindFirstByRemoteId', ((1, 'pSourceType'),(1, 'pAccountId'),(1, 'pRemoteId'),(1, 'ppServerContactLink'),)))
-    IContactAggregationLinkCollection.FindNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationLink_head))(5, 'FindNext', ((1, 'ppServerContactLink'),)))
-    IContactAggregationLinkCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'get_Count', ((1, 'pCount'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationLinkCollection
-def _define_IContactAggregationManager_head():
-    class IContactAggregationManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('1d865989-4b1f-4b60-8f-34-c2-ad-46-8b-2b-50')
-    return IContactAggregationManager
-def _define_IContactAggregationManager():
-    IContactAggregationManager = win32more.System.Contacts.IContactAggregationManager_head
-    IContactAggregationManager.GetVersionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32))(3, 'GetVersionInfo', ((1, 'plMajorVersion'),(1, 'plMinorVersion'),)))
-    IContactAggregationManager.CreateOrOpenGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Contacts.CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Contacts.IContactAggregationGroup_head))(4, 'CreateOrOpenGroup', ((1, 'pGroupName'),(1, 'options'),(1, 'pCreatedGroup'),(1, 'ppGroup'),)))
-    IContactAggregationManager.CreateExternalContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationContact_head))(5, 'CreateExternalContact', ((1, 'ppItem'),)))
-    IContactAggregationManager.CreateServerPerson = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(6, 'CreateServerPerson', ((1, 'ppServerPerson'),)))
-    IContactAggregationManager.CreateServerContactLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationLink_head))(7, 'CreateServerContactLink', ((1, 'ppServerContactLink'),)))
-    IContactAggregationManager.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(8, 'Flush', ()))
-    IContactAggregationManager.OpenAggregateContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationAggregate_head))(9, 'OpenAggregateContact', ((1, 'pItemId'),(1, 'ppItem'),)))
-    IContactAggregationManager.OpenContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationContact_head))(10, 'OpenContact', ((1, 'pItemId'),(1, 'ppItem'),)))
-    IContactAggregationManager.OpenServerContactLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationLink_head))(11, 'OpenServerContactLink', ((1, 'pItemId'),(1, 'ppItem'),)))
-    IContactAggregationManager.OpenServerPerson = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(12, 'OpenServerPerson', ((1, 'pItemId'),(1, 'ppItem'),)))
-    IContactAggregationManager.get_Contacts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS,POINTER(win32more.System.Contacts.IContactAggregationContactCollection_head))(13, 'get_Contacts', ((1, 'options'),(1, 'ppItems'),)))
-    IContactAggregationManager.get_AggregateContacts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS,POINTER(win32more.System.Contacts.IContactAggregationAggregateCollection_head))(14, 'get_AggregateContacts', ((1, 'options'),(1, 'ppAggregates'),)))
-    IContactAggregationManager.get_Groups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS,POINTER(win32more.System.Contacts.IContactAggregationGroupCollection_head))(15, 'get_Groups', ((1, 'options'),(1, 'ppGroups'),)))
-    IContactAggregationManager.get_ServerPersons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationServerPersonCollection_head))(16, 'get_ServerPersons', ((1, 'ppServerPersonCollection'),)))
-    IContactAggregationManager.get_ServerContactLinks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationLinkCollection_head))(17, 'get_ServerContactLinks', ((1, 'pPersonItemId'),(1, 'ppServerContactLinkCollection'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationManager
-def _define_IContactAggregationServerPerson_head():
-    class IContactAggregationServerPerson(win32more.System.Com.IUnknown_head):
-        Guid = Guid('7fdc3d4b-1b82-4334-85-c5-25-18-4e-e5-a5-f2')
-    return IContactAggregationServerPerson
-def _define_IContactAggregationServerPerson():
-    IContactAggregationServerPerson = win32more.System.Contacts.IContactAggregationServerPerson_head
-    IContactAggregationServerPerson.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Delete', ()))
-    IContactAggregationServerPerson.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Save', ()))
-    IContactAggregationServerPerson.get_AggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(5, 'get_AggregateId', ((1, 'ppAggregateId'),)))
-    IContactAggregationServerPerson.put_AggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(6, 'put_AggregateId', ((1, 'pAggregateId'),)))
-    IContactAggregationServerPerson.get_AntiLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(7, 'get_AntiLink', ((1, 'ppAntiLink'),)))
-    IContactAggregationServerPerson.put_AntiLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(8, 'put_AntiLink', ((1, 'pAntiLink'),)))
-    IContactAggregationServerPerson.get_AntiLinkBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(9, 'get_AntiLinkBaseline', ((1, 'ppAntiLink'),)))
-    IContactAggregationServerPerson.put_AntiLinkBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(10, 'put_AntiLinkBaseline', ((1, 'pAntiLink'),)))
-    IContactAggregationServerPerson.get_FavoriteOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(11, 'get_FavoriteOrder', ((1, 'pFavoriteOrder'),)))
-    IContactAggregationServerPerson.put_FavoriteOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(12, 'put_FavoriteOrder', ((1, 'favoriteOrder'),)))
-    IContactAggregationServerPerson.get_FavoriteOrderBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(13, 'get_FavoriteOrderBaseline', ((1, 'pFavoriteOrder'),)))
-    IContactAggregationServerPerson.put_FavoriteOrderBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32)(14, 'put_FavoriteOrderBaseline', ((1, 'favoriteOrder'),)))
-    IContactAggregationServerPerson.get_Groups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(15, 'get_Groups', ((1, 'pGroups'),)))
-    IContactAggregationServerPerson.put_Groups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(16, 'put_Groups', ((1, 'pGroups'),)))
-    IContactAggregationServerPerson.get_GroupsBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)))(17, 'get_GroupsBaseline', ((1, 'ppGroups'),)))
-    IContactAggregationServerPerson.put_GroupsBaseline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))(18, 'put_GroupsBaseline', ((1, 'pGroups'),)))
-    IContactAggregationServerPerson.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(19, 'get_Id', ((1, 'ppId'),)))
-    IContactAggregationServerPerson.get_IsTombstone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL))(20, 'get_IsTombstone', ((1, 'pIsTombstone'),)))
-    IContactAggregationServerPerson.put_IsTombstone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL)(21, 'put_IsTombstone', ((1, 'isTombstone'),)))
-    IContactAggregationServerPerson.get_LinkedAggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(22, 'get_LinkedAggregateId', ((1, 'ppLinkedAggregateId'),)))
-    IContactAggregationServerPerson.put_LinkedAggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(23, 'put_LinkedAggregateId', ((1, 'pLinkedAggregateId'),)))
-    IContactAggregationServerPerson.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR))(24, 'get_ObjectId', ((1, 'ppObjectId'),)))
-    IContactAggregationServerPerson.put_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR)(25, 'put_ObjectId', ((1, 'pObjectId'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationServerPerson
-def _define_IContactAggregationServerPersonCollection_head():
-    class IContactAggregationServerPersonCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4f730a4a-6604-47b6-a9-87-66-9e-cf-1e-57-51')
-    return IContactAggregationServerPersonCollection
-def _define_IContactAggregationServerPersonCollection():
-    IContactAggregationServerPersonCollection = win32more.System.Contacts.IContactAggregationServerPersonCollection_head
-    IContactAggregationServerPersonCollection.FindFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(3, 'FindFirst', ((1, 'ppServerPerson'),)))
-    IContactAggregationServerPersonCollection.FindFirstByServerId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(4, 'FindFirstByServerId', ((1, 'pServerId'),(1, 'ppServerPerson'),)))
-    IContactAggregationServerPersonCollection.FindFirstByAggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(5, 'FindFirstByAggregateId', ((1, 'pAggregateId'),(1, 'ppServerPerson'),)))
-    IContactAggregationServerPersonCollection.FindFirstByLinkedAggregateId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(6, 'FindFirstByLinkedAggregateId', ((1, 'pAggregateId'),(1, 'ppServerPerson'),)))
-    IContactAggregationServerPersonCollection.FindNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head))(7, 'FindNext', ((1, 'ppServerPerson'),)))
-    IContactAggregationServerPersonCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(8, 'get_Count', ((1, 'pCount'),)))
-    win32more.System.Com.IUnknown
-    return IContactAggregationServerPersonCollection
-def _define_IContactCollection_head():
-    class IContactCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('b6afa338-d779-11d9-8b-de-f6-6b-ad-1e-3f-3a')
-    return IContactCollection
-def _define_IContactCollection():
-    IContactCollection = win32more.System.Contacts.IContactCollection_head
-    IContactCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Reset', ()))
-    IContactCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Next', ()))
-    IContactCollection.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContact_head))(5, 'GetCurrent', ((1, 'ppContact'),)))
-    win32more.System.Com.IUnknown
-    return IContactCollection
-def _define_IContactManager_head():
-    class IContactManager(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ad553d98-deb1-474a-8e-17-fc-0c-20-75-b7-38')
-    return IContactManager
-def _define_IContactManager():
-    IContactManager = win32more.System.Contacts.IContactManager_head
-    IContactManager.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(3, 'Initialize', ((1, 'pszAppName'),(1, 'pszAppVersion'),)))
-    IContactManager.Load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Contacts.IContact_head))(4, 'Load', ((1, 'pszContactID'),(1, 'ppContact'),)))
-    IContactManager.MergeContactIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR)(5, 'MergeContactIDs', ((1, 'pszNewContactID'),(1, 'pszOldContactID'),)))
-    IContactManager.GetMeContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContact_head))(6, 'GetMeContact', ((1, 'ppMeContact'),)))
-    IContactManager.SetMeContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Contacts.IContact_head)(7, 'SetMeContact', ((1, 'pMeContact'),)))
-    IContactManager.GetContactCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactCollection_head))(8, 'GetContactCollection', ((1, 'ppContactCollection'),)))
-    win32more.System.Com.IUnknown
-    return IContactManager
-def _define_IContactProperties_head():
-    class IContactProperties(win32more.System.Com.IUnknown_head):
-        Guid = Guid('70dd27dd-5cbd-46e8-be-f0-23-b6-b3-46-28-8f')
-    return IContactProperties
-def _define_IContactProperties():
-    IContactProperties = win32more.System.Contacts.IContactProperties_head
-    IContactProperties.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(3, 'GetString', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'pszValue'),(1, 'cchValue'),(1, 'pdwcchPropertyValueRequired'),)))
-    IContactProperties.GetDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.FILETIME_head))(4, 'GetDate', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'pftDateTime'),)))
-    IContactProperties.GetBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),POINTER(win32more.System.Com.IStream_head))(5, 'GetBinary', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'pszContentType'),(1, 'cchContentType'),(1, 'pdwcchContentTypeRequired'),(1, 'ppStream'),)))
-    IContactProperties.GetLabels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(6, 'GetLabels', ((1, 'pszArrayElementName'),(1, 'dwFlags'),(1, 'pszLabels'),(1, 'cchLabels'),(1, 'pdwcchLabelsRequired'),)))
-    IContactProperties.SetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR)(7, 'SetString', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'pszValue'),)))
-    IContactProperties.SetDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.FILETIME)(8, 'SetDate', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'ftDateTime'),)))
-    IContactProperties.SetBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head)(9, 'SetBinary', ((1, 'pszPropertyName'),(1, 'dwFlags'),(1, 'pszContentType'),(1, 'pStream'),)))
-    IContactProperties.SetLabels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.Foundation.PWSTR))(10, 'SetLabels', ((1, 'pszArrayElementName'),(1, 'dwFlags'),(1, 'dwLabelCount'),(1, 'ppszLabels'),)))
-    IContactProperties.CreateArrayNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(11, 'CreateArrayNode', ((1, 'pszArrayName'),(1, 'dwFlags'),(1, 'fAppend'),(1, 'pszNewArrayElementName'),(1, 'cchNewArrayElementName'),(1, 'pdwcchNewArrayElementNameRequired'),)))
-    IContactProperties.DeleteProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(12, 'DeleteProperty', ((1, 'pszPropertyName'),(1, 'dwFlags'),)))
-    IContactProperties.DeleteArrayNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(13, 'DeleteArrayNode', ((1, 'pszArrayElementName'),(1, 'dwFlags'),)))
-    IContactProperties.DeleteLabels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32)(14, 'DeleteLabels', ((1, 'pszArrayElementName'),(1, 'dwFlags'),)))
-    IContactProperties.GetPropertyCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Contacts.IContactPropertyCollection_head),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),win32more.Foundation.BOOL)(15, 'GetPropertyCollection', ((1, 'ppPropertyCollection'),(1, 'dwFlags'),(1, 'pszMultiValueName'),(1, 'dwLabelCount'),(1, 'ppszLabels'),(1, 'fAnyLabelMatches'),)))
-    win32more.System.Com.IUnknown
-    return IContactProperties
-def _define_IContactPropertyCollection_head():
-    class IContactPropertyCollection(win32more.System.Com.IUnknown_head):
-        Guid = Guid('ffd3adf8-fa64-4328-b1-b6-2e-0d-b5-09-cb-3c')
-    return IContactPropertyCollection
-def _define_IContactPropertyCollection():
-    IContactPropertyCollection = win32more.System.Contacts.IContactPropertyCollection_head
-    IContactPropertyCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'Reset', ()))
-    IContactPropertyCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'Next', ()))
-    IContactPropertyCollection.GetPropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(5, 'GetPropertyName', ((1, 'pszPropertyName'),(1, 'cchPropertyName'),(1, 'pdwcchPropertyNameRequired'),)))
-    IContactPropertyCollection.GetPropertyType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(6, 'GetPropertyType', ((1, 'pdwType'),)))
-    IContactPropertyCollection.GetPropertyVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(7, 'GetPropertyVersion', ((1, 'pdwVersion'),)))
-    IContactPropertyCollection.GetPropertyModificationDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(8, 'GetPropertyModificationDate', ((1, 'pftModificationDate'),)))
-    IContactPropertyCollection.GetPropertyArrayElementID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32))(9, 'GetPropertyArrayElementID', ((1, 'pszArrayElementID'),(1, 'cchArrayElementID'),(1, 'pdwcchArrayElementIDRequired'),)))
-    win32more.System.Com.IUnknown
-    return IContactPropertyCollection
+class IContact(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f941b671-bda7-4f77-88-4a-f4-64-62-f2-26-a7')
+    @commethod(3)
+    def GetContactID(pszContactID: win32more.Foundation.PWSTR, cchContactID: UInt32, pdwcchContactIDRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPath(pszPath: win32more.Foundation.PWSTR, cchPath: UInt32, pdwcchPathRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CommitChanges(dwCommitFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationAggregate(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7ed1c814-cd30-43c8-9b-8d-2e-48-9e-53-d5-4b')
+    @commethod(3)
+    def Save() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetComponentItems(pComponentItems: POINTER(win32more.System.Contacts.IContactAggregationContactCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Link(pAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Groups(options: win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS, ppGroups: POINTER(win32more.System.Contacts.IContactAggregationGroupCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_AntiLink(ppAntiLink: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_AntiLink(pAntiLink: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_FavoriteOrder(pFavoriteOrder: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_FavoriteOrder(favoriteOrder: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Id(ppItemId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationAggregateCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2359f3a6-3a68-40af-98-db-0f-9e-b1-43-c3-bb')
+    @commethod(3)
+    def FindFirst(ppAggregate: POINTER(win32more.System.Contacts.IContactAggregationAggregate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FindFirstByAntiLinkId(pAntiLinkId: win32more.Foundation.PWSTR, ppAggregate: POINTER(win32more.System.Contacts.IContactAggregationAggregate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindNext(ppAggregate: POINTER(win32more.System.Contacts.IContactAggregationAggregate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Count(pCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationContact(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1eb22e86-4c86-41f0-9f-9f-c2-51-e9-fd-a6-c3')
+    @commethod(3)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Save() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def MoveToAggregate(pAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Unlink() -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_AccountId(ppAccountId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_AccountId(pAccountId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_AggregateId(ppAggregateId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Id(ppItemId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_IsMe(pIsMe: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_IsExternal(pIsExternal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_NetworkSourceId(pNetworkSourceId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_NetworkSourceId(networkSourceId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_NetworkSourceIdString(ppNetworkSourceId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_NetworkSourceIdString(pNetworkSourceId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_RemoteObjectId(ppRemoteObjectId: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_RemoteObjectId(pRemoteObjectId: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_SyncIdentityHash(ppSyncIdentityHash: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_SyncIdentityHash(pSyncIdentityHash: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationContactCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('826e66fa-81de-43ca-a6-fb-8c-78-5c-d9-96-c6')
+    @commethod(3)
+    def FindFirst(ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FindNext(ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindFirstByIdentityHash(pSourceType: win32more.Foundation.PWSTR, pAccountId: win32more.Foundation.PWSTR, pIdentityHash: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head), ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Count(pCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FindFirstByRemoteId(pSourceType: win32more.Foundation.PWSTR, pAccountId: win32more.Foundation.PWSTR, pRemoteObjectId: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head), ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationGroup(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c93c545f-1284-499b-96-af-07-37-2a-f4-73-e0')
+    @commethod(3)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Save() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Add(pAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Remove(pAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Members(ppAggregateContactCollection: POINTER(win32more.System.Contacts.IContactAggregationAggregateCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_GlobalObjectId(pGlobalObjectId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_GlobalObjectId(pGlobalObjectId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Id(ppItemId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Name(ppName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_Name(pName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationGroupCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('20a19a9c-d2f3-4b83-91-43-be-ff-d2-cc-22-6d')
+    @commethod(3)
+    def FindFirst(ppGroup: POINTER(win32more.System.Contacts.IContactAggregationGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FindFirstByGlobalObjectId(pGlobalObjectId: POINTER(Guid), ppGroup: POINTER(win32more.System.Contacts.IContactAggregationGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindNext(ppGroup: POINTER(win32more.System.Contacts.IContactAggregationGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Count(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationLink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b6813323-a183-4654-86-27-79-b3-0d-e3-a0-ec')
+    @commethod(3)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Save() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_AccountId(ppAccountId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def put_AccountId(pAccountId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_Id(ppItemId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_IsLinkResolved(pIsLinkResolved: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_IsLinkResolved(isLinkResolved: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_NetworkSourceIdString(ppNetworkSourceId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_NetworkSourceIdString(pNetworkSourceId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_RemoteObjectId(ppRemoteObjectId: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def put_RemoteObjectId(pRemoteObjectId: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_ServerPerson(ppServerPersonId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def put_ServerPerson(pServerPersonId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ServerPersonBaseline(ppServerPersonId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def put_ServerPersonBaseline(pServerPersonId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_SyncIdentityHash(ppSyncIdentityHash: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def put_SyncIdentityHash(pSyncIdentityHash: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationLinkCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f8bc0e93-fb55-4f28-b9-fa-b1-c2-74-15-32-92')
+    @commethod(3)
+    def FindFirst(ppServerContactLink: POINTER(win32more.System.Contacts.IContactAggregationLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FindFirstByRemoteId(pSourceType: win32more.Foundation.PWSTR, pAccountId: win32more.Foundation.PWSTR, pRemoteId: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head), ppServerContactLink: POINTER(win32more.System.Contacts.IContactAggregationLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindNext(ppServerContactLink: POINTER(win32more.System.Contacts.IContactAggregationLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_Count(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1d865989-4b1f-4b60-8f-34-c2-ad-46-8b-2b-50')
+    @commethod(3)
+    def GetVersionInfo(plMajorVersion: POINTER(Int32), plMinorVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateOrOpenGroup(pGroupName: win32more.Foundation.PWSTR, options: win32more.System.Contacts.CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS, pCreatedGroup: POINTER(win32more.Foundation.BOOL), ppGroup: POINTER(win32more.System.Contacts.IContactAggregationGroup_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateExternalContact(ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateServerPerson(ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateServerContactLink(ppServerContactLink: POINTER(win32more.System.Contacts.IContactAggregationLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Flush() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def OpenAggregateContact(pItemId: win32more.Foundation.PWSTR, ppItem: POINTER(win32more.System.Contacts.IContactAggregationAggregate_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def OpenContact(pItemId: win32more.Foundation.PWSTR, ppItem: POINTER(win32more.System.Contacts.IContactAggregationContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def OpenServerContactLink(pItemId: win32more.Foundation.PWSTR, ppItem: POINTER(win32more.System.Contacts.IContactAggregationLink_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def OpenServerPerson(pItemId: win32more.Foundation.PWSTR, ppItem: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Contacts(options: win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS, ppItems: POINTER(win32more.System.Contacts.IContactAggregationContactCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_AggregateContacts(options: win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS, ppAggregates: POINTER(win32more.System.Contacts.IContactAggregationAggregateCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Groups(options: win32more.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS, ppGroups: POINTER(win32more.System.Contacts.IContactAggregationGroupCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_ServerPersons(ppServerPersonCollection: POINTER(win32more.System.Contacts.IContactAggregationServerPersonCollection_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_ServerContactLinks(pPersonItemId: win32more.Foundation.PWSTR, ppServerContactLinkCollection: POINTER(win32more.System.Contacts.IContactAggregationLinkCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationServerPerson(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7fdc3d4b-1b82-4334-85-c5-25-18-4e-e5-a5-f2')
+    @commethod(3)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Save() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_AggregateId(ppAggregateId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def put_AggregateId(pAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_AntiLink(ppAntiLink: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_AntiLink(pAntiLink: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_AntiLinkBaseline(ppAntiLink: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_AntiLinkBaseline(pAntiLink: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_FavoriteOrder(pFavoriteOrder: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_FavoriteOrder(favoriteOrder: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_FavoriteOrderBaseline(pFavoriteOrder: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def put_FavoriteOrderBaseline(favoriteOrder: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Groups(pGroups: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_Groups(pGroups: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_GroupsBaseline(ppGroups: POINTER(POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def put_GroupsBaseline(pGroups: POINTER(win32more.System.Contacts.CONTACT_AGGREGATION_BLOB_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_Id(ppId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_IsTombstone(pIsTombstone: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_IsTombstone(isTombstone: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def get_LinkedAggregateId(ppLinkedAggregateId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def put_LinkedAggregateId(pLinkedAggregateId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def get_ObjectId(ppObjectId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def put_ObjectId(pObjectId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IContactAggregationServerPersonCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4f730a4a-6604-47b6-a9-87-66-9e-cf-1e-57-51')
+    @commethod(3)
+    def FindFirst(ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FindFirstByServerId(pServerId: win32more.Foundation.PWSTR, ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def FindFirstByAggregateId(pAggregateId: win32more.Foundation.PWSTR, ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def FindFirstByLinkedAggregateId(pAggregateId: win32more.Foundation.PWSTR, ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def FindNext(ppServerPerson: POINTER(win32more.System.Contacts.IContactAggregationServerPerson_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IContactCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b6afa338-d779-11d9-8b-de-f6-6b-ad-1e-3f-3a')
+    @commethod(3)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetCurrent(ppContact: POINTER(win32more.System.Contacts.IContact_head)) -> win32more.Foundation.HRESULT: ...
+class IContactManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ad553d98-deb1-474a-8e-17-fc-0c-20-75-b7-38')
+    @commethod(3)
+    def Initialize(pszAppName: win32more.Foundation.PWSTR, pszAppVersion: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Load(pszContactID: win32more.Foundation.PWSTR, ppContact: POINTER(win32more.System.Contacts.IContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def MergeContactIDs(pszNewContactID: win32more.Foundation.PWSTR, pszOldContactID: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetMeContact(ppMeContact: POINTER(win32more.System.Contacts.IContact_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetMeContact(pMeContact: win32more.System.Contacts.IContact_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetContactCollection(ppContactCollection: POINTER(win32more.System.Contacts.IContactCollection_head)) -> win32more.Foundation.HRESULT: ...
+class IContactProperties(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('70dd27dd-5cbd-46e8-be-f0-23-b6-b3-46-28-8f')
+    @commethod(3)
+    def GetString(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, pszValue: win32more.Foundation.PWSTR, cchValue: UInt32, pdwcchPropertyValueRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDate(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, pftDateTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetBinary(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, pszContentType: win32more.Foundation.PWSTR, cchContentType: UInt32, pdwcchContentTypeRequired: POINTER(UInt32), ppStream: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetLabels(pszArrayElementName: win32more.Foundation.PWSTR, dwFlags: UInt32, pszLabels: win32more.Foundation.PWSTR, cchLabels: UInt32, pdwcchLabelsRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetString(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, pszValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetDate(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, ftDateTime: win32more.Foundation.FILETIME) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetBinary(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32, pszContentType: win32more.Foundation.PWSTR, pStream: win32more.System.Com.IStream_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetLabels(pszArrayElementName: win32more.Foundation.PWSTR, dwFlags: UInt32, dwLabelCount: UInt32, ppszLabels: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateArrayNode(pszArrayName: win32more.Foundation.PWSTR, dwFlags: UInt32, fAppend: win32more.Foundation.BOOL, pszNewArrayElementName: win32more.Foundation.PWSTR, cchNewArrayElementName: UInt32, pdwcchNewArrayElementNameRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DeleteProperty(pszPropertyName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def DeleteArrayNode(pszArrayElementName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def DeleteLabels(pszArrayElementName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetPropertyCollection(ppPropertyCollection: POINTER(win32more.System.Contacts.IContactPropertyCollection_head), dwFlags: UInt32, pszMultiValueName: win32more.Foundation.PWSTR, dwLabelCount: UInt32, ppszLabels: POINTER(win32more.Foundation.PWSTR), fAnyLabelMatches: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class IContactPropertyCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ffd3adf8-fa64-4328-b1-b6-2e-0d-b5-09-cb-3c')
+    @commethod(3)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPropertyName(pszPropertyName: win32more.Foundation.PWSTR, cchPropertyName: UInt32, pdwcchPropertyNameRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetPropertyType(pdwType: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPropertyVersion(pdwVersion: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetPropertyModificationDate(pftModificationDate: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetPropertyArrayElementID(pszArrayElementID: win32more.Foundation.PWSTR, cchArrayElementID: UInt32, pdwcchArrayElementIDRequired: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'CONTACT_AGGREGATION_BLOB')
+make_head(_module, 'IContact')
+make_head(_module, 'IContactAggregationAggregate')
+make_head(_module, 'IContactAggregationAggregateCollection')
+make_head(_module, 'IContactAggregationContact')
+make_head(_module, 'IContactAggregationContactCollection')
+make_head(_module, 'IContactAggregationGroup')
+make_head(_module, 'IContactAggregationGroupCollection')
+make_head(_module, 'IContactAggregationLink')
+make_head(_module, 'IContactAggregationLinkCollection')
+make_head(_module, 'IContactAggregationManager')
+make_head(_module, 'IContactAggregationServerPerson')
+make_head(_module, 'IContactAggregationServerPersonCollection')
+make_head(_module, 'IContactCollection')
+make_head(_module, 'IContactManager')
+make_head(_module, 'IContactProperties')
+make_head(_module, 'IContactPropertyCollection')
 __all__ = [
     "CACO_DEFAULT",
     "CACO_EXTERNAL_ONLY",

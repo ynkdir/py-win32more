@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.WindowsNetworkVirtualization
 import win32more.Networking.WinSock
@@ -8,156 +9,88 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-WNV_API_MAJOR_VERSION_1 = 1
-WNV_API_MINOR_VERSION_0 = 0
-def _define_WnvOpen():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HANDLE,)(('WnvOpen', windll['wnvapi.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_WnvRequestNotification():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE,POINTER(win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM_head),POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32))(('WnvRequestNotification', windll['wnvapi.dll']), ((1, 'WnvHandle'),(1, 'NotificationParam'),(1, 'Overlapped'),(1, 'BytesTransferred'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+WNV_API_MAJOR_VERSION_1: UInt32 = 1
+WNV_API_MINOR_VERSION_0: UInt32 = 0
+@winfunctype('wnvapi.dll')
+def WnvOpen() -> win32more.Foundation.HANDLE: ...
+@winfunctype('wnvapi.dll')
+def WnvRequestNotification(WnvHandle: win32more.Foundation.HANDLE, NotificationParam: POINTER(win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM_head), Overlapped: POINTER(win32more.System.IO.OVERLAPPED_head), BytesTransferred: POINTER(UInt32)) -> UInt32: ...
 WNV_CA_NOTIFICATION_TYPE = Int32
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressAdded = 0
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressDeleted = 1
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMoved = 2
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMax = 3
-def _define_WNV_CUSTOMER_ADDRESS_CHANGE_PARAM_head():
-    class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(Structure):
-        pass
-    return WNV_CUSTOMER_ADDRESS_CHANGE_PARAM
-def _define_WNV_CUSTOMER_ADDRESS_CHANGE_PARAM():
-    WNV_CUSTOMER_ADDRESS_CHANGE_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CUSTOMER_ADDRESS_CHANGE_PARAM_head
-    WNV_CUSTOMER_ADDRESS_CHANGE_PARAM._fields_ = [
-        ('MACAddress', win32more.Networking.WinSock.DL_EUI48),
-        ('CAFamily', UInt16),
-        ('CA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('VirtualSubnetId', UInt32),
-        ('PAFamily', UInt16),
-        ('PA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('NotificationReason', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE),
-    ]
-    return WNV_CUSTOMER_ADDRESS_CHANGE_PARAM
-def _define_WNV_IP_ADDRESS_head():
-    class WNV_IP_ADDRESS(Structure):
-        pass
-    return WNV_IP_ADDRESS
-def _define_WNV_IP_ADDRESS():
-    WNV_IP_ADDRESS = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS_head
-    class WNV_IP_ADDRESS__IP_e__Union(Union):
-        pass
-    WNV_IP_ADDRESS__IP_e__Union._fields_ = [
-        ('v4', win32more.Networking.WinSock.IN_ADDR),
-        ('v6', win32more.Networking.WinSock.IN6_ADDR),
-        ('Addr', Byte * 16),
-    ]
-    WNV_IP_ADDRESS._fields_ = [
-        ('IP', WNV_IP_ADDRESS__IP_e__Union),
-    ]
-    return WNV_IP_ADDRESS
-def _define_WNV_NOTIFICATION_PARAM_head():
-    class WNV_NOTIFICATION_PARAM(Structure):
-        pass
-    return WNV_NOTIFICATION_PARAM
-def _define_WNV_NOTIFICATION_PARAM():
-    WNV_NOTIFICATION_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM_head
-    WNV_NOTIFICATION_PARAM._fields_ = [
-        ('Header', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_HEADER),
-        ('NotificationType', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE),
-        ('PendingNotifications', UInt32),
-        ('Buffer', c_char_p_no),
-    ]
-    return WNV_NOTIFICATION_PARAM
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressAdded: WNV_CA_NOTIFICATION_TYPE = 0
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressDeleted: WNV_CA_NOTIFICATION_TYPE = 1
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMoved: WNV_CA_NOTIFICATION_TYPE = 2
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMax: WNV_CA_NOTIFICATION_TYPE = 3
+class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(Structure):
+    MACAddress: win32more.Networking.WinSock.DL_EUI48
+    CAFamily: UInt16
+    CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    VirtualSubnetId: UInt32
+    PAFamily: UInt16
+    PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    NotificationReason: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE
+class WNV_IP_ADDRESS(Structure):
+    IP: _IP_e__Union
+    class _IP_e__Union(Union):
+        v4: win32more.Networking.WinSock.IN_ADDR
+        v6: win32more.Networking.WinSock.IN6_ADDR
+        Addr: Byte * 16
+class WNV_NOTIFICATION_PARAM(Structure):
+    Header: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_HEADER
+    NotificationType: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE
+    PendingNotifications: UInt32
+    Buffer: c_char_p_no
 WNV_NOTIFICATION_TYPE = Int32
-WNV_NOTIFICATION_TYPE_WnvPolicyMismatchType = 0
-WNV_NOTIFICATION_TYPE_WnvRedirectType = 1
-WNV_NOTIFICATION_TYPE_WnvObjectChangeType = 2
-WNV_NOTIFICATION_TYPE_WnvNotificationTypeMax = 3
-def _define_WNV_OBJECT_CHANGE_PARAM_head():
-    class WNV_OBJECT_CHANGE_PARAM(Structure):
-        pass
-    return WNV_OBJECT_CHANGE_PARAM
-def _define_WNV_OBJECT_CHANGE_PARAM():
-    WNV_OBJECT_CHANGE_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_CHANGE_PARAM_head
-    class WNV_OBJECT_CHANGE_PARAM__ObjectParam_e__Union(Union):
-        pass
-    WNV_OBJECT_CHANGE_PARAM__ObjectParam_e__Union._fields_ = [
-        ('ProviderAddressChange', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_PROVIDER_ADDRESS_CHANGE_PARAM),
-        ('CustomerAddressChange', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CUSTOMER_ADDRESS_CHANGE_PARAM),
-    ]
-    WNV_OBJECT_CHANGE_PARAM._fields_ = [
-        ('ObjectType', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE),
-        ('ObjectParam', WNV_OBJECT_CHANGE_PARAM__ObjectParam_e__Union),
-    ]
-    return WNV_OBJECT_CHANGE_PARAM
-def _define_WNV_OBJECT_HEADER_head():
-    class WNV_OBJECT_HEADER(Structure):
-        pass
-    return WNV_OBJECT_HEADER
-def _define_WNV_OBJECT_HEADER():
-    WNV_OBJECT_HEADER = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_HEADER_head
-    WNV_OBJECT_HEADER._fields_ = [
-        ('MajorVersion', Byte),
-        ('MinorVersion', Byte),
-        ('Size', UInt32),
-    ]
-    return WNV_OBJECT_HEADER
+WNV_NOTIFICATION_TYPE_WnvPolicyMismatchType: WNV_NOTIFICATION_TYPE = 0
+WNV_NOTIFICATION_TYPE_WnvRedirectType: WNV_NOTIFICATION_TYPE = 1
+WNV_NOTIFICATION_TYPE_WnvObjectChangeType: WNV_NOTIFICATION_TYPE = 2
+WNV_NOTIFICATION_TYPE_WnvNotificationTypeMax: WNV_NOTIFICATION_TYPE = 3
+class WNV_OBJECT_CHANGE_PARAM(Structure):
+    ObjectType: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE
+    ObjectParam: _ObjectParam_e__Union
+    class _ObjectParam_e__Union(Union):
+        ProviderAddressChange: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_PROVIDER_ADDRESS_CHANGE_PARAM
+        CustomerAddressChange: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CUSTOMER_ADDRESS_CHANGE_PARAM
+class WNV_OBJECT_HEADER(Structure):
+    MajorVersion: Byte
+    MinorVersion: Byte
+    Size: UInt32
 WNV_OBJECT_TYPE = Int32
-WNV_OBJECT_TYPE_WnvProviderAddressType = 0
-WNV_OBJECT_TYPE_WnvCustomerAddressType = 1
-WNV_OBJECT_TYPE_WnvObjectTypeMax = 2
-def _define_WNV_POLICY_MISMATCH_PARAM_head():
-    class WNV_POLICY_MISMATCH_PARAM(Structure):
-        pass
-    return WNV_POLICY_MISMATCH_PARAM
-def _define_WNV_POLICY_MISMATCH_PARAM():
-    WNV_POLICY_MISMATCH_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_POLICY_MISMATCH_PARAM_head
-    WNV_POLICY_MISMATCH_PARAM._fields_ = [
-        ('CAFamily', UInt16),
-        ('PAFamily', UInt16),
-        ('VirtualSubnetId', UInt32),
-        ('CA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('PA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-    ]
-    return WNV_POLICY_MISMATCH_PARAM
-def _define_WNV_PROVIDER_ADDRESS_CHANGE_PARAM_head():
-    class WNV_PROVIDER_ADDRESS_CHANGE_PARAM(Structure):
-        pass
-    return WNV_PROVIDER_ADDRESS_CHANGE_PARAM
-def _define_WNV_PROVIDER_ADDRESS_CHANGE_PARAM():
-    WNV_PROVIDER_ADDRESS_CHANGE_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_PROVIDER_ADDRESS_CHANGE_PARAM_head
-    WNV_PROVIDER_ADDRESS_CHANGE_PARAM._fields_ = [
-        ('PAFamily', UInt16),
-        ('PA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('AddressState', win32more.Networking.WinSock.NL_DAD_STATE),
-    ]
-    return WNV_PROVIDER_ADDRESS_CHANGE_PARAM
-def _define_WNV_REDIRECT_PARAM_head():
-    class WNV_REDIRECT_PARAM(Structure):
-        pass
-    return WNV_REDIRECT_PARAM
-def _define_WNV_REDIRECT_PARAM():
-    WNV_REDIRECT_PARAM = win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_REDIRECT_PARAM_head
-    WNV_REDIRECT_PARAM._fields_ = [
-        ('CAFamily', UInt16),
-        ('PAFamily', UInt16),
-        ('NewPAFamily', UInt16),
-        ('VirtualSubnetId', UInt32),
-        ('CA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('PA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-        ('NewPA', win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS),
-    ]
-    return WNV_REDIRECT_PARAM
+WNV_OBJECT_TYPE_WnvProviderAddressType: WNV_OBJECT_TYPE = 0
+WNV_OBJECT_TYPE_WnvCustomerAddressType: WNV_OBJECT_TYPE = 1
+WNV_OBJECT_TYPE_WnvObjectTypeMax: WNV_OBJECT_TYPE = 2
+class WNV_POLICY_MISMATCH_PARAM(Structure):
+    CAFamily: UInt16
+    PAFamily: UInt16
+    VirtualSubnetId: UInt32
+    CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+class WNV_PROVIDER_ADDRESS_CHANGE_PARAM(Structure):
+    PAFamily: UInt16
+    PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    AddressState: win32more.Networking.WinSock.NL_DAD_STATE
+class WNV_REDIRECT_PARAM(Structure):
+    CAFamily: UInt16
+    PAFamily: UInt16
+    NewPAFamily: UInt16
+    VirtualSubnetId: UInt32
+    CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+    NewPA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+make_head(_module, 'WNV_CUSTOMER_ADDRESS_CHANGE_PARAM')
+make_head(_module, 'WNV_IP_ADDRESS')
+make_head(_module, 'WNV_NOTIFICATION_PARAM')
+make_head(_module, 'WNV_OBJECT_CHANGE_PARAM')
+make_head(_module, 'WNV_OBJECT_HEADER')
+make_head(_module, 'WNV_POLICY_MISMATCH_PARAM')
+make_head(_module, 'WNV_PROVIDER_ADDRESS_CHANGE_PARAM')
+make_head(_module, 'WNV_REDIRECT_PARAM')
 __all__ = [
     "WNV_API_MAJOR_VERSION_1",
     "WNV_API_MINOR_VERSION_0",

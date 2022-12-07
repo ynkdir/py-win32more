@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.IpHelper
 import win32more.NetworkManagement.Ndis
@@ -10,4562 +11,2542 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-ANY_SIZE = 1
-MAXLEN_PHYSADDR = 8
-MAXLEN_IFDESCR = 256
-MAX_INTERFACE_NAME_LEN = 256
-MIN_IF_TYPE = 1
-IF_TYPE_OTHER = 1
-IF_TYPE_REGULAR_1822 = 2
-IF_TYPE_HDH_1822 = 3
-IF_TYPE_DDN_X25 = 4
-IF_TYPE_RFC877_X25 = 5
-IF_TYPE_ETHERNET_CSMACD = 6
-IF_TYPE_IS088023_CSMACD = 7
-IF_TYPE_ISO88024_TOKENBUS = 8
-IF_TYPE_ISO88025_TOKENRING = 9
-IF_TYPE_ISO88026_MAN = 10
-IF_TYPE_STARLAN = 11
-IF_TYPE_PROTEON_10MBIT = 12
-IF_TYPE_PROTEON_80MBIT = 13
-IF_TYPE_HYPERCHANNEL = 14
-IF_TYPE_FDDI = 15
-IF_TYPE_LAP_B = 16
-IF_TYPE_SDLC = 17
-IF_TYPE_DS1 = 18
-IF_TYPE_E1 = 19
-IF_TYPE_BASIC_ISDN = 20
-IF_TYPE_PRIMARY_ISDN = 21
-IF_TYPE_PROP_POINT2POINT_SERIAL = 22
-IF_TYPE_PPP = 23
-IF_TYPE_SOFTWARE_LOOPBACK = 24
-IF_TYPE_EON = 25
-IF_TYPE_ETHERNET_3MBIT = 26
-IF_TYPE_NSIP = 27
-IF_TYPE_SLIP = 28
-IF_TYPE_ULTRA = 29
-IF_TYPE_DS3 = 30
-IF_TYPE_SIP = 31
-IF_TYPE_FRAMERELAY = 32
-IF_TYPE_RS232 = 33
-IF_TYPE_PARA = 34
-IF_TYPE_ARCNET = 35
-IF_TYPE_ARCNET_PLUS = 36
-IF_TYPE_ATM = 37
-IF_TYPE_MIO_X25 = 38
-IF_TYPE_SONET = 39
-IF_TYPE_X25_PLE = 40
-IF_TYPE_ISO88022_LLC = 41
-IF_TYPE_LOCALTALK = 42
-IF_TYPE_SMDS_DXI = 43
-IF_TYPE_FRAMERELAY_SERVICE = 44
-IF_TYPE_V35 = 45
-IF_TYPE_HSSI = 46
-IF_TYPE_HIPPI = 47
-IF_TYPE_MODEM = 48
-IF_TYPE_AAL5 = 49
-IF_TYPE_SONET_PATH = 50
-IF_TYPE_SONET_VT = 51
-IF_TYPE_SMDS_ICIP = 52
-IF_TYPE_PROP_VIRTUAL = 53
-IF_TYPE_PROP_MULTIPLEXOR = 54
-IF_TYPE_IEEE80212 = 55
-IF_TYPE_FIBRECHANNEL = 56
-IF_TYPE_HIPPIINTERFACE = 57
-IF_TYPE_FRAMERELAY_INTERCONNECT = 58
-IF_TYPE_AFLANE_8023 = 59
-IF_TYPE_AFLANE_8025 = 60
-IF_TYPE_CCTEMUL = 61
-IF_TYPE_FASTETHER = 62
-IF_TYPE_ISDN = 63
-IF_TYPE_V11 = 64
-IF_TYPE_V36 = 65
-IF_TYPE_G703_64K = 66
-IF_TYPE_G703_2MB = 67
-IF_TYPE_QLLC = 68
-IF_TYPE_FASTETHER_FX = 69
-IF_TYPE_CHANNEL = 70
-IF_TYPE_IEEE80211 = 71
-IF_TYPE_IBM370PARCHAN = 72
-IF_TYPE_ESCON = 73
-IF_TYPE_DLSW = 74
-IF_TYPE_ISDN_S = 75
-IF_TYPE_ISDN_U = 76
-IF_TYPE_LAP_D = 77
-IF_TYPE_IPSWITCH = 78
-IF_TYPE_RSRB = 79
-IF_TYPE_ATM_LOGICAL = 80
-IF_TYPE_DS0 = 81
-IF_TYPE_DS0_BUNDLE = 82
-IF_TYPE_BSC = 83
-IF_TYPE_ASYNC = 84
-IF_TYPE_CNR = 85
-IF_TYPE_ISO88025R_DTR = 86
-IF_TYPE_EPLRS = 87
-IF_TYPE_ARAP = 88
-IF_TYPE_PROP_CNLS = 89
-IF_TYPE_HOSTPAD = 90
-IF_TYPE_TERMPAD = 91
-IF_TYPE_FRAMERELAY_MPI = 92
-IF_TYPE_X213 = 93
-IF_TYPE_ADSL = 94
-IF_TYPE_RADSL = 95
-IF_TYPE_SDSL = 96
-IF_TYPE_VDSL = 97
-IF_TYPE_ISO88025_CRFPRINT = 98
-IF_TYPE_MYRINET = 99
-IF_TYPE_VOICE_EM = 100
-IF_TYPE_VOICE_FXO = 101
-IF_TYPE_VOICE_FXS = 102
-IF_TYPE_VOICE_ENCAP = 103
-IF_TYPE_VOICE_OVERIP = 104
-IF_TYPE_ATM_DXI = 105
-IF_TYPE_ATM_FUNI = 106
-IF_TYPE_ATM_IMA = 107
-IF_TYPE_PPPMULTILINKBUNDLE = 108
-IF_TYPE_IPOVER_CDLC = 109
-IF_TYPE_IPOVER_CLAW = 110
-IF_TYPE_STACKTOSTACK = 111
-IF_TYPE_VIRTUALIPADDRESS = 112
-IF_TYPE_MPC = 113
-IF_TYPE_IPOVER_ATM = 114
-IF_TYPE_ISO88025_FIBER = 115
-IF_TYPE_TDLC = 116
-IF_TYPE_GIGABITETHERNET = 117
-IF_TYPE_HDLC = 118
-IF_TYPE_LAP_F = 119
-IF_TYPE_V37 = 120
-IF_TYPE_X25_MLP = 121
-IF_TYPE_X25_HUNTGROUP = 122
-IF_TYPE_TRANSPHDLC = 123
-IF_TYPE_INTERLEAVE = 124
-IF_TYPE_FAST = 125
-IF_TYPE_IP = 126
-IF_TYPE_DOCSCABLE_MACLAYER = 127
-IF_TYPE_DOCSCABLE_DOWNSTREAM = 128
-IF_TYPE_DOCSCABLE_UPSTREAM = 129
-IF_TYPE_A12MPPSWITCH = 130
-IF_TYPE_TUNNEL = 131
-IF_TYPE_COFFEE = 132
-IF_TYPE_CES = 133
-IF_TYPE_ATM_SUBINTERFACE = 134
-IF_TYPE_L2_VLAN = 135
-IF_TYPE_L3_IPVLAN = 136
-IF_TYPE_L3_IPXVLAN = 137
-IF_TYPE_DIGITALPOWERLINE = 138
-IF_TYPE_MEDIAMAILOVERIP = 139
-IF_TYPE_DTM = 140
-IF_TYPE_DCN = 141
-IF_TYPE_IPFORWARD = 142
-IF_TYPE_MSDSL = 143
-IF_TYPE_IEEE1394 = 144
-IF_TYPE_IF_GSN = 145
-IF_TYPE_DVBRCC_MACLAYER = 146
-IF_TYPE_DVBRCC_DOWNSTREAM = 147
-IF_TYPE_DVBRCC_UPSTREAM = 148
-IF_TYPE_ATM_VIRTUAL = 149
-IF_TYPE_MPLS_TUNNEL = 150
-IF_TYPE_SRP = 151
-IF_TYPE_VOICEOVERATM = 152
-IF_TYPE_VOICEOVERFRAMERELAY = 153
-IF_TYPE_IDSL = 154
-IF_TYPE_COMPOSITELINK = 155
-IF_TYPE_SS7_SIGLINK = 156
-IF_TYPE_PROP_WIRELESS_P2P = 157
-IF_TYPE_FR_FORWARD = 158
-IF_TYPE_RFC1483 = 159
-IF_TYPE_USB = 160
-IF_TYPE_IEEE8023AD_LAG = 161
-IF_TYPE_BGP_POLICY_ACCOUNTING = 162
-IF_TYPE_FRF16_MFR_BUNDLE = 163
-IF_TYPE_H323_GATEKEEPER = 164
-IF_TYPE_H323_PROXY = 165
-IF_TYPE_MPLS = 166
-IF_TYPE_MF_SIGLINK = 167
-IF_TYPE_HDSL2 = 168
-IF_TYPE_SHDSL = 169
-IF_TYPE_DS1_FDL = 170
-IF_TYPE_POS = 171
-IF_TYPE_DVB_ASI_IN = 172
-IF_TYPE_DVB_ASI_OUT = 173
-IF_TYPE_PLC = 174
-IF_TYPE_NFAS = 175
-IF_TYPE_TR008 = 176
-IF_TYPE_GR303_RDT = 177
-IF_TYPE_GR303_IDT = 178
-IF_TYPE_ISUP = 179
-IF_TYPE_PROP_DOCS_WIRELESS_MACLAYER = 180
-IF_TYPE_PROP_DOCS_WIRELESS_DOWNSTREAM = 181
-IF_TYPE_PROP_DOCS_WIRELESS_UPSTREAM = 182
-IF_TYPE_HIPERLAN2 = 183
-IF_TYPE_PROP_BWA_P2MP = 184
-IF_TYPE_SONET_OVERHEAD_CHANNEL = 185
-IF_TYPE_DIGITAL_WRAPPER_OVERHEAD_CHANNEL = 186
-IF_TYPE_AAL2 = 187
-IF_TYPE_RADIO_MAC = 188
-IF_TYPE_ATM_RADIO = 189
-IF_TYPE_IMT = 190
-IF_TYPE_MVL = 191
-IF_TYPE_REACH_DSL = 192
-IF_TYPE_FR_DLCI_ENDPT = 193
-IF_TYPE_ATM_VCI_ENDPT = 194
-IF_TYPE_OPTICAL_CHANNEL = 195
-IF_TYPE_OPTICAL_TRANSPORT = 196
-IF_TYPE_IEEE80216_WMAN = 237
-IF_TYPE_WWANPP = 243
-IF_TYPE_WWANPP2 = 244
-IF_TYPE_IEEE802154 = 259
-IF_TYPE_XBOX_WIRELESS = 281
-MAX_IF_TYPE = 281
-IF_CHECK_NONE = 0
-IF_CHECK_MCAST = 1
-IF_CHECK_SEND = 2
-IF_CONNECTION_DEDICATED = 1
-IF_CONNECTION_PASSIVE = 2
-IF_CONNECTION_DEMAND = 3
-IF_ADMIN_STATUS_UP = 1
-IF_ADMIN_STATUS_DOWN = 2
-IF_ADMIN_STATUS_TESTING = 3
-MIB_IF_TYPE_OTHER = 1
-MIB_IF_TYPE_ETHERNET = 6
-MIB_IF_TYPE_TOKENRING = 9
-MIB_IF_TYPE_FDDI = 15
-MIB_IF_TYPE_PPP = 23
-MIB_IF_TYPE_LOOPBACK = 24
-MIB_IF_TYPE_SLIP = 28
-MIB_IF_ADMIN_STATUS_UP = 1
-MIB_IF_ADMIN_STATUS_DOWN = 2
-MIB_IF_ADMIN_STATUS_TESTING = 3
-MIB_IPADDR_PRIMARY = 1
-MIB_IPADDR_DYNAMIC = 4
-MIB_IPADDR_DISCONNECTED = 8
-MIB_IPADDR_DELETED = 64
-MIB_IPADDR_TRANSIENT = 128
-MIB_IPADDR_DNS_ELIGIBLE = 256
-MIB_IPROUTE_METRIC_UNUSED = 4294967295
-MIB_USE_CURRENT_TTL = 4294967295
-MIB_USE_CURRENT_FORWARDING = 4294967295
-ICMP6_INFOMSG_MASK = 128
-IPRTRMGR_PID = 10000
-IF_NUMBER = 0
-IF_TABLE = 1
-IF_ROW = 2
-IP_STATS = 3
-IP_ADDRTABLE = 4
-IP_ADDRROW = 5
-IP_FORWARDNUMBER = 6
-IP_FORWARDTABLE = 7
-IP_FORWARDROW = 8
-IP_NETTABLE = 9
-IP_NETROW = 10
-ICMP_STATS = 11
-TCP_STATS = 12
-TCP_TABLE = 13
-TCP_ROW = 14
-UDP_STATS = 15
-UDP_TABLE = 16
-UDP_ROW = 17
-MCAST_MFE = 18
-MCAST_MFE_STATS = 19
-BEST_IF = 20
-BEST_ROUTE = 21
-PROXY_ARP = 22
-MCAST_IF_ENTRY = 23
-MCAST_GLOBAL = 24
-IF_STATUS = 25
-MCAST_BOUNDARY = 26
-MCAST_SCOPE = 27
-DEST_MATCHING = 28
-DEST_LONGER = 29
-DEST_SHORTER = 30
-ROUTE_MATCHING = 31
-ROUTE_LONGER = 32
-ROUTE_SHORTER = 33
-ROUTE_STATE = 34
-MCAST_MFE_STATS_EX = 35
-IP6_STATS = 36
-UDP6_STATS = 37
-TCP6_STATS = 38
-NUMBER_OF_EXPORTED_VARIABLES = 39
-MAX_SCOPE_NAME_LEN = 255
-MAX_MIB_OFFSET = 8
-MIB_INVALID_TEREDO_PORT_NUMBER = 0
-DNS_SETTINGS_VERSION1 = 1
-DNS_SETTINGS_VERSION2 = 2
-DNS_INTERFACE_SETTINGS_VERSION1 = 1
-DNS_INTERFACE_SETTINGS_VERSION2 = 2
-DNS_INTERFACE_SETTINGS_VERSION3 = 3
-DNS_SETTING_IPV6 = 1
-DNS_SETTING_NAMESERVER = 2
-DNS_SETTING_SEARCHLIST = 4
-DNS_SETTING_REGISTRATION_ENABLED = 8
-DNS_SETTING_REGISTER_ADAPTER_NAME = 16
-DNS_SETTING_DOMAIN = 32
-DNS_SETTING_HOSTNAME = 64
-DNS_SETTINGS_ENABLE_LLMNR = 128
-DNS_SETTINGS_QUERY_ADAPTER_NAME = 256
-DNS_SETTING_PROFILE_NAMESERVER = 512
-DNS_SETTING_DISABLE_UNCONSTRAINED_QUERIES = 1024
-DNS_SETTING_SUPPLEMENTAL_SEARCH_LIST = 2048
-DNS_SETTING_DOH = 4096
-DNS_SETTING_DOH_PROFILE = 8192
-DNS_ENABLE_DOH = 1
-DNS_DOH_POLICY_NOT_CONFIGURED = 4
-DNS_DOH_POLICY_DISABLE = 8
-DNS_DOH_POLICY_AUTO = 16
-DNS_DOH_POLICY_REQUIRED = 32
-DNS_SERVER_PROPERTY_VERSION1 = 1
-DNS_DOH_SERVER_SETTINGS_ENABLE_AUTO = 1
-DNS_DOH_SERVER_SETTINGS_ENABLE = 2
-DNS_DOH_SERVER_SETTINGS_FALLBACK_TO_UDP = 4
-DNS_DOH_AUTO_UPGRADE_SERVER = 8
-TCPIP_OWNING_MODULE_SIZE = 16
-FD_FLAGS_NOSYN = 1
-FD_FLAGS_ALLFLAGS = 1
-LB_SRC_ADDR_USE_SRCADDR_FLAG = 1
-LB_SRC_ADDR_USE_DSTADDR_FLAG = 2
-LB_DST_ADDR_USE_SRCADDR_FLAG = 4
-LB_DST_ADDR_USE_DSTADDR_FLAG = 8
-LB_SRC_MASK_LATE_FLAG = 16
-LB_DST_MASK_LATE_FLAG = 32
-ERROR_BASE = 23000
-PFERROR_NO_PF_INTERFACE = 23000
-PFERROR_NO_FILTERS_GIVEN = 23001
-PFERROR_BUFFER_TOO_SMALL = 23002
-ERROR_IPV6_NOT_IMPLEMENTED = 23003
-IP_EXPORT_INCLUDED = 1
-MAX_ADAPTER_NAME = 128
-IP_STATUS_BASE = 11000
-IP_SUCCESS = 0
-IP_BUF_TOO_SMALL = 11001
-IP_DEST_NET_UNREACHABLE = 11002
-IP_DEST_HOST_UNREACHABLE = 11003
-IP_DEST_PROT_UNREACHABLE = 11004
-IP_DEST_PORT_UNREACHABLE = 11005
-IP_NO_RESOURCES = 11006
-IP_BAD_OPTION = 11007
-IP_HW_ERROR = 11008
-IP_PACKET_TOO_BIG = 11009
-IP_REQ_TIMED_OUT = 11010
-IP_BAD_REQ = 11011
-IP_BAD_ROUTE = 11012
-IP_TTL_EXPIRED_TRANSIT = 11013
-IP_TTL_EXPIRED_REASSEM = 11014
-IP_PARAM_PROBLEM = 11015
-IP_SOURCE_QUENCH = 11016
-IP_OPTION_TOO_BIG = 11017
-IP_BAD_DESTINATION = 11018
-IP_DEST_NO_ROUTE = 11002
-IP_DEST_ADDR_UNREACHABLE = 11003
-IP_DEST_PROHIBITED = 11004
-IP_HOP_LIMIT_EXCEEDED = 11013
-IP_REASSEMBLY_TIME_EXCEEDED = 11014
-IP_PARAMETER_PROBLEM = 11015
-IP_DEST_UNREACHABLE = 11040
-IP_TIME_EXCEEDED = 11041
-IP_BAD_HEADER = 11042
-IP_UNRECOGNIZED_NEXT_HEADER = 11043
-IP_ICMP_ERROR = 11044
-IP_DEST_SCOPE_MISMATCH = 11045
-IP_ADDR_DELETED = 11019
-IP_SPEC_MTU_CHANGE = 11020
-IP_MTU_CHANGE = 11021
-IP_UNLOAD = 11022
-IP_ADDR_ADDED = 11023
-IP_MEDIA_CONNECT = 11024
-IP_MEDIA_DISCONNECT = 11025
-IP_BIND_ADAPTER = 11026
-IP_UNBIND_ADAPTER = 11027
-IP_DEVICE_DOES_NOT_EXIST = 11028
-IP_DUPLICATE_ADDRESS = 11029
-IP_INTERFACE_METRIC_CHANGE = 11030
-IP_RECONFIG_SECFLTR = 11031
-IP_NEGOTIATING_IPSEC = 11032
-IP_INTERFACE_WOL_CAPABILITY_CHANGE = 11033
-IP_DUPLICATE_IPADD = 11034
-IP_GENERAL_FAILURE = 11050
-MAX_IP_STATUS = 11050
-IP_PENDING = 11255
-IP_FLAG_REVERSE = 1
-IP_FLAG_DF = 2
-MAX_OPT_SIZE = 40
-IOCTL_IP_RTCHANGE_NOTIFY_REQUEST = 101
-IOCTL_IP_ADDCHANGE_NOTIFY_REQUEST = 102
-IOCTL_ARP_SEND_REQUEST = 103
-IOCTL_IP_INTERFACE_INFO = 104
-IOCTL_IP_GET_BEST_INTERFACE = 105
-IOCTL_IP_UNIDIRECTIONAL_ADAPTER_ADDRESS = 106
-NET_STRING_IPV4_ADDRESS = 1
-NET_STRING_IPV4_SERVICE = 2
-NET_STRING_IPV4_NETWORK = 4
-NET_STRING_IPV6_ADDRESS = 8
-NET_STRING_IPV6_ADDRESS_NO_SCOPE = 16
-NET_STRING_IPV6_SERVICE = 32
-NET_STRING_IPV6_SERVICE_NO_SCOPE = 64
-NET_STRING_IPV6_NETWORK = 128
-NET_STRING_NAMED_ADDRESS = 256
-NET_STRING_NAMED_SERVICE = 512
-MAX_ADAPTER_DESCRIPTION_LENGTH = 128
-MAX_ADAPTER_NAME_LENGTH = 256
-MAX_ADAPTER_ADDRESS_LENGTH = 8
-DEFAULT_MINIMUM_ENTITIES = 32
-MAX_HOSTNAME_LEN = 128
-MAX_DOMAIN_NAME_LEN = 128
-MAX_SCOPE_ID_LEN = 256
-MAX_DHCPV6_DUID_LENGTH = 130
-MAX_DNS_SUFFIX_STRING_LENGTH = 256
-BROADCAST_NODETYPE = 1
-PEER_TO_PEER_NODETYPE = 2
-MIXED_NODETYPE = 4
-HYBRID_NODETYPE = 8
-IP_ADAPTER_ADDRESS_DNS_ELIGIBLE = 1
-IP_ADAPTER_ADDRESS_TRANSIENT = 2
-IP_ADAPTER_DDNS_ENABLED = 1
-IP_ADAPTER_REGISTER_ADAPTER_SUFFIX = 2
-IP_ADAPTER_DHCP_ENABLED = 4
-IP_ADAPTER_RECEIVE_ONLY = 8
-IP_ADAPTER_NO_MULTICAST = 16
-IP_ADAPTER_IPV6_OTHER_STATEFUL_CONFIG = 32
-IP_ADAPTER_NETBIOS_OVER_TCPIP_ENABLED = 64
-IP_ADAPTER_IPV4_ENABLED = 128
-IP_ADAPTER_IPV6_ENABLED = 256
-IP_ADAPTER_IPV6_MANAGE_ADDRESS_CONFIG = 512
-GAA_FLAG_SKIP_DNS_INFO = 2048
-IP_ROUTER_MANAGER_VERSION = 1
-IP_GENERAL_INFO_BASE = 4294901760
-IP_IN_FILTER_INFO = 4294901761
-IP_OUT_FILTER_INFO = 4294901762
-IP_GLOBAL_INFO = 4294901763
-IP_INTERFACE_STATUS_INFO = 4294901764
-IP_ROUTE_INFO = 4294901765
-IP_PROT_PRIORITY_INFO = 4294901766
-IP_ROUTER_DISC_INFO = 4294901767
-IP_DEMAND_DIAL_FILTER_INFO = 4294901769
-IP_MCAST_HEARBEAT_INFO = 4294901770
-IP_MCAST_BOUNDARY_INFO = 4294901771
-IP_IPINIP_CFG_INFO = 4294901772
-IP_IFFILTER_INFO = 4294901773
-IP_MCAST_LIMIT_INFO = 4294901774
-IPV6_GLOBAL_INFO = 4294901775
-IPV6_ROUTE_INFO = 4294901776
-IP_IN_FILTER_INFO_V6 = 4294901777
-IP_OUT_FILTER_INFO_V6 = 4294901778
-IP_DEMAND_DIAL_FILTER_INFO_V6 = 4294901779
-IP_IFFILTER_INFO_V6 = 4294901780
-IP_FILTER_ENABLE_INFO = 4294901781
-IP_FILTER_ENABLE_INFO_V6 = 4294901782
-IP_PROT_PRIORITY_INFO_EX = 4294901783
-def _define_GetIfEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_ROW2_head))(('GetIfEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfEntry2Ex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL,POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_ROW2_head))(('GetIfEntry2Ex', windll['IPHLPAPI.dll']), ((1, 'Level'),(1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfTable2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_TABLE2_head)))(('GetIfTable2', windll['IPHLPAPI.dll']), ((1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfTable2Ex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_TABLE2_head)))(('GetIfTable2Ex', windll['IPHLPAPI.dll']), ((1, 'Level'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfStackTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IFSTACK_TABLE_head)))(('GetIfStackTable', windll['IPHLPAPI.dll']), ((1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInvertedIfStackTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_TABLE_head)))(('GetInvertedIfStackTable', windll['IPHLPAPI.dll']), ((1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpInterfaceEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head))(('GetIpInterfaceEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpInterfaceTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_TABLE_head)))(('GetIpInterfaceTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeIpInterfaceEntry():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head))(('InitializeIpInterfaceEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyIpInterfaceChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,win32more.NetworkManagement.IpHelper.PIPINTERFACE_CHANGE_CALLBACK,c_void_p,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.HANDLE))(('NotifyIpInterfaceChange', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Callback'),(1, 'CallerContext'),(1, 'InitialNotification'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpInterfaceEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head))(('SetIpInterfaceEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpNetworkConnectionBandwidthEstimates():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,UInt16,POINTER(win32more.NetworkManagement.IpHelper.MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES_head))(('GetIpNetworkConnectionBandwidthEstimates', windll['IPHLPAPI.dll']), ((1, 'InterfaceIndex'),(1, 'AddressFamily'),(1, 'BandwidthEstimates'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateUnicastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head))(('CreateUnicastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteUnicastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head))(('DeleteUnicastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUnicastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head))(('GetUnicastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUnicastIpAddressTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head)))(('GetUnicastIpAddressTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeUnicastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head))(('InitializeUnicastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyUnicastIpAddressChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,win32more.NetworkManagement.IpHelper.PUNICAST_IPADDRESS_CHANGE_CALLBACK,c_void_p,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.HANDLE))(('NotifyUnicastIpAddressChange', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Callback'),(1, 'CallerContext'),(1, 'InitialNotification'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyStableUnicastIpAddressTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head)),win32more.NetworkManagement.IpHelper.PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK,c_void_p,POINTER(win32more.Foundation.HANDLE))(('NotifyStableUnicastIpAddressTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),(1, 'CallerCallback'),(1, 'CallerContext'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetUnicastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head))(('SetUnicastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateAnycastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head))(('CreateAnycastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteAnycastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head))(('DeleteAnycastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAnycastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head))(('GetAnycastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAnycastIpAddressTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_TABLE_head)))(('GetAnycastIpAddressTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMulticastIpAddressEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW_head))(('GetMulticastIpAddressEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetMulticastIpAddressTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_TABLE_head)))(('GetMulticastIpAddressTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIpForwardEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head))(('CreateIpForwardEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIpForwardEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head))(('DeleteIpForwardEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBestRoute2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head),POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head),UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head),POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head))(('GetBestRoute2', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceIndex'),(1, 'SourceAddress'),(1, 'DestinationAddress'),(1, 'AddressSortOptions'),(1, 'BestRoute'),(1, 'BestSourceAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpForwardEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head))(('GetIpForwardEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpForwardTable2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_TABLE2_head)))(('GetIpForwardTable2', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitializeIpForwardEntry():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head))(('InitializeIpForwardEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyRouteChange2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,win32more.NetworkManagement.IpHelper.PIPFORWARD_CHANGE_CALLBACK,c_void_p,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.HANDLE))(('NotifyRouteChange2', windll['IPHLPAPI.dll']), ((1, 'AddressFamily'),(1, 'Callback'),(1, 'CallerContext'),(1, 'InitialNotification'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpForwardEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head))(('SetIpForwardEntry2', windll['IPHLPAPI.dll']), ((1, 'Route'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlushIpPathTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16)(('FlushIpPathTable', windll['IPHLPAPI.dll']), ((1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpPathEntry():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPPATH_ROW_head))(('GetIpPathEntry', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpPathTable():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPPATH_TABLE_head)))(('GetIpPathTable', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIpNetEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head))(('CreateIpNetEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIpNetEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head))(('DeleteIpNetEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlushIpNetTable2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,UInt32)(('FlushIpNetTable2', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'InterfaceIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpNetEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head))(('GetIpNetEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpNetTable2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt16,POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_TABLE2_head)))(('GetIpNetTable2', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Table'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResolveIpNetEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head),POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head))(('ResolveIpNetEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),(1, 'SourceAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpNetEntry2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head))(('SetIpNetEntry2', windll['IPHLPAPI.dll']), ((1, 'Row'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyTeredoPortChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.NetworkManagement.IpHelper.PTEREDO_PORT_CHANGE_CALLBACK,c_void_p,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.HANDLE))(('NotifyTeredoPortChange', windll['IPHLPAPI.dll']), ((1, 'Callback'),(1, 'CallerContext'),(1, 'InitialNotification'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTeredoPort():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(UInt16))(('GetTeredoPort', windll['IPHLPAPI.dll']), ((1, 'Port'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelMibChangeNotify2():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE)(('CancelMibChangeNotify2', windll['IPHLPAPI.dll']), ((1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeMibTable():
-    try:
-        return WINFUNCTYPE(Void,c_void_p)(('FreeMibTable', windll['IPHLPAPI.dll']), ((1, 'Memory'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateSortedAddressPairs():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head),UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head),UInt32,UInt32,POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_PAIR_head)),POINTER(UInt32))(('CreateSortedAddressPairs', windll['IPHLPAPI.dll']), ((1, 'SourceAddressList'),(1, 'SourceAddressCount'),(1, 'DestinationAddressList'),(1, 'DestinationAddressCount'),(1, 'AddressSortOptions'),(1, 'SortedAddressPairList'),(1, 'SortedAddressPairCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertCompartmentGuidToId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(Guid),POINTER(UInt32))(('ConvertCompartmentGuidToId', windll['IPHLPAPI.dll']), ((1, 'CompartmentGuid'),(1, 'CompartmentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertCompartmentIdToGuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,POINTER(Guid))(('ConvertCompartmentIdToGuid', windll['IPHLPAPI.dll']), ((1, 'CompartmentId'),(1, 'CompartmentGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceNameToLuidA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.PSTR,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head))(('ConvertInterfaceNameToLuidA', windll['IPHLPAPI.dll']), ((1, 'InterfaceName'),(1, 'InterfaceLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceNameToLuidW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head))(('ConvertInterfaceNameToLuidW', windll['IPHLPAPI.dll']), ((1, 'InterfaceName'),(1, 'InterfaceLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceLuidToNameA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),win32more.Foundation.PSTR,UIntPtr)(('ConvertInterfaceLuidToNameA', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceName'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceLuidToNameW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),win32more.Foundation.PWSTR,UIntPtr)(('ConvertInterfaceLuidToNameW', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceName'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceLuidToIndex():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),POINTER(UInt32))(('ConvertInterfaceLuidToIndex', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceIndexToLuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head))(('ConvertInterfaceIndexToLuid', windll['IPHLPAPI.dll']), ((1, 'InterfaceIndex'),(1, 'InterfaceLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceLuidToAlias():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),win32more.Foundation.PWSTR,UIntPtr)(('ConvertInterfaceLuidToAlias', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceAlias'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceAliasToLuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head))(('ConvertInterfaceAliasToLuid', windll['IPHLPAPI.dll']), ((1, 'InterfaceAlias'),(1, 'InterfaceLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceLuidToGuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),POINTER(Guid))(('ConvertInterfaceLuidToGuid', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'InterfaceGuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertInterfaceGuidToLuid():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(Guid),POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head))(('ConvertInterfaceGuidToLuid', windll['IPHLPAPI.dll']), ((1, 'InterfaceGuid'),(1, 'InterfaceLuid'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_if_nametoindex():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR)(('if_nametoindex', windll['IPHLPAPI.dll']), ((1, 'InterfaceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_if_indextoname():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR)(('if_indextoname', windll['IPHLPAPI.dll']), ((1, 'InterfaceIndex'),(1, 'InterfaceName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentThreadCompartmentId():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetCurrentThreadCompartmentId', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCurrentThreadCompartmentId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32)(('SetCurrentThreadCompartmentId', windll['IPHLPAPI.dll']), ((1, 'CompartmentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetCurrentThreadCompartmentScope():
-    try:
-        return WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt32))(('GetCurrentThreadCompartmentScope', windll['IPHLPAPI.dll']), ((1, 'CompartmentScope'),(1, 'CompartmentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetCurrentThreadCompartmentScope():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32)(('SetCurrentThreadCompartmentScope', windll['IPHLPAPI.dll']), ((1, 'CompartmentScope'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetJobCompartmentId():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('GetJobCompartmentId', windll['IPHLPAPI.dll']), ((1, 'JobHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetJobCompartmentId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.Foundation.HANDLE,UInt32)(('SetJobCompartmentId', windll['IPHLPAPI.dll']), ((1, 'JobHandle'),(1, 'CompartmentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetSessionCompartmentId():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('GetSessionCompartmentId', windll['IPHLPAPI.dll']), ((1, 'SessionId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetSessionCompartmentId():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,UInt32)(('SetSessionCompartmentId', windll['IPHLPAPI.dll']), ((1, 'SessionId'),(1, 'CompartmentId'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDefaultCompartmentId():
-    try:
-        return WINFUNCTYPE(UInt32,)(('GetDefaultCompartmentId', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNetworkInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(Guid),POINTER(UInt32),POINTER(UInt32),win32more.Foundation.PWSTR,UInt32)(('GetNetworkInformation', windll['IPHLPAPI.dll']), ((1, 'NetworkGuid'),(1, 'CompartmentId'),(1, 'SiteId'),(1, 'NetworkName'),(1, 'Length'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetNetworkInformation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(Guid),UInt32,win32more.Foundation.PWSTR)(('SetNetworkInformation', windll['IPHLPAPI.dll']), ((1, 'NetworkGuid'),(1, 'CompartmentId'),(1, 'NetworkName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertLengthToIpv4Mask():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,POINTER(UInt32))(('ConvertLengthToIpv4Mask', windll['IPHLPAPI.dll']), ((1, 'MaskLength'),(1, 'Mask'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ConvertIpv4MaskToLength():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,c_char_p_no)(('ConvertIpv4MaskToLength', windll['IPHLPAPI.dll']), ((1, 'Mask'),(1, 'MaskLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetDnsSettings():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head))(('GetDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeDnsSettings():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head))(('FreeDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetDnsSettings():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head))(('SetDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInterfaceDnsSettings():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,Guid,POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head))(('GetInterfaceDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Interface'),(1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FreeInterfaceDnsSettings():
-    try:
-        return WINFUNCTYPE(Void,POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head))(('FreeInterfaceDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetInterfaceDnsSettings():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,Guid,POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head))(('SetInterfaceDnsSettings', windll['IPHLPAPI.dll']), ((1, 'Interface'),(1, 'Settings'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNetworkConnectivityHint():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,POINTER(win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head))(('GetNetworkConnectivityHint', windll['IPHLPAPI.dll']), ((1, 'ConnectivityHint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNetworkConnectivityHintForInterface():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,UInt32,POINTER(win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head))(('GetNetworkConnectivityHintForInterface', windll['IPHLPAPI.dll']), ((1, 'InterfaceIndex'),(1, 'ConnectivityHint'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyNetworkConnectivityHintChange():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.NTSTATUS,win32more.NetworkManagement.IpHelper.PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK,c_void_p,win32more.Foundation.BOOLEAN,POINTER(win32more.Foundation.HANDLE))(('NotifyNetworkConnectivityHintChange', windll['IPHLPAPI.dll']), ((1, 'Callback'),(1, 'CallerContext'),(1, 'InitialNotification'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpCreateFile():
-    try:
-        return WINFUNCTYPE(win32more.NetworkManagement.IpHelper.IcmpHandle,)(('IcmpCreateFile', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Icmp6CreateFile():
-    try:
-        return WINFUNCTYPE(win32more.NetworkManagement.IpHelper.IcmpHandle,)(('Icmp6CreateFile', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpCloseHandle():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.NetworkManagement.IpHelper.IcmpHandle)(('IcmpCloseHandle', windll['IPHLPAPI.dll']), ((1, 'IcmpHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpSendEcho():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.IpHelper.IcmpHandle,UInt32,c_void_p,UInt16,POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head),c_void_p,UInt32,UInt32)(('IcmpSendEcho', windll['IPHLPAPI.dll']), ((1, 'IcmpHandle'),(1, 'DestinationAddress'),(1, 'RequestData'),(1, 'RequestSize'),(1, 'RequestOptions'),(1, 'ReplyBuffer'),(1, 'ReplySize'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpSendEcho2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.IpHelper.IcmpHandle,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.PIO_APC_ROUTINE,c_void_p,UInt32,c_void_p,UInt16,POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head),c_void_p,UInt32,UInt32)(('IcmpSendEcho2', windll['IPHLPAPI.dll']), ((1, 'IcmpHandle'),(1, 'Event'),(1, 'ApcRoutine'),(1, 'ApcContext'),(1, 'DestinationAddress'),(1, 'RequestData'),(1, 'RequestSize'),(1, 'RequestOptions'),(1, 'ReplyBuffer'),(1, 'ReplySize'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpSendEcho2Ex():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.IpHelper.IcmpHandle,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.PIO_APC_ROUTINE,c_void_p,UInt32,UInt32,c_void_p,UInt16,POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head),c_void_p,UInt32,UInt32)(('IcmpSendEcho2Ex', windll['IPHLPAPI.dll']), ((1, 'IcmpHandle'),(1, 'Event'),(1, 'ApcRoutine'),(1, 'ApcContext'),(1, 'SourceAddress'),(1, 'DestinationAddress'),(1, 'RequestData'),(1, 'RequestSize'),(1, 'RequestOptions'),(1, 'ReplyBuffer'),(1, 'ReplySize'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Icmp6SendEcho2():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.IpHelper.IcmpHandle,win32more.Foundation.HANDLE,win32more.System.WindowsProgramming.PIO_APC_ROUTINE,c_void_p,POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head),POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head),c_void_p,UInt16,POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head),c_void_p,UInt32,UInt32)(('Icmp6SendEcho2', windll['IPHLPAPI.dll']), ((1, 'IcmpHandle'),(1, 'Event'),(1, 'ApcRoutine'),(1, 'ApcContext'),(1, 'SourceAddress'),(1, 'DestinationAddress'),(1, 'RequestData'),(1, 'RequestSize'),(1, 'RequestOptions'),(1, 'ReplyBuffer'),(1, 'ReplySize'),(1, 'Timeout'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IcmpParseReplies():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32)(('IcmpParseReplies', windll['IPHLPAPI.dll']), ((1, 'ReplyBuffer'),(1, 'ReplySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_Icmp6ParseReplies():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32)(('Icmp6ParseReplies', windll['IPHLPAPI.dll']), ((1, 'ReplyBuffer'),(1, 'ReplySize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNumberOfInterfaces():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(UInt32))(('GetNumberOfInterfaces', windll['IPHLPAPI.dll']), ((1, 'pdwNumIf'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IFROW_head))(('GetIfEntry', windll['IPHLPAPI.dll']), ((1, 'pIfRow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIfTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IFTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetIfTable', windll['IPHLPAPI.dll']), ((1, 'pIfTable'),(1, 'pdwSize'),(1, 'bOrder'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpAddrTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPADDRTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetIpAddrTable', windll['IPHLPAPI.dll']), ((1, 'pIpAddrTable'),(1, 'pdwSize'),(1, 'bOrder'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpNetTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetIpNetTable', windll['IPHLPAPI.dll']), ((1, 'IpNetTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpForwardTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetIpForwardTable', windll['IPHLPAPI.dll']), ((1, 'pIpForwardTable'),(1, 'pdwSize'),(1, 'bOrder'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcpTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetTcpTable', windll['IPHLPAPI.dll']), ((1, 'TcpTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetExtendedTcpTable():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32),win32more.Foundation.BOOL,UInt32,win32more.NetworkManagement.IpHelper.TCP_TABLE_CLASS,UInt32)(('GetExtendedTcpTable', windll['IPHLPAPI.dll']), ((1, 'pTcpTable'),(1, 'pdwSize'),(1, 'bOrder'),(1, 'ulAf'),(1, 'TableClass'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOwnerModuleFromTcpEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE_head),win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS,c_void_p,POINTER(UInt32))(('GetOwnerModuleFromTcpEntry', windll['IPHLPAPI.dll']), ((1, 'pTcpEntry'),(1, 'Class'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUdpTable():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPTABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetUdpTable', windll['IPHLPAPI.dll']), ((1, 'UdpTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetExtendedUdpTable():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(UInt32),win32more.Foundation.BOOL,UInt32,win32more.NetworkManagement.IpHelper.UDP_TABLE_CLASS,UInt32)(('GetExtendedUdpTable', windll['IPHLPAPI.dll']), ((1, 'pUdpTable'),(1, 'pdwSize'),(1, 'bOrder'),(1, 'ulAf'),(1, 'TableClass'),(1, 'Reserved'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOwnerModuleFromUdpEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE_head),win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS,c_void_p,POINTER(UInt32))(('GetOwnerModuleFromUdpEntry', windll['IPHLPAPI.dll']), ((1, 'pUdpEntry'),(1, 'Class'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcpTable2():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPTABLE2_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetTcpTable2', windll['IPHLPAPI.dll']), ((1, 'TcpTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcp6Table():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetTcp6Table', windll['IPHLPAPI.dll']), ((1, 'TcpTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcp6Table2():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE2_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetTcp6Table2', windll['IPHLPAPI.dll']), ((1, 'TcpTable'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPerTcpConnectionEStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head),win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE,c_char_p_no,UInt32,UInt32,c_char_p_no,UInt32,UInt32,c_char_p_no,UInt32,UInt32)(('GetPerTcpConnectionEStats', windll['IPHLPAPI.dll']), ((1, 'Row'),(1, 'EstatsType'),(1, 'Rw'),(1, 'RwVersion'),(1, 'RwSize'),(1, 'Ros'),(1, 'RosVersion'),(1, 'RosSize'),(1, 'Rod'),(1, 'RodVersion'),(1, 'RodSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPerTcpConnectionEStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head),win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE,c_char_p_no,UInt32,UInt32,UInt32)(('SetPerTcpConnectionEStats', windll['IPHLPAPI.dll']), ((1, 'Row'),(1, 'EstatsType'),(1, 'Rw'),(1, 'RwVersion'),(1, 'RwSize'),(1, 'Offset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPerTcp6ConnectionEStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_head),win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE,c_char_p_no,UInt32,UInt32,c_char_p_no,UInt32,UInt32,c_char_p_no,UInt32,UInt32)(('GetPerTcp6ConnectionEStats', windll['IPHLPAPI.dll']), ((1, 'Row'),(1, 'EstatsType'),(1, 'Rw'),(1, 'RwVersion'),(1, 'RwSize'),(1, 'Ros'),(1, 'RosVersion'),(1, 'RosSize'),(1, 'Rod'),(1, 'RodVersion'),(1, 'RodSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetPerTcp6ConnectionEStats():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_head),win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE,c_char_p_no,UInt32,UInt32,UInt32)(('SetPerTcp6ConnectionEStats', windll['IPHLPAPI.dll']), ((1, 'Row'),(1, 'EstatsType'),(1, 'Rw'),(1, 'RwVersion'),(1, 'RwSize'),(1, 'Offset'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOwnerModuleFromTcp6Entry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE_head),win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS,c_void_p,POINTER(UInt32))(('GetOwnerModuleFromTcp6Entry', windll['IPHLPAPI.dll']), ((1, 'pTcpEntry'),(1, 'Class'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUdp6Table():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE_head),POINTER(UInt32),win32more.Foundation.BOOL)(('GetUdp6Table', windll['IPHLPAPI.dll']), ((1, 'Udp6Table'),(1, 'SizePointer'),(1, 'Order'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOwnerModuleFromUdp6Entry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE_head),win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS,c_void_p,POINTER(UInt32))(('GetOwnerModuleFromUdp6Entry', windll['IPHLPAPI.dll']), ((1, 'pUdpEntry'),(1, 'Class'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetOwnerModuleFromPidAndInfo():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt64),win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS,c_void_p,POINTER(UInt32))(('GetOwnerModuleFromPidAndInfo', windll['IPHLPAPI.dll']), ((1, 'ulPid'),(1, 'pInfo'),(1, 'Class'),(1, 'pBuffer'),(1, 'pdwSize'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head))(('GetIpStatistics', windll['IPHLPAPI.dll']), ((1, 'Statistics'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIcmpStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_ICMP_head))(('GetIcmpStatistics', windll['IPHLPAPI.dll']), ((1, 'Statistics'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcpStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_LH_head))(('GetTcpStatistics', windll['IPHLPAPI.dll']), ((1, 'Statistics'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUdpStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS_head))(('GetUdpStatistics', windll['IPHLPAPI.dll']), ((1, 'Stats'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpStatisticsEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head),UInt32)(('SetIpStatisticsEx', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpStatisticsEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head),win32more.Networking.WinSock.ADDRESS_FAMILY)(('GetIpStatisticsEx', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIcmpStatisticsEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_ICMP_EX_XPSP1_head),UInt32)(('GetIcmpStatisticsEx', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcpStatisticsEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_LH_head),win32more.Networking.WinSock.ADDRESS_FAMILY)(('GetTcpStatisticsEx', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUdpStatisticsEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS_head),win32more.Networking.WinSock.ADDRESS_FAMILY)(('GetUdpStatisticsEx', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetTcpStatisticsEx2():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS2_head),win32more.Networking.WinSock.ADDRESS_FAMILY)(('GetTcpStatisticsEx2', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUdpStatisticsEx2():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS2_head),win32more.Networking.WinSock.ADDRESS_FAMILY)(('GetUdpStatisticsEx2', windll['IPHLPAPI.dll']), ((1, 'Statistics'),(1, 'Family'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIfEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IFROW_head))(('SetIfEntry', windll['IPHLPAPI.dll']), ((1, 'pIfRow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIpForwardEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head))(('CreateIpForwardEntry', windll['IPHLPAPI.dll']), ((1, 'pRoute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpForwardEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head))(('SetIpForwardEntry', windll['IPHLPAPI.dll']), ((1, 'pRoute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIpForwardEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head))(('DeleteIpForwardEntry', windll['IPHLPAPI.dll']), ((1, 'pRoute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head))(('SetIpStatistics', windll['IPHLPAPI.dll']), ((1, 'pIpStats'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpTTL():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('SetIpTTL', windll['IPHLPAPI.dll']), ((1, 'nTTL'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateIpNetEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head))(('CreateIpNetEntry', windll['IPHLPAPI.dll']), ((1, 'pArpEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetIpNetEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head))(('SetIpNetEntry', windll['IPHLPAPI.dll']), ((1, 'pArpEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIpNetEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head))(('DeleteIpNetEntry', windll['IPHLPAPI.dll']), ((1, 'pArpEntry'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_FlushIpNetTable():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('FlushIpNetTable', windll['IPHLPAPI.dll']), ((1, 'dwIfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreateProxyArpEntry():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32)(('CreateProxyArpEntry', windll['IPHLPAPI.dll']), ((1, 'dwAddress'),(1, 'dwMask'),(1, 'dwIfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteProxyArpEntry():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32)(('DeleteProxyArpEntry', windll['IPHLPAPI.dll']), ((1, 'dwAddress'),(1, 'dwMask'),(1, 'dwIfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SetTcpEntry():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head))(('SetTcpEntry', windll['IPHLPAPI.dll']), ((1, 'pTcpRow'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInterfaceInfo():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_INTERFACE_INFO_head),POINTER(UInt32))(('GetInterfaceInfo', windll['IPHLPAPI.dll']), ((1, 'pIfTable'),(1, 'dwOutBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetUniDirectionalAdapterInfo():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_UNIDIRECTIONAL_ADAPTER_ADDRESS_head),POINTER(UInt32))(('GetUniDirectionalAdapterInfo', windll['IPHLPAPI.dll']), ((1, 'pIPIfInfo'),(1, 'dwOutBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NhpAllocateAndGetInterfaceInfoFromStack():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(POINTER(win32more.NetworkManagement.IpHelper.IP_INTERFACE_NAME_INFO_W2KSP1_head)),POINTER(UInt32),win32more.Foundation.BOOL,win32more.Foundation.HANDLE,UInt32)(('NhpAllocateAndGetInterfaceInfoFromStack', windll['IPHLPAPI.dll']), ((1, 'ppTable'),(1, 'pdwCount'),(1, 'bOrder'),(1, 'hHeap'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBestInterface():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(UInt32))(('GetBestInterface', windll['IPHLPAPI.dll']), ((1, 'dwDestAddr'),(1, 'pdwBestIfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBestInterfaceEx():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),POINTER(UInt32))(('GetBestInterfaceEx', windll['IPHLPAPI.dll']), ((1, 'pDestAddr'),(1, 'pdwBestIfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetBestRoute():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head))(('GetBestRoute', windll['IPHLPAPI.dll']), ((1, 'dwDestAddr'),(1, 'dwSourceAddr'),(1, 'pBestRoute'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyAddrChange():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head))(('NotifyAddrChange', windll['IPHLPAPI.dll']), ((1, 'Handle'),(1, 'overlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NotifyRouteChange():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head))(('NotifyRouteChange', windll['IPHLPAPI.dll']), ((1, 'Handle'),(1, 'overlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CancelIPChangeNotify():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.System.IO.OVERLAPPED_head))(('CancelIPChangeNotify', windll['IPHLPAPI.dll']), ((1, 'notifyOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAdapterIndex():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetAdapterIndex', windll['IPHLPAPI.dll']), ((1, 'AdapterName'),(1, 'IfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AddIPAddress():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32))(('AddIPAddress', windll['IPHLPAPI.dll']), ((1, 'Address'),(1, 'IpMask'),(1, 'IfIndex'),(1, 'NTEContext'),(1, 'NTEInstance'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeleteIPAddress():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('DeleteIPAddress', windll['IPHLPAPI.dll']), ((1, 'NTEContext'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetNetworkParams():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.WIN32_ERROR,POINTER(win32more.NetworkManagement.IpHelper.FIXED_INFO_W2KSP1_head),POINTER(UInt32))(('GetNetworkParams', windll['IPHLPAPI.dll']), ((1, 'pFixedInfo'),(1, 'pOutBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAdaptersInfo():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INFO_head),POINTER(UInt32))(('GetAdaptersInfo', windll['IPHLPAPI.dll']), ((1, 'AdapterInfo'),(1, 'SizePointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAdapterOrderMap():
-    try:
-        return WINFUNCTYPE(POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ORDER_MAP_head),)(('GetAdapterOrderMap', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetAdaptersAddresses():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Networking.WinSock.ADDRESS_FAMILY,win32more.NetworkManagement.IpHelper.GET_ADAPTERS_ADDRESSES_FLAGS,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head),POINTER(UInt32))(('GetAdaptersAddresses', windll['IPHLPAPI.dll']), ((1, 'Family'),(1, 'Flags'),(1, 'Reserved'),(1, 'AdapterAddresses'),(1, 'SizePointer'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetPerAdapterInfo():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_PER_ADAPTER_INFO_W2KSP1_head),POINTER(UInt32))(('GetPerAdapterInfo', windll['IPHLPAPI.dll']), ((1, 'IfIndex'),(1, 'pPerAdapterInfo'),(1, 'pOutBufLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInterfaceActiveTimestampCapabilities():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head))(('GetInterfaceActiveTimestampCapabilities', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'TimestampCapabilites'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetInterfaceSupportedTimestampCapabilities():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head))(('GetInterfaceSupportedTimestampCapabilities', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'TimestampCapabilites'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CaptureInterfaceHardwareCrossTimestamp():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head),POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_CROSSTIMESTAMP_head))(('CaptureInterfaceHardwareCrossTimestamp', windll['IPHLPAPI.dll']), ((1, 'InterfaceLuid'),(1, 'CrossTimestamp'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RegisterInterfaceTimestampConfigChange():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.NetworkManagement.IpHelper.PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE))(('RegisterInterfaceTimestampConfigChange', windll['IPHLPAPI.dll']), ((1, 'Callback'),(1, 'CallerContext'),(1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnregisterInterfaceTimestampConfigChange():
-    try:
-        return WINFUNCTYPE(Void,win32more.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE)(('UnregisterInterfaceTimestampConfigChange', windll['IPHLPAPI.dll']), ((1, 'NotificationHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IpReleaseAddress():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head))(('IpReleaseAddress', windll['IPHLPAPI.dll']), ((1, 'AdapterInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_IpRenewAddress():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head))(('IpRenewAddress', windll['IPHLPAPI.dll']), ((1, 'AdapterInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_SendARP():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,UInt32,c_void_p,POINTER(UInt32))(('SendARP', windll['IPHLPAPI.dll']), ((1, 'DestIP'),(1, 'SrcIP'),(1, 'pMacAddr'),(1, 'PhyAddrLen'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetRTTAndHopCount():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,UInt32,POINTER(UInt32),UInt32,POINTER(UInt32))(('GetRTTAndHopCount', windll['IPHLPAPI.dll']), ((1, 'DestIpAddress'),(1, 'HopCount'),(1, 'MaxHops'),(1, 'RTT'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetFriendlyIfIndex():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32)(('GetFriendlyIfIndex', windll['IPHLPAPI.dll']), ((1, 'IfIndex'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_EnableRouter():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head))(('EnableRouter', windll['IPHLPAPI.dll']), ((1, 'pHandle'),(1, 'pOverlapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_UnenableRouter():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32))(('UnenableRouter', windll['IPHLPAPI.dll']), ((1, 'pOverlapped'),(1, 'lpdwEnableCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DisableMediaSense():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.System.IO.OVERLAPPED_head))(('DisableMediaSense', windll['IPHLPAPI.dll']), ((1, 'pHandle'),(1, 'pOverLapped'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_RestoreMediaSense():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32))(('RestoreMediaSense', windll['IPHLPAPI.dll']), ((1, 'pOverlapped'),(1, 'lpdwEnableCount'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_GetIpErrorString():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32))(('GetIpErrorString', windll['IPHLPAPI.dll']), ((1, 'ErrorCode'),(1, 'Buffer'),(1, 'Size'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ResolveNeighbor():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Networking.WinSock.SOCKADDR_head),c_void_p,POINTER(UInt32))(('ResolveNeighbor', windll['IPHLPAPI.dll']), ((1, 'NetworkAddress'),(1, 'PhysicalAddress'),(1, 'PhysicalAddressLength'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePersistentTcpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16,POINTER(UInt64))(('CreatePersistentTcpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CreatePersistentUdpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16,POINTER(UInt64))(('CreatePersistentUdpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeletePersistentTcpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16)(('DeletePersistentTcpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_DeletePersistentUdpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16)(('DeletePersistentUdpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPersistentTcpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16,POINTER(UInt64))(('LookupPersistentTcpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LookupPersistentUdpPortReservation():
-    try:
-        return WINFUNCTYPE(UInt32,UInt16,UInt16,POINTER(UInt64))(('LookupPersistentUdpPortReservation', windll['IPHLPAPI.dll']), ((1, 'StartPort'),(1, 'NumberOfPorts'),(1, 'Token'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfCreateInterface():
-    try:
-        return WINFUNCTYPE(UInt32,UInt32,win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION,win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(c_void_p))(('PfCreateInterface', windll['IPHLPAPI.dll']), ((1, 'dwName'),(1, 'inAction'),(1, 'outAction'),(1, 'bUseLog'),(1, 'bMustBeUnique'),(1, 'ppInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfDeleteInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('PfDeleteInterface', windll['IPHLPAPI.dll']), ((1, 'pInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfAddFiltersToInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head),UInt32,POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head),POINTER(c_void_p))(('PfAddFiltersToInterface', windll['IPHLPAPI.dll']), ((1, 'ih'),(1, 'cInFilters'),(1, 'pfiltIn'),(1, 'cOutFilters'),(1, 'pfiltOut'),(1, 'pfHandle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfRemoveFiltersFromInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head),UInt32,POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head))(('PfRemoveFiltersFromInterface', windll['IPHLPAPI.dll']), ((1, 'ih'),(1, 'cInFilters'),(1, 'pfiltIn'),(1, 'cOutFilters'),(1, 'pfiltOut'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfRemoveFilterHandles():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,POINTER(c_void_p))(('PfRemoveFilterHandles', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'cFilters'),(1, 'pvHandles'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfUnBindInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p)(('PfUnBindInterface', windll['IPHLPAPI.dll']), ((1, 'pInterface'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfBindInterfaceToIndex():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,UInt32,win32more.NetworkManagement.IpHelper.PFADDRESSTYPE,c_char_p_no)(('PfBindInterfaceToIndex', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'dwIndex'),(1, 'pfatLinkType'),(1, 'LinkIPAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfBindInterfaceToIPAddress():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.NetworkManagement.IpHelper.PFADDRESSTYPE,c_char_p_no)(('PfBindInterfaceToIPAddress', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'pfatType'),(1, 'IPAddress'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfRebindFilters():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.PF_LATEBIND_INFO_head))(('PfRebindFilters', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'pLateBindInfo'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfAddGlobalFilterToInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.NetworkManagement.IpHelper.GLOBAL_FILTER)(('PfAddGlobalFilterToInterface', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'gfFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfRemoveGlobalFilterFromInterface():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,win32more.NetworkManagement.IpHelper.GLOBAL_FILTER)(('PfRemoveGlobalFilterFromInterface', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'gfFilter'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfMakeLog():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.HANDLE)(('PfMakeLog', windll['IPHLPAPI.dll']), ((1, 'hEvent'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfSetLogBuffer():
-    try:
-        return WINFUNCTYPE(UInt32,c_char_p_no,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32))(('PfSetLogBuffer', windll['IPHLPAPI.dll']), ((1, 'pbBuffer'),(1, 'dwSize'),(1, 'dwThreshold'),(1, 'dwEntries'),(1, 'pdwLoggedEntries'),(1, 'pdwLostEntries'),(1, 'pdwSizeUsed'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfDeleteLog():
-    try:
-        return WINFUNCTYPE(UInt32,)(('PfDeleteLog', windll['IPHLPAPI.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfGetInterfaceStatistics():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.PF_INTERFACE_STATS_head),POINTER(UInt32),win32more.Foundation.BOOL)(('PfGetInterfaceStatistics', windll['IPHLPAPI.dll']), ((1, 'pInterface'),(1, 'ppfStats'),(1, 'pdwBufferSize'),(1, 'fResetCounters'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_PfTestPacket():
-    try:
-        return WINFUNCTYPE(UInt32,c_void_p,c_void_p,UInt32,c_char_p_no,POINTER(win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION))(('PfTestPacket', windll['IPHLPAPI.dll']), ((1, 'pInInterface'),(1, 'pOutInterface'),(1, 'cBytes'),(1, 'pbPacket'),(1, 'ppAction'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ARP_SEND_REPLY_head():
-    class ARP_SEND_REPLY(Structure):
-        pass
-    return ARP_SEND_REPLY
-def _define_ARP_SEND_REPLY():
-    ARP_SEND_REPLY = win32more.NetworkManagement.IpHelper.ARP_SEND_REPLY_head
-    ARP_SEND_REPLY._fields_ = [
-        ('DestAddress', UInt32),
-        ('SrcAddress', UInt32),
-    ]
-    return ARP_SEND_REPLY
-def _define_DNS_DOH_SERVER_SETTINGS_head():
-    class DNS_DOH_SERVER_SETTINGS(Structure):
-        pass
-    return DNS_DOH_SERVER_SETTINGS
-def _define_DNS_DOH_SERVER_SETTINGS():
-    DNS_DOH_SERVER_SETTINGS = win32more.NetworkManagement.IpHelper.DNS_DOH_SERVER_SETTINGS_head
-    DNS_DOH_SERVER_SETTINGS._fields_ = [
-        ('Template', win32more.Foundation.PWSTR),
-        ('Flags', UInt64),
-    ]
-    return DNS_DOH_SERVER_SETTINGS
-def _define_DNS_INTERFACE_SETTINGS_head():
-    class DNS_INTERFACE_SETTINGS(Structure):
-        pass
-    return DNS_INTERFACE_SETTINGS
-def _define_DNS_INTERFACE_SETTINGS():
-    DNS_INTERFACE_SETTINGS = win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head
-    DNS_INTERFACE_SETTINGS._fields_ = [
-        ('Version', UInt32),
-        ('Flags', UInt64),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('NameServer', win32more.Foundation.PWSTR),
-        ('SearchList', win32more.Foundation.PWSTR),
-        ('RegistrationEnabled', UInt32),
-        ('RegisterAdapterName', UInt32),
-        ('EnableLLMNR', UInt32),
-        ('QueryAdapterName', UInt32),
-        ('ProfileNameServer', win32more.Foundation.PWSTR),
-    ]
-    return DNS_INTERFACE_SETTINGS
-def _define_DNS_INTERFACE_SETTINGS_EX_head():
-    class DNS_INTERFACE_SETTINGS_EX(Structure):
-        pass
-    return DNS_INTERFACE_SETTINGS_EX
-def _define_DNS_INTERFACE_SETTINGS_EX():
-    DNS_INTERFACE_SETTINGS_EX = win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_EX_head
-    DNS_INTERFACE_SETTINGS_EX._fields_ = [
-        ('SettingsV1', win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS),
-        ('DisableUnconstrainedQueries', UInt32),
-        ('SupplementalSearchList', win32more.Foundation.PWSTR),
-    ]
-    return DNS_INTERFACE_SETTINGS_EX
-def _define_DNS_INTERFACE_SETTINGS3_head():
-    class DNS_INTERFACE_SETTINGS3(Structure):
-        pass
-    return DNS_INTERFACE_SETTINGS3
-def _define_DNS_INTERFACE_SETTINGS3():
-    DNS_INTERFACE_SETTINGS3 = win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS3_head
-    DNS_INTERFACE_SETTINGS3._fields_ = [
-        ('Version', UInt32),
-        ('Flags', UInt64),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('NameServer', win32more.Foundation.PWSTR),
-        ('SearchList', win32more.Foundation.PWSTR),
-        ('RegistrationEnabled', UInt32),
-        ('RegisterAdapterName', UInt32),
-        ('EnableLLMNR', UInt32),
-        ('QueryAdapterName', UInt32),
-        ('ProfileNameServer', win32more.Foundation.PWSTR),
-        ('DisableUnconstrainedQueries', UInt32),
-        ('SupplementalSearchList', win32more.Foundation.PWSTR),
-        ('cServerProperties', UInt32),
-        ('ServerProperties', POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)),
-        ('cProfileServerProperties', UInt32),
-        ('ProfileServerProperties', POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)),
-    ]
-    return DNS_INTERFACE_SETTINGS3
-def _define_DNS_SERVER_PROPERTY_head():
-    class DNS_SERVER_PROPERTY(Structure):
-        pass
-    return DNS_SERVER_PROPERTY
-def _define_DNS_SERVER_PROPERTY():
-    DNS_SERVER_PROPERTY = win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head
-    DNS_SERVER_PROPERTY._fields_ = [
-        ('Version', UInt32),
-        ('ServerIndex', UInt32),
-        ('Type', win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE),
-        ('Property', win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPES),
-    ]
-    return DNS_SERVER_PROPERTY
+ANY_SIZE: UInt32 = 1
+MAXLEN_PHYSADDR: UInt32 = 8
+MAXLEN_IFDESCR: UInt32 = 256
+MAX_INTERFACE_NAME_LEN: UInt32 = 256
+MIN_IF_TYPE: UInt32 = 1
+IF_TYPE_OTHER: UInt32 = 1
+IF_TYPE_REGULAR_1822: UInt32 = 2
+IF_TYPE_HDH_1822: UInt32 = 3
+IF_TYPE_DDN_X25: UInt32 = 4
+IF_TYPE_RFC877_X25: UInt32 = 5
+IF_TYPE_ETHERNET_CSMACD: UInt32 = 6
+IF_TYPE_IS088023_CSMACD: UInt32 = 7
+IF_TYPE_ISO88024_TOKENBUS: UInt32 = 8
+IF_TYPE_ISO88025_TOKENRING: UInt32 = 9
+IF_TYPE_ISO88026_MAN: UInt32 = 10
+IF_TYPE_STARLAN: UInt32 = 11
+IF_TYPE_PROTEON_10MBIT: UInt32 = 12
+IF_TYPE_PROTEON_80MBIT: UInt32 = 13
+IF_TYPE_HYPERCHANNEL: UInt32 = 14
+IF_TYPE_FDDI: UInt32 = 15
+IF_TYPE_LAP_B: UInt32 = 16
+IF_TYPE_SDLC: UInt32 = 17
+IF_TYPE_DS1: UInt32 = 18
+IF_TYPE_E1: UInt32 = 19
+IF_TYPE_BASIC_ISDN: UInt32 = 20
+IF_TYPE_PRIMARY_ISDN: UInt32 = 21
+IF_TYPE_PROP_POINT2POINT_SERIAL: UInt32 = 22
+IF_TYPE_PPP: UInt32 = 23
+IF_TYPE_SOFTWARE_LOOPBACK: UInt32 = 24
+IF_TYPE_EON: UInt32 = 25
+IF_TYPE_ETHERNET_3MBIT: UInt32 = 26
+IF_TYPE_NSIP: UInt32 = 27
+IF_TYPE_SLIP: UInt32 = 28
+IF_TYPE_ULTRA: UInt32 = 29
+IF_TYPE_DS3: UInt32 = 30
+IF_TYPE_SIP: UInt32 = 31
+IF_TYPE_FRAMERELAY: UInt32 = 32
+IF_TYPE_RS232: UInt32 = 33
+IF_TYPE_PARA: UInt32 = 34
+IF_TYPE_ARCNET: UInt32 = 35
+IF_TYPE_ARCNET_PLUS: UInt32 = 36
+IF_TYPE_ATM: UInt32 = 37
+IF_TYPE_MIO_X25: UInt32 = 38
+IF_TYPE_SONET: UInt32 = 39
+IF_TYPE_X25_PLE: UInt32 = 40
+IF_TYPE_ISO88022_LLC: UInt32 = 41
+IF_TYPE_LOCALTALK: UInt32 = 42
+IF_TYPE_SMDS_DXI: UInt32 = 43
+IF_TYPE_FRAMERELAY_SERVICE: UInt32 = 44
+IF_TYPE_V35: UInt32 = 45
+IF_TYPE_HSSI: UInt32 = 46
+IF_TYPE_HIPPI: UInt32 = 47
+IF_TYPE_MODEM: UInt32 = 48
+IF_TYPE_AAL5: UInt32 = 49
+IF_TYPE_SONET_PATH: UInt32 = 50
+IF_TYPE_SONET_VT: UInt32 = 51
+IF_TYPE_SMDS_ICIP: UInt32 = 52
+IF_TYPE_PROP_VIRTUAL: UInt32 = 53
+IF_TYPE_PROP_MULTIPLEXOR: UInt32 = 54
+IF_TYPE_IEEE80212: UInt32 = 55
+IF_TYPE_FIBRECHANNEL: UInt32 = 56
+IF_TYPE_HIPPIINTERFACE: UInt32 = 57
+IF_TYPE_FRAMERELAY_INTERCONNECT: UInt32 = 58
+IF_TYPE_AFLANE_8023: UInt32 = 59
+IF_TYPE_AFLANE_8025: UInt32 = 60
+IF_TYPE_CCTEMUL: UInt32 = 61
+IF_TYPE_FASTETHER: UInt32 = 62
+IF_TYPE_ISDN: UInt32 = 63
+IF_TYPE_V11: UInt32 = 64
+IF_TYPE_V36: UInt32 = 65
+IF_TYPE_G703_64K: UInt32 = 66
+IF_TYPE_G703_2MB: UInt32 = 67
+IF_TYPE_QLLC: UInt32 = 68
+IF_TYPE_FASTETHER_FX: UInt32 = 69
+IF_TYPE_CHANNEL: UInt32 = 70
+IF_TYPE_IEEE80211: UInt32 = 71
+IF_TYPE_IBM370PARCHAN: UInt32 = 72
+IF_TYPE_ESCON: UInt32 = 73
+IF_TYPE_DLSW: UInt32 = 74
+IF_TYPE_ISDN_S: UInt32 = 75
+IF_TYPE_ISDN_U: UInt32 = 76
+IF_TYPE_LAP_D: UInt32 = 77
+IF_TYPE_IPSWITCH: UInt32 = 78
+IF_TYPE_RSRB: UInt32 = 79
+IF_TYPE_ATM_LOGICAL: UInt32 = 80
+IF_TYPE_DS0: UInt32 = 81
+IF_TYPE_DS0_BUNDLE: UInt32 = 82
+IF_TYPE_BSC: UInt32 = 83
+IF_TYPE_ASYNC: UInt32 = 84
+IF_TYPE_CNR: UInt32 = 85
+IF_TYPE_ISO88025R_DTR: UInt32 = 86
+IF_TYPE_EPLRS: UInt32 = 87
+IF_TYPE_ARAP: UInt32 = 88
+IF_TYPE_PROP_CNLS: UInt32 = 89
+IF_TYPE_HOSTPAD: UInt32 = 90
+IF_TYPE_TERMPAD: UInt32 = 91
+IF_TYPE_FRAMERELAY_MPI: UInt32 = 92
+IF_TYPE_X213: UInt32 = 93
+IF_TYPE_ADSL: UInt32 = 94
+IF_TYPE_RADSL: UInt32 = 95
+IF_TYPE_SDSL: UInt32 = 96
+IF_TYPE_VDSL: UInt32 = 97
+IF_TYPE_ISO88025_CRFPRINT: UInt32 = 98
+IF_TYPE_MYRINET: UInt32 = 99
+IF_TYPE_VOICE_EM: UInt32 = 100
+IF_TYPE_VOICE_FXO: UInt32 = 101
+IF_TYPE_VOICE_FXS: UInt32 = 102
+IF_TYPE_VOICE_ENCAP: UInt32 = 103
+IF_TYPE_VOICE_OVERIP: UInt32 = 104
+IF_TYPE_ATM_DXI: UInt32 = 105
+IF_TYPE_ATM_FUNI: UInt32 = 106
+IF_TYPE_ATM_IMA: UInt32 = 107
+IF_TYPE_PPPMULTILINKBUNDLE: UInt32 = 108
+IF_TYPE_IPOVER_CDLC: UInt32 = 109
+IF_TYPE_IPOVER_CLAW: UInt32 = 110
+IF_TYPE_STACKTOSTACK: UInt32 = 111
+IF_TYPE_VIRTUALIPADDRESS: UInt32 = 112
+IF_TYPE_MPC: UInt32 = 113
+IF_TYPE_IPOVER_ATM: UInt32 = 114
+IF_TYPE_ISO88025_FIBER: UInt32 = 115
+IF_TYPE_TDLC: UInt32 = 116
+IF_TYPE_GIGABITETHERNET: UInt32 = 117
+IF_TYPE_HDLC: UInt32 = 118
+IF_TYPE_LAP_F: UInt32 = 119
+IF_TYPE_V37: UInt32 = 120
+IF_TYPE_X25_MLP: UInt32 = 121
+IF_TYPE_X25_HUNTGROUP: UInt32 = 122
+IF_TYPE_TRANSPHDLC: UInt32 = 123
+IF_TYPE_INTERLEAVE: UInt32 = 124
+IF_TYPE_FAST: UInt32 = 125
+IF_TYPE_IP: UInt32 = 126
+IF_TYPE_DOCSCABLE_MACLAYER: UInt32 = 127
+IF_TYPE_DOCSCABLE_DOWNSTREAM: UInt32 = 128
+IF_TYPE_DOCSCABLE_UPSTREAM: UInt32 = 129
+IF_TYPE_A12MPPSWITCH: UInt32 = 130
+IF_TYPE_TUNNEL: UInt32 = 131
+IF_TYPE_COFFEE: UInt32 = 132
+IF_TYPE_CES: UInt32 = 133
+IF_TYPE_ATM_SUBINTERFACE: UInt32 = 134
+IF_TYPE_L2_VLAN: UInt32 = 135
+IF_TYPE_L3_IPVLAN: UInt32 = 136
+IF_TYPE_L3_IPXVLAN: UInt32 = 137
+IF_TYPE_DIGITALPOWERLINE: UInt32 = 138
+IF_TYPE_MEDIAMAILOVERIP: UInt32 = 139
+IF_TYPE_DTM: UInt32 = 140
+IF_TYPE_DCN: UInt32 = 141
+IF_TYPE_IPFORWARD: UInt32 = 142
+IF_TYPE_MSDSL: UInt32 = 143
+IF_TYPE_IEEE1394: UInt32 = 144
+IF_TYPE_IF_GSN: UInt32 = 145
+IF_TYPE_DVBRCC_MACLAYER: UInt32 = 146
+IF_TYPE_DVBRCC_DOWNSTREAM: UInt32 = 147
+IF_TYPE_DVBRCC_UPSTREAM: UInt32 = 148
+IF_TYPE_ATM_VIRTUAL: UInt32 = 149
+IF_TYPE_MPLS_TUNNEL: UInt32 = 150
+IF_TYPE_SRP: UInt32 = 151
+IF_TYPE_VOICEOVERATM: UInt32 = 152
+IF_TYPE_VOICEOVERFRAMERELAY: UInt32 = 153
+IF_TYPE_IDSL: UInt32 = 154
+IF_TYPE_COMPOSITELINK: UInt32 = 155
+IF_TYPE_SS7_SIGLINK: UInt32 = 156
+IF_TYPE_PROP_WIRELESS_P2P: UInt32 = 157
+IF_TYPE_FR_FORWARD: UInt32 = 158
+IF_TYPE_RFC1483: UInt32 = 159
+IF_TYPE_USB: UInt32 = 160
+IF_TYPE_IEEE8023AD_LAG: UInt32 = 161
+IF_TYPE_BGP_POLICY_ACCOUNTING: UInt32 = 162
+IF_TYPE_FRF16_MFR_BUNDLE: UInt32 = 163
+IF_TYPE_H323_GATEKEEPER: UInt32 = 164
+IF_TYPE_H323_PROXY: UInt32 = 165
+IF_TYPE_MPLS: UInt32 = 166
+IF_TYPE_MF_SIGLINK: UInt32 = 167
+IF_TYPE_HDSL2: UInt32 = 168
+IF_TYPE_SHDSL: UInt32 = 169
+IF_TYPE_DS1_FDL: UInt32 = 170
+IF_TYPE_POS: UInt32 = 171
+IF_TYPE_DVB_ASI_IN: UInt32 = 172
+IF_TYPE_DVB_ASI_OUT: UInt32 = 173
+IF_TYPE_PLC: UInt32 = 174
+IF_TYPE_NFAS: UInt32 = 175
+IF_TYPE_TR008: UInt32 = 176
+IF_TYPE_GR303_RDT: UInt32 = 177
+IF_TYPE_GR303_IDT: UInt32 = 178
+IF_TYPE_ISUP: UInt32 = 179
+IF_TYPE_PROP_DOCS_WIRELESS_MACLAYER: UInt32 = 180
+IF_TYPE_PROP_DOCS_WIRELESS_DOWNSTREAM: UInt32 = 181
+IF_TYPE_PROP_DOCS_WIRELESS_UPSTREAM: UInt32 = 182
+IF_TYPE_HIPERLAN2: UInt32 = 183
+IF_TYPE_PROP_BWA_P2MP: UInt32 = 184
+IF_TYPE_SONET_OVERHEAD_CHANNEL: UInt32 = 185
+IF_TYPE_DIGITAL_WRAPPER_OVERHEAD_CHANNEL: UInt32 = 186
+IF_TYPE_AAL2: UInt32 = 187
+IF_TYPE_RADIO_MAC: UInt32 = 188
+IF_TYPE_ATM_RADIO: UInt32 = 189
+IF_TYPE_IMT: UInt32 = 190
+IF_TYPE_MVL: UInt32 = 191
+IF_TYPE_REACH_DSL: UInt32 = 192
+IF_TYPE_FR_DLCI_ENDPT: UInt32 = 193
+IF_TYPE_ATM_VCI_ENDPT: UInt32 = 194
+IF_TYPE_OPTICAL_CHANNEL: UInt32 = 195
+IF_TYPE_OPTICAL_TRANSPORT: UInt32 = 196
+IF_TYPE_IEEE80216_WMAN: UInt32 = 237
+IF_TYPE_WWANPP: UInt32 = 243
+IF_TYPE_WWANPP2: UInt32 = 244
+IF_TYPE_IEEE802154: UInt32 = 259
+IF_TYPE_XBOX_WIRELESS: UInt32 = 281
+MAX_IF_TYPE: UInt32 = 281
+IF_CHECK_NONE: UInt32 = 0
+IF_CHECK_MCAST: UInt32 = 1
+IF_CHECK_SEND: UInt32 = 2
+IF_CONNECTION_DEDICATED: UInt32 = 1
+IF_CONNECTION_PASSIVE: UInt32 = 2
+IF_CONNECTION_DEMAND: UInt32 = 3
+IF_ADMIN_STATUS_UP: UInt32 = 1
+IF_ADMIN_STATUS_DOWN: UInt32 = 2
+IF_ADMIN_STATUS_TESTING: UInt32 = 3
+MIB_IF_TYPE_OTHER: UInt32 = 1
+MIB_IF_TYPE_ETHERNET: UInt32 = 6
+MIB_IF_TYPE_TOKENRING: UInt32 = 9
+MIB_IF_TYPE_FDDI: UInt32 = 15
+MIB_IF_TYPE_PPP: UInt32 = 23
+MIB_IF_TYPE_LOOPBACK: UInt32 = 24
+MIB_IF_TYPE_SLIP: UInt32 = 28
+MIB_IF_ADMIN_STATUS_UP: UInt32 = 1
+MIB_IF_ADMIN_STATUS_DOWN: UInt32 = 2
+MIB_IF_ADMIN_STATUS_TESTING: UInt32 = 3
+MIB_IPADDR_PRIMARY: UInt32 = 1
+MIB_IPADDR_DYNAMIC: UInt32 = 4
+MIB_IPADDR_DISCONNECTED: UInt32 = 8
+MIB_IPADDR_DELETED: UInt32 = 64
+MIB_IPADDR_TRANSIENT: UInt32 = 128
+MIB_IPADDR_DNS_ELIGIBLE: UInt32 = 256
+MIB_IPROUTE_METRIC_UNUSED: UInt32 = 4294967295
+MIB_USE_CURRENT_TTL: UInt32 = 4294967295
+MIB_USE_CURRENT_FORWARDING: UInt32 = 4294967295
+ICMP6_INFOMSG_MASK: UInt32 = 128
+IPRTRMGR_PID: UInt32 = 10000
+IF_NUMBER: UInt32 = 0
+IF_TABLE: UInt32 = 1
+IF_ROW: UInt32 = 2
+IP_STATS: UInt32 = 3
+IP_ADDRTABLE: UInt32 = 4
+IP_ADDRROW: UInt32 = 5
+IP_FORWARDNUMBER: UInt32 = 6
+IP_FORWARDTABLE: UInt32 = 7
+IP_FORWARDROW: UInt32 = 8
+IP_NETTABLE: UInt32 = 9
+IP_NETROW: UInt32 = 10
+ICMP_STATS: UInt32 = 11
+TCP_STATS: UInt32 = 12
+TCP_TABLE: UInt32 = 13
+TCP_ROW: UInt32 = 14
+UDP_STATS: UInt32 = 15
+UDP_TABLE: UInt32 = 16
+UDP_ROW: UInt32 = 17
+MCAST_MFE: UInt32 = 18
+MCAST_MFE_STATS: UInt32 = 19
+BEST_IF: UInt32 = 20
+BEST_ROUTE: UInt32 = 21
+PROXY_ARP: UInt32 = 22
+MCAST_IF_ENTRY: UInt32 = 23
+MCAST_GLOBAL: UInt32 = 24
+IF_STATUS: UInt32 = 25
+MCAST_BOUNDARY: UInt32 = 26
+MCAST_SCOPE: UInt32 = 27
+DEST_MATCHING: UInt32 = 28
+DEST_LONGER: UInt32 = 29
+DEST_SHORTER: UInt32 = 30
+ROUTE_MATCHING: UInt32 = 31
+ROUTE_LONGER: UInt32 = 32
+ROUTE_SHORTER: UInt32 = 33
+ROUTE_STATE: UInt32 = 34
+MCAST_MFE_STATS_EX: UInt32 = 35
+IP6_STATS: UInt32 = 36
+UDP6_STATS: UInt32 = 37
+TCP6_STATS: UInt32 = 38
+NUMBER_OF_EXPORTED_VARIABLES: UInt32 = 39
+MAX_SCOPE_NAME_LEN: UInt32 = 255
+MAX_MIB_OFFSET: UInt32 = 8
+MIB_INVALID_TEREDO_PORT_NUMBER: UInt32 = 0
+DNS_SETTINGS_VERSION1: UInt32 = 1
+DNS_SETTINGS_VERSION2: UInt32 = 2
+DNS_INTERFACE_SETTINGS_VERSION1: UInt32 = 1
+DNS_INTERFACE_SETTINGS_VERSION2: UInt32 = 2
+DNS_INTERFACE_SETTINGS_VERSION3: UInt32 = 3
+DNS_SETTING_IPV6: UInt32 = 1
+DNS_SETTING_NAMESERVER: UInt32 = 2
+DNS_SETTING_SEARCHLIST: UInt32 = 4
+DNS_SETTING_REGISTRATION_ENABLED: UInt32 = 8
+DNS_SETTING_REGISTER_ADAPTER_NAME: UInt32 = 16
+DNS_SETTING_DOMAIN: UInt32 = 32
+DNS_SETTING_HOSTNAME: UInt32 = 64
+DNS_SETTINGS_ENABLE_LLMNR: UInt32 = 128
+DNS_SETTINGS_QUERY_ADAPTER_NAME: UInt32 = 256
+DNS_SETTING_PROFILE_NAMESERVER: UInt32 = 512
+DNS_SETTING_DISABLE_UNCONSTRAINED_QUERIES: UInt32 = 1024
+DNS_SETTING_SUPPLEMENTAL_SEARCH_LIST: UInt32 = 2048
+DNS_SETTING_DOH: UInt32 = 4096
+DNS_SETTING_DOH_PROFILE: UInt32 = 8192
+DNS_ENABLE_DOH: UInt32 = 1
+DNS_DOH_POLICY_NOT_CONFIGURED: UInt32 = 4
+DNS_DOH_POLICY_DISABLE: UInt32 = 8
+DNS_DOH_POLICY_AUTO: UInt32 = 16
+DNS_DOH_POLICY_REQUIRED: UInt32 = 32
+DNS_SERVER_PROPERTY_VERSION1: UInt32 = 1
+DNS_DOH_SERVER_SETTINGS_ENABLE_AUTO: UInt32 = 1
+DNS_DOH_SERVER_SETTINGS_ENABLE: UInt32 = 2
+DNS_DOH_SERVER_SETTINGS_FALLBACK_TO_UDP: UInt32 = 4
+DNS_DOH_AUTO_UPGRADE_SERVER: UInt32 = 8
+TCPIP_OWNING_MODULE_SIZE: UInt32 = 16
+FD_FLAGS_NOSYN: UInt32 = 1
+FD_FLAGS_ALLFLAGS: UInt32 = 1
+LB_SRC_ADDR_USE_SRCADDR_FLAG: UInt32 = 1
+LB_SRC_ADDR_USE_DSTADDR_FLAG: UInt32 = 2
+LB_DST_ADDR_USE_SRCADDR_FLAG: UInt32 = 4
+LB_DST_ADDR_USE_DSTADDR_FLAG: UInt32 = 8
+LB_SRC_MASK_LATE_FLAG: UInt32 = 16
+LB_DST_MASK_LATE_FLAG: UInt32 = 32
+ERROR_BASE: UInt32 = 23000
+PFERROR_NO_PF_INTERFACE: UInt32 = 23000
+PFERROR_NO_FILTERS_GIVEN: UInt32 = 23001
+PFERROR_BUFFER_TOO_SMALL: UInt32 = 23002
+ERROR_IPV6_NOT_IMPLEMENTED: UInt32 = 23003
+IP_EXPORT_INCLUDED: UInt32 = 1
+MAX_ADAPTER_NAME: UInt32 = 128
+IP_STATUS_BASE: UInt32 = 11000
+IP_SUCCESS: UInt32 = 0
+IP_BUF_TOO_SMALL: UInt32 = 11001
+IP_DEST_NET_UNREACHABLE: UInt32 = 11002
+IP_DEST_HOST_UNREACHABLE: UInt32 = 11003
+IP_DEST_PROT_UNREACHABLE: UInt32 = 11004
+IP_DEST_PORT_UNREACHABLE: UInt32 = 11005
+IP_NO_RESOURCES: UInt32 = 11006
+IP_BAD_OPTION: UInt32 = 11007
+IP_HW_ERROR: UInt32 = 11008
+IP_PACKET_TOO_BIG: UInt32 = 11009
+IP_REQ_TIMED_OUT: UInt32 = 11010
+IP_BAD_REQ: UInt32 = 11011
+IP_BAD_ROUTE: UInt32 = 11012
+IP_TTL_EXPIRED_TRANSIT: UInt32 = 11013
+IP_TTL_EXPIRED_REASSEM: UInt32 = 11014
+IP_PARAM_PROBLEM: UInt32 = 11015
+IP_SOURCE_QUENCH: UInt32 = 11016
+IP_OPTION_TOO_BIG: UInt32 = 11017
+IP_BAD_DESTINATION: UInt32 = 11018
+IP_DEST_NO_ROUTE: UInt32 = 11002
+IP_DEST_ADDR_UNREACHABLE: UInt32 = 11003
+IP_DEST_PROHIBITED: UInt32 = 11004
+IP_HOP_LIMIT_EXCEEDED: UInt32 = 11013
+IP_REASSEMBLY_TIME_EXCEEDED: UInt32 = 11014
+IP_PARAMETER_PROBLEM: UInt32 = 11015
+IP_DEST_UNREACHABLE: UInt32 = 11040
+IP_TIME_EXCEEDED: UInt32 = 11041
+IP_BAD_HEADER: UInt32 = 11042
+IP_UNRECOGNIZED_NEXT_HEADER: UInt32 = 11043
+IP_ICMP_ERROR: UInt32 = 11044
+IP_DEST_SCOPE_MISMATCH: UInt32 = 11045
+IP_ADDR_DELETED: UInt32 = 11019
+IP_SPEC_MTU_CHANGE: UInt32 = 11020
+IP_MTU_CHANGE: UInt32 = 11021
+IP_UNLOAD: UInt32 = 11022
+IP_ADDR_ADDED: UInt32 = 11023
+IP_MEDIA_CONNECT: UInt32 = 11024
+IP_MEDIA_DISCONNECT: UInt32 = 11025
+IP_BIND_ADAPTER: UInt32 = 11026
+IP_UNBIND_ADAPTER: UInt32 = 11027
+IP_DEVICE_DOES_NOT_EXIST: UInt32 = 11028
+IP_DUPLICATE_ADDRESS: UInt32 = 11029
+IP_INTERFACE_METRIC_CHANGE: UInt32 = 11030
+IP_RECONFIG_SECFLTR: UInt32 = 11031
+IP_NEGOTIATING_IPSEC: UInt32 = 11032
+IP_INTERFACE_WOL_CAPABILITY_CHANGE: UInt32 = 11033
+IP_DUPLICATE_IPADD: UInt32 = 11034
+IP_GENERAL_FAILURE: UInt32 = 11050
+MAX_IP_STATUS: UInt32 = 11050
+IP_PENDING: UInt32 = 11255
+IP_FLAG_REVERSE: UInt32 = 1
+IP_FLAG_DF: UInt32 = 2
+MAX_OPT_SIZE: UInt32 = 40
+IOCTL_IP_RTCHANGE_NOTIFY_REQUEST: UInt32 = 101
+IOCTL_IP_ADDCHANGE_NOTIFY_REQUEST: UInt32 = 102
+IOCTL_ARP_SEND_REQUEST: UInt32 = 103
+IOCTL_IP_INTERFACE_INFO: UInt32 = 104
+IOCTL_IP_GET_BEST_INTERFACE: UInt32 = 105
+IOCTL_IP_UNIDIRECTIONAL_ADAPTER_ADDRESS: UInt32 = 106
+NET_STRING_IPV4_ADDRESS: UInt32 = 1
+NET_STRING_IPV4_SERVICE: UInt32 = 2
+NET_STRING_IPV4_NETWORK: UInt32 = 4
+NET_STRING_IPV6_ADDRESS: UInt32 = 8
+NET_STRING_IPV6_ADDRESS_NO_SCOPE: UInt32 = 16
+NET_STRING_IPV6_SERVICE: UInt32 = 32
+NET_STRING_IPV6_SERVICE_NO_SCOPE: UInt32 = 64
+NET_STRING_IPV6_NETWORK: UInt32 = 128
+NET_STRING_NAMED_ADDRESS: UInt32 = 256
+NET_STRING_NAMED_SERVICE: UInt32 = 512
+MAX_ADAPTER_DESCRIPTION_LENGTH: UInt32 = 128
+MAX_ADAPTER_NAME_LENGTH: UInt32 = 256
+MAX_ADAPTER_ADDRESS_LENGTH: UInt32 = 8
+DEFAULT_MINIMUM_ENTITIES: UInt32 = 32
+MAX_HOSTNAME_LEN: UInt32 = 128
+MAX_DOMAIN_NAME_LEN: UInt32 = 128
+MAX_SCOPE_ID_LEN: UInt32 = 256
+MAX_DHCPV6_DUID_LENGTH: UInt32 = 130
+MAX_DNS_SUFFIX_STRING_LENGTH: UInt32 = 256
+BROADCAST_NODETYPE: UInt32 = 1
+PEER_TO_PEER_NODETYPE: UInt32 = 2
+MIXED_NODETYPE: UInt32 = 4
+HYBRID_NODETYPE: UInt32 = 8
+IP_ADAPTER_ADDRESS_DNS_ELIGIBLE: UInt32 = 1
+IP_ADAPTER_ADDRESS_TRANSIENT: UInt32 = 2
+IP_ADAPTER_DDNS_ENABLED: UInt32 = 1
+IP_ADAPTER_REGISTER_ADAPTER_SUFFIX: UInt32 = 2
+IP_ADAPTER_DHCP_ENABLED: UInt32 = 4
+IP_ADAPTER_RECEIVE_ONLY: UInt32 = 8
+IP_ADAPTER_NO_MULTICAST: UInt32 = 16
+IP_ADAPTER_IPV6_OTHER_STATEFUL_CONFIG: UInt32 = 32
+IP_ADAPTER_NETBIOS_OVER_TCPIP_ENABLED: UInt32 = 64
+IP_ADAPTER_IPV4_ENABLED: UInt32 = 128
+IP_ADAPTER_IPV6_ENABLED: UInt32 = 256
+IP_ADAPTER_IPV6_MANAGE_ADDRESS_CONFIG: UInt32 = 512
+GAA_FLAG_SKIP_DNS_INFO: UInt32 = 2048
+IP_ROUTER_MANAGER_VERSION: UInt32 = 1
+IP_GENERAL_INFO_BASE: UInt32 = 4294901760
+IP_IN_FILTER_INFO: UInt32 = 4294901761
+IP_OUT_FILTER_INFO: UInt32 = 4294901762
+IP_GLOBAL_INFO: UInt32 = 4294901763
+IP_INTERFACE_STATUS_INFO: UInt32 = 4294901764
+IP_ROUTE_INFO: UInt32 = 4294901765
+IP_PROT_PRIORITY_INFO: UInt32 = 4294901766
+IP_ROUTER_DISC_INFO: UInt32 = 4294901767
+IP_DEMAND_DIAL_FILTER_INFO: UInt32 = 4294901769
+IP_MCAST_HEARBEAT_INFO: UInt32 = 4294901770
+IP_MCAST_BOUNDARY_INFO: UInt32 = 4294901771
+IP_IPINIP_CFG_INFO: UInt32 = 4294901772
+IP_IFFILTER_INFO: UInt32 = 4294901773
+IP_MCAST_LIMIT_INFO: UInt32 = 4294901774
+IPV6_GLOBAL_INFO: UInt32 = 4294901775
+IPV6_ROUTE_INFO: UInt32 = 4294901776
+IP_IN_FILTER_INFO_V6: UInt32 = 4294901777
+IP_OUT_FILTER_INFO_V6: UInt32 = 4294901778
+IP_DEMAND_DIAL_FILTER_INFO_V6: UInt32 = 4294901779
+IP_IFFILTER_INFO_V6: UInt32 = 4294901780
+IP_FILTER_ENABLE_INFO: UInt32 = 4294901781
+IP_FILTER_ENABLE_INFO_V6: UInt32 = 4294901782
+IP_PROT_PRIORITY_INFO_EX: UInt32 = 4294901783
+@winfunctype('IPHLPAPI.dll')
+def GetIfEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfEntry2Ex(Level: win32more.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL, Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfTable2(Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_TABLE2_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfTable2Ex(Level: win32more.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IF_TABLE2_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfStackTable(Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IFSTACK_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetInvertedIfStackTable(Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpInterfaceEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpInterfaceTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def InitializeIpInterfaceEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyIpInterfaceChange(Family: UInt16, Callback: win32more.NetworkManagement.IpHelper.PIPINTERFACE_CHANGE_CALLBACK, CallerContext: c_void_p, InitialNotification: win32more.Foundation.BOOLEAN, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpInterfaceEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpNetworkConnectionBandwidthEstimates(InterfaceIndex: UInt32, AddressFamily: UInt16, BandwidthEstimates: POINTER(win32more.NetworkManagement.IpHelper.MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateUnicastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteUnicastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUnicastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUnicastIpAddressTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def InitializeUnicastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyUnicastIpAddressChange(Family: UInt16, Callback: win32more.NetworkManagement.IpHelper.PUNICAST_IPADDRESS_CHANGE_CALLBACK, CallerContext: c_void_p, InitialNotification: win32more.Foundation.BOOLEAN, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyStableUnicastIpAddressTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head)), CallerCallback: win32more.NetworkManagement.IpHelper.PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK, CallerContext: c_void_p, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def SetUnicastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateAnycastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteAnycastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetAnycastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetAnycastIpAddressTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetMulticastIpAddressEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetMulticastIpAddressTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateIpForwardEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteIpForwardEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetBestRoute2(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceIndex: UInt32, SourceAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head), DestinationAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head), AddressSortOptions: UInt32, BestRoute: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head), BestSourceAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpForwardEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpForwardTable2(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_TABLE2_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def InitializeIpForwardEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyRouteChange2(AddressFamily: UInt16, Callback: win32more.NetworkManagement.IpHelper.PIPFORWARD_CHANGE_CALLBACK, CallerContext: c_void_p, InitialNotification: win32more.Foundation.BOOLEAN, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpForwardEntry2(Route: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def FlushIpPathTable(Family: UInt16) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpPathEntry(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPPATH_ROW_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpPathTable(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPPATH_TABLE_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateIpNetEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteIpNetEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def FlushIpNetTable2(Family: UInt16, InterfaceIndex: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpNetEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpNetTable2(Family: UInt16, Table: POINTER(POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_TABLE2_head))) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ResolveIpNetEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head), SourceAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_INET_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpNetEntry2(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyTeredoPortChange(Callback: win32more.NetworkManagement.IpHelper.PTEREDO_PORT_CHANGE_CALLBACK, CallerContext: c_void_p, InitialNotification: win32more.Foundation.BOOLEAN, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTeredoPort(Port: POINTER(UInt16)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def CancelMibChangeNotify2(NotificationHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def FreeMibTable(Memory: c_void_p) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateSortedAddressPairs(SourceAddressList: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head), SourceAddressCount: UInt32, DestinationAddressList: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head), DestinationAddressCount: UInt32, AddressSortOptions: UInt32, SortedAddressPairList: POINTER(POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_PAIR_head)), SortedAddressPairCount: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertCompartmentGuidToId(CompartmentGuid: POINTER(Guid), CompartmentId: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertCompartmentIdToGuid(CompartmentId: UInt32, CompartmentGuid: POINTER(Guid)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceNameToLuidA(InterfaceName: win32more.Foundation.PSTR, InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceNameToLuidW(InterfaceName: win32more.Foundation.PWSTR, InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceLuidToNameA(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceName: win32more.Foundation.PSTR, Length: UIntPtr) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceLuidToNameW(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceName: win32more.Foundation.PWSTR, Length: UIntPtr) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceLuidToIndex(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceIndex: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceIndexToLuid(InterfaceIndex: UInt32, InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceLuidToAlias(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceAlias: win32more.Foundation.PWSTR, Length: UIntPtr) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceAliasToLuid(InterfaceAlias: win32more.Foundation.PWSTR, InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceLuidToGuid(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), InterfaceGuid: POINTER(Guid)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertInterfaceGuidToLuid(InterfaceGuid: POINTER(Guid), InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def if_nametoindex(InterfaceName: win32more.Foundation.PSTR) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def if_indextoname(InterfaceIndex: UInt32, InterfaceName: win32more.Foundation.PSTR) -> win32more.Foundation.PSTR: ...
+@winfunctype('IPHLPAPI.dll')
+def GetCurrentThreadCompartmentId() -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetCurrentThreadCompartmentId(CompartmentId: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetCurrentThreadCompartmentScope(CompartmentScope: POINTER(UInt32), CompartmentId: POINTER(UInt32)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def SetCurrentThreadCompartmentScope(CompartmentScope: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetJobCompartmentId(JobHandle: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetJobCompartmentId(JobHandle: win32more.Foundation.HANDLE, CompartmentId: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetSessionCompartmentId(SessionId: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetSessionCompartmentId(SessionId: UInt32, CompartmentId: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetDefaultCompartmentId() -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetNetworkInformation(NetworkGuid: POINTER(Guid), CompartmentId: POINTER(UInt32), SiteId: POINTER(UInt32), NetworkName: win32more.Foundation.PWSTR, Length: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def SetNetworkInformation(NetworkGuid: POINTER(Guid), CompartmentId: UInt32, NetworkName: win32more.Foundation.PWSTR) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertLengthToIpv4Mask(MaskLength: UInt32, Mask: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def ConvertIpv4MaskToLength(Mask: UInt32, MaskLength: c_char_p_no) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetDnsSettings(Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def FreeDnsSettings(Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def SetDnsSettings(Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetInterfaceDnsSettings(Interface: Guid, Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def FreeInterfaceDnsSettings(Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head)) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def SetInterfaceDnsSettings(Interface: Guid, Settings: POINTER(win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetNetworkConnectivityHint(ConnectivityHint: POINTER(win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def GetNetworkConnectivityHintForInterface(InterfaceIndex: UInt32, ConnectivityHint: POINTER(win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyNetworkConnectivityHintChange(Callback: win32more.NetworkManagement.IpHelper.PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK, CallerContext: c_void_p, InitialNotification: win32more.Foundation.BOOLEAN, NotificationHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpCreateFile() -> win32more.NetworkManagement.IpHelper.IcmpHandle: ...
+@winfunctype('IPHLPAPI.dll')
+def Icmp6CreateFile() -> win32more.NetworkManagement.IpHelper.IcmpHandle: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpCloseHandle(IcmpHandle: win32more.NetworkManagement.IpHelper.IcmpHandle) -> win32more.Foundation.BOOL: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpSendEcho(IcmpHandle: win32more.NetworkManagement.IpHelper.IcmpHandle, DestinationAddress: UInt32, RequestData: c_void_p, RequestSize: UInt16, RequestOptions: POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head), ReplyBuffer: c_void_p, ReplySize: UInt32, Timeout: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpSendEcho2(IcmpHandle: win32more.NetworkManagement.IpHelper.IcmpHandle, Event: win32more.Foundation.HANDLE, ApcRoutine: win32more.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, DestinationAddress: UInt32, RequestData: c_void_p, RequestSize: UInt16, RequestOptions: POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head), ReplyBuffer: c_void_p, ReplySize: UInt32, Timeout: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpSendEcho2Ex(IcmpHandle: win32more.NetworkManagement.IpHelper.IcmpHandle, Event: win32more.Foundation.HANDLE, ApcRoutine: win32more.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, SourceAddress: UInt32, DestinationAddress: UInt32, RequestData: c_void_p, RequestSize: UInt16, RequestOptions: POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head), ReplyBuffer: c_void_p, ReplySize: UInt32, Timeout: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def Icmp6SendEcho2(IcmpHandle: win32more.NetworkManagement.IpHelper.IcmpHandle, Event: win32more.Foundation.HANDLE, ApcRoutine: win32more.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, SourceAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head), DestinationAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head), RequestData: c_void_p, RequestSize: UInt16, RequestOptions: POINTER(win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head), ReplyBuffer: c_void_p, ReplySize: UInt32, Timeout: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def IcmpParseReplies(ReplyBuffer: c_void_p, ReplySize: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def Icmp6ParseReplies(ReplyBuffer: c_void_p, ReplySize: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetNumberOfInterfaces(pdwNumIf: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfEntry(pIfRow: POINTER(win32more.NetworkManagement.IpHelper.MIB_IFROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIfTable(pIfTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_IFTABLE_head), pdwSize: POINTER(UInt32), bOrder: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpAddrTable(pIpAddrTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPADDRTABLE_head), pdwSize: POINTER(UInt32), bOrder: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpNetTable(IpNetTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETTABLE_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpForwardTable(pIpForwardTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDTABLE_head), pdwSize: POINTER(UInt32), bOrder: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcpTable(TcpTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPTABLE_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetExtendedTcpTable(pTcpTable: c_void_p, pdwSize: POINTER(UInt32), bOrder: win32more.Foundation.BOOL, ulAf: UInt32, TableClass: win32more.NetworkManagement.IpHelper.TCP_TABLE_CLASS, Reserved: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetOwnerModuleFromTcpEntry(pTcpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE_head), Class: win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS, pBuffer: c_void_p, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUdpTable(UdpTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPTABLE_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetExtendedUdpTable(pUdpTable: c_void_p, pdwSize: POINTER(UInt32), bOrder: win32more.Foundation.BOOL, ulAf: UInt32, TableClass: win32more.NetworkManagement.IpHelper.UDP_TABLE_CLASS, Reserved: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetOwnerModuleFromUdpEntry(pUdpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE_head), Class: win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS, pBuffer: c_void_p, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcpTable2(TcpTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPTABLE2_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcp6Table(TcpTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcp6Table2(TcpTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE2_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetPerTcpConnectionEStats(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head), EstatsType: win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE, Rw: c_char_p_no, RwVersion: UInt32, RwSize: UInt32, Ros: c_char_p_no, RosVersion: UInt32, RosSize: UInt32, Rod: c_char_p_no, RodVersion: UInt32, RodSize: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetPerTcpConnectionEStats(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head), EstatsType: win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE, Rw: c_char_p_no, RwVersion: UInt32, RwSize: UInt32, Offset: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetPerTcp6ConnectionEStats(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_head), EstatsType: win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE, Rw: c_char_p_no, RwVersion: UInt32, RwSize: UInt32, Ros: c_char_p_no, RosVersion: UInt32, RosSize: UInt32, Rod: c_char_p_no, RodVersion: UInt32, RodSize: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetPerTcp6ConnectionEStats(Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_head), EstatsType: win32more.NetworkManagement.IpHelper.TCP_ESTATS_TYPE, Rw: c_char_p_no, RwVersion: UInt32, RwSize: UInt32, Offset: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetOwnerModuleFromTcp6Entry(pTcpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE_head), Class: win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS, pBuffer: c_void_p, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUdp6Table(Udp6Table: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE_head), SizePointer: POINTER(UInt32), Order: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetOwnerModuleFromUdp6Entry(pUdpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE_head), Class: win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS, pBuffer: c_void_p, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetOwnerModuleFromPidAndInfo(ulPid: UInt32, pInfo: POINTER(UInt64), Class: win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS, pBuffer: c_void_p, pdwSize: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpStatistics(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIcmpStatistics(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_ICMP_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcpStatistics(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUdpStatistics(Stats: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpStatisticsEx(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head), Family: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpStatisticsEx(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head), Family: win32more.Networking.WinSock.ADDRESS_FAMILY) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIcmpStatisticsEx(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_ICMP_EX_XPSP1_head), Family: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcpStatisticsEx(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_LH_head), Family: win32more.Networking.WinSock.ADDRESS_FAMILY) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUdpStatisticsEx(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS_head), Family: win32more.Networking.WinSock.ADDRESS_FAMILY) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetTcpStatisticsEx2(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPSTATS2_head), Family: win32more.Networking.WinSock.ADDRESS_FAMILY) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUdpStatisticsEx2(Statistics: POINTER(win32more.NetworkManagement.IpHelper.MIB_UDPSTATS2_head), Family: win32more.Networking.WinSock.ADDRESS_FAMILY) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIfEntry(pIfRow: POINTER(win32more.NetworkManagement.IpHelper.MIB_IFROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateIpForwardEntry(pRoute: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpForwardEntry(pRoute: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteIpForwardEntry(pRoute: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpStatistics(pIpStats: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpTTL(nTTL: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateIpNetEntry(pArpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetIpNetEntry(pArpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteIpNetEntry(pArpEntry: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def FlushIpNetTable(dwIfIndex: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CreateProxyArpEntry(dwAddress: UInt32, dwMask: UInt32, dwIfIndex: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteProxyArpEntry(dwAddress: UInt32, dwMask: UInt32, dwIfIndex: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SetTcpEntry(pTcpRow: POINTER(win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetInterfaceInfo(pIfTable: POINTER(win32more.NetworkManagement.IpHelper.IP_INTERFACE_INFO_head), dwOutBufLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetUniDirectionalAdapterInfo(pIPIfInfo: POINTER(win32more.NetworkManagement.IpHelper.IP_UNIDIRECTIONAL_ADAPTER_ADDRESS_head), dwOutBufLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def NhpAllocateAndGetInterfaceInfoFromStack(ppTable: POINTER(POINTER(win32more.NetworkManagement.IpHelper.IP_INTERFACE_NAME_INFO_W2KSP1_head)), pdwCount: POINTER(UInt32), bOrder: win32more.Foundation.BOOL, hHeap: win32more.Foundation.HANDLE, dwFlags: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetBestInterface(dwDestAddr: UInt32, pdwBestIfIndex: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetBestInterfaceEx(pDestAddr: POINTER(win32more.Networking.WinSock.SOCKADDR_head), pdwBestIfIndex: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetBestRoute(dwDestAddr: UInt32, dwSourceAddr: UInt32, pBestRoute: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyAddrChange(Handle: POINTER(win32more.Foundation.HANDLE), overlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def NotifyRouteChange(Handle: POINTER(win32more.Foundation.HANDLE), overlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CancelIPChangeNotify(notifyOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IPHLPAPI.dll')
+def GetAdapterIndex(AdapterName: win32more.Foundation.PWSTR, IfIndex: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def AddIPAddress(Address: UInt32, IpMask: UInt32, IfIndex: UInt32, NTEContext: POINTER(UInt32), NTEInstance: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeleteIPAddress(NTEContext: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetNetworkParams(pFixedInfo: POINTER(win32more.NetworkManagement.IpHelper.FIXED_INFO_W2KSP1_head), pOutBufLen: POINTER(UInt32)) -> win32more.Foundation.WIN32_ERROR: ...
+@winfunctype('IPHLPAPI.dll')
+def GetAdaptersInfo(AdapterInfo: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INFO_head), SizePointer: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetAdapterOrderMap() -> POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ORDER_MAP_head): ...
+@winfunctype('IPHLPAPI.dll')
+def GetAdaptersAddresses(Family: win32more.Networking.WinSock.ADDRESS_FAMILY, Flags: win32more.NetworkManagement.IpHelper.GET_ADAPTERS_ADDRESSES_FLAGS, Reserved: c_void_p, AdapterAddresses: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head), SizePointer: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetPerAdapterInfo(IfIndex: UInt32, pPerAdapterInfo: POINTER(win32more.NetworkManagement.IpHelper.IP_PER_ADAPTER_INFO_W2KSP1_head), pOutBufLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetInterfaceActiveTimestampCapabilities(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), TimestampCapabilites: POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetInterfaceSupportedTimestampCapabilities(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), TimestampCapabilites: POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid: POINTER(win32more.NetworkManagement.Ndis.NET_LUID_LH_head), CrossTimestamp: POINTER(win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_CROSSTIMESTAMP_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def RegisterInterfaceTimestampConfigChange(Callback: win32more.NetworkManagement.IpHelper.PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, CallerContext: c_void_p, NotificationHandle: POINTER(win32more.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def UnregisterInterfaceTimestampConfigChange(NotificationHandle: win32more.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE) -> Void: ...
+@winfunctype('IPHLPAPI.dll')
+def IpReleaseAddress(AdapterInfo: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def IpRenewAddress(AdapterInfo: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def SendARP(DestIP: UInt32, SrcIP: UInt32, pMacAddr: c_void_p, PhyAddrLen: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetRTTAndHopCount(DestIpAddress: UInt32, HopCount: POINTER(UInt32), MaxHops: UInt32, RTT: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('IPHLPAPI.dll')
+def GetFriendlyIfIndex(IfIndex: UInt32) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def EnableRouter(pHandle: POINTER(win32more.Foundation.HANDLE), pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def UnenableRouter(pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head), lpdwEnableCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DisableMediaSense(pHandle: POINTER(win32more.Foundation.HANDLE), pOverLapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def RestoreMediaSense(pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head), lpdwEnableCount: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def GetIpErrorString(ErrorCode: UInt32, Buffer: win32more.Foundation.PWSTR, Size: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def ResolveNeighbor(NetworkAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_head), PhysicalAddress: c_void_p, PhysicalAddressLength: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CreatePersistentTcpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def CreatePersistentUdpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeletePersistentTcpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def DeletePersistentUdpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def LookupPersistentTcpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def LookupPersistentUdpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfCreateInterface(dwName: UInt32, inAction: win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION, outAction: win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION, bUseLog: win32more.Foundation.BOOL, bMustBeUnique: win32more.Foundation.BOOL, ppInterface: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfDeleteInterface(pInterface: c_void_p) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfAddFiltersToInterface(ih: c_void_p, cInFilters: UInt32, pfiltIn: POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head), cOutFilters: UInt32, pfiltOut: POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head), pfHandle: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfRemoveFiltersFromInterface(ih: c_void_p, cInFilters: UInt32, pfiltIn: POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head), cOutFilters: UInt32, pfiltOut: POINTER(win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfRemoveFilterHandles(pInterface: c_void_p, cFilters: UInt32, pvHandles: POINTER(c_void_p)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfUnBindInterface(pInterface: c_void_p) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfBindInterfaceToIndex(pInterface: c_void_p, dwIndex: UInt32, pfatLinkType: win32more.NetworkManagement.IpHelper.PFADDRESSTYPE, LinkIPAddress: c_char_p_no) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfBindInterfaceToIPAddress(pInterface: c_void_p, pfatType: win32more.NetworkManagement.IpHelper.PFADDRESSTYPE, IPAddress: c_char_p_no) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfRebindFilters(pInterface: c_void_p, pLateBindInfo: POINTER(win32more.NetworkManagement.IpHelper.PF_LATEBIND_INFO_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfAddGlobalFilterToInterface(pInterface: c_void_p, gfFilter: win32more.NetworkManagement.IpHelper.GLOBAL_FILTER) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfRemoveGlobalFilterFromInterface(pInterface: c_void_p, gfFilter: win32more.NetworkManagement.IpHelper.GLOBAL_FILTER) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfMakeLog(hEvent: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfSetLogBuffer(pbBuffer: c_char_p_no, dwSize: UInt32, dwThreshold: UInt32, dwEntries: UInt32, pdwLoggedEntries: POINTER(UInt32), pdwLostEntries: POINTER(UInt32), pdwSizeUsed: POINTER(UInt32)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfDeleteLog() -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfGetInterfaceStatistics(pInterface: c_void_p, ppfStats: POINTER(win32more.NetworkManagement.IpHelper.PF_INTERFACE_STATS_head), pdwBufferSize: POINTER(UInt32), fResetCounters: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def PfTestPacket(pInInterface: c_void_p, pOutInterface: c_void_p, cBytes: UInt32, pbPacket: c_char_p_no, ppAction: POINTER(win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION)) -> UInt32: ...
+class ARP_SEND_REPLY(Structure):
+    DestAddress: UInt32
+    SrcAddress: UInt32
+class DNS_DOH_SERVER_SETTINGS(Structure):
+    Template: win32more.Foundation.PWSTR
+    Flags: UInt64
+class DNS_INTERFACE_SETTINGS(Structure):
+    Version: UInt32
+    Flags: UInt64
+    Domain: win32more.Foundation.PWSTR
+    NameServer: win32more.Foundation.PWSTR
+    SearchList: win32more.Foundation.PWSTR
+    RegistrationEnabled: UInt32
+    RegisterAdapterName: UInt32
+    EnableLLMNR: UInt32
+    QueryAdapterName: UInt32
+    ProfileNameServer: win32more.Foundation.PWSTR
+class DNS_INTERFACE_SETTINGS_EX(Structure):
+    SettingsV1: win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS
+    DisableUnconstrainedQueries: UInt32
+    SupplementalSearchList: win32more.Foundation.PWSTR
+class DNS_INTERFACE_SETTINGS3(Structure):
+    Version: UInt32
+    Flags: UInt64
+    Domain: win32more.Foundation.PWSTR
+    NameServer: win32more.Foundation.PWSTR
+    SearchList: win32more.Foundation.PWSTR
+    RegistrationEnabled: UInt32
+    RegisterAdapterName: UInt32
+    EnableLLMNR: UInt32
+    QueryAdapterName: UInt32
+    ProfileNameServer: win32more.Foundation.PWSTR
+    DisableUnconstrainedQueries: UInt32
+    SupplementalSearchList: win32more.Foundation.PWSTR
+    cServerProperties: UInt32
+    ServerProperties: POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)
+    cProfileServerProperties: UInt32
+    ProfileServerProperties: POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)
+class DNS_SERVER_PROPERTY(Structure):
+    Version: UInt32
+    ServerIndex: UInt32
+    Type: win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE
+    Property: win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPES
 DNS_SERVER_PROPERTY_TYPE = Int32
-DNS_SERVER_PROPERTY_TYPE_DnsServerInvalidProperty = 0
-DNS_SERVER_PROPERTY_TYPE_DnsServerDohProperty = 1
-def _define_DNS_SERVER_PROPERTY_TYPES_head():
-    class DNS_SERVER_PROPERTY_TYPES(Union):
-        pass
-    return DNS_SERVER_PROPERTY_TYPES
-def _define_DNS_SERVER_PROPERTY_TYPES():
-    DNS_SERVER_PROPERTY_TYPES = win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPES_head
-    DNS_SERVER_PROPERTY_TYPES._fields_ = [
-        ('DohSettings', POINTER(win32more.NetworkManagement.IpHelper.DNS_DOH_SERVER_SETTINGS_head)),
-    ]
-    return DNS_SERVER_PROPERTY_TYPES
-def _define_DNS_SETTINGS_head():
-    class DNS_SETTINGS(Structure):
-        pass
-    return DNS_SETTINGS
-def _define_DNS_SETTINGS():
-    DNS_SETTINGS = win32more.NetworkManagement.IpHelper.DNS_SETTINGS_head
-    DNS_SETTINGS._fields_ = [
-        ('Version', UInt32),
-        ('Flags', UInt64),
-        ('Hostname', win32more.Foundation.PWSTR),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('SearchList', win32more.Foundation.PWSTR),
-    ]
-    return DNS_SETTINGS
-def _define_DNS_SETTINGS2_head():
-    class DNS_SETTINGS2(Structure):
-        pass
-    return DNS_SETTINGS2
-def _define_DNS_SETTINGS2():
-    DNS_SETTINGS2 = win32more.NetworkManagement.IpHelper.DNS_SETTINGS2_head
-    DNS_SETTINGS2._fields_ = [
-        ('Version', UInt32),
-        ('Flags', UInt64),
-        ('Hostname', win32more.Foundation.PWSTR),
-        ('Domain', win32more.Foundation.PWSTR),
-        ('SearchList', win32more.Foundation.PWSTR),
-        ('SettingFlags', UInt64),
-    ]
-    return DNS_SETTINGS2
-def _define_FIXED_INFO_W2KSP1_head():
-    class FIXED_INFO_W2KSP1(Structure):
-        pass
-    return FIXED_INFO_W2KSP1
-def _define_FIXED_INFO_W2KSP1():
-    FIXED_INFO_W2KSP1 = win32more.NetworkManagement.IpHelper.FIXED_INFO_W2KSP1_head
-    FIXED_INFO_W2KSP1._fields_ = [
-        ('HostName', win32more.Foundation.CHAR * 132),
-        ('DomainName', win32more.Foundation.CHAR * 132),
-        ('CurrentDnsServer', POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)),
-        ('DnsServerList', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('NodeType', UInt32),
-        ('ScopeId', win32more.Foundation.CHAR * 260),
-        ('EnableRouting', UInt32),
-        ('EnableProxy', UInt32),
-        ('EnableDns', UInt32),
-    ]
-    return FIXED_INFO_W2KSP1
+DNS_SERVER_PROPERTY_TYPE_DnsServerInvalidProperty: DNS_SERVER_PROPERTY_TYPE = 0
+DNS_SERVER_PROPERTY_TYPE_DnsServerDohProperty: DNS_SERVER_PROPERTY_TYPE = 1
+class DNS_SERVER_PROPERTY_TYPES(Union):
+    DohSettings: POINTER(win32more.NetworkManagement.IpHelper.DNS_DOH_SERVER_SETTINGS_head)
+class DNS_SETTINGS(Structure):
+    Version: UInt32
+    Flags: UInt64
+    Hostname: win32more.Foundation.PWSTR
+    Domain: win32more.Foundation.PWSTR
+    SearchList: win32more.Foundation.PWSTR
+class DNS_SETTINGS2(Structure):
+    Version: UInt32
+    Flags: UInt64
+    Hostname: win32more.Foundation.PWSTR
+    Domain: win32more.Foundation.PWSTR
+    SearchList: win32more.Foundation.PWSTR
+    SettingFlags: UInt64
+class FIXED_INFO_W2KSP1(Structure):
+    HostName: win32more.Foundation.CHAR * 132
+    DomainName: win32more.Foundation.CHAR * 132
+    CurrentDnsServer: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
+    DnsServerList: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    NodeType: UInt32
+    ScopeId: win32more.Foundation.CHAR * 260
+    EnableRouting: UInt32
+    EnableProxy: UInt32
+    EnableDns: UInt32
 GET_ADAPTERS_ADDRESSES_FLAGS = UInt32
-GAA_FLAG_SKIP_UNICAST = 1
-GAA_FLAG_SKIP_ANYCAST = 2
-GAA_FLAG_SKIP_MULTICAST = 4
-GAA_FLAG_SKIP_DNS_SERVER = 8
-GAA_FLAG_INCLUDE_PREFIX = 16
-GAA_FLAG_SKIP_FRIENDLY_NAME = 32
-GAA_FLAG_INCLUDE_WINS_INFO = 64
-GAA_FLAG_INCLUDE_GATEWAYS = 128
-GAA_FLAG_INCLUDE_ALL_INTERFACES = 256
-GAA_FLAG_INCLUDE_ALL_COMPARTMENTS = 512
-GAA_FLAG_INCLUDE_TUNNEL_BINDINGORDER = 1024
+GAA_FLAG_SKIP_UNICAST: GET_ADAPTERS_ADDRESSES_FLAGS = 1
+GAA_FLAG_SKIP_ANYCAST: GET_ADAPTERS_ADDRESSES_FLAGS = 2
+GAA_FLAG_SKIP_MULTICAST: GET_ADAPTERS_ADDRESSES_FLAGS = 4
+GAA_FLAG_SKIP_DNS_SERVER: GET_ADAPTERS_ADDRESSES_FLAGS = 8
+GAA_FLAG_INCLUDE_PREFIX: GET_ADAPTERS_ADDRESSES_FLAGS = 16
+GAA_FLAG_SKIP_FRIENDLY_NAME: GET_ADAPTERS_ADDRESSES_FLAGS = 32
+GAA_FLAG_INCLUDE_WINS_INFO: GET_ADAPTERS_ADDRESSES_FLAGS = 64
+GAA_FLAG_INCLUDE_GATEWAYS: GET_ADAPTERS_ADDRESSES_FLAGS = 128
+GAA_FLAG_INCLUDE_ALL_INTERFACES: GET_ADAPTERS_ADDRESSES_FLAGS = 256
+GAA_FLAG_INCLUDE_ALL_COMPARTMENTS: GET_ADAPTERS_ADDRESSES_FLAGS = 512
+GAA_FLAG_INCLUDE_TUNNEL_BINDINGORDER: GET_ADAPTERS_ADDRESSES_FLAGS = 1024
 GLOBAL_FILTER = Int32
-GF_FRAGMENTS = 2
-GF_STRONGHOST = 8
-GF_FRAGCACHE = 9
+GF_FRAGMENTS: GLOBAL_FILTER = 2
+GF_STRONGHOST: GLOBAL_FILTER = 8
+GF_FRAGCACHE: GLOBAL_FILTER = 9
 HIFTIMESTAMPCHANGE = IntPtr
-def _define_ICMP_ECHO_REPLY_head():
-    class ICMP_ECHO_REPLY(Structure):
-        pass
-    return ICMP_ECHO_REPLY
-def _define_ICMP_ECHO_REPLY():
-    ICMP_ECHO_REPLY = win32more.NetworkManagement.IpHelper.ICMP_ECHO_REPLY_head
-    ICMP_ECHO_REPLY._fields_ = [
-        ('Address', UInt32),
-        ('Status', UInt32),
-        ('RoundTripTime', UInt32),
-        ('DataSize', UInt16),
-        ('Reserved', UInt16),
-        ('Data', c_void_p),
-        ('Options', win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION),
-    ]
-    return ICMP_ECHO_REPLY
-def _define_ICMP_ECHO_REPLY32_head():
-    class ICMP_ECHO_REPLY32(Structure):
-        pass
-    return ICMP_ECHO_REPLY32
-def _define_ICMP_ECHO_REPLY32():
-    ICMP_ECHO_REPLY32 = win32more.NetworkManagement.IpHelper.ICMP_ECHO_REPLY32_head
-    ICMP_ECHO_REPLY32._fields_ = [
-        ('Address', UInt32),
-        ('Status', UInt32),
-        ('RoundTripTime', UInt32),
-        ('DataSize', UInt16),
-        ('Reserved', UInt16),
-        ('Data', c_void_p),
-        ('Options', win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32),
-    ]
-    return ICMP_ECHO_REPLY32
+class ICMP_ECHO_REPLY(Structure):
+    Address: UInt32
+    Status: UInt32
+    RoundTripTime: UInt32
+    DataSize: UInt16
+    Reserved: UInt16
+    Data: c_void_p
+    Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION
+class ICMP_ECHO_REPLY32(Structure):
+    Address: UInt32
+    Status: UInt32
+    RoundTripTime: UInt32
+    DataSize: UInt16
+    Reserved: UInt16
+    Data: c_void_p
+    Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32
 ICMP4_TYPE = Int32
-ICMP4_ECHO_REPLY = 0
-ICMP4_DST_UNREACH = 3
-ICMP4_SOURCE_QUENCH = 4
-ICMP4_REDIRECT = 5
-ICMP4_ECHO_REQUEST = 8
-ICMP4_ROUTER_ADVERT = 9
-ICMP4_ROUTER_SOLICIT = 10
-ICMP4_TIME_EXCEEDED = 11
-ICMP4_PARAM_PROB = 12
-ICMP4_TIMESTAMP_REQUEST = 13
-ICMP4_TIMESTAMP_REPLY = 14
-ICMP4_MASK_REQUEST = 17
-ICMP4_MASK_REPLY = 18
+ICMP4_ECHO_REPLY: ICMP4_TYPE = 0
+ICMP4_DST_UNREACH: ICMP4_TYPE = 3
+ICMP4_SOURCE_QUENCH: ICMP4_TYPE = 4
+ICMP4_REDIRECT: ICMP4_TYPE = 5
+ICMP4_ECHO_REQUEST: ICMP4_TYPE = 8
+ICMP4_ROUTER_ADVERT: ICMP4_TYPE = 9
+ICMP4_ROUTER_SOLICIT: ICMP4_TYPE = 10
+ICMP4_TIME_EXCEEDED: ICMP4_TYPE = 11
+ICMP4_PARAM_PROB: ICMP4_TYPE = 12
+ICMP4_TIMESTAMP_REQUEST: ICMP4_TYPE = 13
+ICMP4_TIMESTAMP_REPLY: ICMP4_TYPE = 14
+ICMP4_MASK_REQUEST: ICMP4_TYPE = 17
+ICMP4_MASK_REPLY: ICMP4_TYPE = 18
 ICMP6_TYPE = Int32
-ICMP6_DST_UNREACH = 1
-ICMP6_PACKET_TOO_BIG = 2
-ICMP6_TIME_EXCEEDED = 3
-ICMP6_PARAM_PROB = 4
-ICMP6_ECHO_REQUEST = 128
-ICMP6_ECHO_REPLY = 129
-ICMP6_MEMBERSHIP_QUERY = 130
-ICMP6_MEMBERSHIP_REPORT = 131
-ICMP6_MEMBERSHIP_REDUCTION = 132
-ND_ROUTER_SOLICIT = 133
-ND_ROUTER_ADVERT = 134
-ND_NEIGHBOR_SOLICIT = 135
-ND_NEIGHBOR_ADVERT = 136
-ND_REDIRECT = 137
-ICMP6_V2_MEMBERSHIP_REPORT = 143
+ICMP6_DST_UNREACH: ICMP6_TYPE = 1
+ICMP6_PACKET_TOO_BIG: ICMP6_TYPE = 2
+ICMP6_TIME_EXCEEDED: ICMP6_TYPE = 3
+ICMP6_PARAM_PROB: ICMP6_TYPE = 4
+ICMP6_ECHO_REQUEST: ICMP6_TYPE = 128
+ICMP6_ECHO_REPLY: ICMP6_TYPE = 129
+ICMP6_MEMBERSHIP_QUERY: ICMP6_TYPE = 130
+ICMP6_MEMBERSHIP_REPORT: ICMP6_TYPE = 131
+ICMP6_MEMBERSHIP_REDUCTION: ICMP6_TYPE = 132
+ND_ROUTER_SOLICIT: ICMP6_TYPE = 133
+ND_ROUTER_ADVERT: ICMP6_TYPE = 134
+ND_NEIGHBOR_SOLICIT: ICMP6_TYPE = 135
+ND_NEIGHBOR_ADVERT: ICMP6_TYPE = 136
+ND_REDIRECT: ICMP6_TYPE = 137
+ICMP6_V2_MEMBERSHIP_REPORT: ICMP6_TYPE = 143
 IcmpHandle = IntPtr
-def _define_ICMPV6_ECHO_REPLY_LH_head():
-    class ICMPV6_ECHO_REPLY_LH(Structure):
-        pass
-    return ICMPV6_ECHO_REPLY_LH
-def _define_ICMPV6_ECHO_REPLY_LH():
-    ICMPV6_ECHO_REPLY_LH = win32more.NetworkManagement.IpHelper.ICMPV6_ECHO_REPLY_LH_head
-    ICMPV6_ECHO_REPLY_LH._fields_ = [
-        ('Address', win32more.NetworkManagement.IpHelper.IPV6_ADDRESS_EX),
-        ('Status', UInt32),
-        ('RoundTripTime', UInt32),
-    ]
-    return ICMPV6_ECHO_REPLY_LH
+class ICMPV6_ECHO_REPLY_LH(Structure):
+    Address: win32more.NetworkManagement.IpHelper.IPV6_ADDRESS_EX
+    Status: UInt32
+    RoundTripTime: UInt32
 IF_ACCESS_TYPE = Int32
-IF_ACCESS_LOOPBACK = 1
-IF_ACCESS_BROADCAST = 2
-IF_ACCESS_POINT_TO_POINT = 3
-IF_ACCESS_POINTTOPOINT = 3
-IF_ACCESS_POINT_TO_MULTI_POINT = 4
-IF_ACCESS_POINTTOMULTIPOINT = 4
-def _define_INTERFACE_HARDWARE_CROSSTIMESTAMP_head():
-    class INTERFACE_HARDWARE_CROSSTIMESTAMP(Structure):
-        pass
-    return INTERFACE_HARDWARE_CROSSTIMESTAMP
-def _define_INTERFACE_HARDWARE_CROSSTIMESTAMP():
-    INTERFACE_HARDWARE_CROSSTIMESTAMP = win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_CROSSTIMESTAMP_head
-    INTERFACE_HARDWARE_CROSSTIMESTAMP._fields_ = [
-        ('SystemTimestamp1', UInt64),
-        ('HardwareClockTimestamp', UInt64),
-        ('SystemTimestamp2', UInt64),
-    ]
-    return INTERFACE_HARDWARE_CROSSTIMESTAMP
-def _define_INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES_head():
-    class INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(Structure):
-        pass
-    return INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES
-def _define_INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES():
-    INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES = win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES_head
-    INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES._fields_ = [
-        ('PtpV2OverUdpIPv4EventMessageReceive', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv4AllMessageReceive', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv4EventMessageTransmit', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv4AllMessageTransmit', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv6EventMessageReceive', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv6AllMessageReceive', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv6EventMessageTransmit', win32more.Foundation.BOOLEAN),
-        ('PtpV2OverUdpIPv6AllMessageTransmit', win32more.Foundation.BOOLEAN),
-        ('AllReceive', win32more.Foundation.BOOLEAN),
-        ('AllTransmit', win32more.Foundation.BOOLEAN),
-        ('TaggedTransmit', win32more.Foundation.BOOLEAN),
-    ]
-    return INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES
-def _define_INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES_head():
-    class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(Structure):
-        pass
-    return INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES
-def _define_INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES():
-    INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES = win32more.NetworkManagement.IpHelper.INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES_head
-    INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES._fields_ = [
-        ('AllReceive', win32more.Foundation.BOOLEAN),
-        ('AllTransmit', win32more.Foundation.BOOLEAN),
-        ('TaggedTransmit', win32more.Foundation.BOOLEAN),
-    ]
-    return INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES
-def _define_INTERFACE_TIMESTAMP_CAPABILITIES_head():
-    class INTERFACE_TIMESTAMP_CAPABILITIES(Structure):
-        pass
-    return INTERFACE_TIMESTAMP_CAPABILITIES
-def _define_INTERFACE_TIMESTAMP_CAPABILITIES():
-    INTERFACE_TIMESTAMP_CAPABILITIES = win32more.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head
-    INTERFACE_TIMESTAMP_CAPABILITIES._fields_ = [
-        ('HardwareClockFrequencyHz', UInt64),
-        ('SupportsCrossTimestamp', win32more.Foundation.BOOLEAN),
-        ('HardwareCapabilities', win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES),
-        ('SoftwareCapabilities', win32more.NetworkManagement.IpHelper.INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES),
-    ]
-    return INTERFACE_TIMESTAMP_CAPABILITIES
+IF_ACCESS_LOOPBACK: IF_ACCESS_TYPE = 1
+IF_ACCESS_BROADCAST: IF_ACCESS_TYPE = 2
+IF_ACCESS_POINT_TO_POINT: IF_ACCESS_TYPE = 3
+IF_ACCESS_POINTTOPOINT: IF_ACCESS_TYPE = 3
+IF_ACCESS_POINT_TO_MULTI_POINT: IF_ACCESS_TYPE = 4
+IF_ACCESS_POINTTOMULTIPOINT: IF_ACCESS_TYPE = 4
+class INTERFACE_HARDWARE_CROSSTIMESTAMP(Structure):
+    SystemTimestamp1: UInt64
+    HardwareClockTimestamp: UInt64
+    SystemTimestamp2: UInt64
+class INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(Structure):
+    PtpV2OverUdpIPv4EventMessageReceive: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv4AllMessageReceive: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv4EventMessageTransmit: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv4AllMessageTransmit: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv6EventMessageReceive: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv6AllMessageReceive: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv6EventMessageTransmit: win32more.Foundation.BOOLEAN
+    PtpV2OverUdpIPv6AllMessageTransmit: win32more.Foundation.BOOLEAN
+    AllReceive: win32more.Foundation.BOOLEAN
+    AllTransmit: win32more.Foundation.BOOLEAN
+    TaggedTransmit: win32more.Foundation.BOOLEAN
+class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(Structure):
+    AllReceive: win32more.Foundation.BOOLEAN
+    AllTransmit: win32more.Foundation.BOOLEAN
+    TaggedTransmit: win32more.Foundation.BOOLEAN
+class INTERFACE_TIMESTAMP_CAPABILITIES(Structure):
+    HardwareClockFrequencyHz: UInt64
+    SupportsCrossTimestamp: win32more.Foundation.BOOLEAN
+    HardwareCapabilities: win32more.NetworkManagement.IpHelper.INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES
+    SoftwareCapabilities: win32more.NetworkManagement.IpHelper.INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES
 INTERNAL_IF_OPER_STATUS = Int32
-IF_OPER_STATUS_NON_OPERATIONAL = 0
-IF_OPER_STATUS_UNREACHABLE = 1
-IF_OPER_STATUS_DISCONNECTED = 2
-IF_OPER_STATUS_CONNECTING = 3
-IF_OPER_STATUS_CONNECTED = 4
-IF_OPER_STATUS_OPERATIONAL = 5
-def _define_IP_ADAPTER_ADDRESSES_LH_head():
-    class IP_ADAPTER_ADDRESSES_LH(Structure):
-        pass
-    return IP_ADAPTER_ADDRESSES_LH
-def _define_IP_ADAPTER_ADDRESSES_LH():
-    IP_ADAPTER_ADDRESSES_LH = win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head
-    class IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union(Union):
-        pass
-    class IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('IfIndex', UInt32),
-    ]
-    IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union__Anonymous_e__Struct),
-    ]
-    class IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union(Union):
-        pass
-    class IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', UInt32),
-    ]
-    IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union._fields_ = [
-        ('Flags', UInt32),
-        ('Anonymous', IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_ADDRESSES_LH._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    IP_ADAPTER_ADDRESSES_LH._fields_ = [
-        ('Anonymous1', IP_ADAPTER_ADDRESSES_LH__Anonymous1_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head)),
-        ('AdapterName', win32more.Foundation.PSTR),
-        ('FirstUnicastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_LH_head)),
-        ('FirstAnycastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)),
-        ('FirstMulticastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)),
-        ('FirstDnsServerAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)),
-        ('DnsSuffix', win32more.Foundation.PWSTR),
-        ('Description', win32more.Foundation.PWSTR),
-        ('FriendlyName', win32more.Foundation.PWSTR),
-        ('PhysicalAddress', Byte * 8),
-        ('PhysicalAddressLength', UInt32),
-        ('Anonymous2', IP_ADAPTER_ADDRESSES_LH__Anonymous2_e__Union),
-        ('Mtu', UInt32),
-        ('IfType', UInt32),
-        ('OperStatus', win32more.NetworkManagement.Ndis.IF_OPER_STATUS),
-        ('Ipv6IfIndex', UInt32),
-        ('ZoneIndices', UInt32 * 16),
-        ('FirstPrefix', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)),
-        ('TransmitLinkSpeed', UInt64),
-        ('ReceiveLinkSpeed', UInt64),
-        ('FirstWinsServerAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head)),
-        ('FirstGatewayAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH_head)),
-        ('Ipv4Metric', UInt32),
-        ('Ipv6Metric', UInt32),
-        ('Luid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('Dhcpv4Server', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('CompartmentId', UInt32),
-        ('NetworkGuid', Guid),
-        ('ConnectionType', win32more.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE),
-        ('TunnelType', win32more.NetworkManagement.Ndis.TUNNEL_TYPE),
-        ('Dhcpv6Server', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('Dhcpv6ClientDuid', Byte * 130),
-        ('Dhcpv6ClientDuidLength', UInt32),
-        ('Dhcpv6Iaid', UInt32),
-        ('FirstDnsSuffix', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX_head)),
-    ]
-    return IP_ADAPTER_ADDRESSES_LH
-def _define_IP_ADAPTER_ADDRESSES_XP_head():
-    class IP_ADAPTER_ADDRESSES_XP(Structure):
-        pass
-    return IP_ADAPTER_ADDRESSES_XP
-def _define_IP_ADAPTER_ADDRESSES_XP():
-    IP_ADAPTER_ADDRESSES_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_XP_head
-    class IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('IfIndex', UInt32),
-    ]
-    IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_ADDRESSES_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ADDRESSES_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_ADDRESSES_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_XP_head)),
-        ('AdapterName', win32more.Foundation.PSTR),
-        ('FirstUnicastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_XP_head)),
-        ('FirstAnycastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)),
-        ('FirstMulticastAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)),
-        ('FirstDnsServerAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)),
-        ('DnsSuffix', win32more.Foundation.PWSTR),
-        ('Description', win32more.Foundation.PWSTR),
-        ('FriendlyName', win32more.Foundation.PWSTR),
-        ('PhysicalAddress', Byte * 8),
-        ('PhysicalAddressLength', UInt32),
-        ('Flags', UInt32),
-        ('Mtu', UInt32),
-        ('IfType', UInt32),
-        ('OperStatus', win32more.NetworkManagement.Ndis.IF_OPER_STATUS),
-        ('Ipv6IfIndex', UInt32),
-        ('ZoneIndices', UInt32 * 16),
-        ('FirstPrefix', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)),
-    ]
-    return IP_ADAPTER_ADDRESSES_XP
-def _define_IP_ADAPTER_ANYCAST_ADDRESS_XP_head():
-    class IP_ADAPTER_ANYCAST_ADDRESS_XP(Structure):
-        pass
-    return IP_ADAPTER_ANYCAST_ADDRESS_XP
-def _define_IP_ADAPTER_ANYCAST_ADDRESS_XP():
-    IP_ADAPTER_ANYCAST_ADDRESS_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head
-    class IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Flags', UInt32),
-    ]
-    IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_ANYCAST_ADDRESS_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_ANYCAST_ADDRESS_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_ANYCAST_ADDRESS_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return IP_ADAPTER_ANYCAST_ADDRESS_XP
-def _define_IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head():
-    class IP_ADAPTER_DNS_SERVER_ADDRESS_XP(Structure):
-        pass
-    return IP_ADAPTER_DNS_SERVER_ADDRESS_XP
-def _define_IP_ADAPTER_DNS_SERVER_ADDRESS_XP():
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head
-    class IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Reserved', UInt32),
-    ]
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_DNS_SERVER_ADDRESS_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_DNS_SERVER_ADDRESS_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return IP_ADAPTER_DNS_SERVER_ADDRESS_XP
-def _define_IP_ADAPTER_DNS_SUFFIX_head():
-    class IP_ADAPTER_DNS_SUFFIX(Structure):
-        pass
-    return IP_ADAPTER_DNS_SUFFIX
-def _define_IP_ADAPTER_DNS_SUFFIX():
-    IP_ADAPTER_DNS_SUFFIX = win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX_head
-    IP_ADAPTER_DNS_SUFFIX._fields_ = [
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX_head)),
-        ('String', Char * 256),
-    ]
-    return IP_ADAPTER_DNS_SUFFIX
-def _define_IP_ADAPTER_GATEWAY_ADDRESS_LH_head():
-    class IP_ADAPTER_GATEWAY_ADDRESS_LH(Structure):
-        pass
-    return IP_ADAPTER_GATEWAY_ADDRESS_LH
-def _define_IP_ADAPTER_GATEWAY_ADDRESS_LH():
-    IP_ADAPTER_GATEWAY_ADDRESS_LH = win32more.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH_head
-    class IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Reserved', UInt32),
-    ]
-    IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_GATEWAY_ADDRESS_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_GATEWAY_ADDRESS_LH._fields_ = [
-        ('Anonymous', IP_ADAPTER_GATEWAY_ADDRESS_LH__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return IP_ADAPTER_GATEWAY_ADDRESS_LH
-def _define_IP_ADAPTER_INDEX_MAP_head():
-    class IP_ADAPTER_INDEX_MAP(Structure):
-        pass
-    return IP_ADAPTER_INDEX_MAP
-def _define_IP_ADAPTER_INDEX_MAP():
-    IP_ADAPTER_INDEX_MAP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head
-    IP_ADAPTER_INDEX_MAP._fields_ = [
-        ('Index', UInt32),
-        ('Name', Char * 128),
-    ]
-    return IP_ADAPTER_INDEX_MAP
-def _define_IP_ADAPTER_INFO_head():
-    class IP_ADAPTER_INFO(Structure):
-        pass
-    return IP_ADAPTER_INFO
-def _define_IP_ADAPTER_INFO():
-    IP_ADAPTER_INFO = win32more.NetworkManagement.IpHelper.IP_ADAPTER_INFO_head
-    IP_ADAPTER_INFO._fields_ = [
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INFO_head)),
-        ('ComboIndex', UInt32),
-        ('AdapterName', win32more.Foundation.CHAR * 260),
-        ('Description', win32more.Foundation.CHAR * 132),
-        ('AddressLength', UInt32),
-        ('Address', Byte * 8),
-        ('Index', UInt32),
-        ('Type', UInt32),
-        ('DhcpEnabled', UInt32),
-        ('CurrentIpAddress', POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)),
-        ('IpAddressList', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('GatewayList', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('DhcpServer', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('HaveWins', win32more.Foundation.BOOL),
-        ('PrimaryWinsServer', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('SecondaryWinsServer', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-        ('LeaseObtained', Int64),
-        ('LeaseExpires', Int64),
-    ]
-    return IP_ADAPTER_INFO
-def _define_IP_ADAPTER_MULTICAST_ADDRESS_XP_head():
-    class IP_ADAPTER_MULTICAST_ADDRESS_XP(Structure):
-        pass
-    return IP_ADAPTER_MULTICAST_ADDRESS_XP
-def _define_IP_ADAPTER_MULTICAST_ADDRESS_XP():
-    IP_ADAPTER_MULTICAST_ADDRESS_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head
-    class IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Flags', UInt32),
-    ]
-    IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_MULTICAST_ADDRESS_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_MULTICAST_ADDRESS_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_MULTICAST_ADDRESS_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return IP_ADAPTER_MULTICAST_ADDRESS_XP
-def _define_IP_ADAPTER_ORDER_MAP_head():
-    class IP_ADAPTER_ORDER_MAP(Structure):
-        pass
-    return IP_ADAPTER_ORDER_MAP
-def _define_IP_ADAPTER_ORDER_MAP():
-    IP_ADAPTER_ORDER_MAP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_ORDER_MAP_head
-    IP_ADAPTER_ORDER_MAP._fields_ = [
-        ('NumAdapters', UInt32),
-        ('AdapterOrder', UInt32 * 1),
-    ]
-    return IP_ADAPTER_ORDER_MAP
-def _define_IP_ADAPTER_PREFIX_XP_head():
-    class IP_ADAPTER_PREFIX_XP(Structure):
-        pass
-    return IP_ADAPTER_PREFIX_XP
-def _define_IP_ADAPTER_PREFIX_XP():
-    IP_ADAPTER_PREFIX_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head
-    class IP_ADAPTER_PREFIX_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_PREFIX_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_PREFIX_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Flags', UInt32),
-    ]
-    IP_ADAPTER_PREFIX_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_PREFIX_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_PREFIX_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_PREFIX_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_PREFIX_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_PREFIX_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('PrefixLength', UInt32),
-    ]
-    return IP_ADAPTER_PREFIX_XP
-def _define_IP_ADAPTER_UNICAST_ADDRESS_LH_head():
-    class IP_ADAPTER_UNICAST_ADDRESS_LH(Structure):
-        pass
-    return IP_ADAPTER_UNICAST_ADDRESS_LH
-def _define_IP_ADAPTER_UNICAST_ADDRESS_LH():
-    IP_ADAPTER_UNICAST_ADDRESS_LH = win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_LH_head
-    class IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Flags', UInt32),
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_LH._fields_ = [
-        ('Anonymous', IP_ADAPTER_UNICAST_ADDRESS_LH__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_LH_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('PrefixOrigin', win32more.Networking.WinSock.NL_PREFIX_ORIGIN),
-        ('SuffixOrigin', win32more.Networking.WinSock.NL_SUFFIX_ORIGIN),
-        ('DadState', win32more.Networking.WinSock.NL_DAD_STATE),
-        ('ValidLifetime', UInt32),
-        ('PreferredLifetime', UInt32),
-        ('LeaseLifetime', UInt32),
-        ('OnLinkPrefixLength', Byte),
-    ]
-    return IP_ADAPTER_UNICAST_ADDRESS_LH
-def _define_IP_ADAPTER_UNICAST_ADDRESS_XP_head():
-    class IP_ADAPTER_UNICAST_ADDRESS_XP(Structure):
-        pass
-    return IP_ADAPTER_UNICAST_ADDRESS_XP
-def _define_IP_ADAPTER_UNICAST_ADDRESS_XP():
-    IP_ADAPTER_UNICAST_ADDRESS_XP = win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_XP_head
-    class IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Flags', UInt32),
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_XP._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_UNICAST_ADDRESS_XP._fields_ = [
-        ('Anonymous', IP_ADAPTER_UNICAST_ADDRESS_XP__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_XP_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-        ('PrefixOrigin', win32more.Networking.WinSock.NL_PREFIX_ORIGIN),
-        ('SuffixOrigin', win32more.Networking.WinSock.NL_SUFFIX_ORIGIN),
-        ('DadState', win32more.Networking.WinSock.NL_DAD_STATE),
-        ('ValidLifetime', UInt32),
-        ('PreferredLifetime', UInt32),
-        ('LeaseLifetime', UInt32),
-    ]
-    return IP_ADAPTER_UNICAST_ADDRESS_XP
-def _define_IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head():
-    class IP_ADAPTER_WINS_SERVER_ADDRESS_LH(Structure):
-        pass
-    return IP_ADAPTER_WINS_SERVER_ADDRESS_LH
-def _define_IP_ADAPTER_WINS_SERVER_ADDRESS_LH():
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH = win32more.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head
-    class IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union(Union):
-        pass
-    class IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('Length', UInt32),
-        ('Reserved', UInt32),
-    ]
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union._fields_ = [
-        ('Alignment', UInt64),
-        ('Anonymous', IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union__Anonymous_e__Struct),
-    ]
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    IP_ADAPTER_WINS_SERVER_ADDRESS_LH._fields_ = [
-        ('Anonymous', IP_ADAPTER_WINS_SERVER_ADDRESS_LH__Anonymous_e__Union),
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head)),
-        ('Address', win32more.Networking.WinSock.SOCKET_ADDRESS),
-    ]
-    return IP_ADAPTER_WINS_SERVER_ADDRESS_LH
-def _define_IP_ADDR_STRING_head():
-    class IP_ADDR_STRING(Structure):
-        pass
-    return IP_ADDR_STRING
-def _define_IP_ADDR_STRING():
-    IP_ADDR_STRING = win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head
-    IP_ADDR_STRING._fields_ = [
-        ('Next', POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)),
-        ('IpAddress', win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING),
-        ('IpMask', win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING),
-        ('Context', UInt32),
-    ]
-    return IP_ADDR_STRING
-def _define_IP_ADDRESS_PREFIX_head():
-    class IP_ADDRESS_PREFIX(Structure):
-        pass
-    return IP_ADDRESS_PREFIX
-def _define_IP_ADDRESS_PREFIX():
-    IP_ADDRESS_PREFIX = win32more.NetworkManagement.IpHelper.IP_ADDRESS_PREFIX_head
-    IP_ADDRESS_PREFIX._fields_ = [
-        ('Prefix', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('PrefixLength', Byte),
-    ]
-    return IP_ADDRESS_PREFIX
-def _define_IP_ADDRESS_STRING_head():
-    class IP_ADDRESS_STRING(Structure):
-        pass
-    return IP_ADDRESS_STRING
-def _define_IP_ADDRESS_STRING():
-    IP_ADDRESS_STRING = win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING_head
-    IP_ADDRESS_STRING._fields_ = [
-        ('String', win32more.Foundation.CHAR * 16),
-    ]
-    return IP_ADDRESS_STRING
-def _define_IP_INTERFACE_INFO_head():
-    class IP_INTERFACE_INFO(Structure):
-        pass
-    return IP_INTERFACE_INFO
-def _define_IP_INTERFACE_INFO():
-    IP_INTERFACE_INFO = win32more.NetworkManagement.IpHelper.IP_INTERFACE_INFO_head
-    IP_INTERFACE_INFO._fields_ = [
-        ('NumAdapters', Int32),
-        ('Adapter', win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP * 1),
-    ]
-    return IP_INTERFACE_INFO
-def _define_IP_INTERFACE_NAME_INFO_W2KSP1_head():
-    class IP_INTERFACE_NAME_INFO_W2KSP1(Structure):
-        pass
-    return IP_INTERFACE_NAME_INFO_W2KSP1
-def _define_IP_INTERFACE_NAME_INFO_W2KSP1():
-    IP_INTERFACE_NAME_INFO_W2KSP1 = win32more.NetworkManagement.IpHelper.IP_INTERFACE_NAME_INFO_W2KSP1_head
-    IP_INTERFACE_NAME_INFO_W2KSP1._fields_ = [
-        ('Index', UInt32),
-        ('MediaType', UInt32),
-        ('ConnectionType', Byte),
-        ('AccessType', Byte),
-        ('DeviceGuid', Guid),
-        ('InterfaceGuid', Guid),
-    ]
-    return IP_INTERFACE_NAME_INFO_W2KSP1
-def _define_IP_MCAST_COUNTER_INFO_head():
-    class IP_MCAST_COUNTER_INFO(Structure):
-        pass
-    return IP_MCAST_COUNTER_INFO
-def _define_IP_MCAST_COUNTER_INFO():
-    IP_MCAST_COUNTER_INFO = win32more.NetworkManagement.IpHelper.IP_MCAST_COUNTER_INFO_head
-    IP_MCAST_COUNTER_INFO._fields_ = [
-        ('InMcastOctets', UInt64),
-        ('OutMcastOctets', UInt64),
-        ('InMcastPkts', UInt64),
-        ('OutMcastPkts', UInt64),
-    ]
-    return IP_MCAST_COUNTER_INFO
-def _define_IP_OPTION_INFORMATION_head():
-    class IP_OPTION_INFORMATION(Structure):
-        pass
-    return IP_OPTION_INFORMATION
-def _define_IP_OPTION_INFORMATION():
-    IP_OPTION_INFORMATION = win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION_head
-    IP_OPTION_INFORMATION._fields_ = [
-        ('Ttl', Byte),
-        ('Tos', Byte),
-        ('Flags', Byte),
-        ('OptionsSize', Byte),
-        ('OptionsData', c_char_p_no),
-    ]
-    return IP_OPTION_INFORMATION
-def _define_IP_OPTION_INFORMATION32_head():
-    class IP_OPTION_INFORMATION32(Structure):
-        pass
-    return IP_OPTION_INFORMATION32
-def _define_IP_OPTION_INFORMATION32():
-    IP_OPTION_INFORMATION32 = win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32_head
-    IP_OPTION_INFORMATION32._fields_ = [
-        ('Ttl', Byte),
-        ('Tos', Byte),
-        ('Flags', Byte),
-        ('OptionsSize', Byte),
-        ('OptionsData', c_char_p_no),
-    ]
-    return IP_OPTION_INFORMATION32
-def _define_IP_PER_ADAPTER_INFO_W2KSP1_head():
-    class IP_PER_ADAPTER_INFO_W2KSP1(Structure):
-        pass
-    return IP_PER_ADAPTER_INFO_W2KSP1
-def _define_IP_PER_ADAPTER_INFO_W2KSP1():
-    IP_PER_ADAPTER_INFO_W2KSP1 = win32more.NetworkManagement.IpHelper.IP_PER_ADAPTER_INFO_W2KSP1_head
-    IP_PER_ADAPTER_INFO_W2KSP1._fields_ = [
-        ('AutoconfigEnabled', UInt32),
-        ('AutoconfigActive', UInt32),
-        ('CurrentDnsServer', POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)),
-        ('DnsServerList', win32more.NetworkManagement.IpHelper.IP_ADDR_STRING),
-    ]
-    return IP_PER_ADAPTER_INFO_W2KSP1
-def _define_IP_UNIDIRECTIONAL_ADAPTER_ADDRESS_head():
-    class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS(Structure):
-        pass
-    return IP_UNIDIRECTIONAL_ADAPTER_ADDRESS
-def _define_IP_UNIDIRECTIONAL_ADAPTER_ADDRESS():
-    IP_UNIDIRECTIONAL_ADAPTER_ADDRESS = win32more.NetworkManagement.IpHelper.IP_UNIDIRECTIONAL_ADAPTER_ADDRESS_head
-    IP_UNIDIRECTIONAL_ADAPTER_ADDRESS._fields_ = [
-        ('NumAdapters', UInt32),
-        ('Address', UInt32 * 1),
-    ]
-    return IP_UNIDIRECTIONAL_ADAPTER_ADDRESS
-def _define_IPV6_ADDRESS_EX_head():
-    class IPV6_ADDRESS_EX(Structure):
-        pass
-    return IPV6_ADDRESS_EX
-def _define_IPV6_ADDRESS_EX():
-    IPV6_ADDRESS_EX = win32more.NetworkManagement.IpHelper.IPV6_ADDRESS_EX_head
-    IPV6_ADDRESS_EX._pack_ = 1
-    IPV6_ADDRESS_EX._fields_ = [
-        ('sin6_port', UInt16),
-        ('sin6_flowinfo', UInt32),
-        ('sin6_addr', UInt16 * 8),
-        ('sin6_scope_id', UInt32),
-    ]
-    return IPV6_ADDRESS_EX
-def _define_MIB_ANYCASTIPADDRESS_ROW_head():
-    class MIB_ANYCASTIPADDRESS_ROW(Structure):
-        pass
-    return MIB_ANYCASTIPADDRESS_ROW
-def _define_MIB_ANYCASTIPADDRESS_ROW():
-    MIB_ANYCASTIPADDRESS_ROW = win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW_head
-    MIB_ANYCASTIPADDRESS_ROW._fields_ = [
-        ('Address', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('ScopeId', win32more.Networking.WinSock.SCOPE_ID),
-    ]
-    return MIB_ANYCASTIPADDRESS_ROW
-def _define_MIB_ANYCASTIPADDRESS_TABLE_head():
-    class MIB_ANYCASTIPADDRESS_TABLE(Structure):
-        pass
-    return MIB_ANYCASTIPADDRESS_TABLE
-def _define_MIB_ANYCASTIPADDRESS_TABLE():
-    MIB_ANYCASTIPADDRESS_TABLE = win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_TABLE_head
-    MIB_ANYCASTIPADDRESS_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW * 1),
-    ]
-    return MIB_ANYCASTIPADDRESS_TABLE
-def _define_MIB_BEST_IF_head():
-    class MIB_BEST_IF(Structure):
-        pass
-    return MIB_BEST_IF
-def _define_MIB_BEST_IF():
-    MIB_BEST_IF = win32more.NetworkManagement.IpHelper.MIB_BEST_IF_head
-    MIB_BEST_IF._fields_ = [
-        ('dwDestAddr', UInt32),
-        ('dwIfIndex', UInt32),
-    ]
-    return MIB_BEST_IF
-def _define_MIB_BOUNDARYROW_head():
-    class MIB_BOUNDARYROW(Structure):
-        pass
-    return MIB_BOUNDARYROW
-def _define_MIB_BOUNDARYROW():
-    MIB_BOUNDARYROW = win32more.NetworkManagement.IpHelper.MIB_BOUNDARYROW_head
-    MIB_BOUNDARYROW._fields_ = [
-        ('dwGroupAddress', UInt32),
-        ('dwGroupMask', UInt32),
-    ]
-    return MIB_BOUNDARYROW
-def _define_MIB_ICMP_head():
-    class MIB_ICMP(Structure):
-        pass
-    return MIB_ICMP
-def _define_MIB_ICMP():
-    MIB_ICMP = win32more.NetworkManagement.IpHelper.MIB_ICMP_head
-    MIB_ICMP._fields_ = [
-        ('stats', win32more.NetworkManagement.IpHelper.MIBICMPINFO),
-    ]
-    return MIB_ICMP
-def _define_MIB_ICMP_EX_XPSP1_head():
-    class MIB_ICMP_EX_XPSP1(Structure):
-        pass
-    return MIB_ICMP_EX_XPSP1
-def _define_MIB_ICMP_EX_XPSP1():
-    MIB_ICMP_EX_XPSP1 = win32more.NetworkManagement.IpHelper.MIB_ICMP_EX_XPSP1_head
-    MIB_ICMP_EX_XPSP1._fields_ = [
-        ('icmpInStats', win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1),
-        ('icmpOutStats', win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1),
-    ]
-    return MIB_ICMP_EX_XPSP1
+IF_OPER_STATUS_NON_OPERATIONAL: INTERNAL_IF_OPER_STATUS = 0
+IF_OPER_STATUS_UNREACHABLE: INTERNAL_IF_OPER_STATUS = 1
+IF_OPER_STATUS_DISCONNECTED: INTERNAL_IF_OPER_STATUS = 2
+IF_OPER_STATUS_CONNECTING: INTERNAL_IF_OPER_STATUS = 3
+IF_OPER_STATUS_CONNECTED: INTERNAL_IF_OPER_STATUS = 4
+IF_OPER_STATUS_OPERATIONAL: INTERNAL_IF_OPER_STATUS = 5
+class IP_ADAPTER_ADDRESSES_LH(Structure):
+    Anonymous1: _Anonymous1_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head)
+    AdapterName: win32more.Foundation.PSTR
+    FirstUnicastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_LH_head)
+    FirstAnycastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)
+    FirstMulticastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)
+    FirstDnsServerAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)
+    DnsSuffix: win32more.Foundation.PWSTR
+    Description: win32more.Foundation.PWSTR
+    FriendlyName: win32more.Foundation.PWSTR
+    PhysicalAddress: Byte * 8
+    PhysicalAddressLength: UInt32
+    Anonymous2: _Anonymous2_e__Union
+    Mtu: UInt32
+    IfType: UInt32
+    OperStatus: win32more.NetworkManagement.Ndis.IF_OPER_STATUS
+    Ipv6IfIndex: UInt32
+    ZoneIndices: UInt32 * 16
+    FirstPrefix: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)
+    TransmitLinkSpeed: UInt64
+    ReceiveLinkSpeed: UInt64
+    FirstWinsServerAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head)
+    FirstGatewayAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH_head)
+    Ipv4Metric: UInt32
+    Ipv6Metric: UInt32
+    Luid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    Dhcpv4Server: win32more.Networking.WinSock.SOCKET_ADDRESS
+    CompartmentId: UInt32
+    NetworkGuid: Guid
+    ConnectionType: win32more.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE
+    TunnelType: win32more.NetworkManagement.Ndis.TUNNEL_TYPE
+    Dhcpv6Server: win32more.Networking.WinSock.SOCKET_ADDRESS
+    Dhcpv6ClientDuid: Byte * 130
+    Dhcpv6ClientDuidLength: UInt32
+    Dhcpv6Iaid: UInt32
+    FirstDnsSuffix: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX_head)
+    class _Anonymous1_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            IfIndex: UInt32
+    class _Anonymous2_e__Union(Union):
+        Flags: UInt32
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: UInt32
+class IP_ADAPTER_ADDRESSES_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_XP_head)
+    AdapterName: win32more.Foundation.PSTR
+    FirstUnicastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_XP_head)
+    FirstAnycastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)
+    FirstMulticastAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)
+    FirstDnsServerAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)
+    DnsSuffix: win32more.Foundation.PWSTR
+    Description: win32more.Foundation.PWSTR
+    FriendlyName: win32more.Foundation.PWSTR
+    PhysicalAddress: Byte * 8
+    PhysicalAddressLength: UInt32
+    Flags: UInt32
+    Mtu: UInt32
+    IfType: UInt32
+    OperStatus: win32more.NetworkManagement.Ndis.IF_OPER_STATUS
+    Ipv6IfIndex: UInt32
+    ZoneIndices: UInt32 * 16
+    FirstPrefix: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            IfIndex: UInt32
+class IP_ADAPTER_ANYCAST_ADDRESS_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Flags: UInt32
+class IP_ADAPTER_DNS_SERVER_ADDRESS_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Reserved: UInt32
+class IP_ADAPTER_DNS_SUFFIX(Structure):
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX_head)
+    String: Char * 256
+class IP_ADAPTER_GATEWAY_ADDRESS_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Reserved: UInt32
+class IP_ADAPTER_INDEX_MAP(Structure):
+    Index: UInt32
+    Name: Char * 128
+class IP_ADAPTER_INFO(Structure):
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_INFO_head)
+    ComboIndex: UInt32
+    AdapterName: win32more.Foundation.CHAR * 260
+    Description: win32more.Foundation.CHAR * 132
+    AddressLength: UInt32
+    Address: Byte * 8
+    Index: UInt32
+    Type: UInt32
+    DhcpEnabled: UInt32
+    CurrentIpAddress: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
+    IpAddressList: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    GatewayList: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    DhcpServer: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    HaveWins: win32more.Foundation.BOOL
+    PrimaryWinsServer: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    SecondaryWinsServer: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+    LeaseObtained: Int64
+    LeaseExpires: Int64
+class IP_ADAPTER_MULTICAST_ADDRESS_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Flags: UInt32
+class IP_ADAPTER_ORDER_MAP(Structure):
+    NumAdapters: UInt32
+    AdapterOrder: UInt32 * 1
+class IP_ADAPTER_PREFIX_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    PrefixLength: UInt32
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Flags: UInt32
+class IP_ADAPTER_UNICAST_ADDRESS_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_LH_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    PrefixOrigin: win32more.Networking.WinSock.NL_PREFIX_ORIGIN
+    SuffixOrigin: win32more.Networking.WinSock.NL_SUFFIX_ORIGIN
+    DadState: win32more.Networking.WinSock.NL_DAD_STATE
+    ValidLifetime: UInt32
+    PreferredLifetime: UInt32
+    LeaseLifetime: UInt32
+    OnLinkPrefixLength: Byte
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Flags: UInt32
+class IP_ADAPTER_UNICAST_ADDRESS_XP(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_UNICAST_ADDRESS_XP_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    PrefixOrigin: win32more.Networking.WinSock.NL_PREFIX_ORIGIN
+    SuffixOrigin: win32more.Networking.WinSock.NL_SUFFIX_ORIGIN
+    DadState: win32more.Networking.WinSock.NL_DAD_STATE
+    ValidLifetime: UInt32
+    PreferredLifetime: UInt32
+    LeaseLifetime: UInt32
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Flags: UInt32
+class IP_ADAPTER_WINS_SERVER_ADDRESS_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH_head)
+    Address: win32more.Networking.WinSock.SOCKET_ADDRESS
+    class _Anonymous_e__Union(Union):
+        Alignment: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Length: UInt32
+            Reserved: UInt32
+class IP_ADDR_STRING(Structure):
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
+    IpAddress: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
+    IpMask: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
+    Context: UInt32
+class IP_ADDRESS_PREFIX(Structure):
+    Prefix: win32more.Networking.WinSock.SOCKADDR_INET
+    PrefixLength: Byte
+class IP_ADDRESS_STRING(Structure):
+    String: win32more.Foundation.CHAR * 16
+class IP_INTERFACE_INFO(Structure):
+    NumAdapters: Int32
+    Adapter: win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP * 1
+class IP_INTERFACE_NAME_INFO_W2KSP1(Structure):
+    Index: UInt32
+    MediaType: UInt32
+    ConnectionType: Byte
+    AccessType: Byte
+    DeviceGuid: Guid
+    InterfaceGuid: Guid
+class IP_MCAST_COUNTER_INFO(Structure):
+    InMcastOctets: UInt64
+    OutMcastOctets: UInt64
+    InMcastPkts: UInt64
+    OutMcastPkts: UInt64
+class IP_OPTION_INFORMATION(Structure):
+    Ttl: Byte
+    Tos: Byte
+    Flags: Byte
+    OptionsSize: Byte
+    OptionsData: c_char_p_no
+class IP_OPTION_INFORMATION32(Structure):
+    Ttl: Byte
+    Tos: Byte
+    Flags: Byte
+    OptionsSize: Byte
+    OptionsData: c_char_p_no
+class IP_PER_ADAPTER_INFO_W2KSP1(Structure):
+    AutoconfigEnabled: UInt32
+    AutoconfigActive: UInt32
+    CurrentDnsServer: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
+    DnsServerList: win32more.NetworkManagement.IpHelper.IP_ADDR_STRING
+class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS(Structure):
+    NumAdapters: UInt32
+    Address: UInt32 * 1
+class IPV6_ADDRESS_EX(Structure):
+    sin6_port: UInt16
+    sin6_flowinfo: UInt32
+    sin6_addr: UInt16 * 8
+    sin6_scope_id: UInt32
+    _pack_ = 1
+class MIB_ANYCASTIPADDRESS_ROW(Structure):
+    Address: win32more.Networking.WinSock.SOCKADDR_INET
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    ScopeId: win32more.Networking.WinSock.SCOPE_ID
+class MIB_ANYCASTIPADDRESS_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW * 1
+class MIB_BEST_IF(Structure):
+    dwDestAddr: UInt32
+    dwIfIndex: UInt32
+class MIB_BOUNDARYROW(Structure):
+    dwGroupAddress: UInt32
+    dwGroupMask: UInt32
+class MIB_ICMP(Structure):
+    stats: win32more.NetworkManagement.IpHelper.MIBICMPINFO
+class MIB_ICMP_EX_XPSP1(Structure):
+    icmpInStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1
+    icmpOutStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1
 MIB_IF_ENTRY_LEVEL = Int32
-MIB_IF_ENTRY_LEVEL_MibIfEntryNormal = 0
-MIB_IF_ENTRY_LEVEL_MibIfEntryNormalWithoutStatistics = 2
-def _define_MIB_IF_ROW2_head():
-    class MIB_IF_ROW2(Structure):
-        pass
-    return MIB_IF_ROW2
-def _define_MIB_IF_ROW2():
-    MIB_IF_ROW2 = win32more.NetworkManagement.IpHelper.MIB_IF_ROW2_head
-    class MIB_IF_ROW2__InterfaceAndOperStatusFlags_e__Struct(Structure):
-        pass
-    MIB_IF_ROW2__InterfaceAndOperStatusFlags_e__Struct._fields_ = [
-        ('_bitfield', Byte),
-    ]
-    MIB_IF_ROW2._fields_ = [
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('InterfaceGuid', Guid),
-        ('Alias', Char * 257),
-        ('Description', Char * 257),
-        ('PhysicalAddressLength', UInt32),
-        ('PhysicalAddress', Byte * 32),
-        ('PermanentPhysicalAddress', Byte * 32),
-        ('Mtu', UInt32),
-        ('Type', UInt32),
-        ('TunnelType', win32more.NetworkManagement.Ndis.TUNNEL_TYPE),
-        ('MediaType', win32more.NetworkManagement.Ndis.NDIS_MEDIUM),
-        ('PhysicalMediumType', win32more.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM),
-        ('AccessType', win32more.NetworkManagement.Ndis.NET_IF_ACCESS_TYPE),
-        ('DirectionType', win32more.NetworkManagement.Ndis.NET_IF_DIRECTION_TYPE),
-        ('InterfaceAndOperStatusFlags', MIB_IF_ROW2__InterfaceAndOperStatusFlags_e__Struct),
-        ('OperStatus', win32more.NetworkManagement.Ndis.IF_OPER_STATUS),
-        ('AdminStatus', win32more.NetworkManagement.Ndis.NET_IF_ADMIN_STATUS),
-        ('MediaConnectState', win32more.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE),
-        ('NetworkGuid', Guid),
-        ('ConnectionType', win32more.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE),
-        ('TransmitLinkSpeed', UInt64),
-        ('ReceiveLinkSpeed', UInt64),
-        ('InOctets', UInt64),
-        ('InUcastPkts', UInt64),
-        ('InNUcastPkts', UInt64),
-        ('InDiscards', UInt64),
-        ('InErrors', UInt64),
-        ('InUnknownProtos', UInt64),
-        ('InUcastOctets', UInt64),
-        ('InMulticastOctets', UInt64),
-        ('InBroadcastOctets', UInt64),
-        ('OutOctets', UInt64),
-        ('OutUcastPkts', UInt64),
-        ('OutNUcastPkts', UInt64),
-        ('OutDiscards', UInt64),
-        ('OutErrors', UInt64),
-        ('OutUcastOctets', UInt64),
-        ('OutMulticastOctets', UInt64),
-        ('OutBroadcastOctets', UInt64),
-        ('OutQLen', UInt64),
-    ]
-    return MIB_IF_ROW2
+MIB_IF_ENTRY_LEVEL_MibIfEntryNormal: MIB_IF_ENTRY_LEVEL = 0
+MIB_IF_ENTRY_LEVEL_MibIfEntryNormalWithoutStatistics: MIB_IF_ENTRY_LEVEL = 2
+class MIB_IF_ROW2(Structure):
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    InterfaceGuid: Guid
+    Alias: Char * 257
+    Description: Char * 257
+    PhysicalAddressLength: UInt32
+    PhysicalAddress: Byte * 32
+    PermanentPhysicalAddress: Byte * 32
+    Mtu: UInt32
+    Type: UInt32
+    TunnelType: win32more.NetworkManagement.Ndis.TUNNEL_TYPE
+    MediaType: win32more.NetworkManagement.Ndis.NDIS_MEDIUM
+    PhysicalMediumType: win32more.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM
+    AccessType: win32more.NetworkManagement.Ndis.NET_IF_ACCESS_TYPE
+    DirectionType: win32more.NetworkManagement.Ndis.NET_IF_DIRECTION_TYPE
+    InterfaceAndOperStatusFlags: _InterfaceAndOperStatusFlags_e__Struct
+    OperStatus: win32more.NetworkManagement.Ndis.IF_OPER_STATUS
+    AdminStatus: win32more.NetworkManagement.Ndis.NET_IF_ADMIN_STATUS
+    MediaConnectState: win32more.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE
+    NetworkGuid: Guid
+    ConnectionType: win32more.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE
+    TransmitLinkSpeed: UInt64
+    ReceiveLinkSpeed: UInt64
+    InOctets: UInt64
+    InUcastPkts: UInt64
+    InNUcastPkts: UInt64
+    InDiscards: UInt64
+    InErrors: UInt64
+    InUnknownProtos: UInt64
+    InUcastOctets: UInt64
+    InMulticastOctets: UInt64
+    InBroadcastOctets: UInt64
+    OutOctets: UInt64
+    OutUcastPkts: UInt64
+    OutNUcastPkts: UInt64
+    OutDiscards: UInt64
+    OutErrors: UInt64
+    OutUcastOctets: UInt64
+    OutMulticastOctets: UInt64
+    OutBroadcastOctets: UInt64
+    OutQLen: UInt64
+    class _InterfaceAndOperStatusFlags_e__Struct(Structure):
+        _bitfield: Byte
 MIB_IF_TABLE_LEVEL = Int32
-MIB_IF_TABLE_LEVEL_MibIfTableNormal = 0
-MIB_IF_TABLE_LEVEL_MibIfTableRaw = 1
-MIB_IF_TABLE_LEVEL_MibIfTableNormalWithoutStatistics = 2
-def _define_MIB_IF_TABLE2_head():
-    class MIB_IF_TABLE2(Structure):
-        pass
-    return MIB_IF_TABLE2
-def _define_MIB_IF_TABLE2():
-    MIB_IF_TABLE2 = win32more.NetworkManagement.IpHelper.MIB_IF_TABLE2_head
-    MIB_IF_TABLE2._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1),
-    ]
-    return MIB_IF_TABLE2
-def _define_MIB_IFNUMBER_head():
-    class MIB_IFNUMBER(Structure):
-        pass
-    return MIB_IFNUMBER
-def _define_MIB_IFNUMBER():
-    MIB_IFNUMBER = win32more.NetworkManagement.IpHelper.MIB_IFNUMBER_head
-    MIB_IFNUMBER._fields_ = [
-        ('dwValue', UInt32),
-    ]
-    return MIB_IFNUMBER
-def _define_MIB_IFROW_head():
-    class MIB_IFROW(Structure):
-        pass
-    return MIB_IFROW
-def _define_MIB_IFROW():
-    MIB_IFROW = win32more.NetworkManagement.IpHelper.MIB_IFROW_head
-    MIB_IFROW._fields_ = [
-        ('wszName', Char * 256),
-        ('dwIndex', UInt32),
-        ('dwType', UInt32),
-        ('dwMtu', UInt32),
-        ('dwSpeed', UInt32),
-        ('dwPhysAddrLen', UInt32),
-        ('bPhysAddr', Byte * 8),
-        ('dwAdminStatus', UInt32),
-        ('dwOperStatus', win32more.NetworkManagement.IpHelper.INTERNAL_IF_OPER_STATUS),
-        ('dwLastChange', UInt32),
-        ('dwInOctets', UInt32),
-        ('dwInUcastPkts', UInt32),
-        ('dwInNUcastPkts', UInt32),
-        ('dwInDiscards', UInt32),
-        ('dwInErrors', UInt32),
-        ('dwInUnknownProtos', UInt32),
-        ('dwOutOctets', UInt32),
-        ('dwOutUcastPkts', UInt32),
-        ('dwOutNUcastPkts', UInt32),
-        ('dwOutDiscards', UInt32),
-        ('dwOutErrors', UInt32),
-        ('dwOutQLen', UInt32),
-        ('dwDescrLen', UInt32),
-        ('bDescr', Byte * 256),
-    ]
-    return MIB_IFROW
-def _define_MIB_IFSTACK_ROW_head():
-    class MIB_IFSTACK_ROW(Structure):
-        pass
-    return MIB_IFSTACK_ROW
-def _define_MIB_IFSTACK_ROW():
-    MIB_IFSTACK_ROW = win32more.NetworkManagement.IpHelper.MIB_IFSTACK_ROW_head
-    MIB_IFSTACK_ROW._fields_ = [
-        ('HigherLayerInterfaceIndex', UInt32),
-        ('LowerLayerInterfaceIndex', UInt32),
-    ]
-    return MIB_IFSTACK_ROW
-def _define_MIB_IFSTACK_TABLE_head():
-    class MIB_IFSTACK_TABLE(Structure):
-        pass
-    return MIB_IFSTACK_TABLE
-def _define_MIB_IFSTACK_TABLE():
-    MIB_IFSTACK_TABLE = win32more.NetworkManagement.IpHelper.MIB_IFSTACK_TABLE_head
-    MIB_IFSTACK_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IFSTACK_ROW * 1),
-    ]
-    return MIB_IFSTACK_TABLE
-def _define_MIB_IFSTATUS_head():
-    class MIB_IFSTATUS(Structure):
-        pass
-    return MIB_IFSTATUS
-def _define_MIB_IFSTATUS():
-    MIB_IFSTATUS = win32more.NetworkManagement.IpHelper.MIB_IFSTATUS_head
-    MIB_IFSTATUS._fields_ = [
-        ('dwIfIndex', UInt32),
-        ('dwAdminStatus', UInt32),
-        ('dwOperationalStatus', UInt32),
-        ('bMHbeatActive', win32more.Foundation.BOOL),
-        ('bMHbeatAlive', win32more.Foundation.BOOL),
-    ]
-    return MIB_IFSTATUS
-def _define_MIB_IFTABLE_head():
-    class MIB_IFTABLE(Structure):
-        pass
-    return MIB_IFTABLE
-def _define_MIB_IFTABLE():
-    MIB_IFTABLE = win32more.NetworkManagement.IpHelper.MIB_IFTABLE_head
-    MIB_IFTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IFROW * 1),
-    ]
-    return MIB_IFTABLE
-def _define_MIB_INVERTEDIFSTACK_ROW_head():
-    class MIB_INVERTEDIFSTACK_ROW(Structure):
-        pass
-    return MIB_INVERTEDIFSTACK_ROW
-def _define_MIB_INVERTEDIFSTACK_ROW():
-    MIB_INVERTEDIFSTACK_ROW = win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW_head
-    MIB_INVERTEDIFSTACK_ROW._fields_ = [
-        ('LowerLayerInterfaceIndex', UInt32),
-        ('HigherLayerInterfaceIndex', UInt32),
-    ]
-    return MIB_INVERTEDIFSTACK_ROW
-def _define_MIB_INVERTEDIFSTACK_TABLE_head():
-    class MIB_INVERTEDIFSTACK_TABLE(Structure):
-        pass
-    return MIB_INVERTEDIFSTACK_TABLE
-def _define_MIB_INVERTEDIFSTACK_TABLE():
-    MIB_INVERTEDIFSTACK_TABLE = win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_TABLE_head
-    MIB_INVERTEDIFSTACK_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW * 1),
-    ]
-    return MIB_INVERTEDIFSTACK_TABLE
-def _define_MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES_head():
-    class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES(Structure):
-        pass
-    return MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES
-def _define_MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES():
-    MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES = win32more.NetworkManagement.IpHelper.MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES_head
-    MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES._fields_ = [
-        ('InboundBandwidthInformation', win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION),
-        ('OutboundBandwidthInformation', win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION),
-    ]
-    return MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES
-def _define_MIB_IPADDRROW_W2K_head():
-    class MIB_IPADDRROW_W2K(Structure):
-        pass
-    return MIB_IPADDRROW_W2K
-def _define_MIB_IPADDRROW_W2K():
-    MIB_IPADDRROW_W2K = win32more.NetworkManagement.IpHelper.MIB_IPADDRROW_W2K_head
-    MIB_IPADDRROW_W2K._fields_ = [
-        ('dwAddr', UInt32),
-        ('dwIndex', UInt32),
-        ('dwMask', UInt32),
-        ('dwBCastAddr', UInt32),
-        ('dwReasmSize', UInt32),
-        ('unused1', UInt16),
-        ('unused2', UInt16),
-    ]
-    return MIB_IPADDRROW_W2K
-def _define_MIB_IPADDRROW_XP_head():
-    class MIB_IPADDRROW_XP(Structure):
-        pass
-    return MIB_IPADDRROW_XP
-def _define_MIB_IPADDRROW_XP():
-    MIB_IPADDRROW_XP = win32more.NetworkManagement.IpHelper.MIB_IPADDRROW_XP_head
-    MIB_IPADDRROW_XP._fields_ = [
-        ('dwAddr', UInt32),
-        ('dwIndex', UInt32),
-        ('dwMask', UInt32),
-        ('dwBCastAddr', UInt32),
-        ('dwReasmSize', UInt32),
-        ('unused1', UInt16),
-        ('wType', UInt16),
-    ]
-    return MIB_IPADDRROW_XP
-def _define_MIB_IPADDRTABLE_head():
-    class MIB_IPADDRTABLE(Structure):
-        pass
-    return MIB_IPADDRTABLE
-def _define_MIB_IPADDRTABLE():
-    MIB_IPADDRTABLE = win32more.NetworkManagement.IpHelper.MIB_IPADDRTABLE_head
-    MIB_IPADDRTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPADDRROW_XP * 1),
-    ]
-    return MIB_IPADDRTABLE
-def _define_MIB_IPDESTROW_head():
-    class MIB_IPDESTROW(Structure):
-        pass
-    return MIB_IPDESTROW
-def _define_MIB_IPDESTROW():
-    MIB_IPDESTROW = win32more.NetworkManagement.IpHelper.MIB_IPDESTROW_head
-    MIB_IPDESTROW._fields_ = [
-        ('ForwardRow', win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW),
-        ('dwForwardPreference', UInt32),
-        ('dwForwardViewSet', UInt32),
-    ]
-    return MIB_IPDESTROW
-def _define_MIB_IPDESTTABLE_head():
-    class MIB_IPDESTTABLE(Structure):
-        pass
-    return MIB_IPDESTTABLE
-def _define_MIB_IPDESTTABLE():
-    MIB_IPDESTTABLE = win32more.NetworkManagement.IpHelper.MIB_IPDESTTABLE_head
-    MIB_IPDESTTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPDESTROW * 1),
-    ]
-    return MIB_IPDESTTABLE
-def _define_MIB_IPFORWARD_ROW2_head():
-    class MIB_IPFORWARD_ROW2(Structure):
-        pass
-    return MIB_IPFORWARD_ROW2
-def _define_MIB_IPFORWARD_ROW2():
-    MIB_IPFORWARD_ROW2 = win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head
-    MIB_IPFORWARD_ROW2._fields_ = [
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('DestinationPrefix', win32more.NetworkManagement.IpHelper.IP_ADDRESS_PREFIX),
-        ('NextHop', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('SitePrefixLength', Byte),
-        ('ValidLifetime', UInt32),
-        ('PreferredLifetime', UInt32),
-        ('Metric', UInt32),
-        ('Protocol', win32more.Networking.WinSock.NL_ROUTE_PROTOCOL),
-        ('Loopback', win32more.Foundation.BOOLEAN),
-        ('AutoconfigureAddress', win32more.Foundation.BOOLEAN),
-        ('Publish', win32more.Foundation.BOOLEAN),
-        ('Immortal', win32more.Foundation.BOOLEAN),
-        ('Age', UInt32),
-        ('Origin', win32more.Networking.WinSock.NL_ROUTE_ORIGIN),
-    ]
-    return MIB_IPFORWARD_ROW2
-def _define_MIB_IPFORWARD_TABLE2_head():
-    class MIB_IPFORWARD_TABLE2(Structure):
-        pass
-    return MIB_IPFORWARD_TABLE2
-def _define_MIB_IPFORWARD_TABLE2():
-    MIB_IPFORWARD_TABLE2 = win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_TABLE2_head
-    MIB_IPFORWARD_TABLE2._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2 * 1),
-    ]
-    return MIB_IPFORWARD_TABLE2
+MIB_IF_TABLE_LEVEL_MibIfTableNormal: MIB_IF_TABLE_LEVEL = 0
+MIB_IF_TABLE_LEVEL_MibIfTableRaw: MIB_IF_TABLE_LEVEL = 1
+MIB_IF_TABLE_LEVEL_MibIfTableNormalWithoutStatistics: MIB_IF_TABLE_LEVEL = 2
+class MIB_IF_TABLE2(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
+class MIB_IFNUMBER(Structure):
+    dwValue: UInt32
+class MIB_IFROW(Structure):
+    wszName: Char * 256
+    dwIndex: UInt32
+    dwType: UInt32
+    dwMtu: UInt32
+    dwSpeed: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAdminStatus: UInt32
+    dwOperStatus: win32more.NetworkManagement.IpHelper.INTERNAL_IF_OPER_STATUS
+    dwLastChange: UInt32
+    dwInOctets: UInt32
+    dwInUcastPkts: UInt32
+    dwInNUcastPkts: UInt32
+    dwInDiscards: UInt32
+    dwInErrors: UInt32
+    dwInUnknownProtos: UInt32
+    dwOutOctets: UInt32
+    dwOutUcastPkts: UInt32
+    dwOutNUcastPkts: UInt32
+    dwOutDiscards: UInt32
+    dwOutErrors: UInt32
+    dwOutQLen: UInt32
+    dwDescrLen: UInt32
+    bDescr: Byte * 256
+class MIB_IFSTACK_ROW(Structure):
+    HigherLayerInterfaceIndex: UInt32
+    LowerLayerInterfaceIndex: UInt32
+class MIB_IFSTACK_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IFSTACK_ROW * 1
+class MIB_IFSTATUS(Structure):
+    dwIfIndex: UInt32
+    dwAdminStatus: UInt32
+    dwOperationalStatus: UInt32
+    bMHbeatActive: win32more.Foundation.BOOL
+    bMHbeatAlive: win32more.Foundation.BOOL
+class MIB_IFTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IFROW * 1
+class MIB_INVERTEDIFSTACK_ROW(Structure):
+    LowerLayerInterfaceIndex: UInt32
+    HigherLayerInterfaceIndex: UInt32
+class MIB_INVERTEDIFSTACK_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW * 1
+class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES(Structure):
+    InboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
+    OutboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
+class MIB_IPADDRROW_W2K(Structure):
+    dwAddr: UInt32
+    dwIndex: UInt32
+    dwMask: UInt32
+    dwBCastAddr: UInt32
+    dwReasmSize: UInt32
+    unused1: UInt16
+    unused2: UInt16
+class MIB_IPADDRROW_XP(Structure):
+    dwAddr: UInt32
+    dwIndex: UInt32
+    dwMask: UInt32
+    dwBCastAddr: UInt32
+    dwReasmSize: UInt32
+    unused1: UInt16
+    wType: UInt16
+class MIB_IPADDRTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPADDRROW_XP * 1
+class MIB_IPDESTROW(Structure):
+    ForwardRow: win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW
+    dwForwardPreference: UInt32
+    dwForwardViewSet: UInt32
+class MIB_IPDESTTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPDESTROW * 1
+class MIB_IPFORWARD_ROW2(Structure):
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    DestinationPrefix: win32more.NetworkManagement.IpHelper.IP_ADDRESS_PREFIX
+    NextHop: win32more.Networking.WinSock.SOCKADDR_INET
+    SitePrefixLength: Byte
+    ValidLifetime: UInt32
+    PreferredLifetime: UInt32
+    Metric: UInt32
+    Protocol: win32more.Networking.WinSock.NL_ROUTE_PROTOCOL
+    Loopback: win32more.Foundation.BOOLEAN
+    AutoconfigureAddress: win32more.Foundation.BOOLEAN
+    Publish: win32more.Foundation.BOOLEAN
+    Immortal: win32more.Foundation.BOOLEAN
+    Age: UInt32
+    Origin: win32more.Networking.WinSock.NL_ROUTE_ORIGIN
+class MIB_IPFORWARD_TABLE2(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2 * 1
 MIB_IPFORWARD_TYPE = Int32
-MIB_IPROUTE_TYPE_OTHER = 1
-MIB_IPROUTE_TYPE_INVALID = 2
-MIB_IPROUTE_TYPE_DIRECT = 3
-MIB_IPROUTE_TYPE_INDIRECT = 4
-def _define_MIB_IPFORWARDNUMBER_head():
-    class MIB_IPFORWARDNUMBER(Structure):
-        pass
-    return MIB_IPFORWARDNUMBER
-def _define_MIB_IPFORWARDNUMBER():
-    MIB_IPFORWARDNUMBER = win32more.NetworkManagement.IpHelper.MIB_IPFORWARDNUMBER_head
-    MIB_IPFORWARDNUMBER._fields_ = [
-        ('dwValue', UInt32),
-    ]
-    return MIB_IPFORWARDNUMBER
-def _define_MIB_IPFORWARDROW_head():
-    class MIB_IPFORWARDROW(Structure):
-        pass
-    return MIB_IPFORWARDROW
-def _define_MIB_IPFORWARDROW():
-    MIB_IPFORWARDROW = win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW_head
-    class MIB_IPFORWARDROW__Anonymous1_e__Union(Union):
-        pass
-    MIB_IPFORWARDROW__Anonymous1_e__Union._fields_ = [
-        ('dwForwardType', UInt32),
-        ('ForwardType', win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_TYPE),
-    ]
-    class MIB_IPFORWARDROW__Anonymous2_e__Union(Union):
-        pass
-    MIB_IPFORWARDROW__Anonymous2_e__Union._fields_ = [
-        ('dwForwardProto', UInt32),
-        ('ForwardProto', win32more.Networking.WinSock.NL_ROUTE_PROTOCOL),
-    ]
-    MIB_IPFORWARDROW._anonymous_ = [
-        'Anonymous1',
-        'Anonymous2',
-    ]
-    MIB_IPFORWARDROW._fields_ = [
-        ('dwForwardDest', UInt32),
-        ('dwForwardMask', UInt32),
-        ('dwForwardPolicy', UInt32),
-        ('dwForwardNextHop', UInt32),
-        ('dwForwardIfIndex', UInt32),
-        ('Anonymous1', MIB_IPFORWARDROW__Anonymous1_e__Union),
-        ('Anonymous2', MIB_IPFORWARDROW__Anonymous2_e__Union),
-        ('dwForwardAge', UInt32),
-        ('dwForwardNextHopAS', UInt32),
-        ('dwForwardMetric1', UInt32),
-        ('dwForwardMetric2', UInt32),
-        ('dwForwardMetric3', UInt32),
-        ('dwForwardMetric4', UInt32),
-        ('dwForwardMetric5', UInt32),
-    ]
-    return MIB_IPFORWARDROW
-def _define_MIB_IPFORWARDTABLE_head():
-    class MIB_IPFORWARDTABLE(Structure):
-        pass
-    return MIB_IPFORWARDTABLE
-def _define_MIB_IPFORWARDTABLE():
-    MIB_IPFORWARDTABLE = win32more.NetworkManagement.IpHelper.MIB_IPFORWARDTABLE_head
-    MIB_IPFORWARDTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW * 1),
-    ]
-    return MIB_IPFORWARDTABLE
-def _define_MIB_IPINTERFACE_ROW_head():
-    class MIB_IPINTERFACE_ROW(Structure):
-        pass
-    return MIB_IPINTERFACE_ROW
-def _define_MIB_IPINTERFACE_ROW():
-    MIB_IPINTERFACE_ROW = win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head
-    MIB_IPINTERFACE_ROW._fields_ = [
-        ('Family', UInt16),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('MaxReassemblySize', UInt32),
-        ('InterfaceIdentifier', UInt64),
-        ('MinRouterAdvertisementInterval', UInt32),
-        ('MaxRouterAdvertisementInterval', UInt32),
-        ('AdvertisingEnabled', win32more.Foundation.BOOLEAN),
-        ('ForwardingEnabled', win32more.Foundation.BOOLEAN),
-        ('WeakHostSend', win32more.Foundation.BOOLEAN),
-        ('WeakHostReceive', win32more.Foundation.BOOLEAN),
-        ('UseAutomaticMetric', win32more.Foundation.BOOLEAN),
-        ('UseNeighborUnreachabilityDetection', win32more.Foundation.BOOLEAN),
-        ('ManagedAddressConfigurationSupported', win32more.Foundation.BOOLEAN),
-        ('OtherStatefulConfigurationSupported', win32more.Foundation.BOOLEAN),
-        ('AdvertiseDefaultRoute', win32more.Foundation.BOOLEAN),
-        ('RouterDiscoveryBehavior', win32more.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR),
-        ('DadTransmits', UInt32),
-        ('BaseReachableTime', UInt32),
-        ('RetransmitTime', UInt32),
-        ('PathMtuDiscoveryTimeout', UInt32),
-        ('LinkLocalAddressBehavior', win32more.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR),
-        ('LinkLocalAddressTimeout', UInt32),
-        ('ZoneIndices', UInt32 * 16),
-        ('SitePrefixLength', UInt32),
-        ('Metric', UInt32),
-        ('NlMtu', UInt32),
-        ('Connected', win32more.Foundation.BOOLEAN),
-        ('SupportsWakeUpPatterns', win32more.Foundation.BOOLEAN),
-        ('SupportsNeighborDiscovery', win32more.Foundation.BOOLEAN),
-        ('SupportsRouterDiscovery', win32more.Foundation.BOOLEAN),
-        ('ReachableTime', UInt32),
-        ('TransmitOffload', win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD),
-        ('ReceiveOffload', win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD),
-        ('DisableDefaultRoutes', win32more.Foundation.BOOLEAN),
-    ]
-    return MIB_IPINTERFACE_ROW
-def _define_MIB_IPINTERFACE_TABLE_head():
-    class MIB_IPINTERFACE_TABLE(Structure):
-        pass
-    return MIB_IPINTERFACE_TABLE
-def _define_MIB_IPINTERFACE_TABLE():
-    MIB_IPINTERFACE_TABLE = win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_TABLE_head
-    MIB_IPINTERFACE_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW * 1),
-    ]
-    return MIB_IPINTERFACE_TABLE
-def _define_MIB_IPMCAST_BOUNDARY_head():
-    class MIB_IPMCAST_BOUNDARY(Structure):
-        pass
-    return MIB_IPMCAST_BOUNDARY
-def _define_MIB_IPMCAST_BOUNDARY():
-    MIB_IPMCAST_BOUNDARY = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY_head
-    MIB_IPMCAST_BOUNDARY._fields_ = [
-        ('dwIfIndex', UInt32),
-        ('dwGroupAddress', UInt32),
-        ('dwGroupMask', UInt32),
-        ('dwStatus', UInt32),
-    ]
-    return MIB_IPMCAST_BOUNDARY
-def _define_MIB_IPMCAST_BOUNDARY_TABLE_head():
-    class MIB_IPMCAST_BOUNDARY_TABLE(Structure):
-        pass
-    return MIB_IPMCAST_BOUNDARY_TABLE
-def _define_MIB_IPMCAST_BOUNDARY_TABLE():
-    MIB_IPMCAST_BOUNDARY_TABLE = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY_TABLE_head
-    MIB_IPMCAST_BOUNDARY_TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY * 1),
-    ]
-    return MIB_IPMCAST_BOUNDARY_TABLE
-def _define_MIB_IPMCAST_GLOBAL_head():
-    class MIB_IPMCAST_GLOBAL(Structure):
-        pass
-    return MIB_IPMCAST_GLOBAL
-def _define_MIB_IPMCAST_GLOBAL():
-    MIB_IPMCAST_GLOBAL = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_GLOBAL_head
-    MIB_IPMCAST_GLOBAL._fields_ = [
-        ('dwEnable', UInt32),
-    ]
-    return MIB_IPMCAST_GLOBAL
-def _define_MIB_IPMCAST_IF_ENTRY_head():
-    class MIB_IPMCAST_IF_ENTRY(Structure):
-        pass
-    return MIB_IPMCAST_IF_ENTRY
-def _define_MIB_IPMCAST_IF_ENTRY():
-    MIB_IPMCAST_IF_ENTRY = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_IF_ENTRY_head
-    MIB_IPMCAST_IF_ENTRY._fields_ = [
-        ('dwIfIndex', UInt32),
-        ('dwTtl', UInt32),
-        ('dwProtocol', UInt32),
-        ('dwRateLimit', UInt32),
-        ('ulInMcastOctets', UInt32),
-        ('ulOutMcastOctets', UInt32),
-    ]
-    return MIB_IPMCAST_IF_ENTRY
-def _define_MIB_IPMCAST_IF_TABLE_head():
-    class MIB_IPMCAST_IF_TABLE(Structure):
-        pass
-    return MIB_IPMCAST_IF_TABLE
-def _define_MIB_IPMCAST_IF_TABLE():
-    MIB_IPMCAST_IF_TABLE = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_IF_TABLE_head
-    MIB_IPMCAST_IF_TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_IF_ENTRY * 1),
-    ]
-    return MIB_IPMCAST_IF_TABLE
-def _define_MIB_IPMCAST_MFE_head():
-    class MIB_IPMCAST_MFE(Structure):
-        pass
-    return MIB_IPMCAST_MFE
-def _define_MIB_IPMCAST_MFE():
-    MIB_IPMCAST_MFE = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_head
-    MIB_IPMCAST_MFE._fields_ = [
-        ('dwGroup', UInt32),
-        ('dwSource', UInt32),
-        ('dwSrcMask', UInt32),
-        ('dwUpStrmNgbr', UInt32),
-        ('dwInIfIndex', UInt32),
-        ('dwInIfProtocol', UInt32),
-        ('dwRouteProtocol', UInt32),
-        ('dwRouteNetwork', UInt32),
-        ('dwRouteMask', UInt32),
-        ('ulUpTime', UInt32),
-        ('ulExpiryTime', UInt32),
-        ('ulTimeOut', UInt32),
-        ('ulNumOutIf', UInt32),
-        ('fFlags', UInt32),
-        ('dwReserved', UInt32),
-        ('rgmioOutInfo', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_XP * 1),
-    ]
-    return MIB_IPMCAST_MFE
-def _define_MIB_IPMCAST_MFE_STATS_head():
-    class MIB_IPMCAST_MFE_STATS(Structure):
-        pass
-    return MIB_IPMCAST_MFE_STATS
-def _define_MIB_IPMCAST_MFE_STATS():
-    MIB_IPMCAST_MFE_STATS = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_head
-    MIB_IPMCAST_MFE_STATS._fields_ = [
-        ('dwGroup', UInt32),
-        ('dwSource', UInt32),
-        ('dwSrcMask', UInt32),
-        ('dwUpStrmNgbr', UInt32),
-        ('dwInIfIndex', UInt32),
-        ('dwInIfProtocol', UInt32),
-        ('dwRouteProtocol', UInt32),
-        ('dwRouteNetwork', UInt32),
-        ('dwRouteMask', UInt32),
-        ('ulUpTime', UInt32),
-        ('ulExpiryTime', UInt32),
-        ('ulNumOutIf', UInt32),
-        ('ulInPkts', UInt32),
-        ('ulInOctets', UInt32),
-        ('ulPktsDifferentIf', UInt32),
-        ('ulQueueOverflow', UInt32),
-        ('rgmiosOutStats', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1),
-    ]
-    return MIB_IPMCAST_MFE_STATS
-def _define_MIB_IPMCAST_MFE_STATS_EX_XP_head():
-    class MIB_IPMCAST_MFE_STATS_EX_XP(Structure):
-        pass
-    return MIB_IPMCAST_MFE_STATS_EX_XP
-def _define_MIB_IPMCAST_MFE_STATS_EX_XP():
-    MIB_IPMCAST_MFE_STATS_EX_XP = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_EX_XP_head
-    MIB_IPMCAST_MFE_STATS_EX_XP._fields_ = [
-        ('dwGroup', UInt32),
-        ('dwSource', UInt32),
-        ('dwSrcMask', UInt32),
-        ('dwUpStrmNgbr', UInt32),
-        ('dwInIfIndex', UInt32),
-        ('dwInIfProtocol', UInt32),
-        ('dwRouteProtocol', UInt32),
-        ('dwRouteNetwork', UInt32),
-        ('dwRouteMask', UInt32),
-        ('ulUpTime', UInt32),
-        ('ulExpiryTime', UInt32),
-        ('ulNumOutIf', UInt32),
-        ('ulInPkts', UInt32),
-        ('ulInOctets', UInt32),
-        ('ulPktsDifferentIf', UInt32),
-        ('ulQueueOverflow', UInt32),
-        ('ulUninitMfe', UInt32),
-        ('ulNegativeMfe', UInt32),
-        ('ulInDiscards', UInt32),
-        ('ulInHdrErrors', UInt32),
-        ('ulTotalOutPackets', UInt32),
-        ('rgmiosOutStats', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1),
-    ]
-    return MIB_IPMCAST_MFE_STATS_EX_XP
-def _define_MIB_IPMCAST_OIF_STATS_LH_head():
-    class MIB_IPMCAST_OIF_STATS_LH(Structure):
-        pass
-    return MIB_IPMCAST_OIF_STATS_LH
-def _define_MIB_IPMCAST_OIF_STATS_LH():
-    MIB_IPMCAST_OIF_STATS_LH = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH_head
-    MIB_IPMCAST_OIF_STATS_LH._fields_ = [
-        ('dwOutIfIndex', UInt32),
-        ('dwNextHopAddr', UInt32),
-        ('dwDialContext', UInt32),
-        ('ulTtlTooLow', UInt32),
-        ('ulFragNeeded', UInt32),
-        ('ulOutPackets', UInt32),
-        ('ulOutDiscards', UInt32),
-    ]
-    return MIB_IPMCAST_OIF_STATS_LH
-def _define_MIB_IPMCAST_OIF_STATS_W2K_head():
-    class MIB_IPMCAST_OIF_STATS_W2K(Structure):
-        pass
-    return MIB_IPMCAST_OIF_STATS_W2K
-def _define_MIB_IPMCAST_OIF_STATS_W2K():
-    MIB_IPMCAST_OIF_STATS_W2K = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_W2K_head
-    MIB_IPMCAST_OIF_STATS_W2K._fields_ = [
-        ('dwOutIfIndex', UInt32),
-        ('dwNextHopAddr', UInt32),
-        ('pvDialContext', c_void_p),
-        ('ulTtlTooLow', UInt32),
-        ('ulFragNeeded', UInt32),
-        ('ulOutPackets', UInt32),
-        ('ulOutDiscards', UInt32),
-    ]
-    return MIB_IPMCAST_OIF_STATS_W2K
-def _define_MIB_IPMCAST_OIF_W2K_head():
-    class MIB_IPMCAST_OIF_W2K(Structure):
-        pass
-    return MIB_IPMCAST_OIF_W2K
-def _define_MIB_IPMCAST_OIF_W2K():
-    MIB_IPMCAST_OIF_W2K = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_W2K_head
-    MIB_IPMCAST_OIF_W2K._fields_ = [
-        ('dwOutIfIndex', UInt32),
-        ('dwNextHopAddr', UInt32),
-        ('pvReserved', c_void_p),
-        ('dwReserved', UInt32),
-    ]
-    return MIB_IPMCAST_OIF_W2K
-def _define_MIB_IPMCAST_OIF_XP_head():
-    class MIB_IPMCAST_OIF_XP(Structure):
-        pass
-    return MIB_IPMCAST_OIF_XP
-def _define_MIB_IPMCAST_OIF_XP():
-    MIB_IPMCAST_OIF_XP = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_XP_head
-    MIB_IPMCAST_OIF_XP._fields_ = [
-        ('dwOutIfIndex', UInt32),
-        ('dwNextHopAddr', UInt32),
-        ('dwReserved', UInt32),
-        ('dwReserved1', UInt32),
-    ]
-    return MIB_IPMCAST_OIF_XP
-def _define_MIB_IPMCAST_SCOPE_head():
-    class MIB_IPMCAST_SCOPE(Structure):
-        pass
-    return MIB_IPMCAST_SCOPE
-def _define_MIB_IPMCAST_SCOPE():
-    MIB_IPMCAST_SCOPE = win32more.NetworkManagement.IpHelper.MIB_IPMCAST_SCOPE_head
-    MIB_IPMCAST_SCOPE._fields_ = [
-        ('dwGroupAddress', UInt32),
-        ('dwGroupMask', UInt32),
-        ('snNameBuffer', UInt16 * 256),
-        ('dwStatus', UInt32),
-    ]
-    return MIB_IPMCAST_SCOPE
-def _define_MIB_IPNET_ROW2_head():
-    class MIB_IPNET_ROW2(Structure):
-        pass
-    return MIB_IPNET_ROW2
-def _define_MIB_IPNET_ROW2():
-    MIB_IPNET_ROW2 = win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2_head
-    class MIB_IPNET_ROW2__Anonymous_e__Union(Union):
-        pass
-    class MIB_IPNET_ROW2__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    MIB_IPNET_ROW2__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', Byte),
-    ]
-    MIB_IPNET_ROW2__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_IPNET_ROW2__Anonymous_e__Union._fields_ = [
-        ('Anonymous', MIB_IPNET_ROW2__Anonymous_e__Union__Anonymous_e__Struct),
-        ('Flags', Byte),
-    ]
-    class MIB_IPNET_ROW2__ReachabilityTime_e__Union(Union):
-        pass
-    MIB_IPNET_ROW2__ReachabilityTime_e__Union._fields_ = [
-        ('LastReachable', UInt32),
-        ('LastUnreachable', UInt32),
-    ]
-    MIB_IPNET_ROW2._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_IPNET_ROW2._fields_ = [
-        ('Address', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('InterfaceIndex', UInt32),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('PhysicalAddress', Byte * 32),
-        ('PhysicalAddressLength', UInt32),
-        ('State', win32more.Networking.WinSock.NL_NEIGHBOR_STATE),
-        ('Anonymous', MIB_IPNET_ROW2__Anonymous_e__Union),
-        ('ReachabilityTime', MIB_IPNET_ROW2__ReachabilityTime_e__Union),
-    ]
-    return MIB_IPNET_ROW2
-def _define_MIB_IPNET_TABLE2_head():
-    class MIB_IPNET_TABLE2(Structure):
-        pass
-    return MIB_IPNET_TABLE2
-def _define_MIB_IPNET_TABLE2():
-    MIB_IPNET_TABLE2 = win32more.NetworkManagement.IpHelper.MIB_IPNET_TABLE2_head
-    MIB_IPNET_TABLE2._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2 * 1),
-    ]
-    return MIB_IPNET_TABLE2
+MIB_IPROUTE_TYPE_OTHER: MIB_IPFORWARD_TYPE = 1
+MIB_IPROUTE_TYPE_INVALID: MIB_IPFORWARD_TYPE = 2
+MIB_IPROUTE_TYPE_DIRECT: MIB_IPFORWARD_TYPE = 3
+MIB_IPROUTE_TYPE_INDIRECT: MIB_IPFORWARD_TYPE = 4
+class MIB_IPFORWARDNUMBER(Structure):
+    dwValue: UInt32
+class MIB_IPFORWARDROW(Structure):
+    dwForwardDest: UInt32
+    dwForwardMask: UInt32
+    dwForwardPolicy: UInt32
+    dwForwardNextHop: UInt32
+    dwForwardIfIndex: UInt32
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    dwForwardAge: UInt32
+    dwForwardNextHopAS: UInt32
+    dwForwardMetric1: UInt32
+    dwForwardMetric2: UInt32
+    dwForwardMetric3: UInt32
+    dwForwardMetric4: UInt32
+    dwForwardMetric5: UInt32
+    class _Anonymous1_e__Union(Union):
+        dwForwardType: UInt32
+        ForwardType: win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_TYPE
+    class _Anonymous2_e__Union(Union):
+        dwForwardProto: UInt32
+        ForwardProto: win32more.Networking.WinSock.NL_ROUTE_PROTOCOL
+class MIB_IPFORWARDTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW * 1
+class MIB_IPINTERFACE_ROW(Structure):
+    Family: UInt16
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    MaxReassemblySize: UInt32
+    InterfaceIdentifier: UInt64
+    MinRouterAdvertisementInterval: UInt32
+    MaxRouterAdvertisementInterval: UInt32
+    AdvertisingEnabled: win32more.Foundation.BOOLEAN
+    ForwardingEnabled: win32more.Foundation.BOOLEAN
+    WeakHostSend: win32more.Foundation.BOOLEAN
+    WeakHostReceive: win32more.Foundation.BOOLEAN
+    UseAutomaticMetric: win32more.Foundation.BOOLEAN
+    UseNeighborUnreachabilityDetection: win32more.Foundation.BOOLEAN
+    ManagedAddressConfigurationSupported: win32more.Foundation.BOOLEAN
+    OtherStatefulConfigurationSupported: win32more.Foundation.BOOLEAN
+    AdvertiseDefaultRoute: win32more.Foundation.BOOLEAN
+    RouterDiscoveryBehavior: win32more.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR
+    DadTransmits: UInt32
+    BaseReachableTime: UInt32
+    RetransmitTime: UInt32
+    PathMtuDiscoveryTimeout: UInt32
+    LinkLocalAddressBehavior: win32more.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR
+    LinkLocalAddressTimeout: UInt32
+    ZoneIndices: UInt32 * 16
+    SitePrefixLength: UInt32
+    Metric: UInt32
+    NlMtu: UInt32
+    Connected: win32more.Foundation.BOOLEAN
+    SupportsWakeUpPatterns: win32more.Foundation.BOOLEAN
+    SupportsNeighborDiscovery: win32more.Foundation.BOOLEAN
+    SupportsRouterDiscovery: win32more.Foundation.BOOLEAN
+    ReachableTime: UInt32
+    TransmitOffload: win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD
+    ReceiveOffload: win32more.Networking.WinSock.NL_INTERFACE_OFFLOAD_ROD
+    DisableDefaultRoutes: win32more.Foundation.BOOLEAN
+class MIB_IPINTERFACE_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW * 1
+class MIB_IPMCAST_BOUNDARY(Structure):
+    dwIfIndex: UInt32
+    dwGroupAddress: UInt32
+    dwGroupMask: UInt32
+    dwStatus: UInt32
+class MIB_IPMCAST_BOUNDARY_TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY * 1
+class MIB_IPMCAST_GLOBAL(Structure):
+    dwEnable: UInt32
+class MIB_IPMCAST_IF_ENTRY(Structure):
+    dwIfIndex: UInt32
+    dwTtl: UInt32
+    dwProtocol: UInt32
+    dwRateLimit: UInt32
+    ulInMcastOctets: UInt32
+    ulOutMcastOctets: UInt32
+class MIB_IPMCAST_IF_TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_IF_ENTRY * 1
+class MIB_IPMCAST_MFE(Structure):
+    dwGroup: UInt32
+    dwSource: UInt32
+    dwSrcMask: UInt32
+    dwUpStrmNgbr: UInt32
+    dwInIfIndex: UInt32
+    dwInIfProtocol: UInt32
+    dwRouteProtocol: UInt32
+    dwRouteNetwork: UInt32
+    dwRouteMask: UInt32
+    ulUpTime: UInt32
+    ulExpiryTime: UInt32
+    ulTimeOut: UInt32
+    ulNumOutIf: UInt32
+    fFlags: UInt32
+    dwReserved: UInt32
+    rgmioOutInfo: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_XP * 1
+class MIB_IPMCAST_MFE_STATS(Structure):
+    dwGroup: UInt32
+    dwSource: UInt32
+    dwSrcMask: UInt32
+    dwUpStrmNgbr: UInt32
+    dwInIfIndex: UInt32
+    dwInIfProtocol: UInt32
+    dwRouteProtocol: UInt32
+    dwRouteNetwork: UInt32
+    dwRouteMask: UInt32
+    ulUpTime: UInt32
+    ulExpiryTime: UInt32
+    ulNumOutIf: UInt32
+    ulInPkts: UInt32
+    ulInOctets: UInt32
+    ulPktsDifferentIf: UInt32
+    ulQueueOverflow: UInt32
+    rgmiosOutStats: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1
+class MIB_IPMCAST_MFE_STATS_EX_XP(Structure):
+    dwGroup: UInt32
+    dwSource: UInt32
+    dwSrcMask: UInt32
+    dwUpStrmNgbr: UInt32
+    dwInIfIndex: UInt32
+    dwInIfProtocol: UInt32
+    dwRouteProtocol: UInt32
+    dwRouteNetwork: UInt32
+    dwRouteMask: UInt32
+    ulUpTime: UInt32
+    ulExpiryTime: UInt32
+    ulNumOutIf: UInt32
+    ulInPkts: UInt32
+    ulInOctets: UInt32
+    ulPktsDifferentIf: UInt32
+    ulQueueOverflow: UInt32
+    ulUninitMfe: UInt32
+    ulNegativeMfe: UInt32
+    ulInDiscards: UInt32
+    ulInHdrErrors: UInt32
+    ulTotalOutPackets: UInt32
+    rgmiosOutStats: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1
+class MIB_IPMCAST_OIF_STATS_LH(Structure):
+    dwOutIfIndex: UInt32
+    dwNextHopAddr: UInt32
+    dwDialContext: UInt32
+    ulTtlTooLow: UInt32
+    ulFragNeeded: UInt32
+    ulOutPackets: UInt32
+    ulOutDiscards: UInt32
+class MIB_IPMCAST_OIF_STATS_W2K(Structure):
+    dwOutIfIndex: UInt32
+    dwNextHopAddr: UInt32
+    pvDialContext: c_void_p
+    ulTtlTooLow: UInt32
+    ulFragNeeded: UInt32
+    ulOutPackets: UInt32
+    ulOutDiscards: UInt32
+class MIB_IPMCAST_OIF_W2K(Structure):
+    dwOutIfIndex: UInt32
+    dwNextHopAddr: UInt32
+    pvReserved: c_void_p
+    dwReserved: UInt32
+class MIB_IPMCAST_OIF_XP(Structure):
+    dwOutIfIndex: UInt32
+    dwNextHopAddr: UInt32
+    dwReserved: UInt32
+    dwReserved1: UInt32
+class MIB_IPMCAST_SCOPE(Structure):
+    dwGroupAddress: UInt32
+    dwGroupMask: UInt32
+    snNameBuffer: UInt16 * 256
+    dwStatus: UInt32
+class MIB_IPNET_ROW2(Structure):
+    Address: win32more.Networking.WinSock.SOCKADDR_INET
+    InterfaceIndex: UInt32
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    PhysicalAddress: Byte * 32
+    PhysicalAddressLength: UInt32
+    State: win32more.Networking.WinSock.NL_NEIGHBOR_STATE
+    Anonymous: _Anonymous_e__Union
+    ReachabilityTime: _ReachabilityTime_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        Flags: Byte
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Byte
+    class _ReachabilityTime_e__Union(Union):
+        LastReachable: UInt32
+        LastUnreachable: UInt32
+class MIB_IPNET_TABLE2(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IPNET_ROW2 * 1
 MIB_IPNET_TYPE = Int32
-MIB_IPNET_TYPE_OTHER = 1
-MIB_IPNET_TYPE_INVALID = 2
-MIB_IPNET_TYPE_DYNAMIC = 3
-MIB_IPNET_TYPE_STATIC = 4
-def _define_MIB_IPNETROW_LH_head():
-    class MIB_IPNETROW_LH(Structure):
-        pass
-    return MIB_IPNETROW_LH
-def _define_MIB_IPNETROW_LH():
-    MIB_IPNETROW_LH = win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH_head
-    class MIB_IPNETROW_LH__Anonymous_e__Union(Union):
-        pass
-    MIB_IPNETROW_LH__Anonymous_e__Union._fields_ = [
-        ('dwType', UInt32),
-        ('Type', win32more.NetworkManagement.IpHelper.MIB_IPNET_TYPE),
-    ]
-    MIB_IPNETROW_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_IPNETROW_LH._fields_ = [
-        ('dwIndex', UInt32),
-        ('dwPhysAddrLen', UInt32),
-        ('bPhysAddr', Byte * 8),
-        ('dwAddr', UInt32),
-        ('Anonymous', MIB_IPNETROW_LH__Anonymous_e__Union),
-    ]
-    return MIB_IPNETROW_LH
-def _define_MIB_IPNETROW_W2K_head():
-    class MIB_IPNETROW_W2K(Structure):
-        pass
-    return MIB_IPNETROW_W2K
-def _define_MIB_IPNETROW_W2K():
-    MIB_IPNETROW_W2K = win32more.NetworkManagement.IpHelper.MIB_IPNETROW_W2K_head
-    MIB_IPNETROW_W2K._fields_ = [
-        ('dwIndex', UInt32),
-        ('dwPhysAddrLen', UInt32),
-        ('bPhysAddr', Byte * 8),
-        ('dwAddr', UInt32),
-        ('dwType', UInt32),
-    ]
-    return MIB_IPNETROW_W2K
-def _define_MIB_IPNETTABLE_head():
-    class MIB_IPNETTABLE(Structure):
-        pass
-    return MIB_IPNETTABLE
-def _define_MIB_IPNETTABLE():
-    MIB_IPNETTABLE = win32more.NetworkManagement.IpHelper.MIB_IPNETTABLE_head
-    MIB_IPNETTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH * 1),
-    ]
-    return MIB_IPNETTABLE
-def _define_MIB_IPPATH_ROW_head():
-    class MIB_IPPATH_ROW(Structure):
-        pass
-    return MIB_IPPATH_ROW
-def _define_MIB_IPPATH_ROW():
-    MIB_IPPATH_ROW = win32more.NetworkManagement.IpHelper.MIB_IPPATH_ROW_head
-    class MIB_IPPATH_ROW__Anonymous_e__Union(Union):
-        pass
-    MIB_IPPATH_ROW__Anonymous_e__Union._fields_ = [
-        ('LastReachable', UInt32),
-        ('LastUnreachable', UInt32),
-    ]
-    MIB_IPPATH_ROW._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_IPPATH_ROW._fields_ = [
-        ('Source', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('Destination', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('CurrentNextHop', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('PathMtu', UInt32),
-        ('RttMean', UInt32),
-        ('RttDeviation', UInt32),
-        ('Anonymous', MIB_IPPATH_ROW__Anonymous_e__Union),
-        ('IsReachable', win32more.Foundation.BOOLEAN),
-        ('LinkTransmitSpeed', UInt64),
-        ('LinkReceiveSpeed', UInt64),
-    ]
-    return MIB_IPPATH_ROW
-def _define_MIB_IPPATH_TABLE_head():
-    class MIB_IPPATH_TABLE(Structure):
-        pass
-    return MIB_IPPATH_TABLE
-def _define_MIB_IPPATH_TABLE():
-    MIB_IPPATH_TABLE = win32more.NetworkManagement.IpHelper.MIB_IPPATH_TABLE_head
-    MIB_IPPATH_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_IPPATH_ROW * 1),
-    ]
-    return MIB_IPPATH_TABLE
+MIB_IPNET_TYPE_OTHER: MIB_IPNET_TYPE = 1
+MIB_IPNET_TYPE_INVALID: MIB_IPNET_TYPE = 2
+MIB_IPNET_TYPE_DYNAMIC: MIB_IPNET_TYPE = 3
+MIB_IPNET_TYPE_STATIC: MIB_IPNET_TYPE = 4
+class MIB_IPNETROW_LH(Structure):
+    dwIndex: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAddr: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        dwType: UInt32
+        Type: win32more.NetworkManagement.IpHelper.MIB_IPNET_TYPE
+class MIB_IPNETROW_W2K(Structure):
+    dwIndex: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAddr: UInt32
+    dwType: UInt32
+class MIB_IPNETTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH * 1
+class MIB_IPPATH_ROW(Structure):
+    Source: win32more.Networking.WinSock.SOCKADDR_INET
+    Destination: win32more.Networking.WinSock.SOCKADDR_INET
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    CurrentNextHop: win32more.Networking.WinSock.SOCKADDR_INET
+    PathMtu: UInt32
+    RttMean: UInt32
+    RttDeviation: UInt32
+    Anonymous: _Anonymous_e__Union
+    IsReachable: win32more.Foundation.BOOLEAN
+    LinkTransmitSpeed: UInt64
+    LinkReceiveSpeed: UInt64
+    class _Anonymous_e__Union(Union):
+        LastReachable: UInt32
+        LastUnreachable: UInt32
+class MIB_IPPATH_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IPPATH_ROW * 1
 MIB_IPSTATS_FORWARDING = Int32
-MIB_IP_FORWARDING = 1
-MIB_IP_NOT_FORWARDING = 2
-def _define_MIB_IPSTATS_LH_head():
-    class MIB_IPSTATS_LH(Structure):
-        pass
-    return MIB_IPSTATS_LH
-def _define_MIB_IPSTATS_LH():
-    MIB_IPSTATS_LH = win32more.NetworkManagement.IpHelper.MIB_IPSTATS_LH_head
-    class MIB_IPSTATS_LH__Anonymous_e__Union(Union):
-        pass
-    MIB_IPSTATS_LH__Anonymous_e__Union._fields_ = [
-        ('dwForwarding', UInt32),
-        ('Forwarding', win32more.NetworkManagement.IpHelper.MIB_IPSTATS_FORWARDING),
-    ]
-    MIB_IPSTATS_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_IPSTATS_LH._fields_ = [
-        ('Anonymous', MIB_IPSTATS_LH__Anonymous_e__Union),
-        ('dwDefaultTTL', UInt32),
-        ('dwInReceives', UInt32),
-        ('dwInHdrErrors', UInt32),
-        ('dwInAddrErrors', UInt32),
-        ('dwForwDatagrams', UInt32),
-        ('dwInUnknownProtos', UInt32),
-        ('dwInDiscards', UInt32),
-        ('dwInDelivers', UInt32),
-        ('dwOutRequests', UInt32),
-        ('dwRoutingDiscards', UInt32),
-        ('dwOutDiscards', UInt32),
-        ('dwOutNoRoutes', UInt32),
-        ('dwReasmTimeout', UInt32),
-        ('dwReasmReqds', UInt32),
-        ('dwReasmOks', UInt32),
-        ('dwReasmFails', UInt32),
-        ('dwFragOks', UInt32),
-        ('dwFragFails', UInt32),
-        ('dwFragCreates', UInt32),
-        ('dwNumIf', UInt32),
-        ('dwNumAddr', UInt32),
-        ('dwNumRoutes', UInt32),
-    ]
-    return MIB_IPSTATS_LH
-def _define_MIB_IPSTATS_W2K_head():
-    class MIB_IPSTATS_W2K(Structure):
-        pass
-    return MIB_IPSTATS_W2K
-def _define_MIB_IPSTATS_W2K():
-    MIB_IPSTATS_W2K = win32more.NetworkManagement.IpHelper.MIB_IPSTATS_W2K_head
-    MIB_IPSTATS_W2K._fields_ = [
-        ('dwForwarding', UInt32),
-        ('dwDefaultTTL', UInt32),
-        ('dwInReceives', UInt32),
-        ('dwInHdrErrors', UInt32),
-        ('dwInAddrErrors', UInt32),
-        ('dwForwDatagrams', UInt32),
-        ('dwInUnknownProtos', UInt32),
-        ('dwInDiscards', UInt32),
-        ('dwInDelivers', UInt32),
-        ('dwOutRequests', UInt32),
-        ('dwRoutingDiscards', UInt32),
-        ('dwOutDiscards', UInt32),
-        ('dwOutNoRoutes', UInt32),
-        ('dwReasmTimeout', UInt32),
-        ('dwReasmReqds', UInt32),
-        ('dwReasmOks', UInt32),
-        ('dwReasmFails', UInt32),
-        ('dwFragOks', UInt32),
-        ('dwFragFails', UInt32),
-        ('dwFragCreates', UInt32),
-        ('dwNumIf', UInt32),
-        ('dwNumAddr', UInt32),
-        ('dwNumRoutes', UInt32),
-    ]
-    return MIB_IPSTATS_W2K
-def _define_MIB_MCAST_LIMIT_ROW_head():
-    class MIB_MCAST_LIMIT_ROW(Structure):
-        pass
-    return MIB_MCAST_LIMIT_ROW
-def _define_MIB_MCAST_LIMIT_ROW():
-    MIB_MCAST_LIMIT_ROW = win32more.NetworkManagement.IpHelper.MIB_MCAST_LIMIT_ROW_head
-    MIB_MCAST_LIMIT_ROW._fields_ = [
-        ('dwTtl', UInt32),
-        ('dwRateLimit', UInt32),
-    ]
-    return MIB_MCAST_LIMIT_ROW
-def _define_MIB_MFE_STATS_TABLE_head():
-    class MIB_MFE_STATS_TABLE(Structure):
-        pass
-    return MIB_MFE_STATS_TABLE
-def _define_MIB_MFE_STATS_TABLE():
-    MIB_MFE_STATS_TABLE = win32more.NetworkManagement.IpHelper.MIB_MFE_STATS_TABLE_head
-    MIB_MFE_STATS_TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS * 1),
-    ]
-    return MIB_MFE_STATS_TABLE
-def _define_MIB_MFE_STATS_TABLE_EX_XP_head():
-    class MIB_MFE_STATS_TABLE_EX_XP(Structure):
-        pass
-    return MIB_MFE_STATS_TABLE_EX_XP
-def _define_MIB_MFE_STATS_TABLE_EX_XP():
-    MIB_MFE_STATS_TABLE_EX_XP = win32more.NetworkManagement.IpHelper.MIB_MFE_STATS_TABLE_EX_XP_head
-    MIB_MFE_STATS_TABLE_EX_XP._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_EX_XP_head) * 1),
-    ]
-    return MIB_MFE_STATS_TABLE_EX_XP
-def _define_MIB_MFE_TABLE_head():
-    class MIB_MFE_TABLE(Structure):
-        pass
-    return MIB_MFE_TABLE
-def _define_MIB_MFE_TABLE():
-    MIB_MFE_TABLE = win32more.NetworkManagement.IpHelper.MIB_MFE_TABLE_head
-    MIB_MFE_TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE * 1),
-    ]
-    return MIB_MFE_TABLE
-def _define_MIB_MULTICASTIPADDRESS_ROW_head():
-    class MIB_MULTICASTIPADDRESS_ROW(Structure):
-        pass
-    return MIB_MULTICASTIPADDRESS_ROW
-def _define_MIB_MULTICASTIPADDRESS_ROW():
-    MIB_MULTICASTIPADDRESS_ROW = win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW_head
-    MIB_MULTICASTIPADDRESS_ROW._fields_ = [
-        ('Address', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('InterfaceIndex', UInt32),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('ScopeId', win32more.Networking.WinSock.SCOPE_ID),
-    ]
-    return MIB_MULTICASTIPADDRESS_ROW
-def _define_MIB_MULTICASTIPADDRESS_TABLE_head():
-    class MIB_MULTICASTIPADDRESS_TABLE(Structure):
-        pass
-    return MIB_MULTICASTIPADDRESS_TABLE
-def _define_MIB_MULTICASTIPADDRESS_TABLE():
-    MIB_MULTICASTIPADDRESS_TABLE = win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_TABLE_head
-    MIB_MULTICASTIPADDRESS_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW * 1),
-    ]
-    return MIB_MULTICASTIPADDRESS_TABLE
+MIB_IP_FORWARDING: MIB_IPSTATS_FORWARDING = 1
+MIB_IP_NOT_FORWARDING: MIB_IPSTATS_FORWARDING = 2
+class MIB_IPSTATS_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    dwDefaultTTL: UInt32
+    dwInReceives: UInt32
+    dwInHdrErrors: UInt32
+    dwInAddrErrors: UInt32
+    dwForwDatagrams: UInt32
+    dwInUnknownProtos: UInt32
+    dwInDiscards: UInt32
+    dwInDelivers: UInt32
+    dwOutRequests: UInt32
+    dwRoutingDiscards: UInt32
+    dwOutDiscards: UInt32
+    dwOutNoRoutes: UInt32
+    dwReasmTimeout: UInt32
+    dwReasmReqds: UInt32
+    dwReasmOks: UInt32
+    dwReasmFails: UInt32
+    dwFragOks: UInt32
+    dwFragFails: UInt32
+    dwFragCreates: UInt32
+    dwNumIf: UInt32
+    dwNumAddr: UInt32
+    dwNumRoutes: UInt32
+    class _Anonymous_e__Union(Union):
+        dwForwarding: UInt32
+        Forwarding: win32more.NetworkManagement.IpHelper.MIB_IPSTATS_FORWARDING
+class MIB_IPSTATS_W2K(Structure):
+    dwForwarding: UInt32
+    dwDefaultTTL: UInt32
+    dwInReceives: UInt32
+    dwInHdrErrors: UInt32
+    dwInAddrErrors: UInt32
+    dwForwDatagrams: UInt32
+    dwInUnknownProtos: UInt32
+    dwInDiscards: UInt32
+    dwInDelivers: UInt32
+    dwOutRequests: UInt32
+    dwRoutingDiscards: UInt32
+    dwOutDiscards: UInt32
+    dwOutNoRoutes: UInt32
+    dwReasmTimeout: UInt32
+    dwReasmReqds: UInt32
+    dwReasmOks: UInt32
+    dwReasmFails: UInt32
+    dwFragOks: UInt32
+    dwFragFails: UInt32
+    dwFragCreates: UInt32
+    dwNumIf: UInt32
+    dwNumAddr: UInt32
+    dwNumRoutes: UInt32
+class MIB_MCAST_LIMIT_ROW(Structure):
+    dwTtl: UInt32
+    dwRateLimit: UInt32
+class MIB_MFE_STATS_TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS * 1
+class MIB_MFE_STATS_TABLE_EX_XP(Structure):
+    dwNumEntries: UInt32
+    table: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_EX_XP_head) * 1
+class MIB_MFE_TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPMCAST_MFE * 1
+class MIB_MULTICASTIPADDRESS_ROW(Structure):
+    Address: win32more.Networking.WinSock.SOCKADDR_INET
+    InterfaceIndex: UInt32
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    ScopeId: win32more.Networking.WinSock.SCOPE_ID
+class MIB_MULTICASTIPADDRESS_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW * 1
 MIB_NOTIFICATION_TYPE = Int32
-MIB_NOTIFICATION_TYPE_MibParameterNotification = 0
-MIB_NOTIFICATION_TYPE_MibAddInstance = 1
-MIB_NOTIFICATION_TYPE_MibDeleteInstance = 2
-MIB_NOTIFICATION_TYPE_MibInitialNotification = 3
-def _define_MIB_OPAQUE_INFO_head():
-    class MIB_OPAQUE_INFO(Structure):
-        pass
-    return MIB_OPAQUE_INFO
-def _define_MIB_OPAQUE_INFO():
-    MIB_OPAQUE_INFO = win32more.NetworkManagement.IpHelper.MIB_OPAQUE_INFO_head
-    class MIB_OPAQUE_INFO__Anonymous_e__Union(Union):
-        pass
-    MIB_OPAQUE_INFO__Anonymous_e__Union._fields_ = [
-        ('ullAlign', UInt64),
-        ('rgbyData', Byte * 1),
-    ]
-    MIB_OPAQUE_INFO._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_OPAQUE_INFO._fields_ = [
-        ('dwId', UInt32),
-        ('Anonymous', MIB_OPAQUE_INFO__Anonymous_e__Union),
-    ]
-    return MIB_OPAQUE_INFO
-def _define_MIB_OPAQUE_QUERY_head():
-    class MIB_OPAQUE_QUERY(Structure):
-        pass
-    return MIB_OPAQUE_QUERY
-def _define_MIB_OPAQUE_QUERY():
-    MIB_OPAQUE_QUERY = win32more.NetworkManagement.IpHelper.MIB_OPAQUE_QUERY_head
-    MIB_OPAQUE_QUERY._fields_ = [
-        ('dwVarId', UInt32),
-        ('rgdwVarIndex', UInt32 * 1),
-    ]
-    return MIB_OPAQUE_QUERY
-def _define_MIB_PROXYARP_head():
-    class MIB_PROXYARP(Structure):
-        pass
-    return MIB_PROXYARP
-def _define_MIB_PROXYARP():
-    MIB_PROXYARP = win32more.NetworkManagement.IpHelper.MIB_PROXYARP_head
-    MIB_PROXYARP._fields_ = [
-        ('dwAddress', UInt32),
-        ('dwMask', UInt32),
-        ('dwIfIndex', UInt32),
-    ]
-    return MIB_PROXYARP
-def _define_MIB_ROUTESTATE_head():
-    class MIB_ROUTESTATE(Structure):
-        pass
-    return MIB_ROUTESTATE
-def _define_MIB_ROUTESTATE():
-    MIB_ROUTESTATE = win32more.NetworkManagement.IpHelper.MIB_ROUTESTATE_head
-    MIB_ROUTESTATE._fields_ = [
-        ('bRoutesSetToStack', win32more.Foundation.BOOL),
-    ]
-    return MIB_ROUTESTATE
+MIB_NOTIFICATION_TYPE_MibParameterNotification: MIB_NOTIFICATION_TYPE = 0
+MIB_NOTIFICATION_TYPE_MibAddInstance: MIB_NOTIFICATION_TYPE = 1
+MIB_NOTIFICATION_TYPE_MibDeleteInstance: MIB_NOTIFICATION_TYPE = 2
+MIB_NOTIFICATION_TYPE_MibInitialNotification: MIB_NOTIFICATION_TYPE = 3
+class MIB_OPAQUE_INFO(Structure):
+    dwId: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ullAlign: UInt64
+        rgbyData: Byte * 1
+class MIB_OPAQUE_QUERY(Structure):
+    dwVarId: UInt32
+    rgdwVarIndex: UInt32 * 1
+class MIB_PROXYARP(Structure):
+    dwAddress: UInt32
+    dwMask: UInt32
+    dwIfIndex: UInt32
+class MIB_ROUTESTATE(Structure):
+    bRoutesSetToStack: win32more.Foundation.BOOL
 MIB_TCP_STATE = Int32
-MIB_TCP_STATE_CLOSED = 1
-MIB_TCP_STATE_LISTEN = 2
-MIB_TCP_STATE_SYN_SENT = 3
-MIB_TCP_STATE_SYN_RCVD = 4
-MIB_TCP_STATE_ESTAB = 5
-MIB_TCP_STATE_FIN_WAIT1 = 6
-MIB_TCP_STATE_FIN_WAIT2 = 7
-MIB_TCP_STATE_CLOSE_WAIT = 8
-MIB_TCP_STATE_CLOSING = 9
-MIB_TCP_STATE_LAST_ACK = 10
-MIB_TCP_STATE_TIME_WAIT = 11
-MIB_TCP_STATE_DELETE_TCB = 12
-MIB_TCP_STATE_RESERVED = 100
-def _define_MIB_TCP6ROW_head():
-    class MIB_TCP6ROW(Structure):
-        pass
-    return MIB_TCP6ROW
-def _define_MIB_TCP6ROW():
-    MIB_TCP6ROW = win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_head
-    MIB_TCP6ROW._fields_ = [
-        ('State', win32more.NetworkManagement.IpHelper.MIB_TCP_STATE),
-        ('LocalAddr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('RemoteAddr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwRemoteScopeId', UInt32),
-        ('dwRemotePort', UInt32),
-    ]
-    return MIB_TCP6ROW
-def _define_MIB_TCP6ROW_OWNER_MODULE_head():
-    class MIB_TCP6ROW_OWNER_MODULE(Structure):
-        pass
-    return MIB_TCP6ROW_OWNER_MODULE
-def _define_MIB_TCP6ROW_OWNER_MODULE():
-    MIB_TCP6ROW_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE_head
-    MIB_TCP6ROW_OWNER_MODULE._fields_ = [
-        ('ucLocalAddr', Byte * 16),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('ucRemoteAddr', Byte * 16),
-        ('dwRemoteScopeId', UInt32),
-        ('dwRemotePort', UInt32),
-        ('dwState', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('OwningModuleInfo', UInt64 * 16),
-    ]
-    return MIB_TCP6ROW_OWNER_MODULE
-def _define_MIB_TCP6ROW_OWNER_PID_head():
-    class MIB_TCP6ROW_OWNER_PID(Structure):
-        pass
-    return MIB_TCP6ROW_OWNER_PID
-def _define_MIB_TCP6ROW_OWNER_PID():
-    MIB_TCP6ROW_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID_head
-    MIB_TCP6ROW_OWNER_PID._fields_ = [
-        ('ucLocalAddr', Byte * 16),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('ucRemoteAddr', Byte * 16),
-        ('dwRemoteScopeId', UInt32),
-        ('dwRemotePort', UInt32),
-        ('dwState', UInt32),
-        ('dwOwningPid', UInt32),
-    ]
-    return MIB_TCP6ROW_OWNER_PID
-def _define_MIB_TCP6ROW2_head():
-    class MIB_TCP6ROW2(Structure):
-        pass
-    return MIB_TCP6ROW2
-def _define_MIB_TCP6ROW2():
-    MIB_TCP6ROW2 = win32more.NetworkManagement.IpHelper.MIB_TCP6ROW2_head
-    MIB_TCP6ROW2._fields_ = [
-        ('LocalAddr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('RemoteAddr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwRemoteScopeId', UInt32),
-        ('dwRemotePort', UInt32),
-        ('State', win32more.NetworkManagement.IpHelper.MIB_TCP_STATE),
-        ('dwOwningPid', UInt32),
-        ('dwOffloadState', win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE),
-    ]
-    return MIB_TCP6ROW2
-def _define_MIB_TCP6TABLE_head():
-    class MIB_TCP6TABLE(Structure):
-        pass
-    return MIB_TCP6TABLE
-def _define_MIB_TCP6TABLE():
-    MIB_TCP6TABLE = win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE_head
-    MIB_TCP6TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCP6ROW * 1),
-    ]
-    return MIB_TCP6TABLE
-def _define_MIB_TCP6TABLE_OWNER_MODULE_head():
-    class MIB_TCP6TABLE_OWNER_MODULE(Structure):
-        pass
-    return MIB_TCP6TABLE_OWNER_MODULE
-def _define_MIB_TCP6TABLE_OWNER_MODULE():
-    MIB_TCP6TABLE_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE_OWNER_MODULE_head
-    MIB_TCP6TABLE_OWNER_MODULE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE * 1),
-    ]
-    return MIB_TCP6TABLE_OWNER_MODULE
-def _define_MIB_TCP6TABLE_OWNER_PID_head():
-    class MIB_TCP6TABLE_OWNER_PID(Structure):
-        pass
-    return MIB_TCP6TABLE_OWNER_PID
-def _define_MIB_TCP6TABLE_OWNER_PID():
-    MIB_TCP6TABLE_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE_OWNER_PID_head
-    MIB_TCP6TABLE_OWNER_PID._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID * 1),
-    ]
-    return MIB_TCP6TABLE_OWNER_PID
-def _define_MIB_TCP6TABLE2_head():
-    class MIB_TCP6TABLE2(Structure):
-        pass
-    return MIB_TCP6TABLE2
-def _define_MIB_TCP6TABLE2():
-    MIB_TCP6TABLE2 = win32more.NetworkManagement.IpHelper.MIB_TCP6TABLE2_head
-    MIB_TCP6TABLE2._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCP6ROW2 * 1),
-    ]
-    return MIB_TCP6TABLE2
-def _define_MIB_TCPROW_LH_head():
-    class MIB_TCPROW_LH(Structure):
-        pass
-    return MIB_TCPROW_LH
-def _define_MIB_TCPROW_LH():
-    MIB_TCPROW_LH = win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH_head
-    class MIB_TCPROW_LH__Anonymous_e__Union(Union):
-        pass
-    MIB_TCPROW_LH__Anonymous_e__Union._fields_ = [
-        ('dwState', UInt32),
-        ('State', win32more.NetworkManagement.IpHelper.MIB_TCP_STATE),
-    ]
-    MIB_TCPROW_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_TCPROW_LH._fields_ = [
-        ('Anonymous', MIB_TCPROW_LH__Anonymous_e__Union),
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-    ]
-    return MIB_TCPROW_LH
-def _define_MIB_TCPROW_OWNER_MODULE_head():
-    class MIB_TCPROW_OWNER_MODULE(Structure):
-        pass
-    return MIB_TCPROW_OWNER_MODULE
-def _define_MIB_TCPROW_OWNER_MODULE():
-    MIB_TCPROW_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE_head
-    MIB_TCPROW_OWNER_MODULE._fields_ = [
-        ('dwState', UInt32),
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('OwningModuleInfo', UInt64 * 16),
-    ]
-    return MIB_TCPROW_OWNER_MODULE
-def _define_MIB_TCPROW_OWNER_PID_head():
-    class MIB_TCPROW_OWNER_PID(Structure):
-        pass
-    return MIB_TCPROW_OWNER_PID
-def _define_MIB_TCPROW_OWNER_PID():
-    MIB_TCPROW_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID_head
-    MIB_TCPROW_OWNER_PID._fields_ = [
-        ('dwState', UInt32),
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-        ('dwOwningPid', UInt32),
-    ]
-    return MIB_TCPROW_OWNER_PID
-def _define_MIB_TCPROW_W2K_head():
-    class MIB_TCPROW_W2K(Structure):
-        pass
-    return MIB_TCPROW_W2K
-def _define_MIB_TCPROW_W2K():
-    MIB_TCPROW_W2K = win32more.NetworkManagement.IpHelper.MIB_TCPROW_W2K_head
-    MIB_TCPROW_W2K._fields_ = [
-        ('dwState', UInt32),
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-    ]
-    return MIB_TCPROW_W2K
-def _define_MIB_TCPROW2_head():
-    class MIB_TCPROW2(Structure):
-        pass
-    return MIB_TCPROW2
-def _define_MIB_TCPROW2():
-    MIB_TCPROW2 = win32more.NetworkManagement.IpHelper.MIB_TCPROW2_head
-    MIB_TCPROW2._fields_ = [
-        ('dwState', UInt32),
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('dwOffloadState', win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE),
-    ]
-    return MIB_TCPROW2
-def _define_MIB_TCPSTATS_LH_head():
-    class MIB_TCPSTATS_LH(Structure):
-        pass
-    return MIB_TCPSTATS_LH
-def _define_MIB_TCPSTATS_LH():
-    MIB_TCPSTATS_LH = win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_LH_head
-    class MIB_TCPSTATS_LH__Anonymous_e__Union(Union):
-        pass
-    MIB_TCPSTATS_LH__Anonymous_e__Union._fields_ = [
-        ('dwRtoAlgorithm', UInt32),
-        ('RtoAlgorithm', win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM),
-    ]
-    MIB_TCPSTATS_LH._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_TCPSTATS_LH._fields_ = [
-        ('Anonymous', MIB_TCPSTATS_LH__Anonymous_e__Union),
-        ('dwRtoMin', UInt32),
-        ('dwRtoMax', UInt32),
-        ('dwMaxConn', UInt32),
-        ('dwActiveOpens', UInt32),
-        ('dwPassiveOpens', UInt32),
-        ('dwAttemptFails', UInt32),
-        ('dwEstabResets', UInt32),
-        ('dwCurrEstab', UInt32),
-        ('dwInSegs', UInt32),
-        ('dwOutSegs', UInt32),
-        ('dwRetransSegs', UInt32),
-        ('dwInErrs', UInt32),
-        ('dwOutRsts', UInt32),
-        ('dwNumConns', UInt32),
-    ]
-    return MIB_TCPSTATS_LH
-def _define_MIB_TCPSTATS_W2K_head():
-    class MIB_TCPSTATS_W2K(Structure):
-        pass
-    return MIB_TCPSTATS_W2K
-def _define_MIB_TCPSTATS_W2K():
-    MIB_TCPSTATS_W2K = win32more.NetworkManagement.IpHelper.MIB_TCPSTATS_W2K_head
-    MIB_TCPSTATS_W2K._fields_ = [
-        ('dwRtoAlgorithm', UInt32),
-        ('dwRtoMin', UInt32),
-        ('dwRtoMax', UInt32),
-        ('dwMaxConn', UInt32),
-        ('dwActiveOpens', UInt32),
-        ('dwPassiveOpens', UInt32),
-        ('dwAttemptFails', UInt32),
-        ('dwEstabResets', UInt32),
-        ('dwCurrEstab', UInt32),
-        ('dwInSegs', UInt32),
-        ('dwOutSegs', UInt32),
-        ('dwRetransSegs', UInt32),
-        ('dwInErrs', UInt32),
-        ('dwOutRsts', UInt32),
-        ('dwNumConns', UInt32),
-    ]
-    return MIB_TCPSTATS_W2K
-def _define_MIB_TCPSTATS2_head():
-    class MIB_TCPSTATS2(Structure):
-        pass
-    return MIB_TCPSTATS2
-def _define_MIB_TCPSTATS2():
-    MIB_TCPSTATS2 = win32more.NetworkManagement.IpHelper.MIB_TCPSTATS2_head
-    MIB_TCPSTATS2._fields_ = [
-        ('RtoAlgorithm', win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM),
-        ('dwRtoMin', UInt32),
-        ('dwRtoMax', UInt32),
-        ('dwMaxConn', UInt32),
-        ('dwActiveOpens', UInt32),
-        ('dwPassiveOpens', UInt32),
-        ('dwAttemptFails', UInt32),
-        ('dwEstabResets', UInt32),
-        ('dwCurrEstab', UInt32),
-        ('dw64InSegs', UInt64),
-        ('dw64OutSegs', UInt64),
-        ('dwRetransSegs', UInt32),
-        ('dwInErrs', UInt32),
-        ('dwOutRsts', UInt32),
-        ('dwNumConns', UInt32),
-    ]
-    return MIB_TCPSTATS2
-def _define_MIB_TCPTABLE_head():
-    class MIB_TCPTABLE(Structure):
-        pass
-    return MIB_TCPTABLE
-def _define_MIB_TCPTABLE():
-    MIB_TCPTABLE = win32more.NetworkManagement.IpHelper.MIB_TCPTABLE_head
-    MIB_TCPTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH * 1),
-    ]
-    return MIB_TCPTABLE
-def _define_MIB_TCPTABLE_OWNER_MODULE_head():
-    class MIB_TCPTABLE_OWNER_MODULE(Structure):
-        pass
-    return MIB_TCPTABLE_OWNER_MODULE
-def _define_MIB_TCPTABLE_OWNER_MODULE():
-    MIB_TCPTABLE_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_TCPTABLE_OWNER_MODULE_head
-    MIB_TCPTABLE_OWNER_MODULE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE * 1),
-    ]
-    return MIB_TCPTABLE_OWNER_MODULE
-def _define_MIB_TCPTABLE_OWNER_PID_head():
-    class MIB_TCPTABLE_OWNER_PID(Structure):
-        pass
-    return MIB_TCPTABLE_OWNER_PID
-def _define_MIB_TCPTABLE_OWNER_PID():
-    MIB_TCPTABLE_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_TCPTABLE_OWNER_PID_head
-    MIB_TCPTABLE_OWNER_PID._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID * 1),
-    ]
-    return MIB_TCPTABLE_OWNER_PID
-def _define_MIB_TCPTABLE2_head():
-    class MIB_TCPTABLE2(Structure):
-        pass
-    return MIB_TCPTABLE2
-def _define_MIB_TCPTABLE2():
-    MIB_TCPTABLE2 = win32more.NetworkManagement.IpHelper.MIB_TCPTABLE2_head
-    MIB_TCPTABLE2._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_TCPROW2 * 1),
-    ]
-    return MIB_TCPTABLE2
-def _define_MIB_UDP6ROW_head():
-    class MIB_UDP6ROW(Structure):
-        pass
-    return MIB_UDP6ROW
-def _define_MIB_UDP6ROW():
-    MIB_UDP6ROW = win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_head
-    MIB_UDP6ROW._fields_ = [
-        ('dwLocalAddr', win32more.Networking.WinSock.IN6_ADDR),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-    ]
-    return MIB_UDP6ROW
-def _define_MIB_UDP6ROW_OWNER_MODULE_head():
-    class MIB_UDP6ROW_OWNER_MODULE(Structure):
-        pass
-    return MIB_UDP6ROW_OWNER_MODULE
-def _define_MIB_UDP6ROW_OWNER_MODULE():
-    MIB_UDP6ROW_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE_head
-    class MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union(Union):
-        pass
-    class MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', Int32),
-    ]
-    MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union._fields_ = [
-        ('Anonymous', MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct),
-        ('dwFlags', Int32),
-    ]
-    MIB_UDP6ROW_OWNER_MODULE._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDP6ROW_OWNER_MODULE._fields_ = [
-        ('ucLocalAddr', Byte * 16),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('Anonymous', MIB_UDP6ROW_OWNER_MODULE__Anonymous_e__Union),
-        ('OwningModuleInfo', UInt64 * 16),
-    ]
-    return MIB_UDP6ROW_OWNER_MODULE
-def _define_MIB_UDP6ROW_OWNER_PID_head():
-    class MIB_UDP6ROW_OWNER_PID(Structure):
-        pass
-    return MIB_UDP6ROW_OWNER_PID
-def _define_MIB_UDP6ROW_OWNER_PID():
-    MIB_UDP6ROW_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID_head
-    MIB_UDP6ROW_OWNER_PID._fields_ = [
-        ('ucLocalAddr', Byte * 16),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-    ]
-    return MIB_UDP6ROW_OWNER_PID
-def _define_MIB_UDP6ROW2_head():
-    class MIB_UDP6ROW2(Structure):
-        pass
-    return MIB_UDP6ROW2
-def _define_MIB_UDP6ROW2():
-    MIB_UDP6ROW2 = win32more.NetworkManagement.IpHelper.MIB_UDP6ROW2_head
-    class MIB_UDP6ROW2__Anonymous_e__Union(Union):
-        pass
-    class MIB_UDP6ROW2__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    MIB_UDP6ROW2__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', Int32),
-    ]
-    MIB_UDP6ROW2__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDP6ROW2__Anonymous_e__Union._fields_ = [
-        ('Anonymous', MIB_UDP6ROW2__Anonymous_e__Union__Anonymous_e__Struct),
-        ('dwFlags', Int32),
-    ]
-    MIB_UDP6ROW2._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDP6ROW2._fields_ = [
-        ('ucLocalAddr', Byte * 16),
-        ('dwLocalScopeId', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('Anonymous', MIB_UDP6ROW2__Anonymous_e__Union),
-        ('OwningModuleInfo', UInt64 * 16),
-        ('ucRemoteAddr', Byte * 16),
-        ('dwRemoteScopeId', UInt32),
-        ('dwRemotePort', UInt32),
-    ]
-    return MIB_UDP6ROW2
-def _define_MIB_UDP6TABLE_head():
-    class MIB_UDP6TABLE(Structure):
-        pass
-    return MIB_UDP6TABLE
-def _define_MIB_UDP6TABLE():
-    MIB_UDP6TABLE = win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE_head
-    MIB_UDP6TABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDP6ROW * 1),
-    ]
-    return MIB_UDP6TABLE
-def _define_MIB_UDP6TABLE_OWNER_MODULE_head():
-    class MIB_UDP6TABLE_OWNER_MODULE(Structure):
-        pass
-    return MIB_UDP6TABLE_OWNER_MODULE
-def _define_MIB_UDP6TABLE_OWNER_MODULE():
-    MIB_UDP6TABLE_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE_OWNER_MODULE_head
-    MIB_UDP6TABLE_OWNER_MODULE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE * 1),
-    ]
-    return MIB_UDP6TABLE_OWNER_MODULE
-def _define_MIB_UDP6TABLE_OWNER_PID_head():
-    class MIB_UDP6TABLE_OWNER_PID(Structure):
-        pass
-    return MIB_UDP6TABLE_OWNER_PID
-def _define_MIB_UDP6TABLE_OWNER_PID():
-    MIB_UDP6TABLE_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE_OWNER_PID_head
-    MIB_UDP6TABLE_OWNER_PID._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID * 1),
-    ]
-    return MIB_UDP6TABLE_OWNER_PID
-def _define_MIB_UDP6TABLE2_head():
-    class MIB_UDP6TABLE2(Structure):
-        pass
-    return MIB_UDP6TABLE2
-def _define_MIB_UDP6TABLE2():
-    MIB_UDP6TABLE2 = win32more.NetworkManagement.IpHelper.MIB_UDP6TABLE2_head
-    MIB_UDP6TABLE2._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDP6ROW2 * 1),
-    ]
-    return MIB_UDP6TABLE2
-def _define_MIB_UDPROW_head():
-    class MIB_UDPROW(Structure):
-        pass
-    return MIB_UDPROW
-def _define_MIB_UDPROW():
-    MIB_UDPROW = win32more.NetworkManagement.IpHelper.MIB_UDPROW_head
-    MIB_UDPROW._fields_ = [
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-    ]
-    return MIB_UDPROW
-def _define_MIB_UDPROW_OWNER_MODULE_head():
-    class MIB_UDPROW_OWNER_MODULE(Structure):
-        pass
-    return MIB_UDPROW_OWNER_MODULE
-def _define_MIB_UDPROW_OWNER_MODULE():
-    MIB_UDPROW_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE_head
-    class MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union(Union):
-        pass
-    class MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', Int32),
-    ]
-    MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union._fields_ = [
-        ('Anonymous', MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union__Anonymous_e__Struct),
-        ('dwFlags', Int32),
-    ]
-    MIB_UDPROW_OWNER_MODULE._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDPROW_OWNER_MODULE._fields_ = [
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('Anonymous', MIB_UDPROW_OWNER_MODULE__Anonymous_e__Union),
-        ('OwningModuleInfo', UInt64 * 16),
-    ]
-    return MIB_UDPROW_OWNER_MODULE
-def _define_MIB_UDPROW_OWNER_PID_head():
-    class MIB_UDPROW_OWNER_PID(Structure):
-        pass
-    return MIB_UDPROW_OWNER_PID
-def _define_MIB_UDPROW_OWNER_PID():
-    MIB_UDPROW_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID_head
-    MIB_UDPROW_OWNER_PID._fields_ = [
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-    ]
-    return MIB_UDPROW_OWNER_PID
-def _define_MIB_UDPROW2_head():
-    class MIB_UDPROW2(Structure):
-        pass
-    return MIB_UDPROW2
-def _define_MIB_UDPROW2():
-    MIB_UDPROW2 = win32more.NetworkManagement.IpHelper.MIB_UDPROW2_head
-    class MIB_UDPROW2__Anonymous_e__Union(Union):
-        pass
-    class MIB_UDPROW2__Anonymous_e__Union__Anonymous_e__Struct(Structure):
-        pass
-    MIB_UDPROW2__Anonymous_e__Union__Anonymous_e__Struct._fields_ = [
-        ('_bitfield', Int32),
-    ]
-    MIB_UDPROW2__Anonymous_e__Union._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDPROW2__Anonymous_e__Union._fields_ = [
-        ('Anonymous', MIB_UDPROW2__Anonymous_e__Union__Anonymous_e__Struct),
-        ('dwFlags', Int32),
-    ]
-    MIB_UDPROW2._anonymous_ = [
-        'Anonymous',
-    ]
-    MIB_UDPROW2._fields_ = [
-        ('dwLocalAddr', UInt32),
-        ('dwLocalPort', UInt32),
-        ('dwOwningPid', UInt32),
-        ('liCreateTimestamp', win32more.Foundation.LARGE_INTEGER),
-        ('Anonymous', MIB_UDPROW2__Anonymous_e__Union),
-        ('OwningModuleInfo', UInt64 * 16),
-        ('dwRemoteAddr', UInt32),
-        ('dwRemotePort', UInt32),
-    ]
-    return MIB_UDPROW2
-def _define_MIB_UDPSTATS_head():
-    class MIB_UDPSTATS(Structure):
-        pass
-    return MIB_UDPSTATS
-def _define_MIB_UDPSTATS():
-    MIB_UDPSTATS = win32more.NetworkManagement.IpHelper.MIB_UDPSTATS_head
-    MIB_UDPSTATS._fields_ = [
-        ('dwInDatagrams', UInt32),
-        ('dwNoPorts', UInt32),
-        ('dwInErrors', UInt32),
-        ('dwOutDatagrams', UInt32),
-        ('dwNumAddrs', UInt32),
-    ]
-    return MIB_UDPSTATS
-def _define_MIB_UDPSTATS2_head():
-    class MIB_UDPSTATS2(Structure):
-        pass
-    return MIB_UDPSTATS2
-def _define_MIB_UDPSTATS2():
-    MIB_UDPSTATS2 = win32more.NetworkManagement.IpHelper.MIB_UDPSTATS2_head
-    MIB_UDPSTATS2._fields_ = [
-        ('dw64InDatagrams', UInt64),
-        ('dwNoPorts', UInt32),
-        ('dwInErrors', UInt32),
-        ('dw64OutDatagrams', UInt64),
-        ('dwNumAddrs', UInt32),
-    ]
-    return MIB_UDPSTATS2
-def _define_MIB_UDPTABLE_head():
-    class MIB_UDPTABLE(Structure):
-        pass
-    return MIB_UDPTABLE
-def _define_MIB_UDPTABLE():
-    MIB_UDPTABLE = win32more.NetworkManagement.IpHelper.MIB_UDPTABLE_head
-    MIB_UDPTABLE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDPROW * 1),
-    ]
-    return MIB_UDPTABLE
-def _define_MIB_UDPTABLE_OWNER_MODULE_head():
-    class MIB_UDPTABLE_OWNER_MODULE(Structure):
-        pass
-    return MIB_UDPTABLE_OWNER_MODULE
-def _define_MIB_UDPTABLE_OWNER_MODULE():
-    MIB_UDPTABLE_OWNER_MODULE = win32more.NetworkManagement.IpHelper.MIB_UDPTABLE_OWNER_MODULE_head
-    MIB_UDPTABLE_OWNER_MODULE._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE * 1),
-    ]
-    return MIB_UDPTABLE_OWNER_MODULE
-def _define_MIB_UDPTABLE_OWNER_PID_head():
-    class MIB_UDPTABLE_OWNER_PID(Structure):
-        pass
-    return MIB_UDPTABLE_OWNER_PID
-def _define_MIB_UDPTABLE_OWNER_PID():
-    MIB_UDPTABLE_OWNER_PID = win32more.NetworkManagement.IpHelper.MIB_UDPTABLE_OWNER_PID_head
-    MIB_UDPTABLE_OWNER_PID._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID * 1),
-    ]
-    return MIB_UDPTABLE_OWNER_PID
-def _define_MIB_UDPTABLE2_head():
-    class MIB_UDPTABLE2(Structure):
-        pass
-    return MIB_UDPTABLE2
-def _define_MIB_UDPTABLE2():
-    MIB_UDPTABLE2 = win32more.NetworkManagement.IpHelper.MIB_UDPTABLE2_head
-    MIB_UDPTABLE2._fields_ = [
-        ('dwNumEntries', UInt32),
-        ('table', win32more.NetworkManagement.IpHelper.MIB_UDPROW2 * 1),
-    ]
-    return MIB_UDPTABLE2
-def _define_MIB_UNICASTIPADDRESS_ROW_head():
-    class MIB_UNICASTIPADDRESS_ROW(Structure):
-        pass
-    return MIB_UNICASTIPADDRESS_ROW
-def _define_MIB_UNICASTIPADDRESS_ROW():
-    MIB_UNICASTIPADDRESS_ROW = win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head
-    MIB_UNICASTIPADDRESS_ROW._fields_ = [
-        ('Address', win32more.Networking.WinSock.SOCKADDR_INET),
-        ('InterfaceLuid', win32more.NetworkManagement.Ndis.NET_LUID_LH),
-        ('InterfaceIndex', UInt32),
-        ('PrefixOrigin', win32more.Networking.WinSock.NL_PREFIX_ORIGIN),
-        ('SuffixOrigin', win32more.Networking.WinSock.NL_SUFFIX_ORIGIN),
-        ('ValidLifetime', UInt32),
-        ('PreferredLifetime', UInt32),
-        ('OnLinkPrefixLength', Byte),
-        ('SkipAsSource', win32more.Foundation.BOOLEAN),
-        ('DadState', win32more.Networking.WinSock.NL_DAD_STATE),
-        ('ScopeId', win32more.Networking.WinSock.SCOPE_ID),
-        ('CreationTimeStamp', win32more.Foundation.LARGE_INTEGER),
-    ]
-    return MIB_UNICASTIPADDRESS_ROW
-def _define_MIB_UNICASTIPADDRESS_TABLE_head():
-    class MIB_UNICASTIPADDRESS_TABLE(Structure):
-        pass
-    return MIB_UNICASTIPADDRESS_TABLE
-def _define_MIB_UNICASTIPADDRESS_TABLE():
-    MIB_UNICASTIPADDRESS_TABLE = win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head
-    MIB_UNICASTIPADDRESS_TABLE._fields_ = [
-        ('NumEntries', UInt32),
-        ('Table', win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW * 1),
-    ]
-    return MIB_UNICASTIPADDRESS_TABLE
-def _define_MIBICMPINFO_head():
-    class MIBICMPINFO(Structure):
-        pass
-    return MIBICMPINFO
-def _define_MIBICMPINFO():
-    MIBICMPINFO = win32more.NetworkManagement.IpHelper.MIBICMPINFO_head
-    MIBICMPINFO._fields_ = [
-        ('icmpInStats', win32more.NetworkManagement.IpHelper.MIBICMPSTATS),
-        ('icmpOutStats', win32more.NetworkManagement.IpHelper.MIBICMPSTATS),
-    ]
-    return MIBICMPINFO
-def _define_MIBICMPSTATS_head():
-    class MIBICMPSTATS(Structure):
-        pass
-    return MIBICMPSTATS
-def _define_MIBICMPSTATS():
-    MIBICMPSTATS = win32more.NetworkManagement.IpHelper.MIBICMPSTATS_head
-    MIBICMPSTATS._fields_ = [
-        ('dwMsgs', UInt32),
-        ('dwErrors', UInt32),
-        ('dwDestUnreachs', UInt32),
-        ('dwTimeExcds', UInt32),
-        ('dwParmProbs', UInt32),
-        ('dwSrcQuenchs', UInt32),
-        ('dwRedirects', UInt32),
-        ('dwEchos', UInt32),
-        ('dwEchoReps', UInt32),
-        ('dwTimestamps', UInt32),
-        ('dwTimestampReps', UInt32),
-        ('dwAddrMasks', UInt32),
-        ('dwAddrMaskReps', UInt32),
-    ]
-    return MIBICMPSTATS
-def _define_MIBICMPSTATS_EX_XPSP1_head():
-    class MIBICMPSTATS_EX_XPSP1(Structure):
-        pass
-    return MIBICMPSTATS_EX_XPSP1
-def _define_MIBICMPSTATS_EX_XPSP1():
-    MIBICMPSTATS_EX_XPSP1 = win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1_head
-    MIBICMPSTATS_EX_XPSP1._fields_ = [
-        ('dwMsgs', UInt32),
-        ('dwErrors', UInt32),
-        ('rgdwTypeCount', UInt32 * 256),
-    ]
-    return MIBICMPSTATS_EX_XPSP1
+MIB_TCP_STATE_CLOSED: MIB_TCP_STATE = 1
+MIB_TCP_STATE_LISTEN: MIB_TCP_STATE = 2
+MIB_TCP_STATE_SYN_SENT: MIB_TCP_STATE = 3
+MIB_TCP_STATE_SYN_RCVD: MIB_TCP_STATE = 4
+MIB_TCP_STATE_ESTAB: MIB_TCP_STATE = 5
+MIB_TCP_STATE_FIN_WAIT1: MIB_TCP_STATE = 6
+MIB_TCP_STATE_FIN_WAIT2: MIB_TCP_STATE = 7
+MIB_TCP_STATE_CLOSE_WAIT: MIB_TCP_STATE = 8
+MIB_TCP_STATE_CLOSING: MIB_TCP_STATE = 9
+MIB_TCP_STATE_LAST_ACK: MIB_TCP_STATE = 10
+MIB_TCP_STATE_TIME_WAIT: MIB_TCP_STATE = 11
+MIB_TCP_STATE_DELETE_TCB: MIB_TCP_STATE = 12
+MIB_TCP_STATE_RESERVED: MIB_TCP_STATE = 100
+class MIB_TCP6ROW(Structure):
+    State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
+    LocalAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    RemoteAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+class MIB_TCP6ROW_OWNER_MODULE(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    ucRemoteAddr: Byte * 16
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    dwState: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    OwningModuleInfo: UInt64 * 16
+class MIB_TCP6ROW_OWNER_PID(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    ucRemoteAddr: Byte * 16
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    dwState: UInt32
+    dwOwningPid: UInt32
+class MIB_TCP6ROW2(Structure):
+    LocalAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    RemoteAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
+    dwOwningPid: UInt32
+    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
+class MIB_TCP6TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW * 1
+class MIB_TCP6TABLE_OWNER_MODULE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE * 1
+class MIB_TCP6TABLE_OWNER_PID(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID * 1
+class MIB_TCP6TABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW2 * 1
+class MIB_TCPROW_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    class _Anonymous_e__Union(Union):
+        dwState: UInt32
+        State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
+class MIB_TCPROW_OWNER_MODULE(Structure):
+    dwState: UInt32
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    OwningModuleInfo: UInt64 * 16
+class MIB_TCPROW_OWNER_PID(Structure):
+    dwState: UInt32
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    dwOwningPid: UInt32
+class MIB_TCPROW_W2K(Structure):
+    dwState: UInt32
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+class MIB_TCPROW2(Structure):
+    dwState: UInt32
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    dwOwningPid: UInt32
+    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
+class MIB_TCPSTATS_LH(Structure):
+    Anonymous: _Anonymous_e__Union
+    dwRtoMin: UInt32
+    dwRtoMax: UInt32
+    dwMaxConn: UInt32
+    dwActiveOpens: UInt32
+    dwPassiveOpens: UInt32
+    dwAttemptFails: UInt32
+    dwEstabResets: UInt32
+    dwCurrEstab: UInt32
+    dwInSegs: UInt32
+    dwOutSegs: UInt32
+    dwRetransSegs: UInt32
+    dwInErrs: UInt32
+    dwOutRsts: UInt32
+    dwNumConns: UInt32
+    class _Anonymous_e__Union(Union):
+        dwRtoAlgorithm: UInt32
+        RtoAlgorithm: win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM
+class MIB_TCPSTATS_W2K(Structure):
+    dwRtoAlgorithm: UInt32
+    dwRtoMin: UInt32
+    dwRtoMax: UInt32
+    dwMaxConn: UInt32
+    dwActiveOpens: UInt32
+    dwPassiveOpens: UInt32
+    dwAttemptFails: UInt32
+    dwEstabResets: UInt32
+    dwCurrEstab: UInt32
+    dwInSegs: UInt32
+    dwOutSegs: UInt32
+    dwRetransSegs: UInt32
+    dwInErrs: UInt32
+    dwOutRsts: UInt32
+    dwNumConns: UInt32
+class MIB_TCPSTATS2(Structure):
+    RtoAlgorithm: win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM
+    dwRtoMin: UInt32
+    dwRtoMax: UInt32
+    dwMaxConn: UInt32
+    dwActiveOpens: UInt32
+    dwPassiveOpens: UInt32
+    dwAttemptFails: UInt32
+    dwEstabResets: UInt32
+    dwCurrEstab: UInt32
+    dw64InSegs: UInt64
+    dw64OutSegs: UInt64
+    dwRetransSegs: UInt32
+    dwInErrs: UInt32
+    dwOutRsts: UInt32
+    dwNumConns: UInt32
+class MIB_TCPTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH * 1
+class MIB_TCPTABLE_OWNER_MODULE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE * 1
+class MIB_TCPTABLE_OWNER_PID(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID * 1
+class MIB_TCPTABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW2 * 1
+class MIB_UDP6ROW(Structure):
+    dwLocalAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+class MIB_UDP6ROW_OWNER_MODULE(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
+class MIB_UDP6ROW_OWNER_PID(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+class MIB_UDP6ROW2(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    ucRemoteAddr: Byte * 16
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
+class MIB_UDP6TABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW * 1
+class MIB_UDP6TABLE_OWNER_MODULE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE * 1
+class MIB_UDP6TABLE_OWNER_PID(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID * 1
+class MIB_UDP6TABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW2 * 1
+class MIB_UDPROW(Structure):
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+class MIB_UDPROW_OWNER_MODULE(Structure):
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
+class MIB_UDPROW_OWNER_PID(Structure):
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+class MIB_UDPROW2(Structure):
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
+class MIB_UDPSTATS(Structure):
+    dwInDatagrams: UInt32
+    dwNoPorts: UInt32
+    dwInErrors: UInt32
+    dwOutDatagrams: UInt32
+    dwNumAddrs: UInt32
+class MIB_UDPSTATS2(Structure):
+    dw64InDatagrams: UInt64
+    dwNoPorts: UInt32
+    dwInErrors: UInt32
+    dw64OutDatagrams: UInt64
+    dwNumAddrs: UInt32
+class MIB_UDPTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW * 1
+class MIB_UDPTABLE_OWNER_MODULE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE * 1
+class MIB_UDPTABLE_OWNER_PID(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID * 1
+class MIB_UDPTABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW2 * 1
+class MIB_UNICASTIPADDRESS_ROW(Structure):
+    Address: win32more.Networking.WinSock.SOCKADDR_INET
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    PrefixOrigin: win32more.Networking.WinSock.NL_PREFIX_ORIGIN
+    SuffixOrigin: win32more.Networking.WinSock.NL_SUFFIX_ORIGIN
+    ValidLifetime: UInt32
+    PreferredLifetime: UInt32
+    OnLinkPrefixLength: Byte
+    SkipAsSource: win32more.Foundation.BOOLEAN
+    DadState: win32more.Networking.WinSock.NL_DAD_STATE
+    ScopeId: win32more.Networking.WinSock.SCOPE_ID
+    CreationTimeStamp: win32more.Foundation.LARGE_INTEGER
+class MIB_UNICASTIPADDRESS_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW * 1
+class MIBICMPINFO(Structure):
+    icmpInStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
+    icmpOutStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
+class MIBICMPSTATS(Structure):
+    dwMsgs: UInt32
+    dwErrors: UInt32
+    dwDestUnreachs: UInt32
+    dwTimeExcds: UInt32
+    dwParmProbs: UInt32
+    dwSrcQuenchs: UInt32
+    dwRedirects: UInt32
+    dwEchos: UInt32
+    dwEchoReps: UInt32
+    dwTimestamps: UInt32
+    dwTimestampReps: UInt32
+    dwAddrMasks: UInt32
+    dwAddrMaskReps: UInt32
+class MIBICMPSTATS_EX_XPSP1(Structure):
+    dwMsgs: UInt32
+    dwErrors: UInt32
+    rgdwTypeCount: UInt32 * 256
 NET_ADDRESS_FORMAT = Int32
-NET_ADDRESS_FORMAT_UNSPECIFIED = 0
-NET_ADDRESS_DNS_NAME = 1
-NET_ADDRESS_IPV4 = 2
-NET_ADDRESS_IPV6 = 3
-def _define_PF_FILTER_DESCRIPTOR_head():
-    class PF_FILTER_DESCRIPTOR(Structure):
-        pass
-    return PF_FILTER_DESCRIPTOR
-def _define_PF_FILTER_DESCRIPTOR():
-    PF_FILTER_DESCRIPTOR = win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR_head
-    PF_FILTER_DESCRIPTOR._fields_ = [
-        ('dwFilterFlags', UInt32),
-        ('dwRule', UInt32),
-        ('pfatType', win32more.NetworkManagement.IpHelper.PFADDRESSTYPE),
-        ('SrcAddr', c_char_p_no),
-        ('SrcMask', c_char_p_no),
-        ('DstAddr', c_char_p_no),
-        ('DstMask', c_char_p_no),
-        ('dwProtocol', UInt32),
-        ('fLateBound', UInt32),
-        ('wSrcPort', UInt16),
-        ('wDstPort', UInt16),
-        ('wSrcPortHighRange', UInt16),
-        ('wDstPortHighRange', UInt16),
-    ]
-    return PF_FILTER_DESCRIPTOR
-def _define_PF_FILTER_STATS_head():
-    class PF_FILTER_STATS(Structure):
-        pass
-    return PF_FILTER_STATS
-def _define_PF_FILTER_STATS():
-    PF_FILTER_STATS = win32more.NetworkManagement.IpHelper.PF_FILTER_STATS_head
-    PF_FILTER_STATS._fields_ = [
-        ('dwNumPacketsFiltered', UInt32),
-        ('info', win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR),
-    ]
-    return PF_FILTER_STATS
-def _define_PF_INTERFACE_STATS_head():
-    class PF_INTERFACE_STATS(Structure):
-        pass
-    return PF_INTERFACE_STATS
-def _define_PF_INTERFACE_STATS():
-    PF_INTERFACE_STATS = win32more.NetworkManagement.IpHelper.PF_INTERFACE_STATS_head
-    PF_INTERFACE_STATS._fields_ = [
-        ('pvDriverContext', c_void_p),
-        ('dwFlags', UInt32),
-        ('dwInDrops', UInt32),
-        ('dwOutDrops', UInt32),
-        ('eaInAction', win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION),
-        ('eaOutAction', win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION),
-        ('dwNumInFilters', UInt32),
-        ('dwNumOutFilters', UInt32),
-        ('dwFrag', UInt32),
-        ('dwSpoof', UInt32),
-        ('dwReserved1', UInt32),
-        ('dwReserved2', UInt32),
-        ('liSYN', win32more.Foundation.LARGE_INTEGER),
-        ('liTotalLogged', win32more.Foundation.LARGE_INTEGER),
-        ('dwLostLogEntries', UInt32),
-        ('FilterInfo', win32more.NetworkManagement.IpHelper.PF_FILTER_STATS * 1),
-    ]
-    return PF_INTERFACE_STATS
-def _define_PF_LATEBIND_INFO_head():
-    class PF_LATEBIND_INFO(Structure):
-        pass
-    return PF_LATEBIND_INFO
-def _define_PF_LATEBIND_INFO():
-    PF_LATEBIND_INFO = win32more.NetworkManagement.IpHelper.PF_LATEBIND_INFO_head
-    PF_LATEBIND_INFO._fields_ = [
-        ('SrcAddr', c_char_p_no),
-        ('DstAddr', c_char_p_no),
-        ('Mask', c_char_p_no),
-    ]
-    return PF_LATEBIND_INFO
+NET_ADDRESS_FORMAT_UNSPECIFIED: NET_ADDRESS_FORMAT = 0
+NET_ADDRESS_DNS_NAME: NET_ADDRESS_FORMAT = 1
+NET_ADDRESS_IPV4: NET_ADDRESS_FORMAT = 2
+NET_ADDRESS_IPV6: NET_ADDRESS_FORMAT = 3
+class PF_FILTER_DESCRIPTOR(Structure):
+    dwFilterFlags: UInt32
+    dwRule: UInt32
+    pfatType: win32more.NetworkManagement.IpHelper.PFADDRESSTYPE
+    SrcAddr: c_char_p_no
+    SrcMask: c_char_p_no
+    DstAddr: c_char_p_no
+    DstMask: c_char_p_no
+    dwProtocol: UInt32
+    fLateBound: UInt32
+    wSrcPort: UInt16
+    wDstPort: UInt16
+    wSrcPortHighRange: UInt16
+    wDstPortHighRange: UInt16
+class PF_FILTER_STATS(Structure):
+    dwNumPacketsFiltered: UInt32
+    info: win32more.NetworkManagement.IpHelper.PF_FILTER_DESCRIPTOR
+class PF_INTERFACE_STATS(Structure):
+    pvDriverContext: c_void_p
+    dwFlags: UInt32
+    dwInDrops: UInt32
+    dwOutDrops: UInt32
+    eaInAction: win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION
+    eaOutAction: win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION
+    dwNumInFilters: UInt32
+    dwNumOutFilters: UInt32
+    dwFrag: UInt32
+    dwSpoof: UInt32
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+    liSYN: win32more.Foundation.LARGE_INTEGER
+    liTotalLogged: win32more.Foundation.LARGE_INTEGER
+    dwLostLogEntries: UInt32
+    FilterInfo: win32more.NetworkManagement.IpHelper.PF_FILTER_STATS * 1
+class PF_LATEBIND_INFO(Structure):
+    SrcAddr: c_char_p_no
+    DstAddr: c_char_p_no
+    Mask: c_char_p_no
 PFADDRESSTYPE = Int32
-PF_IPV4 = 0
-PF_IPV6 = 1
+PF_IPV4: PFADDRESSTYPE = 0
+PF_IPV6: PFADDRESSTYPE = 1
 PFFORWARD_ACTION = Int32
-PF_ACTION_FORWARD = 0
-PF_ACTION_DROP = 1
+PF_ACTION_FORWARD: PFFORWARD_ACTION = 0
+PF_ACTION_DROP: PFFORWARD_ACTION = 1
 PFFRAMETYPE = Int32
-PFFT_FILTER = 1
-PFFT_FRAG = 2
-PFFT_SPOOF = 3
-def _define_PFLOGFRAME_head():
-    class PFLOGFRAME(Structure):
-        pass
-    return PFLOGFRAME
-def _define_PFLOGFRAME():
-    PFLOGFRAME = win32more.NetworkManagement.IpHelper.PFLOGFRAME_head
-    PFLOGFRAME._fields_ = [
-        ('Timestamp', win32more.Foundation.LARGE_INTEGER),
-        ('pfeTypeOfFrame', win32more.NetworkManagement.IpHelper.PFFRAMETYPE),
-        ('dwTotalSizeUsed', UInt32),
-        ('dwFilterRule', UInt32),
-        ('wSizeOfAdditionalData', UInt16),
-        ('wSizeOfIpHeader', UInt16),
-        ('dwInterfaceName', UInt32),
-        ('dwIPIndex', UInt32),
-        ('bPacketData', Byte * 1),
-    ]
-    return PFLOGFRAME
-def _define_PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p)
-def _define_PIPFORWARD_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head),win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE)
-def _define_PIPINTERFACE_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head),win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE)
-def _define_PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT)
-def _define_PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head))
-def _define_PTEREDO_PORT_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,UInt16,win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE)
-def _define_PUNICAST_IPADDRESS_CHANGE_CALLBACK():
-    return WINFUNCTYPE(Void,c_void_p,POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head),win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE)
+PFFT_FILTER: PFFRAMETYPE = 1
+PFFT_FRAG: PFFRAMETYPE = 2
+PFFT_SPOOF: PFFRAMETYPE = 3
+class PFLOGFRAME(Structure):
+    Timestamp: win32more.Foundation.LARGE_INTEGER
+    pfeTypeOfFrame: win32more.NetworkManagement.IpHelper.PFFRAMETYPE
+    dwTotalSizeUsed: UInt32
+    dwFilterRule: UInt32
+    wSizeOfAdditionalData: UInt16
+    wSizeOfIpHeader: UInt16
+    dwInterfaceName: UInt32
+    dwIPIndex: UInt32
+    bPacketData: Byte * 1
+@winfunctype_pointer
+def PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK(CallerContext: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PIPFORWARD_CHANGE_CALLBACK(CallerContext: c_void_p, Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2_head), NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
+@winfunctype_pointer
+def PIPINTERFACE_CHANGE_CALLBACK(CallerContext: c_void_p, Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW_head), NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
+@winfunctype_pointer
+def PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK(CallerContext: c_void_p, ConnectivityHint: win32more.Networking.WinSock.NL_NETWORK_CONNECTIVITY_HINT) -> Void: ...
+@winfunctype_pointer
+def PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK(CallerContext: c_void_p, AddressTable: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_TABLE_head)) -> Void: ...
+@winfunctype_pointer
+def PTEREDO_PORT_CHANGE_CALLBACK(CallerContext: c_void_p, Port: UInt16, NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
+@winfunctype_pointer
+def PUNICAST_IPADDRESS_CHANGE_CALLBACK(CallerContext: c_void_p, Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head), NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
 TCP_BOOLEAN_OPTIONAL = Int32
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptDisabled = 0
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptEnabled = 1
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptUnchanged = -1
+TCP_BOOLEAN_OPTIONAL_TcpBoolOptDisabled: TCP_BOOLEAN_OPTIONAL = 0
+TCP_BOOLEAN_OPTIONAL_TcpBoolOptEnabled: TCP_BOOLEAN_OPTIONAL = 1
+TCP_BOOLEAN_OPTIONAL_TcpBoolOptUnchanged: TCP_BOOLEAN_OPTIONAL = -1
 TCP_CONNECTION_OFFLOAD_STATE = Int32
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateInHost = 0
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloading = 1
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloaded = 2
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateUploading = 3
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateMax = 4
-def _define_TCP_ESTATS_BANDWIDTH_ROD_v0_head():
-    class TCP_ESTATS_BANDWIDTH_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_BANDWIDTH_ROD_v0
-def _define_TCP_ESTATS_BANDWIDTH_ROD_v0():
-    TCP_ESTATS_BANDWIDTH_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_BANDWIDTH_ROD_v0_head
-    TCP_ESTATS_BANDWIDTH_ROD_v0._fields_ = [
-        ('OutboundBandwidth', UInt64),
-        ('InboundBandwidth', UInt64),
-        ('OutboundInstability', UInt64),
-        ('InboundInstability', UInt64),
-        ('OutboundBandwidthPeaked', win32more.Foundation.BOOLEAN),
-        ('InboundBandwidthPeaked', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_BANDWIDTH_ROD_v0
-def _define_TCP_ESTATS_BANDWIDTH_RW_v0_head():
-    class TCP_ESTATS_BANDWIDTH_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_BANDWIDTH_RW_v0
-def _define_TCP_ESTATS_BANDWIDTH_RW_v0():
-    TCP_ESTATS_BANDWIDTH_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_BANDWIDTH_RW_v0_head
-    TCP_ESTATS_BANDWIDTH_RW_v0._fields_ = [
-        ('EnableCollectionOutbound', win32more.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL),
-        ('EnableCollectionInbound', win32more.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL),
-    ]
-    return TCP_ESTATS_BANDWIDTH_RW_v0
-def _define_TCP_ESTATS_DATA_ROD_v0_head():
-    class TCP_ESTATS_DATA_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_DATA_ROD_v0
-def _define_TCP_ESTATS_DATA_ROD_v0():
-    TCP_ESTATS_DATA_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_DATA_ROD_v0_head
-    TCP_ESTATS_DATA_ROD_v0._fields_ = [
-        ('DataBytesOut', UInt64),
-        ('DataSegsOut', UInt64),
-        ('DataBytesIn', UInt64),
-        ('DataSegsIn', UInt64),
-        ('SegsOut', UInt64),
-        ('SegsIn', UInt64),
-        ('SoftErrors', UInt32),
-        ('SoftErrorReason', UInt32),
-        ('SndUna', UInt32),
-        ('SndNxt', UInt32),
-        ('SndMax', UInt32),
-        ('ThruBytesAcked', UInt64),
-        ('RcvNxt', UInt32),
-        ('ThruBytesReceived', UInt64),
-    ]
-    return TCP_ESTATS_DATA_ROD_v0
-def _define_TCP_ESTATS_DATA_RW_v0_head():
-    class TCP_ESTATS_DATA_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_DATA_RW_v0
-def _define_TCP_ESTATS_DATA_RW_v0():
-    TCP_ESTATS_DATA_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_DATA_RW_v0_head
-    TCP_ESTATS_DATA_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_DATA_RW_v0
-def _define_TCP_ESTATS_FINE_RTT_ROD_v0_head():
-    class TCP_ESTATS_FINE_RTT_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_FINE_RTT_ROD_v0
-def _define_TCP_ESTATS_FINE_RTT_ROD_v0():
-    TCP_ESTATS_FINE_RTT_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_FINE_RTT_ROD_v0_head
-    TCP_ESTATS_FINE_RTT_ROD_v0._fields_ = [
-        ('RttVar', UInt32),
-        ('MaxRtt', UInt32),
-        ('MinRtt', UInt32),
-        ('SumRtt', UInt32),
-    ]
-    return TCP_ESTATS_FINE_RTT_ROD_v0
-def _define_TCP_ESTATS_FINE_RTT_RW_v0_head():
-    class TCP_ESTATS_FINE_RTT_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_FINE_RTT_RW_v0
-def _define_TCP_ESTATS_FINE_RTT_RW_v0():
-    TCP_ESTATS_FINE_RTT_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_FINE_RTT_RW_v0_head
-    TCP_ESTATS_FINE_RTT_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_FINE_RTT_RW_v0
-def _define_TCP_ESTATS_OBS_REC_ROD_v0_head():
-    class TCP_ESTATS_OBS_REC_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_OBS_REC_ROD_v0
-def _define_TCP_ESTATS_OBS_REC_ROD_v0():
-    TCP_ESTATS_OBS_REC_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_OBS_REC_ROD_v0_head
-    TCP_ESTATS_OBS_REC_ROD_v0._fields_ = [
-        ('CurRwinRcvd', UInt32),
-        ('MaxRwinRcvd', UInt32),
-        ('MinRwinRcvd', UInt32),
-        ('WinScaleRcvd', Byte),
-    ]
-    return TCP_ESTATS_OBS_REC_ROD_v0
-def _define_TCP_ESTATS_OBS_REC_RW_v0_head():
-    class TCP_ESTATS_OBS_REC_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_OBS_REC_RW_v0
-def _define_TCP_ESTATS_OBS_REC_RW_v0():
-    TCP_ESTATS_OBS_REC_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_OBS_REC_RW_v0_head
-    TCP_ESTATS_OBS_REC_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_OBS_REC_RW_v0
-def _define_TCP_ESTATS_PATH_ROD_v0_head():
-    class TCP_ESTATS_PATH_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_PATH_ROD_v0
-def _define_TCP_ESTATS_PATH_ROD_v0():
-    TCP_ESTATS_PATH_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_PATH_ROD_v0_head
-    TCP_ESTATS_PATH_ROD_v0._fields_ = [
-        ('FastRetran', UInt32),
-        ('Timeouts', UInt32),
-        ('SubsequentTimeouts', UInt32),
-        ('CurTimeoutCount', UInt32),
-        ('AbruptTimeouts', UInt32),
-        ('PktsRetrans', UInt32),
-        ('BytesRetrans', UInt32),
-        ('DupAcksIn', UInt32),
-        ('SacksRcvd', UInt32),
-        ('SackBlocksRcvd', UInt32),
-        ('CongSignals', UInt32),
-        ('PreCongSumCwnd', UInt32),
-        ('PreCongSumRtt', UInt32),
-        ('PostCongSumRtt', UInt32),
-        ('PostCongCountRtt', UInt32),
-        ('EcnSignals', UInt32),
-        ('EceRcvd', UInt32),
-        ('SendStall', UInt32),
-        ('QuenchRcvd', UInt32),
-        ('RetranThresh', UInt32),
-        ('SndDupAckEpisodes', UInt32),
-        ('SumBytesReordered', UInt32),
-        ('NonRecovDa', UInt32),
-        ('NonRecovDaEpisodes', UInt32),
-        ('AckAfterFr', UInt32),
-        ('DsackDups', UInt32),
-        ('SampleRtt', UInt32),
-        ('SmoothedRtt', UInt32),
-        ('RttVar', UInt32),
-        ('MaxRtt', UInt32),
-        ('MinRtt', UInt32),
-        ('SumRtt', UInt32),
-        ('CountRtt', UInt32),
-        ('CurRto', UInt32),
-        ('MaxRto', UInt32),
-        ('MinRto', UInt32),
-        ('CurMss', UInt32),
-        ('MaxMss', UInt32),
-        ('MinMss', UInt32),
-        ('SpuriousRtoDetections', UInt32),
-    ]
-    return TCP_ESTATS_PATH_ROD_v0
-def _define_TCP_ESTATS_PATH_RW_v0_head():
-    class TCP_ESTATS_PATH_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_PATH_RW_v0
-def _define_TCP_ESTATS_PATH_RW_v0():
-    TCP_ESTATS_PATH_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_PATH_RW_v0_head
-    TCP_ESTATS_PATH_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_PATH_RW_v0
-def _define_TCP_ESTATS_REC_ROD_v0_head():
-    class TCP_ESTATS_REC_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_REC_ROD_v0
-def _define_TCP_ESTATS_REC_ROD_v0():
-    TCP_ESTATS_REC_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_REC_ROD_v0_head
-    TCP_ESTATS_REC_ROD_v0._fields_ = [
-        ('CurRwinSent', UInt32),
-        ('MaxRwinSent', UInt32),
-        ('MinRwinSent', UInt32),
-        ('LimRwin', UInt32),
-        ('DupAckEpisodes', UInt32),
-        ('DupAcksOut', UInt32),
-        ('CeRcvd', UInt32),
-        ('EcnSent', UInt32),
-        ('EcnNoncesRcvd', UInt32),
-        ('CurReasmQueue', UInt32),
-        ('MaxReasmQueue', UInt32),
-        ('CurAppRQueue', UIntPtr),
-        ('MaxAppRQueue', UIntPtr),
-        ('WinScaleSent', Byte),
-    ]
-    return TCP_ESTATS_REC_ROD_v0
-def _define_TCP_ESTATS_REC_RW_v0_head():
-    class TCP_ESTATS_REC_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_REC_RW_v0
-def _define_TCP_ESTATS_REC_RW_v0():
-    TCP_ESTATS_REC_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_REC_RW_v0_head
-    TCP_ESTATS_REC_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_REC_RW_v0
-def _define_TCP_ESTATS_SEND_BUFF_ROD_v0_head():
-    class TCP_ESTATS_SEND_BUFF_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_SEND_BUFF_ROD_v0
-def _define_TCP_ESTATS_SEND_BUFF_ROD_v0():
-    TCP_ESTATS_SEND_BUFF_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SEND_BUFF_ROD_v0_head
-    TCP_ESTATS_SEND_BUFF_ROD_v0._fields_ = [
-        ('CurRetxQueue', UIntPtr),
-        ('MaxRetxQueue', UIntPtr),
-        ('CurAppWQueue', UIntPtr),
-        ('MaxAppWQueue', UIntPtr),
-    ]
-    return TCP_ESTATS_SEND_BUFF_ROD_v0
-def _define_TCP_ESTATS_SEND_BUFF_RW_v0_head():
-    class TCP_ESTATS_SEND_BUFF_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_SEND_BUFF_RW_v0
-def _define_TCP_ESTATS_SEND_BUFF_RW_v0():
-    TCP_ESTATS_SEND_BUFF_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SEND_BUFF_RW_v0_head
-    TCP_ESTATS_SEND_BUFF_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_SEND_BUFF_RW_v0
-def _define_TCP_ESTATS_SND_CONG_ROD_v0_head():
-    class TCP_ESTATS_SND_CONG_ROD_v0(Structure):
-        pass
-    return TCP_ESTATS_SND_CONG_ROD_v0
-def _define_TCP_ESTATS_SND_CONG_ROD_v0():
-    TCP_ESTATS_SND_CONG_ROD_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SND_CONG_ROD_v0_head
-    TCP_ESTATS_SND_CONG_ROD_v0._fields_ = [
-        ('SndLimTransRwin', UInt32),
-        ('SndLimTimeRwin', UInt32),
-        ('SndLimBytesRwin', UIntPtr),
-        ('SndLimTransCwnd', UInt32),
-        ('SndLimTimeCwnd', UInt32),
-        ('SndLimBytesCwnd', UIntPtr),
-        ('SndLimTransSnd', UInt32),
-        ('SndLimTimeSnd', UInt32),
-        ('SndLimBytesSnd', UIntPtr),
-        ('SlowStart', UInt32),
-        ('CongAvoid', UInt32),
-        ('OtherReductions', UInt32),
-        ('CurCwnd', UInt32),
-        ('MaxSsCwnd', UInt32),
-        ('MaxCaCwnd', UInt32),
-        ('CurSsthresh', UInt32),
-        ('MaxSsthresh', UInt32),
-        ('MinSsthresh', UInt32),
-    ]
-    return TCP_ESTATS_SND_CONG_ROD_v0
-def _define_TCP_ESTATS_SND_CONG_ROS_v0_head():
-    class TCP_ESTATS_SND_CONG_ROS_v0(Structure):
-        pass
-    return TCP_ESTATS_SND_CONG_ROS_v0
-def _define_TCP_ESTATS_SND_CONG_ROS_v0():
-    TCP_ESTATS_SND_CONG_ROS_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SND_CONG_ROS_v0_head
-    TCP_ESTATS_SND_CONG_ROS_v0._fields_ = [
-        ('LimCwnd', UInt32),
-    ]
-    return TCP_ESTATS_SND_CONG_ROS_v0
-def _define_TCP_ESTATS_SND_CONG_RW_v0_head():
-    class TCP_ESTATS_SND_CONG_RW_v0(Structure):
-        pass
-    return TCP_ESTATS_SND_CONG_RW_v0
-def _define_TCP_ESTATS_SND_CONG_RW_v0():
-    TCP_ESTATS_SND_CONG_RW_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SND_CONG_RW_v0_head
-    TCP_ESTATS_SND_CONG_RW_v0._fields_ = [
-        ('EnableCollection', win32more.Foundation.BOOLEAN),
-    ]
-    return TCP_ESTATS_SND_CONG_RW_v0
-def _define_TCP_ESTATS_SYN_OPTS_ROS_v0_head():
-    class TCP_ESTATS_SYN_OPTS_ROS_v0(Structure):
-        pass
-    return TCP_ESTATS_SYN_OPTS_ROS_v0
-def _define_TCP_ESTATS_SYN_OPTS_ROS_v0():
-    TCP_ESTATS_SYN_OPTS_ROS_v0 = win32more.NetworkManagement.IpHelper.TCP_ESTATS_SYN_OPTS_ROS_v0_head
-    TCP_ESTATS_SYN_OPTS_ROS_v0._fields_ = [
-        ('ActiveOpen', win32more.Foundation.BOOLEAN),
-        ('MssRcvd', UInt32),
-        ('MssSent', UInt32),
-    ]
-    return TCP_ESTATS_SYN_OPTS_ROS_v0
+TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateInHost: TCP_CONNECTION_OFFLOAD_STATE = 0
+TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloading: TCP_CONNECTION_OFFLOAD_STATE = 1
+TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloaded: TCP_CONNECTION_OFFLOAD_STATE = 2
+TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateUploading: TCP_CONNECTION_OFFLOAD_STATE = 3
+TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateMax: TCP_CONNECTION_OFFLOAD_STATE = 4
+class TCP_ESTATS_BANDWIDTH_ROD_v0(Structure):
+    OutboundBandwidth: UInt64
+    InboundBandwidth: UInt64
+    OutboundInstability: UInt64
+    InboundInstability: UInt64
+    OutboundBandwidthPeaked: win32more.Foundation.BOOLEAN
+    InboundBandwidthPeaked: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_BANDWIDTH_RW_v0(Structure):
+    EnableCollectionOutbound: win32more.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL
+    EnableCollectionInbound: win32more.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL
+class TCP_ESTATS_DATA_ROD_v0(Structure):
+    DataBytesOut: UInt64
+    DataSegsOut: UInt64
+    DataBytesIn: UInt64
+    DataSegsIn: UInt64
+    SegsOut: UInt64
+    SegsIn: UInt64
+    SoftErrors: UInt32
+    SoftErrorReason: UInt32
+    SndUna: UInt32
+    SndNxt: UInt32
+    SndMax: UInt32
+    ThruBytesAcked: UInt64
+    RcvNxt: UInt32
+    ThruBytesReceived: UInt64
+class TCP_ESTATS_DATA_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_FINE_RTT_ROD_v0(Structure):
+    RttVar: UInt32
+    MaxRtt: UInt32
+    MinRtt: UInt32
+    SumRtt: UInt32
+class TCP_ESTATS_FINE_RTT_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_OBS_REC_ROD_v0(Structure):
+    CurRwinRcvd: UInt32
+    MaxRwinRcvd: UInt32
+    MinRwinRcvd: UInt32
+    WinScaleRcvd: Byte
+class TCP_ESTATS_OBS_REC_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_PATH_ROD_v0(Structure):
+    FastRetran: UInt32
+    Timeouts: UInt32
+    SubsequentTimeouts: UInt32
+    CurTimeoutCount: UInt32
+    AbruptTimeouts: UInt32
+    PktsRetrans: UInt32
+    BytesRetrans: UInt32
+    DupAcksIn: UInt32
+    SacksRcvd: UInt32
+    SackBlocksRcvd: UInt32
+    CongSignals: UInt32
+    PreCongSumCwnd: UInt32
+    PreCongSumRtt: UInt32
+    PostCongSumRtt: UInt32
+    PostCongCountRtt: UInt32
+    EcnSignals: UInt32
+    EceRcvd: UInt32
+    SendStall: UInt32
+    QuenchRcvd: UInt32
+    RetranThresh: UInt32
+    SndDupAckEpisodes: UInt32
+    SumBytesReordered: UInt32
+    NonRecovDa: UInt32
+    NonRecovDaEpisodes: UInt32
+    AckAfterFr: UInt32
+    DsackDups: UInt32
+    SampleRtt: UInt32
+    SmoothedRtt: UInt32
+    RttVar: UInt32
+    MaxRtt: UInt32
+    MinRtt: UInt32
+    SumRtt: UInt32
+    CountRtt: UInt32
+    CurRto: UInt32
+    MaxRto: UInt32
+    MinRto: UInt32
+    CurMss: UInt32
+    MaxMss: UInt32
+    MinMss: UInt32
+    SpuriousRtoDetections: UInt32
+class TCP_ESTATS_PATH_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_REC_ROD_v0(Structure):
+    CurRwinSent: UInt32
+    MaxRwinSent: UInt32
+    MinRwinSent: UInt32
+    LimRwin: UInt32
+    DupAckEpisodes: UInt32
+    DupAcksOut: UInt32
+    CeRcvd: UInt32
+    EcnSent: UInt32
+    EcnNoncesRcvd: UInt32
+    CurReasmQueue: UInt32
+    MaxReasmQueue: UInt32
+    CurAppRQueue: UIntPtr
+    MaxAppRQueue: UIntPtr
+    WinScaleSent: Byte
+class TCP_ESTATS_REC_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_SEND_BUFF_ROD_v0(Structure):
+    CurRetxQueue: UIntPtr
+    MaxRetxQueue: UIntPtr
+    CurAppWQueue: UIntPtr
+    MaxAppWQueue: UIntPtr
+class TCP_ESTATS_SEND_BUFF_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_SND_CONG_ROD_v0(Structure):
+    SndLimTransRwin: UInt32
+    SndLimTimeRwin: UInt32
+    SndLimBytesRwin: UIntPtr
+    SndLimTransCwnd: UInt32
+    SndLimTimeCwnd: UInt32
+    SndLimBytesCwnd: UIntPtr
+    SndLimTransSnd: UInt32
+    SndLimTimeSnd: UInt32
+    SndLimBytesSnd: UIntPtr
+    SlowStart: UInt32
+    CongAvoid: UInt32
+    OtherReductions: UInt32
+    CurCwnd: UInt32
+    MaxSsCwnd: UInt32
+    MaxCaCwnd: UInt32
+    CurSsthresh: UInt32
+    MaxSsthresh: UInt32
+    MinSsthresh: UInt32
+class TCP_ESTATS_SND_CONG_ROS_v0(Structure):
+    LimCwnd: UInt32
+class TCP_ESTATS_SND_CONG_RW_v0(Structure):
+    EnableCollection: win32more.Foundation.BOOLEAN
+class TCP_ESTATS_SYN_OPTS_ROS_v0(Structure):
+    ActiveOpen: win32more.Foundation.BOOLEAN
+    MssRcvd: UInt32
+    MssSent: UInt32
 TCP_ESTATS_TYPE = Int32
-TCP_ESTATS_TYPE_TcpConnectionEstatsSynOpts = 0
-TCP_ESTATS_TYPE_TcpConnectionEstatsData = 1
-TCP_ESTATS_TYPE_TcpConnectionEstatsSndCong = 2
-TCP_ESTATS_TYPE_TcpConnectionEstatsPath = 3
-TCP_ESTATS_TYPE_TcpConnectionEstatsSendBuff = 4
-TCP_ESTATS_TYPE_TcpConnectionEstatsRec = 5
-TCP_ESTATS_TYPE_TcpConnectionEstatsObsRec = 6
-TCP_ESTATS_TYPE_TcpConnectionEstatsBandwidth = 7
-TCP_ESTATS_TYPE_TcpConnectionEstatsFineRtt = 8
-TCP_ESTATS_TYPE_TcpConnectionEstatsMaximum = 9
-def _define_TCP_RESERVE_PORT_RANGE_head():
-    class TCP_RESERVE_PORT_RANGE(Structure):
-        pass
-    return TCP_RESERVE_PORT_RANGE
-def _define_TCP_RESERVE_PORT_RANGE():
-    TCP_RESERVE_PORT_RANGE = win32more.NetworkManagement.IpHelper.TCP_RESERVE_PORT_RANGE_head
-    TCP_RESERVE_PORT_RANGE._fields_ = [
-        ('UpperRange', UInt16),
-        ('LowerRange', UInt16),
-    ]
-    return TCP_RESERVE_PORT_RANGE
+TCP_ESTATS_TYPE_TcpConnectionEstatsSynOpts: TCP_ESTATS_TYPE = 0
+TCP_ESTATS_TYPE_TcpConnectionEstatsData: TCP_ESTATS_TYPE = 1
+TCP_ESTATS_TYPE_TcpConnectionEstatsSndCong: TCP_ESTATS_TYPE = 2
+TCP_ESTATS_TYPE_TcpConnectionEstatsPath: TCP_ESTATS_TYPE = 3
+TCP_ESTATS_TYPE_TcpConnectionEstatsSendBuff: TCP_ESTATS_TYPE = 4
+TCP_ESTATS_TYPE_TcpConnectionEstatsRec: TCP_ESTATS_TYPE = 5
+TCP_ESTATS_TYPE_TcpConnectionEstatsObsRec: TCP_ESTATS_TYPE = 6
+TCP_ESTATS_TYPE_TcpConnectionEstatsBandwidth: TCP_ESTATS_TYPE = 7
+TCP_ESTATS_TYPE_TcpConnectionEstatsFineRtt: TCP_ESTATS_TYPE = 8
+TCP_ESTATS_TYPE_TcpConnectionEstatsMaximum: TCP_ESTATS_TYPE = 9
+class TCP_RESERVE_PORT_RANGE(Structure):
+    UpperRange: UInt16
+    LowerRange: UInt16
 TCP_RTO_ALGORITHM = Int32
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmOther = 1
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmConstant = 2
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmRsre = 3
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmVanj = 4
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_OTHER = 1
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_CONSTANT = 2
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_RSRE = 3
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_VANJ = 4
+TCP_RTO_ALGORITHM_TcpRtoAlgorithmOther: TCP_RTO_ALGORITHM = 1
+TCP_RTO_ALGORITHM_TcpRtoAlgorithmConstant: TCP_RTO_ALGORITHM = 2
+TCP_RTO_ALGORITHM_TcpRtoAlgorithmRsre: TCP_RTO_ALGORITHM = 3
+TCP_RTO_ALGORITHM_TcpRtoAlgorithmVanj: TCP_RTO_ALGORITHM = 4
+TCP_RTO_ALGORITHM_MIB_TCP_RTO_OTHER: TCP_RTO_ALGORITHM = 1
+TCP_RTO_ALGORITHM_MIB_TCP_RTO_CONSTANT: TCP_RTO_ALGORITHM = 2
+TCP_RTO_ALGORITHM_MIB_TCP_RTO_RSRE: TCP_RTO_ALGORITHM = 3
+TCP_RTO_ALGORITHM_MIB_TCP_RTO_VANJ: TCP_RTO_ALGORITHM = 4
 TCP_SOFT_ERROR = Int32
-TCP_SOFT_ERROR_TcpErrorNone = 0
-TCP_SOFT_ERROR_TcpErrorBelowDataWindow = 1
-TCP_SOFT_ERROR_TcpErrorAboveDataWindow = 2
-TCP_SOFT_ERROR_TcpErrorBelowAckWindow = 3
-TCP_SOFT_ERROR_TcpErrorAboveAckWindow = 4
-TCP_SOFT_ERROR_TcpErrorBelowTsWindow = 5
-TCP_SOFT_ERROR_TcpErrorAboveTsWindow = 6
-TCP_SOFT_ERROR_TcpErrorDataChecksumError = 7
-TCP_SOFT_ERROR_TcpErrorDataLengthError = 8
-TCP_SOFT_ERROR_TcpErrorMaxSoftError = 9
+TCP_SOFT_ERROR_TcpErrorNone: TCP_SOFT_ERROR = 0
+TCP_SOFT_ERROR_TcpErrorBelowDataWindow: TCP_SOFT_ERROR = 1
+TCP_SOFT_ERROR_TcpErrorAboveDataWindow: TCP_SOFT_ERROR = 2
+TCP_SOFT_ERROR_TcpErrorBelowAckWindow: TCP_SOFT_ERROR = 3
+TCP_SOFT_ERROR_TcpErrorAboveAckWindow: TCP_SOFT_ERROR = 4
+TCP_SOFT_ERROR_TcpErrorBelowTsWindow: TCP_SOFT_ERROR = 5
+TCP_SOFT_ERROR_TcpErrorAboveTsWindow: TCP_SOFT_ERROR = 6
+TCP_SOFT_ERROR_TcpErrorDataChecksumError: TCP_SOFT_ERROR = 7
+TCP_SOFT_ERROR_TcpErrorDataLengthError: TCP_SOFT_ERROR = 8
+TCP_SOFT_ERROR_TcpErrorMaxSoftError: TCP_SOFT_ERROR = 9
 TCP_TABLE_CLASS = Int32
-TCP_TABLE_BASIC_LISTENER = 0
-TCP_TABLE_BASIC_CONNECTIONS = 1
-TCP_TABLE_BASIC_ALL = 2
-TCP_TABLE_OWNER_PID_LISTENER = 3
-TCP_TABLE_OWNER_PID_CONNECTIONS = 4
-TCP_TABLE_OWNER_PID_ALL = 5
-TCP_TABLE_OWNER_MODULE_LISTENER = 6
-TCP_TABLE_OWNER_MODULE_CONNECTIONS = 7
-TCP_TABLE_OWNER_MODULE_ALL = 8
-def _define_TCPIP_OWNER_MODULE_BASIC_INFO_head():
-    class TCPIP_OWNER_MODULE_BASIC_INFO(Structure):
-        pass
-    return TCPIP_OWNER_MODULE_BASIC_INFO
-def _define_TCPIP_OWNER_MODULE_BASIC_INFO():
-    TCPIP_OWNER_MODULE_BASIC_INFO = win32more.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_BASIC_INFO_head
-    TCPIP_OWNER_MODULE_BASIC_INFO._fields_ = [
-        ('pModuleName', win32more.Foundation.PWSTR),
-        ('pModulePath', win32more.Foundation.PWSTR),
-    ]
-    return TCPIP_OWNER_MODULE_BASIC_INFO
+TCP_TABLE_BASIC_LISTENER: TCP_TABLE_CLASS = 0
+TCP_TABLE_BASIC_CONNECTIONS: TCP_TABLE_CLASS = 1
+TCP_TABLE_BASIC_ALL: TCP_TABLE_CLASS = 2
+TCP_TABLE_OWNER_PID_LISTENER: TCP_TABLE_CLASS = 3
+TCP_TABLE_OWNER_PID_CONNECTIONS: TCP_TABLE_CLASS = 4
+TCP_TABLE_OWNER_PID_ALL: TCP_TABLE_CLASS = 5
+TCP_TABLE_OWNER_MODULE_LISTENER: TCP_TABLE_CLASS = 6
+TCP_TABLE_OWNER_MODULE_CONNECTIONS: TCP_TABLE_CLASS = 7
+TCP_TABLE_OWNER_MODULE_ALL: TCP_TABLE_CLASS = 8
+class TCPIP_OWNER_MODULE_BASIC_INFO(Structure):
+    pModuleName: win32more.Foundation.PWSTR
+    pModulePath: win32more.Foundation.PWSTR
 TCPIP_OWNER_MODULE_INFO_CLASS = Int32
-TCPIP_OWNER_MODULE_INFO_BASIC = 0
+TCPIP_OWNER_MODULE_INFO_BASIC: TCPIP_OWNER_MODULE_INFO_CLASS = 0
 UDP_TABLE_CLASS = Int32
-UDP_TABLE_BASIC = 0
-UDP_TABLE_OWNER_PID = 1
-UDP_TABLE_OWNER_MODULE = 2
+UDP_TABLE_BASIC: UDP_TABLE_CLASS = 0
+UDP_TABLE_OWNER_PID: UDP_TABLE_CLASS = 1
+UDP_TABLE_OWNER_MODULE: UDP_TABLE_CLASS = 2
+make_head(_module, 'ARP_SEND_REPLY')
+make_head(_module, 'DNS_DOH_SERVER_SETTINGS')
+make_head(_module, 'DNS_INTERFACE_SETTINGS')
+make_head(_module, 'DNS_INTERFACE_SETTINGS_EX')
+make_head(_module, 'DNS_INTERFACE_SETTINGS3')
+make_head(_module, 'DNS_SERVER_PROPERTY')
+make_head(_module, 'DNS_SERVER_PROPERTY_TYPES')
+make_head(_module, 'DNS_SETTINGS')
+make_head(_module, 'DNS_SETTINGS2')
+make_head(_module, 'FIXED_INFO_W2KSP1')
+make_head(_module, 'ICMP_ECHO_REPLY')
+make_head(_module, 'ICMP_ECHO_REPLY32')
+make_head(_module, 'ICMPV6_ECHO_REPLY_LH')
+make_head(_module, 'INTERFACE_HARDWARE_CROSSTIMESTAMP')
+make_head(_module, 'INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES')
+make_head(_module, 'INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES')
+make_head(_module, 'INTERFACE_TIMESTAMP_CAPABILITIES')
+make_head(_module, 'IP_ADAPTER_ADDRESSES_LH')
+make_head(_module, 'IP_ADAPTER_ADDRESSES_XP')
+make_head(_module, 'IP_ADAPTER_ANYCAST_ADDRESS_XP')
+make_head(_module, 'IP_ADAPTER_DNS_SERVER_ADDRESS_XP')
+make_head(_module, 'IP_ADAPTER_DNS_SUFFIX')
+make_head(_module, 'IP_ADAPTER_GATEWAY_ADDRESS_LH')
+make_head(_module, 'IP_ADAPTER_INDEX_MAP')
+make_head(_module, 'IP_ADAPTER_INFO')
+make_head(_module, 'IP_ADAPTER_MULTICAST_ADDRESS_XP')
+make_head(_module, 'IP_ADAPTER_ORDER_MAP')
+make_head(_module, 'IP_ADAPTER_PREFIX_XP')
+make_head(_module, 'IP_ADAPTER_UNICAST_ADDRESS_LH')
+make_head(_module, 'IP_ADAPTER_UNICAST_ADDRESS_XP')
+make_head(_module, 'IP_ADAPTER_WINS_SERVER_ADDRESS_LH')
+make_head(_module, 'IP_ADDR_STRING')
+make_head(_module, 'IP_ADDRESS_PREFIX')
+make_head(_module, 'IP_ADDRESS_STRING')
+make_head(_module, 'IP_INTERFACE_INFO')
+make_head(_module, 'IP_INTERFACE_NAME_INFO_W2KSP1')
+make_head(_module, 'IP_MCAST_COUNTER_INFO')
+make_head(_module, 'IP_OPTION_INFORMATION')
+make_head(_module, 'IP_OPTION_INFORMATION32')
+make_head(_module, 'IP_PER_ADAPTER_INFO_W2KSP1')
+make_head(_module, 'IP_UNIDIRECTIONAL_ADAPTER_ADDRESS')
+make_head(_module, 'IPV6_ADDRESS_EX')
+make_head(_module, 'MIB_ANYCASTIPADDRESS_ROW')
+make_head(_module, 'MIB_ANYCASTIPADDRESS_TABLE')
+make_head(_module, 'MIB_BEST_IF')
+make_head(_module, 'MIB_BOUNDARYROW')
+make_head(_module, 'MIB_ICMP')
+make_head(_module, 'MIB_ICMP_EX_XPSP1')
+make_head(_module, 'MIB_IF_ROW2')
+make_head(_module, 'MIB_IF_TABLE2')
+make_head(_module, 'MIB_IFNUMBER')
+make_head(_module, 'MIB_IFROW')
+make_head(_module, 'MIB_IFSTACK_ROW')
+make_head(_module, 'MIB_IFSTACK_TABLE')
+make_head(_module, 'MIB_IFSTATUS')
+make_head(_module, 'MIB_IFTABLE')
+make_head(_module, 'MIB_INVERTEDIFSTACK_ROW')
+make_head(_module, 'MIB_INVERTEDIFSTACK_TABLE')
+make_head(_module, 'MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES')
+make_head(_module, 'MIB_IPADDRROW_W2K')
+make_head(_module, 'MIB_IPADDRROW_XP')
+make_head(_module, 'MIB_IPADDRTABLE')
+make_head(_module, 'MIB_IPDESTROW')
+make_head(_module, 'MIB_IPDESTTABLE')
+make_head(_module, 'MIB_IPFORWARD_ROW2')
+make_head(_module, 'MIB_IPFORWARD_TABLE2')
+make_head(_module, 'MIB_IPFORWARDNUMBER')
+make_head(_module, 'MIB_IPFORWARDROW')
+make_head(_module, 'MIB_IPFORWARDTABLE')
+make_head(_module, 'MIB_IPINTERFACE_ROW')
+make_head(_module, 'MIB_IPINTERFACE_TABLE')
+make_head(_module, 'MIB_IPMCAST_BOUNDARY')
+make_head(_module, 'MIB_IPMCAST_BOUNDARY_TABLE')
+make_head(_module, 'MIB_IPMCAST_GLOBAL')
+make_head(_module, 'MIB_IPMCAST_IF_ENTRY')
+make_head(_module, 'MIB_IPMCAST_IF_TABLE')
+make_head(_module, 'MIB_IPMCAST_MFE')
+make_head(_module, 'MIB_IPMCAST_MFE_STATS')
+make_head(_module, 'MIB_IPMCAST_MFE_STATS_EX_XP')
+make_head(_module, 'MIB_IPMCAST_OIF_STATS_LH')
+make_head(_module, 'MIB_IPMCAST_OIF_STATS_W2K')
+make_head(_module, 'MIB_IPMCAST_OIF_W2K')
+make_head(_module, 'MIB_IPMCAST_OIF_XP')
+make_head(_module, 'MIB_IPMCAST_SCOPE')
+make_head(_module, 'MIB_IPNET_ROW2')
+make_head(_module, 'MIB_IPNET_TABLE2')
+make_head(_module, 'MIB_IPNETROW_LH')
+make_head(_module, 'MIB_IPNETROW_W2K')
+make_head(_module, 'MIB_IPNETTABLE')
+make_head(_module, 'MIB_IPPATH_ROW')
+make_head(_module, 'MIB_IPPATH_TABLE')
+make_head(_module, 'MIB_IPSTATS_LH')
+make_head(_module, 'MIB_IPSTATS_W2K')
+make_head(_module, 'MIB_MCAST_LIMIT_ROW')
+make_head(_module, 'MIB_MFE_STATS_TABLE')
+make_head(_module, 'MIB_MFE_STATS_TABLE_EX_XP')
+make_head(_module, 'MIB_MFE_TABLE')
+make_head(_module, 'MIB_MULTICASTIPADDRESS_ROW')
+make_head(_module, 'MIB_MULTICASTIPADDRESS_TABLE')
+make_head(_module, 'MIB_OPAQUE_INFO')
+make_head(_module, 'MIB_OPAQUE_QUERY')
+make_head(_module, 'MIB_PROXYARP')
+make_head(_module, 'MIB_ROUTESTATE')
+make_head(_module, 'MIB_TCP6ROW')
+make_head(_module, 'MIB_TCP6ROW_OWNER_MODULE')
+make_head(_module, 'MIB_TCP6ROW_OWNER_PID')
+make_head(_module, 'MIB_TCP6ROW2')
+make_head(_module, 'MIB_TCP6TABLE')
+make_head(_module, 'MIB_TCP6TABLE_OWNER_MODULE')
+make_head(_module, 'MIB_TCP6TABLE_OWNER_PID')
+make_head(_module, 'MIB_TCP6TABLE2')
+make_head(_module, 'MIB_TCPROW_LH')
+make_head(_module, 'MIB_TCPROW_OWNER_MODULE')
+make_head(_module, 'MIB_TCPROW_OWNER_PID')
+make_head(_module, 'MIB_TCPROW_W2K')
+make_head(_module, 'MIB_TCPROW2')
+make_head(_module, 'MIB_TCPSTATS_LH')
+make_head(_module, 'MIB_TCPSTATS_W2K')
+make_head(_module, 'MIB_TCPSTATS2')
+make_head(_module, 'MIB_TCPTABLE')
+make_head(_module, 'MIB_TCPTABLE_OWNER_MODULE')
+make_head(_module, 'MIB_TCPTABLE_OWNER_PID')
+make_head(_module, 'MIB_TCPTABLE2')
+make_head(_module, 'MIB_UDP6ROW')
+make_head(_module, 'MIB_UDP6ROW_OWNER_MODULE')
+make_head(_module, 'MIB_UDP6ROW_OWNER_PID')
+make_head(_module, 'MIB_UDP6ROW2')
+make_head(_module, 'MIB_UDP6TABLE')
+make_head(_module, 'MIB_UDP6TABLE_OWNER_MODULE')
+make_head(_module, 'MIB_UDP6TABLE_OWNER_PID')
+make_head(_module, 'MIB_UDP6TABLE2')
+make_head(_module, 'MIB_UDPROW')
+make_head(_module, 'MIB_UDPROW_OWNER_MODULE')
+make_head(_module, 'MIB_UDPROW_OWNER_PID')
+make_head(_module, 'MIB_UDPROW2')
+make_head(_module, 'MIB_UDPSTATS')
+make_head(_module, 'MIB_UDPSTATS2')
+make_head(_module, 'MIB_UDPTABLE')
+make_head(_module, 'MIB_UDPTABLE_OWNER_MODULE')
+make_head(_module, 'MIB_UDPTABLE_OWNER_PID')
+make_head(_module, 'MIB_UDPTABLE2')
+make_head(_module, 'MIB_UNICASTIPADDRESS_ROW')
+make_head(_module, 'MIB_UNICASTIPADDRESS_TABLE')
+make_head(_module, 'MIBICMPINFO')
+make_head(_module, 'MIBICMPSTATS')
+make_head(_module, 'MIBICMPSTATS_EX_XPSP1')
+make_head(_module, 'PF_FILTER_DESCRIPTOR')
+make_head(_module, 'PF_FILTER_STATS')
+make_head(_module, 'PF_INTERFACE_STATS')
+make_head(_module, 'PF_LATEBIND_INFO')
+make_head(_module, 'PFLOGFRAME')
+make_head(_module, 'PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK')
+make_head(_module, 'PIPFORWARD_CHANGE_CALLBACK')
+make_head(_module, 'PIPINTERFACE_CHANGE_CALLBACK')
+make_head(_module, 'PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK')
+make_head(_module, 'PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK')
+make_head(_module, 'PTEREDO_PORT_CHANGE_CALLBACK')
+make_head(_module, 'PUNICAST_IPADDRESS_CHANGE_CALLBACK')
+make_head(_module, 'TCP_ESTATS_BANDWIDTH_ROD_v0')
+make_head(_module, 'TCP_ESTATS_BANDWIDTH_RW_v0')
+make_head(_module, 'TCP_ESTATS_DATA_ROD_v0')
+make_head(_module, 'TCP_ESTATS_DATA_RW_v0')
+make_head(_module, 'TCP_ESTATS_FINE_RTT_ROD_v0')
+make_head(_module, 'TCP_ESTATS_FINE_RTT_RW_v0')
+make_head(_module, 'TCP_ESTATS_OBS_REC_ROD_v0')
+make_head(_module, 'TCP_ESTATS_OBS_REC_RW_v0')
+make_head(_module, 'TCP_ESTATS_PATH_ROD_v0')
+make_head(_module, 'TCP_ESTATS_PATH_RW_v0')
+make_head(_module, 'TCP_ESTATS_REC_ROD_v0')
+make_head(_module, 'TCP_ESTATS_REC_RW_v0')
+make_head(_module, 'TCP_ESTATS_SEND_BUFF_ROD_v0')
+make_head(_module, 'TCP_ESTATS_SEND_BUFF_RW_v0')
+make_head(_module, 'TCP_ESTATS_SND_CONG_ROD_v0')
+make_head(_module, 'TCP_ESTATS_SND_CONG_ROS_v0')
+make_head(_module, 'TCP_ESTATS_SND_CONG_RW_v0')
+make_head(_module, 'TCP_ESTATS_SYN_OPTS_ROS_v0')
+make_head(_module, 'TCP_RESERVE_PORT_RANGE')
+make_head(_module, 'TCPIP_OWNER_MODULE_BASIC_INFO')
 __all__ = [
     "ANY_SIZE",
     "ARP_SEND_REPLY",

@@ -1,178 +1,137 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Shutdown
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-MAX_REASON_NAME_LEN = 64
-MAX_REASON_DESC_LEN = 256
-MAX_REASON_BUGID_LEN = 32
-MAX_REASON_COMMENT_LEN = 512
-SHUTDOWN_TYPE_LEN = 32
-POLICY_SHOWREASONUI_NEVER = 0
-POLICY_SHOWREASONUI_ALWAYS = 1
-POLICY_SHOWREASONUI_WORKSTATIONONLY = 2
-POLICY_SHOWREASONUI_SERVERONLY = 3
-SNAPSHOT_POLICY_NEVER = 0
-SNAPSHOT_POLICY_ALWAYS = 1
-SNAPSHOT_POLICY_UNPLANNED = 2
-MAX_NUM_REASONS = 256
-def _define_InitiateSystemShutdownA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('InitiateSystemShutdownA', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwTimeout'),(1, 'bForceAppsClosed'),(1, 'bRebootAfterShutdown'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitiateSystemShutdownW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,win32more.Foundation.BOOL)(('InitiateSystemShutdownW', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwTimeout'),(1, 'bForceAppsClosed'),(1, 'bRebootAfterShutdown'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AbortSystemShutdownA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR)(('AbortSystemShutdownA', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_AbortSystemShutdownW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR)(('AbortSystemShutdownW', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitiateSystemShutdownExA():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Shutdown.SHUTDOWN_REASON)(('InitiateSystemShutdownExA', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwTimeout'),(1, 'bForceAppsClosed'),(1, 'bRebootAfterShutdown'),(1, 'dwReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitiateSystemShutdownExW():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Shutdown.SHUTDOWN_REASON)(('InitiateSystemShutdownExW', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwTimeout'),(1, 'bForceAppsClosed'),(1, 'bRebootAfterShutdown'),(1, 'dwReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitiateShutdownA():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,win32more.System.Shutdown.SHUTDOWN_FLAGS,win32more.System.Shutdown.SHUTDOWN_REASON)(('InitiateShutdownA', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwGracePeriod'),(1, 'dwShutdownFlags'),(1, 'dwReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_InitiateShutdownW():
-    try:
-        return WINFUNCTYPE(UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.Shutdown.SHUTDOWN_FLAGS,win32more.System.Shutdown.SHUTDOWN_REASON)(('InitiateShutdownW', windll['ADVAPI32.dll']), ((1, 'lpMachineName'),(1, 'lpMessage'),(1, 'dwGracePeriod'),(1, 'dwShutdownFlags'),(1, 'dwReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_CheckForHiberboot():
-    try:
-        return WINFUNCTYPE(UInt32,POINTER(win32more.Foundation.BOOLEAN),win32more.Foundation.BOOLEAN)(('CheckForHiberboot', windll['ADVAPI32.dll']), ((1, 'pHiberboot'),(1, 'bClearFlag'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ExitWindowsEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.System.Shutdown.EXIT_WINDOWS_FLAGS,win32more.System.Shutdown.SHUTDOWN_REASON)(('ExitWindowsEx', windll['USER32.dll']), ((1, 'uFlags'),(1, 'dwReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_LockWorkStation():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,)(('LockWorkStation', windll['USER32.dll']), ())
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShutdownBlockReasonCreate():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR)(('ShutdownBlockReasonCreate', windll['USER32.dll']), ((1, 'hWnd'),(1, 'pwszReason'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShutdownBlockReasonQuery():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,POINTER(UInt32))(('ShutdownBlockReasonQuery', windll['USER32.dll']), ((1, 'hWnd'),(1, 'pwszBuff'),(1, 'pcchBuff'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_ShutdownBlockReasonDestroy():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.HWND)(('ShutdownBlockReasonDestroy', windll['USER32.dll']), ((1, 'hWnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+MAX_REASON_NAME_LEN: UInt32 = 64
+MAX_REASON_DESC_LEN: UInt32 = 256
+MAX_REASON_BUGID_LEN: UInt32 = 32
+MAX_REASON_COMMENT_LEN: UInt32 = 512
+SHUTDOWN_TYPE_LEN: UInt32 = 32
+POLICY_SHOWREASONUI_NEVER: UInt32 = 0
+POLICY_SHOWREASONUI_ALWAYS: UInt32 = 1
+POLICY_SHOWREASONUI_WORKSTATIONONLY: UInt32 = 2
+POLICY_SHOWREASONUI_SERVERONLY: UInt32 = 3
+SNAPSHOT_POLICY_NEVER: UInt32 = 0
+SNAPSHOT_POLICY_ALWAYS: UInt32 = 1
+SNAPSHOT_POLICY_UNPLANNED: UInt32 = 2
+MAX_NUM_REASONS: UInt32 = 256
+@winfunctype('ADVAPI32.dll')
+def InitiateSystemShutdownA(lpMachineName: win32more.Foundation.PSTR, lpMessage: win32more.Foundation.PSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Foundation.BOOL, bRebootAfterShutdown: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitiateSystemShutdownW(lpMachineName: win32more.Foundation.PWSTR, lpMessage: win32more.Foundation.PWSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Foundation.BOOL, bRebootAfterShutdown: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AbortSystemShutdownA(lpMachineName: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def AbortSystemShutdownW(lpMachineName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitiateSystemShutdownExA(lpMachineName: win32more.Foundation.PSTR, lpMessage: win32more.Foundation.PSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Foundation.BOOL, bRebootAfterShutdown: win32more.Foundation.BOOL, dwReason: win32more.System.Shutdown.SHUTDOWN_REASON) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitiateSystemShutdownExW(lpMachineName: win32more.Foundation.PWSTR, lpMessage: win32more.Foundation.PWSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Foundation.BOOL, bRebootAfterShutdown: win32more.Foundation.BOOL, dwReason: win32more.System.Shutdown.SHUTDOWN_REASON) -> win32more.Foundation.BOOL: ...
+@winfunctype('ADVAPI32.dll')
+def InitiateShutdownA(lpMachineName: win32more.Foundation.PSTR, lpMessage: win32more.Foundation.PSTR, dwGracePeriod: UInt32, dwShutdownFlags: win32more.System.Shutdown.SHUTDOWN_FLAGS, dwReason: win32more.System.Shutdown.SHUTDOWN_REASON) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def InitiateShutdownW(lpMachineName: win32more.Foundation.PWSTR, lpMessage: win32more.Foundation.PWSTR, dwGracePeriod: UInt32, dwShutdownFlags: win32more.System.Shutdown.SHUTDOWN_FLAGS, dwReason: win32more.System.Shutdown.SHUTDOWN_REASON) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def CheckForHiberboot(pHiberboot: POINTER(win32more.Foundation.BOOLEAN), bClearFlag: win32more.Foundation.BOOLEAN) -> UInt32: ...
+@winfunctype('USER32.dll')
+def ExitWindowsEx(uFlags: win32more.System.Shutdown.EXIT_WINDOWS_FLAGS, dwReason: win32more.System.Shutdown.SHUTDOWN_REASON) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def LockWorkStation() -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ShutdownBlockReasonCreate(hWnd: win32more.Foundation.HWND, pwszReason: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ShutdownBlockReasonQuery(hWnd: win32more.Foundation.HWND, pwszBuff: win32more.Foundation.PWSTR, pcchBuff: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype('USER32.dll')
+def ShutdownBlockReasonDestroy(hWnd: win32more.Foundation.HWND) -> win32more.Foundation.BOOL: ...
 EXIT_WINDOWS_FLAGS = UInt32
-EWX_HYBRID_SHUTDOWN = 4194304
-EWX_LOGOFF = 0
-EWX_POWEROFF = 8
-EWX_REBOOT = 2
-EWX_RESTARTAPPS = 64
-EWX_SHUTDOWN = 1
+EWX_HYBRID_SHUTDOWN: EXIT_WINDOWS_FLAGS = 4194304
+EWX_LOGOFF: EXIT_WINDOWS_FLAGS = 0
+EWX_POWEROFF: EXIT_WINDOWS_FLAGS = 8
+EWX_REBOOT: EXIT_WINDOWS_FLAGS = 2
+EWX_RESTARTAPPS: EXIT_WINDOWS_FLAGS = 64
+EWX_SHUTDOWN: EXIT_WINDOWS_FLAGS = 1
 SHUTDOWN_FLAGS = UInt32
-SHUTDOWN_FORCE_OTHERS = 1
-SHUTDOWN_FORCE_SELF = 2
-SHUTDOWN_RESTART = 4
-SHUTDOWN_POWEROFF = 8
-SHUTDOWN_NOREBOOT = 16
-SHUTDOWN_GRACE_OVERRIDE = 32
-SHUTDOWN_INSTALL_UPDATES = 64
-SHUTDOWN_RESTARTAPPS = 128
-SHUTDOWN_SKIP_SVC_PRESHUTDOWN = 256
-SHUTDOWN_HYBRID = 512
-SHUTDOWN_RESTART_BOOTOPTIONS = 1024
-SHUTDOWN_SOFT_REBOOT = 2048
-SHUTDOWN_MOBILE_UI = 4096
-SHUTDOWN_ARSO = 8192
-SHUTDOWN_CHECK_SAFE_FOR_SERVER = 16384
-SHUTDOWN_VAIL_CONTAINER = 32768
-SHUTDOWN_SYSTEM_INITIATED = 65536
+SHUTDOWN_FORCE_OTHERS: SHUTDOWN_FLAGS = 1
+SHUTDOWN_FORCE_SELF: SHUTDOWN_FLAGS = 2
+SHUTDOWN_RESTART: SHUTDOWN_FLAGS = 4
+SHUTDOWN_POWEROFF: SHUTDOWN_FLAGS = 8
+SHUTDOWN_NOREBOOT: SHUTDOWN_FLAGS = 16
+SHUTDOWN_GRACE_OVERRIDE: SHUTDOWN_FLAGS = 32
+SHUTDOWN_INSTALL_UPDATES: SHUTDOWN_FLAGS = 64
+SHUTDOWN_RESTARTAPPS: SHUTDOWN_FLAGS = 128
+SHUTDOWN_SKIP_SVC_PRESHUTDOWN: SHUTDOWN_FLAGS = 256
+SHUTDOWN_HYBRID: SHUTDOWN_FLAGS = 512
+SHUTDOWN_RESTART_BOOTOPTIONS: SHUTDOWN_FLAGS = 1024
+SHUTDOWN_SOFT_REBOOT: SHUTDOWN_FLAGS = 2048
+SHUTDOWN_MOBILE_UI: SHUTDOWN_FLAGS = 4096
+SHUTDOWN_ARSO: SHUTDOWN_FLAGS = 8192
+SHUTDOWN_CHECK_SAFE_FOR_SERVER: SHUTDOWN_FLAGS = 16384
+SHUTDOWN_VAIL_CONTAINER: SHUTDOWN_FLAGS = 32768
+SHUTDOWN_SYSTEM_INITIATED: SHUTDOWN_FLAGS = 65536
 SHUTDOWN_REASON = UInt32
-SHTDN_REASON_NONE = 0
-SHTDN_REASON_FLAG_COMMENT_REQUIRED = 16777216
-SHTDN_REASON_FLAG_DIRTY_PROBLEM_ID_REQUIRED = 33554432
-SHTDN_REASON_FLAG_CLEAN_UI = 67108864
-SHTDN_REASON_FLAG_DIRTY_UI = 134217728
-SHTDN_REASON_FLAG_MOBILE_UI_RESERVED = 268435456
-SHTDN_REASON_FLAG_USER_DEFINED = 1073741824
-SHTDN_REASON_FLAG_PLANNED = 2147483648
-SHTDN_REASON_MAJOR_OTHER = 0
-SHTDN_REASON_MAJOR_NONE = 0
-SHTDN_REASON_MAJOR_HARDWARE = 65536
-SHTDN_REASON_MAJOR_OPERATINGSYSTEM = 131072
-SHTDN_REASON_MAJOR_SOFTWARE = 196608
-SHTDN_REASON_MAJOR_APPLICATION = 262144
-SHTDN_REASON_MAJOR_SYSTEM = 327680
-SHTDN_REASON_MAJOR_POWER = 393216
-SHTDN_REASON_MAJOR_LEGACY_API = 458752
-SHTDN_REASON_MINOR_OTHER = 0
-SHTDN_REASON_MINOR_NONE = 255
-SHTDN_REASON_MINOR_MAINTENANCE = 1
-SHTDN_REASON_MINOR_INSTALLATION = 2
-SHTDN_REASON_MINOR_UPGRADE = 3
-SHTDN_REASON_MINOR_RECONFIG = 4
-SHTDN_REASON_MINOR_HUNG = 5
-SHTDN_REASON_MINOR_UNSTABLE = 6
-SHTDN_REASON_MINOR_DISK = 7
-SHTDN_REASON_MINOR_PROCESSOR = 8
-SHTDN_REASON_MINOR_NETWORKCARD = 9
-SHTDN_REASON_MINOR_POWER_SUPPLY = 10
-SHTDN_REASON_MINOR_CORDUNPLUGGED = 11
-SHTDN_REASON_MINOR_ENVIRONMENT = 12
-SHTDN_REASON_MINOR_HARDWARE_DRIVER = 13
-SHTDN_REASON_MINOR_OTHERDRIVER = 14
-SHTDN_REASON_MINOR_BLUESCREEN = 15
-SHTDN_REASON_MINOR_SERVICEPACK = 16
-SHTDN_REASON_MINOR_HOTFIX = 17
-SHTDN_REASON_MINOR_SECURITYFIX = 18
-SHTDN_REASON_MINOR_SECURITY = 19
-SHTDN_REASON_MINOR_NETWORK_CONNECTIVITY = 20
-SHTDN_REASON_MINOR_WMI = 21
-SHTDN_REASON_MINOR_SERVICEPACK_UNINSTALL = 22
-SHTDN_REASON_MINOR_HOTFIX_UNINSTALL = 23
-SHTDN_REASON_MINOR_SECURITYFIX_UNINSTALL = 24
-SHTDN_REASON_MINOR_MMC = 25
-SHTDN_REASON_MINOR_SYSTEMRESTORE = 26
-SHTDN_REASON_MINOR_TERMSRV = 32
-SHTDN_REASON_MINOR_DC_PROMOTION = 33
-SHTDN_REASON_MINOR_DC_DEMOTION = 34
-SHTDN_REASON_UNKNOWN = 255
-SHTDN_REASON_LEGACY_API = 2147942400
-SHTDN_REASON_VALID_BIT_MASK = 3238002687
+SHTDN_REASON_NONE: SHUTDOWN_REASON = 0
+SHTDN_REASON_FLAG_COMMENT_REQUIRED: SHUTDOWN_REASON = 16777216
+SHTDN_REASON_FLAG_DIRTY_PROBLEM_ID_REQUIRED: SHUTDOWN_REASON = 33554432
+SHTDN_REASON_FLAG_CLEAN_UI: SHUTDOWN_REASON = 67108864
+SHTDN_REASON_FLAG_DIRTY_UI: SHUTDOWN_REASON = 134217728
+SHTDN_REASON_FLAG_MOBILE_UI_RESERVED: SHUTDOWN_REASON = 268435456
+SHTDN_REASON_FLAG_USER_DEFINED: SHUTDOWN_REASON = 1073741824
+SHTDN_REASON_FLAG_PLANNED: SHUTDOWN_REASON = 2147483648
+SHTDN_REASON_MAJOR_OTHER: SHUTDOWN_REASON = 0
+SHTDN_REASON_MAJOR_NONE: SHUTDOWN_REASON = 0
+SHTDN_REASON_MAJOR_HARDWARE: SHUTDOWN_REASON = 65536
+SHTDN_REASON_MAJOR_OPERATINGSYSTEM: SHUTDOWN_REASON = 131072
+SHTDN_REASON_MAJOR_SOFTWARE: SHUTDOWN_REASON = 196608
+SHTDN_REASON_MAJOR_APPLICATION: SHUTDOWN_REASON = 262144
+SHTDN_REASON_MAJOR_SYSTEM: SHUTDOWN_REASON = 327680
+SHTDN_REASON_MAJOR_POWER: SHUTDOWN_REASON = 393216
+SHTDN_REASON_MAJOR_LEGACY_API: SHUTDOWN_REASON = 458752
+SHTDN_REASON_MINOR_OTHER: SHUTDOWN_REASON = 0
+SHTDN_REASON_MINOR_NONE: SHUTDOWN_REASON = 255
+SHTDN_REASON_MINOR_MAINTENANCE: SHUTDOWN_REASON = 1
+SHTDN_REASON_MINOR_INSTALLATION: SHUTDOWN_REASON = 2
+SHTDN_REASON_MINOR_UPGRADE: SHUTDOWN_REASON = 3
+SHTDN_REASON_MINOR_RECONFIG: SHUTDOWN_REASON = 4
+SHTDN_REASON_MINOR_HUNG: SHUTDOWN_REASON = 5
+SHTDN_REASON_MINOR_UNSTABLE: SHUTDOWN_REASON = 6
+SHTDN_REASON_MINOR_DISK: SHUTDOWN_REASON = 7
+SHTDN_REASON_MINOR_PROCESSOR: SHUTDOWN_REASON = 8
+SHTDN_REASON_MINOR_NETWORKCARD: SHUTDOWN_REASON = 9
+SHTDN_REASON_MINOR_POWER_SUPPLY: SHUTDOWN_REASON = 10
+SHTDN_REASON_MINOR_CORDUNPLUGGED: SHUTDOWN_REASON = 11
+SHTDN_REASON_MINOR_ENVIRONMENT: SHUTDOWN_REASON = 12
+SHTDN_REASON_MINOR_HARDWARE_DRIVER: SHUTDOWN_REASON = 13
+SHTDN_REASON_MINOR_OTHERDRIVER: SHUTDOWN_REASON = 14
+SHTDN_REASON_MINOR_BLUESCREEN: SHUTDOWN_REASON = 15
+SHTDN_REASON_MINOR_SERVICEPACK: SHUTDOWN_REASON = 16
+SHTDN_REASON_MINOR_HOTFIX: SHUTDOWN_REASON = 17
+SHTDN_REASON_MINOR_SECURITYFIX: SHUTDOWN_REASON = 18
+SHTDN_REASON_MINOR_SECURITY: SHUTDOWN_REASON = 19
+SHTDN_REASON_MINOR_NETWORK_CONNECTIVITY: SHUTDOWN_REASON = 20
+SHTDN_REASON_MINOR_WMI: SHUTDOWN_REASON = 21
+SHTDN_REASON_MINOR_SERVICEPACK_UNINSTALL: SHUTDOWN_REASON = 22
+SHTDN_REASON_MINOR_HOTFIX_UNINSTALL: SHUTDOWN_REASON = 23
+SHTDN_REASON_MINOR_SECURITYFIX_UNINSTALL: SHUTDOWN_REASON = 24
+SHTDN_REASON_MINOR_MMC: SHUTDOWN_REASON = 25
+SHTDN_REASON_MINOR_SYSTEMRESTORE: SHUTDOWN_REASON = 26
+SHTDN_REASON_MINOR_TERMSRV: SHUTDOWN_REASON = 32
+SHTDN_REASON_MINOR_DC_PROMOTION: SHUTDOWN_REASON = 33
+SHTDN_REASON_MINOR_DC_DEMOTION: SHUTDOWN_REASON = 34
+SHTDN_REASON_UNKNOWN: SHUTDOWN_REASON = 255
+SHTDN_REASON_LEGACY_API: SHUTDOWN_REASON = 2147942400
+SHTDN_REASON_VALID_BIT_MASK: SHUTDOWN_REASON = 3238002687
 __all__ = [
     "AbortSystemShutdownA",
     "AbortSystemShutdownW",

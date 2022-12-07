@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.RemoteAssistance
@@ -7,64 +8,58 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-DISPID_EVENT_ON_STATE_CHANGED = 5
-DISPID_EVENT_ON_TERMINATION = 6
-DISPID_EVENT_ON_CONTEXT_DATA = 7
-DISPID_EVENT_ON_SEND_ERROR = 8
-def _define_DRendezvousSessionEvents_head():
-    class DRendezvousSessionEvents(win32more.System.Com.IDispatch_head):
-        Guid = Guid('3fa19cf8-64c4-4f53-ae-60-63-5b-38-06-ec-a6')
-    return DRendezvousSessionEvents
-def _define_DRendezvousSessionEvents():
-    DRendezvousSessionEvents = win32more.System.RemoteAssistance.DRendezvousSessionEvents_head
-    win32more.System.Com.IDispatch
-    return DRendezvousSessionEvents
-def _define_IRendezvousApplication_head():
-    class IRendezvousApplication(win32more.System.Com.IUnknown_head):
-        Guid = Guid('4f4d070b-a275-49fb-b1-0d-8e-c2-63-87-b5-0d')
-    return IRendezvousApplication
-def _define_IRendezvousApplication():
-    IRendezvousApplication = win32more.System.RemoteAssistance.IRendezvousApplication_head
-    IRendezvousApplication.SetRendezvousSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head)(3, 'SetRendezvousSession', ((1, 'pRendezvousSession'),)))
-    win32more.System.Com.IUnknown
-    return IRendezvousApplication
-def _define_IRendezvousSession_head():
-    class IRendezvousSession(win32more.System.Com.IUnknown_head):
-        Guid = Guid('9ba4b1dd-8b0c-48b7-9e-7c-2f-25-85-7c-8d-f5')
-    return IRendezvousSession
-def _define_IRendezvousSession():
-    IRendezvousSession = win32more.System.RemoteAssistance.IRendezvousSession_head
-    IRendezvousSession.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE))(3, 'get_State', ((1, 'pSessionState'),)))
-    IRendezvousSession.get_RemoteUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR))(4, 'get_RemoteUser', ((1, 'bstrUserName'),)))
-    IRendezvousSession.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32))(5, 'get_Flags', ((1, 'pFlags'),)))
-    IRendezvousSession.SendContextData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(6, 'SendContextData', ((1, 'bstrData'),)))
-    IRendezvousSession.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.BSTR)(7, 'Terminate', ((1, 'hr'),(1, 'bstrAppData'),)))
-    win32more.System.Com.IUnknown
-    return IRendezvousSession
+DISPID_EVENT_ON_STATE_CHANGED: UInt32 = 5
+DISPID_EVENT_ON_TERMINATION: UInt32 = 6
+DISPID_EVENT_ON_CONTEXT_DATA: UInt32 = 7
+DISPID_EVENT_ON_SEND_ERROR: UInt32 = 8
+class DRendezvousSessionEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3fa19cf8-64c4-4f53-ae-60-63-5b-38-06-ec-a6')
+class IRendezvousApplication(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4f4d070b-a275-49fb-b1-0d-8e-c2-63-87-b5-0d')
+    @commethod(3)
+    def SetRendezvousSession(pRendezvousSession: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+class IRendezvousSession(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9ba4b1dd-8b0c-48b7-9e-7c-2f-25-85-7c-8d-f5')
+    @commethod(3)
+    def get_State(pSessionState: POINTER(win32more.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_RemoteUser(bstrUserName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_Flags(pFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SendContextData(bstrData: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def Terminate(hr: win32more.Foundation.HRESULT, bstrAppData: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
 RENDEZVOUS_SESSION_FLAGS = Int32
-RSF_NONE = 0
-RSF_INVITER = 1
-RSF_INVITEE = 2
-RSF_ORIGINAL_INVITER = 4
-RSF_REMOTE_LEGACYSESSION = 8
-RSF_REMOTE_WIN7SESSION = 16
+RSF_NONE: RENDEZVOUS_SESSION_FLAGS = 0
+RSF_INVITER: RENDEZVOUS_SESSION_FLAGS = 1
+RSF_INVITEE: RENDEZVOUS_SESSION_FLAGS = 2
+RSF_ORIGINAL_INVITER: RENDEZVOUS_SESSION_FLAGS = 4
+RSF_REMOTE_LEGACYSESSION: RENDEZVOUS_SESSION_FLAGS = 8
+RSF_REMOTE_WIN7SESSION: RENDEZVOUS_SESSION_FLAGS = 16
 RENDEZVOUS_SESSION_STATE = Int32
-RSS_UNKNOWN = 0
-RSS_READY = 1
-RSS_INVITATION = 2
-RSS_ACCEPTED = 3
-RSS_CONNECTED = 4
-RSS_CANCELLED = 5
-RSS_DECLINED = 6
-RSS_TERMINATED = 7
+RSS_UNKNOWN: RENDEZVOUS_SESSION_STATE = 0
+RSS_READY: RENDEZVOUS_SESSION_STATE = 1
+RSS_INVITATION: RENDEZVOUS_SESSION_STATE = 2
+RSS_ACCEPTED: RENDEZVOUS_SESSION_STATE = 3
+RSS_CONNECTED: RENDEZVOUS_SESSION_STATE = 4
+RSS_CANCELLED: RENDEZVOUS_SESSION_STATE = 5
+RSS_DECLINED: RENDEZVOUS_SESSION_STATE = 6
+RSS_TERMINATED: RENDEZVOUS_SESSION_STATE = 7
 RendezvousApplication = Guid('0b7e019a-b5de-47fa-89-66-90-82-f8-2f-b1-92')
+make_head(_module, 'DRendezvousSessionEvents')
+make_head(_module, 'IRendezvousApplication')
+make_head(_module, 'IRendezvousSession')
 __all__ = [
     "DISPID_EVENT_ON_CONTEXT_DATA",
     "DISPID_EVENT_ON_SEND_ERROR",

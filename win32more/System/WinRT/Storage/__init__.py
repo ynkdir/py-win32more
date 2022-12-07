@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.WinRT.Storage
@@ -7,94 +8,77 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
 HANDLE_ACCESS_OPTIONS = UInt32
-HAO_NONE = 0
-HAO_READ_ATTRIBUTES = 128
-HAO_READ = 1179785
-HAO_WRITE = 1179926
-HAO_DELETE = 65536
+HAO_NONE: HANDLE_ACCESS_OPTIONS = 0
+HAO_READ_ATTRIBUTES: HANDLE_ACCESS_OPTIONS = 128
+HAO_READ: HANDLE_ACCESS_OPTIONS = 1179785
+HAO_WRITE: HANDLE_ACCESS_OPTIONS = 1179926
+HAO_DELETE: HANDLE_ACCESS_OPTIONS = 65536
 HANDLE_CREATION_OPTIONS = Int32
-HCO_CREATE_NEW = 1
-HCO_CREATE_ALWAYS = 2
-HCO_OPEN_EXISTING = 3
-HCO_OPEN_ALWAYS = 4
-HCO_TRUNCATE_EXISTING = 5
+HCO_CREATE_NEW: HANDLE_CREATION_OPTIONS = 1
+HCO_CREATE_ALWAYS: HANDLE_CREATION_OPTIONS = 2
+HCO_OPEN_EXISTING: HANDLE_CREATION_OPTIONS = 3
+HCO_OPEN_ALWAYS: HANDLE_CREATION_OPTIONS = 4
+HCO_TRUNCATE_EXISTING: HANDLE_CREATION_OPTIONS = 5
 HANDLE_OPTIONS = UInt32
-HO_NONE = 0
-HO_OPEN_REQUIRING_OPLOCK = 262144
-HO_DELETE_ON_CLOSE = 67108864
-HO_SEQUENTIAL_SCAN = 134217728
-HO_RANDOM_ACCESS = 268435456
-HO_NO_BUFFERING = 536870912
-HO_OVERLAPPED = 1073741824
-HO_WRITE_THROUGH = 2147483648
+HO_NONE: HANDLE_OPTIONS = 0
+HO_OPEN_REQUIRING_OPLOCK: HANDLE_OPTIONS = 262144
+HO_DELETE_ON_CLOSE: HANDLE_OPTIONS = 67108864
+HO_SEQUENTIAL_SCAN: HANDLE_OPTIONS = 134217728
+HO_RANDOM_ACCESS: HANDLE_OPTIONS = 268435456
+HO_NO_BUFFERING: HANDLE_OPTIONS = 536870912
+HO_OVERLAPPED: HANDLE_OPTIONS = 1073741824
+HO_WRITE_THROUGH: HANDLE_OPTIONS = 2147483648
 HANDLE_SHARING_OPTIONS = UInt32
-HSO_SHARE_NONE = 0
-HSO_SHARE_READ = 1
-HSO_SHARE_WRITE = 2
-HSO_SHARE_DELETE = 4
-def _define_IOplockBreakingHandler_head():
-    class IOplockBreakingHandler(win32more.System.Com.IUnknown_head):
-        Guid = Guid('826abe3d-3acd-47d3-84-f2-88-aa-ed-cf-63-04')
-    return IOplockBreakingHandler
-def _define_IOplockBreakingHandler():
-    IOplockBreakingHandler = win32more.System.WinRT.Storage.IOplockBreakingHandler_head
-    IOplockBreakingHandler.OplockBreaking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OplockBreaking', ()))
-    win32more.System.Com.IUnknown
-    return IOplockBreakingHandler
-def _define_IRandomAccessStreamFileAccessMode_head():
-    class IRandomAccessStreamFileAccessMode(win32more.System.Com.IUnknown_head):
-        Guid = Guid('332e5848-2e15-458e-85-c4-c9-11-c0-c3-d6-f4')
-    return IRandomAccessStreamFileAccessMode
-def _define_IRandomAccessStreamFileAccessMode():
-    IRandomAccessStreamFileAccessMode = win32more.System.WinRT.Storage.IRandomAccessStreamFileAccessMode_head
-    IRandomAccessStreamFileAccessMode.GetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32))(3, 'GetMode', ((1, 'fileAccessMode'),)))
-    win32more.System.Com.IUnknown
-    return IRandomAccessStreamFileAccessMode
-def _define_IStorageFolderHandleAccess_head():
-    class IStorageFolderHandleAccess(win32more.System.Com.IUnknown_head):
-        Guid = Guid('df19938f-5462-48a0-be-65-d2-a3-27-1a-08-d6')
-    return IStorageFolderHandleAccess
-def _define_IStorageFolderHandleAccess():
-    IStorageFolderHandleAccess = win32more.System.WinRT.Storage.IStorageFolderHandleAccess_head
-    IStorageFolderHandleAccess.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.WinRT.Storage.HANDLE_CREATION_OPTIONS,win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS,win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS,win32more.System.WinRT.Storage.HANDLE_OPTIONS,win32more.System.WinRT.Storage.IOplockBreakingHandler_head,POINTER(win32more.Foundation.HANDLE))(3, 'Create', ((1, 'fileName'),(1, 'creationOptions'),(1, 'accessOptions'),(1, 'sharingOptions'),(1, 'options'),(1, 'oplockBreakingHandler'),(1, 'interopHandle'),)))
-    win32more.System.Com.IUnknown
-    return IStorageFolderHandleAccess
-def _define_IStorageItemHandleAccess_head():
-    class IStorageItemHandleAccess(win32more.System.Com.IUnknown_head):
-        Guid = Guid('5ca296b2-2c25-4d22-b7-85-b8-85-c8-20-1e-6a')
-    return IStorageItemHandleAccess
-def _define_IStorageItemHandleAccess():
-    IStorageItemHandleAccess = win32more.System.WinRT.Storage.IStorageItemHandleAccess_head
-    IStorageItemHandleAccess.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS,win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS,win32more.System.WinRT.Storage.HANDLE_OPTIONS,win32more.System.WinRT.Storage.IOplockBreakingHandler_head,POINTER(win32more.Foundation.HANDLE))(3, 'Create', ((1, 'accessOptions'),(1, 'sharingOptions'),(1, 'options'),(1, 'oplockBreakingHandler'),(1, 'interopHandle'),)))
-    win32more.System.Com.IUnknown
-    return IStorageItemHandleAccess
-def _define_IUnbufferedFileHandleOplockCallback_head():
-    class IUnbufferedFileHandleOplockCallback(win32more.System.Com.IUnknown_head):
-        Guid = Guid('d1019a0e-6243-4329-84-97-2e-75-89-4d-77-10')
-    return IUnbufferedFileHandleOplockCallback
-def _define_IUnbufferedFileHandleOplockCallback():
-    IUnbufferedFileHandleOplockCallback = win32more.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head
-    IUnbufferedFileHandleOplockCallback.OnBrokenCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(3, 'OnBrokenCallback', ()))
-    win32more.System.Com.IUnknown
-    return IUnbufferedFileHandleOplockCallback
-def _define_IUnbufferedFileHandleProvider_head():
-    class IUnbufferedFileHandleProvider(win32more.System.Com.IUnknown_head):
-        Guid = Guid('a65c9109-42ab-4b94-a7-b1-dd-2e-4e-68-51-5e')
-    return IUnbufferedFileHandleProvider
-def _define_IUnbufferedFileHandleProvider():
-    IUnbufferedFileHandleProvider = win32more.System.WinRT.Storage.IUnbufferedFileHandleProvider_head
-    IUnbufferedFileHandleProvider.OpenUnbufferedFileHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head,POINTER(UIntPtr))(3, 'OpenUnbufferedFileHandle', ((1, 'oplockBreakCallback'),(1, 'fileHandle'),)))
-    IUnbufferedFileHandleProvider.CloseUnbufferedFileHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(4, 'CloseUnbufferedFileHandle', ()))
-    win32more.System.Com.IUnknown
-    return IUnbufferedFileHandleProvider
+HSO_SHARE_NONE: HANDLE_SHARING_OPTIONS = 0
+HSO_SHARE_READ: HANDLE_SHARING_OPTIONS = 1
+HSO_SHARE_WRITE: HANDLE_SHARING_OPTIONS = 2
+HSO_SHARE_DELETE: HANDLE_SHARING_OPTIONS = 4
+class IOplockBreakingHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('826abe3d-3acd-47d3-84-f2-88-aa-ed-cf-63-04')
+    @commethod(3)
+    def OplockBreaking() -> win32more.Foundation.HRESULT: ...
+class IRandomAccessStreamFileAccessMode(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('332e5848-2e15-458e-85-c4-c9-11-c0-c3-d6-f4')
+    @commethod(3)
+    def GetMode(fileAccessMode: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IStorageFolderHandleAccess(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('df19938f-5462-48a0-be-65-d2-a3-27-1a-08-d6')
+    @commethod(3)
+    def Create(fileName: win32more.Foundation.PWSTR, creationOptions: win32more.System.WinRT.Storage.HANDLE_CREATION_OPTIONS, accessOptions: win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IStorageItemHandleAccess(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5ca296b2-2c25-4d22-b7-85-b8-85-c8-20-1e-6a')
+    @commethod(3)
+    def Create(accessOptions: win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS, sharingOptions: win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS, options: win32more.System.WinRT.Storage.HANDLE_OPTIONS, oplockBreakingHandler: win32more.System.WinRT.Storage.IOplockBreakingHandler_head, interopHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IUnbufferedFileHandleOplockCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d1019a0e-6243-4329-84-97-2e-75-89-4d-77-10')
+    @commethod(3)
+    def OnBrokenCallback() -> win32more.Foundation.HRESULT: ...
+class IUnbufferedFileHandleProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a65c9109-42ab-4b94-a7-b1-dd-2e-4e-68-51-5e')
+    @commethod(3)
+    def OpenUnbufferedFileHandle(oplockBreakCallback: win32more.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head, fileHandle: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CloseUnbufferedFileHandle() -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'IOplockBreakingHandler')
+make_head(_module, 'IRandomAccessStreamFileAccessMode')
+make_head(_module, 'IStorageFolderHandleAccess')
+make_head(_module, 'IStorageItemHandleAccess')
+make_head(_module, 'IUnbufferedFileHandleOplockCallback')
+make_head(_module, 'IUnbufferedFileHandleProvider')
 __all__ = [
     "HANDLE_ACCESS_OPTIONS",
     "HANDLE_CREATION_OPTIONS",

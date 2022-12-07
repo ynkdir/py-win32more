@@ -1,5 +1,6 @@
+from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, COMMETHOD, SUCCEEDED, FAILED
+from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.NetworkDiagnosticsFramework
 import win32more.Networking.WinSock
@@ -9,432 +10,285 @@ import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
     try:
-        f = globals()[f'_define_{name}']
+        prototype = globals()[f'{name}_head']
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    setattr(_module, name, f())
+    setattr(_module, name, press(prototype))
     return getattr(_module, name)
 def __dir__():
     return __all__
-NDF_ERROR_START = 63744
-NDF_E_LENGTH_EXCEEDED = -2146895616
-NDF_E_NOHELPERCLASS = -2146895615
-NDF_E_CANCELLED = -2146895614
-NDF_E_DISABLED = -2146895612
-NDF_E_BAD_PARAM = -2146895611
-NDF_E_VALIDATION = -2146895610
-NDF_E_UNKNOWN = -2146895609
-NDF_E_PROBLEM_PRESENT = -2146895608
-RF_WORKAROUND = 536870912
-RF_USER_ACTION = 268435456
-RF_USER_CONFIRMATION = 134217728
-RF_INFORMATION_ONLY = 33554432
-RF_UI_ONLY = 16777216
-RF_SHOW_EVENTS = 8388608
-RF_VALIDATE_HELPTOPIC = 4194304
-RF_REPRO = 2097152
-RF_CONTACT_ADMIN = 131072
-RF_RESERVED = 1073741824
-RF_RESERVED_CA = 2147483648
-RF_RESERVED_LNI = 65536
-RCF_ISLEAF = 1
-RCF_ISCONFIRMED = 2
-RCF_ISTHIRDPARTY = 4
-DF_IMPERSONATION = 2147483648
-DF_TRACELESS = 1073741824
-NDF_INBOUND_FLAG_EDGETRAVERSAL = 1
-NDF_INBOUND_FLAG_HEALTHCHECK = 2
-NDF_ADD_CAPTURE_TRACE = 1
-NDF_APPLY_INCLUSION_LIST_FILTER = 2
-def _define_NdfCreateIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head),POINTER(c_void_p))(('NdfCreateIncident', windll['NDFAPI.dll']), ((1, 'helperClassName'),(1, 'celt'),(1, 'attributes'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateWinSockIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.WinSock.SOCKET,win32more.Foundation.PWSTR,UInt16,win32more.Foundation.PWSTR,POINTER(win32more.Security.SID_head),POINTER(c_void_p))(('NdfCreateWinSockIncident', windll['NDFAPI.dll']), ((1, 'sock'),(1, 'host'),(1, 'port'),(1, 'appId'),(1, 'userId'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateWebIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(c_void_p))(('NdfCreateWebIncident', windll['NDFAPI.dll']), ((1, 'url'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateWebIncidentEx():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(c_void_p))(('NdfCreateWebIncidentEx', windll['NDFAPI.dll']), ((1, 'url'),(1, 'useWinHTTP'),(1, 'moduleName'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateSharingIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(c_void_p))(('NdfCreateSharingIncident', windll['NDFAPI.dll']), ((1, 'UNCPath'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateDNSIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt16,POINTER(c_void_p))(('NdfCreateDNSIncident', windll['NDFAPI.dll']), ((1, 'hostname'),(1, 'queryType'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateConnectivityIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p))(('NdfCreateConnectivityIncident', windll['NDFAPI.dll']), ((1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateNetConnectionIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p),Guid)(('NdfCreateNetConnectionIncident', windll['NDFAPI.dll']), ((1, 'handle'),(1, 'id'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreatePnrpIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,POINTER(c_void_p))(('NdfCreatePnrpIncident', windll['NDFAPI.dll']), ((1, 'cloudname'),(1, 'peername'),(1, 'diagnosePublish'),(1, 'appId'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCreateGroupingIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head),win32more.Foundation.PWSTR,POINTER(c_void_p))(('NdfCreateGroupingIncident', windll['NDFAPI.dll']), ((1, 'CloudName'),(1, 'GroupName'),(1, 'Identity'),(1, 'Invitation'),(1, 'Addresses'),(1, 'appId'),(1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfExecuteDiagnosis():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.HWND)(('NdfExecuteDiagnosis', windll['NDFAPI.dll']), ((1, 'handle'),(1, 'hwnd'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCloseIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('NdfCloseIncident', windll['NDFAPI.dll']), ((1, 'handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfDiagnoseIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RootCauseInfo_head)),UInt32,UInt32)(('NdfDiagnoseIncident', windll['NDFAPI.dll']), ((1, 'Handle'),(1, 'RootCauseCount'),(1, 'RootCauses'),(1, 'dwWait'),(1, 'dwFlags'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfRepairIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx_head),UInt32)(('NdfRepairIncident', windll['NDFAPI.dll']), ((1, 'Handle'),(1, 'RepairEx'),(1, 'dwWait'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfCancelIncident():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p)(('NdfCancelIncident', windll['NDFAPI.dll']), ((1, 'Handle'),))
-    except (FileNotFoundError, AttributeError):
-        return None
-def _define_NdfGetTraceFile():
-    try:
-        return WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.PWSTR))(('NdfGetTraceFile', windll['NDFAPI.dll']), ((1, 'Handle'),(1, 'TraceFileLocation'),))
-    except (FileNotFoundError, AttributeError):
-        return None
+NDF_ERROR_START: UInt32 = 63744
+NDF_E_LENGTH_EXCEEDED: win32more.Foundation.HRESULT = -2146895616
+NDF_E_NOHELPERCLASS: win32more.Foundation.HRESULT = -2146895615
+NDF_E_CANCELLED: win32more.Foundation.HRESULT = -2146895614
+NDF_E_DISABLED: win32more.Foundation.HRESULT = -2146895612
+NDF_E_BAD_PARAM: win32more.Foundation.HRESULT = -2146895611
+NDF_E_VALIDATION: win32more.Foundation.HRESULT = -2146895610
+NDF_E_UNKNOWN: win32more.Foundation.HRESULT = -2146895609
+NDF_E_PROBLEM_PRESENT: win32more.Foundation.HRESULT = -2146895608
+RF_WORKAROUND: UInt32 = 536870912
+RF_USER_ACTION: UInt32 = 268435456
+RF_USER_CONFIRMATION: UInt32 = 134217728
+RF_INFORMATION_ONLY: UInt32 = 33554432
+RF_UI_ONLY: UInt32 = 16777216
+RF_SHOW_EVENTS: UInt32 = 8388608
+RF_VALIDATE_HELPTOPIC: UInt32 = 4194304
+RF_REPRO: UInt32 = 2097152
+RF_CONTACT_ADMIN: UInt32 = 131072
+RF_RESERVED: UInt32 = 1073741824
+RF_RESERVED_CA: UInt32 = 2147483648
+RF_RESERVED_LNI: UInt32 = 65536
+RCF_ISLEAF: UInt32 = 1
+RCF_ISCONFIRMED: UInt32 = 2
+RCF_ISTHIRDPARTY: UInt32 = 4
+DF_IMPERSONATION: UInt32 = 2147483648
+DF_TRACELESS: UInt32 = 1073741824
+NDF_INBOUND_FLAG_EDGETRAVERSAL: UInt32 = 1
+NDF_INBOUND_FLAG_HEALTHCHECK: UInt32 = 2
+NDF_ADD_CAPTURE_TRACE: UInt32 = 1
+NDF_APPLY_INCLUSION_LIST_FILTER: UInt32 = 2
+@winfunctype('NDFAPI.dll')
+def NdfCreateIncident(helperClassName: win32more.Foundation.PWSTR, celt: UInt32, attributes: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head), handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateWinSockIncident(sock: win32more.Networking.WinSock.SOCKET, host: win32more.Foundation.PWSTR, port: UInt16, appId: win32more.Foundation.PWSTR, userId: POINTER(win32more.Security.SID_head), handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateWebIncident(url: win32more.Foundation.PWSTR, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateWebIncidentEx(url: win32more.Foundation.PWSTR, useWinHTTP: win32more.Foundation.BOOL, moduleName: win32more.Foundation.PWSTR, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateSharingIncident(UNCPath: win32more.Foundation.PWSTR, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateDNSIncident(hostname: win32more.Foundation.PWSTR, queryType: UInt16, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateConnectivityIncident(handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateNetConnectionIncident(handle: POINTER(c_void_p), id: Guid) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreatePnrpIncident(cloudname: win32more.Foundation.PWSTR, peername: win32more.Foundation.PWSTR, diagnosePublish: win32more.Foundation.BOOL, appId: win32more.Foundation.PWSTR, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCreateGroupingIncident(CloudName: win32more.Foundation.PWSTR, GroupName: win32more.Foundation.PWSTR, Identity: win32more.Foundation.PWSTR, Invitation: win32more.Foundation.PWSTR, Addresses: POINTER(win32more.Networking.WinSock.SOCKET_ADDRESS_LIST_head), appId: win32more.Foundation.PWSTR, handle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfExecuteDiagnosis(handle: c_void_p, hwnd: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCloseIncident(handle: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfDiagnoseIncident(Handle: c_void_p, RootCauseCount: POINTER(UInt32), RootCauses: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RootCauseInfo_head)), dwWait: UInt32, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfRepairIncident(Handle: c_void_p, RepairEx: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx_head), dwWait: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfCancelIncident(Handle: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype('NDFAPI.dll')
+def NdfGetTraceFile(Handle: c_void_p, TraceFileLocation: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
 ATTRIBUTE_TYPE = Int32
-AT_INVALID = 0
-AT_BOOLEAN = 1
-AT_INT8 = 2
-AT_UINT8 = 3
-AT_INT16 = 4
-AT_UINT16 = 5
-AT_INT32 = 6
-AT_UINT32 = 7
-AT_INT64 = 8
-AT_UINT64 = 9
-AT_STRING = 10
-AT_GUID = 11
-AT_LIFE_TIME = 12
-AT_SOCKADDR = 13
-AT_OCTET_STRING = 14
-def _define_DIAG_SOCKADDR_head():
-    class DIAG_SOCKADDR(Structure):
-        pass
-    return DIAG_SOCKADDR
-def _define_DIAG_SOCKADDR():
-    DIAG_SOCKADDR = win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAG_SOCKADDR_head
-    DIAG_SOCKADDR._fields_ = [
-        ('family', UInt16),
-        ('data', win32more.Foundation.CHAR * 126),
-    ]
-    return DIAG_SOCKADDR
+AT_INVALID: ATTRIBUTE_TYPE = 0
+AT_BOOLEAN: ATTRIBUTE_TYPE = 1
+AT_INT8: ATTRIBUTE_TYPE = 2
+AT_UINT8: ATTRIBUTE_TYPE = 3
+AT_INT16: ATTRIBUTE_TYPE = 4
+AT_UINT16: ATTRIBUTE_TYPE = 5
+AT_INT32: ATTRIBUTE_TYPE = 6
+AT_UINT32: ATTRIBUTE_TYPE = 7
+AT_INT64: ATTRIBUTE_TYPE = 8
+AT_UINT64: ATTRIBUTE_TYPE = 9
+AT_STRING: ATTRIBUTE_TYPE = 10
+AT_GUID: ATTRIBUTE_TYPE = 11
+AT_LIFE_TIME: ATTRIBUTE_TYPE = 12
+AT_SOCKADDR: ATTRIBUTE_TYPE = 13
+AT_OCTET_STRING: ATTRIBUTE_TYPE = 14
+class DIAG_SOCKADDR(Structure):
+    family: UInt16
+    data: win32more.Foundation.CHAR * 126
 DIAGNOSIS_STATUS = Int32
-DS_NOT_IMPLEMENTED = 0
-DS_CONFIRMED = 1
-DS_REJECTED = 2
-DS_INDETERMINATE = 3
-DS_DEFERRED = 4
-DS_PASSTHROUGH = 5
-def _define_DiagnosticsInfo_head():
-    class DiagnosticsInfo(Structure):
-        pass
-    return DiagnosticsInfo
-def _define_DiagnosticsInfo():
-    DiagnosticsInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.DiagnosticsInfo_head
-    DiagnosticsInfo._fields_ = [
-        ('cost', Int32),
-        ('flags', UInt32),
-    ]
-    return DiagnosticsInfo
-def _define_HELPER_ATTRIBUTE_head():
-    class HELPER_ATTRIBUTE(Structure):
-        pass
-    return HELPER_ATTRIBUTE
-def _define_HELPER_ATTRIBUTE():
-    HELPER_ATTRIBUTE = win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head
-    class HELPER_ATTRIBUTE__Anonymous_e__Union(Union):
-        pass
-    HELPER_ATTRIBUTE__Anonymous_e__Union._fields_ = [
-        ('Boolean', win32more.Foundation.BOOL),
-        ('Char', Byte),
-        ('Byte', Byte),
-        ('Short', Int16),
-        ('Word', UInt16),
-        ('Int', Int32),
-        ('DWord', UInt32),
-        ('Int64', Int64),
-        ('UInt64', UInt64),
-        ('PWStr', win32more.Foundation.PWSTR),
-        ('Guid', Guid),
-        ('LifeTime', win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME),
-        ('Address', win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAG_SOCKADDR),
-        ('OctetString', win32more.NetworkManagement.NetworkDiagnosticsFramework.OCTET_STRING),
-    ]
-    HELPER_ATTRIBUTE._anonymous_ = [
-        'Anonymous',
-    ]
-    HELPER_ATTRIBUTE._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('type', win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE),
-        ('Anonymous', HELPER_ATTRIBUTE__Anonymous_e__Union),
-    ]
-    return HELPER_ATTRIBUTE
-def _define_HelperAttributeInfo_head():
-    class HelperAttributeInfo(Structure):
-        pass
-    return HelperAttributeInfo
-def _define_HelperAttributeInfo():
-    HelperAttributeInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head
-    HelperAttributeInfo._fields_ = [
-        ('pwszName', win32more.Foundation.PWSTR),
-        ('type', win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE),
-    ]
-    return HelperAttributeInfo
-def _define_HYPOTHESIS_head():
-    class HYPOTHESIS(Structure):
-        pass
-    return HYPOTHESIS
-def _define_HYPOTHESIS():
-    HYPOTHESIS = win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head
-    HYPOTHESIS._fields_ = [
-        ('pwszClassName', win32more.Foundation.PWSTR),
-        ('pwszDescription', win32more.Foundation.PWSTR),
-        ('celt', UInt32),
-        ('rgAttributes', POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)),
-    ]
-    return HYPOTHESIS
-def _define_HypothesisResult_head():
-    class HypothesisResult(Structure):
-        pass
-    return HypothesisResult
-def _define_HypothesisResult():
-    HypothesisResult = win32more.NetworkManagement.NetworkDiagnosticsFramework.HypothesisResult_head
-    HypothesisResult._fields_ = [
-        ('hypothesis', win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS),
-        ('pathStatus', win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS),
-    ]
-    return HypothesisResult
-def _define_INetDiagExtensibleHelper_head():
-    class INetDiagExtensibleHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c0b35748-ebf5-11d8-bb-e9-50-50-54-50-30-30')
-    return INetDiagExtensibleHelper
-def _define_INetDiagExtensibleHelper():
-    INetDiagExtensibleHelper = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagExtensibleHelper_head
-    INetDiagExtensibleHelper.ResolveAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head),POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)))(3, 'ResolveAttributes', ((1, 'celt'),(1, 'rgKeyAttributes'),(1, 'pcelt'),(1, 'prgMatchValues'),)))
-    win32more.System.Com.IUnknown
-    return INetDiagExtensibleHelper
-def _define_INetDiagHelper_head():
-    class INetDiagHelper(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c0b35746-ebf5-11d8-bb-e9-50-50-54-50-30-30')
-    return INetDiagHelper
-def _define_INetDiagHelper():
-    INetDiagHelper = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelper_head
-    INetDiagHelper.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))(3, 'Initialize', ((1, 'celt'),(1, 'rgAttributes'),)))
-    INetDiagHelper.GetDiagnosticsInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DiagnosticsInfo_head)))(4, 'GetDiagnosticsInfo', ((1, 'ppInfo'),)))
-    INetDiagHelper.GetKeyAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)))(5, 'GetKeyAttributes', ((1, 'pcelt'),(1, 'pprgAttributes'),)))
-    INetDiagHelper.LowHealth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(Int32),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS))(6, 'LowHealth', ((1, 'pwszInstanceDescription'),(1, 'ppwszDescription'),(1, 'pDeferredTime'),(1, 'pStatus'),)))
-    INetDiagHelper.HighUtilization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(Int32),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS))(7, 'HighUtilization', ((1, 'pwszInstanceDescription'),(1, 'ppwszDescription'),(1, 'pDeferredTime'),(1, 'pStatus'),)))
-    INetDiagHelper.GetLowerHypotheses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head)))(8, 'GetLowerHypotheses', ((1, 'pcelt'),(1, 'pprgHypotheses'),)))
-    INetDiagHelper.GetDownStreamHypotheses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head)))(9, 'GetDownStreamHypotheses', ((1, 'pcelt'),(1, 'pprgHypotheses'),)))
-    INetDiagHelper.GetHigherHypotheses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head)))(10, 'GetHigherHypotheses', ((1, 'pcelt'),(1, 'pprgHypotheses'),)))
-    INetDiagHelper.GetUpStreamHypotheses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head)))(11, 'GetUpStreamHypotheses', ((1, 'pcelt'),(1, 'pprgHypotheses'),)))
-    INetDiagHelper.Repair = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo_head),POINTER(Int32),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS))(12, 'Repair', ((1, 'pInfo'),(1, 'pDeferredTime'),(1, 'pStatus'),)))
-    INetDiagHelper.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE,POINTER(Int32),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS))(13, 'Validate', ((1, 'problem'),(1, 'pDeferredTime'),(1, 'pStatus'),)))
-    INetDiagHelper.GetRepairInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo_head)))(14, 'GetRepairInfo', ((1, 'problem'),(1, 'pcelt'),(1, 'ppInfo'),)))
-    INetDiagHelper.GetLifeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME_head))(15, 'GetLifeTime', ((1, 'pLifeTime'),)))
-    INetDiagHelper.SetLifeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME)(16, 'SetLifeTime', ((1, 'lifeTime'),)))
-    INetDiagHelper.GetCacheTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head))(17, 'GetCacheTime', ((1, 'pCacheTime'),)))
-    INetDiagHelper.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)))(18, 'GetAttributes', ((1, 'pcelt'),(1, 'pprgAttributes'),)))
-    INetDiagHelper.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(19, 'Cancel', ()))
-    INetDiagHelper.Cleanup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(20, 'Cleanup', ()))
-    win32more.System.Com.IUnknown
-    return INetDiagHelper
-def _define_INetDiagHelperEx_head():
-    class INetDiagHelperEx(win32more.System.Com.IUnknown_head):
-        Guid = Guid('972dab4d-e4e3-4fc6-ae-54-5f-65-cc-de-4a-15')
-    return INetDiagHelperEx
-def _define_INetDiagHelperEx():
-    INetDiagHelperEx = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperEx_head
-    INetDiagHelperEx.ReconfirmLowHealth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HypothesisResult_head),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS))(3, 'ReconfirmLowHealth', ((1, 'celt'),(1, 'pResults'),(1, 'ppwszUpdatedDescription'),(1, 'pUpdatedStatus'),)))
-    INetDiagHelperEx.SetUtilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head)(4, 'SetUtilities', ((1, 'pUtilities'),)))
-    INetDiagHelperEx.ReproduceFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,)(5, 'ReproduceFailure', ()))
-    win32more.System.Com.IUnknown
-    return INetDiagHelperEx
-def _define_INetDiagHelperInfo_head():
-    class INetDiagHelperInfo(win32more.System.Com.IUnknown_head):
-        Guid = Guid('c0b35747-ebf5-11d8-bb-e9-50-50-54-50-30-30')
-    return INetDiagHelperInfo
-def _define_INetDiagHelperInfo():
-    INetDiagHelperInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperInfo_head
-    INetDiagHelperInfo.GetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head)))(3, 'GetAttributeInfo', ((1, 'pcelt'),(1, 'pprgAttributeInfos'),)))
-    win32more.System.Com.IUnknown
-    return INetDiagHelperInfo
-def _define_INetDiagHelperUtilFactory_head():
-    class INetDiagHelperUtilFactory(win32more.System.Com.IUnknown_head):
-        Guid = Guid('104613fb-bc57-4178-95-ba-88-80-96-98-35-4a')
-    return INetDiagHelperUtilFactory
-def _define_INetDiagHelperUtilFactory():
-    INetDiagHelperUtilFactory = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head
-    INetDiagHelperUtilFactory.CreateUtilityInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p))(3, 'CreateUtilityInstance', ((1, 'riid'),(1, 'ppvObject'),)))
-    win32more.System.Com.IUnknown
-    return INetDiagHelperUtilFactory
-def _define_LIFE_TIME_head():
-    class LIFE_TIME(Structure):
-        pass
-    return LIFE_TIME
-def _define_LIFE_TIME():
-    LIFE_TIME = win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME_head
-    LIFE_TIME._fields_ = [
-        ('startTime', win32more.Foundation.FILETIME),
-        ('endTime', win32more.Foundation.FILETIME),
-    ]
-    return LIFE_TIME
-def _define_OCTET_STRING_head():
-    class OCTET_STRING(Structure):
-        pass
-    return OCTET_STRING
-def _define_OCTET_STRING():
-    OCTET_STRING = win32more.NetworkManagement.NetworkDiagnosticsFramework.OCTET_STRING_head
-    OCTET_STRING._fields_ = [
-        ('dwLength', UInt32),
-        ('lpValue', c_char_p_no),
-    ]
-    return OCTET_STRING
+DS_NOT_IMPLEMENTED: DIAGNOSIS_STATUS = 0
+DS_CONFIRMED: DIAGNOSIS_STATUS = 1
+DS_REJECTED: DIAGNOSIS_STATUS = 2
+DS_INDETERMINATE: DIAGNOSIS_STATUS = 3
+DS_DEFERRED: DIAGNOSIS_STATUS = 4
+DS_PASSTHROUGH: DIAGNOSIS_STATUS = 5
+class DiagnosticsInfo(Structure):
+    cost: Int32
+    flags: UInt32
+class HELPER_ATTRIBUTE(Structure):
+    pwszName: win32more.Foundation.PWSTR
+    type: win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Boolean: win32more.Foundation.BOOL
+        Char: Byte
+        Byte: Byte
+        Short: Int16
+        Word: UInt16
+        Int: Int32
+        DWord: UInt32
+        Int64: Int64
+        UInt64: UInt64
+        PWStr: win32more.Foundation.PWSTR
+        Guid: Guid
+        LifeTime: win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME
+        Address: win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAG_SOCKADDR
+        OctetString: win32more.NetworkManagement.NetworkDiagnosticsFramework.OCTET_STRING
+class HelperAttributeInfo(Structure):
+    pwszName: win32more.Foundation.PWSTR
+    type: win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
+class HYPOTHESIS(Structure):
+    pwszClassName: win32more.Foundation.PWSTR
+    pwszDescription: win32more.Foundation.PWSTR
+    celt: UInt32
+    rgAttributes: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)
+class HypothesisResult(Structure):
+    hypothesis: win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS
+    pathStatus: win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS
+class INetDiagExtensibleHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c0b35748-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    @commethod(3)
+    def ResolveAttributes(celt: UInt32, rgKeyAttributes: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head), pcelt: POINTER(UInt32), prgMatchValues: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))) -> win32more.Foundation.HRESULT: ...
+class INetDiagHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c0b35746-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    @commethod(3)
+    def Initialize(celt: UInt32, rgAttributes: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDiagnosticsInfo(ppInfo: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DiagnosticsInfo_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetKeyAttributes(pcelt: POINTER(UInt32), pprgAttributes: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def LowHealth(pwszInstanceDescription: win32more.Foundation.PWSTR, ppwszDescription: POINTER(win32more.Foundation.PWSTR), pDeferredTime: POINTER(Int32), pStatus: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def HighUtilization(pwszInstanceDescription: win32more.Foundation.PWSTR, ppwszDescription: POINTER(win32more.Foundation.PWSTR), pDeferredTime: POINTER(Int32), pStatus: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetLowerHypotheses(pcelt: POINTER(UInt32), pprgHypotheses: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetDownStreamHypotheses(pcelt: POINTER(UInt32), pprgHypotheses: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetHigherHypotheses(pcelt: POINTER(UInt32), pprgHypotheses: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetUpStreamHypotheses(pcelt: POINTER(UInt32), pprgHypotheses: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Repair(pInfo: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo_head), pDeferredTime: POINTER(Int32), pStatus: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Validate(problem: win32more.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE, pDeferredTime: POINTER(Int32), pStatus: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetRepairInfo(problem: win32more.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE, pcelt: POINTER(UInt32), ppInfo: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetLifeTime(pLifeTime: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetLifeTime(lifeTime: win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetCacheTime(pCacheTime: POINTER(win32more.Foundation.FILETIME_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetAttributes(pcelt: POINTER(UInt32), pprgAttributes: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def Cleanup() -> win32more.Foundation.HRESULT: ...
+class INetDiagHelperEx(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('972dab4d-e4e3-4fc6-ae-54-5f-65-cc-de-4a-15')
+    @commethod(3)
+    def ReconfirmLowHealth(celt: UInt32, pResults: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HypothesisResult_head), ppwszUpdatedDescription: POINTER(win32more.Foundation.PWSTR), pUpdatedStatus: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetUtilities(pUtilities: win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ReproduceFailure() -> win32more.Foundation.HRESULT: ...
+class INetDiagHelperInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c0b35747-ebf5-11d8-bb-e9-50-50-54-50-30-30')
+    @commethod(3)
+    def GetAttributeInfo(pcelt: POINTER(UInt32), pprgAttributeInfos: POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head))) -> win32more.Foundation.HRESULT: ...
+class INetDiagHelperUtilFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('104613fb-bc57-4178-95-ba-88-80-96-98-35-4a')
+    @commethod(3)
+    def CreateUtilityInstance(riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class LIFE_TIME(Structure):
+    startTime: win32more.Foundation.FILETIME
+    endTime: win32more.Foundation.FILETIME
+class OCTET_STRING(Structure):
+    dwLength: UInt32
+    lpValue: c_char_p_no
 PROBLEM_TYPE = Int32
-PT_INVALID = 0
-PT_LOW_HEALTH = 1
-PT_LOWER_HEALTH = 2
-PT_DOWN_STREAM_HEALTH = 4
-PT_HIGH_UTILIZATION = 8
-PT_HIGHER_UTILIZATION = 16
-PT_UP_STREAM_UTILIZATION = 32
+PT_INVALID: PROBLEM_TYPE = 0
+PT_LOW_HEALTH: PROBLEM_TYPE = 1
+PT_LOWER_HEALTH: PROBLEM_TYPE = 2
+PT_DOWN_STREAM_HEALTH: PROBLEM_TYPE = 4
+PT_HIGH_UTILIZATION: PROBLEM_TYPE = 8
+PT_HIGHER_UTILIZATION: PROBLEM_TYPE = 16
+PT_UP_STREAM_UTILIZATION: PROBLEM_TYPE = 32
 REPAIR_RISK = Int32
-RR_NOROLLBACK = 0
-RR_ROLLBACK = 1
-RR_NORISK = 2
+RR_NOROLLBACK: REPAIR_RISK = 0
+RR_ROLLBACK: REPAIR_RISK = 1
+RR_NORISK: REPAIR_RISK = 2
 REPAIR_SCOPE = Int32
-RS_SYSTEM = 0
-RS_USER = 1
-RS_APPLICATION = 2
-RS_PROCESS = 3
+RS_SYSTEM: REPAIR_SCOPE = 0
+RS_USER: REPAIR_SCOPE = 1
+RS_APPLICATION: REPAIR_SCOPE = 2
+RS_PROCESS: REPAIR_SCOPE = 3
 REPAIR_STATUS = Int32
-RS_NOT_IMPLEMENTED = 0
-RS_REPAIRED = 1
-RS_UNREPAIRED = 2
-RS_DEFERRED = 3
-RS_USER_ACTION = 4
-def _define_RepairInfo_head():
-    class RepairInfo(Structure):
-        pass
-    return RepairInfo
-def _define_RepairInfo():
-    RepairInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo_head
-    RepairInfo._fields_ = [
-        ('guid', Guid),
-        ('pwszClassName', win32more.Foundation.PWSTR),
-        ('pwszDescription', win32more.Foundation.PWSTR),
-        ('sidType', UInt32),
-        ('cost', Int32),
-        ('flags', UInt32),
-        ('scope', win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE),
-        ('risk', win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK),
-        ('UiInfo', win32more.NetworkManagement.NetworkDiagnosticsFramework.UiInfo),
-        ('rootCauseIndex', Int32),
-    ]
-    return RepairInfo
-def _define_RepairInfoEx_head():
-    class RepairInfoEx(Structure):
-        pass
-    return RepairInfoEx
-def _define_RepairInfoEx():
-    RepairInfoEx = win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx_head
-    RepairInfoEx._fields_ = [
-        ('repair', win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo),
-        ('repairRank', UInt16),
-    ]
-    return RepairInfoEx
-def _define_RootCauseInfo_head():
-    class RootCauseInfo(Structure):
-        pass
-    return RootCauseInfo
-def _define_RootCauseInfo():
-    RootCauseInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.RootCauseInfo_head
-    RootCauseInfo._fields_ = [
-        ('pwszDescription', win32more.Foundation.PWSTR),
-        ('rootCauseID', Guid),
-        ('rootCauseFlags', UInt32),
-        ('networkInterfaceID', Guid),
-        ('pRepairs', POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx_head)),
-        ('repairCount', UInt16),
-    ]
-    return RootCauseInfo
-def _define_ShellCommandInfo_head():
-    class ShellCommandInfo(Structure):
-        pass
-    return ShellCommandInfo
-def _define_ShellCommandInfo():
-    ShellCommandInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo_head
-    ShellCommandInfo._fields_ = [
-        ('pwszOperation', win32more.Foundation.PWSTR),
-        ('pwszFile', win32more.Foundation.PWSTR),
-        ('pwszParameters', win32more.Foundation.PWSTR),
-        ('pwszDirectory', win32more.Foundation.PWSTR),
-        ('nShowCmd', UInt32),
-    ]
-    return ShellCommandInfo
+RS_NOT_IMPLEMENTED: REPAIR_STATUS = 0
+RS_REPAIRED: REPAIR_STATUS = 1
+RS_UNREPAIRED: REPAIR_STATUS = 2
+RS_DEFERRED: REPAIR_STATUS = 3
+RS_USER_ACTION: REPAIR_STATUS = 4
+class RepairInfo(Structure):
+    guid: Guid
+    pwszClassName: win32more.Foundation.PWSTR
+    pwszDescription: win32more.Foundation.PWSTR
+    sidType: UInt32
+    cost: Int32
+    flags: UInt32
+    scope: win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE
+    risk: win32more.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK
+    UiInfo: win32more.NetworkManagement.NetworkDiagnosticsFramework.UiInfo
+    rootCauseIndex: Int32
+class RepairInfoEx(Structure):
+    repair: win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo
+    repairRank: UInt16
+class RootCauseInfo(Structure):
+    pwszDescription: win32more.Foundation.PWSTR
+    rootCauseID: Guid
+    rootCauseFlags: UInt32
+    networkInterfaceID: Guid
+    pRepairs: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx_head)
+    repairCount: UInt16
+class ShellCommandInfo(Structure):
+    pwszOperation: win32more.Foundation.PWSTR
+    pwszFile: win32more.Foundation.PWSTR
+    pwszParameters: win32more.Foundation.PWSTR
+    pwszDirectory: win32more.Foundation.PWSTR
+    nShowCmd: UInt32
 UI_INFO_TYPE = Int32
-UIT_INVALID = 0
-UIT_NONE = 1
-UIT_SHELL_COMMAND = 2
-UIT_HELP_PANE = 3
-UIT_DUI = 4
-def _define_UiInfo_head():
-    class UiInfo(Structure):
-        pass
-    return UiInfo
-def _define_UiInfo():
-    UiInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.UiInfo_head
-    class UiInfo__Anonymous_e__Union(Union):
-        pass
-    UiInfo__Anonymous_e__Union._fields_ = [
-        ('pwzNull', win32more.Foundation.PWSTR),
-        ('ShellInfo', win32more.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo),
-        ('pwzHelpUrl', win32more.Foundation.PWSTR),
-        ('pwzDui', win32more.Foundation.PWSTR),
-    ]
-    UiInfo._anonymous_ = [
-        'Anonymous',
-    ]
-    UiInfo._fields_ = [
-        ('type', win32more.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE),
-        ('Anonymous', UiInfo__Anonymous_e__Union),
-    ]
-    return UiInfo
+UIT_INVALID: UI_INFO_TYPE = 0
+UIT_NONE: UI_INFO_TYPE = 1
+UIT_SHELL_COMMAND: UI_INFO_TYPE = 2
+UIT_HELP_PANE: UI_INFO_TYPE = 3
+UIT_DUI: UI_INFO_TYPE = 4
+class UiInfo(Structure):
+    type: win32more.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        pwzNull: win32more.Foundation.PWSTR
+        ShellInfo: win32more.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo
+        pwzHelpUrl: win32more.Foundation.PWSTR
+        pwzDui: win32more.Foundation.PWSTR
+make_head(_module, 'DIAG_SOCKADDR')
+make_head(_module, 'DiagnosticsInfo')
+make_head(_module, 'HELPER_ATTRIBUTE')
+make_head(_module, 'HelperAttributeInfo')
+make_head(_module, 'HYPOTHESIS')
+make_head(_module, 'HypothesisResult')
+make_head(_module, 'INetDiagExtensibleHelper')
+make_head(_module, 'INetDiagHelper')
+make_head(_module, 'INetDiagHelperEx')
+make_head(_module, 'INetDiagHelperInfo')
+make_head(_module, 'INetDiagHelperUtilFactory')
+make_head(_module, 'LIFE_TIME')
+make_head(_module, 'OCTET_STRING')
+make_head(_module, 'RepairInfo')
+make_head(_module, 'RepairInfoEx')
+make_head(_module, 'RootCauseInfo')
+make_head(_module, 'ShellCommandInfo')
+make_head(_module, 'UiInfo')
 __all__ = [
     "ATTRIBUTE_TYPE",
     "AT_BOOLEAN",
