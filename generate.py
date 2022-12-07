@@ -722,6 +722,8 @@ class Preprocessor:
                 yield t
 
     def get_namespace(self, fullname: str) -> str:
+        if "." not in fullname:
+            return ""
         return fullname.rsplit(".", 1)[0]
 
     def collect_import_namespace(self, td: TypeDefinition, import_namespaces: set[str]) -> None:
