@@ -802,7 +802,7 @@ class PyGenerator:
         else:
             raise NotImplementedError()
         restype = md.return_type.type.pytype
-        params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
+        params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
         writer.write(f"@{functype}('{library}')\n")
         writer.write(f"def {md.name}({params_csv}) -> {restype}: ...\n")
 
@@ -816,7 +816,7 @@ class PyGenerator:
             raise NotImplementedError()
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.return_type.type.pytype
-        params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
+        params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
         writer.write(f"@{functype}\n")
         writer.write(f"def {td.name}({params_csv}) -> {restype}: ...\n")
 
@@ -882,7 +882,7 @@ class PyGenerator:
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.return_type.type.pytype
-            params_csv = ", ".join([f"{pa.name}: {pa.type.pytype}" for pa in md.parameters])
+            params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
