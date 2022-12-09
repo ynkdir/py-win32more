@@ -722,8 +722,7 @@ class Preprocessor:
             for pa in md.parameters:
                 yield pa.type
         for nested_type in td.nested_types:
-            for t in self.foreach_type(nested_type):
-                yield t
+            yield from self.foreach_type(nested_type)
 
     def get_namespace(self, fullname: str) -> str:
         if "." not in fullname:
