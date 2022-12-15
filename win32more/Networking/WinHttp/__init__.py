@@ -15,6 +15,9 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+INTERNET_DEFAULT_PORT: UInt16 = 0
+INTERNET_DEFAULT_HTTP_PORT: UInt16 = 80
+INTERNET_DEFAULT_HTTPS_PORT: UInt16 = 443
 WINHTTP_FLAG_ASYNC: UInt32 = 268435456
 WINHTTP_FLAG_SECURE_DEFAULTS: UInt32 = 805306368
 SECURITY_FLAG_IGNORE_UNKNOWN_CA: UInt32 = 256
@@ -504,7 +507,7 @@ def WinHttpOpen(pszAgentW: win32more.Foundation.PWSTR, dwAccessType: win32more.N
 @winfunctype('WINHTTP.dll')
 def WinHttpCloseHandle(hInternet: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
-def WinHttpConnect(hSession: c_void_p, pswzServerName: win32more.Foundation.PWSTR, nServerPort: win32more.Networking.WinHttp.INTERNET_PORT, dwReserved: UInt32) -> c_void_p: ...
+def WinHttpConnect(hSession: c_void_p, pswzServerName: win32more.Foundation.PWSTR, nServerPort: UInt16, dwReserved: UInt32) -> c_void_p: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpReadData(hRequest: c_void_p, lpBuffer: c_void_p, dwNumberOfBytesToRead: UInt32, lpdwNumberOfBytesRead: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 @winfunctype('WINHTTP.dll')
@@ -588,10 +591,6 @@ def WinHttpWebSocketQueryCloseStatus(hWebSocket: c_void_p, pusStatus: POINTER(UI
 class HTTP_VERSION_INFO(Structure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
-INTERNET_PORT = UInt32
-INTERNET_DEFAULT_HTTP_PORT: INTERNET_PORT = 80
-INTERNET_DEFAULT_HTTPS_PORT: INTERNET_PORT = 443
-INTERNET_DEFAULT_PORT: INTERNET_PORT = 0
 class URL_COMPONENTS(Structure):
     dwStructSize: UInt32
     lpszScheme: win32more.Foundation.PWSTR
@@ -1003,7 +1002,6 @@ __all__ = [
     "INTERNET_DEFAULT_HTTPS_PORT",
     "INTERNET_DEFAULT_HTTP_PORT",
     "INTERNET_DEFAULT_PORT",
-    "INTERNET_PORT",
     "NETWORKING_KEY_BUFSIZE",
     "SECURITY_FLAG_IGNORE_CERT_CN_INVALID",
     "SECURITY_FLAG_IGNORE_CERT_DATE_INVALID",

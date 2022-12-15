@@ -18,7 +18,9 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+FLS_OUT_OF_INDEXES: UInt32 = 4294967295
 PRIVATE_NAMESPACE_FLAG_DESTROY: UInt32 = 1
+TLS_OUT_OF_INDEXES: UInt32 = 4294967295
 PROC_THREAD_ATTRIBUTE_REPLACE_VALUE: UInt32 = 1
 THREAD_POWER_THROTTLING_CURRENT_VERSION: UInt32 = 1
 THREAD_POWER_THROTTLING_EXECUTION_SPEED: UInt32 = 1
@@ -272,7 +274,7 @@ def GetProcessVersion(ProcessId: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetStartupInfoW(lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head)) -> Void: ...
 @winfunctype('ADVAPI32.dll')
-def CreateProcessAsUserW(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+def CreateProcessAsUserW(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def SetThreadToken(Thread: POINTER(win32more.Foundation.HANDLE), Token: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -364,7 +366,7 @@ def GetThreadSelectedCpuSets(Thread: win32more.Foundation.HANDLE, CpuSetIds: POI
 @winfunctype('KERNEL32.dll')
 def SetThreadSelectedCpuSets(Thread: win32more.Foundation.HANDLE, CpuSetIds: POINTER(UInt32), CpuSetIdCount: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CreateProcessAsUserA(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PSTR, lpCommandLine: win32more.Foundation.PSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+def CreateProcessAsUserA(hToken: win32more.Foundation.HANDLE, lpApplicationName: win32more.Foundation.PSTR, lpCommandLine: win32more.Foundation.PSTR, lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), bInheritHandles: win32more.Foundation.BOOL, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetProcessShutdownParameters(lpdwLevel: POINTER(UInt32), lpdwFlags: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -612,9 +614,9 @@ def QueryFullProcessImageNameW(hProcess: win32more.Foundation.HANDLE, dwFlags: w
 @winfunctype('KERNEL32.dll')
 def GetStartupInfoA(lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOA_head)) -> Void: ...
 @winfunctype('ADVAPI32.dll')
-def CreateProcessWithLogonW(lpUsername: win32more.Foundation.PWSTR, lpDomain: win32more.Foundation.PWSTR, lpPassword: win32more.Foundation.PWSTR, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+def CreateProcessWithLogonW(lpUsername: win32more.Foundation.PWSTR, lpDomain: win32more.Foundation.PWSTR, lpPassword: win32more.Foundation.PWSTR, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def CreateProcessWithTokenW(hToken: win32more.Foundation.HANDLE, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: UInt32, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
+def CreateProcessWithTokenW(hToken: win32more.Foundation.HANDLE, dwLogonFlags: win32more.System.Threading.CREATE_PROCESS_LOGON_FLAGS, lpApplicationName: win32more.Foundation.PWSTR, lpCommandLine: win32more.Foundation.PWSTR, dwCreationFlags: win32more.System.Threading.PROCESS_CREATION_FLAGS, lpEnvironment: c_void_p, lpCurrentDirectory: win32more.Foundation.PWSTR, lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head), lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def RegisterWaitForSingleObject(phNewWaitObject: POINTER(win32more.Foundation.HANDLE), hObject: win32more.Foundation.HANDLE, Callback: win32more.System.Threading.WAITORTIMERCALLBACK, Context: c_void_p, dwMilliseconds: UInt32, dwFlags: win32more.System.Threading.WORKER_THREAD_FLAGS) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -1390,6 +1392,7 @@ __all__ = [
     "ExecuteUmsThread",
     "ExitProcess",
     "ExitThread",
+    "FLS_OUT_OF_INDEXES",
     "FlsAlloc",
     "FlsFree",
     "FlsGetValue",
@@ -1898,6 +1901,7 @@ __all__ = [
     "TIMER_ALL_ACCESS",
     "TIMER_MODIFY_STATE",
     "TIMER_QUERY_STATE",
+    "TLS_OUT_OF_INDEXES",
     "TP_CALLBACK_ENVIRON_V3",
     "TP_CALLBACK_INSTANCE",
     "TP_CALLBACK_PRIORITY",

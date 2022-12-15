@@ -24,6 +24,7 @@ TSF_Hardware: UInt32 = 1
 TSF_Authenticated: UInt32 = 2
 TSF_IPv6: UInt32 = 4
 TSF_SignatureAuthenticated: UInt32 = 8
+TIME_ZONE_ID_INVALID: UInt32 = 4294967295
 @winfunctype('KERNEL32.dll')
 def SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation: POINTER(win32more.System.Time.TIME_ZONE_INFORMATION_head), lpUniversalTime: POINTER(win32more.Foundation.SYSTEMTIME_head), lpLocalTime: POINTER(win32more.Foundation.SYSTEMTIME_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -89,6 +90,7 @@ __all__ = [
     "SystemTimeToFileTime",
     "SystemTimeToTzSpecificLocalTime",
     "SystemTimeToTzSpecificLocalTimeEx",
+    "TIME_ZONE_ID_INVALID",
     "TIME_ZONE_INFORMATION",
     "TSF_Authenticated",
     "TSF_Hardware",

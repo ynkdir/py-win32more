@@ -2,6 +2,7 @@ from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
 from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
+import win32more.Networking.WinSock
 import win32more.System.HostComputeSystem
 import win32more.System.Hypervisor
 import win32more.System.Power
@@ -570,7 +571,7 @@ ARM64_RegisterCntvCvalEl0: REGISTER_ID = 156
 ARM64_RegisterCntvCtlEl0: REGISTER_ID = 157
 ARM64_RegisterMax: REGISTER_ID = 158
 class SOCKADDR_HV(Structure):
-    Family: UInt16
+    Family: win32more.Networking.WinSock.ADDRESS_FAMILY
     Reserved: UInt16
     VmId: Guid
     ServiceId: Guid

@@ -33,7 +33,7 @@ class AAL5_PARAMETERS(Structure):
     SSCSType: Byte
 class AALUSER_PARAMETERS(Structure):
     UserDefined: UInt32
-ADDRESS_FAMILY = UInt32
+ADDRESS_FAMILY = UInt16
 AF_INET: ADDRESS_FAMILY = 2
 AF_INET6: ADDRESS_FAMILY = 23
 AF_UNSPEC: ADDRESS_FAMILY = 0
@@ -831,6 +831,7 @@ FD_ADDRESS_LIST_CHANGE_BIT: UInt32 = 9
 FD_MAX_EVENTS: UInt32 = 10
 WSA_MAXIMUM_WAIT_EVENTS: UInt32 = 64
 WSA_WAIT_FAILED: UInt32 = 4294967295
+WSA_WAIT_TIMEOUT: UInt32 = 258
 CF_ACCEPT: UInt32 = 0
 CF_REJECT: UInt32 = 1
 CF_DEFER: UInt32 = 2
@@ -3223,7 +3224,7 @@ class SOCK_NOTIFY_REGISTRATION(Structure):
     triggerFlags: Byte
     registrationResult: UInt32
 class SOCKADDR(Structure):
-    sa_family: UInt16
+    sa_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sa_data: win32more.Foundation.CHAR * 14
 class SOCKADDR_ATM(Structure):
     satm_family: UInt16
@@ -3231,7 +3232,7 @@ class SOCKADDR_ATM(Structure):
     satm_blli: win32more.Networking.WinSock.ATM_BLLI
     satm_bhli: win32more.Networking.WinSock.ATM_BHLI
 class SOCKADDR_DL(Structure):
-    sdl_family: UInt16
+    sdl_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sdl_data: Byte * 8
     sdl_zero: Byte * 4
 class sockaddr_gen(Union):
@@ -3239,12 +3240,12 @@ class sockaddr_gen(Union):
     AddressIn: win32more.Networking.WinSock.SOCKADDR_IN
     AddressIn6: win32more.Networking.WinSock.sockaddr_in6_old
 class SOCKADDR_IN(Structure):
-    sin_family: UInt16
+    sin_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sin_port: UInt16
     sin_addr: win32more.Networking.WinSock.IN_ADDR
     sin_zero: win32more.Foundation.CHAR * 8
 class SOCKADDR_IN6(Structure):
-    sin6_family: UInt16
+    sin6_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sin6_port: UInt16
     sin6_flowinfo: UInt32
     sin6_addr: win32more.Networking.WinSock.IN6_ADDR
@@ -3269,7 +3270,7 @@ class SOCKADDR_IN6_W2KSP1(Structure):
 class SOCKADDR_INET(Union):
     Ipv4: win32more.Networking.WinSock.SOCKADDR_IN
     Ipv6: win32more.Networking.WinSock.SOCKADDR_IN6
-    si_family: UInt16
+    si_family: win32more.Networking.WinSock.ADDRESS_FAMILY
 class SOCKADDR_IPX(Structure):
     sa_family: Int16
     sa_netnum: win32more.Foundation.CHAR * 4
@@ -3284,7 +3285,7 @@ class SOCKADDR_NB(Structure):
     snb_type: UInt16
     snb_name: win32more.Foundation.CHAR * 16
 class SOCKADDR_STORAGE(Structure):
-    ss_family: UInt16
+    ss_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     __ss_pad1: win32more.Foundation.CHAR * 6
     __ss_align: Int64
     __ss_pad2: win32more.Foundation.CHAR * 112
@@ -3300,7 +3301,7 @@ class SOCKADDR_TP(Structure):
     tp_tsel_len: UInt16
     tp_addr: Byte * 64
 class SOCKADDR_UN(Structure):
-    sun_family: UInt16
+    sun_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sun_path: win32more.Foundation.CHAR * 108
 class SOCKADDR_VNS(Structure):
     sin_family: UInt16
@@ -6432,6 +6433,7 @@ __all__ = [
     "WSA_WAIT_EVENT_0",
     "WSA_WAIT_FAILED",
     "WSA_WAIT_IO_COMPLETION",
+    "WSA_WAIT_TIMEOUT",
     "WSCDeinstallProvider",
     "WSCDeinstallProvider32",
     "WSCEnableNSProvider",

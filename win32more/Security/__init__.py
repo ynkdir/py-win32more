@@ -96,6 +96,8 @@ class ACL_SIZE_INFORMATION(Structure):
     AceCount: UInt32
     AclBytesInUse: UInt32
     AclBytesFree: UInt32
+SECURITY_DYNAMIC_TRACKING: win32more.Foundation.BOOLEAN = 1
+SECURITY_STATIC_TRACKING: win32more.Foundation.BOOLEAN = 0
 wszCERTENROLLSHAREPATH: String = 'CertSrv\\CertEnroll'
 cwcHRESULTSTRING: UInt32 = 40
 szLBRACE: String = '{'
@@ -309,7 +311,7 @@ def SetPrivateObjectSecurityEx(SecurityInformation: UInt32, ModificationDescript
 @winfunctype('ADVAPI32.dll')
 def SetSecurityAccessMask(SecurityInformation: UInt32, DesiredAccess: POINTER(UInt32)) -> Void: ...
 @winfunctype('ADVAPI32.dll')
-def SetSecurityDescriptorControl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ControlBitsOfInterest: UInt16, ControlBitsToSet: UInt16) -> win32more.Foundation.BOOL: ...
+def SetSecurityDescriptorControl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, ControlBitsOfInterest: win32more.Security.SECURITY_DESCRIPTOR_CONTROL, ControlBitsToSet: win32more.Security.SECURITY_DESCRIPTOR_CONTROL) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def SetSecurityDescriptorDacl(pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR, bDaclPresent: win32more.Foundation.BOOL, pDacl: POINTER(win32more.Security.ACL_head), bDaclDefaulted: win32more.Foundation.BOOL) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -1317,12 +1319,14 @@ __all__ = [
     "SECURITY_DESCRIPTOR",
     "SECURITY_DESCRIPTOR_CONTROL",
     "SECURITY_DESCRIPTOR_RELATIVE",
+    "SECURITY_DYNAMIC_TRACKING",
     "SECURITY_IMPERSONATION_LEVEL",
     "SECURITY_IMPERSONATION_LEVEL_SecurityAnonymous",
     "SECURITY_IMPERSONATION_LEVEL_SecurityDelegation",
     "SECURITY_IMPERSONATION_LEVEL_SecurityIdentification",
     "SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation",
     "SECURITY_QUALITY_OF_SERVICE",
+    "SECURITY_STATIC_TRACKING",
     "SEC_THREAD_START",
     "SEF_AVOID_OWNER_CHECK",
     "SEF_AVOID_OWNER_RESTRICTION",

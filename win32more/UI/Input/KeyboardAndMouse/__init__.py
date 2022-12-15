@@ -255,13 +255,13 @@ def SendInput(cInputs: UInt32, pInputs: POINTER(win32more.UI.Input.KeyboardAndMo
 @winfunctype('USER32.dll')
 def GetLastInputInfo(plii: POINTER(win32more.UI.Input.KeyboardAndMouse.LASTINPUTINFO_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def MapVirtualKeyA(uCode: UInt32, uMapType: UInt32) -> UInt32: ...
+def MapVirtualKeyA(uCode: UInt32, uMapType: win32more.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE) -> UInt32: ...
 @winfunctype('USER32.dll')
-def MapVirtualKeyW(uCode: UInt32, uMapType: UInt32) -> UInt32: ...
+def MapVirtualKeyW(uCode: UInt32, uMapType: win32more.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE) -> UInt32: ...
 @winfunctype('USER32.dll')
-def MapVirtualKeyExA(uCode: UInt32, uMapType: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
+def MapVirtualKeyExA(uCode: UInt32, uMapType: win32more.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
 @winfunctype('USER32.dll')
-def MapVirtualKeyExW(uCode: UInt32, uMapType: UInt32, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
+def MapVirtualKeyExW(uCode: UInt32, uMapType: win32more.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE, dwhkl: win32more.UI.TextServices.HKL) -> UInt32: ...
 @winfunctype('USER32.dll')
 def GetCapture() -> win32more.Foundation.HWND: ...
 @winfunctype('USER32.dll')
@@ -375,6 +375,12 @@ class LIGATURE5(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 5
+MAP_VIRTUAL_KEY_TYPE = UInt32
+MAPVK_VK_TO_VSC: MAP_VIRTUAL_KEY_TYPE = 0
+MAPVK_VSC_TO_VK: MAP_VIRTUAL_KEY_TYPE = 1
+MAPVK_VK_TO_CHAR: MAP_VIRTUAL_KEY_TYPE = 2
+MAPVK_VSC_TO_VK_EX: MAP_VIRTUAL_KEY_TYPE = 3
+MAPVK_VK_TO_VSC_EX: MAP_VIRTUAL_KEY_TYPE = 4
 class MODIFIERS(Structure):
     pVkToBit: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_BIT_head)
     wMaxModBits: UInt16
@@ -878,6 +884,12 @@ __all__ = [
     "LoadKeyboardLayoutA",
     "LoadKeyboardLayoutW",
     "MACRON",
+    "MAPVK_VK_TO_CHAR",
+    "MAPVK_VK_TO_VSC",
+    "MAPVK_VK_TO_VSC_EX",
+    "MAPVK_VSC_TO_VK",
+    "MAPVK_VSC_TO_VK_EX",
+    "MAP_VIRTUAL_KEY_TYPE",
     "MICROSOFT_KBD_001_TYPE",
     "MICROSOFT_KBD_002_TYPE",
     "MICROSOFT_KBD_101A_TYPE",

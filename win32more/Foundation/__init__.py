@@ -13,6 +13,10 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+TRUE: win32more.Foundation.BOOL = 1
+FALSE: win32more.Foundation.BOOL = 0
+VARIANT_TRUE: win32more.Foundation.VARIANT_BOOL = -1
+VARIANT_FALSE: win32more.Foundation.VARIANT_BOOL = 0
 INVALID_HANDLE_VALUE: win32more.Foundation.HANDLE = -1
 CO_E_NOTINITIALIZED: win32more.Foundation.HRESULT = -2147221008
 STILL_ACTIVE: win32more.Foundation.NTSTATUS = 259
@@ -6749,8 +6753,6 @@ class UNICODE_STRING(Structure):
     MaximumLength: UInt16
     Buffer: win32more.Foundation.PWSTR
 VARIANT_BOOL = Int16
-VARIANT_TRUE: VARIANT_BOOL = -1
-VARIANT_FALSE: VARIANT_BOOL = 0
 WIN32_ERROR = UInt32
 NO_ERROR: WIN32_ERROR = 0
 WAIT_OBJECT_0: WIN32_ERROR = 0
@@ -14514,6 +14516,7 @@ __all__ = [
     "FACILITY_WIN32K_NTUSER",
     "FACILITY_XVS",
     "FACILTIY_MUI_ERROR_CODE",
+    "FALSE",
     "FARPROC",
     "FA_E_HOMEGROUP_NOT_AVAILABLE",
     "FA_E_MAX_PERSISTED_ITEMS_REACHED",
@@ -19277,6 +19280,7 @@ __all__ = [
     "TPM_E_WRONGPCRVAL",
     "TPM_E_WRONG_ENTITYTYPE",
     "TPM_E_ZERO_EXHAUST_ENABLED",
+    "TRUE",
     "TRUST_E_ACTION_UNKNOWN",
     "TRUST_E_BAD_DIGEST",
     "TRUST_E_BASIC_CONSTRAINTS",

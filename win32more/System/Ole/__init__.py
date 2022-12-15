@@ -546,7 +546,16 @@ VARIANT_LOCALBOOL: UInt32 = 16
 VARIANT_CALENDAR_THAI: UInt32 = 32
 VARIANT_CALENDAR_GREGORIAN: UInt32 = 64
 VARIANT_USE_NLS: UInt32 = 128
+VAR_TIMEVALUEONLY: UInt32 = 1
+VAR_DATEVALUEONLY: UInt32 = 2
+VAR_VALIDDATE: UInt32 = 4
+VAR_CALENDAR_HIJRI: UInt32 = 8
+VAR_LOCALBOOL: UInt32 = 16
+VAR_FORMAT_NOSUBSTITUTE: UInt32 = 32
+VAR_FOURDIGITYEARS: UInt32 = 64
 LOCALE_USE_NLS: UInt32 = 268435456
+VAR_CALENDAR_THAI: UInt32 = 128
+VAR_CALENDAR_GREGORIAN: UInt32 = 256
 VTDATEGRE_MAX: UInt32 = 2958465
 VTDATEGRE_MIN: Int32 = -657434
 MEMBERID_NIL: Int32 = -1
@@ -1701,7 +1710,7 @@ class ICreateTypeInfo(c_void_p):
     @commethod(10)
     def AddImplType(index: UInt32, hRefType: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
-    def SetImplTypeFlags(index: UInt32, implTypeFlags: Int32) -> win32more.Foundation.HRESULT: ...
+    def SetImplTypeFlags(index: UInt32, implTypeFlags: win32more.System.Com.IMPLTYPEFLAGS) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def SetAlignment(cbAlignment: UInt16) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
@@ -3158,7 +3167,7 @@ OLERENDER_FORMAT: OLERENDER = 2
 OLERENDER_ASIS: OLERENDER = 3
 class OLEUIBUSYA(Structure):
     cbStruct: UInt32
-    dwFlags: UInt32
+    dwFlags: win32more.System.Ole.BUSY_DIALOG_FLAGS
     hWndOwner: win32more.Foundation.HWND
     lpszCaption: win32more.Foundation.PSTR
     lpfnHook: win32more.System.Ole.LPFNOLEUIHOOK
@@ -3170,7 +3179,7 @@ class OLEUIBUSYA(Structure):
     lphWndDialog: POINTER(win32more.Foundation.HWND)
 class OLEUIBUSYW(Structure):
     cbStruct: UInt32
-    dwFlags: UInt32
+    dwFlags: win32more.System.Ole.BUSY_DIALOG_FLAGS
     hWndOwner: win32more.Foundation.HWND
     lpszCaption: win32more.Foundation.PWSTR
     lpfnHook: win32more.System.Ole.LPFNOLEUIHOOK
@@ -5377,6 +5386,15 @@ __all__ = [
     "VARIANT_NOUSEROVERRIDE",
     "VARIANT_NOVALUEPROP",
     "VARIANT_USE_NLS",
+    "VAR_CALENDAR_GREGORIAN",
+    "VAR_CALENDAR_HIJRI",
+    "VAR_CALENDAR_THAI",
+    "VAR_DATEVALUEONLY",
+    "VAR_FORMAT_NOSUBSTITUTE",
+    "VAR_FOURDIGITYEARS",
+    "VAR_LOCALBOOL",
+    "VAR_TIMEVALUEONLY",
+    "VAR_VALIDDATE",
     "VIEWSTATUS",
     "VIEWSTATUS_3DSURFACE",
     "VIEWSTATUS_DVASPECTOPAQUE",

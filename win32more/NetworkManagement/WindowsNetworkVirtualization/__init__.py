@@ -29,10 +29,10 @@ WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMoved: WNV_CA_NOTIFICATION_TYPE = 2
 WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMax: WNV_CA_NOTIFICATION_TYPE = 3
 class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(Structure):
     MACAddress: win32more.Networking.WinSock.DL_EUI48
-    CAFamily: UInt16
+    CAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
     CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     VirtualSubnetId: UInt32
-    PAFamily: UInt16
+    PAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
     PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     NotificationReason: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE
 class WNV_IP_ADDRESS(Structure):
@@ -66,19 +66,19 @@ WNV_OBJECT_TYPE_WnvProviderAddressType: WNV_OBJECT_TYPE = 0
 WNV_OBJECT_TYPE_WnvCustomerAddressType: WNV_OBJECT_TYPE = 1
 WNV_OBJECT_TYPE_WnvObjectTypeMax: WNV_OBJECT_TYPE = 2
 class WNV_POLICY_MISMATCH_PARAM(Structure):
-    CAFamily: UInt16
-    PAFamily: UInt16
+    CAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
+    PAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
     VirtualSubnetId: UInt32
     CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
 class WNV_PROVIDER_ADDRESS_CHANGE_PARAM(Structure):
-    PAFamily: UInt16
+    PAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
     PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     AddressState: win32more.Networking.WinSock.NL_DAD_STATE
 class WNV_REDIRECT_PARAM(Structure):
-    CAFamily: UInt16
-    PAFamily: UInt16
-    NewPAFamily: UInt16
+    CAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
+    PAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
+    NewPAFamily: win32more.Networking.WinSock.ADDRESS_FAMILY
     VirtualSubnetId: UInt32
     CA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     PA: win32more.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS

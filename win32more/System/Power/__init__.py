@@ -742,12 +742,12 @@ class PROCESSOR_OBJECT_INFO_EX(Structure):
     PBlkLength: Byte
     InitialApicId: UInt32
 class PROCESSOR_POWER_INFORMATION(Structure):
-    Number: UInt64
-    MaxMhz: UInt64
-    CurrentMhz: UInt64
-    MhzLimit: UInt64
-    MaxIdleState: UInt64
-    CurrentIdleState: UInt64
+    Number: UInt32
+    MaxMhz: UInt32
+    CurrentMhz: UInt32
+    MhzLimit: UInt32
+    MaxIdleState: UInt32
+    CurrentIdleState: UInt32
 class PROCESSOR_POWER_POLICY(Structure):
     Revision: UInt32
     DynamicThrottle: Byte
@@ -826,9 +826,9 @@ SYSTEM_POWER_CONDITION_PoDc: SYSTEM_POWER_CONDITION = 1
 SYSTEM_POWER_CONDITION_PoHot: SYSTEM_POWER_CONDITION = 2
 SYSTEM_POWER_CONDITION_PoConditionMaximum: SYSTEM_POWER_CONDITION = 3
 class SYSTEM_POWER_INFORMATION(Structure):
-    MaxIdlenessAllowed: UInt64
-    Idleness: UInt64
-    TimeRemaining: UInt64
+    MaxIdlenessAllowed: UInt32
+    Idleness: UInt32
+    TimeRemaining: UInt32
     CoolingMode: win32more.System.Power.POWER_COOLING_MODE
 class SYSTEM_POWER_LEVEL(Structure):
     Enable: win32more.Foundation.BOOLEAN
