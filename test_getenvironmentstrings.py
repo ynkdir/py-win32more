@@ -8,7 +8,7 @@ from ctypes import c_void_p, c_wchar, sizeof, cast, wstring_at
 def GetEnvironmentStrings():
     ptr: PWSTR = GetEnvironmentStringsW()
     ptr_as_int: int = cast(ptr, c_void_p).value
-    while (s: str := wstring_at(ptr_as_int)) != "":
+    while (s := wstring_at(ptr_as_int)) != "":
         yield s.split("=", maxsplit=1)
         ptr_as_int += (len(s) + 1) * sizeof(c_wchar)
     FreeEnvironmentStringsW(ptr)
