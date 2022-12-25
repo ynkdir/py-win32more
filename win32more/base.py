@@ -71,7 +71,7 @@ def get_type_hints(prototype):
             hints[name] = None
     return hints
 
-def commonfunctype(library, dll, functype):
+def commonfunctype(factory):
     def decorator(prototype):
         delegate = None
         def wrapper(*args, **kwargs):
@@ -82,40 +82,33 @@ def commonfunctype(library, dll, functype):
                 names = names[:-1]
                 types = list(hints.values())
                 types = types[-1:] + types[:-1]
-                delegate = functype(*types)((prototype.__name__, dll[library]), tuple((1, name) for name in names))
+                delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
             return delegate(*args, **kwargs)
         return wrapper
     return decorator
 
 def cfunctype(library):
-    return commonfunctype(library, cdll, CFUNCTYPE)
+    def factory(name, types, params):
+        return CFUNCTYPE(*types)((name, cdll[library]), params)
+    return commonfunctype(factory)
 
 def winfunctype(library):
-    return commonfunctype(library, windll, WINFUNCTYPE)
+    def factory(name, types, params):
+        return WINFUNCTYPE(*types)((name, windll[library]), params)
+    return commonfunctype(factory)
 
 def commethod(vtbl_index):
-    def decorator(prototype):
-        delegate = None
-        def wrapper(*args, **kwargs):
-            nonlocal delegate
-            if delegate is None:
-                hints = get_type_hints(prototype)
-                names = list(hints.keys())
-                names = names[:-1]
-                types = list(hints.values())
-                types = types[-1:] + types[:-1]
-                delegate = WINFUNCTYPE(*types)(vtbl_index, prototype.__name__, tuple((1, name) for name in names))
-            return delegate(*args, **kwargs)
-        return wrapper
-    return decorator
+    def factory(name, types, params):
+        return WINFUNCTYPE(*types)(vtbl_index, name, params)
+    return commonfunctype(factory)
 
 def commonfunctype_pointer(prototype, functype):
-    def wrapper():
+    def press_functype_pointer():
         hints = get_type_hints(prototype)
         types = list(hints.values())
         types = types[-1:] + types[:-1]
         return functype(*types)
-    return wrapper
+    return press_functype_pointer
 
 def cfunctype_pointer(prototype):
     return commonfunctype_pointer(prototype, CFUNCTYPE)
