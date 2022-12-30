@@ -4,7 +4,7 @@ import keyword
 import re
 import sys
 from pathlib import Path
-from typing import TypeAlias, Generator, Any, TextIO
+from typing import TypeAlias, Generator, Any, TextIO, Self
 
 PACKAGE_NAME = "win32more"
 ARCHITECTURE = "X64"
@@ -76,6 +76,18 @@ class TType:
         if self["Size"] is None:
             raise KeyError()
         return self["Size"]
+
+    @property
+    def type_arguments(self) -> list[Self]:
+        if self["TypeArguments"] is None:
+            raise KeyError()
+        return [TType(self.ns, ta) for ta in self["TypeArguments"]]
+
+    @property
+    def is_required(self) -> bool:
+        if self["IsRequired"] is None:
+            raise KeyError()
+        return self["IsRequired"]
 
     @property
     def pytype(self) -> str:
@@ -417,8 +429,80 @@ class InterfaceImplementation:
         self.js[key] = value
 
     @property
-    def interface(self) -> str:
-        return self["Interface"]
+    def interface(self) -> Interface:
+        return Interface(self.ns, self["Interface"])
+
+    @property
+    def custom_attributes(self) -> list[CustomAttribute]:
+        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+
+
+class Interface:
+    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
+        self.ns = ns
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def kind(self) -> str:
+        return self["Kind"]
+
+    @property
+    def type_reference(self) -> TypeReference:
+        if self["TypeReference"] is None:
+            raise KeyError()
+        return TypeReference(self.ns, self["TypeReference"])
+
+    @property
+    def type_specification(self) -> TypeSpecification:
+        if self["TypeSpecification"] is None:
+            raise KeyError()
+        return TypeSpecification(self.ns, self["TypeSpecification"])
+
+
+class TypeReference:
+    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
+        self.ns = ns
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def name(self) -> str:
+        return self["Name"]
+
+    @property
+    def namespace(self) -> str:
+        return self["Namespace"]
+
+    @property
+    def fullname(self) -> str:
+        return f"{self.namespace}.{self.name}"
+
+
+class TypeSpecification:
+    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
+        self.ns = ns
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def signature(self) -> TType:
+        return TType(self.ns, self["Signature"])
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
@@ -673,7 +757,7 @@ class Preprocessor:
     def count_interface_method(self, ns: dict[str, TypeDefinition], interfaces: list[InterfaceImplementation]) -> int:
         if not interfaces:
             return 0
-        td = ns[interfaces[0]["Interface"]]
+        td = ns[interfaces[0].interface.type_reference.fullname]
         return len(td.method_definitions) + self.count_interface_method(ns, td.interface_implementations)
 
     def patch_name_conflict(self, ns: dict[str, TypeDefinition]) -> None:
@@ -687,11 +771,12 @@ class Preprocessor:
     def patch_namespace(self, ns: dict[str, TypeDefinition], packagename: str) -> None:
         def patch(name: str) -> str:
             return re.sub(r"^Windows.Win32.", f"{packagename}.", name)
+
         newns = {}
         for td in ns.values():
             td["Namespace"] = patch(td["Namespace"])
             for ii in td.interface_implementations:
-                ii["Interface"] = patch(ii["Interface"])
+                ii.interface.type_reference["Namespace"] = patch(ii.interface.type_reference["Namespace"])
             for t in self.foreach_type(td):
                 t = t.get_element_type()
                 t["Name"] = patch(t["Name"])
@@ -731,7 +816,7 @@ class Preprocessor:
 
     def collect_import_namespace(self, td: TypeDefinition, import_namespaces: set[str]) -> None:
         for ii in td.interface_implementations:
-            import_namespaces.add(self.get_namespace(ii.interface))
+            import_namespaces.add(ii.interface.type_reference.namespace)
         for t in self.foreach_type(td):
             t = t.get_element_type()
             if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
@@ -873,7 +958,7 @@ class PyGenerator:
         if td.interface_implementations == []:
             base = "None"
         else:
-            base = td.interface_implementations[0].interface
+            base = td.interface_implementations[0].interface.type_reference.fullname
         writer.write(f"class {td.name}(c_void_p):\n")
         writer.write(f"    extends: {base}\n")
         if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
