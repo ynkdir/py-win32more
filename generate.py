@@ -429,15 +429,15 @@ class InterfaceImplementation:
         self.js[key] = value
 
     @property
-    def interface(self) -> Interface:
-        return Interface(self.ns, self["Interface"])
+    def interface(self) -> EntiryHandle:
+        return EntiryHandle(self.ns, self["Interface"])
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
 
 
-class Interface:
+class EntiryHandle:
     def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
         self.ns = ns
         self.js = js
