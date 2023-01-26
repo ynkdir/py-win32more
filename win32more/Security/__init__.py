@@ -98,6 +98,42 @@ class ACL_SIZE_INFORMATION(Structure):
     AclBytesFree: UInt32
 SECURITY_DYNAMIC_TRACKING: win32more.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Foundation.BOOLEAN = 0
+SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
+SE_ASSIGNPRIMARYTOKEN_NAME: String = 'SeAssignPrimaryTokenPrivilege'
+SE_LOCK_MEMORY_NAME: String = 'SeLockMemoryPrivilege'
+SE_INCREASE_QUOTA_NAME: String = 'SeIncreaseQuotaPrivilege'
+SE_UNSOLICITED_INPUT_NAME: String = 'SeUnsolicitedInputPrivilege'
+SE_MACHINE_ACCOUNT_NAME: String = 'SeMachineAccountPrivilege'
+SE_TCB_NAME: String = 'SeTcbPrivilege'
+SE_SECURITY_NAME: String = 'SeSecurityPrivilege'
+SE_TAKE_OWNERSHIP_NAME: String = 'SeTakeOwnershipPrivilege'
+SE_LOAD_DRIVER_NAME: String = 'SeLoadDriverPrivilege'
+SE_SYSTEM_PROFILE_NAME: String = 'SeSystemProfilePrivilege'
+SE_SYSTEMTIME_NAME: String = 'SeSystemtimePrivilege'
+SE_PROF_SINGLE_PROCESS_NAME: String = 'SeProfileSingleProcessPrivilege'
+SE_INC_BASE_PRIORITY_NAME: String = 'SeIncreaseBasePriorityPrivilege'
+SE_CREATE_PAGEFILE_NAME: String = 'SeCreatePagefilePrivilege'
+SE_CREATE_PERMANENT_NAME: String = 'SeCreatePermanentPrivilege'
+SE_BACKUP_NAME: String = 'SeBackupPrivilege'
+SE_RESTORE_NAME: String = 'SeRestorePrivilege'
+SE_SHUTDOWN_NAME: String = 'SeShutdownPrivilege'
+SE_DEBUG_NAME: String = 'SeDebugPrivilege'
+SE_AUDIT_NAME: String = 'SeAuditPrivilege'
+SE_SYSTEM_ENVIRONMENT_NAME: String = 'SeSystemEnvironmentPrivilege'
+SE_CHANGE_NOTIFY_NAME: String = 'SeChangeNotifyPrivilege'
+SE_REMOTE_SHUTDOWN_NAME: String = 'SeRemoteShutdownPrivilege'
+SE_UNDOCK_NAME: String = 'SeUndockPrivilege'
+SE_SYNC_AGENT_NAME: String = 'SeSyncAgentPrivilege'
+SE_ENABLE_DELEGATION_NAME: String = 'SeEnableDelegationPrivilege'
+SE_MANAGE_VOLUME_NAME: String = 'SeManageVolumePrivilege'
+SE_IMPERSONATE_NAME: String = 'SeImpersonatePrivilege'
+SE_CREATE_GLOBAL_NAME: String = 'SeCreateGlobalPrivilege'
+SE_TRUSTED_CREDMAN_ACCESS_NAME: String = 'SeTrustedCredManAccessPrivilege'
+SE_RELABEL_NAME: String = 'SeRelabelPrivilege'
+SE_INC_WORKING_SET_NAME: String = 'SeIncreaseWorkingSetPrivilege'
+SE_TIME_ZONE_NAME: String = 'SeTimeZonePrivilege'
+SE_CREATE_SYMBOLIC_LINK_NAME: String = 'SeCreateSymbolicLinkPrivilege'
+SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME: String = 'SeDelegateSessionUserImpersonatePrivilege'
 wszCERTENROLLSHAREPATH: String = 'CertSrv\\CertEnroll'
 cwcHRESULTSTRING: UInt32 = 40
 szLBRACE: String = '{'
@@ -755,7 +791,7 @@ TOKEN_EXECUTE: TOKEN_ACCESS_MASK = 131072
 TOKEN_TRUST_CONSTRAINT_MASK: TOKEN_ACCESS_MASK = 131096
 TOKEN_ACCESS_PSEUDO_HANDLE_WIN8: TOKEN_ACCESS_MASK = 24
 TOKEN_ACCESS_PSEUDO_HANDLE: TOKEN_ACCESS_MASK = 24
-TOKEN_ALL_ACCESS: TOKEN_ACCESS_MASK = 983295
+TOKEN_ALL_ACCESS: TOKEN_ACCESS_MASK = 983551
 class TOKEN_APPCONTAINER_INFORMATION(Structure):
     TokenAppContainer: win32more.Foundation.PSID
 class TOKEN_AUDIT_POLICY(Structure):
@@ -1341,18 +1377,42 @@ __all__ = [
     "SEF_SACL_AUTO_INHERIT",
     "SE_ACCESS_REPLY",
     "SE_ACCESS_REQUEST",
+    "SE_ASSIGNPRIMARYTOKEN_NAME",
+    "SE_AUDIT_NAME",
+    "SE_BACKUP_NAME",
+    "SE_CHANGE_NOTIFY_NAME",
+    "SE_CREATE_GLOBAL_NAME",
+    "SE_CREATE_PAGEFILE_NAME",
+    "SE_CREATE_PERMANENT_NAME",
+    "SE_CREATE_SYMBOLIC_LINK_NAME",
+    "SE_CREATE_TOKEN_NAME",
     "SE_DACL_AUTO_INHERITED",
     "SE_DACL_AUTO_INHERIT_REQ",
     "SE_DACL_DEFAULTED",
     "SE_DACL_PRESENT",
     "SE_DACL_PROTECTED",
+    "SE_DEBUG_NAME",
+    "SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME",
+    "SE_ENABLE_DELEGATION_NAME",
     "SE_GROUP_DEFAULTED",
+    "SE_IMPERSONATE_NAME",
     "SE_IMPERSONATION_STATE",
+    "SE_INCREASE_QUOTA_NAME",
+    "SE_INC_BASE_PRIORITY_NAME",
+    "SE_INC_WORKING_SET_NAME",
+    "SE_LOAD_DRIVER_NAME",
+    "SE_LOCK_MEMORY_NAME",
+    "SE_MACHINE_ACCOUNT_NAME",
+    "SE_MANAGE_VOLUME_NAME",
     "SE_OWNER_DEFAULTED",
     "SE_PRIVILEGE_ENABLED",
     "SE_PRIVILEGE_ENABLED_BY_DEFAULT",
     "SE_PRIVILEGE_REMOVED",
     "SE_PRIVILEGE_USED_FOR_ACCESS",
+    "SE_PROF_SINGLE_PROCESS_NAME",
+    "SE_RELABEL_NAME",
+    "SE_REMOTE_SHUTDOWN_NAME",
+    "SE_RESTORE_NAME",
     "SE_RM_CONTROL_VALID",
     "SE_SACL_AUTO_INHERITED",
     "SE_SACL_AUTO_INHERIT_REQ",
@@ -1360,8 +1420,20 @@ __all__ = [
     "SE_SACL_PRESENT",
     "SE_SACL_PROTECTED",
     "SE_SECURITY_DESCRIPTOR",
+    "SE_SECURITY_NAME",
     "SE_SELF_RELATIVE",
+    "SE_SHUTDOWN_NAME",
     "SE_SID",
+    "SE_SYNC_AGENT_NAME",
+    "SE_SYSTEMTIME_NAME",
+    "SE_SYSTEM_ENVIRONMENT_NAME",
+    "SE_SYSTEM_PROFILE_NAME",
+    "SE_TAKE_OWNERSHIP_NAME",
+    "SE_TCB_NAME",
+    "SE_TIME_ZONE_NAME",
+    "SE_TRUSTED_CREDMAN_ACCESS_NAME",
+    "SE_UNDOCK_NAME",
+    "SE_UNSOLICITED_INPUT_NAME",
     "SID",
     "SID_AND_ATTRIBUTES",
     "SID_AND_ATTRIBUTES_HASH",

@@ -1095,8 +1095,6 @@ ARW_DOWN: Int32 = 4
 ARW_HIDE: Int32 = 8
 HCF_LOGONDESKTOP: UInt32 = 256
 HCF_DEFAULTDESKTOP: UInt32 = 512
-EDS_RAWMODE: UInt32 = 2
-EDS_ROTATEDMODE: UInt32 = 4
 EDD_GET_DEVICE_INTERFACE_NAME: UInt32 = 1
 FKF_FILTERKEYSON: UInt32 = 1
 FKF_AVAILABLE: UInt32 = 2
@@ -3485,8 +3483,8 @@ class WINDOWINFO(Structure):
     cbSize: UInt32
     rcWindow: win32more.Foundation.RECT
     rcClient: win32more.Foundation.RECT
-    dwStyle: UInt32
-    dwExStyle: UInt32
+    dwStyle: win32more.UI.WindowsAndMessaging.WINDOW_STYLE
+    dwExStyle: win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE
     dwWindowStatus: UInt32
     cxWindowBorders: UInt32
     cyWindowBorders: UInt32
@@ -4049,8 +4047,6 @@ __all__ = [
     "EDIT_CONTROL_FEATURE",
     "EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT",
     "EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS",
-    "EDS_RAWMODE",
-    "EDS_ROTATEDMODE",
     "EIMES_CANCELCOMPSTRINFOCUS",
     "EIMES_COMPLETECOMPSTRKILLFOCUS",
     "EIMES_GETCOMPSTRATONCE",

@@ -996,11 +996,11 @@ def EngGetCurrentCodePage(OemCodePage: POINTER(UInt16), AnsiCodePage: POINTER(UI
 @winfunctype('GDI32.dll')
 def EngQueryEMFInfo(hdev: win32more.Devices.Display.HDEV, pEMFInfo: POINTER(win32more.Devices.Display.EMFINFO_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def GetDisplayConfigBufferSizes(flags: UInt32, numPathArrayElements: POINTER(UInt32), numModeInfoArrayElements: POINTER(UInt32)) -> Int32: ...
+def GetDisplayConfigBufferSizes(flags: win32more.Devices.Display.QUERY_DISPLAY_CONFIG_FLAGS, numPathArrayElements: POINTER(UInt32), numModeInfoArrayElements: POINTER(UInt32)) -> win32more.Foundation.WIN32_ERROR: ...
 @winfunctype('USER32.dll')
-def SetDisplayConfig(numPathArrayElements: UInt32, pathArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_PATH_INFO_head), numModeInfoArrayElements: UInt32, modeInfoArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_MODE_INFO_head), flags: UInt32) -> Int32: ...
+def SetDisplayConfig(numPathArrayElements: UInt32, pathArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_PATH_INFO_head), numModeInfoArrayElements: UInt32, modeInfoArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_MODE_INFO_head), flags: win32more.Devices.Display.SET_DISPLAY_CONFIG_FLAGS) -> Int32: ...
 @winfunctype('USER32.dll')
-def QueryDisplayConfig(flags: UInt32, numPathArrayElements: POINTER(UInt32), pathArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_PATH_INFO_head), numModeInfoArrayElements: POINTER(UInt32), modeInfoArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_MODE_INFO_head), currentTopologyId: POINTER(win32more.Devices.Display.DISPLAYCONFIG_TOPOLOGY_ID)) -> Int32: ...
+def QueryDisplayConfig(flags: win32more.Devices.Display.QUERY_DISPLAY_CONFIG_FLAGS, numPathArrayElements: POINTER(UInt32), pathArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_PATH_INFO_head), numModeInfoArrayElements: POINTER(UInt32), modeInfoArray: POINTER(win32more.Devices.Display.DISPLAYCONFIG_MODE_INFO_head), currentTopologyId: POINTER(win32more.Devices.Display.DISPLAYCONFIG_TOPOLOGY_ID)) -> win32more.Foundation.WIN32_ERROR: ...
 @winfunctype('USER32.dll')
 def DisplayConfigGetDeviceInfo(requestPacket: POINTER(win32more.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER_head)) -> Int32: ...
 @winfunctype('USER32.dll')
@@ -2217,6 +2217,13 @@ class POINTQF(Structure):
     y: win32more.Foundation.LARGE_INTEGER
 @winfunctype_pointer
 def PVIDEO_WIN32K_CALLOUT(Params: c_void_p) -> Void: ...
+QUERY_DISPLAY_CONFIG_FLAGS = UInt32
+QDC_ALL_PATHS: QUERY_DISPLAY_CONFIG_FLAGS = 1
+QDC_ONLY_ACTIVE_PATHS: QUERY_DISPLAY_CONFIG_FLAGS = 2
+QDC_DATABASE_CURRENT: QUERY_DISPLAY_CONFIG_FLAGS = 4
+QDC_VIRTUAL_MODE_AWARE: QUERY_DISPLAY_CONFIG_FLAGS = 16
+QDC_INCLUDE_HMD: QUERY_DISPLAY_CONFIG_FLAGS = 32
+QDC_VIRTUAL_REFRESH_RATE_AWARE: QUERY_DISPLAY_CONFIG_FLAGS = 64
 class RECTFX(Structure):
     xLeft: Int32
     yTop: Int32
@@ -2227,6 +2234,24 @@ class RUN(Structure):
     iStop: Int32
 class SET_ACTIVE_COLOR_PROFILE_NAME(Structure):
     ColorProfileName: Char * 1
+SET_DISPLAY_CONFIG_FLAGS = UInt32
+SDC_USE_DATABASE_CURRENT: SET_DISPLAY_CONFIG_FLAGS = 15
+SDC_TOPOLOGY_INTERNAL: SET_DISPLAY_CONFIG_FLAGS = 1
+SDC_TOPOLOGY_CLONE: SET_DISPLAY_CONFIG_FLAGS = 2
+SDC_TOPOLOGY_EXTEND: SET_DISPLAY_CONFIG_FLAGS = 4
+SDC_TOPOLOGY_EXTERNAL: SET_DISPLAY_CONFIG_FLAGS = 8
+SDC_TOPOLOGY_SUPPLIED: SET_DISPLAY_CONFIG_FLAGS = 16
+SDC_USE_SUPPLIED_DISPLAY_CONFIG: SET_DISPLAY_CONFIG_FLAGS = 32
+SDC_VALIDATE: SET_DISPLAY_CONFIG_FLAGS = 64
+SDC_APPLY: SET_DISPLAY_CONFIG_FLAGS = 128
+SDC_NO_OPTIMIZATION: SET_DISPLAY_CONFIG_FLAGS = 256
+SDC_SAVE_TO_DATABASE: SET_DISPLAY_CONFIG_FLAGS = 512
+SDC_ALLOW_CHANGES: SET_DISPLAY_CONFIG_FLAGS = 1024
+SDC_PATH_PERSIST_IF_REQUIRED: SET_DISPLAY_CONFIG_FLAGS = 2048
+SDC_FORCE_MODE_ENUMERATION: SET_DISPLAY_CONFIG_FLAGS = 4096
+SDC_ALLOW_PATH_ORDER_CHANGES: SET_DISPLAY_CONFIG_FLAGS = 8192
+SDC_VIRTUAL_MODE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 32768
+SDC_VIRTUAL_REFRESH_RATE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 131072
 @cfunctype_pointer
 def SORTCOMP(pv1: c_void_p, pv2: c_void_p) -> Int32: ...
 class Sources(Structure):
@@ -3946,6 +3971,12 @@ __all__ = [
     "QC_OUTLINES",
     "QDA_ACCELERATION_LEVEL",
     "QDA_RESERVED",
+    "QDC_ALL_PATHS",
+    "QDC_DATABASE_CURRENT",
+    "QDC_INCLUDE_HMD",
+    "QDC_ONLY_ACTIVE_PATHS",
+    "QDC_VIRTUAL_MODE_AWARE",
+    "QDC_VIRTUAL_REFRESH_RATE_AWARE",
     "QDS_CHECKJPEGFORMAT",
     "QDS_CHECKPNGFORMAT",
     "QFD_GLYPHANDBITMAP",
@@ -3968,16 +3999,35 @@ __all__ = [
     "QSA_SSE1",
     "QSA_SSE2",
     "QSA_SSE3",
+    "QUERY_DISPLAY_CONFIG_FLAGS",
     "QueryDisplayConfig",
     "RB_DITHERCOLOR",
     "RECTFX",
     "RUN",
     "RestoreMonitorFactoryColorDefaults",
     "RestoreMonitorFactoryDefaults",
+    "SDC_ALLOW_CHANGES",
+    "SDC_ALLOW_PATH_ORDER_CHANGES",
+    "SDC_APPLY",
+    "SDC_FORCE_MODE_ENUMERATION",
+    "SDC_NO_OPTIMIZATION",
+    "SDC_PATH_PERSIST_IF_REQUIRED",
+    "SDC_SAVE_TO_DATABASE",
+    "SDC_TOPOLOGY_CLONE",
+    "SDC_TOPOLOGY_EXTEND",
+    "SDC_TOPOLOGY_EXTERNAL",
+    "SDC_TOPOLOGY_INTERNAL",
+    "SDC_TOPOLOGY_SUPPLIED",
+    "SDC_USE_DATABASE_CURRENT",
+    "SDC_USE_SUPPLIED_DISPLAY_CONFIG",
+    "SDC_VALIDATE",
+    "SDC_VIRTUAL_MODE_AWARE",
+    "SDC_VIRTUAL_REFRESH_RATE_AWARE",
     "SETCONFIGURATION_STATUS_ADDITIONAL",
     "SETCONFIGURATION_STATUS_APPLIED",
     "SETCONFIGURATION_STATUS_OVERRIDDEN",
     "SET_ACTIVE_COLOR_PROFILE_NAME",
+    "SET_DISPLAY_CONFIG_FLAGS",
     "SGI_EXTRASPACE",
     "SORTCOMP",
     "SO_BREAK_EXTRA",

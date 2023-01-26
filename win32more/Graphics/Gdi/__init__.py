@@ -568,28 +568,6 @@ DISPLAYCONFIG_PATH_ACTIVE: UInt32 = 1
 DISPLAYCONFIG_PATH_PREFERRED_UNSCALED: UInt32 = 4
 DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE: UInt32 = 8
 DISPLAYCONFIG_PATH_VALID_FLAGS: UInt32 = 29
-QDC_ALL_PATHS: UInt32 = 1
-QDC_ONLY_ACTIVE_PATHS: UInt32 = 2
-QDC_DATABASE_CURRENT: UInt32 = 4
-QDC_VIRTUAL_MODE_AWARE: UInt32 = 16
-QDC_INCLUDE_HMD: UInt32 = 32
-QDC_VIRTUAL_REFRESH_RATE_AWARE: UInt32 = 64
-SDC_TOPOLOGY_INTERNAL: UInt32 = 1
-SDC_TOPOLOGY_CLONE: UInt32 = 2
-SDC_TOPOLOGY_EXTEND: UInt32 = 4
-SDC_TOPOLOGY_EXTERNAL: UInt32 = 8
-SDC_TOPOLOGY_SUPPLIED: UInt32 = 16
-SDC_USE_SUPPLIED_DISPLAY_CONFIG: UInt32 = 32
-SDC_VALIDATE: UInt32 = 64
-SDC_APPLY: UInt32 = 128
-SDC_NO_OPTIMIZATION: UInt32 = 256
-SDC_SAVE_TO_DATABASE: UInt32 = 512
-SDC_ALLOW_CHANGES: UInt32 = 1024
-SDC_PATH_PERSIST_IF_REQUIRED: UInt32 = 2048
-SDC_FORCE_MODE_ENUMERATION: UInt32 = 4096
-SDC_ALLOW_PATH_ORDER_CHANGES: UInt32 = 8192
-SDC_VIRTUAL_MODE_AWARE: UInt32 = 32768
-SDC_VIRTUAL_REFRESH_RATE_AWARE: UInt32 = 131072
 RDH_RECTANGLES: UInt32 = 1
 SYSRGN: UInt32 = 4
 TT_POLYGON_TYPE: UInt32 = 24
@@ -1657,9 +1635,9 @@ def EnumDisplaySettingsA(lpszDeviceName: win32more.Foundation.PSTR, iModeNum: wi
 @winfunctype('USER32.dll')
 def EnumDisplaySettingsW(lpszDeviceName: win32more.Foundation.PWSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def EnumDisplaySettingsExA(lpszDeviceName: win32more.Foundation.PSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+def EnumDisplaySettingsExA(lpszDeviceName: win32more.Foundation.PSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head), dwFlags: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
-def EnumDisplaySettingsExW(lpszDeviceName: win32more.Foundation.PWSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+def EnumDisplaySettingsExW(lpszDeviceName: win32more.Foundation.PWSTR, iModeNum: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEW_head), dwFlags: win32more.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def EnumDisplayDevicesA(lpDevice: win32more.Foundation.PSTR, iDevNum: UInt32, lpDisplayDevice: POINTER(win32more.Graphics.Gdi.DISPLAY_DEVICEA_head), dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -2779,6 +2757,9 @@ class ENHMETARECORD(Structure):
     dParm: UInt32 * 1
 @winfunctype_pointer
 def ENHMFENUMPROC(hdc: win32more.Graphics.Gdi.HDC, lpht: POINTER(win32more.Graphics.Gdi.HANDLETABLE_head), lpmr: POINTER(win32more.Graphics.Gdi.ENHMETARECORD_head), nHandles: Int32, data: win32more.Foundation.LPARAM) -> Int32: ...
+ENUM_DISPLAY_SETTINGS_FLAGS = UInt32
+EDS_RAWMODE: ENUM_DISPLAY_SETTINGS_FLAGS = 2
+EDS_ROTATEDMODE: ENUM_DISPLAY_SETTINGS_FLAGS = 4
 ENUM_DISPLAY_SETTINGS_MODE = UInt32
 ENUM_CURRENT_SETTINGS: ENUM_DISPLAY_SETTINGS_MODE = 4294967295
 ENUM_REGISTRY_SETTINGS: ENUM_DISPLAY_SETTINGS_MODE = 4294967294
@@ -4730,6 +4711,8 @@ __all__ = [
     "EDGE_ETCHED",
     "EDGE_RAISED",
     "EDGE_SUNKEN",
+    "EDS_RAWMODE",
+    "EDS_ROTATEDMODE",
     "ELF_CULTURE_LATIN",
     "ELF_VENDOR_SIZE",
     "ELF_VERSION",
@@ -4950,6 +4933,7 @@ __all__ = [
     "ENUMPAPERBINS",
     "ENUMPAPERMETRICS",
     "ENUM_CURRENT_SETTINGS",
+    "ENUM_DISPLAY_SETTINGS_FLAGS",
     "ENUM_DISPLAY_SETTINGS_MODE",
     "ENUM_REGISTRY_SETTINGS",
     "EPSPRINTING",
@@ -5951,12 +5935,6 @@ __all__ = [
     "PtInRect",
     "PtInRegion",
     "PtVisible",
-    "QDC_ALL_PATHS",
-    "QDC_DATABASE_CURRENT",
-    "QDC_INCLUDE_HMD",
-    "QDC_ONLY_ACTIVE_PATHS",
-    "QDC_VIRTUAL_MODE_AWARE",
-    "QDC_VIRTUAL_REFRESH_RATE_AWARE",
     "QDI_DIBTOSCREEN",
     "QDI_GETDIBITS",
     "QDI_SETDIBITS",
@@ -6059,22 +6037,6 @@ __all__ = [
     "SCALINGFACTORX",
     "SCALINGFACTORY",
     "SC_SCREENSAVE",
-    "SDC_ALLOW_CHANGES",
-    "SDC_ALLOW_PATH_ORDER_CHANGES",
-    "SDC_APPLY",
-    "SDC_FORCE_MODE_ENUMERATION",
-    "SDC_NO_OPTIMIZATION",
-    "SDC_PATH_PERSIST_IF_REQUIRED",
-    "SDC_SAVE_TO_DATABASE",
-    "SDC_TOPOLOGY_CLONE",
-    "SDC_TOPOLOGY_EXTEND",
-    "SDC_TOPOLOGY_EXTERNAL",
-    "SDC_TOPOLOGY_INTERNAL",
-    "SDC_TOPOLOGY_SUPPLIED",
-    "SDC_USE_SUPPLIED_DISPLAY_CONFIG",
-    "SDC_VALIDATE",
-    "SDC_VIRTUAL_MODE_AWARE",
-    "SDC_VIRTUAL_REFRESH_RATE_AWARE",
     "SELECTDIB",
     "SELECTPAPERSOURCE",
     "SETABORTPROC",

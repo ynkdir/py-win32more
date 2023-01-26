@@ -122,6 +122,7 @@ class AM_MEDIA_TYPE(Structure):
     pUnk: win32more.System.Com.IUnknown_head
     cbFormat: UInt32
     pbFormat: c_char_p_no
+MF_VERSION: UInt32 = 131184
 MEDIASUBTYPE_None: Guid = Guid('e436eb8e-524f-11ce-9f-53-00-20-af-0b-a7-70')
 MEDIATYPE_Video: Guid = Guid('73646976-0000-0010-80-00-00-aa-00-38-9b-71')
 MEDIATYPE_Audio: Guid = Guid('73647561-0000-0010-80-00-00-aa-00-38-9b-71')
@@ -3398,6 +3399,19 @@ D3D12_FEATURE_VIDEO_PROCESS_PROTECTED_RESOURCES: D3D12_FEATURE_VIDEO = 29
 D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES: D3D12_FEATURE_VIDEO = 30
 D3D12_FEATURE_VIDEO_DECODER_HEAP_SIZE1: D3D12_FEATURE_VIDEO = 31
 D3D12_FEATURE_VIDEO_PROCESSOR_SIZE1: D3D12_FEATURE_VIDEO = 32
+D3D12_FEATURE_VIDEO_ENCODER_CODEC: D3D12_FEATURE_VIDEO = 33
+D3D12_FEATURE_VIDEO_ENCODER_PROFILE_LEVEL: D3D12_FEATURE_VIDEO = 34
+D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT: D3D12_FEATURE_VIDEO = 35
+D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION: D3D12_FEATURE_VIDEO = 36
+D3D12_FEATURE_VIDEO_ENCODER_INPUT_FORMAT: D3D12_FEATURE_VIDEO = 37
+D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_MODE: D3D12_FEATURE_VIDEO = 38
+D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE: D3D12_FEATURE_VIDEO = 39
+D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE: D3D12_FEATURE_VIDEO = 40
+D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE: D3D12_FEATURE_VIDEO = 41
+D3D12_FEATURE_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT: D3D12_FEATURE_VIDEO = 42
+D3D12_FEATURE_VIDEO_ENCODER_SUPPORT: D3D12_FEATURE_VIDEO = 43
+D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT: D3D12_FEATURE_VIDEO = 44
+D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS: D3D12_FEATURE_VIDEO = 45
 class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS(Structure):
     Status: UInt64
     NumMacroblocksAffected: UInt64
@@ -5729,6 +5743,11 @@ class ID3D12VideoDecodeCommandList2(c_void_p):
     def InitializeExtensionCommand(pExtensionCommand: win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pInitializationParameters: c_void_p, InitializationParametersSizeInBytes: UIntPtr) -> Void: ...
     @commethod(26)
     def ExecuteExtensionCommand(pExtensionCommand: win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr) -> Void: ...
+class ID3D12VideoDecodeCommandList3(c_void_p):
+    extends: win32more.Media.MediaFoundation.ID3D12VideoDecodeCommandList2
+    Guid = Guid('2aee8c37-9562-42da-8a-bf-61-ef-eb-2e-45-13')
+    @commethod(27)
+    def Barrier(NumBarrierGroups: UInt32, pBarrierGroups: POINTER(win32more.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
 class ID3D12VideoDecoder(c_void_p):
     extends: win32more.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('c59b6bdc-7720-4074-a1-36-17-a1-56-03-74-70')
@@ -5836,6 +5855,11 @@ class ID3D12VideoEncodeCommandList2(c_void_p):
     def EncodeFrame(pEncoder: win32more.Media.MediaFoundation.ID3D12VideoEncoder_head, pHeap: win32more.Media.MediaFoundation.ID3D12VideoEncoderHeap_head, pInputArguments: POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS_head), pOutputArguments: POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS_head)) -> Void: ...
     @commethod(28)
     def ResolveEncoderOutputMetadata(pInputArguments: POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS_head), pOutputArguments: POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS_head)) -> Void: ...
+class ID3D12VideoEncodeCommandList3(c_void_p):
+    extends: win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList2
+    Guid = Guid('7f027b22-1515-4e85-aa-0d-02-64-86-58-05-76')
+    @commethod(29)
+    def Barrier(NumBarrierGroups: UInt32, pBarrierGroups: POINTER(win32more.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
 class ID3D12VideoEncoder(c_void_p):
     extends: win32more.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('2e0d212d-8df9-44a6-a7-70-bb-28-9b-18-27-37')
@@ -5936,6 +5960,11 @@ class ID3D12VideoProcessCommandList2(c_void_p):
     def InitializeExtensionCommand(pExtensionCommand: win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pInitializationParameters: c_void_p, InitializationParametersSizeInBytes: UIntPtr) -> Void: ...
     @commethod(26)
     def ExecuteExtensionCommand(pExtensionCommand: win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr) -> Void: ...
+class ID3D12VideoProcessCommandList3(c_void_p):
+    extends: win32more.Media.MediaFoundation.ID3D12VideoProcessCommandList2
+    Guid = Guid('1a0a4ca4-9f08-40ce-95-58-b4-11-fd-26-66-ff')
+    @commethod(27)
+    def Barrier(NumBarrierGroups: UInt32, pBarrierGroups: POINTER(win32more.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
 class ID3D12VideoProcessor(c_void_p):
     extends: win32more.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('304fdb32-bede-410a-85-45-94-3a-c6-a4-61-38')
@@ -11937,6 +11966,7 @@ make_head(_module, 'ICodecAPI')
 make_head(_module, 'ID3D12VideoDecodeCommandList')
 make_head(_module, 'ID3D12VideoDecodeCommandList1')
 make_head(_module, 'ID3D12VideoDecodeCommandList2')
+make_head(_module, 'ID3D12VideoDecodeCommandList3')
 make_head(_module, 'ID3D12VideoDecoder')
 make_head(_module, 'ID3D12VideoDecoder1')
 make_head(_module, 'ID3D12VideoDecoderHeap')
@@ -11948,6 +11978,7 @@ make_head(_module, 'ID3D12VideoDevice3')
 make_head(_module, 'ID3D12VideoEncodeCommandList')
 make_head(_module, 'ID3D12VideoEncodeCommandList1')
 make_head(_module, 'ID3D12VideoEncodeCommandList2')
+make_head(_module, 'ID3D12VideoEncodeCommandList3')
 make_head(_module, 'ID3D12VideoEncoder')
 make_head(_module, 'ID3D12VideoEncoderHeap')
 make_head(_module, 'ID3D12VideoExtensionCommand')
@@ -11956,6 +11987,7 @@ make_head(_module, 'ID3D12VideoMotionVectorHeap')
 make_head(_module, 'ID3D12VideoProcessCommandList')
 make_head(_module, 'ID3D12VideoProcessCommandList1')
 make_head(_module, 'ID3D12VideoProcessCommandList2')
+make_head(_module, 'ID3D12VideoProcessCommandList3')
 make_head(_module, 'ID3D12VideoProcessor')
 make_head(_module, 'ID3D12VideoProcessor1')
 make_head(_module, 'IDirect3D9ExOverlayExtension')
@@ -13120,6 +13152,19 @@ __all__ = [
     "D3D12_FEATURE_VIDEO_DECODE_PROFILE_COUNT",
     "D3D12_FEATURE_VIDEO_DECODE_PROTECTED_RESOURCES",
     "D3D12_FEATURE_VIDEO_DECODE_SUPPORT",
+    "D3D12_FEATURE_VIDEO_ENCODER_CODEC",
+    "D3D12_FEATURE_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT",
+    "D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT",
+    "D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE",
+    "D3D12_FEATURE_VIDEO_ENCODER_HEAP_SIZE",
+    "D3D12_FEATURE_VIDEO_ENCODER_INPUT_FORMAT",
+    "D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE",
+    "D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION",
+    "D3D12_FEATURE_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT",
+    "D3D12_FEATURE_VIDEO_ENCODER_PROFILE_LEVEL",
+    "D3D12_FEATURE_VIDEO_ENCODER_RATE_CONTROL_MODE",
+    "D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS",
+    "D3D12_FEATURE_VIDEO_ENCODER_SUPPORT",
     "D3D12_FEATURE_VIDEO_EXTENSION_COMMANDS",
     "D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_COUNT",
     "D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS",
@@ -14191,6 +14236,7 @@ __all__ = [
     "ID3D12VideoDecodeCommandList",
     "ID3D12VideoDecodeCommandList1",
     "ID3D12VideoDecodeCommandList2",
+    "ID3D12VideoDecodeCommandList3",
     "ID3D12VideoDecoder",
     "ID3D12VideoDecoder1",
     "ID3D12VideoDecoderHeap",
@@ -14202,6 +14248,7 @@ __all__ = [
     "ID3D12VideoEncodeCommandList",
     "ID3D12VideoEncodeCommandList1",
     "ID3D12VideoEncodeCommandList2",
+    "ID3D12VideoEncodeCommandList3",
     "ID3D12VideoEncoder",
     "ID3D12VideoEncoderHeap",
     "ID3D12VideoExtensionCommand",
@@ -14210,6 +14257,7 @@ __all__ = [
     "ID3D12VideoProcessCommandList",
     "ID3D12VideoProcessCommandList1",
     "ID3D12VideoProcessCommandList2",
+    "ID3D12VideoProcessCommandList3",
     "ID3D12VideoProcessor",
     "ID3D12VideoProcessor1",
     "IDXVAHD_Device",
@@ -17586,6 +17634,7 @@ __all__ = [
     "MF_USER_DATA_PAYLOAD",
     "MF_USER_EXTENDED_ATTRIBUTES",
     "MF_USER_MODE_COMPONENT_LOAD",
+    "MF_VERSION",
     "MF_VIDEODSP_MODE",
     "MF_VIDEO_MAX_MB_PER_SEC",
     "MF_VIDEO_PROCESSOR_ALGORITHM",
