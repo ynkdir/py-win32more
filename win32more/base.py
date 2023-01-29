@@ -3,7 +3,7 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -30,8 +30,14 @@ Int32 = c_int
 UInt32 = c_uint
 Int64 = c_longlong
 UInt64 = c_ulonglong
-IntPtr = c_longlong
-UIntPtr = c_ulonglong
+if sizeof(c_void_p) == sizeof(Int64):
+    IntPtr = Int64
+    UIntPtr = UInt64
+elif sizeof(c_void_p) == sizeof(Int32):
+    IntPtr = Int32
+    UIntPtr = UInt32
+else:
+    raise NotImplementedError()
 Single = c_float
 Double = c_double
 String = c_wchar_p_no
