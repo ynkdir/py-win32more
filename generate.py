@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import TypeAlias, Generator, Any, TextIO, Self
 
 PACKAGE_NAME = "win32more"
-ARCHITECTURE = "X64"
 BASE_EXPORTS = [
+    "ARCH",
     "MissingType",
     "c_char_p_no",
     "c_wchar_p_no",
@@ -565,6 +565,18 @@ class MethodDefinition:
     def parameters(self) -> list[Parameter]:
         return [Parameter(pa) for pa in self["Parameters"]]
 
+    def has_custom_attribute(self, type_: str) -> bool:
+        for ca in self.custom_attributes:
+            if ca.type == type_:
+                return True
+        return False
+
+    def get_custom_attribute(self, type_: str) -> CustomAttribute:
+        for ca in self.custom_attributes:
+            if ca.type == type_:
+                return ca
+        raise KeyError()
+
 
 class SignatureHeader:
     def __init__(self, js: JsonType) -> None:
@@ -701,19 +713,6 @@ class Preprocessor:
     def filter_public(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
         return [td for td in typedefs if td.namespace != "" and "Public" in td.attributes]
 
-    def filter_architecture(self, typedefs: list[TypeDefinition], arch: str) -> list[TypeDefinition]:
-        typedefs = [td for td in typedefs if self.has_architecture(td["CustomAttributes"], arch)]
-        for td in typedefs:
-            if td.name == "Apis":
-                td["MethodDefinitions"] = [md for md in td["MethodDefinitions"] if self.has_architecture(md["CustomAttributes"], arch)]
-        return typedefs
-
-    def has_architecture(self, custom_attributes: list[JsonType], arch: str) -> bool:
-        for ca in custom_attributes:
-            if ca["Type"] == "Windows.Win32.Interop.SupportedArchitectureAttribute":
-                return arch in ca["FixedArguments"][0]["Value"]
-        return True
-
     def patch_link_typedef(self, typedefs: list[TypeDefinition]) -> None:
         # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
         ns = {td.fullname: td for td in typedefs}
@@ -827,6 +826,20 @@ class Preprocessor:
             case _:
                 raise NotImplementedError()
 
+    def collect_export_name_arch(self, td: TypeDefinition, export_names_arch: dict[str, set[str]]) -> None:
+        if td.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+            arch = td.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+            if td.name not in export_names_arch:
+                export_names_arch[td.name] = set()
+            export_names_arch[td.name] |= {x.upper() for x in arch}
+        if td.kind == "object":
+            for md in td.method_definitions:
+                if md.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+                    arch = md.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+                    if md.name not in export_names_arch:
+                        export_names_arch[md.name] = set()
+                    export_names_arch[md.name] |= {x.upper() for x in arch}
+
 
 class PyGenerator:
     def emit(self, writer: TextIO, td: TypeDefinition) -> None:
@@ -867,6 +880,12 @@ class PyGenerator:
             writer.write(f"    return {field.pyvalue}\n")
 
     def emit_function(self, writer: TextIO, md: MethodDefinition) -> None:
+        if md.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+            arch = ",".join(md.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+            writer.write(f"if ARCH in '{arch}':\n")
+            indent = "    "
+        else:
+            indent = ""
         library = md.import_.module.name
         if "CallingConventionWinApi" in md.import_.attributes:
             functype = "winfunctype"
@@ -876,10 +895,16 @@ class PyGenerator:
             raise NotImplementedError()
         restype = md.return_type.type.pytype
         params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
-        writer.write(f"@{functype}('{library}')\n")
-        writer.write(f"def {md.name}({params_csv}) -> {restype}: ...\n")
+        writer.write(f"{indent}@{functype}('{library}')\n")
+        writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
 
     def emit_function_pointer(self, writer: TextIO, td: TypeDefinition) -> None:
+        if td.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+            arch = ",".join(td.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+            writer.write(f"if ARCH in '{arch}':\n")
+            indent = "    "
+        else:
+            indent = ""
         callconv = td.get_custom_attribute("System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute").fixed_arguments[0].value
         if callconv == "Winapi":
             functype = "winfunctype_pointer"
@@ -890,8 +915,8 @@ class PyGenerator:
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.return_type.type.pytype
         params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
-        writer.write(f"@{functype}\n")
-        writer.write(f"def {td.name}({params_csv}) -> {restype}: ...\n")
+        writer.write(f"{indent}@{functype}\n")
+        writer.write(f"{indent}def {td.name}({params_csv}) -> {restype}: ...\n")
 
     def emit_enum(self, writer: TextIO, td: TypeDefinition) -> None:
         type_field, *value_fields = td.fields
@@ -909,6 +934,10 @@ class PyGenerator:
 
     # _fields_ and _anonymous_ is defined at runtime.
     def emit_struct_union(self, writer: TextIO, td: TypeDefinition, indent="") -> None:
+        if td.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+            arch = ",".join(td.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+            writer.write(f"if ARCH in '{arch}':\n")
+            indent = indent + "    "
         if td.kind == "struct":
             base = "Structure"
         elif td.kind == "union":
@@ -972,6 +1001,8 @@ class PyGenerator:
         writer.write("    try:\n")
         writer.write("        prototype = globals()[f'{name}_head']\n")
         writer.write("    except KeyError:\n")
+        writer.write("        if name in _arch_optional:\n")
+        writer.write("            return None\n")
         writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
         writer.write("    setattr(_module, name, press(prototype))\n")
         writer.write("    return getattr(_module, name)\n")
@@ -985,11 +1016,20 @@ class PyGenerator:
                     if "HasDefault" not in field.attributes and not field.type.is_guid:
                         writer.write(f"make_head(_module, '{field.name}')\n")
             case "function_pointer" | "union" | "struct" | "com":
-                writer.write(f"make_head(_module, '{td.name}')\n")
+                if td.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+                    arch = ",".join(td.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+                    writer.write(f"if ARCH in '{arch}':\n")
+                    writer.write(f"    make_head(_module, '{td.name}')\n")
+                else:
+                    writer.write(f"make_head(_module, '{td.name}')\n")
 
-    def write_footer(self, writer: TextIO, export_names: set[str]) -> None:
+    def write_footer(self, writer: TextIO, export_names: set[str], export_names_optional: list[str]) -> None:
         writer.write("__all__ = [\n")
         for name in sorted(export_names):
+            writer.write(f'    "{name}",\n')
+        writer.write("]\n")
+        writer.write("_arch_optional = [\n")
+        for name in sorted(export_names_optional):
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
 
@@ -1021,7 +1061,6 @@ def main() -> None:
         typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
     pp = Preprocessor()
     typedefs = pp.filter_public(typedefs)
-    typedefs = pp.filter_architecture(typedefs, ARCHITECTURE)
     pp.patch_link_typedef(typedefs)
     pp.patch_enum(typedefs)
     pp.patch_com_vtbl_index(typedefs)
@@ -1043,16 +1082,19 @@ def main() -> None:
                 (d / "__init__.py").write_text("")
         import_namespaces: set[str] = {namespace}
         export_names: set[str] = set()
+        export_names_arch: dict[str, set[str]] = {}
         for td in ns_mod[namespace]:
             pp.collect_import_namespace(td, import_namespaces)
             pp.collect_export_name(td, export_names)
+            pp.collect_export_name_arch(td, export_names_arch)
+        export_names_optional = [name for name, arch in export_names_arch.items() if arch and arch != {"X86", "X64", "ARM64"}]
         with (p / "__init__.py").open("w") as writer:
             pg.write_header(writer, import_namespaces)
             for td in ns_mod[namespace]:
                 pg.emit(writer, td)
             for td in ns_mod[namespace]:
                 pg.write_make_head(writer, td)
-            pg.write_footer(writer, export_names)
+            pg.write_footer(writer, export_names, export_names_optional)
         export_names_groupby_namespace[namespace] = export_names
     with open(f"{PACKAGE_NAME}/all.py", "w") as writer:
         pg.write_all(writer, export_names_groupby_namespace)

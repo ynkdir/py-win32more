@@ -5,6 +5,13 @@ import sys
 import uuid
 from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE
 
+if "(arm64)" in sys.version.lower():
+    ARCH = "ARM64"
+elif "(amd64)" in sys.version.lower():
+    ARCH = "X64"
+else:
+    ARCH = "X86"
+
 MissingType = c_void_p
 
 # to avoid auto conversion to str
