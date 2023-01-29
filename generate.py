@@ -45,8 +45,7 @@ JsonType: TypeAlias = Any
 
 
 class TType:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -69,7 +68,7 @@ class TType:
     def type(self) -> TType:
         if self["Type"] is None:
             raise KeyError()
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def size(self) -> int:
@@ -81,7 +80,7 @@ class TType:
     def type_arguments(self) -> list[Self]:
         if self["TypeArguments"] is None:
             raise KeyError()
-        return [TType(self.ns, ta) for ta in self["TypeArguments"]]
+        return [TType(ta) for ta in self["TypeArguments"]]
 
     @property
     def is_required(self) -> bool:
@@ -145,24 +144,23 @@ class TType:
     # missing type which is not defined in current winmd.
     @property
     def is_missing(self) -> bool:
-        return self.kind == "Type" and self.name not in self.ns
+        return self.kind == "Type" and self["_typedef"] is None
 
     @property
     def is_struct(self) -> bool:
         if not self.is_nested and not self.is_guid and not self.is_missing:
-            return self.kind == "Type" and self.ns[self.name].kind in ("union", "struct")
+            return self.kind == "Type" and self["_typedef"].kind in ("union", "struct")
         return False
 
     @property
     def is_com(self) -> bool:
         if not self.is_nested and not self.is_guid and not self.is_missing:
-            return self.kind == "Type" and self.ns[self.name].kind == "com"
+            return self.kind == "Type" and self["_typedef"].kind == "com"
         return False
 
 
 class TypeDefinition:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -197,27 +195,27 @@ class TypeDefinition:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
     @property
     def fields(self) -> list[FieldDefinition]:
-        return [FieldDefinition(self.ns, fd) for fd in self["Fields"]]
+        return [FieldDefinition(fd) for fd in self["Fields"]]
 
     @property
     def interface_implementations(self) -> list[InterfaceImplementation]:
-        return [InterfaceImplementation(self.ns, ii) for ii in self["InterfaceImplementations"]]
+        return [InterfaceImplementation(ii) for ii in self["InterfaceImplementations"]]
 
     @property
     def layout(self) -> TypeLayout:
-        return TypeLayout(self.ns, self["Layout"])
+        return TypeLayout(self["Layout"])
 
     @property
     def method_definitions(self) -> list[MethodDefinition]:
-        return [MethodDefinition(self.ns, md) for md in self["MethodDefinitions"]]
+        return [MethodDefinition(md) for md in self["MethodDefinitions"]]
 
     @property
     def nested_types(self) -> list[TypeDefinition]:
-        return [TypeDefinition(self.ns, td) for td in self["NestedTypes"]]
+        return [TypeDefinition(td) for td in self["NestedTypes"]]
 
     @property
     def kind(self) -> str:
@@ -257,8 +255,7 @@ class TypeDefinition:
 
 
 class CustomAttribute:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -273,11 +270,11 @@ class CustomAttribute:
 
     @property
     def fixed_arguments(self) -> list[CustomAttributeFixedArgument]:
-        return [CustomAttributeFixedArgument(self.ns, ta) for ta in self["FixedArguments"]]
+        return [CustomAttributeFixedArgument(ta) for ta in self["FixedArguments"]]
 
     @property
     def named_arguments(self) -> list[CustomAttributeNamedArgument]:
-        return [CustomAttributeNamedArgument(self.ns, na) for na in self["NamedArguments"]]
+        return [CustomAttributeNamedArgument(na) for na in self["NamedArguments"]]
 
     def guid_value(self) -> tuple[str, list[JsonType]]:
         v = [fa.value for fa in self.fixed_arguments]
@@ -286,8 +283,7 @@ class CustomAttribute:
 
 
 class CustomAttributeFixedArgument:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -298,7 +294,7 @@ class CustomAttributeFixedArgument:
 
     @property
     def type(self) -> TType:
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def value(self) -> JsonType:
@@ -306,8 +302,7 @@ class CustomAttributeFixedArgument:
 
 
 class CustomAttributeNamedArgument:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType):
-        self.ns = ns
+    def __init__(self, js: JsonType):
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -326,7 +321,7 @@ class CustomAttributeNamedArgument:
 
     @property
     def type(self) -> TType:
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def value(self) -> JsonType:
@@ -334,8 +329,7 @@ class CustomAttributeNamedArgument:
 
 
 class FieldDefinition:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -350,7 +344,7 @@ class FieldDefinition:
 
     @property
     def type(self) -> TType:
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def attributes(self) -> list[str]:
@@ -358,13 +352,13 @@ class FieldDefinition:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
     @property
     def default_value(self) -> Constant:
         if self["DefaultValue"] is None:
             raise KeyError()
-        return Constant(self.ns, self["DefaultValue"])
+        return Constant(self["DefaultValue"])
 
     @property
     def offset(self) -> int:
@@ -398,8 +392,7 @@ class FieldDefinition:
 
 
 class Constant:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -418,8 +411,7 @@ class Constant:
 
 
 class InterfaceImplementation:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -430,16 +422,15 @@ class InterfaceImplementation:
 
     @property
     def interface(self) -> EntiryHandle:
-        return EntiryHandle(self.ns, self["Interface"])
+        return EntiryHandle(self["Interface"])
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
 
 class EntiryHandle:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -456,18 +447,17 @@ class EntiryHandle:
     def type_reference(self) -> TypeReference:
         if self["TypeReference"] is None:
             raise KeyError()
-        return TypeReference(self.ns, self["TypeReference"])
+        return TypeReference(self["TypeReference"])
 
     @property
     def type_specification(self) -> TypeSpecification:
         if self["TypeSpecification"] is None:
             raise KeyError()
-        return TypeSpecification(self.ns, self["TypeSpecification"])
+        return TypeSpecification(self["TypeSpecification"])
 
 
 class TypeReference:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -490,8 +480,7 @@ class TypeReference:
 
 
 class TypeSpecification:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -502,16 +491,15 @@ class TypeSpecification:
 
     @property
     def signature(self) -> TType:
-        return TType(self.ns, self["Signature"])
+        return TType(self["Signature"])
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
 
 class TypeLayout:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -534,8 +522,7 @@ class TypeLayout:
 
 
 class MethodDefinition:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -554,7 +541,7 @@ class MethodDefinition:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
     @property
     def impl_attributes(self) -> list[str]:
@@ -564,24 +551,23 @@ class MethodDefinition:
     def import_(self) -> MethodImport:
         if self["Import"] is None:
             raise KeyError()
-        return MethodImport(self.ns, self["Import"])
+        return MethodImport(self["Import"])
 
     @property
     def signature_header(self) -> SignatureHeader:
-        return SignatureHeader(self.ns, self["SignatureHeader"])
+        return SignatureHeader(self["SignatureHeader"])
 
     @property
     def return_type(self) -> ReturnType:
-        return ReturnType(self.ns, self["ReturnType"])
+        return ReturnType(self["ReturnType"])
 
     @property
     def parameters(self) -> list[Parameter]:
-        return [Parameter(self.ns, pa) for pa in self["Parameters"]]
+        return [Parameter(pa) for pa in self["Parameters"]]
 
 
 class SignatureHeader:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -616,8 +602,7 @@ class SignatureHeader:
 
 
 class ReturnType:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -628,7 +613,7 @@ class ReturnType:
 
     @property
     def type(self) -> TType:
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def attributes(self) -> list[str]:
@@ -636,12 +621,11 @@ class ReturnType:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
 
 class Parameter:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -656,7 +640,7 @@ class Parameter:
 
     @property
     def type(self) -> TType:
-        return TType(self.ns, self["Type"])
+        return TType(self["Type"])
 
     @property
     def sequence_number(self) -> int:
@@ -668,12 +652,11 @@ class Parameter:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
 
 class MethodImport:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -692,12 +675,11 @@ class MethodImport:
 
     @property
     def module(self) -> ModuleReference:
-        return ModuleReference(self.ns, self["Module"])
+        return ModuleReference(self["Module"])
 
 
 class ModuleReference:
-    def __init__(self, ns: dict[str, TypeDefinition], js: JsonType) -> None:
-        self.ns = ns
+    def __init__(self, js: JsonType) -> None:
         self.js = js
 
     def __getitem__(self, key: str) -> JsonType:
@@ -712,7 +694,7 @@ class ModuleReference:
 
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(self.ns, ca) for ca in self["CustomAttributes"]]
+        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
 
 
 class Preprocessor:
@@ -732,9 +714,19 @@ class Preprocessor:
                 return arch in ca["FixedArguments"][0]["Value"]
         return True
 
+    def patch_link_typedef(self, typedefs: list[TypeDefinition]) -> None:
+        # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
+        ns = {td.fullname: td for td in typedefs}
+        for td in typedefs:
+            for ii in td.interface_implementations:
+                ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
+            for t in self.foreach_type(td):
+                t = t.get_element_type()
+                t["_typedef"] = ns.get(t["Name"])
+
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
-    def patch_enum(self, ns: dict[str, TypeDefinition]) -> None:
-        for td in ns.values():
+    def patch_enum(self, typedefs: list[TypeDefinition]) -> None:
+        for td in typedefs:
             if td.kind == "enum" and self.enum_need_prefix(td):
                 for fd in td.fields:
                     fd["Name"] = f"{td['Name']}_{fd['Name']}"
@@ -746,46 +738,43 @@ class Preprocessor:
         return False
 
     # Add vtbl_index to COM methods.
-    def patch_com_vtbl_index(self, ns: dict[str, TypeDefinition]) -> None:
-        for td in ns.values():
+    def patch_com_vtbl_index(self, typedefs: list[TypeDefinition]) -> None:
+        for td in typedefs:
             if td.kind == "com":
-                vtbl_index = self.count_interface_method(ns, td.interface_implementations)
+                vtbl_index = self.count_interface_method(td.interface_implementations)
                 for md in td.method_definitions:
                     md["_vtbl_index"] = vtbl_index
                     vtbl_index += 1
 
-    def count_interface_method(self, ns: dict[str, TypeDefinition], interfaces: list[InterfaceImplementation]) -> int:
+    def count_interface_method(self, interfaces: list[InterfaceImplementation]) -> int:
         if not interfaces:
             return 0
-        td = ns[interfaces[0].interface.type_reference.fullname]
-        return len(td.method_definitions) + self.count_interface_method(ns, td.interface_implementations)
+        td = interfaces[0].interface.type_reference["_typedef"]
+        return len(td.method_definitions) + self.count_interface_method(td.interface_implementations)
 
-    def patch_name_conflict(self, ns: dict[str, TypeDefinition]) -> None:
-        for td in ns.values():
+    def patch_name_conflict(self, typedefs: list[TypeDefinition]) -> None:
+        ns = {td.fullname: td for td in typedefs}
+        for td in typedefs:
             if td.name == "Apis":
                 for fd in td.fields:
                     if f"{td.namespace}.{fd.name}" in ns:
                         sys.stderr.write(f"DEBUG: name conflict '{td.namespace}.{fd.name}'\n")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
 
-    def patch_namespace(self, ns: dict[str, TypeDefinition], packagename: str) -> None:
+    def patch_namespace(self, typedefs: list[TypeDefinition], packagename: str) -> None:
         def patch(name: str) -> str:
             return re.sub(r"^Windows.Win32.", f"{packagename}.", name)
 
-        newns = {}
-        for td in ns.values():
+        for td in typedefs:
             td["Namespace"] = patch(td["Namespace"])
             for ii in td.interface_implementations:
                 ii.interface.type_reference["Namespace"] = patch(ii.interface.type_reference["Namespace"])
             for t in self.foreach_type(td):
                 t = t.get_element_type()
                 t["Name"] = patch(t["Name"])
-            newns[td.fullname] = td
-        ns.clear()
-        ns.update(newns)
 
-    def patch_keyword_name(self, ns: dict[str, TypeDefinition]) -> None:
-        for td in ns.values():
+    def patch_keyword_name(self, typedefs: list[TypeDefinition]) -> None:
+        for td in typedefs:
             self.patch_keyword_name_td(td)
 
     def patch_keyword_name_td(self, td: TypeDefinition) -> None:
@@ -1028,24 +1017,22 @@ class PyGenerator:
 
 
 def main() -> None:
-    ns: dict[str, TypeDefinition] = dict()
     with open(sys.argv[1]) as f:
-        typedefs = [TypeDefinition(ns, typedef) for typedef in json.load(f)]
+        typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
     pp = Preprocessor()
     typedefs = pp.filter_public(typedefs)
     typedefs = pp.filter_architecture(typedefs, ARCHITECTURE)
-    for td in typedefs:
-        ns[td.fullname] = td
-    pp.patch_enum(ns)
-    pp.patch_com_vtbl_index(ns)
-    pp.patch_name_conflict(ns)
-    pp.patch_namespace(ns, PACKAGE_NAME)
-    pp.patch_keyword_name(ns)
-    ns_mod: dict[str, dict[str, TypeDefinition]] = {}
+    pp.patch_link_typedef(typedefs)
+    pp.patch_enum(typedefs)
+    pp.patch_com_vtbl_index(typedefs)
+    pp.patch_name_conflict(typedefs)
+    pp.patch_keyword_name(typedefs)
+    pp.patch_namespace(typedefs, PACKAGE_NAME)
+    ns_mod: dict[str, list[TypeDefinition]] = {}
     for td in typedefs:
         if td.namespace not in ns_mod:
-            ns_mod[td.namespace] = {}
-        ns_mod[td.namespace][td.name] = td
+            ns_mod[td.namespace] = []
+        ns_mod[td.namespace].append(td)
     export_names_groupby_namespace = {}
     pg = PyGenerator()
     for namespace in ns_mod.keys():
@@ -1056,14 +1043,14 @@ def main() -> None:
                 (d / "__init__.py").write_text("")
         import_namespaces: set[str] = {namespace}
         export_names: set[str] = set()
-        for td in ns_mod[namespace].values():
+        for td in ns_mod[namespace]:
             pp.collect_import_namespace(td, import_namespaces)
             pp.collect_export_name(td, export_names)
         with (p / "__init__.py").open("w") as writer:
             pg.write_header(writer, import_namespaces)
-            for td in ns_mod[namespace].values():
+            for td in ns_mod[namespace]:
                 pg.emit(writer, td)
-            for td in ns_mod[namespace].values():
+            for td in ns_mod[namespace]:
                 pg.write_make_head(writer, td)
             pg.write_footer(writer, export_names)
         export_names_groupby_namespace[namespace] = export_names
