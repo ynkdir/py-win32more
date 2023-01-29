@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.Security
@@ -13,6 +13,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1816,18 +1818,20 @@ class DUPLICATE_EXTENTS_DATA_EX(Structure):
     TargetFileOffset: win32more.Foundation.LARGE_INTEGER
     ByteCount: win32more.Foundation.LARGE_INTEGER
     Flags: UInt32
-class DUPLICATE_EXTENTS_DATA_EX32(Structure):
-    Size: UInt32
-    FileHandle: UInt32
-    SourceFileOffset: win32more.Foundation.LARGE_INTEGER
-    TargetFileOffset: win32more.Foundation.LARGE_INTEGER
-    ByteCount: win32more.Foundation.LARGE_INTEGER
-    Flags: UInt32
-class DUPLICATE_EXTENTS_DATA32(Structure):
-    FileHandle: UInt32
-    SourceFileOffset: win32more.Foundation.LARGE_INTEGER
-    TargetFileOffset: win32more.Foundation.LARGE_INTEGER
-    ByteCount: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X64,ARM64':
+    class DUPLICATE_EXTENTS_DATA_EX32(Structure):
+        Size: UInt32
+        FileHandle: UInt32
+        SourceFileOffset: win32more.Foundation.LARGE_INTEGER
+        TargetFileOffset: win32more.Foundation.LARGE_INTEGER
+        ByteCount: win32more.Foundation.LARGE_INTEGER
+        Flags: UInt32
+if ARCH in 'X64,ARM64':
+    class DUPLICATE_EXTENTS_DATA32(Structure):
+        FileHandle: UInt32
+        SourceFileOffset: win32more.Foundation.LARGE_INTEGER
+        TargetFileOffset: win32more.Foundation.LARGE_INTEGER
+        ByteCount: win32more.Foundation.LARGE_INTEGER
 DUPLICATE_EXTENTS_STATE = Int32
 DUPLICATE_EXTENTS_STATE_FileSnapStateInactive: DUPLICATE_EXTENTS_STATE = 0
 DUPLICATE_EXTENTS_STATE_FileSnapStateSource: DUPLICATE_EXTENTS_STATE = 1
@@ -2334,13 +2338,14 @@ class MARK_HANDLE_INFO(Structure):
     class _Anonymous_e__Union(Union):
         UsnSourceInfo: UInt32
         CopyNumber: UInt32
-class MARK_HANDLE_INFO32(Structure):
-    Anonymous: _Anonymous_e__Union
-    VolumeHandle: UInt32
-    HandleInfo: UInt32
-    class _Anonymous_e__Union(Union):
-        UsnSourceInfo: UInt32
-        CopyNumber: UInt32
+if ARCH in 'X64,ARM64':
+    class MARK_HANDLE_INFO32(Structure):
+        Anonymous: _Anonymous_e__Union
+        VolumeHandle: UInt32
+        HandleInfo: UInt32
+        class _Anonymous_e__Union(Union):
+            UsnSourceInfo: UInt32
+            CopyNumber: UInt32
 MEDIA_TYPE = Int32
 MEDIA_TYPE_Unknown: MEDIA_TYPE = 0
 MEDIA_TYPE_F5_1Pt2_512: MEDIA_TYPE = 1
@@ -2383,11 +2388,12 @@ class MOVE_FILE_DATA(Structure):
     StartingVcn: win32more.Foundation.LARGE_INTEGER
     StartingLcn: win32more.Foundation.LARGE_INTEGER
     ClusterCount: UInt32
-class MOVE_FILE_DATA32(Structure):
-    FileHandle: UInt32
-    StartingVcn: win32more.Foundation.LARGE_INTEGER
-    StartingLcn: win32more.Foundation.LARGE_INTEGER
-    ClusterCount: UInt32
+if ARCH in 'X64,ARM64':
+    class MOVE_FILE_DATA32(Structure):
+        FileHandle: UInt32
+        StartingVcn: win32more.Foundation.LARGE_INTEGER
+        StartingLcn: win32more.Foundation.LARGE_INTEGER
+        ClusterCount: UInt32
 class MOVE_FILE_RECORD_DATA(Structure):
     FileHandle: win32more.Foundation.HANDLE
     SourceFileRecord: win32more.Foundation.LARGE_INTEGER
@@ -4748,8 +4754,10 @@ make_head(_module, 'DRIVE_LAYOUT_INFORMATION_MBR')
 make_head(_module, 'DRIVERSTATUS')
 make_head(_module, 'DUPLICATE_EXTENTS_DATA')
 make_head(_module, 'DUPLICATE_EXTENTS_DATA_EX')
-make_head(_module, 'DUPLICATE_EXTENTS_DATA_EX32')
-make_head(_module, 'DUPLICATE_EXTENTS_DATA32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DUPLICATE_EXTENTS_DATA_EX32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DUPLICATE_EXTENTS_DATA32')
 make_head(_module, 'ENCRYPTED_DATA_INFO')
 make_head(_module, 'ENCRYPTION_BUFFER')
 make_head(_module, 'ENCRYPTION_KEY_CTRL_INPUT')
@@ -4823,11 +4831,13 @@ make_head(_module, 'LOOKUP_STREAM_FROM_CLUSTER_ENTRY')
 make_head(_module, 'LOOKUP_STREAM_FROM_CLUSTER_INPUT')
 make_head(_module, 'LOOKUP_STREAM_FROM_CLUSTER_OUTPUT')
 make_head(_module, 'MARK_HANDLE_INFO')
-make_head(_module, 'MARK_HANDLE_INFO32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MARK_HANDLE_INFO32')
 make_head(_module, 'MFT_ENUM_DATA_V0')
 make_head(_module, 'MFT_ENUM_DATA_V1')
 make_head(_module, 'MOVE_FILE_DATA')
-make_head(_module, 'MOVE_FILE_DATA32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MOVE_FILE_DATA32')
 make_head(_module, 'MOVE_FILE_RECORD_DATA')
 make_head(_module, 'NTFS_EXTENDED_VOLUME_DATA')
 make_head(_module, 'NTFS_FILE_RECORD_INPUT_BUFFER')
@@ -7254,4 +7264,10 @@ __all__ = [
     "WRITE_THROUGH_WriteThroughSupported",
     "WRITE_THROUGH_WriteThroughUnknown",
     "WRITE_USN_REASON_INPUT",
+]
+_arch_optional = [
+    "DUPLICATE_EXTENTS_DATA32",
+    "DUPLICATE_EXTENTS_DATA_EX32",
+    "MARK_HANDLE_INFO32",
+    "MOVE_FILE_DATA32",
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security.Authorization
 import win32more.Storage.IndexServer
@@ -17,6 +17,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -3451,66 +3453,96 @@ DBPROPSET_SQLSERVERROWSET: Guid = Guid('5cf4ca11-ef21-11d0-97-e7-00-c0-4f-c2-ad-
 DBPROPSET_SQLSERVERSESSION: Guid = Guid('28efaee5-2d2c-11d1-98-07-00-c0-4f-c2-ad-98')
 DBPROPSET_SQLSERVERCOLUMN: Guid = Guid('3b63fb5e-3fbb-11d3-9f-29-00-c0-4f-8e-e9-dc')
 DBPROPSET_SQLSERVERSTREAM: Guid = Guid('9f79c073-8a6d-4bca-a8-a8-c9-b7-9a-9b-96-2d')
-@winfunctype('ODBC32.dll')
-def SQLBindCol(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int64, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLBindParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt64, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttribute(StatementHandle: c_void_p, ColumnNumber: UInt16, FieldIdentifier: UInt16, CharacterAttribute: c_void_p, BufferLength: Int16, StringLength: POINTER(Int16), NumericAttribute: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLDescribeCol(StatementHandle: c_void_p, ColumnNumber: UInt16, ColumnName: c_char_p_no, BufferLength: Int16, NameLength: POINTER(Int16), DataType: POINTER(Int16), ColumnSize: POINTER(UInt64), DecimalDigits: POINTER(Int16), Nullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLFetchScroll(StatementHandle: c_void_p, FetchOrientation: Int16, FetchOffset: Int64) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLGetData(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int64, StrLen_or_IndPtr: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLGetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Name: c_char_p_no, BufferLength: Int16, StringLengthPtr: POINTER(Int16), TypePtr: POINTER(Int16), SubTypePtr: POINTER(Int16), LengthPtr: POINTER(Int64), PrecisionPtr: POINTER(Int16), ScalePtr: POINTER(Int16), NullablePtr: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLPutData(StatementHandle: c_void_p, Data: c_void_p, StrLen_or_Ind: Int64) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLRowCount(StatementHandle: c_void_p, RowCount: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetConnectOption(ConnectionHandle: c_void_p, Option: UInt16, Value: UInt64) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Type: Int16, SubType: Int16, Length: Int64, Precision: Int16, Scale: Int16, Data: c_void_p, StringLength: POINTER(Int64), Indicator: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt64, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetStmtOption(StatementHandle: c_void_p, Option: UInt16, Value: UInt64) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttributes(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLDescribeParam(hstmt: c_void_p, ipar: UInt16, pfSqlType: POINTER(Int16), pcbParamDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLExtendedFetch(hstmt: c_void_p, fFetchType: UInt16, irow: Int64, pcrow: POINTER(UInt64), rgfRowStatus: POINTER(UInt16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLParamOptions(hstmt: c_void_p, crow: UInt64, pirow: POINTER(UInt64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetPos(hstmt: c_void_p, irow: UInt64, fOption: UInt16, fLock: UInt16) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLBindParameter(hstmt: c_void_p, ipar: UInt16, fParamType: Int16, fCType: Int16, fSqlType: Int16, cbColDef: UInt64, ibScale: Int16, rgbValue: c_void_p, cbValueMax: Int64, pcbValue: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetScrollOptions(hstmt: c_void_p, fConcurrency: UInt16, crowKeyset: Int64, crowRowset: UInt16) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttributeW(hstmt: c_void_p, iCol: UInt16, iField: UInt16, pCharAttr: c_void_p, cbDescMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttributesW(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLDescribeColW(hstmt: c_void_p, icol: UInt16, szColName: POINTER(UInt16), cchColNameMax: Int16, pcchColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLGetDescRecW(hdesc: c_void_p, iRecord: Int16, szName: POINTER(UInt16), cchNameMax: Int16, pcchName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int64), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetConnectOptionW(hdbc: c_void_p, fOption: UInt16, vParam: UInt64) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttributeA(hstmt: c_void_p, iCol: Int16, iField: Int16, pCharAttr: c_void_p, cbCharAttrMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLColAttributesA(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLDescribeColA(hstmt: c_void_p, icol: UInt16, szColName: c_char_p_no, cbColNameMax: Int16, pcbColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLGetDescRecA(hdesc: c_void_p, iRecord: Int16, szName: c_char_p_no, cbNameMax: Int16, pcbName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int64), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
-@winfunctype('ODBC32.dll')
-def SQLSetConnectOptionA(hdbc: c_void_p, fOption: UInt16, vParam: UInt64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLBindCol(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int64, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLBindParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt64, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttribute(StatementHandle: c_void_p, ColumnNumber: UInt16, FieldIdentifier: UInt16, CharacterAttribute: c_void_p, BufferLength: Int16, StringLength: POINTER(Int16), NumericAttribute: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeCol(StatementHandle: c_void_p, ColumnNumber: UInt16, ColumnName: c_char_p_no, BufferLength: Int16, NameLength: POINTER(Int16), DataType: POINTER(Int16), ColumnSize: POINTER(UInt64), DecimalDigits: POINTER(Int16), Nullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLFetchScroll(StatementHandle: c_void_p, FetchOrientation: Int16, FetchOffset: Int64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLGetData(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int64, StrLen_or_IndPtr: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Name: c_char_p_no, BufferLength: Int16, StringLengthPtr: POINTER(Int16), TypePtr: POINTER(Int16), SubTypePtr: POINTER(Int16), LengthPtr: POINTER(Int64), PrecisionPtr: POINTER(Int16), ScalePtr: POINTER(Int16), NullablePtr: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLPutData(StatementHandle: c_void_p, Data: c_void_p, StrLen_or_Ind: Int64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLRowCount(StatementHandle: c_void_p, RowCount: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOption(ConnectionHandle: c_void_p, Option: UInt16, Value: UInt64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Type: Int16, SubType: Int16, Length: Int64, Precision: Int16, Scale: Int16, Data: c_void_p, StringLength: POINTER(Int64), Indicator: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt64, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetStmtOption(StatementHandle: c_void_p, Option: UInt16, Value: UInt64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributes(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeParam(hstmt: c_void_p, ipar: UInt16, pfSqlType: POINTER(Int16), pcbParamDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLExtendedFetch(hstmt: c_void_p, fFetchType: UInt16, irow: Int64, pcrow: POINTER(UInt64), rgfRowStatus: POINTER(UInt16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLParamOptions(hstmt: c_void_p, crow: UInt64, pirow: POINTER(UInt64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetPos(hstmt: c_void_p, irow: UInt64, fOption: UInt16, fLock: UInt16) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLBindParameter(hstmt: c_void_p, ipar: UInt16, fParamType: Int16, fCType: Int16, fSqlType: Int16, cbColDef: UInt64, ibScale: Int16, rgbValue: c_void_p, cbValueMax: Int64, pcbValue: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetScrollOptions(hstmt: c_void_p, fConcurrency: UInt16, crowKeyset: Int64, crowRowset: UInt16) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributeW(hstmt: c_void_p, iCol: UInt16, iField: UInt16, pCharAttr: c_void_p, cbDescMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributesW(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeColW(hstmt: c_void_p, icol: UInt16, szColName: POINTER(UInt16), cchColNameMax: Int16, pcchColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRecW(hdesc: c_void_p, iRecord: Int16, szName: POINTER(UInt16), cchNameMax: Int16, pcchName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int64), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOptionW(hdbc: c_void_p, fOption: UInt16, vParam: UInt64) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributeA(hstmt: c_void_p, iCol: Int16, iField: Int16, pCharAttr: c_void_p, cbCharAttrMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributesA(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int64)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeColA(hstmt: c_void_p, icol: UInt16, szColName: c_char_p_no, cbColNameMax: Int16, pcbColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt64), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRecA(hdesc: c_void_p, iRecord: Int16, szName: c_char_p_no, cbNameMax: Int16, pcbName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int64), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOptionA(hdbc: c_void_p, fOption: UInt16, vParam: UInt64) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLAllocConnect(EnvironmentHandle: c_void_p, ConnectionHandle: POINTER(c_void_p)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3519,12 +3551,21 @@ def SQLAllocEnv(EnvironmentHandle: POINTER(c_void_p)) -> Int16: ...
 def SQLAllocHandle(HandleType: Int16, InputHandle: c_void_p, OutputHandle: POINTER(c_void_p)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLAllocStmt(ConnectionHandle: c_void_p, StatementHandle: POINTER(c_void_p)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLBindCol(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int32, StrLen_or_Ind: POINTER(Int32)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLBindParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt32, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLCancel(StatementHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLCancelHandle(HandleType: Int16, InputHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLCloseCursor(StatementHandle: c_void_p) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttribute(StatementHandle: c_void_p, ColumnNumber: UInt16, FieldIdentifier: UInt16, CharacterAttribute: c_void_p, BufferLength: Int16, StringLength: POINTER(Int16), NumericAttribute: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLColumns(StatementHandle: c_void_p, CatalogName: c_char_p_no, NameLength1: Int16, SchemaName: c_char_p_no, NameLength2: Int16, TableName: c_char_p_no, NameLength3: Int16, ColumnName: c_char_p_no, NameLength4: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3535,6 +3576,9 @@ def SQLConnect(ConnectionHandle: c_void_p, ServerName: c_char_p_no, NameLength1:
 def SQLCopyDesc(SourceDescHandle: c_void_p, TargetDescHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDataSources(EnvironmentHandle: c_void_p, Direction: UInt16, ServerName: c_char_p_no, BufferLength1: Int16, NameLength1Ptr: POINTER(Int16), Description: c_char_p_no, BufferLength2: Int16, NameLength2Ptr: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeCol(StatementHandle: c_void_p, ColumnNumber: UInt16, ColumnName: c_char_p_no, BufferLength: Int16, NameLength: POINTER(Int16), DataType: POINTER(Int16), ColumnSize: POINTER(UInt32), DecimalDigits: POINTER(Int16), Nullable: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDisconnect(ConnectionHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3547,6 +3591,9 @@ def SQLExecDirect(StatementHandle: c_void_p, StatementText: c_char_p_no, TextLen
 def SQLExecute(StatementHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLFetch(StatementHandle: c_void_p) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLFetchScroll(StatementHandle: c_void_p, FetchOrientation: Int16, FetchOffset: Int32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLFreeConnect(ConnectionHandle: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3561,8 +3608,14 @@ def SQLGetConnectAttr(ConnectionHandle: c_void_p, Attribute: Int32, Value: c_voi
 def SQLGetConnectOption(ConnectionHandle: c_void_p, Option: UInt16, Value: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetCursorName(StatementHandle: c_void_p, CursorName: c_char_p_no, BufferLength: Int16, NameLengthPtr: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLGetData(StatementHandle: c_void_p, ColumnNumber: UInt16, TargetType: Int16, TargetValue: c_void_p, BufferLength: Int32, StrLen_or_IndPtr: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDescField(DescriptorHandle: c_void_p, RecNumber: Int16, FieldIdentifier: Int16, Value: c_void_p, BufferLength: Int32, StringLength: POINTER(Int32)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Name: c_char_p_no, BufferLength: Int16, StringLengthPtr: POINTER(Int16), TypePtr: POINTER(Int16), SubTypePtr: POINTER(Int16), LengthPtr: POINTER(Int32), PrecisionPtr: POINTER(Int16), ScalePtr: POINTER(Int16), NullablePtr: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDiagField(HandleType: Int16, Handle: c_void_p, RecNumber: Int16, DiagIdentifier: Int16, DiagInfo: c_void_p, BufferLength: Int16, StringLength: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3585,16 +3638,34 @@ def SQLNumResultCols(StatementHandle: c_void_p, ColumnCount: POINTER(Int16)) -> 
 def SQLParamData(StatementHandle: c_void_p, Value: POINTER(c_void_p)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLPrepare(StatementHandle: c_void_p, StatementText: c_char_p_no, TextLength: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLPutData(StatementHandle: c_void_p, Data: c_void_p, StrLen_or_Ind: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLRowCount(StatementHandle: c_void_p, RowCount: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSetConnectAttr(ConnectionHandle: c_void_p, Attribute: Int32, Value: c_void_p, StringLength: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOption(ConnectionHandle: c_void_p, Option: UInt16, Value: UInt32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSetCursorName(StatementHandle: c_void_p, CursorName: c_char_p_no, NameLength: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSetDescField(DescriptorHandle: c_void_p, RecNumber: Int16, FieldIdentifier: Int16, Value: c_void_p, BufferLength: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetDescRec(DescriptorHandle: c_void_p, RecNumber: Int16, Type: Int16, SubType: Int16, Length: Int32, Precision: Int16, Scale: Int16, Data: c_void_p, StringLength: POINTER(Int32), Indicator: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSetEnvAttr(EnvironmentHandle: c_void_p, Attribute: Int32, Value: c_void_p, StringLength: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetParam(StatementHandle: c_void_p, ParameterNumber: UInt16, ValueType: Int16, ParameterType: Int16, LengthPrecision: UInt32, ParameterScale: Int16, ParameterValue: c_void_p, StrLen_or_Ind: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSetStmtAttr(StatementHandle: c_void_p, Attribute: Int32, Value: c_void_p, StringLength: Int32) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetStmtOption(StatementHandle: c_void_p, Option: UInt16, Value: UInt32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSpecialColumns(StatementHandle: c_void_p, IdentifierType: UInt16, CatalogName: c_char_p_no, NameLength1: Int16, SchemaName: c_char_p_no, NameLength2: Int16, TableName: c_char_p_no, NameLength3: Int16, Scope: UInt16, Nullable: UInt16) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3663,8 +3734,17 @@ def SQLDriverConnect(hdbc: c_void_p, hwnd: IntPtr, szConnStrIn: c_char_p_no, cch
 def SQLBrowseConnect(hdbc: c_void_p, szConnStrIn: c_char_p_no, cchConnStrIn: Int16, szConnStrOut: c_char_p_no, cchConnStrOutMax: Int16, pcchConnStrOut: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLBulkOperations(StatementHandle: c_void_p, Operation: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributes(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLColumnPrivileges(hstmt: c_void_p, szCatalogName: c_char_p_no, cchCatalogName: Int16, szSchemaName: c_char_p_no, cchSchemaName: Int16, szTableName: c_char_p_no, cchTableName: Int16, szColumnName: c_char_p_no, cchColumnName: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeParam(hstmt: c_void_p, ipar: UInt16, pfSqlType: POINTER(Int16), pcbParamDef: POINTER(UInt32), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLExtendedFetch(hstmt: c_void_p, fFetchType: UInt16, irow: Int32, pcrow: POINTER(UInt32), rgfRowStatus: POINTER(UInt16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLForeignKeys(hstmt: c_void_p, szPkCatalogName: c_char_p_no, cchPkCatalogName: Int16, szPkSchemaName: c_char_p_no, cchPkSchemaName: Int16, szPkTableName: c_char_p_no, cchPkTableName: Int16, szFkCatalogName: c_char_p_no, cchFkCatalogName: Int16, szFkSchemaName: c_char_p_no, cchFkSchemaName: Int16, szFkTableName: c_char_p_no, cchFkTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3673,24 +3753,45 @@ def SQLMoreResults(hstmt: c_void_p) -> Int16: ...
 def SQLNativeSql(hdbc: c_void_p, szSqlStrIn: c_char_p_no, cchSqlStrIn: Int32, szSqlStr: c_char_p_no, cchSqlStrMax: Int32, pcbSqlStr: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLNumParams(hstmt: c_void_p, pcpar: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLParamOptions(hstmt: c_void_p, crow: UInt32, pirow: POINTER(UInt32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLPrimaryKeys(hstmt: c_void_p, szCatalogName: c_char_p_no, cchCatalogName: Int16, szSchemaName: c_char_p_no, cchSchemaName: Int16, szTableName: c_char_p_no, cchTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLProcedureColumns(hstmt: c_void_p, szCatalogName: c_char_p_no, cchCatalogName: Int16, szSchemaName: c_char_p_no, cchSchemaName: Int16, szProcName: c_char_p_no, cchProcName: Int16, szColumnName: c_char_p_no, cchColumnName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLProcedures(hstmt: c_void_p, szCatalogName: c_char_p_no, cchCatalogName: Int16, szSchemaName: c_char_p_no, cchSchemaName: Int16, szProcName: c_char_p_no, cchProcName: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetPos(hstmt: c_void_p, irow: UInt16, fOption: UInt16, fLock: UInt16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLTablePrivileges(hstmt: c_void_p, szCatalogName: c_char_p_no, cchCatalogName: Int16, szSchemaName: c_char_p_no, cchSchemaName: Int16, szTableName: c_char_p_no, cchTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDrivers(henv: c_void_p, fDirection: UInt16, szDriverDesc: c_char_p_no, cchDriverDescMax: Int16, pcchDriverDesc: POINTER(Int16), szDriverAttributes: c_char_p_no, cchDrvrAttrMax: Int16, pcchDrvrAttr: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLBindParameter(hstmt: c_void_p, ipar: UInt16, fParamType: Int16, fCType: Int16, fSqlType: Int16, cbColDef: UInt32, ibScale: Int16, rgbValue: c_void_p, cbValueMax: Int32, pcbValue: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLAllocHandleStd(fHandleType: Int16, hInput: c_void_p, phOutput: POINTER(c_void_p)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetScrollOptions(hstmt: c_void_p, fConcurrency: UInt16, crowKeyset: Int32, crowRowset: UInt16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def ODBCSetTryWaitValue(dwValue: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype('ODBC32.dll')
 def ODBCGetTryWaitValue() -> UInt32: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributeW(hstmt: c_void_p, iCol: UInt16, iField: UInt16, pCharAttr: c_void_p, cbDescMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: c_void_p) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributesW(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLConnectW(hdbc: c_void_p, szDSN: POINTER(UInt16), cchDSN: Int16, szUID: POINTER(UInt16), cchUID: Int16, szAuthStr: POINTER(UInt16), cchAuthStr: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeColW(hstmt: c_void_p, icol: UInt16, szColName: POINTER(UInt16), cchColNameMax: Int16, pcchColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt32), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLErrorW(henv: c_void_p, hdbc: c_void_p, hstmt: c_void_p, wszSqlState: POINTER(UInt16), pfNativeError: POINTER(Int32), wszErrorMsg: POINTER(UInt16), cchErrorMsgMax: Int16, pcchErrorMsg: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3703,6 +3804,9 @@ def SQLGetCursorNameW(hstmt: c_void_p, szCursor: POINTER(UInt16), cchCursorMax: 
 def SQLSetDescFieldW(DescriptorHandle: c_void_p, RecNumber: Int16, FieldIdentifier: Int16, Value: c_void_p, BufferLength: Int32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDescFieldW(hdesc: c_void_p, iRecord: Int16, iField: Int16, rgbValue: c_void_p, cbBufferLength: Int32, StringLength: POINTER(Int32)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRecW(hdesc: c_void_p, iRecord: Int16, szName: POINTER(UInt16), cchNameMax: Int16, pcchName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int32), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDiagFieldW(fHandleType: Int16, handle: c_void_p, iRecord: Int16, fDiagField: Int16, rgbDiagInfo: c_void_p, cbBufferLength: Int16, pcbStringLength: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3721,6 +3825,9 @@ def SQLGetConnectOptionW(hdbc: c_void_p, fOption: UInt16, pvParam: c_void_p) -> 
 def SQLGetInfoW(hdbc: c_void_p, fInfoType: UInt16, rgbInfoValue: c_void_p, cbInfoValueMax: Int16, pcbInfoValue: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetTypeInfoW(StatementHandle: c_void_p, DataType: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOptionW(hdbc: c_void_p, fOption: UInt16, vParam: UInt32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSpecialColumnsW(hstmt: c_void_p, fColType: UInt16, szCatalogName: POINTER(UInt16), cchCatalogName: Int16, szSchemaName: POINTER(UInt16), cchSchemaName: Int16, szTableName: POINTER(UInt16), cchTableName: Int16, fScope: UInt16, fNullable: UInt16) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3753,8 +3860,17 @@ def SQLProceduresW(hstmt: c_void_p, szCatalogName: POINTER(UInt16), cchCatalogNa
 def SQLTablePrivilegesW(hstmt: c_void_p, szCatalogName: POINTER(UInt16), cchCatalogName: Int16, szSchemaName: POINTER(UInt16), cchSchemaName: Int16, szTableName: POINTER(UInt16), cchTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDriversW(henv: c_void_p, fDirection: UInt16, szDriverDesc: POINTER(UInt16), cchDriverDescMax: Int16, pcchDriverDesc: POINTER(Int16), szDriverAttributes: POINTER(UInt16), cchDrvrAttrMax: Int16, pcchDrvrAttr: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributeA(hstmt: c_void_p, iCol: Int16, iField: Int16, pCharAttr: c_void_p, cbCharAttrMax: Int16, pcbCharAttr: POINTER(Int16), pNumAttr: c_void_p) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLColAttributesA(hstmt: c_void_p, icol: UInt16, fDescType: UInt16, rgbDesc: c_void_p, cbDescMax: Int16, pcbDesc: POINTER(Int16), pfDesc: POINTER(Int32)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLConnectA(hdbc: c_void_p, szDSN: c_char_p_no, cbDSN: Int16, szUID: c_char_p_no, cbUID: Int16, szAuthStr: c_char_p_no, cbAuthStr: Int16) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLDescribeColA(hstmt: c_void_p, icol: UInt16, szColName: c_char_p_no, cbColNameMax: Int16, pcbColName: POINTER(Int16), pfSqlType: POINTER(Int16), pcbColDef: POINTER(UInt32), pibScale: POINTER(Int16), pfNullable: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLErrorA(henv: c_void_p, hdbc: c_void_p, hstmt: c_void_p, szSqlState: c_char_p_no, pfNativeError: POINTER(Int32), szErrorMsg: c_char_p_no, cbErrorMsgMax: Int16, pcbErrorMsg: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3765,6 +3881,9 @@ def SQLGetConnectAttrA(hdbc: c_void_p, fAttribute: Int32, rgbValue: c_void_p, cb
 def SQLGetCursorNameA(hstmt: c_void_p, szCursor: c_char_p_no, cbCursorMax: Int16, pcbCursor: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDescFieldA(hdesc: c_void_p, iRecord: Int16, iField: Int16, rgbValue: c_void_p, cbBufferLength: Int32, StringLength: POINTER(Int32)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLGetDescRecA(hdesc: c_void_p, iRecord: Int16, szName: c_char_p_no, cbNameMax: Int16, pcbName: POINTER(Int16), pfType: POINTER(Int16), pfSubType: POINTER(Int16), pLength: POINTER(Int32), pPrecision: POINTER(Int16), pScale: POINTER(Int16), pNullable: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetDiagFieldA(fHandleType: Int16, handle: c_void_p, iRecord: Int16, fDiagField: Int16, rgbDiagInfo: c_void_p, cbDiagInfoMax: Int16, pcbDiagInfo: POINTER(Int16)) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3785,6 +3904,9 @@ def SQLColumnsA(hstmt: c_void_p, szCatalogName: c_char_p_no, cbCatalogName: Int1
 def SQLGetConnectOptionA(hdbc: c_void_p, fOption: UInt16, pvParam: c_void_p) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLGetInfoA(hdbc: c_void_p, fInfoType: UInt16, rgbInfoValue: c_void_p, cbInfoValueMax: Int16, pcbInfoValue: POINTER(Int16)) -> Int16: ...
+if ARCH in 'X86':
+    @winfunctype('ODBC32.dll')
+    def SQLSetConnectOptionA(hdbc: c_void_p, fOption: UInt16, vParam: UInt32) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLSpecialColumnsA(hstmt: c_void_p, fColType: UInt16, szCatalogName: c_char_p_no, cbCatalogName: Int16, szSchemaName: c_char_p_no, cbSchemaName: Int16, szTableName: c_char_p_no, cbTableName: Int16, fScope: UInt16, fNullable: UInt16) -> Int16: ...
 @winfunctype('ODBC32.dll')
@@ -3951,27 +4073,52 @@ DBASYNCHPHASE_INITIALIZATION: DBASYNCHPHASEENUM = 0
 DBASYNCHPHASE_POPULATION: DBASYNCHPHASEENUM = 1
 DBASYNCHPHASE_COMPLETE: DBASYNCHPHASEENUM = 2
 DBASYNCHPHASE_CANCELED: DBASYNCHPHASEENUM = 3
-class DBBINDEXT(Structure):
-    pExtension: c_char_p_no
-    ulExtension: UIntPtr
+if ARCH in 'X64,ARM64':
+    class DBBINDEXT(Structure):
+        pExtension: c_char_p_no
+        ulExtension: UIntPtr
+if ARCH in 'X86':
+    class DBBINDEXT(Structure):
+        pExtension: c_char_p_no
+        ulExtension: UIntPtr
+        _pack_ = 2
 DBBINDFLAGENUM = Int32
 DBBINDFLAG_HTML: DBBINDFLAGENUM = 1
-class DBBINDING(Structure):
-    iOrdinal: UIntPtr
-    obValue: UIntPtr
-    obLength: UIntPtr
-    obStatus: UIntPtr
-    pTypeInfo: win32more.System.Com.ITypeInfo_head
-    pObject: POINTER(win32more.System.Search.DBOBJECT_head)
-    pBindExt: POINTER(win32more.System.Search.DBBINDEXT_head)
-    dwPart: UInt32
-    dwMemOwner: UInt32
-    eParamIO: UInt32
-    cbMaxLen: UIntPtr
-    dwFlags: UInt32
-    wType: UInt16
-    bPrecision: Byte
-    bScale: Byte
+if ARCH in 'X64,ARM64':
+    class DBBINDING(Structure):
+        iOrdinal: UIntPtr
+        obValue: UIntPtr
+        obLength: UIntPtr
+        obStatus: UIntPtr
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        pObject: POINTER(win32more.System.Search.DBOBJECT_head)
+        pBindExt: POINTER(win32more.System.Search.DBBINDEXT_head)
+        dwPart: UInt32
+        dwMemOwner: UInt32
+        eParamIO: UInt32
+        cbMaxLen: UIntPtr
+        dwFlags: UInt32
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+if ARCH in 'X86':
+    class DBBINDING(Structure):
+        iOrdinal: UIntPtr
+        obValue: UIntPtr
+        obLength: UIntPtr
+        obStatus: UIntPtr
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        pObject: POINTER(win32more.System.Search.DBOBJECT_head)
+        pBindExt: POINTER(win32more.System.Search.DBBINDEXT_head)
+        dwPart: UInt32
+        dwMemOwner: UInt32
+        eParamIO: UInt32
+        cbMaxLen: UIntPtr
+        dwFlags: UInt32
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        _pack_ = 2
 DBBINDSTATUSENUM = Int32
 DBBINDSTATUS_OK: DBBINDSTATUSENUM = 0
 DBBINDSTATUS_BADORDINAL: DBBINDSTATUSENUM = 1
@@ -4007,27 +4154,54 @@ DBBOOKMARK = Int32
 DBBMK_INVALID: DBBOOKMARK = 0
 DBBMK_FIRST: DBBOOKMARK = 1
 DBBMK_LAST: DBBOOKMARK = 2
-class DBCOLUMNACCESS(Structure):
-    pData: c_void_p
-    columnid: win32more.Storage.IndexServer.DBID
-    cbDataLen: UIntPtr
-    dwStatus: UInt32
-    cbMaxLen: UIntPtr
-    dwReserved: UIntPtr
-    wType: UInt16
-    bPrecision: Byte
-    bScale: Byte
-class DBCOLUMNDESC(Structure):
-    pwszTypeName: win32more.Foundation.PWSTR
-    pTypeInfo: win32more.System.Com.ITypeInfo_head
-    rgPropertySets: POINTER(win32more.System.Search.DBPROPSET_head)
-    pclsid: POINTER(Guid)
-    cPropertySets: UInt32
-    ulColumnSize: UIntPtr
-    dbcid: win32more.Storage.IndexServer.DBID
-    wType: UInt16
-    bPrecision: Byte
-    bScale: Byte
+if ARCH in 'X64,ARM64':
+    class DBCOLUMNACCESS(Structure):
+        pData: c_void_p
+        columnid: win32more.Storage.IndexServer.DBID
+        cbDataLen: UIntPtr
+        dwStatus: UInt32
+        cbMaxLen: UIntPtr
+        dwReserved: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+if ARCH in 'X86':
+    class DBCOLUMNACCESS(Structure):
+        pData: c_void_p
+        columnid: win32more.Storage.IndexServer.DBID
+        cbDataLen: UIntPtr
+        dwStatus: UInt32
+        cbMaxLen: UIntPtr
+        dwReserved: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class DBCOLUMNDESC(Structure):
+        pwszTypeName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        rgPropertySets: POINTER(win32more.System.Search.DBPROPSET_head)
+        pclsid: POINTER(Guid)
+        cPropertySets: UInt32
+        ulColumnSize: UIntPtr
+        dbcid: win32more.Storage.IndexServer.DBID
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+if ARCH in 'X86':
+    class DBCOLUMNDESC(Structure):
+        pwszTypeName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        rgPropertySets: POINTER(win32more.System.Search.DBPROPSET_head)
+        pclsid: POINTER(Guid)
+        cPropertySets: UInt32
+        ulColumnSize: UIntPtr
+        dbcid: win32more.Storage.IndexServer.DBID
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        _pack_ = 2
 DBCOLUMNDESCFLAGSENUM = Int32
 DBCOLUMNDESCFLAGS_TYPENAME: DBCOLUMNDESCFLAGSENUM = 1
 DBCOLUMNDESCFLAGS_ITYPEINFO: DBCOLUMNDESCFLAGSENUM = 2
@@ -4064,16 +4238,29 @@ DBCOLUMNFLAGS_ISSTREAM: DBCOLUMNFLAGSENUM26 = 524288
 DBCOLUMNFLAGS_ISROWSET: DBCOLUMNFLAGSENUM26 = 1048576
 DBCOLUMNFLAGS_ISROW: DBCOLUMNFLAGSENUM26 = 2097152
 DBCOLUMNFLAGS_ROWSPECIFICCOLUMN: DBCOLUMNFLAGSENUM26 = 4194304
-class DBCOLUMNINFO(Structure):
-    pwszName: win32more.Foundation.PWSTR
-    pTypeInfo: win32more.System.Com.ITypeInfo_head
-    iOrdinal: UIntPtr
-    dwFlags: UInt32
-    ulColumnSize: UIntPtr
-    wType: UInt16
-    bPrecision: Byte
-    bScale: Byte
-    columnid: win32more.Storage.IndexServer.DBID
+if ARCH in 'X64,ARM64':
+    class DBCOLUMNINFO(Structure):
+        pwszName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        iOrdinal: UIntPtr
+        dwFlags: UInt32
+        ulColumnSize: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        columnid: win32more.Storage.IndexServer.DBID
+if ARCH in 'X86':
+    class DBCOLUMNINFO(Structure):
+        pwszName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        iOrdinal: UIntPtr
+        dwFlags: UInt32
+        ulColumnSize: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        columnid: win32more.Storage.IndexServer.DBID
+        _pack_ = 2
 DBCOMMANDPERSISTFLAGENUM = Int32
 DBCOMMANDPERSISTFLAG_NOSAVE: DBCOMMANDPERSISTFLAGENUM = 1
 DBCOMMANDPERSISTFLAGENUM21 = Int32
@@ -4101,21 +4288,39 @@ DBCOMPAREOPS_CASEINSENSITIVE: DBCOMPAREOPSENUM = 8192
 DBCOMPAREOPSENUM20 = Int32
 DBCOMPAREOPS_NOTBEGINSWITH: DBCOMPAREOPSENUM20 = 9
 DBCOMPAREOPS_NOTCONTAINS: DBCOMPAREOPSENUM20 = 10
-class DBCONSTRAINTDESC(Structure):
-    pConstraintID: POINTER(win32more.Storage.IndexServer.DBID_head)
-    ConstraintType: UInt32
-    cColumns: UIntPtr
-    rgColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
-    pReferencedTableID: POINTER(win32more.Storage.IndexServer.DBID_head)
-    cForeignKeyColumns: UIntPtr
-    rgForeignKeyColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
-    pwszConstraintText: win32more.Foundation.PWSTR
-    UpdateRule: UInt32
-    DeleteRule: UInt32
-    MatchType: UInt32
-    Deferrability: UInt32
-    cReserved: UIntPtr
-    rgReserved: POINTER(win32more.System.Search.DBPROPSET_head)
+if ARCH in 'X64,ARM64':
+    class DBCONSTRAINTDESC(Structure):
+        pConstraintID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        ConstraintType: UInt32
+        cColumns: UIntPtr
+        rgColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
+        pReferencedTableID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        cForeignKeyColumns: UIntPtr
+        rgForeignKeyColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
+        pwszConstraintText: win32more.Foundation.PWSTR
+        UpdateRule: UInt32
+        DeleteRule: UInt32
+        MatchType: UInt32
+        Deferrability: UInt32
+        cReserved: UIntPtr
+        rgReserved: POINTER(win32more.System.Search.DBPROPSET_head)
+if ARCH in 'X86':
+    class DBCONSTRAINTDESC(Structure):
+        pConstraintID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        ConstraintType: UInt32
+        cColumns: UIntPtr
+        rgColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
+        pReferencedTableID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        cForeignKeyColumns: UIntPtr
+        rgForeignKeyColumnList: POINTER(win32more.Storage.IndexServer.DBID_head)
+        pwszConstraintText: win32more.Foundation.PWSTR
+        UpdateRule: UInt32
+        DeleteRule: UInt32
+        MatchType: UInt32
+        Deferrability: UInt32
+        cReserved: UIntPtr
+        rgReserved: POINTER(win32more.System.Search.DBPROPSET_head)
+        _pack_ = 2
 DBCONSTRAINTTYPEENUM = Int32
 DBCONSTRAINTTYPE_UNIQUE: DBCONSTRAINTTYPEENUM = 0
 DBCONSTRAINTTYPE_FOREIGNKEY: DBCONSTRAINTTYPEENUM = 1
@@ -4134,10 +4339,17 @@ DBCOPY_REPLACE_EXISTING: DBCOPYFLAGSENUM = 512
 DBCOPY_ALLOW_EMULATION: DBCOPYFLAGSENUM = 1024
 DBCOPY_NON_RECURSIVE: DBCOPYFLAGSENUM = 2048
 DBCOPY_ATOMIC: DBCOPYFLAGSENUM = 4096
-class DBCOST(Structure):
-    eKind: UInt32
-    dwUnits: UInt32
-    lValue: Int32
+if ARCH in 'X64,ARM64':
+    class DBCOST(Structure):
+        eKind: UInt32
+        dwUnits: UInt32
+        lValue: Int32
+if ARCH in 'X86':
+    class DBCOST(Structure):
+        eKind: UInt32
+        dwUnits: UInt32
+        lValue: Int32
+        _pack_ = 2
 DBCOSTUNITENUM = Int32
 DBUNIT_INVALID: DBCOSTUNITENUM = 0
 DBUNIT_WEIGHT: DBCOSTUNITENUM = 1
@@ -4189,20 +4401,40 @@ DBEXECLIMITSENUM = Int32
 DBEXECLIMITS_ABORT: DBEXECLIMITSENUM = 1
 DBEXECLIMITS_STOP: DBEXECLIMITSENUM = 2
 DBEXECLIMITS_SUSPEND: DBEXECLIMITSENUM = 3
-class DBFAILUREINFO(Structure):
-    hRow: UIntPtr
-    iColumn: UIntPtr
-    failure: win32more.Foundation.HRESULT
-class DBIMPLICITSESSION(Structure):
-    pUnkOuter: win32more.System.Com.IUnknown_head
-    piid: POINTER(Guid)
-    pSession: win32more.System.Com.IUnknown_head
+if ARCH in 'X64,ARM64':
+    class DBFAILUREINFO(Structure):
+        hRow: UIntPtr
+        iColumn: UIntPtr
+        failure: win32more.Foundation.HRESULT
+if ARCH in 'X86':
+    class DBFAILUREINFO(Structure):
+        hRow: UIntPtr
+        iColumn: UIntPtr
+        failure: win32more.Foundation.HRESULT
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class DBIMPLICITSESSION(Structure):
+        pUnkOuter: win32more.System.Com.IUnknown_head
+        piid: POINTER(Guid)
+        pSession: win32more.System.Com.IUnknown_head
+if ARCH in 'X86':
+    class DBIMPLICITSESSION(Structure):
+        pUnkOuter: win32more.System.Com.IUnknown_head
+        piid: POINTER(Guid)
+        pSession: win32more.System.Com.IUnknown_head
+        _pack_ = 2
 DBINDEX_COL_ORDERENUM = Int32
 DBINDEX_COL_ORDER_ASC: DBINDEX_COL_ORDERENUM = 0
 DBINDEX_COL_ORDER_DESC: DBINDEX_COL_ORDERENUM = 1
-class DBINDEXCOLUMNDESC(Structure):
-    pColumnID: POINTER(win32more.Storage.IndexServer.DBID_head)
-    eIndexColOrder: UInt32
+if ARCH in 'X64,ARM64':
+    class DBINDEXCOLUMNDESC(Structure):
+        pColumnID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        eIndexColOrder: UInt32
+if ARCH in 'X86':
+    class DBINDEXCOLUMNDESC(Structure):
+        pColumnID: POINTER(win32more.Storage.IndexServer.DBID_head)
+        eIndexColOrder: UInt32
+        _pack_ = 2
 DBLITERALENUM = Int32
 DBLITERAL_INVALID: DBLITERALENUM = 0
 DBLITERAL_BINARY_LITERAL: DBLITERALENUM = 1
@@ -4237,13 +4469,23 @@ DBLITERAL_QUOTE_SUFFIX: DBLITERALENUM20 = 28
 DBLITERALENUM21 = Int32
 DBLITERAL_ESCAPE_PERCENT_SUFFIX: DBLITERALENUM21 = 29
 DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX: DBLITERALENUM21 = 30
-class DBLITERALINFO(Structure):
-    pwszLiteralValue: win32more.Foundation.PWSTR
-    pwszInvalidChars: win32more.Foundation.PWSTR
-    pwszInvalidStartingChars: win32more.Foundation.PWSTR
-    lt: UInt32
-    fSupported: win32more.Foundation.BOOL
-    cchMaxLen: UInt32
+if ARCH in 'X64,ARM64':
+    class DBLITERALINFO(Structure):
+        pwszLiteralValue: win32more.Foundation.PWSTR
+        pwszInvalidChars: win32more.Foundation.PWSTR
+        pwszInvalidStartingChars: win32more.Foundation.PWSTR
+        lt: UInt32
+        fSupported: win32more.Foundation.BOOL
+        cchMaxLen: UInt32
+if ARCH in 'X86':
+    class DBLITERALINFO(Structure):
+        pwszLiteralValue: win32more.Foundation.PWSTR
+        pwszInvalidChars: win32more.Foundation.PWSTR
+        pwszInvalidStartingChars: win32more.Foundation.PWSTR
+        lt: UInt32
+        fSupported: win32more.Foundation.BOOL
+        cchMaxLen: UInt32
+        _pack_ = 2
 DBMATCHTYPEENUM = Int32
 DBMATCHTYPE_FULL: DBMATCHTYPEENUM = 0
 DBMATCHTYPE_NONE: DBMATCHTYPEENUM = 1
@@ -4260,16 +4502,32 @@ DBMOVE_ASYNC: DBMOVEFLAGSENUM = 256
 DBMOVE_DONT_UPDATE_LINKS: DBMOVEFLAGSENUM = 512
 DBMOVE_ALLOW_EMULATION: DBMOVEFLAGSENUM = 1024
 DBMOVE_ATOMIC: DBMOVEFLAGSENUM = 4096
-class DBOBJECT(Structure):
-    dwFlags: UInt32
-    iid: Guid
-class DBPARAMBINDINFO(Structure):
-    pwszDataSourceType: win32more.Foundation.PWSTR
-    pwszName: win32more.Foundation.PWSTR
-    ulParamSize: UIntPtr
-    dwFlags: UInt32
-    bPrecision: Byte
-    bScale: Byte
+if ARCH in 'X64,ARM64':
+    class DBOBJECT(Structure):
+        dwFlags: UInt32
+        iid: Guid
+if ARCH in 'X86':
+    class DBOBJECT(Structure):
+        dwFlags: UInt32
+        iid: Guid
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class DBPARAMBINDINFO(Structure):
+        pwszDataSourceType: win32more.Foundation.PWSTR
+        pwszName: win32more.Foundation.PWSTR
+        ulParamSize: UIntPtr
+        dwFlags: UInt32
+        bPrecision: Byte
+        bScale: Byte
+if ARCH in 'X86':
+    class DBPARAMBINDINFO(Structure):
+        pwszDataSourceType: win32more.Foundation.PWSTR
+        pwszName: win32more.Foundation.PWSTR
+        ulParamSize: UIntPtr
+        dwFlags: UInt32
+        bPrecision: Byte
+        bScale: Byte
+        _pack_ = 2
 DBPARAMFLAGSENUM = Int32
 DBPARAMFLAGS_ISINPUT: DBPARAMFLAGSENUM = 1
 DBPARAMFLAGS_ISOUTPUT: DBPARAMFLAGSENUM = 2
@@ -4278,23 +4536,42 @@ DBPARAMFLAGS_ISNULLABLE: DBPARAMFLAGSENUM = 64
 DBPARAMFLAGS_ISLONG: DBPARAMFLAGSENUM = 128
 DBPARAMFLAGSENUM20 = Int32
 DBPARAMFLAGS_SCALEISNEGATIVE: DBPARAMFLAGSENUM20 = 256
-class DBPARAMINFO(Structure):
-    dwFlags: UInt32
-    iOrdinal: UIntPtr
-    pwszName: win32more.Foundation.PWSTR
-    pTypeInfo: win32more.System.Com.ITypeInfo_head
-    ulParamSize: UIntPtr
-    wType: UInt16
-    bPrecision: Byte
-    bScale: Byte
+if ARCH in 'X64,ARM64':
+    class DBPARAMINFO(Structure):
+        dwFlags: UInt32
+        iOrdinal: UIntPtr
+        pwszName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        ulParamSize: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+if ARCH in 'X86':
+    class DBPARAMINFO(Structure):
+        dwFlags: UInt32
+        iOrdinal: UIntPtr
+        pwszName: win32more.Foundation.PWSTR
+        pTypeInfo: win32more.System.Com.ITypeInfo_head
+        ulParamSize: UIntPtr
+        wType: UInt16
+        bPrecision: Byte
+        bScale: Byte
+        _pack_ = 2
 DBPARAMIOENUM = Int32
 DBPARAMIO_NOTPARAM: DBPARAMIOENUM = 0
 DBPARAMIO_INPUT: DBPARAMIOENUM = 1
 DBPARAMIO_OUTPUT: DBPARAMIOENUM = 2
-class DBPARAMS(Structure):
-    pData: c_void_p
-    cParamSets: UIntPtr
-    hAccessor: win32more.System.Search.HACCESSOR
+if ARCH in 'X64,ARM64':
+    class DBPARAMS(Structure):
+        pData: c_void_p
+        cParamSets: UIntPtr
+        hAccessor: win32more.System.Search.HACCESSOR
+if ARCH in 'X86':
+    class DBPARAMS(Structure):
+        pData: c_void_p
+        cParamSets: UIntPtr
+        hAccessor: win32more.System.Search.HACCESSOR
+        _pack_ = 2
 DBPARTENUM = Int32
 DBPART_INVALID: DBPARTENUM = 0
 DBPART_VALUE: DBPARTENUM = 1
@@ -4318,12 +4595,21 @@ DBPROMPTOPTIONS_PROPERTYSHEET: DBPROMPTOPTIONSENUM = 2
 DBPROMPTOPTIONS_BROWSEONLY: DBPROMPTOPTIONSENUM = 8
 DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION: DBPROMPTOPTIONSENUM = 16
 DBPROMPTOPTIONS_DISABLESAVEPASSWORD: DBPROMPTOPTIONSENUM = 32
-class DBPROP(Structure):
-    dwPropertyID: UInt32
-    dwOptions: UInt32
-    dwStatus: UInt32
-    colid: win32more.Storage.IndexServer.DBID
-    vValue: win32more.System.Com.VARIANT
+if ARCH in 'X64,ARM64':
+    class DBPROP(Structure):
+        dwPropertyID: UInt32
+        dwOptions: UInt32
+        dwStatus: UInt32
+        colid: win32more.Storage.IndexServer.DBID
+        vValue: win32more.System.Com.VARIANT
+if ARCH in 'X86':
+    class DBPROP(Structure):
+        dwPropertyID: UInt32
+        dwOptions: UInt32
+        dwStatus: UInt32
+        colid: win32more.Storage.IndexServer.DBID
+        vValue: win32more.System.Com.VARIANT
+        _pack_ = 2
 DBPROPENUM = Int32
 DBPROP_ABORTPRESERVE: DBPROPENUM = 2
 DBPROP_ACTIVESESSIONS: DBPROPENUM = 3
@@ -4618,28 +4904,58 @@ DBPROPFLAGSENUM25 = Int32
 DBPROPFLAGS_VIEW: DBPROPFLAGSENUM25 = 16384
 DBPROPFLAGSENUM26 = Int32
 DBPROPFLAGS_STREAM: DBPROPFLAGSENUM26 = 32768
-class DBPROPIDSET(Structure):
-    rgPropertyIDs: POINTER(UInt32)
-    cPropertyIDs: UInt32
-    guidPropertySet: Guid
-class DBPROPINFO(Structure):
-    pwszDescription: win32more.Foundation.PWSTR
-    dwPropertyID: UInt32
-    dwFlags: UInt32
-    vtType: win32more.System.Com.VARENUM
-    vValues: win32more.System.Com.VARIANT
-class DBPROPINFOSET(Structure):
-    rgPropertyInfos: POINTER(win32more.System.Search.DBPROPINFO_head)
-    cPropertyInfos: UInt32
-    guidPropertySet: Guid
+if ARCH in 'X64,ARM64':
+    class DBPROPIDSET(Structure):
+        rgPropertyIDs: POINTER(UInt32)
+        cPropertyIDs: UInt32
+        guidPropertySet: Guid
+if ARCH in 'X86':
+    class DBPROPIDSET(Structure):
+        rgPropertyIDs: POINTER(UInt32)
+        cPropertyIDs: UInt32
+        guidPropertySet: Guid
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class DBPROPINFO(Structure):
+        pwszDescription: win32more.Foundation.PWSTR
+        dwPropertyID: UInt32
+        dwFlags: UInt32
+        vtType: win32more.System.Com.VARENUM
+        vValues: win32more.System.Com.VARIANT
+if ARCH in 'X86':
+    class DBPROPINFO(Structure):
+        pwszDescription: win32more.Foundation.PWSTR
+        dwPropertyID: UInt32
+        dwFlags: UInt32
+        vtType: win32more.System.Com.VARENUM
+        vValues: win32more.System.Com.VARIANT
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class DBPROPINFOSET(Structure):
+        rgPropertyInfos: POINTER(win32more.System.Search.DBPROPINFO_head)
+        cPropertyInfos: UInt32
+        guidPropertySet: Guid
+if ARCH in 'X86':
+    class DBPROPINFOSET(Structure):
+        rgPropertyInfos: POINTER(win32more.System.Search.DBPROPINFO_head)
+        cPropertyInfos: UInt32
+        guidPropertySet: Guid
+        _pack_ = 2
 DBPROPOPTIONSENUM = Int32
 DBPROPOPTIONS_REQUIRED: DBPROPOPTIONSENUM = 0
 DBPROPOPTIONS_SETIFCHEAP: DBPROPOPTIONSENUM = 1
 DBPROPOPTIONS_OPTIONAL: DBPROPOPTIONSENUM = 1
-class DBPROPSET(Structure):
-    rgProperties: POINTER(win32more.System.Search.DBPROP_head)
-    cProperties: UInt32
-    guidPropertySet: Guid
+if ARCH in 'X64,ARM64':
+    class DBPROPSET(Structure):
+        rgProperties: POINTER(win32more.System.Search.DBPROP_head)
+        cProperties: UInt32
+        guidPropertySet: Guid
+if ARCH in 'X86':
+    class DBPROPSET(Structure):
+        rgProperties: POINTER(win32more.System.Search.DBPROP_head)
+        cProperties: UInt32
+        guidPropertySet: Guid
+        _pack_ = 2
 DBPROPSTATUSENUM = Int32
 DBPROPSTATUS_OK: DBPROPSTATUSENUM = 0
 DBPROPSTATUS_NOTSUPPORTED: DBPROPSTATUSENUM = 1
@@ -4728,11 +5044,19 @@ DBROWSTATUS_E_SCHEMAVIOLATION: DBROWSTATUSENUM = 18
 DBROWSTATUS_E_FAIL: DBROWSTATUSENUM = 19
 DBROWSTATUSENUM20 = Int32
 DBROWSTATUS_S_NOCHANGE: DBROWSTATUSENUM20 = 20
-class DBROWWATCHCHANGE(Structure):
-    hRegion: UIntPtr
-    eChangeKind: UInt32
-    hRow: UIntPtr
-    iRow: UIntPtr
+if ARCH in 'X64,ARM64':
+    class DBROWWATCHCHANGE(Structure):
+        hRegion: UIntPtr
+        eChangeKind: UInt32
+        hRow: UIntPtr
+        iRow: UIntPtr
+if ARCH in 'X86':
+    class DBROWWATCHCHANGE(Structure):
+        hRegion: UIntPtr
+        eChangeKind: UInt32
+        hRow: UIntPtr
+        iRow: UIntPtr
+        _pack_ = 2
 DBSEEKENUM = Int32
 DBSEEK_INVALID: DBSEEKENUM = 0
 DBSEEK_FIRSTEQ: DBSEEKENUM = 1
@@ -4795,14 +5119,25 @@ class DBTIME(Structure):
     hour: UInt16
     minute: UInt16
     second: UInt16
-class DBTIMESTAMP(Structure):
-    year: Int16
-    month: UInt16
-    day: UInt16
-    hour: UInt16
-    minute: UInt16
-    second: UInt16
-    fraction: UInt32
+if ARCH in 'X64,ARM64':
+    class DBTIMESTAMP(Structure):
+        year: Int16
+        month: UInt16
+        day: UInt16
+        hour: UInt16
+        minute: UInt16
+        second: UInt16
+        fraction: UInt32
+if ARCH in 'X86':
+    class DBTIMESTAMP(Structure):
+        year: Int16
+        month: UInt16
+        day: UInt16
+        hour: UInt16
+        minute: UInt16
+        second: UInt16
+        fraction: UInt32
+        _pack_ = 2
 DBTYPEENUM = Int32
 DBTYPE_EMPTY: DBTYPEENUM = 0
 DBTYPE_NULL: DBTYPEENUM = 1
@@ -4855,9 +5190,15 @@ class DBVARYBIN(Structure):
 class DBVARYCHAR(Structure):
     len: Int16
     str: SByte * 8001
-class DBVECTOR(Structure):
-    size: UIntPtr
-    ptr: c_void_p
+if ARCH in 'X64,ARM64':
+    class DBVECTOR(Structure):
+        size: UIntPtr
+        ptr: c_void_p
+if ARCH in 'X86':
+    class DBVECTOR(Structure):
+        size: UIntPtr
+        ptr: c_void_p
+        _pack_ = 2
 DBWATCHMODEENUM = Int32
 DBWATCHMODE_ALL: DBWATCHMODEENUM = 1
 DBWATCHMODE_EXTEND: DBWATCHMODEENUM = 2
@@ -4878,12 +5219,21 @@ DELIVERY_AGENT_FLAG_NO_RESTRICTIONS: DELIVERY_AGENT_FLAGS = 8
 DELIVERY_AGENT_FLAG_SILENT_DIAL: DELIVERY_AGENT_FLAGS = 16
 EBindInfoOptions = Int32
 BIO_BINDER: EBindInfoOptions = 1
-class ERRORINFO(Structure):
-    hrError: win32more.Foundation.HRESULT
-    dwMinor: UInt32
-    clsid: Guid
-    iid: Guid
-    dispid: Int32
+if ARCH in 'X64,ARM64':
+    class ERRORINFO(Structure):
+        hrError: win32more.Foundation.HRESULT
+        dwMinor: UInt32
+        clsid: Guid
+        iid: Guid
+        dispid: Int32
+if ARCH in 'X86':
+    class ERRORINFO(Structure):
+        hrError: win32more.Foundation.HRESULT
+        dwMinor: UInt32
+        clsid: Guid
+        iid: Guid
+        dispid: Int32
+        _pack_ = 2
 class FILTERED_DATA_SOURCES(Structure):
     pwcsExtension: win32more.Foundation.PWSTR
     pwcsMime: win32more.Foundation.PWSTR
@@ -6548,13 +6898,23 @@ LOCKMODEENUM = Int32
 LOCKMODE_INVALID: LOCKMODEENUM = 0
 LOCKMODE_EXCLUSIVE: LOCKMODEENUM = 1
 LOCKMODE_SHARED: LOCKMODEENUM = 2
-class MDAXISINFO(Structure):
-    cbSize: UIntPtr
-    iAxis: UIntPtr
-    cDimensions: UIntPtr
-    cCoordinates: UIntPtr
-    rgcColumns: POINTER(UIntPtr)
-    rgpwszDimensionNames: POINTER(win32more.Foundation.PWSTR)
+if ARCH in 'X64,ARM64':
+    class MDAXISINFO(Structure):
+        cbSize: UIntPtr
+        iAxis: UIntPtr
+        cDimensions: UIntPtr
+        cCoordinates: UIntPtr
+        rgcColumns: POINTER(UIntPtr)
+        rgpwszDimensionNames: POINTER(win32more.Foundation.PWSTR)
+if ARCH in 'X86':
+    class MDAXISINFO(Structure):
+        cbSize: UIntPtr
+        iAxis: UIntPtr
+        cDimensions: UIntPtr
+        cCoordinates: UIntPtr
+        rgcColumns: POINTER(UIntPtr)
+        rgpwszDimensionNames: POINTER(win32more.Foundation.PWSTR)
+        _pack_ = 2
 MSDAINITIALIZE = Guid('2206cdb0-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
 MSDAORA = Guid('e8cc4cbe-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
 MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
@@ -6720,21 +7080,39 @@ class RESTRICTION(Structure):
         cr: win32more.System.Search.CONTENTRESTRICTION
         nlr: win32more.System.Search.NATLANGUAGERESTRICTION
         pr: win32more.System.Search.PROPERTYRESTRICTION
-class RMTPACK(Structure):
-    pISeqStream: win32more.System.Com.ISequentialStream_head
-    cbData: UInt32
-    cBSTR: UInt32
-    rgBSTR: POINTER(win32more.Foundation.BSTR)
-    cVARIANT: UInt32
-    rgVARIANT: POINTER(win32more.System.Com.VARIANT_head)
-    cIDISPATCH: UInt32
-    rgIDISPATCH: POINTER(win32more.System.Com.IDispatch_head)
-    cIUNKNOWN: UInt32
-    rgIUNKNOWN: POINTER(win32more.System.Com.IUnknown_head)
-    cPROPVARIANT: UInt32
-    rgPROPVARIANT: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
-    cArray: UInt32
-    rgArray: POINTER(win32more.System.Com.VARIANT_head)
+if ARCH in 'X64,ARM64':
+    class RMTPACK(Structure):
+        pISeqStream: win32more.System.Com.ISequentialStream_head
+        cbData: UInt32
+        cBSTR: UInt32
+        rgBSTR: POINTER(win32more.Foundation.BSTR)
+        cVARIANT: UInt32
+        rgVARIANT: POINTER(win32more.System.Com.VARIANT_head)
+        cIDISPATCH: UInt32
+        rgIDISPATCH: POINTER(win32more.System.Com.IDispatch_head)
+        cIUNKNOWN: UInt32
+        rgIUNKNOWN: POINTER(win32more.System.Com.IUnknown_head)
+        cPROPVARIANT: UInt32
+        rgPROPVARIANT: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+        cArray: UInt32
+        rgArray: POINTER(win32more.System.Com.VARIANT_head)
+if ARCH in 'X86':
+    class RMTPACK(Structure):
+        pISeqStream: win32more.System.Com.ISequentialStream_head
+        cbData: UInt32
+        cBSTR: UInt32
+        rgBSTR: POINTER(win32more.Foundation.BSTR)
+        cVARIANT: UInt32
+        rgVARIANT: POINTER(win32more.System.Com.VARIANT_head)
+        cIDISPATCH: UInt32
+        rgIDISPATCH: POINTER(win32more.System.Com.IDispatch_head)
+        cIUNKNOWN: UInt32
+        rgIUNKNOWN: POINTER(win32more.System.Com.IUnknown_head)
+        cPROPVARIANT: UInt32
+        rgPROPVARIANT: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)
+        cArray: UInt32
+        rgArray: POINTER(win32more.System.Com.VARIANT_head)
+        _pack_ = 2
 RootBinder = Guid('ff151822-b0bf-11d1-a8-0d-00-00-00-00-00-00')
 ROWSETEVENT_ITEMSTATE = Int32
 ROWSETEVENT_ITEMSTATE_NOTINROWSET: ROWSETEVENT_ITEMSTATE = 0
@@ -6784,12 +7162,24 @@ SEARCH_TERM_EXPANSION = Int32
 SEARCH_TERM_NO_EXPANSION: SEARCH_TERM_EXPANSION = 0
 SEARCH_TERM_PREFIX_ALL: SEARCH_TERM_EXPANSION = 1
 SEARCH_TERM_STEM_ALL: SEARCH_TERM_EXPANSION = 2
-class SEC_OBJECT(Structure):
-    cObjects: UInt32
-    prgObjects: POINTER(win32more.System.Search.SEC_OBJECT_ELEMENT_head)
-class SEC_OBJECT_ELEMENT(Structure):
-    guidObjectType: Guid
-    ObjectID: win32more.Storage.IndexServer.DBID
+if ARCH in 'X64,ARM64':
+    class SEC_OBJECT(Structure):
+        cObjects: UInt32
+        prgObjects: POINTER(win32more.System.Search.SEC_OBJECT_ELEMENT_head)
+if ARCH in 'X86':
+    class SEC_OBJECT(Structure):
+        cObjects: UInt32
+        prgObjects: POINTER(win32more.System.Search.SEC_OBJECT_ELEMENT_head)
+        _pack_ = 2
+if ARCH in 'X64,ARM64':
+    class SEC_OBJECT_ELEMENT(Structure):
+        guidObjectType: Guid
+        ObjectID: win32more.Storage.IndexServer.DBID
+if ARCH in 'X86':
+    class SEC_OBJECT_ELEMENT(Structure):
+        guidObjectType: Guid
+        ObjectID: win32more.Storage.IndexServer.DBID
+        _pack_ = 2
 class SORTKEY(Structure):
     propColumn: win32more.Storage.IndexServer.FULLPROPSPEC
     dwOrder: UInt32
@@ -7088,38 +7478,110 @@ make_head(_module, 'DataSourceObject')
 make_head(_module, 'DATE_STRUCT')
 make_head(_module, 'DB_NUMERIC')
 make_head(_module, 'DB_VARNUMERIC')
-make_head(_module, 'DBBINDEXT')
-make_head(_module, 'DBBINDING')
-make_head(_module, 'DBCOLUMNACCESS')
-make_head(_module, 'DBCOLUMNDESC')
-make_head(_module, 'DBCOLUMNINFO')
-make_head(_module, 'DBCONSTRAINTDESC')
-make_head(_module, 'DBCOST')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBBINDEXT')
+if ARCH in 'X86':
+    make_head(_module, 'DBBINDEXT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBBINDING')
+if ARCH in 'X86':
+    make_head(_module, 'DBBINDING')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBCOLUMNACCESS')
+if ARCH in 'X86':
+    make_head(_module, 'DBCOLUMNACCESS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBCOLUMNDESC')
+if ARCH in 'X86':
+    make_head(_module, 'DBCOLUMNDESC')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBCOLUMNINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBCOLUMNINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBCONSTRAINTDESC')
+if ARCH in 'X86':
+    make_head(_module, 'DBCONSTRAINTDESC')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBCOST')
+if ARCH in 'X86':
+    make_head(_module, 'DBCOST')
 make_head(_module, 'DBDATE')
 make_head(_module, 'DBDATETIM4')
 make_head(_module, 'DBDATETIME')
-make_head(_module, 'DBFAILUREINFO')
-make_head(_module, 'DBIMPLICITSESSION')
-make_head(_module, 'DBINDEXCOLUMNDESC')
-make_head(_module, 'DBLITERALINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBFAILUREINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBFAILUREINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBIMPLICITSESSION')
+if ARCH in 'X86':
+    make_head(_module, 'DBIMPLICITSESSION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBINDEXCOLUMNDESC')
+if ARCH in 'X86':
+    make_head(_module, 'DBINDEXCOLUMNDESC')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBLITERALINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBLITERALINFO')
 make_head(_module, 'DBMONEY')
-make_head(_module, 'DBOBJECT')
-make_head(_module, 'DBPARAMBINDINFO')
-make_head(_module, 'DBPARAMINFO')
-make_head(_module, 'DBPARAMS')
-make_head(_module, 'DBPROP')
-make_head(_module, 'DBPROPIDSET')
-make_head(_module, 'DBPROPINFO')
-make_head(_module, 'DBPROPINFOSET')
-make_head(_module, 'DBPROPSET')
-make_head(_module, 'DBROWWATCHCHANGE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBOBJECT')
+if ARCH in 'X86':
+    make_head(_module, 'DBOBJECT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPARAMBINDINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBPARAMBINDINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPARAMINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBPARAMINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'DBPARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPROP')
+if ARCH in 'X86':
+    make_head(_module, 'DBPROP')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPROPIDSET')
+if ARCH in 'X86':
+    make_head(_module, 'DBPROPIDSET')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPROPINFO')
+if ARCH in 'X86':
+    make_head(_module, 'DBPROPINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPROPINFOSET')
+if ARCH in 'X86':
+    make_head(_module, 'DBPROPINFOSET')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBPROPSET')
+if ARCH in 'X86':
+    make_head(_module, 'DBPROPSET')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBROWWATCHCHANGE')
+if ARCH in 'X86':
+    make_head(_module, 'DBROWWATCHCHANGE')
 make_head(_module, 'DBTIME')
-make_head(_module, 'DBTIMESTAMP')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBTIMESTAMP')
+if ARCH in 'X86':
+    make_head(_module, 'DBTIMESTAMP')
 make_head(_module, 'DBVARYBIN')
 make_head(_module, 'DBVARYCHAR')
-make_head(_module, 'DBVECTOR')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBVECTOR')
+if ARCH in 'X86':
+    make_head(_module, 'DBVECTOR')
 make_head(_module, 'DCINFO')
-make_head(_module, 'ERRORINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ERRORINFO')
+if ARCH in 'X86':
+    make_head(_module, 'ERRORINFO')
 make_head(_module, 'FILTERED_DATA_SOURCES')
 make_head(_module, 'HITRANGE')
 make_head(_module, 'IAccessor')
@@ -7298,7 +7760,10 @@ make_head(_module, 'IWordFormSink')
 make_head(_module, 'IWordSink')
 make_head(_module, 'KAGGETDIAG')
 make_head(_module, 'KAGREQDIAG')
-make_head(_module, 'MDAXISINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MDAXISINFO')
+if ARCH in 'X86':
+    make_head(_module, 'MDAXISINFO')
 make_head(_module, 'NATLANGUAGERESTRICTION')
 make_head(_module, 'NODERESTRICTION')
 make_head(_module, 'NOTRESTRICTION')
@@ -7310,13 +7775,22 @@ make_head(_module, 'PROPERTYRESTRICTION')
 make_head(_module, 'PROXY_INFO')
 make_head(_module, 'RANGECATEGORIZE')
 make_head(_module, 'RESTRICTION')
-make_head(_module, 'RMTPACK')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'RMTPACK')
+if ARCH in 'X86':
+    make_head(_module, 'RMTPACK')
 make_head(_module, 'SEARCH_COLUMN_PROPERTIES')
 make_head(_module, 'SEARCH_ITEM_CHANGE')
 make_head(_module, 'SEARCH_ITEM_INDEXING_STATUS')
 make_head(_module, 'SEARCH_ITEM_PERSISTENT_CHANGE')
-make_head(_module, 'SEC_OBJECT')
-make_head(_module, 'SEC_OBJECT_ELEMENT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SEC_OBJECT')
+if ARCH in 'X86':
+    make_head(_module, 'SEC_OBJECT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SEC_OBJECT_ELEMENT')
+if ARCH in 'X86':
+    make_head(_module, 'SEC_OBJECT_ELEMENT')
 make_head(_module, 'SORTKEY')
 make_head(_module, 'SORTSET')
 make_head(_module, 'SQL_ASYNC_NOTIFICATION_CALLBACK')
@@ -12256,4 +12730,6 @@ __all__ = [
     "eAUTH_TYPE_ANONYMOUS",
     "eAUTH_TYPE_BASIC",
     "eAUTH_TYPE_NTLM",
+]
+_arch_optional = [
 ]

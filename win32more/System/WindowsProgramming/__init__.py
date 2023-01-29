@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Security
@@ -15,6 +15,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -671,22 +673,30 @@ DELETE_BROWSING_HISTORY_FORMDATA: UInt32 = 8
 DELETE_BROWSING_HISTORY_PASSWORDS: UInt32 = 16
 DELETE_BROWSING_HISTORY_PRESERVEFAVORITES: UInt32 = 32
 DELETE_BROWSING_HISTORY_DOWNLOADHISTORY: UInt32 = 64
-@winfunctype('KERNEL32.dll')
-def uaw_lstrcmpW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
-@winfunctype('KERNEL32.dll')
-def uaw_lstrcmpiW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
-@winfunctype('KERNEL32.dll')
-def uaw_lstrlenW(String: POINTER(UInt16)) -> Int32: ...
-@winfunctype('KERNEL32.dll')
-def uaw_wcschr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
-@winfunctype('KERNEL32.dll')
-def uaw_wcscpy(Destination: POINTER(UInt16), Source: POINTER(UInt16)) -> POINTER(UInt16): ...
-@winfunctype('KERNEL32.dll')
-def uaw_wcsicmp(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
-@winfunctype('KERNEL32.dll')
-def uaw_wcslen(String: POINTER(UInt16)) -> UIntPtr: ...
-@winfunctype('KERNEL32.dll')
-def uaw_wcsrchr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_lstrcmpW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_lstrcmpiW(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_lstrlenW(String: POINTER(UInt16)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_wcschr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_wcscpy(Destination: POINTER(UInt16), Source: POINTER(UInt16)) -> POINTER(UInt16): ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_wcsicmp(String1: POINTER(UInt16), String2: POINTER(UInt16)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_wcslen(String: POINTER(UInt16)) -> UIntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('KERNEL32.dll')
+    def uaw_wcsrchr(String: POINTER(UInt16), Character: Char) -> POINTER(UInt16): ...
 @winfunctype('ntdll.dll')
 def RtlGetReturnAddressHijackTarget() -> UIntPtr: ...
 @winfunctype('ntdll.dll')
@@ -871,10 +881,12 @@ def GetCurrentHwProfileA(lpHwProfileInfo: POINTER(win32more.System.WindowsProgra
 def GetCurrentHwProfileW(lpHwProfileInfo: POINTER(win32more.System.WindowsProgramming.HW_PROFILE_INFOW_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def ReplacePartitionUnit(TargetPartition: win32more.Foundation.PWSTR, SparePartition: win32more.Foundation.PWSTR, Flags: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype('KERNEL32.dll')
-def GetThreadEnabledXStateFeatures() -> UInt64: ...
-@winfunctype('KERNEL32.dll')
-def EnableProcessOptionalXStateFeatures(Features: UInt64) -> win32more.Foundation.BOOL: ...
+if ARCH in 'X86,X64':
+    @winfunctype('KERNEL32.dll')
+    def GetThreadEnabledXStateFeatures() -> UInt64: ...
+if ARCH in 'X86,X64':
+    @winfunctype('KERNEL32.dll')
+    def EnableProcessOptionalXStateFeatures(Features: UInt64) -> win32more.Foundation.BOOL: ...
 @winfunctype('api-ms-win-core-backgroundtask-l1-1-0.dll')
 def RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig: POINTER(win32more.System.WindowsProgramming.CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG_head)) -> UInt32: ...
 @winfunctype('ntdll.dll')
@@ -1233,15 +1245,26 @@ DECISION_LOCATION_ENFORCE_STATE_LIST: DECISION_LOCATION = 7
 DECISION_LOCATION_NOT_FOUND: DECISION_LOCATION = 8
 DECISION_LOCATION_UNKNOWN: DECISION_LOCATION = 9
 DefaultBrowserSyncSettings = Guid('3ac83423-3112-4aa6-9b-5b-1f-eb-23-d0-c5-f9')
-class DELAYLOAD_INFO(Structure):
-    Size: UInt32
-    DelayloadDescriptor: POINTER(win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head)
-    ThunkAddress: POINTER(win32more.System.WindowsProgramming.IMAGE_THUNK_DATA64_head)
-    TargetDllName: win32more.Foundation.PSTR
-    TargetApiDescriptor: win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
-    TargetModuleBase: c_void_p
-    Unused: c_void_p
-    LastError: UInt32
+if ARCH in 'X64,ARM64':
+    class DELAYLOAD_INFO(Structure):
+        Size: UInt32
+        DelayloadDescriptor: POINTER(win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head)
+        ThunkAddress: POINTER(win32more.System.WindowsProgramming.IMAGE_THUNK_DATA64_head)
+        TargetDllName: win32more.Foundation.PSTR
+        TargetApiDescriptor: win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
+        TargetModuleBase: c_void_p
+        Unused: c_void_p
+        LastError: UInt32
+if ARCH in 'X86':
+    class DELAYLOAD_INFO(Structure):
+        Size: UInt32
+        DelayloadDescriptor: POINTER(win32more.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR_head)
+        ThunkAddress: POINTER(win32more.System.WindowsProgramming.IMAGE_THUNK_DATA32_head)
+        TargetDllName: win32more.Foundation.PSTR
+        TargetApiDescriptor: win32more.System.WindowsProgramming.DELAYLOAD_PROC_DESCRIPTOR
+        TargetModuleBase: c_void_p
+        Unused: c_void_p
+        LastError: UInt32
 class DELAYLOAD_PROC_DESCRIPTOR(Structure):
     ImportDescribedByName: UInt32
     Description: _Description_e__Union
@@ -1658,9 +1681,10 @@ class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(Structure):
 class TCP_REQUEST_QUERY_INFORMATION_EX_XP(Structure):
     ID: win32more.System.WindowsProgramming.TDIObjectID
     Context: UIntPtr * 4
-class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
-    ID: win32more.System.WindowsProgramming.TDIObjectID
-    Context: UInt32 * 4
+if ARCH in 'X64,ARM64':
+    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
+        ID: win32more.System.WindowsProgramming.TDIObjectID
+        Context: UInt32 * 4
 class TCP_REQUEST_SET_INFORMATION_EX(Structure):
     ID: win32more.System.WindowsProgramming.TDIObjectID
     BufferSize: UInt32
@@ -1784,7 +1808,10 @@ make_head(_module, 'DCIENUMINPUT')
 make_head(_module, 'DCIOFFSCREEN')
 make_head(_module, 'DCIOVERLAY')
 make_head(_module, 'DCISURFACEINFO')
-make_head(_module, 'DELAYLOAD_INFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DELAYLOAD_INFO')
+if ARCH in 'X86':
+    make_head(_module, 'DELAYLOAD_INFO')
 make_head(_module, 'DELAYLOAD_PROC_DESCRIPTOR')
 make_head(_module, 'ENUM_CALLBACK')
 make_head(_module, 'FEATURE_ERROR')
@@ -1857,7 +1884,8 @@ make_head(_module, 'SYSTEM_THREAD_INFORMATION')
 make_head(_module, 'SYSTEM_TIMEOFDAY_INFORMATION')
 make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_W2K')
 make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_XP')
-make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX32_XP')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX32_XP')
 make_head(_module, 'TCP_REQUEST_SET_INFORMATION_EX')
 make_head(_module, 'TDI_TL_IO_CONTROL_ENDPOINT')
 make_head(_module, 'TDIEntityID')
@@ -2938,6 +2966,19 @@ __all__ = [
     "_lopen",
     "_lread",
     "_lwrite",
+    "uaw_lstrcmpW",
+    "uaw_lstrcmpiW",
+    "uaw_lstrlenW",
+    "uaw_wcschr",
+    "uaw_wcscpy",
+    "uaw_wcsicmp",
+    "uaw_wcslen",
+    "uaw_wcsrchr",
+]
+_arch_optional = [
+    "EnableProcessOptionalXStateFeatures",
+    "GetThreadEnabledXStateFeatures",
+    "TCP_REQUEST_QUERY_INFORMATION_EX32_XP",
     "uaw_lstrcmpW",
     "uaw_lstrcmpiW",
     "uaw_lstrlenW",

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.NetBios
 import sys
@@ -9,6 +9,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -150,22 +152,40 @@ class NAME_BUFFER(Structure):
     name: Byte * 16
     name_num: Byte
     name_flags: Byte
-class NCB(Structure):
-    ncb_command: Byte
-    ncb_retcode: Byte
-    ncb_lsn: Byte
-    ncb_num: Byte
-    ncb_buffer: c_char_p_no
-    ncb_length: UInt16
-    ncb_callname: Byte * 16
-    ncb_name: Byte * 16
-    ncb_rto: Byte
-    ncb_sto: Byte
-    ncb_post: IntPtr
-    ncb_lana_num: Byte
-    ncb_cmd_cplt: Byte
-    ncb_reserve: Byte * 18
-    ncb_event: win32more.Foundation.HANDLE
+if ARCH in 'X64,ARM64':
+    class NCB(Structure):
+        ncb_command: Byte
+        ncb_retcode: Byte
+        ncb_lsn: Byte
+        ncb_num: Byte
+        ncb_buffer: c_char_p_no
+        ncb_length: UInt16
+        ncb_callname: Byte * 16
+        ncb_name: Byte * 16
+        ncb_rto: Byte
+        ncb_sto: Byte
+        ncb_post: IntPtr
+        ncb_lana_num: Byte
+        ncb_cmd_cplt: Byte
+        ncb_reserve: Byte * 18
+        ncb_event: win32more.Foundation.HANDLE
+if ARCH in 'X86':
+    class NCB(Structure):
+        ncb_command: Byte
+        ncb_retcode: Byte
+        ncb_lsn: Byte
+        ncb_num: Byte
+        ncb_buffer: c_char_p_no
+        ncb_length: UInt16
+        ncb_callname: Byte * 16
+        ncb_name: Byte * 16
+        ncb_rto: Byte
+        ncb_sto: Byte
+        ncb_post: IntPtr
+        ncb_lana_num: Byte
+        ncb_cmd_cplt: Byte
+        ncb_reserve: Byte * 10
+        ncb_event: win32more.Foundation.HANDLE
 class SESSION_BUFFER(Structure):
     lsn: Byte
     state: Byte
@@ -184,7 +204,10 @@ make_head(_module, 'FIND_NAME_BUFFER')
 make_head(_module, 'FIND_NAME_HEADER')
 make_head(_module, 'LANA_ENUM')
 make_head(_module, 'NAME_BUFFER')
-make_head(_module, 'NCB')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'NCB')
+if ARCH in 'X86':
+    make_head(_module, 'NCB')
 make_head(_module, 'SESSION_BUFFER')
 make_head(_module, 'SESSION_HEADER')
 __all__ = [
@@ -282,4 +305,6 @@ __all__ = [
     "SESSION_ESTABLISHED",
     "SESSION_HEADER",
     "UNIQUE_NAME",
+]
+_arch_optional = [
 ]

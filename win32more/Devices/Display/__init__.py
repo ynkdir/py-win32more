@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.Display
 import win32more.Devices.Properties
 import win32more.Foundation
@@ -17,6 +17,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1544,21 +1546,46 @@ class FD_LIGATURE(Structure):
     ulType: UInt32
     cLigatures: UInt32
     alig: win32more.Devices.Display.LIGATURE * 1
-class FD_XFORM(Structure):
-    eXX: Single
-    eXY: Single
-    eYX: Single
-    eYY: Single
-class FLOAT_LONG(Union):
-    e: Single
-    l: Int32
-class FLOATOBJ_XFORM(Structure):
-    eM11: Single
-    eM12: Single
-    eM21: Single
-    eM22: Single
-    eDx: Single
-    eDy: Single
+if ARCH in 'X64,ARM64':
+    class FD_XFORM(Structure):
+        eXX: Single
+        eXY: Single
+        eYX: Single
+        eYY: Single
+if ARCH in 'X86':
+    class FD_XFORM(Structure):
+        eXX: UInt32
+        eXY: UInt32
+        eYX: UInt32
+        eYY: UInt32
+if ARCH in 'X64,ARM64':
+    class FLOAT_LONG(Union):
+        e: Single
+        l: Int32
+if ARCH in 'X86':
+    class FLOAT_LONG(Union):
+        e: UInt32
+        l: Int32
+if ARCH in 'X86':
+    class FLOATOBJ(Structure):
+        ul1: UInt32
+        ul2: UInt32
+if ARCH in 'X64,ARM64':
+    class FLOATOBJ_XFORM(Structure):
+        eM11: Single
+        eM12: Single
+        eM21: Single
+        eM22: Single
+        eDx: Single
+        eDy: Single
+if ARCH in 'X86':
+    class FLOATOBJ_XFORM(Structure):
+        eM11: win32more.Devices.Display.FLOATOBJ
+        eM12: win32more.Devices.Display.FLOATOBJ
+        eM21: win32more.Devices.Display.FLOATOBJ
+        eM22: win32more.Devices.Display.FLOATOBJ
+        eDx: win32more.Devices.Display.FLOATOBJ
+        eDy: win32more.Devices.Display.FLOATOBJ
 class FONT_IMAGE_INFO(Structure):
     FontSize: win32more.System.Console.COORD
     ImageBits: c_char_p_no
@@ -1726,67 +1753,129 @@ class IFIEXTRA(Structure):
     dpDesignVector: Int32
     dpAxesInfoW: Int32
     aulReserved: UInt32 * 1
-class IFIMETRICS(Structure):
-    cjThis: UInt32
-    cjIfiExtra: UInt32
-    dpwszFamilyName: Int32
-    dpwszStyleName: Int32
-    dpwszFaceName: Int32
-    dpwszUniqueName: Int32
-    dpFontSim: Int32
-    lEmbedId: Int32
-    lItalicAngle: Int32
-    lCharBias: Int32
-    dpCharSets: Int32
-    jWinCharSet: Byte
-    jWinPitchAndFamily: Byte
-    usWinWeight: UInt16
-    flInfo: UInt32
-    fsSelection: UInt16
-    fsType: UInt16
-    fwdUnitsPerEm: Int16
-    fwdLowestPPEm: Int16
-    fwdWinAscender: Int16
-    fwdWinDescender: Int16
-    fwdMacAscender: Int16
-    fwdMacDescender: Int16
-    fwdMacLineGap: Int16
-    fwdTypoAscender: Int16
-    fwdTypoDescender: Int16
-    fwdTypoLineGap: Int16
-    fwdAveCharWidth: Int16
-    fwdMaxCharInc: Int16
-    fwdCapHeight: Int16
-    fwdXHeight: Int16
-    fwdSubscriptXSize: Int16
-    fwdSubscriptYSize: Int16
-    fwdSubscriptXOffset: Int16
-    fwdSubscriptYOffset: Int16
-    fwdSuperscriptXSize: Int16
-    fwdSuperscriptYSize: Int16
-    fwdSuperscriptXOffset: Int16
-    fwdSuperscriptYOffset: Int16
-    fwdUnderscoreSize: Int16
-    fwdUnderscorePosition: Int16
-    fwdStrikeoutSize: Int16
-    fwdStrikeoutPosition: Int16
-    chFirstChar: Byte
-    chLastChar: Byte
-    chDefaultChar: Byte
-    chBreakChar: Byte
-    wcFirstChar: Char
-    wcLastChar: Char
-    wcDefaultChar: Char
-    wcBreakChar: Char
-    ptlBaseline: win32more.Foundation.POINTL
-    ptlAspect: win32more.Foundation.POINTL
-    ptlCaret: win32more.Foundation.POINTL
-    rclFontBox: win32more.Foundation.RECTL
-    achVendId: Byte * 4
-    cKerningPairs: UInt32
-    ulPanoseCulture: UInt32
-    panose: win32more.Graphics.Gdi.PANOSE
-    Align: c_void_p
+if ARCH in 'X64,ARM64':
+    class IFIMETRICS(Structure):
+        cjThis: UInt32
+        cjIfiExtra: UInt32
+        dpwszFamilyName: Int32
+        dpwszStyleName: Int32
+        dpwszFaceName: Int32
+        dpwszUniqueName: Int32
+        dpFontSim: Int32
+        lEmbedId: Int32
+        lItalicAngle: Int32
+        lCharBias: Int32
+        dpCharSets: Int32
+        jWinCharSet: Byte
+        jWinPitchAndFamily: Byte
+        usWinWeight: UInt16
+        flInfo: UInt32
+        fsSelection: UInt16
+        fsType: UInt16
+        fwdUnitsPerEm: Int16
+        fwdLowestPPEm: Int16
+        fwdWinAscender: Int16
+        fwdWinDescender: Int16
+        fwdMacAscender: Int16
+        fwdMacDescender: Int16
+        fwdMacLineGap: Int16
+        fwdTypoAscender: Int16
+        fwdTypoDescender: Int16
+        fwdTypoLineGap: Int16
+        fwdAveCharWidth: Int16
+        fwdMaxCharInc: Int16
+        fwdCapHeight: Int16
+        fwdXHeight: Int16
+        fwdSubscriptXSize: Int16
+        fwdSubscriptYSize: Int16
+        fwdSubscriptXOffset: Int16
+        fwdSubscriptYOffset: Int16
+        fwdSuperscriptXSize: Int16
+        fwdSuperscriptYSize: Int16
+        fwdSuperscriptXOffset: Int16
+        fwdSuperscriptYOffset: Int16
+        fwdUnderscoreSize: Int16
+        fwdUnderscorePosition: Int16
+        fwdStrikeoutSize: Int16
+        fwdStrikeoutPosition: Int16
+        chFirstChar: Byte
+        chLastChar: Byte
+        chDefaultChar: Byte
+        chBreakChar: Byte
+        wcFirstChar: Char
+        wcLastChar: Char
+        wcDefaultChar: Char
+        wcBreakChar: Char
+        ptlBaseline: win32more.Foundation.POINTL
+        ptlAspect: win32more.Foundation.POINTL
+        ptlCaret: win32more.Foundation.POINTL
+        rclFontBox: win32more.Foundation.RECTL
+        achVendId: Byte * 4
+        cKerningPairs: UInt32
+        ulPanoseCulture: UInt32
+        panose: win32more.Graphics.Gdi.PANOSE
+        Align: c_void_p
+if ARCH in 'X86':
+    class IFIMETRICS(Structure):
+        cjThis: UInt32
+        cjIfiExtra: UInt32
+        dpwszFamilyName: Int32
+        dpwszStyleName: Int32
+        dpwszFaceName: Int32
+        dpwszUniqueName: Int32
+        dpFontSim: Int32
+        lEmbedId: Int32
+        lItalicAngle: Int32
+        lCharBias: Int32
+        dpCharSets: Int32
+        jWinCharSet: Byte
+        jWinPitchAndFamily: Byte
+        usWinWeight: UInt16
+        flInfo: UInt32
+        fsSelection: UInt16
+        fsType: UInt16
+        fwdUnitsPerEm: Int16
+        fwdLowestPPEm: Int16
+        fwdWinAscender: Int16
+        fwdWinDescender: Int16
+        fwdMacAscender: Int16
+        fwdMacDescender: Int16
+        fwdMacLineGap: Int16
+        fwdTypoAscender: Int16
+        fwdTypoDescender: Int16
+        fwdTypoLineGap: Int16
+        fwdAveCharWidth: Int16
+        fwdMaxCharInc: Int16
+        fwdCapHeight: Int16
+        fwdXHeight: Int16
+        fwdSubscriptXSize: Int16
+        fwdSubscriptYSize: Int16
+        fwdSubscriptXOffset: Int16
+        fwdSubscriptYOffset: Int16
+        fwdSuperscriptXSize: Int16
+        fwdSuperscriptYSize: Int16
+        fwdSuperscriptXOffset: Int16
+        fwdSuperscriptYOffset: Int16
+        fwdUnderscoreSize: Int16
+        fwdUnderscorePosition: Int16
+        fwdStrikeoutSize: Int16
+        fwdStrikeoutPosition: Int16
+        chFirstChar: Byte
+        chLastChar: Byte
+        chDefaultChar: Byte
+        chBreakChar: Byte
+        wcFirstChar: Char
+        wcLastChar: Char
+        wcDefaultChar: Char
+        wcBreakChar: Char
+        ptlBaseline: win32more.Foundation.POINTL
+        ptlAspect: win32more.Foundation.POINTL
+        ptlCaret: win32more.Foundation.POINTL
+        rclFontBox: win32more.Foundation.RECTL
+        achVendId: Byte * 4
+        cKerningPairs: UInt32
+        ulPanoseCulture: UInt32
+        panose: win32more.Graphics.Gdi.PANOSE
 class INDIRECT_DISPLAY_INFO(Structure):
     DisplayAdapterLuid: win32more.Foundation.LUID
     Flags: UInt32
@@ -1812,15 +1901,26 @@ class LIGATURE(Structure):
     pwsz: win32more.Foundation.PWSTR
     chglyph: UInt32
     ahglyph: UInt32 * 1
-class LINEATTRS(Structure):
-    fl: UInt32
-    iJoin: UInt32
-    iEndCap: UInt32
-    elWidth: win32more.Devices.Display.FLOAT_LONG
-    eMiterLimit: Single
-    cstyle: UInt32
-    pstyle: POINTER(win32more.Devices.Display.FLOAT_LONG_head)
-    elStyleState: win32more.Devices.Display.FLOAT_LONG
+if ARCH in 'X64,ARM64':
+    class LINEATTRS(Structure):
+        fl: UInt32
+        iJoin: UInt32
+        iEndCap: UInt32
+        elWidth: win32more.Devices.Display.FLOAT_LONG
+        eMiterLimit: Single
+        cstyle: UInt32
+        pstyle: POINTER(win32more.Devices.Display.FLOAT_LONG_head)
+        elStyleState: win32more.Devices.Display.FLOAT_LONG
+if ARCH in 'X86':
+    class LINEATTRS(Structure):
+        fl: UInt32
+        iJoin: UInt32
+        iEndCap: UInt32
+        elWidth: win32more.Devices.Display.FLOAT_LONG
+        eMiterLimit: UInt32
+        cstyle: UInt32
+        pstyle: POINTER(win32more.Devices.Display.FLOAT_LONG_head)
+        elStyleState: win32more.Devices.Display.FLOAT_LONG
 MC_COLOR_TEMPERATURE = Int32
 MC_COLOR_TEMPERATURE_UNKNOWN: MC_COLOR_TEMPERATURE = 0
 MC_COLOR_TEMPERATURE_4000K: MC_COLOR_TEMPERATURE = 1
@@ -2206,9 +2306,14 @@ class PHYSICAL_MONITOR(Structure):
     hPhysicalMonitor: win32more.Foundation.HANDLE
     szPhysicalMonitorDescription: Char * 128
     _pack_ = 1
-class POINTE(Structure):
-    x: Single
-    y: Single
+if ARCH in 'X64,ARM64':
+    class POINTE(Structure):
+        x: Single
+        y: Single
+if ARCH in 'X86':
+    class POINTE(Structure):
+        x: UInt32
+        y: UInt32
 class POINTFIX(Structure):
     x: Int32
     y: Int32
@@ -2580,13 +2685,22 @@ class WNDOBJ(Structure):
     psoOwner: POINTER(win32more.Devices.Display.SURFOBJ_head)
 @winfunctype_pointer
 def WNDOBJCHANGEPROC(pwo: POINTER(win32more.Devices.Display.WNDOBJ_head), fl: UInt32) -> Void: ...
-class XFORML(Structure):
-    eM11: Single
-    eM12: Single
-    eM21: Single
-    eM22: Single
-    eDx: Single
-    eDy: Single
+if ARCH in 'X64,ARM64':
+    class XFORML(Structure):
+        eM11: Single
+        eM12: Single
+        eM21: Single
+        eM22: Single
+        eDx: Single
+        eDy: Single
+if ARCH in 'X86':
+    class XFORML(Structure):
+        eM11: UInt32
+        eM12: UInt32
+        eM21: UInt32
+        eM22: UInt32
+        eDx: UInt32
+        eDy: UInt32
 class XFORMOBJ(Structure):
     ulReserved: UInt32
 class XLATEOBJ(Structure):
@@ -2669,9 +2783,20 @@ make_head(_module, 'FD_GLYPHATTR')
 make_head(_module, 'FD_GLYPHSET')
 make_head(_module, 'FD_KERNINGPAIR')
 make_head(_module, 'FD_LIGATURE')
-make_head(_module, 'FD_XFORM')
-make_head(_module, 'FLOAT_LONG')
-make_head(_module, 'FLOATOBJ_XFORM')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FD_XFORM')
+if ARCH in 'X86':
+    make_head(_module, 'FD_XFORM')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FLOAT_LONG')
+if ARCH in 'X86':
+    make_head(_module, 'FLOAT_LONG')
+if ARCH in 'X86':
+    make_head(_module, 'FLOATOBJ')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FLOATOBJ_XFORM')
+if ARCH in 'X86':
+    make_head(_module, 'FLOATOBJ_XFORM')
 make_head(_module, 'FONT_IMAGE_INFO')
 make_head(_module, 'FONTDIFF')
 make_head(_module, 'FONTINFO')
@@ -2696,11 +2821,17 @@ make_head(_module, 'GLYPHDEF')
 make_head(_module, 'GLYPHPOS')
 make_head(_module, 'ICloneViewHelper')
 make_head(_module, 'IFIEXTRA')
-make_head(_module, 'IFIMETRICS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'IFIMETRICS')
+if ARCH in 'X86':
+    make_head(_module, 'IFIMETRICS')
 make_head(_module, 'INDIRECT_DISPLAY_INFO')
 make_head(_module, 'IViewHelper')
 make_head(_module, 'LIGATURE')
-make_head(_module, 'LINEATTRS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'LINEATTRS')
+if ARCH in 'X86':
+    make_head(_module, 'LINEATTRS')
 make_head(_module, 'MC_TIMING_REPORT')
 make_head(_module, 'MIPI_DSI_CAPS')
 make_head(_module, 'MIPI_DSI_PACKET')
@@ -2815,7 +2946,10 @@ make_head(_module, 'PFN_EngSubtractRgn')
 make_head(_module, 'PFN_EngUnionRgn')
 make_head(_module, 'PFN_EngXorRgn')
 make_head(_module, 'PHYSICAL_MONITOR')
-make_head(_module, 'POINTE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'POINTE')
+if ARCH in 'X86':
+    make_head(_module, 'POINTE')
 make_head(_module, 'POINTFIX')
 make_head(_module, 'POINTQF')
 make_head(_module, 'PVIDEO_WIN32K_CALLOUT')
@@ -2865,7 +2999,10 @@ make_head(_module, 'VIDEOPARAMETERS')
 make_head(_module, 'WCRUN')
 make_head(_module, 'WNDOBJ')
 make_head(_module, 'WNDOBJCHANGEPROC')
-make_head(_module, 'XFORML')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'XFORML')
+if ARCH in 'X86':
+    make_head(_module, 'XFORML')
 make_head(_module, 'XFORMOBJ')
 make_head(_module, 'XLATEOBJ')
 __all__ = [
@@ -3258,6 +3395,7 @@ __all__ = [
     "FD_XFORM",
     "FF_IGNORED_SIGNATURE",
     "FF_SIGNATURE_VERIFIED",
+    "FLOATOBJ",
     "FLOATOBJ_XFORM",
     "FLOAT_LONG",
     "FL_NONPAGED_MEMORY",
@@ -4244,4 +4382,7 @@ __all__ = [
     "XO_TABLE",
     "XO_TO_MONO",
     "XO_TRIVIAL",
+]
+_arch_optional = [
+    "FLOATOBJ",
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.Jet
 import win32more.Storage.StructuredStorage
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1526,10 +1528,17 @@ class JET_COLUMNLIST(Structure):
     columnidBaseTableName: UInt32
     columnidBaseColumnName: UInt32
     columnidDefinitionName: UInt32
-class JET_COMMIT_ID(Structure):
-    signLog: win32more.Storage.Jet.JET_SIGNATURE
-    reserved: Int32
-    commitId: Int64
+if ARCH in 'X64,ARM64':
+    class JET_COMMIT_ID(Structure):
+        signLog: win32more.Storage.Jet.JET_SIGNATURE
+        reserved: Int32
+        commitId: Int64
+if ARCH in 'X86':
+    class JET_COMMIT_ID(Structure):
+        signLog: win32more.Storage.Jet.JET_SIGNATURE
+        reserved: Int32
+        commitId: Int64
+        _pack_ = 4
 class JET_CONDITIONALCOLUMN_A(Structure):
     cbStruct: UInt32
     szColumnName: win32more.Foundation.PSTR
@@ -1880,9 +1889,14 @@ class JET_INDEXCREATE3_W(Structure):
     class _Anonymous_e__Union(Union):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
-class JET_INDEXID(Structure):
-    cbStruct: UInt32
-    rgbIndexId: Byte * 16
+if ARCH in 'X64,ARM64':
+    class JET_INDEXID(Structure):
+        cbStruct: UInt32
+        rgbIndexId: Byte * 16
+if ARCH in 'X86':
+    class JET_INDEXID(Structure):
+        cbStruct: UInt32
+        rgbIndexId: Byte * 12
 class JET_INDEXLIST(Structure):
     cbStruct: UInt32
     tableid: win32more.Storage.StructuredStorage.JET_TABLEID
@@ -1956,15 +1970,27 @@ class JET_LOGTIME(Structure):
         class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
 JET_LS = UIntPtr
-class JET_OBJECTINFO(Structure):
-    cbStruct: UInt32
-    objtyp: UInt32
-    dtCreate: Double
-    dtUpdate: Double
-    grbit: UInt32
-    flags: UInt32
-    cRecord: UInt32
-    cPage: UInt32
+if ARCH in 'X64,ARM64':
+    class JET_OBJECTINFO(Structure):
+        cbStruct: UInt32
+        objtyp: UInt32
+        dtCreate: Double
+        dtUpdate: Double
+        grbit: UInt32
+        flags: UInt32
+        cRecord: UInt32
+        cPage: UInt32
+if ARCH in 'X86':
+    class JET_OBJECTINFO(Structure):
+        cbStruct: UInt32
+        objtyp: UInt32
+        dtCreate: Double
+        dtUpdate: Double
+        grbit: UInt32
+        flags: UInt32
+        cRecord: UInt32
+        cPage: UInt32
+        _pack_ = 4
 class JET_OBJECTLIST(Structure):
     cbStruct: UInt32
     tableid: win32more.Storage.StructuredStorage.JET_TABLEID
@@ -2011,21 +2037,42 @@ def JET_PFNDURABLECOMMITCALLBACK(instance: win32more.Storage.StructuredStorage.J
 def JET_PFNREALLOC(pvContext: c_void_p, pv: c_void_p, cb: UInt32) -> c_void_p: ...
 @winfunctype_pointer
 def JET_PFNSTATUS(sesid: win32more.Storage.StructuredStorage.JET_SESID, snp: UInt32, snt: UInt32, pv: c_void_p) -> Int32: ...
-class JET_RBSINFOMISC(Structure):
-    lRBSGeneration: Int32
-    logtimeCreate: win32more.Storage.Jet.JET_LOGTIME
-    logtimeCreatePrevRBS: win32more.Storage.Jet.JET_LOGTIME
-    ulMajor: UInt32
-    ulMinor: UInt32
-    cbLogicalFileSize: UInt64
-class JET_RBSREVERTINFOMISC(Structure):
-    lGenMinRevertStart: Int32
-    lGenMaxRevertStart: Int32
-    lGenMinRevertEnd: Int32
-    lGenMaxRevertEnd: Int32
-    logtimeRevertFrom: win32more.Storage.Jet.JET_LOGTIME
-    cSecRevert: UInt64
-    cPagesReverted: UInt64
+if ARCH in 'X64,ARM64':
+    class JET_RBSINFOMISC(Structure):
+        lRBSGeneration: Int32
+        logtimeCreate: win32more.Storage.Jet.JET_LOGTIME
+        logtimeCreatePrevRBS: win32more.Storage.Jet.JET_LOGTIME
+        ulMajor: UInt32
+        ulMinor: UInt32
+        cbLogicalFileSize: UInt64
+if ARCH in 'X86':
+    class JET_RBSINFOMISC(Structure):
+        lRBSGeneration: Int32
+        logtimeCreate: win32more.Storage.Jet.JET_LOGTIME
+        logtimeCreatePrevRBS: win32more.Storage.Jet.JET_LOGTIME
+        ulMajor: UInt32
+        ulMinor: UInt32
+        cbLogicalFileSize: UInt64
+        _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class JET_RBSREVERTINFOMISC(Structure):
+        lGenMinRevertStart: Int32
+        lGenMaxRevertStart: Int32
+        lGenMinRevertEnd: Int32
+        lGenMaxRevertEnd: Int32
+        logtimeRevertFrom: win32more.Storage.Jet.JET_LOGTIME
+        cSecRevert: UInt64
+        cPagesReverted: UInt64
+if ARCH in 'X86':
+    class JET_RBSREVERTINFOMISC(Structure):
+        lGenMinRevertStart: Int32
+        lGenMaxRevertStart: Int32
+        lGenMinRevertEnd: Int32
+        lGenMaxRevertEnd: Int32
+        logtimeRevertFrom: win32more.Storage.Jet.JET_LOGTIME
+        cSecRevert: UInt64
+        cPagesReverted: UInt64
+        _pack_ = 4
 class JET_RECORDLIST(Structure):
     cbStruct: UInt32
     tableid: win32more.Storage.StructuredStorage.JET_TABLEID
@@ -2036,27 +2083,54 @@ class JET_RECPOS(Structure):
     centriesLT: UInt32
     centriesInRange: UInt32
     centriesTotal: UInt32
-class JET_RECSIZE(Structure):
-    cbData: UInt64
-    cbLongValueData: UInt64
-    cbOverhead: UInt64
-    cbLongValueOverhead: UInt64
-    cNonTaggedColumns: UInt64
-    cTaggedColumns: UInt64
-    cLongValues: UInt64
-    cMultiValues: UInt64
-class JET_RECSIZE2(Structure):
-    cbData: UInt64
-    cbLongValueData: UInt64
-    cbOverhead: UInt64
-    cbLongValueOverhead: UInt64
-    cNonTaggedColumns: UInt64
-    cTaggedColumns: UInt64
-    cLongValues: UInt64
-    cMultiValues: UInt64
-    cCompressedColumns: UInt64
-    cbDataCompressed: UInt64
-    cbLongValueDataCompressed: UInt64
+if ARCH in 'X64,ARM64':
+    class JET_RECSIZE(Structure):
+        cbData: UInt64
+        cbLongValueData: UInt64
+        cbOverhead: UInt64
+        cbLongValueOverhead: UInt64
+        cNonTaggedColumns: UInt64
+        cTaggedColumns: UInt64
+        cLongValues: UInt64
+        cMultiValues: UInt64
+if ARCH in 'X86':
+    class JET_RECSIZE(Structure):
+        cbData: UInt64
+        cbLongValueData: UInt64
+        cbOverhead: UInt64
+        cbLongValueOverhead: UInt64
+        cNonTaggedColumns: UInt64
+        cTaggedColumns: UInt64
+        cLongValues: UInt64
+        cMultiValues: UInt64
+        _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class JET_RECSIZE2(Structure):
+        cbData: UInt64
+        cbLongValueData: UInt64
+        cbOverhead: UInt64
+        cbLongValueOverhead: UInt64
+        cNonTaggedColumns: UInt64
+        cTaggedColumns: UInt64
+        cLongValues: UInt64
+        cMultiValues: UInt64
+        cCompressedColumns: UInt64
+        cbDataCompressed: UInt64
+        cbLongValueDataCompressed: UInt64
+if ARCH in 'X86':
+    class JET_RECSIZE2(Structure):
+        cbData: UInt64
+        cbLongValueData: UInt64
+        cbOverhead: UInt64
+        cbLongValueOverhead: UInt64
+        cNonTaggedColumns: UInt64
+        cTaggedColumns: UInt64
+        cLongValues: UInt64
+        cMultiValues: UInt64
+        cCompressedColumns: UInt64
+        cbDataCompressed: UInt64
+        cbLongValueDataCompressed: UInt64
+        _pack_ = 4
 JET_RELOP = Int32
 JET_relopEquals: JET_RELOP = 0
 JET_relopPrefixEquals: JET_RELOP = 1
@@ -2279,17 +2353,31 @@ class JET_THREADSTATS(Structure):
     cPageRedirtied: UInt32
     cLogRecord: UInt32
     cbLogRecord: UInt32
-class JET_THREADSTATS2(Structure):
-    cbStruct: UInt32
-    cPageReferenced: UInt32
-    cPageRead: UInt32
-    cPagePreread: UInt32
-    cPageDirtied: UInt32
-    cPageRedirtied: UInt32
-    cLogRecord: UInt32
-    cbLogRecord: UInt32
-    cusecPageCacheMiss: UInt64
-    cPageCacheMiss: UInt32
+if ARCH in 'X64,ARM64':
+    class JET_THREADSTATS2(Structure):
+        cbStruct: UInt32
+        cPageReferenced: UInt32
+        cPageRead: UInt32
+        cPagePreread: UInt32
+        cPageDirtied: UInt32
+        cPageRedirtied: UInt32
+        cLogRecord: UInt32
+        cbLogRecord: UInt32
+        cusecPageCacheMiss: UInt64
+        cPageCacheMiss: UInt32
+if ARCH in 'X86':
+    class JET_THREADSTATS2(Structure):
+        cbStruct: UInt32
+        cPageReferenced: UInt32
+        cPageRead: UInt32
+        cPagePreread: UInt32
+        cPageDirtied: UInt32
+        cPageRedirtied: UInt32
+        cLogRecord: UInt32
+        cbLogRecord: UInt32
+        cusecPageCacheMiss: UInt64
+        cPageCacheMiss: UInt32
+        _pack_ = 4
 class JET_TUPLELIMITS(Structure):
     chLengthMin: UInt32
     chLengthMax: UInt32
@@ -2321,7 +2409,10 @@ make_head(_module, 'JET_COLUMNCREATE_A')
 make_head(_module, 'JET_COLUMNCREATE_W')
 make_head(_module, 'JET_COLUMNDEF')
 make_head(_module, 'JET_COLUMNLIST')
-make_head(_module, 'JET_COMMIT_ID')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_COMMIT_ID')
+if ARCH in 'X86':
+    make_head(_module, 'JET_COMMIT_ID')
 make_head(_module, 'JET_CONDITIONALCOLUMN_A')
 make_head(_module, 'JET_CONDITIONALCOLUMN_W')
 make_head(_module, 'JET_CONVERT_A')
@@ -2343,7 +2434,10 @@ make_head(_module, 'JET_INDEXCREATE2_A')
 make_head(_module, 'JET_INDEXCREATE2_W')
 make_head(_module, 'JET_INDEXCREATE3_A')
 make_head(_module, 'JET_INDEXCREATE3_W')
-make_head(_module, 'JET_INDEXID')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_INDEXID')
+if ARCH in 'X86':
+    make_head(_module, 'JET_INDEXID')
 make_head(_module, 'JET_INDEXLIST')
 make_head(_module, 'JET_INDEXRANGE')
 make_head(_module, 'JET_INSTANCE_INFO_A')
@@ -2352,7 +2446,10 @@ make_head(_module, 'JET_LGPOS')
 make_head(_module, 'JET_LOGINFO_A')
 make_head(_module, 'JET_LOGINFO_W')
 make_head(_module, 'JET_LOGTIME')
-make_head(_module, 'JET_OBJECTINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_OBJECTINFO')
+if ARCH in 'X86':
+    make_head(_module, 'JET_OBJECTINFO')
 make_head(_module, 'JET_OBJECTLIST')
 make_head(_module, 'JET_OPENTEMPORARYTABLE')
 make_head(_module, 'JET_OPENTEMPORARYTABLE2')
@@ -2360,12 +2457,24 @@ make_head(_module, 'JET_OPERATIONCONTEXT')
 make_head(_module, 'JET_PFNDURABLECOMMITCALLBACK')
 make_head(_module, 'JET_PFNREALLOC')
 make_head(_module, 'JET_PFNSTATUS')
-make_head(_module, 'JET_RBSINFOMISC')
-make_head(_module, 'JET_RBSREVERTINFOMISC')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_RBSINFOMISC')
+if ARCH in 'X86':
+    make_head(_module, 'JET_RBSINFOMISC')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_RBSREVERTINFOMISC')
+if ARCH in 'X86':
+    make_head(_module, 'JET_RBSREVERTINFOMISC')
 make_head(_module, 'JET_RECORDLIST')
 make_head(_module, 'JET_RECPOS')
-make_head(_module, 'JET_RECSIZE')
-make_head(_module, 'JET_RECSIZE2')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_RECSIZE')
+if ARCH in 'X86':
+    make_head(_module, 'JET_RECSIZE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_RECSIZE2')
+if ARCH in 'X86':
+    make_head(_module, 'JET_RECSIZE2')
 make_head(_module, 'JET_RETINFO')
 make_head(_module, 'JET_RETRIEVECOLUMN')
 make_head(_module, 'JET_RSTINFO_A')
@@ -2388,7 +2497,10 @@ make_head(_module, 'JET_TABLECREATE3_W')
 make_head(_module, 'JET_TABLECREATE4_A')
 make_head(_module, 'JET_TABLECREATE4_W')
 make_head(_module, 'JET_THREADSTATS')
-make_head(_module, 'JET_THREADSTATS2')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'JET_THREADSTATS2')
+if ARCH in 'X86':
+    make_head(_module, 'JET_THREADSTATS2')
 make_head(_module, 'JET_TUPLELIMITS')
 make_head(_module, 'JET_UNICODEINDEX')
 make_head(_module, 'JET_UNICODEINDEX2')
@@ -3691,4 +3803,6 @@ __all__ = [
     "cObjectInfoCols",
     "wrnBTNotVisibleAccumulated",
     "wrnBTNotVisibleRejected",
+]
+_arch_optional = [
 ]

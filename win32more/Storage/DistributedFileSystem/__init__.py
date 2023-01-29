@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.Storage.DistributedFileSystem
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -100,8 +102,9 @@ class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
     Buffer: Char * 1
 class DFS_INFO_1(Structure):
     EntryPath: win32more.Foundation.PWSTR
-class DFS_INFO_1_32(Structure):
-    EntryPath: UInt32
+if ARCH in 'X64,ARM64':
+    class DFS_INFO_1_32(Structure):
+        EntryPath: UInt32
 class DFS_INFO_100(Structure):
     Comment: win32more.Foundation.PWSTR
 class DFS_INFO_101(Structure):
@@ -138,11 +141,12 @@ class DFS_INFO_2(Structure):
     Comment: win32more.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
-class DFS_INFO_2_32(Structure):
-    EntryPath: UInt32
-    Comment: UInt32
-    State: UInt32
-    NumberOfStorages: UInt32
+if ARCH in 'X64,ARM64':
+    class DFS_INFO_2_32(Structure):
+        EntryPath: UInt32
+        Comment: UInt32
+        State: UInt32
+        NumberOfStorages: UInt32
 class DFS_INFO_200(Structure):
     FtDfsName: win32more.Foundation.PWSTR
 class DFS_INFO_3(Structure):
@@ -151,12 +155,13 @@ class DFS_INFO_3(Structure):
     State: UInt32
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
-class DFS_INFO_3_32(Structure):
-    EntryPath: UInt32
-    Comment: UInt32
-    State: UInt32
-    NumberOfStorages: UInt32
-    Storage: UInt32
+if ARCH in 'X64,ARM64':
+    class DFS_INFO_3_32(Structure):
+        EntryPath: UInt32
+        Comment: UInt32
+        State: UInt32
+        NumberOfStorages: UInt32
+        Storage: UInt32
 class DFS_INFO_300(Structure):
     Flags: UInt32
     DfsName: win32more.Foundation.PWSTR
@@ -168,14 +173,15 @@ class DFS_INFO_4(Structure):
     Guid: Guid
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
-class DFS_INFO_4_32(Structure):
-    EntryPath: UInt32
-    Comment: UInt32
-    State: UInt32
-    Timeout: UInt32
-    Guid: Guid
-    NumberOfStorages: UInt32
-    Storage: UInt32
+if ARCH in 'X64,ARM64':
+    class DFS_INFO_4_32(Structure):
+        EntryPath: UInt32
+        Comment: UInt32
+        State: UInt32
+        Timeout: UInt32
+        Guid: Guid
+        NumberOfStorages: UInt32
+        Storage: UInt32
 class DFS_INFO_5(Structure):
     EntryPath: win32more.Foundation.PWSTR
     Comment: win32more.Foundation.PWSTR
@@ -238,10 +244,11 @@ class DFS_STORAGE_INFO(Structure):
     State: UInt32
     ServerName: win32more.Foundation.PWSTR
     ShareName: win32more.Foundation.PWSTR
-class DFS_STORAGE_INFO_0_32(Structure):
-    State: UInt32
-    ServerName: UInt32
-    ShareName: UInt32
+if ARCH in 'X64,ARM64':
+    class DFS_STORAGE_INFO_0_32(Structure):
+        State: UInt32
+        ServerName: UInt32
+        ShareName: UInt32
 class DFS_STORAGE_INFO_1(Structure):
     State: UInt32
     ServerName: win32more.Foundation.PWSTR
@@ -267,7 +274,8 @@ DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: DFS_TARGET_PRIORITY_CLASS
 DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 4
 make_head(_module, 'DFS_GET_PKT_ENTRY_STATE_ARG')
 make_head(_module, 'DFS_INFO_1')
-make_head(_module, 'DFS_INFO_1_32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_INFO_1_32')
 make_head(_module, 'DFS_INFO_100')
 make_head(_module, 'DFS_INFO_101')
 make_head(_module, 'DFS_INFO_102')
@@ -278,13 +286,16 @@ make_head(_module, 'DFS_INFO_106')
 make_head(_module, 'DFS_INFO_107')
 make_head(_module, 'DFS_INFO_150')
 make_head(_module, 'DFS_INFO_2')
-make_head(_module, 'DFS_INFO_2_32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_INFO_2_32')
 make_head(_module, 'DFS_INFO_200')
 make_head(_module, 'DFS_INFO_3')
-make_head(_module, 'DFS_INFO_3_32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_INFO_3_32')
 make_head(_module, 'DFS_INFO_300')
 make_head(_module, 'DFS_INFO_4')
-make_head(_module, 'DFS_INFO_4_32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_INFO_4_32')
 make_head(_module, 'DFS_INFO_5')
 make_head(_module, 'DFS_INFO_50')
 make_head(_module, 'DFS_INFO_6')
@@ -294,7 +305,8 @@ make_head(_module, 'DFS_INFO_9')
 make_head(_module, 'DFS_SITELIST_INFO')
 make_head(_module, 'DFS_SITENAME_INFO')
 make_head(_module, 'DFS_STORAGE_INFO')
-make_head(_module, 'DFS_STORAGE_INFO_0_32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_STORAGE_INFO_0_32')
 make_head(_module, 'DFS_STORAGE_INFO_1')
 make_head(_module, 'DFS_SUPPORTED_NAMESPACE_VERSION_INFO')
 make_head(_module, 'DFS_TARGET_PRIORITY')
@@ -398,4 +410,11 @@ __all__ = [
     "NetDfsSetInfo",
     "NetDfsSetSecurity",
     "NetDfsSetStdContainerSecurity",
+]
+_arch_optional = [
+    "DFS_INFO_1_32",
+    "DFS_INFO_2_32",
+    "DFS_INFO_3_32",
+    "DFS_INFO_4_32",
+    "DFS_STORAGE_INFO_0_32",
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Media
 import win32more.Media.Audio
@@ -15,6 +15,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -292,20 +294,36 @@ class ACMFORMATTAGDETAILSW(Structure):
 def ACMFORMATTAGENUMCBA(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSA_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def ACMFORMATTAGENUMCBW(hadid: win32more.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Media.Audio.ACMFORMATTAGDETAILSW_head), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Foundation.BOOL: ...
-class ACMSTREAMHEADER(Structure):
-    cbStruct: UInt32
-    fdwStatus: UInt32
-    dwUser: UIntPtr
-    pbSrc: c_char_p_no
-    cbSrcLength: UInt32
-    cbSrcLengthUsed: UInt32
-    dwSrcUser: UIntPtr
-    pbDst: c_char_p_no
-    cbDstLength: UInt32
-    cbDstLengthUsed: UInt32
-    dwDstUser: UIntPtr
-    dwReservedDriver: UInt32 * 15
-    _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class ACMSTREAMHEADER(Structure):
+        cbStruct: UInt32
+        fdwStatus: UInt32
+        dwUser: UIntPtr
+        pbSrc: c_char_p_no
+        cbSrcLength: UInt32
+        cbSrcLengthUsed: UInt32
+        dwSrcUser: UIntPtr
+        pbDst: c_char_p_no
+        cbDstLength: UInt32
+        cbDstLengthUsed: UInt32
+        dwDstUser: UIntPtr
+        dwReservedDriver: UInt32 * 15
+        _pack_ = 1
+if ARCH in 'X86':
+    class ACMSTREAMHEADER(Structure):
+        cbStruct: UInt32
+        fdwStatus: UInt32
+        dwUser: UIntPtr
+        pbSrc: c_char_p_no
+        cbSrcLength: UInt32
+        cbSrcLengthUsed: UInt32
+        dwSrcUser: UIntPtr
+        pbDst: c_char_p_no
+        cbDstLength: UInt32
+        cbDstLengthUsed: UInt32
+        dwDstUser: UIntPtr
+        dwReservedDriver: UInt32 * 10
+        _pack_ = 1
 AMBISONICS_CHANNEL_ORDERING = Int32
 AMBISONICS_CHANNEL_ORDERING_ACN: AMBISONICS_CHANNEL_ORDERING = 0
 AMBISONICS_NORMALIZATION = Int32
@@ -2713,7 +2731,10 @@ make_head(_module, 'ACMFORMATTAGDETAILSA')
 make_head(_module, 'ACMFORMATTAGDETAILSW')
 make_head(_module, 'ACMFORMATTAGENUMCBA')
 make_head(_module, 'ACMFORMATTAGENUMCBW')
-make_head(_module, 'ACMSTREAMHEADER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ACMSTREAMHEADER')
+if ARCH in 'X86':
+    make_head(_module, 'ACMSTREAMHEADER')
 make_head(_module, 'AMBISONICS_PARAMS')
 make_head(_module, 'PKEY_AudioEndpoint_FormFactor')
 make_head(_module, 'PKEY_AudioEndpoint_ControlPanelPageProvider')
@@ -3906,4 +3927,6 @@ __all__ = [
     "waveOutSetVolume",
     "waveOutUnprepareHeader",
     "waveOutWrite",
+]
+_arch_optional = [
 ]

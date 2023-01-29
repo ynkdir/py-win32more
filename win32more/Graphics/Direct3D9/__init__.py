@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Direct3D
 import win32more.Graphics.Direct3D9
@@ -12,6 +12,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -354,20 +356,40 @@ def D3DPERF_GetStatus() -> UInt32: ...
 def Direct3DCreate9Ex(SDKVersion: UInt32, param1: POINTER(win32more.Graphics.Direct3D9.IDirect3D9Ex_head)) -> win32more.Foundation.HRESULT: ...
 class D3D_OMAC(Structure):
     Omac: Byte * 16
-class D3DADAPTER_IDENTIFIER9(Structure):
-    Driver: win32more.Foundation.CHAR * 512
-    Description: win32more.Foundation.CHAR * 512
-    DeviceName: win32more.Foundation.CHAR * 32
-    DriverVersion: win32more.Foundation.LARGE_INTEGER
-    VendorId: UInt32
-    DeviceId: UInt32
-    SubSysId: UInt32
-    Revision: UInt32
-    DeviceIdentifier: Guid
-    WHQLLevel: UInt32
-class D3DAES_CTR_IV(Structure):
-    IV: UInt64
-    Count: UInt64
+if ARCH in 'X64,ARM64':
+    class D3DADAPTER_IDENTIFIER9(Structure):
+        Driver: win32more.Foundation.CHAR * 512
+        Description: win32more.Foundation.CHAR * 512
+        DeviceName: win32more.Foundation.CHAR * 32
+        DriverVersion: win32more.Foundation.LARGE_INTEGER
+        VendorId: UInt32
+        DeviceId: UInt32
+        SubSysId: UInt32
+        Revision: UInt32
+        DeviceIdentifier: Guid
+        WHQLLevel: UInt32
+if ARCH in 'X86':
+    class D3DADAPTER_IDENTIFIER9(Structure):
+        Driver: win32more.Foundation.CHAR * 512
+        Description: win32more.Foundation.CHAR * 512
+        DeviceName: win32more.Foundation.CHAR * 32
+        DriverVersion: win32more.Foundation.LARGE_INTEGER
+        VendorId: UInt32
+        DeviceId: UInt32
+        SubSysId: UInt32
+        Revision: UInt32
+        DeviceIdentifier: Guid
+        WHQLLevel: UInt32
+        _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class D3DAES_CTR_IV(Structure):
+        IV: UInt64
+        Count: UInt64
+if ARCH in 'X86':
+    class D3DAES_CTR_IV(Structure):
+        IV: UInt64
+        Count: UInt64
+        _pack_ = 4
 class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(Structure):
     omac: win32more.Graphics.Direct3D9.D3D_OMAC
     ConfigureType: Guid
@@ -454,12 +476,21 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT(Structure):
     DeviceHandle: win32more.Foundation.HANDLE
     CryptoSessionHandle: win32more.Foundation.HANDLE
     OutputIDIndex: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(Structure):
-    Output: win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
-    DeviceHandle: win32more.Foundation.HANDLE
-    CryptoSessionHandle: win32more.Foundation.HANDLE
-    OutputIDIndex: UInt32
-    OutputID: UInt64
+if ARCH in 'X64,ARM64':
+    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(Structure):
+        Output: win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
+        DeviceHandle: win32more.Foundation.HANDLE
+        CryptoSessionHandle: win32more.Foundation.HANDLE
+        OutputIDIndex: UInt32
+        OutputID: UInt64
+if ARCH in 'X86':
+    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(Structure):
+        Output: win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
+        DeviceHandle: win32more.Foundation.HANDLE
+        CryptoSessionHandle: win32more.Foundation.HANDLE
+        OutputIDIndex: UInt32
+        OutputID: UInt64
+        _pack_ = 4
 class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_INPUT(Structure):
     Input: win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     DeviceHandle: win32more.Foundation.HANDLE
@@ -911,10 +942,17 @@ D3DMCS_MATERIAL: D3DMATERIALCOLORSOURCE = 0
 D3DMCS_COLOR1: D3DMATERIALCOLORSOURCE = 1
 D3DMCS_COLOR2: D3DMATERIALCOLORSOURCE = 2
 D3DMCS_FORCE_DWORD: D3DMATERIALCOLORSOURCE = 2147483647
-class D3DMEMORYPRESSURE(Structure):
-    BytesEvictedFromProcess: UInt64
-    SizeOfInefficientAllocation: UInt64
-    LevelOfEfficiency: UInt32
+if ARCH in 'X64,ARM64':
+    class D3DMEMORYPRESSURE(Structure):
+        BytesEvictedFromProcess: UInt64
+        SizeOfInefficientAllocation: UInt64
+        LevelOfEfficiency: UInt32
+if ARCH in 'X86':
+    class D3DMEMORYPRESSURE(Structure):
+        BytesEvictedFromProcess: UInt64
+        SizeOfInefficientAllocation: UInt64
+        LevelOfEfficiency: UInt32
+        _pack_ = 4
 D3DMULTISAMPLE_TYPE = Int32
 D3DMULTISAMPLE_NONE: D3DMULTISAMPLE_TYPE = 0
 D3DMULTISAMPLE_NONMASKABLE: D3DMULTISAMPLE_TYPE = 1
@@ -959,12 +997,21 @@ class D3DPRESENT_PARAMETERS(Structure):
     Flags: UInt32
     FullScreen_RefreshRateInHz: UInt32
     PresentationInterval: UInt32
-class D3DPRESENTSTATS(Structure):
-    PresentCount: UInt32
-    PresentRefreshCount: UInt32
-    SyncRefreshCount: UInt32
-    SyncQPCTime: win32more.Foundation.LARGE_INTEGER
-    SyncGPUTime: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X64,ARM64':
+    class D3DPRESENTSTATS(Structure):
+        PresentCount: UInt32
+        PresentRefreshCount: UInt32
+        SyncRefreshCount: UInt32
+        SyncQPCTime: win32more.Foundation.LARGE_INTEGER
+        SyncGPUTime: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X86':
+    class D3DPRESENTSTATS(Structure):
+        PresentCount: UInt32
+        PresentRefreshCount: UInt32
+        SyncRefreshCount: UInt32
+        SyncQPCTime: win32more.Foundation.LARGE_INTEGER
+        SyncGPUTime: win32more.Foundation.LARGE_INTEGER
+        _pack_ = 4
 D3DPRIMITIVETYPE = Int32
 D3DPT_POINTLIST: D3DPRIMITIVETYPE = 1
 D3DPT_LINELIST: D3DPRIMITIVETYPE = 2
@@ -2004,8 +2051,14 @@ class IDirect3DVolumeTexture9(c_void_p):
     @commethod(21)
     def AddDirtyBox(pDirtyBox: POINTER(win32more.Graphics.Direct3D9.D3DBOX_head)) -> win32more.Foundation.HRESULT: ...
 make_head(_module, 'D3D_OMAC')
-make_head(_module, 'D3DADAPTER_IDENTIFIER9')
-make_head(_module, 'D3DAES_CTR_IV')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DADAPTER_IDENTIFIER9')
+if ARCH in 'X86':
+    make_head(_module, 'D3DADAPTER_IDENTIFIER9')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DAES_CTR_IV')
+if ARCH in 'X86':
+    make_head(_module, 'D3DAES_CTR_IV')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION')
@@ -2025,7 +2078,10 @@ make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUIDCOUNT_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT')
-make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT')
+if ARCH in 'X86':
+    make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_INPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_OUTPUT')
 make_head(_module, 'D3DAUTHENTICATEDCHANNEL_QUERYPROTECTION_OUTPUT')
@@ -2059,9 +2115,15 @@ make_head(_module, 'D3DLIGHT9')
 make_head(_module, 'D3DLOCKED_BOX')
 make_head(_module, 'D3DLOCKED_RECT')
 make_head(_module, 'D3DMATERIAL9')
-make_head(_module, 'D3DMEMORYPRESSURE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DMEMORYPRESSURE')
+if ARCH in 'X86':
+    make_head(_module, 'D3DMEMORYPRESSURE')
 make_head(_module, 'D3DPRESENT_PARAMETERS')
-make_head(_module, 'D3DPRESENTSTATS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DPRESENTSTATS')
+if ARCH in 'X86':
+    make_head(_module, 'D3DPRESENTSTATS')
 make_head(_module, 'D3DPSHADERCAPS2_0')
 make_head(_module, 'D3DRANGE')
 make_head(_module, 'D3DRASTER_STATUS')
@@ -3226,4 +3288,6 @@ __all__ = [
     "PROCESSIDTYPE_HANDLE",
     "PROCESSIDTYPE_UNKNOWN",
     "_FACD3D",
+]
+_arch_optional = [
 ]

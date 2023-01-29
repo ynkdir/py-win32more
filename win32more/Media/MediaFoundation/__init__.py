@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.Graphics.Direct3D12
@@ -20,6 +20,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -4277,12 +4279,21 @@ class D3D12_VIDEO_SIZE_RANGE(Structure):
     MaxHeight: UInt32
     MinWidth: UInt32
     MinHeight: UInt32
-class D3DCONTENTPROTECTIONCAPS(Structure):
-    Caps: UInt32
-    KeyExchangeType: Guid
-    BufferAlignmentStart: UInt32
-    BlockAlignmentSize: UInt32
-    ProtectedMemorySize: UInt64
+if ARCH in 'X64,ARM64':
+    class D3DCONTENTPROTECTIONCAPS(Structure):
+        Caps: UInt32
+        KeyExchangeType: Guid
+        BufferAlignmentStart: UInt32
+        BlockAlignmentSize: UInt32
+        ProtectedMemorySize: UInt64
+if ARCH in 'X86':
+    class D3DCONTENTPROTECTIONCAPS(Structure):
+        Caps: UInt32
+        KeyExchangeType: Guid
+        BufferAlignmentStart: UInt32
+        BlockAlignmentSize: UInt32
+        ProtectedMemorySize: UInt64
+        _pack_ = 4
 class D3DOVERLAYCAPS(Structure):
     Caps: UInt32
     MaxOverlayDisplayWidth: UInt32
@@ -4379,16 +4390,17 @@ class DXVA_DeinterlaceBltEx(Structure):
     Source: win32more.Media.MediaFoundation.DXVA_VideoSample2 * 32
     DestinationFormat: UInt32
     DestinationFlags: UInt32
-class DXVA_DeinterlaceBltEx32(Structure):
-    Size: UInt32
-    BackgroundColor: win32more.Media.MediaFoundation.DXVA_AYUVsample2
-    rcTarget: win32more.Foundation.RECT
-    rtTarget: Int64
-    NumSourceSurfaces: UInt32
-    Alpha: Single
-    Source: win32more.Media.MediaFoundation.DXVA_VideoSample32 * 32
-    DestinationFormat: UInt32
-    DestinationFlags: UInt32
+if ARCH in 'X64,ARM64':
+    class DXVA_DeinterlaceBltEx32(Structure):
+        Size: UInt32
+        BackgroundColor: win32more.Media.MediaFoundation.DXVA_AYUVsample2
+        rcTarget: win32more.Foundation.RECT
+        rtTarget: Int64
+        NumSourceSurfaces: UInt32
+        Alpha: Single
+        Source: win32more.Media.MediaFoundation.DXVA_VideoSample32 * 32
+        DestinationFormat: UInt32
+        DestinationFlags: UInt32
 class DXVA_DeinterlaceCaps(Structure):
     Size: UInt32
     NumPreviousOutputFrames: UInt32
@@ -4576,26 +4588,38 @@ class DXVA_VideoSample(Structure):
     rtEnd: Int64
     SampleFormat: win32more.Media.MediaFoundation.DXVA_SampleFormat
     lpDDSSrcSurface: c_void_p
-class DXVA_VideoSample2(Structure):
-    Size: UInt32
-    Reserved: UInt32
-    rtStart: Int64
-    rtEnd: Int64
-    SampleFormat: UInt32
-    SampleFlags: UInt32
-    lpDDSSrcSurface: c_void_p
-    rcSrc: win32more.Foundation.RECT
-    rcDst: win32more.Foundation.RECT
-    Palette: win32more.Media.MediaFoundation.DXVA_AYUVsample2 * 16
-class DXVA_VideoSample32(Structure):
-    rtStart: Int64
-    rtEnd: Int64
-    SampleFormat: UInt32
-    SampleFlags: UInt32
-    lpDDSSrcSurface: UInt32
-    rcSrc: win32more.Foundation.RECT
-    rcDst: win32more.Foundation.RECT
-    Palette: win32more.Media.MediaFoundation.DXVA_AYUVsample2 * 16
+if ARCH in 'X64,ARM64':
+    class DXVA_VideoSample2(Structure):
+        Size: UInt32
+        Reserved: UInt32
+        rtStart: Int64
+        rtEnd: Int64
+        SampleFormat: UInt32
+        SampleFlags: UInt32
+        lpDDSSrcSurface: c_void_p
+        rcSrc: win32more.Foundation.RECT
+        rcDst: win32more.Foundation.RECT
+        Palette: win32more.Media.MediaFoundation.DXVA_AYUVsample2 * 16
+if ARCH in 'X86':
+    class DXVA_VideoSample2(Structure):
+        rtStart: Int64
+        rtEnd: Int64
+        SampleFormat: UInt32
+        SampleFlags: UInt32
+        lpDDSSrcSurface: c_void_p
+        rcSrc: win32more.Foundation.RECT
+        rcDst: win32more.Foundation.RECT
+        Palette: win32more.Media.MediaFoundation.DXVA_AYUVsample2 * 16
+if ARCH in 'X64,ARM64':
+    class DXVA_VideoSample32(Structure):
+        rtStart: Int64
+        rtEnd: Int64
+        SampleFormat: UInt32
+        SampleFlags: UInt32
+        lpDDSSrcSurface: UInt32
+        rcSrc: win32more.Foundation.RECT
+        rcDst: win32more.Foundation.RECT
+        Palette: win32more.Media.MediaFoundation.DXVA_AYUVsample2 * 16
 DXVA_VideoTransferFunction = Int32
 DXVA_VideoTransFuncShift: DXVA_VideoTransferFunction = 27
 DXVA_VideoTransFuncMask: DXVA_VideoTransferFunction = -134217728
@@ -11872,7 +11896,10 @@ make_head(_module, 'D3D12_VIDEO_PROCESS_TRANSFORM')
 make_head(_module, 'D3D12_VIDEO_SAMPLE')
 make_head(_module, 'D3D12_VIDEO_SCALE_SUPPORT')
 make_head(_module, 'D3D12_VIDEO_SIZE_RANGE')
-make_head(_module, 'D3DCONTENTPROTECTIONCAPS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'D3DCONTENTPROTECTIONCAPS')
+if ARCH in 'X86':
+    make_head(_module, 'D3DCONTENTPROTECTIONCAPS')
 make_head(_module, 'D3DOVERLAYCAPS')
 make_head(_module, 'DEVICE_INFO')
 make_head(_module, 'DigitalWindowSetting')
@@ -11886,7 +11913,8 @@ make_head(_module, 'DXVA_COPPStatusInput')
 make_head(_module, 'DXVA_COPPStatusOutput')
 make_head(_module, 'DXVA_DeinterlaceBlt')
 make_head(_module, 'DXVA_DeinterlaceBltEx')
-make_head(_module, 'DXVA_DeinterlaceBltEx32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DXVA_DeinterlaceBltEx32')
 make_head(_module, 'DXVA_DeinterlaceCaps')
 make_head(_module, 'DXVA_DeinterlaceQueryAvailableModes')
 make_head(_module, 'DXVA_DeinterlaceQueryModeCaps')
@@ -11899,8 +11927,12 @@ make_head(_module, 'DXVA_ProcAmpControlQueryRange')
 make_head(_module, 'DXVA_VideoDesc')
 make_head(_module, 'DXVA_VideoPropertyRange')
 make_head(_module, 'DXVA_VideoSample')
-make_head(_module, 'DXVA_VideoSample2')
-make_head(_module, 'DXVA_VideoSample32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DXVA_VideoSample2')
+if ARCH in 'X86':
+    make_head(_module, 'DXVA_VideoSample2')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DXVA_VideoSample32')
 make_head(_module, 'DXVA2_AES_CTR_IV')
 make_head(_module, 'DXVA2_AYUVSample16')
 make_head(_module, 'DXVA2_AYUVSample8')
@@ -18404,4 +18436,8 @@ __all__ = [
     "g_wszWMCPDefaultCrisp",
     "g_wszWMCPMaxPasses",
     "g_wszWMCPSupportedVBRModes",
+]
+_arch_optional = [
+    "DXVA_DeinterlaceBltEx32",
+    "DXVA_VideoSample32",
 ]

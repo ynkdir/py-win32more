@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Networking.WinHttp
 import win32more.Networking.WinSock
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -638,10 +640,17 @@ class WINHTTP_CERTIFICATE_INFO(Structure):
 class WINHTTP_CONNECTION_GROUP(Structure):
     cConnections: UInt32
     guidGroup: Guid
-class WINHTTP_CONNECTION_INFO(Structure):
-    cbSize: UInt32
-    LocalAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
-    RemoteAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+if ARCH in 'X64,ARM64':
+    class WINHTTP_CONNECTION_INFO(Structure):
+        cbSize: UInt32
+        LocalAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+        RemoteAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+if ARCH in 'X86':
+    class WINHTTP_CONNECTION_INFO(Structure):
+        cbSize: UInt32
+        LocalAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+        RemoteAddress: win32more.Networking.WinSock.SOCKADDR_STORAGE
+        _pack_ = 4
 class WINHTTP_CREDS(Structure):
     lpszUserName: win32more.Foundation.PSTR
     lpszPassword: win32more.Foundation.PSTR
@@ -693,9 +702,15 @@ WINHTTP_INTERNET_SCHEME_HTTP: WINHTTP_INTERNET_SCHEME = 1
 WINHTTP_INTERNET_SCHEME_HTTPS: WINHTTP_INTERNET_SCHEME = 2
 WINHTTP_INTERNET_SCHEME_FTP: WINHTTP_INTERNET_SCHEME = 3
 WINHTTP_INTERNET_SCHEME_SOCKS: WINHTTP_INTERNET_SCHEME = 4
-class WINHTTP_MATCH_CONNECTION_GUID(Structure):
-    ConnectionGuid: Guid
-    ullFlags: UInt64
+if ARCH in 'X64,ARM64':
+    class WINHTTP_MATCH_CONNECTION_GUID(Structure):
+        ConnectionGuid: Guid
+        ullFlags: UInt64
+if ARCH in 'X86':
+    class WINHTTP_MATCH_CONNECTION_GUID(Structure):
+        ConnectionGuid: Guid
+        ullFlags: UInt64
+        _pack_ = 4
 WINHTTP_OPEN_REQUEST_FLAGS = UInt32
 WINHTTP_FLAG_BYPASS_PROXY_CACHE: WINHTTP_OPEN_REQUEST_FLAGS = 256
 WINHTTP_FLAG_ESCAPE_DISABLE: WINHTTP_OPEN_REQUEST_FLAGS = 64
@@ -763,11 +778,19 @@ WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Size: WINHTTP_REQUE
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 15
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast: WINHTTP_REQUEST_STAT_ENTRY = 16
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax: WINHTTP_REQUEST_STAT_ENTRY = 32
-class WINHTTP_REQUEST_STATS(Structure):
-    ullFlags: UInt64
-    ulIndex: UInt32
-    cStats: UInt32
-    rgullStats: UInt64 * 32
+if ARCH in 'X64,ARM64':
+    class WINHTTP_REQUEST_STATS(Structure):
+        ullFlags: UInt64
+        ulIndex: UInt32
+        cStats: UInt32
+        rgullStats: UInt64 * 32
+if ARCH in 'X86':
+    class WINHTTP_REQUEST_STATS(Structure):
+        ullFlags: UInt64
+        ulIndex: UInt32
+        cStats: UInt32
+        rgullStats: UInt64 * 32
+        _pack_ = 4
 WINHTTP_REQUEST_TIME_ENTRY = Int32
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart: WINHTTP_REQUEST_TIME_ENTRY = 0
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionEnd: WINHTTP_REQUEST_TIME_ENTRY = 1
@@ -807,16 +830,32 @@ WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start: WINHTTP_REQU
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 35
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast: WINHTTP_REQUEST_TIME_ENTRY = 36
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax: WINHTTP_REQUEST_TIME_ENTRY = 64
-class WINHTTP_REQUEST_TIMES(Structure):
-    cTimes: UInt32
-    rgullTimes: UInt64 * 64
-class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
-    ulMaxResolverCacheEntries: UInt32
-    ulMaxCacheEntryAge: UInt32
-    ulMinCacheEntryTtl: UInt32
-    SecureDnsSetting: win32more.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING
-    ullConnResolutionWaitTime: UInt64
-    ullFlags: UInt64
+if ARCH in 'X64,ARM64':
+    class WINHTTP_REQUEST_TIMES(Structure):
+        cTimes: UInt32
+        rgullTimes: UInt64 * 64
+if ARCH in 'X86':
+    class WINHTTP_REQUEST_TIMES(Structure):
+        cTimes: UInt32
+        rgullTimes: UInt64 * 64
+        _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
+        ulMaxResolverCacheEntries: UInt32
+        ulMaxCacheEntryAge: UInt32
+        ulMinCacheEntryTtl: UInt32
+        SecureDnsSetting: win32more.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING
+        ullConnResolutionWaitTime: UInt64
+        ullFlags: UInt64
+if ARCH in 'X86':
+    class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
+        ulMaxResolverCacheEntries: UInt32
+        ulMaxCacheEntryAge: UInt32
+        ulMinCacheEntryTtl: UInt32
+        SecureDnsSetting: win32more.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING
+        ullConnResolutionWaitTime: UInt64
+        ullFlags: UInt64
+        _pack_ = 4
 WINHTTP_SECURE_DNS_SETTING = Int32
 WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingDefault: WINHTTP_SECURE_DNS_SETTING = 0
 WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingForcePlaintext: WINHTTP_SECURE_DNS_SETTING = 1
@@ -861,7 +900,10 @@ make_head(_module, 'WINHTTP_ASYNC_RESULT')
 make_head(_module, 'WINHTTP_AUTOPROXY_OPTIONS')
 make_head(_module, 'WINHTTP_CERTIFICATE_INFO')
 make_head(_module, 'WINHTTP_CONNECTION_GROUP')
-make_head(_module, 'WINHTTP_CONNECTION_INFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WINHTTP_CONNECTION_INFO')
+if ARCH in 'X86':
+    make_head(_module, 'WINHTTP_CONNECTION_INFO')
 make_head(_module, 'WINHTTP_CREDS')
 make_head(_module, 'WINHTTP_CREDS_EX')
 make_head(_module, 'WINHTTP_CURRENT_USER_IE_PROXY_CONFIG')
@@ -870,7 +912,10 @@ make_head(_module, 'WINHTTP_FAILED_CONNECTION_RETRIES')
 make_head(_module, 'WINHTTP_HEADER_NAME')
 make_head(_module, 'WINHTTP_HOST_CONNECTION_GROUP')
 make_head(_module, 'WINHTTP_HTTP2_RECEIVE_WINDOW')
-make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
+if ARCH in 'X86':
+    make_head(_module, 'WINHTTP_MATCH_CONNECTION_GUID')
 make_head(_module, 'WINHTTP_PROXY_INFO')
 make_head(_module, 'WINHTTP_PROXY_NETWORKING_KEY')
 make_head(_module, 'WINHTTP_PROXY_RESULT')
@@ -878,9 +923,18 @@ make_head(_module, 'WINHTTP_PROXY_RESULT_ENTRY')
 make_head(_module, 'WINHTTP_PROXY_RESULT_EX')
 make_head(_module, 'WINHTTP_PROXY_SETTINGS')
 make_head(_module, 'WINHTTP_QUERY_CONNECTION_GROUP_RESULT')
-make_head(_module, 'WINHTTP_REQUEST_STATS')
-make_head(_module, 'WINHTTP_REQUEST_TIMES')
-make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WINHTTP_REQUEST_STATS')
+if ARCH in 'X86':
+    make_head(_module, 'WINHTTP_REQUEST_STATS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WINHTTP_REQUEST_TIMES')
+if ARCH in 'X86':
+    make_head(_module, 'WINHTTP_REQUEST_TIMES')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
+if ARCH in 'X86':
+    make_head(_module, 'WINHTTP_RESOLVER_CACHE_CONFIG')
 make_head(_module, 'WINHTTP_STATUS_CALLBACK')
 make_head(_module, 'WINHTTP_WEB_SOCKET_ASYNC_RESULT')
 make_head(_module, 'WINHTTP_WEB_SOCKET_STATUS')
@@ -1550,4 +1604,6 @@ __all__ = [
     "WinHttpWebSocketShutdown",
     "WinHttpWriteData",
     "WinHttpWriteProxySettings",
+]
+_arch_optional = [
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.Graphics.DirectComposition
@@ -29,6 +29,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -3306,13 +3308,23 @@ APPACTION_CANGETSIZE: APPACTIONFLAGS = 32
 APPACTION_MODIFYREMOVE: APPACTIONFLAGS = 128
 APPACTION_ADDLATER: APPACTIONFLAGS = 256
 APPACTION_UNSCHEDULE: APPACTIONFLAGS = 512
-class APPBARDATA(Structure):
-    cbSize: UInt32
-    hWnd: win32more.Foundation.HWND
-    uCallbackMessage: UInt32
-    uEdge: UInt32
-    rc: win32more.Foundation.RECT
-    lParam: win32more.Foundation.LPARAM
+if ARCH in 'X64,ARM64':
+    class APPBARDATA(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uCallbackMessage: UInt32
+        uEdge: UInt32
+        rc: win32more.Foundation.RECT
+        lParam: win32more.Foundation.LPARAM
+if ARCH in 'X86':
+    class APPBARDATA(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uCallbackMessage: UInt32
+        uEdge: UInt32
+        rc: win32more.Foundation.RECT
+        lParam: win32more.Foundation.LPARAM
+        _pack_ = 1
 class APPCATEGORYINFO(Structure):
     Locale: UInt32
     pszDescription: win32more.Foundation.PWSTR
@@ -3440,10 +3452,17 @@ ASSOCF_INIT_FOR_FILE: ASSOCF = 8192
 ASSOCF_IS_FULL_URI: ASSOCF = 16384
 ASSOCF_PER_MACHINE_ONLY: ASSOCF = 32768
 ASSOCF_APP_TO_APP: ASSOCF = 65536
-class ASSOCIATIONELEMENT(Structure):
-    ac: win32more.UI.Shell.ASSOCCLASS
-    hkClass: win32more.System.Registry.HKEY
-    pszClass: win32more.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class ASSOCIATIONELEMENT(Structure):
+        ac: win32more.UI.Shell.ASSOCCLASS
+        hkClass: win32more.System.Registry.HKEY
+        pszClass: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class ASSOCIATIONELEMENT(Structure):
+        ac: win32more.UI.Shell.ASSOCCLASS
+        hkClass: win32more.System.Registry.HKEY
+        pszClass: win32more.Foundation.PWSTR
+        _pack_ = 1
 ASSOCIATIONLEVEL = Int32
 AL_MACHINE: ASSOCIATIONLEVEL = 0
 AL_EFFECTIVE: ASSOCIATIONLEVEL = 1
@@ -4019,18 +4038,36 @@ class DLLVERSIONINFO2(Structure):
     dwFlags: UInt32
     ullVersion: UInt64
 DocPropShellExtension = Guid('883373c3-bf89-11d1-be-35-08-00-36-b1-1a-03')
-class DRAGINFOA(Structure):
-    uSize: UInt32
-    pt: win32more.Foundation.POINT
-    fNC: win32more.Foundation.BOOL
-    lpFileList: win32more.Foundation.PSTR
-    grfKeyState: UInt32
-class DRAGINFOW(Structure):
-    uSize: UInt32
-    pt: win32more.Foundation.POINT
-    fNC: win32more.Foundation.BOOL
-    lpFileList: win32more.Foundation.PWSTR
-    grfKeyState: UInt32
+if ARCH in 'X64,ARM64':
+    class DRAGINFOA(Structure):
+        uSize: UInt32
+        pt: win32more.Foundation.POINT
+        fNC: win32more.Foundation.BOOL
+        lpFileList: win32more.Foundation.PSTR
+        grfKeyState: UInt32
+if ARCH in 'X86':
+    class DRAGINFOA(Structure):
+        uSize: UInt32
+        pt: win32more.Foundation.POINT
+        fNC: win32more.Foundation.BOOL
+        lpFileList: win32more.Foundation.PSTR
+        grfKeyState: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class DRAGINFOW(Structure):
+        uSize: UInt32
+        pt: win32more.Foundation.POINT
+        fNC: win32more.Foundation.BOOL
+        lpFileList: win32more.Foundation.PWSTR
+        grfKeyState: UInt32
+if ARCH in 'X86':
+    class DRAGINFOW(Structure):
+        uSize: UInt32
+        pt: win32more.Foundation.POINT
+        fNC: win32more.Foundation.BOOL
+        lpFileList: win32more.Foundation.PWSTR
+        grfKeyState: UInt32
+        _pack_ = 1
 DriveSizeCategorizer = Guid('94357b53-ca29-4b78-83-ae-e8-fe-74-09-13-4f')
 DriveTypeCategorizer = Guid('b0a8f3cf-4333-4bab-88-73-1c-cb-1c-ad-a4-8b')
 class DROPDESCRIPTION(Structure):
@@ -9724,49 +9761,103 @@ NIM_SETVERSION: NOTIFY_ICON_MESSAGE = 4
 NOTIFY_ICON_STATE = UInt32
 NIS_HIDDEN: NOTIFY_ICON_STATE = 1
 NIS_SHAREDICON: NOTIFY_ICON_STATE = 2
-class NOTIFYICONDATAA(Structure):
-    cbSize: UInt32
-    hWnd: win32more.Foundation.HWND
-    uID: UInt32
-    uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
-    uCallbackMessage: UInt32
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    szTip: win32more.Foundation.CHAR * 128
-    dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
-    dwStateMask: UInt32
-    szInfo: win32more.Foundation.CHAR * 256
-    Anonymous: _Anonymous_e__Union
-    szInfoTitle: win32more.Foundation.CHAR * 64
-    dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
-    guidItem: Guid
-    hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
-    class _Anonymous_e__Union(Union):
-        uTimeout: UInt32
-        uVersion: UInt32
-class NOTIFYICONDATAW(Structure):
-    cbSize: UInt32
-    hWnd: win32more.Foundation.HWND
-    uID: UInt32
-    uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
-    uCallbackMessage: UInt32
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    szTip: Char * 128
-    dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
-    dwStateMask: UInt32
-    szInfo: Char * 256
-    Anonymous: _Anonymous_e__Union
-    szInfoTitle: Char * 64
-    dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
-    guidItem: Guid
-    hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
-    class _Anonymous_e__Union(Union):
-        uTimeout: UInt32
-        uVersion: UInt32
-class NOTIFYICONIDENTIFIER(Structure):
-    cbSize: UInt32
-    hWnd: win32more.Foundation.HWND
-    uID: UInt32
-    guidItem: Guid
+if ARCH in 'X64,ARM64':
+    class NOTIFYICONDATAA(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
+        uCallbackMessage: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        szTip: win32more.Foundation.CHAR * 128
+        dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
+        dwStateMask: UInt32
+        szInfo: win32more.Foundation.CHAR * 256
+        Anonymous: _Anonymous_e__Union
+        szInfoTitle: win32more.Foundation.CHAR * 64
+        dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
+        guidItem: Guid
+        hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
+        class _Anonymous_e__Union(Union):
+            uTimeout: UInt32
+            uVersion: UInt32
+if ARCH in 'X86':
+    class NOTIFYICONDATAA(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
+        uCallbackMessage: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        szTip: win32more.Foundation.CHAR * 128
+        dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
+        dwStateMask: UInt32
+        szInfo: win32more.Foundation.CHAR * 256
+        Anonymous: _Anonymous_e__Union
+        szInfoTitle: win32more.Foundation.CHAR * 64
+        dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
+        guidItem: Guid
+        hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            uTimeout: UInt32
+            uVersion: UInt32
+            _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class NOTIFYICONDATAW(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
+        uCallbackMessage: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        szTip: Char * 128
+        dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
+        dwStateMask: UInt32
+        szInfo: Char * 256
+        Anonymous: _Anonymous_e__Union
+        szInfoTitle: Char * 64
+        dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
+        guidItem: Guid
+        hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
+        class _Anonymous_e__Union(Union):
+            uTimeout: UInt32
+            uVersion: UInt32
+if ARCH in 'X86':
+    class NOTIFYICONDATAW(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        uFlags: win32more.UI.Shell.NOTIFY_ICON_DATA_FLAGS
+        uCallbackMessage: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        szTip: Char * 128
+        dwState: win32more.UI.Shell.NOTIFY_ICON_STATE
+        dwStateMask: UInt32
+        szInfo: Char * 256
+        Anonymous: _Anonymous_e__Union
+        szInfoTitle: Char * 64
+        dwInfoFlags: win32more.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
+        guidItem: Guid
+        hBalloonIcon: win32more.UI.WindowsAndMessaging.HICON
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            uTimeout: UInt32
+            uVersion: UInt32
+            _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class NOTIFYICONIDENTIFIER(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        guidItem: Guid
+if ARCH in 'X86':
+    class NOTIFYICONIDENTIFIER(Structure):
+        cbSize: UInt32
+        hWnd: win32more.Foundation.HWND
+        uID: UInt32
+        guidItem: Guid
+        _pack_ = 1
 NPCredentialProvider = Guid('3dd6bec0-8193-4ffe-ae-25-e0-8e-39-ea-40-63')
 class NRESARRAY(Structure):
     cItems: UInt32
@@ -9859,18 +9950,36 @@ OAIF_FORCE_REGISTRATION: OPEN_AS_INFO_FLAGS = 8
 OAIF_HIDE_REGISTRATION: OPEN_AS_INFO_FLAGS = 32
 OAIF_URL_PROTOCOL: OPEN_AS_INFO_FLAGS = 64
 OAIF_FILE_IS_URI: OPEN_AS_INFO_FLAGS = 128
-class OPEN_PRINTER_PROPS_INFOA(Structure):
-    dwSize: UInt32
-    pszSheetName: win32more.Foundation.PSTR
-    uSheetIndex: UInt32
-    dwFlags: UInt32
-    bModal: win32more.Foundation.BOOL
-class OPEN_PRINTER_PROPS_INFOW(Structure):
-    dwSize: UInt32
-    pszSheetName: win32more.Foundation.PWSTR
-    uSheetIndex: UInt32
-    dwFlags: UInt32
-    bModal: win32more.Foundation.BOOL
+if ARCH in 'X64,ARM64':
+    class OPEN_PRINTER_PROPS_INFOA(Structure):
+        dwSize: UInt32
+        pszSheetName: win32more.Foundation.PSTR
+        uSheetIndex: UInt32
+        dwFlags: UInt32
+        bModal: win32more.Foundation.BOOL
+if ARCH in 'X86':
+    class OPEN_PRINTER_PROPS_INFOA(Structure):
+        dwSize: UInt32
+        pszSheetName: win32more.Foundation.PSTR
+        uSheetIndex: UInt32
+        dwFlags: UInt32
+        bModal: win32more.Foundation.BOOL
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OPEN_PRINTER_PROPS_INFOW(Structure):
+        dwSize: UInt32
+        pszSheetName: win32more.Foundation.PWSTR
+        uSheetIndex: UInt32
+        dwFlags: UInt32
+        bModal: win32more.Foundation.BOOL
+if ARCH in 'X86':
+    class OPEN_PRINTER_PROPS_INFOW(Structure):
+        dwSize: UInt32
+        pszSheetName: win32more.Foundation.PWSTR
+        uSheetIndex: UInt32
+        dwFlags: UInt32
+        bModal: win32more.Foundation.BOOL
+        _pack_ = 1
 class OPENASINFO(Structure):
     pcszFile: win32more.Foundation.PWSTR
     pcszClass: win32more.Foundation.PWSTR
@@ -10465,20 +10574,37 @@ class SHCOLUMNINIT(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
     wszFolder: Char * 260
-class SHCREATEPROCESSINFOW(Structure):
-    cbSize: UInt32
-    fMask: UInt32
-    hwnd: win32more.Foundation.HWND
-    pszFile: win32more.Foundation.PWSTR
-    pszParameters: win32more.Foundation.PWSTR
-    pszCurrentDirectory: win32more.Foundation.PWSTR
-    hUserToken: win32more.Foundation.HANDLE
-    lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
-    lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
-    bInheritHandles: win32more.Foundation.BOOL
-    dwCreationFlags: UInt32
-    lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head)
-    lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)
+if ARCH in 'X64,ARM64':
+    class SHCREATEPROCESSINFOW(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        pszFile: win32more.Foundation.PWSTR
+        pszParameters: win32more.Foundation.PWSTR
+        pszCurrentDirectory: win32more.Foundation.PWSTR
+        hUserToken: win32more.Foundation.HANDLE
+        lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
+        lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
+        bInheritHandles: win32more.Foundation.BOOL
+        dwCreationFlags: UInt32
+        lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head)
+        lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)
+if ARCH in 'X86':
+    class SHCREATEPROCESSINFOW(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        pszFile: win32more.Foundation.PWSTR
+        pszParameters: win32more.Foundation.PWSTR
+        pszCurrentDirectory: win32more.Foundation.PWSTR
+        hUserToken: win32more.Foundation.HANDLE
+        lpProcessAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
+        lpThreadAttributes: POINTER(win32more.Security.SECURITY_ATTRIBUTES_head)
+        bInheritHandles: win32more.Foundation.BOOL
+        dwCreationFlags: UInt32
+        lpStartupInfo: POINTER(win32more.System.Threading.STARTUPINFOW_head)
+        lpProcessInformation: POINTER(win32more.System.Threading.PROCESS_INFORMATION_head)
+        _pack_ = 1
 class SHDESCRIPTIONID(Structure):
     dwDescriptionId: win32more.UI.Shell.SHDID_ID
     clsid: Guid
@@ -10571,44 +10697,90 @@ SBSC_QUERY: SHELLBROWSERSHOWCONTROL = 3
 ShellBrowserWindow = Guid('c08afd90-f2a1-11d1-84-55-00-a0-c9-1f-38-80')
 ShellDesktop = Guid('00021400-0000-0000-c0-00-00-00-00-00-00-46')
 ShellDispatchInproc = Guid('0a89a860-d7b1-11ce-83-50-44-45-53-54-00-00')
-class SHELLEXECUTEINFOA(Structure):
-    cbSize: UInt32
-    fMask: UInt32
-    hwnd: win32more.Foundation.HWND
-    lpVerb: win32more.Foundation.PSTR
-    lpFile: win32more.Foundation.PSTR
-    lpParameters: win32more.Foundation.PSTR
-    lpDirectory: win32more.Foundation.PSTR
-    nShow: Int32
-    hInstApp: win32more.Foundation.HINSTANCE
-    lpIDList: c_void_p
-    lpClass: win32more.Foundation.PSTR
-    hkeyClass: win32more.System.Registry.HKEY
-    dwHotKey: UInt32
-    Anonymous: _Anonymous_e__Union
-    hProcess: win32more.Foundation.HANDLE
-    class _Anonymous_e__Union(Union):
-        hIcon: win32more.Foundation.HANDLE
-        hMonitor: win32more.Foundation.HANDLE
-class SHELLEXECUTEINFOW(Structure):
-    cbSize: UInt32
-    fMask: UInt32
-    hwnd: win32more.Foundation.HWND
-    lpVerb: win32more.Foundation.PWSTR
-    lpFile: win32more.Foundation.PWSTR
-    lpParameters: win32more.Foundation.PWSTR
-    lpDirectory: win32more.Foundation.PWSTR
-    nShow: Int32
-    hInstApp: win32more.Foundation.HINSTANCE
-    lpIDList: c_void_p
-    lpClass: win32more.Foundation.PWSTR
-    hkeyClass: win32more.System.Registry.HKEY
-    dwHotKey: UInt32
-    Anonymous: _Anonymous_e__Union
-    hProcess: win32more.Foundation.HANDLE
-    class _Anonymous_e__Union(Union):
-        hIcon: win32more.Foundation.HANDLE
-        hMonitor: win32more.Foundation.HANDLE
+if ARCH in 'X64,ARM64':
+    class SHELLEXECUTEINFOA(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        lpVerb: win32more.Foundation.PSTR
+        lpFile: win32more.Foundation.PSTR
+        lpParameters: win32more.Foundation.PSTR
+        lpDirectory: win32more.Foundation.PSTR
+        nShow: Int32
+        hInstApp: win32more.Foundation.HINSTANCE
+        lpIDList: c_void_p
+        lpClass: win32more.Foundation.PSTR
+        hkeyClass: win32more.System.Registry.HKEY
+        dwHotKey: UInt32
+        Anonymous: _Anonymous_e__Union
+        hProcess: win32more.Foundation.HANDLE
+        class _Anonymous_e__Union(Union):
+            hIcon: win32more.Foundation.HANDLE
+            hMonitor: win32more.Foundation.HANDLE
+if ARCH in 'X86':
+    class SHELLEXECUTEINFOA(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        lpVerb: win32more.Foundation.PSTR
+        lpFile: win32more.Foundation.PSTR
+        lpParameters: win32more.Foundation.PSTR
+        lpDirectory: win32more.Foundation.PSTR
+        nShow: Int32
+        hInstApp: win32more.Foundation.HINSTANCE
+        lpIDList: c_void_p
+        lpClass: win32more.Foundation.PSTR
+        hkeyClass: win32more.System.Registry.HKEY
+        dwHotKey: UInt32
+        Anonymous: _Anonymous_e__Union
+        hProcess: win32more.Foundation.HANDLE
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            hIcon: win32more.Foundation.HANDLE
+            hMonitor: win32more.Foundation.HANDLE
+            _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SHELLEXECUTEINFOW(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        lpVerb: win32more.Foundation.PWSTR
+        lpFile: win32more.Foundation.PWSTR
+        lpParameters: win32more.Foundation.PWSTR
+        lpDirectory: win32more.Foundation.PWSTR
+        nShow: Int32
+        hInstApp: win32more.Foundation.HINSTANCE
+        lpIDList: c_void_p
+        lpClass: win32more.Foundation.PWSTR
+        hkeyClass: win32more.System.Registry.HKEY
+        dwHotKey: UInt32
+        Anonymous: _Anonymous_e__Union
+        hProcess: win32more.Foundation.HANDLE
+        class _Anonymous_e__Union(Union):
+            hIcon: win32more.Foundation.HANDLE
+            hMonitor: win32more.Foundation.HANDLE
+if ARCH in 'X86':
+    class SHELLEXECUTEINFOW(Structure):
+        cbSize: UInt32
+        fMask: UInt32
+        hwnd: win32more.Foundation.HWND
+        lpVerb: win32more.Foundation.PWSTR
+        lpFile: win32more.Foundation.PWSTR
+        lpParameters: win32more.Foundation.PWSTR
+        lpDirectory: win32more.Foundation.PWSTR
+        nShow: Int32
+        hInstApp: win32more.Foundation.HINSTANCE
+        lpIDList: c_void_p
+        lpClass: win32more.Foundation.PWSTR
+        hkeyClass: win32more.System.Registry.HKEY
+        dwHotKey: UInt32
+        Anonymous: _Anonymous_e__Union
+        hProcess: win32more.Foundation.HANDLE
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            hIcon: win32more.Foundation.HANDLE
+            hMonitor: win32more.Foundation.HANDLE
+            _pack_ = 1
 class SHELLFLAGSTATE(Structure):
     _bitfield: Int32
     _pack_ = 1
@@ -10701,36 +10873,78 @@ SWC_BROWSER: ShellWindowTypeConstants = 1
 SWC_3RDPARTY: ShellWindowTypeConstants = 2
 SWC_CALLBACK: ShellWindowTypeConstants = 4
 SWC_DESKTOP: ShellWindowTypeConstants = 8
-class SHFILEINFOA(Structure):
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    iIcon: Int32
-    dwAttributes: UInt32
-    szDisplayName: win32more.Foundation.CHAR * 260
-    szTypeName: win32more.Foundation.CHAR * 80
-class SHFILEINFOW(Structure):
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    iIcon: Int32
-    dwAttributes: UInt32
-    szDisplayName: Char * 260
-    szTypeName: Char * 80
-class SHFILEOPSTRUCTA(Structure):
-    hwnd: win32more.Foundation.HWND
-    wFunc: UInt32
-    pFrom: POINTER(SByte)
-    pTo: POINTER(SByte)
-    fFlags: UInt16
-    fAnyOperationsAborted: win32more.Foundation.BOOL
-    hNameMappings: c_void_p
-    lpszProgressTitle: win32more.Foundation.PSTR
-class SHFILEOPSTRUCTW(Structure):
-    hwnd: win32more.Foundation.HWND
-    wFunc: UInt32
-    pFrom: win32more.Foundation.PWSTR
-    pTo: win32more.Foundation.PWSTR
-    fFlags: UInt16
-    fAnyOperationsAborted: win32more.Foundation.BOOL
-    hNameMappings: c_void_p
-    lpszProgressTitle: win32more.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class SHFILEINFOA(Structure):
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iIcon: Int32
+        dwAttributes: UInt32
+        szDisplayName: win32more.Foundation.CHAR * 260
+        szTypeName: win32more.Foundation.CHAR * 80
+if ARCH in 'X86':
+    class SHFILEINFOA(Structure):
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iIcon: Int32
+        dwAttributes: UInt32
+        szDisplayName: win32more.Foundation.CHAR * 260
+        szTypeName: win32more.Foundation.CHAR * 80
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SHFILEINFOW(Structure):
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iIcon: Int32
+        dwAttributes: UInt32
+        szDisplayName: Char * 260
+        szTypeName: Char * 80
+if ARCH in 'X86':
+    class SHFILEINFOW(Structure):
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iIcon: Int32
+        dwAttributes: UInt32
+        szDisplayName: Char * 260
+        szTypeName: Char * 80
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SHFILEOPSTRUCTA(Structure):
+        hwnd: win32more.Foundation.HWND
+        wFunc: UInt32
+        pFrom: POINTER(SByte)
+        pTo: POINTER(SByte)
+        fFlags: UInt16
+        fAnyOperationsAborted: win32more.Foundation.BOOL
+        hNameMappings: c_void_p
+        lpszProgressTitle: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class SHFILEOPSTRUCTA(Structure):
+        hwnd: win32more.Foundation.HWND
+        wFunc: UInt32
+        pFrom: POINTER(SByte)
+        pTo: POINTER(SByte)
+        fFlags: UInt16
+        fAnyOperationsAborted: win32more.Foundation.BOOL
+        hNameMappings: c_void_p
+        lpszProgressTitle: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SHFILEOPSTRUCTW(Structure):
+        hwnd: win32more.Foundation.HWND
+        wFunc: UInt32
+        pFrom: win32more.Foundation.PWSTR
+        pTo: win32more.Foundation.PWSTR
+        fFlags: UInt16
+        fAnyOperationsAborted: win32more.Foundation.BOOL
+        hNameMappings: c_void_p
+        lpszProgressTitle: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class SHFILEOPSTRUCTW(Structure):
+        hwnd: win32more.Foundation.HWND
+        wFunc: UInt32
+        pFrom: win32more.Foundation.PWSTR
+        pTo: win32more.Foundation.PWSTR
+        fFlags: UInt16
+        fAnyOperationsAborted: win32more.Foundation.BOOL
+        hNameMappings: c_void_p
+        lpszProgressTitle: win32more.Foundation.PWSTR
+        _pack_ = 1
 ShFindChangeNotificationHandle = IntPtr
 SHFMT_ID = UInt32
 SHFMT_ID_DEFAULT: SHFMT_ID = 65535
@@ -10860,25 +11074,48 @@ SHGSI_SELECTED: SHGSI_FLAGS = 65536
 SHGSI_LARGEICON: SHGSI_FLAGS = 0
 SHGSI_SMALLICON: SHGSI_FLAGS = 1
 SHGSI_SHELLICONSIZE: SHGSI_FLAGS = 4
-class SHNAMEMAPPINGA(Structure):
-    pszOldPath: win32more.Foundation.PSTR
-    pszNewPath: win32more.Foundation.PSTR
-    cchOldPath: Int32
-    cchNewPath: Int32
-class SHNAMEMAPPINGW(Structure):
-    pszOldPath: win32more.Foundation.PWSTR
-    pszNewPath: win32more.Foundation.PWSTR
-    cchOldPath: Int32
-    cchNewPath: Int32
+if ARCH in 'X64,ARM64':
+    class SHNAMEMAPPINGA(Structure):
+        pszOldPath: win32more.Foundation.PSTR
+        pszNewPath: win32more.Foundation.PSTR
+        cchOldPath: Int32
+        cchNewPath: Int32
+if ARCH in 'X86':
+    class SHNAMEMAPPINGA(Structure):
+        pszOldPath: win32more.Foundation.PSTR
+        pszNewPath: win32more.Foundation.PSTR
+        cchOldPath: Int32
+        cchNewPath: Int32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SHNAMEMAPPINGW(Structure):
+        pszOldPath: win32more.Foundation.PWSTR
+        pszNewPath: win32more.Foundation.PWSTR
+        cchOldPath: Int32
+        cchNewPath: Int32
+if ARCH in 'X86':
+    class SHNAMEMAPPINGW(Structure):
+        pszOldPath: win32more.Foundation.PWSTR
+        pszNewPath: win32more.Foundation.PWSTR
+        cchOldPath: Int32
+        cchNewPath: Int32
+        _pack_ = 1
 SHOP_TYPE = Int32
 SHOP_PRINTERNAME: SHOP_TYPE = 1
 SHOP_FILEPATH: SHOP_TYPE = 2
 SHOP_VOLUMEGUID: SHOP_TYPE = 4
 ShowInputPaneAnimationCoordinator = Guid('1f046abf-3202-4dc1-8c-b5-3c-67-61-7c-e1-fa')
-class SHQUERYRBINFO(Structure):
-    cbSize: UInt32
-    i64Size: Int64
-    i64NumItems: Int64
+if ARCH in 'X64,ARM64':
+    class SHQUERYRBINFO(Structure):
+        cbSize: UInt32
+        i64Size: Int64
+        i64NumItems: Int64
+if ARCH in 'X86':
+    class SHQUERYRBINFO(Structure):
+        cbSize: UInt32
+        i64Size: Int64
+        i64NumItems: Int64
+        _pack_ = 1
 SHREGDEL_FLAGS = Int32
 SHREGDEL_DEFAULT: SHREGDEL_FLAGS = 0
 SHREGDEL_HKCU: SHREGDEL_FLAGS = 1
@@ -10984,12 +11221,21 @@ SIID_MEDIABDR: SHSTOCKICONID = 138
 SIID_MEDIABDRE: SHSTOCKICONID = 139
 SIID_CLUSTEREDDRIVE: SHSTOCKICONID = 140
 SIID_MAX_ICONS: SHSTOCKICONID = 181
-class SHSTOCKICONINFO(Structure):
-    cbSize: UInt32
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    iSysImageIndex: Int32
-    iIcon: Int32
-    szPath: Char * 260
+if ARCH in 'X64,ARM64':
+    class SHSTOCKICONINFO(Structure):
+        cbSize: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iSysImageIndex: Int32
+        iIcon: Int32
+        szPath: Char * 260
+if ARCH in 'X86':
+    class SHSTOCKICONINFO(Structure):
+        cbSize: UInt32
+        hIcon: win32more.UI.WindowsAndMessaging.HICON
+        iSysImageIndex: Int32
+        iIcon: Int32
+        szPath: Char * 260
+        _pack_ = 1
 SIATTRIBFLAGS = Int32
 SIATTRIBFLAGS_AND: SIATTRIBFLAGS = 1
 SIATTRIBFLAGS_OR: SIATTRIBFLAGS = 2
@@ -11586,12 +11832,18 @@ make_head(_module, '_APPCONSTRAIN_REGISTRATION')
 make_head(_module, '_APPSTATE_REGISTRATION')
 make_head(_module, 'AASHELLMENUFILENAME')
 make_head(_module, 'AASHELLMENUITEM')
-make_head(_module, 'APPBARDATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'APPBARDATA')
+if ARCH in 'X86':
+    make_head(_module, 'APPBARDATA')
 make_head(_module, 'APPCATEGORYINFO')
 make_head(_module, 'APPCATEGORYINFOLIST')
 make_head(_module, 'APPINFODATA')
 make_head(_module, 'APPLET_PROC')
-make_head(_module, 'ASSOCIATIONELEMENT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ASSOCIATIONELEMENT')
+if ARCH in 'X86':
+    make_head(_module, 'ASSOCIATIONELEMENT')
 make_head(_module, 'AUTO_SCROLL_DATA')
 make_head(_module, 'BANDINFOSFB')
 make_head(_module, 'BANDSITEINFO')
@@ -11625,8 +11877,14 @@ make_head(_module, 'DFMICS')
 make_head(_module, 'DLLGETVERSIONPROC')
 make_head(_module, 'DLLVERSIONINFO')
 make_head(_module, 'DLLVERSIONINFO2')
-make_head(_module, 'DRAGINFOA')
-make_head(_module, 'DRAGINFOW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DRAGINFOA')
+if ARCH in 'X86':
+    make_head(_module, 'DRAGINFOA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DRAGINFOW')
+if ARCH in 'X86':
+    make_head(_module, 'DRAGINFOW')
 make_head(_module, 'DROPDESCRIPTION')
 make_head(_module, 'DROPFILES')
 make_head(_module, 'DShellFolderViewEvents')
@@ -12070,15 +12328,30 @@ make_head(_module, 'MULTIKEYHELPW')
 make_head(_module, 'NC_ADDRESS')
 make_head(_module, 'NEWCPLINFOA')
 make_head(_module, 'NEWCPLINFOW')
-make_head(_module, 'NOTIFYICONDATAA')
-make_head(_module, 'NOTIFYICONDATAW')
-make_head(_module, 'NOTIFYICONIDENTIFIER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'NOTIFYICONDATAA')
+if ARCH in 'X86':
+    make_head(_module, 'NOTIFYICONDATAA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'NOTIFYICONDATAW')
+if ARCH in 'X86':
+    make_head(_module, 'NOTIFYICONDATAW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'NOTIFYICONIDENTIFIER')
+if ARCH in 'X86':
+    make_head(_module, 'NOTIFYICONIDENTIFIER')
 make_head(_module, 'NRESARRAY')
 make_head(_module, 'NSTCCUSTOMDRAW')
 make_head(_module, 'NT_CONSOLE_PROPS')
 make_head(_module, 'NT_FE_CONSOLE_PROPS')
-make_head(_module, 'OPEN_PRINTER_PROPS_INFOA')
-make_head(_module, 'OPEN_PRINTER_PROPS_INFOW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPEN_PRINTER_PROPS_INFOA')
+if ARCH in 'X86':
+    make_head(_module, 'OPEN_PRINTER_PROPS_INFOA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPEN_PRINTER_PROPS_INFOW')
+if ARCH in 'X86':
+    make_head(_module, 'OPEN_PRINTER_PROPS_INFOW')
 make_head(_module, 'OPENASINFO')
 make_head(_module, 'PAPPCONSTRAIN_CHANGE_ROUTINE')
 make_head(_module, 'PAPPSTATE_CHANGE_ROUTINE')
@@ -12109,24 +12382,57 @@ make_head(_module, 'SHChangeUpdateImageIDList')
 make_head(_module, 'SHCOLUMNDATA')
 make_head(_module, 'SHCOLUMNINFO')
 make_head(_module, 'SHCOLUMNINIT')
-make_head(_module, 'SHCREATEPROCESSINFOW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHCREATEPROCESSINFOW')
+if ARCH in 'X86':
+    make_head(_module, 'SHCREATEPROCESSINFOW')
 make_head(_module, 'SHDESCRIPTIONID')
 make_head(_module, 'SHDRAGIMAGE')
 make_head(_module, 'SHELL_ITEM_RESOURCE')
-make_head(_module, 'SHELLEXECUTEINFOA')
-make_head(_module, 'SHELLEXECUTEINFOW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHELLEXECUTEINFOA')
+if ARCH in 'X86':
+    make_head(_module, 'SHELLEXECUTEINFOA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHELLEXECUTEINFOW')
+if ARCH in 'X86':
+    make_head(_module, 'SHELLEXECUTEINFOW')
 make_head(_module, 'SHELLFLAGSTATE')
 make_head(_module, 'SHELLSTATEA')
 make_head(_module, 'SHELLSTATEW')
-make_head(_module, 'SHFILEINFOA')
-make_head(_module, 'SHFILEINFOW')
-make_head(_module, 'SHFILEOPSTRUCTA')
-make_head(_module, 'SHFILEOPSTRUCTW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHFILEINFOA')
+if ARCH in 'X86':
+    make_head(_module, 'SHFILEINFOA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHFILEINFOW')
+if ARCH in 'X86':
+    make_head(_module, 'SHFILEINFOW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHFILEOPSTRUCTA')
+if ARCH in 'X86':
+    make_head(_module, 'SHFILEOPSTRUCTA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHFILEOPSTRUCTW')
+if ARCH in 'X86':
+    make_head(_module, 'SHFILEOPSTRUCTW')
 make_head(_module, 'SHFOLDERCUSTOMSETTINGS')
-make_head(_module, 'SHNAMEMAPPINGA')
-make_head(_module, 'SHNAMEMAPPINGW')
-make_head(_module, 'SHQUERYRBINFO')
-make_head(_module, 'SHSTOCKICONINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHNAMEMAPPINGA')
+if ARCH in 'X86':
+    make_head(_module, 'SHNAMEMAPPINGA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHNAMEMAPPINGW')
+if ARCH in 'X86':
+    make_head(_module, 'SHNAMEMAPPINGW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHQUERYRBINFO')
+if ARCH in 'X86':
+    make_head(_module, 'SHQUERYRBINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SHSTOCKICONINFO')
+if ARCH in 'X86':
+    make_head(_module, 'SHSTOCKICONINFO')
 make_head(_module, 'SLOWAPPINFO')
 make_head(_module, 'SMCSHCHANGENOTIFYSTRUCT')
 make_head(_module, 'SMDATA')
@@ -17489,4 +17795,6 @@ __all__ = [
     "wnsprintfW",
     "wvnsprintfA",
     "wvnsprintfW",
+]
+_arch_optional = [
 ]

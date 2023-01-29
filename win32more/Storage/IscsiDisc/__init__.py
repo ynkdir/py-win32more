@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.IscsiDisc
 import win32more.System.Ioctl
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -369,19 +371,20 @@ class ATA_PASS_THROUGH_DIRECT(Structure):
     DataBuffer: c_void_p
     PreviousTaskFile: Byte * 8
     CurrentTaskFile: Byte * 8
-class ATA_PASS_THROUGH_DIRECT32(Structure):
-    Length: UInt16
-    AtaFlags: UInt16
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    ReservedAsUchar: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    ReservedAsUlong: UInt32
-    DataBuffer: c_void_p
-    PreviousTaskFile: Byte * 8
-    CurrentTaskFile: Byte * 8
+if ARCH in 'X64,ARM64':
+    class ATA_PASS_THROUGH_DIRECT32(Structure):
+        Length: UInt16
+        AtaFlags: UInt16
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        ReservedAsUchar: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        ReservedAsUlong: UInt32
+        DataBuffer: c_void_p
+        PreviousTaskFile: Byte * 8
+        CurrentTaskFile: Byte * 8
 class ATA_PASS_THROUGH_EX(Structure):
     Length: UInt16
     AtaFlags: UInt16
@@ -395,19 +398,20 @@ class ATA_PASS_THROUGH_EX(Structure):
     DataBufferOffset: UIntPtr
     PreviousTaskFile: Byte * 8
     CurrentTaskFile: Byte * 8
-class ATA_PASS_THROUGH_EX32(Structure):
-    Length: UInt16
-    AtaFlags: UInt16
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    ReservedAsUchar: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    ReservedAsUlong: UInt32
-    DataBufferOffset: UInt32
-    PreviousTaskFile: Byte * 8
-    CurrentTaskFile: Byte * 8
+if ARCH in 'X64,ARM64':
+    class ATA_PASS_THROUGH_EX32(Structure):
+        Length: UInt16
+        AtaFlags: UInt16
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        ReservedAsUchar: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        ReservedAsUlong: UInt32
+        DataBufferOffset: UInt32
+        PreviousTaskFile: Byte * 8
+        CurrentTaskFile: Byte * 8
 class DSM_NOTIFICATION_REQUEST_BLOCK(Structure):
     Size: UInt32
     Version: UInt32
@@ -734,20 +738,22 @@ class MPIO_PASS_THROUGH_PATH_DIRECT_EX(Structure):
     Flags: Byte
     PortNumber: Byte
     MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT32(Structure):
-    PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT32
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(Structure):
-    PassThroughOffset: UInt32
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH_DIRECT32(Structure):
+        PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(Structure):
+        PassThroughOffset: UInt32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
 class MPIO_PASS_THROUGH_PATH_EX(Structure):
     PassThroughOffset: UInt32
     Version: UInt32
@@ -755,20 +761,22 @@ class MPIO_PASS_THROUGH_PATH_EX(Structure):
     Flags: Byte
     PortNumber: Byte
     MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH32(Structure):
-    PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH32
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH32_EX(Structure):
-    PassThroughOffset: UInt32
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH32(Structure):
+        PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH32_EX(Structure):
+        PassThroughOffset: UInt32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
 class NTSCSI_UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
@@ -932,37 +940,39 @@ class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
     DataOutBuffer: c_void_p
     DataInBuffer: c_void_p
     Cdb: Byte * 1
-class SCSI_PASS_THROUGH_DIRECT32(Structure):
-    Length: UInt16
-    ScsiStatus: Byte
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    CdbLength: Byte
-    SenseInfoLength: Byte
-    DataIn: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    DataBuffer: c_void_p
-    SenseInfoOffset: UInt32
-    Cdb: Byte * 16
-class SCSI_PASS_THROUGH_DIRECT32_EX(Structure):
-    Version: UInt32
-    Length: UInt32
-    CdbLength: UInt32
-    StorAddressLength: UInt32
-    ScsiStatus: Byte
-    SenseInfoLength: Byte
-    DataDirection: Byte
-    Reserved: Byte
-    TimeOutValue: UInt32
-    StorAddressOffset: UInt32
-    SenseInfoOffset: UInt32
-    DataOutTransferLength: UInt32
-    DataInTransferLength: UInt32
-    DataOutBuffer: c_void_p
-    DataInBuffer: c_void_p
-    Cdb: Byte * 1
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH_DIRECT32(Structure):
+        Length: UInt16
+        ScsiStatus: Byte
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        CdbLength: Byte
+        SenseInfoLength: Byte
+        DataIn: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        DataBuffer: c_void_p
+        SenseInfoOffset: UInt32
+        Cdb: Byte * 16
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH_DIRECT32_EX(Structure):
+        Version: UInt32
+        Length: UInt32
+        CdbLength: UInt32
+        StorAddressLength: UInt32
+        ScsiStatus: Byte
+        SenseInfoLength: Byte
+        DataDirection: Byte
+        Reserved: Byte
+        TimeOutValue: UInt32
+        StorAddressOffset: UInt32
+        SenseInfoOffset: UInt32
+        DataOutTransferLength: UInt32
+        DataInTransferLength: UInt32
+        DataOutBuffer: c_void_p
+        DataInBuffer: c_void_p
+        Cdb: Byte * 1
 class SCSI_PASS_THROUGH_EX(Structure):
     Version: UInt32
     Length: UInt32
@@ -980,37 +990,39 @@ class SCSI_PASS_THROUGH_EX(Structure):
     DataOutBufferOffset: UIntPtr
     DataInBufferOffset: UIntPtr
     Cdb: Byte * 1
-class SCSI_PASS_THROUGH32(Structure):
-    Length: UInt16
-    ScsiStatus: Byte
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    CdbLength: Byte
-    SenseInfoLength: Byte
-    DataIn: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    DataBufferOffset: UInt32
-    SenseInfoOffset: UInt32
-    Cdb: Byte * 16
-class SCSI_PASS_THROUGH32_EX(Structure):
-    Version: UInt32
-    Length: UInt32
-    CdbLength: UInt32
-    StorAddressLength: UInt32
-    ScsiStatus: Byte
-    SenseInfoLength: Byte
-    DataDirection: Byte
-    Reserved: Byte
-    TimeOutValue: UInt32
-    StorAddressOffset: UInt32
-    SenseInfoOffset: UInt32
-    DataOutTransferLength: UInt32
-    DataInTransferLength: UInt32
-    DataOutBufferOffset: UInt32
-    DataInBufferOffset: UInt32
-    Cdb: Byte * 1
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH32(Structure):
+        Length: UInt16
+        ScsiStatus: Byte
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        CdbLength: Byte
+        SenseInfoLength: Byte
+        DataIn: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        DataBufferOffset: UInt32
+        SenseInfoOffset: UInt32
+        Cdb: Byte * 16
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH32_EX(Structure):
+        Version: UInt32
+        Length: UInt32
+        CdbLength: UInt32
+        StorAddressLength: UInt32
+        ScsiStatus: Byte
+        SenseInfoLength: Byte
+        DataDirection: Byte
+        Reserved: Byte
+        TimeOutValue: UInt32
+        StorAddressOffset: UInt32
+        SenseInfoOffset: UInt32
+        DataOutTransferLength: UInt32
+        DataInTransferLength: UInt32
+        DataOutBufferOffset: UInt32
+        DataInBufferOffset: UInt32
+        Cdb: Byte * 1
 class SRB_IO_CONTROL(Structure):
     HeaderLength: UInt32
     Signature: Byte * 8
@@ -1107,9 +1119,11 @@ TARGETPROTOCOLTYPE = Int32
 ISCSI_TCP_PROTOCOL_TYPE: TARGETPROTOCOLTYPE = 0
 make_head(_module, '_ADAPTER_OBJECT')
 make_head(_module, 'ATA_PASS_THROUGH_DIRECT')
-make_head(_module, 'ATA_PASS_THROUGH_DIRECT32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ATA_PASS_THROUGH_DIRECT32')
 make_head(_module, 'ATA_PASS_THROUGH_EX')
-make_head(_module, 'ATA_PASS_THROUGH_EX32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ATA_PASS_THROUGH_EX32')
 make_head(_module, 'DSM_NOTIFICATION_REQUEST_BLOCK')
 make_head(_module, 'DUMP_DRIVER')
 make_head(_module, 'DUMP_DRIVER_EX')
@@ -1150,11 +1164,15 @@ make_head(_module, 'MP_DEVICE_DATA_SET_RANGE')
 make_head(_module, 'MPIO_PASS_THROUGH_PATH')
 make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT')
 make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32_EX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32_EX')
 make_head(_module, 'MPIO_PASS_THROUGH_PATH_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH32')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH32_EX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH32_EX')
 make_head(_module, 'NTSCSI_UNICODE_STRING')
 make_head(_module, 'NV_FEATURE_PARAMETER')
 make_head(_module, 'NV_SEP_CACHE_PARAMETER')
@@ -1172,11 +1190,15 @@ make_head(_module, 'SCSI_LUN_LIST')
 make_head(_module, 'SCSI_PASS_THROUGH')
 make_head(_module, 'SCSI_PASS_THROUGH_DIRECT')
 make_head(_module, 'SCSI_PASS_THROUGH_DIRECT_EX')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32_EX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32_EX')
 make_head(_module, 'SCSI_PASS_THROUGH_EX')
-make_head(_module, 'SCSI_PASS_THROUGH32')
-make_head(_module, 'SCSI_PASS_THROUGH32_EX')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH32_EX')
 make_head(_module, 'SRB_IO_CONTROL')
 make_head(_module, 'STORAGE_DIAGNOSTIC_MP_REQUEST')
 make_head(_module, 'STORAGE_ENDURANCE_DATA_DESCRIPTOR')
@@ -1575,4 +1597,16 @@ __all__ = [
     "TARGET_INFORMATION_CLASS_TargetFlags",
     "WmiScsiAddressGuid",
     "_ADAPTER_OBJECT",
+]
+_arch_optional = [
+    "ATA_PASS_THROUGH_DIRECT32",
+    "ATA_PASS_THROUGH_EX32",
+    "MPIO_PASS_THROUGH_PATH32",
+    "MPIO_PASS_THROUGH_PATH32_EX",
+    "MPIO_PASS_THROUGH_PATH_DIRECT32",
+    "MPIO_PASS_THROUGH_PATH_DIRECT32_EX",
+    "SCSI_PASS_THROUGH32",
+    "SCSI_PASS_THROUGH32_EX",
+    "SCSI_PASS_THROUGH_DIRECT32",
+    "SCSI_PASS_THROUGH_DIRECT32_EX",
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.Cabinets
 import sys
@@ -9,6 +9,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -170,9 +172,15 @@ FDINOTIFICATIONTYPE_fdintCOPY_FILE: FDINOTIFICATIONTYPE = 2
 FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO: FDINOTIFICATIONTYPE = 3
 FDINOTIFICATIONTYPE_fdintNEXT_CABINET: FDINOTIFICATIONTYPE = 4
 FDINOTIFICATIONTYPE_fdintENUMERATE: FDINOTIFICATIONTYPE = 5
-class FDISPILLFILE(Structure):
-    ach: win32more.Foundation.CHAR * 2
-    cbFile: Int32
+if ARCH in 'X64,ARM64':
+    class FDISPILLFILE(Structure):
+        ach: win32more.Foundation.CHAR * 2
+        cbFile: Int32
+if ARCH in 'X86':
+    class FDISPILLFILE(Structure):
+        ach: win32more.Foundation.CHAR * 2
+        cbFile: Int32
+        _pack_ = 1
 @cfunctype_pointer
 def PFNALLOC(cb: UInt32) -> c_void_p: ...
 @cfunctype_pointer
@@ -222,7 +230,10 @@ make_head(_module, 'ERF')
 make_head(_module, 'FDICABINETINFO')
 make_head(_module, 'FDIDECRYPT')
 make_head(_module, 'FDINOTIFICATION')
-make_head(_module, 'FDISPILLFILE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FDISPILLFILE')
+if ARCH in 'X86':
+    make_head(_module, 'FDISPILLFILE')
 make_head(_module, 'PFNALLOC')
 make_head(_module, 'PFNCLOSE')
 make_head(_module, 'PFNFCIALLOC')
@@ -356,4 +367,6 @@ __all__ = [
     "tcompTYPE_MSZIP",
     "tcompTYPE_NONE",
     "tcompTYPE_QUANTUM",
+]
+_arch_optional = [
 ]

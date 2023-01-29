@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Data.HtmlHelp
 import win32more.Devices.DeviceAndDriverInstallation
 import win32more.Devices.Properties
@@ -16,6 +16,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -2697,18 +2699,36 @@ class BUSNUMBER_RESOURCE(Structure):
     BusNumber_Header: win32more.Devices.DeviceAndDriverInstallation.BUSNUMBER_DES
     BusNumber_Data: win32more.Devices.DeviceAndDriverInstallation.BUSNUMBER_RANGE * 1
     _pack_ = 1
-class CABINET_INFO_A(Structure):
-    CabinetPath: win32more.Foundation.PSTR
-    CabinetFile: win32more.Foundation.PSTR
-    DiskName: win32more.Foundation.PSTR
-    SetId: UInt16
-    CabinetNumber: UInt16
-class CABINET_INFO_W(Structure):
-    CabinetPath: win32more.Foundation.PWSTR
-    CabinetFile: win32more.Foundation.PWSTR
-    DiskName: win32more.Foundation.PWSTR
-    SetId: UInt16
-    CabinetNumber: UInt16
+if ARCH in 'X64,ARM64':
+    class CABINET_INFO_A(Structure):
+        CabinetPath: win32more.Foundation.PSTR
+        CabinetFile: win32more.Foundation.PSTR
+        DiskName: win32more.Foundation.PSTR
+        SetId: UInt16
+        CabinetNumber: UInt16
+if ARCH in 'X86':
+    class CABINET_INFO_A(Structure):
+        CabinetPath: win32more.Foundation.PSTR
+        CabinetFile: win32more.Foundation.PSTR
+        DiskName: win32more.Foundation.PSTR
+        SetId: UInt16
+        CabinetNumber: UInt16
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class CABINET_INFO_W(Structure):
+        CabinetPath: win32more.Foundation.PWSTR
+        CabinetFile: win32more.Foundation.PWSTR
+        DiskName: win32more.Foundation.PWSTR
+        SetId: UInt16
+        CabinetNumber: UInt16
+if ARCH in 'X86':
+    class CABINET_INFO_W(Structure):
+        CabinetPath: win32more.Foundation.PWSTR
+        CabinetFile: win32more.Foundation.PWSTR
+        DiskName: win32more.Foundation.PWSTR
+        SetId: UInt16
+        CabinetNumber: UInt16
+        _pack_ = 1
 CM_NOTIFY_ACTION = Int32
 CM_NOTIFY_ACTION_DEVICEINTERFACEARRIVAL: CM_NOTIFY_ACTION = 0
 CM_NOTIFY_ACTION_DEVICEINTERFACEREMOVAL: CM_NOTIFY_ACTION = 1
@@ -2760,10 +2780,17 @@ CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE: CM_NOTIFY_FILTER_TYPE = 0
 CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE: CM_NOTIFY_FILTER_TYPE = 1
 CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE: CM_NOTIFY_FILTER_TYPE = 2
 CM_NOTIFY_FILTER_TYPE_MAX: CM_NOTIFY_FILTER_TYPE = 3
-class COINSTALLER_CONTEXT_DATA(Structure):
-    PostProcessing: win32more.Foundation.BOOL
-    InstallResult: UInt32
-    PrivateData: c_void_p
+if ARCH in 'X64,ARM64':
+    class COINSTALLER_CONTEXT_DATA(Structure):
+        PostProcessing: win32more.Foundation.BOOL
+        InstallResult: UInt32
+        PrivateData: c_void_p
+if ARCH in 'X86':
+    class COINSTALLER_CONTEXT_DATA(Structure):
+        PostProcessing: win32more.Foundation.BOOL
+        InstallResult: UInt32
+        PrivateData: c_void_p
+        _pack_ = 1
 CONFIGRET = UInt32
 CR_SUCCESS: CONFIGRET = 0
 CR_DEFAULT: CONFIGRET = 1
@@ -2899,48 +2926,108 @@ class DMA_RESOURCE(Structure):
     DMA_Header: win32more.Devices.DeviceAndDriverInstallation.DMA_DES
     DMA_Data: win32more.Devices.DeviceAndDriverInstallation.DMA_RANGE * 1
     _pack_ = 1
-class FILE_IN_CABINET_INFO_A(Structure):
-    NameInCabinet: win32more.Foundation.PSTR
-    FileSize: UInt32
-    Win32Error: UInt32
-    DosDate: UInt16
-    DosTime: UInt16
-    DosAttribs: UInt16
-    FullTargetName: win32more.Foundation.CHAR * 260
-class FILE_IN_CABINET_INFO_W(Structure):
-    NameInCabinet: win32more.Foundation.PWSTR
-    FileSize: UInt32
-    Win32Error: UInt32
-    DosDate: UInt16
-    DosTime: UInt16
-    DosAttribs: UInt16
-    FullTargetName: Char * 260
-class FILEPATHS_A(Structure):
-    Target: win32more.Foundation.PSTR
-    Source: win32more.Foundation.PSTR
-    Win32Error: UInt32
-    Flags: UInt32
-class FILEPATHS_SIGNERINFO_A(Structure):
-    Target: win32more.Foundation.PSTR
-    Source: win32more.Foundation.PSTR
-    Win32Error: UInt32
-    Flags: UInt32
-    DigitalSigner: win32more.Foundation.PSTR
-    Version: win32more.Foundation.PSTR
-    CatalogFile: win32more.Foundation.PSTR
-class FILEPATHS_SIGNERINFO_W(Structure):
-    Target: win32more.Foundation.PWSTR
-    Source: win32more.Foundation.PWSTR
-    Win32Error: UInt32
-    Flags: UInt32
-    DigitalSigner: win32more.Foundation.PWSTR
-    Version: win32more.Foundation.PWSTR
-    CatalogFile: win32more.Foundation.PWSTR
-class FILEPATHS_W(Structure):
-    Target: win32more.Foundation.PWSTR
-    Source: win32more.Foundation.PWSTR
-    Win32Error: UInt32
-    Flags: UInt32
+if ARCH in 'X64,ARM64':
+    class FILE_IN_CABINET_INFO_A(Structure):
+        NameInCabinet: win32more.Foundation.PSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class FILE_IN_CABINET_INFO_A(Structure):
+        NameInCabinet: win32more.Foundation.PSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILE_IN_CABINET_INFO_W(Structure):
+        NameInCabinet: win32more.Foundation.PWSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: Char * 260
+if ARCH in 'X86':
+    class FILE_IN_CABINET_INFO_W(Structure):
+        NameInCabinet: win32more.Foundation.PWSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: Char * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILEPATHS_A(Structure):
+        Target: win32more.Foundation.PSTR
+        Source: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        Flags: UInt32
+if ARCH in 'X86':
+    class FILEPATHS_A(Structure):
+        Target: win32more.Foundation.PSTR
+        Source: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILEPATHS_SIGNERINFO_A(Structure):
+        Target: win32more.Foundation.PSTR
+        Source: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        DigitalSigner: win32more.Foundation.PSTR
+        Version: win32more.Foundation.PSTR
+        CatalogFile: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class FILEPATHS_SIGNERINFO_A(Structure):
+        Target: win32more.Foundation.PSTR
+        Source: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        DigitalSigner: win32more.Foundation.PSTR
+        Version: win32more.Foundation.PSTR
+        CatalogFile: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILEPATHS_SIGNERINFO_W(Structure):
+        Target: win32more.Foundation.PWSTR
+        Source: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        DigitalSigner: win32more.Foundation.PWSTR
+        Version: win32more.Foundation.PWSTR
+        CatalogFile: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class FILEPATHS_SIGNERINFO_W(Structure):
+        Target: win32more.Foundation.PWSTR
+        Source: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        DigitalSigner: win32more.Foundation.PWSTR
+        Version: win32more.Foundation.PWSTR
+        CatalogFile: win32more.Foundation.PWSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILEPATHS_W(Structure):
+        Target: win32more.Foundation.PWSTR
+        Source: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        Flags: UInt32
+if ARCH in 'X86':
+    class FILEPATHS_W(Structure):
+        Target: win32more.Foundation.PWSTR
+        Source: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        Flags: UInt32
+        _pack_ = 1
 HCMNOTIFICATION = IntPtr
 HDEVINFO = IntPtr
 class HWProfileInfo_sA(Structure):
@@ -2953,11 +3040,19 @@ class HWPROFILEINFO_W(Structure):
     HWPI_szFriendlyName: Char * 80
     HWPI_dwFlags: UInt32
     _pack_ = 1
-class INFCONTEXT(Structure):
-    Inf: c_void_p
-    CurrentInf: c_void_p
-    Section: UInt32
-    Line: UInt32
+if ARCH in 'X64,ARM64':
+    class INFCONTEXT(Structure):
+        Inf: c_void_p
+        CurrentInf: c_void_p
+        Section: UInt32
+        Line: UInt32
+if ARCH in 'X86':
+    class INFCONTEXT(Structure):
+        Inf: c_void_p
+        CurrentInf: c_void_p
+        Section: UInt32
+        Line: UInt32
+        _pack_ = 1
 class IO_DES(Structure):
     IOD_Count: UInt32
     IOD_Type: UInt32
@@ -3112,79 +3207,187 @@ SetupFileLogInfo_SetupFileLogDiskTagfile: SetupFileLogInfo = 2
 SetupFileLogInfo_SetupFileLogDiskDescription: SetupFileLogInfo = 3
 SetupFileLogInfo_SetupFileLogOtherInfo: SetupFileLogInfo = 4
 SetupFileLogInfo_SetupFileLogMax: SetupFileLogInfo = 5
-class SOURCE_MEDIA_A(Structure):
-    Reserved: win32more.Foundation.PSTR
-    Tagfile: win32more.Foundation.PSTR
-    Description: win32more.Foundation.PSTR
-    SourcePath: win32more.Foundation.PSTR
-    SourceFile: win32more.Foundation.PSTR
-    Flags: UInt32
-class SOURCE_MEDIA_W(Structure):
-    Reserved: win32more.Foundation.PWSTR
-    Tagfile: win32more.Foundation.PWSTR
-    Description: win32more.Foundation.PWSTR
-    SourcePath: win32more.Foundation.PWSTR
-    SourceFile: win32more.Foundation.PWSTR
-    Flags: UInt32
-class SP_ALTPLATFORM_INFO_V1(Structure):
-    cbSize: UInt32
-    Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
-    MajorVersion: UInt32
-    MinorVersion: UInt32
-    ProcessorArchitecture: UInt16
-    Reserved: UInt16
-class SP_ALTPLATFORM_INFO_V2(Structure):
-    cbSize: UInt32
-    Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
-    MajorVersion: UInt32
-    MinorVersion: UInt32
-    ProcessorArchitecture: UInt16
-    Anonymous: _Anonymous_e__Union
-    FirstValidatedMajorVersion: UInt32
-    FirstValidatedMinorVersion: UInt32
-    class _Anonymous_e__Union(Union):
+if ARCH in 'X64,ARM64':
+    class SOURCE_MEDIA_A(Structure):
+        Reserved: win32more.Foundation.PSTR
+        Tagfile: win32more.Foundation.PSTR
+        Description: win32more.Foundation.PSTR
+        SourcePath: win32more.Foundation.PSTR
+        SourceFile: win32more.Foundation.PSTR
+        Flags: UInt32
+if ARCH in 'X86':
+    class SOURCE_MEDIA_A(Structure):
+        Reserved: win32more.Foundation.PSTR
+        Tagfile: win32more.Foundation.PSTR
+        Description: win32more.Foundation.PSTR
+        SourcePath: win32more.Foundation.PSTR
+        SourceFile: win32more.Foundation.PSTR
+        Flags: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SOURCE_MEDIA_W(Structure):
+        Reserved: win32more.Foundation.PWSTR
+        Tagfile: win32more.Foundation.PWSTR
+        Description: win32more.Foundation.PWSTR
+        SourcePath: win32more.Foundation.PWSTR
+        SourceFile: win32more.Foundation.PWSTR
+        Flags: UInt32
+if ARCH in 'X86':
+    class SOURCE_MEDIA_W(Structure):
+        Reserved: win32more.Foundation.PWSTR
+        Tagfile: win32more.Foundation.PWSTR
+        Description: win32more.Foundation.PWSTR
+        SourcePath: win32more.Foundation.PWSTR
+        SourceFile: win32more.Foundation.PWSTR
+        Flags: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ALTPLATFORM_INFO_V1(Structure):
+        cbSize: UInt32
+        Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
         Reserved: UInt16
-        Flags: UInt16
-class SP_ALTPLATFORM_INFO_V3(Structure):
-    cbSize: UInt32
-    Platform: UInt32
-    MajorVersion: UInt32
-    MinorVersion: UInt32
-    ProcessorArchitecture: UInt16
-    Anonymous: _Anonymous_e__Union
-    FirstValidatedMajorVersion: UInt32
-    FirstValidatedMinorVersion: UInt32
-    ProductType: Byte
-    SuiteMask: UInt16
-    BuildNumber: UInt32
-    class _Anonymous_e__Union(Union):
+if ARCH in 'X86':
+    class SP_ALTPLATFORM_INFO_V1(Structure):
+        cbSize: UInt32
+        Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
         Reserved: UInt16
-        Flags: UInt16
-class SP_BACKUP_QUEUE_PARAMS_V1_A(Structure):
-    cbSize: UInt32
-    FullInfPath: win32more.Foundation.CHAR * 260
-    FilenameOffset: Int32
-class SP_BACKUP_QUEUE_PARAMS_V1_W(Structure):
-    cbSize: UInt32
-    FullInfPath: Char * 260
-    FilenameOffset: Int32
-class SP_BACKUP_QUEUE_PARAMS_V2_A(Structure):
-    cbSize: UInt32
-    FullInfPath: win32more.Foundation.CHAR * 260
-    FilenameOffset: Int32
-    ReinstallInstance: win32more.Foundation.CHAR * 260
-class SP_BACKUP_QUEUE_PARAMS_V2_W(Structure):
-    cbSize: UInt32
-    FullInfPath: Char * 260
-    FilenameOffset: Int32
-    ReinstallInstance: Char * 260
-class SP_CLASSIMAGELIST_DATA(Structure):
-    cbSize: UInt32
-    ImageList: win32more.UI.Controls.HIMAGELIST
-    Reserved: UIntPtr
-class SP_CLASSINSTALL_HEADER(Structure):
-    cbSize: UInt32
-    InstallFunction: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ALTPLATFORM_INFO_V2(Structure):
+        cbSize: UInt32
+        Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
+        Anonymous: _Anonymous_e__Union
+        FirstValidatedMajorVersion: UInt32
+        FirstValidatedMinorVersion: UInt32
+        class _Anonymous_e__Union(Union):
+            Reserved: UInt16
+            Flags: UInt16
+if ARCH in 'X86':
+    class SP_ALTPLATFORM_INFO_V2(Structure):
+        cbSize: UInt32
+        Platform: win32more.System.Diagnostics.Debug.VER_PLATFORM
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
+        Anonymous: _Anonymous_e__Union
+        FirstValidatedMajorVersion: UInt32
+        FirstValidatedMinorVersion: UInt32
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            Reserved: UInt16
+            Flags: UInt16
+            _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ALTPLATFORM_INFO_V3(Structure):
+        cbSize: UInt32
+        Platform: UInt32
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
+        Anonymous: _Anonymous_e__Union
+        FirstValidatedMajorVersion: UInt32
+        FirstValidatedMinorVersion: UInt32
+        ProductType: Byte
+        SuiteMask: UInt16
+        BuildNumber: UInt32
+        class _Anonymous_e__Union(Union):
+            Reserved: UInt16
+            Flags: UInt16
+if ARCH in 'X86':
+    class SP_ALTPLATFORM_INFO_V3(Structure):
+        cbSize: UInt32
+        Platform: UInt32
+        MajorVersion: UInt32
+        MinorVersion: UInt32
+        ProcessorArchitecture: UInt16
+        Anonymous: _Anonymous_e__Union
+        FirstValidatedMajorVersion: UInt32
+        FirstValidatedMinorVersion: UInt32
+        ProductType: Byte
+        SuiteMask: UInt16
+        BuildNumber: UInt32
+        _pack_ = 1
+        class _Anonymous_e__Union(Union):
+            Reserved: UInt16
+            Flags: UInt16
+            _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_BACKUP_QUEUE_PARAMS_V1_A(Structure):
+        cbSize: UInt32
+        FullInfPath: win32more.Foundation.CHAR * 260
+        FilenameOffset: Int32
+if ARCH in 'X86':
+    class SP_BACKUP_QUEUE_PARAMS_V1_A(Structure):
+        cbSize: UInt32
+        FullInfPath: win32more.Foundation.CHAR * 260
+        FilenameOffset: Int32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_BACKUP_QUEUE_PARAMS_V1_W(Structure):
+        cbSize: UInt32
+        FullInfPath: Char * 260
+        FilenameOffset: Int32
+if ARCH in 'X86':
+    class SP_BACKUP_QUEUE_PARAMS_V1_W(Structure):
+        cbSize: UInt32
+        FullInfPath: Char * 260
+        FilenameOffset: Int32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_BACKUP_QUEUE_PARAMS_V2_A(Structure):
+        cbSize: UInt32
+        FullInfPath: win32more.Foundation.CHAR * 260
+        FilenameOffset: Int32
+        ReinstallInstance: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class SP_BACKUP_QUEUE_PARAMS_V2_A(Structure):
+        cbSize: UInt32
+        FullInfPath: win32more.Foundation.CHAR * 260
+        FilenameOffset: Int32
+        ReinstallInstance: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_BACKUP_QUEUE_PARAMS_V2_W(Structure):
+        cbSize: UInt32
+        FullInfPath: Char * 260
+        FilenameOffset: Int32
+        ReinstallInstance: Char * 260
+if ARCH in 'X86':
+    class SP_BACKUP_QUEUE_PARAMS_V2_W(Structure):
+        cbSize: UInt32
+        FullInfPath: Char * 260
+        FilenameOffset: Int32
+        ReinstallInstance: Char * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_CLASSIMAGELIST_DATA(Structure):
+        cbSize: UInt32
+        ImageList: win32more.UI.Controls.HIMAGELIST
+        Reserved: UIntPtr
+if ARCH in 'X86':
+    class SP_CLASSIMAGELIST_DATA(Structure):
+        cbSize: UInt32
+        ImageList: win32more.UI.Controls.HIMAGELIST
+        Reserved: UIntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_CLASSINSTALL_HEADER(Structure):
+        cbSize: UInt32
+        InstallFunction: UInt32
+if ARCH in 'X86':
+    class SP_CLASSINSTALL_HEADER(Structure):
+        cbSize: UInt32
+        InstallFunction: UInt32
+        _pack_ = 1
 SP_COPY_STYLE = UInt32
 SP_COPY_DELETESOURCE: SP_COPY_STYLE = 1
 SP_COPY_REPLACEONLY: SP_COPY_STYLE = 2
@@ -3214,229 +3417,547 @@ SP_COPY_PNPLOCKED: SP_COPY_STYLE = 33554432
 SP_COPY_IN_USE_TRY_RENAME: SP_COPY_STYLE = 67108864
 SP_COPY_INBOX_INF: SP_COPY_STYLE = 134217728
 SP_COPY_HARDLINK: SP_COPY_STYLE = 268435456
-class SP_DETECTDEVICE_PARAMS(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    DetectProgressNotify: win32more.Devices.DeviceAndDriverInstallation.PDETECT_PROGRESS_NOTIFY
-    ProgressNotifyParam: c_void_p
-class SP_DEVICE_INTERFACE_DATA(Structure):
-    cbSize: UInt32
-    InterfaceClassGuid: Guid
-    Flags: UInt32
-    Reserved: UIntPtr
-class SP_DEVICE_INTERFACE_DETAIL_DATA_A(Structure):
-    cbSize: UInt32
-    DevicePath: win32more.Foundation.CHAR * 1
-class SP_DEVICE_INTERFACE_DETAIL_DATA_W(Structure):
-    cbSize: UInt32
-    DevicePath: Char * 1
-class SP_DEVINFO_DATA(Structure):
-    cbSize: UInt32
-    ClassGuid: Guid
-    DevInst: UInt32
-    Reserved: UIntPtr
-class SP_DEVINFO_LIST_DETAIL_DATA_A(Structure):
-    cbSize: UInt32
-    ClassGuid: Guid
-    RemoteMachineHandle: win32more.Foundation.HANDLE
-    RemoteMachineName: win32more.Foundation.CHAR * 263
-class SP_DEVINFO_LIST_DETAIL_DATA_W(Structure):
-    cbSize: UInt32
-    ClassGuid: Guid
-    RemoteMachineHandle: win32more.Foundation.HANDLE
-    RemoteMachineName: Char * 263
-class SP_DEVINSTALL_PARAMS_A(Structure):
-    cbSize: UInt32
-    Flags: UInt32
-    FlagsEx: UInt32
-    hwndParent: win32more.Foundation.HWND
-    InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
-    InstallMsgHandlerContext: c_void_p
-    FileQueue: c_void_p
-    ClassInstallReserved: UIntPtr
-    Reserved: UInt32
-    DriverPath: win32more.Foundation.CHAR * 260
-class SP_DEVINSTALL_PARAMS_W(Structure):
-    cbSize: UInt32
-    Flags: UInt32
-    FlagsEx: UInt32
-    hwndParent: win32more.Foundation.HWND
-    InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
-    InstallMsgHandlerContext: c_void_p
-    FileQueue: c_void_p
-    ClassInstallReserved: UIntPtr
-    Reserved: UInt32
-    DriverPath: Char * 260
-class SP_DRVINFO_DATA_V1_A(Structure):
-    cbSize: UInt32
-    DriverType: UInt32
-    Reserved: UIntPtr
-    Description: win32more.Foundation.CHAR * 256
-    MfgName: win32more.Foundation.CHAR * 256
-    ProviderName: win32more.Foundation.CHAR * 256
-class SP_DRVINFO_DATA_V1_W(Structure):
-    cbSize: UInt32
-    DriverType: UInt32
-    Reserved: UIntPtr
-    Description: Char * 256
-    MfgName: Char * 256
-    ProviderName: Char * 256
-class SP_DRVINFO_DATA_V2_A(Structure):
-    cbSize: UInt32
-    DriverType: UInt32
-    Reserved: UIntPtr
-    Description: win32more.Foundation.CHAR * 256
-    MfgName: win32more.Foundation.CHAR * 256
-    ProviderName: win32more.Foundation.CHAR * 256
-    DriverDate: win32more.Foundation.FILETIME
-    DriverVersion: UInt64
-class SP_DRVINFO_DATA_V2_W(Structure):
-    cbSize: UInt32
-    DriverType: UInt32
-    Reserved: UIntPtr
-    Description: Char * 256
-    MfgName: Char * 256
-    ProviderName: Char * 256
-    DriverDate: win32more.Foundation.FILETIME
-    DriverVersion: UInt64
-class SP_DRVINFO_DETAIL_DATA_A(Structure):
-    cbSize: UInt32
-    InfDate: win32more.Foundation.FILETIME
-    CompatIDsOffset: UInt32
-    CompatIDsLength: UInt32
-    Reserved: UIntPtr
-    SectionName: win32more.Foundation.CHAR * 256
-    InfFileName: win32more.Foundation.CHAR * 260
-    DrvDescription: win32more.Foundation.CHAR * 256
-    HardwareID: win32more.Foundation.CHAR * 1
-class SP_DRVINFO_DETAIL_DATA_W(Structure):
-    cbSize: UInt32
-    InfDate: win32more.Foundation.FILETIME
-    CompatIDsOffset: UInt32
-    CompatIDsLength: UInt32
-    Reserved: UIntPtr
-    SectionName: Char * 256
-    InfFileName: Char * 260
-    DrvDescription: Char * 256
-    HardwareID: Char * 1
-class SP_DRVINSTALL_PARAMS(Structure):
-    cbSize: UInt32
-    Rank: UInt32
-    Flags: UInt32
-    PrivateData: UIntPtr
-    Reserved: UInt32
-class SP_ENABLECLASS_PARAMS(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    ClassGuid: Guid
-    EnableMessage: UInt32
-class SP_FILE_COPY_PARAMS_A(Structure):
-    cbSize: UInt32
-    QueueHandle: c_void_p
-    SourceRootPath: win32more.Foundation.PSTR
-    SourcePath: win32more.Foundation.PSTR
-    SourceFilename: win32more.Foundation.PSTR
-    SourceDescription: win32more.Foundation.PSTR
-    SourceTagfile: win32more.Foundation.PSTR
-    TargetDirectory: win32more.Foundation.PSTR
-    TargetFilename: win32more.Foundation.PSTR
-    CopyStyle: UInt32
-    LayoutInf: c_void_p
-    SecurityDescriptor: win32more.Foundation.PSTR
-class SP_FILE_COPY_PARAMS_W(Structure):
-    cbSize: UInt32
-    QueueHandle: c_void_p
-    SourceRootPath: win32more.Foundation.PWSTR
-    SourcePath: win32more.Foundation.PWSTR
-    SourceFilename: win32more.Foundation.PWSTR
-    SourceDescription: win32more.Foundation.PWSTR
-    SourceTagfile: win32more.Foundation.PWSTR
-    TargetDirectory: win32more.Foundation.PWSTR
-    TargetFilename: win32more.Foundation.PWSTR
-    CopyStyle: UInt32
-    LayoutInf: c_void_p
-    SecurityDescriptor: win32more.Foundation.PWSTR
-class SP_INF_INFORMATION(Structure):
-    InfStyle: win32more.Devices.DeviceAndDriverInstallation.SP_INF_STYLE
-    InfCount: UInt32
-    VersionData: Byte * 1
-class SP_INF_SIGNER_INFO_V1_A(Structure):
-    cbSize: UInt32
-    CatalogFile: win32more.Foundation.CHAR * 260
-    DigitalSigner: win32more.Foundation.CHAR * 260
-    DigitalSignerVersion: win32more.Foundation.CHAR * 260
-class SP_INF_SIGNER_INFO_V1_W(Structure):
-    cbSize: UInt32
-    CatalogFile: Char * 260
-    DigitalSigner: Char * 260
-    DigitalSignerVersion: Char * 260
-class SP_INF_SIGNER_INFO_V2_A(Structure):
-    cbSize: UInt32
-    CatalogFile: win32more.Foundation.CHAR * 260
-    DigitalSigner: win32more.Foundation.CHAR * 260
-    DigitalSignerVersion: win32more.Foundation.CHAR * 260
-    SignerScore: UInt32
-class SP_INF_SIGNER_INFO_V2_W(Structure):
-    cbSize: UInt32
-    CatalogFile: Char * 260
-    DigitalSigner: Char * 260
-    DigitalSignerVersion: Char * 260
-    SignerScore: UInt32
+if ARCH in 'X64,ARM64':
+    class SP_DETECTDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        DetectProgressNotify: win32more.Devices.DeviceAndDriverInstallation.PDETECT_PROGRESS_NOTIFY
+        ProgressNotifyParam: c_void_p
+if ARCH in 'X86':
+    class SP_DETECTDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        DetectProgressNotify: win32more.Devices.DeviceAndDriverInstallation.PDETECT_PROGRESS_NOTIFY
+        ProgressNotifyParam: c_void_p
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVICE_INTERFACE_DATA(Structure):
+        cbSize: UInt32
+        InterfaceClassGuid: Guid
+        Flags: UInt32
+        Reserved: UIntPtr
+if ARCH in 'X86':
+    class SP_DEVICE_INTERFACE_DATA(Structure):
+        cbSize: UInt32
+        InterfaceClassGuid: Guid
+        Flags: UInt32
+        Reserved: UIntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVICE_INTERFACE_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        DevicePath: win32more.Foundation.CHAR * 1
+if ARCH in 'X86':
+    class SP_DEVICE_INTERFACE_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        DevicePath: win32more.Foundation.CHAR * 1
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVICE_INTERFACE_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        DevicePath: Char * 1
+if ARCH in 'X86':
+    class SP_DEVICE_INTERFACE_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        DevicePath: Char * 1
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVINFO_DATA(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        DevInst: UInt32
+        Reserved: UIntPtr
+if ARCH in 'X86':
+    class SP_DEVINFO_DATA(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        DevInst: UInt32
+        Reserved: UIntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVINFO_LIST_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        RemoteMachineHandle: win32more.Foundation.HANDLE
+        RemoteMachineName: win32more.Foundation.CHAR * 263
+if ARCH in 'X86':
+    class SP_DEVINFO_LIST_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        RemoteMachineHandle: win32more.Foundation.HANDLE
+        RemoteMachineName: win32more.Foundation.CHAR * 263
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVINFO_LIST_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        RemoteMachineHandle: win32more.Foundation.HANDLE
+        RemoteMachineName: Char * 263
+if ARCH in 'X86':
+    class SP_DEVINFO_LIST_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        ClassGuid: Guid
+        RemoteMachineHandle: win32more.Foundation.HANDLE
+        RemoteMachineName: Char * 263
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVINSTALL_PARAMS_A(Structure):
+        cbSize: UInt32
+        Flags: UInt32
+        FlagsEx: UInt32
+        hwndParent: win32more.Foundation.HWND
+        InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
+        InstallMsgHandlerContext: c_void_p
+        FileQueue: c_void_p
+        ClassInstallReserved: UIntPtr
+        Reserved: UInt32
+        DriverPath: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class SP_DEVINSTALL_PARAMS_A(Structure):
+        cbSize: UInt32
+        Flags: UInt32
+        FlagsEx: UInt32
+        hwndParent: win32more.Foundation.HWND
+        InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
+        InstallMsgHandlerContext: c_void_p
+        FileQueue: c_void_p
+        ClassInstallReserved: UIntPtr
+        Reserved: UInt32
+        DriverPath: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DEVINSTALL_PARAMS_W(Structure):
+        cbSize: UInt32
+        Flags: UInt32
+        FlagsEx: UInt32
+        hwndParent: win32more.Foundation.HWND
+        InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
+        InstallMsgHandlerContext: c_void_p
+        FileQueue: c_void_p
+        ClassInstallReserved: UIntPtr
+        Reserved: UInt32
+        DriverPath: Char * 260
+if ARCH in 'X86':
+    class SP_DEVINSTALL_PARAMS_W(Structure):
+        cbSize: UInt32
+        Flags: UInt32
+        FlagsEx: UInt32
+        hwndParent: win32more.Foundation.HWND
+        InstallMsgHandler: win32more.Devices.DeviceAndDriverInstallation.PSP_FILE_CALLBACK_A
+        InstallMsgHandlerContext: c_void_p
+        FileQueue: c_void_p
+        ClassInstallReserved: UIntPtr
+        Reserved: UInt32
+        DriverPath: Char * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DATA_V1_A(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: win32more.Foundation.CHAR * 256
+        MfgName: win32more.Foundation.CHAR * 256
+        ProviderName: win32more.Foundation.CHAR * 256
+if ARCH in 'X86':
+    class SP_DRVINFO_DATA_V1_A(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: win32more.Foundation.CHAR * 256
+        MfgName: win32more.Foundation.CHAR * 256
+        ProviderName: win32more.Foundation.CHAR * 256
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DATA_V1_W(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: Char * 256
+        MfgName: Char * 256
+        ProviderName: Char * 256
+if ARCH in 'X86':
+    class SP_DRVINFO_DATA_V1_W(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: Char * 256
+        MfgName: Char * 256
+        ProviderName: Char * 256
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DATA_V2_A(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: win32more.Foundation.CHAR * 256
+        MfgName: win32more.Foundation.CHAR * 256
+        ProviderName: win32more.Foundation.CHAR * 256
+        DriverDate: win32more.Foundation.FILETIME
+        DriverVersion: UInt64
+if ARCH in 'X86':
+    class SP_DRVINFO_DATA_V2_A(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: win32more.Foundation.CHAR * 256
+        MfgName: win32more.Foundation.CHAR * 256
+        ProviderName: win32more.Foundation.CHAR * 256
+        DriverDate: win32more.Foundation.FILETIME
+        DriverVersion: UInt64
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DATA_V2_W(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: Char * 256
+        MfgName: Char * 256
+        ProviderName: Char * 256
+        DriverDate: win32more.Foundation.FILETIME
+        DriverVersion: UInt64
+if ARCH in 'X86':
+    class SP_DRVINFO_DATA_V2_W(Structure):
+        cbSize: UInt32
+        DriverType: UInt32
+        Reserved: UIntPtr
+        Description: Char * 256
+        MfgName: Char * 256
+        ProviderName: Char * 256
+        DriverDate: win32more.Foundation.FILETIME
+        DriverVersion: UInt64
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        InfDate: win32more.Foundation.FILETIME
+        CompatIDsOffset: UInt32
+        CompatIDsLength: UInt32
+        Reserved: UIntPtr
+        SectionName: win32more.Foundation.CHAR * 256
+        InfFileName: win32more.Foundation.CHAR * 260
+        DrvDescription: win32more.Foundation.CHAR * 256
+        HardwareID: win32more.Foundation.CHAR * 1
+if ARCH in 'X86':
+    class SP_DRVINFO_DETAIL_DATA_A(Structure):
+        cbSize: UInt32
+        InfDate: win32more.Foundation.FILETIME
+        CompatIDsOffset: UInt32
+        CompatIDsLength: UInt32
+        Reserved: UIntPtr
+        SectionName: win32more.Foundation.CHAR * 256
+        InfFileName: win32more.Foundation.CHAR * 260
+        DrvDescription: win32more.Foundation.CHAR * 256
+        HardwareID: win32more.Foundation.CHAR * 1
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINFO_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        InfDate: win32more.Foundation.FILETIME
+        CompatIDsOffset: UInt32
+        CompatIDsLength: UInt32
+        Reserved: UIntPtr
+        SectionName: Char * 256
+        InfFileName: Char * 260
+        DrvDescription: Char * 256
+        HardwareID: Char * 1
+if ARCH in 'X86':
+    class SP_DRVINFO_DETAIL_DATA_W(Structure):
+        cbSize: UInt32
+        InfDate: win32more.Foundation.FILETIME
+        CompatIDsOffset: UInt32
+        CompatIDsLength: UInt32
+        Reserved: UIntPtr
+        SectionName: Char * 256
+        InfFileName: Char * 260
+        DrvDescription: Char * 256
+        HardwareID: Char * 1
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_DRVINSTALL_PARAMS(Structure):
+        cbSize: UInt32
+        Rank: UInt32
+        Flags: UInt32
+        PrivateData: UIntPtr
+        Reserved: UInt32
+if ARCH in 'X86':
+    class SP_DRVINSTALL_PARAMS(Structure):
+        cbSize: UInt32
+        Rank: UInt32
+        Flags: UInt32
+        PrivateData: UIntPtr
+        Reserved: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ENABLECLASS_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        ClassGuid: Guid
+        EnableMessage: UInt32
+if ARCH in 'X86':
+    class SP_ENABLECLASS_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        ClassGuid: Guid
+        EnableMessage: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_FILE_COPY_PARAMS_A(Structure):
+        cbSize: UInt32
+        QueueHandle: c_void_p
+        SourceRootPath: win32more.Foundation.PSTR
+        SourcePath: win32more.Foundation.PSTR
+        SourceFilename: win32more.Foundation.PSTR
+        SourceDescription: win32more.Foundation.PSTR
+        SourceTagfile: win32more.Foundation.PSTR
+        TargetDirectory: win32more.Foundation.PSTR
+        TargetFilename: win32more.Foundation.PSTR
+        CopyStyle: UInt32
+        LayoutInf: c_void_p
+        SecurityDescriptor: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class SP_FILE_COPY_PARAMS_A(Structure):
+        cbSize: UInt32
+        QueueHandle: c_void_p
+        SourceRootPath: win32more.Foundation.PSTR
+        SourcePath: win32more.Foundation.PSTR
+        SourceFilename: win32more.Foundation.PSTR
+        SourceDescription: win32more.Foundation.PSTR
+        SourceTagfile: win32more.Foundation.PSTR
+        TargetDirectory: win32more.Foundation.PSTR
+        TargetFilename: win32more.Foundation.PSTR
+        CopyStyle: UInt32
+        LayoutInf: c_void_p
+        SecurityDescriptor: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_FILE_COPY_PARAMS_W(Structure):
+        cbSize: UInt32
+        QueueHandle: c_void_p
+        SourceRootPath: win32more.Foundation.PWSTR
+        SourcePath: win32more.Foundation.PWSTR
+        SourceFilename: win32more.Foundation.PWSTR
+        SourceDescription: win32more.Foundation.PWSTR
+        SourceTagfile: win32more.Foundation.PWSTR
+        TargetDirectory: win32more.Foundation.PWSTR
+        TargetFilename: win32more.Foundation.PWSTR
+        CopyStyle: UInt32
+        LayoutInf: c_void_p
+        SecurityDescriptor: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class SP_FILE_COPY_PARAMS_W(Structure):
+        cbSize: UInt32
+        QueueHandle: c_void_p
+        SourceRootPath: win32more.Foundation.PWSTR
+        SourcePath: win32more.Foundation.PWSTR
+        SourceFilename: win32more.Foundation.PWSTR
+        SourceDescription: win32more.Foundation.PWSTR
+        SourceTagfile: win32more.Foundation.PWSTR
+        TargetDirectory: win32more.Foundation.PWSTR
+        TargetFilename: win32more.Foundation.PWSTR
+        CopyStyle: UInt32
+        LayoutInf: c_void_p
+        SecurityDescriptor: win32more.Foundation.PWSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_INF_INFORMATION(Structure):
+        InfStyle: win32more.Devices.DeviceAndDriverInstallation.SP_INF_STYLE
+        InfCount: UInt32
+        VersionData: Byte * 1
+if ARCH in 'X86':
+    class SP_INF_INFORMATION(Structure):
+        InfStyle: win32more.Devices.DeviceAndDriverInstallation.SP_INF_STYLE
+        InfCount: UInt32
+        VersionData: Byte * 1
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_INF_SIGNER_INFO_V1_A(Structure):
+        cbSize: UInt32
+        CatalogFile: win32more.Foundation.CHAR * 260
+        DigitalSigner: win32more.Foundation.CHAR * 260
+        DigitalSignerVersion: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class SP_INF_SIGNER_INFO_V1_A(Structure):
+        cbSize: UInt32
+        CatalogFile: win32more.Foundation.CHAR * 260
+        DigitalSigner: win32more.Foundation.CHAR * 260
+        DigitalSignerVersion: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_INF_SIGNER_INFO_V1_W(Structure):
+        cbSize: UInt32
+        CatalogFile: Char * 260
+        DigitalSigner: Char * 260
+        DigitalSignerVersion: Char * 260
+if ARCH in 'X86':
+    class SP_INF_SIGNER_INFO_V1_W(Structure):
+        cbSize: UInt32
+        CatalogFile: Char * 260
+        DigitalSigner: Char * 260
+        DigitalSignerVersion: Char * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_INF_SIGNER_INFO_V2_A(Structure):
+        cbSize: UInt32
+        CatalogFile: win32more.Foundation.CHAR * 260
+        DigitalSigner: win32more.Foundation.CHAR * 260
+        DigitalSignerVersion: win32more.Foundation.CHAR * 260
+        SignerScore: UInt32
+if ARCH in 'X86':
+    class SP_INF_SIGNER_INFO_V2_A(Structure):
+        cbSize: UInt32
+        CatalogFile: win32more.Foundation.CHAR * 260
+        DigitalSigner: win32more.Foundation.CHAR * 260
+        DigitalSignerVersion: win32more.Foundation.CHAR * 260
+        SignerScore: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_INF_SIGNER_INFO_V2_W(Structure):
+        cbSize: UInt32
+        CatalogFile: Char * 260
+        DigitalSigner: Char * 260
+        DigitalSignerVersion: Char * 260
+        SignerScore: UInt32
+if ARCH in 'X86':
+    class SP_INF_SIGNER_INFO_V2_W(Structure):
+        cbSize: UInt32
+        CatalogFile: Char * 260
+        DigitalSigner: Char * 260
+        DigitalSignerVersion: Char * 260
+        SignerScore: UInt32
+        _pack_ = 1
 SP_INF_STYLE = UInt32
 INF_STYLE_NONE: SP_INF_STYLE = 0
 INF_STYLE_OLDNT: SP_INF_STYLE = 1
 INF_STYLE_WIN4: SP_INF_STYLE = 2
-class SP_INSTALLWIZARD_DATA(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    Flags: UInt32
-    DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
-    NumDynamicPages: UInt32
-    DynamicPageFlags: UInt32
-    PrivateFlags: UInt32
-    PrivateData: win32more.Foundation.LPARAM
-    hwndWizardDlg: win32more.Foundation.HWND
-class SP_NEWDEVICEWIZARD_DATA(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    Flags: UInt32
-    DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
-    NumDynamicPages: UInt32
-    hwndWizardDlg: win32more.Foundation.HWND
-class SP_ORIGINAL_FILE_INFO_A(Structure):
-    cbSize: UInt32
-    OriginalInfName: win32more.Foundation.CHAR * 260
-    OriginalCatalogName: win32more.Foundation.CHAR * 260
-class SP_ORIGINAL_FILE_INFO_W(Structure):
-    cbSize: UInt32
-    OriginalInfName: Char * 260
-    OriginalCatalogName: Char * 260
+if ARCH in 'X64,ARM64':
+    class SP_INSTALLWIZARD_DATA(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Flags: UInt32
+        DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
+        NumDynamicPages: UInt32
+        DynamicPageFlags: UInt32
+        PrivateFlags: UInt32
+        PrivateData: win32more.Foundation.LPARAM
+        hwndWizardDlg: win32more.Foundation.HWND
+if ARCH in 'X86':
+    class SP_INSTALLWIZARD_DATA(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Flags: UInt32
+        DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
+        NumDynamicPages: UInt32
+        DynamicPageFlags: UInt32
+        PrivateFlags: UInt32
+        PrivateData: win32more.Foundation.LPARAM
+        hwndWizardDlg: win32more.Foundation.HWND
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_NEWDEVICEWIZARD_DATA(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Flags: UInt32
+        DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
+        NumDynamicPages: UInt32
+        hwndWizardDlg: win32more.Foundation.HWND
+if ARCH in 'X86':
+    class SP_NEWDEVICEWIZARD_DATA(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Flags: UInt32
+        DynamicPages: win32more.UI.Controls.HPROPSHEETPAGE * 20
+        NumDynamicPages: UInt32
+        hwndWizardDlg: win32more.Foundation.HWND
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ORIGINAL_FILE_INFO_A(Structure):
+        cbSize: UInt32
+        OriginalInfName: win32more.Foundation.CHAR * 260
+        OriginalCatalogName: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class SP_ORIGINAL_FILE_INFO_A(Structure):
+        cbSize: UInt32
+        OriginalInfName: win32more.Foundation.CHAR * 260
+        OriginalCatalogName: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_ORIGINAL_FILE_INFO_W(Structure):
+        cbSize: UInt32
+        OriginalInfName: Char * 260
+        OriginalCatalogName: Char * 260
+if ARCH in 'X86':
+    class SP_ORIGINAL_FILE_INFO_W(Structure):
+        cbSize: UInt32
+        OriginalInfName: Char * 260
+        OriginalCatalogName: Char * 260
+        _pack_ = 1
 class SP_POWERMESSAGEWAKE_PARAMS_A(Structure):
     ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
     PowerMessageWake: win32more.Foundation.CHAR * 512
-class SP_POWERMESSAGEWAKE_PARAMS_W(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    PowerMessageWake: Char * 512
-class SP_PROPCHANGE_PARAMS(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    StateChange: UInt32
-    Scope: UInt32
-    HwProfile: UInt32
-class SP_PROPSHEETPAGE_REQUEST(Structure):
-    cbSize: UInt32
-    PageRequested: UInt32
-    DeviceInfoSet: win32more.Devices.DeviceAndDriverInstallation.HDEVINFO
-    DeviceInfoData: POINTER(win32more.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA_head)
-class SP_REGISTER_CONTROL_STATUSA(Structure):
-    cbSize: UInt32
-    FileName: win32more.Foundation.PSTR
-    Win32Error: UInt32
-    FailureCode: UInt32
-class SP_REGISTER_CONTROL_STATUSW(Structure):
-    cbSize: UInt32
-    FileName: win32more.Foundation.PWSTR
-    Win32Error: UInt32
-    FailureCode: UInt32
-class SP_REMOVEDEVICE_PARAMS(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    Scope: UInt32
-    HwProfile: UInt32
+if ARCH in 'X64,ARM64':
+    class SP_POWERMESSAGEWAKE_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        PowerMessageWake: Char * 512
+if ARCH in 'X86':
+    class SP_POWERMESSAGEWAKE_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        PowerMessageWake: Char * 512
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_PROPCHANGE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        StateChange: UInt32
+        Scope: UInt32
+        HwProfile: UInt32
+if ARCH in 'X86':
+    class SP_PROPCHANGE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        StateChange: UInt32
+        Scope: UInt32
+        HwProfile: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_PROPSHEETPAGE_REQUEST(Structure):
+        cbSize: UInt32
+        PageRequested: UInt32
+        DeviceInfoSet: win32more.Devices.DeviceAndDriverInstallation.HDEVINFO
+        DeviceInfoData: POINTER(win32more.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA_head)
+if ARCH in 'X86':
+    class SP_PROPSHEETPAGE_REQUEST(Structure):
+        cbSize: UInt32
+        PageRequested: UInt32
+        DeviceInfoSet: win32more.Devices.DeviceAndDriverInstallation.HDEVINFO
+        DeviceInfoData: POINTER(win32more.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA_head)
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_REGISTER_CONTROL_STATUSA(Structure):
+        cbSize: UInt32
+        FileName: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        FailureCode: UInt32
+if ARCH in 'X86':
+    class SP_REGISTER_CONTROL_STATUSA(Structure):
+        cbSize: UInt32
+        FileName: win32more.Foundation.PSTR
+        Win32Error: UInt32
+        FailureCode: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_REGISTER_CONTROL_STATUSW(Structure):
+        cbSize: UInt32
+        FileName: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        FailureCode: UInt32
+if ARCH in 'X86':
+    class SP_REGISTER_CONTROL_STATUSW(Structure):
+        cbSize: UInt32
+        FileName: win32more.Foundation.PWSTR
+        Win32Error: UInt32
+        FailureCode: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_REMOVEDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Scope: UInt32
+        HwProfile: UInt32
+if ARCH in 'X86':
+    class SP_REMOVEDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Scope: UInt32
+        HwProfile: UInt32
+        _pack_ = 1
 class SP_SELECTDEVICE_PARAMS_A(Structure):
     ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
     Title: win32more.Foundation.CHAR * 60
@@ -3444,32 +3965,64 @@ class SP_SELECTDEVICE_PARAMS_A(Structure):
     ListLabel: win32more.Foundation.CHAR * 30
     SubTitle: win32more.Foundation.CHAR * 256
     Reserved: Byte * 2
-class SP_SELECTDEVICE_PARAMS_W(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    Title: Char * 60
-    Instructions: Char * 256
-    ListLabel: Char * 30
-    SubTitle: Char * 256
+if ARCH in 'X64,ARM64':
+    class SP_SELECTDEVICE_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Title: Char * 60
+        Instructions: Char * 256
+        ListLabel: Char * 30
+        SubTitle: Char * 256
+if ARCH in 'X86':
+    class SP_SELECTDEVICE_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Title: Char * 60
+        Instructions: Char * 256
+        ListLabel: Char * 30
+        SubTitle: Char * 256
+        _pack_ = 1
 class SP_TROUBLESHOOTER_PARAMS_A(Structure):
     ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
     ChmFile: win32more.Foundation.CHAR * 260
     HtmlTroubleShooter: win32more.Foundation.CHAR * 260
-class SP_TROUBLESHOOTER_PARAMS_W(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    ChmFile: Char * 260
-    HtmlTroubleShooter: Char * 260
-class SP_UNREMOVEDEVICE_PARAMS(Structure):
-    ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
-    Scope: UInt32
-    HwProfile: UInt32
+if ARCH in 'X64,ARM64':
+    class SP_TROUBLESHOOTER_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        ChmFile: Char * 260
+        HtmlTroubleShooter: Char * 260
+if ARCH in 'X86':
+    class SP_TROUBLESHOOTER_PARAMS_W(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        ChmFile: Char * 260
+        HtmlTroubleShooter: Char * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class SP_UNREMOVEDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Scope: UInt32
+        HwProfile: UInt32
+if ARCH in 'X86':
+    class SP_UNREMOVEDEVICE_PARAMS(Structure):
+        ClassInstallHeader: win32more.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
+        Scope: UInt32
+        HwProfile: UInt32
+        _pack_ = 1
 make_head(_module, 'BUSNUMBER_DES')
 make_head(_module, 'BUSNUMBER_RANGE')
 make_head(_module, 'BUSNUMBER_RESOURCE')
-make_head(_module, 'CABINET_INFO_A')
-make_head(_module, 'CABINET_INFO_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CABINET_INFO_A')
+if ARCH in 'X86':
+    make_head(_module, 'CABINET_INFO_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CABINET_INFO_W')
+if ARCH in 'X86':
+    make_head(_module, 'CABINET_INFO_W')
 make_head(_module, 'CM_NOTIFY_EVENT_DATA')
 make_head(_module, 'CM_NOTIFY_FILTER')
-make_head(_module, 'COINSTALLER_CONTEXT_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'COINSTALLER_CONTEXT_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'COINSTALLER_CONTEXT_DATA')
 make_head(_module, 'CONFLICT_DETAILS_A')
 make_head(_module, 'CONFLICT_DETAILS_W')
 make_head(_module, 'CONNECTION_DES')
@@ -3482,15 +4035,36 @@ make_head(_module, 'DEVPRIVATE_RESOURCE')
 make_head(_module, 'DMA_DES')
 make_head(_module, 'DMA_RANGE')
 make_head(_module, 'DMA_RESOURCE')
-make_head(_module, 'FILE_IN_CABINET_INFO_A')
-make_head(_module, 'FILE_IN_CABINET_INFO_W')
-make_head(_module, 'FILEPATHS_A')
-make_head(_module, 'FILEPATHS_SIGNERINFO_A')
-make_head(_module, 'FILEPATHS_SIGNERINFO_W')
-make_head(_module, 'FILEPATHS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILE_IN_CABINET_INFO_A')
+if ARCH in 'X86':
+    make_head(_module, 'FILE_IN_CABINET_INFO_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILE_IN_CABINET_INFO_W')
+if ARCH in 'X86':
+    make_head(_module, 'FILE_IN_CABINET_INFO_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILEPATHS_A')
+if ARCH in 'X86':
+    make_head(_module, 'FILEPATHS_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILEPATHS_SIGNERINFO_A')
+if ARCH in 'X86':
+    make_head(_module, 'FILEPATHS_SIGNERINFO_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILEPATHS_SIGNERINFO_W')
+if ARCH in 'X86':
+    make_head(_module, 'FILEPATHS_SIGNERINFO_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILEPATHS_W')
+if ARCH in 'X86':
+    make_head(_module, 'FILEPATHS_W')
 make_head(_module, 'HWProfileInfo_sA')
 make_head(_module, 'HWPROFILEINFO_W')
-make_head(_module, 'INFCONTEXT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'INFCONTEXT')
+if ARCH in 'X86':
+    make_head(_module, 'INFCONTEXT')
 make_head(_module, 'IO_DES')
 make_head(_module, 'IO_RANGE')
 make_head(_module, 'IO_RESOURCE')
@@ -3514,57 +4088,201 @@ make_head(_module, 'PDETECT_PROGRESS_NOTIFY')
 make_head(_module, 'PSP_DETSIG_CMPPROC')
 make_head(_module, 'PSP_FILE_CALLBACK_A')
 make_head(_module, 'PSP_FILE_CALLBACK_W')
-make_head(_module, 'SOURCE_MEDIA_A')
-make_head(_module, 'SOURCE_MEDIA_W')
-make_head(_module, 'SP_ALTPLATFORM_INFO_V1')
-make_head(_module, 'SP_ALTPLATFORM_INFO_V2')
-make_head(_module, 'SP_ALTPLATFORM_INFO_V3')
-make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_A')
-make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_W')
-make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_A')
-make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_W')
-make_head(_module, 'SP_CLASSIMAGELIST_DATA')
-make_head(_module, 'SP_CLASSINSTALL_HEADER')
-make_head(_module, 'SP_DETECTDEVICE_PARAMS')
-make_head(_module, 'SP_DEVICE_INTERFACE_DATA')
-make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_A')
-make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_W')
-make_head(_module, 'SP_DEVINFO_DATA')
-make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_A')
-make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_W')
-make_head(_module, 'SP_DEVINSTALL_PARAMS_A')
-make_head(_module, 'SP_DEVINSTALL_PARAMS_W')
-make_head(_module, 'SP_DRVINFO_DATA_V1_A')
-make_head(_module, 'SP_DRVINFO_DATA_V1_W')
-make_head(_module, 'SP_DRVINFO_DATA_V2_A')
-make_head(_module, 'SP_DRVINFO_DATA_V2_W')
-make_head(_module, 'SP_DRVINFO_DETAIL_DATA_A')
-make_head(_module, 'SP_DRVINFO_DETAIL_DATA_W')
-make_head(_module, 'SP_DRVINSTALL_PARAMS')
-make_head(_module, 'SP_ENABLECLASS_PARAMS')
-make_head(_module, 'SP_FILE_COPY_PARAMS_A')
-make_head(_module, 'SP_FILE_COPY_PARAMS_W')
-make_head(_module, 'SP_INF_INFORMATION')
-make_head(_module, 'SP_INF_SIGNER_INFO_V1_A')
-make_head(_module, 'SP_INF_SIGNER_INFO_V1_W')
-make_head(_module, 'SP_INF_SIGNER_INFO_V2_A')
-make_head(_module, 'SP_INF_SIGNER_INFO_V2_W')
-make_head(_module, 'SP_INSTALLWIZARD_DATA')
-make_head(_module, 'SP_NEWDEVICEWIZARD_DATA')
-make_head(_module, 'SP_ORIGINAL_FILE_INFO_A')
-make_head(_module, 'SP_ORIGINAL_FILE_INFO_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SOURCE_MEDIA_A')
+if ARCH in 'X86':
+    make_head(_module, 'SOURCE_MEDIA_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SOURCE_MEDIA_W')
+if ARCH in 'X86':
+    make_head(_module, 'SOURCE_MEDIA_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V1')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V1')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V2')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V2')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V3')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ALTPLATFORM_INFO_V3')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V1_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_BACKUP_QUEUE_PARAMS_V2_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_CLASSIMAGELIST_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_CLASSIMAGELIST_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_CLASSINSTALL_HEADER')
+if ARCH in 'X86':
+    make_head(_module, 'SP_CLASSINSTALL_HEADER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DETECTDEVICE_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DETECTDEVICE_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVICE_INTERFACE_DETAIL_DATA_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVINFO_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVINFO_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVINFO_LIST_DETAIL_DATA_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVINSTALL_PARAMS_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVINSTALL_PARAMS_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DEVINSTALL_PARAMS_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DEVINSTALL_PARAMS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DATA_V1_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DATA_V1_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DATA_V1_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DATA_V1_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DATA_V2_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DATA_V2_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DATA_V2_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DATA_V2_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DETAIL_DATA_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DETAIL_DATA_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINFO_DETAIL_DATA_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINFO_DETAIL_DATA_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_DRVINSTALL_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_DRVINSTALL_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ENABLECLASS_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ENABLECLASS_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_FILE_COPY_PARAMS_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_FILE_COPY_PARAMS_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_FILE_COPY_PARAMS_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_FILE_COPY_PARAMS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INF_INFORMATION')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INF_INFORMATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V1_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V1_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V1_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V1_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V2_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V2_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V2_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INF_SIGNER_INFO_V2_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_INSTALLWIZARD_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_INSTALLWIZARD_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_NEWDEVICEWIZARD_DATA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_NEWDEVICEWIZARD_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ORIGINAL_FILE_INFO_A')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ORIGINAL_FILE_INFO_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_ORIGINAL_FILE_INFO_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_ORIGINAL_FILE_INFO_W')
 make_head(_module, 'SP_POWERMESSAGEWAKE_PARAMS_A')
-make_head(_module, 'SP_POWERMESSAGEWAKE_PARAMS_W')
-make_head(_module, 'SP_PROPCHANGE_PARAMS')
-make_head(_module, 'SP_PROPSHEETPAGE_REQUEST')
-make_head(_module, 'SP_REGISTER_CONTROL_STATUSA')
-make_head(_module, 'SP_REGISTER_CONTROL_STATUSW')
-make_head(_module, 'SP_REMOVEDEVICE_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_POWERMESSAGEWAKE_PARAMS_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_POWERMESSAGEWAKE_PARAMS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_PROPCHANGE_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_PROPCHANGE_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_PROPSHEETPAGE_REQUEST')
+if ARCH in 'X86':
+    make_head(_module, 'SP_PROPSHEETPAGE_REQUEST')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_REGISTER_CONTROL_STATUSA')
+if ARCH in 'X86':
+    make_head(_module, 'SP_REGISTER_CONTROL_STATUSA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_REGISTER_CONTROL_STATUSW')
+if ARCH in 'X86':
+    make_head(_module, 'SP_REGISTER_CONTROL_STATUSW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_REMOVEDEVICE_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_REMOVEDEVICE_PARAMS')
 make_head(_module, 'SP_SELECTDEVICE_PARAMS_A')
-make_head(_module, 'SP_SELECTDEVICE_PARAMS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_SELECTDEVICE_PARAMS_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_SELECTDEVICE_PARAMS_W')
 make_head(_module, 'SP_TROUBLESHOOTER_PARAMS_A')
-make_head(_module, 'SP_TROUBLESHOOTER_PARAMS_W')
-make_head(_module, 'SP_UNREMOVEDEVICE_PARAMS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_TROUBLESHOOTER_PARAMS_W')
+if ARCH in 'X86':
+    make_head(_module, 'SP_TROUBLESHOOTER_PARAMS_W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SP_UNREMOVEDEVICE_PARAMS')
+if ARCH in 'X86':
+    make_head(_module, 'SP_UNREMOVEDEVICE_PARAMS')
 __all__ = [
     "ALLOC_LOG_CONF",
     "BASIC_LOG_CONF",
@@ -5903,4 +6621,6 @@ __all__ = [
     "mPCD_MEM_A_C",
     "mPCD_MEM_WS",
     "mPMF_AUDIO_ENABLE",
+]
+_arch_optional = [
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.IpHelper
 import win32more.NetworkManagement.Ndis
@@ -13,6 +13,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -951,14 +953,15 @@ class ICMP_ECHO_REPLY(Structure):
     Reserved: UInt16
     Data: c_void_p
     Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION
-class ICMP_ECHO_REPLY32(Structure):
-    Address: UInt32
-    Status: UInt32
-    RoundTripTime: UInt32
-    DataSize: UInt16
-    Reserved: UInt16
-    Data: c_void_p
-    Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32
+if ARCH in 'X64,ARM64':
+    class ICMP_ECHO_REPLY32(Structure):
+        Address: UInt32
+        Status: UInt32
+        RoundTripTime: UInt32
+        DataSize: UInt16
+        Reserved: UInt16
+        Data: c_void_p
+        Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32
 ICMP4_TYPE = Int32
 ICMP4_ECHO_REPLY: ICMP4_TYPE = 0
 ICMP4_DST_UNREACH: ICMP4_TYPE = 3
@@ -1260,12 +1263,13 @@ class IP_OPTION_INFORMATION(Structure):
     Flags: Byte
     OptionsSize: Byte
     OptionsData: c_char_p_no
-class IP_OPTION_INFORMATION32(Structure):
-    Ttl: Byte
-    Tos: Byte
-    Flags: Byte
-    OptionsSize: Byte
-    OptionsData: c_char_p_no
+if ARCH in 'X64,ARM64':
+    class IP_OPTION_INFORMATION32(Structure):
+        Ttl: Byte
+        Tos: Byte
+        Flags: Byte
+        OptionsSize: Byte
+        OptionsData: c_char_p_no
 class IP_PER_ADAPTER_INFO_W2KSP1(Structure):
     AutoconfigEnabled: UInt32
     AutoconfigActive: UInt32
@@ -2380,7 +2384,8 @@ make_head(_module, 'DNS_SETTINGS')
 make_head(_module, 'DNS_SETTINGS2')
 make_head(_module, 'FIXED_INFO_W2KSP1')
 make_head(_module, 'ICMP_ECHO_REPLY')
-make_head(_module, 'ICMP_ECHO_REPLY32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'ICMP_ECHO_REPLY32')
 make_head(_module, 'ICMPV6_ECHO_REPLY_LH')
 make_head(_module, 'INTERFACE_HARDWARE_CROSSTIMESTAMP')
 make_head(_module, 'INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES')
@@ -2407,7 +2412,8 @@ make_head(_module, 'IP_INTERFACE_INFO')
 make_head(_module, 'IP_INTERFACE_NAME_INFO_W2KSP1')
 make_head(_module, 'IP_MCAST_COUNTER_INFO')
 make_head(_module, 'IP_OPTION_INFORMATION')
-make_head(_module, 'IP_OPTION_INFORMATION32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'IP_OPTION_INFORMATION32')
 make_head(_module, 'IP_PER_ADAPTER_INFO_W2KSP1')
 make_head(_module, 'IP_UNIDIRECTIONAL_ADAPTER_ADDRESS')
 make_head(_module, 'IPV6_ADDRESS_EX')
@@ -3543,4 +3549,8 @@ __all__ = [
     "UnregisterInterfaceTimestampConfigChange",
     "if_indextoname",
     "if_nametoindex",
+]
+_arch_optional = [
+    "ICMP_ECHO_REPLY32",
+    "IP_OPTION_INFORMATION32",
 ]

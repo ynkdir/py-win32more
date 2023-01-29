@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Storage.IndexServer
 import win32more.System.Com
@@ -11,6 +11,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -189,16 +191,31 @@ class CI_STATE(Structure):
     cUniqueKeys: UInt32
     cSecQDocuments: UInt32
     dwPropCacheSize: UInt32
-class DBID(Structure):
-    uGuid: _uGuid_e__Union
-    eKind: UInt32
-    uName: _uName_e__Union
-    class _uGuid_e__Union(Union):
-        guid: Guid
-        pguid: POINTER(Guid)
-    class _uName_e__Union(Union):
-        pwszName: win32more.Foundation.PWSTR
-        ulPropid: UInt32
+if ARCH in 'X64,ARM64':
+    class DBID(Structure):
+        uGuid: _uGuid_e__Union
+        eKind: UInt32
+        uName: _uName_e__Union
+        class _uGuid_e__Union(Union):
+            guid: Guid
+            pguid: POINTER(Guid)
+        class _uName_e__Union(Union):
+            pwszName: win32more.Foundation.PWSTR
+            ulPropid: UInt32
+if ARCH in 'X86':
+    class DBID(Structure):
+        uGuid: _uGuid_e__Union
+        eKind: UInt32
+        uName: _uName_e__Union
+        _pack_ = 2
+        class _uGuid_e__Union(Union):
+            guid: Guid
+            pguid: POINTER(Guid)
+            _pack_ = 2
+        class _uName_e__Union(Union):
+            pwszName: win32more.Foundation.PWSTR
+            ulPropid: UInt32
+            _pack_ = 2
 DBKINDENUM = Int32
 DBKIND_GUID_NAME: DBKINDENUM = 0
 DBKIND_GUID_PROPID: DBKINDENUM = 1
@@ -265,7 +282,10 @@ WORDREP_BREAK_EOS: WORDREP_BREAK_TYPE = 1
 WORDREP_BREAK_EOP: WORDREP_BREAK_TYPE = 2
 WORDREP_BREAK_EOC: WORDREP_BREAK_TYPE = 3
 make_head(_module, 'CI_STATE')
-make_head(_module, 'DBID')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DBID')
+if ARCH in 'X86':
+    make_head(_module, 'DBID')
 make_head(_module, 'FILTERREGION')
 make_head(_module, 'FULLPROPSPEC')
 make_head(_module, 'IFilter')
@@ -461,4 +481,6 @@ __all__ = [
     "WORDREP_BREAK_EOS",
     "WORDREP_BREAK_EOW",
     "WORDREP_BREAK_TYPE",
+]
+_arch_optional = [
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Networking.WinSock
 import win32more.System.Com
@@ -12,6 +12,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1323,38 +1325,54 @@ LM_HB1_Fax: Int32 = 32
 LM_HB1_LANAccess: Int32 = 64
 LM_HB2_Telephony: Int32 = 1
 LM_HB2_FileServer: Int32 = 2
-@winfunctype('WS2_32.dll')
-def WSCEnumProtocols32(lpiProtocols: POINTER(Int32), lpProtocolBuffer: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), lpdwBufferLength: POINTER(UInt32), lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCDeinstallProvider32(lpProviderId: POINTER(Guid), lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCInstallProvider64_32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCGetProviderPath32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProviderDllPathLen: POINTER(Int32), lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCUpdateProvider32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCSetProviderInfo32(lpProviderId: POINTER(Guid), InfoType: win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE, Info: c_char_p_no, InfoSize: UIntPtr, Flags: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCGetProviderInfo32(lpProviderId: POINTER(Guid), InfoType: win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE, Info: c_char_p_no, InfoSize: POINTER(UIntPtr), Flags: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCEnumNameSpaceProviders32(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCEnumNameSpaceProvidersEx32(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCInstallNameSpace32(lpszIdentifier: win32more.Foundation.PWSTR, lpszPathName: win32more.Foundation.PWSTR, dwNameSpace: UInt32, dwVersion: UInt32, lpProviderId: POINTER(Guid)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCInstallNameSpaceEx32(lpszIdentifier: win32more.Foundation.PWSTR, lpszPathName: win32more.Foundation.PWSTR, dwNameSpace: UInt32, dwVersion: UInt32, lpProviderId: POINTER(Guid), lpProviderSpecific: POINTER(win32more.System.Com.BLOB_head)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCUnInstallNameSpace32(lpProviderId: POINTER(Guid)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCEnableNSProvider32(lpProviderId: POINTER(Guid), fEnable: win32more.Foundation.BOOL) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCInstallProviderAndChains64_32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpszProviderDllPath32: win32more.Foundation.PWSTR, lpszLspName: win32more.Foundation.PWSTR, dwServiceFlags: UInt32, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpdwCatalogEntryId: POINTER(UInt32), lpErrno: POINTER(Int32)) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCWriteProviderOrder32(lpwdCatalogEntryId: POINTER(UInt32), dwNumberOfEntries: UInt32) -> Int32: ...
-@winfunctype('WS2_32.dll')
-def WSCWriteNameSpaceOrder32(lpProviderId: POINTER(Guid), dwNumberOfEntries: UInt32) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCEnumProtocols32(lpiProtocols: POINTER(Int32), lpProtocolBuffer: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), lpdwBufferLength: POINTER(UInt32), lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCDeinstallProvider32(lpProviderId: POINTER(Guid), lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCInstallProvider64_32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCGetProviderPath32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProviderDllPathLen: POINTER(Int32), lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCUpdateProvider32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCSetProviderInfo32(lpProviderId: POINTER(Guid), InfoType: win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE, Info: c_char_p_no, InfoSize: UIntPtr, Flags: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCGetProviderInfo32(lpProviderId: POINTER(Guid), InfoType: win32more.Networking.WinSock.WSC_PROVIDER_INFO_TYPE, Info: c_char_p_no, InfoSize: POINTER(UIntPtr), Flags: UInt32, lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCEnumNameSpaceProviders32(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOW_head)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCEnumNameSpaceProvidersEx32(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Networking.WinSock.WSANAMESPACE_INFOEXW_head)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCInstallNameSpace32(lpszIdentifier: win32more.Foundation.PWSTR, lpszPathName: win32more.Foundation.PWSTR, dwNameSpace: UInt32, dwVersion: UInt32, lpProviderId: POINTER(Guid)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCInstallNameSpaceEx32(lpszIdentifier: win32more.Foundation.PWSTR, lpszPathName: win32more.Foundation.PWSTR, dwNameSpace: UInt32, dwVersion: UInt32, lpProviderId: POINTER(Guid), lpProviderSpecific: POINTER(win32more.System.Com.BLOB_head)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCUnInstallNameSpace32(lpProviderId: POINTER(Guid)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCEnableNSProvider32(lpProviderId: POINTER(Guid), fEnable: win32more.Foundation.BOOL) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCInstallProviderAndChains64_32(lpProviderId: POINTER(Guid), lpszProviderDllPath: win32more.Foundation.PWSTR, lpszProviderDllPath32: win32more.Foundation.PWSTR, lpszLspName: win32more.Foundation.PWSTR, dwServiceFlags: UInt32, lpProtocolInfoList: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), dwNumberOfEntries: UInt32, lpdwCatalogEntryId: POINTER(UInt32), lpErrno: POINTER(Int32)) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCWriteProviderOrder32(lpwdCatalogEntryId: POINTER(UInt32), dwNumberOfEntries: UInt32) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('WS2_32.dll')
+    def WSCWriteNameSpaceOrder32(lpProviderId: POINTER(Guid), dwNumberOfEntries: UInt32) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def __WSAFDIsSet(fd: win32more.Networking.WinSock.SOCKET, param1: POINTER(win32more.Networking.WinSock.FD_SET_head)) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -3142,11 +3160,18 @@ MSG_PEEK: SEND_RECV_FLAGS = 2
 MSG_DONTROUTE: SEND_RECV_FLAGS = 4
 MSG_WAITALL: SEND_RECV_FLAGS = 8
 MSG_PUSH_IMMEDIATE: SEND_RECV_FLAGS = 32
-class SERVENT(Structure):
-    s_name: win32more.Foundation.PSTR
-    s_aliases: POINTER(POINTER(SByte))
-    s_proto: win32more.Foundation.PSTR
-    s_port: Int16
+if ARCH in 'X64,ARM64':
+    class SERVENT(Structure):
+        s_name: win32more.Foundation.PSTR
+        s_aliases: POINTER(POINTER(SByte))
+        s_proto: win32more.Foundation.PSTR
+        s_port: Int16
+if ARCH in 'X86':
+    class SERVENT(Structure):
+        s_name: win32more.Foundation.PSTR
+        s_aliases: POINTER(POINTER(SByte))
+        s_port: Int16
+        s_proto: win32more.Foundation.PSTR
 class SERVICE_ADDRESS(Structure):
     dwAddressType: UInt32
     dwAddressFlags: UInt32
@@ -3742,14 +3767,24 @@ NSP_NOTIFY_HWND: WSACOMPLETIONTYPE = 1
 NSP_NOTIFY_EVENT: WSACOMPLETIONTYPE = 2
 NSP_NOTIFY_PORT: WSACOMPLETIONTYPE = 3
 NSP_NOTIFY_APC: WSACOMPLETIONTYPE = 4
-class WSADATA(Structure):
-    wVersion: UInt16
-    wHighVersion: UInt16
-    iMaxSockets: UInt16
-    iMaxUdpDg: UInt16
-    lpVendorInfo: win32more.Foundation.PSTR
-    szDescription: win32more.Foundation.CHAR * 257
-    szSystemStatus: win32more.Foundation.CHAR * 129
+if ARCH in 'X64,ARM64':
+    class WSADATA(Structure):
+        wVersion: UInt16
+        wHighVersion: UInt16
+        iMaxSockets: UInt16
+        iMaxUdpDg: UInt16
+        lpVendorInfo: win32more.Foundation.PSTR
+        szDescription: win32more.Foundation.CHAR * 257
+        szSystemStatus: win32more.Foundation.CHAR * 129
+if ARCH in 'X86':
+    class WSADATA(Structure):
+        wVersion: UInt16
+        wHighVersion: UInt16
+        szDescription: win32more.Foundation.CHAR * 257
+        szSystemStatus: win32more.Foundation.CHAR * 129
+        iMaxSockets: UInt16
+        iMaxUdpDg: UInt16
+        lpVendorInfo: win32more.Foundation.PSTR
 WSAECOMPARATOR = Int32
 COMP_EQUAL: WSAECOMPARATOR = 0
 COMP_NOTLESS: WSAECOMPARATOR = 1
@@ -4255,7 +4290,10 @@ make_head(_module, 'RM_SEND_WINDOW')
 make_head(_module, 'RM_SENDER_STATS')
 make_head(_module, 'RSS_SCALABILITY_INFO')
 make_head(_module, 'SCOPE_ID')
-make_head(_module, 'SERVENT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SERVENT')
+if ARCH in 'X86':
+    make_head(_module, 'SERVENT')
 make_head(_module, 'SERVICE_ADDRESS')
 make_head(_module, 'SERVICE_ADDRESSES')
 make_head(_module, 'SERVICE_ASYNC_INFO')
@@ -4327,7 +4365,10 @@ make_head(_module, 'WINDOWS_IRDA_DEVICE_INFO')
 make_head(_module, 'WSA_COMPATIBILITY_MODE')
 make_head(_module, 'WSABUF')
 make_head(_module, 'WSACOMPLETION')
-make_head(_module, 'WSADATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'WSADATA')
+if ARCH in 'X86':
+    make_head(_module, 'WSADATA')
 make_head(_module, 'WSAMSG')
 make_head(_module, 'WSANAMESPACE_INFOA')
 make_head(_module, 'WSANAMESPACE_INFOEXA')
@@ -6573,4 +6614,22 @@ __all__ = [
     "socket",
     "sockproto",
     "tcp_keepalive",
+]
+_arch_optional = [
+    "WSCDeinstallProvider32",
+    "WSCEnableNSProvider32",
+    "WSCEnumNameSpaceProviders32",
+    "WSCEnumNameSpaceProvidersEx32",
+    "WSCEnumProtocols32",
+    "WSCGetProviderInfo32",
+    "WSCGetProviderPath32",
+    "WSCInstallNameSpace32",
+    "WSCInstallNameSpaceEx32",
+    "WSCInstallProvider64_32",
+    "WSCInstallProviderAndChains64_32",
+    "WSCSetProviderInfo32",
+    "WSCUnInstallNameSpace32",
+    "WSCUpdateProvider32",
+    "WSCWriteNameSpaceOrder32",
+    "WSCWriteProviderOrder32",
 ]

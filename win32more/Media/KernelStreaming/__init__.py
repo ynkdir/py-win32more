@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.Media
@@ -12,6 +12,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -2459,9 +2461,15 @@ class KSNODEPROPERTY(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
     Reserved: UInt32
-class KSNODEPROPERTY_AUDIO_3D_LISTENER(Structure):
-    NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
-    ListenerId: c_void_p
+if ARCH in 'X64,ARM64':
+    class KSNODEPROPERTY_AUDIO_3D_LISTENER(Structure):
+        NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
+        ListenerId: c_void_p
+if ARCH in 'X86':
+    class KSNODEPROPERTY_AUDIO_3D_LISTENER(Structure):
+        NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
+        ListenerId: c_void_p
+        Reserved: UInt32
 class KSNODEPROPERTY_AUDIO_CHANNEL(Structure):
     NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
     Channel: Int32
@@ -2471,10 +2479,17 @@ class KSNODEPROPERTY_AUDIO_DEV_SPECIFIC(Structure):
     DevSpecificId: UInt32
     DeviceInfo: UInt32
     Length: UInt32
-class KSNODEPROPERTY_AUDIO_PROPERTY(Structure):
-    NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
-    AppContext: c_void_p
-    Length: UInt32
+if ARCH in 'X64,ARM64':
+    class KSNODEPROPERTY_AUDIO_PROPERTY(Structure):
+        NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
+        AppContext: c_void_p
+        Length: UInt32
+if ARCH in 'X86':
+    class KSNODEPROPERTY_AUDIO_PROPERTY(Structure):
+        NodeProperty: win32more.Media.KernelStreaming.KSNODEPROPERTY
+        AppContext: c_void_p
+        Length: UInt32
+        Reserved: UInt32
 KSNODETYPE_1394_DA_STREAM = Guid('dff21fe6-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_1394_DV_STREAM_SOUNDTRACK = Guid('dff21fe7-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_3D_EFFECTS = Guid('55515860-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
@@ -3754,16 +3769,27 @@ KSSTATE_STOP: KSSTATE = 0
 KSSTATE_ACQUIRE: KSSTATE = 1
 KSSTATE_PAUSE: KSSTATE = 2
 KSSTATE_RUN: KSSTATE = 3
-class KSSTREAM_HEADER(Structure):
-    Size: UInt32
-    TypeSpecificFlags: UInt32
-    PresentationTime: win32more.Media.KernelStreaming.KSTIME
-    Duration: Int64
-    FrameExtent: UInt32
-    DataUsed: UInt32
-    Data: c_void_p
-    OptionsFlags: UInt32
-    Reserved: UInt32
+if ARCH in 'X64,ARM64':
+    class KSSTREAM_HEADER(Structure):
+        Size: UInt32
+        TypeSpecificFlags: UInt32
+        PresentationTime: win32more.Media.KernelStreaming.KSTIME
+        Duration: Int64
+        FrameExtent: UInt32
+        DataUsed: UInt32
+        Data: c_void_p
+        OptionsFlags: UInt32
+        Reserved: UInt32
+if ARCH in 'X86':
+    class KSSTREAM_HEADER(Structure):
+        Size: UInt32
+        TypeSpecificFlags: UInt32
+        PresentationTime: win32more.Media.KernelStreaming.KSTIME
+        Duration: Int64
+        FrameExtent: UInt32
+        DataUsed: UInt32
+        Data: c_void_p
+        OptionsFlags: UInt32
 class KSSTREAM_METADATA_INFO(Structure):
     BufferSize: UInt32
     UsedSize: UInt32
@@ -4327,10 +4353,16 @@ make_head(_module, 'KSMULTIPLE_ITEM')
 make_head(_module, 'KSMUSICFORMAT')
 make_head(_module, 'KSNODE_CREATE')
 make_head(_module, 'KSNODEPROPERTY')
-make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
+if ARCH in 'X86':
+    make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
 make_head(_module, 'KSNODEPROPERTY_AUDIO_CHANNEL')
 make_head(_module, 'KSNODEPROPERTY_AUDIO_DEV_SPECIFIC')
-make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
+if ARCH in 'X86':
+    make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
 make_head(_module, 'KSP_NODE')
 make_head(_module, 'KSP_PIN')
 make_head(_module, 'KSP_TIMEFORMAT')
@@ -4445,7 +4477,10 @@ make_head(_module, 'KSRTAUDIO_PACKETVREGISTER')
 make_head(_module, 'KSRTAUDIO_PACKETVREGISTER_PROPERTY')
 make_head(_module, 'KSRTAUDIO_SETWRITEPACKET_INFO')
 make_head(_module, 'KSSOUNDDETECTORPROPERTY')
-make_head(_module, 'KSSTREAM_HEADER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'KSSTREAM_HEADER')
+if ARCH in 'X86':
+    make_head(_module, 'KSSTREAM_HEADER')
 make_head(_module, 'KSSTREAM_METADATA_INFO')
 make_head(_module, 'KSSTREAM_UVC_METADATA')
 make_head(_module, 'KSSTREAM_UVC_METADATATYPE_TIMESTAMP')
@@ -7009,4 +7044,6 @@ __all__ = [
     "WST_BYTES_PER_LINE",
     "WST_TVTUNER_CHANGE_BEGIN_TUNE",
     "WST_TVTUNER_CHANGE_END_TUNE",
+]
+_arch_optional = [
 ]

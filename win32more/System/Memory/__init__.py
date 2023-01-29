@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Security
 import win32more.System.Memory
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -312,15 +314,25 @@ MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: MEM_EXTENDED
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: MEM_EXTENDED_PARAMETER_TYPE = 5
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: MEM_EXTENDED_PARAMETER_TYPE = 6
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: MEM_EXTENDED_PARAMETER_TYPE = 7
-class MEMORY_BASIC_INFORMATION(Structure):
-    BaseAddress: c_void_p
-    AllocationBase: c_void_p
-    AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
-    PartitionId: UInt16
-    RegionSize: UIntPtr
-    State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
-    Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
-    Type: win32more.System.Memory.PAGE_TYPE
+if ARCH in 'X64,ARM64':
+    class MEMORY_BASIC_INFORMATION(Structure):
+        BaseAddress: c_void_p
+        AllocationBase: c_void_p
+        AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+        PartitionId: UInt16
+        RegionSize: UIntPtr
+        State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
+        Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+        Type: win32more.System.Memory.PAGE_TYPE
+if ARCH in 'X86':
+    class MEMORY_BASIC_INFORMATION(Structure):
+        BaseAddress: c_void_p
+        AllocationBase: c_void_p
+        AllocationProtect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+        RegionSize: UIntPtr
+        State: win32more.System.Memory.VIRTUAL_ALLOCATION_TYPE
+        Protect: win32more.System.Memory.PAGE_PROTECTION_FLAGS
+        Type: win32more.System.Memory.PAGE_TYPE
 class MEMORY_BASIC_INFORMATION32(Structure):
     BaseAddress: UInt32
     AllocationBase: UInt32
@@ -470,7 +482,10 @@ make_head(_module, 'CFG_CALL_TARGET_INFO')
 make_head(_module, 'HEAP_SUMMARY')
 make_head(_module, 'MEM_ADDRESS_REQUIREMENTS')
 make_head(_module, 'MEM_EXTENDED_PARAMETER')
-make_head(_module, 'MEMORY_BASIC_INFORMATION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MEMORY_BASIC_INFORMATION')
+if ARCH in 'X86':
+    make_head(_module, 'MEMORY_BASIC_INFORMATION')
 make_head(_module, 'MEMORY_BASIC_INFORMATION32')
 make_head(_module, 'MEMORY_BASIC_INFORMATION64')
 make_head(_module, 'PBAD_MEMORY_CALLBACK_ROUTINE')
@@ -733,4 +748,6 @@ __all__ = [
     "WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionInfo",
     "WIN32_MEMORY_RANGE_ENTRY",
     "WIN32_MEMORY_REGION_INFORMATION",
+]
+_arch_optional = [
 ]

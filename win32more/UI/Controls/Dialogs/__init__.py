@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
@@ -12,6 +12,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -165,26 +167,52 @@ CC_ENABLETEMPLATE: CHOOSECOLOR_FLAGS = 32
 CC_ENABLETEMPLATEHANDLE: CHOOSECOLOR_FLAGS = 64
 CC_SOLIDCOLOR: CHOOSECOLOR_FLAGS = 128
 CC_ANYCOLOR: CHOOSECOLOR_FLAGS = 256
-class CHOOSECOLORA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HWND
-    rgbResult: win32more.Foundation.COLORREF
-    lpCustColors: POINTER(win32more.Foundation.COLORREF)
-    Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
-    lpTemplateName: win32more.Foundation.PSTR
-class CHOOSECOLORW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HWND
-    rgbResult: win32more.Foundation.COLORREF
-    lpCustColors: POINTER(win32more.Foundation.COLORREF)
-    Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
-    lpTemplateName: win32more.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class CHOOSECOLORA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HWND
+        rgbResult: win32more.Foundation.COLORREF
+        lpCustColors: POINTER(win32more.Foundation.COLORREF)
+        Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class CHOOSECOLORA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HWND
+        rgbResult: win32more.Foundation.COLORREF
+        lpCustColors: POINTER(win32more.Foundation.COLORREF)
+        Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class CHOOSECOLORW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HWND
+        rgbResult: win32more.Foundation.COLORREF
+        lpCustColors: POINTER(win32more.Foundation.COLORREF)
+        Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class CHOOSECOLORW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HWND
+        rgbResult: win32more.Foundation.COLORREF
+        lpCustColors: POINTER(win32more.Foundation.COLORREF)
+        Flags: win32more.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCCHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        _pack_ = 1
 CHOOSEFONT_FLAGS = UInt32
 CF_APPLY: CHOOSEFONT_FLAGS = 512
 CF_ANSIONLY: CHOOSEFONT_FLAGS = 1024
@@ -222,40 +250,80 @@ PRINTER_FONTTYPE: CHOOSEFONT_FONT_TYPE = 16384
 REGULAR_FONTTYPE: CHOOSEFONT_FONT_TYPE = 1024
 SCREEN_FONTTYPE: CHOOSEFONT_FONT_TYPE = 8192
 SIMULATED_FONTTYPE: CHOOSEFONT_FONT_TYPE = 32768
-class CHOOSEFONTA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDC: win32more.Graphics.Gdi.HDC
-    lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)
-    iPointSize: Int32
-    Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
-    rgbColors: win32more.Foundation.COLORREF
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
-    lpTemplateName: win32more.Foundation.PSTR
-    hInstance: win32more.Foundation.HINSTANCE
-    lpszStyle: win32more.Foundation.PSTR
-    nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
-    ___MISSING_ALIGNMENT__: UInt16
-    nSizeMin: Int32
-    nSizeMax: Int32
-class CHOOSEFONTW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDC: win32more.Graphics.Gdi.HDC
-    lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)
-    iPointSize: Int32
-    Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
-    rgbColors: win32more.Foundation.COLORREF
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
-    lpTemplateName: win32more.Foundation.PWSTR
-    hInstance: win32more.Foundation.HINSTANCE
-    lpszStyle: win32more.Foundation.PWSTR
-    nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
-    ___MISSING_ALIGNMENT__: UInt16
-    nSizeMin: Int32
-    nSizeMax: Int32
+if ARCH in 'X64,ARM64':
+    class CHOOSEFONTA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDC: win32more.Graphics.Gdi.HDC
+        lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)
+        iPointSize: Int32
+        Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
+        rgbColors: win32more.Foundation.COLORREF
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        hInstance: win32more.Foundation.HINSTANCE
+        lpszStyle: win32more.Foundation.PSTR
+        nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
+        ___MISSING_ALIGNMENT__: UInt16
+        nSizeMin: Int32
+        nSizeMax: Int32
+if ARCH in 'X86':
+    class CHOOSEFONTA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDC: win32more.Graphics.Gdi.HDC
+        lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTA_head)
+        iPointSize: Int32
+        Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
+        rgbColors: win32more.Foundation.COLORREF
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        hInstance: win32more.Foundation.HINSTANCE
+        lpszStyle: win32more.Foundation.PSTR
+        nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
+        ___MISSING_ALIGNMENT__: UInt16
+        nSizeMin: Int32
+        nSizeMax: Int32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class CHOOSEFONTW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDC: win32more.Graphics.Gdi.HDC
+        lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)
+        iPointSize: Int32
+        Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
+        rgbColors: win32more.Foundation.COLORREF
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        hInstance: win32more.Foundation.HINSTANCE
+        lpszStyle: win32more.Foundation.PWSTR
+        nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
+        ___MISSING_ALIGNMENT__: UInt16
+        nSizeMin: Int32
+        nSizeMax: Int32
+if ARCH in 'X86':
+    class CHOOSEFONTW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDC: win32more.Graphics.Gdi.HDC
+        lpLogFont: POINTER(win32more.Graphics.Gdi.LOGFONTW_head)
+        iPointSize: Int32
+        Flags: win32more.UI.Controls.Dialogs.CHOOSEFONT_FLAGS
+        rgbColors: win32more.Foundation.COLORREF
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPCFHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        hInstance: win32more.Foundation.HINSTANCE
+        lpszStyle: win32more.Foundation.PWSTR
+        nFontType: win32more.UI.Controls.Dialogs.CHOOSEFONT_FONT_TYPE
+        ___MISSING_ALIGNMENT__: UInt16
+        nSizeMin: Int32
+        nSizeMax: Int32
+        _pack_ = 1
 COMMON_DIALOG_NOTIFICATION = Int32
 CDN_FIRST: COMMON_DIALOG_NOTIFICATION = -601
 CDN_LAST: COMMON_DIALOG_NOTIFICATION = -699
@@ -305,11 +373,19 @@ FNERR_BUFFERTOOSMALL: COMMON_DLG_ERRORS = 12291
 FRERR_FINDREPLACECODES: COMMON_DLG_ERRORS = 16384
 FRERR_BUFFERLENGTHZERO: COMMON_DLG_ERRORS = 16385
 CCERR_CHOOSECOLORCODES: COMMON_DLG_ERRORS = 20480
-class DEVNAMES(Structure):
-    wDriverOffset: UInt16
-    wDeviceOffset: UInt16
-    wOutputOffset: UInt16
-    wDefault: UInt16
+if ARCH in 'X64,ARM64':
+    class DEVNAMES(Structure):
+        wDriverOffset: UInt16
+        wDeviceOffset: UInt16
+        wOutputOffset: UInt16
+        wDefault: UInt16
+if ARCH in 'X86':
+    class DEVNAMES(Structure):
+        wDriverOffset: UInt16
+        wDeviceOffset: UInt16
+        wOutputOffset: UInt16
+        wDefault: UInt16
+        _pack_ = 1
 FINDREPLACE_FLAGS = UInt32
 FR_DIALOGTERM: FINDREPLACE_FLAGS = 64
 FR_DOWN: FINDREPLACE_FLAGS = 1
@@ -328,30 +404,60 @@ FR_REPLACE: FINDREPLACE_FLAGS = 16
 FR_REPLACEALL: FINDREPLACE_FLAGS = 32
 FR_SHOWHELP: FINDREPLACE_FLAGS = 128
 FR_WHOLEWORD: FINDREPLACE_FLAGS = 2
-class FINDREPLACEA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
-    lpstrFindWhat: win32more.Foundation.PSTR
-    lpstrReplaceWith: win32more.Foundation.PSTR
-    wFindWhatLen: UInt16
-    wReplaceWithLen: UInt16
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
-    lpTemplateName: win32more.Foundation.PSTR
-class FINDREPLACEW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
-    lpstrFindWhat: win32more.Foundation.PWSTR
-    lpstrReplaceWith: win32more.Foundation.PWSTR
-    wFindWhatLen: UInt16
-    wReplaceWithLen: UInt16
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
-    lpTemplateName: win32more.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class FINDREPLACEA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
+        lpstrFindWhat: win32more.Foundation.PSTR
+        lpstrReplaceWith: win32more.Foundation.PSTR
+        wFindWhatLen: UInt16
+        wReplaceWithLen: UInt16
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class FINDREPLACEA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
+        lpstrFindWhat: win32more.Foundation.PSTR
+        lpstrReplaceWith: win32more.Foundation.PSTR
+        wFindWhatLen: UInt16
+        wReplaceWithLen: UInt16
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FINDREPLACEW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
+        lpstrFindWhat: win32more.Foundation.PWSTR
+        lpstrReplaceWith: win32more.Foundation.PWSTR
+        wFindWhatLen: UInt16
+        wReplaceWithLen: UInt16
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class FINDREPLACEW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        Flags: win32more.UI.Controls.Dialogs.FINDREPLACE_FLAGS
+        lpstrFindWhat: win32more.Foundation.PWSTR
+        lpstrReplaceWith: win32more.Foundation.PWSTR
+        wFindWhatLen: UInt16
+        wReplaceWithLen: UInt16
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPFRHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        _pack_ = 1
 class IPrintDialogCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('5852a2c3-6530-11d1-b6-a3-00-00-f8-75-7b-f9')
@@ -386,24 +492,54 @@ def LPPAGESETUPHOOK(param0: win32more.Foundation.HWND, param1: UInt32, param2: w
 def LPPRINTHOOKPROC(param0: win32more.Foundation.HWND, param1: UInt32, param2: win32more.Foundation.WPARAM, param3: win32more.Foundation.LPARAM) -> UIntPtr: ...
 @winfunctype_pointer
 def LPSETUPHOOKPROC(param0: win32more.Foundation.HWND, param1: UInt32, param2: win32more.Foundation.WPARAM, param3: win32more.Foundation.LPARAM) -> UIntPtr: ...
-class OFNOTIFYA(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
-    pszFile: win32more.Foundation.PSTR
-class OFNOTIFYEXA(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
-    psf: c_void_p
-    pidl: c_void_p
-class OFNOTIFYEXW(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
-    psf: c_void_p
-    pidl: c_void_p
-class OFNOTIFYW(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
-    pszFile: win32more.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    class OFNOTIFYA(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        pszFile: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class OFNOTIFYA(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        pszFile: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OFNOTIFYEXA(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        psf: c_void_p
+        pidl: c_void_p
+if ARCH in 'X86':
+    class OFNOTIFYEXA(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEA_head)
+        psf: c_void_p
+        pidl: c_void_p
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OFNOTIFYEXW(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        psf: c_void_p
+        pidl: c_void_p
+if ARCH in 'X86':
+    class OFNOTIFYEXW(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        psf: c_void_p
+        pidl: c_void_p
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OFNOTIFYW(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        pszFile: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class OFNOTIFYW(Structure):
+        hdr: win32more.UI.Controls.NMHDR
+        lpOFN: POINTER(win32more.UI.Controls.Dialogs.OPENFILENAMEW_head)
+        pszFile: win32more.Foundation.PWSTR
+        _pack_ = 1
 OPEN_FILENAME_FLAGS = UInt32
 OFN_READONLY: OPEN_FILENAME_FLAGS = 1
 OFN_OVERWRITEPROMPT: OPEN_FILENAME_FLAGS = 2
@@ -434,96 +570,198 @@ OFN_FORCESHOWHIDDEN: OPEN_FILENAME_FLAGS = 268435456
 OPEN_FILENAME_FLAGS_EX = UInt32
 OFN_EX_NONE: OPEN_FILENAME_FLAGS_EX = 0
 OFN_EX_NOPLACESBAR: OPEN_FILENAME_FLAGS_EX = 1
-class OPENFILENAME_NT4A(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpstrFilter: win32more.Foundation.PSTR
-    lpstrCustomFilter: win32more.Foundation.PSTR
-    nMaxCustFilter: UInt32
-    nFilterIndex: UInt32
-    lpstrFile: win32more.Foundation.PSTR
-    nMaxFile: UInt32
-    lpstrFileTitle: win32more.Foundation.PSTR
-    nMaxFileTitle: UInt32
-    lpstrInitialDir: win32more.Foundation.PSTR
-    lpstrTitle: win32more.Foundation.PSTR
-    Flags: UInt32
-    nFileOffset: UInt16
-    nFileExtension: UInt16
-    lpstrDefExt: win32more.Foundation.PSTR
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
-    lpTemplateName: win32more.Foundation.PSTR
-class OPENFILENAME_NT4W(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpstrFilter: win32more.Foundation.PWSTR
-    lpstrCustomFilter: win32more.Foundation.PWSTR
-    nMaxCustFilter: UInt32
-    nFilterIndex: UInt32
-    lpstrFile: win32more.Foundation.PWSTR
-    nMaxFile: UInt32
-    lpstrFileTitle: win32more.Foundation.PWSTR
-    nMaxFileTitle: UInt32
-    lpstrInitialDir: win32more.Foundation.PWSTR
-    lpstrTitle: win32more.Foundation.PWSTR
-    Flags: UInt32
-    nFileOffset: UInt16
-    nFileExtension: UInt16
-    lpstrDefExt: win32more.Foundation.PWSTR
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
-    lpTemplateName: win32more.Foundation.PWSTR
-class OPENFILENAMEA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpstrFilter: win32more.Foundation.PSTR
-    lpstrCustomFilter: win32more.Foundation.PSTR
-    nMaxCustFilter: UInt32
-    nFilterIndex: UInt32
-    lpstrFile: win32more.Foundation.PSTR
-    nMaxFile: UInt32
-    lpstrFileTitle: win32more.Foundation.PSTR
-    nMaxFileTitle: UInt32
-    lpstrInitialDir: win32more.Foundation.PSTR
-    lpstrTitle: win32more.Foundation.PSTR
-    Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
-    nFileOffset: UInt16
-    nFileExtension: UInt16
-    lpstrDefExt: win32more.Foundation.PSTR
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
-    lpTemplateName: win32more.Foundation.PSTR
-    pvReserved: c_void_p
-    dwReserved: UInt32
-    FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
-class OPENFILENAMEW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpstrFilter: win32more.Foundation.PWSTR
-    lpstrCustomFilter: win32more.Foundation.PWSTR
-    nMaxCustFilter: UInt32
-    nFilterIndex: UInt32
-    lpstrFile: win32more.Foundation.PWSTR
-    nMaxFile: UInt32
-    lpstrFileTitle: win32more.Foundation.PWSTR
-    nMaxFileTitle: UInt32
-    lpstrInitialDir: win32more.Foundation.PWSTR
-    lpstrTitle: win32more.Foundation.PWSTR
-    Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
-    nFileOffset: UInt16
-    nFileExtension: UInt16
-    lpstrDefExt: win32more.Foundation.PWSTR
-    lCustData: win32more.Foundation.LPARAM
-    lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
-    lpTemplateName: win32more.Foundation.PWSTR
-    pvReserved: c_void_p
-    dwReserved: UInt32
-    FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
+if ARCH in 'X64,ARM64':
+    class OPENFILENAME_NT4A(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PSTR
+        lpstrCustomFilter: win32more.Foundation.PSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PSTR
+        lpstrTitle: win32more.Foundation.PSTR
+        Flags: UInt32
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+if ARCH in 'X86':
+    class OPENFILENAME_NT4A(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PSTR
+        lpstrCustomFilter: win32more.Foundation.PSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PSTR
+        lpstrTitle: win32more.Foundation.PSTR
+        Flags: UInt32
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OPENFILENAME_NT4W(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PWSTR
+        lpstrCustomFilter: win32more.Foundation.PWSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PWSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PWSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PWSTR
+        lpstrTitle: win32more.Foundation.PWSTR
+        Flags: UInt32
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PWSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+if ARCH in 'X86':
+    class OPENFILENAME_NT4W(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PWSTR
+        lpstrCustomFilter: win32more.Foundation.PWSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PWSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PWSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PWSTR
+        lpstrTitle: win32more.Foundation.PWSTR
+        Flags: UInt32
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PWSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OPENFILENAMEA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PSTR
+        lpstrCustomFilter: win32more.Foundation.PSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PSTR
+        lpstrTitle: win32more.Foundation.PSTR
+        Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        pvReserved: c_void_p
+        dwReserved: UInt32
+        FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
+if ARCH in 'X86':
+    class OPENFILENAMEA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PSTR
+        lpstrCustomFilter: win32more.Foundation.PSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PSTR
+        lpstrTitle: win32more.Foundation.PSTR
+        Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PSTR
+        pvReserved: c_void_p
+        dwReserved: UInt32
+        FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class OPENFILENAMEW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PWSTR
+        lpstrCustomFilter: win32more.Foundation.PWSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PWSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PWSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PWSTR
+        lpstrTitle: win32more.Foundation.PWSTR
+        Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PWSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        pvReserved: c_void_p
+        dwReserved: UInt32
+        FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
+if ARCH in 'X86':
+    class OPENFILENAMEW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hInstance: win32more.Foundation.HINSTANCE
+        lpstrFilter: win32more.Foundation.PWSTR
+        lpstrCustomFilter: win32more.Foundation.PWSTR
+        nMaxCustFilter: UInt32
+        nFilterIndex: UInt32
+        lpstrFile: win32more.Foundation.PWSTR
+        nMaxFile: UInt32
+        lpstrFileTitle: win32more.Foundation.PWSTR
+        nMaxFileTitle: UInt32
+        lpstrInitialDir: win32more.Foundation.PWSTR
+        lpstrTitle: win32more.Foundation.PWSTR
+        Flags: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS
+        nFileOffset: UInt16
+        nFileExtension: UInt16
+        lpstrDefExt: win32more.Foundation.PWSTR
+        lCustData: win32more.Foundation.LPARAM
+        lpfnHook: win32more.UI.Controls.Dialogs.LPOFNHOOKPROC
+        lpTemplateName: win32more.Foundation.PWSTR
+        pvReserved: c_void_p
+        dwReserved: UInt32
+        FlagsEx: win32more.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
+        _pack_ = 1
 PAGESETUPDLG_FLAGS = UInt32
 PSD_DEFAULTMINMARGINS: PAGESETUPDLG_FLAGS = 0
 PSD_DISABLEMARGINS: PAGESETUPDLG_FLAGS = 16
@@ -544,56 +782,115 @@ PSD_NONETWORKBUTTON: PAGESETUPDLG_FLAGS = 2097152
 PSD_NOWARNING: PAGESETUPDLG_FLAGS = 128
 PSD_RETURNDEFAULT: PAGESETUPDLG_FLAGS = 1024
 PSD_SHOWHELP: PAGESETUPDLG_FLAGS = 2048
-class PAGESETUPDLGA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
-    ptPaperSize: win32more.Foundation.POINT
-    rtMinMargin: win32more.Foundation.RECT
-    rtMargin: win32more.Foundation.RECT
-    hInstance: win32more.Foundation.HINSTANCE
-    lCustData: win32more.Foundation.LPARAM
-    lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
-    lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
-    lpPageSetupTemplateName: win32more.Foundation.PSTR
-    hPageSetupTemplate: IntPtr
-class PAGESETUPDLGW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
-    ptPaperSize: win32more.Foundation.POINT
-    rtMinMargin: win32more.Foundation.RECT
-    rtMargin: win32more.Foundation.RECT
-    hInstance: win32more.Foundation.HINSTANCE
-    lCustData: win32more.Foundation.LPARAM
-    lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
-    lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
-    lpPageSetupTemplateName: win32more.Foundation.PWSTR
-    hPageSetupTemplate: IntPtr
-class PRINTDLGA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    hDC: win32more.Graphics.Gdi.HDC
-    Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
-    nFromPage: UInt16
-    nToPage: UInt16
-    nMinPage: UInt16
-    nMaxPage: UInt16
-    nCopies: UInt16
-    hInstance: win32more.Foundation.HINSTANCE
-    lCustData: win32more.Foundation.LPARAM
-    lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
-    lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
-    lpPrintTemplateName: win32more.Foundation.PSTR
-    lpSetupTemplateName: win32more.Foundation.PSTR
-    hPrintTemplate: IntPtr
-    hSetupTemplate: IntPtr
+if ARCH in 'X64,ARM64':
+    class PAGESETUPDLGA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
+        ptPaperSize: win32more.Foundation.POINT
+        rtMinMargin: win32more.Foundation.RECT
+        rtMargin: win32more.Foundation.RECT
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
+        lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
+        lpPageSetupTemplateName: win32more.Foundation.PSTR
+        hPageSetupTemplate: IntPtr
+if ARCH in 'X86':
+    class PAGESETUPDLGA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
+        ptPaperSize: win32more.Foundation.POINT
+        rtMinMargin: win32more.Foundation.RECT
+        rtMargin: win32more.Foundation.RECT
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
+        lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
+        lpPageSetupTemplateName: win32more.Foundation.PSTR
+        hPageSetupTemplate: IntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class PAGESETUPDLGW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
+        ptPaperSize: win32more.Foundation.POINT
+        rtMinMargin: win32more.Foundation.RECT
+        rtMargin: win32more.Foundation.RECT
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
+        lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
+        lpPageSetupTemplateName: win32more.Foundation.PWSTR
+        hPageSetupTemplate: IntPtr
+if ARCH in 'X86':
+    class PAGESETUPDLGW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        Flags: win32more.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
+        ptPaperSize: win32more.Foundation.POINT
+        rtMinMargin: win32more.Foundation.RECT
+        rtMargin: win32more.Foundation.RECT
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPageSetupHook: win32more.UI.Controls.Dialogs.LPPAGESETUPHOOK
+        lpfnPagePaintHook: win32more.UI.Controls.Dialogs.LPPAGEPAINTHOOK
+        lpPageSetupTemplateName: win32more.Foundation.PWSTR
+        hPageSetupTemplate: IntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class PRINTDLGA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        nFromPage: UInt16
+        nToPage: UInt16
+        nMinPage: UInt16
+        nMaxPage: UInt16
+        nCopies: UInt16
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
+        lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
+        lpPrintTemplateName: win32more.Foundation.PSTR
+        lpSetupTemplateName: win32more.Foundation.PSTR
+        hPrintTemplate: IntPtr
+        hSetupTemplate: IntPtr
+if ARCH in 'X86':
+    class PRINTDLGA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        nFromPage: UInt16
+        nToPage: UInt16
+        nMinPage: UInt16
+        nMaxPage: UInt16
+        nCopies: UInt16
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
+        lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
+        lpPrintTemplateName: win32more.Foundation.PSTR
+        lpSetupTemplateName: win32more.Foundation.PSTR
+        hPrintTemplate: IntPtr
+        hSetupTemplate: IntPtr
+        _pack_ = 1
 PRINTDLGEX_FLAGS = UInt32
 PD_ALLPAGES: PRINTDLGEX_FLAGS = 0
 PD_COLLATE: PRINTDLGEX_FLAGS = 16
@@ -623,80 +920,180 @@ PD_ENABLESETUPTEMPLATEHANDLE: PRINTDLGEX_FLAGS = 131072
 PD_NONETWORKBUTTON: PRINTDLGEX_FLAGS = 2097152
 PD_PRINTSETUP: PRINTDLGEX_FLAGS = 64
 PD_SHOWHELP: PRINTDLGEX_FLAGS = 2048
-class PRINTDLGEXA(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    hDC: win32more.Graphics.Gdi.HDC
-    Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
-    Flags2: UInt32
-    ExclusionFlags: UInt32
-    nPageRanges: UInt32
-    nMaxPageRanges: UInt32
-    lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
-    nMinPage: UInt32
-    nMaxPage: UInt32
-    nCopies: UInt32
-    hInstance: win32more.Foundation.HINSTANCE
-    lpPrintTemplateName: win32more.Foundation.PSTR
-    lpCallback: win32more.System.Com.IUnknown_head
-    nPropertyPages: UInt32
-    lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
-    nStartPage: UInt32
-    dwResultAction: UInt32
-class PRINTDLGEXW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    hDC: win32more.Graphics.Gdi.HDC
-    Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
-    Flags2: UInt32
-    ExclusionFlags: UInt32
-    nPageRanges: UInt32
-    nMaxPageRanges: UInt32
-    lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
-    nMinPage: UInt32
-    nMaxPage: UInt32
-    nCopies: UInt32
-    hInstance: win32more.Foundation.HINSTANCE
-    lpPrintTemplateName: win32more.Foundation.PWSTR
-    lpCallback: win32more.System.Com.IUnknown_head
-    nPropertyPages: UInt32
-    lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
-    nStartPage: UInt32
-    dwResultAction: UInt32
-class PRINTDLGW(Structure):
-    lStructSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hDevMode: IntPtr
-    hDevNames: IntPtr
-    hDC: win32more.Graphics.Gdi.HDC
-    Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
-    nFromPage: UInt16
-    nToPage: UInt16
-    nMinPage: UInt16
-    nMaxPage: UInt16
-    nCopies: UInt16
-    hInstance: win32more.Foundation.HINSTANCE
-    lCustData: win32more.Foundation.LPARAM
-    lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
-    lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
-    lpPrintTemplateName: win32more.Foundation.PWSTR
-    lpSetupTemplateName: win32more.Foundation.PWSTR
-    hPrintTemplate: IntPtr
-    hSetupTemplate: IntPtr
-class PRINTPAGERANGE(Structure):
-    nFromPage: UInt32
-    nToPage: UInt32
-make_head(_module, 'CHOOSECOLORA')
-make_head(_module, 'CHOOSECOLORW')
-make_head(_module, 'CHOOSEFONTA')
-make_head(_module, 'CHOOSEFONTW')
-make_head(_module, 'DEVNAMES')
-make_head(_module, 'FINDREPLACEA')
-make_head(_module, 'FINDREPLACEW')
+if ARCH in 'X64,ARM64':
+    class PRINTDLGEXA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        Flags2: UInt32
+        ExclusionFlags: UInt32
+        nPageRanges: UInt32
+        nMaxPageRanges: UInt32
+        lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        nMinPage: UInt32
+        nMaxPage: UInt32
+        nCopies: UInt32
+        hInstance: win32more.Foundation.HINSTANCE
+        lpPrintTemplateName: win32more.Foundation.PSTR
+        lpCallback: win32more.System.Com.IUnknown_head
+        nPropertyPages: UInt32
+        lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
+        nStartPage: UInt32
+        dwResultAction: UInt32
+if ARCH in 'X86':
+    class PRINTDLGEXA(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        Flags2: UInt32
+        ExclusionFlags: UInt32
+        nPageRanges: UInt32
+        nMaxPageRanges: UInt32
+        lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        nMinPage: UInt32
+        nMaxPage: UInt32
+        nCopies: UInt32
+        hInstance: win32more.Foundation.HINSTANCE
+        lpPrintTemplateName: win32more.Foundation.PSTR
+        lpCallback: win32more.System.Com.IUnknown_head
+        nPropertyPages: UInt32
+        lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
+        nStartPage: UInt32
+        dwResultAction: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class PRINTDLGEXW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        Flags2: UInt32
+        ExclusionFlags: UInt32
+        nPageRanges: UInt32
+        nMaxPageRanges: UInt32
+        lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        nMinPage: UInt32
+        nMaxPage: UInt32
+        nCopies: UInt32
+        hInstance: win32more.Foundation.HINSTANCE
+        lpPrintTemplateName: win32more.Foundation.PWSTR
+        lpCallback: win32more.System.Com.IUnknown_head
+        nPropertyPages: UInt32
+        lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
+        nStartPage: UInt32
+        dwResultAction: UInt32
+if ARCH in 'X86':
+    class PRINTDLGEXW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        Flags2: UInt32
+        ExclusionFlags: UInt32
+        nPageRanges: UInt32
+        nMaxPageRanges: UInt32
+        lpPageRanges: POINTER(win32more.UI.Controls.Dialogs.PRINTPAGERANGE_head)
+        nMinPage: UInt32
+        nMaxPage: UInt32
+        nCopies: UInt32
+        hInstance: win32more.Foundation.HINSTANCE
+        lpPrintTemplateName: win32more.Foundation.PWSTR
+        lpCallback: win32more.System.Com.IUnknown_head
+        nPropertyPages: UInt32
+        lphPropertyPages: POINTER(win32more.UI.Controls.HPROPSHEETPAGE)
+        nStartPage: UInt32
+        dwResultAction: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class PRINTDLGW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        nFromPage: UInt16
+        nToPage: UInt16
+        nMinPage: UInt16
+        nMaxPage: UInt16
+        nCopies: UInt16
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
+        lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
+        lpPrintTemplateName: win32more.Foundation.PWSTR
+        lpSetupTemplateName: win32more.Foundation.PWSTR
+        hPrintTemplate: IntPtr
+        hSetupTemplate: IntPtr
+if ARCH in 'X86':
+    class PRINTDLGW(Structure):
+        lStructSize: UInt32
+        hwndOwner: win32more.Foundation.HWND
+        hDevMode: IntPtr
+        hDevNames: IntPtr
+        hDC: win32more.Graphics.Gdi.HDC
+        Flags: win32more.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
+        nFromPage: UInt16
+        nToPage: UInt16
+        nMinPage: UInt16
+        nMaxPage: UInt16
+        nCopies: UInt16
+        hInstance: win32more.Foundation.HINSTANCE
+        lCustData: win32more.Foundation.LPARAM
+        lpfnPrintHook: win32more.UI.Controls.Dialogs.LPPRINTHOOKPROC
+        lpfnSetupHook: win32more.UI.Controls.Dialogs.LPSETUPHOOKPROC
+        lpPrintTemplateName: win32more.Foundation.PWSTR
+        lpSetupTemplateName: win32more.Foundation.PWSTR
+        hPrintTemplate: IntPtr
+        hSetupTemplate: IntPtr
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class PRINTPAGERANGE(Structure):
+        nFromPage: UInt32
+        nToPage: UInt32
+if ARCH in 'X86':
+    class PRINTPAGERANGE(Structure):
+        nFromPage: UInt32
+        nToPage: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CHOOSECOLORA')
+if ARCH in 'X86':
+    make_head(_module, 'CHOOSECOLORA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CHOOSECOLORW')
+if ARCH in 'X86':
+    make_head(_module, 'CHOOSECOLORW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CHOOSEFONTA')
+if ARCH in 'X86':
+    make_head(_module, 'CHOOSEFONTA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'CHOOSEFONTW')
+if ARCH in 'X86':
+    make_head(_module, 'CHOOSEFONTW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DEVNAMES')
+if ARCH in 'X86':
+    make_head(_module, 'DEVNAMES')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDREPLACEA')
+if ARCH in 'X86':
+    make_head(_module, 'FINDREPLACEA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FINDREPLACEW')
+if ARCH in 'X86':
+    make_head(_module, 'FINDREPLACEW')
 make_head(_module, 'IPrintDialogCallback')
 make_head(_module, 'IPrintDialogServices')
 make_head(_module, 'LPCCHOOKPROC')
@@ -707,21 +1104,66 @@ make_head(_module, 'LPPAGEPAINTHOOK')
 make_head(_module, 'LPPAGESETUPHOOK')
 make_head(_module, 'LPPRINTHOOKPROC')
 make_head(_module, 'LPSETUPHOOKPROC')
-make_head(_module, 'OFNOTIFYA')
-make_head(_module, 'OFNOTIFYEXA')
-make_head(_module, 'OFNOTIFYEXW')
-make_head(_module, 'OFNOTIFYW')
-make_head(_module, 'OPENFILENAME_NT4A')
-make_head(_module, 'OPENFILENAME_NT4W')
-make_head(_module, 'OPENFILENAMEA')
-make_head(_module, 'OPENFILENAMEW')
-make_head(_module, 'PAGESETUPDLGA')
-make_head(_module, 'PAGESETUPDLGW')
-make_head(_module, 'PRINTDLGA')
-make_head(_module, 'PRINTDLGEXA')
-make_head(_module, 'PRINTDLGEXW')
-make_head(_module, 'PRINTDLGW')
-make_head(_module, 'PRINTPAGERANGE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OFNOTIFYA')
+if ARCH in 'X86':
+    make_head(_module, 'OFNOTIFYA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OFNOTIFYEXA')
+if ARCH in 'X86':
+    make_head(_module, 'OFNOTIFYEXA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OFNOTIFYEXW')
+if ARCH in 'X86':
+    make_head(_module, 'OFNOTIFYEXW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OFNOTIFYW')
+if ARCH in 'X86':
+    make_head(_module, 'OFNOTIFYW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPENFILENAME_NT4A')
+if ARCH in 'X86':
+    make_head(_module, 'OPENFILENAME_NT4A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPENFILENAME_NT4W')
+if ARCH in 'X86':
+    make_head(_module, 'OPENFILENAME_NT4W')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPENFILENAMEA')
+if ARCH in 'X86':
+    make_head(_module, 'OPENFILENAMEA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'OPENFILENAMEW')
+if ARCH in 'X86':
+    make_head(_module, 'OPENFILENAMEW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PAGESETUPDLGA')
+if ARCH in 'X86':
+    make_head(_module, 'PAGESETUPDLGA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PAGESETUPDLGW')
+if ARCH in 'X86':
+    make_head(_module, 'PAGESETUPDLGW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PRINTDLGA')
+if ARCH in 'X86':
+    make_head(_module, 'PRINTDLGA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PRINTDLGEXA')
+if ARCH in 'X86':
+    make_head(_module, 'PRINTDLGEXA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PRINTDLGEXW')
+if ARCH in 'X86':
+    make_head(_module, 'PRINTDLGEXW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PRINTDLGW')
+if ARCH in 'X86':
+    make_head(_module, 'PRINTDLGW')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PRINTPAGERANGE')
+if ARCH in 'X86':
+    make_head(_module, 'PRINTPAGERANGE')
 __all__ = [
     "BOLD_FONTTYPE",
     "CCERR_CHOOSECOLORCODES",
@@ -1065,4 +1507,6 @@ __all__ = [
     "WM_PSD_MARGINRECT",
     "WM_PSD_MINMARGINRECT",
     "WM_PSD_YAFULLPAGERECT",
+]
+_arch_optional = [
 ]

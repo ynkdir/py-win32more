@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Power
@@ -12,6 +12,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1367,22 +1369,30 @@ LBS_STANDARD: Int32 = 10485763
 def LoadStringA(hInstance: win32more.Foundation.HINSTANCE, uID: UInt32, lpBuffer: win32more.Foundation.PSTR, cchBufferMax: Int32) -> Int32: ...
 @winfunctype('USER32.dll')
 def LoadStringW(hInstance: win32more.Foundation.HINSTANCE, uID: UInt32, lpBuffer: win32more.Foundation.PWSTR, cchBufferMax: Int32) -> Int32: ...
-@winfunctype('USER32.dll')
-def GetWindowLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX) -> IntPtr: ...
-@winfunctype('USER32.dll')
-def GetWindowLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX) -> IntPtr: ...
-@winfunctype('USER32.dll')
-def SetWindowLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, dwNewLong: IntPtr) -> IntPtr: ...
-@winfunctype('USER32.dll')
-def SetWindowLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, dwNewLong: IntPtr) -> IntPtr: ...
-@winfunctype('USER32.dll')
-def GetClassLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX) -> UIntPtr: ...
-@winfunctype('USER32.dll')
-def GetClassLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX) -> UIntPtr: ...
-@winfunctype('USER32.dll')
-def SetClassLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, dwNewLong: IntPtr) -> UIntPtr: ...
-@winfunctype('USER32.dll')
-def SetClassLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, dwNewLong: IntPtr) -> UIntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def GetWindowLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX) -> IntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def GetWindowLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX) -> IntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def SetWindowLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, dwNewLong: IntPtr) -> IntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def SetWindowLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX, dwNewLong: IntPtr) -> IntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def GetClassLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX) -> UIntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def GetClassLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX) -> UIntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def SetClassLongPtrA(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, dwNewLong: IntPtr) -> UIntPtr: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype('USER32.dll')
+    def SetClassLongPtrW(hWnd: win32more.Foundation.HWND, nIndex: win32more.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX, dwNewLong: IntPtr) -> UIntPtr: ...
 @winfunctype('USER32.dll')
 def wvsprintfA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, arglist: POINTER(SByte)) -> Int32: ...
 @winfunctype('USER32.dll')
@@ -6397,4 +6407,14 @@ __all__ = [
     "wsprintfW",
     "wvsprintfA",
     "wvsprintfW",
+]
+_arch_optional = [
+    "GetClassLongPtrA",
+    "GetClassLongPtrW",
+    "GetWindowLongPtrA",
+    "GetWindowLongPtrW",
+    "SetClassLongPtrA",
+    "SetClassLongPtrW",
+    "SetWindowLongPtrA",
+    "SetWindowLongPtrW",
 ]

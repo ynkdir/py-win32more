@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.NetworkManagement.Dns
 import sys
@@ -9,6 +9,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -1183,11 +1185,17 @@ DnsContextHandle = IntPtr
 class IP4_ARRAY(Structure):
     AddrCount: UInt32
     AddrArray: UInt32 * 1
-class IP6_ADDRESS(Union):
-    IP6Qword: UInt64 * 2
-    IP6Dword: UInt32 * 4
-    IP6Word: UInt16 * 8
-    IP6Byte: Byte * 16
+if ARCH in 'X64,ARM64':
+    class IP6_ADDRESS(Union):
+        IP6Qword: UInt64 * 2
+        IP6Dword: UInt32 * 4
+        IP6Word: UInt16 * 8
+        IP6Byte: Byte * 16
+if ARCH in 'X86':
+    class IP6_ADDRESS(Union):
+        IP6Dword: UInt32 * 4
+        IP6Word: UInt16 * 8
+        IP6Byte: Byte * 16
 class MDNS_QUERY_HANDLE(Structure):
     nameBuf: Char * 256
     wType: UInt16
@@ -1293,7 +1301,10 @@ make_head(_module, 'DNS_WIRE_QUESTION')
 make_head(_module, 'DNS_WIRE_RECORD')
 make_head(_module, 'DNS_WKS_DATA')
 make_head(_module, 'IP4_ARRAY')
-make_head(_module, 'IP6_ADDRESS')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'IP6_ADDRESS')
+if ARCH in 'X86':
+    make_head(_module, 'IP6_ADDRESS')
 make_head(_module, 'MDNS_QUERY_HANDLE')
 make_head(_module, 'MDNS_QUERY_REQUEST')
 make_head(_module, 'PDNS_QUERY_COMPLETION_ROUTINE')
@@ -1837,4 +1848,6 @@ __all__ = [
     "TAG_DNS_CONNECTION_POLICY_TAG_DEFAULT",
     "TAG_DNS_CONNECTION_POLICY_TAG_WWWPT",
     "_DnsRecordOptA",
+]
+_arch_optional = [
 ]

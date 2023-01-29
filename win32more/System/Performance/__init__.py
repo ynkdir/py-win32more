@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Ole
@@ -11,6 +11,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -2023,17 +2025,30 @@ class PERF_COUNTER_BLOCK(Structure):
 class PERF_COUNTER_DATA(Structure):
     dwDataSize: UInt32
     dwSize: UInt32
-class PERF_COUNTER_DEFINITION(Structure):
-    ByteLength: UInt32
-    CounterNameTitleIndex: UInt32
-    CounterNameTitle: UInt32
-    CounterHelpTitleIndex: UInt32
-    CounterHelpTitle: UInt32
-    DefaultScale: Int32
-    DetailLevel: UInt32
-    CounterType: UInt32
-    CounterSize: UInt32
-    CounterOffset: UInt32
+if ARCH in 'X64,ARM64':
+    class PERF_COUNTER_DEFINITION(Structure):
+        ByteLength: UInt32
+        CounterNameTitleIndex: UInt32
+        CounterNameTitle: UInt32
+        CounterHelpTitleIndex: UInt32
+        CounterHelpTitle: UInt32
+        DefaultScale: Int32
+        DetailLevel: UInt32
+        CounterType: UInt32
+        CounterSize: UInt32
+        CounterOffset: UInt32
+if ARCH in 'X86':
+    class PERF_COUNTER_DEFINITION(Structure):
+        ByteLength: UInt32
+        CounterNameTitleIndex: UInt32
+        CounterNameTitle: win32more.Foundation.PWSTR
+        CounterHelpTitleIndex: UInt32
+        CounterHelpTitle: win32more.Foundation.PWSTR
+        DefaultScale: Int32
+        DetailLevel: UInt32
+        CounterType: UInt32
+        CounterSize: UInt32
+        CounterOffset: UInt32
 class PERF_COUNTER_HEADER(Structure):
     dwStatus: UInt32
     dwType: win32more.System.Performance.PerfCounterDataType
@@ -2139,21 +2154,38 @@ class PERF_MULTI_COUNTERS(Structure):
 class PERF_MULTI_INSTANCES(Structure):
     dwTotalSize: UInt32
     dwInstances: UInt32
-class PERF_OBJECT_TYPE(Structure):
-    TotalByteLength: UInt32
-    DefinitionLength: UInt32
-    HeaderLength: UInt32
-    ObjectNameTitleIndex: UInt32
-    ObjectNameTitle: UInt32
-    ObjectHelpTitleIndex: UInt32
-    ObjectHelpTitle: UInt32
-    DetailLevel: UInt32
-    NumCounters: UInt32
-    DefaultCounter: Int32
-    NumInstances: Int32
-    CodePage: UInt32
-    PerfTime: win32more.Foundation.LARGE_INTEGER
-    PerfFreq: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X64,ARM64':
+    class PERF_OBJECT_TYPE(Structure):
+        TotalByteLength: UInt32
+        DefinitionLength: UInt32
+        HeaderLength: UInt32
+        ObjectNameTitleIndex: UInt32
+        ObjectNameTitle: UInt32
+        ObjectHelpTitleIndex: UInt32
+        ObjectHelpTitle: UInt32
+        DetailLevel: UInt32
+        NumCounters: UInt32
+        DefaultCounter: Int32
+        NumInstances: Int32
+        CodePage: UInt32
+        PerfTime: win32more.Foundation.LARGE_INTEGER
+        PerfFreq: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X86':
+    class PERF_OBJECT_TYPE(Structure):
+        TotalByteLength: UInt32
+        DefinitionLength: UInt32
+        HeaderLength: UInt32
+        ObjectNameTitleIndex: UInt32
+        ObjectNameTitle: win32more.Foundation.PWSTR
+        ObjectHelpTitleIndex: UInt32
+        ObjectHelpTitle: win32more.Foundation.PWSTR
+        DetailLevel: UInt32
+        NumCounters: UInt32
+        DefaultCounter: Int32
+        NumInstances: Int32
+        CodePage: UInt32
+        PerfTime: win32more.Foundation.LARGE_INTEGER
+        PerfFreq: win32more.Foundation.LARGE_INTEGER
 class PERF_PROVIDER_CONTEXT(Structure):
     ContextSize: UInt32
     Reserved: UInt32
@@ -2315,7 +2347,10 @@ make_head(_module, 'PDH_STATISTICS')
 make_head(_module, 'PDH_TIME_INFO')
 make_head(_module, 'PERF_COUNTER_BLOCK')
 make_head(_module, 'PERF_COUNTER_DATA')
-make_head(_module, 'PERF_COUNTER_DEFINITION')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PERF_COUNTER_DEFINITION')
+if ARCH in 'X86':
+    make_head(_module, 'PERF_COUNTER_DEFINITION')
 make_head(_module, 'PERF_COUNTER_HEADER')
 make_head(_module, 'PERF_COUNTER_IDENTIFIER')
 make_head(_module, 'PERF_COUNTER_IDENTITY')
@@ -2332,7 +2367,10 @@ make_head(_module, 'PERF_MEM_ALLOC')
 make_head(_module, 'PERF_MEM_FREE')
 make_head(_module, 'PERF_MULTI_COUNTERS')
 make_head(_module, 'PERF_MULTI_INSTANCES')
-make_head(_module, 'PERF_OBJECT_TYPE')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PERF_OBJECT_TYPE')
+if ARCH in 'X86':
+    make_head(_module, 'PERF_OBJECT_TYPE')
 make_head(_module, 'PERF_PROVIDER_CONTEXT')
 make_head(_module, 'PERF_STRING_BUFFER_HEADER')
 make_head(_module, 'PERF_STRING_COUNTER_HEADER')
@@ -2949,4 +2987,6 @@ __all__ = [
     "WeekDays_plaWednesday",
     "_ICounterItemUnion",
     "_ISystemMonitorUnion",
+]
+_arch_optional = [
 ]

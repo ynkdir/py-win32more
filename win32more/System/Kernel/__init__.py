@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.System.Diagnostics.Debug
 import win32more.System.Kernel
@@ -10,6 +10,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -66,16 +68,28 @@ class EXCEPTION_REGISTRATION_RECORD(Structure):
     Handler: win32more.System.Kernel.EXCEPTION_ROUTINE
 @winfunctype_pointer
 def EXCEPTION_ROUTINE(ExceptionRecord: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_RECORD_head), EstablisherFrame: c_void_p, ContextRecord: POINTER(win32more.System.Diagnostics.Debug.CONTEXT_head), DispatcherContext: c_void_p) -> win32more.System.Kernel.EXCEPTION_DISPOSITION: ...
-class FLOATING_SAVE_AREA(Structure):
-    ControlWord: UInt32
-    StatusWord: UInt32
-    TagWord: UInt32
-    ErrorOffset: UInt32
-    ErrorSelector: UInt32
-    DataOffset: UInt32
-    DataSelector: UInt32
-    RegisterArea: Byte * 80
-    Cr0NpxState: UInt32
+if ARCH in 'X64,ARM64':
+    class FLOATING_SAVE_AREA(Structure):
+        ControlWord: UInt32
+        StatusWord: UInt32
+        TagWord: UInt32
+        ErrorOffset: UInt32
+        ErrorSelector: UInt32
+        DataOffset: UInt32
+        DataSelector: UInt32
+        RegisterArea: Byte * 80
+        Cr0NpxState: UInt32
+if ARCH in 'X86':
+    class FLOATING_SAVE_AREA(Structure):
+        ControlWord: UInt32
+        StatusWord: UInt32
+        TagWord: UInt32
+        ErrorOffset: UInt32
+        ErrorSelector: UInt32
+        DataOffset: UInt32
+        DataSelector: UInt32
+        RegisterArea: Byte * 80
+        Spare0: UInt32
 class LIST_ENTRY(Structure):
     Flink: POINTER(win32more.System.Kernel.LIST_ENTRY_head)
     Blink: POINTER(win32more.System.Kernel.LIST_ENTRY_head)
@@ -144,15 +158,34 @@ class SINGLE_LIST_ENTRY32(Structure):
     Next: UInt32
 class SLIST_ENTRY(Structure):
     Next: POINTER(win32more.System.Kernel.SLIST_ENTRY_head)
-class SLIST_HEADER(Union):
-    Anonymous: _Anonymous_e__Struct
-    HeaderX64: _HeaderX64_e__Struct
-    class _Anonymous_e__Struct(Structure):
+if ARCH in 'ARM64':
+    class SLIST_HEADER(Union):
+        Anonymous: _Anonymous_e__Struct
+        HeaderArm64: _HeaderArm64_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Alignment: UInt64
+            Region: UInt64
+        class _HeaderArm64_e__Struct(Structure):
+            _bitfield1: UInt64
+            _bitfield2: UInt64
+if ARCH in 'X64':
+    class SLIST_HEADER(Union):
+        Anonymous: _Anonymous_e__Struct
+        HeaderX64: _HeaderX64_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Alignment: UInt64
+            Region: UInt64
+        class _HeaderX64_e__Struct(Structure):
+            _bitfield1: UInt64
+            _bitfield2: UInt64
+if ARCH in 'X86':
+    class SLIST_HEADER(Union):
         Alignment: UInt64
-        Region: UInt64
-    class _HeaderX64_e__Struct(Structure):
-        _bitfield1: UInt64
-        _bitfield2: UInt64
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            Next: win32more.System.Kernel.SINGLE_LIST_ENTRY
+            Depth: UInt16
+            CpuId: UInt16
 class STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
@@ -199,7 +232,10 @@ class WNF_STATE_NAME(Structure):
 make_head(_module, 'CSTRING')
 make_head(_module, 'EXCEPTION_REGISTRATION_RECORD')
 make_head(_module, 'EXCEPTION_ROUTINE')
-make_head(_module, 'FLOATING_SAVE_AREA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FLOATING_SAVE_AREA')
+if ARCH in 'X86':
+    make_head(_module, 'FLOATING_SAVE_AREA')
 make_head(_module, 'LIST_ENTRY')
 make_head(_module, 'LIST_ENTRY32')
 make_head(_module, 'LIST_ENTRY64')
@@ -213,7 +249,12 @@ make_head(_module, 'RTL_BALANCED_NODE')
 make_head(_module, 'SINGLE_LIST_ENTRY')
 make_head(_module, 'SINGLE_LIST_ENTRY32')
 make_head(_module, 'SLIST_ENTRY')
-make_head(_module, 'SLIST_HEADER')
+if ARCH in 'ARM64':
+    make_head(_module, 'SLIST_HEADER')
+if ARCH in 'X64':
+    make_head(_module, 'SLIST_HEADER')
+if ARCH in 'X86':
+    make_head(_module, 'SLIST_HEADER')
 make_head(_module, 'STRING')
 make_head(_module, 'STRING32')
 make_head(_module, 'STRING64')
@@ -309,4 +350,6 @@ __all__ = [
     "WAIT_TYPE_WaitDpc",
     "WAIT_TYPE_WaitNotification",
     "WNF_STATE_NAME",
+]
+_arch_optional = [
 ]

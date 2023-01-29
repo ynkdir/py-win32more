@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from win32more.base import MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
+from win32more.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.Security
@@ -14,6 +14,8 @@ def __getattr__(name):
     try:
         prototype = globals()[f'{name}_head']
     except KeyError:
+        if name in _arch_optional:
+            return None
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
@@ -4103,12 +4105,17 @@ class PACKEDEVENTINFO(Structure):
     ulSize: UInt32
     ulNumEventsForLogFile: UInt32
     ulOffsets: UInt32 * 1
-@winfunctype_pointer
-def PEXCEPTION_FILTER(ExceptionPointers: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), EstablisherFrame: c_void_p) -> Int32: ...
+if ARCH in 'X64,ARM64':
+    @winfunctype_pointer
+    def PEXCEPTION_FILTER(ExceptionPointers: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), EstablisherFrame: c_void_p) -> Int32: ...
 @winfunctype_pointer
 def PIMAGE_TLS_CALLBACK(DllHandle: c_void_p, Reason: UInt32, Reserved: c_void_p) -> Void: ...
-@winfunctype_pointer
-def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Foundation.HANDLE, TableAddress: c_void_p, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+if ARCH in 'ARM64':
+    @winfunctype_pointer
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Foundation.HANDLE, TableAddress: c_void_p, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
+if ARCH in 'X64':
+    @winfunctype_pointer
+    def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Foundation.HANDLE, TableAddress: c_void_p, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head))) -> UInt32: ...
 class POWER_IDLE_RESILIENCY(Structure):
     CoalescingTimeout: UInt32
     IdleResiliencyPeriod: UInt32
@@ -4497,8 +4504,12 @@ class PROCESSOR_PERFSTATE_POLICY(Structure):
             Anonymous: _Anonymous_e__Struct
             class _Anonymous_e__Struct(Structure):
                 _bitfield: Byte
-@winfunctype_pointer
-def PTERMINATION_HANDLER(_abnormal_termination: win32more.Foundation.BOOLEAN, EstablisherFrame: c_void_p) -> Void: ...
+if ARCH in 'ARM64':
+    @winfunctype_pointer
+    def PTERMINATION_HANDLER(_abnormal_termination: win32more.Foundation.BOOLEAN, EstablisherFrame: UInt64) -> Void: ...
+if ARCH in 'X64':
+    @winfunctype_pointer
+    def PTERMINATION_HANDLER(_abnormal_termination: win32more.Foundation.BOOLEAN, EstablisherFrame: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PUMS_SCHEDULER_ENTRY_POINT(Reason: win32more.System.SystemServices.RTL_UMS_SCHEDULER_REASON, ActivationPayload: UIntPtr, SchedulerParam: c_void_p) -> Void: ...
 class QUOTA_LIMITS_EX(Structure):
@@ -4525,12 +4536,13 @@ class REARRANGE_FILE_DATA(Structure):
     SourceFileHandle: win32more.Foundation.HANDLE
     Length: UInt32
     Flags: UInt32
-class REARRANGE_FILE_DATA32(Structure):
-    SourceStartingOffset: UInt64
-    TargetOffset: UInt64
-    SourceFileHandle: UInt32
-    Length: UInt32
-    Flags: UInt32
+if ARCH in 'X64,ARM64':
+    class REARRANGE_FILE_DATA32(Structure):
+        SourceStartingOffset: UInt64
+        TargetOffset: UInt64
+        SourceFileHandle: UInt32
+        Length: UInt32
+        Flags: UInt32
 RECO_FLAGS = UInt32
 RECO_PASTE: RECO_FLAGS = 0
 RECO_DROP: RECO_FLAGS = 1
@@ -5163,9 +5175,13 @@ make_head(_module, 'NOTIFY_USER_POWER_SETTING')
 make_head(_module, 'NT_TIB32')
 make_head(_module, 'NT_TIB64')
 make_head(_module, 'PACKEDEVENTINFO')
-make_head(_module, 'PEXCEPTION_FILTER')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'PEXCEPTION_FILTER')
 make_head(_module, 'PIMAGE_TLS_CALLBACK')
-make_head(_module, 'POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK')
+if ARCH in 'ARM64':
+    make_head(_module, 'POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK')
+if ARCH in 'X64':
+    make_head(_module, 'POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK')
 make_head(_module, 'POWER_IDLE_RESILIENCY')
 make_head(_module, 'POWER_MONITOR_INVOCATION')
 make_head(_module, 'POWER_PLATFORM_INFORMATION')
@@ -5211,12 +5227,16 @@ make_head(_module, 'PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY')
 make_head(_module, 'PROCESSOR_IDLESTATE_INFO')
 make_head(_module, 'PROCESSOR_IDLESTATE_POLICY')
 make_head(_module, 'PROCESSOR_PERFSTATE_POLICY')
-make_head(_module, 'PTERMINATION_HANDLER')
+if ARCH in 'ARM64':
+    make_head(_module, 'PTERMINATION_HANDLER')
+if ARCH in 'X64':
+    make_head(_module, 'PTERMINATION_HANDLER')
 make_head(_module, 'PUMS_SCHEDULER_ENTRY_POINT')
 make_head(_module, 'QUOTA_LIMITS_EX')
 make_head(_module, 'RATE_QUOTA_LIMIT')
 make_head(_module, 'REARRANGE_FILE_DATA')
-make_head(_module, 'REARRANGE_FILE_DATA32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'REARRANGE_FILE_DATA32')
 make_head(_module, 'REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO')
 make_head(_module, 'RemHBITMAP')
 make_head(_module, 'RemHBRUSH')
@@ -9132,4 +9152,10 @@ __all__ = [
     "userHMETAFILE",
     "userHMETAFILEPICT",
     "userHPALETTE",
+]
+_arch_optional = [
+    "PEXCEPTION_FILTER",
+    "POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK",
+    "PTERMINATION_HANDLER",
+    "REARRANGE_FILE_DATA32",
 ]
