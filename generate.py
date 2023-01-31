@@ -343,8 +343,8 @@ class FieldDefinition:
         return self["Name"]
 
     @property
-    def type(self) -> TType:
-        return TType(self["Type"])
+    def signature(self) -> TType:
+        return TType(self["Signature"])
 
     @property
     def attributes(self) -> list[str]:
@@ -357,7 +357,7 @@ class FieldDefinition:
     @property
     def default_value(self) -> Constant:
         if self["DefaultValue"] is None:
-            raise KeyError()
+            raise ValueError()
         return Constant(self["DefaultValue"])
 
     @property
@@ -368,18 +368,18 @@ class FieldDefinition:
     def pyvalue(self) -> str:
         if "HasDefault" in self.attributes:
             return ascii(self.default_value.value)
-        elif self.type.kind == "Type" and self.type.name == "System.Guid":
+        elif self.signature.kind == "Type" and self.signature.name == "System.Guid":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
             assert len(rest) == 0
             return f"Guid('{guid}')"
-        elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.Devices.Properties.DEVPROPKEY":
+        elif self.signature.kind == "Type" and self.signature.name == f"{PACKAGE_NAME}.Devices.Properties.DEVPROPKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
-            return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
-        elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.UI.Shell.PropertiesSystem.PROPERTYKEY":
+            return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
+        elif self.signature.kind == "Type" and self.signature.name == f"{PACKAGE_NAME}.UI.Shell.PropertiesSystem.PROPERTYKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
-            return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
+            return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -554,16 +554,17 @@ class MethodDefinition:
         return MethodImport(self["Import"])
 
     @property
-    def signature_header(self) -> SignatureHeader:
-        return SignatureHeader(self["SignatureHeader"])
-
-    @property
-    def return_type(self) -> ReturnType:
-        return ReturnType(self["ReturnType"])
+    def signature(self) -> MethodSignature:
+        return MethodSignature(self["Signature"])
 
     @property
     def parameters(self) -> list[Parameter]:
         return [Parameter(pa) for pa in self["Parameters"]]
+
+    # SequenceNumber == 0 is return type and it can be missing.
+    def get_parameter_names_with_type(self) -> list[tuple[str, TType]]:
+        types = self.signature.parameter_types
+        return [(pa.name, types[pa.sequence_number - 1]) for pa in self.parameters if pa.sequence_number != 0]
 
     def has_custom_attribute(self, type_: str) -> bool:
         for ca in self.custom_attributes:
@@ -576,6 +577,37 @@ class MethodDefinition:
             if ca.type == type_:
                 return ca
         raise KeyError()
+
+
+class MethodSignature:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def generic_parameter_count(self) -> int:
+        return self["GenericParameterCount"]
+
+    @property
+    def header(self) -> SignatureHeader:
+        return SignatureHeader(self["Header"])
+
+    @property
+    def parameter_types(self) -> list[TType]:
+        return [TType(pt) for pt in self["ParameterTypes"]]
+
+    @property
+    def required_parameter_count(self) -> int:
+        return self["RequiredParameterCount"]
+
+    @property
+    def return_type(self) -> TType:
+        return TType(self["ReturnType"])
 
 
 class SignatureHeader:
@@ -613,29 +645,6 @@ class SignatureHeader:
         return self["Kind"]
 
 
-class ReturnType:
-    def __init__(self, js: JsonType) -> None:
-        self.js = js
-
-    def __getitem__(self, key: str) -> JsonType:
-        return self.js[key]
-
-    def __setitem__(self, key: str, value: JsonType) -> None:
-        self.js[key] = value
-
-    @property
-    def type(self) -> TType:
-        return TType(self["Type"])
-
-    @property
-    def attributes(self) -> list[str]:
-        return self["Attributes"]
-
-    @property
-    def custom_attributes(self) -> list[CustomAttribute]:
-        return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
-
-
 class Parameter:
     def __init__(self, js: JsonType) -> None:
         self.js = js
@@ -651,10 +660,6 @@ class Parameter:
         return self["Name"]
 
     @property
-    def type(self) -> TType:
-        return TType(self["Type"])
-
-    @property
     def sequence_number(self) -> int:
         return self["SequenceNumber"]
 
@@ -665,6 +670,12 @@ class Parameter:
     @property
     def custom_attributes(self) -> list[CustomAttribute]:
         return [CustomAttribute(ca) for ca in self["CustomAttributes"]]
+
+    @property
+    def default_value(self) -> Constant:
+        if self["DefaultValue"] is None:
+            raise ValueError()
+        return Constant(self["DefaultValue"])
 
 
 class MethodImport:
@@ -789,11 +800,10 @@ class Preprocessor:
 
     def foreach_type(self, td: TypeDefinition) -> Generator[TType, None, None]:
         for fd in td.fields:
-            yield fd.type
+            yield fd.signature
         for md in td.method_definitions:
-            yield md.return_type.type
-            for pa in md.parameters:
-                yield pa.type
+            yield md.signature.return_type
+            yield from md.signature.parameter_types
         for nested_type in td.nested_types:
             yield from self.foreach_type(nested_type)
 
@@ -813,14 +823,14 @@ class Preprocessor:
     def collect_export_name(self, td: TypeDefinition, export_names: set[str]) -> None:
         match td.kind:
             case "object":
-                for field in td.fields:
-                    export_names.add(field.name)
+                for fd in td.fields:
+                    export_names.add(fd.name)
                 for md in td.method_definitions:
                     export_names.add(md.name)
             case "enum":
                 export_names.add(td.name)
-                for field in td.fields[1:]:
-                    export_names.add(field.name)
+                for fd in td.fields[1:]:
+                    export_names.add(fd.name)
             case "function_pointer" | "native_typedef" | "clsid" | "union" | "struct" | "com":
                 export_names.add(td.name)
             case _:
@@ -864,20 +874,20 @@ class PyGenerator:
                 raise NotImplementedError()
 
     def emit_object(self, writer: TextIO, td: TypeDefinition) -> None:
-        for field in td.fields:
-            self.emit_constant(writer, field)
+        for fd in td.fields:
+            self.emit_constant(writer, fd)
         for md in td.method_definitions:
             self.emit_function(writer, md)
 
-    def emit_constant(self, writer: TextIO, field: FieldDefinition) -> None:
-        if "HasDefault" in field.attributes:
+    def emit_constant(self, writer: TextIO, fd: FieldDefinition) -> None:
+        if "HasDefault" in fd.attributes:
             # primitive
-            writer.write(f"{field.name}: {field.type.pytype} = {field.pyvalue}\n")
-        elif field.type.is_guid:
-            writer.write(f"{field.name}: Guid = {field.pyvalue}\n")
+            writer.write(f"{fd.name}: {fd.signature.pytype} = {fd.pyvalue}\n")
+        elif fd.signature.is_guid:
+            writer.write(f"{fd.name}: Guid = {fd.pyvalue}\n")
         else:
-            writer.write(f"def {field.name}():\n")
-            writer.write(f"    return {field.pyvalue}\n")
+            writer.write(f"def {fd.name}():\n")
+            writer.write(f"    return {fd.pyvalue}\n")
 
     def emit_function(self, writer: TextIO, md: MethodDefinition) -> None:
         if md.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
@@ -893,8 +903,8 @@ class PyGenerator:
             functype = "cfunctype"
         else:
             raise NotImplementedError()
-        restype = md.return_type.type.pytype
-        params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
+        restype = md.signature.return_type.pytype
+        params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
         writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
 
@@ -913,19 +923,19 @@ class PyGenerator:
         else:
             raise NotImplementedError()
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
-        restype = md.return_type.type.pytype
-        params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
+        restype = md.signature.return_type.pytype
+        params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
         writer.write(f"{indent}@{functype}\n")
         writer.write(f"{indent}def {td.name}({params_csv}) -> {restype}: ...\n")
 
     def emit_enum(self, writer: TextIO, td: TypeDefinition) -> None:
         type_field, *value_fields = td.fields
-        writer.write(f"{td.name} = {type_field.type.pytype}\n")
-        for field in value_fields:
-            writer.write(f"{field.name}: {td.name} = {field.default_value.value}\n")
+        writer.write(f"{td.name} = {type_field.signature.pytype}\n")
+        for fd in value_fields:
+            writer.write(f"{fd.name}: {td.name} = {fd.default_value.value}\n")
 
     def emit_native_typedef(self, writer: TextIO, td: TypeDefinition) -> None:
-        pytype = td.fields[0].type.pytype
+        pytype = td.fields[0].signature.pytype
         writer.write(f"{td.name} = {pytype}\n")
 
     def emit_clsid(self, writer: TextIO, td: TypeDefinition) -> None:
@@ -950,11 +960,11 @@ class PyGenerator:
             guid = None
         fields = []
         static_fields = []
-        for field in td.fields:
-            if {"Static", "HasDefault"} <= set(field.attributes):
-                static_fields.append(field)
+        for fd in td.fields:
+            if {"Static", "HasDefault"} <= set(fd.attributes):
+                static_fields.append(fd)
             else:
-                fields.append(field)
+                fields.append(fd)
         writer.write(f"{indent}class {td.name}({base}):\n")
         if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
             guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
@@ -962,10 +972,10 @@ class PyGenerator:
         elif not td.fields:
             writer.write(f"{indent}    pass\n")
             return
-        for field in static_fields:
-            writer.write(f"{indent}    {field.name} = {field.pyvalue}\n")
-        for field in fields:
-            writer.write(f"{indent}    {field.name}: {field.type.pytype}\n")
+        for fd in static_fields:
+            writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
+        for fd in fields:
+            writer.write(f"{indent}    {fd.name}: {fd.signature.pytype}\n")
         if td.layout.packing_size != 0:
             writer.write(f"{indent}    _pack_ = {td.layout.packing_size}\n")
         for nested_type in td.nested_types:
@@ -983,8 +993,8 @@ class PyGenerator:
             guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
-            restype = md.return_type.type.pytype
-            params_csv = ", ".join(f"{pa.name}: {pa.type.pytype}" for pa in md.parameters)
+            restype = md.signature.return_type.pytype
+            params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
@@ -1012,9 +1022,9 @@ class PyGenerator:
     def write_make_head(self, writer: TextIO, td: TypeDefinition) -> None:
         match td.kind:
             case "object":  # CONSTANT, FUNCTION
-                for field in td.fields:
-                    if "HasDefault" not in field.attributes and not field.type.is_guid:
-                        writer.write(f"make_head(_module, '{field.name}')\n")
+                for fd in td.fields:
+                    if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
+                        writer.write(f"make_head(_module, '{fd.name}')\n")
             case "function_pointer" | "union" | "struct" | "com":
                 if td.has_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute"):
                     arch = ",".join(td.get_custom_attribute("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
