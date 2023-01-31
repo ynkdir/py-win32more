@@ -724,6 +724,9 @@ class Preprocessor:
     def filter_public(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
         return [td for td in typedefs if td.namespace != "" and "Public" in td.attributes]
 
+    def sort(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
+        return sorted(typedefs, key=lambda td: (td.namespace, td.name))
+
     def patch_link_typedef(self, typedefs: list[TypeDefinition]) -> None:
         # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
         ns = {td.fullname: td for td in typedefs}
@@ -1071,6 +1074,7 @@ def main() -> None:
         typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
     pp = Preprocessor()
     typedefs = pp.filter_public(typedefs)
+    typedefs = pp.sort(typedefs)
     pp.patch_link_typedef(typedefs)
     pp.patch_enum(typedefs)
     pp.patch_com_vtbl_index(typedefs)
